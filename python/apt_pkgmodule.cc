@@ -331,6 +331,7 @@ static PyMethodDef methods[] =
 
    // Cache
    {"GetCache",TmpGetCache,METH_VARARGS,"GetCache() -> PkgCache"},
+   {"GetDepCache",GetDepCache,METH_VARARGS,"GetDepCache(Cache) -> DepCache"},
    {"GetPkgRecords",GetPkgRecords,METH_VARARGS,"GetPkgRecords(Cache) -> PkgRecords"},
    {"GetPkgSrcRecords",GetPkgSrcRecords,METH_VARARGS,"GetPkgSrcRecords() -> PkgSrcRecords"},
    {"GetPkgSourceList",GetPkgSourceList,METH_VARARGS,"GetPkgSourceList() -> PkgSourceList"},
@@ -394,6 +395,8 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"PriStandard",pkgCache::State::Standard);
    AddInt(Dict,"PriOptional",pkgCache::State::Optional);
    AddInt(Dict,"PriExtra",pkgCache::State::Extra);
+
+
 }
 									/*}}}*/
 									  

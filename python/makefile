@@ -10,7 +10,8 @@ MODULE=apt_pkg
 SLIBS = -lapt-pkg 
 LIB_MAKES = apt-pkg/makefile
 APT_PKG_SRC = apt_pkgmodule.cc configuration.cc generic.cc tag.cc string.cc \
-              cache.cc pkgrecords.cc pkgsrcrecords.cc sourcelist.cc depcache.cc
+              cache.cc pkgrecords.cc pkgsrcrecords.cc sourcelist.cc \
+	      depcache.cc 
 SOURCE := $(APT_PKG_SRC)	      
 include $(PYTHON_H)
 

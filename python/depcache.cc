@@ -19,34 +19,83 @@
 #include <Python.h>
 			
 
+#include <iostream>
+
+
+
+struct PyOpProgressStruct : public OpProgress
+{
+
+   PyObject *py_update_callback_func;
+   PyObject *py_update_callback_args;
+
+   virtual void Update() {
+      if(py_update_callback_func == NULL)
+	 return;
+
+      // Build up the argument list... 
+      PyObject *arglist = Py_BuildValue("(fO)", Percent, py_update_callback_args);
+
+      // ...for calling the Python compare function.
+      PyObject *result = PyEval_CallObject(py_update_callback_func,arglist);
+
+      Py_XDECREF(result);
+      Py_DECREF(arglist);
+
+      return;
+   };
+
+   PyOpProgressStruct() : OpProgress(), py_update_callback_func(0) {};
+};
+
+
+
+
 // DepCache Class								/*{{{*/
 // ---------------------------------------------------------------------
 
 struct PkgDepCacheStruct
 {
    pkgDepCache depcache;
+   PyOpProgressStruct progress;
 
    PkgDepCacheStruct(pkgCache *Cache, pkgPolicy *Policy) 
       : depcache(Cache,Policy) {};
    // FIXME: wrap pkgPolicy as well and remove this "new() memory leak"
    PkgDepCacheStruct(pkgCache *Cache) 
       : depcache(Cache,new pkgPolicy(Cache) ) {};
+
    PkgDepCacheStruct() : depcache(NULL, NULL) {abort();};
 };
+
+static PyObject *PkgDepCacheProgressCallback(PyObject *Self, PyObject *Args)
+{
+   PyObject *pyCallbackObj;
+   PyObject *pyCallbackArgs;
+
+   PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
+   if (!PyArg_ParseTuple(Args, "OO", &pyCallbackObj, &pyCallbackArgs)) 
+        return NULL;
+   // make sure second argument is a function
+   if (!PyCallable_Check(pyCallbackObj)) {
+      PyErr_SetString(PyExc_TypeError, "Need a callable object!");
+      return 0;
+   }
+    
+   // save the compare func. 
+   Struct.progress.py_update_callback_func = pyCallbackObj;
+   Struct.progress.py_update_callback_args = pyCallbackArgs;
+
+   Py_INCREF(Py_None);
+   return Py_None;
+}
 
 static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
 {   
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
-   // FIXME: argument should be OpProgress
-#if 0
-   PyObject *PkgFObj;
-   long int Index;
-   if (PyArg_ParseTuple(Args,"(O!l)",&PackageFileType,&PkgFObj,&Index) == 0)
-      return 0;
-#endif   
-
-   Struct.depcache.Init(0);
+   OpProgress *progress = &Struct.progress;
+   Struct.depcache.Init(progress);
 
    return HandleErrors(Py_None);   
 }
@@ -70,6 +119,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
+   {"SetProgressCallback",PkgDepCacheProgressCallback,METH_VARARGS,"Set a progress callback, first argument is the function, second a optional data argument that will be passed to the function"},
    {}
 };
 
@@ -118,10 +168,10 @@ PyTypeObject PkgDepCacheType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "pkgDepCache",                          // tp_name
-   sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
+   sizeof(CppOwnedPyObject<PkgDepCacheStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgDepCache *>,        // tp_dealloc
+   CppOwnedDealloc<PkgDepCacheStruct>,        // tp_dealloc
    0,                                   // tp_print
    DepCacheAttr,                           // tp_getattr
    0,                                   // tp_setattr
@@ -144,6 +194,8 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 							 &PkgDepCacheType,
 							 GetCpp<pkgCache *>(Owner)));
 }
+
+
 
 
 									/*}}}*/
