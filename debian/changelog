@@ -1,3 +1,9 @@
+python-apt (0.5.5.2) unstable; urgency=low
+
+  * Add myself to Uploaders so that bugs don't get tagged as NMU-fixed anymore 
+
+ -- 
+
 python-apt (0.5.5.1) unstable; urgency=low
 
   * DepIterator::GlobOr increments the iterator; don't increment it again.
