@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: cache.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
+// $Id: cache.cc,v 1.4 2002/07/08 03:24:48 jgg Exp $
 /* ######################################################################
 
    Cache - Wrapper for the cache related functions
@@ -142,7 +142,28 @@ PyTypeObject PkgCacheType =
    &CacheMap,		                // tp_as_mapping
    0,                                   // tp_hash
 };
-
+									/*}}}*/
+// PkgCacheFile Class							/*{{{*/
+// ---------------------------------------------------------------------
+PyTypeObject PkgCacheFileType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgCacheFile",                      // tp_name
+   sizeof(CppOwnedPyObject<pkgCacheFile>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppOwnedDealloc<pkgCacheFile>,       // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
+   0,                                   // tp_hash
+};
 									/*}}}*/
 // Package List Class							/*{{{*/
 // ---------------------------------------------------------------------
@@ -727,5 +748,13 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
    if (Cache->Open(Prog,false) == false)
       return HandleErrors();
    
-   return CppOwnedPyObject_NEW<pkgCache *>(0,&PkgCacheType,(pkgCache *)(*Cache));
+   CppOwnedPyObject<pkgCacheFile> *CacheFileObj =
+	   CppOwnedPyObject_NEW<pkgCacheFile>(0,&PkgCacheFileType, *Cache);
+   
+   CppOwnedPyObject<pkgCache *> *CacheObj =
+	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,&PkgCacheType,
+					    (pkgCache *)(*Cache));
+
+   Py_DECREF(CacheFileObj);
+   return CacheObj;
 }

@@ -1,3 +1,10 @@
+python-apt (0.5.4.4) unstable; urgency=low
+
+  * Manuel Estrada Sainz's patch to fix memory leak with TmpGetCache.
+    Closes: #151489
+
+ --
+  
 python-apt (0.5.4.3) unstable; urgency=low
 
   * #include <new> in python/generic.h so that we can build on ia64, which
