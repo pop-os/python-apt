@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: generic.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: generic.cc,v 1.1.1.1 2001/02/20 06:32:01 jgg Exp $
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
