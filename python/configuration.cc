@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: configuration.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
+// $Id: configuration.cc,v 1.4 2003/06/03 03:22:27 mdz Exp $
 /* ######################################################################
 
    Configuration - Binding for the configuration object.
@@ -235,9 +235,11 @@ static PyObject *CnfKeys(PyObject *Self,PyObject *Args)
    PyObject *List = PyList_New(0);
    const Configuration::Item *Top = GetSelf(Self).Tree(RootName);
    const Configuration::Item *Stop = Top;
+   const Configuration::Item *Root = 0;
    if (RootName == 0)
       Stop = 0;
-   const Configuration::Item *Root = GetSelf(Self).Tree(0)->Parent;
+   if (Top != 0)
+      Root = GetSelf(Self).Tree(0)->Parent;
    for (; Top != 0;)
    {      
       PyObject *Obj;
