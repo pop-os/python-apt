@@ -6,9 +6,12 @@
 
    ##################################################################### */
 
+#include <iostream>
 #include "progress.h"
 
 
+// OpProgress interface 
+// FIXME: add "string Op, string SubOp" as attribute to the callbackInst
 void PyOpProgress::Update() 
 {
    if(callbackInst == 0)
@@ -33,6 +36,7 @@ void PyOpProgress::Update()
    return;
 };
 
+
 void PyOpProgress::Done()
 {
    if(callbackInst == 0)
@@ -52,4 +56,78 @@ void PyOpProgress::Done()
    Py_XDECREF(result);
    Py_XDECREF(method);
    Py_DECREF(arglist);
+}
+
+
+
+// fetcher interface
+// PyFetchProgress:: 
+
+// apt interface
+bool PyFetchProgress::MediaChange(string Media, string Drive)
+{
+   std::cout << "MediaChange" << std::endl;
+}
+
+void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
+{
+   std::cout << "IMSHit" << std::endl;
+}
+
+void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
+{
+   std::cout << "Fetch" << std::endl;
+}
+
+void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
+{
+   std::cout << "Done" << std::endl;
+}
+
+void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
+{
+   std::cout << "Fail" << std::endl;
+}
+
+void PyFetchProgress::Start()
+{
+   std::cout << "Start" << std::endl;
+   pkgAcquireStatus::Start();
+
+}
+
+void PyFetchProgress::Stop()
+{
+   std::cout << "Stop" << std::endl;
+   pkgAcquireStatus::Stop();
+}
+
+// FIXME: it should just set the attribute for
+//         CurrentCPS, Current...
+bool PyFetchProgress::Pulse(pkgAcquire * Owner)
+{
+   pkgAcquireStatus::Pulse(Owner);
+
+   //std::cout << "Pulse" << std::endl;
+   if(callbackInst == 0)
+      return false;
+   
+   // Build up the argument list... 
+   PyObject *arglist = Py_BuildValue("(ffi)", CurrentCPS, CurrentBytes, CurrentItems);
+   
+   // ...for calling the Python compare function.
+   PyObject *method = PyObject_GetAttrString(callbackInst, "Pulse");
+   if(method == NULL) {
+      // FIXME: make this silent
+      Py_DECREF(arglist);
+      return false;
+   }
+   PyObject *result = PyEval_CallObject(method,arglist);
+   
+   Py_XDECREF(result);
+   Py_XDECREF(method);
+   Py_DECREF(arglist);
+   
+   // this can be canceld by returning false
+   return true;
 }

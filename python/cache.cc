@@ -14,6 +14,9 @@
 #include <apt-pkg/pkgcache.h>
 #include <apt-pkg/cachefile.h>
 #include <apt-pkg/sptr.h>
+#include <apt-pkg/configuration.h>
+#include <apt-pkg/sourcelist.h>
+#include <apt-pkg/error.h>
 
 #include <Python.h>
 #include "progress.h"
@@ -66,6 +69,57 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
 
 // Cache Class								/*{{{*/
 // ---------------------------------------------------------------------
+static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
+{   
+   pkgCacheFile *Cache = GetCpp<pkgCacheFile *>(Self);
+
+   PyObject *pyOpProgressInst = 0;
+   PyObject *pyFetchProgressInst = 0;
+   if (PyArg_ParseTuple(Args, "O|O", &pyFetchProgressInst,&pyOpProgressInst) == 0)
+      return 0;
+
+   FileFd Lock;
+   if (_config->FindB("Debug::NoLocking", false) == false) {
+      Lock.Fd(GetLock(_config->FindDir("Dir::State::Lists") + "lock"));
+      if (_error->PendingError() == true)
+         return HandleErrors();
+   }
+
+   pkgSourceList List;
+   if(!List.ReadMainList())
+      return HandleErrors(Py_None);
+ 
+   PyFetchProgress progress;
+   progress.setCallbackInst(pyFetchProgressInst);
+
+   pkgAcquire Fetcher(&progress);
+   if (!List.GetIndexes(&Fetcher))
+      return HandleErrors();
+   if (Fetcher.Run() == pkgAcquire::Failed)
+      return HandleErrors(Py_None);
+
+   
+
+   if(pyOpProgressInst != 0) {
+      PyOpProgress progress;
+      progress.setCallbackInst(pyOpProgressInst);
+      if (Cache->Open(progress,false) == false)
+	 return HandleErrors();
+   }  else {
+      OpTextProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	 return HandleErrors(Py_None);
+   }
+
+   return HandleErrors(Py_None);
+}
+
+
+static PyMethodDef PkgCacheMethods[] = 
+{
+   {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
+};
+
 static PyObject *CacheAttr(PyObject *Self,char *Name)
 {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
@@ -96,9 +150,8 @@ static PyObject *CacheAttr(PyObject *Self,char *Name)
       }      
       return List;
    }
-   
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+
+   return Py_FindMethod(PkgCacheMethods,Self,Name);
 }
 
 // Map access, operator []
@@ -766,6 +819,6 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,&PkgCacheType,
 					    (pkgCache *)(*Cache));
 
-   Py_DECREF(CacheFileObj);
+   //Py_DECREF(CacheFileObj);
    return CacheObj;
 }

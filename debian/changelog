@@ -1,4 +1,4 @@
-python-apt (0.5.37) hoary; urgency=low
+python-apt (0.5.36ubuntu1) hoary; urgency=low
 
   * DepCache.ReadPinFile() added
   * Fixed a bug in DepCache.Upgrade()
