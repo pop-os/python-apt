@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: pkgrecords.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: pkgrecords.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
 /* ######################################################################
 
    Package Records - Wrapper for the package records functions
@@ -27,32 +27,7 @@ struct PkgRecordsStruct
     
 // PkgRecords Class							/*{{{*/
 // ---------------------------------------------------------------------
-static PyMethodDef PkgRecordsMethods[];
 
-static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
-{
-   PkgRecordsStruct &Struct = GetCpp<PkgRecordsStruct>(Self);
-
-   if (Struct.Last != 0)
-   {
-      if (strcmp("FileName",Name) == 0)
-	 return CppPyString(Struct.Last->FileName());
-      else if (strcmp("MD5Hash",Name) == 0)
-	 return CppPyString(Struct.Last->MD5Hash());
-      else if (strcmp("SourcePkg",Name) == 0)
-	 return CppPyString(Struct.Last->SourcePkg());
-      else if (strcmp("Maintainer",Name) == 0)
-	 return CppPyString(Struct.Last->Maintainer());
-      else if (strcmp("ShortDesc",Name) == 0)
-	 return CppPyString(Struct.Last->ShortDesc());
-      else if (strcmp("LongDesc",Name) == 0)
-	 return CppPyString(Struct.Last->LongDesc());
-      else if (strcmp("Name",Name) == 0)
-	 return CppPyString(Struct.Last->Name());
-   }
-   
-   return Py_FindMethod(PkgRecordsMethods,Self,Name);
-}
 
 static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
 {   
@@ -85,6 +60,30 @@ static PyMethodDef PkgRecordsMethods[] =
    {}
 };
 
+static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
+{
+   PkgRecordsStruct &Struct = GetCpp<PkgRecordsStruct>(Self);
+
+   if (Struct.Last != 0)
+   {
+      if (strcmp("FileName",Name) == 0)
+	 return CppPyString(Struct.Last->FileName());
+      else if (strcmp("MD5Hash",Name) == 0)
+	 return CppPyString(Struct.Last->MD5Hash());
+      else if (strcmp("SourcePkg",Name) == 0)
+	 return CppPyString(Struct.Last->SourcePkg());
+      else if (strcmp("Maintainer",Name) == 0)
+	 return CppPyString(Struct.Last->Maintainer());
+      else if (strcmp("ShortDesc",Name) == 0)
+	 return CppPyString(Struct.Last->ShortDesc());
+      else if (strcmp("LongDesc",Name) == 0)
+	 return CppPyString(Struct.Last->LongDesc());
+      else if (strcmp("Name",Name) == 0)
+	 return CppPyString(Struct.Last->Name());
+   }
+   
+   return Py_FindMethod(PkgRecordsMethods,Self,Name);
+}
 PyTypeObject PkgRecordsType =
 {
    PyObject_HEAD_INIT(&PyType_Type)

@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: tag.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: tag.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
 /* ######################################################################
 
    Tag - Binding for the RFC 822 tag file parser
@@ -19,18 +19,20 @@
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#endif
 #include "generic.h"
 #include "apt_pkgmodule.h"
 
 #include <apt-pkg/tagfile.h>
 
 #include <stdio.h>
+#include <iostream>
 #include <Python.h>
-									/*}}}*/
-static PyMethodDef TagSecMethods[];
-static PyMethodDef TagFileMethods[];
 
+using namespace std;
+									/*}}}*/
 /* We need to keep a private copy of the data.. */
 struct TagSecData : public CppPyObject<pkgTagSection>
 {
@@ -45,28 +47,6 @@ struct TagFileData : public PyObject
    FileFd Fd;
 };
 
-// TagSecGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *TagSecGetAttr(PyObject *Self,char *Name)
-{
-   return Py_FindMethod(TagSecMethods,Self,Name);
-}
-									/*}}}*/
-// TagFileGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *TagFileGetAttr(PyObject *Self,char *Name)
-{
-   if (strcmp("Section",Name) == 0)
-   {
-      PyObject *Obj = ((TagFileData *)Self)->Section;
-      Py_INCREF(Obj);
-      return Obj;
-   }   
-   
-   return Py_FindMethod(TagFileMethods,Self,Name);
-}
 									/*}}}*/
 // TagSecFree - Free a Tag Section					/*{{{*/
 // ---------------------------------------------------------------------
@@ -388,6 +368,14 @@ static PyMethodDef TagSecMethods[] =
    {}
 };
 
+// TagSecGetAttr - Get an attribute - variable/method			/*{{{*/
+// ---------------------------------------------------------------------
+/* */
+static PyObject *TagSecGetAttr(PyObject *Self,char *Name)
+{
+   return Py_FindMethod(TagSecMethods,Self,Name);
+}
+									/*}}}*/
 // Type for a Tag Section
 PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 PyTypeObject TagSecType =
@@ -422,6 +410,21 @@ static PyMethodDef TagFileMethods[] =
 	 
    {}
 };
+
+// TagFileGetAttr - Get an attribute - variable/method			/*{{{*/
+// ---------------------------------------------------------------------
+/* */
+static PyObject *TagFileGetAttr(PyObject *Self,char *Name)
+{
+   if (strcmp("Section",Name) == 0)
+   {
+      PyObject *Obj = ((TagFileData *)Self)->Section;
+      Py_INCREF(Obj);
+      return Obj;
+   }   
+   
+   return Py_FindMethod(TagFileMethods,Self,Name);
+}
 
 // Type for a Tag File
 PyTypeObject TagFileType =

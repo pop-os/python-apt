@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: generic.h,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: generic.h,v 1.3 2002/02/26 01:36:15 mdz Exp $
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
@@ -110,9 +110,9 @@ void CppOwnedDealloc(PyObject *iObj)
    PyMem_DEL(Obj);
 }
 
-inline PyObject *CppPyString(string Str)
+inline PyObject *CppPyString(std::string Str)
 {
-   return PyString_FromStringAndSize(Str.begin(),Str.length());
+   return PyString_FromStringAndSize(Str.c_str(),Str.length());
 }
 
 inline PyObject *Safe_FromString(const char *Str)

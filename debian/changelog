@@ -1,3 +1,9 @@
+python-apt (0.5.4.2) unstable; urgency=high
+
+  * Fix g++-3.0 compilation issues (Closes: #134020)
+
+ -- Matt Zimmerman <mdz@debian.org>  Sun, 24 Feb 2002 00:20:22 -0500
+
 python-apt (0.5.4.1) unstable; urgency=low
 
   * Add apt-utils to build-depends, since libapt-pkg-dev doesn't pull it

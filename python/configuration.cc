@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: configuration.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: configuration.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
 /* ######################################################################
 
    Configuration - Binding for the configuration object.
@@ -25,8 +25,6 @@
 
 #include <Python.h>
 									/*}}}*/
-static PyMethodDef CnfMethods[];
-
 /* If we create a sub tree then it is of this type, the Owner is used
    to manage reference counting. */
 struct SubConfiguration : public CppPyObject<Configuration>
@@ -34,13 +32,6 @@ struct SubConfiguration : public CppPyObject<Configuration>
    PyObject *Owner;
 };
 
-// CnfGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *CnfGetAttr(PyObject *Self,char *Name)
-{
-   return Py_FindMethod(CnfMethods,Self,Name);
-}
 									/*}}}*/
 // CnfSubFree - Free a sub configuration				/*{{{*/
 // ---------------------------------------------------------------------
@@ -458,6 +449,14 @@ static PyMethodDef CnfMethods[] =
    {"get",CnfFind,METH_VARARGS,doc_Find},
    {}
 };
+
+// CnfGetAttr - Get an attribute - variable/method			/*{{{*/
+// ---------------------------------------------------------------------
+/* */
+static PyObject *CnfGetAttr(PyObject *Self,char *Name)
+{
+   return Py_FindMethod(CnfMethods,Self,Name);
+}
 
 // Type for a Normal Configuration object
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};

@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: cache.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: cache.cc,v 1.3 2002/02/26 01:36:15 mdz Exp $
 /* ######################################################################
 
    Cache - Wrapper for the cache related functions
@@ -533,39 +533,6 @@ PyTypeObject PackageFileType =
    0,                                   // tp_hash
 };
    
-									/*}}}*/
-// Dependency Class							/*{{{*/
-// ---------------------------------------------------------------------
-static PyMethodDef DependencyMethods[];
-   
-static PyObject *DependencyAttr(PyObject *Self,char *Name)
-{
-   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-   
-   if (strcmp("TargetVer",Name) == 0)
-   {
-      if (Dep->Version == 0)
-	 return PyString_FromString("");
-      return PyString_FromString(Dep.TargetVer());
-   }   
-   else if (strcmp("TargetPkg",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
-							 Dep.TargetPkg());
-   else if (strcmp("ParentVer",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
-							 Dep.ParentVer());
-   else if (strcmp("ParentPkg",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,							 Dep.ParentPkg());
-   else if (strcmp("CompType",Name) == 0)
-      return PyString_FromString(Dep.CompType());
-   else if (strcmp("DepType",Name) == 0)
-      return PyString_FromString(Dep.DepType());
-   else if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",Dep->ID);
-   
-   return Py_FindMethod(DependencyMethods,Self,Name);
-}
 
 static PyObject *DependencyRepr(PyObject *Self)
 {
@@ -626,6 +593,38 @@ static PyMethodDef DependencyMethods[] =
    {}
 };
 
+// Dependency Class							/*{{{*/
+// ---------------------------------------------------------------------
+   
+static PyObject *DependencyAttr(PyObject *Self,char *Name)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
+   
+   if (strcmp("TargetVer",Name) == 0)
+   {
+      if (Dep->Version == 0)
+	 return PyString_FromString("");
+      return PyString_FromString(Dep.TargetVer());
+   }   
+   else if (strcmp("TargetPkg",Name) == 0)
+      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+							 Dep.TargetPkg());
+   else if (strcmp("ParentVer",Name) == 0)
+      return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+							 Dep.ParentVer());
+   else if (strcmp("ParentPkg",Name) == 0)
+      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,							 Dep.ParentPkg());
+   else if (strcmp("CompType",Name) == 0)
+      return PyString_FromString(Dep.CompType());
+   else if (strcmp("DepType",Name) == 0)
+      return PyString_FromString(Dep.DepType());
+   else if (strcmp("ID",Name) == 0)
+      return Py_BuildValue("i",Dep->ID);
+   
+   return Py_FindMethod(DependencyMethods,Self,Name);
+}
+
 PyTypeObject DependencyType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -646,6 +645,7 @@ PyTypeObject DependencyType =
    0,                                   // tp_hash
 };
    
+									/*}}}*/
 									/*}}}*/
 // Reverse Dependency List Class					/*{{{*/
 // ---------------------------------------------------------------------
