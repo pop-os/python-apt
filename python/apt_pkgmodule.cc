@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.cc,v 1.4 2002/01/08 06:53:04 jgg Exp $
+// $Id: apt_pkgmodule.cc,v 1.5 2003/07/23 02:20:24 mdz Exp $
 /* ######################################################################
 
    apt_pkgmodule - Top level for the python module. Create the internal
@@ -331,7 +331,9 @@ static PyMethodDef methods[] =
 
    // Cache
    {"GetCache",TmpGetCache,METH_VARARGS,"GetCache() -> PkgCache"},
-   {"GetPkgRecords",GetPkgRecords,METH_VARARGS,"GetPkgRecords(Cache) -> PkgRecrods"},
+   {"GetPkgRecords",GetPkgRecords,METH_VARARGS,"GetPkgRecords(Cache) -> PkgRecords"},
+   {"GetPkgSrcRecords",GetPkgSrcRecords,METH_VARARGS,"GetPkgSrcRecords() -> PkgSrcRecords"},
+   {"GetPkgSourceList",GetPkgSourceList,METH_VARARGS,"GetPkgSourceList() -> PkgSourceList"},
 
    {}
 };

@@ -1,8 +1,9 @@
 python-apt (0.5.5.2) unstable; urgency=low
 
   * Add myself to Uploaders so that bugs don't get tagged as NMU-fixed anymore 
+  * Initial support for working with source packages (Closes: #199716)
 
- -- 
+ -- Matt Zimmerman <mdz@debian.org>  Tue, 22 Jul 2003 22:20:00 -0400
 
 python-apt (0.5.5.1) unstable; urgency=low
 

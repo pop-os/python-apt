@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.h,v 1.3 2002/01/08 06:53:04 jgg Exp $
+// $Id: apt_pkgmodule.h,v 1.4 2003/07/23 02:20:24 mdz Exp $
 /* ######################################################################
 
    Prototypes for the module
@@ -62,5 +62,7 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args);
 // PkgRecords Stuff
 extern PyTypeObject PkgRecordsType;
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args);
+PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args);
+PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args);
 
 #endif
