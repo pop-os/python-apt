@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Standards-Version: 3.1.1
-Build-Depends: debhelper, libapt-pkg-dev
+Build-Depends: debhelper, libapt-pkg-dev, python-dev
 
 Package: python-apt
 Architecture: any
@@ -11,6 +11,6 @@ Depends: ${shlibs:Depends}
 Priority: optional
 Description: Python interface to libapt-pkg
  The apt-pkg Python interface will provide full access to the internal 
- libapt-pkg structures allowing Python programs to easially perform a
+ libapt-pkg structures allowing Python programs to easily perform a
  variety of functions.
  
