@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: tar.cc,v 1.3 2002/02/07 03:35:26 jgg Exp $
+// $Id: tar.cc,v 1.4 2004/12/12 17:55:54 mdz Exp $
 /* ######################################################################
 
    Tar Inteface
@@ -110,7 +110,7 @@ PyObject *tarExtract(PyObject *Self,PyObject *Args)
    {
       // Open the file and associate the tar
       FileFd Fd(fileno(PyFile_AsFile(File)),false);
-      ExtractTar Tar(Fd,0xFFFFFFFF);
+      ExtractTar Tar(Fd,0xFFFFFFFF,Comp);
       if (_error->PendingError() == true)
 	 return HandleErrors();
       
@@ -137,6 +137,7 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
    PyObject *File;
    PyObject *Function;
    char *Chunk;
+   const char *Comp = "gzip";
    
    if (PyArg_ParseTuple(Args,"O!Os",&PyFile_Type,&File,
 			&Function,&Chunk) == 0)
@@ -165,7 +166,9 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
       }
       
       // Extract it.
-      ExtractTar Tar(Deb.GetFile(),Member->Size);
+      if (strcmp(".bz2", &Chunk[strlen(Chunk)-4]) == 0)
+	      Comp = "bzip2";
+      ExtractTar Tar(Deb.GetFile(),Member->Size,Comp);
       ProcessTar Proc(Function);
       if (Tar.Go(Proc) == false)
 	 return HandleErrors();
