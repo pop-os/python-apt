@@ -2,14 +2,22 @@
 # example how to deal with the depcache
 
 import apt_pkg
+import sys
+
+def progress(percent, data):
+    print "%s %s" % (data, percent)
+    
 
 # init
 apt_pkg.init()
-cache = apt_pkg.GetCache()
+cache = apt_pkg.GetCache(progress,None)
 print "Available packages: %s " % cache.PackageCount
+
+sys.exit()
 
 iter = cache["base-config"]
 print "example package iter: %s" % iter
+
 
 # get depcache
 depcache = apt_pkg.GetDepCache(cache)

@@ -1,6 +1,8 @@
 #ifndef PROGRESS_H
 #define PROGRESS_H
 
+#include<iostream>
+
 struct PyOpProgressStruct : public OpProgress
 {
 
@@ -12,7 +14,7 @@ struct PyOpProgressStruct : public OpProgress
 	 return;
 
       // Build up the argument list... 
-      PyObject *arglist = Py_BuildValue("(fO)", Percent, py_update_callback_args);
+      PyObject *arglist = Py_BuildValue("fO", Percent,py_update_callback_args);
 
       // ...for calling the Python compare function.
       PyObject *result = PyEval_CallObject(py_update_callback_func,arglist);
