@@ -1,3 +1,10 @@
+python-apt (0.5.37) hoary; urgency=low
+
+  * DepCache.ReadPinFile() added
+  * Fixed a bug in DepCache.Upgrade()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 Mar 2005 11:32:15 +0100
+
 python-apt (0.5.36) hoary; urgency=low
 
   * Fix build-depends, somehow lost in merge

@@ -13,6 +13,7 @@ print "example package iter: %s" % iter
 
 # get depcache
 depcache = apt_pkg.GetDepCache(cache)
+depcache.ReadPinFile()
 print "got a depcache: %s " % depcache
 print "Marked for install: %s " % depcache.InstCount
 
@@ -65,6 +66,11 @@ print "Install: %s " % depcache.InstCount
 print "Delete: %s " % depcache.DelCount
 print "UsrSize: %s " % apt_pkg.SizeToStr(depcache.UsrSize)
 print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
+
+for pkg in cache.Packages:
+    if pkg.CurrentVer != None and not depcache.MarkedInstall(pkg) and depcache.IsUpgradable(pkg):
+        print "Upgrade didn't upgrade (kept): %s" % pkg.Name
+
 
 print "\nPerforming DistUpgrade"
 depcache.Upgrade(True)

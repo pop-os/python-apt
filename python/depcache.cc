@@ -32,7 +32,7 @@ struct PkgDepCacheStruct
 
    PkgDepCacheStruct(pkgCache *Cache) {
       policy = new pkgPolicy(Cache);
-      depcache = new pkgDepCache(Cache);
+      depcache = new pkgDepCache(Cache, policy);
    }
    virtual ~PkgDepCacheStruct() {
       delete depcache;
@@ -73,7 +73,7 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 {   
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
-   char *distUpgrade=0;
+   char distUpgrade=0;
    if (PyArg_ParseTuple(Args,"|b",&distUpgrade) == 0)
       return 0;
 
@@ -84,6 +84,23 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 
    return HandleErrors(Py_None);   
 }
+
+static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
+{   
+   PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
+
+   char *file=NULL;
+   if (PyArg_ParseTuple(Args,"|s",&file) == 0)
+      return 0;
+
+   if(file == NULL)
+      ReadPinFile(*Struct.policy);
+   else
+      ReadPinFile(*Struct.policy, file);
+
+   return HandleErrors(Py_None);   
+}
+
 
 static PyObject *PkgDepCacheFixBroken(PyObject *Self,PyObject *Args)
 {   
@@ -247,6 +264,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    // global cache operations
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
    {"FixBroken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
+   {"ReadPinFile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
    // Manipulators
    {"MarkKeep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
    {"MarkDelete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},

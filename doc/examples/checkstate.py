@@ -1,4 +1,9 @@
 #!/usr/bin/python
+#
+#
+# this example is not usefull to find out about updated, upgradable packages
+# use the depcache.py example for it (because a pkgPolicy is not used here)
+#
 
 import apt_pkg
 apt_pkg.init()
