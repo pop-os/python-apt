@@ -1,3 +1,12 @@
+python-apt (0.5.5.1) unstable; urgency=low
+
+  * DepIterator::GlobOr increments the iterator; don't increment it again.
+    This caused every other dependency to be skipped (Closes: #195805)
+  * Avoid a null pointer dereference when calling keys() on an empty
+    configuration (Closes: #149380) 
+
+ -- Matt Zimmerman <mdz@debian.org>  Mon,  2 Jun 2003 23:18:53 -0400
+
 python-apt (0.5.5) unstable; urgency=low
 
   * Rebuild with apt 0.5.5
