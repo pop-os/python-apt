@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include "progress.h"
+#include "cache.h"
 
 // DepCache Class								/*{{{*/
 // ---------------------------------------------------------------------
@@ -295,8 +296,12 @@ static PyObject *DepCacheAttr(PyObject *Self,char *Name)
 {
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
+   // look like a cache
+   if (strcmp("Packages",Name) == 0)
+      return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,
+						 Struct.depcache->PkgBegin());
    // size querries
-   if(strcmp("KeepCount",Name) == 0) 
+   else if(strcmp("KeepCount",Name) == 0) 
       return Py_BuildValue("l", Struct.depcache->KeepCount());
    else if(strcmp("InstCount",Name) == 0) 
       return Py_BuildValue("l", Struct.depcache->InstCount());

@@ -20,17 +20,9 @@
 
 #include <Python.h>
 #include "progress.h"
-
+#include "cache.h"
 									/*}}}*/
 
-struct PkgListStruct
-{
-   pkgCache::PkgIterator Iter;
-   unsigned long LastIndex;
-   
-   PkgListStruct(pkgCache::PkgIterator const &I) : Iter(I), LastIndex(0) {}
-   PkgListStruct() {abort();};  // G++ Bug..
-};
 
 struct RDepListStruct
 {
