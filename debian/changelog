@@ -1,3 +1,10 @@
+python-apt (0.5.4.5) unstable; urgency=low
+
+  * Parse /var/lib/dpkg/status in examples/tagfile.py, so that it works
+    out of the box (Closes: #175340)
+
+ --
+
 python-apt (0.5.4.4) unstable; urgency=low
 
   * Fix for memory leak with TmpGetCache.
