@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.h,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: apt_pkgmodule.h,v 1.2 2001/02/23 05:46:02 jgg Exp $
 /* ######################################################################
 
    Prototypes for the module
@@ -48,7 +48,8 @@ PyObject *StrBase64Encode(PyObject *self,PyObject *Args);
 PyObject *StrStringToBool(PyObject *self,PyObject *Args);
 PyObject *StrTimeRFC1123(PyObject *self,PyObject *Args);
 PyObject *StrStrToTime(PyObject *self,PyObject *Args);
-
+PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
+   
 // Cache Stuff
 extern PyTypeObject PkgCacheType;
 extern PyTypeObject PkgListType;

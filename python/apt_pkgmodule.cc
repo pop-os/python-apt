@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: apt_pkgmodule.cc,v 1.2 2001/02/23 05:46:02 jgg Exp $
 /* ######################################################################
 
    apt_pkgmodule - Top level for the python module. Create the internal
@@ -279,6 +279,7 @@ static PyMethodDef methods[] =
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
 
    // Strings
+   {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
    {"QuoteString",StrQuoteString,METH_VARARGS,"QuoteString(String,String) -> String"},
    {"DeQuoteString",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
    {"SizeToStr",StrSizeToStr,METH_VARARGS,"SizeToStr(int) -> String"},

@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: string.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: string.cc,v 1.2 2001/02/23 05:46:02 jgg Exp $
 /* ######################################################################
 
    string - Mappings for the string functions that are worthwile for 
@@ -93,4 +93,14 @@ PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
    
    return Py_BuildValue("i",Result);
 }
+
+PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args)
+{
+   char *Host = 0;
+   char *List = 0;
+   if (PyArg_ParseTuple(Args,"ss",&Host,&List) == 0)
+      return 0;
+   return Py_BuildValue("i",CheckDomainList(Host,List));
+}
+
 									/*}}}*/
