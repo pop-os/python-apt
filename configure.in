@@ -14,6 +14,7 @@ libs:
 include:
 	@echo \$(INCLUDEPY)
 EOF
+
    AC_CACHE_CHECK("python libs", ac_cv_libs_python, [ac_cv_libs_python=`make -s -f pytest libs 2> /dev/null`])
    AC_CACHE_CHECK("python include", ac_cv_include_python, [ac_cv_include_python=`make -s -f pytest include 2> /dev/null`])
    AC_CHECK_HEADER(python$ac_cv_ver_python/Python.h,

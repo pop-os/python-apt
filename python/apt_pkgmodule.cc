@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.cc,v 1.2 2001/02/23 05:46:02 jgg Exp $
+// $Id: apt_pkgmodule.cc,v 1.3 2001/04/06 05:30:09 jgg Exp $
 /* ######################################################################
 
    apt_pkgmodule - Top level for the python module. Create the internal
@@ -18,6 +18,7 @@
 #include <apt-pkg/pkgcache.h>
 #include <apt-pkg/tagfile.h>
 #include <apt-pkg/md5.h>
+#include <apt-pkg/sha1.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
     
@@ -199,6 +200,43 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
    return 0;
 }
 									/*}}}*/
+// sha1sum - Compute the sha1sum of a file or string			/*{{{*/
+// ---------------------------------------------------------------------
+static char *doc_sha1sum = "sha1sum(String) -> String or sha1sum(File) -> String";
+static PyObject *sha1sum(PyObject *Self,PyObject *Args)
+{
+   PyObject *Obj;
+   if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
+      return 0;
+   
+   // Digest of a string.
+   if (PyString_Check(Obj) != 0)
+   {
+      SHA1Summation Sum;
+      Sum.Add(PyString_AsString(Obj));
+      return CppPyString(Sum.Result().Value());
+   }   
+   
+   // Digest of a file
+   if (PyFile_Check(Obj) != 0)
+   {
+      SHA1Summation Sum;
+      int Fd = fileno(PyFile_AsFile(Obj));
+      struct stat St;
+      if (fstat(Fd,&St) != 0 ||
+	  Sum.AddFD(Fd,St.st_size) == false)
+      {
+	 PyErr_SetFromErrno(PyExc_SystemError);
+	 return 0;
+      }
+      
+      return CppPyString(Sum.Result().Value());
+   }
+   
+   PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
+   return 0;
+}
+									/*}}}*/
 // init - 3 init functions						/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_Init = 
@@ -277,6 +315,7 @@ static PyMethodDef methods[] =
    
    // Stuff
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
+   {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
 
    // Strings
    {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},

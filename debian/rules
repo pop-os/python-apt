@@ -1,23 +1,46 @@
+#!/usr/bin/make -f
 
-python-apt: build debian/shlibs.local
-	dh_testdir -p$@
-	dh_testroot -p$@
-	dh_clean -p$@ -k
-	dh_installdirs -p$@
+BLD := $(PWD)/build
+DHOPTS = -p$@ -Pdebian/$@
+PYTHONVER = 1.5
+
+build:
+	# At the moment you must do alot of manual work to setup the
+	# build directory. It should be symlinked to a valid APT build
+	# dir, and the python variables re-inserted into the environment.mak
+	# Then make in doc and python.
+	echo "Must be prebuilt"
+clean:
+	dh_testdir
+	dh_clean
+	
+binary-indep: build
+
+binary-arch: build python-apt
+
+python-apt: build 
+	cp build/../debian/shlibs.local debian/shlibs.local	
+	dh_testdir $(DHOPTS) 
+	dh_testroot $(DHOPTS) 
+	dh_clean $(DHOPTS) -k 
+	dh_installdirs $(DHOPTS) 
 
 	# install the modules
 	cp $(BLD)/bin/apt_pkgmodule.so $(BLD)/bin/apt_instmodule.so debian/$@/usr/lib/python$(PYTHONVER)/site-packages/
 	
-	dh_installdocs -p$@
-	dh_installexamples -p$@ $(BLD)/docs/examples/python/*
+	dh_installdocs $(DHOPTS)
+	dh_installexamples $(DHOPTS) $(BLD)/docs/examples/*
 
-	dh_installchangelogs -p$@
-	dh_strip -p$@
-	dh_compress -p$@
-	dh_fixperms -p$@
-	dh_installdeb -p$@
-	LD_LIBRARY_PATH=`pwd`/debian/tmp/usr/lib:`pwd`/debian/apt-utils/usr/lib dh_shlibdeps -p$@
-	dh_gencontrol -p$@ 
-	dh_md5sums -p$@
-	dh_builddeb -p$@
+	dh_installchangelogs $(DHOPTS)
+	dh_strip $(DHOPTS)
+	dh_compress $(DHOPTS)
+	dh_fixperms $(DHOPTS)
+	dh_installdeb $(DHOPTS)
+	LD_LIBRARY_PATH=`pwd`/build/bin dh_shlibdeps $(DHOPTS) -- -Lbuild/../debian/shlibs.local
+	dh_gencontrol $(DHOPTS) 
+	dh_md5sums $(DHOPTS)
+	dh_builddeb $(DHOPTS)
 
+binary:         binary-indep binary-arch
+
+.PHONY: binary binary-arch binary-indep clean checkroot
