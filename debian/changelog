@@ -1,9 +1,15 @@
 python-apt (0.5.4.4) unstable; urgency=low
 
-  * Manuel Estrada Sainz's patch to fix memory leak with TmpGetCache.
+  * Fix for memory leak with TmpGetCache.
     Closes: #151489
+  * Include additional examples from Moshe Zadka <m@moshez.org>
+    Closes: #150091, #152048
+  * Rebuild for python2.2, which is now the default version
+    Closes: #158460
+  * No CVS directories in source tarball
+    Closes: #157773
 
- --
+ -- Matt Zimmerman <mdz@debian.org>  Tue, 27 Aug 2002 19:22:10 -0400
   
 python-apt (0.5.4.3) unstable; urgency=low
 
