@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: tar.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
+// $Id: tar.cc,v 1.3 2002/02/07 03:35:26 jgg Exp $
 /* ######################################################################
 
    Tar Inteface
@@ -97,10 +97,16 @@ PyObject *tarExtract(PyObject *Self,PyObject *Args)
    PyObject *Function;
    char *Comp;
    
-   if (PyArg_ParseTuple(Args,"O!O!s",&PyFile_Type,&File,&PyFunction_Type,
+   if (PyArg_ParseTuple(Args,"O!Os",&PyFile_Type,&File,
 			&Function,&Comp) == 0)
       return 0;
 
+   if (PyCallable_Check(Function) == 0)
+   {
+      PyErr_SetString(PyExc_TypeError,"argument 2: expected something callable.");
+      return 0;
+   }
+   
    {
       // Open the file and associate the tar
       FileFd Fd(fileno(PyFile_AsFile(File)),false);
@@ -132,9 +138,15 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
    PyObject *Function;
    char *Chunk;
    
-   if (PyArg_ParseTuple(Args,"O!O!s",&PyFile_Type,&File,&PyFunction_Type,
+   if (PyArg_ParseTuple(Args,"O!Os",&PyFile_Type,&File,
 			&Function,&Chunk) == 0)
       return 0;
+   
+   if (PyCallable_Check(Function) == 0)
+   {
+      PyErr_SetString(PyExc_TypeError,"argument 2: expected something callable.");
+      return 0;
+   }
 
    {
       // Open the file and associate the tar
