@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_instmodule.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: apt_instmodule.cc,v 1.2 2001/09/30 03:52:58 jgg Exp $
 /* ######################################################################
 
    apt_intmodule - Top level for the python module. Create the internal
@@ -12,11 +12,12 @@
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
+#include "apt_instmodule.h"
 #include "generic.h"
 
 #include <apt-pkg/debfile.h>
 #include <apt-pkg/error.h>
-
+    
 #include <sys/stat.h>
 #include <unistd.h>
 #include <python/Python.h>
@@ -72,7 +73,9 @@ static PyMethodDef methods[] =
 {
    // Stuff
    {"debExtractControl",debExtractControl,METH_VARARGS,doc_debExtractControl},
-   
+   {"tarExtract",tarExtract,METH_VARARGS,doc_tarExtract},
+   {"debExtract",debExtract,METH_VARARGS,doc_debExtract},
+
    {}
 };
 

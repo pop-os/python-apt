@@ -17,5 +17,5 @@ include $(PYTHON_H)
 MODULE=apt_inst
 SLIBS = -lapt-inst -lapt-pkg
 LIB_MAKES = apt-inst/makefile
-SOURCE = apt_instmodule.cc generic.cc
+SOURCE = apt_instmodule.cc tar.cc generic.cc
 include $(PYTHON_H)
