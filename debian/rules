@@ -1,0 +1,23 @@
+
+python-apt: build debian/shlibs.local
+	dh_testdir -p$@
+	dh_testroot -p$@
+	dh_clean -p$@ -k
+	dh_installdirs -p$@
+
+	# install the modules
+	cp $(BLD)/bin/apt_pkgmodule.so $(BLD)/bin/apt_instmodule.so debian/$@/usr/lib/python$(PYTHONVER)/site-packages/
+	
+	dh_installdocs -p$@
+	dh_installexamples -p$@ $(BLD)/docs/examples/python/*
+
+	dh_installchangelogs -p$@
+	dh_strip -p$@
+	dh_compress -p$@
+	dh_fixperms -p$@
+	dh_installdeb -p$@
+	LD_LIBRARY_PATH=`pwd`/debian/tmp/usr/lib:`pwd`/debian/apt-utils/usr/lib dh_shlibdeps -p$@
+	dh_gencontrol -p$@ 
+	dh_md5sums -p$@
+	dh_builddeb -p$@
+

@@ -1,0 +1,9 @@
+Package: python-apt
+Architecture: any
+Depends: ${shlibs:Depends}
+Priority: optional
+Description: Python interface to libapt-pkg
+ The apt-pkg Python interface will provide full access to the internal 
+ libapt-pkg structures allowing Python programs to easially perform a
+ variety of functions.
+ 
