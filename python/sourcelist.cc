@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: sourcelist.cc,v 1.1 2003/07/23 02:20:24 mdz Exp $
+// $Id: sourcelist.cc,v 1.2 2003/12/26 17:04:22 mdz Exp $
 /* ######################################################################
 
    Package Records - Wrapper for the package records functions
@@ -73,11 +73,6 @@ PyTypeObject PkgSourceListType =
 
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args)
 {
-   PyObject *Owner;
-//   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
-//      return 0;
-
-   return HandleErrors(CppOwnedPyObject_NEW<PkgSourceListStruct>(Owner,
-                                                                 &PkgSourceListType));
+   return CppPyObject_NEW<PkgSourceListStruct>(&PkgSourceListType);
 }
 
