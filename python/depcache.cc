@@ -20,7 +20,7 @@
 #include <Python.h>
 
 #include <iostream>
-
+#include "progress.h"
 
 // DepCache Class								/*{{{*/
 // ---------------------------------------------------------------------
@@ -49,7 +49,17 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
 {   
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
-   Struct.depcache->Init(0);
+   PyObject *pyCallbackInst = 0;
+   if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
+      return 0;
+
+   if(pyCallbackInst != 0) {
+      PyOpProgress progress;
+      progress.setCallbackInst(pyCallbackInst);
+      Struct.depcache->Init(&progress);
+   } else {
+      Struct.depcache->Init(0);
+   }
 
    return HandleErrors(Py_None);   
 }
@@ -330,7 +340,8 @@ PyTypeObject PkgDepCacheType =
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
    PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
+   PyObject *pyCallbackInst = 0;
+   if (PyArg_ParseTuple(Args,"O!|O",&PkgCacheType,&Owner,&pyCallbackInst) == 0)
       return 0;
 
    PyObject *DepCachePyObj;
@@ -340,8 +351,13 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
    HandleErrors(DepCachePyObj);
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(DepCachePyObj);   
 
-   // init without progress obj
-   Struct.depcache->Init(0);
+   if(pyCallbackInst != 0) {
+      PyOpProgress progress;
+      progress.setCallbackInst(pyCallbackInst);
+      Struct.depcache->Init(&progress);
+   } else {
+      Struct.depcache->Init(0);
+   }
 
    return DepCachePyObj;
 }

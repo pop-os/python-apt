@@ -11,8 +11,10 @@ class MyProgress:
 
     def Update(self, percent):
         if (self.last + 1.0) <= percent:
-            print "lala %s " % (percent)
+            print "Progress: %s " % (percent)
             self.last = percent
+        if percent >= 100:
+            self.last = 0.0
 
     def Done(self):
         self.last = 0.0
@@ -25,17 +27,21 @@ progress = MyProgress()
 cache = apt_pkg.GetCache(progress)
 print "Available packages: %s " % cache.PackageCount
 
-sys.exit()
-
 iter = cache["base-config"]
 print "example package iter: %s" % iter
 
-
 # get depcache
-depcache = apt_pkg.GetDepCache(cache)
+print "\n\n depcache"
+depcache = apt_pkg.GetDepCache(cache, progress)
 depcache.ReadPinFile()
 print "got a depcache: %s " % depcache
 print "Marked for install: %s " % depcache.InstCount
+
+print "\n\n Reinit"
+depcache.Init(progress)
+
+#sys.exit()
+
 
 # get a canidate version
 ver= depcache.GetCandidateVer(iter)
