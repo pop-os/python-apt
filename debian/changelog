@@ -1,9 +1,16 @@
-python-apt (0.5.4.5) unstable; urgency=low
+python-apt (0.5.5) unstable; urgency=low
+
+  * Rebuild with apt 0.5.5
+
+ -- Matt Zimmerman <mdz@debian.org>  Tue,  6 May 2003 10:01:22 -0400
+
+python-apt (0.5.4.9) unstable; urgency=low
 
   * Parse /var/lib/dpkg/status in examples/tagfile.py, so that it works
     out of the box (Closes: #175340)
+  * Rebuild with apt 0.5.4.9 (libapt-pkg-libc6.3-5-3.3)
 
- --
+ -- Matt Zimmerman <mdz@debian.org>  Tue, 18 Feb 2003 16:42:24 -0500
 
 python-apt (0.5.4.4) unstable; urgency=low
 
