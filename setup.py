@@ -1,18 +1,20 @@
 #! /usr/bin/env python
-# $Id: setup.py,v 1.1 2002/01/08 06:42:46 jgg Exp $
+# $Id: setup.py,v 1.2 2002/01/08 07:13:21 jgg Exp $
 
 from distutils.core import setup, Extension
+from distutils.sysconfig import parse_makefile
+import string;
+
 
 # The apt_pkg module
-files = ["apt_pkgmodule.cc","configuration.cc","generic.cc","tag.cc",
-         "cache.cc","string.cc","pkgrecords.cc"]
+files = string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]);
 for i in range(0,len(files)):
     files[i] = "python/"+ files[i];
 apt_pkg = Extension("apt_pkg", files,
 		libraries=["apt-pkg"]);
 
 # The apt_inst module
-files = ["apt_instmodule.cc","tar.cc","generic.cc"];
+files = string.split(parse_makefile("python/makefile")["APT_INST_SRC"]);
 for i in range(0,len(files)):
     files[i] = "python/"+ files[i];
 apt_inst = Extension("apt_inst", files,
