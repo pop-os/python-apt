@@ -3,35 +3,85 @@
 
 import apt_pkg
 
-class TextProgress:
-    def __init__(self):
-        self.last = 1
-    def show(self,Percent):
-        if self.last < Percent:
-            print "\r%.2f            "  % Percent,
-            self.last = Percent+0.1
-        if Percent >= 100:
-            print "\r100.0         "
-            self.last = 0
-
-def Update(Percent, data):
-    # data is a TextProgress class
-    progress = data           
-    progress.show(Percent)
-
-
+# init
 apt_pkg.init()
-
-progress = TextProgress()
-cache = apt_pkg.GetCache(Update, progress)
-print cache.PackageCount
+cache = apt_pkg.GetCache()
+print "Available packages: %s " % cache.PackageCount
 
 iter = cache["base-config"]
-print iter
+print "example package iter: %s" % iter
 
-depcache = apt_pkg.GetDepCache(cache, Update, progress)
-print depcache
-print depcache.InstCount
+# get depcache
+depcache = apt_pkg.GetDepCache(cache)
+print "got a depcache: %s " % depcache
+print "Marked for install: %s " % depcache.InstCount
 
+# get a canidate version
 ver= depcache.GetCandidateVer(iter)
-print ver
+print "Candidate version: %s " % ver
+
+print "\n\nQuerry interface"
+print "%s.IsUpgradable(): %s" % (iter.Name, depcache.IsUpgradable(iter))
+
+print "\nMarking interface"
+print "Marking '%s' for install" % iter.Name
+depcache.MarkInstall(iter)
+print "Install count: %s " % depcache.InstCount
+print "%s.MarkedInstall(): %s" % (iter.Name, depcache.MarkedInstall(iter))
+print "%s.MarkedUpgrade(): %s" % (iter.Name, depcache.MarkedUpgrade(iter))
+print "%s.MarkedDelete(): %s" % (iter.Name, depcache.MarkedDelete(iter))
+
+print "Marking %s for delete" % iter.Name
+depcache.MarkDelete(iter)
+print "DelCount: %s " % depcache.DelCount
+print "%s.MarkedDelete(): %s" % (iter.Name, depcache.MarkedDelete(iter))
+
+
+iter = cache["3dchess"]
+print "\nMarking '%s' for install" % iter.Name
+depcache.MarkInstall(iter)
+print "Install count: %s " % depcache.InstCount
+print "%s.MarkedInstall(): %s" % (iter.Name, depcache.MarkedInstall(iter))
+print "%s.MarkedUpgrade(): %s" % (iter.Name, depcache.MarkedUpgrade(iter))
+print "%s.MarkedDelete(): %s" % (iter.Name, depcache.MarkedDelete(iter))
+
+print "Marking %s for keep" % iter.Name
+depcache.MarkKeep(iter)
+print "Install: %s " % depcache.InstCount
+
+iter = cache["3dwm-server"]
+print "\nMarking '%s' for install" % iter.Name
+depcache.MarkInstall(iter)
+print "Install: %s " % depcache.InstCount
+print "Broken count: %s" % depcache.BrokenCount
+print "FixBroken() "
+depcache.FixBroken()
+print "Broken count: %s" % depcache.BrokenCount
+
+print "\nPerforming Upgrade"
+depcache.Upgrade()
+print "Keep: %s " % depcache.KeepCount
+print "Install: %s " % depcache.InstCount
+print "Delete: %s " % depcache.DelCount
+print "UsrSize: %s " % apt_pkg.SizeToStr(depcache.UsrSize)
+print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
+
+print "\nPerforming DistUpgrade"
+depcache.Upgrade(True)
+print "Keep: %s " % depcache.KeepCount
+print "Install: %s " % depcache.InstCount
+print "Delete: %s " % depcache.DelCount
+print "UsrSize: %s " % apt_pkg.SizeToStr(depcache.UsrSize)
+print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
+
+# overview about what would happen
+for pkg in cache.Packages:
+    if depcache.MarkedInstall(pkg):
+        if pkg.CurrentVer != None:
+            print "Marked upgrade: %s " % pkg.Name
+        else:
+            print "Marked install: %s" % pkg.Name
+    elif depcache.MarkedDelete(pkg):
+        print "Marked delete: %s" % pkg.Name
+    elif depcache.MarkedKeep(pkg):
+        print "Marked keep: %s" % pkg.Name

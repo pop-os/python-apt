@@ -1,6 +1,0 @@
-import sys;
-
-if sys.version[:3] != "1.5":
-	print "python:Depends=python (>= %s), python (<< %s)" % (sys.version[:3],float(sys.version[:3])+0.1)
-else:
-	print "python:Depends=python-base (>= 1.5) | python1.5"

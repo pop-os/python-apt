@@ -161,7 +161,7 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
       const ARArchive::Member *Member = Deb.GotoMember(Chunk);
       if (Member == 0)
       {
-	 _error->Error("Cannot fund chunk %s",Chunk);
+	 _error->Error("Cannot find chunk %s",Chunk);
 	 return HandleErrors();
       }
       

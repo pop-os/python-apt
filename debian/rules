@@ -8,6 +8,9 @@
 
 PYTHON=/usr/bin/python2.4
 
+DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
+DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
+
 build: build-stamp
 build-stamp:
 	dh_testdir
@@ -19,9 +22,10 @@ build-stamp:
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
+	rm -rf build-stamp debian/arch-build
 
 	$(PYTHON) setup.py clean --all
+	/usr/bin/python2.3 setup.py clean --all
 
 	dh_clean
 
@@ -37,6 +41,7 @@ binary-arch: build
 	dh_clean -k
 
 	$(PYTHON) setup.py install --prefix=`pwd`/debian/tmp/usr
+	/usr/bin/python2.3 setup.py install --prefix=`pwd`/debian/python2.3-apt/usr
 
 	dh_installdocs
 	# Hooks for doc-base. doc-base doesn't support `pdf' yet,
@@ -55,7 +60,7 @@ binary-arch: build
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	$(PYTHON) debian/python-dep >> debian/substvars
+	dh_python
 	dh_gencontrol
 #	dh_makeshlibs
 	dh_md5sums
@@ -63,6 +68,13 @@ binary-arch: build
 
 source diff:                                                                  
 	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+arch-build:
+	rm -rf debian/arch-build
+	mkdir -p debian/arch-build/python-apt-$(DEBVER)
+	baz inventory -s | xargs cp -a --parents --target=debian/arch-build/python-apt-$(DEBVER)
+	(cd debian/arch-build/python-apt-$(DEBVER); $(DEB_BUILD_PROG))
+
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary

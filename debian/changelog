@@ -1,8 +1,29 @@
+python-apt (0.5.36) hoary; urgency=low
+
+  * Fix build-depends, somehow lost in merge
+
+ -- Matt Zimmerman <mdz@ubuntu.com>  Sat, 26 Feb 2005 18:53:54 -0800
+
+python-apt (0.5.35) hoary; urgency=low
+
+  * Target hoary this time
+
+ -- Matt Zimmerman <mdz@ubuntu.com>  Sat, 26 Feb 2005 15:57:21 -0800
+
+python-apt (0.5.34) unstable; urgency=low
+
+  * Restore Ubuntu changes
+    - Build python 2.4 as default, add python2.3-apt
+    - Typo fix (Ubuntu #4677)
+
+ -- Matt Zimmerman <mdz@ubuntu.com>  Sat, 26 Feb 2005 15:53:30 -0800
+
 python-apt (0.5.33) unstable; urgency=low
 
-  * added basic support for the depcache (python/depcache.cc)
+  * Merge michael.vogt@ubuntu.com--2005/python-apt--pkgDepCache--0
+    - Basic depcache API (Ubuntu #6889)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 23 Feb 2005 12:02:44 +0100
+ -- Matt Zimmerman <mdz@ubuntu.com>  Sat, 26 Feb 2005 15:37:48 -0800
 
 python-apt (0.5.32) unstable; urgency=low
 
