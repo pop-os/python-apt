@@ -16,6 +16,8 @@
 #include <apt-pkg/sptr.h>
 
 #include <Python.h>
+#include "progress.h"
+
 									/*}}}*/
 
 struct PkgListStruct
@@ -740,14 +742,25 @@ PyTypeObject RDepListType =
 
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
-   if (PyArg_ParseTuple(Args,"") == 0)
+   pkgCacheFile *Cache = new pkgCacheFile();
+
+   PyObject *pyCallbackObj = 0;
+   PyObject *pyCallbackArgs = 0;
+   if (PyArg_ParseTuple(Args, "|OO", &pyCallbackObj, &pyCallbackArgs) == 0)
       return 0;
 
-   pkgCacheFile *Cache = new pkgCacheFile();
-   OpTextProgress Prog;
-   if (Cache->Open(Prog,false) == false)
-      return HandleErrors();
-   
+   if(pyCallbackObj != 0) {
+      PyOpProgressStruct progress;
+      progress.py_update_callback_func = pyCallbackObj;
+      progress.py_update_callback_args = pyCallbackArgs;
+      if (Cache->Open(progress,false) == false)
+	 return HandleErrors();
+   }  else {
+      OpTextProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	 return HandleErrors();
+   }
+
    CppOwnedPyObject<pkgCacheFile> *CacheFileObj =
 	   CppOwnedPyObject_NEW<pkgCacheFile>(0,&PkgCacheFileType, *Cache);
    

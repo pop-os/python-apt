@@ -17,36 +17,12 @@
 #include <apt-pkg/sptr.h>
 
 #include <Python.h>
-			
+#include "progress.h"			
 
 #include <iostream>
 
 
 
-struct PyOpProgressStruct : public OpProgress
-{
-
-   PyObject *py_update_callback_func;
-   PyObject *py_update_callback_args;
-
-   virtual void Update() {
-      if(py_update_callback_func == NULL)
-	 return;
-
-      // Build up the argument list... 
-      PyObject *arglist = Py_BuildValue("(fO)", Percent, py_update_callback_args);
-
-      // ...for calling the Python compare function.
-      PyObject *result = PyEval_CallObject(py_update_callback_func,arglist);
-
-      Py_XDECREF(result);
-      Py_DECREF(arglist);
-
-      return;
-   };
-
-   PyOpProgressStruct() : OpProgress(), py_update_callback_func(0) {};
-};
 
 
 
@@ -68,27 +44,7 @@ struct PkgDepCacheStruct
    PkgDepCacheStruct() : depcache(NULL, NULL) {abort();};
 };
 
-static PyObject *PkgDepCacheProgressCallback(PyObject *Self, PyObject *Args)
-{
-   PyObject *pyCallbackObj;
-   PyObject *pyCallbackArgs;
 
-   PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
-   if (!PyArg_ParseTuple(Args, "OO", &pyCallbackObj, &pyCallbackArgs)) 
-        return NULL;
-   // make sure second argument is a function
-   if (!PyCallable_Check(pyCallbackObj)) {
-      PyErr_SetString(PyExc_TypeError, "Need a callable object!");
-      return 0;
-   }
-    
-   // save the compare func. 
-   Struct.progress.py_update_callback_func = pyCallbackObj;
-   Struct.progress.py_update_callback_args = pyCallbackArgs;
-
-   Py_INCREF(Py_None);
-   return Py_None;
-}
 
 static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
 {   
@@ -119,7 +75,6 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
-   {"SetProgressCallback",PkgDepCacheProgressCallback,METH_VARARGS,"Set a progress callback, first argument is the function, second a optional data argument that will be passed to the function"},
    {}
 };
 
@@ -143,20 +98,6 @@ static PyObject *DepCacheAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i", Struct.depcache.DebSize());
    
    
-#if 0
-   if (strcmp("FileList",Name) == 0)
-   {
-      PyObject *List = PyList_New(0);
-      for (pkgCache::PkgFileIterator I = Cache->FileBegin(); I.end() == false; I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PackageFileType,I);
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
-      }      
-      return List;
-   }
-#endif
    return Py_FindMethod(PkgDepCacheMethods,Self,Name);
 }
 
@@ -187,12 +128,28 @@ PyTypeObject PkgDepCacheType =
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
    PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
+   PyObject *pyCallbackObj = 0;
+   PyObject *pyCallbackArgs = 0;
+   if (PyArg_ParseTuple(Args,"O!|OO",&PkgCacheType,&Owner,
+			&pyCallbackObj, &pyCallbackArgs) == 0)
       return 0;
 
-   return HandleErrors(CppOwnedPyObject_NEW<PkgDepCacheStruct>(Owner,
+   PyObject *DepCachePyObj = CppOwnedPyObject_NEW<PkgDepCacheStruct>(Owner,
 							 &PkgDepCacheType,
-							 GetCpp<pkgCache *>(Owner)));
+							 GetCpp<pkgCache *>(Owner));
+   HandleErrors(DepCachePyObj);
+   PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(DepCachePyObj);   
+   if(pyCallbackObj != 0) {
+      PyOpProgressStruct progress;
+
+      progress.py_update_callback_func = pyCallbackObj;
+      progress.py_update_callback_args = pyCallbackArgs;
+      Struct.depcache.Init(&progress);
+   } else {
+      Struct.depcache.Init(0);
+   }
+
+   return DepCachePyObj;
 }
 
 
