@@ -1,3 +1,9 @@
+python-apt (0.5.33) unstable; urgency=low
+
+  * added basic support for the depcache (python/depcache.cc)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 23 Feb 2005 12:02:44 +0100
+
 python-apt (0.5.32) unstable; urgency=low
 
   * Update to work with apt 0.5.32 (bzip2 deb support)
