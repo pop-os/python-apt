@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: cache.cc,v 1.4 2002/07/08 03:24:48 jgg Exp $
+// $Id: cache.cc,v 1.5 2003/06/03 03:03:23 mdz Exp $
 /* ######################################################################
 
    Cache - Wrapper for the cache related functions
@@ -334,7 +334,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
    PyObject *Dict = PyDict_New();
    PyObject *LastDep = 0;
    unsigned LastDepType = 0;      
-   for (pkgCache::DepIterator D = Ver.DependsList(); D.end() == false; D++)
+   for (pkgCache::DepIterator D = Ver.DependsList(); D.end() == false;)
    {
       pkgCache::DepIterator Start;
       pkgCache::DepIterator End;
