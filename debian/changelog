@@ -1,5 +1,13 @@
+python-apt (0.5.4.1) unstable; urgency=low
+
+  * Add apt-utils to build-depends, since libapt-pkg-dev doesn't pull it
+    in.  This should allow python-apt to be autobuilt more readily.
+
+ -- Matt Zimmerman <mdz@debian.org>  Sat, 23 Feb 2002 19:01:15 -0500
+
 python-apt (0.5.4) unstable; urgency=low
 
-  * Initial packaging
-  
- -- Jason Gunthorpe <jgg@debian.org>  Tue,  8 Jan 2002 01:38:39 -0500
+  * Initial release.
+  * Initial packaging by Jason Gunthorpe, et al.
+
+ -- Matt Zimmerman <mdz@debian.org>  Wed, 16 Jan 2002 01:37:56 -0500
