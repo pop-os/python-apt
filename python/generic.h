@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: generic.h,v 1.3 2002/02/26 01:36:15 mdz Exp $
+// $Id: generic.h,v 1.4 2002/03/10 05:45:34 mdz Exp $
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
@@ -29,6 +29,7 @@
 
 #include <Python.h>
 #include <string>
+#include <new>
 
 template <class T> struct CppPyObject : public PyObject
 {
