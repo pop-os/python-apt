@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Standards-Version: 3.1.1
-Build-Depends: debhelper, libapt-pkg-dev, apt-utils, python-dev
+Build-Depends: debhelper, libapt-pkg-dev, apt-utils, python-dev (>= 2.2)
 
 Package: python-apt
 Architecture: any
