@@ -1,3 +1,10 @@
+python-apt (0.5.4.3) unstable; urgency=low
+
+  * #include <new> in python/generic.h so that we can build on ia64, which
+    uses g++-2.96 (Closes: #137467)
+
+ -- Matt Zimmerman <mdz@debian.org>  Sat,  9 Mar 2002 23:34:13 -0500
+
 python-apt (0.5.4.2) unstable; urgency=high
 
   * Fix g++-3.0 compilation issues (Closes: #134020)
