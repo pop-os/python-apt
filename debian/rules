@@ -6,7 +6,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PYTHON=/usr/bin/python
+PYTHON=/usr/bin/python2.3
 
 build: build-stamp
 build-stamp:

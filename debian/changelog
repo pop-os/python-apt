@@ -1,3 +1,11 @@
+python-apt (0.5.8) unstable; urgency=low
+
+  * Adjust build-depends to build with python2.3.  No other changes.
+  * This seems to break the new source package support, probably because
+    the new source package support is buggy.
+
+ -- Matt Zimmerman <mdz@debian.org>  Fri,  8 Aug 2003 09:01:12 -0400
+
 python-apt (0.5.5.2) unstable; urgency=low
 
   * Add myself to Uploaders so that bugs don't get tagged as NMU-fixed anymore 
