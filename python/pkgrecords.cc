@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: pkgrecords.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: pkgrecords.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Package Records - Wrapper for the package records functions
@@ -13,7 +13,7 @@
 
 #include <apt-pkg/pkgrecords.h>
 
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 
 struct PkgRecordsStruct

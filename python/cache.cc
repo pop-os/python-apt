@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: cache.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: cache.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Cache - Wrapper for the cache related functions
@@ -15,7 +15,7 @@
 #include <apt-pkg/cachefile.h>
 #include <apt-pkg/sptr.h>
 
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 
 struct PkgListStruct

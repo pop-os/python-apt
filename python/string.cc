@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: string.cc,v 1.2 2001/02/23 05:46:02 jgg Exp $
+// $Id: string.cc,v 1.3 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    string - Mappings for the string functions that are worthwile for 
@@ -14,7 +14,7 @@
     
 #include <apt-pkg/strutl.h>
 
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
     
 // Templated function							/*{{{*/

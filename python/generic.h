@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: generic.h,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: generic.h,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
@@ -27,7 +27,7 @@
 #ifndef GENERIC_H
 #define GENERIC_H
 
-#include <python/Python.h>
+#include <Python.h>
 #include <string>
 
 template <class T> struct CppPyObject : public PyObject

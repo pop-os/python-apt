@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_instmodule.h,v 1.1 2001/09/30 03:52:58 jgg Exp $
+// $Id: apt_instmodule.h,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Prototypes for the module
@@ -10,7 +10,7 @@
 #ifndef APT_INSTMODULE_H
 #define APT_INSTMODULE_H
 
-#include <python/Python.h>
+#include <Python.h>
 
 PyObject *debExtract(PyObject *Self,PyObject *Args);
 extern char *doc_debExtract;

@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: tag.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: tag.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Tag - Binding for the RFC 822 tag file parser
@@ -26,7 +26,7 @@
 #include <apt-pkg/tagfile.h>
 
 #include <stdio.h>
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 static PyMethodDef TagSecMethods[];
 static PyMethodDef TagFileMethods[];

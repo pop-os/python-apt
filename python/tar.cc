@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: tar.cc,v 1.1 2001/09/30 03:52:58 jgg Exp $
+// $Id: tar.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Tar Inteface
@@ -15,7 +15,7 @@
 #include <apt-pkg/debfile.h>
 #include "apt_instmodule.h"
 
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 
 class ProcessTar : public pkgDirStream

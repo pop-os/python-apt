@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_instmodule.cc,v 1.2 2001/09/30 03:52:58 jgg Exp $
+// $Id: apt_instmodule.cc,v 1.3 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    apt_intmodule - Top level for the python module. Create the internal
@@ -20,7 +20,7 @@
     
 #include <sys/stat.h>
 #include <unistd.h>
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 
 // debExtractControl - Exctract an arbitary control member		/*{{{*/

@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.h,v 1.2 2001/02/23 05:46:02 jgg Exp $
+// $Id: apt_pkgmodule.h,v 1.3 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Prototypes for the module
@@ -10,7 +10,7 @@
 #ifndef APT_PKGMODULE_H
 #define APT_PKGMODULE_H
 
-#include <python/Python.h>
+#include <Python.h>
 
 // Configuration Stuff
 #define Configuration_Check(op) ((op)->ob_type == &ConfigurationType || \

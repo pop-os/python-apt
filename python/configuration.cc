@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: configuration.cc,v 1.1 2001/02/20 06:32:01 jgg Exp $
+// $Id: configuration.cc,v 1.2 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    Configuration - Binding for the configuration object.
@@ -23,7 +23,7 @@
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/cmndline.h>
 
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 static PyMethodDef CnfMethods[];
 

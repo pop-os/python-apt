@@ -1,6 +1,6 @@
 // -*- mode: cpp; mode: fold -*-
 // Description								/*{{{*/
-// $Id: apt_pkgmodule.cc,v 1.3 2001/04/06 05:30:09 jgg Exp $
+// $Id: apt_pkgmodule.cc,v 1.4 2002/01/08 06:53:04 jgg Exp $
 /* ######################################################################
 
    apt_pkgmodule - Top level for the python module. Create the internal
@@ -24,7 +24,7 @@
     
 #include <sys/stat.h>
 #include <unistd.h>
-#include <python/Python.h>
+#include <Python.h>
 									/*}}}*/
 
 // newConfiguration - Build a new configuration class			/*{{{*/
