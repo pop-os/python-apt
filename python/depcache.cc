@@ -21,7 +21,6 @@
 
 #include <iostream>
 #include "progress.h"
-#include "cache.h"
 
 // DepCache Class								/*{{{*/
 // ---------------------------------------------------------------------
@@ -62,6 +61,7 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
       Struct.depcache->Init(0);
    }
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -75,6 +75,10 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgCache::VerIterator I = Struct.depcache->GetCandidateVer(Pkg);
+   if(I.end()) {
+      Py_INCREF(Py_None);
+      return Py_None;
+   }
    CandidateObj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(PackageObj,&VersionType,I);
 
    return CandidateObj;
@@ -93,6 +97,7 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
    else
       pkgAllUpgrade(*Struct.depcache);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -104,11 +109,12 @@ static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"|s",&file) == 0)
       return 0;
 
-   if(file == NULL)
+   if(file == NULL) 
       ReadPinFile(*Struct.policy);
    else
       ReadPinFile(*Struct.policy, file);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -122,6 +128,7 @@ static PyObject *PkgDepCacheFixBroken(PyObject *Self,PyObject *Args)
 
    pkgFixBroken(*Struct.depcache);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -137,6 +144,7 @@ static PyObject *PkgDepCacheMarkKeep(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    Struct.depcache->MarkKeep(Pkg);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -152,6 +160,7 @@ static PyObject *PkgDepCacheMarkDelete(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    Struct.depcache->MarkDelete(Pkg,purge);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -166,6 +175,7 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    Struct.depcache->MarkInstall(Pkg);
 
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
 
@@ -296,12 +306,8 @@ static PyObject *DepCacheAttr(PyObject *Self,char *Name)
 {
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
-   // look like a cache
-   if (strcmp("Packages",Name) == 0)
-      return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,
-						 Struct.depcache->PkgBegin());
    // size querries
-   else if(strcmp("KeepCount",Name) == 0) 
+   if(strcmp("KeepCount",Name) == 0) 
       return Py_BuildValue("l", Struct.depcache->KeepCount());
    else if(strcmp("InstCount",Name) == 0) 
       return Py_BuildValue("l", Struct.depcache->InstCount());
@@ -345,8 +351,7 @@ PyTypeObject PkgDepCacheType =
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
    PyObject *Owner;
-   PyObject *pyCallbackInst = 0;
-   if (PyArg_ParseTuple(Args,"O!|O",&PkgCacheType,&Owner,&pyCallbackInst) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
       return 0;
 
    PyObject *DepCachePyObj;
@@ -355,14 +360,6 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 							   GetCpp<pkgCache *>(Owner));
    HandleErrors(DepCachePyObj);
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(DepCachePyObj);   
-
-   if(pyCallbackInst != 0) {
-      PyOpProgress progress;
-      progress.setCallbackInst(pyCallbackInst);
-      Struct.depcache->Init(&progress);
-   } else {
-      Struct.depcache->Init(0);
-   }
 
    return DepCachePyObj;
 }
