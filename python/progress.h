@@ -1,31 +1,29 @@
+// Description								/*{{{*/
+// $Id: progress.h,v 1.5 2003/06/03 03:03:23 mdz Exp $
+/* ######################################################################
+
+   Progress - Wrapper for the progress related functions
+
+   ##################################################################### */
+
 #ifndef PROGRESS_H
 #define PROGRESS_H
 
-#include<iostream>
+#include <apt-pkg/progress.h>
+#include <Python.h>
 
-struct PyOpProgressStruct : public OpProgress
+struct PyOpProgress : public OpProgress
 {
+   PyObject *callbackInst;
 
-   PyObject *py_update_callback_func;
-   PyObject *py_update_callback_args;
+   void setCallbackInst(PyObject *o) {
+      callbackInst = o;
+   }
 
-   virtual void Update() {
-      if(py_update_callback_func == 0)
-	 return;
+   virtual void Update();
+   virtual void Done();
 
-      // Build up the argument list... 
-      PyObject *arglist = Py_BuildValue("fO", Percent,py_update_callback_args);
-
-      // ...for calling the Python compare function.
-      PyObject *result = PyEval_CallObject(py_update_callback_func,arglist);
-
-      Py_XDECREF(result);
-      Py_DECREF(arglist);
-
-      return;
-   };
-
-   PyOpProgressStruct() : OpProgress(), py_update_callback_func(0) {};
+   PyOpProgress() : OpProgress(), callbackInst(0) {};
 };
 
 #endif

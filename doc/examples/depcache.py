@@ -3,14 +3,26 @@
 
 import apt_pkg
 import sys
+import copy
 
-def progress(percent, data):
-    print "%s %s" % (data, percent)
-    
+class MyProgress:
+    def __init__(self):
+        self.last = 0.0
+
+    def Update(self, percent):
+        if (self.last + 1.0) <= percent:
+            print "lala %s " % (percent)
+            self.last = percent
+
+    def Done(self):
+        self.last = 0.0
+        print "Done!"
 
 # init
 apt_pkg.init()
-cache = apt_pkg.GetCache(progress,None)
+
+progress = MyProgress()
+cache = apt_pkg.GetCache(progress)
 print "Available packages: %s " % cache.PackageCount
 
 sys.exit()

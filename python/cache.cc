@@ -744,15 +744,13 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
    pkgCacheFile *Cache = new pkgCacheFile();
 
-   PyObject *pyCallbackObj = 0;
-   PyObject *pyCallbackArgs = 0;
-   if (PyArg_ParseTuple(Args, "|OO", &pyCallbackObj, &pyCallbackArgs) == 0)
+   PyObject *pyCallbackInst = 0;
+   if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
       return 0;
 
-   if(pyCallbackObj != 0) {
-      PyOpProgressStruct progress;
-      progress.py_update_callback_func = pyCallbackObj;
-      progress.py_update_callback_args = pyCallbackArgs;
+   if(pyCallbackInst != 0) {
+      PyOpProgress progress;
+      progress.setCallbackInst(pyCallbackInst);
       if (Cache->Open(progress,false) == false)
 	 return HandleErrors();
    }  else {
