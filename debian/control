@@ -12,5 +12,9 @@ Priority: optional
 Description: Python interface to libapt-pkg
  The apt-pkg Python interface will provide full access to the internal 
  libapt-pkg structures allowing Python programs to easily perform a
- variety of functions.
- 
+ variety of functions, such as:
+ .
+  - Access to the APT configuration system
+  - Access to the APT package information database
+  - Parsing of Debian package control files, and other files with a
+    similar structure
