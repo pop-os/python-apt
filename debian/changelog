@@ -1,3 +1,9 @@
+python-apt (0.5.10) unstable; urgency=low
+
+  * Recompile with apt 0.5
+
+ -- Matt Zimmerman <mdz@debian.org>  Fri, 26 Dec 2003 09:09:40 -0800
+
 python-apt (0.5.9) unstable; urgency=low
 
   * Fix broken object initialization in sourcelist.cc and srcrecords.cc
