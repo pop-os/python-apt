@@ -2,4 +2,4 @@ python-apt (0.5.4) unstable; urgency=low
 
   * Initial packaging
   
- -- Jason Gunthorpe <jgg@debian.org>  Thu,  5 Apr 2001 23:22:29 -0600
+ -- Jason Gunthorpe <jgg@debian.org>  Tue,  8 Jan 2002 01:38:39 -0500

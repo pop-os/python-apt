@@ -1,46 +1,68 @@
 #!/usr/bin/make -f
+# MAde with the aid of dh_make, by Craig Small
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+# Some lines taken from debmake, by Cristoph Lameter.
 
-BLD := $(PWD)/build
-DHOPTS = -p$@ -Pdebian/$@
-PYTHONVER = 1.5
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
 
-build:
-	# At the moment you must do alot of manual work to setup the
-	# build directory. It should be symlinked to a valid APT build
-	# dir, and the python variables re-inserted into the environment.mak
-	# Then make in doc and python.
-	echo "Must be prebuilt"
+#PYTHON=/usr/bin/python2.1
+PYTHON=python
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+
+	$(PYTHON) setup.py build
+
+	touch build-stamp
+
 clean:
 	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+
+	$(PYTHON) setup.py clean --all
+
 	dh_clean
-	
+
+# Build architecture-independent files here.
 binary-indep: build
+# We have nothing to do by default.
 
-binary-arch: build python-apt
+# Build architecture-dependent files here.
+binary-arch: build
+#	dh_testversion
+	dh_testdir
+	dh_testroot
+	dh_clean -k
 
-python-apt: build 
-	cp build/../debian/shlibs.local debian/shlibs.local	
-	dh_testdir $(DHOPTS) 
-	dh_testroot $(DHOPTS) 
-	dh_clean $(DHOPTS) -k 
-	dh_installdirs $(DHOPTS) 
+	$(PYTHON) setup.py install --prefix=`pwd`/debian/tmp/usr
 
-	# install the modules
-	cp $(BLD)/bin/apt_pkgmodule.so $(BLD)/bin/apt_instmodule.so debian/$@/usr/lib/python$(PYTHONVER)/site-packages/
-	
-	dh_installdocs $(DHOPTS)
-	dh_installexamples $(DHOPTS) $(BLD)/docs/examples/*
+#	dh_installdocs README
+	# Hooks for doc-base. doc-base doesn't support `pdf' yet,
+	# therefore this is still disabled.
+	##XX install -d `pwd`/debian/tmp/usr/share/doc-base
+	##XX cp debian/doc-base `pwd`/debian/tmp/usr/share/doc-base/python-ldap
+	dh_installexamples doc/examples/*.py
+	dh_installmenu
+#	dh_installinit
+	dh_installcron
+	dh_installmanpages
+#	dh_undocumented
+	dh_installchangelogs
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+#	dh_makeshlibs
+	dh_md5sums
+	dh_builddeb
 
-	dh_installchangelogs $(DHOPTS)
-	dh_strip $(DHOPTS)
-	dh_compress $(DHOPTS)
-	dh_fixperms $(DHOPTS)
-	dh_installdeb $(DHOPTS)
-	LD_LIBRARY_PATH=`pwd`/build/bin dh_shlibdeps $(DHOPTS) -- -Lbuild/../debian/shlibs.local
-	dh_gencontrol $(DHOPTS) 
-	dh_md5sums $(DHOPTS)
-	dh_builddeb $(DHOPTS)
+source diff:                                                                  
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
 
-binary:         binary-indep binary-arch
-
-.PHONY: binary binary-arch binary-indep clean checkroot
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary
