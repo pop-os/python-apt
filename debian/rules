@@ -6,8 +6,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-#PYTHON=/usr/bin/python2.1
-PYTHON=python
+PYTHON=/usr/bin/python
 
 build: build-stamp
 build-stamp:
@@ -38,8 +37,9 @@ binary-arch: build
 	dh_clean -k
 
 	$(PYTHON) setup.py install --prefix=`pwd`/debian/tmp/usr
+	cp COPYING.GPL debian/copyright
 
-#	dh_installdocs README
+	dh_installdocs
 	# Hooks for doc-base. doc-base doesn't support `pdf' yet,
 	# therefore this is still disabled.
 	##XX install -d `pwd`/debian/tmp/usr/share/doc-base
@@ -56,6 +56,7 @@ binary-arch: build
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
+	$(PYTHON) debian/python-dep >> debian/substvars
 	dh_gencontrol
 #	dh_makeshlibs
 	dh_md5sums
