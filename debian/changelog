@@ -1,14 +1,9 @@
-python-apt (0.5.36ubuntu4) hoary; urgency=low
-
-  * fixed some reference count problems in the depcache code
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 31 Mar 2005 13:15:50 +0200
-
 python-apt (0.5.36ubuntu3) hoary; urgency=low
 
+  * fixed some reference count problems in the depcache code
   * DepCache.Init() is never called implicit now
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 23 Mar 2005 15:24:56 +0100
+ -- 
 
 python-apt (0.5.36ubuntu2) hoary; urgency=low
 
