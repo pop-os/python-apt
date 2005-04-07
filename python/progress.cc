@@ -112,18 +112,31 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    if(callbackInst == 0)
       return false;
    
-   // Build up the argument list... 
-   PyObject *arglist = Py_BuildValue("(ffi)", CurrentCPS, CurrentBytes, CurrentItems);
+   // set stats
+   PyObject *o;
+   o = Py_BuildValue("f", CurrentCPS);
+   PyObject_SetAttrString(callbackInst, "CurrentCPS", o);
+   o = Py_BuildValue("f", CurrentBytes);
+   PyObject_SetAttrString(callbackInst, "CurrentBytes", o);
+   o = Py_BuildValue("i", CurrentItems);
+   PyObject_SetAttrString(callbackInst, "CurrentItems", o);
+   o = Py_BuildValue("i", TotalItems);
+   PyObject_SetAttrString(callbackInst, "TotalItems", o);
+   o = Py_BuildValue("f", TotalBytes);
+   PyObject_SetAttrString(callbackInst, "TotalBytes", o);
    
-   // ...for calling the Python compare function.
+   // Call the pulse method
+   PyObject *arglist = Py_BuildValue("()");
    PyObject *method = PyObject_GetAttrString(callbackInst, "Pulse");
    if(method == NULL) {
       // FIXME: make this silent
+      std::cerr << "Can't find 'Pulse' method" << std::endl;
       Py_DECREF(arglist);
       return false;
    }
    PyObject *result = PyEval_CallObject(method,arglist);
-   
+   // FIXME: throw some exception here if the method was unsuccessfull
+
    Py_XDECREF(result);
    Py_XDECREF(method);
    Py_DECREF(arglist);

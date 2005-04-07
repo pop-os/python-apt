@@ -25,8 +25,8 @@ class OpProgress:
 class FetchProgress:
     def __init__(self):
         pass
-    def Pulse(self, CurrentCPS, CurrentBytes, CurrentItems):
-        print "Pulse: CPS: %s Bytes: %s Item: %s" % (CurrentCPS, CurrentBytes, CurrentItems)
+    def Pulse(self):
+        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (apt_pkg.SizeToStr(self.CurrentCPS), apt_pkg.SizeToStr(self.CurrentBytes), apt_pkg.SizeToStr(self.TotalBytes), self.CurrentItems, self.TotalItems)
 
 
 
