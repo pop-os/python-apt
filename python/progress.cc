@@ -9,97 +9,110 @@
 #include <iostream>
 #include "progress.h"
 
+// generic
+bool PyCallbackObj::RunSimpleCallback(const char* method_name, 
+				      PyObject *arglist)
+{
+   if(callbackInst == 0)
+      return false;
+
+   PyObject *method = PyObject_GetAttrString(callbackInst,(char*) method_name);
+   if(method == NULL) {
+      // FIXME: make this silent
+      std::cerr << "Can't find '" << method_name << "' method" << std::endl;
+      Py_XDECREF(arglist);
+      return false;
+   }
+   PyObject *result = PyEval_CallObject(method, arglist);
+   Py_XDECREF(arglist);
+
+   if(result == NULL) {
+      // exception happend
+      std::cerr << "Error in function " << method_name << std::endl;
+      return NULL;
+   }
+
+   Py_XDECREF(result);
+   Py_XDECREF(method);
+
+   return true;
+}
+
 
 // OpProgress interface 
 // FIXME: add "string Op, string SubOp" as attribute to the callbackInst
 void PyOpProgress::Update() 
 {
-   if(callbackInst == 0)
-      return;
-   
    // Build up the argument list... 
    PyObject *arglist = Py_BuildValue("(f)", Percent);
-   
-   // ...for calling the Python compare function.
-   PyObject *method = PyObject_GetAttrString(callbackInst, "Update");
-   if(method == NULL) {
-      // FIXME: make this silent
-      Py_DECREF(arglist);
-      return;
-   }
-   PyObject *result = PyEval_CallObject(method,arglist);
-   
-   Py_XDECREF(result);
-   Py_XDECREF(method);
-   Py_DECREF(arglist);
-   
-   return;
+   RunSimpleCallback("Update", arglist);
 };
-
 
 void PyOpProgress::Done()
 {
-   if(callbackInst == 0)
-      return;
-   
-   // Build up the argument list... 
-   PyObject *arglist = Py_BuildValue("()", NULL);
-   
-   // ...for calling the Python compare function.
-   PyObject *method = PyObject_GetAttrString(callbackInst, "Done");
-   if(method == NULL) {
-      Py_DECREF(arglist);
-      return;
-   }
-   PyObject *result = PyEval_CallObject(method,arglist);
-   
-   Py_XDECREF(result);
-   Py_XDECREF(method);
-   Py_DECREF(arglist);
+   RunSimpleCallback("Done");
 }
 
 
 
 // fetcher interface
-// PyFetchProgress:: 
+
+enum {
+   DLDone, DLQueued, DLFailed, DLHit
+};
+
 
 // apt interface
 bool PyFetchProgress::MediaChange(string Media, string Drive)
 {
-   std::cout << "MediaChange" << std::endl;
+   //std::cout << "MediaChange" << std::endl;
+   PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
+   RunSimpleCallback("MediaChange", arglist);
+   
+   // FIXME: need to return depending on the python result
+   return true;
+}
+
+void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
+{
+   //std::cout << "UpdateStatus: " << Itm.URI << " " << status << std::endl;
+   PyObject *arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(), Itm.ShortDesc.c_str(), status);
+   RunSimpleCallback("UpdateStatus", arglist);
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
-   std::cout << "IMSHit" << std::endl;
+   UpdateStatus(Itm, DLHit);
 }
 
 void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
-   std::cout << "Fetch" << std::endl;
+   UpdateStatus(Itm, DLQueued);
 }
 
 void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
-   std::cout << "Done" << std::endl;
+   UpdateStatus(Itm, DLDone);
 }
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
-   std::cout << "Fail" << std::endl;
+   UpdateStatus(Itm, DLFailed);
 }
 
 void PyFetchProgress::Start()
 {
-   std::cout << "Start" << std::endl;
+   //std::cout << "Start" << std::endl;
    pkgAcquireStatus::Start();
-
+   RunSimpleCallback("Start");
 }
+
 
 void PyFetchProgress::Stop()
 {
-   std::cout << "Stop" << std::endl;
+   //std::cout << "Stop" << std::endl;
    pkgAcquireStatus::Stop();
+   RunSimpleCallback("Stop");
 }
 
 // FIXME: it should just set the attribute for
@@ -125,21 +138,8 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    o = Py_BuildValue("f", TotalBytes);
    PyObject_SetAttrString(callbackInst, "TotalBytes", o);
    
-   // Call the pulse method
-   PyObject *arglist = Py_BuildValue("()");
-   PyObject *method = PyObject_GetAttrString(callbackInst, "Pulse");
-   if(method == NULL) {
-      // FIXME: make this silent
-      std::cerr << "Can't find 'Pulse' method" << std::endl;
-      Py_DECREF(arglist);
-      return false;
-   }
-   PyObject *result = PyEval_CallObject(method,arglist);
-   // FIXME: throw some exception here if the method was unsuccessfull
+   RunSimpleCallback("Pulse");
 
-   Py_XDECREF(result);
-   Py_XDECREF(method);
-   Py_DECREF(arglist);
    
    // this can be canceld by returning false
    return true;

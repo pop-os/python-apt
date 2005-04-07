@@ -16,7 +16,6 @@ class OpProgress:
         if percent >= 100:
             self.last = 0.0
 
-
     def Done(self):
         self.last = 0.0
         print "\rDone                      "
@@ -25,6 +24,8 @@ class OpProgress:
 class FetchProgress:
     def __init__(self):
         pass
+    def UpdateStatus(self, uri, descr, shortDescr, status):
+        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (uri,descr,shortDescr, status)
     def Pulse(self):
         print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (apt_pkg.SizeToStr(self.CurrentCPS), apt_pkg.SizeToStr(self.CurrentBytes), apt_pkg.SizeToStr(self.TotalBytes), self.CurrentItems, self.TotalItems)
 
