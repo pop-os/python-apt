@@ -4,6 +4,7 @@
 import apt_pkg
 import sys
 import copy
+
 from progress import OpProgress, FetchProgress
 
 
@@ -14,8 +15,23 @@ progress = OpProgress()
 cache = apt_pkg.GetCache(progress)
 print "Available packages: %s " % cache.PackageCount
 
-progress = FetchProgress()
-cache.Update(progress)
+# get depcache
+depcache = apt_pkg.GetDepCache(cache)
+depcache.ReadPinFile()
+depcache.Init(progress)
+
+# do something
+fprogress = FetchProgress()
+iprogress = "lala"
+iter = cache["base-config"]
+print "\n%s"%iter
+
+# install or remove, the importend thing is to keep us busy :)
+if iter.CurrentVer == None:
+	depcache.MarkInstall(iter)
+else:
+	depcache.MarkDelete(iter)
+depcache.Commit(fprogress, iprogress)
 
 print "Exiting"
 sys.exit(0)

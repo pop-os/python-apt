@@ -16,7 +16,12 @@
 #include <apt-pkg/algorithms.h>
 #include <apt-pkg/policy.h>
 #include <apt-pkg/sptr.h>
-
+#include <apt-pkg/configuration.h>
+#include <apt-pkg/error.h>
+#include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/sourcelist.h>
+#include <apt-pkg/pkgrecords.h>
+#include <apt-pkg/acquire-item.h>
 #include <Python.h>
 
 #include <iostream>
@@ -64,6 +69,128 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
+
+static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
+{   
+   PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
+
+   PyObject *pyInstallProgressInst = 0;
+   PyObject *pyFetchProgressInst = 0;
+   if (PyArg_ParseTuple(Args, "OO", 
+			&pyFetchProgressInst, &pyInstallProgressInst) == 0) {
+      return 0;
+   }
+   FileFd Lock;
+   if (_config->FindB("Debug::NoLocking", false) == false) {
+      Lock.Fd(GetLock(_config->FindDir("Dir::Cache::Archives") + "lock"));
+      if (_error->PendingError() == true)
+         return HandleErrors();
+   }
+   
+   pkgRecords Recs(*Struct.depcache);
+   if (_error->PendingError() == true)
+      HandleErrors(Py_None);
+
+   pkgSourceList List;
+   if(!List.ReadMainList())
+      return HandleErrors(Py_None);
+
+   PyFetchProgress progress;
+   progress.setCallbackInst(pyFetchProgressInst);
+
+   pkgAcquire Fetcher(&progress);
+   pkgPackageManager *PM;
+   PM = _system->CreatePM(Struct.depcache);
+   if(PM->GetArchives(&Fetcher, &List, &Recs) == false ||
+      _error->PendingError() == true) {
+      std::cerr << "Error in GetArchives" << std::endl;
+      return HandleErrors();
+   }
+
+   std::cout << "PM created" << std::endl;
+
+   // Run it
+   while (1)
+   {
+      bool Transient = false;
+      
+      if (Fetcher.Run() == pkgAcquire::Failed)
+	 return false;
+      
+      // Print out errors
+      bool Failed = false;
+      for (pkgAcquire::ItemIterator I = Fetcher.ItemsBegin(); I != Fetcher.ItemsEnd(); I++)
+      {
+	 if ((*I)->Status == pkgAcquire::Item::StatDone &&
+	     (*I)->Complete == true)
+	    continue;
+	 
+	 if ((*I)->Status == pkgAcquire::Item::StatIdle)
+	 {
+	    Transient = true;
+	    // Failed = true;
+	    continue;
+	 }
+
+	 //FIXME: report this error somehow
+// 	 fprintf(stderr,_("Failed to fetch %s  %s\n"),(*I)->DescURI().c_str(),
+// 		 (*I)->ErrorText.c_str());
+	 Failed = true;
+      }
+
+#if 0 // check that stuff
+      if (Transient == true && Failed == true)
+	 return Py_None; /*_error->Error(_("--fix-missing and media swapping is not currently supported"));*/
+      
+      // Try to deal with missing package files
+      if (Failed == true && PM->FixMissing() == false)
+      {
+	 //std::cerr << "Unable to correct missing packages." << std::endl;
+	 _error->Error("Aborting install.");
+	 return HandleErrors(Py_None);
+      }
+#endif       	 
+
+      _system->UnLock();
+      pkgPackageManager::OrderResult Res = PM->DoInstall();
+      if (Res == pkgPackageManager::Failed || _error->PendingError() == true)
+	 return Py_None/*false;*/;
+      if (Res == pkgPackageManager::Completed)
+	 return Py_None /*true;*/;
+      
+      // Reload the fetcher object and loop again for media swapping
+      Fetcher.Shutdown();
+      if (PM->GetArchives(&Fetcher,&List,&Recs) == false)
+	 return Py_None /*false;*/;
+      
+      _system->Lock();
+   }   
+
+
+
+#if 0
+   if (Fetcher.Run() == pkgAcquire::Failed)
+      return HandleErrors(Py_None);
+
+   std::cout << "Fetcher was run" << std::endl;
+
+   // FIXME: incomplete, see apt-get.cc
+   _system->UnLock();
+
+   pkgPackageManager::OrderResult Res = PM->DoInstall();
+   if (Res == pkgPackageManager::Failed || _error->PendingError() == true)
+      return Py_None/*false;*/;
+   if (Res == pkgPackageManager::Completed)
+      return Py_None /*true;*/;
+      
+   _system->Lock();
+#endif
+
+   // FIXME: open the cache here again
+   
+   return HandleErrors(Py_None);
+}
+
 
 static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
 { 
@@ -282,6 +409,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
+
    // global cache operations
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
    {"FixBroken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
@@ -298,6 +426,10 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
    {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
    {"MarkedKeep",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for keep"},
+
+   // Action
+   {"Commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},
+
    {}
 };
 

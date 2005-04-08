@@ -17,6 +17,8 @@
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/error.h>
+#include <apt-pkg/packagemanager.h>
+#include <apt-pkg/pkgsystem.h>
 
 #include <Python.h>
 #include "progress.h"
@@ -114,9 +116,11 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 }
 
 
+
 static PyMethodDef PkgCacheMethods[] = 
 {
    {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
+   {}
 };
 
 static PyObject *CacheAttr(PyObject *Self,char *Name)
