@@ -7,6 +7,8 @@
    ##################################################################### */
 
 #include <iostream>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "progress.h"
 
 // generic
@@ -143,4 +145,60 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    
    // this can be canceld by returning false
    return true;
+}
+
+
+
+// install progress
+
+void PyInstallProgress::StartUpdate() 
+{
+   RunSimpleCallback("StartUpdate");
+}
+
+void PyInstallProgress::UpdateInterface() 
+{
+   RunSimpleCallback("UpdateInterface");
+}
+ 
+void PyInstallProgress::FinishUpdate() 
+{
+   RunSimpleCallback("FinishUpdate");
+}
+
+pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm) 
+{
+   void *dummy;
+   pkgPackageManager::OrderResult res;
+   int ret;
+   pid_t _child_id;
+
+#if 0 // FIXME: this needs to be merged into apt to support medium swaping
+   res = pm->DoInstallPreFork();
+   if (res == pkgPackageManager::Failed)
+       return res;
+#endif
+
+   _child_id = fork();
+
+#if 0 // FIXME: this needs to be merged into apt to support medium swaping
+   if (_child_id == 0) {
+      res = pm->DoInstallPostFork();
+      _exit(res);
+   }
+#endif
+   if (_child_id == 0) {
+      res = pm->DoInstall();
+      _exit(res);
+   }
+
+   StartUpdate();
+   while (waitpid(_child_id, &ret, WNOHANG) == 0)
+      UpdateInterface();
+
+   res = (pkgPackageManager::OrderResult) WEXITSTATUS(ret);
+
+   FinishUpdate();
+
+   return res;
 }

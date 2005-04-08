@@ -11,6 +11,7 @@
 
 #include <apt-pkg/progress.h>
 #include <apt-pkg/acquire.h>
+#include <apt-pkg/packagemanager.h>
 #include <Python.h>
 
 class PyCallbackObj {
@@ -58,6 +59,15 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
    
 };
 
+struct PyInstallProgress : public PyCallbackObj
+{
+   void StartUpdate();
+   void UpdateInterface();
+   void FinishUpdate();
 
+   pkgPackageManager::OrderResult Run(pkgPackageManager *pm);
+
+   PyInstallProgress() : PyCallbackObj() {};
+};
 
 #endif

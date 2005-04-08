@@ -109,6 +109,9 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 
    std::cout << "PM created" << std::endl;
 
+   PyInstallProgress iprogress;
+   iprogress.setCallbackInst(pyInstallProgressInst);
+
    // Run it
    while (1)
    {
@@ -152,7 +155,9 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 #endif       	 
 
       _system->UnLock();
-      pkgPackageManager::OrderResult Res = PM->DoInstall();
+
+      pkgPackageManager::OrderResult Res = iprogress.Run(PM);
+      //FIXME: return usefull values here
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true)
 	 return Py_None/*false;*/;
       if (Res == pkgPackageManager::Completed)

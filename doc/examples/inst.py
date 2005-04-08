@@ -5,7 +5,7 @@ import apt_pkg
 import sys
 import copy
 
-from progress import OpProgress, FetchProgress
+from progress import OpProgress, FetchProgress, InstallProgress
 
 
 # init
@@ -22,7 +22,7 @@ depcache.Init(progress)
 
 # do something
 fprogress = FetchProgress()
-iprogress = "lala"
+iprogress = InstallProgress()
 iter = cache["base-config"]
 print "\n%s"%iter
 
