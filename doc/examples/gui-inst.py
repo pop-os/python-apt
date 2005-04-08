@@ -1,12 +1,24 @@
 #!/usr/bin/python
-# example how to deal with the depcache
+# example how to install in a custom terminal widget
 
 import apt_pkg
 import sys, os
 import copy
 
+import pygtk
+pygtk.require('2.0')
+import gtk
+import vte
+import time
+
 from progress import OpProgress, FetchProgress, InstallProgress
 
+class TermInstallProgress(InstallProgress):
+    def UpdateInterface(self):
+        while gtk.events_pending():
+            gtk.main_iteration()
+    def FinishUpdate(self):
+	    sys.stdin.readline()
 
 # init
 apt_pkg.init()
@@ -22,10 +34,22 @@ depcache.Init(progress)
 
 # do something
 fprogress = FetchProgress()
-iprogress = InstallProgress()
+iprogress = TermInstallProgress()
 
+
+window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+window.show()
+term = vte.Terminal()
+term.show()
+window.add(term)
 # can be used to set a custom fork method (like vte.Terminal.forkpty)
-#iprogress.fork = os.fork
+# see also gnome bug: #169201
+iprogress.fork = term.forkpty
+
+# show the interface
+while gtk.events_pending():
+	gtk.main_iteration()
+  
 
 iter = cache["3dchess"]
 print "\n%s"%iter
@@ -35,12 +59,10 @@ if iter.CurrentVer == None:
 	depcache.MarkInstall(iter)
 else:
 	depcache.MarkDelete(iter)
-res = depcache.Commit(fprogress, iprogress)
-print res
+depcache.Commit(fprogress, iprogress)
 
 print "Exiting"
 sys.exit(0)
-
 
 
 

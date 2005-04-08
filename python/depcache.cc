@@ -72,6 +72,8 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 {   
+   PyObject *result;
+
    PkgDepCacheStruct &Struct = GetCpp<PkgDepCacheStruct>(Self);
 
    PyObject *pyInstallProgressInst = 0;
@@ -158,16 +160,21 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
       //FIXME: return usefull values here
-      if (Res == pkgPackageManager::Failed || _error->PendingError() == true)
-	 return Py_None/*false;*/;
-      if (Res == pkgPackageManager::Completed)
-	 return Py_None /*true;*/;
-      
+      if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
+	 result = Py_BuildValue("b", false);
+	 return result;
+      }
+      if (Res == pkgPackageManager::Completed) {
+	 result = Py_BuildValue("b", true);
+	 return result;
+      }
+
       // Reload the fetcher object and loop again for media swapping
       Fetcher.Shutdown();
-      if (PM->GetArchives(&Fetcher,&List,&Recs) == false)
-	 return Py_None /*false;*/;
-      
+      if (PM->GetArchives(&Fetcher,&List,&Recs) == false) {
+	 result = Py_BuildValue("b", false);
+	 return result;
+      }
       _system->Lock();
    }   
 

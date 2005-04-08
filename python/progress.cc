@@ -31,6 +31,8 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
    if(result == NULL) {
       // exception happend
       std::cerr << "Error in function " << method_name << std::endl;
+      PyErr_Print();
+
       return NULL;
    }
 
@@ -171,7 +173,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
    void *dummy;
    pkgPackageManager::OrderResult res;
    int ret;
-   pid_t _child_id;
+   pid_t child_id;
 
 #if 0 // FIXME: this needs to be merged into apt to support medium swaping
    res = pm->DoInstallPreFork();
@@ -179,21 +181,40 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
        return res;
 #endif
 
-   _child_id = fork();
+   // support custom fork methods
+   if(PyObject_HasAttrString(callbackInst, "fork")) {
+      PyObject *method = PyObject_GetAttrString(callbackInst, "fork");
+      //std::cerr << "custom fork found" << std::endl;
+      PyObject *arglist = Py_BuildValue("()");
+      PyObject *result = PyEval_CallObject(method, arglist);
+      Py_DECREF(arglist);       
+      if (result == NULL) {
+	 std::cerr << "fork method invalid" << std::endl;
+	 PyErr_Print();
+	 return pkgPackageManager::Failed;
+      }
+      if(!PyArg_Parse(result, "i", &child_id) )
+	 std::cerr << "result could not be parsed?"<< std::endl;
+      //std::cerr << "got: " << child_id << std::endl;
+   } else {
+      //std::cerr << "using build-in fork()" << std::endl;
+      child_id = fork();
+   }
+   
 
 #if 0 // FIXME: this needs to be merged into apt to support medium swaping
-   if (_child_id == 0) {
+   if (child_id == 0) {
       res = pm->DoInstallPostFork();
       _exit(res);
    }
 #endif
-   if (_child_id == 0) {
+   if (child_id == 0) {
       res = pm->DoInstall();
       _exit(res);
    }
 
    StartUpdate();
-   while (waitpid(_child_id, &ret, WNOHANG) == 0)
+   while (waitpid(child_id, &ret, WNOHANG) == 0)
       UpdateInterface();
 
    res = (pkgPackageManager::OrderResult) WEXITSTATUS(ret);

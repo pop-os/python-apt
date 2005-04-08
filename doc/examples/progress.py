@@ -48,4 +48,3 @@ class InstallProgress:
     def UpdateInterface(self):
         # usefull to e.g. redraw a GUI
         time.sleep(0.1)
-        
