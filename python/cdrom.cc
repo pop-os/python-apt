@@ -40,13 +40,20 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 {   
    PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
 
-   if (PyArg_ParseTuple(Args,"") == 0)
+   PyObject *pyCdromProgressInst = 0;
+   if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
       return 0;
+   }
 
-   //pkgFixBroken(*Struct.depcache);
+   PyCdromProgress progress;
+   progress.setCallbackInst(pyCdromProgressInst);
 
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   string ident;
+   bool res = Struct.cdrom.Ident(ident, &progress);
+
+   PyObject *result = Py_BuildValue("(bs)", res, ident.c_str());
+
+   return HandleErrors(result);   
 }
 
 

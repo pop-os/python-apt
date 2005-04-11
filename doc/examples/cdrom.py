@@ -15,9 +15,14 @@ cdrom = apt_pkg.GetCdrom()
 print cdrom
 
 progress = CdromProgress()
-apt_pkg.Config.Set("APT::CDROM::Rename", "True")
 
+(res,ident) = cdrom.Ident(progress)
+print "ident result is: %s (%s) " % (res, ident)
+
+apt_pkg.Config.Set("APT::CDROM::Rename", "True")
 cdrom.Add(progress)
+
+
 
 print "Exiting"
 sys.exit(0)
