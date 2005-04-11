@@ -66,6 +66,8 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
       Struct.depcache->Init(0);
    }
 
+   pkgApplyStatus(*Struct.depcache);
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
 }
