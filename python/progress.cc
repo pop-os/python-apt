@@ -1,5 +1,5 @@
 // Description								/*{{{*/
-// $Id: progress.cc,v 1.5 2003/06/03 03:03:23 mdz Exp $
+// $Id: progress.cc,v 1.5 2003/06/03 03:03:23 mvo Exp $
 /* ######################################################################
 
    Progress - Wrapper for the progress related functions
@@ -13,7 +13,8 @@
 
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name, 
-				      PyObject *arglist)
+				      PyObject *arglist,
+				      PyObject **res)
 {
    if(callbackInst == 0)
       return false;
@@ -35,8 +36,10 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 
       return NULL;
    }
-
-   Py_XDECREF(result);
+   if(res != NULL)
+      *res = result;
+   else
+      Py_XDECREF(result);
    Py_XDECREF(method);
 
    return true;
@@ -71,10 +74,17 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
 {
    //std::cout << "MediaChange" << std::endl;
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
-   RunSimpleCallback("MediaChange", arglist);
-   
-   // FIXME: need to return depending on the python result
-   return true;
+   PyObject *result;
+   RunSimpleCallback("MediaChange", arglist, &result);
+
+   bool res = true;
+   if(!PyArg_Parse(result, "b", &res))
+      std::cerr << "result could not be parsed" << std::endl;
+
+   // FIXME: find out what it should return usually
+   //std::cerr << "res is: " << res << std::endl;
+
+   return res;
 }
 
 void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
@@ -220,6 +230,49 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
    res = (pkgPackageManager::OrderResult) WEXITSTATUS(ret);
 
    FinishUpdate();
+
+   return res;
+}
+
+
+//-----------------------------------------------------------------------------
+// apt-cdrom interface
+
+void PyCdromProgress::Update(string text, int current)
+{
+   PyObject *arglist = Py_BuildValue("(si)", text.c_str(), current);
+   RunSimpleCallback("Update", arglist);
+}
+
+bool PyCdromProgress::ChangeCdrom()
+{
+   PyObject *arglist = Py_BuildValue("()");
+   PyObject *result;
+   RunSimpleCallback("ChangeCdrom", arglist, &result);
+
+   bool res = true;
+   if(!PyArg_Parse(result, "b", &res))
+      std::cerr << "ChangeCdrom: result could not be parsed" << std::endl;
+
+   return res;
+}
+
+
+bool PyCdromProgress::AskCdromName(string &Name)
+{
+   PyObject *arglist = Py_BuildValue("()");
+   PyObject *result;
+   RunSimpleCallback("AskCdromName", arglist, &result);
+
+   const char *new_name;
+   bool res;
+   if(!PyArg_Parse(result, "(bs)", &res, &new_name))
+      std::cerr << "AskCdromName: result could not be parsed" << std::endl;
+
+   //std::cerr << "got: " << res << " " << "name: " << new_name << std::endl;
+
+   // set the new name
+   Name = string(new_name);
 
    return res;
 }

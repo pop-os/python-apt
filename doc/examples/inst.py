@@ -27,7 +27,7 @@ iprogress = InstallProgress()
 # can be used to set a custom fork method (like vte.Terminal.forkpty)
 #iprogress.fork = os.fork
 
-iter = cache["3dchess"]
+iter = cache["base-config"]
 print "\n%s"%iter
 
 # install or remove, the importend thing is to keep us busy :)

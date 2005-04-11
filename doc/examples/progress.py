@@ -1,6 +1,7 @@
 import apt_pkg
 import sys
 import time
+import string
 
 class OpProgress:
     def __init__(self):
@@ -36,6 +37,7 @@ class FetchProgress:
     def MediaChange(self, medium, drive):
 	print "Please insert medium %s in drive %s" % (medium, drive)
 	sys.stdin.readline()
+        #return False
 
 
 class InstallProgress:
@@ -48,3 +50,21 @@ class InstallProgress:
     def UpdateInterface(self):
         # usefull to e.g. redraw a GUI
         time.sleep(0.1)
+
+
+class CdromProgress:
+    def __init__(self):
+        pass
+    # update is called regularly so that the gui can be redrawn
+    def Update(self, text, step):
+        # check if we actually have some text to display
+        if text != "":
+            print "Update: %s %s" % (string.strip(text), step)
+    def AskCdromName(self):
+        print "Please enter cd-name: ",
+        cd_name = sys.stdin.readline()
+        return (True, string.strip(cd_name))
+    def ChangeCdrom(self):
+        print "Please insert cdrom and press <ENTER>"
+        answer =  sys.stdin.readline()
+        return True

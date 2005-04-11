@@ -63,6 +63,10 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args);
 extern PyTypeObject PkgDepCacheType;
 PyObject *GetDepCache(PyObject *Self,PyObject *Args);
 
+// cdrom
+extern PyTypeObject PkgCdromType;
+PyObject *GetCdrom(PyObject *Self,PyObject *Args);
+
 // PkgRecords Stuff
 extern PyTypeObject PkgRecordsType;
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args);

@@ -12,6 +12,7 @@
 #include <apt-pkg/progress.h>
 #include <apt-pkg/acquire.h>
 #include <apt-pkg/packagemanager.h>
+#include <apt-pkg/cdrom.h>
 #include <Python.h>
 
 class PyCallbackObj {
@@ -24,7 +25,8 @@ class PyCallbackObj {
       callbackInst = o;
    }
 
-   bool RunSimpleCallback(const char *method, PyObject *arglist=NULL);
+   bool RunSimpleCallback(const char *method, PyObject *arglist=NULL,
+			  PyObject **result=NULL);
 
    PyCallbackObj() : callbackInst(0) {};
    ~PyCallbackObj()  {Py_DECREF(callbackInst); };
@@ -69,5 +71,18 @@ struct PyInstallProgress : public PyCallbackObj
 
    PyInstallProgress() : PyCallbackObj() {};
 };
+
+struct PyCdromProgress : public pkgCdromStatus, public PyCallbackObj
+{
+   // update steps, will be called regularly as a "pulse"
+   virtual void Update(string text="", int current=0);
+   // ask for cdrom insert
+   virtual bool ChangeCdrom();
+   // ask for cdrom name
+   virtual bool AskCdromName(string &Name);
+
+   PyCdromProgress() : PyCallbackObj() {};
+};
+
 
 #endif
