@@ -56,10 +56,10 @@ PyTypeObject PkgSourceListType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "pkgSourceList",                          // tp_name
-   sizeof(CppOwnedPyObject<PkgSourceListStruct>),   // tp_basicsize
+   sizeof(CppPyObject<PkgSourceListStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgSourceListStruct>,   // tp_dealloc
+   CppDealloc<PkgSourceListStruct>,   // tp_dealloc
    0,                                   // tp_print
    PkgSourceListAttr,                      // tp_getattr
    0,                                   // tp_setattr

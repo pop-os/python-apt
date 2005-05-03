@@ -26,6 +26,9 @@ struct PkgSrcRecordsStruct
       List.ReadMainList();
       Records = new pkgSrcRecords(List);
    };
+   ~PkgSrcRecordsStruct() {
+      delete Records;
+   };
 };
     
 // PkgSrcRecords Class							/*{{{*/
@@ -43,7 +46,8 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    Struct.Last = Struct.Records->Find(Name, false);
    if (Struct.Last == 0) {
       Struct.Records->Restart();
-      return Py_None;
+      Py_INCREF(Py_None);
+      return HandleErrors(Py_None);
    }
 
    return Py_BuildValue("i", 1);
@@ -124,6 +128,11 @@ PyTypeObject PkgSrcRecordsType =
 
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 {
-   return CppPyObject_NEW<PkgSrcRecordsStruct>(&PkgSrcRecordsType);
+   PyObject *Owner;
+   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
+      return 0;
+
+   return HandleErrors(CppOwnedPyObject_NEW<PkgSrcRecordsStruct>(Owner,
+			   &PkgSrcRecordsType));
 }
 

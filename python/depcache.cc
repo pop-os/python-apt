@@ -43,9 +43,6 @@ struct PkgDepCacheStruct
       delete depcache;
       delete policy;
    };
-
-
-   PkgDepCacheStruct() {abort();};
 };
 
 
@@ -439,11 +436,10 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"MarkedInstall",PkgDepCacheMarkedInstall,METH_VARARGS,"Is pkg marked for install"},
    {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
    {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
-   {"MarkedKeep",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for keep"},
+   {"MarkedKeep",PkgDepCacheMarkedKeep,METH_VARARGS,"Is pkg marked for keep"},
 
    // Action
    {"Commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},
-
    {}
 };
 
