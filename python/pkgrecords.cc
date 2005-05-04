@@ -50,8 +50,9 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
    
    // Do the lookup
    Struct.Last = &Struct.Records.Lookup(pkgCache::VerFileIterator(*Cache,Cache->VerFileP+Index));
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+
+   // always return true (to make it consistent with the pkgsrcrecords object
+   return Py_BuildValue("i", 1);
 }
 
 static PyMethodDef PkgRecordsMethods[] = 

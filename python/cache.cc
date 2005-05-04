@@ -613,6 +613,7 @@ PyTypeObject PackageFileType =
 };
    
 
+// depends class
 static PyObject *DependencyRepr(PyObject *Self)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
