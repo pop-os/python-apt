@@ -9,6 +9,9 @@ export DH_OPTIONS
 # This is the debhelper compatibility version to use.
 export DH_COMPAT=3
 
+DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
+DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
+
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
@@ -82,7 +85,6 @@ arch-build:
 	mkdir -p debian/arch-build/python-apt-$(DEBVER)
 	baz inventory -s | xargs cp -a --parents --target=debian/arch-build/python-apt-$(DEBVER)
 	(cd debian/arch-build/python-apt-$(DEBVER); $(DEB_BUILD_PROG))
-
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary

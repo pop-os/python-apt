@@ -47,7 +47,7 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    if (Struct.Last == 0) {
       Struct.Records->Restart();
       Py_INCREF(Py_None);
-      return HandleErrors(Py_None);
+      return HandleErrors(Py_None);	
    }
 
    return Py_BuildValue("i", 1);

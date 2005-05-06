@@ -35,6 +35,7 @@ print "\n\n depcache"
 depcache = apt_pkg.GetDepCache(cache, progress)
 depcache.ReadPinFile()
 # init is needed after the creation/pin file reading
+depcache.Init()
 print "got a depcache: %s " % depcache
 print "Marked for install: %s " % depcache.InstCount
 

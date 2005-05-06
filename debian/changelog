@@ -1,14 +1,17 @@
-python-apt (0.5.37) hoary; urgency=low
-
-  * fixed some reference count problems in the depcache code
-  * DepCache.Init() is never called implicit now
-  * merged with Greek0@gmx.net--2005-main/python-apt--debian--0.6
-    that fixes a segfault in the pkgsrcrecords code
+python-apt (0.6.12) hoary; urgency=low
+  
   * added a tests/ directory
   * added tests/pkgsrcrecords.py that will check if the pkgsrcrecords
     interface does not segfault
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  7 Apr 2005 10:20:30 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 May 2005 10:11:52 +0200
+  
+python-apt (0.6.11) experimental; urgency=low
+
+  * fixed some reference count problems in the depcache and 
+    pkgsrcrecords code
+  * DepCache.Init() is never called implicit now
+  * merged with python-apt tree from Greek0@gmx.net--2005-main
 
 python-apt (0.5.36ubuntu2) hoary; urgency=low
 
