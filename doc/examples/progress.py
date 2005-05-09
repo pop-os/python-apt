@@ -1,11 +1,11 @@
-import apt_pkg
+import apt
 import sys
 import time
 import string
 
-class OpProgress:
+class TextProgress(apt.OpProgress):
     def __init__(self):
-        self.last = 0.0
+        self.last=0.0
 
     def Update(self, percent):
         if (self.last + 1.0) <= percent:
@@ -19,7 +19,7 @@ class OpProgress:
         print "\rDone                      "
 
 
-class FetchProgress:
+class TextFetchProgress(apt.FetchProgress):
     def __init__(self):
         pass
     
@@ -40,7 +40,7 @@ class FetchProgress:
         #return False
 
 
-class InstallProgress:
+class TextInstallProgress(apt.InstallProgress):
     def __init__(self):
         pass
     def StartUpdate(self):
@@ -52,7 +52,7 @@ class InstallProgress:
         time.sleep(0.1)
 
 
-class CdromProgress:
+class TextCdromProgress(apt.CdromProgress):
     def __init__(self):
         pass
     # update is called regularly so that the gui can be redrawn

@@ -22,7 +22,7 @@ build-stamp:
 	dh_testdir
 
 	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py build; \
+		CC="g++" /usr/bin/$$PY setup.py build; \
 	done
 
 	touch build-stamp

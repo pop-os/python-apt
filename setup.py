@@ -5,6 +5,7 @@ from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
 import string, glob
 
+
 # The apt_pkg module
 files = string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]);
 for i in range(0,len(files)):
@@ -20,7 +21,7 @@ apt_inst = Extension("apt_inst", files,
 		libraries=["apt-pkg","apt-inst"]);
 
 setup(name="python-apt", 
-      version="0.5.37",
+      version="0.6.12",
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",

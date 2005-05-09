@@ -1,29 +1,17 @@
 #!/usr/bin/python
 # example how to deal with the depcache
 
+import apt
 import apt_pkg
 import sys
 import copy
+from progress import TextProgress
 
-class MyProgress:
-    def __init__(self):
-        self.last = 0.0
-
-    def Update(self, percent):
-        if (self.last + 1.0) <= percent:
-            print "Progress: %s " % (percent)
-            self.last = percent
-        if percent >= 100:
-            self.last = 0.0
-
-    def Done(self):
-        self.last = 0.0
-        print "Done!"
 
 # init
 apt_pkg.init()
 
-progress = MyProgress()
+progress = TextProgress()
 cache = apt_pkg.GetCache(progress)
 print "Available packages: %s " % cache.PackageCount
 
@@ -32,10 +20,10 @@ print "example package iter: %s" % iter
 
 # get depcache
 print "\n\n depcache"
-depcache = apt_pkg.GetDepCache(cache, progress)
+depcache = apt_pkg.GetDepCache(cache)
 depcache.ReadPinFile()
 # init is needed after the creation/pin file reading
-depcache.Init()
+depcache.Init(progress)
 print "got a depcache: %s " % depcache
 print "Marked for install: %s " % depcache.InstCount
 
@@ -78,7 +66,7 @@ print "Marking %s for keep" % iter.Name
 depcache.MarkKeep(iter)
 print "Install: %s " % depcache.InstCount
 
-iter = cache["3dwm-server"]
+iter = cache["synaptic"]
 print "\nMarking '%s' for install" % iter.Name
 depcache.MarkInstall(iter)
 print "Install: %s " % depcache.InstCount

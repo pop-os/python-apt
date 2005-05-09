@@ -493,7 +493,7 @@ PyTypeObject PkgDepCacheType =
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
    PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
+   if (PyArg_ParseTuple(Args,"O!|O",&PkgCacheType,&Owner) == 0)
       return 0;
 
    PyObject *DepCachePyObj;
