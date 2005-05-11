@@ -98,11 +98,13 @@ class Package(object):
     def MarkedUpgrade(self):
         return self._depcache.MarkedUpgrade(self._pkg)
     def MarkedDelete(self):
-        return self._depcache.MarkedKeep(self._pkg)
+        return self._depcache.MarkedDelete(self._pkg)
     def MarkedKeep(self):
         return self._depcache.MarkedKeep(self._pkg)
+    def IsInstalled(self):
+        return (self._pkg.CurrentVer != None)
     def IsUpgradable(self):
-        return self._depcache.IsUpgradable(self._pkg)
+        return IsInstalled() and self._depcache.IsUpgradable(self._pkg)
 
     # depcache action
     def MarkKeep(self):
