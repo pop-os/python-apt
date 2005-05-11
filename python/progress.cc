@@ -22,7 +22,7 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
    PyObject *method = PyObject_GetAttrString(callbackInst,(char*) method_name);
    if(method == NULL) {
       // FIXME: make this silent
-      std::cerr << "Can't find '" << method_name << "' method" << std::endl;
+      //std::cerr << "Can't find '" << method_name << "' method" << std::endl;
       Py_XDECREF(arglist);
       return false;
    }
@@ -50,9 +50,19 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 // FIXME: add "string Op, string SubOp" as attribute to the callbackInst
 void PyOpProgress::Update() 
 {
+
+   PyObject *o;
+   o = Py_BuildValue("s", Op.c_str());
+   PyObject_SetAttrString(callbackInst, "Op", o);
+   o = Py_BuildValue("s", SubOp.c_str());
+   PyObject_SetAttrString(callbackInst, "SubOp", o);
+   o = Py_BuildValue("b", MajorChange);
+   PyObject_SetAttrString(callbackInst, "MajorChange", o);
+
    // Build up the argument list... 
    PyObject *arglist = Py_BuildValue("(f)", Percent);
-   RunSimpleCallback("Update", arglist);
+   if(CheckChange(0.05))
+      RunSimpleCallback("Update", arglist);
 };
 
 void PyOpProgress::Done()
