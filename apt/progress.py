@@ -1,11 +1,24 @@
 
 class OpProgress:
+    """ Abstract class to implement reporting on cache opening """
     def __init__(self):
         pass
     def Update(self, percent):
         pass
     def Done(self):
         pass
+
+class OpTextProgress(OpProgress):
+    """ A simple text based cache open reporting class """
+    def __init__(self):
+        OpProgress.__init__(self)
+    def Update(self, percent):
+        sys.stdout.write("\r%s: %.2i  " % (self.Op,percent))
+        sys.stdout.flush()
+    def Done(self):
+        sys.stdout.write("\r%s: Done\n" % self.Op)
+
+
 
 class FetchProgress:
     def __init__(self):
