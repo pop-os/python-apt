@@ -1,7 +1,6 @@
 #!/usr/bin/env python2.4
 #
-# Test for the PkgSrcRecords code
-# it segfaults for python-apt < 0.5.37
+# Test for the pkgCache code
 # 
 
 import apt_pkg
