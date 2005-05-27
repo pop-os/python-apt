@@ -52,6 +52,7 @@ PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
    
 // Cache Stuff
 extern PyTypeObject PkgCacheType;
+extern PyTypeObject PkgCacheFileType;
 extern PyTypeObject PkgListType;
 extern PyTypeObject PackageType;
 extern PyTypeObject PackageFileType;

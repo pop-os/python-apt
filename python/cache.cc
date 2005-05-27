@@ -72,7 +72,8 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
 // ---------------------------------------------------------------------
 static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 {   
-   pkgCacheFile *Cache = GetCpp<pkgCacheFile *>(Self);
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
    PyObject *pyOpProgressInst = 0;
    PyObject *pyFetchProgressInst = 0;
@@ -208,10 +209,10 @@ PyTypeObject PkgCacheFileType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "pkgCacheFile",                      // tp_name
-   sizeof(CppOwnedPyObject<pkgCacheFile>),   // tp_basicsize
+   sizeof(CppOwnedPyObject<pkgCacheFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgCacheFile>,       // tp_dealloc
+   CppOwnedDealloc<pkgCacheFile*>,       // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -797,13 +798,15 @@ PyTypeObject RDepListType =
    
 									/*}}}*/
 
+
+
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
-   pkgCacheFile *Cache = new pkgCacheFile();
-
    PyObject *pyCallbackInst = 0;
    if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
       return 0;
+
+   pkgCacheFile *Cache = new pkgCacheFile();
 
    if(pyCallbackInst != 0) {
       PyOpProgress progress;
@@ -816,8 +819,8 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 	 return HandleErrors();
    }
 
-   CppOwnedPyObject<pkgCacheFile> *CacheFileObj =
-	   CppOwnedPyObject_NEW<pkgCacheFile>(0,&PkgCacheFileType, *Cache);
+   CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
+	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PkgCacheFileType, Cache);
    
    CppOwnedPyObject<pkgCache *> *CacheObj =
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,&PkgCacheType,

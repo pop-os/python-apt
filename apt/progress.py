@@ -1,3 +1,4 @@
+import sys
 
 class OpProgress:
     """ Abstract class to implement reporting on cache opening """
@@ -60,3 +61,12 @@ class CdromProgress:
         pass
     def ChangeCdrom(self):
         pass
+
+# module test code
+if __name__ == "__main__":
+    import apt_pkg
+    apt_pkg.init()
+    progress = OpTextProgress()
+    cache = apt_pkg.GetCache(progress)
+    depcache = apt_pkg.GetDepCache(cache)
+    depcache.Init(progress)
