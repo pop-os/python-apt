@@ -10,7 +10,6 @@ class Cache(object):
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
         self._records = apt_pkg.GetPkgRecords(self._cache)
-        self._depcache.Init(progress)
         self._dict = {}
 
         # build the packages dict
