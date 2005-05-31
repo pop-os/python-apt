@@ -41,7 +41,7 @@ class Cache(object):
         self._depcache.Commit(fprogress, iprogress)
 
 
-
+# ----------------------------- experimental interface
 class Filter(object):
     def apply(self, pkg):
         return True
@@ -78,14 +78,15 @@ class FilteredCache(Cache):
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
-    #c = Cache()
-    #print c.has_key("aptitudex")
-    #p = c["aptitude"]
-    #print p.Name()
-    #print len(c)
+    c = Cache()
+    print c.has_key("aptitude")
+    p = c["aptitude"]
+    print p.Name()
+    print len(c)
 
-    #for pkg in c.keys():
-    #    x= c[pkg].Name()
+    for pkg in c.keys():
+        x= c[pkg].Name()
+
 
     c = FilteredCache()
     c.Upgrade()
