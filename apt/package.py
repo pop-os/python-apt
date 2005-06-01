@@ -108,7 +108,7 @@ class Package(object):
     def IsInstalled(self):
         return (self._pkg.CurrentVer != None)
     def IsUpgradable(self):
-        return IsInstalled() and self._depcache.IsUpgradable(self._pkg)
+        return self.IsInstalled() and self._depcache.IsUpgradable(self._pkg)
 
     # depcache action
     def MarkKeep(self):

@@ -63,8 +63,8 @@ class MarkedChangesFilter(Filter):
             return False
 
 class FilteredCache(Cache):
-    def __init__(self):
-        Cache.__init__(self)
+    def __init__(self, progress=None):
+        Cache.__init__(self, progress)
         self._filtered = {}
     def __len__(self):
         return len(self._filtered)
@@ -90,7 +90,7 @@ class FilteredCache(Cache):
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
-    c = Cache()
+    c = Cache(OpTextProgress())
     print c.has_key("aptitude")
     p = c["aptitude"]
     print p.Name()
