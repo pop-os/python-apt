@@ -403,6 +403,37 @@ static PyObject *PkgDepCacheMarkedKeep(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_BuildValue("b",state.Keep()));   
 }
 
+static PyObject *PkgDepCacheMarkedDowngrade(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   pkgDepCache::StateCache &state = (*depcache)[Pkg];
+
+   return HandleErrors(Py_BuildValue("b",state.Downgrade()));   
+}
+
+static PyObject *PkgDepCacheMarkedReinstall(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   pkgDepCache::StateCache &state = (*depcache)[Pkg];
+
+   bool res = state.Install() && (state.iFlags & pkgDepCache::ReInstall);
+
+   return HandleErrors(Py_BuildValue("b",res));   
+}
+
+
 static PyMethodDef PkgDepCacheMethods[] = 
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
@@ -424,6 +455,8 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
    {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
    {"MarkedKeep",PkgDepCacheMarkedKeep,METH_VARARGS,"Is pkg marked for keep"},
+   {"MarkedReinstall",PkgDepCacheMarkedReinstall,METH_VARARGS,"Is pkg marked for reinstall"},
+   {"MarkedDowngrade",PkgDepCacheMarkedDowngrade,METH_VARARGS,"Is pkg marked for downgrade"},
 
    // Action
    {"Commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},

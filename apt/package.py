@@ -101,6 +101,10 @@ class Package(object):
         return self._depcache.MarkedDelete(self._pkg)
     def MarkedKeep(self):
         return self._depcache.MarkedKeep(self._pkg)
+    def MarkedDowngrade(self):
+        return self._depcache.MarkedDowngrade(self._pkg)
+    def MarkedReinstall(self):
+        return self._depcache.MarkedReinstall(self._pkg)
     def IsInstalled(self):
         return (self._pkg.CurrentVer != None)
     def IsUpgradable(self):

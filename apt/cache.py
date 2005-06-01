@@ -4,9 +4,9 @@ from UserDict import UserDict
 
 class Cache(object):
     def __init__(self, progress=None):
-        self.open(progress)
+        self.Open(progress)
 
-    def open(self, progress):
+    def Open(self, progress):
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
         self._records = apt_pkg.GetPkgRecords(self._cache)
@@ -34,6 +34,15 @@ class Cache(object):
     def keys(self):
         return self._dict.keys()
 
+    def GetChanges(self):
+        changes = [] 
+        for name in self._dict.keys():
+            p = self._dict[name]
+            if p.MarkedUpgrade() or p.MarkedInstall() or p.MarkedDelete() or \
+               p.MarkedDowngrade() or p.MarkedReinstall():
+                changes.append(p)
+        return changes
+
     def Upgrade(self, DistUpgrade=False):
         self._depcache.Upgrade(DistUpgrade)
 
@@ -54,6 +63,9 @@ class MarkedChangesFilter(Filter):
             return False
 
 class FilteredCache(Cache):
+    def __init__(self):
+        Cache.__init__(self)
+        self._filtered = {}
     def __len__(self):
         return len(self._filtered)
     
@@ -87,7 +99,11 @@ if __name__ == "__main__":
     for pkg in c.keys():
         x= c[pkg].Name()
 
+    c.Upgrade()
+    for p in c.GetChanges():
+        print p.Name()
 
+    print "Testing filtered cache"
     c = FilteredCache()
     c.Upgrade()
     c.AddFilter(MarkedChangesFilter())
