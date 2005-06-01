@@ -1,8 +1,18 @@
-python-apt (0.6.12) hoary; urgency=low
+python-apt (0.6.12ubuntu1) experimental; urgency=low
+
+  * Greek0@gmx.net--2005-main/python-apt--debian--0.6:
+    - python2.{3,4}-apt conflicts with python-apt (<< 0.6.11)
+      (closes: #308586)
+      (closes ubuntu: #11380)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 12 May 2005 11:34:05 +0200
+
+python-apt (0.6.12) breezy; urgency=low
   
   * added a tests/ directory
   * added tests/pkgsrcrecords.py that will check if the pkgsrcrecords
     interface does not segfault
+  * new native python "apt" interface that hides the details of apt_pkg
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 May 2005 10:11:52 +0200
   
@@ -12,6 +22,8 @@ python-apt (0.6.11) experimental; urgency=low
     pkgsrcrecords code
   * DepCache.Init() is never called implicit now
   * merged with python-apt tree from Greek0@gmx.net--2005-main
+
+ -- Michael Vogt <mvo@debian.org>  Fri,  6 May 2005 10:04:38 +0200
 
 python-apt (0.5.36ubuntu2) hoary; urgency=low
 
