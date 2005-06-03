@@ -12,6 +12,7 @@ class Cache(object):
         self._depcache = apt_pkg.GetDepCache(self._cache)
         self._records = apt_pkg.GetPkgRecords(self._cache)
         self._dict = {}
+        self._callbacks = {}
 
         # build the packages dict
         if progress != None:
@@ -57,13 +58,24 @@ class Cache(object):
 
     def Upgrade(self, DistUpgrade=False):
         self._depcache.Upgrade(DistUpgrade)
+        self.CacheChange()
 
     def Commit(self, fprogress, iprogress):
         self._depcache.Commit(fprogress, iprogress)
 
+    # cache changes
     def CacheChange(self):
         " called internally if the cache changes, emit a signal then "
-        pass
+        if not self._callbacks.has_key("cache_changed"):
+            return
+        for callback in self._callbacks["cache_changed"]:
+            apply(callback)
+
+    def connect(self, name, callback):
+        " connect to a signal, currently only used for cache_changed "
+        if not self._callbacks.has_key(name):
+            self._callbacks[name] = []
+        self._callbacks[name].append(callback)
 
 # ----------------------------- experimental interface
 class Filter(object):
@@ -98,26 +110,31 @@ class FilteredCache(Cache):
             return False
         return True
 
-    def reapplyFilter(self):
+    def _reapplyFilter(self):
         for pkg in self._dict.keys():
             for f in self._filters:
                 if f.apply(self._dict[pkg]):
                     self._filtered[pkg] = 1
-        
+                    break
     
-    def AddFilter(self, filter):
+    def SetFilter(self, filter):
+        self._filters = []
         self._filters.append(filter)
-        self.reapplyFilter()
+        self._reapplyFilter() 
 
     def CacheChange(self):
+        Cache.CacheChange(self)
         " called internally if the cache changes, emit a signal then "
-        reapplyFilter()
+        self._reapplyFilter()
 
+def cache_changed():
+    print "cache changed"
                 
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
     c = Cache(OpTextProgress())
+    c.connect("cache_changed", cache_changed)
     print c.has_key("aptitude")
     p = c["aptitude"]
     print p.Name()
@@ -127,13 +144,19 @@ if __name__ == "__main__":
         x= c[pkg].Name()
 
     c.Upgrade()
-    for p in c.GetChanges():
-        print p.Name()
+    changes = c.GetChanges()
+    print len(changes)
+    for p in changes:
+        #print p.Name()
+        x = p.Name()
 
     print "Testing filtered cache"
     c = FilteredCache()
     c.Upgrade()
-    c.AddFilter(MarkedChangesFilter())
+    c.SetFilter(MarkedChangesFilter())
+    print len(c)
     for pkg in c.keys():
-        print c[pkg].Name()
+        #print c[pkg].Name()
+        x = c[pkg].Name()
     
+    print len(c)
