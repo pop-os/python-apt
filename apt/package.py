@@ -116,14 +116,17 @@ class Package(object):
 
     # depcache action
     def MarkKeep(self):
+        self._pcache.CachePreChange()
         self._depcache.MarkKeep(self._pkg)
-        self._pcache.CacheChange()
+        self._pcache.CachePostChange()
     def MarkDelete(self):
+        self._pcache.CachePreChange()
         self._depcache.MarkDelete(self._pkg)
-        self._pcache.CacheChange()
+        self._pcache.CachePostChange()
     def MarkInstall(self):
+        self._pcache.CachePreChange()
         return self._depcache.MarkInstall(self._pkg)
-        self._pcache.CacheChange()
+        self._pcache.CachePostChange()
 
     # size
     def PackageSize(self, UseCandidate=True):

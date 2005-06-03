@@ -57,22 +57,32 @@ class Cache(object):
         return changes
 
     def Upgrade(self, DistUpgrade=False):
+        self.CachePreChange()
         self._depcache.Upgrade(DistUpgrade)
-        self.CacheChange()
+        self.CachePostChange()
 
     def Commit(self, fprogress, iprogress):
         self._depcache.Commit(fprogress, iprogress)
 
     # cache changes
-    def CacheChange(self):
-        " called internally if the cache changes, emit a signal then "
-        if not self._callbacks.has_key("cache_changed"):
+    def CachePostChange(self):
+        " called internally if the cache has changed, emit a signal then "
+        if not self._callbacks.has_key("cache_post_change"):
             return
-        for callback in self._callbacks["cache_changed"]:
+        for callback in self._callbacks["cache_post_change"]:
+            apply(callback)
+
+    def CachePreChange(self):
+        """ called internally if the cache is about to change, emit
+            a signal then """
+        if not self._callbacks.has_key("cache_pre_change"):
+            return
+        for callback in self._callbacks["cache_pre_change"]:
             apply(callback)
 
     def connect(self, name, callback):
-        " connect to a signal, currently only used for cache_changed "
+        """ connect to a signal, currently only used for
+            cache_{post,pre}_changed """
         if not self._callbacks.has_key(name):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
@@ -122,19 +132,23 @@ class FilteredCache(Cache):
         self._filters.append(filter)
         self._reapplyFilter() 
 
-    def CacheChange(self):
-        Cache.CacheChange(self)
+    def CachePostChange(self):
+        Cache.CachePostChange(self)
         " called internally if the cache changes, emit a signal then "
         self._reapplyFilter()
 
-def cache_changed():
-    print "cache changed"
+def cache_pre_changed():
+    print "cache pre changed"
+
+def cache_post_changed():
+    print "cache post changed"
                 
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
     c = Cache(OpTextProgress())
-    c.connect("cache_changed", cache_changed)
+    c.connect("cache_pre_change", cache_pre_changed)
+    c.connect("cache_post_change", cache_post_changed)
     print c.has_key("aptitude")
     p = c["aptitude"]
     print p.Name()
