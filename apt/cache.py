@@ -133,9 +133,9 @@ class FilteredCache(Cache):
         self._reapplyFilter() 
 
     def CachePostChange(self):
-        Cache.CachePostChange(self)
         " called internally if the cache changes, emit a signal then "
         self._reapplyFilter()
+        Cache.CachePostChange(self)
 
 def cache_pre_changed():
     print "cache pre changed"
@@ -166,6 +166,8 @@ if __name__ == "__main__":
 
     print "Testing filtered cache"
     c = FilteredCache()
+    c.connect("cache_pre_change", cache_pre_changed)
+    c.connect("cache_post_change", cache_post_changed)
     c.Upgrade()
     c.SetFilter(MarkedChangesFilter())
     print len(c)

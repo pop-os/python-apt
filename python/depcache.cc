@@ -358,7 +358,7 @@ static PyObject *PkgDepCacheMarkedInstall(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Install()));   
+   return HandleErrors(Py_BuildValue("b",state.NewInstall()));   
 }
 
 static PyObject *PkgDepCacheMarkedUpgrade(PyObject *Self,PyObject *Args)

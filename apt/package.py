@@ -125,9 +125,14 @@ class Package(object):
         self._pcache.CachePostChange()
     def MarkInstall(self):
         self._pcache.CachePreChange()
-        return self._depcache.MarkInstall(self._pkg)
+        self._depcache.MarkInstall(self._pkg)
         self._pcache.CachePostChange()
-
+    def MarkUpgrade(self):
+        if self.IsUpgradable():
+            self.MarkInstall()
+        # FIXME: we may want to throw a exception here
+        sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg")
+        
     # size
     def PackageSize(self, UseCandidate=True):
         if UseCandidate:
