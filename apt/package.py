@@ -2,12 +2,13 @@ import apt_pkg, string
 
 class Package(object):
 
-    def __init__(self, cache, depcache, records, pkgiter):
+    def __init__(self, cache, depcache, records, pcache, pkgiter):
         """ Init the Package object """
-        self._cache = cache
+        self._cache = cache             # low level cache
         self._depcache = depcache
         self._records = records
         self._pkg = pkgiter
+        self._pcache = pcache           # python cache in cache.py
         pass
 
     # helper
@@ -18,6 +19,9 @@ class Package(object):
             ver = self._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.CurrentVer
+        if ver.FileList == None:
+            print "got: %s " % ver.FileList
+            return
         file, index = ver.FileList.pop(0)
         self._records.Lookup((file,index))
 
@@ -112,11 +116,14 @@ class Package(object):
 
     # depcache action
     def MarkKeep(self):
-        return self._depcache.MarkKeep(self._pkg)
+        self._depcache.MarkKeep(self._pkg)
+        self._pcache.CacheChange()
     def MarkDelete(self):
-        return self._depcache.MarkDelete(self._pkg)
+        self._depcache.MarkDelete(self._pkg)
+        self._pcache.CacheChange()
     def MarkInstall(self):
         return self._depcache.MarkInstall(self._pkg)
+        self._pcache.CacheChange()
 
     # size
     def PackageSize(self, UseCandidate=True):
