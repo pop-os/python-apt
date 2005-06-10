@@ -5,14 +5,21 @@ from UserDict import UserDict
 
 class Cache(object):
     def __init__(self, progress=None):
+        self._callbacks = {}
         self.Open(progress)
 
+    def _runCallbacks(self, name):
+        if self._callbacks.has_key(name):
+            for callback in self._callbacks[name]:
+                apply(callback)
+        
     def Open(self, progress):
+        self._runCallbacks("cache_pre_open")
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
         self._records = apt_pkg.GetPkgRecords(self._cache)
         self._dict = {}
-        self._callbacks = {}
+
 
         # build the packages dict
         if progress != None:
@@ -30,6 +37,7 @@ class Cache(object):
             i += 1
         if progress != None:
             progress.Done()
+        self._runCallbacks("cache_post_open")
         
     def __getitem__(self, key):
         return self._dict[key]
@@ -67,18 +75,12 @@ class Cache(object):
     # cache changes
     def CachePostChange(self):
         " called internally if the cache has changed, emit a signal then "
-        if not self._callbacks.has_key("cache_post_change"):
-            return
-        for callback in self._callbacks["cache_post_change"]:
-            apply(callback)
+        self._runCallbacks("cache_post_change")
 
     def CachePreChange(self):
         """ called internally if the cache is about to change, emit
             a signal then """
-        if not self._callbacks.has_key("cache_pre_change"):
-            return
-        for callback in self._callbacks["cache_pre_change"]:
-            apply(callback)
+        self._runCallbacks("cache_pre_change")
 
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
@@ -99,16 +101,23 @@ class MarkedChangesFilter(Filter):
         else:
             return False
 
-class FilteredCache(Cache):
-    def __init__(self, progress=None):
-        Cache.__init__(self, progress)
+class FilteredCache(object):
+    """ a cache that if filtered, can work on a existing cache or create
+        a new one """
+    def __init__(self, cache=None, progress=None):
+        if cache == None:
+            self.cache = Cache(progress)
+        else:
+            self.cache = cache
+        self.cache.connect("cache_post_change", self.FilterCachePostChange)
+        self.cache.connect("cache_post_open", self.FilterCachePostChange)
         self._filtered = {}
         self._filters = []
     def __len__(self):
         return len(self._filtered)
     
     def __getitem__(self, key):
-        return self._dict[key]
+        return self.cache._dict[key]
 
     def keys(self):
         return self._filtered.keys()
@@ -121,21 +130,36 @@ class FilteredCache(Cache):
         return True
 
     def _reapplyFilter(self):
-        for pkg in self._dict.keys():
+        " internal helper to refilter "
+        self._filtered = {}
+        for pkg in self.cache._dict.keys():
             for f in self._filters:
-                if f.apply(self._dict[pkg]):
+                if f.apply(self.cache._dict[pkg]):
                     self._filtered[pkg] = 1
                     break
     
     def SetFilter(self, filter):
+        " set the current active filter "
         self._filters = []
         self._filters.append(filter)
         self._reapplyFilter() 
 
-    def CachePostChange(self):
+    def FilterCachePostChange(self):
         " called internally if the cache changes, emit a signal then "
+        print "FilterCachePostChange()"
         self._reapplyFilter()
-        Cache.CachePostChange(self)
+
+#    def connect(self, name, callback):
+#        self.cache.connect(name, callback)
+
+    def __getattr__(self, key):
+        " we try to look exactly like a real cache "
+        #print "getattr: %s " % key
+        if self.__dict__.has_key(key):
+            return self.__dict__[key]
+        else:
+            return getattr(self.cache, key)
+            
 
 def cache_pre_changed():
     print "cache pre changed"
@@ -164,15 +188,28 @@ if __name__ == "__main__":
         #print p.Name()
         x = p.Name()
 
-    print "Testing filtered cache"
-    c = FilteredCache()
-    c.connect("cache_pre_change", cache_pre_changed)
-    c.connect("cache_post_change", cache_post_changed)
-    c.Upgrade()
-    c.SetFilter(MarkedChangesFilter())
-    print len(c)
-    for pkg in c.keys():
+    print "Testing filtered cache (argument is old cache)"
+    f = FilteredCache(c)
+    f.cache.connect("cache_pre_change", cache_pre_changed)
+    f.cache.connect("cache_post_change", cache_post_changed)
+    f.cache.Upgrade()
+    f.SetFilter(MarkedChangesFilter())
+    print len(f)
+    for pkg in f.keys():
         #print c[pkg].Name()
-        x = c[pkg].Name()
+        x = f[pkg].Name()
     
-    print len(c)
+    print len(f)
+
+    print "Testing filtered cache (no argument)"
+    f = FilteredCache(progress=OpTextProgress())
+    f.cache.connect("cache_pre_change", cache_pre_changed)
+    f.cache.connect("cache_post_change", cache_post_changed)
+    f.cache.Upgrade()
+    f.SetFilter(MarkedChangesFilter())
+    print len(f)
+    for pkg in f.keys():
+        #print c[pkg].Name()
+        x = f[pkg].Name()
+    
+    print len(f)
