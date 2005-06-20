@@ -19,12 +19,18 @@ class Package(object):
             ver = self._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.CurrentVer
+
+        # check if we found a version
+        if ver == None:
+            print "No version for: %s (Candiate: %s)" % (self._pkg.Name, UseCandidate)
+            return False
+        
         if ver.FileList == None:
-            print "got: %s " % ver.FileList
-            return
+            print "No FileList for: %s " % self._pkg.Name()
+            return False
         file, index = ver.FileList.pop(0)
         self._records.Lookup((file,index))
-
+        return True
 
     # basic information
     def Name(self):
@@ -123,9 +129,15 @@ class Package(object):
         self._pcache.CachePreChange()
         self._depcache.MarkDelete(self._pkg)
         self._pcache.CachePostChange()
-    def MarkInstall(self):
+    def MarkInstall(self, autoFix=True):
         self._pcache.CachePreChange()
         self._depcache.MarkInstall(self._pkg)
+        # try to fix broken stuff
+        if autoFix and self._depcache.BrokenCount > 0:
+            fixer = apt_pkg.GetPkgProblemResolver(self._depcache)
+            fixer.Clear(self._pkg)
+            fixer.Protect(self._pkg)
+            fixer.Resolve(True)
         self._pcache.CachePostChange()
     def MarkUpgrade(self):
         if self.IsUpgradable():

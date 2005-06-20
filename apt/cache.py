@@ -142,11 +142,13 @@ class FilteredCache(object):
         " set the current active filter "
         self._filters = []
         self._filters.append(filter)
-        self._reapplyFilter() 
+        #self._reapplyFilter()
+        # force a cache-change event that will result in a refiltering
+        self.cache.CachePostChange()
 
     def FilterCachePostChange(self):
         " called internally if the cache changes, emit a signal then "
-        print "FilterCachePostChange()"
+        #print "FilterCachePostChange()"
         self._reapplyFilter()
 
 #    def connect(self, name, callback):

@@ -336,6 +336,9 @@ static PyMethodDef methods[] =
    {"GetPkgSrcRecords",GetPkgSrcRecords,METH_VARARGS,"GetPkgSrcRecords() -> PkgSrcRecords"},
    {"GetPkgSourceList",GetPkgSourceList,METH_VARARGS,"GetPkgSourceList() -> PkgSourceList"},
 
+   // misc
+   {"GetPkgProblemResolver",GetPkgProblemResolver,METH_VARARGS,"GetDepProblemResolver(DepCache) -> PkgProblemResolver"},
+
    // Cdrom
    {"GetCdrom",GetCdrom,METH_VARARGS,"GetCdrom() -> Cdrom"},
 

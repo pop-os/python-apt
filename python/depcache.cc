@@ -28,6 +28,8 @@
 #include "progress.h"
 
 
+
+
 // DepCache Class								/*{{{*/
 // ---------------------------------------------------------------------
 
@@ -188,6 +190,25 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
+{ 
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+   PyObject *PackageObj;
+   PyObject *VersionObj;
+   if (PyArg_ParseTuple(Args,"O!O!",
+			&PackageType, &PackageObj, 
+			&VersionType, &VersionObj) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   pkgCache::VerIterator I = GetCpp<pkgCache::VerIterator>(VersionObj);
+   if(I.end()) {
+      return HandleErrors(Py_BuildValue("b",false));
+   }
+   depcache->SetCandidateVersion(I);
+   
+   return HandleErrors(Py_BuildValue("b",true));
+}
 
 static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
 { 
@@ -298,7 +319,8 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   depcache->MarkInstall(Pkg);
+   depcache->MarkInstall(Pkg, true);
+   pkgDepCache::StateCache & State = (*depcache)[Pkg];
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
@@ -438,6 +460,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
+   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Get candidate version"},
 
    // global cache operations
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
@@ -535,5 +558,142 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 
 
 
+
+									/*}}}*/
+
+
+// pkgProblemResolver Class						/*{{{*/
+// ---------------------------------------------------------------------
+
+
+PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args)
+{
+   PyObject *Owner;
+   if (PyArg_ParseTuple(Args,"O!",&PkgDepCacheType,&Owner) == 0)
+      return 0;
+
+   pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
+   pkgProblemResolver *fixer = new pkgProblemResolver(depcache);
+   CppOwnedPyObject<pkgProblemResolver*> *PkgProblemResolverPyObj;
+   PkgProblemResolverPyObj = CppOwnedPyObject_NEW<pkgProblemResolver*>(Owner,
+						      &PkgProblemResolverType,
+						      fixer);
+   HandleErrors(PkgProblemResolverPyObj);
+
+   return PkgProblemResolverPyObj;
+
+}
+
+
+static PyObject *PkgProblemResolverResolve(PyObject *Self,PyObject *Args)
+{   
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+
+   char brokenFix=1;
+   if (PyArg_ParseTuple(Args,"|b",&brokenFix) == 0)
+      return 0;
+
+   bool res = fixer->Resolve(brokenFix);
+
+   return HandleErrors(Py_BuildValue("b", res));
+}
+
+static PyObject *PkgProblemResolverResolveByKeep(PyObject *Self,PyObject *Args)
+{   
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   bool res = fixer->ResolveByKeep();
+   return HandleErrors(Py_BuildValue("b", res));
+}
+
+static PyObject *PkgProblemResolverProtect(PyObject *Self,PyObject *Args)
+{   
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   fixer->Protect(Pkg);
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+
+}
+static PyObject *PkgProblemResolverRemove(PyObject *Self,PyObject *Args)
+{
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   fixer->Remove(Pkg);
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);  
+}
+
+static PyObject *PkgProblemResolverClear(PyObject *Self,PyObject *Args)
+{  
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   fixer->Clear(Pkg);
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);  
+} 
+
+static PyObject *PkgProblemResolverInstallProtect(PyObject *Self,PyObject *Args)
+{  
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   fixer->InstallProtect();
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+static PyMethodDef PkgProblemResolverMethods[] = 
+{
+   // config
+   {"Protect", PkgProblemResolverProtect, METH_VARARGS, "Protect(PkgIterator)"},
+   {"Remove", PkgProblemResolverRemove, METH_VARARGS, "Remove(PkgIterator)"},
+   {"Clear", PkgProblemResolverClear, METH_VARARGS, "Clear(PkgIterator)"},
+   {"InstallProtect", PkgProblemResolverInstallProtect, METH_VARARGS, "ProtectInstalled()"},
+
+   // Actions
+   {"Resolve", PkgProblemResolverResolve, METH_VARARGS, "Try to intelligently resolve problems by installing and removing packages"},
+   {"ResolveByKeep", PkgProblemResolverResolveByKeep, METH_VARARGS, "Try to resolv problems only by using keep"},
+   {}
+};
+
+
+static PyObject *ProblemResolverAttr(PyObject *Self,char *Name)
+{
+   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
+   
+   return Py_FindMethod(PkgProblemResolverMethods,Self,Name);
+}
+
+
+PyTypeObject PkgProblemResolverType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgProblemResolver",                       // tp_name
+   sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppOwnedDealloc<pkgProblemResolver *>,        // tp_dealloc
+   0,                                   // tp_print
+   ProblemResolverAttr,                           // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,	                                // tp_as_mapping
+   0,                                   // tp_hash
+};
 
 									/*}}}*/
