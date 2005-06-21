@@ -1,4 +1,5 @@
 import apt_pkg, string
+import random
 
 class Package(object):
 
@@ -180,7 +181,7 @@ if __name__ == "__main__":
     records = apt_pkg.GetPkgRecords(cache)
 
     iter = cache["apt-utils"]
-    pkg = Package(cache, depcache, records, iter)
+    pkg = Package(cache, depcache, records, None, iter)
     print "Name: %s " % pkg.Name()
     print "Installed: %s " % pkg.InstalledVersion()
     print "Candidate: %s " % pkg.CandidateVersion()
@@ -194,3 +195,30 @@ if __name__ == "__main__":
     print "InstalledSize: %s " % pkg.InstalledSize()
     print "PackageSize: %s " % pkg.PackageSize()
 
+    # now test install/remove
+    import apt
+    progress = apt.progress.OpTextProgress()
+    cache = apt.Cache(progress)
+    for i in [True, False]:
+        print "Running install on random upgradable pkgs with AutoFix: %s " % i
+        for name in cache.keys():
+            pkg = cache[name]
+            if pkg.IsUpgradable():
+                if random.randint(0,1) == 1:
+                    pkg.MarkInstall(i)
+        print "Broken: %s " % cache._depcache.BrokenCount
+        print "InstCount: %s " % cache._depcache.InstCount
+
+    print
+    # get a new cache
+    for i in [True, False]:
+        print "Randomly remove some packages with AutoFix: %s" % i
+        cache = apt.Cache(progress)
+        for name in cache.keys():
+            if random.randint(0,1) == 1:
+                try:
+                    cache[name].MarkDelete(i)
+                except SystemError:
+                    print "Error trying to remove: %s " % name
+        print "Broken: %s " % cache._depcache.BrokenCount
+        print "DelCount: %s " % cache._depcache.DelCount
