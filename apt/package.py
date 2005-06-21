@@ -125,9 +125,17 @@ class Package(object):
         self._pcache.CachePreChange()
         self._depcache.MarkKeep(self._pkg)
         self._pcache.CachePostChange()
-    def MarkDelete(self):
+    def MarkDelete(self, autoFix=True):
         self._pcache.CachePreChange()
         self._depcache.MarkDelete(self._pkg)
+        # try to fix broken stuffsta
+        if autoFix and self._depcache.BrokenCount > 0:
+            Fix = apt_pkg.GetPkgProblemResolver(self._depcache)
+            Fix.Clear(self._pkg)
+            Fix.Protect(self._pkg)
+            Fix.Remove(self._pkg)
+            Fix.InstallProtect()
+            Fix.Resolve()
         self._pcache.CachePostChange()
     def MarkInstall(self, autoFix=True):
         self._pcache.CachePreChange()
@@ -185,3 +193,4 @@ if __name__ == "__main__":
     print "Description (formated) :\n%s" % pkg.Description(True)
     print "InstalledSize: %s " % pkg.InstalledSize()
     print "PackageSize: %s " % pkg.PackageSize()
+

@@ -9,6 +9,16 @@ if __name__ == "__main__":
         if pkg.IsUpgradable():
             pkg.MarkInstall()
     for pkg in cache.GetChanges():
-        print pkg.Name()
+        #print pkg.Name()
+        pass
     print "Broken: %s " % cache._depcache.BrokenCount
-    
+    print "InstCount: %s " % cache._depcache.InstCount
+
+    # get a new cache
+    cache = apt.Cache(progress)
+    for name in cache.keys():
+        import random
+        if random.randint(0,1) == 1:
+            cache[name].MarkDelete()
+    print "Broken: %s " % cache._depcache.BrokenCount
+    print "DelCount: %s " % cache._depcache.DelCount
