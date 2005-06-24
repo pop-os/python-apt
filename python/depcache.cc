@@ -315,12 +315,12 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   char autoInst=1;
+   if (PyArg_ParseTuple(Args,"O!|b",&PackageType,&PackageObj, &autoInst) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   depcache->MarkInstall(Pkg, true);
-   pkgDepCache::StateCache & State = (*depcache)[Pkg];
+   depcache->MarkInstall(Pkg, autoInst);
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
