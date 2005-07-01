@@ -88,18 +88,21 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    }
 
    pkgSourceList List;
-   if(!List.ReadMainList())
+   if(!List.ReadMainList()) {
+      Py_INCREF(Py_None);
       return HandleErrors(Py_None);
- 
+   }
+
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
 
    pkgAcquire Fetcher(&progress);
    if (!List.GetIndexes(&Fetcher))
       return HandleErrors();
-   if (Fetcher.Run() == pkgAcquire::Failed)
+   if (Fetcher.Run() == pkgAcquire::Failed) {
+      Py_INCREF(Py_None);
       return HandleErrors(Py_None);
-
+   }
    
 
    if(pyOpProgressInst != 0) {
@@ -109,18 +112,63 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 	 return HandleErrors();
    }  else {
       OpTextProgress Prog;
-      if (Cache->Open(Prog,false) == false)
+      if (Cache->Open(Prog,false) == false) {
+	 Py_INCREF(Py_None);
 	 return HandleErrors(Py_None);
+      }
    }
 
+
+   Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
+{   
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
+   Cache->Close();
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
+{   
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
+
+   PyObject *pyCallbackInst = 0;
+   if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
+      return 0;
+
+   if(pyCallbackInst != 0) {
+      PyOpProgress progress;
+      progress.setCallbackInst(pyCallbackInst);
+      if (Cache->Open(progress,false) == false)
+	 return HandleErrors();
+   }  else {
+      OpTextProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	 return HandleErrors();
+   }
+
+   //std::cout << "new cache is " << (pkgCache*)(*Cache) << std::endl;
+
+   // update the cache pointer after the cache was rebuild
+   ((CppPyObject<pkgCache*> *)Self)->Object = (pkgCache*)(*Cache);
+
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
 
 
 static PyMethodDef PkgCacheMethods[] = 
 {
    {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
+   {"Open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
+   {"Close", PkgCacheClose, METH_VARARGS,"Close the cache"},
    {}
 };
 
