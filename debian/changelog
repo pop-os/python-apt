@@ -1,4 +1,4 @@
-python-apt (0.6.13) breezy; urgency=low
+python-apt (0.6.12ubuntu1mvo1) breezy; urgency=low
 
   * support for Marked{Downgrade,Reinstall} added
   * Cache.GetChanges() added 
