@@ -546,7 +546,9 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",Ver->Priority);
    else if (strcmp("PriorityStr",Name) == 0)
       return PyString_FromString(Ver.PriorityType());
-   
+   else if (strcmp("Downloadable", Name) == 0)
+      return Py_BuildValue("b", Ver.Downloadable());
+
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;
 }
