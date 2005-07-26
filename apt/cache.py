@@ -4,16 +4,21 @@ from apt.progress import OpTextProgress
 from UserDict import UserDict
 
 class Cache(object):
+    """ Package cache object """
     def __init__(self, progress=None):
         self._callbacks = {}
         self.Open(progress)
 
     def _runCallbacks(self, name):
+        """ internal helper to run a callback """
         if self._callbacks.has_key(name):
             for callback in self._callbacks[name]:
                 apply(callback)
         
     def Open(self, progress):
+        """ Open the package cache, after that it can be used like
+            a dictionary
+        """
         self._runCallbacks("cache_pre_open")
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
@@ -56,6 +61,7 @@ class Cache(object):
         return self._dict.keys()
 
     def GetChanges(self):
+        """ Get the marked changes """
         changes = [] 
         for name in self._dict.keys():
             p = self._dict[name]
@@ -65,11 +71,15 @@ class Cache(object):
         return changes
 
     def Upgrade(self, DistUpgrade=False):
+        """ Upgrade the all package, DistUpgrade will also install
+            new dependencies
+        """
         self.CachePreChange()
         self._depcache.Upgrade(DistUpgrade)
         self.CachePostChange()
 
     def Commit(self, fprogress, iprogress):
+        """ Apply the marked changes to the cache """
         self._depcache.Commit(fprogress, iprogress)
 
     # cache changes
@@ -91,10 +101,15 @@ class Cache(object):
 
 # ----------------------------- experimental interface
 class Filter(object):
+    """ Filter base class """
     def apply(self, pkg):
+        """ Filter function, return True if the package matchs a
+            filter criteria and False otherwise
+        """
         return True
 
 class MarkedChangesFilter(Filter):
+    """ Filter that returns all marked changes """
     def apply(self, pkg):
         if pkg.MarkedInstall() or pkg.MarkedDelete() or pkg.MarkedUpgrade():
             return True
@@ -102,8 +117,10 @@ class MarkedChangesFilter(Filter):
             return False
 
 class FilteredCache(object):
-    """ a cache that if filtered, can work on a existing cache or create
-        a new one """
+    """ A package cache that is filtered.
+
+        Can work on a existing cache or create a new one
+    """
     def __init__(self, cache=None, progress=None):
         if cache == None:
             self.cache = Cache(progress)
@@ -168,7 +185,9 @@ def cache_pre_changed():
 
 def cache_post_changed():
     print "cache post changed"
-                
+
+
+# internal test code
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
