@@ -5,7 +5,7 @@ import apt_pkg
 import sys, os
 import copy
 
-from progress import OpProgress, FetchProgress, InstallProgress
+from apt.progress import OpProgress, FetchProgress, InstallProgress
 
 
 # init

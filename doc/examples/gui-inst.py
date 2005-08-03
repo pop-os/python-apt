@@ -12,7 +12,7 @@ import gtk
 import vte
 import time
 
-from progress import OpProgress, FetchProgress, InstallProgress
+from apt.progress import OpProgress, FetchProgress, InstallProgress
 
 class GuiFetchProgress(gtk.Window, FetchProgress):
     def __init__(self):
@@ -27,14 +27,14 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 	self.vbox.pack_start(self.progress)
 	self.vbox.pack_start(self.label)
 	self.resize(300,100)
-    def Start(self):
+    def start(self):
 	self.progress.set_fraction(0)
         self.show()
-    def Stop(self):
+    def stop(self):
 	self.hide()
-    def Pulse(self):
-	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.CurrentCPS))
-	self.progress.set_fraction(self.CurrentBytes/self.TotalBytes)
+    def pulse(self):
+	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
+	self.progress.set_fraction(self.CurrentBytes/self.totalBytes)
 	while gtk.events_pending():
 		gtk.main_iteration()
 
@@ -45,15 +45,15 @@ class TermInstallProgress(InstallProgress, gtk.Window):
 	self.term = vte.Terminal()
 	self.term.show()
 	self.add(self.term)
-    def Start(self):
+    def start(self):
 	self.progress.set_fraction(0)
         self.show()
-    def Stop(self):
+    def stop(self):
 	self.hide()
-    def UpdateInterface(self):
+    def updateInterface(self):
         while gtk.events_pending():
             gtk.main_iteration()
-    def FinishUpdate(self):
+    def finishUpdate(self):
 	sys.stdin.readline()
     def fork(self):
 	return self.term.forkpty()

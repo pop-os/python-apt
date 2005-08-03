@@ -22,65 +22,76 @@
 import sys
 
 class OpProgress:
-    """ Abstract class to implement reporting on cache opening """
+    """ Abstract class to implement reporting on cache opening
+        Subclass this class to implement simple Operation progress reporting
+    """
     def __init__(self):
         pass
-    def Update(self, percent):
+    def update(self, percent):
         pass
-    def Done(self):
+    def done(self):
         pass
 
 class OpTextProgress(OpProgress):
     """ A simple text based cache open reporting class """
     def __init__(self):
         OpProgress.__init__(self)
-    def Update(self, percent):
+    def update(self, percent):
         sys.stdout.write("\r%s: %.2i  " % (self.Op,percent))
         sys.stdout.flush()
-    def Done(self):
+    def done(self):
         sys.stdout.write("\r%s: Done\n" % self.Op)
 
 
 
 class FetchProgress:
+    """ Report the download/fetching progress
+        Subclass this class to implement fetch progress reporting
+    """
     def __init__(self):
         pass
     
-    def Start(self):
+    def start(self):
         pass
     
-    def Stop(self):
+    def stop(self):
         pass
     
-    def UpdateStatus(self, uri, descr, shortDescr, status):
+    def updateStatus(self, uri, descr, shortDescr, status):
         pass
 
-    def Pulse(self):
+    def pulse(self):
         pass
 
-    def MediaChange(self, medium, drive):
+    def mediaChange(self, medium, drive):
         pass
 
 class InstallProgress:
+    """ Report the install progress
+        Subclass this class to implement install progress reporting
+    """
     def __init__(self):
         pass
-    def StartUpdate(self):
+    def startUpdate(self):
         pass
-    def FinishUpdate(self):
+    def finishUpdate(self):
         pass
-    def UpdateInterface(self):
+    def updateInterface(self):
         pass
 
 
 class CdromProgress:
+    """ Report the cdrom add progress
+        Subclass this class to implement cdrom add progress reporting
+    """
     def __init__(self):
         pass
-    def Update(self, text, step):
+    def update(self, text, step):
         """ update is called regularly so that the gui can be redrawn """
         pass
-    def AskCdromName(self):
+    def askCdromName(self):
         pass
-    def ChangeCdrom(self):
+    def changeCdrom(self):
         pass
 
 # module test code

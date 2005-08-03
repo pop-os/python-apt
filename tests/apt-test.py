@@ -6,9 +6,9 @@ if __name__ == "__main__":
     print cache
     for name in cache.keys():
         pkg = cache[name]
-        if pkg.IsUpgradable():
-            pkg.MarkInstall()
-    for pkg in cache.GetChanges():
+        if pkg.isUpgradable():
+            pkg.markInstall()
+    for pkg in cache.getChanges():
         #print pkg.Name()
         pass
     print "Broken: %s " % cache._depcache.BrokenCount
@@ -19,6 +19,6 @@ if __name__ == "__main__":
     for name in cache.keys():
         import random
         if random.randint(0,1) == 1:
-            cache[name].MarkDelete()
+            cache[name].markDelete()
     print "Broken: %s " % cache._depcache.BrokenCount
     print "DelCount: %s " % cache._depcache.DelCount

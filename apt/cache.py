@@ -36,7 +36,7 @@ class Cache(object):
             for callback in self._callbacks[name]:
                 apply(callback)
         
-    def Open(self, progress):
+    def open(self, progress):
         """ Open the package cache, after that it can be used like
             a dictionary
         """
@@ -54,7 +54,7 @@ class Cache(object):
         size=len(self._cache.Packages)
         for pkg in self._cache.Packages:
             if progress != None and last+100 < i:
-                progress.Update(i/float(size)*100)
+                progress.update(i/float(size)*100)
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
@@ -62,7 +62,7 @@ class Cache(object):
                                                self._records, self, pkg)
             i += 1
         if progress != None:
-            progress.Done()
+            progress.done()
         self._runCallbacks("cache_post_open")
         
     def __getitem__(self, key):
@@ -81,34 +81,34 @@ class Cache(object):
     def keys(self):
         return self._dict.keys()
 
-    def GetChanges(self):
+    def getChanges(self):
         """ Get the marked changes """
         changes = [] 
         for name in self._dict.keys():
             p = self._dict[name]
-            if p.MarkedUpgrade() or p.MarkedInstall() or p.MarkedDelete() or \
-               p.MarkedDowngrade() or p.MarkedReinstall():
+            if p.markedUpgrade() or p.markedInstall() or p.markedDelete() or \
+               p.markedDowngrade() or p.markedReinstall():
                 changes.append(p)
         return changes
 
-    def Upgrade(self, DistUpgrade=False):
+    def upgrade(self, DistUpgrade=False):
         """ Upgrade the all package, DistUpgrade will also install
             new dependencies
         """
-        self.CachePreChange()
+        self.cachePreChange()
         self._depcache.Upgrade(DistUpgrade)
-        self.CachePostChange()
+        self.cachePostChange()
 
-    def Commit(self, fprogress, iprogress):
+    def commit(self, fprogress, iprogress):
         """ Apply the marked changes to the cache """
         self._depcache.Commit(fprogress, iprogress)
 
     # cache changes
-    def CachePostChange(self):
+    def cachePostChange(self):
         " called internally if the cache has changed, emit a signal then "
         self._runCallbacks("cache_post_change")
 
-    def CachePreChange(self):
+    def cachePreChange(self):
         """ called internally if the cache is about to change, emit
             a signal then """
         self._runCallbacks("cache_pre_change")
@@ -132,7 +132,7 @@ class Filter(object):
 class MarkedChangesFilter(Filter):
     """ Filter that returns all marked changes """
     def apply(self, pkg):
-        if pkg.MarkedInstall() or pkg.MarkedDelete() or pkg.MarkedUpgrade():
+        if pkg.markedInstall() or pkg.markedDelete() or pkg.markedUpgrade():
             return True
         else:
             return False
@@ -147,8 +147,8 @@ class FilteredCache(object):
             self.cache = Cache(progress)
         else:
             self.cache = cache
-        self.cache.connect("cache_post_change", self.FilterCachePostChange)
-        self.cache.connect("cache_post_open", self.FilterCachePostChange)
+        self.cache.connect("cache_post_change", self.filterCachePostChange)
+        self.cache.connect("cache_post_open", self.filterCachePostChange)
         self._filtered = {}
         self._filters = []
     def __len__(self):
@@ -176,17 +176,17 @@ class FilteredCache(object):
                     self._filtered[pkg] = 1
                     break
     
-    def SetFilter(self, filter):
+    def setFilter(self, filter):
         " set the current active filter "
         self._filters = []
         self._filters.append(filter)
         #self._reapplyFilter()
         # force a cache-change event that will result in a refiltering
-        self.cache.CachePostChange()
+        self.cache.cachePostChange()
 
-    def FilterCachePostChange(self):
+    def filterCachePostChange(self):
         " called internally if the cache changes, emit a signal then "
-        #print "FilterCachePostChange()"
+        #print "filterCachePostChange()"
         self._reapplyFilter()
 
 #    def connect(self, name, callback):
@@ -217,29 +217,29 @@ if __name__ == "__main__":
     c.connect("cache_post_change", cache_post_changed)
     print c.has_key("aptitude")
     p = c["aptitude"]
-    print p.Name()
+    print p.name()
     print len(c)
 
     for pkg in c.keys():
-        x= c[pkg].Name()
+        x= c[pkg].name()
 
-    c.Upgrade()
-    changes = c.GetChanges()
+    c.upgrade()
+    changes = c.getChanges()
     print len(changes)
     for p in changes:
-        #print p.Name()
-        x = p.Name()
+        #print p.name()
+        x = p.name()
 
     print "Testing filtered cache (argument is old cache)"
     f = FilteredCache(c)
     f.cache.connect("cache_pre_change", cache_pre_changed)
     f.cache.connect("cache_post_change", cache_post_changed)
-    f.cache.Upgrade()
-    f.SetFilter(MarkedChangesFilter())
+    f.cache.upgrade()
+    f.setFilter(MarkedChangesFilter())
     print len(f)
     for pkg in f.keys():
-        #print c[pkg].Name()
-        x = f[pkg].Name()
+        #print c[pkg].name()
+        x = f[pkg].name()
     
     print len(f)
 
@@ -247,11 +247,11 @@ if __name__ == "__main__":
     f = FilteredCache(progress=OpTextProgress())
     f.cache.connect("cache_pre_change", cache_pre_changed)
     f.cache.connect("cache_post_change", cache_post_changed)
-    f.cache.Upgrade()
-    f.SetFilter(MarkedChangesFilter())
+    f.cache.upgrade()
+    f.setFilter(MarkedChangesFilter())
     print len(f)
     for pkg in f.keys():
-        #print c[pkg].Name()
-        x = f[pkg].Name()
+        #print c[pkg].name()
+        x = f[pkg].name()
     
     print len(f)

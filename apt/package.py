@@ -34,7 +34,7 @@ class Package(object):
         pass
 
     # helper
-    def _LookupRecord(self, UseCandidate=True):
+    def _lookupRecord(self, UseCandidate=True):
         """ internal helper that moves the Records to the right
             position, must be called before _records is accessed """
         if UseCandidate:
@@ -55,16 +55,16 @@ class Package(object):
         return True
 
     # basic information
-    def Name(self):
+    def name(self):
         """ return the name of the package """
         return self._pkg.Name
 
-    def ID(self):
+    def id(self):
         """ return a uniq ID for the pkg, can be used to store
             additional information about the pkg """
         return self._pkg.ID
 
-    def InstalledVersion(self):
+    def installedVersion(self):
         """ return the installed version as string """
         ver = self._pkg.CurrentVer
         if ver != None:
@@ -72,7 +72,7 @@ class Package(object):
         else:
             return None
         
-    def CandidateVersion(self):
+    def candidateVersion(self):
         """ return the candidate version as string """
         ver = self._depcache.GetCandidateVer(self._pkg)
         if ver != None:
@@ -80,20 +80,20 @@ class Package(object):
         else:
             return None
 
-    def SourcePackageName(self):
+    def sourcePackageName(self):
         """ return the source package name as string """
-        self._LookupRecord()
+        self._lookupRecord()
         src = self._records.SourcePkg
         if src != "":
             return src
         else:
             return self._pkg.Name
 
-    def Section(self):
+    def section(self):
         """ return the section of the package"""
         return self._pkg.Section
     
-    def Priority(self, UseCandidate=True):
+    def priority(self, UseCandidate=True):
         """ return the priority """
         if UseCandidate:
             ver = self._depcache.GetCandidateVer(self._pkg)
@@ -104,14 +104,14 @@ class Package(object):
         else:
             return None
     
-    def Summary(self):
+    def summary(self):
         """ return the short description (one-line summary) """
-        self._LookupRecord()
+        self._lookupRecord()
         return self._records.ShortDesc
 
-    def Description(self, format=False):
+    def description(self, format=False):
         """ return the long description """
-        self._LookupRecord()
+        self._lookupRecord()
         if format:
             desc = ""
             for line in string.split(self._records.LongDesc, "\n"):
@@ -125,30 +125,30 @@ class Package(object):
             return self._records.LongDesc
 
     # depcache state
-    def MarkedInstall(self):
+    def markedInstall(self):
         return self._depcache.MarkedInstall(self._pkg)
-    def MarkedUpgrade(self):
+    def markedUpgrade(self):
         return self._depcache.MarkedUpgrade(self._pkg)
-    def MarkedDelete(self):
+    def markedDelete(self):
         return self._depcache.MarkedDelete(self._pkg)
-    def MarkedKeep(self):
+    def markedKeep(self):
         return self._depcache.MarkedKeep(self._pkg)
-    def MarkedDowngrade(self):
+    def markedDowngrade(self):
         return self._depcache.MarkedDowngrade(self._pkg)
-    def MarkedReinstall(self):
+    def markedReinstall(self):
         return self._depcache.MarkedReinstall(self._pkg)
-    def IsInstalled(self):
+    def isInstalled(self):
         return (self._pkg.CurrentVer != None)
-    def IsUpgradable(self):
-        return self.IsInstalled() and self._depcache.IsUpgradable(self._pkg)
+    def isUpgradable(self):
+        return self.isInstalled() and self._depcache.IsUpgradable(self._pkg)
 
     # depcache action
-    def MarkKeep(self):
-        self._pcache.CachePreChange()
+    def markKeep(self):
+        self._pcache.cachePreChange()
         self._depcache.MarkKeep(self._pkg)
-        self._pcache.CachePostChange()
-    def MarkDelete(self, autoFix=True):
-        self._pcache.CachePreChange()
+        self._pcache.cachePostChange()
+    def markDelete(self, autoFix=True):
+        self._pcache.cachePreChange()
         self._depcache.MarkDelete(self._pkg)
         # try to fix broken stuffsta
         if autoFix and self._depcache.BrokenCount > 0:
@@ -158,9 +158,9 @@ class Package(object):
             Fix.Remove(self._pkg)
             Fix.InstallProtect()
             Fix.Resolve()
-        self._pcache.CachePostChange()
-    def MarkInstall(self, autoFix=True):
-        self._pcache.CachePreChange()
+        self._pcache.cachePostChange()
+    def markInstall(self, autoFix=True):
+        self._pcache.cachePreChange()
         self._depcache.MarkInstall(self._pkg)
         # try to fix broken stuff
         if autoFix and self._depcache.BrokenCount > 0:
@@ -168,29 +168,29 @@ class Package(object):
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
-        self._pcache.CachePostChange()
-    def MarkUpgrade(self):
-        if self.IsUpgradable():
+        self._pcache.cachePostChange()
+    def markUpgrade(self):
+        if self.isUpgradable():
             self.MarkInstall()
         # FIXME: we may want to throw a exception here
         sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg")
         
     # size
-    def PackageSize(self, UseCandidate=True):
+    def packageSize(self, UseCandidate=True):
         if UseCandidate:
             ver = self._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.GetCurrentVer
         return ver.Size
 
-    def InstalledSize(self, UseCandidate=True):
+    def installedSize(self, UseCandidate=True):
         if UseCandidate:
             ver = self._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.GetCurrentVer
         return ver.InstalledSize
 
-    def Commit(self, fprogress, iprogress):
+    def commit(self, fprogress, iprogress):
         self._depcache.Commit(fprogress, iprogress)
 
 # self-test
@@ -203,18 +203,18 @@ if __name__ == "__main__":
 
     iter = cache["apt-utils"]
     pkg = Package(cache, depcache, records, None, iter)
-    print "Name: %s " % pkg.Name()
-    print "Installed: %s " % pkg.InstalledVersion()
-    print "Candidate: %s " % pkg.CandidateVersion()
-    print "SourcePkg: %s " % pkg.SourcePackageName()
-    print "Section: %s " % pkg.Section()
-    print "Priority (Candidate): %s " % pkg.Priority()
-    print "Priority (Installed): %s " % pkg.Priority(False)
-    print "Summary: %s" % pkg.Summary()
-    print "Description:\n%s" % pkg.Description()
-    print "Description (formated) :\n%s" % pkg.Description(True)
-    print "InstalledSize: %s " % pkg.InstalledSize()
-    print "PackageSize: %s " % pkg.PackageSize()
+    print "Name: %s " % pkg.name()
+    print "Installed: %s " % pkg.installedVersion()
+    print "Candidate: %s " % pkg.candidateVersion()
+    print "SourcePkg: %s " % pkg.sourcePackageName()
+    print "Section: %s " % pkg.section()
+    print "Priority (Candidate): %s " % pkg.priority()
+    print "Priority (Installed): %s " % pkg.priority(False)
+    print "Summary: %s" % pkg.summary()
+    print "Description:\n%s" % pkg.description()
+    print "Description (formated) :\n%s" % pkg.description(True)
+    print "InstalledSize: %s " % pkg.installedSize()
+    print "PackageSize: %s " % pkg.packageSize()
 
     # now test install/remove
     import apt
@@ -224,9 +224,9 @@ if __name__ == "__main__":
         print "Running install on random upgradable pkgs with AutoFix: %s " % i
         for name in cache.keys():
             pkg = cache[name]
-            if pkg.IsUpgradable():
+            if pkg.isUpgradable():
                 if random.randint(0,1) == 1:
-                    pkg.MarkInstall(i)
+                    pkg.markInstall(i)
         print "Broken: %s " % cache._depcache.BrokenCount
         print "InstCount: %s " % cache._depcache.InstCount
 
@@ -238,7 +238,7 @@ if __name__ == "__main__":
         for name in cache.keys():
             if random.randint(0,1) == 1:
                 try:
-                    cache[name].MarkDelete(i)
+                    cache[name].markDelete(i)
                 except SystemError:
                     print "Error trying to remove: %s " % name
         print "Broken: %s " % cache._depcache.BrokenCount
