@@ -28,7 +28,7 @@ class Cache(object):
     """ Package cache object """
     def __init__(self, progress=None):
         self._callbacks = {}
-        self.Open(progress)
+        self.open(progress)
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """

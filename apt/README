@@ -1,0 +1,9 @@
+This is the python interface to libapt. The API is not stable yet.
+
+
+Style Guides:
+-------------
+
+Follow PEP08.
+
+Internal variables/methods are prefixed with a "_" (e.g. _foo).
