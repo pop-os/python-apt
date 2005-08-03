@@ -23,7 +23,8 @@ import apt_pkg, string
 import random
 
 class Package(object):
-
+    """ This class represents a package in the cache
+    """
     def __init__(self, cache, depcache, records, pcache, pkgiter):
         """ Init the Package object """
         self._cache = cache             # low level cache

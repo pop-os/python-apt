@@ -34,7 +34,7 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 	self.hide()
     def pulse(self):
 	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
-	self.progress.set_fraction(self.CurrentBytes/self.totalBytes)
+	self.progress.set_fraction(self.currentBytes/self.totalBytes)
 	while gtk.events_pending():
 		gtk.main_iteration()
 

@@ -25,7 +25,11 @@ from apt.progress import OpTextProgress
 from UserDict import UserDict
 
 class Cache(object):
-    """ Package cache object """
+     """ Dictionary-like package cache 
+         This class has all the packages that are available in it's
+         dictionary
+     """
+
     def __init__(self, progress=None):
         self._callbacks = {}
         self.open(progress)
