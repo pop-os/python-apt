@@ -95,7 +95,7 @@ class Cache(object):
                 changes.append(p)
         return changes
 
-    def upgrade(self, DistUpgrade=False):
+    def upgrade(self, distUpgrade=False):
         """ Upgrade the all package, DistUpgrade will also install
             new dependencies
         """
