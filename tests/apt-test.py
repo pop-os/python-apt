@@ -6,7 +6,7 @@ if __name__ == "__main__":
     print cache
     for name in cache.keys():
         pkg = cache[name]
-        if pkg.isUpgradable():
+        if pkg.isUpgradable:
             pkg.markInstall()
     for pkg in cache.getChanges():
         #print pkg.Name()

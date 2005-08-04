@@ -25,10 +25,10 @@ from apt.progress import OpTextProgress
 from UserDict import UserDict
 
 class Cache(object):
-     """ Dictionary-like package cache 
-         This class has all the packages that are available in it's
-         dictionary
-     """
+    """ Dictionary-like package cache 
+        This class has all the packages that are available in it's
+        dictionary
+    """
 
     def __init__(self, progress=None):
         self._callbacks = {}
@@ -221,18 +221,18 @@ if __name__ == "__main__":
     c.connect("cache_post_change", cache_post_changed)
     print c.has_key("aptitude")
     p = c["aptitude"]
-    print p.name()
+    print p.name
     print len(c)
 
     for pkg in c.keys():
-        x= c[pkg].name()
+        x= c[pkg].name
 
     c.upgrade()
     changes = c.getChanges()
     print len(changes)
     for p in changes:
-        #print p.name()
-        x = p.name()
+        #print p.name
+        x = p.name
 
     print "Testing filtered cache (argument is old cache)"
     f = FilteredCache(c)
@@ -242,8 +242,8 @@ if __name__ == "__main__":
     f.setFilter(MarkedChangesFilter())
     print len(f)
     for pkg in f.keys():
-        #print c[pkg].name()
-        x = f[pkg].name()
+        #print c[pkg].name
+        x = f[pkg].name
     
     print len(f)
 
@@ -255,7 +255,7 @@ if __name__ == "__main__":
     f.setFilter(MarkedChangesFilter())
     print len(f)
     for pkg in f.keys():
-        #print c[pkg].name()
-        x = f[pkg].name()
+        #print c[pkg].name
+        x = f[pkg].name
     
     print len(f)

@@ -37,10 +37,10 @@ class OpTextProgress(OpProgress):
     def __init__(self):
         OpProgress.__init__(self)
     def update(self, percent):
-        sys.stdout.write("\r%s: %.2i  " % (self.Op,percent))
+        sys.stdout.write("\r%s: %.2i  " % (self.subOp,percent))
         sys.stdout.flush()
     def done(self):
-        sys.stdout.write("\r%s: Done\n" % self.Op)
+        sys.stdout.write("\r%s: Done\n" % self.op)
 
 
 
