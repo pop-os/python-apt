@@ -100,7 +100,7 @@ class Cache(object):
             new dependencies
         """
         self.cachePreChange()
-        self._depcache.Upgrade(DistUpgrade)
+        self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
     def commit(self, fprogress, iprogress):
