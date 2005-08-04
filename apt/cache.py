@@ -103,6 +103,12 @@ class Cache(object):
         self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
+    def update(self, fetchProgress=None, opProgress=None):
+        if(opProgress != None):
+            self._cache.Update(fetchProgress, opProgress);
+        else:
+            self._cache.Update(fetchProgress);
+
     def commit(self, fprogress, iprogress):
         """ Apply the marked changes to the cache """
         self._depcache.Commit(fprogress, iprogress)

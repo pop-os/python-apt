@@ -139,8 +139,6 @@ void PyFetchProgress::Stop()
    RunSimpleCallback("stop");
 }
 
-// FIXME: it should just set the attribute for
-//         CurrentCPS, Current...
 bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 {
    pkgAcquireStatus::Pulse(Owner);
@@ -161,12 +159,17 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    PyObject_SetAttrString(callbackInst, "totalItems", o);
    o = Py_BuildValue("f", TotalBytes);
    PyObject_SetAttrString(callbackInst, "totalBytes", o);
-   
-   RunSimpleCallback("pulse");
 
-   
-   // this can be canceld by returning false
-   return true;
+   PyObject *arglist = Py_BuildValue("()");
+   PyObject *result;   
+   RunSimpleCallback("pulse", arglist, &result);
+
+   bool res = true;
+   if(!PyArg_Parse(result, "b", &res))
+      std::cerr << "result could not be parsed" << std::endl;
+
+   // fetching can be canceld by returning false
+   return res;
 }
 
 

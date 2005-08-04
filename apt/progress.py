@@ -61,10 +61,12 @@ class FetchProgress:
         pass
 
     def pulse(self):
-        pass
+        return True
 
     def mediaChange(self, medium, drive):
         pass
+
+
 
 class InstallProgress:
     """ Report the install progress
