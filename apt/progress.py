@@ -61,6 +61,7 @@ class FetchProgress:
         pass
 
     def pulse(self):
+        """ called periodically (to update the gui) """
         return True
 
     def mediaChange(self, medium, drive):

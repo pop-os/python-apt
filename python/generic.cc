@@ -28,15 +28,20 @@ PyObject *HandleErrors(PyObject *Res)
    if (Res != 0)
       Py_DECREF(Res);
    
-   string Err = "Internal Error Error";
+   string Err;
+   int errcnt = 0;
    while (_error->empty() == false)
    {
-      bool Type = _error->PopMessage(Err);
-      if (Type == false)
-	 continue;
+      string Msg;
+      bool Type = _error->PopMessage(Msg);
+      if (errcnt > 0)
+         Err.append(", ");
+      Err.append((Type == true ? "E:" : "W:"));
+      Err.append(Msg);
+      ++errcnt;
    }
-   
-   _error->Discard();
+   if (errcnt == 0)
+      Err = "Internal Error";
    PyErr_SetString(PyExc_SystemError,Err.c_str());
    return 0;
 }
