@@ -14,4 +14,6 @@ apt_pkg.init()
 
 
 if not os.environ.has_key("PYTHON_APT_API_NOT_STABLE"):
-    sys.stderr.write("WARNING: Use \"import apt\" at our own risk, the API is not stable yet\n")
+    import warnings
+    warnings.warn("Module apt is 100% API stable yet; ", FutureWarning)
+    del warnings

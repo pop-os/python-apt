@@ -38,7 +38,7 @@ class Cache(object):
         """ internal helper to run a callback """
         if self._callbacks.has_key(name):
             for callback in self._callbacks[name]:
-                apply(callback)
+                callback()
         
     def open(self, progress):
         """ Open the package cache, after that it can be used like
@@ -90,8 +90,8 @@ class Cache(object):
         changes = [] 
         for name in self._dict.keys():
             p = self._dict[name]
-            if p.markedUpgrade() or p.markedInstall() or p.markedDelete() or \
-               p.markedDowngrade() or p.markedReinstall():
+            if p.markedUpgrade or p.markedInstall or p.markedDelete or \
+               p.markedDowngrade or p.markedReinstall:
                 changes.append(p)
         return changes
 
@@ -136,7 +136,7 @@ class Filter(object):
 class MarkedChangesFilter(Filter):
     """ Filter that returns all marked changes """
     def apply(self, pkg):
-        if pkg.markedInstall() or pkg.markedDelete() or pkg.markedUpgrade():
+        if pkg.markedInstall or pkg.markedDelete or pkg.markedUpgrade:
             return True
         else:
             return False

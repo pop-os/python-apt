@@ -55,128 +55,165 @@ class Package(object):
         self._records.Lookup((file,index))
         return True
 
-    # basic information (implemented as properties)
-    def getName(self):
-        """ return the name of the package """
-        return self._pkg.Name
-    name = property(getName, None, None, "Return the name of the pkg" )
 
-    # id property
-    def getId(self):
-        """ return a uniq ID for the pkg, can be used to store
+    # basic information (implemented as properties)
+
+    # FIXME once python2.3 is dropped we can use @property instead
+    # of name = property(name)
+
+    def name(self):
+        """ Return the name of the package """
+        return self._pkg.Name
+    name = property(name)
+
+    def id(self):
+        """ Return a uniq ID for the pkg, can be used to store
             additional information about the pkg """
         return self._pkg.ID
-    id = property(getId, None, None, "Return a uniq ID of the pkg" )
-    
-    def getInstalledVersion(self):
-        """ return the installed version as string """
+    id = property(id)
+
+    def installedVersion(self):
+        """ Return the installed version as string """
         ver = self._pkg.CurrentVer
         if ver != None:
             return ver.VerStr
         else:
             return None
-    installedVersion = property(getInstalledVersion, None, None, "Return the installed Version as string")
-        
-    def getCandidateVersion(self):
-        """ return the candidate version as string """
+    installedVersion = property(installedVersion)
+
+    def candidateVersion(self):
+        """ Return the candidate version as string """
         ver = self._depcache.GetCandidateVer(self._pkg)
         if ver != None:
             return ver.VerStr
         else:
             return None
-    candidateVersion = property(getCandidateVersion, None, None, "Return the candidate Version as string")
+    candidateVersion = property(candidateVersion)
 
-    def getSourcePackageName(self):
-        """ return the source package name as string """
+    def sourcePackageName(self):
+        """ Return the source package name as string """
         self._lookupRecord()
         src = self._records.SourcePkg
         if src != "":
             return src
         else:
             return self._pkg.Name
-    sourcePackageName = property(getSourcePackageName, None, None, "Return the source package name as string")
+    sourcePackageName = property(sourcePackageName)
 
-    def getSection(self):
-        """ return the section of the package"""
+    def section(self):
+        """ Return the section of the package"""
         return self._pkg.Section
-    section = property(getSection, None, None, "Return the section of the pkg")
-    
-    def getPriority(self, UseCandidate=True):
-        """ return the priority """
-        if UseCandidate:
-            ver = self._depcache.GetCandidateVer(self._pkg)
-        else:
-            ver = self._pkg.CurrentVer
+    section = property(section)
+
+    def priority(self):
+        """ Return the priority (of the candidate version)"""
+        ver = self._depcache.GetCandidateVer(self._pkg)
         if ver:
             return ver.PriorityStr
         else:
             return None
-    priority = property(getPriority, None, None, "Return the priority of the candidate version")
-    
-    def getSummary(self):
-        """ return the short description (one-line summary) """
+    priority = property(priority)
+
+    def installedPriority(self):
+        """ Return the priority (of the installed version)"""
+        ver = self._depcache.GetCandidateVer(self._pkg)
+        if ver:
+            return ver.PriorityStr
+        else:
+            return None
+    installedPriority = property(installedPriority)
+
+    def summary(self):
+        """ Return the short description (one line summary) """
         self._lookupRecord()
         return self._records.ShortDesc
-    summary = property(getSummary, None, None, "Return the short description (one line summary")
+    summary = property(summary)
 
-    def getDescription(self, format=True):
-        """ return the long description """
+    def description(self, format=True):
+        """ Return the formated long description """
         self._lookupRecord()
-        if format:
-            desc = ""
-            for line in string.split(self._records.LongDesc, "\n"):
+        desc = ""
+        for line in string.split(self._records.LongDesc, "\n"):
                 tmp = string.strip(line)
                 if tmp == ".":
                     desc += "\n"
                 else:
                     desc += tmp + "\n"
-            return desc
-        else:
-            return self._records.LongDesc
-    description = property(getDescription, None, None, "return the formated description of the pkg")
+        return desc
+    description = property(description)
 
+    def rawDescription(self):
+        """ return the long description (raw)"""
+        self._lookupRecord()
+        return self._records.LongDesc
+    rawDescription = property(rawDescription)
+        
 
-    # depcache state
-    def getMarkedInstall(self):
+    # depcache states
+    def markedInstall(self):
+        """ Package is marked for install """
         return self._depcache.MarkedInstall(self._pkg)
-    markedInstall = property(getMarkedInstall, None, None, "Package is marked for install")
-    def getMarkedUpgrade(self):
+    markedInstall = property(markedInstall)
+
+    def markedUpgrade(self):
+        """ Package is marked for upgrade """
         return self._depcache.MarkedUpgrade(self._pkg)
-    markedUpgrade = property(getMarkedUpgrade, None, None, "Package is marked for upgrade")
-    def getMarkedDelete(self):
+    markedUpgrade = property(markedUpgrade)
+
+    def markedDelete(self):
+        """ Package is marked for delete """
         return self._depcache.MarkedDelete(self._pkg)
-    markedDelete = property(getMarkedDelete, None, None, "Package is marked for delete")
-    def getMarkedKeep(self):
+    markedDelete = property(markedDelete) 
+
+    def markedKeep(self):
+        """ Package is marked for keep """
         return self._depcache.MarkedKeep(self._pkg)
-    markedKeep = property(getMarkedKeep, None, None, "Package is marked for keep")    
-    def getMarkedDowngrade(self):
+    markedKeep = property(markedKeep)
+
+    def markedDowngrade(self):
+        """ Package is marked for downgrade """
         return self._depcache.MarkedDowngrade(self._pkg)
-    markedDowngrade = property(getMarkedDowngrade, None, None, "Package is marked for downgrade")    
-    def getMarkedReinstall(self):
+    markedDowngrade = property(markedDowngrade)
+
+    def markedReinstall(self):
+        """ Package is marked for reinstall """
         return self._depcache.MarkedReinstall(self._pkg)
-    markedReinstall = property(getMarkedReinstall, None, None, "Package is marked for reinstall")    
-    def getIsInstalled(self):
+    markedReinstall = property(markedReinstall)
+
+    def isInstalled(self):
+        """ Package is installed """
         return (self._pkg.CurrentVer != None)
-    isInstalled = property(getIsInstalled, None, None, "Package is installed")    
-    def getIsUpgradable(self):
-        return self.isInstalled() and self._depcache.IsUpgradable(self._pkg)
-    isUpgradable = property(getIsUpgradable, None, None, "Package is upgradable")    
+    isInstalled = property(isInstalled)
+
+    def isUpgradable(self):
+        """ Package is upgradable """    
+        return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
+    isUpgradable = property(isUpgradable)
+
     # size
-    def getPackageSize(self, UseCandidate=True):
-        if UseCandidate:
-            ver = self._depcache.GetCandidateVer(self._pkg)
-        else:
-            ver = self._pkg.GetCurrentVer
+    def packageSize(self):
+        """ The size of the candidate deb package """
+        ver = self._depcache.GetCandidateVer(self._pkg)
         return ver.Size
-    packageSize = property(getPackageSize, None, None, "The size of the candidate deb package")
-    
-    def getInstalledSize(self, UseCandidate=True):
-        if UseCandidate:
-            ver = self._depcache.GetCandidateVer(self._pkg)
-        else:
-            ver = self._pkg.GetCurrentVer
+    packageSize = property(packageSize)
+
+    def installedPackageSize(self):
+        """ The size of the installed deb package """
+        ver = self._pkg.CurrentVer
+        return ver.Size
+    installedPackageSize = property(installedPackageSize)
+
+    def candidateInstalledSize(self, UseCandidate=True):
+        """ The size of the candidate installed package """
+        ver = self._depcache.GetCandidateVer(self._pkg)
+    candidateInstalledSize = property(candidateInstalledSize)
+
+    def installedSize(self):
+        """ The size of the currently installed package """
+        ver = self._pkg.CurrentVer
         return ver.InstalledSize
-    installedSize = property(getInstalledSize, None, None, "The size of the candidate installed package")    
+    installedSize = property(installedSize)
+
 
     # depcache actions
     def markKeep(self):
@@ -210,7 +247,7 @@ class Package(object):
         self._pcache.cachePostChange()
     def markUpgrade(self):
         """ mark a package for upgrade """
-        if self.isUpgradable():
+        if self.isUpgradable:
             self.MarkInstall()
         # FIXME: we may want to throw a exception here
         sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg")
@@ -235,14 +272,14 @@ if __name__ == "__main__":
     print "Name: %s " % pkg.name
     print "ID: %s " % pkg.id
     print "Priority (Candidate): %s " % pkg.priority
-    print "Priority (Installed): %s " % pkg.getPriority(False)
+    print "Priority (Installed): %s " % pkg.installedPriority
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.summary
     print "Description (formated) :\n%s" % pkg.description
-    print "Description (unformated):\n%s" % pkg.getDescription(False)
+    print "Description (unformated):\n%s" % pkg.rawDescription
     print "InstalledSize: %s " % pkg.installedSize
     print "PackageSize: %s " % pkg.packageSize
 
@@ -254,7 +291,7 @@ if __name__ == "__main__":
         print "Running install on random upgradable pkgs with AutoFix: %s " % i
         for name in cache.keys():
             pkg = cache[name]
-            if pkg.isUpgradable():
+            if pkg.isUpgradable:
                 if random.randint(0,1) == 1:
                     pkg.markInstall(i)
         print "Broken: %s " % cache._depcache.BrokenCount
