@@ -4,17 +4,18 @@
 import apt_pkg
 import sys
 import copy
-from progress import OpProgress, FetchProgress
-
+from apt.progress import OpTextProgress
+from progress import TextFetchProgress
 
 # init
 apt_pkg.init()
 
-progress = OpProgress()
+progress = OpTextProgress()
 cache = apt_pkg.GetCache(progress)
 print "Available packages: %s " % cache.PackageCount
 
-progress = FetchProgress()
+print "Fetching"
+progress = TextFetchProgress()
 cache.Update(progress)
 
 print "Exiting"

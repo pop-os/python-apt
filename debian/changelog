@@ -1,4 +1,4 @@
-python-apt (0.6.13) breezy; urgency=low
+python-apt (0.6.13) unstable; urgency=low
 
   * support for Marked{Downgrade,Reinstall} added
   * support for the PkgProblemResolver
@@ -7,7 +7,7 @@ python-apt (0.6.13) breezy; urgency=low
     a more pythonic interface to apt_pkg
   * made the apt/ python code PEP08 conform
   
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  5 Aug 2005 10:30:31 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri,  5 Aug 2005 10:30:31 +0200
 
 python-apt (0.6.12.2) unstable; urgency=low
 

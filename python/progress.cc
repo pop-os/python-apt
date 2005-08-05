@@ -165,8 +165,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    RunSimpleCallback("pulse", arglist, &result);
 
    bool res = true;
-   if(!PyArg_Parse(result, "b", &res))
-      std::cerr << "result could not be parsed" << std::endl;
+   if(!PyArg_Parse(result, "b", &res)) 
+   {
+      // mvo: this is harmless, we shouldn't print anything here
+      //std::cerr << "result could not be parsed" << std::endl;
+   }
 
    // fetching can be canceld by returning false
    return res;
