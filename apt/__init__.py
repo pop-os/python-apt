@@ -13,7 +13,6 @@ from apt_pkg import SizeToStr, TimeToStr, VersionCompare
 apt_pkg.init()
 
 
-if not os.environ.has_key("PYTHON_APT_API_NOT_STABLE"):
-    import warnings
-    warnings.warn("Module apt is 100% API stable yet; ", FutureWarning)
-    del warnings
+import warnings
+warnings.warn("apt API not stable yet", FutureWarning)
+del warnings

@@ -1,4 +1,7 @@
+import warnings
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
+
 
 if __name__ == "__main__":
     progress = apt.progress.OpTextProgress()
