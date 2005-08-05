@@ -19,6 +19,7 @@
 #include <apt-pkg/error.h>
 #include <apt-pkg/packagemanager.h>
 #include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/sourcelist.h>
 
 #include <Python.h>
 #include "progress.h"
@@ -548,6 +549,20 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
       return PyString_FromString(Ver.PriorityType());
    else if (strcmp("Downloadable", Name) == 0)
       return Py_BuildValue("b", Ver.Downloadable());
+#if 0 // FIXME: enable once pkgSourceList is stored somewhere
+   else if (strcmp("IsTrusted", Name) == 0)
+   {
+      pkgSourceList Sources;
+      Sources.ReadMainList();
+      for(pkgCache::VerFileIterator i = Ver.FileList(); !i.end(); i++)
+      {
+	 pkgIndexFile *index;
+	 if(Sources.FindIndex(i.File(), index) && !index->IsTrusted())
+	    return Py_BuildValue("b", false);
+      }
+      return Py_BuildValue("b", true);
+   }
+#endif
 
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;

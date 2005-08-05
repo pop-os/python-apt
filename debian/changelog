@@ -1,14 +1,25 @@
 python-apt (0.6.13) breezy; urgency=low
 
   * support for Marked{Downgrade,Reinstall} added
-  * Cache.GetChanges() added 
-  * FilteredCache() improvements
-  * added "connect()" to {Pre,Post}CacheChange
   * support for the PkgProblemResolver
   * added tests/ directory with various tests for the code
-  * made the apt/ python code pep8 conform
+  * native apt/ python directory added that contains
+    a more pythonic interface to apt_pkg
+  * made the apt/ python code PEP08 conform
   
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  1 Jun 2005 14:57:57 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  5 Aug 2005 10:30:31 +0200
+
+python-apt (0.6.12.2) unstable; urgency=low
+
+   * rebuild against the latest apt (c++ transition)
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 1 Aug 2005 11:06:03 +0200
+
+python-apt (0.6.12.1) unstable; urgency=low
+
+   * rebuild against the latest apt
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 28 Jun 2005 18:29:57 +0200 
 
 python-apt (0.6.12ubuntu1) breezy; urgency=low
 
