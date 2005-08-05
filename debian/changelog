@@ -1,11 +1,17 @@
 python-apt (0.6.13) unstable; urgency=low
 
-  * support for Marked{Downgrade,Reinstall} added
-  * support for the PkgProblemResolver
+  * support for depcache added
+  * support for the PkgProblemResolver added
+  * support for PkgSrcRecord.BuildDepends added
+  * support for cdrom handling (add, ident) added
+  * support for progress reporting from operations added
+    (e.g. OpProgress, FetchProgress, InstallProgress, CdromProgress)
   * added tests/ directory with various tests for the code
   * native apt/ python directory added that contains
     a more pythonic interface to apt_pkg
   * made the apt/ python code PEP08 conform
+  * python exceptions return the apt error message now 
+    (thanks to Chris Halls for the patch)
   
  -- Michael Vogt <mvo@debian.org>  Fri,  5 Aug 2005 10:30:31 +0200
 
