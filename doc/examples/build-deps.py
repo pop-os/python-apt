@@ -1,10 +1,12 @@
 #!/usr/bin/python
+# this is a example how to access the build dependencies of a package
 
 import apt_pkg
 import sys
 import sets    # only needed for python2.3, python2.4 supports this naively 
 
 def get_source_pkg(pkg, records, depcache):
+	""" get the source package name of a given package """
 	version = depcache.GetCandidateVer(pkg)
 	if not version:
 		return None
@@ -35,8 +37,21 @@ except KeyError:
 	sys.exit(1)
 all_build_depends = sets.Set()
 
+# get the build depdends for the package itself
+srcpkg_name = get_source_pkg(base, records, depcache)
+print "srcpkg_name: %s " % srcpkg_name
+if not srcpkg_name:
+	print "Can't find source package for '%s'" % pkg.Name
+srcrec = srcrecords.Lookup(srcpkg_name)
+if srcrec:
+	bd = srcrecords.BuildDepends
+	print "build-depends of the package: %s " % bd
+        for b in bd:
+        	all_build_depends.add(b[0])
+
+# calculate the build depends for all dependencies
 depends = depcache.GetCandidateVer(base).DependsList
-for dep in depends["Depends"]:
+for dep in depends["Depends"]: # FIXME: do we need to consider PreDepends?
 	pkg = dep[0].TargetPkg
 	srcpkg_name = get_source_pkg(pkg, records, depcache)
 	if not srcpkg_name:
