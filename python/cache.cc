@@ -105,7 +105,8 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
       return HandleErrors(Py_None);
    }
    
-
+#if 0 // reopening the cache is the job of the python code now
+      // doing it here is wrong and broken
    if(pyOpProgressInst != 0) {
       PyOpProgress progress;
       progress.setCallbackInst(pyOpProgressInst);
@@ -118,7 +119,7 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 	 return HandleErrors(Py_None);
       }
    }
-
+#endif
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);

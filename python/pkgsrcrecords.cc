@@ -82,9 +82,25 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
             PyList_Append(List, CppPyString(*b));
 
          return List; // todo
-      } else if (strcmp("Files",Name) == 0)
-         return 0; // todo
-      else if (strcmp("BuildDepends",Name) == 0) {
+      } else if (strcmp("Files",Name) == 0) {
+         PyObject *List = PyList_New(0);
+
+         vector<pkgSrcRecords::File> f;
+	 if(!Struct.Last->Files(f))
+	    return NULL; // error
+
+	 PyObject *v;
+	 for(unsigned int i=0;i<f.size();i++) {
+	    v = Py_BuildValue("(siss)", 
+			      f[i].MD5Hash.c_str(), 
+			      f[i].Size, 
+			      f[i].Path.c_str(), 
+			      f[i].Type.c_str());
+	    PyList_Append(List, v);
+	    Py_DECREF(v);
+	 }
+         return List;
+      } else if (strcmp("BuildDepends",Name) == 0) {
          PyObject *List = PyList_New(0);
 
          vector<pkgSrcRecords::Parser::BuildDepRec> bd;

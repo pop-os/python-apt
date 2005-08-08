@@ -44,6 +44,8 @@ if not srcpkg_name:
 	print "Can't find source package for '%s'" % pkg.Name
 srcrec = srcrecords.Lookup(srcpkg_name)
 if srcrec:
+	print "Files:"
+	print srcrecords.Files
 	bd = srcrecords.BuildDepends
 	print "build-depends of the package: %s " % bd
         for b in bd:

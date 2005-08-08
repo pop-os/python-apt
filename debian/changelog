@@ -2,8 +2,12 @@ python-apt (0.6.14) unstable; urgency=low
 
   * doc/examples/build-deps.py:
     - fixed/improved (thanks to Martin Michlmayr, closes: #321507)
+  * apt_pkg.Cache.Update() does no longer reopen the cache
+    (this is the job of the caller now)
+  * python/srcrecords.cc:
+    - support for "srcrecords.Files" added
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 Aug 2005 16:24:22 +0200
 
 python-apt (0.6.13) unstable; urgency=low
 
