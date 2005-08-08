@@ -43,6 +43,7 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
    
+   Struct.Records->Restart();
    Struct.Last = Struct.Records->Find(Name, false);
    if (Struct.Last == 0) {
       Struct.Records->Restart();

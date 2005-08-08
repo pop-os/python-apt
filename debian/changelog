@@ -6,6 +6,7 @@ python-apt (0.6.14) unstable; urgency=low
     (this is the job of the caller now)
   * python/srcrecords.cc:
     - support for "srcrecords.Files" added
+    - always run "Restart" before performing a Lookup 
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 Aug 2005 16:24:22 +0200
 
