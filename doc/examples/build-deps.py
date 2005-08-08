@@ -2,11 +2,12 @@
 
 import apt_pkg
 import sys
-
+import sets    # only needed for python2.3, python2.4 supports this naively 
 
 def get_source_pkg(pkg, records, depcache):
-	# FIXME: use candidate version here
 	version = depcache.GetCandidateVer(pkg)
+	if not version:
+		return None
 	file, index = version.FileList.pop(0)
 	records.Lookup((file, index))
 	if records.SourcePkg != "":
@@ -21,18 +22,26 @@ cache = apt_pkg.GetCache()
 depcache = apt_pkg.GetDepCache(cache)
 depcache.Init()
 records = apt_pkg.GetPkgRecords(cache)
-srcrecords = apt_pkg.GetPkgSrcRecords()
+srcrecords = apt_pkg.GetPkgSrcRecords(cache)
 
 # base package that we use for build-depends calculation
 if len(sys.argv) < 2:
-	print "need a pkgname as argument"
-base = cache[sys.argv[1]]
-all_build_depends = set()
+	print "need a package name as argument"
+	sys.exit(1)
+try:
+	base = cache[sys.argv[1]]
+except KeyError:
+	print "No package %s found" % sys.argv[1]
+	sys.exit(1)
+all_build_depends = sets.Set()
 
-depends = base.CurrentVer.DependsList
+depends = depcache.GetCandidateVer(base).DependsList
 for dep in depends["Depends"]:
 	pkg = dep[0].TargetPkg
 	srcpkg_name = get_source_pkg(pkg, records, depcache)
+	if not srcpkg_name:
+		print "Can't find source package for '%s'" % pkg.Name
+		continue
 	srcrec = srcrecords.Lookup(srcpkg_name)
 	if srcrec:
 		#print srcrecords.Package
