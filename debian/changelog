@@ -1,9 +1,3 @@
-python-apt (0.6.14.1) breezy; urgency=low
-
-  * export locking via: GetLock(),PkgSystem{Lock,UnLock} 
-
- -- 
-
 python-apt (0.6.14) unstable; urgency=low
 
   * doc/examples/build-deps.py:
@@ -13,8 +7,9 @@ python-apt (0.6.14) unstable; urgency=low
   * python/srcrecords.cc:
     - support for "srcrecords.Files" added
     - always run "Restart" before performing a Lookup 
+  * export locking via: GetLock(),PkgSystem{Lock,UnLock} 
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 Aug 2005 16:24:22 +0200
+ -- 
 
 python-apt (0.6.13) unstable; urgency=low
 
