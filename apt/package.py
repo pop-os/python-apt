@@ -214,6 +214,14 @@ class Package(object):
         return ver.InstalledSize
     installedSize = property(installedSize)
 
+    # canidate origin
+    def candidateOrigin(self):
+        ver = self._depcache.GetCandidateVer(self._pkg)
+        (VerFileIter,index) = ver.FileList.pop()
+        print len(VerFileIter)
+        print VerFileIter
+        return VerFileIter.Component
+    candidateOrigin = property(candidateOrigin)
 
     # depcache actions
     def markKeep(self):
@@ -275,6 +283,7 @@ if __name__ == "__main__":
     print "Priority (Installed): %s " % pkg.installedPriority
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
+    print "CandiateOrigin: %s" % pkg.candidateOrigin
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.summary

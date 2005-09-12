@@ -114,7 +114,6 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    if (PyArg_ParseTuple(Args,"s#",&Start,&Len) == 0)
       return 0;
    Stop = Start + Len;
-   
    PyObject *List = PyList_New(0);
    PyObject *LastRow = 0;
    while (1)
@@ -283,6 +282,56 @@ static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 }
 									/*}}}*/
 
+// fileutils.cc: GetLock						/*{{{*/
+// ---------------------------------------------------------------------
+static char *doc_GetLock = 
+"GetLock(string) -> int\n"
+"This will create an empty file of the given name and lock it. Once this"
+" is done all other calls to GetLock in any other process will fail with"
+" -1. The return result is the fd of the file, the call should call"
+" close at some time\n";
+static PyObject *GetLock(PyObject *Self,PyObject *Args)
+{
+   const char *file;
+   char errors = false;
+   if (PyArg_ParseTuple(Args,"s|b",&file,&errors) == 0)
+      return 0;
+   
+   int fd = GetLock(file, errors);
+
+   return  HandleErrors(Py_BuildValue("i", fd));
+}
+
+static char *doc_PkgSystemLock =
+"PkgSystemLock() -> boolean\n"
+"Get the global pkgsystem lock\n";
+static PyObject *PkgSystemLock(PyObject *Self,PyObject *Args)
+{
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   
+   bool res = _system->Lock();
+   
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_BuildValue("b", res));
+}
+
+static char *doc_PkgSystemUnLock =
+"PkgSystemUnLock() -> boolean\n"
+"Unset the global pkgsystem lock\n";
+static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
+{
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   
+   bool res = _system->UnLock();
+   
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_BuildValue("b", res));
+}
+
+									/*}}}*/
+
 // initapt_pkg - Core Module Initialization				/*{{{*/
 // ---------------------------------------------------------------------
 /* */
@@ -298,7 +347,12 @@ static PyMethodDef methods[] =
    {"ParseSection",ParseSection,METH_VARARGS,doc_ParseSection},
    {"ParseTagFile",ParseTagFile,METH_VARARGS,doc_ParseTagFile},
    {"RewriteSection",RewriteSection,METH_VARARGS,doc_RewriteSection},
-   
+
+   // Locking
+   {"GetLock",GetLock,METH_VARARGS,doc_GetLock},
+   {"PkgSystemLock",PkgSystemLock,METH_VARARGS,doc_PkgSystemLock},
+   {"PkgSystemUnLock",PkgSystemUnLock,METH_VARARGS,doc_PkgSystemUnLock},
+
    // Command line
    {"ReadConfigFile",LoadConfig,METH_VARARGS,doc_LoadConfig},
    {"ReadConfigFileISC",LoadConfigISC,METH_VARARGS,doc_LoadConfig},
@@ -387,7 +441,7 @@ extern "C" void initapt_pkg()
    AddStr(Dict,"Date",__DATE__);
    AddStr(Dict,"Time",__TIME__);
 
-   // My constants!!
+   // My constants
    AddInt(Dict,"DepDepends",pkgCache::Dep::Depends);
    AddInt(Dict,"DepPreDepends",pkgCache::Dep::PreDepends);
    AddInt(Dict,"DepSuggests",pkgCache::Dep::Suggests);
