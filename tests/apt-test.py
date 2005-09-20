@@ -7,8 +7,7 @@ if __name__ == "__main__":
     progress = apt.progress.OpTextProgress()
     cache = apt.Cache(progress)
     print cache
-    for name in cache.keys():
-        pkg = cache[name]
+    for pkg in cache:
         if pkg.isUpgradable:
             pkg.markInstall()
     for pkg in cache.getChanges():

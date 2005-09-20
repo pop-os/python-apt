@@ -50,7 +50,6 @@ class Cache(object):
         self._records = apt_pkg.GetPkgRecords(self._cache)
         self._dict = {}
 
-
         # build the packages dict
         if progress != None:
             progress.Op = "Building data structures"
@@ -64,13 +63,20 @@ class Cache(object):
             if len(pkg.VersionList) > 0:
                 self._dict[pkg.Name] = Package(self._cache, self._depcache,
                                                self._records, self, pkg)
+                
             i += 1
         if progress != None:
             progress.done()
         self._runCallbacks("cache_post_open")
         
     def __getitem__(self, key):
+        """ look like a dictionary (get key) """
         return self._dict[key]
+
+    def __iter__(self):
+        for pkgname in self._dict.keys():
+            yield self._dict[pkgname]
+        raise StopIteration
 
     def has_key(self, key):
         try:
