@@ -449,13 +449,12 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"DepConflicts",pkgCache::Dep::Conflicts);
    AddInt(Dict,"DepReplaces",pkgCache::Dep::Replaces);
    AddInt(Dict,"DepObsoletes",pkgCache::Dep::Obsoletes);
-   
+
    AddInt(Dict,"PriImportant",pkgCache::State::Important);
    AddInt(Dict,"PriRequired",pkgCache::State::Required);
    AddInt(Dict,"PriStandard",pkgCache::State::Standard);
    AddInt(Dict,"PriOptional",pkgCache::State::Optional);
    AddInt(Dict,"PriExtra",pkgCache::State::Extra);
-
 
 }
 									/*}}}*/

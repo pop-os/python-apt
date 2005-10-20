@@ -44,10 +44,23 @@ class OpTextProgress(OpProgress):
 
 
 
-class FetchProgress:
+class FetchProgress(object):
     """ Report the download/fetching progress
         Subclass this class to implement fetch progress reporting
     """
+
+    # download status constants
+    dlDone = 0
+    dlQueued = 1
+    dlFailed = 2
+    dlHit = 3
+    dlIgnored = 4
+    dlStatusStr = {dlDone : "Done",
+                   dlQueued : "Queued",
+                   dlFailed : "Failed",
+                   dlHit : "Hit",
+                   dlIgnored : "Ignored"}
+    
     def __init__(self):
         pass
     
@@ -61,13 +74,46 @@ class FetchProgress:
         pass
 
     def pulse(self):
-        """ called periodically (to update the gui) """
+        """ called periodically (to update the gui), importend to
+            return True to continue or False to cancel
+        """
+        self.percent = ((self.currentBytes + self.currentItems)*100.0)/float(self.totalBytes+self.totalItems)
+        if self.currentCPS > 0:
+            self.eta = (self.totalBytes-self.currentBytes)/float(self.currentCPS)
         return True
-
     def mediaChange(self, medium, drive):
         pass
 
-
+class TextFetchProgress(FetchProgress):
+    """ Ready to use progress object for terminal windows """
+    def __init__(self):
+        self.items = {}
+    def updateStatus(self, uri, descr, shortDescr, status):
+        if status != self.dlQueued:
+            print "\r%s %s" % (self.dlStatusStr[status], descr)
+        self.items[uri] = status
+    def pulse(self):
+        FetchProgress.pulse(self)
+        if self.currentCPS > 0:
+            s = "[%2.f%%] %sB/s %s" % (self.percent,
+                                       apt_pkg.SizeToStr(int(self.currentCPS)),
+                                       apt_pkg.TimeToStr(int(self.eta)))
+        else:
+            s = "%2.f%% [Working]" % (self.percent)
+        print "\r%s" % (s),
+        sys.stdout.flush()
+        return True
+    def stop(self):
+        print "\rDone                  " 
+    def mediaChange(self, medium, drive):
+        """ react to media change events """
+        res = True;
+        print "Media change: please insert the disc labeled \
+               '%s' in the drive '%s' and press enter" % (medium,drive)
+        s = sys.stdin.readline()
+        if(s == 'c' or s == 'C'):
+            res = false;
+        return res
 
 class InstallProgress:
     """ Report the install progress
@@ -105,3 +151,6 @@ if __name__ == "__main__":
     cache = apt_pkg.GetCache(progress)
     depcache = apt_pkg.GetDepCache(cache)
     depcache.Init(progress)
+
+    fprogress = TextFetchProgress()
+    cache.Update(fprogress)

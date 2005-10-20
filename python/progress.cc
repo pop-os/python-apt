@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <apt-pkg/acquire-item.h>
 #include "progress.h"
 
 
@@ -75,9 +76,6 @@ void PyOpProgress::Done()
 
 // fetcher interface
 
-enum {
-   DLDone, DLQueued, DLFailed, DLHit
-};
 
 
 // apt interface
@@ -122,6 +120,15 @@ void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
+   // Ignore certain kinds of transient failures (bad code)
+   if (Itm.Owner->Status == pkgAcquire::Item::StatIdle)
+      return;
+      
+   if (Itm.Owner->Status == pkgAcquire::Item::StatDone)
+   {
+      UpdateStatus(Itm, DLIgnored);
+   }
+
    UpdateStatus(Itm, DLFailed);
 }
 
