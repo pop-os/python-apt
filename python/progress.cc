@@ -11,6 +11,7 @@
 #include <sys/wait.h>
 #include "progress.h"
 
+
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name, 
 				      PyObject *arglist,
@@ -220,7 +221,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 	 return pkgPackageManager::Failed;
       }
       if(!PyArg_Parse(result, "i", &child_id) )
-	 std::cerr << "result could not be parsed?"<< std::endl;
+	 std::cerr << "custom fork() result could not be parsed?"<< std::endl;
       //std::cerr << "got: " << child_id << std::endl;
    } else {
       //std::cerr << "using build-in fork()" << std::endl;
@@ -235,9 +236,13 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
    }
 #endif
    if (child_id == 0) {
-      res = pm->DoInstall();
+      PyObject *v = PyObject_GetAttrString(callbackInst, "writefd");
+      int fd = PyObject_AsFileDescriptor(v);
+      cout << "got fd: " << fd << endl;
+      res = pm->DoInstall(fd);
       _exit(res);
    }
+
 
    StartUpdate();
    while (waitpid(child_id, &ret, WNOHANG) == 0)

@@ -3,8 +3,10 @@
 # see also gnome bug: #169201
 
 import apt_pkg
-import sys, os
+import sys, os, fcntl
 import copy
+import string
+import fcntl
 
 import pygtk
 pygtk.require('2.0')
@@ -28,13 +30,14 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 	self.vbox.pack_start(self.label)
 	self.resize(300,100)
     def start(self):
-	self.progress.set_fraction(0)
+        print "start"
+	self.progress.set_fraction(0.0)
         self.show()
     def stop(self):
 	self.hide()
     def pulse(self):
 	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
-	self.progress.set_fraction(self.currentBytes/self.totalBytes)
+	#self.progressbar.set_fraction(self.currentBytes/self.totalBytes)
 	while gtk.events_pending():
 		gtk.main_iteration()
 
@@ -42,21 +45,54 @@ class TermInstallProgress(InstallProgress, gtk.Window):
     def __init__(self):
 	gtk.Window.__init__(self)
 	self.show()
+        box = gtk.VBox()
+        box.show()
+        self.add(box)
 	self.term = vte.Terminal()
 	self.term.show()
-	self.add(self.term)
-    def start(self):
-	self.progress.set_fraction(0)
+	box.pack_start(self.term)
+        self.progressbar = gtk.ProgressBar()
+        self.progressbar.show()
+        box.pack_start(self.progressbar)
+
+        (read, write) = os.pipe()
+        self.writefd=write
+        self.status = os.fdopen(read, "r")
+        fcntl.fcntl(self.status.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
+        print "read-fd: %s" % self.status.fileno()
+        print "write-fd: %s" % self.writefd
+        self.read = ""
+            
+    def startUpdate(self):
+        print "start"
         self.show()
-    def stop(self):
-	self.hide()
     def updateInterface(self):
+        if self.status != None:
+                try:
+                    self.read += os.read(self.status.fileno(),1)
+                except OSError, (errno,errstr):
+                    # resource temporarly unavailable is ignored
+                    if errno != 11: 
+                        print errstr
+                if self.read.endswith("\n"):
+                    s = self.read
+                    print s
+                    (status, pkg, percent, status_str) = string.split(s, ":")
+                    print "percent: %s %s" % (pkg, float(percent)/100.0)
+                    self.progressbar.set_fraction(float(percent)/100.0)
+                    self.progressbar.set_text(string.strip(status_str))
+                    self.read = ""
         while gtk.events_pending():
             gtk.main_iteration()
     def finishUpdate(self):
 	sys.stdin.readline()
     def fork(self):
-	return self.term.forkpty()
+        print "fork"
+        env = ["VTE_PTY_KEEP_FD=%s"%self.writefd]
+        print env
+	pid = self.term.forkpty(envv=env)
+        print "After fork: %s " % pid
+        return pid
 
 
 # init

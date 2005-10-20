@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # example how to deal with the depcache
 
+import apt
 import apt_pkg
 import sys, os
 import copy
@@ -8,6 +9,21 @@ import copy
 from progress import TextFetchProgress, TextInstallProgress
 from apt.progress import OpTextProgress
 
+class TextInstallProgress(InstallProgress):
+	def __init__(self):
+		InstallProgress.__init__(self)
+		self.status = None
+	def StartUpdate(self):
+		print "StartUpdate: %s" % self.statusfd
+		self.status = os.fdopen(self.statusfd, "r")
+		print self.status
+	def UpdateInterface(self):
+		if self.status != None:
+			s = self.status.readline()
+			if s:
+				print s
+	def FinishUpdate(self):
+		self.status.close()
 
 # init
 apt_pkg.init()
