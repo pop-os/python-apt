@@ -27,6 +27,9 @@
 #include <iostream>
 #include "progress.h"
 
+#ifndef _
+#define _(x) (x)
+#endif
 
 
 
@@ -96,7 +99,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       return HandleErrors();
    }
 
-   std::cout << "PM created" << std::endl;
+   //std::cout << "PM created" << std::endl;
 
    PyInstallProgress iprogress;
    iprogress.setCallbackInst(pyInstallProgressInst);
@@ -124,15 +127,16 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 	    continue;
 	 }
 
-	 //FIXME: report this error somehow
-// 	 fprintf(stderr,_("Failed to fetch %s  %s\n"),(*I)->DescURI().c_str(),
-// 		 (*I)->ErrorText.c_str());
+	 _error->Warning(_("Failed to fetch %s  %s\n"),(*I)->DescURI().c_str(),
+			 (*I)->ErrorText.c_str());
 	 Failed = true;
       }
 
-#if 0 // check that stuff
       if (Transient == true && Failed == true)
-	 return Py_None; /*_error->Error(_("--fix-missing and media swapping is not currently supported"));*/
+      {
+	 _error->Error(_("--fix-missing and media swapping is not currently supported"));
+	 return HandleErrors(Py_None);
+      }
       
       // Try to deal with missing package files
       if (Failed == true && PM->FixMissing() == false)
@@ -141,7 +145,6 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 	 _error->Error("Aborting install.");
 	 return HandleErrors(Py_None);
       }
-#endif       	 
 
       _system->UnLock();
 
@@ -164,29 +167,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       }
       _system->Lock();
    }   
-
-
-
-#if 0
-   if (Fetcher.Run() == pkgAcquire::Failed)
-      return HandleErrors(Py_None);
-
-   std::cout << "Fetcher was run" << std::endl;
-
-   // FIXME: incomplete, see apt-get.cc
-   _system->UnLock();
-
-   pkgPackageManager::OrderResult Res = PM->DoInstall();
-   if (Res == pkgPackageManager::Failed || _error->PendingError() == true)
-      return Py_None/*false;*/;
-   if (Res == pkgPackageManager::Completed)
-      return Py_None /*true;*/;
-      
-   _system->Lock();
-#endif
-
-   // FIXME: open the cache here again
-   
+ 
    return HandleErrors(Py_None);
 }
 

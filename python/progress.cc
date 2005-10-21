@@ -9,7 +9,9 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <apt-pkg/acquire-item.h>
 #include "progress.h"
+
 
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name, 
@@ -74,9 +76,6 @@ void PyOpProgress::Done()
 
 // fetcher interface
 
-enum {
-   DLDone, DLQueued, DLFailed, DLHit
-};
 
 
 // apt interface
@@ -121,6 +120,15 @@ void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
+   // Ignore certain kinds of transient failures (bad code)
+   if (Itm.Owner->Status == pkgAcquire::Item::StatIdle)
+      return;
+      
+   if (Itm.Owner->Status == pkgAcquire::Item::StatDone)
+   {
+      UpdateStatus(Itm, DLIgnored);
+   }
+
    UpdateStatus(Itm, DLFailed);
 }
 
@@ -220,7 +228,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 	 return pkgPackageManager::Failed;
       }
       if(!PyArg_Parse(result, "i", &child_id) )
-	 std::cerr << "result could not be parsed?"<< std::endl;
+	 std::cerr << "custom fork() result could not be parsed?"<< std::endl;
       //std::cerr << "got: " << child_id << std::endl;
    } else {
       //std::cerr << "using build-in fork()" << std::endl;
@@ -235,9 +243,17 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
    }
 #endif
    if (child_id == 0) {
-      res = pm->DoInstall();
+      PyObject *v = PyObject_GetAttrString(callbackInst, "writefd");
+      if(v) {
+	 int fd = PyObject_AsFileDescriptor(v);
+	 cout << "got fd: " << fd << endl;
+	 res = pm->DoInstall(fd);
+      } else {
+	 res = pm->DoInstall();
+      }
       _exit(res);
    }
+
 
    StartUpdate();
    while (waitpid(child_id, &ret, WNOHANG) == 0)

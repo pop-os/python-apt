@@ -15,6 +15,7 @@
 #include <apt-pkg/cdrom.h>
 #include <Python.h>
 
+
 class PyCallbackObj {
  protected:
    PyObject *callbackInst;
@@ -44,6 +45,10 @@ struct PyOpProgress : public OpProgress, public PyCallbackObj
 
 struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 {
+   enum {
+      DLDone, DLQueued, DLFailed, DLHit, DLIgnored
+   };
+
    void UpdateStatus(pkgAcquire::ItemDesc & Itm, int status);
 
    virtual bool MediaChange(string Media, string Drive);
@@ -58,7 +63,6 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 
    bool Pulse(pkgAcquire * Owner);
    PyFetchProgress() : PyCallbackObj() {};
-   
 };
 
 struct PyInstallProgress : public PyCallbackObj
