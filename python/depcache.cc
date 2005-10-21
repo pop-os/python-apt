@@ -99,7 +99,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       return HandleErrors();
    }
 
-   std::cout << "PM created" << std::endl;
+   //std::cout << "PM created" << std::endl;
 
    PyInstallProgress iprogress;
    iprogress.setCallbackInst(pyInstallProgressInst);

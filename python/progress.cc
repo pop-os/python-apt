@@ -244,9 +244,13 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 #endif
    if (child_id == 0) {
       PyObject *v = PyObject_GetAttrString(callbackInst, "writefd");
-      int fd = PyObject_AsFileDescriptor(v);
-      cout << "got fd: " << fd << endl;
-      res = pm->DoInstall(fd);
+      if(v) {
+	 int fd = PyObject_AsFileDescriptor(v);
+	 cout << "got fd: " << fd << endl;
+	 res = pm->DoInstall(fd);
+      } else {
+	 res = pm->DoInstall();
+      }
       _exit(res);
    }
 

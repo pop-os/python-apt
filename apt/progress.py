@@ -128,7 +128,6 @@ class InstallProgress:
     def updateInterface(self):
         pass
 
-
 class CdromProgress:
     """ Report the cdrom add progress
         Subclass this class to implement cdrom add progress reporting
