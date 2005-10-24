@@ -149,21 +149,20 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       _system->UnLock();
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
+      std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
+
       //FIXME: return usefull values here
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
-	 result = Py_BuildValue("b", false);
-	 return result;
+	 return Py_BuildValue("b", false);
       }
       if (Res == pkgPackageManager::Completed) {
-	 result = Py_BuildValue("b", true);
-	 return result;
+	 return Py_BuildValue("b", true);
       }
 
       // Reload the fetcher object and loop again for media swapping
       Fetcher.Shutdown();
       if (PM->GetArchives(&Fetcher,&List,&Recs) == false) {
-	 result = Py_BuildValue("b", false);
-	 return result;
+	 return Py_BuildValue("b", false);
       }
       _system->Lock();
    }   

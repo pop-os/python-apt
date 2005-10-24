@@ -104,7 +104,7 @@ class TextFetchProgress(FetchProgress):
         sys.stdout.flush()
         return True
     def stop(self):
-        print "\rDone                  " 
+        print "\rDone downloading            " 
     def mediaChange(self, medium, drive):
         """ react to media change events """
         res = True;
