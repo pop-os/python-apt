@@ -11,7 +11,7 @@ python-apt (0.6.14) unstable; urgency=low
   * apt/cache.py:
     - added  __iter__ to make "for pkg in apt.Cache:" stuff possible
 
- -- 
+ -- Michael Vogt <mvo@debian.org>  Wed,  9 Nov 2005 04:52:08 +0100
 
 python-apt (0.6.13) unstable; urgency=low
 
