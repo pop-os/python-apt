@@ -30,9 +30,9 @@ import gobject
 import shutil
 import gettext
 
-sys.path.append("@prefix/share/update-manager/python")
+#sys.path.append("@prefix/share/update-manager/python")
 
-from SimpleGladeApp import *
+from UpdateManagerCommon import SimpleGladeApp
 import aptsources
 import dialog_add
 import dialog_edit
@@ -49,18 +49,18 @@ CONF_MAP = {
   "max_age"      : "APT::Archives::MaxAge"
 }
 
-DATADIR = "@prefix@/share/update-manager"
-
 
 class SoftwareProperties(SimpleGladeApp):
 
-  def __init__(self, gladefile, root, domain, options):
-    SimpleGladeApp.__init__(self, gladefile, None, domain)
+  def __init__(self, datadir, options):
+    _ = gettext.gettext
+
+    self.datadir = datadir
+    SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
+                            None, domain="update-manager")
     apt_pkg.InitConfig()
    
     self.modified = False
-    
-    _ = gettext.gettext
 		  
     self.gnome_program = gnome.init("Software Properties", "0.41")
     self.gconfclient = gconf.client_get_default()
@@ -182,7 +182,8 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.save(location)
     
   def on_add_clicked(self, widget):
-    dialog = dialog_add.dialog_add(self.window_main, self.sourceslist, DATADIR)
+    dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
+                                   self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
     
@@ -194,7 +195,7 @@ class SoftwareProperties(SimpleGladeApp):
     source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
     
     dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
-                                     source_entry, DATADIR)
+                                     source_entry, self.datadir)
                                      
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()

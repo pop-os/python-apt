@@ -552,7 +552,7 @@ class UpdateManager:
     if os.path.exists("../data/update-manager.glade"):
       self.Glade = gtk.glade.XML("../data/update-manager.glade")
     else:
-      self.Glade = gtk.glade.XML("@prefix@/share/update-manager/update-manager.glade")
+      self.Glade = gtk.glade.XML("/usr/share/update-manager/update-manager.glade")
 
     self.NumUpdates = self.Glade.get_widget("num_updates")
     self.main_window = self.Glade.get_widget("MainWindow")
@@ -854,7 +854,7 @@ class UpdateManager:
 if __name__ == "__main__":
 
   APP="update-manager"
-  DIR="@prefix@/share/locale"
+  DIR="/usr/share/locale"
   gettext.bindtextdomain(APP, DIR)
   gettext.textdomain(APP)
   gtk.glade.bindtextdomain(APP, DIR)

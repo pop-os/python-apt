@@ -39,7 +39,8 @@ class Component:
     enabled = None
 
 class DistInfo:
-    def __init__(self, dist = None,
+    def __init__(self,
+                 dist = None,
                  base_dir = "/usr/share/update-manager/dists"):
         self.metarelease_uri = ''
         self.suites = []

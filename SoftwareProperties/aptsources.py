@@ -238,11 +238,11 @@ class SourceCompTemplate:
     self.on_by_default = on_by_default
 
 class SourceEntryTemplates:
-  def __init__(self):
+  def __init__(self,datadir):
     _ = gettext.gettext
     self.templates = []
 
-    dinfo = DistInfo ()
+    dinfo = DistInfo (base_dir=datadir+"channels/")
 
     for suite in dinfo.suites:
       comps = []

@@ -35,13 +35,12 @@ class dialog_add:
     self.sourceslist = sourceslist
 
     # templates
-    self.templatelist = aptsources.SourceEntryTemplates()
+    self.templatelist = aptsources.SourceEntryTemplates(datadir)
+
+    # FIXME: simple-glade-app should be able to do all this!
 
     # gtk stuff
-    if os.path.exists("../data/SoftwarePropertiesDialogs.glade"):
-      self.gladexml = gtk.glade.XML("../data/SoftwarePropertiesDialogs.glade")
-    else:
-      self.gladexml = gtk.glade.XML("%s/SoftwarePropertiesDialogs.glade" % datadir)
+    self.gladexml = gtk.glade.XML("%s/glade/SoftwarePropertiesDialogs.glade" % datadir)
     
     self.main = widget = self.gladexml.get_widget("dialog_add")
     self.main.set_transient_for(parent)
