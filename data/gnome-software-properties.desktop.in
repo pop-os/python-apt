@@ -1,0 +1,11 @@
+[Desktop Entry]
+_Name=Software Properties
+_GenericName=Software Properties
+_Comment=Edit software sources and settings
+Exec=gksudo /usr/bin/gnome-software-properties
+Icon=update-manager.png
+Terminal=false
+MultipleArgs=false
+Type=Application
+Encoding=UTF-8
+Categories=Application;System;Settings;

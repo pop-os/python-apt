@@ -1,0 +1,520 @@
+# Canadian English translation for update-manager
+# Copyright (C) 2005 Adam Weinberger and the GNOME Foundation
+# This file is distributed under the same licence as the update-manager package.
+# Adam Weinberger <adamw@gnome.org>, 2005.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: update-manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-04 10:47+0200\n"
+"PO-Revision-Date: 2005-04-03 01:26-0500\n"
+"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
+"Language-Team: Canadian English <adamw@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+msgid "Edit software sources and settings"
+msgstr "Edit software sources and settings"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "Software Properties"
+
+#: ../data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
+msgstr "<b>Comment:</b>"
+
+#: ../data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr "<b>Components</b>"
+
+#: ../data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr "<b>Distribution:</b>"
+
+#: ../data/gnome-software-properties.glade.h:4
+msgid "<b>Internet Updates</b>"
+msgstr "<b>Internet Updates</b>"
+
+#: ../data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr "<b>Repository</b>"
+
+#: ../data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr "<b>Sections:</b>"
+
+#: ../data/gnome-software-properties.glade.h:7
+msgid "<b>Software Sources</b>"
+msgstr "<b>Software Sources</b>"
+
+#: ../data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
+msgstr "<b>Temporary files</b>"
+
+#: ../data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>Type:</b>"
+
+#: ../data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: ../data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr "<b>User Interface</b>"
+
+#: ../data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to check verify the integrity of the software you download."
+msgstr ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialogue. A key makes it "
+"possible to check verify the integrity of the software you download."
+
+#: ../data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+
+#: ../data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr "APT line:"
+
+#: ../data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr "A_uthentication"
+
+#: ../data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr "Add _CD"
+
+#: ../data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you got the key "
+"over a secure channel and that you trust the owner. "
+msgstr ""
+"Add a new key file to the trusted keyring. Make sure that you got the key "
+"over a secure channel and that you trust the owner. "
+
+#: ../data/gnome-software-properties.glade.h:22
+msgid "Automatically check for software _updates."
+msgstr "Automatically check for software _updates."
+
+#: ../data/gnome-software-properties.glade.h:23
+msgid "Automatically clean _temporary packages files"
+msgstr "Automatically clean _temporary packages files"
+
+#: ../data/gnome-software-properties.glade.h:24
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"Binary\n"
+"Source"
+
+#: ../data/gnome-software-properties.glade.h:26
+msgid "Clean interval in days: "
+msgstr "Clean interval in days: "
+
+#: ../data/gnome-software-properties.glade.h:27
+msgid "Delete _old packages in the package cache"
+msgstr "Delete _old packages in the package cache"
+
+#: ../data/gnome-software-properties.glade.h:28
+msgid "Edit Repository..."
+msgstr "Edit Repository..."
+
+#: ../data/gnome-software-properties.glade.h:29
+msgid "Maximum age in days:"
+msgstr "Maximum age in days:"
+
+#: ../data/gnome-software-properties.glade.h:30
+msgid "Maximum size in MB:"
+msgstr "Maximum size in MB:"
+
+#: ../data/gnome-software-properties.glade.h:31
+msgid "Remove the selected key from the trusted keyring."
+msgstr "Remove the selected key from the trusted keyring."
+
+#: ../data/gnome-software-properties.glade.h:32
+msgid "Restore default keys"
+msgstr "Restore default keys"
+
+#: ../data/gnome-software-properties.glade.h:33
+msgid ""
+"Restore the default keys shiped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+"Restore the default keys shiped with the distribution. This will not change "
+"user-installed keys."
+
+#: ../data/gnome-software-properties.glade.h:34
+msgid "Set _maximum size for the package cache"
+msgstr "Set _maximum size for the package cache"
+
+#: ../data/gnome-software-properties.glade.h:35
+msgid "Settings"
+msgstr "Settings"
+
+#: ../data/gnome-software-properties.glade.h:36
+msgid "Show disabled software sources"
+msgstr "Show disabled software sources"
+
+#: ../data/gnome-software-properties.glade.h:37
+msgid "Software Preferences"
+msgstr "Software Preferences"
+
+#: ../data/gnome-software-properties.glade.h:38
+msgid "Update interval in days: "
+msgstr "Update interval in days: "
+
+#: ../data/gnome-software-properties.glade.h:39
+msgid "_Add Repository"
+msgstr "_Add Repository"
+
+#: ../data/gnome-software-properties.glade.h:40
+msgid "_Custom"
+msgstr "_Custom"
+
+#: ../data/gnome-software-properties.glade.h:41
+msgid "_Download upgradable packages"
+msgstr "_Download upgradable packages"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "Show available updates and choose which to install"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Ubuntu Update Manager"
+msgstr "Ubuntu Update Manager"
+
+#: ../data/update-manager.desktop.in.h:3
+msgid "Update Manager"
+msgstr "Update Manager"
+
+#: ../data/update-manager.glade.h:1
+msgid "<b>Details</b>"
+msgstr "<b>Details</b>"
+
+#: ../data/update-manager.glade.h:2
+msgid "<b>Packages to install:</b>"
+msgstr "<b>Packages to install:</b>"
+
+#: ../data/update-manager.glade.h:3 ../src/update-manager.in:629
+msgid ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+msgstr ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+
+#: ../data/update-manager.glade.h:6
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+
+#: ../data/update-manager.glade.h:9
+msgid "Cancel downloading the changelog"
+msgstr "Cancel downloading the ChangeLog"
+
+#: ../data/update-manager.glade.h:10
+msgid "Changes"
+msgstr "Changes"
+
+#: ../data/update-manager.glade.h:11
+msgid "Description"
+msgstr "Description"
+
+#: ../data/update-manager.glade.h:12
+msgid "Reload"
+msgstr "Reload"
+
+#: ../data/update-manager.glade.h:13
+msgid "Reload the package information from the server."
+msgstr "Reload the package information from the server."
+
+#: ../data/update-manager.glade.h:14
+msgid "Software Updates"
+msgstr "Software Updates"
+
+#: ../data/update-manager.glade.h:15
+msgid "_Install"
+msgstr "_Install"
+
+#: ../src/aptsources.py.in:234 ../src/aptsources.py.in:282
+#: ../src/aptsources.py.in:328
+msgid "Officially supported"
+msgstr "Officially supported"
+
+#: ../src/aptsources.py.in:235 ../src/aptsources.py.in:283
+msgid "Restricted copyright"
+msgstr "Restricted copyright"
+
+#: ../src/aptsources.py.in:236 ../src/aptsources.py.in:284
+msgid "Community maintained (Universe)"
+msgstr "Community maintained (Universe)"
+
+#: ../src/aptsources.py.in:237 ../src/aptsources.py.in:285
+msgid "Non-free (Multiverse)"
+msgstr "Non-free (Multiverse)"
+
+#: ../src/aptsources.py.in:248 ../src/aptsources.py.in:306
+#: ../src/aptsources.py.in:318
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 Security Updates"
+
+#: ../src/aptsources.py.in:253 ../src/aptsources.py.in:310
+msgid "Ubuntu 5.04 Updates"
+msgstr "Ubuntu 5.04 Updates"
+
+#: ../src/aptsources.py.in:276
+msgid "Binary"
+msgstr "Binary"
+
+#: ../src/aptsources.py.in:277
+msgid "Source"
+msgstr "Source"
+
+#: ../src/aptsources.py.in:289 ../src/aptsources.py.in:293
+msgid "CD"
+msgstr "CD"
+
+#: ../src/aptsources.py.in:314 ../src/aptsources.py.in:322
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Ubuntu 4.10 Security Updates"
+
+#: ../src/aptsources.py.in:329
+msgid "Contributed software"
+msgstr "Contributed software"
+
+#: ../src/aptsources.py.in:330
+msgid "Non-free software"
+msgstr "Non-free software"
+
+#: ../src/aptsources.py.in:331
+msgid "US export restricted software"
+msgstr "US export restricted software"
+
+#: ../src/aptsources.py.in:346
+msgid "Debian Stable Security Updates"
+msgstr "Debian Stable Security Updates"
+
+#. some known keys
+#: ../src/dialog_apt_key.py.in:37
+msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+msgstr "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+
+#: ../src/dialog_apt_key.py.in:38
+msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+msgstr "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+
+#: ../src/dialog_apt_key.py.in:122
+msgid "Choose a key-file"
+msgstr "Choose a key-file"
+
+#: ../src/dialog_apt_key.py.in:132
+msgid "Error importing selected file"
+msgstr "Error importing selected file"
+
+#: ../src/dialog_apt_key.py.in:133
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "The selected file may not be a GPG key file or it might be corrupt."
+
+#: ../src/dialog_apt_key.py.in:145
+msgid "Error removing the key"
+msgstr "Error removing the key"
+
+#: ../src/dialog_apt_key.py.in:146
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr ""
+"The key you selected could not be removed. Please report this as a bug."
+
+#: ../src/gnome-software-properties.in:72
+msgid "Repositories changed"
+msgstr "Repositories changed"
+
+#: ../src/gnome-software-properties.in:74
+#, c-format
+msgid ""
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
+"\n"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
+"\n"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+
+#: ../src/update-manager.in:124
+msgid "Your system has broken packages!"
+msgstr "Your system has broken packages!"
+
+#: ../src/update-manager.in:125
+msgid ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+msgstr ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+
+#: ../src/update-manager.in:139
+msgid "It is not possible to upgrade all packages."
+msgstr "It is not possible to upgrade all packages."
+
+#: ../src/update-manager.in:141
+msgid ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+msgstr ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+
+#: ../src/update-manager.in:154
+msgid "The following packages are not upgraded: "
+msgstr "The following packages are not upgraded: "
+
+#: ../src/update-manager.in:232
+msgid "Changes not found, the server may not be updated yet."
+msgstr "Changes not found, the server may not be updated yet."
+
+#: ../src/update-manager.in:235
+msgid ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+msgstr ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+
+#: ../src/update-manager.in:255
+#, c-format
+msgid "Version %s: \n"
+msgstr "Version %s: \n"
+
+#: ../src/update-manager.in:303
+msgid "Downloading changes..."
+msgstr "Downloading changes..."
+
+#: ../src/update-manager.in:358
+msgid "The updates are being applied."
+msgstr "The updates are being applied."
+
+#: ../src/update-manager.in:360
+msgid "Upgrade finished"
+msgstr "Upgrade finished"
+
+#: ../src/update-manager.in:417
+msgid "Another package manager is running"
+msgstr "Another package manager is running"
+
+#: ../src/update-manager.in:419
+msgid ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+msgstr ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+
+#: ../src/update-manager.in:437
+msgid "Updating package list..."
+msgstr "Updating package list..."
+
+#: ../src/update-manager.in:439
+msgid "Installing updates..."
+msgstr "Installing updates..."
+
+#: ../src/update-manager.in:618 ../src/update-manager.in:621
+msgid "Your system is up-to-date!"
+msgstr "Your system is up-to-date!"
+
+#: ../src/update-manager.in:619
+msgid "There are no updates available."
+msgstr "There are no updates available."
+
+#: ../src/update-manager.in:644
+#, c-format
+msgid "New version: %s"
+msgstr "New version: %s"
+
+#: ../src/update-manager.in:668
+msgid "Your distribution is no longer supported"
+msgstr "Your distribution is no longer supported"
+
+#: ../src/update-manager.in:668
+msgid ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+msgstr ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+
+#: ../src/update-manager.in:682
+msgid "There is a new release of Ubuntu available!"
+msgstr "There is a new release of Ubuntu available!"
+
+#: ../src/update-manager.in:682
+#, c-format
+msgid ""
+"A new release with the codename '%s' is available. Please see http://www."
+"ubuntulinux.org/ for upgrade instructions."
+msgstr ""
+"A new release with the codename '%s' is available. Please see http://www."
+"ubuntulinux.org/ for upgrade instructions."
+
+#: ../src/update-manager.in:685
+msgid "Never show this message again"
+msgstr "Never show this message again"
+
+#: ../src/update-manager.in:781
+msgid "Initializing and getting list of updates..."
+msgstr "Initializing and getting list of updates..."
+
+#: ../src/update-manager.in:803
+msgid "You need to be root to run this program"
+msgstr "You need to be root to run this program"
+
+#, fuzzy
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."

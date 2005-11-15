@@ -1,0 +1,13 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/gnome-software-properties.glade
+data/update-manager.desktop.in
+data/update-manager.glade
+src/aptsources.py.in
+src/dialog_add.py.in
+src/dialog_apt_key.py.in
+src/dialog_edit.py.in
+src/dialog_settings.py.in
+src/gnome-software-properties.in
+src/update-manager.in
+src/dialog_settings.py.in

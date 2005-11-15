@@ -1,0 +1,86 @@
+_ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
+
+Suite: hoary
+RepositoryType: deb
+_BaseURI: http://archive.ubuntu.com/ubuntu/
+_Description: Ubuntu 5.04 "Hoary Hedgehog"
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
+Suite: hoary-security
+RepositoryType: deb
+_BaseURI: http://security.ubuntu.com/ubuntu/
+_Description: Ubuntu 5.04 Security Updates
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
+Suite: breezy
+RepositoryType: deb
+_BaseURI: http://archive.ubuntu.com/ubuntu/
+_Description: Breezy 5.10 "Breezy Badger"
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
+Suite: breezy-security
+RepositoryType: deb
+_BaseURI: http://security.ubuntu.com/ubuntu/
+_Description: Ubuntu 5.10 Security Updates
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
+Suite: breezy-updates
+RepositoryType: deb
+_BaseURI: http://archive.ubuntu.com/ubuntu/
+_Description: Ubuntu 5.10 Updates
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)

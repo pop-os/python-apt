@@ -1,0 +1,82 @@
+# Xhosa translation of update-notifier
+# Copyright (C) 2005 Canonical Ltd.
+# This file is distributed under the same license as the update-notifier package.
+# Translation by Canonical Ltd <translations@canonical.com> with thanks to
+# Translation World CC in South Africa, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: update-notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-08 10:20+0100\n"
+"PO-Revision-Date: 2005-03-30 13:25+0200\n"
+"Last-Translator: Canonical Ltd <translations@canonical.com>\n"
+"Language-Team: Xhosa <xh-translate@ubuntu.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+
+#: src/update-notifier.c:59
+#, c-format
+msgid ""
+"Please enter your password to run:\n"
+" %s"
+msgstr ""
+"Nceda faka i-password yakho ukuqhuba:\n"
+" %s"
+
+#: src/update.c:10
+msgid "Show updates"
+msgstr "Bonisa izihlaziyo"
+
+#: src/update.c:11
+msgid "Install all updates"
+msgstr "Seka zonke izihlaziyo"
+
+#: src/update.c:12
+msgid "Package Manager"
+msgstr "UMlawuli woMqulu weNkqubo"
+
+#: src/update.c:13
+msgid "Update package list now"
+msgstr "Hlaziya uluhlu lomqulu wenkqubo ngoku"
+
+#: src/update.c:54
+#, c-format
+msgid "There is %i update available"
+msgid_plural "There are %i updates available"
+msgstr[0] "Kukho i-%i yohlaziyo ekhoyo"
+msgstr[1] "Kukho i-%i yohlaziyo ekhoyo"
+
+#: src/update.c:58
+msgid "Press this icon to show the updates."
+msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa izihlaziyo."
+
+#: src/update.c:81
+msgid "Software preferences"
+msgstr "Uluhlu lwezinto ezikhethwayo zeenkqubo zekhompyutha"
+
+#: src/hooks.c:18
+#, c-format
+msgid "There are %i post-update informations available!"
+msgstr "Kukho i-%i yolwazi lwasemva kohlaziyo olukhoyo!"
+
+#: src/hooks.c:21
+msgid "Press this icon to show the information."
+msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa ulwazi."
+
+#: ui/hooks-dialog.glade:92
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Update information</span>\n"
+"\n"
+"There is some post software update information available. Please read the following information carefully."
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Ulwazi oluhlaziyiweyo</span>\n"
+"\n"
+"Kukho iinkqubo zekhompyutha zasemva kohlaziyo zolwazi olukhoyo. Nceda funda olu lwazi lulandelayo ngocoselelo."
+
+#: ui/hooks-dialog.glade:180
+msgid "Run now"
+msgstr "Phumeza inkqubo ngoku"
+

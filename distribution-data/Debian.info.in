@@ -1,0 +1,57 @@
+_ChangelogURI: http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog
+
+Suite: sarge
+RepositoryType: deb
+_BaseURI: http://http.us.debian.org/debian/
+_Description: Debian 3.1 "Sarge"
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: contrib
+Enabled: 0
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+Enabled: 0
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: sarge/updates
+RepositoryType: deb
+_BaseURI: http://security.debian.org/
+_Description: Debian 3.1 "Sarge" Security Updates
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: contrib
+Enabled: 0
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+Enabled: 0
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: etch
+RepositoryType: deb
+_BaseURI: http://http.us.debian.org/debian/
+_Description: Debian "Etch" (testing)
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: contrib
+Enabled: 0
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+Enabled: 0
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: sid
+RepositoryType: deb
+_BaseURI: http://http.us.debian.org/debian/
+_Description: Debian "Sid" (unstable)
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: contrib
+Enabled: 0
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+Enabled: 0
+_CompDescription: Non-DFSG-compatible Software

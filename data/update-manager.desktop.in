@@ -1,0 +1,10 @@
+[Desktop Entry]
+_Name=Update Manager
+_GenericName=Update Manager
+_Comment=Show available updates and choose which to install
+Exec=gksudo /usr/bin/update-manager
+Icon=update-manager.png
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Application;System;Settings;

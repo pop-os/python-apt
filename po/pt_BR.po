@@ -1,0 +1,407 @@
+# Brazilian Portuguese translation of update-manager.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the update-manager package.
+# Raphael Higino <raphaelh@uai.com.br>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: update-manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-28 11:51+0200\n"
+"PO-Revision-Date: 2005-03-29 13:36-0300\n"
+"Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
+"Language-Team: Brazilian Portuguese <gnome-l10n-status@listas.cipsga.org.br>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/gnome-software-properties.desktop.in.h:1
+msgid "Edit software sources and settings"
+msgstr ""
+
+#: data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "Propriedades dos Softwares"
+
+#: data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr "<b>Componentes</b>"
+
+#: data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:4
+msgid "<b>Internet Updates</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:7
+msgid "<b>Software Sources</b>"
+msgstr "<b>Fontes de Software</b>"
+
+#: data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>Tipo:</b>"
+
+#: data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to check verify the integrity of the software you download."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr "Linha do APT:"
+
+#: data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr "Adicionar _CD"
+
+#: data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you got the key "
+"over a secure channel and that you trust the owner. "
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:22
+msgid "Automatically check for software _updates."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:23
+msgid "Automatically clean _temporary packages files"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:24
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:26
+msgid "Clean interval in days: "
+msgstr "Intervalo de limpeza, em dias: "
+
+#: data/gnome-software-properties.glade.h:27
+msgid "Delete _old packages in the package cache"
+msgstr "Excluir pacotes _antigos do cache de pacotes"
+
+#: data/gnome-software-properties.glade.h:28
+msgid "Edit Repository..."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:29
+msgid "Maximum age in days:"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:30
+msgid "Maximum size in MB:"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:31
+msgid "Remove the selected key from the trusted keyring."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:32
+msgid "Restore default keys"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:33
+msgid ""
+"Restore the default keys shiped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:34
+msgid "Set _maximum size for the package cache"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:35
+msgid "Settings"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:36
+msgid "Show disabled software sources"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:37
+msgid "Software Preferences"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:38
+msgid "Update interval in days: "
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:39
+msgid "_Add Repository"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:40
+msgid "_Custom"
+msgstr ""
+
+#: data/gnome-software-properties.glade.h:41
+msgid "_Download upgradable packages"
+msgstr ""
+
+#: data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr ""
+
+#: data/update-manager.desktop.in.h:2
+msgid "Ubuntu Update Manager"
+msgstr ""
+
+#: data/update-manager.desktop.in.h:3
+msgid "Update Manager"
+msgstr ""
+
+#: data/update-manager.glade.h:1
+msgid "<b>Details</b>"
+msgstr ""
+
+#: data/update-manager.glade.h:2
+msgid "<b>Packages to install:</b>"
+msgstr ""
+
+#: data/update-manager.glade.h:3
+msgid ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+msgstr ""
+
+#: data/update-manager.glade.h:6
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+
+#: data/update-manager.glade.h:9
+msgid "Cancel downloading the changelog"
+msgstr ""
+
+#: data/update-manager.glade.h:10
+msgid "Changes"
+msgstr ""
+
+#: data/update-manager.glade.h:11
+msgid "Description"
+msgstr ""
+
+#: data/update-manager.glade.h:12
+msgid "Reload"
+msgstr ""
+
+#: data/update-manager.glade.h:13
+msgid "Reload the package information from the server."
+msgstr ""
+
+#: data/update-manager.glade.h:14
+msgid "Software Updates"
+msgstr ""
+
+#: data/update-manager.glade.h:15
+msgid "_Install"
+msgstr ""
+
+#: src/aptsources.py.in:207 src/aptsources.py.in:257 src/aptsources.py.in:299
+msgid "Officially supported"
+msgstr ""
+
+#: src/aptsources.py.in:208 src/aptsources.py.in:258
+msgid "Restricted copyright"
+msgstr ""
+
+#: src/aptsources.py.in:209 src/aptsources.py.in:259
+msgid "Community maintained (Universe)"
+msgstr "Mantido pela comunidade (Universo)"
+
+#: src/aptsources.py.in:210 src/aptsources.py.in:260
+msgid "Non-free (Multiverse)"
+msgstr ""
+
+#: src/aptsources.py.in:221 src/aptsources.py.in:281 src/aptsources.py.in:289
+msgid "Ubuntu 5.04 Security Updates"
+msgstr ""
+
+#: src/aptsources.py.in:251
+msgid "Binary"
+msgstr ""
+
+#: src/aptsources.py.in:252
+msgid "Source"
+msgstr ""
+
+#: src/aptsources.py.in:264 src/aptsources.py.in:268
+msgid "CD"
+msgstr "CD"
+
+#: src/aptsources.py.in:285 src/aptsources.py.in:293
+msgid "Ubuntu 4.10 Security Updates"
+msgstr ""
+
+#: src/aptsources.py.in:300
+msgid "Contributed software"
+msgstr ""
+
+#: src/aptsources.py.in:301
+msgid "Non-free software"
+msgstr ""
+
+#: src/aptsources.py.in:302
+msgid "US export restricted software"
+msgstr ""
+
+#: src/aptsources.py.in:317
+msgid "Debian Stable Security Updates"
+msgstr ""
+
+#: src/gnome-software-properties.in:72
+msgid "Repositories changed"
+msgstr ""
+
+#: src/gnome-software-properties.in:74
+#, c-format
+msgid ""
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
+"\n"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+
+#: src/update-manager.in:124
+msgid "Your system has broken packages!"
+msgstr "O seu sistema tem pacotes quebrados!"
+
+#: src/update-manager.in:125
+msgid ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+msgstr ""
+
+#: src/update-manager.in:139
+msgid "It is not possible to upgrade all packages."
+msgstr ""
+
+#: src/update-manager.in:141
+msgid ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+msgstr ""
+
+#: src/update-manager.in:232
+msgid "Changes not found, the server may not be updated yet."
+msgstr ""
+
+#: src/update-manager.in:235
+msgid ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+msgstr ""
+
+#: src/update-manager.in:255
+#, c-format
+msgid "Version %s: \n"
+msgstr ""
+
+#: src/update-manager.in:303
+msgid "Downloading changes..."
+msgstr ""
+
+#: src/update-manager.in:358
+msgid "The updates are being applied."
+msgstr ""
+
+#: src/update-manager.in:360
+msgid "Upgrade finished"
+msgstr "Upgrade terminado"
+
+#: src/update-manager.in:417
+msgid "Another package manager is running"
+msgstr ""
+
+#: src/update-manager.in:419
+msgid ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+msgstr ""
+
+#: src/update-manager.in:618 src/update-manager.in:621
+msgid "Your system is up-to-date!"
+msgstr ""
+
+#: src/update-manager.in:619
+msgid "There are no updates available."
+msgstr ""
+
+#: src/update-manager.in:638
+#, c-format
+msgid "New version: %s"
+msgstr ""
+
+#: src/update-manager.in:662
+msgid "Your distribution is no longer supported"
+msgstr ""
+
+#: src/update-manager.in:662
+msgid ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+msgstr ""
+
+#: src/update-manager.in:679
+msgid "Never show this message again"
+msgstr "Nunca exibir esta mensagem novamente"
+
+#: src/update-manager.in:772
+msgid "Initializing and getting list of updates..."
+msgstr ""
+
+#: src/update-manager.in:794
+msgid "You need to be root to run this program"
+msgstr ""

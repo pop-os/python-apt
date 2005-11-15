@@ -1,0 +1,530 @@
+# update-manager's Finnish translation.
+# Copyright (C) 2005 Timo Jyrinki
+# This file is distributed under the same license as the update-manager package.
+# Timo Jyrinki <timo.jyrinki@iki.fi>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: update-manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-04 10:47+0200\n"
+"PO-Revision-Date: 2005-03-30 08:30+0200\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
+"Language-Team: Finnish <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+msgid "Edit software sources and settings"
+msgstr "Muokkaa ohjelmalähteitä ja asetuksia"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "Asetukset"
+
+#: ../data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
+msgstr "<b>Kommentti:</b>"
+
+#: ../data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr "<b>Komponentit</b>"
+
+#: ../data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr "<b>Jakelu:</b>"
+
+#: ../data/gnome-software-properties.glade.h:4
+msgid "<b>Internet Updates</b>"
+msgstr "<b>Internet-päivitykset</b>"
+
+#: ../data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr "<b>Varasto</b>"
+
+#: ../data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr "<b>Osastot:</b>"
+
+#: ../data/gnome-software-properties.glade.h:7
+msgid "<b>Software Sources</b>"
+msgstr "<b>Ohjelmalähteet</b>"
+
+#: ../data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
+msgstr "<b>Väliaikaistiedostot</b>"
+
+#: ../data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>Tyyppi:</b>"
+
+#: ../data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: ../data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr "<b>Käyttöliittymä</b>"
+
+#: ../data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to check verify the integrity of the software you download."
+msgstr ""
+"<big><b>Varmennusavaimet</b></big>\n"
+"\n"
+"Voit lisätä ja poistaa varmennusavaimia tässä valintaikkunassa. Avaimella "
+"voidaan tarkistaa lataamiesi ohjelmien eheys."
+
+#: ../data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
+"<big><b>Kirjoita haluamasi varaston koko APT-rivi</b></big>\n"
+"\n"
+"APT-rivi sisältää varaston tyypin, sijainnin ja sisällön, esimerkiksi <i>"
+"\"deb http://ftp.debian.org sarge main\"</i>. Lisätietoja aiheesta löydät "
+"dokumentaatiosta."
+
+#: ../data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr "APT-rivi:"
+
+#: ../data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr "Varmenn_us"
+
+#: ../data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr "Lisää _CD"
+
+#: ../data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you got the key "
+"over a secure channel and that you trust the owner. "
+msgstr ""
+"Lisää uusi avaintiedosto luotettuihin avaimiin. Varmista, että vastaanotit "
+"avaimen luotettua kanavaa pitkin ja että luotat avaimen omistajaan. "
+
+#: ../data/gnome-software-properties.glade.h:22
+msgid "Automatically check for software _updates."
+msgstr "Tarkista ohjelma_päivitykset automaattisesti."
+
+#: ../data/gnome-software-properties.glade.h:23
+msgid "Automatically clean _temporary packages files"
+msgstr "Tyhjennä _väliaikaistiedostot automaattisesti"
+
+#: ../data/gnome-software-properties.glade.h:24
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"Binääri\n"
+"Lähdekoodi"
+
+#: ../data/gnome-software-properties.glade.h:26
+msgid "Clean interval in days: "
+msgstr "Tyhjennysväli päivissä: "
+
+#: ../data/gnome-software-properties.glade.h:27
+msgid "Delete _old packages in the package cache"
+msgstr "P_oista vanhat paketit pakettivälimuistista"
+
+#: ../data/gnome-software-properties.glade.h:28
+msgid "Edit Repository..."
+msgstr "Muokkaa varastoa..."
+
+#: ../data/gnome-software-properties.glade.h:29
+msgid "Maximum age in days:"
+msgstr "Maksimiaika päivissä:"
+
+#: ../data/gnome-software-properties.glade.h:30
+msgid "Maximum size in MB:"
+msgstr "Maksimikoko megatavuissa:"
+
+#: ../data/gnome-software-properties.glade.h:31
+msgid "Remove the selected key from the trusted keyring."
+msgstr "Poista valittu avain luotetuista avaimista."
+
+#: ../data/gnome-software-properties.glade.h:32
+msgid "Restore default keys"
+msgstr "Palauta oletusavaimet"
+
+#: ../data/gnome-software-properties.glade.h:33
+msgid ""
+"Restore the default keys shiped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+"Palauta jakelun mukana toimitetut avaimet. Tämä ei tee muutoksia käyttäjän "
+"asentamiin avaimiin."
+
+#: ../data/gnome-software-properties.glade.h:34
+msgid "Set _maximum size for the package cache"
+msgstr "Aseta _maksimikoko pakettivälimuistille"
+
+#: ../data/gnome-software-properties.glade.h:35
+msgid "Settings"
+msgstr "Asetukset"
+
+#: ../data/gnome-software-properties.glade.h:36
+msgid "Show disabled software sources"
+msgstr "Näytä poissa käytöstä olevat ohjelmalähteet"
+
+#: ../data/gnome-software-properties.glade.h:37
+msgid "Software Preferences"
+msgstr "Asetukset"
+
+#: ../data/gnome-software-properties.glade.h:38
+msgid "Update interval in days: "
+msgstr "Päivitysten tarkistusväli päivissä: "
+
+#: ../data/gnome-software-properties.glade.h:39
+msgid "_Add Repository"
+msgstr "_Lisää varasto"
+
+#: ../data/gnome-software-properties.glade.h:40
+msgid "_Custom"
+msgstr "_Muu"
+
+#: ../data/gnome-software-properties.glade.h:41
+msgid "_Download upgradable packages"
+msgstr "_Lataa päivitettävät paketit"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "Näytä saatavilla olevat päivitykset ja valitse asennettavat"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Ubuntu Update Manager"
+msgstr "Ubuntun päivitysten hallinta"
+
+#: ../data/update-manager.desktop.in.h:3
+msgid "Update Manager"
+msgstr "Päivitysten hallinta"
+
+#: ../data/update-manager.glade.h:1
+msgid "<b>Details</b>"
+msgstr "<b>Yksityiskohdat</b>"
+
+#: ../data/update-manager.glade.h:2
+msgid "<b>Packages to install:</b>"
+msgstr "<b>Asennettavat paketit:</b>"
+
+#: ../data/update-manager.glade.h:3 ../src/update-manager.in:629
+msgid ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+msgstr ""
+"<big><b>Saatavilla olevat päivitykset</b></big>\n"
+"\n"
+"Seuraavat paketit ovat päivitettävissä. Voit päivittää ne napsauttamalla "
+"Asenna-painiketta."
+
+#: ../data/update-manager.glade.h:6
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Ladataan muutoksia</span>\n"
+"\n"
+"Muutokset täytyy ladata keskuspalvelimelta"
+
+#: ../data/update-manager.glade.h:9
+msgid "Cancel downloading the changelog"
+msgstr "Keskeytä muutosluettelon lataus"
+
+#: ../data/update-manager.glade.h:10
+msgid "Changes"
+msgstr "Muutokset"
+
+#: ../data/update-manager.glade.h:11
+msgid "Description"
+msgstr "Kuvaus"
+
+#: ../data/update-manager.glade.h:12
+msgid "Reload"
+msgstr "Päivitä"
+
+#: ../data/update-manager.glade.h:13
+msgid "Reload the package information from the server."
+msgstr "Lataa pakettitiedot uudelleen palvelimelta."
+
+#: ../data/update-manager.glade.h:14
+msgid "Software Updates"
+msgstr "Ohjelmapäivitykset"
+
+#: ../data/update-manager.glade.h:15
+msgid "_Install"
+msgstr "_Asenna"
+
+#: ../src/aptsources.py.in:234 ../src/aptsources.py.in:282
+#: ../src/aptsources.py.in:328
+msgid "Officially supported"
+msgstr "Virallisesti tuettu"
+
+#: ../src/aptsources.py.in:235 ../src/aptsources.py.in:283
+msgid "Restricted copyright"
+msgstr "Rajoitettu tekijänoikeus"
+
+#: ../src/aptsources.py.in:236 ../src/aptsources.py.in:284
+msgid "Community maintained (Universe)"
+msgstr "Yhteisön ylläpitämä (Universe)"
+
+#: ../src/aptsources.py.in:237 ../src/aptsources.py.in:285
+msgid "Non-free (Multiverse)"
+msgstr "Ei-vapaat ohjelmat (Multiverse)"
+
+#: ../src/aptsources.py.in:248 ../src/aptsources.py.in:306
+#: ../src/aptsources.py.in:318
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#: ../src/aptsources.py.in:253 ../src/aptsources.py.in:310
+#, fuzzy
+msgid "Ubuntu 5.04 Updates"
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#: ../src/aptsources.py.in:276
+msgid "Binary"
+msgstr "Binääri"
+
+#: ../src/aptsources.py.in:277
+msgid "Source"
+msgstr "Lähdekoodi"
+
+#: ../src/aptsources.py.in:289 ../src/aptsources.py.in:293
+msgid "CD"
+msgstr "CD"
+
+#: ../src/aptsources.py.in:314 ../src/aptsources.py.in:322
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Ubuntu 4.10 turvallisuuspäivitykset"
+
+#: ../src/aptsources.py.in:329
+msgid "Contributed software"
+msgstr "Muiden tarjoamat ohjelmat"
+
+#: ../src/aptsources.py.in:330
+msgid "Non-free software"
+msgstr "Ei-vapaat ohjelmat"
+
+#: ../src/aptsources.py.in:331
+msgid "US export restricted software"
+msgstr "USA:sta vientirajoitetut ohjelmat"
+
+#: ../src/aptsources.py.in:346
+msgid "Debian Stable Security Updates"
+msgstr "Debian Stable turvallisuuspäivitykset"
+
+#. some known keys
+#: ../src/dialog_apt_key.py.in:37
+msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+msgstr ""
+"Ubuntu-arkiston automaattinen allekirjoitusavain <ftpmaster@ubuntu.com>"
+
+#: ../src/dialog_apt_key.py.in:38
+msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+msgstr ""
+"Ubuntun CD-vedosten automaattinen allekirjoitusavain <cdimage@ubuntu.com>"
+
+#: ../src/dialog_apt_key.py.in:122
+msgid "Choose a key-file"
+msgstr "Valitse avaintiedosto"
+
+#: ../src/dialog_apt_key.py.in:132
+msgid "Error importing selected file"
+msgstr "Virhe tuotaessa valittua avainta"
+
+#: ../src/dialog_apt_key.py.in:133
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "Valittua tedosto ei ole kelvollinen GPG:n avaintiedosto"
+
+#: ../src/dialog_apt_key.py.in:145
+msgid "Error removing the key"
+msgstr "Virhe poistettaessa avainta"
+
+#: ../src/dialog_apt_key.py.in:146
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr ""
+"Valitsemaasi avainta ei voitu poistaa. Ole hyvä ja luo tästä virheilmoitus."
+
+#: ../src/gnome-software-properties.in:72
+msgid "Repositories changed"
+msgstr "Varastot muuttuneet"
+
+#: ../src/gnome-software-properties.in:74
+#, c-format
+msgid ""
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
+"\n"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"Varastotiedoissa on muutoksia. Varmuuskopio tiedostosta sources.list on "
+"tallennettu nimellä %s.save. \n"
+"\n"
+"Ohjelmapakettien luettelo täytyy ladata uudelleen palvelimelta, jotta "
+"muutoksesi tulevat voimaan. Haluatko tehdä tämän nyt?"
+
+#: ../src/update-manager.in:124
+msgid "Your system has broken packages!"
+msgstr "Järjestelmässä on rikkinäisiä paketteja!"
+
+#: ../src/update-manager.in:125
+msgid ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+msgstr ""
+"Jotkut asennettujen pakettien riippuvuuksista ovat siis täyttämättä. Käytä "
+"\"Synaptic\"- tai \"apt-get\"-ohjelmia korjataksesi ongelman."
+
+#: ../src/update-manager.in:139
+msgid "It is not possible to upgrade all packages."
+msgstr "Kaikkia paketteja ei voida päivittää."
+
+#: ../src/update-manager.in:141
+msgid ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+msgstr ""
+"Pakettien päivittämisen lisäksi tarvitaan siis joitain muita toimenpiteitä "
+"(kuten pakettien asentamista tai poistamista). Käytä Synaptic-ohjelman "
+"\"Smart Upgrade\"-toimintoa tai \"apt-get dist-upgrade\"-komentoa "
+"korjataksesi ongelman."
+
+#: ../src/update-manager.in:154
+msgid "The following packages are not upgraded: "
+msgstr ""
+
+#: ../src/update-manager.in:232
+msgid "Changes not found, the server may not be updated yet."
+msgstr "Muutoksia ei löytynyt, palvelinta ei ole ehkä vielä päivitetty."
+
+#: ../src/update-manager.in:235
+msgid ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+msgstr "Muutosten lataus epäonnistui. Tarkista, että Internet-yhteys toimii."
+
+#: ../src/update-manager.in:255
+#, c-format
+msgid "Version %s: \n"
+msgstr "Versio: %s: \n"
+
+#: ../src/update-manager.in:303
+msgid "Downloading changes..."
+msgstr "Ladataan muutoksia..."
+
+#: ../src/update-manager.in:358
+msgid "The updates are being applied."
+msgstr "Päivityksiä asennetaan."
+
+#: ../src/update-manager.in:360
+msgid "Upgrade finished"
+msgstr "Päivitykset suoritettu"
+
+#: ../src/update-manager.in:417
+msgid "Another package manager is running"
+msgstr "Toinen pakettienhallinta on käynnissä"
+
+#: ../src/update-manager.in:419
+msgid ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+msgstr ""
+"Voit hallita paketteja vain yhdellä ohjelmalla kerrallaan. Sulje toinen "
+"ohjelma ensin."
+
+#: ../src/update-manager.in:437
+msgid "Updating package list..."
+msgstr ""
+
+#: ../src/update-manager.in:439
+msgid "Installing updates..."
+msgstr ""
+
+#: ../src/update-manager.in:618 ../src/update-manager.in:621
+msgid "Your system is up-to-date!"
+msgstr "Järjestelmäsi on ajan tasalla!"
+
+#: ../src/update-manager.in:619
+msgid "There are no updates available."
+msgstr "Päivityksiä ei saatavilla."
+
+#: ../src/update-manager.in:644
+#, c-format
+msgid "New version: %s"
+msgstr "Uusi versio: %s"
+
+#: ../src/update-manager.in:668
+msgid "Your distribution is no longer supported"
+msgstr "Jakeluasi ei enää tueta"
+
+#: ../src/update-manager.in:668
+msgid ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+msgstr ""
+"Päivitä uudempaan versioon Ubuntu Linuxista. Käyttämällesi versiolle ei enää "
+"ole tulossa turvallisuuspäivityksiä tai muita kriittisiä päivityksiä. "
+"Tietoja päivittämisestä löydät sivulta http://www.ubuntulinux.org."
+
+#: ../src/update-manager.in:682
+msgid "There is a new release of Ubuntu available!"
+msgstr "Ubuntusta on uusi julkaisu saatavilla!"
+
+#: ../src/update-manager.in:682
+#, c-format
+msgid ""
+"A new release with the codename '%s' is available. Please see http://www."
+"ubuntulinux.org/ for upgrade instructions."
+msgstr ""
+"Uusi julkaisu nimeltään '%s' on saatavilla. Päivitysohjeet löydät "
+"osoitteesta http://www.ubuntulinux.org/."
+
+#: ../src/update-manager.in:685
+msgid "Never show this message again"
+msgstr "Älä näytä tätä viestiä uudestaan"
+
+#: ../src/update-manager.in:781
+msgid "Initializing and getting list of updates..."
+msgstr "Alustetaan ja ladataan luetteloa päivityksistä..."
+
+#: ../src/update-manager.in:803
+msgid "You need to be root to run this program"
+msgstr "Sinun täytyy olla pääkäyttäjä ajaaksesi tämän ohjelman"
+
+#, fuzzy
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>Saatavilla olevat päivitykset</b></big>\n"
+#~ "\n"
+#~ "Seuraavat paketit ovat päivitettävissä. Voit päivittää ne napsauttamalla "
+#~ "Asenna-painiketta."
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "Non-free"
+#~ msgstr "Ei-vapaa"

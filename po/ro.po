@@ -1,0 +1,529 @@
+# Romanian translation of update-manager.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the update-manager package.
+# Dan Damian <dand@gnome.ro>, 2005.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: update-manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-04-04 10:47+0200\n"
+"PO-Revision-Date: 2005-03-03 19:28+0200\n"
+"Last-Translator: Dan Damian <dand@gnome.ro>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+msgid "Edit software sources and settings"
+msgstr ""
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Properties"
+msgstr "Preferinţe software"
+
+#: ../data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
+msgstr "<b>Comentariu:</b>"
+
+#: ../data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr "<b>Componente</b>"
+
+#: ../data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr "<b>Distribuţie:</b>"
+
+#: ../data/gnome-software-properties.glade.h:4
+msgid "<b>Internet Updates</b>"
+msgstr "<b>Actualizări de pe Internet</b>"
+
+#: ../data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr "<b>Locaţie</b>"
+
+#: ../data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr "<b>Secţiuni:</b>"
+
+#: ../data/gnome-software-properties.glade.h:7
+msgid "<b>Software Sources</b>"
+msgstr "<b>Surse software</b>"
+
+#: ../data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
+msgstr "<b>Fişiere temporare</b>"
+
+#: ../data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>Tip:</b>"
+
+#: ../data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: ../data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr "<b>Interfaţă utilizator</b>"
+
+#: ../data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to check verify the integrity of the software you download."
+msgstr ""
+"<big><b>Chei autentificare</b></big>\n"
+"\n"
+"Din acest dialog puteţi adăuga sau şterge chei de autentificare. Rolul unei "
+"chei estede a permite verificarea integrităţii unui pachet software "
+"descărcat."
+
+#: ../data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
+"<big><b>Introduceţi linia APT completă a locaţiei pe care doriţi să o "
+"adăugaţi</b></big>\n"
+"\n"
+"Linia APT conţine tipul, adresa şi conţinutul unei locaţii, de exemplu<i>"
+"\"deb http://ftp.debian.org sarge main\"</i>. Puteţi găsi o descriere "
+"detaliată a sintaxei în documentaţie."
+
+#: ../data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr "Linie APT:"
+
+#: ../data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr "A_utentificare"
+
+#: ../data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you got the key "
+"over a secure channel and that you trust the owner. "
+msgstr ""
+"Adăugaţi o nouă cheie în keyring-ul de încredere. Asiguraţi-vă că aţi "
+"obţinut cheia printr-un canal sigur şi că aveţi încredere în proprietarul ei."
+
+#: ../data/gnome-software-properties.glade.h:22
+msgid "Automatically check for software _updates."
+msgstr "Verifică a_utomat actualizările software."
+
+#: ../data/gnome-software-properties.glade.h:23
+msgid "Automatically clean _temporary packages files"
+msgstr "Curăţă automat fişierele _temporare ale pachetelor"
+
+#: ../data/gnome-software-properties.glade.h:24
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"Binar\n"
+"Sursă"
+
+#: ../data/gnome-software-properties.glade.h:26
+msgid "Clean interval in days: "
+msgstr "Interval de curăţire în zile: "
+
+#: ../data/gnome-software-properties.glade.h:27
+msgid "Delete _old packages in the package cache"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:28
+msgid "Edit Repository..."
+msgstr "Editează locaţia..."
+
+#: ../data/gnome-software-properties.glade.h:29
+msgid "Maximum age in days:"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:30
+msgid "Maximum size in MB:"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:31
+msgid "Remove the selected key from the trusted keyring."
+msgstr "Elimină cheia selectată din keyring-ul de încredere."
+
+#: ../data/gnome-software-properties.glade.h:32
+msgid "Restore default keys"
+msgstr "Restaurează cheile implicite."
+
+#: ../data/gnome-software-properties.glade.h:33
+msgid ""
+"Restore the default keys shiped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+"Restaurează cheile implicite furnizate împreună cu distribuţia. Această "
+"acţiune nu va influenţa cheile instalate ca utilizator."
+
+#: ../data/gnome-software-properties.glade.h:34
+msgid "Set _maximum size for the package cache"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:35
+msgid "Settings"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:36
+msgid "Show disabled software sources"
+msgstr "Afişează sursele software dezactivate"
+
+#: ../data/gnome-software-properties.glade.h:37
+msgid "Software Preferences"
+msgstr "Preferinţe software"
+
+#: ../data/gnome-software-properties.glade.h:38
+msgid "Update interval in days: "
+msgstr "Interval de actualizare în zile: "
+
+#: ../data/gnome-software-properties.glade.h:39
+msgid "_Add Repository"
+msgstr "_Adaugă locaţie"
+
+#: ../data/gnome-software-properties.glade.h:40
+msgid "_Custom"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:41
+msgid "_Download upgradable packages"
+msgstr "_Descarcă pachetele actualizate"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr ""
+
+#: ../data/update-manager.desktop.in.h:2
+#, fuzzy
+msgid "Ubuntu Update Manager"
+msgstr "Actualizări Ubuntu 4.10"
+
+#: ../data/update-manager.desktop.in.h:3
+msgid "Update Manager"
+msgstr ""
+
+#: ../data/update-manager.glade.h:1
+msgid "<b>Details</b>"
+msgstr "<b>Detalii</b>"
+
+#: ../data/update-manager.glade.h:2
+#, fuzzy
+msgid "<b>Packages to install:</b>"
+msgstr "Pachete de instalat:"
+
+#: ../data/update-manager.glade.h:3 ../src/update-manager.in:629
+msgid ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+msgstr ""
+"<big><b>Actualizări disponibile</b></big>\n"
+"\n"
+"Pachetele următoare pot fi actualizate. Puteţi instala actualizările apăsând "
+"pe butonul Instalează."
+
+#: ../data/update-manager.glade.h:6
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Descarc modificările</span>\n"
+"\n"
+"Trebuiesc obţinute schimbările de pe serverul central"
+
+#: ../data/update-manager.glade.h:9
+msgid "Cancel downloading the changelog"
+msgstr "Întrerupe descărcarea jurnalului de modificări"
+
+#: ../data/update-manager.glade.h:10
+msgid "Changes"
+msgstr "Modificări"
+
+#: ../data/update-manager.glade.h:11
+msgid "Description"
+msgstr "Descriere"
+
+#: ../data/update-manager.glade.h:12
+msgid "Reload"
+msgstr ""
+
+#: ../data/update-manager.glade.h:13
+msgid "Reload the package information from the server."
+msgstr "Reîncarcă informaţiile despre pachete de pe server."
+
+#: ../data/update-manager.glade.h:14
+msgid "Software Updates"
+msgstr "Actualizări software"
+
+#: ../data/update-manager.glade.h:15
+msgid "_Install"
+msgstr "_Instalează"
+
+#: ../src/aptsources.py.in:234 ../src/aptsources.py.in:282
+#: ../src/aptsources.py.in:328
+msgid "Officially supported"
+msgstr "Pachete suportate oficial"
+
+#: ../src/aptsources.py.in:235 ../src/aptsources.py.in:283
+msgid "Restricted copyright"
+msgstr "Copyright restrictiv"
+
+#: ../src/aptsources.py.in:236 ../src/aptsources.py.in:284
+msgid "Community maintained (Universe)"
+msgstr "Pachete întreţinute de comunitate (Universe)"
+
+#: ../src/aptsources.py.in:237 ../src/aptsources.py.in:285
+msgid "Non-free (Multiverse)"
+msgstr "Pachete non-libere (Multiverse)"
+
+#: ../src/aptsources.py.in:248 ../src/aptsources.py.in:306
+#: ../src/aptsources.py.in:318
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#: ../src/aptsources.py.in:253 ../src/aptsources.py.in:310
+#, fuzzy
+msgid "Ubuntu 5.04 Updates"
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#: ../src/aptsources.py.in:276
+#, fuzzy
+msgid "Binary"
+msgstr ""
+"Binar\n"
+"Sursă"
+
+#: ../src/aptsources.py.in:277
+#, fuzzy
+msgid "Source"
+msgstr ""
+"Binar\n"
+"Sursă"
+
+#: ../src/aptsources.py.in:289 ../src/aptsources.py.in:293
+msgid "CD"
+msgstr "CD"
+
+#: ../src/aptsources.py.in:314 ../src/aptsources.py.in:322
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Actualizări de securitate Ubuntu 4.10"
+
+#: ../src/aptsources.py.in:329
+msgid "Contributed software"
+msgstr "Software în contribuţie"
+
+#: ../src/aptsources.py.in:330
+msgid "Non-free software"
+msgstr "Software non-liber"
+
+#: ../src/aptsources.py.in:331
+msgid "US export restricted software"
+msgstr "Software cu restricţii de export din SUA"
+
+#: ../src/aptsources.py.in:346
+msgid "Debian Stable Security Updates"
+msgstr "Actualizări de securitate Debian Stable"
+
+#. some known keys
+#: ../src/dialog_apt_key.py.in:37
+msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:38
+msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:122
+msgid "Choose a key-file"
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:132
+msgid "Error importing selected file"
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:133
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:145
+msgid "Error removing the key"
+msgstr ""
+
+#: ../src/dialog_apt_key.py.in:146
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr ""
+
+#: ../src/gnome-software-properties.in:72
+msgid "Repositories changed"
+msgstr "Locaţiile au fost schimbate"
+
+#: ../src/gnome-software-properties.in:74
+#, c-format
+msgid ""
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
+"\n"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"Informaţiile despre locaţii au fost schimbate. O copie de siguranţă a "
+"fişierului sources.list a fost salvată în %s.save.\n"
+"\n"
+"Pentru ca modificările să aibe efect, trebuie să reîncărcaţi lista de "
+"pachete de pe servere. Doriţi să faceţi acum acest lucru?"
+
+#: ../src/update-manager.in:124
+#, fuzzy
+msgid "Your system has broken packages!"
+msgstr "Sistemul dvs. este la zi!"
+
+#: ../src/update-manager.in:125
+msgid ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+msgstr ""
+
+#: ../src/update-manager.in:139
+msgid "It is not possible to upgrade all packages."
+msgstr ""
+
+#: ../src/update-manager.in:141
+msgid ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+msgstr ""
+
+#: ../src/update-manager.in:154
+msgid "The following packages are not upgraded: "
+msgstr ""
+
+#: ../src/update-manager.in:232
+msgid "Changes not found, the server may not be updated yet."
+msgstr ""
+"Nu am găsit modificări, s-ar putea ca serverul să nu fi fost actualizat."
+
+#: ../src/update-manager.in:235
+msgid ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+msgstr ""
+"Nu am putut descărca modificările. Vă rog să verificaţi dacă aveţi o "
+"conexiune internet activă."
+
+#: ../src/update-manager.in:255
+#, c-format
+msgid "Version %s: \n"
+msgstr "Versiunea %s: \n"
+
+#: ../src/update-manager.in:303
+msgid "Downloading changes..."
+msgstr "Descarc modificările..."
+
+#: ../src/update-manager.in:358
+msgid "The updates are being applied."
+msgstr "Actualizările sunt în curs de aplicare."
+
+#: ../src/update-manager.in:360
+msgid "Upgrade finished"
+msgstr "Actualizare completă"
+
+#: ../src/update-manager.in:417
+msgid "Another package manager is running"
+msgstr "Un alt manager de pachete rulează"
+
+#: ../src/update-manager.in:419
+msgid ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+msgstr ""
+"Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
+"închideţi ceilalţi manageri mai întâi."
+
+#: ../src/update-manager.in:437
+msgid "Updating package list..."
+msgstr ""
+
+#: ../src/update-manager.in:439
+msgid "Installing updates..."
+msgstr ""
+
+#: ../src/update-manager.in:618 ../src/update-manager.in:621
+msgid "Your system is up-to-date!"
+msgstr "Sistemul dvs. este la zi!"
+
+#: ../src/update-manager.in:619
+msgid "There are no updates available."
+msgstr "Nu există nici un pachet de actualizat."
+
+#: ../src/update-manager.in:644
+#, c-format
+msgid "New version: %s"
+msgstr "Versiune nouă: %s"
+
+#: ../src/update-manager.in:668
+msgid "Your distribution is no longer supported"
+msgstr "Distribuţia dvs. nu mai este suportată"
+
+#: ../src/update-manager.in:668
+msgid ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+msgstr ""
+
+#: ../src/update-manager.in:682
+#, fuzzy
+msgid "There is a new release of Ubuntu available!"
+msgstr "Nu există nici un pachet de actualizat."
+
+#: ../src/update-manager.in:682
+#, c-format
+msgid ""
+"A new release with the codename '%s' is available. Please see http://www."
+"ubuntulinux.org/ for upgrade instructions."
+msgstr ""
+
+#: ../src/update-manager.in:685
+msgid "Never show this message again"
+msgstr ""
+
+#: ../src/update-manager.in:781
+msgid "Initializing and getting list of updates..."
+msgstr "Iniţializez şi obţin lista actualizărilor..."
+
+#: ../src/update-manager.in:803
+msgid "You need to be root to run this program"
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>Actualizări disponibile</b></big>\n"
+#~ "\n"
+#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările "
+#~ "apăsând pe butonul Instalează."
+
+#~ msgid "0"
+#~ msgstr "0"
+
+#~ msgid "    "
+#~ msgstr "    "

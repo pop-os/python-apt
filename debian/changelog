@@ -1,0 +1,328 @@
+update-manager (0.37.1+svn20050404.15) breezy; urgency=low
+
+  * added intltool to build-depends (for rosetta)
+
+ -- Michael Vogt <mvo@debian.org>  Thu,  6 Oct 2005 17:30:38 +0200
+
+update-manager (0.37.1+svn20050404.14) breezy; urgency=low
+
+  * debian/rules:
+    - run intltool-update -p for rosetta
+  * src/update-manager.in:
+    - release the lock before runing gnome-software-properties (ubuntu #17022)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Oct 2005 22:28:43 +0200
+
+update-manager (0.37.1+svn20050404.13) breezy; urgency=low
+
+  * src/update-manager.in:
+    - use the right column for type-ahead searching (ubuntu #16853)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Oct 2005 11:01:58 +0200
+
+update-manager (0.37.1+svn20050404.12) breezy; urgency=low
+
+  * added locking support
+  * use explicit path to python2.4 (thanks anthony!) (Ubuntu #16087)
+  * CTRL-{w,q} close the update-manager window (Ubuntu #15729)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Sep 2005 17:40:05 +0200
+
+update-manager (0.37.1+svn20050404.11) breezy; urgency=low
+
+  * fix a typo in the reload tooltip (thanks to P Jones) (ubuntu #14699)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 12 Sep 2005 14:49:13 +0200
+
+update-manager (0.37.1+svn20050404.10) breezy; urgency=low
+
+  * fix for a typo in the source of the last upload (*cough*) 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 31 Aug 2005 15:39:53 +0200
+
+update-manager (0.37.1+svn20050404.9) breezy; urgency=low
+
+  * do a "save" dist-upgrade (add only, no removes)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 31 Aug 2005 12:09:20 +0200
+
+update-manager (0.37.1+svn20050404.8) breezy; urgency=low
+
+  * if repository window is running from inside synaptic, don't show "Add
+    cdrom" button (it's available in the synaptic menu already)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 30 Aug 2005 14:12:50 +0200
+
+update-manager (0.37.1+svn20050404.7) breezy; urgency=low
+
+  * if running from inside another application (e.g. synaptic), make sure 
+    the dialogs get a correct parent (ubuntu #14001)
+  * if nothing changed, do not run "reload" if runing from inside synaptic
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 29 Aug 2005 12:09:12 +0200
+
+update-manager (0.37.1+svn20050404.6) breezy; urgency=low
+
+  * remove (parts of) ubuntu branding from the application
+  * make it run only with python2.4 (ubuntu #10876)
+  * make sure to always properly escape the strings displayed
+    in the treeview
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Aug 2005 16:49:54 +0200
+
+update-manager (0.37.1+svn20050404.5) breezy; urgency=low
+
+  * updates where not shown sometimes, fixed that (ubuntu #13410)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 16 Aug 2005 10:49:46 +0200
+
+update-manager (0.37.1+svn20050404.4) breezy; urgency=low
+
+  * re-read the sources.list after a "add-custom" (ubuntu #9855)
+  * settings window has a title (ubuntu #10756)
+  * default actions for the buttons (ubuntu #10741)
+  * various typos fixed (ubuntu #9866)
+  * make sure that no dialogs are opened without a parent (ubuntu #10284)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Aug 2005 15:15:06 +0200
+
+update-manager (0.37.1+svn20050404.3) breezy; urgency=low
+
+  * use breezy as default for newly created sources (ubuntu #13009)
+  * be more carefull with preserving the mirror
+  * a better explaination for the "Reload" button (ubuntu #11432)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 10 Aug 2005 12:07:55 +0200
+
+update-manager (0.37.1+svn20050404.2) breezy; urgency=low
+
+  * fix a small problem in the parsing code (ubuntu #8754)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 May 2005 11:24:17 +0200
+
+update-manager (0.37.1+svn20050404.1) hoary; urgency=low
+
+  * pickup the correct proxy settings from apt (#8668)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  6 Apr 2005 16:39:44 +0200
+
+update-manager (0.37.1+svn20050404) hoary; urgency=low
+
+  * translation updates:
+    - xh, fr
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  4 Apr 2005 22:21:17 +0200
+
+update-manager (0.37.1+svn20050403) hoary; urgency=low
+
+  * translation updates:
+    - pt_BR, tw
+  * documentation updates (thanks to Sean Wheller and
+    Jeff Schering)
+  * small fixes:
+    - make sure to not duplicate sources.list entires (even for
+      mirrors)
+    - added the hoary-updates to the templates and matchers (#8600)
+    - some missing i18n strings marked as such (thanks to Zygmunt Krynicki)
+    - don't fail on missing net connections
+    - always update the status label
+ 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sun,  3 Apr 2005 20:54:42 +0200
+
+update-manager (0.37.1+svn20050323) hoary; urgency=low
+
+  * translation updates
+  * gui can set the new apt cache properties now
+  * warn about broken packages (#7688)
+  * only ask to reload the package list if something changed (#7871)
+  * various focus fixes (#7900)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 23 Mar 2005 01:18:38 +0100
+
+update-manager (0.37.1+svn20050314) hoary; urgency=low
+
+  * new svn snapshot, lot's of bugfixes and i18n updates.
+    - fix for a ui problem (#6837)
+    - read pined packages correctly (#7058)
+    - update list correctly after reload (#7182)
+    - tell user when dist-upgrade is needed (#7271)
+    - cdrom sources can be added now too (#7315)
+    - meta-release file bugfix (#7330)
+    - translation updates (da, fr, es, ro, pl)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 14 Mar 2005 08:49:52 +0100
+
+update-manager (0.37.1+svn20050304) hoary; urgency=low
+
+  * new snapshot, use python-apt depcache now
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  4 Mar 2005 22:55:46 +0100
+
+update-manager (0.37.1+svn20050301) hoary; urgency=low
+
+  * new snapshot, better de.po, better i18n support
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  1 Mar 2005 12:06:39 +0100
+
+update-manager (0.37.1+svn20050228.1) hoary; urgency=low
+
+  * fixed a FTBFS (because of the "cleanfiles" in Makefile.am)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 28 Feb 2005 19:12:28 +0100
+
+update-manager (0.37.1+svn20050228) hoary; urgency=low
+
+  * get the correct candidate version for updatable packages
+    (ubuntu #6825)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 28 Feb 2005 11:00:38 +0100
+
+update-manager (0.37.1+svn20050221) hoary; urgency=low
+
+  * new svn snapshot, fixes:
+    - #6756: window size too big 
+    - #6767, #6780: gnome-software-properties window broken
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 21 Feb 2005 11:30:52 +0100
+
+update-manager (0.37.1+svn20050219) hoary; urgency=low
+
+  * new svn snapshot, fixes:
+    - #6565, #6565 (typo)
+    - #6634 (remeber last details state)
+    - #6635 (progress dialog merged in main window)
+    - #6578 (hide details if no updates are available)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 19 Feb 2005 00:32:50 +0100
+
+update-manager (0.37.1) hoary; urgency=low
+
+  * typo (#6542)
+  * package list is sorted now
+  * applied "hide details if system is update-to-date" patch 
+    (#6578, thanks to Jorge Bernal)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 15 Feb 2005 10:49:17 +0100
+
+update-manager (0.37) hoary; urgency=low
+
+  * test for lock file and show error if the lock is already taken
+  * use utf8 for the description
+  * changelogs are fetched from http://changelogs.ubuntu.com/ now 
+    (closes: #6315)
+  * handle 404 from http and set the error accordingly
+  * set main_window to not sensitive when downloading changelogs
+  * if no updates are available, hide the checkbox column (closes: #6443)
+  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 14 Feb 2005 15:08:06 +0100
+
+update-manager (0.36.6) hoary; urgency=low
+
+  * various bugfixes and embedding of synaptics progress windows
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  8 Feb 2005 22:12:53 +0100
+
+update-manager (0.36.5) hoary; urgency=low
+
+  * disabled sources can now be displayed too (optional preference)
+  * comments can be added
+  * various bugfixes
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  3 Feb 2005 16:21:32 +0100
+
+update-manager (0.36.4) hoary; urgency=low
+
+  * regression of the last upload fixed
+  * gnome-software-properties can be embedded into other windows now
+    (usefull for e.g. synaptic)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 31 Jan 2005 22:59:35 +0100
+
+update-manager (0.36.3) hoary; urgency=low
+
+  * updates to the main window design
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 31 Jan 2005 16:59:41 +0100
+
+update-manager (0.36.2) hoary; urgency=low
+
+  * new main window layout in update-manager 
+    (Michiel design, looks _so_ nice)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 28 Jan 2005 12:20:57 +0100
+
+update-manager (0.36.1) hoary; urgency=low
+
+  * columns are resizable now (closes: #5541)
+  * lot's of typo/gui-glitches fixes (closes: #5200,  #5816, #5801, #5802)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Jan 2005 16:14:45 +0100
+
+update-manager (0.36) hoary; urgency=low
+
+  * new upstream release, added support to control APT::Periodic::*
+    variables in gnome-software-properties
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 19 Jan 2005 16:59:19 +0100
+
+update-manager (0.35) hoary; urgency=low
+
+  * new upstream release
+    - typo fix (closes: #5200)
+
+ -- Michael Vogt <mvo@debian.org>  Wed,  5 Jan 2005 12:23:55 +0100
+
+update-manager (0.34) hoary; urgency=low
+
+  * new upstream release
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Dec 2004 12:50:13 +0100
+
+update-manager (0.33) hoary; urgency=low
+
+  * new upstream release, featuring the gnome-software-properties
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 30 Nov 2004 12:41:06 +0100
+
+update-manager (0.32) hoary; urgency=low
+
+  * new upstream release
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 23 Nov 2004 15:28:09 +0100
+
+update-manager (0.31-1ubuntu1) hoary; urgency=low
+
+  * Update Build-Deps and fix FTBFS.
+
+ -- Fabio M. Di Nitto <fabbione@fabbione.net>  Mon, 22 Nov 2004 13:04:09 +0100
+
+update-manager (0.31-1) hoary; urgency=low
+
+  * new upstream release, added icon, desktop file and bugfix
+
+ -- Michael Vogt <mvo@debian.org>  Sat, 13 Nov 2004 11:30:37 +0100
+
+update-manager (0.3-1) hoary; urgency=low
+
+  * New upstream release, inital ubuntu release
+
+ -- Michael Vogt <mvo@debian.org>  Wed,  3 Nov 2004 14:48:14 +0100
+
+update-manager (0.2-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Michiel Sikkes <michiel@eyesopened.nl>  Sat, 30 Oct 2004 02:22:12 +0200
+
+update-manager (0.1-2) unstable; urgency=low
+
+  * Um Yeah.
+
+ -- Michiel Sikkes <m.sikkes@luon.net>  Tue, 26 Oct 2004 13:16:13 +0200
+
+update-manager (0.1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Michiel Sikkes <michiel@eyesopened.nl>  Mon, 25 Oct 2004 21:49:07 +0200
+
