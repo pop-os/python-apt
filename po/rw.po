@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-01 17:19-0700\n"
+"POT-Creation-Date: 2005-11-15 15:38+0100\n"
 "PO-Revision-Date: 2005-03-31 20:55-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -24,82 +24,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "ULL NAME <EMAIL@ADDRESS>\n"
 
-#: data/gnome-software-properties.desktop.in.h:1
-#, fuzzy
-msgid "Edit software sources and settings"
-msgstr "Na Amagenamiterere"
-
-#: data/gnome-software-properties.desktop.in.h:2
-msgid "Software Properties"
-msgstr ""
-
-#: data/gnome-software-properties.glade.h:1
+#: ../data/gnome-software-properties.glade.h:1
 #, fuzzy
 msgid "<b>Comment:</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:2
+#: ../data/gnome-software-properties.glade.h:2
 #, fuzzy
 msgid "<b>Components</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:3
+#: ../data/gnome-software-properties.glade.h:3
 #, fuzzy
 msgid "<b>Distribution:</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:4
+#: ../data/gnome-software-properties.glade.h:4
 #, fuzzy
 msgid "<b>Internet Updates</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:5
+#: ../data/gnome-software-properties.glade.h:5
 #, fuzzy
 msgid "<b>Repository</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:6
+#: ../data/gnome-software-properties.glade.h:6
 #, fuzzy
 msgid "<b>Sections:</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:7
+#: ../data/gnome-software-properties.glade.h:7
 #, fuzzy
 msgid "<b>Software Sources</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:8
+#: ../data/gnome-software-properties.glade.h:8
 #, fuzzy
 msgid "<b>Temporary files</b>"
 msgstr "<B Idosiye B"
 
-#: data/gnome-software-properties.glade.h:9
+#: ../data/gnome-software-properties.glade.h:9
 #, fuzzy
 msgid "<b>Type:</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:10
+#: ../data/gnome-software-properties.glade.h:10
 #, fuzzy
 msgid "<b>URI:</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:11
+#: ../data/gnome-software-properties.glade.h:11
 #, fuzzy
 msgid "<b>User Interface</b>"
 msgstr "<B B"
 
-#: data/gnome-software-properties.glade.h:12
+#: ../data/gnome-software-properties.glade.h:12
 #, fuzzy
 msgid ""
 "<big><b>Authentication keys</b></big>\n"
 "\n"
 "You can add and remove authentication keys in this dialog. A key makes it "
-"possible to check verify the integrity of the software you download."
+"possible to verify the integrity of the software you download."
 msgstr ""
 "<B Utubuto B Kongeramo Na Gukuraho... Utubuto in iyi Ikiganiro A Urufunguzo "
 "Kuri Kugenzura... i Bya i Gufungura"
 
-#: data/gnome-software-properties.glade.h:15
+#: ../data/gnome-software-properties.glade.h:15
 #, fuzzy
 msgid ""
 "<big><b>Enter the complete APT line of the repository that you want to add</"
@@ -113,144 +104,135 @@ msgstr ""
 "Na Ibikubiyemo Bya a kugirango Urugero i HTTP FTP org i Gushaka a "
 "Isobanuramiterere Bya i in i"
 
-#: data/gnome-software-properties.glade.h:18
+#: ../data/gnome-software-properties.glade.h:18
 #, fuzzy
 msgid "APT line:"
 msgstr "Umurongo"
 
-#: data/gnome-software-properties.glade.h:19
+#: ../data/gnome-software-properties.glade.h:19
 msgid "A_uthentication"
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:20
+#: ../data/gnome-software-properties.glade.h:20
 msgid "Add _CD"
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:21
+#: ../data/gnome-software-properties.glade.h:21
 #, fuzzy
 msgid ""
-"Add a new key file to the trusted keyring. Make sure that you got the key "
-"over a secure channel and that you trust the owner. "
+"Add a new key file to the trusted keyring. Make sure that you received the "
+"key over a secure channel and that you trust the owner. "
 msgstr "a Gishya Urufunguzo IDOSIYE Kuri i i Urufunguzo KURI a Na i"
 
-#: data/gnome-software-properties.glade.h:22
+#: ../data/gnome-software-properties.glade.h:22
+msgid "Authentication"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:23
 #, fuzzy
 msgid "Automatically check for software _updates."
 msgstr "Kugenzura... kugirango"
 
-#: data/gnome-software-properties.glade.h:23
+#: ../data/gnome-software-properties.glade.h:24
 #, fuzzy
 msgid "Automatically clean _temporary packages files"
 msgstr "GUSUKURA By'igihe gito Idosiye"
 
-#: data/gnome-software-properties.glade.h:24
+#: ../data/gnome-software-properties.glade.h:25
 msgid ""
 "Binary\n"
 "Source"
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:26
+#: ../data/gnome-software-properties.glade.h:27
 #, fuzzy
 msgid "Clean interval in days: "
 msgstr "Intera in Iminsi"
 
-#: data/gnome-software-properties.glade.h:27
+#: ../data/gnome-software-properties.glade.h:28
 #, fuzzy
 msgid "Delete _old packages in the package cache"
 msgstr "ki/ bishaje in i Ubwihisho"
 
-#: data/gnome-software-properties.glade.h:28
+#: ../data/gnome-software-properties.glade.h:29
 msgid "Edit Repository..."
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:29
+#: ../data/gnome-software-properties.glade.h:30
 #, fuzzy
 msgid "Maximum age in days:"
 msgstr "in Iminsi"
 
-#: data/gnome-software-properties.glade.h:30
+#: ../data/gnome-software-properties.glade.h:31
 #, fuzzy
 msgid "Maximum size in MB:"
 msgstr "Ingano in"
 
-#: data/gnome-software-properties.glade.h:31
+#: ../data/gnome-software-properties.glade.h:32
 #, fuzzy
 msgid "Remove the selected key from the trusted keyring."
 msgstr "i Byahiswemo Urufunguzo Bivuye i"
 
-#: data/gnome-software-properties.glade.h:32
+#: ../data/gnome-software-properties.glade.h:33
 #, fuzzy
 msgid "Restore default keys"
 msgstr "Mburabuzi Utubuto"
 
-#: data/gnome-software-properties.glade.h:33
+#: ../data/gnome-software-properties.glade.h:34
 #, fuzzy
 msgid ""
-"Restore the default keys shiped with the distribution. This will not change "
+"Restore the default keys shipped with the distribution. This will not change "
 "user installed keys."
 msgstr ""
 "i Mburabuzi Utubuto Na: i Ikwirakwiza... OYA Guhindura>> Ukoresha: Utubuto"
 
-#: data/gnome-software-properties.glade.h:34
+#: ../data/gnome-software-properties.glade.h:35
 #, fuzzy
 msgid "Set _maximum size for the package cache"
 msgstr "Kinini Ingano kugirango i Ubwihisho"
 
-#: data/gnome-software-properties.glade.h:35
+#: ../data/gnome-software-properties.glade.h:36
 msgid "Settings"
 msgstr "Amagenamiterere"
 
-#: data/gnome-software-properties.glade.h:36
+#: ../data/gnome-software-properties.glade.h:37
 #, fuzzy
 msgid "Show disabled software sources"
 msgstr "Yahagaritswe"
 
-#: data/gnome-software-properties.glade.h:37
+#: ../data/gnome-software-properties.glade.h:38
 msgid "Software Preferences"
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:38
+#: ../data/gnome-software-properties.glade.h:39
 #, fuzzy
 msgid "Update interval in days: "
 msgstr "Intera in Iminsi"
 
-#: data/gnome-software-properties.glade.h:39
+#: ../data/gnome-software-properties.glade.h:40
 msgid "_Add Repository"
 msgstr ""
 
-#: data/gnome-software-properties.glade.h:40
+#: ../data/gnome-software-properties.glade.h:41
 #, fuzzy
 msgid "_Custom"
 msgstr "Guhanga"
 
-#: data/gnome-software-properties.glade.h:41
+#: ../data/gnome-software-properties.glade.h:42
 msgid "_Download upgradable packages"
 msgstr ""
 
-#: data/update-manager.desktop.in.h:1
-#, fuzzy
-msgid "Show available updates and choose which to install"
-msgstr "Bihari Na Guhitamo Kuri Kwinjiza porogaramu"
-
-#: data/update-manager.desktop.in.h:2
-msgid "Ubuntu Update Manager"
-msgstr ""
-
-#: data/update-manager.desktop.in.h:3
-msgid "Update Manager"
-msgstr ""
-
-#: data/update-manager.glade.h:1
+#: ../data/update-manager.glade.h:1
 #, fuzzy
 msgid "<b>Details</b>"
 msgstr "<B B"
 
-#: data/update-manager.glade.h:2
+#: ../data/update-manager.glade.h:2
 #, fuzzy
 msgid "<b>Packages to install:</b>"
 msgstr "<B Kuri Kwinjiza porogaramu B"
 
-#: data/update-manager.glade.h:3
+#: ../data/update-manager.glade.h:3
 #, fuzzy
 msgid ""
 "<big><b>Available Updates</b></big>\n"
@@ -259,7 +241,7 @@ msgid ""
 "using the Install button."
 msgstr "<B B Byabonetse Kuri ku ikoresha i Akabuto"
 
-#: data/update-manager.glade.h:6
+#: ../data/update-manager.glade.h:6
 #, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
@@ -269,13 +251,13 @@ msgstr ""
 "<Uburemere UTSINDAGIYE Ingano Kinini Amahinduka Kuri Kubona i Amahinduka "
 "Bivuye i Seriveri"
 
-#: data/update-manager.glade.h:9
+#: ../data/update-manager.glade.h:9
 #, fuzzy
 msgid "Cancel downloading the changelog"
 msgstr "Iyimura... i"
 
 # officecfg/registry\schema\org\openoffice\Office\Calc.xcs:....Revision.Color.Change.text
-#: data/update-manager.glade.h:10
+#: ../data/update-manager.glade.h:10
 msgid "Changes"
 msgstr "Amahinduka"
 
@@ -283,21 +265,26 @@ msgstr "Amahinduka"
 # basctl/source\basicide\moptions.src:RID_MACROOPTIONS.RID_FT_DESCR.text
 # #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 # basctl/source\basicide\moptions.src:RID_MACROOPTIONS.text
-#: data/update-manager.glade.h:11
+#: ../data/update-manager.glade.h:11
 msgid "Description"
 msgstr "Isobanuramiterere"
 
 # sfx2/sdi\sfxslots.src:SID_RELOAD.text
-#: data/update-manager.glade.h:12
+#: ../data/update-manager.glade.h:12
 msgid "Reload"
 msgstr "Kongera Gutangiza"
 
-#: data/update-manager.glade.h:13
-#, fuzzy
-msgid "Reload the package information from the server."
-msgstr "Kongerakuyitangiza i Ibisobanuro Bivuye i Seriveri"
+#: ../data/update-manager.glade.h:13
+msgid ""
+"Reload the package information from the server. \n"
+"\n"
+"If you have a permanent internet connection this is done automatically. If "
+"you are behind an internet connection that needs to be started by hand (e.g. "
+"a modem) you should use this button so that update-manager knows about new "
+"updates."
+msgstr ""
 
-#: data/update-manager.glade.h:14
+#: ../data/update-manager.glade.h:16
 msgid "Software Updates"
 msgstr "Ibihuzagihe bya porogaramumudasobwa "
 
@@ -305,33 +292,59 @@ msgstr "Ibihuzagihe bya porogaramumudasobwa "
 # setup2/source\ui\pages\plang.src:RESID_PAGE_PAGELANGUAGE.STR_PROG.text
 # #-#-#-#-#  setup2.pot (PACKAGE VERSION)  #-#-#-#-#
 # setup2/source\uibase\agentdlg.src:RC_AGENTDLG.RESID_DLG_AGENT_STR_INSTALL.text
-#: data/update-manager.glade.h:15
+#: ../data/update-manager.glade.h:17
 #, fuzzy
 msgid "_Install"
 msgstr "Kwinjiza porogaramu"
 
-#: src/aptsources.py.in:207 src/aptsources.py.in:257 src/aptsources.py.in:299
-msgid "Officially supported"
-msgstr ""
-
-#: src/aptsources.py.in:208 src/aptsources.py.in:258
+#: ../SoftwareProperties/SoftwareProperties.py:218
 #, fuzzy
-msgid "Restricted copyright"
-msgstr "Uburenganzira bw'umuhimbyi"
+msgid "Choose a key-file"
+msgstr "a Urufunguzo IDOSIYE"
 
-#: src/aptsources.py.in:209 src/aptsources.py.in:259
-msgid "Community maintained (Universe)"
-msgstr ""
-
-#: src/aptsources.py.in:210 src/aptsources.py.in:260
+#: ../SoftwareProperties/SoftwareProperties.py:227
 #, fuzzy
-msgid "Non-free (Multiverse)"
-msgstr "Kigenga"
+msgid "Error importing selected file"
+msgstr "Kuzaza Byahiswemo IDOSIYE"
 
-#: src/aptsources.py.in:221 src/aptsources.py.in:281 src/aptsources.py.in:289
+#: ../SoftwareProperties/SoftwareProperties.py:228
 #, fuzzy
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "5"
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "Byahiswemo IDOSIYE Gicurasi OYA a Urufunguzo IDOSIYE Cyangwa"
+
+#: ../SoftwareProperties/SoftwareProperties.py:240
+#, fuzzy
+msgid "Error removing the key"
+msgstr "i Urufunguzo"
+
+#: ../SoftwareProperties/SoftwareProperties.py:241
+#, fuzzy
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
+
+#, fuzzy
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Na Amagenamiterere"
+
+#, fuzzy
+#~ msgid "Show available updates and choose which to install"
+#~ msgstr "Bihari Na Guhitamo Kuri Kwinjiza porogaramu"
+
+#, fuzzy
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Kongerakuyitangiza i Ibisobanuro Bivuye i Seriveri"
+
+#, fuzzy
+#~ msgid "Restricted copyright"
+#~ msgstr "Uburenganzira bw'umuhimbyi"
+
+#, fuzzy
+#~ msgid "Non-free (Multiverse)"
+#~ msgstr "Kigenga"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.04 Security Updates"
+#~ msgstr "5"
 
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PBM.FileFormat..0.text
@@ -339,232 +352,159 @@ msgstr "5"
 # officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PGM.FileFormat..0.text
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PPM.FileFormat..0.text
-#: src/aptsources.py.in:251
-msgid "Binary"
-msgstr "Nyabibiri"
+#~ msgid "Binary"
+#~ msgstr "Nyabibiri"
 
-#: src/aptsources.py.in:252
-msgid "Source"
-msgstr "Inkomoko"
+#~ msgid "Source"
+#~ msgstr "Inkomoko"
 
-#: src/aptsources.py.in:264 src/aptsources.py.in:268
-msgid "CD"
-msgstr ""
-
-#: src/aptsources.py.in:285 src/aptsources.py.in:293
 #, fuzzy
-msgid "Ubuntu 4.10 Security Updates"
-msgstr "4. 10"
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "4. 10"
 
-#: src/aptsources.py.in:300
-msgid "Contributed software"
-msgstr ""
-
-#: src/aptsources.py.in:301
 #, fuzzy
-msgid "Non-free software"
-msgstr "Kigenga"
+#~ msgid "Non-free software"
+#~ msgstr "Kigenga"
 
-#: src/aptsources.py.in:302
 #, fuzzy
-msgid "US export restricted software"
-msgstr "Kohereza Nta gukoresha bisesuye"
+#~ msgid "US export restricted software"
+#~ msgstr "Kohereza Nta gukoresha bisesuye"
 
-#: src/aptsources.py.in:317
-msgid "Debian Stable Security Updates"
-msgstr ""
-
-#. some known keys
-#: src/dialog_apt_key.py.in:37
 #, fuzzy
-msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-msgstr "com"
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "com"
 
-#: src/dialog_apt_key.py.in:38
 #, fuzzy
-msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-msgstr "com"
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr "com"
 
-#: src/dialog_apt_key.py.in:122
 #, fuzzy
-msgid "Choose a key-file"
-msgstr "a Urufunguzo IDOSIYE"
+#~ msgid "Repositories changed"
+#~ msgstr "Byahinduwe"
 
-#: src/dialog_apt_key.py.in:132
 #, fuzzy
-msgid "Error importing selected file"
-msgstr "Kuzaza Byahiswemo IDOSIYE"
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr "Kubika."
 
-#: src/dialog_apt_key.py.in:133
 #, fuzzy
-msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr "Byahiswemo IDOSIYE Gicurasi OYA a Urufunguzo IDOSIYE Cyangwa"
+#~ msgid "Your system has broken packages!"
+#~ msgstr "Sisitemu"
 
-#: src/dialog_apt_key.py.in:145
 #, fuzzy
-msgid "Error removing the key"
-msgstr "i Urufunguzo"
+#~ msgid ""
+#~ "This means that some dependencies of the installed packages are not "
+#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+#~ msgstr "Bya i OYA Gukoresha Cyangwa Kubona Kuri i"
 
-#: src/dialog_apt_key.py.in:146
 #, fuzzy
-msgid "The key you selected could not be removed. Please report this as a bug."
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
+#~ msgid "It is not possible to upgrade all packages."
+#~ msgstr "ni OYA Kuri Byose"
 
-#: src/gnome-software-properties.in:72
 #, fuzzy
-msgid "Repositories changed"
-msgstr "Byahinduwe"
+#~ msgid ""
+#~ "This means that besides the actual upgrade of the packages some further "
+#~ "action (such as installing or removing packages) is required. Please use "
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
+#~ "situation."
+#~ msgstr ""
+#~ "i Bya i Igikorwa Nka gukora iyinjizaporogaramu:%s Cyangwa ni Bya ngombwa "
+#~ "Gukoresha Cyangwa Kubona Kuri i"
 
-#: src/gnome-software-properties.in:74
-#, fuzzy, c-format
-msgid ""
-"The repository information has changes. A backup copy of your sources.list "
-"is stored in %s.save. \n"
-"\n"
-"You need to reload the package list from the servers for your changes to "
-"take effect. Do you want to do this now?"
-msgstr "Kubika."
-
-#: src/update-manager.in:124
 #, fuzzy
-msgid "Your system has broken packages!"
-msgstr "Sisitemu"
+#~ msgid "The following packages are not upgraded: "
+#~ msgstr "OYA"
 
-#: src/update-manager.in:125
 #, fuzzy
-msgid ""
-"This means that some dependencies of the installed packages are not "
-"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-msgstr "Bya i OYA Gukoresha Cyangwa Kubona Kuri i"
+#~ msgid "Changes not found, the server may not be updated yet."
+#~ msgstr "OYA Byabonetse i Seriveri Gicurasi OYA"
 
-#: src/update-manager.in:139
 #, fuzzy
-msgid "It is not possible to upgrade all packages."
-msgstr "ni OYA Kuri Byose"
-
-#: src/update-manager.in:141
-#, fuzzy
-msgid ""
-"This means that besides the actual upgrade of the packages some further "
-"action (such as installing or removing packages) is required. Please use "
-"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
-msgstr ""
-"i Bya i Igikorwa Nka gukora iyinjizaporogaramu:%s Cyangwa ni Bya ngombwa "
-"Gukoresha Cyangwa Kubona Kuri i"
-
-#: src/update-manager.in:154
-#, fuzzy
-msgid "The following packages are not upgraded: "
-msgstr "OYA"
-
-#: src/update-manager.in:232
-#, fuzzy
-msgid "Changes not found, the server may not be updated yet."
-msgstr "OYA Byabonetse i Seriveri Gicurasi OYA"
-
-#: src/update-manager.in:235
-#, fuzzy
-msgid ""
-"Failed to download changes. Please check if there is an active internet "
-"connection."
-msgstr ""
-"Kuri Gufungura Amahinduka Kugenzura... NIBA ni Gikora Interineti Ukwihuza"
+#~ msgid ""
+#~ "Failed to download changes. Please check if there is an active internet "
+#~ "connection."
+#~ msgstr ""
+#~ "Kuri Gufungura Amahinduka Kugenzura... NIBA ni Gikora Interineti Ukwihuza"
 
 # goodies/source\filter.vcl\eps\dlgeps.src:DLG_EXPORT_EPS.GRP_VERSION.text
-#: src/update-manager.in:255
-#, fuzzy, c-format
-msgid "Version %s: \n"
-msgstr "Verisiyo"
-
-#: src/update-manager.in:303
 #, fuzzy
-msgid "Downloading changes..."
-msgstr "Amahinduka"
+#~ msgid "Version %s: \n"
+#~ msgstr "Verisiyo"
 
-#: src/update-manager.in:358
 #, fuzzy
-msgid "The updates are being applied."
-msgstr "Byashyizweho"
+#~ msgid "Downloading changes..."
+#~ msgstr "Amahinduka"
 
-#: src/update-manager.in:360
 #, fuzzy
-msgid "Upgrade finished"
-msgstr "Byarangiye"
+#~ msgid "The updates are being applied."
+#~ msgstr "Byashyizweho"
 
-#: src/update-manager.in:417
 #, fuzzy
-msgid "Another package manager is running"
-msgstr "Muyobozi ni"
+#~ msgid "Upgrade finished"
+#~ msgstr "Byarangiye"
 
-#: src/update-manager.in:419
 #, fuzzy
-msgid ""
-"You can run only one package management application at the same time. Please "
-"close this other application first."
-msgstr "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
+#~ msgid "Another package manager is running"
+#~ msgstr "Muyobozi ni"
 
-#: src/update-manager.in:437
 #, fuzzy
-msgid "Updating package list..."
-msgstr "Urutonde"
+#~ msgid ""
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
+#~ msgstr ""
+#~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
 
-#: src/update-manager.in:439
-msgid "Installing updates..."
-msgstr ""
-
-#: src/update-manager.in:618 src/update-manager.in:621
 #, fuzzy
-msgid "Your system is up-to-date!"
-msgstr "Sisitemu ni Hejuru Kuri Itariki"
+#~ msgid "Updating package list..."
+#~ msgstr "Urutonde"
 
-#: src/update-manager.in:619
 #, fuzzy
-msgid "There are no updates available."
-msgstr "Oya Bihari"
+#~ msgid "Your system is up-to-date!"
+#~ msgstr "Sisitemu ni Hejuru Kuri Itariki"
 
-#: src/update-manager.in:638
-#, fuzzy, c-format
-msgid "New version: %s"
-msgstr "Verisiyo"
-
-#: src/update-manager.in:662
 #, fuzzy
-msgid "Your distribution is no longer supported"
-msgstr "Ikwirakwiza... ni Oya"
+#~ msgid "There are no updates available."
+#~ msgstr "Oya Bihari"
 
-#: src/update-manager.in:662
 #, fuzzy
-msgid ""
-"Please upgrade to a newer version of Ubuntu Linux. The version you are "
-"running will no longer get security fixes or other critical updates. Please "
-"see http://www.ubuntulinux.org for upgrade information."
-msgstr ""
-"Kuri a Verisiyo Bya Verisiyo Oya Kubona Umutekano Cyangwa Ikindi Ibyangombwa "
-"HTTP www org kugirango Ibisobanuro"
+#~ msgid "New version: %s"
+#~ msgstr "Verisiyo"
 
-#: src/update-manager.in:676
 #, fuzzy
-msgid "There is a new release of Ubuntu available!"
-msgstr "ni a Gishya Bya Bihari"
+#~ msgid "Your distribution is no longer supported"
+#~ msgstr "Ikwirakwiza... ni Oya"
 
-#: src/update-manager.in:676
-#, fuzzy, c-format
-msgid ""
-"A new release with the codename '%s' is available. Please see http://www."
-"ubuntulinux.org/ for upgrade instructions."
-msgstr "A Gishya Na: i ni Bihari HTTP www org kugirango Amabwiriza"
-
-#: src/update-manager.in:679
 #, fuzzy
-msgid "Never show this message again"
-msgstr "Garagaza iyi Ubutumwa"
+#~ msgid ""
+#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ msgstr ""
+#~ "Kuri a Verisiyo Bya Verisiyo Oya Kubona Umutekano Cyangwa Ikindi "
+#~ "Ibyangombwa HTTP www org kugirango Ibisobanuro"
 
-#: src/update-manager.in:775
 #, fuzzy
-msgid "Initializing and getting list of updates..."
-msgstr "Na Urutonde Bya"
+#~ msgid "There is a new release of Ubuntu available!"
+#~ msgstr "ni a Gishya Bya Bihari"
 
-#: src/update-manager.in:797
 #, fuzzy
-msgid "You need to be root to run this program"
-msgstr "Kuri Imizi Kuri Gukoresha iyi Porogaramu"
+#~ msgid ""
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
+#~ msgstr "A Gishya Na: i ni Bihari HTTP www org kugirango Amabwiriza"
+
+#, fuzzy
+#~ msgid "Never show this message again"
+#~ msgstr "Garagaza iyi Ubutumwa"
+
+#, fuzzy
+#~ msgid "Initializing and getting list of updates..."
+#~ msgstr "Na Urutonde Bya"
+
+#, fuzzy
+#~ msgid "You need to be root to run this program"
+#~ msgstr "Kuri Imizi Kuri Gukoresha iyi Porogaramu"

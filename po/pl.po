@@ -7,21 +7,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-04 10:47+0200\n"
+"POT-Creation-Date: 2005-11-15 15:38+0100\n"
 "PO-Revision-Date: 2005-03-25 17:23+0100\n"
 "Last-Translator: Zygmunt Krynicki <zyga@www.suxx.pl>\n"
 "Language-Team: Polish <translators@gnomepl.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: ../data/gnome-software-properties.desktop.in.h:1
-msgid "Edit software sources and settings"
-msgstr "Modyfikuje ustawienia i źródła oprogramowania"
-
-#: ../data/gnome-software-properties.desktop.in.h:2
-msgid "Software Properties"
-msgstr "Właściwości oprogramowania"
 
 #: ../data/gnome-software-properties.glade.h:1
 msgid "<b>Comment:</b>"
@@ -68,11 +60,12 @@ msgid "<b>User Interface</b>"
 msgstr "<b>Interfejs użytkownika</b>"
 
 #: ../data/gnome-software-properties.glade.h:12
+#, fuzzy
 msgid ""
 "<big><b>Authentication keys</b></big>\n"
 "\n"
 "You can add and remove authentication keys in this dialog. A key makes it "
-"possible to check verify the integrity of the software you download."
+"possible to verify the integrity of the software you download."
 msgstr ""
 "<big><b>Klucze autentykacyjne</b></big>\n"
 "\n"
@@ -109,22 +102,28 @@ msgid "Add _CD"
 msgstr "Dodaj płytę _CD"
 
 #: ../data/gnome-software-properties.glade.h:21
+#, fuzzy
 msgid ""
-"Add a new key file to the trusted keyring. Make sure that you got the key "
-"over a secure channel and that you trust the owner. "
+"Add a new key file to the trusted keyring. Make sure that you received the "
+"key over a secure channel and that you trust the owner. "
 msgstr ""
 "Dodaje plik z kluczem do listy zaufanych kluczy. Należy upewnić sie, że "
 "został otrzymany bezpiecznym kanałem oraz, że pochodzi z zaufanego źródła. "
 
 #: ../data/gnome-software-properties.glade.h:22
+#, fuzzy
+msgid "Authentication"
+msgstr "A_utentykacja"
+
+#: ../data/gnome-software-properties.glade.h:23
 msgid "Automatically check for software _updates."
 msgstr "Automatycznie sprawdzaj dostępność akt_ualizacji oprogramowania."
 
-#: ../data/gnome-software-properties.glade.h:23
+#: ../data/gnome-software-properties.glade.h:24
 msgid "Automatically clean _temporary packages files"
 msgstr "Usuwaj _tymczasowe pliki z pakietami"
 
-#: ../data/gnome-software-properties.glade.h:24
+#: ../data/gnome-software-properties.glade.h:25
 msgid ""
 "Binary\n"
 "Source"
@@ -132,87 +131,74 @@ msgstr ""
 "Binarne\n"
 "Źródłowe"
 
-#: ../data/gnome-software-properties.glade.h:26
+#: ../data/gnome-software-properties.glade.h:27
 msgid "Clean interval in days: "
 msgstr "Co tyle dni:"
 
-#: ../data/gnome-software-properties.glade.h:27
+#: ../data/gnome-software-properties.glade.h:28
 msgid "Delete _old packages in the package cache"
 msgstr "Usuwaj stare pakiety z pamięci p_odręcznej"
 
-#: ../data/gnome-software-properties.glade.h:28
+#: ../data/gnome-software-properties.glade.h:29
 msgid "Edit Repository..."
 msgstr "Modyfikuj repozytorium..."
 
-#: ../data/gnome-software-properties.glade.h:29
+#: ../data/gnome-software-properties.glade.h:30
 msgid "Maximum age in days:"
 msgstr "Po tylu dniach:"
 
-#: ../data/gnome-software-properties.glade.h:30
+#: ../data/gnome-software-properties.glade.h:31
 msgid "Maximum size in MB:"
 msgstr "Maksymalny rozmiar pakietu w MB:"
 
-#: ../data/gnome-software-properties.glade.h:31
+#: ../data/gnome-software-properties.glade.h:32
 msgid "Remove the selected key from the trusted keyring."
 msgstr "Usuwa zaznaczony klucz z grupy zaufanych kluczy."
 
-#: ../data/gnome-software-properties.glade.h:32
+#: ../data/gnome-software-properties.glade.h:33
 msgid "Restore default keys"
 msgstr "Przywraca domyślne klucze"
 
-#: ../data/gnome-software-properties.glade.h:33
+#: ../data/gnome-software-properties.glade.h:34
+#, fuzzy
 msgid ""
-"Restore the default keys shiped with the distribution. This will not change "
+"Restore the default keys shipped with the distribution. This will not change "
 "user installed keys."
 msgstr ""
 "Przywraca domyślne klucze rozprowadzane wraz z dystrybucją. Nie wpływa to na "
 "klucze zainstalowane przez użytkownika."
 
-#: ../data/gnome-software-properties.glade.h:34
+#: ../data/gnome-software-properties.glade.h:35
 msgid "Set _maximum size for the package cache"
 msgstr "Maksymalny rozmiar pamięci podręcznej"
 
-#: ../data/gnome-software-properties.glade.h:35
+#: ../data/gnome-software-properties.glade.h:36
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: ../data/gnome-software-properties.glade.h:36
+#: ../data/gnome-software-properties.glade.h:37
 msgid "Show disabled software sources"
 msgstr "Pokaż nieaktywne źródła oprogramowania"
 
-#: ../data/gnome-software-properties.glade.h:37
+#: ../data/gnome-software-properties.glade.h:38
 msgid "Software Preferences"
 msgstr "Ustawienia oprogramowania"
 
-#: ../data/gnome-software-properties.glade.h:38
+#: ../data/gnome-software-properties.glade.h:39
 msgid "Update interval in days: "
 msgstr "Co tyle dni: "
 
-#: ../data/gnome-software-properties.glade.h:39
+#: ../data/gnome-software-properties.glade.h:40
 msgid "_Add Repository"
 msgstr "_Dodaj repozytorium"
 
-#: ../data/gnome-software-properties.glade.h:40
+#: ../data/gnome-software-properties.glade.h:41
 msgid "_Custom"
 msgstr "_Zaawansowane"
 
-#: ../data/gnome-software-properties.glade.h:41
+#: ../data/gnome-software-properties.glade.h:42
 msgid "_Download upgradable packages"
 msgstr "_Pobierz uaktualnione pakiety"
-
-#: ../data/update-manager.desktop.in.h:1
-msgid "Show available updates and choose which to install"
-msgstr ""
-"Wyświetla dostępne aktualizacje i pozwala wybrać te, które chcemy "
-"zainstalować"
-
-#: ../data/update-manager.desktop.in.h:2
-msgid "Ubuntu Update Manager"
-msgstr "Menadżer aktualizacji Ubuntu"
-
-#: ../data/update-manager.desktop.in.h:3
-msgid "Update Manager"
-msgstr "Menadżer aktualizacji"
 
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
@@ -222,7 +208,7 @@ msgstr "<b>Szczegóły</b>"
 msgid "<b>Packages to install:</b>"
 msgstr "<b>Pakiety do zainstalowania:</b>"
 
-#: ../data/update-manager.glade.h:3 ../src/update-manager.in:629
+#: ../data/update-manager.glade.h:3
 msgid ""
 "<big><b>Available Updates</b></big>\n"
 "\n"
@@ -261,257 +247,231 @@ msgid "Reload"
 msgstr "Wczytaj ponownie"
 
 #: ../data/update-manager.glade.h:13
-msgid "Reload the package information from the server."
-msgstr "Wczytuje ponownie z serwera informacje o pakietach."
+msgid ""
+"Reload the package information from the server. \n"
+"\n"
+"If you have a permanent internet connection this is done automatically. If "
+"you are behind an internet connection that needs to be started by hand (e.g. "
+"a modem) you should use this button so that update-manager knows about new "
+"updates."
+msgstr ""
 
-#: ../data/update-manager.glade.h:14
+#: ../data/update-manager.glade.h:16
 msgid "Software Updates"
 msgstr "Aktualizacje oprogramowania"
 
-#: ../data/update-manager.glade.h:15
+#: ../data/update-manager.glade.h:17
 msgid "_Install"
 msgstr "_Instaluj"
 
-#: ../src/aptsources.py.in:234 ../src/aptsources.py.in:282
-#: ../src/aptsources.py.in:328
-msgid "Officially supported"
-msgstr "Wspierane oficjalnie"
-
-#: ../src/aptsources.py.in:235 ../src/aptsources.py.in:283
-msgid "Restricted copyright"
-msgstr "O ograniczonych prawach kopiowania"
-
-#: ../src/aptsources.py.in:236 ../src/aptsources.py.in:284
-msgid "Community maintained (Universe)"
-msgstr "Utrzymywane przez społeczność (Universe)"
-
-#: ../src/aptsources.py.in:237 ../src/aptsources.py.in:285
-msgid "Non-free (Multiverse)"
-msgstr "Nie-wolnodostępne (Multiverse)"
-
-#: ../src/aptsources.py.in:248 ../src/aptsources.py.in:306
-#: ../src/aptsources.py.in:318
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
-
-#: ../src/aptsources.py.in:253 ../src/aptsources.py.in:310
-#, fuzzy
-msgid "Ubuntu 5.04 Updates"
-msgstr "Uaktualnienia Ubuntu 4.10"
-
-#: ../src/aptsources.py.in:276
-msgid "Binary"
-msgstr "Binarny"
-
-#: ../src/aptsources.py.in:277
-msgid "Source"
-msgstr "Źródłowy"
-
-#: ../src/aptsources.py.in:289 ../src/aptsources.py.in:293
-msgid "CD"
-msgstr "CD"
-
-#: ../src/aptsources.py.in:314 ../src/aptsources.py.in:322
-msgid "Ubuntu 4.10 Security Updates"
-msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 4.10"
-
-#: ../src/aptsources.py.in:329
-msgid "Contributed software"
-msgstr "Inne oprogramowanie (Contributed)"
-
-#: ../src/aptsources.py.in:330
-msgid "Non-free software"
-msgstr "Oprogramowanie nie-wolnodostępne"
-
-#: ../src/aptsources.py.in:331
-msgid "US export restricted software"
-msgstr "Oprogramowanie objęte restrykcjami eksportowymi USA"
-
-#: ../src/aptsources.py.in:346
-msgid "Debian Stable Security Updates"
-msgstr "Uaktualnienia bezpieczeństwa dla stabilnego Debiana"
-
-#. some known keys
-#: ../src/dialog_apt_key.py.in:37
-msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-msgstr "Klucz automatycznego podpisu archiwum Ubuntu <ftpmaster@ubuntu.com>"
-
-#: ../src/dialog_apt_key.py.in:38
-msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-msgstr "Klucz automatycznego podpisu płyty CD Ubuntu <cdimage@ubuntu.com>"
-
-#: ../src/dialog_apt_key.py.in:122
+#: ../SoftwareProperties/SoftwareProperties.py:218
 msgid "Choose a key-file"
 msgstr "Wybierz plik z kluczem"
 
-#: ../src/dialog_apt_key.py.in:132
+#: ../SoftwareProperties/SoftwareProperties.py:227
 msgid "Error importing selected file"
 msgstr "Błąd podczas importu wybranego pliku"
 
-#: ../src/dialog_apt_key.py.in:133
+#: ../SoftwareProperties/SoftwareProperties.py:228
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Wybrany plik może nie być kluczem GPG lub może być uszkodzony."
 
-#: ../src/dialog_apt_key.py.in:145
+#: ../SoftwareProperties/SoftwareProperties.py:240
 msgid "Error removing the key"
 msgstr "Błąd podczas usuwania klucza"
 
-#: ../src/dialog_apt_key.py.in:146
+#: ../SoftwareProperties/SoftwareProperties.py:241
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Nie można było usunąć wybranego klucza. Proszę zgłosić to jako błąd."
 
-#: ../src/gnome-software-properties.in:72
-msgid "Repositories changed"
-msgstr "Repozytoria zmienione"
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Modyfikuje ustawienia i źródła oprogramowania"
 
-#: ../src/gnome-software-properties.in:74
-#, c-format
-msgid ""
-"The repository information has changes. A backup copy of your sources.list "
-"is stored in %s.save. \n"
-"\n"
-"You need to reload the package list from the servers for your changes to "
-"take effect. Do you want to do this now?"
-msgstr ""
-"Zmieniły się informacje o repozytoriach. Kopia zapasowa oryginalnego pliku "
-"sources.list została zapisana w %s.save. \n"
-"\n"
-"Należy ponownie odczytać listę pakietów z serwerów aby zmiany były widoczne. "
-"Czy chcesz zrobić to teraz?"
+#~ msgid "Software Properties"
+#~ msgstr "Właściwości oprogramowania"
 
-#: ../src/update-manager.in:124
-msgid "Your system has broken packages!"
-msgstr "Twój system zawiera uszkodzone pakiety!"
+#~ msgid "Show available updates and choose which to install"
+#~ msgstr ""
+#~ "Wyświetla dostępne aktualizacje i pozwala wybrać te, które chcemy "
+#~ "zainstalować"
 
-#: ../src/update-manager.in:125
-msgid ""
-"This means that some dependencies of the installed packages are not "
-"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-msgstr ""
-"Oznacza to, że pewne zależności instalowanych pakietów nie są spełnione.Aby "
-"rozwiązać problem proszę skorzystać z programu \"Synaptic\" lub \"apt-get\"."
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Menadżer aktualizacji Ubuntu"
 
-#: ../src/update-manager.in:139
-msgid "It is not possible to upgrade all packages."
-msgstr "Nie można uaktualnić wszystkich pakietów"
+#~ msgid "Update Manager"
+#~ msgstr "Menadżer aktualizacji"
 
-#: ../src/update-manager.in:141
-msgid ""
-"This means that besides the actual upgrade of the packages some further "
-"action (such as installing or removing packages) is required. Please use "
-"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
-msgstr ""
-"Oznacza to, że do aktualizacji wymagane sa dodatkowe działania (takie jak "
-"dodanie lub usunięcie pakietów). Aby rozwiązać problem proszę skorzystać z "
-"funkcji \"sprytnej aktualizacji\" programu Synaptic lub wykonać polecenie "
-"\"apt-get dist-upgrade\"."
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Wczytuje ponownie z serwera informacje o pakietach."
 
-#: ../src/update-manager.in:154
-msgid "The following packages are not upgraded: "
-msgstr "Następujące pakiety nie są aktualizowane: "
+#~ msgid "Officially supported"
+#~ msgstr "Wspierane oficjalnie"
 
-#: ../src/update-manager.in:232
-msgid "Changes not found, the server may not be updated yet."
-msgstr ""
-"Nie odnaleziono informacji o zmianach, być może serwer nie został jeszcze "
-"zaktualizowany"
+#~ msgid "Restricted copyright"
+#~ msgstr "O ograniczonych prawach kopiowania"
 
-#: ../src/update-manager.in:235
-msgid ""
-"Failed to download changes. Please check if there is an active internet "
-"connection."
-msgstr ""
-"Nie udało się pobrać informacji o zmianach. Proszę sprawdzić czy połączenie "
-"z internetem jest aktywne"
+#~ msgid "Community maintained (Universe)"
+#~ msgstr "Utrzymywane przez społeczność (Universe)"
 
-#: ../src/update-manager.in:255
-#, c-format
-msgid "Version %s: \n"
-msgstr "Wersja %s: \n"
+#~ msgid "Non-free (Multiverse)"
+#~ msgstr "Nie-wolnodostępne (Multiverse)"
 
-#: ../src/update-manager.in:303
-msgid "Downloading changes..."
-msgstr "Pobieranie informacji o zmianach..."
+#~ msgid "Ubuntu 5.04 Security Updates"
+#~ msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
 
-#: ../src/update-manager.in:358
-msgid "The updates are being applied."
-msgstr "Aktualizacje są teraz instalowane."
-
-#: ../src/update-manager.in:360
-msgid "Upgrade finished"
-msgstr "Aktualizowanie zakończone"
-
-#: ../src/update-manager.in:417
-msgid "Another package manager is running"
-msgstr "Działa inny menadżer pakietów"
-
-#: ../src/update-manager.in:419
-msgid ""
-"You can run only one package management application at the same time. Please "
-"close this other application first."
-msgstr ""
-"Naraz można uruchomić tylko jedną aplikację zarządzającą pakietami. Należy "
-"najpierw zamknąć aplikację która teraz działa."
-
-#: ../src/update-manager.in:437
-msgid "Updating package list..."
-msgstr "Aktualizacja listy pakietów..."
-
-#: ../src/update-manager.in:439
-msgid "Installing updates..."
-msgstr "Instalacja pakietów..."
-
-#: ../src/update-manager.in:618 ../src/update-manager.in:621
-msgid "Your system is up-to-date!"
-msgstr "Twój system jest w pełni zaktualizowany"
-
-#: ../src/update-manager.in:619
-msgid "There are no updates available."
-msgstr "Nie ma żadnych dostępnych aktualizacji"
-
-#: ../src/update-manager.in:644
-#, c-format
-msgid "New version: %s"
-msgstr "Nowa wersja %s"
-
-#: ../src/update-manager.in:668
-msgid "Your distribution is no longer supported"
-msgstr "Twoja dystrybucja nie jest już wspierana"
-
-#: ../src/update-manager.in:668
-msgid ""
-"Please upgrade to a newer version of Ubuntu Linux. The version you are "
-"running will no longer get security fixes or other critical updates. Please "
-"see http://www.ubuntulinux.org for upgrade information."
-msgstr ""
-"Proszę uaktualnić dystrybucję do nowszej wersji Ubuntu Linux. Obecna wersja "
-"nie będzie już otrzymywać uaktualnień bezpieczeństwa oraz innych krytycznych "
-"uaktualnień. Informacje o tym jak uaktualnić dystrybucję można znaleźć na "
-"stronie http://www.ubuntulinux.org (Witryna w języku angielskim)"
-
-#: ../src/update-manager.in:682
 #, fuzzy
-msgid "There is a new release of Ubuntu available!"
-msgstr "Nie ma żadnych dostępnych aktualizacji"
+#~ msgid "Ubuntu 5.04 Updates"
+#~ msgstr "Uaktualnienia Ubuntu 4.10"
 
-#: ../src/update-manager.in:682
-#, c-format
-msgid ""
-"A new release with the codename '%s' is available. Please see http://www."
-"ubuntulinux.org/ for upgrade instructions."
-msgstr ""
+#~ msgid "Binary"
+#~ msgstr "Binarny"
 
-#: ../src/update-manager.in:685
-msgid "Never show this message again"
-msgstr "Nie pokazuj więcej tego komunikatu"
+#~ msgid "Source"
+#~ msgstr "Źródłowy"
 
-#: ../src/update-manager.in:781
-msgid "Initializing and getting list of updates..."
-msgstr "Inicjowanie i pobieranie listy aktualizacji..."
+#~ msgid "CD"
+#~ msgstr "CD"
 
-#: ../src/update-manager.in:803
-msgid "You need to be root to run this program"
-msgstr "Aby uruchomić ten program wymagane są uprawnienia administratora"
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 4.10"
+
+#~ msgid "Contributed software"
+#~ msgstr "Inne oprogramowanie (Contributed)"
+
+#~ msgid "Non-free software"
+#~ msgstr "Oprogramowanie nie-wolnodostępne"
+
+#~ msgid "US export restricted software"
+#~ msgstr "Oprogramowanie objęte restrykcjami eksportowymi USA"
+
+#~ msgid "Debian Stable Security Updates"
+#~ msgstr "Uaktualnienia bezpieczeństwa dla stabilnego Debiana"
+
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "Klucz automatycznego podpisu archiwum Ubuntu <ftpmaster@ubuntu.com>"
+
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr "Klucz automatycznego podpisu płyty CD Ubuntu <cdimage@ubuntu.com>"
+
+#~ msgid "Repositories changed"
+#~ msgstr "Repozytoria zmienione"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "Zmieniły się informacje o repozytoriach. Kopia zapasowa oryginalnego "
+#~ "pliku sources.list została zapisana w %s.save. \n"
+#~ "\n"
+#~ "Należy ponownie odczytać listę pakietów z serwerów aby zmiany były "
+#~ "widoczne. Czy chcesz zrobić to teraz?"
+
+#~ msgid "Your system has broken packages!"
+#~ msgstr "Twój system zawiera uszkodzone pakiety!"
+
+#~ msgid ""
+#~ "This means that some dependencies of the installed packages are not "
+#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
+#~ msgstr ""
+#~ "Oznacza to, że pewne zależności instalowanych pakietów nie są spełnione."
+#~ "Aby rozwiązać problem proszę skorzystać z programu \"Synaptic\" lub \"apt-"
+#~ "get\"."
+
+#~ msgid "It is not possible to upgrade all packages."
+#~ msgstr "Nie można uaktualnić wszystkich pakietów"
+
+#~ msgid ""
+#~ "This means that besides the actual upgrade of the packages some further "
+#~ "action (such as installing or removing packages) is required. Please use "
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
+#~ "situation."
+#~ msgstr ""
+#~ "Oznacza to, że do aktualizacji wymagane sa dodatkowe działania (takie jak "
+#~ "dodanie lub usunięcie pakietów). Aby rozwiązać problem proszę skorzystać "
+#~ "z funkcji \"sprytnej aktualizacji\" programu Synaptic lub wykonać "
+#~ "polecenie \"apt-get dist-upgrade\"."
+
+#~ msgid "The following packages are not upgraded: "
+#~ msgstr "Następujące pakiety nie są aktualizowane: "
+
+#~ msgid "Changes not found, the server may not be updated yet."
+#~ msgstr ""
+#~ "Nie odnaleziono informacji o zmianach, być może serwer nie został jeszcze "
+#~ "zaktualizowany"
+
+#~ msgid ""
+#~ "Failed to download changes. Please check if there is an active internet "
+#~ "connection."
+#~ msgstr ""
+#~ "Nie udało się pobrać informacji o zmianach. Proszę sprawdzić czy "
+#~ "połączenie z internetem jest aktywne"
+
+#~ msgid "Version %s: \n"
+#~ msgstr "Wersja %s: \n"
+
+#~ msgid "Downloading changes..."
+#~ msgstr "Pobieranie informacji o zmianach..."
+
+#~ msgid "The updates are being applied."
+#~ msgstr "Aktualizacje są teraz instalowane."
+
+#~ msgid "Upgrade finished"
+#~ msgstr "Aktualizowanie zakończone"
+
+#~ msgid "Another package manager is running"
+#~ msgstr "Działa inny menadżer pakietów"
+
+#~ msgid ""
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
+#~ msgstr ""
+#~ "Naraz można uruchomić tylko jedną aplikację zarządzającą pakietami. "
+#~ "Należy najpierw zamknąć aplikację która teraz działa."
+
+#~ msgid "Updating package list..."
+#~ msgstr "Aktualizacja listy pakietów..."
+
+#~ msgid "Installing updates..."
+#~ msgstr "Instalacja pakietów..."
+
+#~ msgid "Your system is up-to-date!"
+#~ msgstr "Twój system jest w pełni zaktualizowany"
+
+#~ msgid "There are no updates available."
+#~ msgstr "Nie ma żadnych dostępnych aktualizacji"
+
+#~ msgid "New version: %s"
+#~ msgstr "Nowa wersja %s"
+
+#~ msgid "Your distribution is no longer supported"
+#~ msgstr "Twoja dystrybucja nie jest już wspierana"
+
+#~ msgid ""
+#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ msgstr ""
+#~ "Proszę uaktualnić dystrybucję do nowszej wersji Ubuntu Linux. Obecna "
+#~ "wersja nie będzie już otrzymywać uaktualnień bezpieczeństwa oraz innych "
+#~ "krytycznych uaktualnień. Informacje o tym jak uaktualnić dystrybucję "
+#~ "można znaleźć na stronie http://www.ubuntulinux.org (Witryna w języku "
+#~ "angielskim)"
+
+#, fuzzy
+#~ msgid "There is a new release of Ubuntu available!"
+#~ msgstr "Nie ma żadnych dostępnych aktualizacji"
+
+#~ msgid "Never show this message again"
+#~ msgstr "Nie pokazuj więcej tego komunikatu"
+
+#~ msgid "Initializing and getting list of updates..."
+#~ msgstr "Inicjowanie i pobieranie listy aktualizacji..."
+
+#~ msgid "You need to be root to run this program"
+#~ msgstr "Aby uruchomić ten program wymagane są uprawnienia administratora"
 
 #, fuzzy
 #~ msgid ""

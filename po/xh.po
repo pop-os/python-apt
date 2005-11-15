@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-notifier\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-08 10:20+0100\n"
+"POT-Creation-Date: 2005-11-15 15:38+0100\n"
 "PO-Revision-Date: 2005-03-30 13:25+0200\n"
 "Last-Translator: Canonical Ltd <translations@canonical.com>\n"
 "Language-Team: Xhosa <xh-translate@ubuntu.com>\n"
@@ -17,66 +17,290 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 
-#: src/update-notifier.c:59
-#, c-format
-msgid ""
-"Please enter your password to run:\n"
-" %s"
+#: ../data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
 msgstr ""
-"Nceda faka i-password yakho ukuqhuba:\n"
-" %s"
 
-#: src/update.c:10
-msgid "Show updates"
-msgstr "Bonisa izihlaziyo"
+#: ../data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr ""
 
-#: src/update.c:11
-msgid "Install all updates"
-msgstr "Seka zonke izihlaziyo"
+#: ../data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr ""
 
-#: src/update.c:12
-msgid "Package Manager"
-msgstr "UMlawuli woMqulu weNkqubo"
+#: ../data/gnome-software-properties.glade.h:4
+msgid "<b>Internet Updates</b>"
+msgstr ""
 
-#: src/update.c:13
-msgid "Update package list now"
-msgstr "Hlaziya uluhlu lomqulu wenkqubo ngoku"
+#: ../data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr ""
 
-#: src/update.c:54
-#, c-format
-msgid "There is %i update available"
-msgid_plural "There are %i updates available"
-msgstr[0] "Kukho i-%i yohlaziyo ekhoyo"
-msgstr[1] "Kukho i-%i yohlaziyo ekhoyo"
+#: ../data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr ""
 
-#: src/update.c:58
-msgid "Press this icon to show the updates."
-msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa izihlaziyo."
-
-#: src/update.c:81
-msgid "Software preferences"
+#: ../data/gnome-software-properties.glade.h:7
+#, fuzzy
+msgid "<b>Software Sources</b>"
 msgstr "Uluhlu lwezinto ezikhethwayo zeenkqubo zekhompyutha"
 
-#: src/hooks.c:18
-#, c-format
-msgid "There are %i post-update informations available!"
-msgstr "Kukho i-%i yolwazi lwasemva kohlaziyo olukhoyo!"
-
-#: src/hooks.c:21
-msgid "Press this icon to show the information."
-msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa ulwazi."
-
-#: ui/hooks-dialog.glade:92
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Update information</span>\n"
-"\n"
-"There is some post software update information available. Please read the following information carefully."
+#: ../data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Ulwazi oluhlaziyiweyo</span>\n"
+
+#: ../data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
 "\n"
-"Kukho iinkqubo zekhompyutha zasemva kohlaziyo zolwazi olukhoyo. Nceda funda olu lwazi lulandelayo ngocoselelo."
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to verify the integrity of the software you download."
+msgstr ""
 
-#: ui/hooks-dialog.glade:180
-msgid "Run now"
-msgstr "Phumeza inkqubo ngoku"
+#: ../data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
 
+#: ../data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you received the "
+"key over a secure channel and that you trust the owner. "
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:22
+msgid "Authentication"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:23
+msgid "Automatically check for software _updates."
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:24
+msgid "Automatically clean _temporary packages files"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:25
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:27
+msgid "Clean interval in days: "
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:28
+msgid "Delete _old packages in the package cache"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:29
+msgid "Edit Repository..."
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:30
+msgid "Maximum age in days:"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:31
+msgid "Maximum size in MB:"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:32
+msgid "Remove the selected key from the trusted keyring."
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:33
+msgid "Restore default keys"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:34
+msgid ""
+"Restore the default keys shipped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:35
+msgid "Set _maximum size for the package cache"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:36
+msgid "Settings"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:37
+msgid "Show disabled software sources"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:38
+#, fuzzy
+msgid "Software Preferences"
+msgstr "Uluhlu lwezinto ezikhethwayo zeenkqubo zekhompyutha"
+
+#: ../data/gnome-software-properties.glade.h:39
+msgid "Update interval in days: "
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:40
+msgid "_Add Repository"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:41
+msgid "_Custom"
+msgstr ""
+
+#: ../data/gnome-software-properties.glade.h:42
+msgid "_Download upgradable packages"
+msgstr ""
+
+#: ../data/update-manager.glade.h:1
+msgid "<b>Details</b>"
+msgstr ""
+
+#: ../data/update-manager.glade.h:2
+msgid "<b>Packages to install:</b>"
+msgstr ""
+
+#: ../data/update-manager.glade.h:3
+msgid ""
+"<big><b>Available Updates</b></big>\n"
+"\n"
+"The following packages are found to be upgradable. You can upgrade them by "
+"using the Install button."
+msgstr ""
+
+#: ../data/update-manager.glade.h:6
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+
+#: ../data/update-manager.glade.h:9
+msgid "Cancel downloading the changelog"
+msgstr ""
+
+#: ../data/update-manager.glade.h:10
+msgid "Changes"
+msgstr ""
+
+#: ../data/update-manager.glade.h:11
+msgid "Description"
+msgstr ""
+
+#: ../data/update-manager.glade.h:12
+msgid "Reload"
+msgstr ""
+
+#: ../data/update-manager.glade.h:13
+msgid ""
+"Reload the package information from the server. \n"
+"\n"
+"If you have a permanent internet connection this is done automatically. If "
+"you are behind an internet connection that needs to be started by hand (e.g. "
+"a modem) you should use this button so that update-manager knows about new "
+"updates."
+msgstr ""
+
+#: ../data/update-manager.glade.h:16
+#, fuzzy
+msgid "Software Updates"
+msgstr "Bonisa izihlaziyo"
+
+#: ../data/update-manager.glade.h:17
+msgid "_Install"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:218
+msgid "Choose a key-file"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:227
+msgid "Error importing selected file"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:228
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:240
+msgid "Error removing the key"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:241
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr ""
+
+#~ msgid ""
+#~ "Please enter your password to run:\n"
+#~ " %s"
+#~ msgstr ""
+#~ "Nceda faka i-password yakho ukuqhuba:\n"
+#~ " %s"
+
+#~ msgid "Install all updates"
+#~ msgstr "Seka zonke izihlaziyo"
+
+#~ msgid "Package Manager"
+#~ msgstr "UMlawuli woMqulu weNkqubo"
+
+#~ msgid "Update package list now"
+#~ msgstr "Hlaziya uluhlu lomqulu wenkqubo ngoku"
+
+#~ msgid "There is %i update available"
+#~ msgid_plural "There are %i updates available"
+#~ msgstr[0] "Kukho i-%i yohlaziyo ekhoyo"
+#~ msgstr[1] "Kukho i-%i yohlaziyo ekhoyo"
+
+#~ msgid "Press this icon to show the updates."
+#~ msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa izihlaziyo."
+
+#~ msgid "There are %i post-update informations available!"
+#~ msgstr "Kukho i-%i yolwazi lwasemva kohlaziyo olukhoyo!"
+
+#~ msgid "Press this icon to show the information."
+#~ msgstr "Cofa lo mfanekiso ungumqondiso ukubonisa ulwazi."
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Update information</span>\n"
+#~ "\n"
+#~ "There is some post software update information available. Please read the "
+#~ "following information carefully."
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">Ulwazi oluhlaziyiweyo</span>\n"
+#~ "\n"
+#~ "Kukho iinkqubo zekhompyutha zasemva kohlaziyo zolwazi olukhoyo. Nceda "
+#~ "funda olu lwazi lulandelayo ngocoselelo."
+
+#~ msgid "Run now"
+#~ msgstr "Phumeza inkqubo ngoku"
