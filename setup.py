@@ -14,7 +14,7 @@ for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
 # HACK: make sure that the mo files are generated and up-to-date
 os.system("cd po; make update-po")
 # do the same for the desktop files
-os.system("cd date; make")
+os.system("cd data; make")
 # and channels
 os.system("cd channels; make")
     
