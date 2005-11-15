@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-23 10:23+0900\n"
 "Last-Translator: Hiroyuki Ikezoe <ikezoe@good-day.co.jp>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -199,6 +199,118 @@ msgstr "カスタム(C)"
 msgid "_Download upgradable packages"
 msgstr "アップグレード可能なパッケージを取得する(D)"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Officially supported"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "Restricted copyright"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Community maintained (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Non-free (Multiuniverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Debian Stable セキュリティアップデート"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>詳細</b>"
@@ -284,86 +396,11 @@ msgstr ""
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#, fuzzy
-#~ msgid "Software Properties"
-#~ msgstr "ソフトウェアの設定"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "アップデート可能なファイルの表示とインストール"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntuアップデートマネージャー"
-
 #~ msgid "Update Manager"
 #~ msgstr "アップデートマネージャー"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "サーバーからパッケージ情報を再度読み込む。"
-
-#~ msgid "Officially supported"
-#~ msgstr "Officially supported"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Restricted copyright"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Community maintained (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Non-free (Multiuniverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#, fuzzy
-#~ msgid "Binary"
-#~ msgstr ""
-#~ "バイナリ\n"
-#~ "ソース"
-
-#, fuzzy
-#~ msgid "Source"
-#~ msgstr ""
-#~ "バイナリ\n"
-#~ "ソース"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 セキュリティアップデート"
-
-#~ msgid "Contributed software"
-#~ msgstr "寄贈されたソフトウェア"
-
-#~ msgid "Non-free software"
-#~ msgstr "Non-free ソフトウェア"
-
-#~ msgid "US export restricted software"
-#~ msgstr "アメリカ合衆国外への輸出が禁止されているソフトウェア"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Debian Stable セキュリティアップデート"
-
-#~ msgid "Repositories changed"
-#~ msgstr "リポジトリが変更されました"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "リポジトリ情報が変更されました。sources.listのバックアップを %s.save にコ"
-#~ "ピーしました\n"
-#~ "\n"
-#~ "パッケージリストをサーバーから再取得する必要があります。今すぐ実行します"
-#~ "か?"
 
 #, fuzzy
 #~ msgid "Your system has broken packages!"
@@ -453,11 +490,72 @@ msgstr ""
 #~ msgid "Never show this message again"
 #~ msgstr "このメッセージを二度と表示しない"
 
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "同時にひとつのパッケージマネージャーしか起動できません。他のアプリケーショ"
+#~ "ンマネージャーを先に終了してください。"
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "アップデートリストを取得中..."
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "rootで実行してください"
+
+#, fuzzy
+#~ msgid "Software Properties"
+#~ msgstr "ソフトウェアの設定"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Ubuntuアップデートマネージャー"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "サーバーからパッケージ情報を再度読み込む。"
+
+#, fuzzy
+#~ msgid "Binary"
+#~ msgstr ""
+#~ "バイナリ\n"
+#~ "ソース"
+
+#, fuzzy
+#~ msgid "Source"
+#~ msgstr ""
+#~ "バイナリ\n"
+#~ "ソース"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Ubuntu 4.10 セキュリティアップデート"
+
+#~ msgid "Contributed software"
+#~ msgstr "寄贈されたソフトウェア"
+
+#~ msgid "Non-free software"
+#~ msgstr "Non-free ソフトウェア"
+
+#~ msgid "US export restricted software"
+#~ msgstr "アメリカ合衆国外への輸出が禁止されているソフトウェア"
+
+#~ msgid "Repositories changed"
+#~ msgstr "リポジトリが変更されました"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "リポジトリ情報が変更されました。sources.listのバックアップを %s.save にコ"
+#~ "ピーしました\n"
+#~ "\n"
+#~ "パッケージリストをサーバーから再取得する必要があります。今すぐ実行します"
+#~ "か?"
 
 #, fuzzy
 #~ msgid ""

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-04-04 15:00+0200\n"
 "Last-Translator: Jorge Bernal <koke@amedias.org>\n"
 "Language-Team: Spanish <traductores@gnome.org>\n"
@@ -203,6 +203,118 @@ msgstr "_Personalizado"
 msgid "_Download upgradable packages"
 msgstr "_Descargar paquetes actualizables"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Actualizaciones de Ubuntu 5.04"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Soportado oficialmente"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "Copyright restringido"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Mantenido por la comunidad (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Software no libre (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Actualizaciones de seguridad de Debian estable"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Detalles:</b>"
@@ -291,90 +403,11 @@ msgstr ""
 "No se puede quitar la clave que ha seleccionado. Por favor, avise de esto "
 "como un fallo."
 
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Editar fuentes de software y preferencias"
-
-#~ msgid "Software Properties"
-#~ msgstr "Propiedades de software"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "Mostrar actualizaciones disponibles y elegir cuáles instalar"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Gestor de actualizaciones de Ubuntu"
-
 #~ msgid "Update Manager"
 #~ msgstr "Gestor de actualizaciones"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Recargar la información del paquete desde el servidor."
-
-#~ msgid "Officially supported"
-#~ msgstr "Soportado oficialmente"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Copyright restringido"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Mantenido por la comunidad (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Software no libre (Multiverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
-
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Actualizaciones de Ubuntu 5.04"
-
-#~ msgid "Binary"
-#~ msgstr "Binario"
-
-#~ msgid "Source"
-#~ msgstr "Fuente"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 Actualizaciones de seguridad"
-
-#~ msgid "Contributed software"
-#~ msgstr "Software contribuido"
-
-#~ msgid "Non-free software"
-#~ msgstr "Software no libre"
-
-#~ msgid "US export restricted software"
-#~ msgstr "Software con restricciones de exportación estadounidenses"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Actualizaciones de seguridad de Debian estable"
-
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr ""
-#~ "Clave de firmado automático del archivo de Ubuntu <ftpmaster@ubuntu.com>"
-
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr ""
-#~ "Clave de firmado automático de las imágenes de CD de Ubuntu "
-#~ "<cdimage@ubuntu.com>"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Hay cambios en los repositorios"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "La información del repositorio ha cambiado. Se guardará una copia de su "
-#~ "sources.list en %s.save. \n"
-#~ "\n"
-#~ "Necesita recargar la lista de paquetes de los servidores para que sus "
-#~ "cambios hagan efecto. ¿Quiere hacer esto ahora?"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "¡Su sistema tiene paquetes rotos!"
@@ -479,11 +512,77 @@ msgstr ""
 #~ msgid "Never show this message again"
 #~ msgstr "No mostrar más este mensaje"
 
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Solo puede ejecutar una aplicación de gestión de paquetes al mismo "
+#~ "tiempo. Cierre la otra aplicación primero."
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Inicializando y obteniendo lista de actualizaciones..."
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Necesita ser root para ejecutar este programa"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Editar fuentes de software y preferencias"
+
+#~ msgid "Software Properties"
+#~ msgstr "Propiedades de software"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Gestor de actualizaciones de Ubuntu"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Recargar la información del paquete desde el servidor."
+
+#~ msgid "Binary"
+#~ msgstr "Binario"
+
+#~ msgid "Source"
+#~ msgstr "Fuente"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Ubuntu 4.10 Actualizaciones de seguridad"
+
+#~ msgid "Contributed software"
+#~ msgstr "Software contribuido"
+
+#~ msgid "Non-free software"
+#~ msgstr "Software no libre"
+
+#~ msgid "US export restricted software"
+#~ msgstr "Software con restricciones de exportación estadounidenses"
+
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr ""
+#~ "Clave de firmado automático del archivo de Ubuntu <ftpmaster@ubuntu.com>"
+
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr ""
+#~ "Clave de firmado automático de las imágenes de CD de Ubuntu "
+#~ "<cdimage@ubuntu.com>"
+
+#~ msgid "Repositories changed"
+#~ msgstr "Hay cambios en los repositorios"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "La información del repositorio ha cambiado. Se guardará una copia de su "
+#~ "sources.list en %s.save. \n"
+#~ "\n"
+#~ "Necesita recargar la lista de paquetes de los servidores para que sus "
+#~ "cambios hagan efecto. ¿Quiere hacer esto ahora?"
 
 #, fuzzy
 #~ msgid ""

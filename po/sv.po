@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-26 15:14+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -187,6 +187,118 @@ msgstr "An_passad"
 msgid "_Download upgradable packages"
 msgstr "_Hämta uppgraderingsbara paket"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Brådskande uppdateringar"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Brådskande uppdateringar"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Brådskande uppdateringar"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Stöds officiellt"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "Begränsad copyright"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Gemenskapsunderhållen (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Ickefri (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+#, fuzzy
+msgid "Non-DFSG-compatible Software"
+msgstr "Tillgängliga program"
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Detaljer</b>"
@@ -269,61 +381,11 @@ msgstr ""
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Redigera källor och inställningar för programvaror"
-
-#~ msgid "Software Properties"
-#~ msgstr "Programvaruegenskaper"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "Visa tillgängliga uppdateringar och välj vilka som ska installeras"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntu-uppdateringshanterare"
-
 #~ msgid "Update Manager"
 #~ msgstr "Uppdateringshanterare"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Läs om paketinformationen från servern."
-
-#~ msgid "Officially supported"
-#~ msgstr "Stöds officiellt"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Begränsad copyright"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Gemenskapsunderhållen (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Ickefri (Multiverse)"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Brådskande uppdateringar"
-
-#~ msgid "Binary"
-#~ msgstr "Binär"
-
-#~ msgid "Source"
-#~ msgstr "Källkod"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Contributed software"
-#~ msgstr "Bidragen programvara"
-
-#~ msgid "Non-free software"
-#~ msgstr "Ickefri programvara"
-
-#~ msgid "US export restricted software"
-#~ msgstr "Programvara med USA-exportbegränsningar"
-
-#, fuzzy
-#~ msgid "Repositories changed"
-#~ msgstr "Värdnamnet har ändrats"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "Ditt system har trasiga paket!"
@@ -395,11 +457,57 @@ msgstr ""
 #~ msgid "Never show this message again"
 #~ msgstr "Visa aldrig detta meddelande igen"
 
+#, fuzzy
+#~ msgid "Unable to get exclusive lock"
+#~ msgstr "Kan inte aktivera"
+
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Du kan endast köra ett pakethanteringsprogram på samma gång. Stäng det "
+#~ "andra programmet först."
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Initierar och hämtar lista med uppdateringar..."
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Du måste vara root för att kunna köra detta program"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Redigera källor och inställningar för programvaror"
+
+#~ msgid "Software Properties"
+#~ msgstr "Programvaruegenskaper"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Ubuntu-uppdateringshanterare"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Läs om paketinformationen från servern."
+
+#~ msgid "Binary"
+#~ msgstr "Binär"
+
+#~ msgid "Source"
+#~ msgstr "Källkod"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Contributed software"
+#~ msgstr "Bidragen programvara"
+
+#~ msgid "Non-free software"
+#~ msgstr "Ickefri programvara"
+
+#~ msgid "US export restricted software"
+#~ msgstr "Programvara med USA-exportbegränsningar"
+
+#, fuzzy
+#~ msgid "Repositories changed"
+#~ msgstr "Värdnamnet har ändrats"
 
 #~ msgid "Software Sources"
 #~ msgstr "Programvarukällor"
@@ -533,9 +641,6 @@ msgstr ""
 
 #~ msgid "Please fill in both email and activation code."
 #~ msgstr "Fyll i både e-postadress och aktiveringskod."
-
-#~ msgid "Unable to activate"
-#~ msgstr "Kan inte aktivera"
 
 #~ msgid ""
 #~ "Please ensure you typed the email address and activation code correctly"
@@ -1331,9 +1436,6 @@ msgstr ""
 
 #~ msgid "I_nstalled Software"
 #~ msgstr "I_nstallerad programvara"
-
-#~ msgid "Available Software"
-#~ msgstr "Tillgängliga program"
 
 #~ msgid "A_vailable Software"
 #~ msgstr "T_illgängliga program"

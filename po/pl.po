@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-25 17:23+0100\n"
 "Last-Translator: Zygmunt Krynicki <zyga@www.suxx.pl>\n"
 "Language-Team: Polish <translators@gnomepl.org>\n"
@@ -200,6 +200,118 @@ msgstr "_Zaawansowane"
 msgid "_Download upgradable packages"
 msgstr "_Pobierz uaktualnione pakiety"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Uaktualnienia Ubuntu 4.10"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Wspierane oficjalnie"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "O ograniczonych prawach kopiowania"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Utrzymywane przez społeczność (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Nie-wolnodostępne (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Uaktualnienia bezpieczeństwa dla stabilnego Debiana"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Szczegóły</b>"
@@ -284,90 +396,13 @@ msgstr "Błąd podczas usuwania klucza"
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Nie można było usunąć wybranego klucza. Proszę zgłosić to jako błąd."
 
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Modyfikuje ustawienia i źródła oprogramowania"
-
-#~ msgid "Software Properties"
-#~ msgstr "Właściwości oprogramowania"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr ""
 #~ "Wyświetla dostępne aktualizacje i pozwala wybrać te, które chcemy "
 #~ "zainstalować"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Menadżer aktualizacji Ubuntu"
-
 #~ msgid "Update Manager"
 #~ msgstr "Menadżer aktualizacji"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Wczytuje ponownie z serwera informacje o pakietach."
-
-#~ msgid "Officially supported"
-#~ msgstr "Wspierane oficjalnie"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "O ograniczonych prawach kopiowania"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Utrzymywane przez społeczność (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Nie-wolnodostępne (Multiverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 5.04"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Uaktualnienia Ubuntu 4.10"
-
-#~ msgid "Binary"
-#~ msgstr "Binarny"
-
-#~ msgid "Source"
-#~ msgstr "Źródłowy"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 4.10"
-
-#~ msgid "Contributed software"
-#~ msgstr "Inne oprogramowanie (Contributed)"
-
-#~ msgid "Non-free software"
-#~ msgstr "Oprogramowanie nie-wolnodostępne"
-
-#~ msgid "US export restricted software"
-#~ msgstr "Oprogramowanie objęte restrykcjami eksportowymi USA"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Uaktualnienia bezpieczeństwa dla stabilnego Debiana"
-
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "Klucz automatycznego podpisu archiwum Ubuntu <ftpmaster@ubuntu.com>"
-
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "Klucz automatycznego podpisu płyty CD Ubuntu <cdimage@ubuntu.com>"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Repozytoria zmienione"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Zmieniły się informacje o repozytoriach. Kopia zapasowa oryginalnego "
-#~ "pliku sources.list została zapisana w %s.save. \n"
-#~ "\n"
-#~ "Należy ponownie odczytać listę pakietów z serwerów aby zmiany były "
-#~ "widoczne. Czy chcesz zrobić to teraz?"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "Twój system zawiera uszkodzone pakiety!"
@@ -467,11 +502,74 @@ msgstr "Nie można było usunąć wybranego klucza. Proszę zgłosić to jako b�
 #~ msgid "Never show this message again"
 #~ msgstr "Nie pokazuj więcej tego komunikatu"
 
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Naraz można uruchomić tylko jedną aplikację zarządzającą pakietami. "
+#~ "Należy najpierw zamknąć aplikację która teraz działa."
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Inicjowanie i pobieranie listy aktualizacji..."
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Aby uruchomić ten program wymagane są uprawnienia administratora"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Modyfikuje ustawienia i źródła oprogramowania"
+
+#~ msgid "Software Properties"
+#~ msgstr "Właściwości oprogramowania"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Menadżer aktualizacji Ubuntu"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Wczytuje ponownie z serwera informacje o pakietach."
+
+#~ msgid "Binary"
+#~ msgstr "Binarny"
+
+#~ msgid "Source"
+#~ msgstr "Źródłowy"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Uaktualnienia bezpieczeństwa dla Ubuntu 4.10"
+
+#~ msgid "Contributed software"
+#~ msgstr "Inne oprogramowanie (Contributed)"
+
+#~ msgid "Non-free software"
+#~ msgstr "Oprogramowanie nie-wolnodostępne"
+
+#~ msgid "US export restricted software"
+#~ msgstr "Oprogramowanie objęte restrykcjami eksportowymi USA"
+
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "Klucz automatycznego podpisu archiwum Ubuntu <ftpmaster@ubuntu.com>"
+
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr "Klucz automatycznego podpisu płyty CD Ubuntu <cdimage@ubuntu.com>"
+
+#~ msgid "Repositories changed"
+#~ msgstr "Repozytoria zmienione"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "Zmieniły się informacje o repozytoriach. Kopia zapasowa oryginalnego "
+#~ "pliku sources.list została zapisana w %s.save. \n"
+#~ "\n"
+#~ "Należy ponownie odczytać listę pakietów z serwerów aby zmiany były "
+#~ "widoczne. Czy chcesz zrobić to teraz?"
 
 #, fuzzy
 #~ msgid ""

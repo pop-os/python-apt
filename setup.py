@@ -15,6 +15,8 @@ for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
 os.system("cd po; make update-po")
 # do the same for the desktop files
 os.system("cd date; make")
+# and channels
+os.system("cd channels; make")
     
 setup(name='update-manager',
       version='0.1',

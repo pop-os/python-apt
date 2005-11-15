@@ -1,0 +1,78 @@
+#!/usr/bin/env python2.4
+# update-manager.in - easy updating application
+#  
+#  Copyright (c) 2004,2005 Canonical
+#                2004,2005 Michiel Sikkes
+#  
+#  Author: Michiel Sikkes <michiel@eyesopened.nl>
+#          Michael Vogt <mvo@debian.org>
+# 
+#  This program is free software; you can redistribute it and/or 
+#  modify it under the terms of the GNU General Public License as 
+#  published by the Free Software Foundation; either version 2 of the
+#  License, or (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+#  USA
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import gtk.gdk
+import gtk.glade
+import gobject
+import gnome
+import gettext
+import os
+import sys
+
+from optparse import OptionParser
+
+sys.path.append("@prefix@/share/update-manager/python")
+
+from SoftwareProperties import *
+
+if __name__ == "__main__":
+  _ = gettext.gettext
+ 
+  # Begin parsing of options
+  parser = OptionParser()
+  parser.add_option ("-n", "--no-update", action="store_true",
+                     dest="no_update", default=False,
+                     help="No update on repository change (usefull if called "\
+                     "from a external program).")
+                     
+  parser.add_option ("-p", "--plug",
+                     action="store", type="string", dest="socket",
+                     help="Set socket-id to embedd into parent (if used a "\
+                     "embedded control")
+                     
+
+  (options, args) = parser.parse_args()
+  # Check for root permissions
+  if os.geteuid() != 0:
+    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, 
+                               _("You need to be root to run this program") )
+    dialog.set_default_response(gtk.RESPONSE_OK)
+    dialog.run()
+    dialog.destroy()
+    sys.exit(1)
+                     
+  localesApp="update-manager"
+  localesDir="/usr/share/locale"
+  gettext.bindtextdomain(localesApp, localesDir)
+  gettext.textdomain(localesApp)
+  gtk.glade.bindtextdomain(localesApp, localesDir)
+  gtk.glade.textdomain(localesApp)
+
+#  data_dir="/usr/share/update-manager/"
+  data_dir="/tmp/xxx/share/update-manager/"
+  app = SoftwareProperties(data_dir,options)
+  app.run()

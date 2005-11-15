@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-03 19:28+0200\n"
 "Last-Translator: Dan Damian <dand@gnome.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -201,6 +201,118 @@ msgstr ""
 msgid "_Download upgradable packages"
 msgstr "_Descarcă pachetele actualizate"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Actualizări de securitate Ubuntu 5.04"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Pachete suportate oficial"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "Copyright restrictiv"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Pachete întreţinute de comunitate (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Pachete non-libere (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Actualizări de securitate Debian Stable"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Detalii</b>"
@@ -287,80 +399,8 @@ msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
 #, fuzzy
-#~ msgid "Software Properties"
-#~ msgstr "Preferinţe software"
-
-#, fuzzy
-#~ msgid "Ubuntu Update Manager"
+#~ msgid "Update Manager"
 #~ msgstr "Actualizări Ubuntu 4.10"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Reîncarcă informaţiile despre pachete de pe server."
-
-#~ msgid "Officially supported"
-#~ msgstr "Pachete suportate oficial"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Copyright restrictiv"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Pachete întreţinute de comunitate (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Pachete non-libere (Multiverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Actualizări de securitate Ubuntu 5.04"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Actualizări de securitate Ubuntu 5.04"
-
-#, fuzzy
-#~ msgid "Binary"
-#~ msgstr ""
-#~ "Binar\n"
-#~ "Sursă"
-
-#, fuzzy
-#~ msgid "Source"
-#~ msgstr ""
-#~ "Binar\n"
-#~ "Sursă"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Actualizări de securitate Ubuntu 4.10"
-
-#~ msgid "Contributed software"
-#~ msgstr "Software în contribuţie"
-
-#~ msgid "Non-free software"
-#~ msgstr "Software non-liber"
-
-#~ msgid "US export restricted software"
-#~ msgstr "Software cu restricţii de export din SUA"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Actualizări de securitate Debian Stable"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Locaţiile au fost schimbate"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Informaţiile despre locaţii au fost schimbate. O copie de siguranţă a "
-#~ "fişierului sources.list a fost salvată în %s.save.\n"
-#~ "\n"
-#~ "Pentru ca modificările să aibe efect, trebuie să reîncărcaţi lista de "
-#~ "pachete de pe servere. Doriţi să faceţi acum acest lucru?"
 
 #, fuzzy
 #~ msgid "Your system has broken packages!"
@@ -415,8 +455,66 @@ msgstr ""
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Nu există nici un pachet de actualizat."
 
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
+#~ "închideţi ceilalţi manageri mai întâi."
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Iniţializez şi obţin lista actualizărilor..."
+
+#, fuzzy
+#~ msgid "Software Properties"
+#~ msgstr "Preferinţe software"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Reîncarcă informaţiile despre pachete de pe server."
+
+#, fuzzy
+#~ msgid "Binary"
+#~ msgstr ""
+#~ "Binar\n"
+#~ "Sursă"
+
+#, fuzzy
+#~ msgid "Source"
+#~ msgstr ""
+#~ "Binar\n"
+#~ "Sursă"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Actualizări de securitate Ubuntu 4.10"
+
+#~ msgid "Contributed software"
+#~ msgstr "Software în contribuţie"
+
+#~ msgid "Non-free software"
+#~ msgstr "Software non-liber"
+
+#~ msgid "US export restricted software"
+#~ msgstr "Software cu restricţii de export din SUA"
+
+#~ msgid "Repositories changed"
+#~ msgstr "Locaţiile au fost schimbate"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "Informaţiile despre locaţii au fost schimbate. O copie de siguranţă a "
+#~ "fişierului sources.list a fost salvată în %s.save.\n"
+#~ "\n"
+#~ "Pentru ca modificările să aibe efect, trebuie să reîncărcaţi lista de "
+#~ "pachete de pe servere. Doriţi să faceţi acum acest lucru?"
 
 #, fuzzy
 #~ msgid ""

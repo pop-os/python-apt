@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-05 14:33+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -103,13 +103,10 @@ msgid "Add _CD"
 msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:21
-#, fuzzy
 msgid ""
 "Add a new key file to the trusted keyring. Make sure that you received the "
 "key over a secure channel and that you trust the owner. "
 msgstr ""
-"Προσθήκη ενός νέου αρχείου κειδιού στο έμπιστο keyring. Βεβαιωθείτε ότι "
-"λάβατετο κλειδί από ασφαλές κανάλι και ότι εμπιστεύεστε τον ιδιοκτήτη."
 
 #: ../data/gnome-software-properties.glade.h:22
 #, fuzzy
@@ -118,23 +115,21 @@ msgstr "Πι_στοποίηση"
 
 #: ../data/gnome-software-properties.glade.h:23
 msgid "Automatically check for software _updates."
-msgstr "Αυτόματος έλεγχος για ανα_βαθμίσεις λογισμικού"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:24
 msgid "Automatically clean _temporary packages files"
-msgstr "Αυτόματη ε_κκαθάριση προσωρινών αρχείων πακέτων"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:25
 msgid ""
 "Binary\n"
 "Source"
 msgstr ""
-"Binary\n"
-"Source"
 
 #: ../data/gnome-software-properties.glade.h:27
 msgid "Clean interval in days: "
-msgstr "Xρονικό μεσοδιάστημα εκκαθάρισης σε ημέρες:"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:28
 msgid "Delete _old packages in the package cache"
@@ -142,7 +137,7 @@ msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:29
 msgid "Edit Repository..."
-msgstr "Επεξεργασία Repository..."
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:30
 msgid "Maximum age in days:"
@@ -154,20 +149,17 @@ msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:32
 msgid "Remove the selected key from the trusted keyring."
-msgstr "Διαγραφή του επιλεγμένου κλειδιού από το έμπιστο keyring."
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:33
 msgid "Restore default keys"
-msgstr "Επαναφορά προεπιλεγμένων κλειδιών"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:34
-#, fuzzy
 msgid ""
 "Restore the default keys shipped with the distribution. This will not change "
 "user installed keys."
 msgstr ""
-"Επαναφορά των προεπιλεγμένων κλειδίων που εκδόθηκαν από την διανομή. Αυτό "
-"δεν θα επηρεάσειτα κλειδιά που εγκαταστάθηκαν από τον χρήστη."
 
 #: ../data/gnome-software-properties.glade.h:35
 msgid "Set _maximum size for the package cache"
@@ -179,19 +171,21 @@ msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:37
 msgid "Show disabled software sources"
-msgstr "Εμφάνιση ανενεργών πηγών λογισμικού"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:38
+#, fuzzy
 msgid "Software Preferences"
-msgstr "Προτιμήσεις λογισμικού"
+msgstr "<b>Πηγές λογισμικού</b>"
 
 #: ../data/gnome-software-properties.glade.h:39
 msgid "Update interval in days: "
-msgstr "Διάστημα ανανέωσης σε ημέρες:"
+msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:40
+#, fuzzy
 msgid "_Add Repository"
-msgstr "Προσ_θήκη Repository"
+msgstr "<b>Repository</b>"
 
 #: ../data/gnome-software-properties.glade.h:41
 msgid "_Custom"
@@ -199,16 +193,124 @@ msgstr ""
 
 #: ../data/gnome-software-properties.glade.h:42
 msgid "_Download upgradable packages"
-msgstr "Μετα_φόρτωση αναβαθμίσιμων πακέτων"
+msgstr ""
+
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+msgid "Ubuntu 5.10 Security Updates"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+msgid "Ubuntu 5.10 Updates"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+msgid "Oficially supported"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr ""
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
 
 #: ../data/update-manager.glade.h:1
+#, fuzzy
 msgid "<b>Details</b>"
-msgstr "<b>Λεπτομέρειες</b>"
+msgstr "<b>Ενότητες:</b>"
 
 #: ../data/update-manager.glade.h:2
 #, fuzzy
 msgid "<b>Packages to install:</b>"
-msgstr "Πακέτα για εγκατάσταση:"
+msgstr "<b>Ενότητες:</b>"
 
 #: ../data/update-manager.glade.h:3
 msgid ""
@@ -217,10 +319,6 @@ msgid ""
 "The following packages are found to be upgradable. You can upgrade them by "
 "using the Install button."
 msgstr ""
-"<big><b>Διαθέσιμες αναβαθμίσεις</b></big>\n"
-"\n"
-"Τα ακόλουθα πακέτα έχουν δυνατότητα αναβάθμισης. Μπορείτε να τα αναβαθμίσετε "
-"με την χρήση του κουμπιούΕγκατάσταση."
 
 #: ../data/update-manager.glade.h:6
 msgid ""
@@ -228,21 +326,18 @@ msgid ""
 "\n"
 "Need to get the changes from the central server"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Μεταφόρτωση αλλαγών</span>\n"
-"\n"
-"Χρειάζεται να κάνετε λήψη των αλλαγών από τον κεντρικό εξυπηρετητή"
 
 #: ../data/update-manager.glade.h:9
 msgid "Cancel downloading the changelog"
-msgstr "Ακύρωση μεταφόρτωσης του changelog"
+msgstr ""
 
 #: ../data/update-manager.glade.h:10
 msgid "Changes"
-msgstr "Αλλαγές"
+msgstr ""
 
 #: ../data/update-manager.glade.h:11
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr ""
 
 #: ../data/update-manager.glade.h:12
 msgid "Reload"
@@ -260,11 +355,11 @@ msgstr ""
 
 #: ../data/update-manager.glade.h:16
 msgid "Software Updates"
-msgstr "Αναβαθμίσεις λογισμικού"
+msgstr ""
 
 #: ../data/update-manager.glade.h:17
 msgid "_Install"
-msgstr "_Εγκατάσταση"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:218
 msgid "Choose a key-file"
@@ -285,153 +380,3 @@ msgstr ""
 #: ../SoftwareProperties/SoftwareProperties.py:241
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
-
-#, fuzzy
-#~ msgid "Software Properties"
-#~ msgstr "Προτιμήσεις λογισμικού"
-
-#, fuzzy
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Αναβαθμίσεις Ubuntu 4.10"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Ανανέωση των πληροφοριών πακέτων από τον εξυπηρετητή."
-
-#~ msgid "Officially supported"
-#~ msgstr "Officially supported"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Περιορισμένα πνευματικά δικαιώματα"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Community maintained (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Όχι-ελεύθερα (Multiverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.04"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.04"
-
-#, fuzzy
-#~ msgid "Binary"
-#~ msgstr ""
-#~ "Binary\n"
-#~ "Source"
-
-#, fuzzy
-#~ msgid "Source"
-#~ msgstr ""
-#~ "Binary\n"
-#~ "Source"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 4.10"
-
-#~ msgid "Contributed software"
-#~ msgstr "Contributed software"
-
-#~ msgid "Non-free software"
-#~ msgstr "Όχι-ελεύθερο λογισμικό"
-
-#~ msgid "US export restricted software"
-#~ msgstr "US export restricted software"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Αναβαθμίσεις ασφαλείας Debian Stable"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Τα Repositories άλλαξαν"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Οι πληροφορίες repository έχουν αλλαγές. Ένα αντίγραφο ασφαλείας του "
-#~ "αρχείου sources.list έχει αποθηκευτεί στο %s.save. \n"
-#~ "\n"
-#~ "Θα χρειαστεί να ανανεώσετε την λίστα πακέτων από τους εξυπηρετητές για να "
-#~ "πραγματοποιηθούν οι αλλαγέςσας. Θέλετε να το κάνετε τώρα;"
-
-#, fuzzy
-#~ msgid "Your system has broken packages!"
-#~ msgstr "Το σύστημα σας είναι ενημερωμένο!"
-
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr ""
-#~ "Οι αλλαγές δεν βρέθηκαν, ο εξυπηρετητής μπορεί να μην έχει ενημερωθεί "
-#~ "ακόμα."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Αποτυχία μεταφόρτωσης αλλαγών. Ελέγξτε αν υπάρχει ενεργή σύνδεση με το "
-#~ "διαδίκτυο."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Έκδοση %s: \n"
-
-#~ msgid "Downloading changes..."
-#~ msgstr "Μεταφόρτωση αλλαγών..."
-
-#~ msgid "The updates are being applied."
-#~ msgstr "Οι αναβαθμίσεις εφαρμόζονται."
-
-#~ msgid "Upgrade finished"
-#~ msgstr "Η αναβάθμιση ολοκληρώθηκε"
-
-#~ msgid "Another package manager is running"
-#~ msgstr "Εκτελείται ένας άλλος διαχειριστής πακέτων"
-
-#~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-#~ msgstr ""
-#~ "Μπορείτε να εκτελείτε μόνο μια εφαρμογή διαχείρισης πακέτων την φορά. "
-#~ "Παρακαλώ κλείστε την άλλη εφαρμογή πρώτα."
-
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Το σύστημα σας είναι ενημερωμένο!"
-
-#~ msgid "There are no updates available."
-#~ msgstr "Δεν υπάρχουν διαθέσιμες αναβαθμίσεις."
-
-#~ msgid "New version: %s"
-#~ msgstr "Νέα έκδοση: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Η διανομή σας δεν υποστηρίζεται πιά"
-
-#, fuzzy
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "Δεν υπάρχουν διαθέσιμες αναβαθμίσεις."
-
-#~ msgid "Initializing and getting list of updates..."
-#~ msgstr "Αρχικοποίηση και λήψη λίστας αναβαθμίσεων..."
-
-#, fuzzy
-#~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
-#~ msgstr ""
-#~ "<big><b>Διαθέσιμες αναβαθμίσεις</b></big>\n"
-#~ "\n"
-#~ "Τα ακόλουθα πακέτα έχουν δυνατότητα αναβάθμισης. Μπορείτε να τα "
-#~ "αναβαθμίσετε με την χρήση του κουμπιούΕγκατάσταση."
-
-#~ msgid "0"
-#~ msgstr "0"
-
-#~ msgid "    "
-#~ msgstr "    "

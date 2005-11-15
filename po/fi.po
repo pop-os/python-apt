@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-30 08:30+0200\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <LL@li.org>\n"
@@ -199,6 +199,118 @@ msgstr "_Muu"
 msgid "_Download upgradable packages"
 msgstr "_Lataa päivitettävät paketit"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Virallisesti tuettu"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "Rajoitettu tekijänoikeus"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Yhteisön ylläpitämä (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "Ei-vapaat ohjelmat (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Debian Stable turvallisuuspäivitykset"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>Yksityiskohdat</b>"
@@ -284,90 +396,11 @@ msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Valitsemaasi avainta ei voitu poistaa. Ole hyvä ja luo tästä virheilmoitus."
 
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Muokkaa ohjelmalähteitä ja asetuksia"
-
-#~ msgid "Software Properties"
-#~ msgstr "Asetukset"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "Näytä saatavilla olevat päivitykset ja valitse asennettavat"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntun päivitysten hallinta"
-
 #~ msgid "Update Manager"
 #~ msgstr "Päivitysten hallinta"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Lataa pakettitiedot uudelleen palvelimelta."
-
-#~ msgid "Officially supported"
-#~ msgstr "Virallisesti tuettu"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "Rajoitettu tekijänoikeus"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Yhteisön ylläpitämä (Universe)"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Ei-vapaat ohjelmat (Multiverse)"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
-
-#~ msgid "Binary"
-#~ msgstr "Binääri"
-
-#~ msgid "Source"
-#~ msgstr "Lähdekoodi"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 turvallisuuspäivitykset"
-
-#~ msgid "Contributed software"
-#~ msgstr "Muiden tarjoamat ohjelmat"
-
-#~ msgid "Non-free software"
-#~ msgstr "Ei-vapaat ohjelmat"
-
-#~ msgid "US export restricted software"
-#~ msgstr "USA:sta vientirajoitetut ohjelmat"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Debian Stable turvallisuuspäivitykset"
-
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr ""
-#~ "Ubuntu-arkiston automaattinen allekirjoitusavain <ftpmaster@ubuntu.com>"
-
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr ""
-#~ "Ubuntun CD-vedosten automaattinen allekirjoitusavain <cdimage@ubuntu.com>"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Varastot muuttuneet"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Varastotiedoissa on muutoksia. Varmuuskopio tiedostosta sources.list on "
-#~ "tallennettu nimellä %s.save. \n"
-#~ "\n"
-#~ "Ohjelmapakettien luettelo täytyy ladata uudelleen palvelimelta, jotta "
-#~ "muutoksesi tulevat voimaan. Haluatko tehdä tämän nyt?"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "Järjestelmässä on rikkinäisiä paketteja!"
@@ -459,11 +492,76 @@ msgstr ""
 #~ msgid "Never show this message again"
 #~ msgstr "Älä näytä tätä viestiä uudestaan"
 
+#, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Voit hallita paketteja vain yhdellä ohjelmalla kerrallaan. Sulje toinen "
+#~ "ohjelma ensin."
+
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Alustetaan ja ladataan luetteloa päivityksistä..."
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Sinun täytyy olla pääkäyttäjä ajaaksesi tämän ohjelman"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Muokkaa ohjelmalähteitä ja asetuksia"
+
+#~ msgid "Software Properties"
+#~ msgstr "Asetukset"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Ubuntun päivitysten hallinta"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Lataa pakettitiedot uudelleen palvelimelta."
+
+#~ msgid "Binary"
+#~ msgstr "Binääri"
+
+#~ msgid "Source"
+#~ msgstr "Lähdekoodi"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Ubuntu 4.10 turvallisuuspäivitykset"
+
+#~ msgid "Contributed software"
+#~ msgstr "Muiden tarjoamat ohjelmat"
+
+#~ msgid "Non-free software"
+#~ msgstr "Ei-vapaat ohjelmat"
+
+#~ msgid "US export restricted software"
+#~ msgstr "USA:sta vientirajoitetut ohjelmat"
+
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr ""
+#~ "Ubuntu-arkiston automaattinen allekirjoitusavain <ftpmaster@ubuntu.com>"
+
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr ""
+#~ "Ubuntun CD-vedosten automaattinen allekirjoitusavain <cdimage@ubuntu.com>"
+
+#~ msgid "Repositories changed"
+#~ msgstr "Varastot muuttuneet"
+
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr ""
+#~ "Varastotiedoissa on muutoksia. Varmuuskopio tiedostosta sources.list on "
+#~ "tallennettu nimellä %s.save. \n"
+#~ "\n"
+#~ "Ohjelmapakettien luettelo täytyy ladata uudelleen palvelimelta, jotta "
+#~ "muutoksesi tulevat voimaan. Haluatko tehdä tämän nyt?"
 
 #, fuzzy
 #~ msgid ""

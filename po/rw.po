@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-31 20:55-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -222,6 +222,120 @@ msgstr "Guhanga"
 msgid "_Download upgradable packages"
 msgstr ""
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "5"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "5"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "5"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "5"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+msgid "Oficially supported"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+#, fuzzy
+msgid "Restricted copyright"
+msgstr "Uburenganzira bw'umuhimbyi"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+#, fuzzy
+msgid "Non-free (Multiverse)"
+msgstr "Kigenga"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "4. 10"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 #, fuzzy
 msgid "<b>Details</b>"
@@ -323,73 +437,8 @@ msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
 
 #, fuzzy
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Na Amagenamiterere"
-
-#, fuzzy
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "Bihari Na Guhitamo Kuri Kwinjiza porogaramu"
-
-#, fuzzy
-#~ msgid "Reload the package information from the server."
-#~ msgstr "Kongerakuyitangiza i Ibisobanuro Bivuye i Seriveri"
-
-#, fuzzy
-#~ msgid "Restricted copyright"
-#~ msgstr "Uburenganzira bw'umuhimbyi"
-
-#, fuzzy
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "Kigenga"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "5"
-
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
-# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PBM.FileFormat..0.text
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
-# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PGM.FileFormat..0.text
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
-# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PPM.FileFormat..0.text
-#~ msgid "Binary"
-#~ msgstr "Nyabibiri"
-
-#~ msgid "Source"
-#~ msgstr "Inkomoko"
-
-#, fuzzy
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "4. 10"
-
-#, fuzzy
-#~ msgid "Non-free software"
-#~ msgstr "Kigenga"
-
-#, fuzzy
-#~ msgid "US export restricted software"
-#~ msgstr "Kohereza Nta gukoresha bisesuye"
-
-#, fuzzy
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "com"
-
-#, fuzzy
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "com"
-
-#, fuzzy
-#~ msgid "Repositories changed"
-#~ msgstr "Byahinduwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr "Kubika."
 
 #, fuzzy
 #~ msgid "Your system has broken packages!"
@@ -502,9 +551,65 @@ msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
 #~ msgstr "Garagaza iyi Ubutumwa"
 
 #, fuzzy
+#~ msgid ""
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
+#~ msgstr ""
+#~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
+
+#, fuzzy
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Na Urutonde Bya"
 
 #, fuzzy
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Kuri Imizi Kuri Gukoresha iyi Porogaramu"
+
+#, fuzzy
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Na Amagenamiterere"
+
+#, fuzzy
+#~ msgid "Reload the package information from the server."
+#~ msgstr "Kongerakuyitangiza i Ibisobanuro Bivuye i Seriveri"
+
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PBM.FileFormat..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PGM.FileFormat..0.text
+# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PPM.FileFormat..0.text
+#~ msgid "Binary"
+#~ msgstr "Nyabibiri"
+
+#~ msgid "Source"
+#~ msgstr "Inkomoko"
+
+#, fuzzy
+#~ msgid "Non-free software"
+#~ msgstr "Kigenga"
+
+#, fuzzy
+#~ msgid "US export restricted software"
+#~ msgstr "Kohereza Nta gukoresha bisesuye"
+
+#, fuzzy
+#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "com"
+
+#, fuzzy
+#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr "com"
+
+#, fuzzy
+#~ msgid "Repositories changed"
+#~ msgstr "Byahinduwe"
+
+#, fuzzy
+#~ msgid ""
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
+#~ "\n"
+#~ "You need to reload the package list from the servers for your changes to "
+#~ "take effect. Do you want to do this now?"
+#~ msgstr "Kubika."

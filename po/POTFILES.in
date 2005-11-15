@@ -1,6 +1,8 @@
 [encoding: UTF-8]
 data/gnome-software-properties.glade
 [type: gettext/rfc822deb] data/update-manager.desktop.in
+[type: gettext/rfc822deb] channels/Ubuntu.info.in
+[type: gettext/rfc822deb] channels/Debian.info.in
 data/update-manager.glade
 [type: python] src/update-manager
 SoftwareProperties/SoftwareProperties.py

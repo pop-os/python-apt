@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-29 13:36-0300\n"
 "Last-Translator: Raphael Higino <raphaelh@uai.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-status@listas.cipsga.org."
@@ -180,6 +180,113 @@ msgstr ""
 msgid "_Download upgradable packages"
 msgstr ""
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+msgid "Ubuntu 5.10 Security Updates"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+msgid "Ubuntu 5.10 Updates"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+msgid "Oficially supported"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "Mantido pela comunidade (Universo)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr ""
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr ""
@@ -257,20 +364,21 @@ msgstr ""
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#~ msgid "Software Properties"
-#~ msgstr "Propriedades dos Softwares"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "Mantido pela comunidade (Universo)"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
 #~ msgid "Your system has broken packages!"
 #~ msgstr "O seu sistema tem pacotes quebrados!"
 
 #~ msgid "Upgrade finished"
 #~ msgstr "Upgrade terminado"
 
+#, fuzzy
+#~ msgid "Your system is up-to-date!"
+#~ msgstr "O seu sistema tem pacotes quebrados!"
+
 #~ msgid "Never show this message again"
 #~ msgstr "Nunca exibir esta mensagem novamente"
+
+#~ msgid "Software Properties"
+#~ msgstr "Propriedades dos Softwares"
+
+#~ msgid "CD"
+#~ msgstr "CD"

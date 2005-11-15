@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 15:38+0100\n"
+"POT-Creation-Date: 2005-11-15 16:34+0100\n"
 "PO-Revision-Date: 2005-03-21 22:00+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -182,6 +182,118 @@ msgstr "自定义(_C)"
 msgid "_Download upgradable packages"
 msgstr "下载可更新的包(_D)"
 
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Breezy 5.10 \"Breezy Badger\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:56
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:73
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "官方支持"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:80
+msgid "Restricted copyright"
+msgstr "版权限制"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:83
+msgid "Community maintained (Universe)"
+msgstr "社区维护"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:86
+msgid "Non-free (Multiverse)"
+msgstr "非自由"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Debian 稳定版安全更新"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>细节</b>"
@@ -260,75 +372,11 @@ msgstr ""
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#~ msgid "Edit software sources and settings"
-#~ msgstr "编辑软件源及设置"
-
-#~ msgid "Software Properties"
-#~ msgstr "软件属性"
-
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "显示可用的更新并选择要安装的更新"
 
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntu 更新管理器"
-
 #~ msgid "Update Manager"
 #~ msgstr "更新管理器"
-
-#~ msgid "Reload the package information from the server."
-#~ msgstr "从服务器重新装入软件包信息。"
-
-#~ msgid "Officially supported"
-#~ msgstr "官方支持"
-
-#~ msgid "Restricted copyright"
-#~ msgstr "版权限制"
-
-#~ msgid "Community maintained (Universe)"
-#~ msgstr "社区维护"
-
-#~ msgid "Non-free (Multiverse)"
-#~ msgstr "非自由"
-
-#~ msgid "Ubuntu 5.04 Security Updates"
-#~ msgstr "Ubuntu 5.04 安全更新"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 Updates"
-#~ msgstr "Ubuntu 5.04 安全更新"
-
-#, fuzzy
-#~ msgid "Binary"
-#~ msgstr ""
-#~ "二进制\n"
-#~ "源代码"
-
-#, fuzzy
-#~ msgid "Source"
-#~ msgstr ""
-#~ "二进制\n"
-#~ "源代码"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 安全更新"
-
-#~ msgid "Contributed software"
-#~ msgstr "贡献的软件"
-
-#~ msgid "Non-free software"
-#~ msgstr "非自由软件"
-
-#~ msgid "US export restricted software"
-#~ msgstr "美国限制出口的软件"
-
-#~ msgid "Debian Stable Security Updates"
-#~ msgstr "Debian 稳定版安全更新"
-
-#~ msgid "Repositories changed"
-#~ msgstr "仓库已变更"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "您的系统有损坏的软件包！"
@@ -378,3 +426,45 @@ msgstr ""
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "您需要以 root 身份运行此程序"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "编辑软件源及设置"
+
+#~ msgid "Software Properties"
+#~ msgstr "软件属性"
+
+#~ msgid "Ubuntu Update Manager"
+#~ msgstr "Ubuntu 更新管理器"
+
+#~ msgid "Reload the package information from the server."
+#~ msgstr "从服务器重新装入软件包信息。"
+
+#, fuzzy
+#~ msgid "Binary"
+#~ msgstr ""
+#~ "二进制\n"
+#~ "源代码"
+
+#, fuzzy
+#~ msgid "Source"
+#~ msgstr ""
+#~ "二进制\n"
+#~ "源代码"
+
+#~ msgid "CD"
+#~ msgstr "CD"
+
+#~ msgid "Ubuntu 4.10 Security Updates"
+#~ msgstr "Ubuntu 4.10 安全更新"
+
+#~ msgid "Contributed software"
+#~ msgstr "贡献的软件"
+
+#~ msgid "Non-free software"
+#~ msgstr "非自由软件"
+
+#~ msgid "US export restricted software"
+#~ msgstr "美国限制出口的软件"
+
+#~ msgid "Repositories changed"
+#~ msgstr "仓库已变更"
