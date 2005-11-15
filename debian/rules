@@ -6,37 +6,18 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-
-# These are used for cross-compiling and for saving the configure script
-# from having to guess our platform (since we know it already)
-DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
-
-
-CFLAGS = -Wall -g
-
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-	INSTALL_PROGRAM += -s
-endif
-
-config.status: configure
-	dh_testdir
-	# Add here commands to configure the package.
-	CFLAGS="$(CFLAGS)" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --sysconfdir=/etc
+PKG=update-manager
+DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
+DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
 
 
 build: build-stamp
 
-build-stamp:  config.status
+build-stamp:  
 	dh_testdir
 
 	# Add here commands to compile the package.
-	$(MAKE)
+	./setup.py build 
 	#/usr/bin/docbook-to-man debian/update-manager.sgml > update-manager.1
 
 	# intltool for rosetta
@@ -68,8 +49,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/update-manager.
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/update-manager
-
+	./setup.py install --prefix=$(CURDIR)/debian/$(PKG)/usr
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -99,7 +79,7 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 #	dh_perl
-#	dh_python
+	dh_python
 #	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
@@ -107,5 +87,11 @@ binary-arch: build install
 	dh_md5sums
 	dh_builddeb
 
+arch-build:
+	rm -rf debian/arch-build
+	mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
+	baz inventory -s | xargs cp -a --parents --target=debian/arch-build/$(PKG)-$(DEBVER)
+	(cd debian/arch-build/$(PKG)-$(DEBVER); $(DEB_BUILD_PROG))
+
 binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install 
+.PHONY: build clean binary-indep binary-arch binary install arch-build

@@ -549,10 +549,7 @@ class UpdateManager:
     self.dl_size = 0
     self.all_changes = {}
     self.dist = self.get_dist()
-    if os.path.exists("../data/update-manager.glade"):
-      self.Glade = gtk.glade.XML("../data/update-manager.glade")
-    else:
-      self.Glade = gtk.glade.XML("/usr/share/update-manager/update-manager.glade")
+    self.Glade = gtk.glade.XML("/usr/share/update-manager/glade/update-manager.glade")
 
     self.NumUpdates = self.Glade.get_widget("num_updates")
     self.main_window = self.Glade.get_widget("MainWindow")

@@ -1,3 +1,9 @@
+update-manager (0.40) dapper; urgency=low
+
+  * new upstream release
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 15 Nov 2005 17:22:12 +0100
+
 update-manager (0.37.1+svn20050404.15) breezy; urgency=low
 
   * added intltool to build-depends (for rosetta)
