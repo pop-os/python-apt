@@ -19,8 +19,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import apt_pkg, string
-import random
+import apt_pkg, string, sys, random
 
 class Package(object):
     """ This class represents a package in the cache
@@ -271,9 +270,10 @@ class Package(object):
     def markUpgrade(self):
         """ mark a package for upgrade """
         if self.isUpgradable:
-            self.MarkInstall()
-        # FIXME: we may want to throw a exception here
-        sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg")
+            self.markInstall()
+        else:
+            # FIXME: we may want to throw a exception here
+            sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg: '%s'\n"  %self._pkg.Name)
 
     def commit(self, fprogress, iprogress):
         """ commit the changes, need a FetchProgress and InstallProgress
