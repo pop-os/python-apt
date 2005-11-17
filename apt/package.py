@@ -215,12 +215,26 @@ class Package(object):
     installedSize = property(installedSize)
 
     # canidate origin
+    class Origin:
+        def __init__(self,pkg):
+            ver = pkg._depcache.GetCandidateVer(pkg._pkg)
+            if not ver:
+                return None
+            (VerFileIter,index) = ver.FileList.pop()
+            #print len(VerFileIter)
+            #print VerFileIter
+            #return VerFileIter.Component
+            self.component = VerFileIter.Component
+            self.archive = VerFileIter.Archive
+            self.origin = VerFileIter.Origin
+            self.label = VerFileIter.Label
+            self.site = VerFileIter.Site
+        def __str__(self):
+            return "%s %s %s %s %s" % (self.component, self.archive,
+                                         self.origin, self.label, self.site)
+        
     def candidateOrigin(self):
-        ver = self._depcache.GetCandidateVer(self._pkg)
-        (VerFileIter,index) = ver.FileList.pop()
-        print len(VerFileIter)
-        print VerFileIter
-        return VerFileIter.Component
+        return self.Origin(self)
     candidateOrigin = property(candidateOrigin)
 
     # depcache actions
