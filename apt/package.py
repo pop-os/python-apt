@@ -230,8 +230,9 @@ class Package(object):
             self.label = VerFileIter.Label
             self.site = VerFileIter.Site
         def __str__(self):
-            return "%s %s %s %s %s" % (self.component, self.archive,
-                                         self.origin, self.label, self.site)
+            return "component:%s\narchive: %s\norigin: %s\nlabel: %s" \
+                   "\nsite %s\n"%  (self.component, self.archive,
+                                    self.origin, self.label, self.site)
         
     def candidateOrigin(self):
         return self.Origin(self)
