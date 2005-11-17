@@ -117,7 +117,7 @@ class Cache(object):
 
     def commit(self, fprogress, iprogress):
         """ Apply the marked changes to the cache """
-        self._depcache.Commit(fprogress, iprogress)
+        return self._depcache.Commit(fprogress, iprogress)
 
     # cache changes
     def cachePostChange(self):

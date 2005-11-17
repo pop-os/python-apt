@@ -116,16 +116,24 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       bool Failed = false;
       for (pkgAcquire::ItemIterator I = Fetcher.ItemsBegin(); I != Fetcher.ItemsEnd(); I++)
       {
+	 
+	 //std::cout << "looking at: " << (*I)->DestFile 
+	 //	   << " status: " << (*I)->Status << std::endl;
+
 	 if ((*I)->Status == pkgAcquire::Item::StatDone &&
 	     (*I)->Complete == true)
 	    continue;
 	 
 	 if ((*I)->Status == pkgAcquire::Item::StatIdle)
 	 {
+	    //std::cout << "transient failure" << std::endl;
+
 	    Transient = true;
-	    // Failed = true;
+	    //Failed = true;
 	    continue;
 	 }
+
+	 //std::cout << "something is wrong!" << std::endl;
 
 	 _error->Warning(_("Failed to fetch %s  %s\n"),(*I)->DescURI().c_str(),
 			 (*I)->ErrorText.c_str());
@@ -135,6 +143,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       if (Transient == true && Failed == true)
       {
 	 _error->Error(_("--fix-missing and media swapping is not currently supported"));
+	 Py_INCREF(Py_None);
 	 return HandleErrors(Py_None);
       }
       
@@ -143,13 +152,18 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       {
 	 //std::cerr << "Unable to correct missing packages." << std::endl;
 	 _error->Error("Aborting install.");
+	 Py_INCREF(Py_None);
 	 return HandleErrors(Py_None);
       }
 
+      // fail if something else went wrong 
+      //FIXME: make this more flexible, e.g. with a failedDl handler 
+      if(Failed) 
+	 return Py_BuildValue("b", false);
       _system->UnLock();
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
-      std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
+      //std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
 
       //FIXME: return usefull values here
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
@@ -159,6 +173,8 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 	 return Py_BuildValue("b", true);
       }
 
+      //std::cout << "looping again, install unfinished" << std::endl;
+      
       // Reload the fetcher object and loop again for media swapping
       Fetcher.Shutdown();
       if (PM->GetArchives(&Fetcher,&List,&Recs) == false) {
