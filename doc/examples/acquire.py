@@ -11,8 +11,11 @@ recs = apt_pkg.GetPkgRecords(cache)
 list = apt_pkg.GetPkgSourceList()
 list.ReadMainList()
 
-os.mkdir("/tmp/pyapt-test")
-os.mkdir("/tmp/pyapt-test/partial")
+try:
+    os.mkdir("/tmp/pyapt-test")
+    os.mkdir("/tmp/pyapt-test/partial")
+except OSError:
+    pass
 apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
@@ -28,5 +31,15 @@ print fetcher
 
 pm.GetArchives(fetcher,list,recs)
 
-fetcher.Run()
+for item in fetcher.Items:
+    print "%s -> %s:\n Status: %s Complete: %s IsTrusted: %s" % (item.DescURI,
+                                                                 item.DestFile,
+                                                                 item.Status,
+                                                                 item.Complete,
+                                                                 item.IsTrusted)
+    print
+                                                         
+
+res = fetcher.Run()
+print "fetcher.Run() returned: %s" % res
 

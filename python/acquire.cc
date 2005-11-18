@@ -13,6 +13,67 @@
 
 #include <apt-pkg/acquire-item.h>
 
+// pkgAcquire::Item
+static PyObject *AcquireItemAttr(PyObject *Self,char *Name)
+{
+   pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
+   
+   if (strcmp("ID",Name) == 0)
+      return Py_BuildValue("i",(*I)->ID);
+   else if (strcmp("Status",Name) == 0)
+      return Py_BuildValue("i",(*I)->Status);
+   else if (strcmp("Complete",Name) == 0)
+      return Py_BuildValue("i",(*I)->Complete);
+   else if (strcmp("Local",Name) == 0)
+      return Py_BuildValue("i",(*I)->Local);
+   else if (strcmp("IsTrusted",Name) == 0)
+      return Py_BuildValue("i",(*I)->IsTrusted());
+   else if (strcmp("FileSize",Name) == 0)
+      return Py_BuildValue("i",(*I)->FileSize);
+   else if (strcmp("ErrorText",Name) == 0)
+      return Safe_FromString((*I)->ErrorText.c_str());
+   else if (strcmp("DestFile",Name) == 0)
+      return Safe_FromString((*I)->DestFile.c_str());
+   else if (strcmp("DescURI",Name) == 0)
+      return Safe_FromString((*I)->DescURI().c_str());
+
+   PyErr_SetString(PyExc_AttributeError,Name);
+   return 0;
+}
+
+
+static PyObject *AcquireItemRepr(PyObject *Self)
+{
+   pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
+   
+   char S[300];
+   snprintf(S,sizeof(S),"<pkgAcquire::ItemIterator object: "
+			"DestFile:'%s' ID:%i>",
+	    (*I)->DestFile.c_str(),(*I)->ID);
+   return PyString_FromString(S);
+}
+
+
+PyTypeObject AcquireItemType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgAcquire::ItemIterator",         // tp_name
+   sizeof(CppOwnedPyObject<pkgAcquire::ItemIterator>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppOwnedDealloc<pkgAcquire::ItemIterator>,          // tp_dealloc
+   0,                                   // tp_print
+   AcquireItemAttr,                     // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   AcquireItemRepr,                     // tp_repr
+   0,                                   // tp_as_number
+   0,		                        // tp_as_sequence
+   0,			                // tp_as_mapping
+   0,                                   // tp_hash
+};
+
 
 static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 {   
@@ -57,6 +118,20 @@ static PyObject *AcquireAttr(PyObject *Self,char *Name)
       return Py_BuildValue("l", Struct.fetcher.FetchNeeded());
    if(strcmp("PartialPresent",Name) == 0) 
       return Py_BuildValue("l", Struct.fetcher.PartialPresent());
+   if(strcmp("Items",Name) == 0) 
+   {
+      PyObject *List = PyList_New(0);
+      for (pkgAcquire::ItemIterator I = Struct.fetcher.ItemsBegin(); 
+	   I != Struct.fetcher.ItemsEnd(); I++)
+      {
+	 PyObject *Obj;
+	 Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,&AcquireItemType,I);
+	 PyList_Append(List,Obj);
+	 Py_DECREF(Obj);
+
+      }
+      return List;
+   }
    // some constants
    if(strcmp("ResultContinue",Name) == 0) 
       return Py_BuildValue("i", pkgAcquire::Continue);
