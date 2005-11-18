@@ -1,7 +1,8 @@
-python-apt (0.6.14.1) unstable; urgency=low
+python-apt (0.6.15) unstable; urgency=low
 
   * fix a invalid return from cache.commit(), fail if a download failed
   * apt.Package.candidateOrigin returns a class now
+  * added basic pkgAcquire and pkgPackageManager support
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 17 Nov 2005 13:00:14 +0100
 

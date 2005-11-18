@@ -10,16 +10,11 @@
 // Include Files							/*{{{*/
 #include "generic.h"
 #include "apt_pkgmodule.h"
-
-#include <apt-pkg/sourcelist.h>
+#include "sourcelist.h"
 
 #include <Python.h>
 									/*}}}*/
 
-struct PkgSourceListStruct
-{
-   pkgSourceList List;
-};
     
 // PkgsourceList Class							/*{{{*/
 // ---------------------------------------------------------------------

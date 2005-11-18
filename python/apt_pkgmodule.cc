@@ -396,6 +396,12 @@ static PyMethodDef methods[] =
    // Cdrom
    {"GetCdrom",GetCdrom,METH_VARARGS,"GetCdrom() -> Cdrom"},
 
+   // Acquire
+   {"GetAcquire",GetAcquire,METH_VARARGS,"GetAcquire() -> Acquire"},
+
+   // PkgManager
+   {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager() -> PackageManager"},
+
    {}
 };
 
