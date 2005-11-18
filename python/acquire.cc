@@ -9,6 +9,7 @@
 #include "generic.h"
 #include "apt_pkgmodule.h"
 #include "acquire.h"
+#include "progress.h"
 
 #include <apt-pkg/acquire-item.h>
 
@@ -92,7 +93,20 @@ PyTypeObject PkgAcquireType =
 
 PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 {
-   pkgAcquire *fetcher = new pkgAcquire();
+   pkgAcquire *fetcher;
+
+   PyObject *pyFetchProgressInst = NULL;
+   if (PyArg_ParseTuple(Args,"|O",&pyFetchProgressInst) == 0)
+      return 0;
+
+   if (pyFetchProgressInst != NULL) {
+      // FIXME: memleak?
+      PyFetchProgress *progress = new PyFetchProgress();
+      progress->setCallbackInst(pyFetchProgressInst);
+      fetcher = new pkgAcquire(progress);
+   } else {
+      fetcher = new pkgAcquire();
+   }
 
    CppOwnedPyObject<pkgAcquire> *FetcherObj =
 	   CppOwnedPyObject_NEW<pkgAcquire>(0,&PkgAcquireType, *fetcher);
