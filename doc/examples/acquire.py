@@ -16,7 +16,7 @@ try:
     os.mkdir("/tmp/pyapt-test/partial")
 except OSError:
     pass
-apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
+#apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
 depcache.MarkInstall(pkg)
@@ -37,6 +37,10 @@ for item in fetcher.Items:
                                                                  item.Status,
                                                                  item.Complete,
                                                                  item.IsTrusted)
+    if item.Status == item.StatError:
+        print "Some error ocured: '%s'" % item.ErrorText
+    if item.Complete == False:
+        print "No error, still nothing downloaded"
     print
                                                          
 

@@ -36,6 +36,18 @@ static PyObject *AcquireItemAttr(PyObject *Self,char *Name)
       return Safe_FromString((*I)->DestFile.c_str());
    else if (strcmp("DescURI",Name) == 0)
       return Safe_FromString((*I)->DescURI().c_str());
+   // constants
+   else if (strcmp("StatIdle",Name) == 0)
+      return Py_BuildValue("i", pkgAcquire::Item::StatIdle);
+   else if (strcmp("StatFetching",Name) == 0)
+      return Py_BuildValue("i", pkgAcquire::Item::StatFetching);
+   else if (strcmp("StatDone",Name) == 0)
+      return Py_BuildValue("i", pkgAcquire::Item::StatDone);
+   else if (strcmp("StatError",Name) == 0)
+      return Py_BuildValue("i", pkgAcquire::Item::StatError);
+   else if (strcmp("StatAuthError",Name) == 0)
+      return Py_BuildValue("i", pkgAcquire::Item::StatAuthError);
+
 
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;
