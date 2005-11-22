@@ -30,7 +30,6 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 static char *doc_PkgSourceListReadMainList = "xxx";
 static PyObject *PkgSourceListReadMainList(PyObject *Self,PyObject *Args)
 {
-   //   PkgSourceListStruct &Struct = GetCpp<PkgSourceListStruct>(Self);
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    bool res = list->ReadMainList();
 

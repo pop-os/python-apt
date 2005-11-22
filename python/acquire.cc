@@ -8,7 +8,6 @@
 
 #include "generic.h"
 #include "apt_pkgmodule.h"
-#include "acquire.h"
 #include "progress.h"
 
 #include <apt-pkg/acquire-item.h>
@@ -93,25 +92,25 @@ PyTypeObject AcquireItemType =
 
 static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 {   
-   PkgAcquireStruct &Struct = GetCpp<PkgAcquireStruct>(Self);
+   pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
    if (PyArg_ParseTuple(Args, "") == 0) 
       return 0;
 
    //FIXME: add pulse interval here
-   pkgAcquire::RunResult run = Struct.fetcher.Run();
+   pkgAcquire::RunResult run = fetcher->Run();
 
    return HandleErrors(Py_BuildValue("i",run));
 }
 
 static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 {   
-   PkgAcquireStruct &Struct = GetCpp<PkgAcquireStruct>(Self);
+   pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
    if (PyArg_ParseTuple(Args, "") == 0) 
       return 0;
 
-   Struct.fetcher.Shutdown();
+   fetcher->Shutdown();
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
@@ -126,19 +125,19 @@ static PyMethodDef PkgAcquireMethods[] =
 
 static PyObject *AcquireAttr(PyObject *Self,char *Name)
 {
-   PkgAcquireStruct &Struct = GetCpp<PkgAcquireStruct>(Self);
+   pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
    if(strcmp("TotalNeeded",Name) == 0) 
-      return Py_BuildValue("l", Struct.fetcher.TotalNeeded());
+      return Py_BuildValue("l", fetcher->TotalNeeded());
    if(strcmp("FetchNeeded",Name) == 0) 
-      return Py_BuildValue("l", Struct.fetcher.FetchNeeded());
+      return Py_BuildValue("l", fetcher->FetchNeeded());
    if(strcmp("PartialPresent",Name) == 0) 
-      return Py_BuildValue("l", Struct.fetcher.PartialPresent());
+      return Py_BuildValue("l", fetcher->PartialPresent());
    if(strcmp("Items",Name) == 0) 
    {
       PyObject *List = PyList_New(0);
-      for (pkgAcquire::ItemIterator I = Struct.fetcher.ItemsBegin(); 
-	   I != Struct.fetcher.ItemsEnd(); I++)
+      for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin(); 
+	   I != fetcher->ItemsEnd(); I++)
       {
 	 PyObject *Obj;
 	 Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,&AcquireItemType,I);
@@ -167,10 +166,10 @@ PyTypeObject PkgAcquireType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "Acquire",                          // tp_name
-   sizeof(CppOwnedPyObject<PkgAcquireStruct>),   // tp_basicsize
+   sizeof(CppPyObject<pkgAcquire*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgAcquireStruct>,        // tp_dealloc
+   CppDealloc<pkgAcquire*>,        // tp_dealloc
    0,                                   // tp_print
    AcquireAttr,                           // tp_getattr
    0,                                   // tp_setattr
@@ -199,8 +198,8 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
       fetcher = new pkgAcquire();
    }
 
-   CppOwnedPyObject<pkgAcquire> *FetcherObj =
-	   CppOwnedPyObject_NEW<pkgAcquire>(0,&PkgAcquireType, *fetcher);
+   CppPyObject<pkgAcquire*> *FetcherObj =
+	   CppPyObject_NEW<pkgAcquire*>(&PkgAcquireType, fetcher);
    
    return FetcherObj;
 }
