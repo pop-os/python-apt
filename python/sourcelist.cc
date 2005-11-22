@@ -10,7 +10,8 @@
 // Include Files							/*{{{*/
 #include "generic.h"
 #include "apt_pkgmodule.h"
-#include "sourcelist.h"
+
+#include <apt-pkg/sourcelist.h>
 
 #include <Python.h>
 									/*}}}*/
@@ -22,17 +23,18 @@
 static char *doc_PkgSourceListFindIndex = "xxx";
 static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 {   
-   PkgSourceListStruct &Struct = GetCpp<PkgSourceListStruct>(Self);
+   pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    return Py_BuildValue("i", 1);
 }
 
 static char *doc_PkgSourceListReadMainList = "xxx";
 static PyObject *PkgSourceListReadMainList(PyObject *Self,PyObject *Args)
 {
-   PkgSourceListStruct &Struct = GetCpp<PkgSourceListStruct>(Self);
-   Struct.List.ReadMainList();
+   //   PkgSourceListStruct &Struct = GetCpp<PkgSourceListStruct>(Self);
+   pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
+   bool res = list->ReadMainList();
 
-   return Py_None;
+   return HandleErrors(Py_BuildValue("b",res));
 }
 
 static PyMethodDef PkgSourceListMethods[] = 
@@ -51,10 +53,10 @@ PyTypeObject PkgSourceListType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "pkgSourceList",                          // tp_name
-   sizeof(CppPyObject<PkgSourceListStruct>),   // tp_basicsize
+   sizeof(CppPyObject<pkgSourceList*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<PkgSourceListStruct>,   // tp_dealloc
+   CppDealloc<pkgSourceList*>,   // tp_dealloc
    0,                                   // tp_print
    PkgSourceListAttr,                      // tp_getattr
    0,                                   // tp_setattr
@@ -68,6 +70,6 @@ PyTypeObject PkgSourceListType =
 
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args)
 {
-   return CppPyObject_NEW<PkgSourceListStruct>(&PkgSourceListType);
+   return CppPyObject_NEW<pkgSourceList*>(&PkgSourceListType,new pkgSourceList());
 }
 

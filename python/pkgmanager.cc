@@ -9,11 +9,11 @@
 #include "generic.h"
 #include "apt_pkgmodule.h"
 #include "acquire.h"
-#include "sourcelist.h"
 #include "pkgrecords.h"
 
 #include <apt-pkg/packagemanager.h>
 #include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/sourcelist.h>
 #include <apt-pkg/error.h>
 
 #include <iostream>
@@ -31,12 +31,11 @@ static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
       return 0;
 
    PkgAcquireStruct &s_fetcher = GetCpp<PkgAcquireStruct>(fetcher);
-   PkgSourceListStruct &s_list = GetCpp<PkgSourceListStruct>(list);
+   pkgSourceList *s_list = GetCpp<pkgSourceList*>(list);
    PkgRecordsStruct &s_records = GetCpp<PkgRecordsStruct>(recs);
 
-   bool res = pm->GetArchives(&s_fetcher.fetcher,
-				    &s_list.List,
-				    &s_records.Records);
+   bool res = pm->GetArchives(&s_fetcher.fetcher, s_list,
+			      &s_records.Records);
 
    return HandleErrors(Py_BuildValue("b",res));
 }
