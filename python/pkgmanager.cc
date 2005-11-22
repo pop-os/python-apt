@@ -99,10 +99,10 @@ PyTypeObject PkgManagerType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "PackageManager",                          // tp_name
-   sizeof(CppOwnedPyObject<pkgPackageManager*>),   // tp_basicsize
+   sizeof(CppPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgPackageManager*>,        // tp_dealloc
+   CppDealloc<pkgPackageManager*>,        // tp_dealloc
    0,                                   // tp_print
    PkgManagerAttr,                           // tp_getattr
    0,                                   // tp_setattr
@@ -128,8 +128,6 @@ PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
    CppPyObject<pkgPackageManager*> *PkgManagerObj =
 	   CppPyObject_NEW<pkgPackageManager*>(&PkgManagerType,pm);
    
-   // FIXME: mem-leak???
-   Py_INCREF(PkgManagerObj);
    return PkgManagerObj;
 }
 
