@@ -1,8 +1,13 @@
 import apt
 import apt_pkg
 import os
+import sys
 
 apt_pkg.init()
+
+#apt_pkg.Config.Set("Debug::pkgDPkgPM","1");
+#apt_pkg.Config.Set("Debug::pkgPackageManager","1");
+#apt_pkg.Config.Set("Debug::pkgDPkgProgressReporting","1");
 
 cache = apt_pkg.GetCache()
 depcache = apt_pkg.GetDepCache(cache)
@@ -16,7 +21,7 @@ try:
     os.mkdir("/tmp/pyapt-test/partial")
 except OSError:
     pass
-#apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
+apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
 depcache.MarkInstall(pkg)
@@ -32,18 +37,19 @@ print fetcher
 pm.GetArchives(fetcher,list,recs)
 
 for item in fetcher.Items:
-    print "%s -> %s:\n Status: %s Complete: %s IsTrusted: %s" % (item.DescURI,
-                                                                 item.DestFile,
-                                                                 item.Status,
-                                                                 item.Complete,
-                                                                 item.IsTrusted)
+    print item
     if item.Status == item.StatError:
         print "Some error ocured: '%s'" % item.ErrorText
     if item.Complete == False:
-        print "No error, still nothing downloaded"
+        print "No error, still nothing downloaded (%s)" % item.ErrorText
     print
                                                          
 
 res = fetcher.Run()
 print "fetcher.Run() returned: %s" % res
+
+print "now runing pm.DoInstall()"
+res = pm.DoInstall(1)
+print "pm.DoInstall() returned: %s"% res
+
 

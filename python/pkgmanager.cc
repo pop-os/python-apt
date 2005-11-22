@@ -14,18 +14,14 @@
 
 #include <apt-pkg/packagemanager.h>
 #include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/error.h>
 
 #include <iostream>
 
 
-struct PkgManagerStruct
-{
-   pkgPackageManager pm;
-};
-
 static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
 {   
-   PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
+   pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
    PyObject *fetcher, *list, *recs;
    
    if (PyArg_ParseTuple(Args, "O!O!O!",
@@ -38,24 +34,53 @@ static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
    PkgSourceListStruct &s_list = GetCpp<PkgSourceListStruct>(list);
    PkgRecordsStruct &s_records = GetCpp<PkgRecordsStruct>(recs);
 
-   bool res = Struct.pm.GetArchives(&s_fetcher.fetcher,
+   bool res = pm->GetArchives(&s_fetcher.fetcher,
 				    &s_list.List,
 				    &s_records.Records);
 
-   return HandleErrors(Py_None);
+   return HandleErrors(Py_BuildValue("b",res));
 }
 
+static PyObject *PkgManagerDoInstall(PyObject *Self,PyObject *Args)
+{
+   //PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
+   pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
+   int status_fd = -1;
+   
+   if (PyArg_ParseTuple(Args, "|i", &status_fd) == 0)
+      return 0;
+
+   pkgPackageManager::OrderResult res = pm->DoInstall(status_fd);
+  
+   return HandleErrors(Py_BuildValue("i",res));
+}
+
+static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
+{
+   //PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
+   pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
+
+   if (PyArg_ParseTuple(Args, "") == 0)
+      return 0;
+
+   bool res = pm->FixMissing();
+   
+   return HandleErrors(Py_BuildValue("b",res));
+}
 
 static PyMethodDef PkgManagerMethods[] = 
 {
    {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archvies into the fetcher"},
+   {"DoInstall",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
+   {"FixMissing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
    {}
 };
 
 
 static PyObject *PkgManagerAttr(PyObject *Self,char *Name)
 {
-   PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
+   //PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
+   pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
 
    // some constants
    if(strcmp("ResultCompleted",Name) == 0) 
@@ -74,10 +99,10 @@ PyTypeObject PkgManagerType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "PackageManager",                          // tp_name
-   sizeof(CppOwnedPyObject<PkgManagerStruct>),   // tp_basicsize
+   sizeof(CppOwnedPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgManagerStruct>,        // tp_dealloc
+   CppOwnedDealloc<pkgPackageManager*>,        // tp_dealloc
    0,                                   // tp_print
    PkgManagerAttr,                           // tp_getattr
    0,                                   // tp_setattr
@@ -89,6 +114,9 @@ PyTypeObject PkgManagerType =
    0,                                   // tp_hash
 };
 
+#include <apt-pkg/init.h>
+#include <apt-pkg/configuration.h>
+
 PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
 {
    PyObject *Owner;
@@ -97,9 +125,11 @@ PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
 
    pkgPackageManager *pm = _system->CreatePM(GetCpp<pkgDepCache*>(Owner));
 
-   CppOwnedPyObject<pkgPackageManager> *PkgManagerObj =
-	   CppOwnedPyObject_NEW<pkgPackageManager>(0,&PkgManagerType, *pm);
+   CppPyObject<pkgPackageManager*> *PkgManagerObj =
+	   CppPyObject_NEW<pkgPackageManager*>(&PkgManagerType,pm);
    
+   // FIXME: mem-leak???
+   Py_INCREF(PkgManagerObj);
    return PkgManagerObj;
 }
 

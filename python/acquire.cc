@@ -60,8 +60,12 @@ static PyObject *AcquireItemRepr(PyObject *Self)
    
    char S[300];
    snprintf(S,sizeof(S),"<pkgAcquire::ItemIterator object: "
-			"DestFile:'%s' ID:%i>",
-	    (*I)->DestFile.c_str(),(*I)->ID);
+			"Status: %i Complete: %i Local: %i IsTrusted: %i "
+	                "FileSize: %i DestFile:'%s' "
+                        "DescURI: '%s' ID:%i ErrorText: '%s'>",
+	    (*I)->Status, (*I)->Complete, (*I)->Local, (*I)->IsTrusted(),
+	    (*I)->FileSize, (*I)->DestFile.c_str(), (*I)->DescURI().c_str(),
+	    (*I)->ID,(*I)->ErrorText.c_str());
    return PyString_FromString(S);
 }
 
