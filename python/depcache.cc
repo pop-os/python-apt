@@ -160,16 +160,16 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       //FIXME: make this more flexible, e.g. with a failedDl handler 
       if(Failed) 
 	 return Py_BuildValue("b", false);
-      _system->UnLock();
+      _system->UnLock(true);
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
       //std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
 
-      //FIXME: return usefull values here
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
-	 return Py_BuildValue("b", false);
+	 return HandleErrors(Py_BuildValue("b", false));
       }
       if (Res == pkgPackageManager::Completed) {
+	 //std::cout << "iprogress.Run() returned Completed " << std::endl;
 	 return Py_BuildValue("b", true);
       }
 

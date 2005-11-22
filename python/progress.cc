@@ -233,7 +233,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       }
       std::cerr << "got pid: " << child_id << std::endl;
    } else {
-      std::cerr << "using build-in fork()" << std::endl;
+      //std::cerr << "using build-in fork()" << std::endl;
       child_id = fork();
    }
    
@@ -253,7 +253,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       } else {
 	 res = pm->DoInstall();
       }
-      std::cout << "res: " << res << std::endl;
+      //std::cout << "res: " << res << std::endl;
       _exit(res);
    }
 
@@ -262,7 +262,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 
    if(PyObject_HasAttrString(callbackInst, "waitChild")) {
       PyObject *method = PyObject_GetAttrString(callbackInst, "waitChild");
-      std::cerr << "custom waitChild found" << std::endl;
+      //std::cerr << "custom waitChild found" << std::endl;
       PyObject *arglist = Py_BuildValue("(i)",child_id);
       PyObject *result = PyEval_CallObject(method, arglist);
       Py_DECREF(arglist);       
@@ -276,14 +276,15 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 	 std::cerr << "custom waitChild() result could not be parsed?"<< std::endl;
 	 return pkgPackageManager::Failed;
       }
-      std::cerr << "got child_res: " << res << std::endl;
+      //std::cerr << "got child_res: " << res << std::endl;
    } else {
-      std::cerr << "using build-in waitpid()" << std::endl;
+      //std::cerr << "using build-in waitpid()" << std::endl;
       
       while (waitpid(child_id, &ret, WNOHANG) == 0)
 	 UpdateInterface();
 
       res = (pkgPackageManager::OrderResult) WEXITSTATUS(ret);
+      //std::cerr << "build-in waitpid() got: " << res << std::endl;
    }
 
    FinishUpdate();

@@ -637,8 +637,6 @@ static PyObject *PackageFileAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotAutomatic) != 0);
    else if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",File->ID);
-   /* mtime is really a cookie these days and has no meaning outside the
-      list handlers */
    
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;
