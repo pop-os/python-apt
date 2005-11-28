@@ -185,7 +185,7 @@ class Cache(object):
             if res == pm.ResultFailed:
                 raise SystemError, "install failed"
                 
-        return res
+        return (res == pm.ResultCompleted)
 
     # cache changes
     def cachePostChange(self):
