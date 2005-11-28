@@ -1,18 +1,13 @@
-python-apt (0.6.14ubuntu2) dapper; urgency=low
+python-apt (0.6.15) unstable; urgency=low
 
   * rewrote cache.Commit() and make it raise proper Exception if stuff
     goes wrong
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 28 Nov 2005 14:48:01 +0100
-
-python-apt (0.6.14ubuntu1) dapper; urgency=low
-
   * fix a invalid return from cache.commit(), fail if a download failed
   * apt.Package.candidateOrigin returns a class now
   * added pkgAcquire, pkgPackageManager and a example (acquire.py)
   * tightend build-dependencies for new apt and the c++ transition
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 17 Nov 2005 13:00:14 +0100
+ -- Michael Vogt <mvo@debian.org>  Mon, 28 Nov 2005 23:48:37 +0100
 
 python-apt (0.6.14) unstable; urgency=low
 
