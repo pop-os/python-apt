@@ -118,7 +118,7 @@ class Cache(object):
         else:
             self._cache.Update(fetchProgress);
 
-    def _fetchArchives(self, pm, fetchProgress):
+    def _fetchArchives(self, fetcher, pm, fetchProgress):
         """ fetch the needed archives """
 
         # get lock
@@ -126,7 +126,7 @@ class Cache(object):
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
             raise IOError, "Failed to lock %s" % lockfile
-        fetcher = apt_pkg.GetAcquire(fetchProgress)
+
         # this may as well throw a SystemError exception
         if not pm.GetArchives(fetcher, self._list, self._records):
             return False
@@ -153,7 +153,6 @@ class Cache(object):
             raise IOError, errMsg
 
         # cleanup
-        fetcher.Shutdown()
         os.close(lock)
         return res
         
@@ -172,11 +171,16 @@ class Cache(object):
         # Current a failed download will just display "error"
         # which is less than optimal!
 
-        while True:
-            pm = apt_pkg.GetPackageManager(self._depcache)
+        if fetchProgress == None:
+            fetchProgress = apt.progress.FetchProgress()
+        if installProgress == None:
+            installProgress = apt.progress.InstallProgress()
 
+        pm = apt_pkg.GetPackageManager(self._depcache)
+        fetcher = apt_pkg.GetAcquire(fetchProgress)
+        while True:
             # fetch archives first
-            res = self._fetchArchives(pm, fetchProgress)
+            res = self._fetchArchives(fetcher, pm, fetchProgress)
 
             # then install
             res = self.installArchives(pm, installProgress)
@@ -184,7 +188,8 @@ class Cache(object):
                 break
             if res == pm.ResultFailed:
                 raise SystemError, "install failed"
-                
+            # reload the fetcher for media swaping
+            fetcher.Shutdown()
         return (res == pm.ResultCompleted)
 
     # cache changes
@@ -321,7 +326,8 @@ if __name__ == "__main__":
             os.mkdir(dir)
     apt_pkg.Config.Set("Dir::Cache::Archives","/tmp/pytest")
     pm = apt_pkg.GetPackageManager(c._depcache)
-    c._fetchArchives(pm, apt.progress.TextFetchProgress())
+    fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
+    c._fetchArchives(fetcher, pm)
     #sys.exit(1)
 
     print "Testing filtered cache (argument is old cache)"
