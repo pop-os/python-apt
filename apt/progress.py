@@ -123,6 +123,8 @@ class InstallProgress:
         pass
     def startUpdate(self):
         pass
+    def run(self, pm):
+        return pm.DoInstall()
     def finishUpdate(self):
         pass
     def updateInterface(self):

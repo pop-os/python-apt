@@ -158,8 +158,11 @@ class Cache(object):
         return res
         
     def installArchives(self, pm, installProgress):
-        return pm.DoInstall()
-        
+        installProgress.startUpdate()
+        res = installProgress.run(pm)
+        installProgress.finishUpdate()
+        return res
+    
     def commit(self, fetchProgress=None, installProgress=None):
         """ Apply the marked changes to the cache """
         # FIXME:
