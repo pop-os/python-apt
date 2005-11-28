@@ -94,11 +94,11 @@ static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 {   
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
-   if (PyArg_ParseTuple(Args, "") == 0) 
+   int pulseInterval = 500000;
+   if (PyArg_ParseTuple(Args, "|i", &pulseInterval) == 0) 
       return 0;
 
-   //FIXME: add pulse interval here
-   pkgAcquire::RunResult run = fetcher->Run();
+   pkgAcquire::RunResult run = fetcher->Run(pulseInterval);
 
    return HandleErrors(Py_BuildValue("i",run));
 }
@@ -119,6 +119,7 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgAcquireMethods[] = 
 {
    {"Run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
+   {"Shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
    {}
 };
 
