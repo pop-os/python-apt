@@ -1,3 +1,4 @@
+- add download size to treeview
 - add /etc/apt/software-properties.d dir where the user can
   install matchers and templates
 - handle cases like "deb http://bla/ dist sec1 sec2 # comment" 
