@@ -1,4 +1,3 @@
-
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -6,6 +5,7 @@ import gtk.gdk
 import gtk.glade
 import gobject
 import gnome
+import apt
 import apt_pkg
 import gettext
 import copy
@@ -28,6 +28,7 @@ from gettext import gettext as _
 
 from Common.utils import *
 from Common.SimpleGladeApp import SimpleGladeApp
+import GtkProgress
 
 # FIXME:
 # - cary a reference to the update-class around in the ListStore
@@ -49,32 +50,19 @@ METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 CHANGELOGS_URI="http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 
+class MyCache(apt.Cache):
+    def clean(self):
+        for pkg in self:
+            pkg.markKeep()
+    def saveDistUpgrade(self):
+        """ this functions mimics a upgrade but will never remove anything """
+        self._depcache.Upgrade(True)
+        if self._depcache.DelCount > 0:
+            self.clean()
+        assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
+        self._depcache.Upgrade()
 
-class Update:
 
-  def __init__(self, package, cache, records, depcache):
-    #package = cache[name]
-    name = package.Name
-    version = depcache.GetCandidateVer(package)
-    file, index = version.FileList.pop(0)
-    records.Lookup((file, index))
-
-    self.name = name
-    self.version = version.VerStr
-    self.shortdesc = records.ShortDesc
-    self.longdesc = ""
-    self.size = version.Size
-
-    longdesc = records.LongDesc
-    lines = longdesc.split("\n")
-    lines.pop(0)
-    for line in lines:
-      line = line[1:]
-      first_char = string.strip(line)[0]
-      if line == ".":
-        self.longdesc = self.longdesc + "\n"
-      else:
-        self.longdesc = self.longdesc + line + "\n"
 
 class UpdateList:
   def __init__(self, parent_window):
@@ -82,31 +70,19 @@ class UpdateList:
     self.num_updates = 0
     self.parent_window = parent_window
 
-  def saveDistUpgrade(self, cache, depcache):
-    """ this functions mimics a upgrade but will never remove anything """
-    depcache.Upgrade(True)
-    if depcache.DelCount > 0:
-      # nice try, falling back
-      for pkg in cache.Packages:
-        depcache.MarkKeep(pkg)
-      assert depcache.BrokenCount == 0 and depcache.DelCount == 0
-      depcache.Upgrade()
-
-  def update(self, cache, records, depcache):
+  def update(self, cache):
     held_back = []
     broken = []
-    self.saveDistUpgrade(cache, depcache)
-    for pkg in cache.Packages:
-      if depcache.MarkedUpgrade(pkg) or depcache.MarkedInstall(pkg):
-        self.pkgs.append(Update(pkg, cache, records, depcache))
+    cache.saveDistUpgrade()
+    for pkg in cache:
+      if pkg.markedUpgrade or pkg.markedInstall:
+        self.pkgs.append(pkg)
         self.num_updates = self.num_updates + 1
-      elif depcache.IsInstBroken(pkg) or depcache.IsNowBroken(pkg):
-          broken.append(pkg.Name)
-      elif pkg.CurrentVer != None and depcache.IsUpgradable(pkg):
-        #print "MarkedKeep: %s " % pkg.Name
-          held_back.append(pkg.Name)
+      elif pkg.isUpgradable:
+        #print "MarkedKeep: %s " % pkg.name
+          held_back.append(pkg.name)
     self.pkgs.sort(lambda x,y: cmp(x.name,y.name))
-    if depcache.BrokenCount > 0:
+    if cache._depcache.BrokenCount > 0:
       # FIXME: show what packages are broken
       msg=("<big><b>%s</b></big>\n\n%s"%(_("Your system has broken packages!"),
                                          _("This means that some dependencies "
@@ -122,7 +98,7 @@ class UpdateList:
       dialog.run()
       dialog.destroy()
       sys.exit(1)
-    if depcache.KeepCount > 0:
+    if cache._depcache.KeepCount > 0:
       #print "WARNING, keeping packages"
       msg=("<big><b>%s</b></big>\n\n%s"%(_("It is not possible to upgrade "
                                            "all packages."),
@@ -219,6 +195,7 @@ class UpdateManager(SimpleGladeApp):
 
 
     # proxy stuff
+    # FIXME: move this into it's own function
     SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
     if os.path.exists(SYNAPTIC_CONF_FILE):
       cnf = apt_pkg.newConfiguration()
@@ -243,16 +220,11 @@ class UpdateManager(SimpleGladeApp):
     pkg = self.cache[name]
 
     # FIXME: not correct, need to get canidateVer
-    version = self.depcache.GetCandidateVer(pkg)
-    file, index = version.FileList.pop(0)
-    self.records.Lookup((file, index))
-    if self.records.SourcePkg != "":
-      srcpkg = self.records.SourcePkg
-    else:
-      srcpkg = name
+    verstr = pkg.candidateVersion
+    srcpkg = pkg.sourcePackageName
 
     src_section = "main"
-    l = string.split(pkg.Section,"/")
+    l = string.split(pkg.section,"/")
     if len(l) > 1:
       sec_section = l[0]
     
@@ -260,7 +232,6 @@ class UpdateManager(SimpleGladeApp):
     if srcpkg.startswith("lib"):
       prefix = "lib" + srcpkg[3]
       
-    verstr = version.VerStr
     l = string.split(verstr,":")
     if len(l) > 1:
       verstr = l[1]
@@ -281,7 +252,7 @@ class UpdateManager(SimpleGladeApp):
           break
         match = re.match(regexp,line)
         if match:
-          if apt_pkg.VersionCompare(match.group(1),pkg.CurrentVer.VerStr) <= 0:
+          if apt_pkg.VersionCompare(match.group(1),pkg.installedVersion) <= 0:
             break
           # EOF (shouldn't really happen)
         alllines = alllines + line
@@ -386,7 +357,7 @@ class UpdateManager(SimpleGladeApp):
     name = pkg.name
     if name in self.packages:
       self.packages.remove(name)
-      self.dl_size -= pkg.size
+      self.dl_size -= pkg.packageSize
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
     self.update_count()
@@ -395,7 +366,7 @@ class UpdateManager(SimpleGladeApp):
     name = pkg.name
     if name not in self.packages:
       self.packages.append(name)
-      self.dl_size += pkg.size
+      self.dl_size += pkg.packageSize
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
     self.update_count()
@@ -409,7 +380,7 @@ class UpdateManager(SimpleGladeApp):
     expanded = self.expander_details.get_expanded()
     self.gconfclient.set_bool("/apps/update-manager/show_details",expanded)
     if expanded:
-      self.cursor_changed(self.treeview_update)
+      self.on_treeview_update_cursor_changed(self.treeview_update)
 
   def run_synaptic(self, id, action, lock):
     apt_pkg.PkgSystemUnLock()
@@ -598,7 +569,7 @@ class UpdateManager(SimpleGladeApp):
     self.list = UpdateList(self.window_main)
 
     # fill them again
-    self.list.update(self.cache, self.records, self.depcache)
+    self.list.update(self.cache)
     if self.list.num_updates < 1:
       # set the label and treeview and hide the checkbox column
       self.cb.set_visible(False)
@@ -622,11 +593,11 @@ class UpdateManager(SimpleGladeApp):
       for pkg in self.list.pkgs:
 
         name = xml.sax.saxutils.escape(pkg.name)
-        summary = xml.sax.saxutils.escape(pkg.shortdesc)
+        summary = xml.sax.saxutils.escape(pkg.summary)
         contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
-	contents = contents + _("New version: %s") % (pkg.version) + "</small>"
+	contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
 
-        iter = self.store.append([True, contents, pkg.name, pkg.shortdesc, pkg.version, pkg.longdesc, pkg])
+        iter = self.store.append([True, contents, pkg.name, pkg.summary, pkg.candidateVersion, pkg.description, pkg])
 	self.add_update(pkg)
         i = i + 1
 
@@ -761,15 +732,13 @@ class UpdateManager(SimpleGladeApp):
         d.destroy()
         sys.exit()
 
-    self.cache = apt_pkg.GetCache()
+    self.cache = MyCache(GtkProgress.GtkOpProgress(self.progressbar_cache))
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
-    self.depcache = apt_pkg.GetDepCache(self.cache)
-    self.depcache.ReadPinFile()
+    #self.depcache = apt_pkg.GetDepCache(self.cache)
+    self.cache._depcache.ReadPinFile()
     if os.path.exists(SYNAPTIC_PINFILE):
-      self.depcache.ReadPinFile(SYNAPTIC_PINFILE)
-    self.depcache.Init()
-    self.records = apt_pkg.GetPkgRecords(self.cache)
-    
+        self.cache._depcache.ReadPinFile(SYNAPTIC_PINFILE)
+    self.cache._depcache.Init()
 
   def main(self):
     # FIXME: stat a check update thread 

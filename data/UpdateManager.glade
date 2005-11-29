@@ -87,10 +87,12 @@ The following packages are found to be upgradable. You can upgrade them by using
       </child>
 
       <child>
-	<widget class="GtkHButtonBox" id="hbuttonbox4">
+	<widget class="GtkProgressBar" id="progressbar_cache">
 	  <property name="visible">True</property>
-	  <property name="layout_style">GTK_BUTTONBOX_END</property>
-	  <property name="spacing">0</property>
+	  <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+	  <property name="fraction">0</property>
+	  <property name="pulse_step">0.10000000149</property>
+	  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
 	</widget>
 	<packing>
 	  <property name="padding">0</property>
