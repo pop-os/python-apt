@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 17:30+0100\n"
+"POT-Creation-Date: 2005-11-29 17:26+0100\n"
 "PO-Revision-Date: 2005-03-28 11:31+0200\n"
 "Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -377,23 +377,23 @@ msgstr "Opdateringer"
 msgid "_Install"
 msgstr "_Installér"
 
-#: ../SoftwareProperties/SoftwareProperties.py:218
+#: ../SoftwareProperties/SoftwareProperties.py:222
 msgid "Choose a key-file"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:227
+#: ../SoftwareProperties/SoftwareProperties.py:231
 msgid "Error importing selected file"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:228
+#: ../SoftwareProperties/SoftwareProperties.py:232
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:240
+#: ../SoftwareProperties/SoftwareProperties.py:244
 msgid "Error removing the key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:241
+#: ../SoftwareProperties/SoftwareProperties.py:245
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 

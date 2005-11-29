@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-15 17:30+0100\n"
+"POT-Creation-Date: 2005-11-29 17:26+0100\n"
 "PO-Revision-Date: 2005-03-31 20:55-0700\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -411,27 +411,27 @@ msgstr "Ibihuzagihe bya porogaramumudasobwa "
 msgid "_Install"
 msgstr "Kwinjiza porogaramu"
 
-#: ../SoftwareProperties/SoftwareProperties.py:218
+#: ../SoftwareProperties/SoftwareProperties.py:222
 #, fuzzy
 msgid "Choose a key-file"
 msgstr "a Urufunguzo IDOSIYE"
 
-#: ../SoftwareProperties/SoftwareProperties.py:227
+#: ../SoftwareProperties/SoftwareProperties.py:231
 #, fuzzy
 msgid "Error importing selected file"
 msgstr "Kuzaza Byahiswemo IDOSIYE"
 
-#: ../SoftwareProperties/SoftwareProperties.py:228
+#: ../SoftwareProperties/SoftwareProperties.py:232
 #, fuzzy
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Byahiswemo IDOSIYE Gicurasi OYA a Urufunguzo IDOSIYE Cyangwa"
 
-#: ../SoftwareProperties/SoftwareProperties.py:240
+#: ../SoftwareProperties/SoftwareProperties.py:244
 #, fuzzy
 msgid "Error removing the key"
 msgstr "i Urufunguzo"
 
-#: ../SoftwareProperties/SoftwareProperties.py:241
+#: ../SoftwareProperties/SoftwareProperties.py:245
 #, fuzzy
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"

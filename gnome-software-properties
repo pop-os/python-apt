@@ -35,9 +35,9 @@ import sys
 
 from optparse import OptionParser
 
-sys.path.append("@prefix@/share/update-manager/python")
+#sys.path.append("@prefix@/share/update-manager/python")
 
-from SoftwareProperties import *
+import SoftwareProperties
 
 if __name__ == "__main__":
   _ = gettext.gettext
@@ -72,7 +72,7 @@ if __name__ == "__main__":
   gtk.glade.bindtextdomain(localesApp, localesDir)
   gtk.glade.textdomain(localesApp)
 
-#  data_dir="/usr/share/update-manager/"
+  #data_dir="/usr/share/update-manager/"
   data_dir="/tmp/xxx/share/update-manager/"
-  app = SoftwareProperties(data_dir,options)
+  app = SoftwareProperties.SoftwareProperties(data_dir,options)
   app.run()

@@ -38,7 +38,7 @@ class dialog_edit:
     if os.path.exists("../data/SoftwarePropertiesDialogs.glade"):
       self.gladexml = gtk.glade.XML("../data/SoftwarePropertiesDialogs.glade")
     else:
-      self.gladexml = gtk.glade.XML("%s/SoftwarePropertiesDialogs.glade" % datadir)
+      self.gladexml = gtk.glade.XML("%s/glade/SoftwarePropertiesDialogs.glade" % datadir)
     self.main = self.gladexml.get_widget("dialog_edit")
     self.main.set_transient_for(parent)
     

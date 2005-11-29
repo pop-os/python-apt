@@ -29,6 +29,7 @@ import apt_pkg
 import gobject
 import shutil
 import gettext
+import os
 
 #sys.path.append("@prefix/share/update-manager/python")
 
@@ -101,9 +102,12 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview1.set_model(self.source_store)
     
     tr = gtk.CellRendererText()
+    tr.set_property("xpad", 10)
+    tr.set_property("ypad", 10)
     
     source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
     source_col.set_max_width(500)
+
     self.treeview1.append_column(source_col)
     
     self.sourceslist = aptsources.SourcesList()
@@ -123,13 +127,13 @@ class SoftwareProperties(SimpleGladeApp):
     for source in self.sourceslist.list:
       if source.invalid or source.disabled:
         continue
-      (a_type, dists, comps) = self.matcher.match(source)
+      (a_type, dist, comps) = self.matcher.match(source)
       
       contents = ""
       if source.comment != "":
         contents += "<i>%s</i>\n\n" % (source.comment)
-      contents += "%s <small>(%s)</small>" % (dists, a_type)
-      
+      contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
+
       self.source_store.append([contents, not source.disabled, source])
       
   def reload_keyslist(self):

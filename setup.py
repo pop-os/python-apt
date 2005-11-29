@@ -20,7 +20,9 @@ os.system("cd channels; make")
     
 setup(name='update-manager',
       version='0.1',
-      packages=['SoftwareProperties','UpdateManager'],
+      packages=['SoftwareProperties',
+                'UpdateManager',
+                'UpdateManager.Common'],
       scripts=['gnome-software-properties','src/update-manager'],
       data_files=[('share/update-manager/glade',
                    glob.glob("data/*.glade")),

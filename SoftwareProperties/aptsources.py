@@ -27,12 +27,12 @@ import re
 import apt_pkg
 import glob
 
-from DistInfo import DistInfo
+from UpdateManager.Common.DistInfo import DistInfo
 
 # actual source.list entries
 class SourceEntry:
 
-  def __init__(self, line,file):
+  def __init__(self, line,file=None):
     self.invalid = False
     self.disabled = False
     self.type = ""
@@ -41,6 +41,8 @@ class SourceEntry:
     self.comps = []
     self.comment = ""
     self.line = line
+    if file == None:
+      file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
     self.file = file
     self.parse(line)
 
