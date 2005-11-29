@@ -1,0 +1,55 @@
+#!/usr/bin/python2.4
+# update-manager.in - easy updating application
+#  
+#  Copyright (c) 2004 Canonical
+#                2004 Michiel Sikkes
+#  
+#  Author: Michiel Sikkes <michiel@eyesopened.nl>
+#          Michael Vogt <mvo@debian.org>
+# 
+#  This program is free software; you can redistribute it and/or 
+#  modify it under the terms of the GNU General Public License as 
+#  published by the Free Software Foundation; either version 2 of the
+#  License, or (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+#  USA
+
+import pygtk
+import os
+pygtk.require('2.0')
+import gtk
+import gtk.glade
+
+from UpdateManager.UpdateManager import UpdateManager
+import gettext
+from gettext import gettext as _
+
+if __name__ == "__main__":
+
+  APP="update-manager"
+  DIR="/usr/share/locale"
+
+  gettext.bindtextdomain(APP, DIR)
+  gettext.textdomain(APP)
+  gtk.glade.bindtextdomain(APP, DIR)
+  gtk.glade.textdomain(APP)
+
+  if os.geteuid() != 0:
+    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
+                               _("You need to be root to run this program"))
+    dialog.run()
+    dialog.destroy()
+    sys.exit(1)
+
+  #data_dir="/usr/share/update-manager/"
+  data_dir="/tmp/xxx/share/update-manager/"
+  app = UpdateManager(data_dir)
+  app.main()

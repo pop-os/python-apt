@@ -20,19 +20,30 @@ os.system("cd channels; make")
     
 setup(name='update-manager',
       version='0.1',
-      packages=['SoftwareProperties',
+      packages=[
+                'SoftwareProperties',
                 'UpdateManager',
-                'UpdateManager.Common'],
-      scripts=['gnome-software-properties','src/update-manager'],
-      data_files=[('share/update-manager/glade',
-                   glob.glob("data/*.glade")),
+                'UpdateManager.Common'
+                ],
+      scripts=[
+               'gnome-software-properties',
+               'update-manager'
+               ],
+      data_files=[
+                  ('share/update-manager/glade',
+                     glob.glob("data/*.glade")
+                  ),
                   ('share/update-manager/channels',
-                   glob.glob("channels/*")),
+                     glob.glob("channels/*")
+                  ),
                   ('share/applications',
-                   ["data/update-manager.desktop",
-                    "data/gnome-software-properties.desktop"]),
+                     ["data/update-manager.desktop",
+                      "data/gnome-software-properties.desktop"]
+                  ),
                   ('share/pixmaps',
-                   ["data/update-manager.png"])]+I18NFILES,
+                   ["data/update-manager.png"]
+                  )
+                  ]+I18NFILES,
       )
 
 

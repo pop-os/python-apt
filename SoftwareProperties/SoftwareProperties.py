@@ -33,7 +33,7 @@ import os
 
 #sys.path.append("@prefix/share/update-manager/python")
 
-from UpdateManager.Common import SimpleGladeApp
+from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 import aptsources
 import dialog_add
 import dialog_edit

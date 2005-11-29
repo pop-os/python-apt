@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-29 17:26+0100\n"
+"POT-Creation-Date: 2005-11-29 18:05+0100\n"
 "PO-Revision-Date: 2005-04-04 15:00+0200\n"
 "Last-Translator: Jorge Bernal <koke@amedias.org>\n"
 "Language-Team: Spanish <traductores@gnome.org>\n"
@@ -210,61 +210,61 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
 #. Description
-#: ../channels/Ubuntu.info.in:6
-#, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
+#: ../channels/Ubuntu.info.in:7
 msgid "Breezy 5.10 \"Breezy Badger\""
 msgstr ""
 
-#. BaseURI
-#: ../channels/Ubuntu.info.in:56
-msgid "http://security.ubuntu.com/ubuntu/"
-msgstr ""
-
 #. Description
-#: ../channels/Ubuntu.info.in:57
+#: ../channels/Ubuntu.info.in:24
 #, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
 
-#. BaseURI
-#: ../channels/Ubuntu.info.in:73
-msgid "http://archive.ubuntu.com/ubuntu/"
-msgstr ""
-
 #. Description
-#: ../channels/Ubuntu.info.in:74
+#: ../channels/Ubuntu.info.in:41
 #, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualizaciones de Ubuntu 5.04"
 
+#. BaseURI
+#: ../channels/Ubuntu.info.in:57
+msgid "http://archive.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:58
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
+#. BaseURI
+#: ../channels/Ubuntu.info.in:74
+msgid "http://security.ubuntu.com/ubuntu/"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:75
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:77 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:78 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Soportado oficialmente"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:80
+#: ../channels/Ubuntu.info.in:81
 msgid "Restricted copyright"
 msgstr "Copyright restringido"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:83
+#: ../channels/Ubuntu.info.in:84
 msgid "Community maintained (Universe)"
 msgstr "Mantenido por la comunidad (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:86
+#: ../channels/Ubuntu.info.in:87
 msgid "Non-free (Multiverse)"
 msgstr "Software no libre (Multiverse)"
 
