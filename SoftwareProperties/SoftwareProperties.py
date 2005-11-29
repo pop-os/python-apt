@@ -29,6 +29,7 @@ import apt_pkg
 import gobject
 import shutil
 import gettext
+from gettext import gettext as _
 import os
 
 #sys.path.append("@prefix/share/update-manager/python")
@@ -54,7 +55,6 @@ CONF_MAP = {
 class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir, options):
-    _ = gettext.gettext
 
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
@@ -66,10 +66,6 @@ class SoftwareProperties(SimpleGladeApp):
     self.gnome_program = gnome.init("Software Properties", "0.41")
     self.gconfclient = gconf.client_get_default()
 
-    # Get some configuration options
-    self.show_disabled = self.gconfclient.get_bool("/apps/gnome-software-" \
-                                                   "properties/show_disabled")
-                   
     self.window_main.hide() 
                                    
     # If externally called, reparent to external application.

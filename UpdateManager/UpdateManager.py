@@ -162,7 +162,80 @@ class UpdateList:
       dialog.destroy()
 
         
-class UpdateManager:
+class UpdateManager(SimpleGladeApp):
+
+  def __init__(self, datadir):
+
+    self.datadir = datadir
+    SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
+                            None, domain="update-manager")
+    self.gnome_program = gnome.init("update-manager", "0.41")
+
+    self.packages = []
+    self.dl_size = 0
+    self.all_changes = {}
+    self.dist = self.get_dist()
+
+    # create text view
+    changes_buffer = self.textview_changes.get_buffer()
+    changes_buffer.create_tag("versiontag", weight=pango.WEIGHT_BOLD)
+
+    # expander
+    self.expander_details.connect("notify::expanded", self.activate_details)
+
+    # useful exit stuff
+    self.window_main.connect("delete_event", lambda w, ev: self.exit())
+    self.button_close.connect("clicked", lambda w: self.exit())
+
+
+    # the treeview (move into it's own code!)
+    self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
+                               gobject.TYPE_PYOBJECT)
+    self.treeview_update.set_model(self.store)
+    self.treeview_update.set_headers_clickable(True);
+
+    tr = gtk.CellRendererText()
+    tr.set_property("xpad", 10)
+    tr.set_property("ypad", 10)
+    cr = gtk.CellRendererToggle()
+    cr.set_property("activatable", True)
+    cr.set_property("xpad", 10)
+    cr.connect("toggled", self.toggled)
+    self.cb = gtk.TreeViewColumn("Install", cr, active=LIST_INSTALL)
+    c0 = gtk.TreeViewColumn("Name", tr, markup=LIST_CONTENTS)
+    c0.set_resizable(True)
+    major,minor,patch = gtk.pygtk_version
+    if (major >= 2) and (minor >= 5):
+      self.cb.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+      self.cb.set_fixed_width(30)
+      c0.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+      c0.set_fixed_width(100)
+      #self.treeview_update.set_fixed_height_mode(True)
+
+    self.treeview_update.append_column(self.cb)
+    self.cb.set_visible(False);
+    self.treeview_update.append_column(c0)
+    self.treeview_update.set_search_column(LIST_NAME)	
+
+
+    # proxy stuff
+    SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
+    if os.path.exists(SYNAPTIC_CONF_FILE):
+      cnf = apt_pkg.newConfiguration()
+      apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
+      use_proxy = cnf.FindB("Synaptic::useProxy", False)
+      if use_proxy:
+        proxy_host = cnf.Find("Synaptic::httpProxy")
+        proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
+        if proxy_host and proxy_port:
+          proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
+          opener = urllib2.build_opener(proxy_support)
+          urllib2.install_opener(opener)
+
+    self.gconfclient = gconf.client_get_default()
+    # restore state
+    self.restore_state()
+
 
   # FIXME: wrong location for this func
   # don't touch the gui in this function, it needs to be thread-safe
@@ -255,7 +328,7 @@ class UpdateManager:
         changes_buffer.insert(end_iter, line+"\n")
         
 
-  def cursor_changed(self, widget):
+  def on_treeview_update_cursor_changed(self, widget):
     tuple = widget.get_cursor()
     path = tuple[0]
     # check if we have a path at all
@@ -268,7 +341,7 @@ class UpdateManager:
     long_desc = model.get_value(iter, 5)
     if long_desc == None:
       return
-    desc_buffer = self.DescView.get_buffer()
+    desc_buffer = self.textview_descr.get_buffer()
     desc_buffer.set_text(utf8(long_desc))
 
     # now do the changelog
@@ -276,21 +349,21 @@ class UpdateManager:
     if name == None:
       return
 
-    changes_buffer = self.ChangesView.get_buffer()
+    changes_buffer = self.textview_changes.get_buffer()
     
     # check if we have the changes already
     if self.all_changes.has_key(name):
       changes = self.all_changes[name]
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
     else:
-      if self.expander.get_expanded():
-        self.treeview.set_sensitive(False)
-        self.Glade.get_widget("hbox_footer").set_sensitive(False)
+      if self.expander_details.get_expanded():
+        self.treeview_update.set_sensitive(False)
+        self.hbox_footer.set_sensitive(False)
         lock = thread.allocate_lock()
         lock.acquire()
         t=thread.start_new_thread(self.get_changelog,(name,lock))
         changes_buffer.set_text(_("Downloading changes..."))
-        button = self.Glade.get_widget("button_cancel_dl_changelog")
+        button = self.button_cancel_dl_changelog
         button.show()
         id = button.connect("clicked",
                             lambda w,lock: lock.release(), lock)
@@ -302,8 +375,8 @@ class UpdateManager:
         # download finished (or canceld, or time-out)
         button.hide()
         button.disconnect(id);
-        self.treeview.set_sensitive(True)
-        self.Glade.get_widget("hbox_footer").set_sensitive(True)
+        self.treeview_update.set_sensitive(True)
+        self.hbox_footer.set_sensitive(True)
 
     if self.all_changes.has_key(name):
       changes = self.all_changes[name]
@@ -315,7 +388,7 @@ class UpdateManager:
       self.packages.remove(name)
       self.dl_size -= pkg.size
       if len(self.packages) == 0:
-        self.installbutton.set_sensitive(False)
+        self.button_install.set_sensitive(False)
     self.update_count()
 
   def add_update(self, pkg):
@@ -324,19 +397,19 @@ class UpdateManager:
       self.packages.append(name)
       self.dl_size += pkg.size
       if len(self.packages) > 0:
-        self.installbutton.set_sensitive(True)
+        self.button_install.set_sensitive(True)
     self.update_count()
 
   def update_count(self):
     text = "%i (%s)" % (len(self.packages),
                             apt_pkg.SizeToStr(self.dl_size))
-    self.NumUpdates.set_text(text)
+    self.label_num_updates.set_text(text)
 
   def activate_details(self, expander, data):
-    expanded = self.expander.get_expanded()
+    expanded = self.expander_details.get_expanded()
     self.gconfclient.set_bool("/apps/update-manager/show_details",expanded)
     if expanded:
-      self.cursor_changed(self.treeview)
+      self.cursor_changed(self.treeview_update)
 
   def run_synaptic(self, id, action, lock):
     apt_pkg.PkgSystemUnLock()
@@ -410,7 +483,7 @@ class UpdateManager:
                                            "package management application "
                                            "at the same time. Please close "
                                            "this other application first.")));
-      dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_ERROR,
+      dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                  gtk.BUTTONS_OK,"")
       dialog.set_markup(msg)
       dialog.run()
@@ -421,7 +494,7 @@ class UpdateManager:
     os.environ["APT_LISTCHANGES_FRONTEND"]="none"
 
     # set window to insensitive
-    self.main_window.set_sensitive(False)
+    self.window_main.set_sensitive(False)
     # create a progress window that will swallow the synaptic progress bars
     win = gtk.Window()
     if action==UPDATE:
@@ -429,7 +502,7 @@ class UpdateManager:
     else:
       win.set_title(_("Installing updates..."))
     win.set_border_width(6)
-    win.set_transient_for(self.main_window)
+    win.set_transient_for(self.window_main)
     win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     win.resize(400,200)
     win.set_resizable(False)
@@ -455,7 +528,7 @@ class UpdateManager:
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
-    self.main_window.set_sensitive(True)    
+    self.window_main.set_sensitive(True)    
 
   def toggled(self, renderer, path_string):
     """ a toggle button in the listview was toggled """
@@ -476,18 +549,18 @@ class UpdateManager:
 
   def save_state(self):
     """ save the state  (window-size for now) """
-    (x,y) = self.main_window.get_size()
+    (x,y) = self.window_main.get_size()
     self.gconfclient.set_pair("/apps/update-manager/window_size",
                               gconf.VALUE_INT, gconf.VALUE_INT, x, y)
 
   def restore_state(self):
     """ restore the state (window-size for now) """
     expanded = self.gconfclient.get_bool("/apps/update-manager/show_details")
-    self.expander.set_expanded(expanded)
+    self.expander_details.set_expanded(expanded)
     (x,y) = self.gconfclient.get_pair("/apps/update-manager/window_size",
                                       gconf.VALUE_INT, gconf.VALUE_INT)
     if x > 0 and y > 0:
-      self.main_window.resize(x,y)
+      self.window_main.resize(x,y)
 
   def on_button_preferences_clicked(self, widget):
     """ start gnome-software preferences """
@@ -496,7 +569,7 @@ class UpdateManager:
     apt_pkg.PkgSystemUnLock()
     args = ['/usr/bin/gnome-software-properties', '-n']
     child = subprocess.Popen(args)
-    self.main_window.set_sensitive(False)
+    self.window_main.set_sensitive(False)
     res = None
     while res == None:
       res = child.poll()
@@ -511,93 +584,8 @@ class UpdateManager:
     apt_pkg.PkgSystemLock()
     if res > 0:
       self.on_button_reload_clicked(None)
-    self.main_window.set_sensitive(True)
+    self.window_main.set_sensitive(True)
 
-  def __init__(self, datadir):
-
-    self.gnome_program = gnome.init("update-manager", "0.40")
-
-    self.packages = []
-    self.dl_size = 0
-    self.all_changes = {}
-    self.dist = self.get_dist()
-    self.Glade = gtk.glade.XML("%s/glade/update-manager.glade" % datadir)
-
-    self.NumUpdates = self.Glade.get_widget("num_updates")
-    self.main_window = self.Glade.get_widget("MainWindow")
-    self.main_window.connect("delete_event", lambda w, ev: self.exit())
-    self.DescView = self.Glade.get_widget("descview")
-    self.ChangesView = self.Glade.get_widget("textview_changes")
-    changes_buffer = self.ChangesView.get_buffer()
-    changes_buffer.create_tag("versiontag", weight=pango.WEIGHT_BOLD)
-    self.expander = self.Glade.get_widget("expander_details")
-    self.expander.connect("notify::expanded", self.activate_details)
-   
-    self.installbutton = self.Glade.get_widget("button_install")
-    self.Glade.signal_connect("on_button_install_clicked",
-                              self.on_button_install_clicked)
-    self.Glade.signal_connect("on_button_close_clicked",
-                              lambda w: self.exit())
-    self.Glade.signal_connect("on_button_reload_clicked",
-                              self.on_button_reload_clicked)
-    self.Glade.signal_connect("on_button_preferences_clicked",
-                              self.on_button_preferences_clicked)
-    self.Glade.signal_connect("on_button_help_clicked",
-                              self.on_button_help_clicked)
-
-    self.treeview = self.Glade.get_widget("updatelist")
-
-    self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
-                               gobject.TYPE_PYOBJECT)
-    self.treeview.set_model(self.store)
-    self.treeview.set_headers_clickable(True);
-
-    self.treeview.connect('cursor-changed', self.cursor_changed)
-
-    tr = gtk.CellRendererText()
-    tr.set_property("xpad", 10)
-    tr.set_property("ypad", 10)
-    cr = gtk.CellRendererToggle()
-    cr.set_property("activatable", True)
-    cr.set_property("xpad", 10)
-    cr.connect("toggled", self.toggled)
-    self.cb = gtk.TreeViewColumn("Install", cr, active=LIST_INSTALL)
-    c0 = gtk.TreeViewColumn("Name", tr, markup=LIST_CONTENTS)
-    c0.set_resizable(True)
-    major,minor,patch = gtk.pygtk_version
-    if (major >= 2) and (minor >= 5):
-      self.cb.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-      self.cb.set_fixed_width(30)
-      c0.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-      c0.set_fixed_width(100)
-      #self.treeview.set_fixed_height_mode(True)
-
-    self.treeview.append_column(self.cb)
-    self.cb.set_visible(False);
-    self.treeview.append_column(c0)
-    self.treeview.set_search_column(LIST_NAME)	
-    #self.treeview.append_column(c1)
-    #self.treeview.append_column(c2)
-    #self.treeview.set_headers_visible(False)
-    # set expander to last position
-
-    # proxy stuff
-    SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
-    if os.path.exists(SYNAPTIC_CONF_FILE):
-      cnf = apt_pkg.newConfiguration()
-      apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
-      use_proxy = cnf.FindB("Synaptic::useProxy", False)
-      if use_proxy:
-        proxy_host = cnf.Find("Synaptic::httpProxy")
-        proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
-        if proxy_host and proxy_port:
-          proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
-          opener = urllib2.build_opener(proxy_support)
-          urllib2.install_opener(opener)
-
-    self.gconfclient = gconf.client_get_default()
-    # restore state
-    self.restore_state()
 
   def fillstore(self):
 
@@ -607,31 +595,29 @@ class UpdateManager:
     self.all_changes = {}
     self.store.clear()
     self.initCache()
-    self.list = UpdateList(self.main_window)
+    self.list = UpdateList(self.window_main)
 
     # fill them again
     self.list.update(self.cache, self.records, self.depcache)
     if self.list.num_updates < 1:
       # set the label and treeview and hide the checkbox column
       self.cb.set_visible(False)
-      self.expander.hide()
-      label = self.Glade.get_widget("label_header")
+      self.expander_details.hide()
       text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date!"),
                                              _("There are no updates available."))
-      label.set_markup(text)
+      self.label_header.set_markup(text)
       self.store.append([False, _("Your system is up-to-date!"), None, None, None, None, None])
       # make sure no install is possible
-      self.installbutton.set_sensitive(False)
+      self.button_install.set_sensitive(False)
     else:
       self.cb.set_visible(True)
-      self.expander.show()
-      self.treeview.set_headers_visible(False)
-      label = self.Glade.get_widget("label_header")
+      self.expander_details.show()
+      self.treeview_update.set_headers_visible(False)
       text = _("<big><b>Available Updates</b></big>\n"
                "\n"
                "The following packages are found to be upgradable. You can upgrade them by "
                "using the Install button.")
-      label.set_markup(text)
+      self.label_header.set_markup(text)
       i=0
       for pkg in self.list.pkgs:
 
@@ -661,7 +647,7 @@ class UpdateManager:
   def current_dist_not_supported(self, name):
     #print name
     msg = "<big><b>%s</b></big>\n\n%s" % (_("Your distribution is no longer supported"), _("Please upgrade to a newer version of Ubuntu Linux. The version you are running will no longer get security fixes or other critical updates. Please see http://www.ubuntulinux.org for upgrade information."))
-    dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_WARNING,
+    dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_WARNING,
                                gtk.BUTTONS_OK,"")
     dialog.set_markup(msg)
     dialog.run()
@@ -676,7 +662,7 @@ class UpdateManager:
       return
     
     msg = "<big><b>%s</b></big>\n\n%s" % (_("There is a new release of Ubuntu available!"), _("A new release with the codename '%s' is available. Please see http://www.ubuntulinux.org/ for upgrade instructions.") % name)
-    dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO,
+    dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_INFO,
                                gtk.BUTTONS_CLOSE, "")
     dialog.set_markup(msg)
     check = gtk.CheckButton(_("Never show this message again"))
@@ -762,7 +748,7 @@ class UpdateManager:
     try:
         apt_pkg.PkgSystemLock()
     except SystemError:
-        d = gtk.MessageDialog(parent=self.main_window,
+        d = gtk.MessageDialog(parent=self.window_main,
                               flags=gtk.DIALOG_MODAL,
                               type=gtk.MESSAGE_ERROR,
                               buttons=gtk.BUTTONS_OK)

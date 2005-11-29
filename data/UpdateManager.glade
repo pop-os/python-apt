@@ -3,7 +3,7 @@
 
 <glade-interface>
 
-<widget class="GtkWindow" id="MainWindow">
+<widget class="GtkWindow" id="window_main">
   <property name="border_width">6</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Software Updates</property>
@@ -131,7 +131,7 @@ The following packages are found to be upgradable. You can upgrade them by using
 	  </child>
 
 	  <child>
-	    <widget class="GtkLabel" id="num_updates">
+	    <widget class="GtkLabel" id="label_num_updates">
 	      <property name="visible">True</property>
 	      <property name="label">0</property>
 	      <property name="use_underline">False</property>
@@ -255,7 +255,7 @@ If you have a permanent internet connection this is done automatically. If you a
 	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 	  <child>
-	    <widget class="GtkTreeView" id="updatelist">
+	    <widget class="GtkTreeView" id="treeview_update">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="headers_visible">False</property>
@@ -265,6 +265,7 @@ If you have a permanent internet connection this is done automatically. If you a
 	      <property name="fixed_height_mode">False</property>
 	      <property name="hover_selection">False</property>
 	      <property name="hover_expand">False</property>
+	      <signal name="cursor_changed" handler="on_treeview_update_cursor_changed" last_modification_time="Tue, 29 Nov 2005 17:19:48 GMT"/>
 	    </widget>
 	  </child>
 	</widget>
@@ -467,7 +468,7 @@ If you have a permanent internet connection this is done automatically. If you a
 		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		      <child>
-			<widget class="GtkTextView" id="descview">
+			<widget class="GtkTextView" id="textview_descr">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">False</property>
