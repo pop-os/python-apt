@@ -49,7 +49,7 @@ if __name__ == "__main__":
     dialog.destroy()
     sys.exit(1)
 
-  #data_dir="/usr/share/update-manager/"
-  data_dir="/tmp/xxx/share/update-manager/"
+  data_dir="/usr/share/update-manager/"
+  #data_dir="/tmp/xxx/share/update-manager/"
   app = UpdateManager(data_dir)
   app.main()

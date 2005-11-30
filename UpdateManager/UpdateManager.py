@@ -189,7 +189,7 @@ class UpdateManager(SimpleGladeApp):
       #self.treeview_update.set_fixed_height_mode(True)
 
     self.treeview_update.append_column(self.cb)
-    self.cb.set_visible(False);
+    self.cb.set_visible(False)
     self.treeview_update.append_column(c0)
     self.treeview_update.set_search_column(LIST_NAME)	
 
@@ -624,25 +624,31 @@ class UpdateManager(SimpleGladeApp):
     dialog.run()
     dialog.destroy()
     
+  def on_button_dist_upgrade_clicked(self, button):
+      print "on_button_dist_upgrade_clicked"
+
+
 
   def new_dist_available(self, name):
-    #print name
+    print "new_dist_available: %s" % name
     # check if the user already knowns about this dist
-    seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
-    if name == seen:
-      return
+    #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
+    #if name == seen:
+    #  return
     
-    msg = "<big><b>%s</b></big>\n\n%s" % (_("There is a new release of Ubuntu available!"), _("A new release with the codename '%s' is available. Please see http://www.ubuntulinux.org/ for upgrade instructions.") % name)
-    dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_INFO,
-                               gtk.BUTTONS_CLOSE, "")
-    dialog.set_markup(msg)
-    check = gtk.CheckButton(_("Never show this message again"))
-    check.show()
-    dialog.vbox.pack_start(check)
-    dialog.run()
-    if check.get_active():
-      self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
-    dialog.destroy()
+    #msg = "<big><b>%s</b></big>\n\n%s" % (_("There is a new release of Ubuntu available!"), _("A new release with the codename '%s' is available. Please see http://www.ubuntulinux.org/ for upgrade instructions.") % name)
+    #dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_INFO,
+    #                           gtk.BUTTONS_CLOSE, "")
+    #dialog.set_markup(msg)
+    #check = gtk.CheckButton(_("Never show this message again"))
+    #check.show()
+    #dialog.vbox.pack_start(check)
+    #dialog.run()
+    #if check.get_active():
+    #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
+    #dialog.destroy()
+    self.frame_new_release.show()
+    self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % name)
     
   # code that does the meta release file checking
   def check_meta_release(self):
