@@ -15,10 +15,7 @@ import os
 import os.path
 import urllib2
 import re
-import thread
 import tempfile
-import time
-import rfc822
 import gconf
 import pango
 import subprocess
@@ -29,6 +26,8 @@ from gettext import gettext as _
 from Common.utils import *
 from Common.SimpleGladeApp import SimpleGladeApp
 import GtkProgress
+
+from MetaRelease import Dist, MetaRelease
 
 # FIXME:
 # - cary a reference to the update-class around in the ListStore
@@ -42,10 +41,6 @@ import GtkProgress
 (INSTALL, UPDATE) = range(2)
 
 SYNAPTIC_PINFILE = "/var/lib/synaptic/preferences"
-
-METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-#METARELEASE_URI = "http://people.ubuntu.com/~mvo/meta-release-test"
-METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
 CHANGELOGS_URI="http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
@@ -61,8 +56,7 @@ class MyCache(apt.Cache):
             self.clean()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
-
-
+        
 
 class UpdateList:
   def __init__(self, parent_window):
@@ -150,7 +144,6 @@ class UpdateManager(SimpleGladeApp):
     self.packages = []
     self.dl_size = 0
     self.all_changes = {}
-    self.dist = self.get_dist()
 
     # create text view
     changes_buffer = self.textview_changes.get_buffer()
@@ -605,18 +598,7 @@ class UpdateManager(SimpleGladeApp):
     self.update_count()
     return False
 
-  # FIXME: use lsb-release binary and cache the result
-  def get_dist(self):
-    f = open("/etc/lsb-release", "r")
-    lines = f.readlines()
-    for line in lines:
-      key, value = line.split("=")
-      if (key == "DISTRIB_CODENAME"):
-        return value[:-1]
-    f.close()
-
-  def current_dist_not_supported(self, name):
-    #print name
+  def dist_no_longer_supported(self, meta_release):
     msg = "<big><b>%s</b></big>\n\n%s" % (_("Your distribution is no longer supported"), _("Please upgrade to a newer version of Ubuntu Linux. The version you are running will no longer get security fixes or other critical updates. Please see http://www.ubuntulinux.org for upgrade information."))
     dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_WARNING,
                                gtk.BUTTONS_OK,"")
@@ -628,9 +610,8 @@ class UpdateManager(SimpleGladeApp):
       print "on_button_dist_upgrade_clicked"
 
 
-
-  def new_dist_available(self, name):
-    print "new_dist_available: %s" % name
+  def new_dist_available(self, meta_release, upgradable_to):
+    print "new_dist_available: %s" % upgradable_to.name
     # check if the user already knowns about this dist
     #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
     #if name == seen:
@@ -648,76 +629,8 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % name)
+    self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % upgradable_to.name)
     
-  # code that does the meta release file checking
-  def check_meta_release(self):
-    #print "check_meta_release" 
-    current_dist = self.dist
-    dists = {}
-    if self.metarelease_information != None:
-      #print "meta_release found (current_dist: %s)" % (current_dist)
-      # we have a meta-release file
-      current_dist_date = 0
-      current_dist_supported = False
-      new_dist_available = False
-      # parse it
-      index_tag = apt_pkg.ParseTagFile(self.metarelease_information)
-      step_result = index_tag.Step()
-      while step_result:
-        if index_tag.Section.has_key("Dist"):
-          dist = index_tag.Section["Dist"]
-          date = time.mktime(rfc822.parsedate(index_tag.Section["Date"]))
-          dists[dist] = date
-          if dist == current_dist:
-            current_dist_supported = str_to_bool(index_tag.Section["Supported"])
-            current_dist_date = time.mktime(rfc822.parsedate(index_tag.Section["Date"]))
-        step_result = index_tag.Step()
-      # check for newer dists
-      new_dist = ""
-      found = False
-      for dist in dists:
-        if dist == current_dist:
-          found = True
-        if dists[dist] > current_dist_date and not dist == current_dist:
-          new_dist = dist
-          current_dist_date = dists[dist]
-
-      # we know nothing about the installed distro, so we just return
-      # silently
-      if not found:
-        return False
-      
-      # only warn if unsupported and a new dist is available (because 
-      # the development version is also unsupported)
-      if new_dist != "" and not current_dist_supported:
-        self.current_dist_not_supported(new_dist)
-      elif new_dist != "":
-        self.new_dist_available(new_dist)
-      # don't run this event again
-      return False
-    # we have no information about the meta-release, so run it again
-    return True
-
-  # the network thread that tries to fetch the meta-index file
-  def get_meta_release(self):
-    lastmodified = 0
-    req = urllib2.Request(METARELEASE_URI)
-    if os.access(METARELEASE_FILE, os.W_OK):
-      lastmodified = os.stat(METARELEASE_FILE).st_mtime
-    if lastmodified > 0:
-      req.add_header("If-Modified-Since", lastmodified)
-    try:
-      uri=urllib2.urlopen(req)
-      f=open(METARELEASE_FILE,"w+")
-      for line in uri.readlines():
-        f.write(line)
-      f.flush()
-      f.seek(0,0)
-      self.metarelease_information=f
-      uri.close()
-    except urllib2.URLError:
-      pass
 
   # fixme: we should probably abstract away all the stuff from libapt
   def initCache(self): 
@@ -747,10 +660,13 @@ class UpdateManager(SimpleGladeApp):
     self.cache._depcache.Init()
 
   def main(self):
-    # FIXME: stat a check update thread 
-    self.metarelease_information = None
-    t=thread.start_new_thread(self.get_meta_release, ())
-    gobject.timeout_add(1000, self.check_meta_release)
+    self.meta = MetaRelease()
+    # FIXME: this callback seting sucks!
+    #self.meta.current_dist_not_supported = self.current_dist_not_supported
+    #self.meta.new_dist_available = self.new_dist_available
+    self.meta.connect("new_dist_available",self.new_dist_available)
+    self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
+    gobject.timeout_add(1000, self.meta.check)
     #self.get_meta_release()
     
     self.store.append([True, _("Initializing and getting list of updates..."),
@@ -759,7 +675,5 @@ class UpdateManager(SimpleGladeApp):
     while gtk.events_pending():
       gtk.main_iteration()
 
-    # global init of apt, FIXME: move all the apt details in it's own class
-    apt_pkg.init()
     self.fillstore()
     gtk.main()
