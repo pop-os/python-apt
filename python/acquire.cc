@@ -246,7 +246,7 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 {
    PyObject *pyfetcher;
    char *uri, *md5, *descr, *shortDescr, *destDir, *destFile;
-   int size;
+   int size = 0;
    uri = md5 = descr = shortDescr = destDir = destFile = "";
 
    char * kwlist[] = {"owner","uri", "md5", "size", "descr", "shortDescr",
