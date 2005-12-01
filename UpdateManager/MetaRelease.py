@@ -37,6 +37,9 @@ class MetaRelease(gobject.GObject):
         gobject.GObject.__init__(self)
         self.metarelease_information = None
         self.downloading = True
+        # we start the download thread here and we have a timeout
+        # in the gtk space to test if the download already finished
+        # this is needed because gtk is not thread-safe
         t=thread.start_new_thread(self.download, ())
         gobject.timeout_add(1000,self.check)
         

@@ -2,7 +2,7 @@ Source: update-manager
 Section: gnome
 Priority: optional
 Maintainer: Michiel Sikkes <michiel@eyesopened.nl>
-Build-Depends: debhelper (>= 4.0.0), libxml-parser-perl, scrollkeeper, intltool
+Build-Depends: debhelper (>= 4.0.0), libxml-parser-perl, scrollkeeper, intltool, python-dev
 Standards-Version: 3.6.1.1
 
 Package: update-manager
