@@ -20,7 +20,12 @@ import gconf
 import pango
 import subprocess
 import pwd
+import thread
 import xml.sax.saxutils
+
+# dist-upgrade tool
+import tarfile
+
 from gettext import gettext as _
 
 from Common.utils import *
@@ -55,6 +60,7 @@ class MyCache(apt.Cache):
             self.clean()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
+
         
 
 
@@ -419,7 +425,17 @@ class UpdateManager(SimpleGladeApp):
 
   def on_button_reload_clicked(self, widget):
     #print "on_button_reload_clicked"
-    self.invoke_manager(UPDATE)
+    #self.invoke_manager(UPDATE)
+    progress = GtkProgress.GtkFetchProgress(self,
+                                            _("Downloading package "
+                                              "information"),
+                                            _("The repositories will be "
+                                              "checked for new, removed "
+                                              "or upgraded software "
+                                              "packages."))
+    self.cache.update(progress)
+    self.initCache()
+                                              
 
   def on_button_help_clicked(self, widget):
     gnome.help_display_desktop(self.gnome_program, "update-manager", "update-manager", "")
@@ -610,6 +626,7 @@ class UpdateManager(SimpleGladeApp):
       print "on_button_dist_upgrade_clicked"
 
       # see if we have release notes
+
       # FIXME: care about i18n! (append -$lang or something)
       if self.new_dist.releaseNotesURI != None:
           uri = self.new_dist.releaseNotesURI
@@ -637,7 +654,48 @@ class UpdateManager(SimpleGladeApp):
           self.window_main.set_sensitive(True)
           self.window_main.window.set_cursor(None)
 
+      # now download the tarball with the upgrade script
+      tmpdir = tempfile.mkdtemp()
+      os.chdir(tmpdir)
+      if self.new_dist.upgradeTool != None:
+          progress = GtkProgress.GtkFetchProgress(self,
+                                                  _("Downloading upgrade "
+                                                    "informtion"),
+                                                  _("The upgrade information "
+                                                    "are downloaded"))
+          fetcher = apt_pkg.GetAcquire(progress)
+          uri = self.new_dist.upgradeTool
+          print "Downloading %s to %s" % (uri, tmpdir)
+          af = apt_pkg.GetPkgAcqFile(fetcher,uri,
+                                     descr=_("Upgrade tool"),
+                                     destDir=tmpdir)
+          fetcher.Run()
+          print "Done downloading"
 
+          print "extracting"
+          tar = tarfile.open(tmpdir+"/"+os.path.basename(uri),"r")
+          for tarinfo in tar:
+              tar.extract(tarinfo)
+          tar.close()
+          # see if we have a script file that we can run
+          script = "%s/%s" % (tmpdir, self.new_dist.name)
+          if not os.path.exists(script):
+              print "no script file found in extracted tarbal"
+          else:
+              print "runing: %s" % script
+          
+      # cleanup
+      os.chdir("..")
+      # del tmpdir
+      for root, dirs, files in os.walk(tmpdir, topdown=False):
+          for name in files:
+              os.remove(os.path.join(root, name))
+              #print "would remove file: %s" % os.path.join(root, name)
+          for name in dirs:
+              os.rmdir(os.path.join(root, name))
+              #print "would remove dir: %s" % os.path.join(root, name)
+      os.rmdir(tmpdir)
+      
   def new_dist_available(self, meta_release, upgradable_to):
     print "new_dist_available: %s" % upgradable_to.name
     # check if the user already knowns about this dist

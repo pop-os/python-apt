@@ -16,6 +16,7 @@ class Dist(object):
         self.date = date
         self.supported = supported
         self.releaseNotesURI = None
+        self.upgradeTool = None
 
 class MetaRelease(gobject.GObject):
 
@@ -82,6 +83,8 @@ class MetaRelease(gobject.GObject):
                 dist = Dist(name,date,supported)
                 if index_tag.Section.has_key("ReleaseNotes"):
                     dist.releaseNotesURI = index_tag.Section["ReleaseNotes"]
+                if index_tag.Section.has_key("UpgradeTool"):
+                    dist.upgradeTool =  index_tag.Section["UpgradeTool"]
                 dists.append(dist)
                 if name == current_dist_name:
                     current_dist = dist 
