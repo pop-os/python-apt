@@ -75,6 +75,7 @@ PyObject *GetCdrom(PyObject *Self,PyObject *Args);
 // acquire
 extern PyTypeObject PkgAcquireType;
 PyObject *GetAcquire(PyObject *Self,PyObject *Args);
+PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject *kwds);
 
 // packagemanager
 extern PyTypeObject PkgManagerType;

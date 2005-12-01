@@ -208,4 +208,71 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 
 
 
+
+// pkgAcquireFile
+
+static PyObject *AcquireFileAttr(PyObject *Self,char *Name)
+{
+   pkgAcqFile *acqFile = GetCpp<pkgAcqFile*>(Self);
+
+   PyErr_SetString(PyExc_AttributeError,Name);
+   return 0;
+}
+
+
+
+
+PyTypeObject PkgAcquireFileType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgAcquireFile",                   // tp_name
+   sizeof(CppPyObject<pkgAcqFile*>),// tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<pkgAcqFile*>,        // tp_dealloc
+   0,                                   // tp_print
+   AcquireFileAttr,                           // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,	                                // tp_as_mapping
+   0,                                   // tp_hash
+};
+
+PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
+{
+   PyObject *pyfetcher;
+   char *uri, *md5, *descr, *shortDescr, *destDir, *destFile;
+   int size;
+   uri = md5 = descr = shortDescr = destDir = destFile = "";
+
+   char * kwlist[] = {"owner","uri", "md5", "size", "descr", "shortDescr",
+		      "destDir", "destFile", NULL};
+
+   if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
+				   &PkgAcquireType, &pyfetcher, &uri, &md5, 
+				   &size, &descr, &shortDescr, &destDir, 
+				   &destFile) == 0) 
+      return 0;
+
+   pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);
+   pkgAcqFile *af = new pkgAcqFile(fetcher,  // owner
+				   uri, // uri
+				   md5,  // md5
+				   size,   // size
+				   descr, // descr
+				   shortDescr,  // shortdescr
+				   destDir,  // destdir
+				   destFile   // destfile
+				   );
+   CppPyObject<pkgAcqFile*> *AcqFileObj =   CppPyObject_NEW<pkgAcqFile*>(&PkgAcquireFileType);
+   AcqFileObj->Object = af;
+
+   return AcqFileObj;
+}
+
+
 									/*}}}*/

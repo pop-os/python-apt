@@ -34,6 +34,13 @@ pm = apt_pkg.GetPackageManager(depcache)
 print pm
 print fetcher
 
+af = apt_pkg.GetPkgAcqFile(fetcher,
+                           uri="ftp://ftp.debian.org/debian/dists/README",
+                           descr="sample descr",
+                           destFile="/tmp/lala2")
+fetcher.Run()
+sys.exit(1)
+
 pm.GetArchives(fetcher,list,recs)
 
 for item in fetcher.Items:

@@ -1,3 +1,10 @@
+python-apt (0.6.16) unstable; urgency=low
+
+  * added GetPkgAcqFile to queue individual file downloads with the 
+    system
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Dec 2005 14:01:39 +0100
+
 python-apt (0.6.15) unstable; urgency=low
 
   * rewrote cache.Commit() and make it raise proper Exception if stuff
