@@ -38,6 +38,7 @@ class MetaRelease(gobject.GObject):
         self.metarelease_information = None
         self.downloading = True
         t=thread.start_new_thread(self.download, ())
+        gobject.timeout_add(1000,self.check)
         
     def get_dist(self):
         " return the codename of the current runing distro "

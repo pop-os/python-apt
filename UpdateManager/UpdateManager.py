@@ -30,7 +30,6 @@ import GtkProgress
 from MetaRelease import Dist, MetaRelease
 
 # FIXME:
-# - cary a reference to the update-class around in the ListStore
 # - kill "all_changes" and move the changes into the "Update" class
 
 # list constants
@@ -661,13 +660,8 @@ class UpdateManager(SimpleGladeApp):
 
   def main(self):
     self.meta = MetaRelease()
-    # FIXME: this callback seting sucks!
-    #self.meta.current_dist_not_supported = self.current_dist_not_supported
-    #self.meta.new_dist_available = self.new_dist_available
     self.meta.connect("new_dist_available",self.new_dist_available)
     self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
-    gobject.timeout_add(1000, self.meta.check)
-    #self.get_meta_release()
     
     self.store.append([True, _("Initializing and getting list of updates..."),
                        None, None, None, None, None])
