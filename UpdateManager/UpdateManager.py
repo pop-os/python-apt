@@ -57,6 +57,7 @@ class MyCache(apt.Cache):
         self._depcache.Upgrade()
         
 
+
 class UpdateList:
   def __init__(self, parent_window):
     self.pkgs = []
@@ -608,6 +609,34 @@ class UpdateManager(SimpleGladeApp):
   def on_button_dist_upgrade_clicked(self, button):
       print "on_button_dist_upgrade_clicked"
 
+      # see if we have release notes
+      # FIXME: care about i18n! (append -$lang or something)
+      if self.new_dist.releaseNotesURI != None:
+          uri = self.new_dist.releaseNotesURI
+          print uri
+          self.window_main.set_sensitive(False)
+          self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+          while gtk.events_pending():
+              gtk.main_iteration()
+
+          # download/display the release notes
+          # FIXME: add some progress reporting here 
+          try:
+              release_notes = urllib2.urlopen(uri)
+              notes = release_notes.read()
+              self.textview_release_notes.get_buffer().set_text(notes)
+              self.dialog_release_notes.set_transient_for(self.window_main)
+              self.dialog_release_notes.run()
+              self.dialog_release_notes.destroy()
+          except urllib2.HTTPError:
+              # FIXME: make proper error dialogs here
+              print _("Release notes not found on the server.")
+          except IOError:
+              print _("Failed to download Release Notes. Please "
+                      "check if there is an active internet connection.")
+          self.window_main.set_sensitive(True)
+          self.window_main.window.set_cursor(None)
+
 
   def new_dist_available(self, meta_release, upgradable_to):
     print "new_dist_available: %s" % upgradable_to.name
@@ -629,6 +658,7 @@ class UpdateManager(SimpleGladeApp):
     #dialog.destroy()
     self.frame_new_release.show()
     self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % upgradable_to.name)
+    self.new_dist = upgradable_to
     
 
   # fixme: we should probably abstract away all the stuff from libapt

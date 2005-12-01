@@ -15,12 +15,13 @@ class Dist(object):
         self.name = name
         self.date = date
         self.supported = supported
+        self.releaseNotesURI = None
 
 class MetaRelease(gobject.GObject):
 
     # some constants
     #METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    METARELEASE_URI = "http://people.ubuntu.com/~mvo/meta-release-test"
+    METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
@@ -79,6 +80,8 @@ class MetaRelease(gobject.GObject):
                 supported = index_tag.Section["Supported"]
                 # add the information to a new date object
                 dist = Dist(name,date,supported)
+                if index_tag.Section.has_key("ReleaseNotes"):
+                    dist.releaseNotesURI = index_tag.Section["ReleaseNotes"]
                 dists.append(dist)
                 if name == current_dist_name:
                     current_dist = dist 
@@ -102,10 +105,8 @@ class MetaRelease(gobject.GObject):
         # only warn if unsupported and a new dist is available (because 
         # the development version is also unsupported)
         if upgradable_to != "" and not current_dist.supported:
-            #self.current_dist_not_supported(upgradable_to)
             self.emit("dist_no_longer_supported",upgradable_to)
         elif upgradable_to != "":
-            #self.new_dist_available(upgradable_to)
             self.emit("new_dist_available",upgradable_to)
 
         # parsing done and sucessfully

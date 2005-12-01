@@ -1,3 +1,5 @@
+- have a common error dialog readymade and rib out all those 
+  GtkMessageDialogs
 - add download size to treeview
 - add /etc/apt/software-properties.d dir where the user can
   install matchers and templates
