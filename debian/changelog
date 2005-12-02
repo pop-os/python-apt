@@ -2,6 +2,7 @@ python-apt (0.6.16) unstable; urgency=low
 
   * added GetPkgAcqFile to queue individual file downloads with the 
     system
+  * added Package.downloadable 
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Dec 2005 14:01:39 +0100
 

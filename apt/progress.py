@@ -62,6 +62,8 @@ class FetchProgress(object):
                    dlIgnored : "Ignored"}
     
     def __init__(self):
+        self.eta = ""
+        self.percent = 0.0
         pass
     
     def start(self):

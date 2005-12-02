@@ -21,6 +21,7 @@
 
 import apt_pkg, string, sys, random
 
+
 class Package(object):
     """ This class represents a package in the cache
     """
@@ -88,6 +89,25 @@ class Package(object):
         else:
             return None
     candidateVersion = property(candidateVersion)
+
+    def _downloadable(self, useCandidate=True):
+        """ helper, return if the version is downloadable """
+        if useCandidate:
+            ver = self._depcache.GetCandidateVer(self._pkg)
+        else:
+            ver = self._pkg.CurrentVer
+        if ver == None:
+            return False
+        return ver.Downloadable
+    def candidateDownloadable(self):
+        " returns if the canidate is downloadable "
+        self._downloadable(useCandidate=True)
+    candidateDownloadable = property(candidateDownloadable)
+
+    def installedDownloadable(self):
+        " returns if the installed version is downloadable "
+        self._downloadable(useCandidate=False)
+    installedDownloadable = property(installedDownloadable)
 
     def sourcePackageName(self):
         """ Return the source package name as string """
@@ -298,6 +318,7 @@ if __name__ == "__main__":
     print "Priority (Installed): %s " % pkg.installedPriority
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
+    print "CandiateDownloadable: %s" % pkg.candidateDownloadable
     print "CandiateOrigin: %s" % pkg.candidateOrigin
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section

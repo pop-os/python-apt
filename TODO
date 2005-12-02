@@ -1,0 +1,4 @@
+* apt.Package:
+  - change all candidateInstalledSize() to installSize(useCandidate=True)
+    same for candidateOrigin()  (see downloadable for a example). 
+  - might be better to have "Package.candidate.{downloadable,size,etc}
