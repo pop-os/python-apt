@@ -31,7 +31,7 @@ class DistUpgradeView(object):
             on the current view
         """
         pass
-    def askYesNoQuestion(self,msg):
+    def askYesNoQuestion(self, summary, msg):
         pass
     def error(self, summary, msg):
         pass
@@ -47,16 +47,29 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def getOpCacheProgress(self):
         return self._opCacheProgress
     def updateStatus(self, msg):
-        self.label_status.set_markup("<b>%s</b>" % msg)
+        self.label_status.set_markup("%s" % msg)
     def error(self, summary, msg):
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")
-        msg=("<big><b>%s</b></big>\n\n%s"%(summary,msg))
+        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
         dialog.set_markup(msg)
         dialog.vbox.set_spacing(6)
         dialog.run()
         dialog.destroy()
         return False
+    def askYesNoQuestion(self, summary, msg):
+        msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
+        dialog = gtk.MessageDialog(parent=self.window_main,
+                                   flags=gtk.DIALOG_MODAL,
+                                   type=gtk.MESSAGE_QUESTION,
+                                   buttons=gtk.BUTTONS_YES_NO)
+        dialog.set_markup(msg)
+        res = dialog.run()
+        dialog.destroy()
+        if res == gtk.RESPONSE_YES:
+            return True
+        return False
+
         
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
@@ -147,6 +160,13 @@ class DistUpgradeControler(object):
             return False
         return True
 
+    def doPreUpgrade(self):
+        pass
+
+    def doDistUpgrade(self):
+        self._view.askYesNoQuestion(_("Do the upgrade"),
+                                    _("lala lala"))
+
     def breezyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
@@ -166,8 +186,10 @@ class DistUpgradeControler(object):
         self._cache = apt.Cache(self._view.getOpCacheProgress())
 
         # do pre-upgrade stuff
+        self.doPreUpgrade()
 
         # calc the dist-upgrade and see if the removals are ok/expected
+        self.doDistUpgrade()
 
         # do the dist-upgrade
 
