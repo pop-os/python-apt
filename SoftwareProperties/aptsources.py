@@ -141,7 +141,10 @@ class SourceEntry:
     """ return the current line as string """
     if self.invalid:
       return self.line
-    line = "%s %s %s" % (self.type, self.uri, self.dist)
+    line = ""
+    if self.disabled:
+      line = "# "
+    line += "%s %s %s" % (self.type, self.uri, self.dist)
     if len(self.comps) > 0:
       line += " " + " ".join(self.comps)
     if self.comment != "":
