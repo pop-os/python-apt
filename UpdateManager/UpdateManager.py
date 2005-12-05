@@ -672,11 +672,16 @@ class UpdateManager(SimpleGladeApp):
           fetcher.Run()
           print "Done downloading"
 
+          # extract the tarbal
           print "extracting"
           tar = tarfile.open(tmpdir+"/"+os.path.basename(uri),"r")
           for tarinfo in tar:
               tar.extract(tarinfo)
           tar.close()
+
+          # FIXME: check a internal dependency file to make sure
+          #        that the script will run correctly
+          
           # see if we have a script file that we can run
           script = "%s/%s" % (tmpdir, self.new_dist.name)
           if not os.path.exists(script):

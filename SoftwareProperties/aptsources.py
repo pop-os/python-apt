@@ -26,6 +26,8 @@ import gettext
 import re
 import apt_pkg
 import glob
+import shutil
+import time
 
 from UpdateManager.Common.DistInfo import DistInfo
 
@@ -156,6 +158,11 @@ class SourcesList:
     for file in glob.glob("%s/*.list" % partsdir):
       self.load(file)
 
+  def __iter__(self):
+    for entry in self.list:
+      yield entry
+    raise StopIteration
+
   def is_mirror(self, add_uri, orig_uri):
     """check if the given add_url is idential or a mirror of orig_uri
        e.g. add_uri = archive.ubuntu.com
@@ -204,7 +211,19 @@ class SourcesList:
   def remove(self, source_entry):
     self.list.remove(source_entry)
 
+  def backup(self, backup_ext=None):
+    """ make a backup of the current source files, if no backup extension
+        is given, the current date/time is used (and returned) """
+    already_backuped = set()
+    if backup_ext == None:
+      backup_ext = time.strftime("%d%m%y.%H%M")
+    for source in self.list:
+      if not source.file in already_backuped:
+        shutil.copy(source.file,"%s.%s" % (source.file,backup_ext))
+    return backup_ext
+
   def load(self,file):
+    """ (re)load the current sources """
     f = open(file, "r")
     lines = f.readlines()
     for line in lines:
@@ -213,6 +232,7 @@ class SourcesList:
     f.close()
 
   def save(self,file):
+    """ save the current sources """
     files = {}
     for source in self.list:
       if not files.has_key(source.file):
