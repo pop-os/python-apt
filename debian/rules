@@ -88,10 +88,10 @@ binary-arch: build install
 	dh_builddeb
 
 arch-build:
-	rm -rf debian/arch-build
-	mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
-	baz inventory -s | xargs cp -a --parents --target=debian/arch-build/$(PKG)-$(DEBVER)
-	(cd debian/arch-build/$(PKG)-$(DEBVER); $(DEB_BUILD_PROG))
+        rm -rf debian/arch-build
+        mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
+        tar -c --exclude=arch-build -f - `bzr inventory` | (cd debian/arch-build/$(PKG)-$(DEBVER);tar xf -)
+        (cd debian/arch-build/$(PKG)-$(DEBVER) && $(DEB_BUILD_PROG))
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary install arch-build
