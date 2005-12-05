@@ -55,7 +55,7 @@ class DistUpgradeControler(object):
         sources.backup()
         for entry in sources:
             # check if it's a mirror (or offical site)
-            if sources.is_mirror("archive.ubuntu.com",entry.uri):
+            if sources.is_mirror("http://archive.ubuntu.com/ubuntu",entry.uri):
                 if entry.dist == fromDist:
                     entry.dist = to
                 else:
