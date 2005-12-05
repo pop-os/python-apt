@@ -2,7 +2,8 @@ python-apt (0.6.16) unstable; urgency=low
 
   * added GetPkgAcqFile to queue individual file downloads with the 
     system
-  * added Package.downloadable 
+  * added SourceList.GetIndexes()
+  * rewrote apt.cache.update() to use the improved aquire interface
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Dec 2005 14:01:39 +0100
 

@@ -112,11 +112,30 @@ class Cache(object):
         self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
-    def update(self, fetchProgress=None, opProgress=None):
-        if(opProgress != None):
-            self._cache.Update(fetchProgress, opProgress);
-        else:
-            self._cache.Update(fetchProgress);
+    def _runFetcher(self, fetcher):
+        # do the actual fetching
+        res = fetcher.Run()
+        if res == fetcher.ResultFailed:
+            return False
+        
+        # now check the result (this is the code from apt-get.cc)
+        failed = False
+        transient = False
+        errMsg = ""
+        for item in fetcher.Items:
+            print item
+            if item.Status == item.StatDone:
+                continue
+            if item.StatIdle:
+                transient = True
+                continue
+            errMsg += "Failed to fetch %s %s\n" % (item.DescURI,item.ErrorText)
+            failed = True
+
+        # we raise a exception if the download failed
+        if failed:
+            raise IOError, errMsg
+        return res
 
     def _fetchArchives(self, fetcher, pm, fetchProgress):
         """ fetch the needed archives """
@@ -130,30 +149,27 @@ class Cache(object):
         # this may as well throw a SystemError exception
         if not pm.GetArchives(fetcher, self._list, self._records):
             return False
-        # do the actual fetching
-        res = fetcher.Run()
-        if res == fetcher.ResultFailed:
-            return False
+        # now run the fetcher, throw exception if something fails to be
+        # fetched
+        res = self._runFetcher(fetcher)
         
-        # now check the result (this is the code from apt-get.cc)
-        failed = False
-        transient = False
-        errMsg = ""
-        for item in fetcher.Items:
-            if item.StatDone and item.Complete:
-                continue
-            if item.StatIdle:
-                transient = True
-                continue
-            errMsg += "Failed to fetch %s %s\n" % (item.DescURI,item.ErrorText)
-            failed = True
-
-        # we raise a exception if the download failed
-        if failed:
-            raise IOError, errMsg
-
         # cleanup
         os.close(lock)
+        return res
+
+    def update(self, fetchProgress=None):
+        lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
+        lock = apt_pkg.GetLock(lockfile)
+        if lock < 0:
+            raise IOError, "Failed to lock %s" % lockfile
+        if fetchProgress == None:
+            fetchProgress = apt.progress.FetchProgress()
+        fetcher = apt_pkg.GetAcquire(fetchProgress)
+        # this can throw a exception
+        self._list.GetIndexes(fetcher)
+        # now run the fetcher, throw exception if something fails to be
+        # fetched
+        res = self._runFetcher(fetcher)
         return res
         
     def installArchives(self, pm, installProgress):

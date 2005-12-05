@@ -36,10 +36,27 @@ static PyObject *PkgSourceListReadMainList(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_BuildValue("b",res));
 }
 
+static char *doc_PkgSourceListGetIndexes = "Load the indexes into the fetcher";
+static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
+{
+   pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
+
+   PyObject *pyFetcher;
+   
+   if (PyArg_ParseTuple(Args, "O!",&PkgAcquireType,&pyFetcher) == 0) 
+      return 0;
+
+   pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyFetcher);
+   bool res = list->GetIndexes(fetcher);
+
+   return HandleErrors(Py_BuildValue("b",res));
+}
+
 static PyMethodDef PkgSourceListMethods[] = 
 {
    {"FindIndex",PkgSourceListFindIndex,METH_VARARGS,doc_PkgSourceListFindIndex},
    {"ReadMainList",PkgSourceListReadMainList,METH_VARARGS,doc_PkgSourceListReadMainList},
+   {"GetIndexes",PkgSourceListGetIndexes,METH_VARARGS,doc_PkgSourceListReadMainList},
    {}
 };
 
