@@ -53,10 +53,17 @@ class DistUpgradeControler(object):
     def updateSourcesList(self, fromDist, to):
         sources = SourcesList()
         sources.backup()
+
+        fromDists = [fromDist,
+                     fromDist+"-security",
+                     fromDist+"-updates",
+                     fromDist+"-backports"
+                    ]
+        
         for entry in sources:
             # check if it's a mirror (or offical site)
             if sources.is_mirror("http://archive.ubuntu.com/ubuntu",entry.uri):
-                if entry.dist == fromDist:
+                if entry.dist in fromDists:
                     entry.dist = to
                 else:
                     # disable all entries that are official but don't

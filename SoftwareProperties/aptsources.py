@@ -233,7 +233,7 @@ class SourcesList:
         is given, the current date/time is used (and returned) """
     already_backuped = set()
     if backup_ext == None:
-      backup_ext = time.strftime("%d%m%y.%H%M")
+      backup_ext = time.strftime("%y%m%d.%H%M")
     for source in self.list:
       if not source.file in already_backuped:
         shutil.copy(source.file,"%s.%s" % (source.file,backup_ext))
