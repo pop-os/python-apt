@@ -7,6 +7,8 @@ import gtk.gdk
 import gtk.glade
 
 import apt
+import sys
+
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from UpdateManager.GtkProgress import GtkOpProgress
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
@@ -30,6 +32,9 @@ class DistUpgradeView(object):
         pass
     def askYesNoQuestion(self,msg):
         pass
+    def error(self, summary, msg):
+        pass
+        
 
 class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
@@ -41,18 +46,37 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def getOpCacheProgress(self):
         return self._opCacheProgress
     def updateStatus(self, msg):
-        self.label_status = "<b>%s</b>" % msg
-
+        self.label_status.set_markup("<b>%s</b>" % msg)
+    def error(self, summary, msg):
+        dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_OK,"")
+        msg=("<big><b>%s</b></big>\n\n%s"%(summary,msg))
+        dialog.set_markup(msg)
+        dialog.vbox.set_spacing(6)
+        dialog.run()
+        dialog.destroy()
+        return False
+        
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
         self._view = distUpgradeView
+        self._view.updateStatus(_("Reading cache"))
+        self._cache = apt.Cache(self._view.getOpCacheProgress())
 
     def sanityCheck(self):
-        pass
+        if self._cache._depcache.BrokenCount > 0:
+            # FIXME: we more helpful here and offer to actually fix the
+            # system
+            self._view.error(_("Broken packages"),
+                             _("Your system contains broken packages. "
+                               "Please fix them first using synaptic or "
+                               "apt-get before proceeding."))
+            return False
+        # FIXME: check for ubuntu-desktop, kubuntu-dekstop, edubuntu-desktop
+        return True
 
     def updateSourcesList(self, fromDist, to):
         sources = SourcesList()
-        sources.backup()
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
@@ -71,35 +95,52 @@ class DistUpgradeControler(object):
         # list of valid mirrors that we can add
         valid_mirrors = ["http://archive.ubuntu.com/ubuntu",
                          "http://security.ubuntu.com/ubuntu"]
-        
+
+        # look over the stuff we have
+        foundToDist = False
         for entry in sources:
             # check if it's a mirror (or offical site)
             for mirror in valid_mirrors:
                 if sources.is_mirror(mirror,entry.uri):
                     if entry.dist in fromDists:
+                        foundToDist = True
                         entry.dist = toDists[fromDists.index(entry.dist)]
                     else:
                         # disable all entries that are official but don't
                         # point to the "from" dist
                         entry.disabled = True
+                    # it can only be one valid mirror, so we can break here
+                    break
                 else:
                     # disable non-official entries that point to dist
                     if entry.dist == fromDist:
                         entry.disabled = True
-        # write!
+
+        if not foundToDist:
+            # FIXME: offer to write a new sources.list entry
+            return self._view.error(_("No valid entry found"),
+                                    _("While scaning your repository "
+                                      "information no valid entry for "
+                                      "the upgrade was found.\n"))
+        
+        # write (well, backup first ;) !
+        sources.backup()
         sources.save()
+        return True
 
     def breezyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
-        self.sanityCheck()
+        if not self.sanityCheck():
+            sys.exit(1)
 
         # update sources.list
         self._view.updateStatus(_("Updating repository information"))
-        self.updateSourcesList(fromDist="hoary",to="breezy")
+        if not self.updateSourcesList(fromDist="hoary",to="breezy"):
+            sys.exit(1)
 
         # then update the package index files
-
+        
 
         # then open the cache
         self._view.updateStatus(_("Reading cache"))

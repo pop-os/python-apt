@@ -253,7 +253,6 @@ class SourcesList:
     for f in files:
       files[f].close()
 
-
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
   def __init__(self,a_type,uri,dist,description,comps):
