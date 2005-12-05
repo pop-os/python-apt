@@ -45,11 +45,46 @@ class DistUpgradeView(object):
 
 class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
+
+    class GtkFetchProgressAdapter(apt.progress.FetchProgress):
+        # FIXME: we really should have some sort of "we are at step"
+        # xy in the gui
+        # FIXME2: we need to thing about mediaCheck here too
+        def __init__(self, parent):
+            # if this is set to false the download will cancel
+            self.status = parent.label_status
+            self.progress = parent.progressbar_cache
+        def start(self):
+            self.progress.show()
+            self.progress.set_fraction(0)
+        def stop(self):
+            self.progress.hide()
+        def pulse(self):
+            # FIXME: move the status_str and progress_str into python-apt
+            # (python-apt need i18n first for this)
+            apt.progress.FetchProgress.pulse(self)
+            if self.currentCPS > 0:
+                self.status.set_text(_("Download rate: %s/s - %s remaining" % (apt_pkg.SizeToStr(self.currentCPS), apt_pkg.TimeToStr(self.eta))))
+            else:
+                self.status.set_text(_("Download rate: unkown"))
+            self.progress.set_fraction(self.percent/100.0)
+            currentItem = self.currentItems + 1
+            if currentItem > self.totalItems:
+                currentItem = self.totalItems
+            self.progress.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
+            while gtk.events_pending():
+                gtk.main_iteration()
+            return True
+
+    
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
                                 None, domain="update-manager")
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
+        self._fetchProgress = self.GtkFetchProgressAdapter(self)
+    def getFetchProgress(self):
+        return self._fetchProgress
     def getOpCacheProgress(self):
         return self._opCacheProgress
     def updateStatus(self, msg):
