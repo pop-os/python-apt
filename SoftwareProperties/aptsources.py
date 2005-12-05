@@ -131,11 +131,6 @@ class SourceEntry:
       # disabled, add a "#" 
       if string.strip(self.line)[0] != "#":
         self.line = "#" + self.line
-  def get_disabled(self):
-    return not self.disabled
-  def set_disabled(self, new_value):
-    return self.set_enbaled(not new_value)
-  disabled = property(get_disabled, set_disabled)
 
   def str(self):
     """ return the current line as string """

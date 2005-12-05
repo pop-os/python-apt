@@ -54,25 +54,39 @@ class DistUpgradeControler(object):
         sources = SourcesList()
         sources.backup()
 
+        # this must map, i.e. second in "from" must be the second in "to"
+        # (but they can be different, so in theory we could exchange
+        #  component names here)
         fromDists = [fromDist,
                      fromDist+"-security",
                      fromDist+"-updates",
                      fromDist+"-backports"
                     ]
+        toDists = [to,
+                   to+"-security",
+                   to+"-updates",
+                   to+"-backports"
+                   ]
+
+        # list of valid mirrors that we can add
+        valid_mirrors = ["http://archive.ubuntu.com/ubuntu",
+                         "http://security.ubuntu.com/ubuntu"]
         
         for entry in sources:
             # check if it's a mirror (or offical site)
-            if sources.is_mirror("http://archive.ubuntu.com/ubuntu",entry.uri):
-                if entry.dist in fromDists:
-                    entry.dist = to
+            for mirror in valid_mirrors:
+                if sources.is_mirror(mirror,entry.uri):
+                    if entry.dist in fromDists:
+                        entry.dist = toDists[fromDists.index(entry.dist)]
+                    else:
+                        # disable all entries that are official but don't
+                        # point to the "from" dist
+                        entry.disabled = True
                 else:
-                    # disable all entries that are official but don't
-                    # point to the "from" dist
-                    entry.disabled = True
-            else:
-                # disable non-official entries that point to dist
-                if entry.dist == fromDist:
-                    entry.disabled = True
+                    # disable non-official entries that point to dist
+                    if entry.dist == fromDist:
+                        entry.disabled = True
+        # write!
         sources.save()
 
     def breezyUpgrade(self):
