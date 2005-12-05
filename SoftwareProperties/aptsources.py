@@ -131,11 +131,24 @@ class SourceEntry:
       # disabled, add a "#" 
       if string.strip(self.line)[0] != "#":
         self.line = "#" + self.line
+  def get_disabled(self):
+    return not self.disabled
+  def set_disabled(self, new_value):
+    return self.set_enbaled(not new_value)
+  disabled = property(get_disabled, set_disabled)
 
   def str(self):
-    return self.line
-
-
+    """ return the current line as string """
+    if self.invalid:
+      return self.line
+    line = "%s %s %s" % (self.type, self.uri, self.dist)
+    if len(self.comps) > 0:
+      line += " " + " ".join(self.comps)
+    if self.comment != "":
+      line += " #"+self.comment
+    line += "\n"
+    return line
+    
 def uniq(s):
   """ simple (and not efficient) way to return uniq list """
   u = []
@@ -163,29 +176,30 @@ class SourcesList:
       yield entry
     raise StopIteration
 
-  def is_mirror(self, add_uri, orig_uri):
+  def is_mirror(self, master_uri, compare_uri):
     """check if the given add_url is idential or a mirror of orig_uri
-       e.g. add_uri = archive.ubuntu.com
-            orig_uri = de.archive.ubuntu.com
+       e.g. master_uri = archive.ubuntu.com
+            compare_uri = de.archive.ubuntu.com
             -> True
     """
     # remove traling spaces and "/"
-    add_uri = add_uri.rstrip("/ ")
-    orig_uri = orig_uri.rstrip("/ ")
+    compare_uri = compare_uri.rstrip("/ ")
+    master_uri = master_uri.rstrip("/ ")
     # uri is identical
-    if add_uri == orig_uri:
+    if compare_uri == master_uri:
       #print "Identical"
       return True
     # add uri is a master site and orig_uri has the from "XX.mastersite"
     # (e.g. de.archive.ubuntu.com)
     try:
-      add_srv = add_uri.split("//")[1]
-      orig_srv = orig_uri.split("//")[1]
+      compare_srv = compare_uri.split("//")[1]
+      master_srv = master_uri.split("//")[1]
       #print "%s == %s " % (add_srv, orig_srv)
     except IndexError: # ok, somethings wrong here
       #print "IndexError"
       return False
-    if add_srv == orig_srv[3:]:
+    # remove the leading "<country>." and see if that helps
+    if compare_srv[compare_srv.index(".")+1:] == master_srv:
       #print "Mirror"
       return True
     return False
@@ -231,7 +245,7 @@ class SourcesList:
       self.list.append(source)
     f.close()
 
-  def save(self,file):
+  def save(self):
     """ save the current sources """
     files = {}
     for source in self.list:
@@ -457,3 +471,18 @@ class SourceEntryMatcher:
       
       
     return (type_description,dist_description,comp_description)
+
+
+# some simple tests
+if __name__ == "__main__":
+  apt_pkg.InitConfig()
+  sources = SourcesList()
+
+  for entry in sources:
+    print entry.str()
+    #print entry.uri
+
+  mirror = sources.is_mirror("http://archive.ubuntu.com/ubuntu/",
+                             "http://de.archive.ubuntu.com/ubuntu/")
+  print "is_mirror(): %s" % mirror
+  
