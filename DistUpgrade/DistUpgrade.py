@@ -7,6 +7,7 @@ import gtk.gdk
 import gtk.glade
 
 import apt
+import apt_pkg
 import sys
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
@@ -102,7 +103,11 @@ class DistUpgradeControler(object):
             # check if it's a mirror (or offical site)
             for mirror in valid_mirrors:
                 if sources.is_mirror(mirror,entry.uri):
-                    if entry.dist in fromDists:
+                    if entry.dist in toDists:
+                        # so the sources.list is already set to the new
+                        # distro
+                        foundToDist = True
+                    elif entry.dist in fromDists:
                         foundToDist = True
                         entry.dist = toDists[fromDists.index(entry.dist)]
                     else:
@@ -124,8 +129,22 @@ class DistUpgradeControler(object):
                                       "the upgrade was found.\n"))
         
         # write (well, backup first ;) !
-        sources.backup()
+        backup_ext = ".distUpgrade"
+        sources.backup(backup_ext)
         sources.save()
+
+        # re-check if the written sources are valid, if not revert and
+        # bail out
+        try:
+            sourceslist = apt_pkg.GetPkgSourceList()
+            sourceslist.ReadMainList()
+        except SystemError:
+            sources.restoreBackup(backup_ext)
+            self._view.error(_("Repository information invalid"),
+                             _("Upgrading the repository information "
+                               "resulted in a invalid file. Please "
+                               "report this as a bug."))
+            return False
         return True
 
     def breezyUpgrade(self):
@@ -142,7 +161,7 @@ class DistUpgradeControler(object):
         # then update the package index files
         
 
-        # then open the cache
+        # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
         self._cache = apt.Cache(self._view.getOpCacheProgress())
 

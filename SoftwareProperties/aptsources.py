@@ -28,6 +28,7 @@ import apt_pkg
 import glob
 import shutil
 import time
+import os.path
 
 from UpdateManager.Common.DistInfo import DistInfo
 
@@ -223,6 +224,18 @@ class SourcesList:
   def remove(self, source_entry):
     self.list.remove(source_entry)
 
+  def restoreBackup(self, backup_ext):
+    " restore sources.list files based on the backup extension "
+    dir = apt_pkg.Config.FindDir("Dir::Etc")
+    file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
+    if os.path.exists(dir+file+backup_ext):
+      shutil.copy(dir+file+backup_ext,dir+file)
+    # now sources.list.d
+    partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
+    for file in glob.glob("%s/*.list" % partsdir):
+      if os.path.exists(file+backup_ext):
+        shutil.copy(file+backup_ext,file)
+
   def backup(self, backup_ext=None):
     """ make a backup of the current source files, if no backup extension
         is given, the current date/time is used (and returned) """
@@ -231,7 +244,7 @@ class SourcesList:
       backup_ext = time.strftime("%y%m%d.%H%M")
     for source in self.list:
       if not source.file in already_backuped:
-        shutil.copy(source.file,"%s.%s" % (source.file,backup_ext))
+        shutil.copy(source.file,"%s%s" % (source.file,backup_ext))
     return backup_ext
 
   def load(self,file):
