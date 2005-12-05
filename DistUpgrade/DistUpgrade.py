@@ -26,6 +26,12 @@ class DistUpgradeView(object):
     def getOpCacheProgress(self):
         " return a OpProgress() subclass for the given graphic"
         return apt.progress.OpProgress()
+    def getFetchProgress(self):
+        " return a fetch progress object "
+        return apt.progress.FetchProgress()
+    def getInstallProgress(self):
+        " return a install progress object "
+        return apt.progress.InstallProgress()
     def updateStatus(self, msg):
         """ update the current status of the distUpgrade based
             on the current view
@@ -163,6 +169,10 @@ class DistUpgradeControler(object):
     def doPreUpgrade(self):
         pass
 
+    def doUpdate(self):
+        progress = self._view.getFetchProgress()
+        self._cache.update(progress)
+
     def doDistUpgrade(self):
         self._view.askYesNoQuestion(_("Do the upgrade"),
                                     _("lala lala"))
@@ -177,9 +187,8 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Updating repository information"))
         if not self.updateSourcesList(fromDist="hoary",to="breezy"):
             sys.exit(1)
-
         # then update the package index files
-        
+        self.doUpdate()
 
         # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
@@ -189,13 +198,14 @@ class DistUpgradeControler(object):
         self.doPreUpgrade()
 
         # calc the dist-upgrade and see if the removals are ok/expected
+        # do the dist-upgrade
         self.doDistUpgrade()
 
-        # do the dist-upgrade
 
         # do post-upgrade stuff
 
         # done, ask for reboot
+        
 
     def run(self):
         self.breezyUpgrade()
