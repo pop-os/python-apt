@@ -5,17 +5,21 @@ pygtk.require('2.0')
 import gtk
 import gtk.gdk
 import gtk.glade
+import vte
 import gobject
 
 import apt
 import apt_pkg
 import sys
+import os
 import subprocess
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from UpdateManager.GtkProgress import GtkOpProgress
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
+from apt.progress import InstallProgress
+
 
 class MyCache(apt.Cache):
     @property
@@ -33,9 +37,6 @@ class MyCache(apt.Cache):
         if ver == None:
             return False
         return ver.Downloadable
-
-
-
 
 class DistUpgradeView(object):
     " abstraction for the upgrade view "
@@ -83,7 +84,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         # FIXME2: we need to thing about mediaCheck here too
         def __init__(self, parent):
             # if this is set to false the download will cancel
-            self.status = parent.label_status
+            self.status = parent.label_extra_status
             self.progress = parent.progressbar_cache
         def start(self):
             self.progress.show()
@@ -107,6 +108,42 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
                 gtk.main_iteration()
             return True
 
+    class GtkInstallProgressAdapter(InstallProgress):
+        def __init__(self,parent):
+            InstallProgress.__init__(self)
+            self.status = parent.label_extra_status
+            self.progress = parent.progressbar_cache
+            self.expander = parent.expander_terminal
+            self.term = parent._term
+            # setup the child waiting
+            reaper = vte.reaper_get()
+            reaper.connect("child-exited", self.child_exited)
+            self.finished = False
+        def startUpdate(self):
+            self.status.set_text(_("Installing updates ..."))
+            self.progress.set_fraction(0.0)
+            self.expander.show()
+            self.term.show()
+            self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd]
+        def fork(self):
+            return self.term.forkpty(envv=self.env)
+        def child_exited(self, term, pid, status):
+            #print "child_exited: %s %s %s %s" % (self,term,pid,status)
+            self.apt_status = os.WEXITSTATUS(status)
+            self.finished = True
+        def waitChild(self):
+            while not self.finished:
+                self.updateInterface()
+            return self.apt_status
+        def finishUpdate(self):
+            pass
+        def updateInterface(self):
+            InstallProgress.updateInterface(self)
+            self.progress.set_fraction(self.percent)
+            while gtk.events_pending():
+                gtk.main_iteration()
+
+        
     
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
@@ -114,6 +151,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
                                 None, domain="update-manager")
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = self.GtkFetchProgressAdapter(self)
+        self._installProgress = self.GtkInstallProgressAdapter(self)
         # details dialog
         self.details_list = gtk.ListStore(gobject.TYPE_STRING)
         column = gtk.TreeViewColumn("")
@@ -123,8 +161,16 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
 
+    def create_terminal(self, arg1,arg2,arg3,arg4):
+        " helper to create a vte terminal "
+        print "create_vte (for the custom glade widget)"
+        self._term = vte.Terminal()
+        self._term.set_font_from_string("monospace 10")
+        return self._term
     def getFetchProgress(self):
         return self._fetchProgress
+    def getInstallProgress(self):
+        return self._installProgress
     def getOpCacheProgress(self):
         return self._opCacheProgress
     def updateStatus(self, msg):
