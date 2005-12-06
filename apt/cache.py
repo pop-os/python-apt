@@ -123,7 +123,6 @@ class Cache(object):
         transient = False
         errMsg = ""
         for item in fetcher.Items:
-            print item
             if item.Status == item.StatDone:
                 continue
             if item.StatIdle:
