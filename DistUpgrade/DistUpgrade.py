@@ -270,16 +270,19 @@ class DistUpgradeControler(object):
             return False
         return True
 
-    def doPreUpgrade(self):
-        # FIXME: check out what packages are downloadable etc to
-        # compare the list after the update again
-        self.foreign_pkgs = set()
-        self.obsolete_pkgs =set()
+    def _getObsoletesPkgs(self):
+        obsolete_pkgs =set()        
         for pkg in self._cache:
             if pkg.isInstalled:
+                # if it is not downloadable, mark it as obsolete
                 if not self._cache.downloadable(pkg):
-                    self.obsolete_pkgs.add(pkg.name)
-                    continue
+                    obsolete_pkgs.add(pkg.name)
+        return obsolete_pkgs
+
+    def _getForeignPkgs(self):
+        foreign_pkgs =set()        
+        for pkg in self._cache:
+            if pkg.isInstalled:
                 # assume it is foreign and see if it is from the 
                 # official archive
                 foreign=True
@@ -291,10 +294,16 @@ class DistUpgradeControler(object):
                            origin.origin == self.origin:
                         foreign = False
                 if foreign:
-                    self.foreign_pkgs.add(pkg.name)
-        print self.foreign_pkgs
-        print self.obsolete_pkgs
-                
+                    foreign_pkgs.add(pkg.name)
+        return foreign_pkgs
+
+    def doPreUpgrade(self):
+        # FIXME: check out what packages are downloadable etc to
+        # compare the list after the update again
+        self.obsolete_pkgs = self._getObsoletesPkgs()
+        self.foreign_pkgs = self._getForeignPkgs()
+        #print self.foreign_pkgs
+        #print self.obsolete_pkgs
 
     def doUpdate(self):
         self._cache._list.ReadMainList()
@@ -302,6 +311,8 @@ class DistUpgradeControler(object):
         self._cache.update(progress)
 
     def askDistUpgrade(self):
+        # FIXME: add "ubuntu-desktop" (or kubuntu-desktop, edubuntu-desktop)
+        #        (if required)
         self._cache.upgrade(True)
         changes = self._cache.getChanges()
         res = self._view.confirmChanges(changes,self._cache.requiredDownload)
@@ -314,6 +325,7 @@ class DistUpgradeControler(object):
 
     def doPostUpgrade(self):
         # FIXME: check out what packages are cruft now
+        # use self.{foreign,obsolete}_pkgs here and see what changed
         pass
 
     def askForReboot(self):
