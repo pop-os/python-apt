@@ -37,6 +37,18 @@ class DistUpgradeView(object):
             on the current view
         """
         pass
+    def confirmChanges(self, changes):
+        """ display the list of changed packages (apt.Package) and
+            return if the user confirms them
+        """
+        self.toInstall = []
+        self.toUpgrade = []
+        self.toRemove = []
+        for pkg in changes:
+            if pkg.markedUpgrade: toUpgrade.append(pkg)
+            elif pkg.markedInstall: toInstall.append(pkg)
+            elif pkg.markedRemove: toRemove.append(pkg)
+        assert(len(self.toInstall)+len(self.toUpgrade)+len(self.toRemove) == len(changes))
     def askYesNoQuestion(self, summary, msg):
         pass
     def error(self, summary, msg):
@@ -83,6 +95,15 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
                                 None, domain="update-manager")
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = self.GtkFetchProgressAdapter(self)
+        # details dialog
+        self.details_list = gtk.ListStore(gobject.TYPE_STRING)
+        column = gtk.TreeViewColumn("")
+        render = gtk.CellRendererText()
+        column.pack_start(render, True)
+        column.add_attribute(render, "markup", 0)
+        self.treeview_details.append_column(column)
+        self.treeview_details.set_model(self.details_list)
+
     def getFetchProgress(self):
         return self._fetchProgress
     def getOpCacheProgress(self):
@@ -98,6 +119,18 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         return False
+    def confirmChanges(self, changes):
+        DistUpgradeView.cnfirmChanges(self, changes)
+        self.details_list.clear()
+        for rm in toRemove:
+            self.details_list.append([_("<b>To be removed: %s</b>" % rm)])
+        for inst in toInstall:
+            self.details_list.append([_("To be installed: %s" % inst)])
+        for up in toUpgrade:
+            self.details_list.append([_("To be upgraded: %s" % up)])
+        res = self.dialog_details.run()
+        self.dialog_details.hide()
+        return True
     def askYesNoQuestion(self, summary, msg):
         msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
         dialog = gtk.MessageDialog(parent=self.window_main,
@@ -202,6 +235,8 @@ class DistUpgradeControler(object):
         return True
 
     def doPreUpgrade(self):
+        # FIXME: check out what packages are downloadable etc to
+        # compare the list after the update again
         pass
 
     def doUpdate(self):
@@ -210,8 +245,10 @@ class DistUpgradeControler(object):
         self._cache.update(progress)
 
     def doDistUpgrade(self):
-        self._view.askYesNoQuestion(_("Do the upgrade"),
-                                    _("lala lala"))
+        self._cache.upgrade(True)
+        changes = self._cache.getChanges()
+        res = self._view.confirmChanges(changes)
+        return res
 
     def breezyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
@@ -235,7 +272,8 @@ class DistUpgradeControler(object):
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
-        self.doDistUpgrade()
+        if not self.doDistUpgrade():
+            sys.exit(1)
 
 
         # do post-upgrade stuff
