@@ -10,6 +10,7 @@ import gobject
 import apt
 import apt_pkg
 import sys
+import subprocess
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from UpdateManager.GtkProgress import GtkOpProgress
@@ -23,6 +24,15 @@ class MyCache(apt.Cache):
         fetcher = apt_pkg.GetAcquire()
         pm.GetArchives(fetcher, self._list, self._records)
         return fetcher.FetchNeeded
+    def downloadable(self, pkg, useCandidate=True):
+        " check if the given pkg can be downloaded "
+        if useCandidate:
+            ver = self._depcache.GetCandidateVer(pkg._pkg)
+        else:
+            ver = pkg._pkg.CurrentVer
+        if ver == None:
+            return False
+        return ver.Downloadable
 
 
 
@@ -172,6 +182,10 @@ class DistUpgradeControler(object):
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
         self._cache = MyCache(self._view.getOpCacheProgress())
+        # some constants here
+        self.fromDist = "hoary"
+        self.toDist = "breezy"
+        self.origin = "Ubuntu"
 
     def sanityCheck(self):
         if self._cache._depcache.BrokenCount > 0:
@@ -185,21 +199,21 @@ class DistUpgradeControler(object):
         # FIXME: check for ubuntu-desktop, kubuntu-dekstop, edubuntu-desktop
         return True
 
-    def updateSourcesList(self, fromDist, to):
+    def updateSourcesList(self):
         sources = SourcesList()
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
         #  component names here)
-        fromDists = [fromDist,
-                     fromDist+"-security",
-                     fromDist+"-updates",
-                     fromDist+"-backports"
+        fromDists = [self.fromDist,
+                     self.fromDist+"-security",
+                     self.fromDist+"-updates",
+                     self.fromDist+"-backports"
                     ]
-        toDists = [to,
-                   to+"-security",
-                   to+"-updates",
-                   to+"-backports"
+        toDists = [self.toDist,
+                   self.toDist+"-security",
+                   self.toDist+"-updates",
+                   self.toDist+"-backports"
                    ]
 
         # list of valid mirrors that we can add
@@ -227,7 +241,7 @@ class DistUpgradeControler(object):
                     break
                 else:
                     # disable non-official entries that point to dist
-                    if entry.dist == fromDist:
+                    if entry.dist == self.fromDist:
                         entry.disabled = True
 
         if not foundToDist:
@@ -259,7 +273,21 @@ class DistUpgradeControler(object):
     def doPreUpgrade(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
-        pass
+        self.foreign_pkgs = set()
+        self.obsolete_pkgs =set()
+        for pkg in self._cache:
+            if pkg.isInstalled:
+                if not self._cache.downloadable(pkg, useCandidate=False):
+                    self.obsolete_pkgs.add(pkg.name)
+                    continue
+                origin = pkg.candidateOrigin
+                if origin.archive != self.fromDist or \
+                    origin.archive != self.toDist or \
+                    origin.origin != self.origin:
+                    self.foreign_pkgs.add(pkg.name)
+        print self.foreign_pkgs
+        print self.obsolete_pkgs
+                
 
     def doUpdate(self):
         self._cache._list.ReadMainList()
@@ -295,9 +323,12 @@ class DistUpgradeControler(object):
         if not self.sanityCheck():
             sys.exit(1)
 
+        # do pre-upgrade stuff (calc list of obsolete pkgs etc)
+        self.doPreUpgrade()
+
         # update sources.list
         self._view.updateStatus(_("Updating repository information"))
-        if not self.updateSourcesList(fromDist="hoary",to="breezy"):
+        if not self.updateSourcesList():
             sys.exit(1)
         # then update the package index files
         self.doUpdate()
@@ -305,9 +336,6 @@ class DistUpgradeControler(object):
         # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
         self._cache = MyCache(self._view.getOpCacheProgress())
-
-        # do pre-upgrade stuff
-        self.doPreUpgrade()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
