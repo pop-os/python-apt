@@ -205,6 +205,7 @@ class DistUpgradeControler(object):
         pass
 
     def doUpdate(self):
+        self._cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
         self._cache.update(progress)
 
