@@ -129,11 +129,11 @@ static PyObject *AcquireAttr(PyObject *Self,char *Name)
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
    if(strcmp("TotalNeeded",Name) == 0) 
-      return Py_BuildValue("l", fetcher->TotalNeeded());
+      return Py_BuildValue("d", fetcher->TotalNeeded());
    if(strcmp("FetchNeeded",Name) == 0) 
-      return Py_BuildValue("l", fetcher->FetchNeeded());
+      return Py_BuildValue("d", fetcher->FetchNeeded());
    if(strcmp("PartialPresent",Name) == 0) 
-      return Py_BuildValue("l", fetcher->PartialPresent());
+      return Py_BuildValue("d", fetcher->PartialPresent());
    if(strcmp("Items",Name) == 0) 
    {
       PyObject *List = PyList_New(0);

@@ -16,6 +16,17 @@ recs = apt_pkg.GetPkgRecords(cache)
 list = apt_pkg.GetPkgSourceList()
 list.ReadMainList()
 
+# show the amount fetch needed for a dist-upgrade 
+depcache.Upgrade(True)
+progress = apt.progress.TextFetchProgress()
+fetcher = apt_pkg.GetAcquire(progress)
+pm = apt_pkg.GetPackageManager(depcache)
+pm.GetArchives(fetcher,list,recs)
+print "%s (%s)" % (apt_pkg.SizeToStr(fetcher.FetchNeeded), fetcher.FetchNeeded)
+
+for pkg in cache.Packages:
+    depcache.MarkKeep(pkg)
+
 try:
     os.mkdir("/tmp/pyapt-test")
     os.mkdir("/tmp/pyapt-test/partial")
