@@ -271,18 +271,21 @@ class DistUpgradeControler(object):
         return True
 
     def _getObsoletesPkgs(self):
+        " get all package names that are not downloadable "
         obsolete_pkgs =set()        
         for pkg in self._cache:
             if pkg.isInstalled:
-                # if it is not downloadable, mark it as obsolete
                 if not self._cache.downloadable(pkg):
                     obsolete_pkgs.add(pkg.name)
         return obsolete_pkgs
 
     def _getForeignPkgs(self):
+        """ get all packages that are installed from a foreign repo
+            (and are actually downloadable)
+        """
         foreign_pkgs =set()        
         for pkg in self._cache:
-            if pkg.isInstalled:
+            if pkg.isInstalled and self._cache.downloadable(pkg):
                 # assume it is foreign and see if it is from the 
                 # official archive
                 foreign=True
