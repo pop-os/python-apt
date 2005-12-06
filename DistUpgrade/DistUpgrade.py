@@ -277,13 +277,20 @@ class DistUpgradeControler(object):
         self.obsolete_pkgs =set()
         for pkg in self._cache:
             if pkg.isInstalled:
-                if not self._cache.downloadable(pkg, useCandidate=False):
+                if not self._cache.downloadable(pkg):
                     self.obsolete_pkgs.add(pkg.name)
                     continue
-                origin = pkg.candidateOrigin
-                if origin.archive != self.fromDist or \
-                    origin.archive != self.toDist or \
-                    origin.origin != self.origin:
+                # assume it is foreign and see if it is from the 
+                # official archive
+                foreign=True
+                for origin in pkg.candidateOrigin:
+                    if self.fromDist in origin.archive and \
+                           origin.origin == self.origin:
+                        foreign = False
+                    if self.toDist in origin.archive and \
+                           origin.origin == self.origin:
+                        foreign = False
+                if foreign:
                     self.foreign_pkgs.add(pkg.name)
         print self.foreign_pkgs
         print self.obsolete_pkgs
