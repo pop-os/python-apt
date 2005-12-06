@@ -235,14 +235,7 @@ class Package(object):
 
     # canidate origin
     class Origin:
-        def __init__(self,pkg):
-            ver = pkg._depcache.GetCandidateVer(pkg._pkg)
-            if not ver:
-                return None
-            (VerFileIter,index) = ver.FileList.pop()
-            #print len(VerFileIter)
-            #print VerFileIter
-            #return VerFileIter.Component
+        def __init__(self,VerFileIter):
             self.component = VerFileIter.Component
             self.archive = VerFileIter.Archive
             self.origin = VerFileIter.Origin
@@ -254,7 +247,13 @@ class Package(object):
                                     self.origin, self.label, self.site)
         
     def candidateOrigin(self):
-        return self.Origin(self)
+        ver = pkg._depcache.GetCandidateVer(pkg._pkg)
+        if not ver:
+            return None
+        origins = []
+        for (verFileIter,index) in ver.FileList:
+            origins.append(self.Origin(verFileIter))
+        return origins
     candidateOrigin = property(candidateOrigin)
 
     # depcache actions
@@ -319,7 +318,7 @@ if __name__ == "__main__":
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
     print "CandiateDownloadable: %s" % pkg.candidateDownloadable
-    print "CandiateOrigin: %s" % pkg.candidateOrigin
+    print "CandiateOrigins: %s" % pkg.candidateOrigin
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.summary

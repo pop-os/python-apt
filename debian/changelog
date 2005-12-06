@@ -4,6 +4,8 @@ python-apt (0.6.16) unstable; urgency=low
     system
   * added SourceList.GetIndexes()
   * rewrote apt.cache.update() to use the improved aquire interface
+  * apt/ API change: apt.Package.candidateOrigin returns a list of origins 
+    now instead of a single one
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Dec 2005 14:01:39 +0100
 
