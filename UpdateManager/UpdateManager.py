@@ -20,6 +20,7 @@ import gconf
 import pango
 import subprocess
 import pwd
+import time
 import thread
 import xml.sax.saxutils
 
