@@ -16,8 +16,15 @@ from UpdateManager.GtkProgress import GtkOpProgress
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
 
-class DistUpgradeProgress(object):
-    pass
+class MyCache(apt.Cache):
+    @property
+    def requiredDownload(self):
+        pm = apt_pkg.GetPackageManager(self._depcache)
+        fetcher = apt_pkg.GetAcquire()
+        pm.GetArchives(fetcher, self._list, self._records)
+        return fetcher.FetchNeeded
+
+
 
 
 class DistUpgradeView(object):
@@ -38,7 +45,7 @@ class DistUpgradeView(object):
             on the current view
         """
         pass
-    def confirmChanges(self, changes):
+    def confirmChanges(self, changes, downloadSize):
         """ display the list of changed packages (apt.Package) and
             return if the user confirms them
         """
@@ -121,12 +128,17 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         return False
-    def confirmChanges(self, changes):
-        DistUpgradeView.confirmChanges(self, changes)
+    def confirmChanges(self, changes, downloadSize):
+        # FIXME: add a whitelist here for packages that we expect to be
+        # removed (how to calc this automatically?)
+        DistUpgradeView.confirmChanges(self, changes,downloadSize)
         msg = _("%s packages are going to be removed.\n"
                 "%s packages are going to be newly installed.\n"
-                "%s packages are going to be upgraded.\n" %
-                (len(self.toRemove),len(self.toInstall),len(self.toRemove)))
+                "%s packages are going to be upgraded.\n\n"
+                "%s needs to be fetched" % (len(self.toRemove),
+                                            len(self.toInstall),
+                                            len(self.toUpgrade),
+                                            apt_pkg.SizeToStr(downloadSize)))
         self.label_changes.set_text(msg)
         # fill in the details
         self.details_list.clear()
@@ -159,7 +171,7 @@ class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
-        self._cache = apt.Cache(self._view.getOpCacheProgress())
+        self._cache = MyCache(self._view.getOpCacheProgress())
 
     def sanityCheck(self):
         if self._cache._depcache.BrokenCount > 0:
@@ -257,7 +269,7 @@ class DistUpgradeControler(object):
     def doDistUpgrade(self):
         self._cache.upgrade(True)
         changes = self._cache.getChanges()
-        res = self._view.confirmChanges(changes)
+        res = self._view.confirmChanges(changes,self._cache.requiredDownload)
         return res
 
     def breezyUpgrade(self):
@@ -275,7 +287,7 @@ class DistUpgradeControler(object):
 
         # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
-        self._cache = apt.Cache(self._view.getOpCacheProgress())
+        self._cache = MyCache(self._view.getOpCacheProgress())
 
         # do pre-upgrade stuff
         self.doPreUpgrade()
