@@ -19,7 +19,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import sys, apt_pkg
+import sys, apt_pkg, os, fcntl, string
 
 class OpProgress:
     """ Abstract class to implement reporting on cache opening
@@ -117,7 +117,7 @@ class TextFetchProgress(FetchProgress):
             res = false;
         return res
 
-class InstallProgress:
+class DumbInstallProgress:
     """ Report the install progress
         Subclass this class to implement install progress reporting
     """
@@ -131,6 +131,55 @@ class InstallProgress:
         pass
     def updateInterface(self):
         pass
+
+class InstallProgress(DumbInstallProgress):
+    """ A InstallProgress that is pretty useful.
+        It supports the attributes 'percent' 'status' and callbacks
+        for the dpkg errors and conffiles (not implemented yet)
+     """
+    def __init__(self):
+        (read, write) = os.pipe()
+        self.writefd=write
+        self.statusfd = os.fdopen(read, "r")
+        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
+        self.read = ""
+        self.percent = 0.0
+        self.status = ""
+    def updateInterface(self):
+        if self.statusfd != None:
+                try:
+                    self.read += os.read(self.statusfd.fileno(),1)
+                except OSError, (errno,errstr):
+                    # resource temporarly unavailable is ignored
+                    if errno != 11:
+                        print errstr
+                if self.read.endswith("\n"):
+                    # FIXME: add errorhandling
+                    s = self.read
+                    #print s
+                    (status, pkg, percent, status_str) = string.split(s, ":")
+                    #print "percent: %s %s" % (pkg, float(percent)/100.0)
+                    self.percent = float(percent)
+                    self.status = string.strip(status_str)
+                    self.read = ""
+    def fork(self):
+        return os.fork()
+    def waitChild(self):
+        while True:
+            (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
+            if pid == self.child_pid:
+                break
+            self.updateInterface()
+        return os.WEXITSTATUS(res)
+    def run(self, pm):
+        pid = self.fork()
+        if pid == 0:
+            # child
+            res = pm.DoInstall(self.writefd)
+            sys.exit(res)
+        self.child_pid = pid
+        res = self.waitChild()
+        return res
 
 class CdromProgress:
     """ Report the cdrom add progress
