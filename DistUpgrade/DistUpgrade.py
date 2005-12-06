@@ -91,6 +91,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             self.progress.set_fraction(0)
         def stop(self):
             self.progress.hide()
+            self.status.hide()
         def pulse(self):
             # FIXME: move the status_str and progress_str into python-apt
             # (python-apt need i18n first for this)
@@ -111,7 +112,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     class GtkInstallProgressAdapter(InstallProgress):
         def __init__(self,parent):
             InstallProgress.__init__(self)
-            self.status = parent.label_extra_status
+            self.label_status = parent.label_extra_status
             self.progress = parent.progressbar_cache
             self.expander = parent.expander_terminal
             self.term = parent._term
@@ -120,15 +121,21 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             reaper.connect("child-exited", self.child_exited)
             self.finished = False
         def startUpdate(self):
-            self.status.set_text(_("Installing updates ..."))
+            self.label_status.show()
+            self.label_status.set_text(_("Installing updates ..."))
+            self.progress.show()
             self.progress.set_fraction(0.0)
+            self.progress.set_text("")
             self.expander.show()
             self.term.show()
+            # FIXME: set the environment up for DEBCONF and APT_LISTCHANGES
+            # to default to gtk frontends, also add support for the timeout
+            # of the terminal (to display something useful then)
+            # -> longer term, move this code into python-apt 
             self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd]
         def fork(self):
             return self.term.forkpty(envv=self.env)
         def child_exited(self, term, pid, status):
-            #print "child_exited: %s %s %s %s" % (self,term,pid,status)
             self.apt_status = os.WEXITSTATUS(status)
             self.finished = True
         def waitChild(self):
@@ -139,11 +146,11 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             pass
         def updateInterface(self):
             InstallProgress.updateInterface(self)
-            self.progress.set_fraction(self.percent)
+            self.progress.set_fraction(self.percent/100.0)
+            self.label_status.set_text(self.status)
             while gtk.events_pending():
                 gtk.main_iteration()
-
-        
+      
     
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
@@ -407,6 +414,7 @@ class DistUpgradeControler(object):
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
+        self._view.updateStatus(_("Performing the upgrade"))
         if not self.askDistUpgrade():
             sys.exit(1)
         self.doDistUpgrade()
