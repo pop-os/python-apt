@@ -1,0 +1,25 @@
+# this is a list of removals (and their reason) for a hoary->breezy update
+#
+aspell-bin 			# merged back into aspell pkg
+capplets 			# replaced by gnome-control-center
+dbus-1 				#     "    by libdbus-1
+dbus-glib-1 			#     "    by libdbus-glib-1-1
+libcamel1.2-3			#     "    by libcamel1.2-6
+libebook1.2-3 			#     "    by libebook1.2-5
+libedataserverui1.2-4 		#     "    by libedataserverui1.2-6
+libgc1 				#     "    by libgc1c2
+libhal-storage0 		#     "    by libhal-storage1
+libhal0				#     "    by libhal1
+libid3-3.8.3 			#     "    by libid3-3.8.3c2
+libmusicbrainz2 		#     "    by libmusicbrainz2c2
+libmusicbrainz4 		#     "    by libmusicbrainz4c2
+libnautilus-burn1		#     "    by libnautilus-burn2
+libostyle1 			#     "    by libostyle1c2
+libpt-1.8.3 			#     "    by libpt-1.8.3c2
+libsmpeg0 			#     "    by libsmpeg0c2
+libsp1				#     "    by libsp1c2
+postfix-tls 			# postfix provides this now 
+ubuntu-quickguide 		# not updated to breezy
+xlibmesa-dri			# replaced by libgl1-mesa-dri
+xlibmesa-gl 			#     "    by libgl1-mesa
+xlibmesa-glu			#     "    by  libglu1-mesa

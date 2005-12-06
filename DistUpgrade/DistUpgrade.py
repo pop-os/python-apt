@@ -266,12 +266,29 @@ class DistUpgradeControler(object):
         progress = self._view.getFetchProgress()
         self._cache.update(progress)
 
-    def doDistUpgrade(self):
+    def askDistUpgrade(self):
         self._cache.upgrade(True)
         changes = self._cache.getChanges()
         res = self._view.confirmChanges(changes,self._cache.requiredDownload)
         return res
 
+    def doDistUpgrade(self):
+        fprogress = self._view.getFetchProgress()
+        iprogress = self._view.getInstallProgress()
+        self._cache.commit(fprogress,iprogress)
+
+    def doPostUpgrade(self):
+        # FIXME: check out what packages are cruft now
+        pass
+
+    def askForReboot(self):
+        return self._view.askYesNoQuestion(_("Reboot required"),
+                                           _("The upgrade is finished now. "
+                                             "A reboot is required to "
+                                             "now, do you want to do this "
+                                             "now?"))
+    
+    # this is the core
     def breezyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
@@ -294,15 +311,17 @@ class DistUpgradeControler(object):
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
-        if not self.doDistUpgrade():
+        if not self.askDistUpgrade():
             sys.exit(1)
-
-
+        self.doDistUpgrade()
+            
         # do post-upgrade stuff
+        self.doPostUpgrade()
 
         # done, ask for reboot
+        if self.askForReboot():
+            subprocess.call(["reboot"])
         
-
     def run(self):
         self.breezyUpgrade()
 
