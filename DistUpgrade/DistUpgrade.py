@@ -5,6 +5,7 @@ pygtk.require('2.0')
 import gtk
 import gtk.gdk
 import gtk.glade
+import gobject
 
 import apt
 import apt_pkg
@@ -45,9 +46,10 @@ class DistUpgradeView(object):
         self.toUpgrade = []
         self.toRemove = []
         for pkg in changes:
-            if pkg.markedUpgrade: toUpgrade.append(pkg)
-            elif pkg.markedInstall: toInstall.append(pkg)
-            elif pkg.markedRemove: toRemove.append(pkg)
+            if pkg.markedInstall: self.toInstall.append(pkg.name)
+            elif pkg.markedUpgrade: self.toUpgrade.append(pkg.name)
+            elif pkg.markedDelete: self.toRemove.append(pkg.name)
+        # no downgrades, re-installs 
         assert(len(self.toInstall)+len(self.toUpgrade)+len(self.toRemove) == len(changes))
     def askYesNoQuestion(self, summary, msg):
         pass
@@ -120,17 +122,25 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.destroy()
         return False
     def confirmChanges(self, changes):
-        DistUpgradeView.cnfirmChanges(self, changes)
+        DistUpgradeView.confirmChanges(self, changes)
+        msg = _("%s packages are going to be removed.\n"
+                "%s packages are going to be newly installed.\n"
+                "%s packages are going to be upgraded.\n" %
+                (len(self.toRemove),len(self.toInstall),len(self.toRemove)))
+        self.label_changes.set_text(msg)
+        # fill in the details
         self.details_list.clear()
-        for rm in toRemove:
+        for rm in self.toRemove:
             self.details_list.append([_("<b>To be removed: %s</b>" % rm)])
-        for inst in toInstall:
+        for inst in self.toInstall:
             self.details_list.append([_("To be installed: %s" % inst)])
-        for up in toUpgrade:
+        for up in self.toUpgrade:
             self.details_list.append([_("To be upgraded: %s" % up)])
-        res = self.dialog_details.run()
-        self.dialog_details.hide()
-        return True
+        res = self.dialog_changes.run()
+        self.dialog_changes.hide()
+        if res == gtk.RESPONSE_YES:
+            return True
+        return False
     def askYesNoQuestion(self, summary, msg):
         msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
         dialog = gtk.MessageDialog(parent=self.window_main,
