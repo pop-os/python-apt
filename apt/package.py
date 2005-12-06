@@ -247,7 +247,7 @@ class Package(object):
                                     self.origin, self.label, self.site)
         
     def candidateOrigin(self):
-        ver = pkg._depcache.GetCandidateVer(pkg._pkg)
+        ver = self._depcache.GetCandidateVer(self._pkg)
         if not ver:
             return None
         origins = []
