@@ -1,3 +1,4 @@
+- CDROM upgrades !!!
 - display a message that all applications should be closed for the 
   dist-upgrade (and that strange things like a crashing panel can
   happen)
