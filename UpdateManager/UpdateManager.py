@@ -710,7 +710,8 @@ class UpdateManager(SimpleGladeApp):
           # see if we have a script file that we can run
           script = "%s/%s" % (tmpdir, self.new_dist.name)
           if not os.path.exists(script):
-              #print "no script file found in extracted tarbal"
+	      # FIXME: display a proper error message here
+              print "no script file found in extracted tarbal"
           else:
               #print "runing: %s" % script
               os.execv(script,[])
