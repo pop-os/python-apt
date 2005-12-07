@@ -645,7 +645,7 @@ class UpdateManager(SimpleGladeApp):
               self.textview_release_notes.get_buffer().set_text(notes)
               self.dialog_release_notes.set_transient_for(self.window_main)
               self.dialog_release_notes.run()
-              self.dialog_release_notes.destroy()
+              self.dialog_release_notes.hide()
           except urllib2.HTTPError:
               # FIXME: make proper error dialogs here
               print _("Release notes not found on the server.")
@@ -666,11 +666,11 @@ class UpdateManager(SimpleGladeApp):
                                                     "are downloaded"))
           fetcher = apt_pkg.GetAcquire(progress)
           uri = self.new_dist.upgradeTool
-          print "Downloading %s to %s" % (uri, tmpdir)
+          #print "Downloading %s to %s" % (uri, tmpdir)
           af = apt_pkg.GetPkgAcqFile(fetcher,uri,
                                      descr=_("Upgrade tool"))
           fetcher.Run()
-          print "Done downloading"
+          #print "Done downloading"
 
           # extract the tarbal
           print "extracting"
@@ -685,10 +685,10 @@ class UpdateManager(SimpleGladeApp):
           # see if we have a script file that we can run
           script = "%s/%s" % (tmpdir, self.new_dist.name)
           if not os.path.exists(script):
-              print "no script file found in extracted tarbal"
+              #print "no script file found in extracted tarbal"
           else:
-              print "runing: %s" % script
-              os.execv(script,"")
+              #print "runing: %s" % script
+              os.execv(script,[])
           
       # cleanup
       os.chdir("..")

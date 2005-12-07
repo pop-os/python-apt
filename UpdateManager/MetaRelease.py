@@ -138,4 +138,5 @@ class MetaRelease(gobject.GObject):
             if os.path.exits(self.METARELEASE_FILE):
                 f=open(self.METARELEASE_FILE,"r")
 
-
+# register in the gobject system
+gobject.type_register(MetaRelease)
