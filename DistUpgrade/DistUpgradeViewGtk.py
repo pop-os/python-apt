@@ -14,8 +14,21 @@ from apt.progress import InstallProgress
 from DistUpgradeView import DistUpgradeView
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 
-from UpdateManager.GtkProgress import GtkOpProgress
 from gettext import gettext as _
+
+class GtkOpProgress(apt.progress.OpProgress):
+  def __init__(self, progressbar):
+      self._progressbar = progressbar
+  def update(self, percent):
+      #self._progressbar.show()
+      self._progressbar.set_text(self.op)
+      self._progressbar.set_fraction(percent/100.0)
+      while gtk.events_pending():
+          gtk.main_iteration()
+  def done(self):
+      #self._progressbar.hide()
+      pass
+
 
 class GtkFetchProgressAdapter(apt.progress.FetchProgress):
     # FIXME: we really should have some sort of "we are at step"
@@ -26,13 +39,12 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.status = parent.label_extra_status
         self.progress = parent.progressbar_cache
     def start(self):
-        self.progress.show()
+        #self.progress.show()
         self.progress.set_fraction(0)
         self.status.show()
     def stop(self):
-        self.progress.hide()
-        self.status.hide()
-        self.status.hide()
+        #self.progress.hide()
+        self.status.set_text("")
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
@@ -65,9 +77,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        self.label_status.show()
+        #self.label_status.show()
         self.label_status.set_text(_("Installing updates ..."))
-        self.progress.show()
+        #self.progress.show()
         self.progress.set_fraction(0.0)
         self.progress.set_text("")
         self.expander.show()
@@ -89,8 +101,8 @@ class GtkInstallProgressAdapter(InstallProgress):
             self.updateInterface()
         return self.apt_status
     def finishUpdate(self):
-        self.progress.hide()
-        self.label_status.hide()
+        #self.progress.hide()
+        self.label_status.set_text("")
     def updateInterface(self):
         InstallProgress.updateInterface(self)
         self.progress.set_fraction(self.percent/100.0)
@@ -133,6 +145,18 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         return self._opCacheProgress
     def updateStatus(self, msg):
         self.label_status.set_markup("%s" % msg)
+    def setStep(self, step):
+        # first update the "last" step as completed
+        size = gtk.ICON_SIZE_MENU
+        if step > 1:
+            image = getattr(self,"image_step%i" % (step-1))
+            label = getattr(self,"label_step%i" % (step-1))
+            image.set_from_stock(gtk.STOCK_APPLY, size)
+        image = getattr(self,"image_step%i" % step)
+        label = getattr(self,"label_step%i" % step)
+        image.set_from_stock(gtk.STOCK_YES, size)
+            
+        
     def error(self, summary, msg):
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")

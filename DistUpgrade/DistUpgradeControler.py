@@ -196,6 +196,7 @@ class DistUpgradeControler(object):
     def breezyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
+        self._view.setStep(1)
         if not self.sanityCheck():
             sys.exit(1)
 
@@ -203,6 +204,7 @@ class DistUpgradeControler(object):
         self.doPreUpgrade()
 
         # update sources.list
+        self._view.setStep(2)
         self._view.updateStatus(_("Updating repository information"))
         if not self.updateSourcesList():
             sys.exit(1)
@@ -215,12 +217,14 @@ class DistUpgradeControler(object):
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
+        self._view.setStep(3)
         self._view.updateStatus(_("Performing the upgrade"))
         if not self.askDistUpgrade():
             sys.exit(1)
         self.doDistUpgrade()
             
         # do post-upgrade stuff
+        self._view.setStep(4)
         self.doPostUpgrade()
 
         # done, ask for reboot
