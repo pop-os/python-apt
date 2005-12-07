@@ -89,8 +89,10 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         def start(self):
             self.progress.show()
             self.progress.set_fraction(0)
+            self.status.show()
         def stop(self):
             self.progress.hide()
+            self.status.hide()
             self.status.hide()
         def pulse(self):
             # FIXME: move the status_str and progress_str into python-apt
@@ -132,7 +134,9 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             # to default to gtk frontends, also add support for the timeout
             # of the terminal (to display something useful then)
             # -> longer term, move this code into python-apt 
-            self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd]
+            self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
+                        "DEBIAN_FRONTEND=gnome",
+                        "APT_LISTCHANGES_FRONTEND=gtk"]
         def fork(self):
             return self.term.forkpty(envv=self.env)
         def child_exited(self, term, pid, status):
@@ -143,7 +147,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
                 self.updateInterface()
             return self.apt_status
         def finishUpdate(self):
-            pass
+            self.progress.hide()
+            self.label_status.hide()
         def updateInterface(self):
             InstallProgress.updateInterface(self)
             self.progress.set_fraction(self.percent/100.0)

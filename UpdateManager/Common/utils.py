@@ -6,3 +6,4 @@ def str_to_bool(str):
 
 def utf8(str):
   return unicode(str, 'latin1').encode('utf-8')
+

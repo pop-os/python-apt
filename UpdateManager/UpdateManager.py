@@ -668,8 +668,7 @@ class UpdateManager(SimpleGladeApp):
           uri = self.new_dist.upgradeTool
           print "Downloading %s to %s" % (uri, tmpdir)
           af = apt_pkg.GetPkgAcqFile(fetcher,uri,
-                                     descr=_("Upgrade tool"),
-                                     destDir=tmpdir)
+                                     descr=_("Upgrade tool"))
           fetcher.Run()
           print "Done downloading"
 
@@ -689,6 +688,7 @@ class UpdateManager(SimpleGladeApp):
               print "no script file found in extracted tarbal"
           else:
               print "runing: %s" % script
+              os.execv(script,"")
           
       # cleanup
       os.chdir("..")

@@ -16,7 +16,6 @@ of three things:
    some additional steps like post-release cleanup
 
 
-
 The steps in additon to upgrading the installed packages fall into this 
 categories:
 * switch to new sources.list entries
@@ -24,7 +23,12 @@ categories:
 * remove packages/install others (breezy, R:mozilla-firefox, RI:firefox, 
   install ubuntu-desktop package again, R:portmap, I:language-package*)
 * check conffile settings (breezy: /etc/X11/xorg.conf; warty: /etc/modules)
+* check if {ubuntu,kubuntu,edubuntu}-desktop is installed
 * ask/change mirrors (breezy)
 * breezy: install new version of libgtk2.0-0 from hoary-updates, then 
   restart synaptic
 * reboot
+
+
+The tool need a backported "python-vte" and "python-apt" to work on
+breezy.
