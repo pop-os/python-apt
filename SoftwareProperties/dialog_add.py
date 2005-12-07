@@ -1,6 +1,6 @@
 # dialog_add.py.in - dialog to add a new repository
 #  
-#  Copyright (c) 2004 Canonical
+#  Copyright (c) 2004-2005 Canonical
 #                2005 Michiel Sikkes
 #              
 #  Authors: 

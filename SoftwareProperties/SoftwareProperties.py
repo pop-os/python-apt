@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # gnome-software-properties.in - edit /etc/apt/sources.list
 #
-#  Copyright (c) 2004 Canonical
+#  Copyright (c) 2004,2005 Canonical
 #                2004-2005 Michiel Sikkes
 #
 #  Author: Michiel Sikkes <michiel@eyesopened.nl>

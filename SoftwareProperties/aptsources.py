@@ -1,6 +1,6 @@
 # aptsource.py.in - parse sources.list
 #  
-#  Copyright (c) 2004 Canonical
+#  Copyright (c) 2004,2005 Canonical
 #                2004 Michiel Sikkes
 #  
 #  Author: Michiel Sikkes <michiel@eyesopened.nl>
