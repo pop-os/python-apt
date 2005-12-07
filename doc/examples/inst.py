@@ -19,13 +19,20 @@ class TextInstallProgress(InstallProgress):
 		sys.stdout.write("\r[%s] %s\n" %(self.percent, self.status))
 		sys.stdout.flush()
 		self.last = self.percent
+	def conffile(self,current,new):
+		print "conffile prompt: %s %s" % (current,new)
+	def error(self, errorstr):
+		print "got dpkg error: '%s'" % errorstr
 
 cache = apt.Cache(apt.progress.OpTextProgress())
 
 fprogress = apt.progress.TextFetchProgress()
 iprogress = TextInstallProgress()
 
-pkg = cache["base-config"]
+pkg = cache["test-package"]
+pkg.markUpgrade()
+cache.commit(fprogress,iprogress)
+sys.exit(1)
 
 # install or remove, the importend thing is to keep us busy :)
 if pkg.isInstalled:

@@ -19,7 +19,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import sys, apt_pkg, os, fcntl, string
+import sys, apt_pkg, os, fcntl, string, re
 
 class OpProgress:
     """ Abstract class to implement reporting on cache opening
@@ -145,6 +145,12 @@ class InstallProgress(DumbInstallProgress):
         self.read = ""
         self.percent = 0.0
         self.status = ""
+    def error(self, pkg, errormsg):
+        " called when a error is detected during the install "
+        pass
+    def conffile(self,current,new):
+        " called when a conffile question from dpkg is detected "
+        pass
     def updateInterface(self):
         if self.statusfd != None:
                 try:
@@ -154,14 +160,22 @@ class InstallProgress(DumbInstallProgress):
                     if errno != 11:
                         print errstr
                 if self.read.endswith("\n"):
-                    # FIXME: add errorhandling
                     s = self.read
                     #print s
                     (status, pkg, percent, status_str) = string.split(s, ":")
                     #print "percent: %s %s" % (pkg, float(percent)/100.0)
+                    if status == "pmerror":
+                        self.error(pkg,status_str)
+                    elif status == "pmconffile":
+                        # we get a string like this:
+                        # 'current-conffile' 'new-conffile' useredited distedited
+                        match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
+                        if match:
+                            self.conffile(match.group(1), match.group(2))
                     self.percent = float(percent)
                     self.status = string.strip(status_str)
                     self.read = ""
+                    
     def fork(self):
         return os.fork()
     def waitChild(self):
