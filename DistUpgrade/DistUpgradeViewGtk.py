@@ -194,6 +194,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             self.details_list.append([_("To be installed: %s" % inst)])
         for up in self.toUpgrade:
             self.details_list.append([_("To be upgraded: %s" % up)])
+        self.dialog_changes.set_transient_for(self.window_main)
         res = self.dialog_changes.run()
         self.dialog_changes.hide()
         if res == gtk.RESPONSE_YES:
