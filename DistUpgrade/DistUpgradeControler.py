@@ -35,11 +35,14 @@ class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
-        self._cache = MyCache(self._view.getOpCacheProgress())
+        self._cache = None
         # some constants here
         self.fromDist = "hoary"
         self.toDist = "breezy"
         self.origin = "Ubuntu"
+
+    def openCache(self):
+        self._cache = MyCache(self._view.getOpCacheProgress())
 
     def sanityCheck(self):
         if self._cache._depcache.BrokenCount > 0:
@@ -197,6 +200,7 @@ class DistUpgradeControler(object):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
         self._view.setStep(1)
+        self.openCache()
         if not self.sanityCheck():
             sys.exit(1)
 
@@ -213,7 +217,7 @@ class DistUpgradeControler(object):
 
         # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
-        self._cache = MyCache(self._view.getOpCacheProgress())
+        self.openCache()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
@@ -235,7 +239,3 @@ class DistUpgradeControler(object):
         self.breezyUpgrade()
 
 
-if __name__ == "__main__":
-    view = GtkDistUpgradeView()
-    app = DistUpgradeControler(view)
-    app.run()

@@ -5,6 +5,7 @@ import gtk.gdk
 import gtk.glade
 import vte
 import gobject
+import pango
 
 import apt
 import apt_pkg
@@ -18,16 +19,16 @@ from gettext import gettext as _
 
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
-      self._progressbar = progressbar
+      self.progressbar = progressbar
   def update(self, percent):
       #self._progressbar.show()
-      self._progressbar.set_text(self.op)
-      self._progressbar.set_fraction(percent/100.0)
+      self.progressbar.set_text(self.op)
+      self.progressbar.set_fraction(percent/100.0)
       while gtk.events_pending():
           gtk.main_iteration()
   def done(self):
-      #self._progressbar.hide()
-      pass
+      #self.progressbar.hide()
+      self.progressbar.set_text(" ")
 
 
 class GtkFetchProgressAdapter(apt.progress.FetchProgress):
@@ -44,6 +45,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.status.show()
     def stop(self):
         #self.progress.hide()
+        self.progress.set_text(" ")
         self.status.set_text("")
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
@@ -81,7 +83,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text(_("Installing updates ..."))
         #self.progress.show()
         self.progress.set_fraction(0.0)
-        self.progress.set_text("")
+        self.progress.set_text(" ")
         self.expander.show()
         self.term.show()
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
@@ -148,15 +150,21 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def setStep(self, step):
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
+        attrlist=pango.AttrList()
         if step > 1:
             image = getattr(self,"image_step%i" % (step-1))
             label = getattr(self,"label_step%i" % (step-1))
             image.set_from_stock(gtk.STOCK_APPLY, size)
+            label.set_property("attributes",attrlist)
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
         image.set_from_stock(gtk.STOCK_YES, size)
-            
-        
+        # we can't make it bold here without layout changes in the view :(
+        #attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
+        attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
+        attrlist.insert(attr)
+        label.set_property("attributes",attrlist)
+                                
     def error(self, summary, msg):
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")
