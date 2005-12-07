@@ -1,7 +1,7 @@
 python-apt (0.6.16) unstable; urgency=low
 
   * added GetPkgAcqFile to queue individual file downloads with the 
-    system
+    system (dosn't make use of the improved pkgAcqFile yet)
   * added SourceList.GetIndexes()
   * rewrote apt.cache.update() to use the improved aquire interface
   * apt/ API change: apt.Package.candidateOrigin returns a list of origins 

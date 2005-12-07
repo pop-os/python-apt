@@ -2,6 +2,28 @@ import apt
 import apt_pkg
 import os
 import sys
+import tempfile
+
+def get_file(fetcher, uri, destFile):
+	cwd = os.getcwd()
+	# create a temp dir
+	dir = tempfile.mkdtemp()
+	os.chdir(dir)
+	# get the file
+	af = apt_pkg.GetPkgAcqFile(fetcher,
+                           uri=uri,
+                           descr="sample descr")
+	res = fetcher.Run()
+	if res != fetcher.ResultContinue:
+		os.rmdir(dir)
+		os.chdir(cwd)
+		return False
+	filename = os.path.basename(uri)
+	os.rename(dir+"/"+filename,destFile)
+	# cleanup
+	os.rmdir(dir)
+	os.chdir(cwd)
+	return True
 
 apt_pkg.init()
 
@@ -45,11 +67,7 @@ pm = apt_pkg.GetPackageManager(depcache)
 print pm
 print fetcher
 
-af = apt_pkg.GetPkgAcqFile(fetcher,
-                           uri="ftp://ftp.debian.org/debian/dists/README",
-                           descr="sample descr",
-                           destFile="/tmp/lala2")
-fetcher.Run()
+get_file(fetcher, "ftp://ftp.debian.org/debian/dists/README", "/tmp/lala")
 sys.exit(1)
 
 pm.GetArchives(fetcher,list,recs)
