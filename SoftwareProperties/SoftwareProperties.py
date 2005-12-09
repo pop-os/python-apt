@@ -68,12 +68,12 @@ class SoftwareProperties(SimpleGladeApp):
     self.window_main.hide() 
                                    
     # If externally called, reparent to external application.
-    if (options.socket != None):
-      plug = gtk.Plug(long(options.socket))
-      self.vbox1.reparent(plug)
-      plug.show_all()
-    else:
-      self.window_main.show()
+    if options.toplevel != None:
+      # don't show the add-cdrom button for now
+      # FIXME: on the long run interface with apt-pkg/cdrom.h
+      b = self.button_add_cdrom.hide()
+      toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
+      self.window_main.window.set_transient_for(toplevel)
       
     self.init_sourceslist()
     self.reload_sourceslist()

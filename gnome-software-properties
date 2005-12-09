@@ -48,12 +48,11 @@ if __name__ == "__main__":
                      dest="no_update", default=False,
                      help="No update on repository change (usefull if called "\
                      "from a external program).")
-                     
-  parser.add_option ("-p", "--plug",
-                     action="store", type="string", dest="socket",
-                     help="Set socket-id to embedd into parent (if used a "\
-                     "embedded control")
-                     
+  parser.add_option("-t", "--toplevel", 
+                    action="store", type="string", dest="toplevel",
+                    help="Set x-window-id of the toplevel parent for the "\
+                    "dialog (usefull for embedding)")
+                   
 
   (options, args) = parser.parse_args()
   # Check for root permissions
@@ -72,7 +71,7 @@ if __name__ == "__main__":
   gtk.glade.bindtextdomain(localesApp, localesDir)
   gtk.glade.textdomain(localesApp)
 
-  #data_dir="/usr/share/update-manager/"
-  data_dir="/tmp/xxx/share/update-manager/"
+  data_dir="/usr/share/update-manager/"
+  #data_dir="/tmp/xxx/share/update-manager/"
   app = SoftwareProperties.SoftwareProperties(data_dir,options)
   app.run()
