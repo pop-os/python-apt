@@ -30,10 +30,9 @@ static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
    PyCdromProgress progress;
    progress.setCallbackInst(pyCdromProgressInst);
 
-   Struct.cdrom.Add(&progress);
+   bool res = Struct.cdrom.Add(&progress);
 
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_BuildValue("b", res));   
 }
 
 static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
@@ -69,7 +68,6 @@ static PyObject *CdromAttr(PyObject *Self,char *Name)
 {
    PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
 
-   
    return Py_FindMethod(PkgCdromMethods,Self,Name);
 }
 
