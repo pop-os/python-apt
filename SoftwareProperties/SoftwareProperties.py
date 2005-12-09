@@ -24,10 +24,12 @@
 import sys
 import gnome
 import gconf
+import apt
 import apt_pkg
 import gobject
 import shutil
 import gettext
+import tempfile
 from gettext import gettext as _
 import os
 
@@ -58,20 +60,13 @@ class SoftwareProperties(SimpleGladeApp):
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
                             None, domain="update-manager")
-    apt_pkg.InitConfig()
-   
     self.modified = False
 		  
     self.gnome_program = gnome.init("Software Properties", "0.41")
     self.gconfclient = gconf.client_get_default()
 
-    self.window_main.hide() 
-                                   
     # If externally called, reparent to external application.
     if options.toplevel != None:
-      # don't show the add-cdrom button for now
-      # FIXME: on the long run interface with apt-pkg/cdrom.h
-      b = self.button_add_cdrom.hide()
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
       
@@ -176,47 +171,44 @@ class SoftwareProperties(SimpleGladeApp):
     f.close()    
     
   def save_sourceslist(self):
-    location = "/etc/apt/sources.list"
-    shutil.copy(location, location + ".save")
-    self.sourceslist.save(location)
+    #location = "/etc/apt/sources.list"
+    #shutil.copy(location, location + ".save")
+    self.sourceslist.backup(".save")
+    self.sourceslist.save()
     
   def on_add_clicked(self, widget):
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
-    
-    self.modified = True
+      self.modified = True
       
   def on_edit_clicked(self, widget):
     sel = self.treeview1.get_selection()
     (model, iter) = sel.get_selected()
+    if not iter:
+      return
     source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
-    
     dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
                                      source_entry, self.datadir)
-                                     
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
-      
-    self.modified = True
+      self.modified = True
       
   def on_remove_clicked(self, widget):
     sel = self.treeview1.get_selection()
     (model, iter) = sel.get_selected()
-    
     if iter:
       source = model.get_value(iter, LIST_ENTRY_OBJ)
       self.sourceslist.remove(source)
       self.reload_sourceslist()  
-    
-    self.modified = True
+      self.modified = True
     
   def add_key_clicked(self, widget):
-    _ = gettext.gettext
     chooser = gtk.FileChooserDialog(title=_("Choose a key-file"),
                                     parent=self.window_main,
-                                    buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_REJECT,
+                                    buttons=(gtk.STOCK_CANCEL,
+                                             gtk.RESPONSE_REJECT,
                                              gtk.STOCK_OK,gtk.RESPONSE_ACCEPT))
     res = chooser.run()
     chooser.hide()
@@ -257,3 +249,99 @@ class SoftwareProperties(SimpleGladeApp):
     gnome.help_display_desktop(self.gnome_program, 
                                "update-manager", "update-manager", 
                                "setting-preferences")
+
+  def on_button_add_cdrom_clicked(self, widget):
+    #print "on_button_add_cdrom_clicked()"
+
+    # testing
+    #apt_pkg.Config.Set("APT::CDROM::Rename","true")
+
+    saved_entry = apt_pkg.Config.Find("Dir::Etc::sourcelist")
+    tmp = tempfile.NamedTemporaryFile()
+    apt_pkg.Config.Set("Dir::Etc::sourcelist",tmp.name)
+    progress = GtkCdromProgress(self.datadir,self.window_main)
+    cdrom = apt_pkg.GetCdrom()
+    # if nothing was found just return
+    try:
+      res = cdrom.Add(progress)
+    except SystemError, msg:
+      #print "aiiiieeee, exception from cdrom.Add() [%s]" % msg
+      progress.close()
+      dialog = gtk.MessageDialog(parent=self.window_main,
+                                 flags=gtk.DIALOG_MODAL,
+                                 type=gtk.MESSAGE_ERROR,
+                                 buttons=gtk.BUTTONS_OK,
+                                 message_format=None)
+      dialog.set_markup(_("<big><b>Error scaning the CD</b></big>\n\n%s"%msg))
+      res = dialog.run()
+      dialog.destroy()
+      return
+    apt_pkg.Config.Set("Dir::Etc::sourcelist",saved_entry)
+    if res == False:
+      progress.close()
+      return
+    # read tmp file with source name (read only last line)
+    line = ""
+    for x in open(tmp.name):
+      line = x
+    if line != "":
+      full_path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),saved_entry)
+      self.sourceslist.list.append(aptsources.SourceEntry(line,full_path))
+      self.reload_sourceslist()
+      self.modified = True
+
+
+# FIXME: move this into a different file
+class GtkCdromProgress(apt.progress.CdromProgress, SimpleGladeApp):
+  def __init__(self,datadir, parent):
+    SimpleGladeApp.__init__(self,
+                            datadir+"glade/SoftwarePropertiesDialogs.glade",
+                            "dialog_cdrom_progress",
+                            domain="update-manager")
+    self.dialog_cdrom_progress.show()
+    self.dialog_cdrom_progress.set_transient_for(parent)
+    self.parent = parent
+    self.button_cdrom_close.set_sensitive(False)
+  def close(self):
+    self.dialog_cdrom_progress.hide()
+  def on_button_cdrom_close_clicked(self, widget):
+    self.close()
+  def update(self, text, step):
+    """ update is called regularly so that the gui can be redrawn """
+    if step > 0:
+      self.progressbar_cdrom.set_fraction(step/float(self.totalSteps))
+      if step == self.totalSteps:
+        self.button_cdrom_close.set_sensitive(True)
+    if text != "":
+      self.label_cdrom.set_text(text)
+    while gtk.events_pending():
+      gtk.main_iteration()
+  def askCdromName(self):
+    dialog = gtk.MessageDialog(parent=self.dialog_cdrom_progress,
+                               flags=gtk.DIALOG_MODAL,
+                               type=gtk.MESSAGE_QUESTION,
+                               buttons=gtk.BUTTONS_OK_CANCEL,
+                               message_format=None)
+    dialog.set_markup(_("Please enter a name for the disc"))
+    entry = gtk.Entry()
+    entry.show()
+    dialog.vbox.pack_start(entry)
+    res = dialog.run()
+    dialog.destroy()
+    if res == gtk.RESPONSE_OK:
+      name = entry.get_text()
+      return (True,name)
+    return (False,"")
+  def changeCdrom(self):
+    dialog = gtk.MessageDialog(parent=self.dialog_cdrom_progress,
+                               flags=gtk.DIALOG_MODAL,
+                               type=gtk.MESSAGE_QUESTION,
+                               buttons=gtk.BUTTONS_OK_CANCEL,
+                               message_format=None)
+    dialog.set_markup(_("Please insert a disc in the drive:"))
+    res = dialog.run()
+    dialog.destroy()
+    if res == gtk.RESPONSE_OK:
+      return True
+    return False
+  

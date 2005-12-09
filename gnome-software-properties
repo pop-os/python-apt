@@ -73,5 +73,5 @@ if __name__ == "__main__":
 
   data_dir="/usr/share/update-manager/"
   #data_dir="/tmp/xxx/share/update-manager/"
-  app = SoftwareProperties.SoftwareProperties(data_dir,options)
+  app = SoftwareProperties.SoftwareProperties(data_dir, options)
   app.run()

@@ -161,6 +161,10 @@ def uniq(s):
 class SourcesList:
   def __init__(self):
     self.list = []      # of Type SourceEntries
+    self.refresh()
+
+  def refresh(self):
+    self.list = []
     # read sources.list
     dir = apt_pkg.Config.FindDir("Dir::Etc")
     file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
