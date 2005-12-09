@@ -1,7 +1,10 @@
 update-manager (0.40) dapper; urgency=low
 
   * new upstream release
-  * support for real dist-upgrades added via the meta-release information
+  * support for the AutomaticUpgrades spec added via the meta-release 
+    information
+  * data/update-manager.desktop.in: 
+    - use X-KDE-SubstituteUID added and use gksu now
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 15 Nov 2005 17:22:12 +0100
 
