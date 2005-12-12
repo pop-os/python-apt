@@ -76,7 +76,7 @@ class MetaRelease(gobject.GObject):
         return dist
     
     def check(self):
-        print "check"
+        #print "check"
         # check if we have a metarelease_information file
         if self.metarelease_information != None:
             self.parse()
@@ -86,7 +86,7 @@ class MetaRelease(gobject.GObject):
         return True
             
     def parse(self):
-        print "parse"
+        #print "parse"
         current_dist_name = self.get_dist()
         current_dist = None
         dists = []
@@ -123,7 +123,7 @@ class MetaRelease(gobject.GObject):
         for dist in dists:
             if dist.date > current_dist.date:
                 upgradable_to = dist
-                print "new dist: %s" % upgradable_to
+                #print "new dist: %s" % upgradable_to
                 break
 
         # only warn if unsupported and a new dist is available (because 
@@ -139,7 +139,7 @@ class MetaRelease(gobject.GObject):
     # the network thread that tries to fetch the meta-index file
     # can't touch the gui, runs as a thread
     def download(self):
-        print "download"
+        #print "download"
         lastmodified = 0
         req = urllib2.Request(self.METARELEASE_URI)
         if os.access(self.METARELEASE_FILE, os.W_OK):
