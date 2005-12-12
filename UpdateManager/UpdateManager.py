@@ -76,6 +76,9 @@ CHANGELOGS_URI="http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chan
 
 
 class MyCache(apt.Cache):
+    def __init__(self, progress):
+        apt.Cache.__init__(self, progress)
+        self.all_changes = {}
     def clean(self):
         for pkg in self:
             pkg.markKeep()
@@ -86,6 +89,64 @@ class MyCache(apt.Cache):
             self.clean()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
+        
+    def get_changelog(self, name, lock):
+        # don't touch the gui in this function, it needs to be thread-safe
+        pkg = self[name]
+
+        verstr = pkg.candidateVersion
+        srcpkg = pkg.sourcePackageName
+
+        # assume "main" section 
+        src_section = "main"
+        # check if we have something else
+        l = string.split(pkg.section,"/")
+        if len(l) > 1:
+            sec_section = l[0]
+
+        # lib is handled special
+        prefix = srcpkg[0]
+        if srcpkg.startswith("lib"):
+            prefix = "lib" + srcpkg[3]
+
+        # stip epoch
+        l = string.split(verstr,":")
+        if len(l) > 1:
+            verstr = l[1]
+
+        try:
+            uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, verstr)
+            #print "Trying: %s " % uri
+            changelog = urllib2.urlopen(uri)
+            #print changelog.read()
+            # do only get the lines that are new
+            alllines = ""
+            regexp = "^%s \((.*)\)(.*)$" % (srcpkg)
+
+            i=0
+            while True:
+                line = changelog.readline()
+                #print line
+                if line == "":
+                    break
+                match = re.match(regexp,line)
+                if match:
+                    if apt_pkg.VersionCompare(match.group(1),pkg.installedVersion) <= 0:
+                        break
+                    # EOF (shouldn't really happen)
+                alllines = alllines + line
+
+            # only write if we where not canceld
+            if lock.locked():
+                self.all_changes[name] = [alllines, srcpkg]
+        except urllib2.HTTPError:
+            if lock.locked():
+                self.all_changes[name] = [_("Changes not found, the server may not be updated yet."), srcpkg]
+        except IOError:
+            if lock.locked():
+                self.all_changes[name] = [_("Failed to download changes. Please check if there is an active internet connection."), srcpkg]
+        if lock.locked():
+            lock.release()
 
         
 
@@ -175,7 +236,6 @@ class UpdateManager(SimpleGladeApp):
 
     self.packages = []
     self.dl_size = 0
-    self.all_changes = {}
 
     # create text view
     changes_buffer = self.textview_changes.get_buffer()
@@ -239,61 +299,6 @@ class UpdateManager(SimpleGladeApp):
     self.restore_state()
 
 
-  # FIXME: wrong location for this func
-  # don't touch the gui in this function, it needs to be thread-safe
-  def get_changelog(self, name, lock):
-    pkg = self.cache[name]
-
-    # FIXME: not correct, need to get canidateVer
-    verstr = pkg.candidateVersion
-    srcpkg = pkg.sourcePackageName
-
-    src_section = "main"
-    l = string.split(pkg.section,"/")
-    if len(l) > 1:
-      sec_section = l[0]
-    
-    prefix = srcpkg[0]
-    if srcpkg.startswith("lib"):
-      prefix = "lib" + srcpkg[3]
-      
-    l = string.split(verstr,":")
-    if len(l) > 1:
-      verstr = l[1]
-
-    try:
-      uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, verstr)
-      changelog = urllib2.urlopen(uri)
-      #print changelog.read()
-      # do only get the lines that are new
-      alllines = ""
-      regexp = "^%s \((.*)\)(.*)$" % (srcpkg)
-
-      i=0
-      while True:
-        line = changelog.readline()
-        #print line
-        if line == "":
-          break
-        match = re.match(regexp,line)
-        if match:
-          if apt_pkg.VersionCompare(match.group(1),pkg.installedVersion) <= 0:
-            break
-          # EOF (shouldn't really happen)
-        alllines = alllines + line
-
-      # only write if we where not canceld
-      if lock.locked():
-        self.all_changes[name] = [alllines, srcpkg]
-    except urllib2.HTTPError:
-      if lock.locked():
-        self.all_changes[name] = [_("Changes not found, the server may not be updated yet."), srcpkg]
-    except IOError:
-      if lock.locked():
-        self.all_changes[name] = [_("Failed to download changes. Please check if there is an active internet connection."), srcpkg]
-    if lock.locked():
-      lock.release()
-
   def set_changes_buffer(self, changes_buffer, text, name, srcpkg):
     changes_buffer.set_text("")
     lines = text.split("\n")
@@ -348,8 +353,8 @@ class UpdateManager(SimpleGladeApp):
     changes_buffer = self.textview_changes.get_buffer()
     
     # check if we have the changes already
-    if self.all_changes.has_key(name):
-      changes = self.all_changes[name]
+    if self.cache.all_changes.has_key(name):
+      changes = self.cache.all_changes[name]
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
     else:
       if self.expander_details.get_expanded():
@@ -357,7 +362,7 @@ class UpdateManager(SimpleGladeApp):
         self.hbox_footer.set_sensitive(False)
         lock = thread.allocate_lock()
         lock.acquire()
-        t=thread.start_new_thread(self.get_changelog,(name,lock))
+        t=thread.start_new_thread(self.cache.get_changelog,(name,lock))
         changes_buffer.set_text(_("Downloading changes..."))
         button = self.button_cancel_dl_changelog
         button.show()
@@ -374,8 +379,8 @@ class UpdateManager(SimpleGladeApp):
         self.treeview_update.set_sensitive(True)
         self.hbox_footer.set_sensitive(True)
 
-    if self.all_changes.has_key(name):
-      changes = self.all_changes[name]
+    if self.cache.all_changes.has_key(name):
+      changes = self.cache.all_changes[name]
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
 
   def remove_update(self, pkg):
@@ -459,9 +464,9 @@ class UpdateManager(SimpleGladeApp):
                                               "checked for new, removed "
                                               "or upgraded software "
                                               "packages."))
+    # FIXME: do a try/except here otherwise it may bomb
     self.cache.update(progress)
-    self.initCache()
-                                              
+    self.fillstore()
 
   def on_button_help_clicked(self, widget):
     gnome.help_display_desktop(self.gnome_program, "update-manager", "update-manager", "")
@@ -598,7 +603,6 @@ class UpdateManager(SimpleGladeApp):
     # clean most objects
     self.packages = []
     self.dl_size = 0
-    self.all_changes = {}
     self.store.clear()
     self.initCache()
     self.list = UpdateList(self.window_main)

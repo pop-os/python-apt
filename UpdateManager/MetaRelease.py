@@ -42,8 +42,8 @@ class Dist(object):
 class MetaRelease(gobject.GObject):
 
     # some constants
-    #METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test"
+    METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
+    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
