@@ -66,7 +66,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.gconfclient = gconf.client_get_default()
 
     # If externally called, reparent to external application.
-    if options.toplevel != None:
+    if options and options.toplevel != None:
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
       
