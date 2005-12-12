@@ -399,6 +399,23 @@ class SourceEntryMatcher:
                                          "^breezy-updates$",
                                          _("Ubuntu 5.10 Updates"),
                                          ubuntu_comps, ubuntu_comps_descr))
+    # dapper
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^dapper-security$",
+                                         _("Ubuntu 6.04 Security Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
+                                         "^dapper-security$",
+                                         _("Ubuntu 6.04 Security Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^dapper$",
+                                         "Ubuntu 6.04 \"Dapper Drake\"",
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^dapper-updates$",
+                                         _("Ubuntu 6.04 Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
 
 
     # DEBIAN

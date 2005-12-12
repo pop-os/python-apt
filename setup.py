@@ -41,7 +41,8 @@ setup(name='update-manager',
                       "data/gnome-software-properties.desktop"]
                   ),
                   ('share/pixmaps',
-                   ["data/update-manager.png"]
+                   ["data/update-manager.png",
+                    "data/logo.png"]
                   )
                   ]+I18NFILES,
       )
