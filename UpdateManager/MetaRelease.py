@@ -159,5 +159,6 @@ class MetaRelease(gobject.GObject):
             if os.path.exits(self.METARELEASE_FILE):
                 f=open(self.METARELEASE_FILE,"r")
 
-# register in the gobject system
+# register in the gobject system, needed for older versions of pygtk,
+# never ones do this automatically
 gobject.type_register(MetaRelease)
