@@ -471,8 +471,25 @@ class UpdateManager(SimpleGladeApp):
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")
         dialog.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>"%\
-                          _("Error updating"))
-        dialog.format_secondary_text("%s" % msg)
+                          _("Error reloading"))
+        dialog.format_secondary_text(_("A error occured during the package "
+                                       "list reload. Please see the below "
+                                       "information for details what went "
+                                       "wrong."))
+        dialog.set_border_width(6)
+        dialog.set_size_request(width=500,height=-1)
+        scroll = gtk.ScrolledWindow()
+        scroll.set_size_request(-1,200)
+        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        text = gtk.TextView()
+        text.set_editable(False)
+        text.set_cursor_visible(False)
+        text.set_wrap_mode(gtk.WRAP_WORD)
+        buf = text.get_buffer()
+        buf.set_text("%s" % msg)
+        scroll.add(text)
+        dialog.vbox.pack_start(scroll)
+        scroll.show_all()
         dialog.run()
         dialog.destroy()
     self.fillstore()
