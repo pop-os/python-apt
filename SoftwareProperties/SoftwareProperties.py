@@ -89,7 +89,7 @@ class SoftwareProperties(SimpleGladeApp):
     
   def init_sourceslist(self):
     self.source_store = gtk.ListStore(str, bool, gobject.TYPE_PYOBJECT)
-    self.treeview1.set_model(self.source_store)
+    self.treeview_sources.set_model(self.source_store)
     
     tr = gtk.CellRendererText()
     tr.set_property("xpad", 10)
@@ -98,7 +98,7 @@ class SoftwareProperties(SimpleGladeApp):
     source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
     source_col.set_max_width(500)
 
-    self.treeview1.append_column(source_col)
+    self.treeview_sources.append_column(source_col)
     
     self.sourceslist = aptsources.SourcesList()
     self.matcher = aptsources.SourceEntryMatcher()
@@ -184,7 +184,7 @@ class SoftwareProperties(SimpleGladeApp):
       self.modified = True
       
   def on_edit_clicked(self, widget):
-    sel = self.treeview1.get_selection()
+    sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if not iter:
       return
@@ -196,7 +196,7 @@ class SoftwareProperties(SimpleGladeApp):
       self.modified = True
       
   def on_remove_clicked(self, widget):
-    sel = self.treeview1.get_selection()
+    sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if iter:
       source = model.get_value(iter, LIST_ENTRY_OBJ)
