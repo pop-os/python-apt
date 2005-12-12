@@ -465,7 +465,16 @@ class UpdateManager(SimpleGladeApp):
                                               "or upgraded software "
                                               "packages."))
     # FIXME: do a try/except here otherwise it may bomb
-    self.cache.update(progress)
+    try:
+        self.cache.update(progress)
+    except (IOError,SystemError), msg:
+        dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_OK,"")
+        dialog.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>"%\
+                          _("Error updating"))
+        dialog.format_secondary_text("%s" % msg)
+        dialog.run()
+        dialog.destroy()
     self.fillstore()
 
   def on_button_help_clicked(self, widget):

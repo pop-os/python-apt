@@ -1,6 +1,16 @@
 update-manager (0.40) dapper; urgency=low
 
-  * new upstream release
+  * new upstream release:
+    - switched from autotools to distutils
+    - massive code cleanups 
+    - use SimpleGladeApp now
+    - SoftwareProperties has a new GUI
+    - UpdateManager has support for upgrading from one dist to another
+      now (given that the required "recipe" for the upgrade is available)
+      See https://wiki.ubuntu.com/AutomaticUpgrade for details
+    - use python-apt for "reload" and "add cdrom" now
+    - improved the handling of sources.list a lot (including support for
+      /etc/apt/sources.list.d)
   * support for the AutomaticUpgrades spec added via the meta-release 
     information
   * data/update-manager.desktop.in: 
