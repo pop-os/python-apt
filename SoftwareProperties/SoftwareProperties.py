@@ -92,6 +92,9 @@ class SoftwareProperties(SimpleGladeApp):
     
     self.init_keyslist()
     self.reload_keyslist()
+
+  def hide(self):
+    self.window_main.hide()
     
   def init_sourceslist(self):
     self.source_store = gtk.ListStore(str, bool, gobject.TYPE_PYOBJECT)
