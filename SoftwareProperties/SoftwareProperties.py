@@ -55,8 +55,11 @@ CONF_MAP = {
 
 class SoftwareProperties(SimpleGladeApp):
 
-  def __init__(self, datadir, options):
+  def __init__(self, datadir=None, options=None, parent=None):
 
+    # FIXME: some saner way is needed here
+    if datadir == None:
+      datadir = "/usr/share/update-manager/"
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
                             None, domain="update-manager")
@@ -64,6 +67,9 @@ class SoftwareProperties(SimpleGladeApp):
 		  
     self.gnome_program = gnome.init("Software Properties", "0.41")
     self.gconfclient = gconf.client_get_default()
+
+    if parent:
+      self.window_main.set_transient_for(parent)
 
     # If externally called, reparent to external application.
     if options and options.toplevel != None:
