@@ -1,3 +1,10 @@
+update-manager (0.40.1) dapper; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - make it embedded friendlier
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 16 Dec 2005 14:02:27 +0100
+
 update-manager (0.40) dapper; urgency=low
 
   * new upstream release:
