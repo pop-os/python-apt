@@ -20,13 +20,13 @@ for pkg in cache:
 					if sys.argv[1] == tpkg.ParentPkg.Name:
 						pkgs.add(pkg.name)
 
-main = []
-universe = []
+main = set()
+universe = set()
 for pkg in pkgs:
 	if "universe" in cache[pkg].section:
-		universe.append(cache[pkg].sourcePackageName)
+		universe.add(cache[pkg].sourcePackageName)
 	else:
-		main.append(cache[pkg].sourcePackageName)
+		main.add(cache[pkg].sourcePackageName)
 
 print "main:"		
 print "\n".join(main)

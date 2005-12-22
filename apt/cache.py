@@ -136,7 +136,7 @@ class Cache(object):
             raise IOError, errMsg
         return res
 
-    def _fetchArchives(self, fetcher, pm, fetchProgress):
+    def _fetchArchives(self, fetcher, pm):
         """ fetch the needed archives """
 
         # get lock
@@ -195,7 +195,7 @@ class Cache(object):
         fetcher = apt_pkg.GetAcquire(fetchProgress)
         while True:
             # fetch archives first
-            res = self._fetchArchives(fetcher, pm, fetchProgress)
+            res = self._fetchArchives(fetcher, pm)
 
             # then install
             res = self.installArchives(pm, installProgress)
