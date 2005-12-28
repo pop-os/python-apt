@@ -31,9 +31,9 @@ import aptsources
 
 class dialog_add:
   def __init__(self, parent, sourceslist, datadir):
-    print datadir
     self.sourceslist = sourceslist
-
+    self.parent = parent
+    
     # templates
     self.templatelist = aptsources.SourceEntryTemplates(datadir)
 
@@ -43,7 +43,7 @@ class dialog_add:
     self.gladexml = gtk.glade.XML("%s/glade/SoftwarePropertiesDialogs.glade" % datadir)
     
     self.main = widget = self.gladexml.get_widget("dialog_add")
-    self.main.set_transient_for(parent)
+    self.main.set_transient_for(self.parent)
     
     combo = self.gladexml.get_widget("combobox_what")
     self.gladexml.signal_connect("on_combobox_what_changed", self.on_combobox_what_changed, None)
@@ -84,6 +84,7 @@ class dialog_add:
     # this hide here is ugly :/
     self.main.hide()
     dialog = self.gladexml.get_widget("dialog_add_custom")
+    dialog.set_transient_for(self.parent)
     res = dialog.run()
     dialog.hide()
     entry = self.gladexml.get_widget("entry_source_line")
