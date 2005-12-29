@@ -38,10 +38,12 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
     def stop(self):
 	self.hide()
     def pulse(self):
-	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
+        FetchProgress.pulse(self)
+        self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
 	#self.progressbar.set_fraction(self.currentBytes/self.totalBytes)
 	while gtk.events_pending():
 		gtk.main_iteration()
+        return True
 
 class TermInstallProgress(InstallProgress, gtk.Window):
     def __init__(self):
