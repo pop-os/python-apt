@@ -2,117 +2,255 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hiroyuki Ikezoe <ikezoe@good-day.co.jp>, 2005
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-12 12:52+0100\n"
-"PO-Revision-Date: 2005-03-23 10:23+0900\n"
-"Last-Translator: Hiroyuki Ikezoe <ikezoe@good-day.co.jp>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2005-10-12 18:04+0900\n"
+"PO-Revision-Date: 2005-10-12 17:28+0900\n"
+"Last-Translator: Ikuya Awashiro <ikuya@fruitsbasket.info>\n"
+"Language-Team: Ubuntu-ja <ubuntu-ja-users@freeml.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../data/SoftwareProperties.glade.h:1
+#: ../data/gnome-software-properties.glade.h:1
+msgid "<b>Comment:</b>"
+msgstr "<b>コメント:</b>"
+
+#: ../data/gnome-software-properties.glade.h:2
+msgid "<b>Components</b>"
+msgstr "<b>コンポーネント</b>"
+
+#: ../data/gnome-software-properties.glade.h:3
+msgid "<b>Distribution:</b>"
+msgstr "<b>ディストリビューション:</b>"
+
+#: ../data/gnome-software-properties.glade.h:4
 msgid "<b>Internet Updates</b>"
 msgstr "<b>インターネットアップデート</b>"
 
-#: ../data/SoftwareProperties.glade.h:2
-#, fuzzy
-msgid "<b>Keys</b>"
-msgstr "<b>詳細</b>"
+#: ../data/gnome-software-properties.glade.h:5
+msgid "<b>Repository</b>"
+msgstr "<b>リポジトリ</b>"
 
-#: ../data/SoftwareProperties.glade.h:3
-#, fuzzy
-msgid "<b>Sources</b>"
+#: ../data/gnome-software-properties.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr "<b>セクション:</b>"
+
+#: ../data/gnome-software-properties.glade.h:7
+msgid "<b>Software Sources</b>"
 msgstr "<b>ソフトウェア取得元</b>"
 
-#: ../data/SoftwareProperties.glade.h:4
-#, fuzzy
-msgid "Add _Cdrom"
-msgstr "CDの追加(C)"
+#: ../data/gnome-software-properties.glade.h:8
+msgid "<b>Temporary files</b>"
+msgstr "<b>一時ファイル</b>"
 
-#: ../data/SoftwareProperties.glade.h:5
-#, fuzzy
+#: ../data/gnome-software-properties.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>タイプ:</b>"
+
+#: ../data/gnome-software-properties.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: ../data/gnome-software-properties.glade.h:11
+msgid "<b>User Interface</b>"
+msgstr "ユーザインターフェース"
+
+#: ../data/gnome-software-properties.glade.h:12
+msgid ""
+"<big><b>Authentication keys</b></big>\n"
+"\n"
+"You can add and remove authentication keys in this dialog. A key makes it "
+"possible to verify the integrity of the software you download."
+msgstr ""
+"<big><b>認証鍵</b></big>\n"
+"\n"
+"認証鍵の追加と削除が行えます。認証鍵によりダウンロードしたソフトウェアが完全"
+"なものか確認することができます。"
+
+#: ../data/gnome-software-properties.glade.h:15
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add</"
+"b></big>\n"
+"\n"
+"The APT line contains the type, location and content of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
+"detailed description of the syntax in the documentation."
+msgstr ""
+"<big><b>追加したい APT line のレポジトリを入力してください。</b></big>\n"
+"\n"
+"APT lineにはタイプ、場所、内容などを含めることができます。例:<i>\"deb http://"
+"ftp.debian.org sarge main\"</i>付属のドキュメントに詳細な記述形式について書か"
+"れています。"
+
+#: ../data/gnome-software-properties.glade.h:18
+msgid "APT line:"
+msgstr "APT line:"
+
+#: ../data/gnome-software-properties.glade.h:19
+msgid "A_uthentication"
+msgstr "認証(_U)"
+
+#: ../data/gnome-software-properties.glade.h:20
+msgid "Add _CD"
+msgstr "CDの追加(_C)"
+
+#: ../data/gnome-software-properties.glade.h:21
+msgid ""
+"Add a new key file to the trusted keyring. Make sure that you received the "
+"key over a secure channel and that you trust the owner. "
+msgstr ""
+"新しい鍵ファイルを信頼されたキーリングに追加します。セキュアなチャンネル経"
+"由で鍵を取得し、信頼される持ち主のものか確認してください。"
+
+#: ../data/gnome-software-properties.glade.h:22
 msgid "Authentication"
 msgstr "認証"
 
-#: ../data/SoftwareProperties.glade.h:6
-msgid "Check for updates every"
-msgstr ""
+#: ../data/gnome-software-properties.glade.h:23
+msgid "Automatically check for software _updates."
+msgstr "アップデートを自動的にチェックする(_U)"
 
-#: ../data/SoftwareProperties.glade.h:7
-msgid "Installation Media"
-msgstr ""
+#: ../data/gnome-software-properties.glade.h:24
+msgid "Automatically clean _temporary packages files"
+msgstr "一時ファイルを自動的に削除する(_T)"
 
-#: ../data/SoftwareProperties.glade.h:8
-#, fuzzy
-msgid "Restore Defaults"
+#: ../data/gnome-software-properties.glade.h:25
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"バイナリ\n"
+"ソース"
+
+#: ../data/gnome-software-properties.glade.h:27
+msgid "Clean interval in days: "
+msgstr "削除する間隔(日): "
+
+#: ../data/gnome-software-properties.glade.h:28
+msgid "Delete _old packages in the package cache"
+msgstr "パッケージキャッシュにある古いパッケージを削除する(_O)"
+
+#: ../data/gnome-software-properties.glade.h:29
+msgid "Edit Repository..."
+msgstr "リポジトリの編集..."
+
+#: ../data/gnome-software-properties.glade.h:30
+msgid "Maximum age in days:"
+msgstr "最長の保存期間(日):"
+
+#: ../data/gnome-software-properties.glade.h:31
+msgid "Maximum size in MB:"
+msgstr "最大量(MB):"
+
+#: ../data/gnome-software-properties.glade.h:32
+msgid "Remove the selected key from the trusted keyring."
+msgstr "信頼されたキーリングから選択した鍵を削除します。"
+
+#: ../data/gnome-software-properties.glade.h:33
+msgid "Restore default keys"
 msgstr "デフォルトの鍵を元に戻す"
 
-#: ../data/SoftwareProperties.glade.h:9
+#: ../data/gnome-software-properties.glade.h:34
+msgid ""
+"Restore the default keys shipped with the distribution. This will not change "
+"user installed keys."
+msgstr ""
+"ディストリビューション付属のデフォルトの鍵を元に戻します。この変更によりユー"
+"ザが追加した鍵が失われることはありません。"
+
+#: ../data/gnome-software-properties.glade.h:35
+msgid "Set _maximum size for the package cache"
+msgstr "パッケージキャッシュの最大量を設定する(_M)"
+
+#: ../data/gnome-software-properties.glade.h:36
+msgid "Settings"
+msgstr "設定"
+
+#: ../data/gnome-software-properties.glade.h:37
+msgid "Show disabled software sources"
+msgstr "無効なソフトウェア取得元を表示"
+
+#: ../data/gnome-software-properties.glade.h:38
 msgid "Software Preferences"
 msgstr "ソフトウェアの設定"
 
-#: ../data/SoftwareProperties.glade.h:10
-msgid "day(s)"
-msgstr ""
+#: ../data/gnome-software-properties.glade.h:39
+msgid "Update interval in days: "
+msgstr "アップデートする間隔(日): "
 
-#: ../data/UpdateManager.glade.h:1
+#: ../data/gnome-software-properties.glade.h:40
+msgid "_Add Repository"
+msgstr "リポジトリの追加(_A)"
+
+#: ../data/gnome-software-properties.glade.h:41
+msgid "_Custom"
+msgstr "カスタム(_C)"
+
+#: ../data/gnome-software-properties.glade.h:42
+msgid "_Download upgradable packages"
+msgstr "アップグレード可能なパッケージを取得する(_D)"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "アップデート可能なファイルの表示とインストール"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr "アップデートマネージャ"
+
+#: ../data/update-manager.glade.h:1
 msgid "<b>Details</b>"
 msgstr "<b>詳細</b>"
 
-#: ../data/UpdateManager.glade.h:2
-#, fuzzy
+#: ../data/update-manager.glade.h:2
 msgid "<b>Packages to install:</b>"
-msgstr "インストールするパッケージ:"
+msgstr "<b>インストールするパッケージ:</b>"
 
-#: ../data/UpdateManager.glade.h:3
+#: ../data/update-manager.glade.h:3 ../src/update-manager.in:669
 msgid ""
 "<big><b>Available Updates</b></big>\n"
 "\n"
 "The following packages are found to be upgradable. You can upgrade them by "
 "using the Install button."
 msgstr ""
-"<big><b>利用可能なアップデート</b></big>\n"
+"<big><b>アップデートがあります</b></big>\n"
 "\n"
 "以下のパッケージがアップグレード可能です。インストールボタンを押すとこれらの"
 "パッケージがインストールされます。"
 
-#: ../data/UpdateManager.glade.h:6
+#: ../data/update-manager.glade.h:6
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
 "\n"
 "Need to get the changes from the central server"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">変更を取得中</span>\n"
+"<span weight=\"bold\" size=\"larger\">変更点を取得中</span>\n"
 "\n"
-"中央サーバーから変更を取得する必要があります"
+"中央サーバから変更点を取得する必要があります"
 
-#: ../data/UpdateManager.glade.h:9
+#: ../data/update-manager.glade.h:9
 msgid "Cancel downloading the changelog"
-msgstr "chengelogの取得の中止"
+msgstr "変更点の取得を中止"
 
-#: ../data/UpdateManager.glade.h:10
+#: ../data/update-manager.glade.h:10
 msgid "Changes"
-msgstr "変更"
+msgstr "変更点"
 
-#: ../data/UpdateManager.glade.h:11
+#: ../data/update-manager.glade.h:11
 msgid "Description"
 msgstr "詳細"
 
-#: ../data/UpdateManager.glade.h:12
-msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:13
+#: ../data/update-manager.glade.h:12
 msgid "Reload"
 msgstr "再読込"
 
-#: ../data/UpdateManager.glade.h:14
+#: ../data/update-manager.glade.h:13
 msgid ""
 "Reload the package information from the server. \n"
 "\n"
@@ -121,439 +259,291 @@ msgid ""
 "a modem) you should use this button so that update-manager knows about new "
 "updates."
 msgstr ""
+"サーバからパッケージ情報を読み込み直します。\n"
+"\n"
+"ずっとインターネットに接続されたままなら、自動的に行います。"
+"アナログモデムなどでそうではないなら、アップデートマネージャに新しいアップデートが"
+"あるかどうかを知らせるため、このボタンを使用して手動で行う必要があります。"
 
-#: ../data/UpdateManager.glade.h:17
-msgid "Show progress of single files"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:18
+#: ../data/update-manager.glade.h:16
 msgid "Software Updates"
 msgstr "ソフトウェアのアップデート"
 
-#: ../data/UpdateManager.glade.h:19
-#, fuzzy
-msgid "Upgrade"
-msgstr "アップグレードが終了しました"
-
-#: ../data/UpdateManager.glade.h:20
+#: ../data/update-manager.glade.h:17
 msgid "_Install"
-msgstr "インストール(I)"
+msgstr "インストール(_I)"
 
-#. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
-msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+#: ../src/aptsources.py.in:236 ../src/aptsources.py.in:284
+#: ../src/aptsources.py.in:359
+msgid "Officially supported"
+msgstr "公式サポート"
 
-#. Description
-#: ../channels/Ubuntu.info.in:6
-msgid "Breezy 6.04 \"Dapper Drake\""
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Breezy 5.10 \"Breezy Badger\""
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-#, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#. Description
-#: ../channels/Ubuntu.info.in:57
-#, fuzzy
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.04 セキュリティアップデート"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "Officially supported"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../src/aptsources.py.in:237 ../src/aptsources.py.in:285
 msgid "Restricted copyright"
 msgstr "Restricted copyright"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../src/aptsources.py.in:238 ../src/aptsources.py.in:286
 msgid "Community maintained (Universe)"
-msgstr "Community maintained (Universe)"
+msgstr "コミュニティによるメンテナンス (Universe)"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../src/aptsources.py.in:239 ../src/aptsources.py.in:287
 msgid "Non-free (Multiverse)"
-msgstr "Non-free (Multiuniverse)"
+msgstr "非フリー (Multiuniverse)"
 
-#. ChangelogURI
-#: ../channels/Debian.info.in.h:4
-#, no-c-format
-msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+#: ../src/aptsources.py.in:250 ../src/aptsources.py.in:340
+#: ../src/aptsources.py.in:353
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.10 セキュリティアップデート"
 
-#. Description
-#: ../channels/Debian.info.in:6
-msgid "Debian 3.1 \"Sarge\""
-msgstr ""
+#: ../src/aptsources.py.in:255 ../src/aptsources.py.in:326
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.10 セキュリティアップデート"
 
-#. BaseURI
-#: ../channels/Debian.info.in:19
-msgid "http://security.debian.org/"
-msgstr ""
+#: ../src/aptsources.py.in:278
+msgid "Binary"
+msgstr "バイナリ"
 
-#. Description
-#: ../channels/Debian.info.in:20
-#, fuzzy
-msgid "Debian 3.1 \"Sarge\" Security Updates"
+#: ../src/aptsources.py.in:279
+msgid "Source"
+msgstr "ソース"
+
+#: ../src/aptsources.py.in:291 ../src/aptsources.py.in:296
+#: ../src/aptsources.py.in:301
+msgid "CD"
+msgstr "CD"
+
+#: ../src/aptsources.py.in:322
+msgid "Ubuntu 5.04 Updates"
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#: ../src/aptsources.py.in:332 ../src/aptsources.py.in:345
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Ubuntu 4.10 セキュリティアップデート"
+
+#: ../src/aptsources.py.in:336 ../src/aptsources.py.in:349
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 セキュリティアップデート"
+
+#: ../src/aptsources.py.in:360
+msgid "Contributed software"
+msgstr "寄贈ソフトウェア"
+
+#: ../src/aptsources.py.in:361
+msgid "Non-free software"
+msgstr "非フリーソフトウェア"
+
+#: ../src/aptsources.py.in:362
+msgid "US export restricted software"
+msgstr "アメリカ合衆国外への輸出が禁止されているソフトウェア"
+
+#: ../src/aptsources.py.in:377
+msgid "Debian Stable Security Updates"
 msgstr "Debian Stable セキュリティアップデート"
 
-#. Description
-#: ../channels/Debian.info.in:34
-msgid "Debian \"Etch\" (testing)"
-msgstr ""
+#. some known keys
+#: ../src/dialog_apt_key.py.in:37
+msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+msgstr "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
 
-#. BaseURI
-#: ../channels/Debian.info.in:47
-msgid "http://http.us.debian.org/debian/"
-msgstr ""
+#: ../src/dialog_apt_key.py.in:38
+msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+msgstr "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
 
-#. Description
-#: ../channels/Debian.info.in:48
-msgid "Debian \"Sid\" (unstable)"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:54
-msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:57
-msgid "Non-DFSG-compatible Software"
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:208
+#: ../src/dialog_apt_key.py.in:122
 msgid "Choose a key-file"
-msgstr ""
+msgstr "キーファイルを選択"
 
-#: ../SoftwareProperties/SoftwareProperties.py:218
+#: ../src/dialog_apt_key.py.in:132
 msgid "Error importing selected file"
-msgstr ""
+msgstr "選択したファイルのインポートエラー"
 
-#: ../SoftwareProperties/SoftwareProperties.py:219
+#: ../src/dialog_apt_key.py.in:133
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
+"選択したファイルはGPGキーファイルではないか、壊れている可能性があります。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:231
+#: ../src/dialog_apt_key.py.in:145
 msgid "Error removing the key"
-msgstr ""
+msgstr "キー削除のエラー"
 
-#: ../SoftwareProperties/SoftwareProperties.py:232
+#: ../src/dialog_apt_key.py.in:146
 msgid "The key you selected could not be removed. Please report this as a bug."
-msgstr ""
+msgstr "選択したキーを削除できませんでした。バグとして報告してください。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:275
-#, python-format
+#: ../src/gnome-software-properties.in:72
+msgid "Repositories changed"
+msgstr "リポジトリが変更されました"
+
+#: ../src/gnome-software-properties.in:74
+#, c-format
 msgid ""
-"<big><b>Error scaning the CD</b></big>\n"
+"The repository information has changes. A backup copy of your sources.list "
+"is stored in %s.save. \n"
 "\n"
-"%s"
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
 msgstr ""
+"リポジトリ情報が変更されました。sources.listのバックアップを %s.save にコピー"
+"しました\n"
+"\n"
+"パッケージリストをサーバから再取得する必要があります。今すぐ実行しますか?"
 
-#: ../SoftwareProperties/SoftwareProperties.py:325
-msgid "Please enter a name for the disc"
+#: ../src/update-manager.in:138
+msgid "Your system has broken packages!"
+msgstr "システムに壊れたパッケージがあります！"
+
+#: ../src/update-manager.in:139
+msgid ""
+"This means that some dependencies of the installed packages are not "
+"satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
 msgstr ""
+"インストールされたパッケージの依存性が満たせないようです。\"Synaptic\" また"
+"は \"apt-get\" を使用して修正してください。 "
 
-#: ../SoftwareProperties/SoftwareProperties.py:341
-msgid "Please insert a disc in the drive:"
+#: ../src/update-manager.in:154
+msgid "It is not possible to upgrade all packages."
+msgstr "全てのパッケージをアップグレードすることは不可能です。"
+
+#: ../src/update-manager.in:156
+msgid ""
+"This means that besides the actual upgrade of the packages some further "
+"action (such as installing or removing packages) is required. Please use "
+"Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
 msgstr ""
+"パッケージのアップグレードの他にパッケージのインストールや削除などの別の対処"
+"がいるようです。Synaptic \"Smart Upgrade\"か\"apt-get dist-upgrade\"を実行し"
+"て問題を修正してください。"
 
-#~ msgid "<b>Comment:</b>"
-#~ msgstr "<b>コメント:</b>"
+#: ../src/update-manager.in:171
+msgid "The following packages are not upgraded: "
+msgstr "これらのパッケージはアップグレードされません:"
 
-#~ msgid "<b>Components</b>"
-#~ msgstr "<b>コンポーネント</b>"
+#: ../src/update-manager.in:248
+msgid "Changes not found, the server may not be updated yet."
+msgstr ""
+"変更点は見つかりませんでした。サーバはまだアップデートされていないようで"
+"す。"
 
-#~ msgid "<b>Distribution:</b>"
-#~ msgstr "<b>ディストリビューション:</b>"
+#: ../src/update-manager.in:251
+msgid ""
+"Failed to download changes. Please check if there is an active internet "
+"connection."
+msgstr ""
+"変更点の取得に失敗しました。インターネットに接続されているか確認してくださ"
+"い。"
 
-#~ msgid "<b>Repository</b>"
-#~ msgstr "<b>リポジトリ</b>"
+#: ../src/update-manager.in:271
+#, c-format
+msgid "Version %s: \n"
+msgstr "バージョン %s: \n"
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>セクション:</b>"
+#: ../src/update-manager.in:319
+msgid "Downloading changes..."
+msgstr "変更点を取得中..."
 
-#~ msgid "<b>Temporary files</b>"
-#~ msgstr "<b>一時ファイル</b>"
+#: ../src/update-manager.in:375
+msgid "The updates are being applied."
+msgstr "アップデートされました。"
 
-#~ msgid "<b>Type:</b>"
-#~ msgstr "<b>タイプ:</b>"
+#: ../src/update-manager.in:377
+msgid "Upgrade finished"
+msgstr "アップグレードが終了しました"
 
-#~ msgid "<b>URI:</b>"
-#~ msgstr "<b>URI:</b>"
+#: ../src/update-manager.in:434
+msgid "Another package manager is running"
+msgstr "他のパッケージマネージャが動いています"
 
-#~ msgid "<b>User Interface</b>"
-#~ msgstr "ユーザーインターフェース"
+#: ../src/update-manager.in:436
+msgid ""
+"You can run only one package management application at the same time. Please "
+"close this other application first."
+msgstr ""
+"同時にひとつのパッケージマネージャしか起動できません。先に他のアプリケーショ"
+"ンマネージャを終了してください。"
 
-#, fuzzy
-#~ msgid ""
-#~ "<big><b>Authentication keys</b></big>\n"
-#~ "\n"
-#~ "You can add and remove authentication keys in this dialog. A key makes it "
-#~ "possible to verify the integrity of the software you download."
-#~ msgstr ""
-#~ "<big><b>認証鍵</b></big>\n"
-#~ "\n"
-#~ "認証鍵の追加と削除が行えます。認証鍵によりダウンロードしたソフトウェアが完"
-#~ "全なものか確認することができます。"
+#: ../src/update-manager.in:455
+msgid "Updating package list..."
+msgstr "アップデートされるパッケージのリスト..."
 
-#~ msgid ""
-#~ "<big><b>Enter the complete APT line of the repository that you want to "
-#~ "add</b></big>\n"
-#~ "\n"
-#~ "The APT line contains the type, location and content of a repository, for "
-#~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
-#~ "detailed description of the syntax in the documentation."
-#~ msgstr ""
-#~ "<big><b>追加したい APT line のレポジトリを入力してください。</b></big>\n"
-#~ "\n"
-#~ "APT lineにはタイプ、場所、内容などを含めることができます。例:<i>\"deb "
-#~ "http://ftp.debian.org sarge main\"</i>付属のドキュメントに詳細な記述形式に"
-#~ "ついて書かれています。"
+#: ../src/update-manager.in:457
+msgid "Installing updates..."
+msgstr "アップデートをインストール中..."
 
-#~ msgid "APT line:"
-#~ msgstr "APT line:"
+#: ../src/update-manager.in:658 ../src/update-manager.in:661
+msgid "Your system is up-to-date!"
+msgstr "システムは最新の状態です!"
 
-#~ msgid "A_uthentication"
-#~ msgstr "認証"
+#: ../src/update-manager.in:659
+msgid "There are no updates available."
+msgstr "アップデートするものはありません。"
 
-#, fuzzy
-#~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
-#~ msgstr ""
-#~ "新しい鍵ファイルを信頼されたキーホルダーに追加します。セキュアなチャンネル"
-#~ "経由で鍵を取得したか、信頼される持ち主のものか確認してください。"
+#: ../src/update-manager.in:686
+#, c-format
+msgid "New version: %s"
+msgstr "新しいバージョン: %s"
 
-#~ msgid "Automatically check for software _updates."
-#~ msgstr "アップデートを自動的にチェックする(U)"
+#: ../src/update-manager.in:710
+msgid "Your distribution is no longer supported"
+msgstr "あなたのディストリビューションはすでにサポート対象外です。"
 
-#~ msgid "Automatically clean _temporary packages files"
-#~ msgstr "一時ファイルを自動的に削除する(T)"
+#: ../src/update-manager.in:710
+msgid ""
+"Please upgrade to a newer version of Ubuntu Linux. The version you are "
+"running will no longer get security fixes or other critical updates. Please "
+"see http://www.ubuntulinux.org for upgrade information."
+msgstr ""
+"新しいUbuntu Linuxにアップグレードしてください。現在お使いのシステムにはセ"
+"キュリティフィクスや危急のアップデートはすでに提供されていません。アップグ"
+"レードに関する情報は http://www.ubuntulinux.org/ を見てください。"
 
-#~ msgid ""
-#~ "Binary\n"
-#~ "Source"
-#~ msgstr ""
-#~ "バイナリ\n"
-#~ "ソース"
+#: ../src/update-manager.in:725
+msgid "There is a new release of Ubuntu available!"
+msgstr "Ubuntuの新しいリリース版があります！"
 
-#~ msgid "Clean interval in days: "
-#~ msgstr "削除する間隔(日): "
+#: ../src/update-manager.in:725
+#, c-format
+msgid ""
+"A new release with the codename '%s' is available. Please see http://www."
+"ubuntulinux.org/ for upgrade instructions."
+msgstr ""
+"コードネーム '%s' という新しいリリース版があります。アップグレードするために "
+"http://www.ubuntulinux.org/ をご覧ください。"
 
-#~ msgid "Edit Repository..."
-#~ msgstr "リポジトリの編集..."
+#: ../src/update-manager.in:729
+msgid "Never show this message again"
+msgstr "このメッセージを二度と表示しない"
 
-#~ msgid "Remove the selected key from the trusted keyring."
-#~ msgstr "信頼されたキーホルダーから選択した鍵を削除します。"
+#: ../src/update-manager.in:817
+msgid "Unable to get exclusive lock"
+msgstr "排他的なロックができません"
 
-#, fuzzy
-#~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
-#~ msgstr ""
-#~ "ディストリビューション付属のデフォルトの鍵を元に戻します。この変更により"
-#~ "ユーザーが追加した鍵が失われることはありません。"
+#: ../src/update-manager.in:818
+msgid ""
+"This usually means that another package management application (like apt-get "
+"or aptitude) already running. Please close that application first"
+msgstr ""
+"同時にひとつのパッケージマネージャしか起動できません。先に atp-get や aptitudeのような"
+"他のパッケージマネージャを終了してください。"
 
-#~ msgid "Settings"
-#~ msgstr "設定"
+#: ../src/update-manager.in:842
+msgid "Initializing and getting list of updates..."
+msgstr "アップデートリストを取得中..."
 
-#~ msgid "Show disabled software sources"
-#~ msgstr "無効なソフトウェア取得元を表示する"
+#: ../src/update-manager.in:865
+msgid "You need to be root to run this program"
+msgstr "rootで実行してください"
 
-#~ msgid "Update interval in days: "
-#~ msgstr "アップデートする間隔(日): "
+#~ msgid "Edit software sources and settings"
+#~ msgstr "ソフトウェアのソースと設定を編集"
 
-#~ msgid "_Add Repository"
-#~ msgstr "リポジトリの追加(A)"
-
-#~ msgid "_Custom"
-#~ msgstr "カスタム(C)"
-
-#~ msgid "_Download upgradable packages"
-#~ msgstr "アップグレード可能なパッケージを取得する(D)"
-
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "アップデート可能なファイルの表示とインストール"
-
-#~ msgid "Update Manager"
-#~ msgstr "アップデートマネージャー"
-
-#, fuzzy
-#~ msgid "Your system has broken packages!"
-#~ msgstr "システムは最新の状態です!"
-
-#, fuzzy
-#~ msgid ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-#~ msgstr ""
-#~ "パッケージのアップグレードの他にパッケージのインストールや削除などの別の対"
-#~ "処が干る用です。Synaptic \"Smart Upgrade\"か\"apt-get dist-upgrade\"を実行"
-#~ "して問題を修正してください。"
-
-#~ msgid "It is not possible to upgrade all packages."
-#~ msgstr "全てのパッケージをアップグレードすることは不可能です。"
-
-#~ msgid ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
-#~ msgstr ""
-#~ "パッケージのアップグレードの他にパッケージのインストールや削除などの別の対"
-#~ "処が干る用です。Synaptic \"Smart Upgrade\"か\"apt-get dist-upgrade\"を実行"
-#~ "して問題を修正してください。"
-
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr ""
-#~ "変更は見つかりませんでした。サーバーはまだアップデートされていないようで"
-#~ "す。"
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "変更の取得に失敗しました。インターネットに接続されているか確認してくださ"
-#~ "い。"
-
-#~ msgid "Version %s: \n"
-#~ msgstr "バージョン %s: \n"
-
-#~ msgid "Downloading changes..."
-#~ msgstr "変更を取得中..."
-
-#~ msgid "The updates are being applied."
-#~ msgstr "アップデートされました。"
-
-#~ msgid "Another package manager is running"
-#~ msgstr "他のパッケージマネージャーが動いています"
-
-#~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-#~ msgstr ""
-#~ "同時にひとつのパッケージマネージャーしか起動できません。他のアプリケーショ"
-#~ "ンマネージャーを先に終了してください。"
-
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "システムは最新の状態です!"
-
-#~ msgid "There are no updates available."
-#~ msgstr "アップデートするものはありません。"
-
-#~ msgid "New version: %s"
-#~ msgstr "新しいバージョン: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "あなたのディストリビューションはすでにサポート対象外です。"
-
-#~ msgid ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-#~ msgstr ""
-#~ "新しいUbuntu Linuxにアップグレードしてください。現在お使いのシステムにはセ"
-#~ "キュリティフィクスや危急のアップデートはすでに提供されていません。アップグ"
-#~ "レードに関する情報は http://www.ubuntulinux.org/ を見てください。"
-
-#, fuzzy
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "アップデートするものはありません。"
-
-#~ msgid "Never show this message again"
-#~ msgstr "このメッセージを二度と表示しない"
-
-#, fuzzy
-#~ msgid ""
-#~ "This usually means that another package management application (like apt-"
-#~ "get or aptitude) already running. Please close that application first"
-#~ msgstr ""
-#~ "同時にひとつのパッケージマネージャーしか起動できません。他のアプリケーショ"
-#~ "ンマネージャーを先に終了してください。"
-
-#~ msgid "Initializing and getting list of updates..."
-#~ msgstr "アップデートリストを取得中..."
-
-#~ msgid "You need to be root to run this program"
-#~ msgstr "rootで実行してください"
-
-#, fuzzy
 #~ msgid "Software Properties"
-#~ msgstr "ソフトウェアの設定"
+#~ msgstr "ソフトウェアのプロパティ"
 
 #~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntuアップデートマネージャー"
+#~ msgstr "Ubuntuアップデートマネージャ"
 
 #~ msgid "Reload the package information from the server."
-#~ msgstr "サーバーからパッケージ情報を再度読み込む。"
-
-#, fuzzy
-#~ msgid "Binary"
-#~ msgstr ""
-#~ "バイナリ\n"
-#~ "ソース"
-
-#, fuzzy
-#~ msgid "Source"
-#~ msgstr ""
-#~ "バイナリ\n"
-#~ "ソース"
-
-#~ msgid "CD"
-#~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 セキュリティアップデート"
-
-#~ msgid "Contributed software"
-#~ msgstr "寄贈されたソフトウェア"
-
-#~ msgid "Non-free software"
-#~ msgstr "Non-free ソフトウェア"
-
-#~ msgid "US export restricted software"
-#~ msgstr "アメリカ合衆国外への輸出が禁止されているソフトウェア"
-
-#~ msgid "Repositories changed"
-#~ msgstr "リポジトリが変更されました"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "リポジトリ情報が変更されました。sources.listのバックアップを %s.save にコ"
-#~ "ピーしました\n"
-#~ "\n"
-#~ "パッケージリストをサーバーから再取得する必要があります。今すぐ実行します"
-#~ "か?"
+#~ msgstr "サーバからパッケージ情報を再度読み込む。"
 
 #, fuzzy
 #~ msgid ""
