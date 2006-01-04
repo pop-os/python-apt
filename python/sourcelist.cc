@@ -3,7 +3,7 @@
 // $Id: sourcelist.cc,v 1.2 2003/12/26 17:04:22 mdz Exp $
 /* ######################################################################
 
-   Package Records - Wrapper for the package records functions
+   SourcesList - Wrapper for the SourcesList functions
 
    ##################################################################### */
 									/*}}}*/
@@ -16,6 +16,7 @@
 #include <Python.h>
 									/*}}}*/
 
+
     
 // PkgsourceList Class							/*{{{*/
 // ---------------------------------------------------------------------
@@ -24,7 +25,24 @@ static char *doc_PkgSourceListFindIndex = "xxx";
 static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 {   
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
-   return Py_BuildValue("i", 1);
+   PyObject *pyPkgFileIter;
+   PyObject *pyPkgIndexFile;
+
+   if (PyArg_ParseTuple(Args, "O!", &PackageFileType,&pyPkgFileIter) == 0) 
+      return 0;
+
+   pkgCache::PkgFileIterator &i = GetCpp<pkgCache::PkgFileIterator>(pyPkgFileIter);
+   pkgIndexFile *index;
+   if(list->FindIndex(i, index))
+   {
+      pyPkgIndexFile = CppOwnedPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PackageIndexFileType,index);
+      return pyPkgIndexFile;
+   }
+
+   //&PackageIndexFileType,&pyPkgIndexFile)
+   
+   Py_INCREF(Py_None);
+   return Py_None;
 }
 
 static char *doc_PkgSourceListReadMainList = "xxx";

@@ -7,8 +7,9 @@ python-apt (0.6.16) unstable; urgency=low
   * apt/ API change: apt.Package.candidateOrigin returns a list of origins 
     now instead of a single one
   * apt_pkg.Cdrom.Add() returns a boolean now, CdromProgress has totalSteps
+  * added support for pkgIndexFile and added SourcesList.FindIndex()
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Dec 2005 10:21:51 +0100
+ -- 
 
 python-apt (0.6.15) unstable; urgency=low
 

@@ -91,4 +91,8 @@ PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args);
 extern PyTypeObject PkgSourceListType;
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args);
 
+// pkgSourceList
+extern PyTypeObject PackageIndexFileType;
+
+
 #endif
