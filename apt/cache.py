@@ -65,7 +65,8 @@ class Cache(object):
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
                 self._dict[pkg.Name] = Package(self._cache, self._depcache,
-                                               self._records, self, pkg)
+                                               self._records, self._list,
+                                               self, pkg)
                 
             i += 1
         if progress != None:

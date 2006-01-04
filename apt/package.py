@@ -25,12 +25,13 @@ import apt_pkg, string, sys, random
 class Package(object):
     """ This class represents a package in the cache
     """
-    def __init__(self, cache, depcache, records, pcache, pkgiter):
+    def __init__(self, cache, depcache, records, list, pcache, pkgiter):
         """ Init the Package object """
         self._cache = cache             # low level cache
         self._depcache = depcache
         self._records = records
         self._pkg = pkgiter
+        self._list = list               # sourcelist
         self._pcache = pcache           # python cache in cache.py
         pass
 
@@ -235,16 +236,22 @@ class Package(object):
 
     # canidate origin
     class Origin:
-        def __init__(self,VerFileIter):
+        def __init__(self, pkg, VerFileIter):
             self.component = VerFileIter.Component
             self.archive = VerFileIter.Archive
             self.origin = VerFileIter.Origin
             self.label = VerFileIter.Label
             self.site = VerFileIter.Site
-        def __str__(self):
-            return "component:%s\narchive: %s\norigin: %s\nlabel: %s" \
-                   "\nsite %s\n"%  (self.component, self.archive,
-                                    self.origin, self.label, self.site)
+            # check the trust
+            indexfile = pkg._list.FindIndex(VerFileIter)
+            if indexfile and indexfile.IsTrusted:
+                self.trusted = True
+            self.trusted = False
+        def __repr__(self):
+            return "component: '%s' archive: '%s' origin: '%s' label: %s" \
+                   "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
+                                                  self.origin, self.label,
+                                                  self.site, self.trusted)
         
     def candidateOrigin(self):
         ver = self._depcache.GetCandidateVer(self._pkg)
@@ -252,7 +259,7 @@ class Package(object):
             return None
         origins = []
         for (verFileIter,index) in ver.FileList:
-            origins.append(self.Origin(verFileIter))
+            origins.append(self.Origin(pkg, verFileIter))
         return origins
     candidateOrigin = property(candidateOrigin)
 
@@ -308,9 +315,10 @@ if __name__ == "__main__":
     cache = apt_pkg.GetCache()
     depcache = apt_pkg.GetDepCache(cache)
     records = apt_pkg.GetPkgRecords(cache)
+    list = apt_pkg.GetPkgSourceList()
 
     iter = cache["apt-utils"]
-    pkg = Package(cache, depcache, records, None, iter)
+    pkg = Package(cache, depcache, records, list, None, iter)
     print "Name: %s " % pkg.name
     print "ID: %s " % pkg.id
     print "Priority (Candidate): %s " % pkg.priority
