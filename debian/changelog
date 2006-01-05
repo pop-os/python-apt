@@ -3,8 +3,10 @@ update-manager (0.40.2) dapper; urgency=low
   * SoftwareProperties/SoftwareProperties.py:
     - fix a problem with transient/parent window in custom apt line
       dialog (ubuntu #21585)
+    - fix a problem in the conf file writer that can lead to absurdly
+      large files
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Dec 2005 14:19:06 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  5 Jan 2006 12:37:33 +0100
 
 update-manager (0.40.1) dapper; urgency=low
 

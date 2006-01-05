@@ -64,7 +64,7 @@ class SoftwareProperties(SimpleGladeApp):
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
                             None, domain="update-manager")
     self.modified = False
-		  
+
     self.gnome_program = gnome.init("Software Properties", "0.41")
     self.gconfclient = gconf.client_get_default()
 
@@ -156,25 +156,28 @@ class SoftwareProperties(SimpleGladeApp):
     self.write_config()
     
   def write_config(self):
+    #print "write_config()"
     periodic = "/etc/apt/apt.conf.d/10periodic"
-    
+
+    # read the old content
     content = []
-    
     if os.path.isfile(periodic):
       content = open(periodic, "r").readlines()
-      
-    cnf = apt_pkg.Config.SubTree("APT::Periodic")
     
-    f = open(periodic, "w+")
+    cnf = apt_pkg.Config.SubTree("APT::Periodic")
+
+    # write a new file without the updated keys
+    f = open(periodic, "w")
     for line in content:
       found = False
       for key in cnf.List():
         if line.find("APT::Periodic::%s" % (key)) >= 0:
           found = True
           break
-        if not found:
-          f.write(line)
-          
+      if not found:
+        f.write(line)
+
+    # append the updated keys
     for i in cnf.List():
       f.write("APT::Periodic::%s \"%s\";\n" % (i, cnf.FindI(i)))
     f.close()    
