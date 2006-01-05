@@ -246,9 +246,10 @@ class Package(object):
             indexfile = pkg._list.FindIndex(VerFileIter)
             if indexfile and indexfile.IsTrusted:
                 self.trusted = True
-            self.trusted = False
+            else:
+                self.trusted = False
         def __repr__(self):
-            return "component: '%s' archive: '%s' origin: '%s' label: %s" \
+            return "component: '%s' archive: '%s' origin: '%s' label: '%s' " \
                    "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
                                                   self.origin, self.label,
                                                   self.site, self.trusted)
@@ -259,7 +260,7 @@ class Package(object):
             return None
         origins = []
         for (verFileIter,index) in ver.FileList:
-            origins.append(self.Origin(pkg, verFileIter))
+            origins.append(self.Origin(self, verFileIter))
         return origins
     candidateOrigin = property(candidateOrigin)
 

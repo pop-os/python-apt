@@ -10,7 +10,7 @@ python-apt (0.6.16) unstable; urgency=low
   * added support for pkgIndexFile and added SourcesList.FindIndex()
   * added "trusted" to the Origin class
 
- -- 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  5 Jan 2006 00:56:36 +0100
 
 python-apt (0.6.15) unstable; urgency=low
 
