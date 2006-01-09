@@ -3,6 +3,7 @@
 from DistUpgradeViewGtk import GtkDistUpgradeView
 from DistUpgradeControler import DistUpgradeControler
 import logging
+import os
 
 if __name__ == "__main__":
 
@@ -11,6 +12,7 @@ if __name__ == "__main__":
 
     logging.basicConfig(level=logging.DEBUG,
                         filename=os.path.expanduser("~/dist-upgrade.log"),
+                        format='%(levelname)s %(message)s',
                         filemode='w')
     app.run()
 
