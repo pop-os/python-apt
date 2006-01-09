@@ -233,14 +233,29 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"|b",&distUpgrade) == 0)
       return 0;
 
+   bool res;
    if(distUpgrade)
-      pkgDistUpgrade(*depcache);
+      res = pkgDistUpgrade(*depcache);
    else
-      pkgAllUpgrade(*depcache);
+      res = pkgAllUpgrade(*depcache);
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_BuildValue("b",res));   
 }
+
+static PyObject *PkgDepCacheMinimizeUpgrade(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+
+   bool res = pkgMinimizeUpgrade(*depcache);
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_BuildValue("b",res));   
+}
+
 
 static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
 {   
@@ -481,6 +496,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
    {"FixBroken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
    {"ReadPinFile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
+   {"MinimizeUpgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,"Go over the entire set of packages and try to keep each package marked for upgrade. If a conflict is generated then the package is restored."},
    // Manipulators
    {"MarkKeep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
    {"MarkDelete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
