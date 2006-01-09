@@ -95,10 +95,10 @@ class DistUpgradeControler(object):
                     "edubuntu-desktop": ["edubuntu-artwork", "tuxpaint"]
                     }
         # helper
-        def metaPkgInstalled(self):
+        def metaPkgInstalled():
             metapkg_found = False
             for key in metapkgs:
-                if self.cache[key].isInstalled or self.cache[key].markedInstall:
+                if self.cache.has_key(key) and (self.cache[key].isInstalled or self.cache[key].markedInstall):
                     metapkg_found=True
             return metapkg_found
         # check if we have a meta-pkg, if not, try to guess which one to pick
@@ -109,8 +109,8 @@ class DistUpgradeControler(object):
                 for pkg in metapkgs[key]:
                     deps_found |= self.cache[pkg].isInstalled
                 if deps_found:
-                    print "guessing '%s' as missing meta-pkg" % pkg
-                    self.cache[key].markInstall
+                    print "guessing '%s' as missing meta-pkg" % key
+                    self.cache[key].markInstall()
                     break
         # check if we actually found one
         if not metaPkgInstalled():
