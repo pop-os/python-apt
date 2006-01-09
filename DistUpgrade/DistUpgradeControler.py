@@ -67,10 +67,15 @@ class DistUpgradeControler(object):
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
+
         # some constants here
         self.fromDist = "hoary"
         self.toDist = "breezy"
         self.origin = "Ubuntu"
+
+        # a list of missing pkg names in the current install that neesd to
+        # be added before the dist-upgrade (e.g. missing ubuntu-desktop)
+        self.missingPkgs = []
 
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
@@ -110,8 +115,12 @@ class DistUpgradeControler(object):
                     deps_found |= self.cache[pkg].isInstalled
                 if deps_found:
                     print "guessing '%s' as missing meta-pkg" % key
-                    self.cache[key].markInstall()
-                    break
+                    try:
+                        self.cache[key].markInstall()
+                        self.missingPkgs.append(key)
+                        break
+                    except SystemError:
+                        pass
         # check if we actually found one
         if not metaPkgInstalled():
             # FIXME: provide a list
@@ -244,8 +253,9 @@ class DistUpgradeControler(object):
         self.cache.update(progress)
 
     def askDistUpgrade(self):
-        # FIXME: add "ubuntu-desktop" (or kubuntu-desktop, edubuntu-desktop)
-        #        (if required)
+        # add missing pkgs (like {ubuntu,kubuntu,edubuntu}-desktop)
+        for pkg in self.missingPkgs:
+            self.cache[pkg].markInstall()
         self.cache.upgrade(True)
         changes = self.cache.getChanges()
         res = self._view.confirmChanges(changes,self.cache.requiredDownload)
