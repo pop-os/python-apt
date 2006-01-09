@@ -247,6 +247,20 @@ class DistUpgradeControler(object):
                     foreign_pkgs.add(pkg.name)
         return foreign_pkgs
 
+    def _logChanges(self):
+        # debuging output
+        logging.debug("About to apply the following changes")
+        inst = []
+        up = []
+        rm = []
+        for pkg in self.cache:
+            if pkg.markedInstall: inst.append(pkg.name)
+            elif pkg.markedUpgrade: up.append(pkg.name)
+            elif pkg.markedDelete: del.append(pkg.name)
+        logging.debug("Remove: %s" % " ".join(rm))
+        logging.debug("Install: %s" % " ".join(inst))
+        logging.debug("Upgrade: %s" % " ".join(up))
+
     def doPreUpgrade(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
@@ -275,15 +289,8 @@ class DistUpgradeControler(object):
                                       "calculating the upgrade. Please report "
                                       "this as a bug. "))
         changes = self.cache.getChanges()
-        # debuging output
-        logging.debug("About to apply the following changes")
-        for pkg in self.cache:
-            if pkg.markedInstall:
-                logging.debug("Inst: %s" % pkg.name)
-            elif pkg.markedUpgrade:
-                logging.debug("Up: %s" % pkg.name)
-            elif pkg.markedDelete:
-                logging.debug("Del: %s" % pkg.name)
+        # log the changes for debuging
+        self._logChanges()
         # ask the user if he wants to do the changes
         res = self._view.confirmChanges(changes,self.cache.requiredDownload)
         return res
