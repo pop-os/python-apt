@@ -32,12 +32,21 @@ from gettext import gettext as _
 
 
 class MyCache(apt.Cache):
+    def __init__(self, progress=None):
+        apt.Cache.__init__(self, progress)
+
+    # properties
     @property
     def requiredDownload(self):
         pm = apt_pkg.GetPackageManager(self._depcache)
         fetcher = apt_pkg.GetAcquire()
         pm.GetArchives(fetcher, self._list, self._records)
         return fetcher.FetchNeeded
+    @property
+    def isBroken(self):
+        return self._depcache.BrokenCount > 0
+
+    # methods
     def downloadable(self, pkg, useCandidate=True):
         " check if the given pkg can be downloaded "
         if useCandidate:
@@ -47,31 +56,76 @@ class MyCache(apt.Cache):
         if ver == None:
             return False
         return ver.Downloadable
-
-        
+    def fixBroken(self):
+        """ try to fix broken dependencies on the system, may throw
+            SystemError when it can't"""
+        resolver = apt_pkg.GetPkgProblemResolver(self._depcache)
+        resolver.Resolve()
 
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
-        self._cache = None
+        self.cache = None
         # some constants here
         self.fromDist = "hoary"
         self.toDist = "breezy"
         self.origin = "Ubuntu"
 
     def openCache(self):
-        self._cache = MyCache(self._view.getOpCacheProgress())
+        self.cache = MyCache(self._view.getOpCacheProgress())
 
     def sanityCheck(self):
-        if self._cache._depcache.BrokenCount > 0:
-            # FIXME: we more helpful here and offer to actually fix the
-            # system
-            self._view.error(_("Broken packages"),
-                             _("Your system contains broken packages. "
-                               "Please fix them first using synaptic or "
-                               "apt-get before proceeding."))
+        if self.cache.isBroken:
+            try:
+                self.cache.fixBroken()
+            except SystemError:
+                self._view.error(_("Broken packages"),
+                                 _("Your system contains broken packages "
+                                   "that couldn't be fixed with this "
+                                   "software. "
+                                   "Please fix them first using synaptic or "
+                                   "apt-get before proceeding."))
+                return False
+
+        # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
+        metapkgs = {"ubuntu-desktop": ["gdm","gnome-panel", "ubuntu-artwork"],
+                    "kubuntu-desktop": ["kdm", "kicker",
+                                        "kubuntu-artwork-usplash"],
+                    "edubuntu-desktop": ["edubuntu-artwork", "tuxpaint"]
+                    }
+        # helper
+        def metaPkgInstalled(self):
+            metapkg_found = False
+            for key in metapkgs:
+                if self.cache[key].isInstalled or self.cache[key].markedInstall:
+                    metapkg_found=True
+            return metapkg_found
+        # check if we have a meta-pkg, if not, try to guess which one to pick
+        if not metaPkgInstalled():
+            print "no {ubuntu,edubuntu,kubuntu}-desktop pkg installed"
+            for key in metapkgs:
+                deps_found = True
+                for pkg in metapkgs[key]:
+                    deps_found |= self.cache[pkg].isInstalled
+                if deps_found:
+                    print "guessing '%s' as missing meta-pkg" % pkg
+                    self.cache[key].markInstall
+                    break
+        # check if we actually found one
+        if not metaPkgInstalled():
+            # FIXME: provide a list
+            self._view.error(_("Can't guess meta-package"),
+                                 _("Your system does not contain a "
+                                   "ubuntu-desktop, kubuntu-desktop or "
+                                   "edubuntu-desktop package and it was not "
+                                   "possible to detect which version of "
+                                   "ubuntu you are runing.\n "
+                                   "Please install one of the packages "
+                                   "above first using synaptic or "
+                                   "apt-get before proceeding."))
             return False
+            
         # FIXME: check for ubuntu-desktop, kubuntu-dekstop, edubuntu-desktop
         return True
 
@@ -149,9 +203,9 @@ class DistUpgradeControler(object):
     def _getObsoletesPkgs(self):
         " get all package names that are not downloadable "
         obsolete_pkgs =set()        
-        for pkg in self._cache:
+        for pkg in self.cache:
             if pkg.isInstalled:
-                if not self._cache.downloadable(pkg):
+                if not self.cache.downloadable(pkg):
                     obsolete_pkgs.add(pkg.name)
         return obsolete_pkgs
 
@@ -160,8 +214,8 @@ class DistUpgradeControler(object):
             (and are actually downloadable)
         """
         foreign_pkgs =set()        
-        for pkg in self._cache:
-            if pkg.isInstalled and self._cache.downloadable(pkg):
+        for pkg in self.cache:
+            if pkg.isInstalled and self.cache.downloadable(pkg):
                 # assume it is foreign and see if it is from the 
                 # official archive
                 foreign=True
@@ -185,22 +239,22 @@ class DistUpgradeControler(object):
         #print self.obsolete_pkgs
 
     def doUpdate(self):
-        self._cache._list.ReadMainList()
+        self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
-        self._cache.update(progress)
+        self.cache.update(progress)
 
     def askDistUpgrade(self):
         # FIXME: add "ubuntu-desktop" (or kubuntu-desktop, edubuntu-desktop)
         #        (if required)
-        self._cache.upgrade(True)
-        changes = self._cache.getChanges()
-        res = self._view.confirmChanges(changes,self._cache.requiredDownload)
+        self.cache.upgrade(True)
+        changes = self.cache.getChanges()
+        res = self._view.confirmChanges(changes,self.cache.requiredDownload)
         return res
 
     def doDistUpgrade(self):
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
-        self._cache.commit(fprogress,iprogress)
+        self.cache.commit(fprogress,iprogress)
 
     def doPostUpgrade(self):
         # FIXME: check out what packages are cruft now

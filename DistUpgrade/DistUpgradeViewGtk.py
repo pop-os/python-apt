@@ -60,6 +60,20 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         # if this is set to false the download will cancel
         self.status = parent.label_extra_status
         self.progress = parent.progressbar_cache
+    def mediaChange(self, medium, drive):
+      #print "mediaChange %s %s" % (medium, drive)
+      msg = _("Please insert '%s' into the drive '%s'" % (medium,drive))
+      dialog = gtk.MessageDialog(parent=self.main,
+                                 flags=gtk.DIALOG_MODAL,
+                                 type=gtk.MESSAGE_QUESTION,
+                                 buttons=gtk.BUTTONS_OK_CANCEL)
+      dialog.set_markup(msg)
+      res = dialog.run()
+      #print res
+      dialog.destroy()
+      if  res == gtk.RESPONSE_OK:
+        return True
+      return False
     def start(self):
         #self.progress.show()
         self.progress.set_fraction(0)
