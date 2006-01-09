@@ -38,7 +38,7 @@ class MyCache(apt.Cache):
         apt.Cache.__init__(self, progress)
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT)
+        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT|os.O_TRUNC)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
@@ -76,8 +76,10 @@ class DistUpgradeControler(object):
         self.cache = None
 
         # some constants here
-        self.fromDist = "hoary"
-        self.toDist = "breezy"
+        #self.fromDist = "hoary"
+        #self.toDist = "breezy"
+        self.fromDist = "breezy"
+        self.toDist = "dapper"
         self.origin = "Ubuntu"
 
         # a list of missing pkg names in the current install that neesd to
@@ -123,14 +125,9 @@ class DistUpgradeControler(object):
                     deps_found &= self.cache.has_key(pkg) and self.cache[pkg].isInstalled
                 if deps_found:
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
-                    try:
-                        self.cache[key].markInstall()
-                        self.missing_pkgs.append(key)
-                        break
-                    except SystemError:
-                        pass
+                    self.missing_pkgs.append(key)
         # check if we actually found one
-        if not metaPkgInstalled():
+        if not metaPkgInstalled() and len(self.missing_pkgs) == 0:
             # FIXME: provide a list
             self._view.error(_("Can't guess meta-package"),
                                  _("Your system does not contain a "
@@ -292,7 +289,8 @@ class DistUpgradeControler(object):
         # log the changes for debuging
         self._logChanges()
         # ask the user if he wants to do the changes
-        res = self._view.confirmChanges(changes,self.cache.requiredDownload)
+        res = self._view.confirmChanges(_("Perform Upgrade?"),changes,
+                                        self.cache.requiredDownload)
         return res
 
     def doDistUpgrade(self):
@@ -301,10 +299,22 @@ class DistUpgradeControler(object):
         self.cache.commit(fprogress,iprogress)
 
     def doPostUpgrade(self):
-        # FIXME: check out what packages are cruft now
+        self.openCache()
+        # check out what packages are cruft now
         # use self.{foreign,obsolete}_pkgs here and see what changed
-        pass
-
+        now_obsolete = self._getObsoletesPkgs() - self.obsolete_pkgs
+        now_foreign = self._getForeignPkgs() - self.foreign_pkgs
+        logging.debug("Obsolete: %s" % " ".join(now_obsolete))
+        logging.debug("Foreign: %s" % " ".join(now_foreign))
+        # mark the cruft as delete
+        for pkgname in now_obsolete:
+            self.cache[pkgname].markDelete()
+        if self._view.confirmChanges(_("Remove obsolete Packages?"),
+                                     self.cache.getChanges(), 0):
+            fprogress = self._view.getFetchProgress()
+            iprogress = self._view.getInstallProgress()
+            self.cache.commit(fprogress,iprogress)
+            
     def askForReboot(self):
         return self._view.askYesNoQuestion(_("Reboot required"),
                                            _("The upgrade is finished now. "

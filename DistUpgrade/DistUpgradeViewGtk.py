@@ -169,6 +169,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         column.add_attribute(render, "markup", 0)
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
+        self.vscrollbar_terminal.set_adjustment(self._term.get_adjustment())
 
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
@@ -210,10 +211,11 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         return False
-    def confirmChanges(self, changes, downloadSize):
+    def confirmChanges(self, summary, changes, downloadSize):
         # FIXME: add a whitelist here for packages that we expect to be
         # removed (how to calc this automatically?)
-        DistUpgradeView.confirmChanges(self, changes,downloadSize)
+        DistUpgradeView.confirmChanges(self, summary, changes,downloadSize)
+        self.label_summary.set_markup("<big><b>%s</b></big>" % summary)
         msg = _("%s packages are going to be removed.\n"
                 "%s packages are going to be newly installed.\n"
                 "%s packages are going to be upgraded.\n\n"
