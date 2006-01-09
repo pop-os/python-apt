@@ -279,14 +279,15 @@ static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
 static PyObject *PkgDepCacheFixBroken(PyObject *Self,PyObject *Args)
 {   
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
-
+   
+   bool res=true;
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   pkgFixBroken(*depcache);
+   res &=pkgFixBroken(*depcache);
+   res &=pkgMinimizeUpgrade(*depcache);
 
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_BuildValue("b",res));   
 }
 
 
