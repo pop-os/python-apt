@@ -38,7 +38,7 @@ class MyCache(apt.Cache):
         apt.Cache.__init__(self, progress)
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"=, os.O_RDWR|os.O_CREAT)
+        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
@@ -278,11 +278,11 @@ class DistUpgradeControler(object):
         # debuging output
         logging.debug("About to apply the following changes")
         for pkg in self.cache:
-            if self.cache[pkg].markedInstall:
+            if pkg.markedInstall:
                 logging.debug("Inst: %s" % pkg.name)
-            elif self.cache[pkg].markedUpgrade:
+            elif pkg.markedUpgrade:
                 logging.debug("Up: %s" % pkg.name)
-            elif self.cache[pkg].markedDelete:
+            elif pkg.markedDelete:
                 logging.debug("Del: %s" % pkg.name)
         # ask the user if he wants to do the changes
         res = self._view.confirmChanges(changes,self.cache.requiredDownload)
