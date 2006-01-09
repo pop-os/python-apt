@@ -256,7 +256,7 @@ class DistUpgradeControler(object):
         for pkg in self.cache:
             if pkg.markedInstall: inst.append(pkg.name)
             elif pkg.markedUpgrade: up.append(pkg.name)
-            elif pkg.markedDelete: del.append(pkg.name)
+            elif pkg.markedDelete: rm.append(pkg.name)
         logging.debug("Remove: %s" % " ".join(rm))
         logging.debug("Install: %s" % " ".join(inst))
         logging.debug("Upgrade: %s" % " ".join(up))
