@@ -259,7 +259,7 @@ class DistUpgradeControler(object):
         logging.debug("Install: %s" % " ".join(inst))
         logging.debug("Upgrade: %s" % " ".join(up))
 
-    def doPreUpgrade(self):
+    def doPreUpdate(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
         self.obsolete_pkgs = self._getObsoletesPkgs()
@@ -309,7 +309,7 @@ class DistUpgradeControler(object):
         logging.debug("Foreign: %s" % " ".join(now_foreign))
         
         # mark the cruft as delete
-        for pkgname in (self.obsolete_pkgs - now_obsolete):
+        for pkgname in (now_obsolete - self.obsolete_pkgs):
             self.cache[pkgname].markDelete()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
@@ -334,7 +334,7 @@ class DistUpgradeControler(object):
             sys.exit(1)
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
-        self.doPreUpgrade()
+        self.doPreUpdate()
 
         # update sources.list
         self._view.setStep(2)
