@@ -4,8 +4,9 @@
   happen)
 - stop gnome-volume-manager before the hoary->breezy upgrade
   (it will crash otherwise)
-- DistUpgradeControler.sanityCheck:
-  * fix borken caches
-  * check for ubuntu desktop etc
 - check authentication and don't upgrade anything that is not
   authenticated (maybe just comment unauthenticated stuff out?)
+- restore sources.list if anything goes wrong before doing the actual
+  upgrade (e.g. dependency calculation)
+- whitelist removal (pattern? e.g. c102 -> c2a etc)?
+- logging for the dpkg install run

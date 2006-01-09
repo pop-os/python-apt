@@ -25,6 +25,7 @@ import apt_pkg
 import sys
 import os
 import subprocess
+import logging
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
@@ -32,9 +33,16 @@ from gettext import gettext as _
 
 
 class MyCache(apt.Cache):
+    # init
     def __init__(self, progress=None):
         apt.Cache.__init__(self, progress)
+        # turn on debuging
+        apt.Config.Set("Debug::pkgProblemResolver","true")
+        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log", os.O_RDWR|os.O_CREAT)
+        os.dup2(fd,1)
+        os.dup2(fd,2)
 
+        
     # properties
     @property
     def requiredDownload(self):
@@ -74,7 +82,7 @@ class DistUpgradeControler(object):
 
         # a list of missing pkg names in the current install that neesd to
         # be added before the dist-upgrade (e.g. missing ubuntu-desktop)
-        self.missingPkgs = []
+        self.missing_pkgs = []
 
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
@@ -82,7 +90,7 @@ class DistUpgradeControler(object):
     def sanityCheck(self):
         if self.cache.isBroken:
             try:
-                print "Have broken pkgs, trying to fix them"
+                logging.debug("Have broken pkgs, trying to fix them")
                 self.cache.fixBroken()
             except SystemError:
                 self._view.error(_("Broken packages"),
@@ -108,16 +116,16 @@ class DistUpgradeControler(object):
             return metapkg_found
         # check if we have a meta-pkg, if not, try to guess which one to pick
         if not metaPkgInstalled():
-            print "no {ubuntu,edubuntu,kubuntu}-desktop pkg installed"
+            logging.debug("no {ubuntu,edubuntu,kubuntu}-desktop pkg installed")
             for key in metapkgs:
                 deps_found = True
                 for pkg in metapkgs[key]:
                     deps_found &= self.cache.has_key(pkg) and self.cache[pkg].isInstalled
                 if deps_found:
-                    print "guessing '%s' as missing meta-pkg" % key
+                    logging.debug("guessing '%s' as missing meta-pkg" % key)
                     try:
                         self.cache[key].markInstall()
-                        self.missingPkgs.append(key)
+                        self.missing_pkgs.append(key)
                         break
                     except SystemError:
                         pass
@@ -244,8 +252,8 @@ class DistUpgradeControler(object):
         # compare the list after the update again
         self.obsolete_pkgs = self._getObsoletesPkgs()
         self.foreign_pkgs = self._getForeignPkgs()
-        #print self.foreign_pkgs
-        #print self.obsolete_pkgs
+        logging.debug("Foreign: %s" % " ".join(self.foreign_pkgs))
+        logging.debug("Obsolete: %s" % " ".join(self.obsolete_pkgs))
 
     def doUpdate(self):
         self.cache._list.ReadMainList()
@@ -254,18 +262,26 @@ class DistUpgradeControler(object):
 
     def askDistUpgrade(self):
         try:
-            # first upgrade (and make sure this way that the cache is ok)
+            # upgrade (and make sure this way that the cache is ok)
             self.cache.upgrade(True)
             # then add missing pkgs (like {ubuntu,kubuntu,edubuntu}-desktop)
-            for pkg in self.missingPkgs:
+            for pkg in self.missing_pkgs:
+                logging.debug("Installing missing pkg: %s" % pkg)
                 self.cache[pkg].markInstall()
         except SystemError:
             # FIXME: change the text to something more useful
             return self._view.error(_("Could not calculate the upgrade"),
                                     _("A unresolvable problem occured while "
                                       "calculating the upgrade. Please report "
-                                      "this as a bug. ")
+                                      "this as a bug. "))
         changes = self.cache.getChanges()
+        # debuging output
+        logging.debug("About to apply the following changes")
+        for pkg in caches:
+            if cache[pkg].markedInstall: logging.debug("Inst: %s" % pkg.name)
+            elif cache[pkg].markedUpgrade: logging.debug("Up: %s" % pkg.name)
+            elif cache[pkg].markedDelete: logging.debug("Del: %s" % pkg.name)
+        # ask the user if he wants to do the changes
         res = self._view.confirmChanges(changes,self.cache.requiredDownload)
         return res
 

@@ -129,7 +129,8 @@ class GtkInstallProgressAdapter(InstallProgress):
     def conffile(self, current, new):
         pass
     def fork(self):
-        return self.term.forkpty(envv=self.env)
+        pid = self.term.forkpty(envv=self.env)
+        return pid
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
         self.finished = True
