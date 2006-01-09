@@ -59,8 +59,7 @@ class MyCache(apt.Cache):
     def fixBroken(self):
         """ try to fix broken dependencies on the system, may throw
             SystemError when it can't"""
-        resolver = apt_pkg.GetPkgProblemResolver(self._depcache)
-        resolver.Resolve()
+        return self._depcache.FixBroken()
 
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
@@ -83,6 +82,7 @@ class DistUpgradeControler(object):
     def sanityCheck(self):
         if self.cache.isBroken:
             try:
+                print "Have broken pkgs, trying to fix them"
                 self.cache.fixBroken()
             except SystemError:
                 self._view.error(_("Broken packages"),
@@ -112,7 +112,7 @@ class DistUpgradeControler(object):
             for key in metapkgs:
                 deps_found = True
                 for pkg in metapkgs[key]:
-                    deps_found |= self.cache[pkg].isInstalled
+                    deps_found &= self.cache.has_key(pkg) and self.cache[pkg].isInstalled
                 if deps_found:
                     print "guessing '%s' as missing meta-pkg" % key
                     try:
@@ -253,10 +253,18 @@ class DistUpgradeControler(object):
         self.cache.update(progress)
 
     def askDistUpgrade(self):
-        # add missing pkgs (like {ubuntu,kubuntu,edubuntu}-desktop)
-        for pkg in self.missingPkgs:
-            self.cache[pkg].markInstall()
-        self.cache.upgrade(True)
+        try:
+            # first upgrade (and make sure this way that the cache is ok)
+            self.cache.upgrade(True)
+            # then add missing pkgs (like {ubuntu,kubuntu,edubuntu}-desktop)
+            for pkg in self.missingPkgs:
+                self.cache[pkg].markInstall()
+        except SystemError:
+            # FIXME: change the text to something more useful
+            return self._view.error(_("Could not calculate the upgrade"),
+                                    _("A unresolvable problem occured while "
+                                      "calculating the upgrade. Please report "
+                                      "this as a bug. ")
         changes = self.cache.getChanges()
         res = self._view.confirmChanges(changes,self.cache.requiredDownload)
         return res
