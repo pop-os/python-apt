@@ -76,10 +76,11 @@ class DistUpgradeControler(object):
         self.cache = None
 
         # some constants here
-        #self.fromDist = "hoary"
-        #self.toDist = "breezy"
-        self.fromDist = "breezy"
-        self.toDist = "dapper"
+        self.fromDist = "hoary"
+        self.toDist = "breezy"
+        #self.fromDist = "breezy"
+        #self.toDist = "dapper"
+        
         self.origin = "Ubuntu"
 
         # a list of missing pkg names in the current install that neesd to
@@ -302,12 +303,13 @@ class DistUpgradeControler(object):
         self.openCache()
         # check out what packages are cruft now
         # use self.{foreign,obsolete}_pkgs here and see what changed
-        now_obsolete = self._getObsoletesPkgs() - self.obsolete_pkgs
-        now_foreign = self._getForeignPkgs() - self.foreign_pkgs
+        now_obsolete = self._getObsoletesPkgs()
+        now_foreign = self._getForeignPkgs()
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
+        
         # mark the cruft as delete
-        for pkgname in now_obsolete:
+        for pkgname in (self.obsolete_pkgs - now_obsolete):
             self.cache[pkgname].markDelete()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
