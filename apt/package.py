@@ -112,7 +112,8 @@ class Package(object):
 
     def sourcePackageName(self):
         """ Return the source package name as string """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return None
         src = self._records.SourcePkg
         if src != "":
             return src
