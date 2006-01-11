@@ -308,9 +308,12 @@ class DistUpgradeControler(object):
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
         
-        # mark the cruft as delete
+        # mark packages that are now obsolete (and where not obsolete
+        # before) to be deleted. make sure to not delete any foreign
+        # (that is, not from ubuntu) packages 
         for pkgname in (now_obsolete - self.obsolete_pkgs):
-            self.cache[pkgname].markDelete()
+            if pkgname not in self.foreign_pkgs:
+                self.cache[pkgname].markDelete()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
             fprogress = self._view.getFetchProgress()

@@ -10,6 +10,6 @@
 - logging for the dpkg install run
 - send a "\n" on the libc6 question on hoary->breezy
 
-- deal with ioexpetion during pkg download
+- deal with io-expetion during pkg download
 - check authentication and don't upgrade anything that is not
   authenticated (maybe just comment unauthenticated stuff out?)
