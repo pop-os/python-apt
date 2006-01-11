@@ -231,6 +231,17 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Self,&PackageType,Pkg);
 }
 
+// we need a special dealloc here to make sure that the CacheFile
+// is closed before deallocation the cache (otherwise we have a bad)
+// memory leak
+void PkgCacheFileDealloc(PyObject *Self)
+{
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
+   CacheF->Close();
+   CppOwnedDealloc<pkgCache *>(Self);
+}
+
 static PyMappingMethods CacheMap = {0,CacheMapOp,0};
 PyTypeObject PkgCacheType =
 {
@@ -240,7 +251,7 @@ PyTypeObject PkgCacheType =
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgCache *>,        // tp_dealloc
+   PkgCacheFileDealloc,                  // tp_dealloc
    0,                                   // tp_print
    CacheAttr,                           // tp_getattr
    0,                                   // tp_setattr
