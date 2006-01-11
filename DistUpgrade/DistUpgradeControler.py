@@ -318,7 +318,12 @@ class DistUpgradeControler(object):
                                      self.cache.getChanges(), 0):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
-            self.cache.commit(fprogress,iprogress)
+            try:
+                self.cache.commit(fprogress,iprogress)
+            except IOError, e:
+                # FIXME: this can result in insanly big dialogs,
+                #        need to elpise/cut e
+                self._view.error(_("Error during commit:"), e)
             
     def askForReboot(self):
         return self._view.askYesNoQuestion(_("Reboot required"),
