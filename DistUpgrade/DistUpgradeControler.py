@@ -277,7 +277,8 @@ class DistUpgradeControler(object):
                              _("A problem occured during the update. "
                                "This is usually some sort of network "
                                "problem, please check your network "
-                               "connection and retry."), e)
+                               "connection and retry."),
+                             "%s" % e)
             return False
         return res
 
@@ -313,7 +314,7 @@ class DistUpgradeControler(object):
                              _("Some problem occured during the upgrade. "
                                "This is mostly a network problem, please "
                                "check the network and try again. "),
-                             e)
+                             "%s" % e)
             return False
         return res
 
