@@ -61,6 +61,6 @@ class DistUpgradeView(object):
     def askYesNoQuestion(self, summary, msg):
         " ask a Yes/No question and return True on 'Yes' "
         pass
-    def error(self, summary, msg):
+    def error(self, summary, msg, extended_msg=None):
         " display a error "
         pass

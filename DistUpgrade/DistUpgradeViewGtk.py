@@ -202,12 +202,22 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
                                 
-    def error(self, summary, msg):
+    def error(self, summary, msg, extended_msg=None):
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")
         msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
         dialog.set_markup(msg)
         dialog.vbox.set_spacing(6)
+        if extended_msg != None:
+          scroll = gtk.ScrolledWindow()
+          textview = gtk.TextView()
+          textview.set_cursor_visible(False)
+          textview.set_editable(False)
+          textview.get_buffer().set_text(extended_msg)
+          textview.show()
+          scroll.add(scroll)
+          scroll.show()
+          dialog.vbox.pack_end(textview)
         dialog.run()
         dialog.destroy()
         return False
@@ -250,3 +260,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         if res == gtk.RESPONSE_YES:
             return True
         return False
+
+
+if __name__ == "__main__":
+  view = GtkDistUpgradeView()
+  view.error("short","long","extended")

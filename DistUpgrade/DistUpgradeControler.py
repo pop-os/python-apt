@@ -271,11 +271,15 @@ class DistUpgradeControler(object):
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
         try:
-            self.cache.update(progress)
+            res = self.cache.update(progress)
         except IOError, e:
-            # FIXME: this can result in insanly big dialogs,
-            #        need to elpise/cut e
-            self._view.error(_("Error during commit:"), e)
+            self._view.error(_("Error during update"),
+                             _("A problem occured during the update. "
+                               "This is usually some sort of network "
+                               "problem, please check your network "
+                               "connection and retry."), e)
+            return False
+        return res
 
     def askDistUpgrade(self):
         try:
@@ -302,7 +306,16 @@ class DistUpgradeControler(object):
     def doDistUpgrade(self):
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
-        self.cache.commit(fprogress,iprogress)
+        try:
+            res = self.cache.commit(fprogress,iprogress)
+        except IOError, e:
+            self._view.error(_("Error during commit"),
+                             _("Some problem occured during the upgrade. "
+                               "This is mostly a network problem, please "
+                               "check the network and try again. "),
+                             e)
+            return False
+        return res
 
     def doPostUpgrade(self):
         self.openCache()
@@ -323,12 +336,7 @@ class DistUpgradeControler(object):
                                      self.cache.getChanges(), 0):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
-            try:
-                self.cache.commit(fprogress,iprogress)
-            except IOError, e:
-                # FIXME: this can result in insanly big dialogs,
-                #        need to elpise/cut e
-                self._view.error(_("Error during commit:"), e)
+            self.cache.commit(fprogress,iprogress)
             
     def askForReboot(self):
         return self._view.askYesNoQuestion(_("Reboot required"),
