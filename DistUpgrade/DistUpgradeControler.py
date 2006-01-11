@@ -36,12 +36,13 @@ class MyCache(apt.Cache):
     # init
     def __init__(self, progress=None):
         apt.Cache.__init__(self, progress)
+        self.to_install = []
+        self.to_remove = []
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT|os.O_TRUNC)
         os.dup2(fd,1)
         os.dup2(fd,2)
-
         
     # properties
     @property
@@ -68,6 +69,27 @@ class MyCache(apt.Cache):
         """ try to fix broken dependencies on the system, may throw
             SystemError when it can't"""
         return self._depcache.FixBroken()
+    def create_snapshot(self):
+        """ create a snapshot of the current changes """
+        self.to_install = []
+        self.to_remove = []
+        for name in self.getChanges():
+            pkg = self[name]
+            if pkg.markedInstall or pkg.markedUpgrade:
+                self.to_install.append(name)
+            if pkg.markedDelete:
+                self.to_remove.append(name)
+    def restore_snapshot(self):
+        """ restore a snapshot """
+        for pkg in self:
+            pkg.markKeep()
+        for name in self.to_remove:
+            pkg = self[name]
+            pkg.markDelete()
+        for name in self.to_install:
+            pkg = self[name]
+            pkg.markInstall()
+            
 
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
@@ -78,8 +100,8 @@ class DistUpgradeControler(object):
         # some constants here
         self.fromDist = "hoary"
         self.toDist = "breezy"
-        self.fromDist = "breezy"
-        self.toDist = "dapper"
+        #self.fromDist = "breezy"
+        #self.toDist = "dapper"
         
         self.origin = "Ubuntu"
 
@@ -105,7 +127,8 @@ class DistUpgradeControler(object):
                 return False
 
         # now check for ubuntu-base
-        if not self.cache["ubuntu-base"].isInstalled:
+        if not self.cache.has_key("ubuntu-base") or \
+               not self.cache["ubuntu-base"].isInstalled:
             self.missing_pkgs.append("ubuntu-base")
 
         # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
@@ -364,10 +387,19 @@ class DistUpgradeControler(object):
         
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
-        # (that is, not from ubuntu) packages 
-        for pkgname in (now_obsolete - self.obsolete_pkgs):
+        # (that is, not from ubuntu) packages
+        remove_candidates = now_obsolete - self.obsolete_pkgs
+        for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
+                # this is a delete candidate, only actually delete,
+                # if it dosn't remove other packages depending on it
+                # that are not obsolete as well
+                self.cache.create_snapshot()
                 self.cache[pkgname].markDelete()
+                for change in self.cache.getChanges():
+                    if change not in remove_candidates or \
+                           change in self.foreign_pkgs:
+                        self.cache.restore_snapshot()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
             fprogress = self._view.getFetchProgress()
