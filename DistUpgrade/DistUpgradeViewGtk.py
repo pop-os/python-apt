@@ -210,14 +210,15 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.vbox.set_spacing(6)
         if extended_msg != None:
           scroll = gtk.ScrolledWindow()
+          scroll.set_size_request(400,200)
           textview = gtk.TextView()
           textview.set_cursor_visible(False)
           textview.set_editable(False)
           textview.get_buffer().set_text(extended_msg)
           textview.show()
-          scroll.add(scroll)
+          scroll.add(textview)
           scroll.show()
-          dialog.vbox.pack_end(textview)
+          dialog.vbox.pack_end(scroll)
         dialog.run()
         dialog.destroy()
         return False
@@ -264,4 +265,12 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
 
 if __name__ == "__main__":
   view = GtkDistUpgradeView()
-  view.error("short","long","extended")
+  view.error("short","long",
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
+             )
