@@ -104,6 +104,10 @@ class DistUpgradeControler(object):
                                    "apt-get before proceeding."))
                 return False
 
+        # now check for ubuntu-base
+        if not self.cache["ubuntu-base"].isInstalled:
+            self.missing_pkgs.append("ubuntu-base")
+
         # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
         metapkgs = {"ubuntu-desktop": ["gdm","gnome-panel", "ubuntu-artwork"],
                     "kubuntu-desktop": ["kdm", "kicker",
@@ -289,12 +293,44 @@ class DistUpgradeControler(object):
             for pkg in self.missing_pkgs:
                 logging.debug("Installing missing pkg: %s" % pkg)
                 self.cache[pkg].markInstall()
-        except SystemError:
+        except SystemError, e:
             # FIXME: change the text to something more useful
-            return self._view.error(_("Could not calculate the upgrade"),
-                                    _("A unresolvable problem occured while "
-                                      "calculating the upgrade. Please report "
-                                      "this as a bug. "))
+            self._view.error(_("Could not calculate the upgrade"),
+                             _("A unresolvable problem occured while "
+                               "calculating the upgrade. Please report "
+                               "this as a bug. "))
+            logging.debug("Dist-upgrade failed: '%s'", e)
+            return False
+        
+        # now do some sanity checking, 
+        try:
+            #are all missing_pkgs really installed?
+            for pkgname in self.missing_pkgs:
+                pkg = self.cache[pkgname]
+                if not (pkg.markedInstall or pkg.markedUpgrade):
+                    logging.error("Missing pkg '%s' not installed after upgrade" % pkgname)
+                    raise AssertionError
+            # do we still have ubuntu-base?
+            pkg = self.cache["ubuntu-base"]
+            if not (pkg.markedInstall or pkg.markedUpgrade or pkg.markedKeep):
+                logging.error("No ubuntu-base installed after upgrade")
+                raise AssertionError
+            # one desktop package?
+            found = False
+            for n in ["ubuntu-desktop","kubuntu-desktop","edubuntu-desktop"]:
+                pkg = self.cache[n]
+                if pkg.markedKeep or pkg.markedInstall or pkg.markedUpgrade:
+                    found = True
+            if not found:
+                logging.error("No dekstop pkg installed after upgrade")
+                raise AssertionError
+        except AssertionError:
+            self._view.error(_("Could not calculate the upgrade"),
+                             _("After calculation the upgrade one of the "
+                               "essential packages can't be upgraded or "
+                               "installed. Please report this as a bug. "))
+            return False
+                
         changes = self.cache.getChanges()
         # log the changes for debuging
         self._logChanges()
