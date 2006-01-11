@@ -1,15 +1,19 @@
+
+hoary->breezy
+-------------
+- stop gnome-volume-manager before the hoary->breezy upgrade
+  (it will crash otherwise)
+- send a "\n" on the libc6 question on hoary->breezy
+
+general
+-------
 - CDROM upgrades !!!
 - display a message that all applications should be closed for the 
   dist-upgrade (and that strange things like a crashing panel can
   happen)
-- stop gnome-volume-manager before the hoary->breezy upgrade
-  (it will crash otherwise)
-- restore sources.list if anything goes wrong before doing the actual
-  upgrade (e.g. dependency calculation)
+
 - whitelist removal (pattern? e.g. c102 -> c2a etc)?
 - logging for the dpkg install run
-- send a "\n" on the libc6 question on hoary->breezy
 
-- deal with io-expetion during pkg download
 - check authentication and don't upgrade anything that is not
   authenticated (maybe just comment unauthenticated stuff out?)

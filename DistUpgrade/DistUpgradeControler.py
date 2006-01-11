@@ -78,8 +78,8 @@ class DistUpgradeControler(object):
         # some constants here
         self.fromDist = "hoary"
         self.toDist = "breezy"
-        #self.fromDist = "breezy"
-        #self.toDist = "dapper"
+        self.fromDist = "breezy"
+        self.toDist = "dapper"
         
         self.origin = "Ubuntu"
 
@@ -145,7 +145,7 @@ class DistUpgradeControler(object):
         return True
 
     def updateSourcesList(self):
-        sources = SourcesList()
+        self.sources = SourcesList()
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
@@ -167,12 +167,12 @@ class DistUpgradeControler(object):
 
         # look over the stuff we have
         foundToDist = False
-        for entry in sources:
+        for entry in self.sources:
             # check if it's a mirror (or offical site)
             for mirror in valid_mirrors:
-                if sources.is_mirror(mirror,entry.uri):
+                if self.sources.is_mirror(mirror,entry.uri):
                     if entry.dist in toDists:
-                        # so the sources.list is already set to the new
+                        # so the self.sources.list is already set to the new
                         # distro
                         foundToDist = True
                     elif entry.dist in fromDists:
@@ -190,24 +190,23 @@ class DistUpgradeControler(object):
                         entry.disabled = True
 
         if not foundToDist:
-            # FIXME: offer to write a new sources.list entry
+            # FIXME: offer to write a new self.sources.list entry
             return self._view.error(_("No valid entry found"),
                                     _("While scaning your repository "
                                       "information no valid entry for "
                                       "the upgrade was found.\n"))
         
         # write (well, backup first ;) !
-        backup_ext = ".distUpgrade"
-        sources.backup(backup_ext)
-        sources.save()
+        self.sources_backup_ext = ".distUpgrade"
+        self.sources.backup(self.sources_backup_ext)
+        self.sources.save()
 
-        # re-check if the written sources are valid, if not revert and
+        # re-check if the written self.sources are valid, if not revert and
         # bail out
         try:
             sourceslist = apt_pkg.GetPkgSourceList()
             sourceslist.ReadMainList()
         except SystemError:
-            sources.restoreBackup(backup_ext)
             self._view.error(_("Repository information invalid"),
                              _("Upgrading the repository information "
                                "resulted in a invalid file. Please "
@@ -280,7 +279,7 @@ class DistUpgradeControler(object):
                                "connection and retry."),
                              "%s" % e)
             return False
-        return res
+        return True
 
     def askDistUpgrade(self):
         try:
@@ -316,7 +315,7 @@ class DistUpgradeControler(object):
                                "check the network and try again. "),
                              "%s" % e)
             return False
-        return res
+        return True
 
     def doPostUpgrade(self):
         self.openCache()
@@ -345,6 +344,12 @@ class DistUpgradeControler(object):
                                              "A reboot is required to "
                                              "now, do you want to do this "
                                              "now?"))
+
+    def abort(self):
+        """ abort the upgrade, cleanup (as much as possible) """
+        self.sources.restoreBackup(self.sources_backup_ext)
+        sys.exit(1)
+
     
     # this is the core
     def breezyUpgrade(self):
@@ -362,9 +367,10 @@ class DistUpgradeControler(object):
         self._view.setStep(2)
         self._view.updateStatus(_("Updating repository information"))
         if not self.updateSourcesList():
-            sys.exit(1)
+            self.abort()
         # then update the package index files
-        self.doUpdate()
+        if not self.doUpdate():
+            self.abort()
 
         # then open the cache (again)
         self._view.updateStatus(_("Reading cache"))
@@ -375,8 +381,10 @@ class DistUpgradeControler(object):
         self._view.setStep(3)
         self._view.updateStatus(_("Performing the upgrade"))
         if not self.askDistUpgrade():
-            sys.exit(1)
-        self.doDistUpgrade()
+            self.abort()
+            
+        if not self.doDistUpgrade():
+            self.abort()
             
         # do post-upgrade stuff
         self._view.setStep(4)
