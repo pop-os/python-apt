@@ -270,7 +270,12 @@ class DistUpgradeControler(object):
     def doUpdate(self):
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
-        self.cache.update(progress)
+        try:
+            self.cache.update(progress)
+        except IOError, e:
+            # FIXME: this can result in insanly big dialogs,
+            #        need to elpise/cut e
+            self._view.error(_("Error during commit:"), e)
 
     def askDistUpgrade(self):
         try:
