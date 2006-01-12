@@ -388,7 +388,7 @@ class DistUpgradeControler(object):
                 return True
         return False
 
-    def _tryMarkObsoleteForRemoval(self, pkgname, removal_canidates):
+    def _tryMarkObsoleteForRemoval(self, pkgname, remove_candidates):
         # this is a delete candidate, only actually delete,
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
@@ -419,7 +419,7 @@ class DistUpgradeControler(object):
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
                 if not self._tryMarkObsoleteForRemoval(pkgname,
-                                                       removal_candidates):
+                                                       remove_candidates):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkg.name)
         logging.debug("Finish checking for obsolete pkgs")
         changes = self.cache.getChanges()
