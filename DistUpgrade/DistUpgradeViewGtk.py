@@ -109,8 +109,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         # setup the child waiting
         reaper = vte.reaper_get()
         reaper.connect("child-exited", self.child_exited)
-        self.finished = False
     def startUpdate(self):
+        self.finished = False
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 

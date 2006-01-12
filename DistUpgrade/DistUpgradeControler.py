@@ -108,6 +108,13 @@ class DistUpgradeControler(object):
         # be added before the dist-upgrade (e.g. missing ubuntu-desktop)
         self.missing_pkgs = []
 
+        # a list of regexp that are not allowed to be removed
+        self.removal_blacklist = []
+        for line in open("removal_blacklist.txt").readlines():
+            line = line.strip()
+            if not line == "" or line.startswith("#"):
+                self.removal_blacklist.append(line)
+
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
 
@@ -375,6 +382,26 @@ class DistUpgradeControler(object):
             return False
         return True
 
+    def _inRemovalBlacklist(self, pkgname):
+        for expr in self.removal_blacklist:
+            if re.compile(expr).match(pkgname):
+                return True
+        return False
+
+    def _tryMarkObsoleteForRemoval(self, pkgname, removal_canidates):
+        # this is a delete candidate, only actually delete,
+        # if it dosn't remove other packages depending on it
+        # that are not obsolete as well
+        self.cache.create_snapshot()
+        self.cache[pkgname].markDelete()
+        for pkg in self.cache.getChanges():
+            if pkg.name not in remove_candidates or \
+                   pkg.name in self.foreign_pkgs or \
+                   pkg.name in self._inRemovalBlacklist(pkg.name):
+                self.cache.restore_snapshot()
+                return False
+        return True
+
     def doPostUpgrade(self):
         self.openCache()
         # check out what packages are cruft now
@@ -391,19 +418,14 @@ class DistUpgradeControler(object):
         logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
-                # this is a delete candidate, only actually delete,
-                # if it dosn't remove other packages depending on it
-                # that are not obsolete as well
-                self.cache.create_snapshot()
-                self.cache[pkgname].markDelete()
-                for pkg in self.cache.getChanges():
-                    if pkg.name not in remove_candidates or \
-                           pkg.name in self.foreign_pkgs:
-                        logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkg.name)
-                        self.cache.restore_snapshot()
+                if not self._tryMarkObsoleteForRemoval(pkgname,
+                                                       removal_candidates):
+                    logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkg.name)
         logging.debug("Finish checking for obsolete pkgs")
-        if self._view.confirmChanges(_("Remove obsolete Packages?"),
-                                     self.cache.getChanges(), 0):
+        changes = self.cache.getChanges()
+        if len(changes) > 0 and \
+               self._view.confirmChanges(_("Remove obsolete Packages?"),
+                                         changes, 0):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
             self.cache.commit(fprogress,iprogress)
