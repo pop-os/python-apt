@@ -75,9 +75,9 @@ class MyCache(apt.Cache):
         self.to_remove = []
         for pkg in self.getChanges():
             if pkg.markedInstall or pkg.markedUpgrade:
-                self.to_install.append(name)
+                self.to_install.append(pkg.name)
             if pkg.markedDelete:
-                self.to_remove.append(name)
+                self.to_remove.append(pkg.name)
     def restore_snapshot(self):
         """ restore a snapshot """
         for pkg in self:
@@ -398,6 +398,7 @@ class DistUpgradeControler(object):
                 for pkg in self.cache.getChanges():
                     if pkg.name not in remove_candidates or \
                            pkg.name in self.foreign_pkgs:
+                        logging.debug("'%s' scheduled for remove but in remove_candiates, skipping", pkg.name)
                         self.cache.restore_snapshot()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
