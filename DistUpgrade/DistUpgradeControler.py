@@ -73,8 +73,7 @@ class MyCache(apt.Cache):
         """ create a snapshot of the current changes """
         self.to_install = []
         self.to_remove = []
-        for name in self.getChanges():
-            pkg = self[name]
+        for pkg in self.getChanges():
             if pkg.markedInstall or pkg.markedUpgrade:
                 self.to_install.append(name)
             if pkg.markedDelete:
@@ -396,9 +395,9 @@ class DistUpgradeControler(object):
                 # that are not obsolete as well
                 self.cache.create_snapshot()
                 self.cache[pkgname].markDelete()
-                for change in self.cache.getChanges():
-                    if change not in remove_candidates or \
-                           change in self.foreign_pkgs:
+                for pkg in self.cache.getChanges():
+                    if pkg.name not in remove_candidates or \
+                           pkg.name in self.foreign_pkgs:
                         self.cache.restore_snapshot()
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
