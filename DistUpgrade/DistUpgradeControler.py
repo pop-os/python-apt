@@ -388,6 +388,7 @@ class DistUpgradeControler(object):
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
         remove_candidates = now_obsolete - self.obsolete_pkgs
+        logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
                 # this is a delete candidate, only actually delete,
@@ -398,8 +399,9 @@ class DistUpgradeControler(object):
                 for pkg in self.cache.getChanges():
                     if pkg.name not in remove_candidates or \
                            pkg.name in self.foreign_pkgs:
-                        logging.debug("'%s' scheduled for remove but in remove_candiates, skipping", pkg.name)
+                        logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkg.name)
                         self.cache.restore_snapshot()
+        logging.debug("Finish checking for obsolete pkgs")
         if self._view.confirmChanges(_("Remove obsolete Packages?"),
                                      self.cache.getChanges(), 0):
             fprogress = self._view.getFetchProgress()
