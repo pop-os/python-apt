@@ -26,6 +26,7 @@ import sys
 import os
 import subprocess
 import logging
+import re
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
@@ -397,7 +398,7 @@ class DistUpgradeControler(object):
         for pkg in self.cache.getChanges():
             if pkg.name not in remove_candidates or \
                    pkg.name in self.foreign_pkgs or \
-                   pkg.name in self._inRemovalBlacklist(pkg.name):
+                   self._inRemovalBlacklist(pkg.name):
                 self.cache.restore_snapshot()
                 return False
         return True
@@ -420,7 +421,7 @@ class DistUpgradeControler(object):
             if pkgname not in self.foreign_pkgs:
                 if not self._tryMarkObsoleteForRemoval(pkgname,
                                                        remove_candidates):
-                    logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkg.name)
+                    logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
         changes = self.cache.getChanges()
         if len(changes) > 0 and \
