@@ -98,10 +98,10 @@ class DistUpgradeControler(object):
         self.cache = None
 
         # some constants here
-        self.fromDist = "hoary"
-        self.toDist = "breezy"
-        #self.fromDist = "breezy"
-        #self.toDist = "dapper"
+        #self.fromDist = "hoary"
+        #self.toDist = "breezy"
+        self.fromDist = "breezy"
+        self.toDist = "dapper"
         
         self.origin = "Ubuntu"
 
@@ -323,6 +323,8 @@ class DistUpgradeControler(object):
             for pkg in self.missing_pkgs:
                 logging.debug("Installing missing pkg: %s" % pkg)
                 self.cache[pkg].markInstall()
+            if not self._verifyChanges():
+                raise SystemError, _("A essential package would have to be removed")
         except SystemError, e:
             # FIXME: change the text to something more useful
             self._view.error(_("Could not calculate the upgrade"),
@@ -388,6 +390,16 @@ class DistUpgradeControler(object):
             if re.compile(expr).match(pkgname):
                 return True
         return False
+
+    def _verifyChanges(self):
+        """ this function tests if the current changes don't violate
+            our constrains (blacklisted removals etc)
+        """
+        for pkg in self.cache.getChanges():
+            if pkg.markedDelete and self._inRemovalBlacklist(pkg.name):
+                logging.debug("The package '%s' is marked for removal but it's in the removal blacklist")
+                return False
+        return True
 
     def _tryMarkObsoleteForRemoval(self, pkgname, remove_candidates):
         # this is a delete candidate, only actually delete,

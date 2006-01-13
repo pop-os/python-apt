@@ -4,3 +4,4 @@ kubuntu-destkop
 edubuntu-desktop
 ubuntu-base
 linux-image-.*
+linux-restricted-.*
