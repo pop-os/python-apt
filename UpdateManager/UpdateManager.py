@@ -500,6 +500,11 @@ class UpdateManager(SimpleGladeApp):
         scroll.show_all()
         dialog.run()
         dialog.destroy()
+    # unlock the cache here, it will be locked again in fillstore
+    try:
+        apt_pkg.PkgSystemUnLock()
+    except SystemError:
+        pass
     self.fillstore()
 
   def on_button_help_clicked(self, widget):
@@ -814,7 +819,7 @@ class UpdateManager(SimpleGladeApp):
     # get the lock
     try:
         apt_pkg.PkgSystemLock()
-    except SystemError:
+    except SystemError, e:
         d = gtk.MessageDialog(parent=self.window_main,
                               flags=gtk.DIALOG_MODAL,
                               type=gtk.MESSAGE_ERROR,
@@ -824,6 +829,7 @@ class UpdateManager(SimpleGladeApp):
             _("This usually means that another package management "
               "application (like apt-get or aptitude) already running. "
               "Please close that application first")))
+        print "error from apt: '%s'" % e
         res = d.run()
         d.destroy()
         sys.exit()
