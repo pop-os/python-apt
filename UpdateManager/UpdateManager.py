@@ -246,8 +246,7 @@ class UpdateManager(SimpleGladeApp):
 
     # useful exit stuff
     self.window_main.connect("delete_event", lambda w, ev: self.exit())
-    self.button_close.connect("clicked", lambda w: self.exit())
-
+    self.button_cancel.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
     self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
