@@ -397,7 +397,7 @@ class DistUpgradeControler(object):
         """
         for pkg in self.cache.getChanges():
             if pkg.markedDelete and self._inRemovalBlacklist(pkg.name):
-                logging.debug("The package '%s' is marked for removal but it's in the removal blacklist")
+                logging.debug("The package '%s' is marked for removal but it's in the removal blacklist", pkg.name)
                 return False
         return True
 
