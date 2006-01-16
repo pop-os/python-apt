@@ -7,7 +7,7 @@ update-manager (0.40.3) dapper; urgency=low
     - Add a wider border around the changelog and
       description
      - Align and capitalize the button "Cancel downloading"
-  (ubuntu: #28453)
+    (ubuntu: #28453)
   
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 16 Jan 2006 12:56:29 +0100
 

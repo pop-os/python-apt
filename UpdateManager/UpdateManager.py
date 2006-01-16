@@ -418,7 +418,10 @@ class UpdateManager(SimpleGladeApp):
       self.on_treeview_update_cursor_changed(self.treeview_update)
 
   def run_synaptic(self, id, action, lock):
-    apt_pkg.PkgSystemUnLock()
+    try:
+        apt_pkg.PkgSystemUnLock()
+    except SystemError:
+        pass
     cmd = ["/usr/sbin/synaptic", "--hide-main-window",  "--non-interactive",
            "--plug-progress-into", "%s" % (id) ]
     if action == INSTALL:
