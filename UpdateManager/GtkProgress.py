@@ -26,18 +26,23 @@ import apt
 import apt_pkg
 from gettext import gettext as _
 
-class GtkOpProgress(apt.progress.OpProgress):
-  def __init__(self, progressbar):
-      self._progressbar = progressbar
-  def update(self, percent):
-      self._progressbar.show()
-      self._progressbar.set_text(self.op)
-      self._progressbar.set_fraction(percent/100.0)
-      while gtk.events_pending():
-          gtk.main_iteration()
-  def done(self):
-      self._progressbar.hide()
-
+class GtkOpProgress(apt.OpProgress):
+    def __init__(self, window,progressbar, parent):
+        self._parent = parent
+        self._window = window
+        self._progressbar = progressbar
+        window.set_transient_for(parent)
+    def update(self, percent):
+        #print percent
+        #print self.Op
+        #print self.SubOp
+        self._window.show()
+        self._progressbar.set_text(self.op)
+        self._progressbar.set_fraction(percent/100.0)
+        while gtk.events_pending():
+            gtk.main_iteration()
+    def done(self):
+        self._window.hide()
 
 class GtkFetchProgress(apt.progress.FetchProgress):
     def __init__(self, parent, summary="", descr=""):

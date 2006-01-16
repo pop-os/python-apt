@@ -402,12 +402,18 @@ class UpdateManager(SimpleGladeApp):
     self.update_count()
 
   def update_count(self):
-    text = "%i (%s)" % (len(self.packages),
-                            apt_pkg.SizeToStr(self.dl_size))
-    self.label_num_updates.set_text(text)
+      text = _("<big><b>Available updates</b></big>\n\n"
+               "The are currently %s software updates availabe. The "
+               "size of the download is %s." % \
+               (len(self.packages), apt_pkg.SizeToStr(self.dl_size)))
+      self.label_header.set_markup(text)
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
+    if expanded:
+        expander.set_label(_("Hide details"))
+    else:
+        expander.set_label(_("Show details"))
     self.gconfclient.set_bool("/apps/update-manager/show_details",expanded)
     if expanded:
       self.on_treeview_update_cursor_changed(self.treeview_update)
@@ -820,7 +826,9 @@ class UpdateManager(SimpleGladeApp):
         d.destroy()
         sys.exit()
 
-    self.cache = MyCache(GtkProgress.GtkOpProgress(self.progressbar_cache))
+    self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
+                                                   self.progressbar_cache,
+                                                   self.window_main))
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
     self.cache._depcache.ReadPinFile()

@@ -1,3 +1,16 @@
+update-manager (0.40.3) dapper; urgency=low
+
+  * improved the HIG comlicane, thanks to Sebastian Heinlein:
+    - Rename the button "close" to "cancel"
+    - Move status bar to a separate dialog
+    - Wording
+    - Add a wider border around the changelog and
+      description
+     - Align and capitalize the button "Cancel downloading"
+  (ubuntu: #28453)
+  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 16 Jan 2006 12:56:29 +0100
+
 update-manager (0.40.2) dapper; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:
