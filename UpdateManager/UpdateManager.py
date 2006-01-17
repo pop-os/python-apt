@@ -676,7 +676,7 @@ class UpdateManager(SimpleGladeApp):
       # set the label and treeview and hide the checkbox column
       self.cb.set_visible(False)
       self.expander_details.hide()
-      text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date!"),
+      text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date"),
                                              _("There are no updates available."))
       self.label_header.set_markup(text)
       self.store.append([False, _("Your system is up-to-date!"), None, None, None, None, None])
