@@ -401,11 +401,15 @@ class UpdateManager(SimpleGladeApp):
     self.update_count()
 
   def update_count(self):
-      text = _("<big><b>Available updates</b></big>\n\n"
-               "The are currently %s software updates availabe. The "
-               "size of the download is %s." % \
-               (len(self.packages), apt_pkg.SizeToStr(self.dl_size)))
-      self.label_header.set_markup(text)
+      if len(self.packages) == 0:
+          text_header= _("<big><b>No updates available</b></big>")
+          text_download = ""
+      else:
+          text_header = gettext.ngettext("<big><b>You can install one update</b></big>", "<big><b>You can install %s updates</b></big>", len(self.packages))
+          
+          text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
+      self.label_header.set_markup(text_header)
+      self.label_downsize.set_markup(text_download)
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
