@@ -433,7 +433,7 @@ class UpdateManager(SimpleGladeApp):
       cmd.append("--progress-str")
       cmd.append("%s" % _("The updates are being applied."))
       cmd.append("--finish-str")
-      cmd.append("%s" %  _("Upgrade finished"))
+      cmd.append("%s" %  _("Upgrade is complete"))
       proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
       f = proc.stdin
       for s in self.packages:
