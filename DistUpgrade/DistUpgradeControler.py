@@ -46,13 +46,8 @@ class DistUpgradeControler(object):
         #self.toDist = "breezy"
         self.fromDist = "breezy"
         self.toDist = "dapper"
-        
+       
         self.origin = "Ubuntu"
-
-        # a list of missing pkg names in the current install that neesd to
-        # be added before the dist-upgrade (e.g. missing ubuntu-desktop)
-        self.missing_pkgs = []
-
 
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())

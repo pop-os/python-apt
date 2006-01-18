@@ -3,6 +3,8 @@ import apt
 import apt_pkg
 import os
 import re
+import logging
+from gettext import gettext as _
 
 class MyCache(apt.Cache):
     # init
@@ -100,10 +102,10 @@ class MyCache(apt.Cache):
                 raise SystemError, _("A essential package would have to be removed")
         except SystemError, e:
             # FIXME: change the text to something more useful
-            self._view.error(_("Could not calculate the upgrade"),
-                             _("A unresolvable problem occured while "
-                               "calculating the upgrade. Please report "
-                               "this as a bug. "))
+            view.error(_("Could not calculate the upgrade"),
+                       _("A unresolvable problem occured while "
+                         "calculating the upgrade. Please report "
+                         "this as a bug. "))
             logging.debug("Dist-upgrade failed: '%s'", e)
             return False
         return True
@@ -119,9 +121,16 @@ class MyCache(apt.Cache):
         return True
 
     def _installMetaPkgs(self, view):
-        # now check for ubuntu-base
-        if not self["ubuntu-base"].isInstalled:
-            self["ubuntu-base"].markInstall()
+        # helper for this func
+        def metaPkgInstalled():
+            metapkg_found = False
+            for key in metapkgs:
+                if self.has_key(key):
+                    pkg = self[key]
+                    if (pkg.isInstalled and not pkg.markedDelete) \
+                           or self[key].markedInstall:
+                        metapkg_found=True
+            return metapkg_found
 
         # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
         metapkgs = {"ubuntu-desktop": ["gdm","gnome-panel", "ubuntu-artwork"],
@@ -129,13 +138,17 @@ class MyCache(apt.Cache):
                                         "kubuntu-artwork-usplash"],
                     "edubuntu-desktop": ["edubuntu-artwork", "tuxpaint"]
                     }
-        # helper
-        def metaPkgInstalled():
-            metapkg_found = False
-            for key in metapkgs:
-                if self.has_key(key) and (self[key].isInstalled or self[key].markedInstall):
-                    metapkg_found=True
-            return metapkg_found
+
+        # we never go without ubuntu-base
+        self["ubuntu-base"].markInstall()
+        # every meta-pkg that is installed currently, will be marked
+        # install (that result in a upgrade and removes a markDelete)
+        for key in metapkgs:
+            try:
+                if self[key].isInstalled: self[key].markInstall()
+            except SystemError, e:
+                logging.debug("Can't mark '%s' for install" % key)
+        
         # check if we have a meta-pkg, if not, try to guess which one to pick
         if not metaPkgInstalled():
             logging.debug("no {ubuntu,edubuntu,kubuntu}-desktop pkg installed")
@@ -155,7 +168,7 @@ class MyCache(apt.Cache):
                                      "this as a bug. "))
                         return False
         # check if we actually found one
-        if not metaPkgInstalled() and len(self.missing_pkgs) == 0:
+        if not metaPkgInstalled():
             # FIXME: provide a list
             view.error(_("Can't guess meta-package"),
                        _("Your system does not contain a "
