@@ -662,7 +662,6 @@ class UpdateManager(SimpleGladeApp):
     if self.list.num_updates < 1:
       # set the label and treeview and hide the checkbox column
       self.cb.set_visible(False)
-      self.expander_details.hide()
       text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date"),
                                              _("There are no updates available."))
       self.label_header.set_markup(text)
@@ -671,7 +670,6 @@ class UpdateManager(SimpleGladeApp):
       self.button_install.set_sensitive(False)
     else:
       self.cb.set_visible(True)
-      self.expander_details.show()
       self.treeview_update.set_headers_visible(False)
       text = _("<big><b>Available Updates</b></big>\n"
                "\n"
