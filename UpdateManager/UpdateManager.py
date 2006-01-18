@@ -717,13 +717,14 @@ class UpdateManager(SimpleGladeApp):
               gtk.main_iteration()
 
           # download/display the release notes
-          # FIXME: add some progress reporting here 
+          # FIXME: add some progress reporting here
+          res = gtk.RESPONSE_CANCEL
           try:
               release_notes = urllib2.urlopen(uri)
               notes = release_notes.read()
               self.textview_release_notes.get_buffer().set_text(notes)
               self.dialog_release_notes.set_transient_for(self.window_main)
-              self.dialog_release_notes.run()
+              res = self.dialog_release_notes.run()
               self.dialog_release_notes.hide()
           except urllib2.HTTPError:
               # FIXME: make proper error dialogs here
@@ -733,6 +734,9 @@ class UpdateManager(SimpleGladeApp):
                       "check if there is an active internet connection.")
           self.window_main.set_sensitive(True)
           self.window_main.window.set_cursor(None)
+          # user clicked cancel
+          if res == gtk.RESPONSE_CANCEL:
+              return
 
       # now download the tarball with the upgrade script
       tmpdir = tempfile.mkdtemp()
