@@ -461,10 +461,13 @@ class UpdateManager(SimpleGladeApp):
     win.hide()
     return True
 
+      
   def plug_added(self, sock, win):
-    win.show()
     while gtk.events_pending():
       gtk.main_iteration()
+    # hack around the problem that too early showing has unpleasnt effect
+    # (like double arrow, incorrect window size etc)
+    gobject.timeout_add(500, lambda win: win.show(), win)
 
   def on_button_reload_clicked(self, widget):
     #print "on_button_reload_clicked"
