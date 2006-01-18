@@ -31,7 +31,9 @@ setup(name='update-manager',
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/*.glade")
+                     glob.glob("data/*.glade")+
+		      ["data/update-manager-logo.png",
+                       "data/update-manager.png"]
                   ),
                   ('share/update-manager/channels',
                      glob.glob("channels/*")
@@ -41,8 +43,7 @@ setup(name='update-manager',
                       "data/gnome-software-properties.desktop"]
                   ),
                   ('share/pixmaps',
-                   ["data/update-manager.png",
-                    "data/update-manager-logo.png"]
+                   ["data/update-manager.png"]
                   )
                   ]+I18NFILES,
       )
