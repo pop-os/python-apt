@@ -97,7 +97,8 @@ class MyCache(apt.Cache):
         try:
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
-            self._installMetaPkgs(view)
+            if not self._installMetaPkgs(view):
+                raise SystemError, _("Can't upgrade required meta-packages")
             if not self._verifyChanges():
                 raise SystemError, _("A essential package would have to be removed")
         except SystemError, e:
@@ -145,10 +146,10 @@ class MyCache(apt.Cache):
         # install (that result in a upgrade and removes a markDelete)
         for key in metapkgs:
             try:
-                if self[key].isInstalled: self[key].markInstall()
+                if self[key].isInstalled: self[key].markUpgrade()
             except SystemError, e:
-                logging.debug("Can't mark '%s' for install" % key)
-        
+                logging.debug("Can't mark '%s' for upgrade" % key)
+                return False
         # check if we have a meta-pkg, if not, try to guess which one to pick
         if not metaPkgInstalled():
             logging.debug("no {ubuntu,edubuntu,kubuntu}-desktop pkg installed")
