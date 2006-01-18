@@ -468,7 +468,7 @@ custom</property>
 			  <child>
 			    <widget class="GtkButton" id="button_auth_restor">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Restore the default distribution keys</property>
+			      <property name="tooltip" translatable="yes">Restore the default keys of your distribution</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Restore _Defaults</property>
 			      <property name="use_underline">True</property>
