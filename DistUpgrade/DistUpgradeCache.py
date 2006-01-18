@@ -191,7 +191,7 @@ class MyCache(apt.Cache):
                 return True
         return False
 
-    def _tryMarkObsoleteForRemoval(self, pkgname, remove_candidates):
+    def _tryMarkObsoleteForRemoval(self, pkgname, remove_candidates, foreign_pkgs):
         # this is a delete candidate, only actually delete,
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
@@ -199,8 +199,38 @@ class MyCache(apt.Cache):
         self[pkgname].markDelete()
         for pkg in self.getChanges():
             if pkg.name not in remove_candidates or \
-                   pkg.name in self.foreign_pkgs or \
+                   pkg.name in foreign_pkgs or \
                    self._inRemovalBlacklist(pkg.name):
                 self.restore_snapshot()
                 return False
         return True
+    
+    def _getObsoletesPkgs(self):
+        " get all package names that are not downloadable "
+        obsolete_pkgs =set()        
+        for pkg in self:
+            if pkg.isInstalled:
+                if not self.downloadable(pkg):
+                    obsolete_pkgs.add(pkg.name)
+        return obsolete_pkgs
+
+    def _getForeignPkgs(self, allowed_origin, fromDist, toDist):
+        """ get all packages that are installed from a foreign repo
+            (and are actually downloadable)
+        """
+        foreign_pkgs =set()        
+        for pkg in self:
+            if pkg.isInstalled and self.downloadable(pkg):
+                # assume it is foreign and see if it is from the 
+                # official archive
+                foreign=True
+                for origin in pkg.candidateOrigin:
+                    if fromDist in origin.archive and \
+                           origin.origin == allowed_origin:
+                        foreign = False
+                    if toDist in origin.archive and \
+                           origin.origin == allowed_origin:
+                        foreign = False
+                if foreign:
+                    foreign_pkgs.add(pkg.name)
+        return foreign_pkgs

@@ -123,36 +123,6 @@ class DistUpgradeControler(object):
             return False
         return True
 
-    def _getObsoletesPkgs(self):
-        " get all package names that are not downloadable "
-        obsolete_pkgs =set()        
-        for pkg in self.cache:
-            if pkg.isInstalled:
-                if not self.cache.downloadable(pkg):
-                    obsolete_pkgs.add(pkg.name)
-        return obsolete_pkgs
-
-    def _getForeignPkgs(self):
-        """ get all packages that are installed from a foreign repo
-            (and are actually downloadable)
-        """
-        foreign_pkgs =set()        
-        for pkg in self.cache:
-            if pkg.isInstalled and self.cache.downloadable(pkg):
-                # assume it is foreign and see if it is from the 
-                # official archive
-                foreign=True
-                for origin in pkg.candidateOrigin:
-                    if self.fromDist in origin.archive and \
-                           origin.origin == self.origin:
-                        foreign = False
-                    if self.toDist in origin.archive and \
-                           origin.origin == self.origin:
-                        foreign = False
-                if foreign:
-                    foreign_pkgs.add(pkg.name)
-        return foreign_pkgs
-
     def _logChanges(self):
         # debuging output
         logging.debug("About to apply the following changes")
@@ -170,8 +140,8 @@ class DistUpgradeControler(object):
     def doPreUpdate(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
-        self.obsolete_pkgs = self._getObsoletesPkgs()
-        self.foreign_pkgs = self._getForeignPkgs()
+        self.obsolete_pkgs = self.cache._getObsoletesPkgs()
+        self.foreign_pkgs = self.cache._getForeignPkgs(self.origin, self.fromDist, self.toDist)
         logging.debug("Foreign: %s" % " ".join(self.foreign_pkgs))
         logging.debug("Obsolete: %s" % " ".join(self.obsolete_pkgs))
 
@@ -220,8 +190,8 @@ class DistUpgradeControler(object):
         self.openCache()
         # check out what packages are cruft now
         # use self.{foreign,obsolete}_pkgs here and see what changed
-        now_obsolete = self._getObsoletesPkgs()
-        now_foreign = self._getForeignPkgs()
+        now_obsolete = self.cache._getObsoletesPkgs()
+        now_foreign = self.cache._getForeignPkgs(self.origin, self.fromDist, self.toDist)
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
         
@@ -232,8 +202,7 @@ class DistUpgradeControler(object):
         logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
-                if not self.cache._tryMarkObsoleteForRemoval(pkgname,
-                                                       remove_candidates):
+                if not self.cache._tryMarkObsoleteForRemoval(pkgname, remove_candidates, self.foreign_pkgs):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
         changes = self.cache.getChanges()
@@ -289,8 +258,8 @@ class DistUpgradeControler(object):
         if not self.askDistUpgrade():
             self.abort()
             
-        if not self.doDistUpgrade():
-            self.abort()
+#         if not self.doDistUpgrade():
+#             self.abort()
             
         # do post-upgrade stuff
         self._view.setStep(4)
