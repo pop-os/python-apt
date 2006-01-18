@@ -310,21 +310,21 @@
 				<packing>
 				  <property name="padding">0</property>
 				  <property name="expand">False</property>
-				  <property name="fill">False</property>
+				  <property name="fill">True</property>
 				</packing>
 			      </child>
 
 			      <child>
-				<widget class="GtkComboBox" id="combobox1">
+				<widget class="GtkComboBox" id="combobox_update_interval">
 				  <property name="visible">True</property>
-				  <property name="items" translatable="yes">every hour
-twice a day
-daily
+				  <property name="items" translatable="yes">daily
 every two days
 weekly
-</property>
+every two weeks
+custom</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="focus_on_click">True</property>
+				  <signal name="changed" handler="on_combobox_update_interval_changed" last_modification_time="Wed, 18 Jan 2006 09:43:34 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -468,7 +468,7 @@ weekly
 			  <child>
 			    <widget class="GtkButton" id="button_auth_restor">
 			      <property name="visible">True</property>
-			      <property name="tooltip" translatable="yes">Revoke all imported keys and restore the default keys</property>
+			      <property name="tooltip" translatable="yes">Restore the default distribution keys</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Restore _Defaults</property>
 			      <property name="use_underline">True</property>
@@ -599,6 +599,7 @@ weekly
 
 	  <child>
 	    <widget class="GtkButton" id="button_help">
+	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="label">gtk-help</property>

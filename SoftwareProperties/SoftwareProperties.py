@@ -78,18 +78,31 @@ class SoftwareProperties(SimpleGladeApp):
       
     self.init_sourceslist()
     self.reload_sourceslist()
-      
+
+    # internet update setings
+    
+    # this maps the key (combo-box-index) to the auto-update-interval value
+    # where (-1) means, no key
+    self.combobox_interval_mapping = { 0 : 1,
+                                       1 : 2,
+                                       2 : 7,
+                                       3 : 14,
+                                       4 : -1}
+    self.combobox_update_interval.set_active(0)
     update_days = apt_pkg.Config.FindI(CONF_MAP["autoupdate"])
-    
-    self.spinbutton_update_interval.set_value(update_days)
-    
+    for key in self.combobox_interval_mapping:
+      if self.combobox_interval_mapping[key] == update_days:
+        self.combobox_update_interval.set_active(key)
+        break
     if update_days >= 1:
       self.checkbutton_auto_update.set_active(True)
+      self.combobox_update_interval.set_sensitive(True)
     else:
       self.checkbutton_auto_update.set_active(False)
-      
+      self.combobox_update_interval.set_sensitive(False)
+
+    # apt-key stuff
     self.apt_key = apt_key()
-    
     self.init_keyslist()
     self.reload_keyslist()
 
@@ -139,17 +152,21 @@ class SoftwareProperties(SimpleGladeApp):
     self.keys_store.clear()
     for key in self.apt_key.list():
       self.keys_store.append([key])
-  
+
+  def on_combobox_update_interval_changed(self, widget):
+    i = self.combobox_update_interval.get_active()
+    value = self.combobox_interval_mapping[i]
+    apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+    self.write_config()
+      
   def opt_autoupdate_toggled(self, widget):  
     if self.checkbutton_auto_update.get_active():
-      if self.spinbutton_update_interval.get_value() == 0:
-        self.spinbutton_update_interval.set_value(1)
-        value = "1"
-      else:
-        value = str(self.spinbutton_update_interval.get_value()) 
+      self.combobox_update_interval.set_sensitive(True)
+      i = self.combobox_update_interval.get_active()
+      value = self.combobox_interval_mapping[i]
     else:
-      value = "0"
-    
+      self.combobox_update_interval.set_sensitive(False)
+      value = 0
     apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
     
     # FIXME: Write config options, apt_pkg should be able to do this.

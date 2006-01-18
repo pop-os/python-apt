@@ -1,7 +1,11 @@
 update-manager (0.42.1ubuntu1) dapper; urgency=low
 
-  * improved the HIG complicane more, removed some of the uglines
-    from the last version
+  * UpdateManagert:
+    improved the HIG complicane more, removed some of the uglines
+    from the last version (Malone #22090)
+  * SoftwareProperties:
+    improved the HIG complicane (Malone #28530)
+  (thanks to Sebastian Heinlein)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 17 Jan 2006 17:27:15 +0100
 
