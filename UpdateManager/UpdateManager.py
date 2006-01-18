@@ -78,6 +78,7 @@ CHANGELOGS_URI="http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chan
 class MyCache(apt.Cache):
     def __init__(self, progress):
         apt.Cache.__init__(self, progress)
+        assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self.all_changes = {}
     def clean(self):
         for pkg in self:
@@ -169,22 +170,6 @@ class UpdateList:
         #print "MarkedKeep: %s " % pkg.name
           held_back.append(pkg.name)
     self.pkgs.sort(lambda x,y: cmp(x.name,y.name))
-    if cache._depcache.BrokenCount > 0:
-      # FIXME: show what packages are broken
-      msg=("<big><b>%s</b></big>\n\n%s"%(_("Your system has broken packages!"),
-                                         _("This means that some dependencies "
-                                           "of the installed packages are not "
-                                          "satisfied. Please use \"Synaptic\" "
-                                           "or \"apt-get\" to fix the "
-                                           "situation."
-                                           )))
-      dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_ERROR,
-                                 gtk.BUTTONS_OK,"")
-      dialog.set_markup(msg)
-      dialog.vbox.set_spacing(6)
-      dialog.run()
-      dialog.destroy()
-      sys.exit(1)
     if cache._depcache.KeepCount > 0:
       #print "WARNING, keeping packages"
       msg=("<big><b>%s</b></big>\n\n%s"%(_("It is not possible to upgrade "
@@ -840,9 +825,27 @@ class UpdateManager(SimpleGladeApp):
         d.destroy()
         sys.exit()
 
-    self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
-                                                   self.progressbar_cache,
-                                                   self.window_main))
+    try:
+        self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
+                                                       self.progressbar_cache,
+                                                       self.window_main))
+    except AssertionError:
+        # we assert a clean cache
+        msg=("<big><b>%s</b></big>\n\n%s"% \
+             (_("Your system has broken packages!"),
+              _("This means that some dependencies "
+                "of the installed packages are not "
+                "satisfied. Please use \"Synaptic\" "
+                "or \"apt-get\" to fix the "
+                "situation."
+                )))
+        dialog = gtk.MessageDialog(self.window_main,
+                                   0, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_OK,"")
+        dialog.set_markup(msg)
+        dialog.vbox.set_spacing(6)
+        dialog.run()
+        sys.exit(1)
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
     self.cache._depcache.ReadPinFile()
