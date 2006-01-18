@@ -227,7 +227,7 @@ class DistUpgradeControler(object):
 
     
     # this is the core
-    def breezyUpgrade(self):
+    def dapperUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking the system"))
         self._view.setStep(1)
@@ -258,8 +258,8 @@ class DistUpgradeControler(object):
         if not self.askDistUpgrade():
             self.abort()
             
-#         if not self.doDistUpgrade():
-#             self.abort()
+        if not self.doDistUpgrade():
+            self.abort()
             
         # do post-upgrade stuff
         self._view.setStep(4)
@@ -270,6 +270,6 @@ class DistUpgradeControler(object):
             subprocess.call(["reboot"])
         
     def run(self):
-        self.breezyUpgrade()
+        self.dapperUpgrade()
 
 

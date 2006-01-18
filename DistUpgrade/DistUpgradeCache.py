@@ -218,7 +218,7 @@ class MyCache(apt.Cache):
         """ get all packages that are installed from a foreign repo
             (and are actually downloadable)
         """
-        foreign_pkgs =set()        
+        foreign_pkgs=set()        
         for pkg in self:
             if pkg.isInstalled and self.downloadable(pkg):
                 # assume it is foreign and see if it is from the 
