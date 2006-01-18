@@ -668,6 +668,8 @@ class UpdateManager(SimpleGladeApp):
       self.store.append([False, _("Your system is up-to-date!"), None, None, None, None, None])
       # make sure no install is possible
       self.button_install.set_sensitive(False)
+      self.textview_changes.get_buffer().set_text("")
+      self.textview_descr.get_buffer().set_text("")
     else:
       self.cb.set_visible(True)
       self.treeview_update.set_headers_visible(False)
