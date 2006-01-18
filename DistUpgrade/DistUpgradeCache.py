@@ -195,12 +195,12 @@ class MyCache(apt.Cache):
         # this is a delete candidate, only actually delete,
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
-        self.cache.create_snapshot()
-        self.cache[pkgname].markDelete()
-        for pkg in self.cache.getChanges():
+        self.create_snapshot()
+        self[pkgname].markDelete()
+        for pkg in self.getChanges():
             if pkg.name not in remove_candidates or \
                    pkg.name in self.foreign_pkgs or \
                    self._inRemovalBlacklist(pkg.name):
-                self.cache.restore_snapshot()
+                self.restore_snapshot()
                 return False
         return True
