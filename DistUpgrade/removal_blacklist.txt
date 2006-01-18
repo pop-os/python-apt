@@ -1,7 +1,7 @@
 # blacklist of packages that should never be removed
+ubuntu-base
 ubuntu-desktop
 kubuntu-destkop
 edubuntu-desktop
-ubuntu-base
 linux-image-.*
 linux-restricted-.*
