@@ -211,6 +211,15 @@ class DistUpgradeControler(object):
                                          changes, 0):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
+            try:
+                res = self.cache.commit(fprogress,iprogress)
+            except (SystemError, IOError), e:
+                self._view.error(_("Error during commit"),
+                                 _("Some problem occured during the clean-up. "
+                                   "Please see the below message for more "
+                                   "information. ",
+                                   "%s" % e)
+
             self.cache.commit(fprogress,iprogress)
             
     def askForReboot(self):

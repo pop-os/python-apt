@@ -150,6 +150,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         dialog.run()
         dialog.destroy()
     def conffile(self, current, new):
+        self.expander.set_expanded=True
         pass
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
