@@ -106,6 +106,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.progress = parent.progressbar_cache
         self.expander = parent.expander_terminal
         self.term = parent._term
+        self.parent = parent
         # setup the child waiting
         reaper = vte.reaper_get()
         reaper.connect("child-exited", self.child_exited)
@@ -124,8 +125,30 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=gtk"]
-    def error(self, error):
-        pass
+    def error(self, pkg, errormsg):
+        dialog = gtk.MessageDialog(self.parent.window_main, 0,
+                                   gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_OK,"")
+        summary = _("Error installing '%s'" % pkg)
+        msg = _("During the install a error occured. This is usually a bug "
+                "in the packages, please report it. See the message below "
+                "for more information. ")
+        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
+        dialog.set_markup(msg)
+        dialog.vbox.set_spacing(6)
+        if errormsg != None:
+          scroll = gtk.ScrolledWindow()
+          scroll.set_size_request(400,200)
+          textview = gtk.TextView()
+          textview.set_cursor_visible(False)
+          textview.set_editable(False)
+          textview.get_buffer().set_text(errormsg)
+          textview.show()
+          scroll.add(textview)
+          scroll.show()
+          dialog.vbox.pack_end(scroll)
+        dialog.run()
+        dialog.destroy()
     def conffile(self, current, new):
         pass
     def fork(self):

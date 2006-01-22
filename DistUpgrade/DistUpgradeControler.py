@@ -176,7 +176,7 @@ class DistUpgradeControler(object):
         iprogress = self._view.getInstallProgress()
         try:
             res = self.cache.commit(fprogress,iprogress)
-        except IOError, e:
+        except (SystemError, IOError), e:
             self._view.error(_("Error during commit"),
                              _("Some problem occured during the upgrade. "
                                "This is mostly a network problem, please "

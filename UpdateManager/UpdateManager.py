@@ -390,7 +390,7 @@ class UpdateManager(SimpleGladeApp):
           text_header= _("<big><b>No updates available</b></big>")
           text_download = ""
       else:
-          text_header = gettext.ngettext("<big><b>You can install one update</b></big>", "<big><b>You can install %s updates</b></big>" % len(self.packages), len(self.packages))
+          text_header = gettext.ngettext("<big><b>You can install one update</b></big>", "<big><b>You can install %s updates</b></big>" % len(self.store), len(self.store))
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
       self.label_header.set_markup(text_header)
