@@ -61,6 +61,14 @@ class DistUpgradeView(object):
     def askYesNoQuestion(self, summary, msg):
         " ask a Yes/No question and return True on 'Yes' "
         pass
+    def confirmRestart(self):
+        " generic ask about the restart, can be overriden "
+        summary = _("Reboot required")
+        msg =  _("The upgrade is finished now. "
+                 "A reboot is required to "
+                 "now, do you want to do this "
+                 "now?")
+        return self.askYesNoQuestion(summary, msg)
     def error(self, summary, msg, extended_msg=None):
         " display a error "
         pass

@@ -232,9 +232,6 @@ class DistUpgradeControler(object):
                                    "%s" % e)
             self.cache.commit(fprogress,iprogress)
             
-    def askForReboot(self):
-        return self._view.confirm_restart()
-
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
@@ -284,7 +281,7 @@ class DistUpgradeControler(object):
 
         # done, ask for reboot
         self._view.updateStatus(_("System upgrade is complete."))            
-        if self.askForReboot():
+        if self._view.confirmRestart():
             subprocess.call(["reboot"])
         
     def run(self):

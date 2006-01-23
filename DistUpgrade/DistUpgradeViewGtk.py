@@ -126,7 +126,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.term.show()
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
-                    "APT_LISTCHANGES_FRONTEND=gtk"]
+                    "APT_LISTCHANGES_FRONTEND=none"]
     def error(self, pkg, errormsg):
         dialog = gtk.MessageDialog(self.parent.window_main, 0,
                                    gtk.MESSAGE_ERROR,
@@ -297,11 +297,11 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             return True
         return False
     
-    def confirm_restart(self):
+    def confirmRestart(self):
         self.dialog_restart.set_transient_for(self.window_main)
         res = self.dialog_restart.run()
         self.dialog_restart.hide()
-        if res == RESPONSE_YES:
+        if res == gtk.RESPONSE_YES:
             return True
         return False
 
