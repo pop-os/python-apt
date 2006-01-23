@@ -7,13 +7,14 @@ import os
 
 if __name__ == "__main__":
 
-    view = GtkDistUpgradeView()
-    app = DistUpgradeControler(view)
-
     logging.basicConfig(level=logging.DEBUG,
                         filename=os.path.expanduser("~/dist-upgrade.log"),
                         format='%(asctime)s %(levelname)s %(message)s',
                         filemode='w')
+
+    view = GtkDistUpgradeView()
+    app = DistUpgradeControler(view)
+
     app.run()
 
     # testcode to see if the bullets look nice in the dialog
