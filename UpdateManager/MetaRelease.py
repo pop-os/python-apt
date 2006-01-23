@@ -100,7 +100,7 @@ class MetaRelease(gobject.GObject):
                 #print name
                 rawdate = index_tag.Section["Date"]
                 date = time.mktime(rfc822.parsedate(rawdate))
-                supported = index_tag.Section["Supported"]
+                supported = bool(index_tag.Section["Supported"])
                 # add the information to a new date object
                 dist = Dist(name,date,supported)
                 if index_tag.Section.has_key("ReleaseNotes"):
