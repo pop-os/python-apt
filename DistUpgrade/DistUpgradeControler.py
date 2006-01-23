@@ -50,6 +50,15 @@ class DistUpgradeControler(object):
        
         self.origin = "Ubuntu"
 
+        # forced obsoletes
+        self.forced_obsoletes = []
+        for line in open("forced_obsoletes.txt").readlines():
+            line = line.strip()
+            if not line == "" or line.startswith("#"):
+                self.forced_obsoletes.append(line)
+        logging.debug("forced obsoletes '%s'" % line)
+
+
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
 
@@ -210,6 +219,7 @@ class DistUpgradeControler(object):
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
         remove_candidates = now_obsolete - self.obsolete_pkgs
+        remove_candidates |= set(self.forced_obsoletes)
         logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
@@ -279,6 +289,7 @@ class DistUpgradeControler(object):
         self.doPostUpgrade()
 
         # done, ask for reboot
+        # FIXME should we look into /var/run/reboot-required here?
         if self._view.confirmRestart():
             subprocess.call(["reboot"])
         
