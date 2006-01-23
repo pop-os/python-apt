@@ -394,7 +394,7 @@ class UpdateManager(SimpleGladeApp):
           self.label_downsize.hide()
           self.button_cancel.grab_default()
       else:
-          text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.packages), len(self.packages))+"</b></big>"
+          text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
           self.expander_details.set_sensitive(True)
