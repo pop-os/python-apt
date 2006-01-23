@@ -222,11 +222,7 @@ class DistUpgradeControler(object):
             self.cache.commit(fprogress,iprogress)
             
     def askForReboot(self):
-        return self._view.askYesNoQuestion(_("Reboot required"),
-                                           _("The upgrade is finished now. "
-                                             "A reboot is required to "
-                                             "now, do you want to do this "
-                                             "now?"))
+        return self._view.confirm_restart()
 
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
@@ -237,7 +233,7 @@ class DistUpgradeControler(object):
     # this is the core
     def dapperUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
-        self._view.updateStatus(_("Checking the system"))
+        self._view.updateStatus(_("Checking update system"))
         self._view.setStep(1)
         self.openCache()
         if not self.cache.sanityCheck(self._view):
@@ -256,16 +252,17 @@ class DistUpgradeControler(object):
             self.abort()
 
         # then open the cache (again)
-        self._view.updateStatus(_("Reading cache"))
+        self._view.updateStatus(_("Checking update system"))
         self.openCache()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
         self._view.setStep(3)
-        self._view.updateStatus(_("Performing the upgrade"))
+        self._view.updateStatus(_("Asking for confirmation"))
         if not self.askDistUpgrade():
             self.abort()
-            
+
+        self._view.updateStatus(_("Performing the upgrade"))            
         if not self.doDistUpgrade():
             self.abort()
             
