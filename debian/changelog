@@ -1,3 +1,10 @@
+update-manager (0.42.2ubuntu1) dapper; urgency=low
+
+  * UpdateManager/MetaRelease.py: 
+    - never offer a upgrade to a unsupported (i.e. developer) dist
+
+ --
+
 update-manager (0.42.1ubuntu1) dapper; urgency=low
 
   * UpdateManagert:
