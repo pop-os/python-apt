@@ -27,6 +27,7 @@ import os
 import subprocess
 import logging
 import re
+import statvfs
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
@@ -167,6 +168,16 @@ class DistUpgradeControler(object):
         # log the changes for debuging
         self._logChanges()
         # ask the user if he wants to do the changes
+        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives ")
+        st = os.statvfs(archivedir)
+        free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
+        if self.cache.requiredDownload > free:
+            self._view.error(_("Not enough free space"),
+                             _("There is not enough free space on your "
+                               "system to download the required pacakges. "
+                               "Please free some space before trying again "
+                               "with e.g. 'sudo apt-get clean'"))
+            return False                             
         res = self._view.confirmChanges(_("Perform Upgrade?"),changes,
                                         self.cache.requiredDownload)
         return res
