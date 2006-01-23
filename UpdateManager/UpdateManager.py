@@ -387,12 +387,20 @@ class UpdateManager(SimpleGladeApp):
 
   def update_count(self):
       if len(self.packages) == 0:
-          text_header= _("<big><b>No updates available</b></big>")
+          text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
+          self.expander_details.set_sensitive(False)
+          self.treeview_update.set_sensitive(False)
+          self.label_downsize.hide()
+          self.button_cancel.grab_default()
       else:
-          text_header = gettext.ngettext("<big><b>You can install one update</b></big>", "<big><b>You can install %s updates</b></big>" % len(self.store), len(self.store))
+          text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
+          self.expander_details.set_sensitive(True)
+          self.treeview_update.set_sensitive(True)
+          self.label_downsize.show()
+          self.button_install.grab_default()
       self.label_header.set_markup(text_header)
       self.label_downsize.set_markup(text_download)
 
@@ -665,7 +673,6 @@ class UpdateManager(SimpleGladeApp):
       text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date"),
                                              _("There are no updates available."))
       self.label_header.set_markup(text)
-      self.store.append([False, _("Your system is up-to-date!"), None, None, None, None, None])
       # make sure no install is possible
       self.button_install.set_sensitive(False)
       self.textview_changes.get_buffer().set_text("")

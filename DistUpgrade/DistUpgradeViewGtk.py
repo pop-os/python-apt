@@ -27,6 +27,7 @@ import gtk.glade
 import vte
 import gobject
 import pango
+import sys
 
 import apt
 import apt_pkg
@@ -194,6 +195,16 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
         self.vscrollbar_terminal.set_adjustment(self._term.get_adjustment())
+        # Use italic style in the status labels
+
+        attrlist=pango.AttrList()
+        attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
+        attrlist.insert(attr)
+        
+
+        self.label_status.set_property("attributes", attrlist)
+        self.label_extra_status.set_property("attributes", attrlist)
+        #self.label_status_extra.set_property("attributes", pango.AttrStyle(pango.STYLE_ITALIC, 0, -1))
 
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
@@ -207,7 +218,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def getOpCacheProgress(self):
         return self._opCacheProgress
     def updateStatus(self, msg):
-        self.label_status.set_markup("%s" % msg)
+        self.label_status.set_text("%s" % msg)
     def setStep(self, step):
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
@@ -220,9 +231,9 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
         image.set_from_stock(gtk.STOCK_YES, size)
+        attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
         # we can't make it bold here without layout changes in the view :(
-        #attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
-        attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
+        #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
                                 
@@ -286,6 +297,15 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             return True
         return False
 
+    def on_window_main_delete_event(self, widget, event):
+      #print "on_window_main_delete_event()"
+      summary = _("Are you sure you want cancel?")
+      msg = _("Canceling during a upgrade can leave the system in a "
+              "unstable state. It is strongly adviced to continue "
+              "the operation. ")
+      if self.askYesNoQuestion(summary, msg):
+        self.exit(1)
+      return True
 
 if __name__ == "__main__":
   view = GtkDistUpgradeView()

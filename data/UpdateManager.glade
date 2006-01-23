@@ -26,7 +26,7 @@
       <property name="border_width">6</property>
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
-      <property name="spacing">12</property>
+      <property name="spacing">6</property>
 
       <child>
 	<widget class="GtkVBox" id="vbox10">
@@ -37,7 +37,6 @@
 
 	  <child>
 	    <widget class="GtkHBox" id="hbox3">
-	      <property name="border_width">6</property>
 	      <property name="visible">True</property>
 	      <property name="homogeneous">False</property>
 	      <property name="spacing">12</property>
@@ -67,7 +66,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label_header">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes" context="yes">&lt;big&gt;&lt;b&gt;Available Updates&lt;/b&gt;&lt;/big&gt;</property>
+		      <property name="label" translatable="yes" context="yes">&lt;big&gt;&lt;b&gt;Install software updates&lt;/b&gt;&lt;/big&gt;</property>
 		      <property name="use_underline">True</property>
 		      <property name="use_markup">True</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -251,7 +250,6 @@
 
 		  <child>
 		    <widget class="GtkLabel" id="label_downsize">
-		      <property name="visible">True</property>
 		      <property name="label" translatable="yes"></property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
@@ -753,7 +751,7 @@
 			  <child>
 			    <widget class="GtkLabel" id="label16">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">_Install Updates</property>
+			      <property name="label" translatable="yes">_Install</property>
 			      <property name="use_underline">True</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -953,13 +951,13 @@ Need to get the changes from the central server</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
-  <property name="has_separator">True</property>
+  <property name="has_separator">False</property>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox3">
       <property name="visible">True</property>
       <property name="homogeneous">False</property>
-      <property name="spacing">0</property>
+      <property name="spacing">6</property>
 
       <child internal-child="action_area">
 	<widget class="GtkHButtonBox" id="dialog-action_area3">
@@ -1002,6 +1000,7 @@ Need to get the changes from the central server</property>
 
       <child>
 	<widget class="GtkScrolledWindow" id="scrolledwindow5">
+	  <property name="border_width">6</property>
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
 	  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
