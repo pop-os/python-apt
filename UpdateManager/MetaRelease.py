@@ -43,7 +43,7 @@ class MetaRelease(gobject.GObject):
 
     # some constants
     METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test"
+    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test.save"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
@@ -97,6 +97,7 @@ class MetaRelease(gobject.GObject):
         while step_result:
             if index_tag.Section.has_key("Dist"):
                 name = index_tag.Section["Dist"]
+                #print name
                 rawdate = index_tag.Section["Date"]
                 date = time.mktime(rfc822.parsedate(rawdate))
                 supported = index_tag.Section["Supported"]
@@ -118,10 +119,10 @@ class MetaRelease(gobject.GObject):
             print "current dist not found in meta-release file"
             return False
 
-        # then see what we can upgrade to
+        # then see what we can upgrade to (only upgrade to supported dists)
         upgradable_to = ""
         for dist in dists:
-            if dist.date > current_dist.date:
+            if dist.date > current_dist.date and dist.supported == True: 
                 upgradable_to = dist
                 #print "new dist: %s" % upgradable_to
                 break
@@ -129,7 +130,7 @@ class MetaRelease(gobject.GObject):
         # only warn if unsupported and a new dist is available (because 
         # the development version is also unsupported)
         if upgradable_to != "" and not current_dist.supported:
-            self.emit("dist_no_longer_supported",upgradable_to)
+            self.emit("dist_no_longer_supported",upgradabl_to)
         elif upgradable_to != "":
             self.emit("new_dist_available",upgradable_to)
 

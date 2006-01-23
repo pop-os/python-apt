@@ -398,7 +398,7 @@ class UpdateManager(SimpleGladeApp):
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
           self.expander_details.set_sensitive(True)
-          self.treeview_update.set_sensitive(False)
+          self.treeview_update.set_sensitive(True)
           self.label_downsize.show()
           self.button_install.grab_default()
       self.label_header.set_markup(text_header)

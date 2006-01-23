@@ -27,6 +27,7 @@ import gtk.glade
 import vte
 import gobject
 import pango
+import sys
 
 import apt
 import apt_pkg
@@ -296,6 +297,15 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
             return True
         return False
 
+    def on_window_main_delete_event(self, widget, event):
+      #print "on_window_main_delete_event()"
+      summary = _("Are you sure you want cancel?")
+      msg = _("Canceling during a upgrade can leave the system in a "
+              "unstable state. It is strongly adviced to continue "
+              "the operation. ")
+      if self.askYesNoQuestion(summary, msg):
+        self.exit(1)
+      return True
 
 if __name__ == "__main__":
   view = GtkDistUpgradeView()

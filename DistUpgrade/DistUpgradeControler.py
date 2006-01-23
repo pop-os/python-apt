@@ -217,9 +217,8 @@ class DistUpgradeControler(object):
                 self._view.error(_("Error during commit"),
                                  _("Some problem occured during the clean-up. "
                                    "Please see the below message for more "
-                                   "information. ",
+                                   "information. "),
                                    "%s" % e)
-
             self.cache.commit(fprogress,iprogress)
             
     def askForReboot(self):
