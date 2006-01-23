@@ -44,7 +44,7 @@ class GtkOpProgress(apt.progress.OpProgress):
       self.progressbar = progressbar
   def update(self, percent):
       #self._progressbar.show()
-      self.progressbar.set_text(self.op)
+      #self.progressbar.set_text(self.op)
       self.progressbar.set_fraction(percent/100.0)
       while gtk.events_pending():
           gtk.main_iteration()
@@ -59,7 +59,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
     # FIXME2: we need to thing about mediaCheck here too
     def __init__(self, parent):
         # if this is set to false the download will cancel
-        self.status = parent.label_extra_status
+        self.status = parent.label_status
         self.progress = parent.progressbar_cache
     def mediaChange(self, medium, drive):
       #print "mediaChange %s %s" % (medium, drive)
@@ -87,15 +87,18 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
         apt.progress.FetchProgress.pulse(self)
-        if self.currentCPS > 0:
-            self.status.set_text(_("Download rate: %s/s - %s remaining" % (apt_pkg.SizeToStr(self.currentCPS), apt_pkg.TimeToStr(self.eta))))
-        else:
-            self.status.set_text(_("Download rate: unkown"))
         self.progress.set_fraction(self.percent/100.0)
         currentItem = self.currentItems + 1
         if currentItem > self.totalItems:
             currentItem = self.totalItems
-        self.progress.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
+
+        if self.currentCPS > 0:
+            self.status.set_text(_("Downloading file %li of %li with %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
+            self.progress.set_text(_("%s remaining" % apt_pkg.TimeToStr(self.eta)))
+        else:
+            self.status.set_text(_("Downloading file %li of %li with unknown speed" % (currentItem, self.totalItems)))
+            self.progress.set_text("  ")
+
         while gtk.events_pending():
             gtk.main_iteration()
         return True
@@ -103,7 +106,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
 class GtkInstallProgressAdapter(InstallProgress):
     def __init__(self,parent):
         InstallProgress.__init__(self)
-        self.label_status = parent.label_extra_status
+        self.label_status = parent.label_status
         self.progress = parent.progressbar_cache
         self.expander = parent.expander_terminal
         self.term = parent._term
@@ -121,11 +124,11 @@ class GtkInstallProgressAdapter(InstallProgress):
         #self.progress.show()
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
-        self.expander.show()
+        self.expander.set_sensitive(True)
         self.term.show()
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
-                    "APT_LISTCHANGES_FRONTEND=gtk"]
+                    "APT_LISTCHANGES_FRONTEND=none"]
     def error(self, pkg, errormsg):
         dialog = gtk.MessageDialog(self.parent.window_main, 0,
                                    gtk.MESSAGE_ERROR,
@@ -182,7 +185,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
-                                None, domain="update-manager")
+                                None, domain="update-manager",
+				position="gtk.WIN_POS_CENTER")
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = GtkFetchProgressAdapter(self)
         self._installProgress = GtkInstallProgressAdapter(self)
@@ -195,16 +199,12 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
         self.vscrollbar_terminal.set_adjustment(self._term.get_adjustment())
-        # Use italic style in the status labels
 
+        # Use italic style in the status labels
         attrlist=pango.AttrList()
         attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
-        
-
         self.label_status.set_property("attributes", attrlist)
-        self.label_extra_status.set_property("attributes", attrlist)
-        #self.label_status_extra.set_property("attributes", pango.AttrStyle(pango.STYLE_ITALIC, 0, -1))
 
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
@@ -257,10 +257,11 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         return False
+
     def confirmChanges(self, summary, changes, downloadSize):
         # FIXME: add a whitelist here for packages that we expect to be
         # removed (how to calc this automatically?)
-        DistUpgradeView.confirmChanges(self, summary, changes,downloadSize)
+        DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
         self.label_summary.set_markup("<big><b>%s</b></big>" % summary)
         msg = _("%s packages are going to be removed.\n"
                 "%s packages are going to be newly installed.\n"
@@ -284,6 +285,7 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         if res == gtk.RESPONSE_YES:
             return True
         return False
+
     def askYesNoQuestion(self, summary, msg):
         msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
         dialog = gtk.MessageDialog(parent=self.window_main,
@@ -293,6 +295,14 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         dialog.set_markup(msg)
         res = dialog.run()
         dialog.destroy()
+        if res == gtk.RESPONSE_YES:
+            return True
+        return False
+    
+    def confirmRestart(self):
+        self.dialog_restart.set_transient_for(self.window_main)
+        res = self.dialog_restart.run()
+        self.dialog_restart.hide()
         if res == gtk.RESPONSE_YES:
             return True
         return False
