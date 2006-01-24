@@ -49,7 +49,6 @@ class GtkOpProgress(apt.progress.OpProgress):
       while gtk.events_pending():
           gtk.main_iteration()
   def done(self):
-      #self.progressbar.hide()
       self.progressbar.set_text(" ")
 
 
@@ -80,9 +79,8 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.progress.set_fraction(0)
         self.status.show()
     def stop(self):
-        #self.progress.hide()
         self.progress.set_text(" ")
-        self.status.set_text("")
+        self.status.set_text(_("Download is complete"))
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
@@ -119,7 +117,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        self.label_status.set_text(_("Installing updates ..."))
+        self.label_status.set_text(_("Installing updates"))
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
@@ -127,30 +125,25 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=none"]
+
     def error(self, pkg, errormsg):
-        dialog = gtk.MessageDialog(self.parent.window_main, 0,
-                                   gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
-        summary = _("Error installing '%s'" % pkg)
-        msg = _("During the install a error occured. This is usually a bug "
-                "in the packages, please report it. See the message below "
-                "for more information. ")
-        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
-        dialog.set_markup(msg)
-        dialog.vbox.set_spacing(6)
+        self.dialog_error.set_transient_for(self.window_main)
+
+        self.expander_terminal.set_expanded(True)
+
+        summary = _("Could not install '%s'" % pkg)
+        msg = _("The upgrade will abort now. Please report the bug.")            
+        msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
+        self.label_error.set_markup(msg)
+
         if errormsg != None:
-          scroll = gtk.ScrolledWindow()
-          scroll.set_size_request(400,200)
-          textview = gtk.TextView()
-          textview.set_cursor_visible(False)
-          textview.set_editable(False)
-          textview.get_buffer().set_text(errormsg)
-          textview.show()
-          scroll.add(textview)
-          scroll.show()
-          dialog.vbox.pack_end(scroll)
-        dialog.run()
-        dialog.destroy()
+            self.treeview_error_extended.get_buffer().set_text(errormsg)
+            self.scroll_error_extended.show()
+           
+        self.dialog_error.run()
+        self.dialog_error.destroy()
+        return False
+                      
     def conffile(self, current, new):
         self.expander.set_expanded=True
         pass
@@ -165,7 +158,6 @@ class GtkInstallProgressAdapter(InstallProgress):
             self.updateInterface()
         return self.apt_status
     def finishUpdate(self):
-        self.progress.hide()
         self.label_status.set_text("")
     def updateInterface(self):
         InstallProgress.updateInterface(self)
@@ -236,24 +228,19 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         label.set_property("attributes",attrlist)
                                 
     def error(self, summary, msg, extended_msg=None):
-        dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
-        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
-        dialog.set_markup(msg)
-        dialog.vbox.set_spacing(6)
+        self.dialog_error.set_transient_for(self.window_main)
+
+        self.expander_terminal.set_expanded(True)
+            
+        msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
+        self.label_error.set_markup(msg)
+
         if extended_msg != None:
-          scroll = gtk.ScrolledWindow()
-          scroll.set_size_request(400,200)
-          textview = gtk.TextView()
-          textview.set_cursor_visible(False)
-          textview.set_editable(False)
-          textview.get_buffer().set_text(extended_msg)
-          textview.show()
-          scroll.add(textview)
-          scroll.show()
-          dialog.vbox.pack_end(scroll)
-        dialog.run()
-        dialog.destroy()
+            self.treeview_error_extended.get_buffer().set_text(extended_msg)
+            self.scroll_error_extended.show()
+           
+        self.dialog_error.run()
+        self.dialog_error.destroy()
         return False
 
     def confirmChanges(self, summary, changes, downloadSize):
