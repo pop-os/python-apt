@@ -42,12 +42,16 @@ from gettext import gettext as _
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
+      self.progressbar.set_pulse_step(0.01)
+      self.progressbar.pulse()
+
   def update(self, percent):
-      #self._progressbar.show()
-      #self.progressbar.set_text(self.op)
-      self.progressbar.set_fraction(percent/100.0)
+       # self.progressbar.set_text(self.op)
+#      self.progressbar.set_fraction(percent/100.0)
+      self.progressbar.pulse()
       while gtk.events_pending():
           gtk.main_iteration()
+
   def done(self):
       self.progressbar.set_text(" ")
 
@@ -137,9 +141,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_error.set_markup(msg)
 
         if errormsg != None:
-            self.treeview_error_extended.get_buffer().set_text(errormsg)
-            self.scroll_error_extended.show()
-           
+            buffer = self.textview_error.get_buffer()
+            buffer.set_text(errormsg)
+            self.scroll_error.show()
+
         self.dialog_error.run()
         self.dialog_error.destroy()
         return False
@@ -226,8 +231,10 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
+
                                 
     def error(self, summary, msg, extended_msg=None):
+
         self.dialog_error.set_transient_for(self.window_main)
 
         self.expander_terminal.set_expanded(True)
@@ -236,10 +243,12 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.label_error.set_markup(msg)
 
         if extended_msg != None:
-            self.treeview_error_extended.get_buffer().set_text(extended_msg)
-            self.scroll_error_extended.show()
+            buffer = self.textview_error.get_buffer()
+            buffer.set_text(extended_msg)
+            self.scroll_error.show()
            
         self.dialog_error.run()
+        self.dialog_error.show()
         self.dialog_error.destroy()
         return False
 
