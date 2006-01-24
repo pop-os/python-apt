@@ -73,6 +73,12 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->LongDesc());
       else if (strcmp("Name",Name) == 0)
 	 return CppPyString(Struct.Last->Name());
+      else if (strcmp("Record", Name) == 0) 
+      {
+	 const char *start, *stop;
+	 Struct.Last->GetRec(start, stop);
+	 return PyString_FromStringAndSize(start,stop-start);
+      }
    }
    
    return Py_FindMethod(PkgRecordsMethods,Self,Name);

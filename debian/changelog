@@ -2,6 +2,7 @@ python-apt (0.6.16.1) unstable; urgency=low
 
   * memleak fixed when pkgCache objects are deallocated
   * typos fixed (thanks to Gustavo Franco)
+  * pkgRecords.Record added to get raw record data
 
  -- 
 
