@@ -546,13 +546,12 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(False)
     # create a progress window that will swallow the synaptic progress bars
     win = gtk.Window()
-    if action==UPDATE:
-      win.set_title(_("Updating package list..."))
-    else:
-      win.set_title(_("Installing updates..."))
-    win.set_border_width(6)
+    win.set_title("")
+    win.set_border_width(12)
     win.set_transient_for(self.window_main)
     win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+    win.set_property("skip-taskbar-hint", True)
+    win.set_property("skip-pager-hint", True)
     win.resize(400,200)
     win.set_resizable(False)
     # prevent the window from closing with the delete button (there is
