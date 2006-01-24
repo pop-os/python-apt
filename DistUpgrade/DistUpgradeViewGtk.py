@@ -183,8 +183,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
-                                None, domain="update-manager",
-				position="gtk.WIN_POS_CENTER")
+                                None, domain="update-manager")
+        self.window_main.set_keep_above(True)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = GtkFetchProgressAdapter(self)
         self._installProgress = GtkInstallProgressAdapter(self)
