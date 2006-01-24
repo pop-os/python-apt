@@ -150,7 +150,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         return False
                       
     def conffile(self, current, new):
-        self.expander.set_expanded=True
+        self.expander.set_expanded(True)
         pass
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
