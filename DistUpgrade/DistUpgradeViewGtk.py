@@ -164,9 +164,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         while not self.finished:
             self.updateInterface()
         return self.apt_status
-  #  def finishUpdate(self):
-        #self.progress.hide()
-        #self.label_status.set_text("")
+    def finishUpdate(self):
+        self.progress.hide()
+        self.label_status.set_text("")
     def updateInterface(self):
         InstallProgress.updateInterface(self)
         self.progress.set_fraction(self.percent/100.0)
