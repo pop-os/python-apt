@@ -887,8 +887,7 @@
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 
 	  <child>
-	    <widget class="GtkButton" id="button5">
-	      <property name="visible">True</property>
+	    <widget class="GtkButton" id="button_bugreport">
 	      <property name="can_default">True</property>
 	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
