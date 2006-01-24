@@ -46,7 +46,7 @@ class Package(object):
 
         # check if we found a version
         if ver == None:
-            #print "No version for: %s (Candiate: %s)" % (self._pkg.Name, UseCandidate)
+            #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
             return False
         
         if ver.FileList == None:
@@ -327,8 +327,8 @@ if __name__ == "__main__":
     print "Priority (Installed): %s " % pkg.installedPriority
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
-    print "CandiateDownloadable: %s" % pkg.candidateDownloadable
-    print "CandiateOrigins: %s" % pkg.candidateOrigin
+    print "CandidateDownloadable: %s" % pkg.candidateDownloadable
+    print "CandidateOrigins: %s" % pkg.candidateOrigin
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.summary
