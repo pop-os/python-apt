@@ -119,9 +119,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        #self.label_status.show()
         self.label_status.set_text(_("Installing updates ..."))
-        #self.progress.show()
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
@@ -154,7 +152,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         dialog.run()
         dialog.destroy()
     def conffile(self, current, new):
-        self.expander.set_expanded=True
+        self.expander.set_expanded(True)
         pass
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
@@ -168,7 +166,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         return self.apt_status
     def finishUpdate(self):
         #self.progress.hide()
-        self.label_status.set_text("")
+        #self.label_status.set_text("")
+        pass
     def updateInterface(self):
         InstallProgress.updateInterface(self)
         self.progress.set_fraction(self.percent/100.0)

@@ -280,15 +280,17 @@ class DistUpgradeControler(object):
         if not self.askDistUpgrade():
             self.abort()
 
-        self._view.updateStatus(_("Performing the upgrade"))            
+        self._view.updateStatus(_("Upgrading"))            
         if not self.doDistUpgrade():
             self.abort()
             
         # do post-upgrade stuff
         self._view.setStep(4)
+        self._view.updateStatus(_("Searching for obsolete software"))            
         self.doPostUpgrade()
 
         # done, ask for reboot
+        self._view.updateStatus(_("System upgrade is complete."))            
         # FIXME should we look into /var/run/reboot-required here?
         if self._view.confirmRestart():
             subprocess.call(["reboot"])
