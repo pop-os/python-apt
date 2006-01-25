@@ -107,7 +107,7 @@ class MyCache(apt.Cache):
                        _("A unresolvable problem occured while "
                          "calculating the upgrade. Please report "
                          "this as a bug. "))
-            logging.debug("Dist-upgrade failed: '%s'", e)
+            logging.error("Dist-upgrade failed: '%s'", e)
             return False
 
         # check the trust of the packages that are going to change
@@ -122,6 +122,8 @@ class MyCache(apt.Cache):
             if not trusted:
                 untrusted.append(pkg.name)
         if len(untrusted) > 0:
+            logging.error("Unauthenticated packages found: '%s'" % \
+                          " ".join(untrusted))
             # FIXME: maybe ask a question here? instead of failing?
             view.error(_("Error authenticating some packages"),
                        _("It was not possible to authenticate some "
