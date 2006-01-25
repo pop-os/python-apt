@@ -17,3 +17,16 @@ general
 
 - check authentication and don't upgrade anything that is not
   authenticated (maybe just comment unauthenticated stuff out?)
+
+
+Robustness:
+-----------
+- automatically comment out entires in the sources.list that fail to 
+  fetch. 
+  Trouble: apt doesn't provide a method to map from a line in th
+  sources.list to the indexFile and python-apt dosn't proivde a way to
+  get all the metaIndexes in sources.list, nor a way to get the
+  pkgIndexFiles from the metaIndexes (metaIndex is not available in 
+  python-apt at all)
+
+  

@@ -119,6 +119,9 @@ class MyCache(apt.Cache):
             if pkg.markedDelete and self._inRemovalBlacklist(pkg.name):
                 logging.debug("The package '%s' is marked for removal but it's in the removal blacklist", pkg.name)
                 return False
+            if pkg.markedDelete and pkg._pkg.Essential == True:
+                logging.debug("The package '%s' is marked for removal but it's a ESSENTIAL package", pkg.name)
+                return False
         return True
 
     def _installMetaPkgs(self, view):
