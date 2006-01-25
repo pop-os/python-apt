@@ -28,6 +28,7 @@ import vte
 import gobject
 import pango
 import sys
+import logging
 
 import apt
 import apt_pkg
@@ -140,6 +141,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
         self.label_error.set_markup(msg)
 
+        logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         if errormsg != None:
             buffer = self.textview_error.get_buffer()
             buffer.set_text(errormsg)
@@ -150,6 +152,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         return False
                       
     def conffile(self, current, new):
+        logging.debug("got a conffile-prompt from dpkg for pkg: '%s'" % current)
         self.expander.set_expanded(True)
         pass
     def fork(self):

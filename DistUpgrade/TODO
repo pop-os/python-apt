@@ -33,3 +33,13 @@ Robustness:
   line failed (e.g. uri.endswith("Sources{.bz2|.gz") -> deb-src, get
   base-uri, find 'dists' in uri etc)
   
+- don't stop if a single pkg fails to upgrade:
+  - the problem here is apt, in apt-pkg/deb/dpkgpm.cc it will stop if
+    dpkg returns a non-zero exit code. The problem with this is of course
+    that this may happen in the middle of the upgrade, leaving half the
+    packages unpacked but not configured or loads of packages unconfigured.
+    One possible solution is to not stop in apt but try to continue as long
+    as possible. The problem here is that e.g. if libnoitfy0 explodes and
+    evolution, update-notifer depend on it, continuing means to evo and u-n
+    can't be upgraded and dpkg explodes on them too. This is not more worse
+    than what we have right now I guess.
