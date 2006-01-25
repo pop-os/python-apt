@@ -27,7 +27,7 @@ import apt_pkg
 from gettext import gettext as _
 
 class GtkOpProgress(apt.OpProgress):
-    def __init__(self, window,progressbar, parent):
+    def __init__(self, window, progressbar, parent):
         self._parent = parent
         self._window = window
         self._progressbar = progressbar
@@ -37,11 +37,13 @@ class GtkOpProgress(apt.OpProgress):
         #print self.Op
         #print self.SubOp
         self._window.show()
+        self._parent.set_sensitive(False)
         self._progressbar.set_text(self.op)
         self._progressbar.set_fraction(percent/100.0)
         while gtk.events_pending():
             gtk.main_iteration()
     def done(self):
+        self._parent.set_sensitive(True)
         self._window.hide()
 
 class GtkFetchProgress(apt.progress.FetchProgress):
@@ -59,7 +61,6 @@ class GtkFetchProgress(apt.progress.FetchProgress):
         if self.summary != "":
             self.summary.set_markup("<big><b>%s</b></big> \n\n%s" %
                                     (summary, descr))
-            self.window_fetch.set_title(summary)
     def start(self):
 	self.progress.set_fraction(0)
         self.window_fetch.show()
@@ -69,15 +70,20 @@ class GtkFetchProgress(apt.progress.FetchProgress):
         self._continue = False
     def pulse(self):
         apt.progress.FetchProgress.pulse(self)
-        if self.currentCPS > 0:
-            self.status.set_text(_("Download rate: %s/s - %s remaining" % (apt_pkg.SizeToStr(self.currentCPS), apt_pkg.TimeToStr(self.eta))))
-        else:
-            self.status.set_text(_("Download rate: unkown"))
-	self.progress.set_fraction(self.percent/100.0)
         currentItem = self.currentItems + 1
         if currentItem > self.totalItems:
           currentItem = self.totalItems
-        self.progress.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
+        if self.currentCPS > 0:
+            self.status.set_text(_("Downloading file %li of %li with %s/s"
+                                 % (currentItem, self.totalItems,
+                                 apt_pkg.SizeToStr(self.currentCPS))))
+        else:
+            self.status.set_text(_("Downloading file %li of %li with unknown "
+                                   "speed") % (currentItem, self.totalItems))
+    	    self.progress.set_fraction(self.percent/100.0)
+#        self.progress.set_text(_("Time remaining %s" % (apt_pkg.TimeToStr(self.eta))))
+        self.progress.set_text(_("Time remaining"))
+
 	while gtk.events_pending():
 		gtk.main_iteration()
         return self._continue

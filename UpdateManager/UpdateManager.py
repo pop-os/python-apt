@@ -213,11 +213,12 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
-
+ 
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
     self.gnome_program = gnome.init("update-manager", "0.41")
+
 
     self.packages = []
     self.dl_size = 0
@@ -281,7 +282,7 @@ class UpdateManager(SimpleGladeApp):
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
-
+      
 
   def set_changes_buffer(self, changes_buffer, text, name, srcpkg):
     changes_buffer.set_text("")
@@ -342,7 +343,6 @@ class UpdateManager(SimpleGladeApp):
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
     else:
       if self.expander_details.get_expanded():
-        self.treeview_update.set_sensitive(False)
         self.hbox_footer.set_sensitive(False)
         lock = thread.allocate_lock()
         lock.acquire()
@@ -360,7 +360,6 @@ class UpdateManager(SimpleGladeApp):
         # download finished (or canceld, or time-out)
         button.hide()
         button.disconnect(id);
-        self.treeview_update.set_sensitive(True)
         self.hbox_footer.set_sensitive(True)
 
     if self.cache.all_changes.has_key(name):
@@ -391,7 +390,7 @@ class UpdateManager(SimpleGladeApp):
           text_download = ""
           self.expander_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
-          self.label_downsize.hide()
+          self.label_downsize.set_text=""
           self.button_cancel.grab_default()
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
@@ -399,8 +398,8 @@ class UpdateManager(SimpleGladeApp):
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
           self.expander_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
-          self.label_downsize.show()
           self.button_install.grab_default()
+
       self.label_header.set_markup(text_header)
       self.label_downsize.set_markup(text_download)
 
@@ -863,6 +862,19 @@ class UpdateManager(SimpleGladeApp):
         self.cache._depcache.ReadPinFile(SYNAPTIC_PINFILE)
     self.cache._depcache.Init()
 
+
+  def check_auto_update(self):
+      # Check if automatic update is enabled. If not show a dialog to inform
+      # the user about the need of manual "reloads"
+      update_days = apt_pkg.Config.FindI("APT::Periodic::Update-Package-Lists")
+      if update_days < 1:
+          self.dialog_manual_update.set_transient_for(self.window_main)
+          res = self.dialog_manual_update.run()
+          self.dialog_manual_update.hide()
+          if res == gtk.RESPONSE_YES:
+              self.on_button_reload_clicked(None)
+
+
   def main(self):
     self.meta = MetaRelease()
     self.meta.connect("new_dist_available",self.new_dist_available)
@@ -875,4 +887,5 @@ class UpdateManager(SimpleGladeApp):
       gtk.main_iteration()
 
     self.fillstore()
+    self.check_auto_update()
     gtk.main()
