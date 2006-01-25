@@ -28,6 +28,7 @@ import vte
 import gobject
 import pango
 import sys
+import logging
 
 import apt
 import apt_pkg
