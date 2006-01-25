@@ -219,6 +219,7 @@ class UpdateManager(SimpleGladeApp):
                             None, domain="update-manager")
     self.gnome_program = gnome.init("update-manager", "0.41")
 
+    self.window_main.set_sensitive(False)
 
     self.packages = []
     self.dl_size = 0
@@ -423,9 +424,9 @@ class UpdateManager(SimpleGladeApp):
     if action == INSTALL:
       cmd.append("--set-selections")
       cmd.append("--progress-str")
-      cmd.append("%s" % _("The updates are being applied."))
+      cmd.append("%s" % _("Please wait, this can take some time."))
       cmd.append("--finish-str")
-      cmd.append("%s" %  _("Upgrade is complete"))
+      cmd.append("%s" %  _("Update is complete"))
       proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
       f = proc.stdin
       for s in self.packages:
@@ -545,6 +546,7 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(False)
     # create a progress window that will swallow the synaptic progress bars
     win = gtk.Window()
+    win.set_property("type-hint", gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
     win.set_title("")
     win.set_border_width(12)
     win.set_transient_for(self.window_main)
@@ -880,9 +882,6 @@ class UpdateManager(SimpleGladeApp):
     self.meta.connect("new_dist_available",self.new_dist_available)
     self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
     
-    self.store.append([True, _("Initializing and getting list of updates..."),
-                       None, None, None, None, None])
-
     while gtk.events_pending():
       gtk.main_iteration()
 
