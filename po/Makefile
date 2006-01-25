@@ -19,8 +19,4 @@ merge-po: $(PO_FILES)
 
 # dummy target 
 update-po: $(DOMAIN).pot merge-po $(patsubst %.po,%.mo,$(wildcard *.po))
-	# update the po files 
-	#for f in $(PO_FILES); do \
-	#	intltool-update -r $${f%.po}  -g $(DOMAIN); \
-	#done
 

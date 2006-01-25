@@ -107,7 +107,31 @@ class MyCache(apt.Cache):
                        _("A unresolvable problem occured while "
                          "calculating the upgrade. Please report "
                          "this as a bug. "))
-            logging.debug("Dist-upgrade failed: '%s'", e)
+            logging.error("Dist-upgrade failed: '%s'", e)
+            return False
+
+        # check the trust of the packages that are going to change
+        untrusted = []
+        for pkg in self.getChanges():
+            if pkg.markedDelete:
+                continue
+            origins = pkg.candidateOrigin
+            trusted = False
+            for origin in origins:
+                trusted |= origin.trusted
+            if not trusted:
+                untrusted.append(pkg.name)
+        if len(untrusted) > 0:
+            untrusted.sort()
+            logging.error("Unauthenticated packages found: '%s'" % \
+                          " ".join(untrusted))
+            # FIXME: maybe ask a question here? instead of failing?
+            view.error(_("Error authenticating some packages"),
+                       _("It was not possible to authenticate some "
+                         "packages. This may be a transient network problem. "
+                         "You may want to try again later. See below for a "
+                         "list of unauthenticated packages."),
+                       "\n".join(untrusted))
             return False
         return True
 
@@ -118,6 +142,9 @@ class MyCache(apt.Cache):
         for pkg in self.getChanges():
             if pkg.markedDelete and self._inRemovalBlacklist(pkg.name):
                 logging.debug("The package '%s' is marked for removal but it's in the removal blacklist", pkg.name)
+                return False
+            if pkg.markedDelete and pkg._pkg.Essential == True:
+                logging.debug("The package '%s' is marked for removal but it's a ESSENTIAL package", pkg.name)
                 return False
         return True
 
