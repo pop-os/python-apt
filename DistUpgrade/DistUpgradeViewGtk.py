@@ -128,6 +128,7 @@ class GtkInstallProgressAdapter(InstallProgress):
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=none"]
     def error(self, pkg, errormsg):
+        logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         dialog = gtk.MessageDialog(self.parent.window_main, 0,
                                    gtk.MESSAGE_ERROR,
                                    gtk.BUTTONS_OK,"")
@@ -152,6 +153,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         dialog.run()
         dialog.destroy()
     def conffile(self, current, new):
+        logging.debug("got a conffile-prompt from dpkg for pkg: '%s'" % current)
         self.expander.set_expanded(True)
         pass
     def fork(self):
