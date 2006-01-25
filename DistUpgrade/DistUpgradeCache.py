@@ -122,6 +122,7 @@ class MyCache(apt.Cache):
             if not trusted:
                 untrusted.append(pkg.name)
         if len(untrusted) > 0:
+            untrusted.sort()
             logging.error("Unauthenticated packages found: '%s'" % \
                           " ".join(untrusted))
             # FIXME: maybe ask a question here? instead of failing?

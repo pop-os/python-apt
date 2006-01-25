@@ -6,3 +6,9 @@ data/UpdateManager.glade
 [type: gettext/rfc822deb] channels/Debian.info.in
 [type: python] src/update-manager
 SoftwareProperties/SoftwareProperties.py
+DistUpgrade/DistUpgradeCache.py
+DistUpgrade/DistUpgradeControler.py
+DistUpgrade/DistUpgradeViewGtk.py
+DistUpgrade/DistUpgradeView.py
+DistUpgrade/dist-upgrade.py
+DistUpgrade/DistUpgrade.glade

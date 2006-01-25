@@ -35,7 +35,7 @@ import os
 
 from apt.progress import InstallProgress
 from DistUpgradeView import DistUpgradeView
-from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
+from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 from gettext import gettext as _
 
@@ -182,6 +182,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
     
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
+        bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
+
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
                                 None, domain="update-manager")
         self.window_main.set_keep_above(True)
