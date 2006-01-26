@@ -158,6 +158,8 @@ class DistUpgradeControler(object):
     def doUpdate(self):
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
+        # FIXME: retry here too? just like the DoDistUpgrade?
+        #        also remove all files from the lists partial dir!
         try:
             res = self.cache.update(progress)
         except IOError, e:
@@ -250,6 +252,7 @@ class DistUpgradeControler(object):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
         changes = self.cache.getChanges()
+        logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
         if len(changes) > 0 and \
                self._view.confirmChanges(_("Remove obsolete Packages?"),
                                          changes, 0):

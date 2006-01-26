@@ -40,6 +40,9 @@ from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 from gettext import gettext as _
 
+def utf8(str):
+  return unicode(str, 'latin1').encode('utf-8')
+
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
@@ -144,14 +147,18 @@ class GtkInstallProgressAdapter(InstallProgress):
 
         logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         if errormsg != None:
-            buffer = self.textview_error.get_buffer()
-            buffer.set_text(errormsg)
-            self.scroll_error.show()
-
-        self.dialog_error.run()
-        self.dialog_error.destroy()
-        return False
-                      
+          scroll = gtk.ScrolledWindow()
+          scroll.set_size_request(400,200)
+          textview = gtk.TextView()
+          textview.set_cursor_visible(False)
+          textview.set_editable(False)
+          textview.get_buffer().set_text(utf8(errormsg))
+          textview.show()
+          scroll.add(textview)
+          scroll.show()
+          dialog.vbox.pack_end(scroll)
+        dialog.run()
+        dialog.destroy()
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for pkg: '%s'" % current)
         self.expander.set_expanded(True)
