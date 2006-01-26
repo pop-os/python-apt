@@ -203,7 +203,7 @@ class Cache(object):
             if res == pm.ResultCompleted:
                 break
             if res == pm.ResultFailed:
-                raise SystemError, "install failed"
+                raise SystemError, "installArchives() failed"
             # reload the fetcher for media swaping
             fetcher.Shutdown()
         return (res == pm.ResultCompleted)

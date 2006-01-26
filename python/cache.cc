@@ -463,7 +463,17 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 PyObject *Dep = PyString_FromString(Start.DepType());
+	 // must be in sync with pkgCache::DepType in libapt
+	 // it sucks to have it here duplicated, but we get it
+	 // translated from libapt and that is certainly not what
+	 // we want in a programing interface
+	 const char *Types[] =  
+	 {
+	    "", "Depends","PreDepends","Suggests",
+	    "Recommends","Conflicts","Replaces",
+	    "Obsoletes"
+	 };
+	 PyObject *Dep = PyString_FromString(Types[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)

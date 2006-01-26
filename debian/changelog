@@ -3,8 +3,10 @@ python-apt (0.6.16.1) unstable; urgency=low
   * memleak fixed when pkgCache objects are deallocated
   * typos fixed (thanks to Gustavo Franco)
   * pkgRecords.Record added to get raw record data
+  * python/cache.cc: "key" in pkgCache::VerIterator.DependsList[key] is
+                     no longer locale specific but always english
 
- -- 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 26 Jan 2006 16:30:02 +0100
 
 python-apt (0.6.16) unstable; urgency=low
 
