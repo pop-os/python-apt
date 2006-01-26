@@ -157,7 +157,7 @@ class MetaRelease(gobject.GObject):
             self.metarelease_information=f
             uri.close()
         except urllib2.URLError:
-            if os.path.exits(self.METARELEASE_FILE):
+            if os.path.exists(self.METARELEASE_FILE):
                 f=open(self.METARELEASE_FILE,"r")
 
 # register in the gobject system, needed for older versions of pygtk,
