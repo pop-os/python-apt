@@ -202,6 +202,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
         self.vscrollbar_terminal.set_adjustment(self._term.get_adjustment())
+        # work around bug in VteTerminal here
+        self._term.realize()
 
         # Use italic style in the status labels
         attrlist=pango.AttrList()
@@ -233,12 +235,6 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         return self._term
     def _term_content_changed(self, term):
         " called when the *visible* part of the terminal changes "
-
-        # work around stupid vte bug (realize, then scroll to end)
-        self._term.realize()
-        ad = self._term.get_adjustment()
-        ad.set_value(ad.upper - ad.page_size)
-        ad.value_changed()
 
         # get the current visible text, 
         current_text = self._term.get_text(lambda a,b,c,d: True)
