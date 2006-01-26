@@ -209,6 +209,20 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         self.label_status.set_property("attributes", attrlist)
 
+        # reasonable fault handler
+        sys.excepthook = self._handleException
+
+    def _handleException(self, type, value, tb):
+      import traceback
+      lines = traceback.format_exception(type, value, tb)
+      logging.error("not handled expection:\n%s" % "\n".join(lines))
+      self.error(_("A fatal error occured"),
+                 _("During the operation a fatal error occured. "
+                   "Please report this as a bug and include the "
+                   "files ~/dist-upgrade.log and ~/dist-upgrade-apt.log "
+                   "in your report. The upgrade will abort now. "),
+                 "\n".join(lines))
+
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
         self._term = vte.Terminal()
