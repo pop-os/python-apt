@@ -158,6 +158,8 @@ class DistUpgradeControler(object):
     def doUpdate(self):
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
+        # FIXME: retry here too? just like the DoDistUpgrade?
+        #        also remove all files from the lists partial dir!
         try:
             res = self.cache.update(progress)
         except IOError, e:

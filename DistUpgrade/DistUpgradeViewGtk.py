@@ -40,6 +40,9 @@ from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 from gettext import gettext as _
 
+def utf8(str):
+  return unicode(str, 'latin1').encode('utf-8')
+
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
@@ -146,7 +149,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           textview = gtk.TextView()
           textview.set_cursor_visible(False)
           textview.set_editable(False)
-          textview.get_buffer().set_text(errormsg)
+          textview.get_buffer().set_text(utf8(errormsg))
           textview.show()
           scroll.add(textview)
           scroll.show()
