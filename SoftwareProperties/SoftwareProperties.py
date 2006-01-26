@@ -92,13 +92,13 @@ class SoftwareProperties(SimpleGladeApp):
     update_days = apt_pkg.Config.FindI(CONF_MAP["autoupdate"])
 
     self.combobox_update_interval.append_text("Daily")
-    self.combobox_update_interval.append_text("Every Two Days")
+    self.combobox_update_interval.append_text("Every two days")
     self.combobox_update_interval.append_text("Weekly")
-    self.combobox_update_interval.append_text("Every Two Weeks")
+    self.combobox_update_interval.append_text("Every two weeks")
 
     # If a custom period is defined add an corresponding entry
     if not update_days in self.combobox_interval_mapping.values():
-        self.combobox_update_interval.append_text(_("Every %s Days" 
+        self.combobox_update_interval.append_text(_("Every %s days" 
                                                   % update_days))
         self.combobox_interval_mapping[4] = update_days
     
