@@ -242,8 +242,6 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
 
         # get the current visible text, 
         current_text = self._term.get_text(lambda a,b,c,d: True)
-        print current_text + "\n\n"
-
         # see what we have currently and only print stuff that wasn't
         # visible last time
         new_lines = []
