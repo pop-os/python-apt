@@ -98,9 +98,10 @@ class SoftwareProperties(SimpleGladeApp):
 
     # If a custom period is defined add an corresponding entry
     if not update_days in self.combobox_interval_mapping.values():
-        self.combobox_update_interval.append_text(_("Every %s days" 
-                                                  % update_days))
-        self.combobox_interval_mapping[4] = update_days
+        if update_days > 0:
+            self.combobox_update_interval.append_text(_("Every %s days" 
+                                                      % update_days))
+            self.combobox_interval_mapping[4] = update_days
     
     for key in self.combobox_interval_mapping:
       if self.combobox_interval_mapping[key] == update_days:
@@ -178,6 +179,10 @@ class SoftwareProperties(SimpleGladeApp):
     if self.checkbutton_auto_update.get_active():
       self.combobox_update_interval.set_sensitive(True)
       i = self.combobox_update_interval.get_active()
+      # if no frequency was specified use daily
+      if i == -1:
+          i = 0
+          self.combobox_update_interval.set_active(i)
       value = self.combobox_interval_mapping[i]
     else:
       self.combobox_update_interval.set_sensitive(False)
