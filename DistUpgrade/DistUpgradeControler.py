@@ -317,6 +317,7 @@ class DistUpgradeControler(object):
         self.doPostUpgrade()
 
         # done, ask for reboot
+        self._view.setStep(5)
         self._view.updateStatus(_("System upgrade is complete."))            
         # FIXME should we look into /var/run/reboot-required here?
         if self._view.confirmRestart():
