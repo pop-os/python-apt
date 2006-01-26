@@ -47,9 +47,10 @@ class GtkOpProgress(apt.progress.OpProgress):
       self.progressbar.pulse()
 
   def update(self, percent):
-       # self.progressbar.set_text(self.op)
-#      self.progressbar.set_fraction(percent/100.0)
-      self.progressbar.pulse()
+      if percent > 99:
+          self.progressbar.set_fraction(1)
+      else:
+          self.progressbar.pulse()
       while gtk.events_pending():
           gtk.main_iteration()
 
