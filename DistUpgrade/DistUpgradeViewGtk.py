@@ -168,7 +168,7 @@ class GtkInstallProgressAdapter(InstallProgress):
             self.updateInterface()
         return self.apt_status
     def finishUpdate(self):
-        self.progress.hide()
+        #self.progress.hide()
         self.label_status.set_text("")
     def updateInterface(self):
         InstallProgress.updateInterface(self)
@@ -227,7 +227,32 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         " helper to create a vte terminal "
         self._term = vte.Terminal()
         self._term.set_font_from_string("monospace 10")
+        self._term.connect("contents-changed", self._term_content_changed)
+        self._terminal_lines = []
+        self._terminal_log = open(os.path.expanduser("~/dist-upgrade-term.log"),"w")
         return self._term
+    def _term_content_changed(self, term):
+        " called when the *visible* part of the terminal changes "
+
+        # work around stupid vte bug (realize, then scroll to end)
+        self._term.realize()
+        ad = self._term.get_adjustment()
+        ad.set_value(ad.upper - ad.page_size)
+        ad.value_changed()
+
+        # get the current visible text, 
+        current_text = self._term.get_text(lambda a,b,c,d: True)
+        print current_text + "\n\n"
+
+        # see what we have currently and only print stuff that wasn't
+        # visible last time
+        new_lines = []
+        for line in current_text.split("\n"):
+          new_lines.append(line)
+          if not line in self._terminal_lines:
+            self._terminal_log.write(line+"\n")
+            self._terminal_log.flush()
+        self._terminal_lines = new_lines
     def getFetchProgress(self):
         return self._fetchProgress
     def getInstallProgress(self):
