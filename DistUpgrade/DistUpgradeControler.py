@@ -252,6 +252,7 @@ class DistUpgradeControler(object):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
         changes = self.cache.getChanges()
+        logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
         if len(changes) > 0 and \
                self._view.confirmChanges(_("Remove obsolete Packages?"),
                                          changes, 0):

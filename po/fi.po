@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-26 13:14+0100\n"
+"POT-Creation-Date: 2006-01-26 15:51+0100\n"
 "PO-Revision-Date: 2005-03-30 08:30+0200\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <LL@li.org>\n"
@@ -389,49 +389,61 @@ msgid ""
 "report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:164
+#: ../DistUpgrade/DistUpgradeControler.py:166
 #, fuzzy
 msgid "Error during update"
 msgstr "Virhe poistettaessa avainta"
 
-#: ../DistUpgrade/DistUpgradeControler.py:165
+#: ../DistUpgrade/DistUpgradeControler.py:167
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:184
+#: ../DistUpgrade/DistUpgradeControler.py:186
 msgid "Not enough free space"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:185
+#: ../DistUpgrade/DistUpgradeControler.py:187
 msgid ""
 "There is not enough free space on your system to download the required "
 "pacakges. Please free some space before trying again with e.g. 'sudo apt-get "
 "clean'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:190
+#: ../DistUpgrade/DistUpgradeControler.py:192
 #, fuzzy
 msgid "Perform Upgrade?"
 msgstr "Päivitykset suoritettu"
 
-#: ../DistUpgrade/DistUpgradeControler.py:200
-#: ../DistUpgrade/DistUpgradeControler.py:238
+#. installing the packages failed, can't be retried
+#: ../DistUpgrade/DistUpgradeControler.py:206
+#: ../DistUpgrade/DistUpgradeControler.py:263
 msgid "Error during commit"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:201
+#: ../DistUpgrade/DistUpgradeControler.py:207
 msgid ""
-"Some problem occured during the upgrade. This is mostly a network problem, "
-"please check the network and try again. "
+"Some problem occured during the upgrade. Most likely packages failed to "
+"install. Try 'sudo apt-get install -f' or synaptic to fix your system."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:231
+#: ../DistUpgrade/DistUpgradeControler.py:223
+#, fuzzy
+msgid "Error fetching the packages"
+msgstr "Virhe poistettaessa avainta"
+
+#: ../DistUpgrade/DistUpgradeControler.py:224
+msgid ""
+"Some problem occured during the fetching of the packages. This is most "
+"likely a network problem. Please check your network and try again. "
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:256
 msgid "Remove obsolete Packages?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:239
+#: ../DistUpgrade/DistUpgradeControler.py:264
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -439,50 +451,50 @@ msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:254
-#: ../DistUpgrade/DistUpgradeControler.py:273
+#: ../DistUpgrade/DistUpgradeControler.py:279
+#: ../DistUpgrade/DistUpgradeControler.py:298
 msgid "Checking update system"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:265
+#: ../DistUpgrade/DistUpgradeControler.py:290
 msgid "Updating repository information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:279
+#: ../DistUpgrade/DistUpgradeControler.py:304
 msgid "Asking for confirmation"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:283
+#: ../DistUpgrade/DistUpgradeControler.py:308
 #, fuzzy
 msgid "Upgrading"
 msgstr "Päivitykset suoritettu"
 
-#: ../DistUpgrade/DistUpgradeControler.py:289
+#: ../DistUpgrade/DistUpgradeControler.py:315
 msgid "Searching for obsolete software"
 msgstr ""
 
 #. done, ask for reboot
-#: ../DistUpgrade/DistUpgradeControler.py:293
+#: ../DistUpgrade/DistUpgradeControler.py:319
 msgid "System upgrade is complete."
 msgstr ""
 
 #. print "mediaChange %s %s" % (medium, drive)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:67
+#: ../DistUpgrade/DistUpgradeViewGtk.py:70
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:97
+#: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Downloading file %li of %li with %s/s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:98
+#: ../DistUpgrade/DistUpgradeViewGtk.py:101
 #, python-format
 msgid "%s remaining"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:100
+#: ../DistUpgrade/DistUpgradeViewGtk.py:103
 #, python-format
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
@@ -490,33 +502,33 @@ msgstr ""
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:123
+#: ../DistUpgrade/DistUpgradeViewGtk.py:126
 msgid "Installing updates ..."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:136
+#: ../DistUpgrade/DistUpgradeViewGtk.py:139
 #, python-format
 msgid "Error installing '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:137
+#: ../DistUpgrade/DistUpgradeViewGtk.py:140
 msgid ""
 "During the install a error occured. This is usually a bug in the packages, "
 "please report it. See the message below for more information. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:219
+#: ../DistUpgrade/DistUpgradeViewGtk.py:224
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:220
+#: ../DistUpgrade/DistUpgradeViewGtk.py:225
 msgid ""
 "During the operation a fatal error occured. Please report this as a bug and "
 "include the files ~/dist-upgrade.log and ~/dist-upgrade-apt.log in your "
 "report. The upgrade will abort now. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:308
+#: ../DistUpgrade/DistUpgradeViewGtk.py:305
 #, python-format
 msgid ""
 "%s packages are going to be removed.\n"
@@ -526,27 +538,27 @@ msgid ""
 "%s needs to be fetched"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:319
+#: ../DistUpgrade/DistUpgradeViewGtk.py:316
 #, python-format
 msgid "<b>To be removed: %s</b>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:321
+#: ../DistUpgrade/DistUpgradeViewGtk.py:318
 #, python-format
 msgid "To be installed: %s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:323
+#: ../DistUpgrade/DistUpgradeViewGtk.py:320
 #, python-format
 msgid "To be upgraded: %s"
 msgstr ""
 
 #. print "on_window_main_delete_event()"
-#: ../DistUpgrade/DistUpgradeViewGtk.py:354
+#: ../DistUpgrade/DistUpgradeViewGtk.py:351
 msgid "Are you sure you want cancel?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
+#: ../DistUpgrade/DistUpgradeViewGtk.py:352
 msgid ""
 "Canceling during a upgrade can leave the system in a unstable state. It is "
 "strongly adviced to continue the operation. "
