@@ -191,19 +191,42 @@ class DistUpgradeControler(object):
                                         self.cache.requiredDownload)
         return res
 
-    def doDistUpgrade(self):
+    def doDistUpgrade(self, currentTry=0):
+        currentRetry = 0
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
-        try:
-            res = self.cache.commit(fprogress,iprogress)
-        except (SystemError, IOError), e:
-            self._view.error(_("Error during commit"),
-                             _("Some problem occured during the upgrade. "
-                               "This is mostly a network problem, please "
-                               "check the network and try again. "),
-                             "%s" % e)
-            return False
-        return True
+        # retry the fetching in case of errors
+        while currentRetry < 3:
+            try:
+                res = self.cache.commit(fprogress,iprogress)
+            except SystemError, e:
+                # installing the packages failed, can't be retried
+                self._view.error(_("Error during commit"),
+                                 _("Some problem occured during the upgrade. "
+                                   "Most likely packages failed to install. "
+                                   "Try 'sudo apt-get install -f' or synaptic "
+                                   "to fix your system."),
+                                 "%s" % e)
+                return False
+            except IOError, e:
+                # fetch failed, will be retried
+                logging.error("IOError in cache.commit(): '%s'. Retrying (currentTry: %s)" % (e,currentTry))
+                currentRetry += 1
+                continue
+            # no exception, so all was fine, we are done
+            return True
+        
+        # maximum fetch-retries reached without a successful commit
+        logging.debug("giving up on fetching after maximum retries")
+        self._view.error(_("Error fetching the packages"),
+                         _("Some problem occured during the fetching "
+                           "of the packages. This is most likely a network "
+                           "problem. Please check your network and try "
+                           "again. "),
+                           "%s" % e)
+        # abort here because we want our sources.list back
+        self.abort()
+
 
 
     def doPostUpgrade(self):
@@ -282,11 +305,12 @@ class DistUpgradeControler(object):
 
         self._view.updateStatus(_("Upgrading"))            
         if not self.doDistUpgrade():
-            self.abort()
+            # don't abort here, because it would restore the sources.list
+            sys.exit(1) 
             
         # do post-upgrade stuff
         self._view.setStep(4)
-        self._view.updateStatus(_("Searching for obsolete software"))            
+        self._view.updateStatus(_("Searching for obsolete software"))
         self.doPostUpgrade()
 
         # done, ask for reboot

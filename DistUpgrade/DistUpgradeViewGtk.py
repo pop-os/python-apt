@@ -199,6 +199,8 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         self.treeview_details.append_column(column)
         self.treeview_details.set_model(self.details_list)
         self.vscrollbar_terminal.set_adjustment(self._term.get_adjustment())
+        # work around bug in VteTerminal here
+        self._term.realize()
 
         # Use italic style in the status labels
         attrlist=pango.AttrList()
@@ -206,11 +208,42 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         self.label_status.set_property("attributes", attrlist)
 
+        # reasonable fault handler
+        sys.excepthook = self._handleException
+
+    def _handleException(self, type, value, tb):
+      import traceback
+      lines = traceback.format_exception(type, value, tb)
+      logging.error("not handled expection:\n%s" % "\n".join(lines))
+      self.error(_("A fatal error occured"),
+                 _("During the operation a fatal error occured. "
+                   "Please report this as a bug and include the "
+                   "files ~/dist-upgrade.log and ~/dist-upgrade-apt.log "
+                   "in your report. The upgrade will abort now. "),
+                 "\n".join(lines))
+
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
         self._term = vte.Terminal()
         self._term.set_font_from_string("monospace 10")
+        self._term.connect("contents-changed", self._term_content_changed)
+        self._terminal_lines = []
+        self._terminal_log = open(os.path.expanduser("~/dist-upgrade-term.log"),"w")
         return self._term
+    def _term_content_changed(self, term):
+        " called when the *visible* part of the terminal changes "
+
+        # get the current visible text, 
+        current_text = self._term.get_text(lambda a,b,c,d: True)
+        # see what we have currently and only print stuff that wasn't
+        # visible last time
+        new_lines = []
+        for line in current_text.split("\n"):
+          new_lines.append(line)
+          if not line in self._terminal_lines:
+            self._terminal_log.write(line+"\n")
+            self._terminal_log.flush()
+        self._terminal_lines = new_lines
     def getFetchProgress(self):
         return self._fetchProgress
     def getInstallProgress(self):
