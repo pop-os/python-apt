@@ -157,7 +157,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         dialog.run()
         dialog.destroy()
     def conffile(self, current, new):
-        logging.debug("got a conffile-prompt from dpkg for pkg: '%s'" % current)
+        logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         self.expander.set_expanded(True)
         pass
     def fork(self):
