@@ -180,7 +180,7 @@
 		      <child>
 			<widget class="GtkButton" id="button_dist_upgrade">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Upgrade to a new version of Ubuntu</property>
+			  <property name="tooltip" translatable="yes">Upgrade to the latest version of Ubuntu</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">U_pgrade</property>
 			  <property name="use_underline">True</property>
@@ -277,7 +277,6 @@
 		  <child>
 		    <widget class="GtkButton" id="button_install">
 		      <property name="visible">True</property>
-		      <property name="tooltip" translatable="yes">Install the seleceted updates</property>
 		      <property name="can_default">True</property>
 		      <property name="has_default">True</property>
 		      <property name="can_focus">True</property>
