@@ -14,6 +14,7 @@
   <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
+  <property name="icon">update-manager.png</property>
   <property name="decorated">True</property>
   <property name="skip_taskbar_hint">False</property>
   <property name="skip_pager_hint">False</property>
@@ -298,7 +299,7 @@
 				<widget class="GtkCheckButton" id="checkbutton_auto_update">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Automatically check for updates</property>
+				  <property name="label" translatable="yes">Automatically check for updates:</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
@@ -317,11 +318,7 @@
 			      <child>
 				<widget class="GtkComboBox" id="combobox_update_interval">
 				  <property name="visible">True</property>
-				  <property name="items" translatable="yes">daily
-every two days
-weekly
-every two weeks
-custom</property>
+				  <property name="items" translatable="yes"></property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="focus_on_click">True</property>
 				  <signal name="changed" handler="on_combobox_update_interval_changed" last_modification_time="Wed, 18 Jan 2006 09:43:34 GMT"/>

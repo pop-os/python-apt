@@ -46,14 +46,19 @@ def utf8(str):
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
+      #self.progressbar.set_pulse_step(0.01)
+      #self.progressbar.pulse()
+
   def update(self, percent):
-      #self._progressbar.show()
-      #self.progressbar.set_text(self.op)
+      #if percent > 99:
+      #    self.progressbar.set_fraction(1)
+      #else:
+      #    self.progressbar.pulse()
       self.progressbar.set_fraction(percent/100.0)
       while gtk.events_pending():
           gtk.main_iteration()
+
   def done(self):
-      #self.progressbar.hide()
       self.progressbar.set_text(" ")
 
 
@@ -84,9 +89,8 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.progress.set_fraction(0)
         self.status.show()
     def stop(self):
-        #self.progress.hide()
         self.progress.set_text(" ")
-        self.status.set_text("")
+        self.status.set_text(_("Download is complete"))
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
@@ -123,7 +127,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        self.label_status.set_text(_("Installing updates ..."))
+        self.label_status.set_text(_("Installing updates"))
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
@@ -131,35 +135,22 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=none"]
+
     def error(self, pkg, errormsg):
         logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
-        dialog = gtk.MessageDialog(self.parent.window_main, 0,
-                                   gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
-        summary = _("Error installing '%s'" % pkg)
-        msg = _("During the install a error occured. This is usually a bug "
-                "in the packages, please report it. See the message below "
-                "for more information. ")
-        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
-        dialog.set_markup(msg)
-        dialog.vbox.set_spacing(6)
-        if errormsg != None:
-          scroll = gtk.ScrolledWindow()
-          scroll.set_size_request(400,200)
-          textview = gtk.TextView()
-          textview.set_cursor_visible(False)
-          textview.set_editable(False)
-          textview.get_buffer().set_text(utf8(errormsg))
-          textview.show()
-          scroll.add(textview)
-          scroll.show()
-          dialog.vbox.pack_end(scroll)
-        dialog.run()
-        dialog.destroy()
+        #self.expander_terminal.set_expanded(True)
+        self.dialog_error.set_transient_for(self.window_main)
+        summary = _("Could not install '%s'" % pkg)
+        msg = _("The upgrade will abort. Please report the bug.")            
+        markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
+        self.label_error.set_markup(markup)
+        self.textview_error.get_buffer().set_text(utf8(errormsg))
+        self.scroll_error.show()
+        self.dialog_error.run()
+        self.dialog_error.hide()
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         self.expander.set_expanded(True)
-        pass
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
@@ -171,7 +162,6 @@ class GtkInstallProgressAdapter(InstallProgress):
             self.updateInterface()
         return self.apt_status
     def finishUpdate(self):
-        #self.progress.hide()
         self.label_status.set_text("")
     def updateInterface(self):
         InstallProgress.updateInterface(self)
@@ -275,26 +265,22 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
         #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
+
                                 
     def error(self, summary, msg, extended_msg=None):
-        dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
-        msg="<big><b>%s</b></big>\n\n%s" % (summary,msg)
-        dialog.set_markup(msg)
-        dialog.vbox.set_spacing(6)
+        self.dialog_error.set_transient_for(self.window_main)
+        #self.expander_terminal.set_expanded(True)
+        msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
+        self.label_error.set_markup(msg)
         if extended_msg != None:
-          scroll = gtk.ScrolledWindow()
-          scroll.set_size_request(400,200)
-          textview = gtk.TextView()
-          textview.set_cursor_visible(False)
-          textview.set_editable(False)
-          textview.get_buffer().set_text(extended_msg)
-          textview.show()
-          scroll.add(textview)
-          scroll.show()
-          dialog.vbox.pack_end(scroll)
-        dialog.run()
-        dialog.destroy()
+            buffer = self.textview_error.get_buffer()
+            buffer.set_text(extended_msg)
+            self.scroll_error.show()
+        else:
+            self.scroll_error.hide()
+        self.dialog_error.run()
+        self.dialog_error.show()
+        self.dialog_error.destroy()
         return False
 
     def confirmChanges(self, summary, changes, downloadSize):

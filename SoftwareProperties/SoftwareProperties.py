@@ -86,14 +86,28 @@ class SoftwareProperties(SimpleGladeApp):
     self.combobox_interval_mapping = { 0 : 1,
                                        1 : 2,
                                        2 : 7,
-                                       3 : 14,
-                                       4 : -1}
+                                       3 : 14 }
     self.combobox_update_interval.set_active(0)
+
     update_days = apt_pkg.Config.FindI(CONF_MAP["autoupdate"])
+
+    self.combobox_update_interval.append_text("Daily")
+    self.combobox_update_interval.append_text("Every two days")
+    self.combobox_update_interval.append_text("Weekly")
+    self.combobox_update_interval.append_text("Every two weeks")
+
+    # If a custom period is defined add an corresponding entry
+    if not update_days in self.combobox_interval_mapping.values():
+        if update_days > 0:
+            self.combobox_update_interval.append_text(_("Every %s days" 
+                                                      % update_days))
+            self.combobox_interval_mapping[4] = update_days
+    
     for key in self.combobox_interval_mapping:
       if self.combobox_interval_mapping[key] == update_days:
         self.combobox_update_interval.set_active(key)
         break
+
     if update_days >= 1:
       self.checkbutton_auto_update.set_active(True)
       self.combobox_update_interval.set_sensitive(True)
@@ -156,19 +170,24 @@ class SoftwareProperties(SimpleGladeApp):
   def on_combobox_update_interval_changed(self, widget):
     i = self.combobox_update_interval.get_active()
     value = self.combobox_interval_mapping[i]
-    apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
-    self.write_config()
+    # Only write the key if it has changed
+    if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
+        apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+        self.write_config()
       
   def opt_autoupdate_toggled(self, widget):  
     if self.checkbutton_auto_update.get_active():
       self.combobox_update_interval.set_sensitive(True)
+      # if no frequency was specified use daily
       i = self.combobox_update_interval.get_active()
+      if i == -1:
+          i = 0
+          self.combobox_update_interval.set_active(i)
       value = self.combobox_interval_mapping[i]
     else:
       self.combobox_update_interval.set_sensitive(False)
       value = 0
     apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
-    
     # FIXME: Write config options, apt_pkg should be able to do this.
     self.write_config()
     
@@ -234,7 +253,7 @@ class SoftwareProperties(SimpleGladeApp):
       self.modified = True
     
   def add_key_clicked(self, widget):
-    chooser = gtk.FileChooserDialog(title=_("Choose a key-file"),
+    chooser = gtk.FileChooserDialog(title=_("Import key"),
                                     parent=self.window_main,
                                     buttons=(gtk.STOCK_CANCEL,
                                              gtk.RESPONSE_REJECT,

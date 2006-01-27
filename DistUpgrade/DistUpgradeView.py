@@ -38,11 +38,12 @@ class DistUpgradeView(object):
         """
         pass
     def setStep(self, step):
-        """ we have 4 steps current for a upgrade:
+        """ we have 5 steps current for a upgrade:
         1. Analyzing the system
         2. Updating repository information
         3. Performing the upgrade
         4. Post upgrade stuff
+        5. Complete
         """
         pass
     def confirmChanges(self, summary, changes, downloadSize):

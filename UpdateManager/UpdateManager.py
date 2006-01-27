@@ -142,10 +142,15 @@ class MyCache(apt.Cache):
                 self.all_changes[name] = [alllines, srcpkg]
         except urllib2.HTTPError:
             if lock.locked():
-                self.all_changes[name] = [_("Changes not found, the server may not be updated yet."), srcpkg]
+                self.all_changes[name] = [_("The list of changes is not "
+                                            "available yet. Please try again "
+                                            "later."), srcpkg]
         except IOError:
             if lock.locked():
-                self.all_changes[name] = [_("Failed to download changes. Please check if there is an active internet connection."), srcpkg]
+                self.all_changes[name] = [_("Failed to download the list"
+                                            "of changes. Please "
+                                            "check your internet "
+                                            "connection."), srcpkg]
         if lock.locked():
             lock.release()
 
@@ -172,24 +177,19 @@ class UpdateList:
     self.pkgs.sort(lambda x,y: cmp(x.name,y.name))
     if cache._depcache.KeepCount > 0:
       #print "WARNING, keeping packages"
-      msg=("<big><b>%s</b></big>\n\n%s"%(_("It is not possible to upgrade "
-                                           "all packages."),
-                                         _("This means that "
-                                           "besides the actual upgrade of the "
-                                           "packages some further action "
-                                           "(such as installing or removing "
-                                           "packages) "
-                                           "is required. Please use Synaptic "
-                                           "\"Smart Upgrade\" or "
-                                           "\"apt-get dist-upgrade\" to fix "
-                                           "the situation."
-                                           )))
+      msg = ("<big><b>%s</b></big>\n\n%s" % \
+            (_("Cannot install all available updates"),
+             _("Some updates require to install or remove further software. "
+               "Use the function \"Smart Upgrade\" of the package manager "
+	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
+	       "terminal to update your system completely.")))
       dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_INFO,
-                                 gtk.BUTTONS_OK,"")
+                                 gtk.BUTTONS_CLOSE,"")
       dialog.set_default_response(gtk.RESPONSE_OK)
       dialog.set_markup(msg)
+      dialog.set_title("")
       dialog.vbox.set_spacing(6)
-      label = gtk.Label(_("The following packages are not upgraded: "))
+      label = gtk.Label(_("The following updates will be skipped:"))
       label.set_alignment(0.0,0.5)
       dialog.set_border_width(6)
       label.show()
@@ -213,11 +213,13 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
-
+ 
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
     self.gnome_program = gnome.init("update-manager", "0.41")
+
+    self.window_main.set_sensitive(False)
 
     self.packages = []
     self.dl_size = 0
@@ -281,7 +283,7 @@ class UpdateManager(SimpleGladeApp):
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
-
+      
 
   def set_changes_buffer(self, changes_buffer, text, name, srcpkg):
     changes_buffer.set_text("")
@@ -342,12 +344,11 @@ class UpdateManager(SimpleGladeApp):
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
     else:
       if self.expander_details.get_expanded():
-        self.treeview_update.set_sensitive(False)
         self.hbox_footer.set_sensitive(False)
         lock = thread.allocate_lock()
         lock.acquire()
         t=thread.start_new_thread(self.cache.get_changelog,(name,lock))
-        changes_buffer.set_text(_("Downloading changes..."))
+        changes_buffer.set_text(_("Downloading the list of changes..."))
         button = self.button_cancel_dl_changelog
         button.show()
         id = button.connect("clicked",
@@ -360,7 +361,6 @@ class UpdateManager(SimpleGladeApp):
         # download finished (or canceld, or time-out)
         button.hide()
         button.disconnect(id);
-        self.treeview_update.set_sensitive(True)
         self.hbox_footer.set_sensitive(True)
 
     if self.cache.all_changes.has_key(name):
@@ -391,7 +391,7 @@ class UpdateManager(SimpleGladeApp):
           text_download = ""
           self.expander_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
-          self.label_downsize.hide()
+          self.label_downsize.set_text=""
           self.button_cancel.grab_default()
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
@@ -399,8 +399,8 @@ class UpdateManager(SimpleGladeApp):
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
           self.expander_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
-          self.label_downsize.show()
           self.button_install.grab_default()
+
       self.label_header.set_markup(text_header)
       self.label_downsize.set_markup(text_download)
 
@@ -424,9 +424,9 @@ class UpdateManager(SimpleGladeApp):
     if action == INSTALL:
       cmd.append("--set-selections")
       cmd.append("--progress-str")
-      cmd.append("%s" % _("The updates are being applied."))
+      cmd.append("%s" % _("Please wait, this can take some time."))
       cmd.append("--finish-str")
-      cmd.append("%s" %  _("Upgrade is complete"))
+      cmd.append("%s" %  _("Update is complete"))
       proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
       f = proc.stdin
       for s in self.packages:
@@ -465,24 +465,25 @@ class UpdateManager(SimpleGladeApp):
     #print "on_button_reload_clicked"
     #self.invoke_manager(UPDATE)
     progress = GtkProgress.GtkFetchProgress(self,
-                                            _("Downloading package "
-                                              "information"),
-                                            _("The repositories will be "
-                                              "checked for new, removed "
-                                              "or upgraded software "
-                                              "packages."))
+                                            _("Reloading the information about "
+                                              "latest updates"),
+                                            _("It is important to check "
+                                              "the software sources for "
+                                              "available upgrades reguarly."))
     # FIXME: do a try/except here otherwise it may bomb
     try:
         self.cache.update(progress)
     except (IOError,SystemError), msg:
         dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
+                                   gtk.BUTTONS_CLOSE,"")
+	# FIXME: wording
         dialog.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>"%\
-                          _("Error reloading"))
-        dialog.format_secondary_text(_("A error occured during the package "
+                          _("Could not reload the update information"))
+        dialog.format_secondary_text(_("An error occured during the package "
                                        "list reload. Please see the below "
                                        "information for details what went "
                                        "wrong."))
+        diaolg.set_title("")
         dialog.set_border_width(6)
         dialog.set_size_request(width=500,height=-1)
         scroll = gtk.ScrolledWindow()
@@ -533,7 +534,7 @@ class UpdateManager(SimpleGladeApp):
                                            "at the same time. Please close "
                                            "this other application first.")));
       dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                 gtk.BUTTONS_OK,"")
+                                 gtk.BUTTONS_CLOSE,"")
       dialog.set_markup(msg)
       dialog.run()
       dialog.destroy()
@@ -546,8 +547,9 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(False)
     # create a progress window that will swallow the synaptic progress bars
     win = gtk.Window()
+    win.set_property("type-hint", gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
     win.set_title("")
-    win.set_border_width(12)
+    win.set_border_width(6)
     win.set_transient_for(self.window_main)
     win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
     win.set_property("skip-taskbar-hint", True)
@@ -645,7 +647,7 @@ class UpdateManager(SimpleGladeApp):
         secondary = _("You need to reload the package list from the servers "
                       "for your changes to take effect. Do you want to do "
                       "this now?") 
-        dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
+        dialog = gtk.MessageDialog(self.window_main, 0,
                                gtk.MESSAGE_INFO,gtk.BUTTONS_YES_NO,"")
         dialog.set_markup(primary);
         dialog.format_secondary_text(secondary);
@@ -690,10 +692,10 @@ class UpdateManager(SimpleGladeApp):
         name = xml.sax.saxutils.escape(pkg.name)
         summary = xml.sax.saxutils.escape(pkg.summary)
         contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
-	contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
+        contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
 
         iter = self.store.append([True, contents, pkg.name, pkg.summary, pkg.candidateVersion, pkg.description, pkg])
-	self.add_update(pkg)
+        self.add_update(pkg)
         i = i + 1
 
 
@@ -701,9 +703,16 @@ class UpdateManager(SimpleGladeApp):
     return False
 
   def dist_no_longer_supported(self, meta_release):
-    msg = "<big><b>%s</b></big>\n\n%s" % (_("Your distribution is no longer supported"), _("Please upgrade to a newer version of Ubuntu Linux. The version you are running will no longer get security fixes or other critical updates. Please see http://www.ubuntulinux.org for upgrade information."))
+    msg = "<big><b>%s</b></big>\n\n%s" % \
+          (_("Your distribution is not supported anymore"),
+	   _("You will not get any further security fixes or critical "
+             "updates. "
+             "Upgrade to a later version of Ubuntu Linux. See "
+             "http://www.ubuntu.com for more information on "
+             "upgrading."))
     dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_WARNING,
-                               gtk.BUTTONS_OK,"")
+                               gtk.BUTTONS_CLOSE,"")
+    dialog.set_title("")
     dialog.set_markup(msg)
     dialog.run()
     dialog.destroy()
@@ -733,11 +742,25 @@ class UpdateManager(SimpleGladeApp):
               res = self.dialog_release_notes.run()
               self.dialog_release_notes.hide()
           except urllib2.HTTPError:
-              # FIXME: make proper error dialogs here
-              print _("Release notes not found on the server.")
+              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
+                        _("Could not find the release notes")
+              secondary = _("The server may be overloaded. ")
+              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
+                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
+              dialog.set_title("")
+              dialog.set_markup(primary);
+              dialog.format_secondary_text(secondary);
+              dialog.run()
           except IOError:
-              print _("Failed to download Release Notes. Please "
-                      "check if there is an active internet connection.")
+              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
+                        _("Could not download the release notes")
+              secondary = _("Please check your internet connection.")
+              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
+                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
+              dialog.set_title("")
+              dialog.set_markup(primary);
+              dialog.format_secondary_text(secondary);
+              dialog.run()
           self.window_main.set_sensitive(True)
           self.window_main.window.set_cursor(None)
           # user clicked cancel
@@ -749,10 +772,11 @@ class UpdateManager(SimpleGladeApp):
       os.chdir(tmpdir)
       if self.new_dist.upgradeTool != None:
           progress = GtkProgress.GtkFetchProgress(self,
-                                                  _("Downloading upgrade "
-                                                    "informtion"),
-                                                  _("The upgrade information "
-                                                    "are downloaded"))
+                                                  _("Downloading the upgrade "
+                                                    "tool"),
+                                                  _("The upgrade tool will "
+                                                    "guide you through the "
+						    "upgrade process."))
           fetcher = apt_pkg.GetAcquire(progress)
           uri = self.new_dist.upgradeTool
           #print "Downloading %s to %s" % (uri, tmpdir)
@@ -774,8 +798,17 @@ class UpdateManager(SimpleGladeApp):
           # see if we have a script file that we can run
           script = "%s/%s" % (tmpdir, self.new_dist.name)
           if not os.path.exists(script):
-	      # FIXME: display a proper error message here
-              print "no script file found in extracted tarbal"
+              # no script file found in extracted tarbal
+              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
+                        _("Could not run the upgrade tool")
+              secondary = _("This is most likely a bug in the upgrade tool. "
+                            "Please report it as a bug")
+              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
+                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
+              dialog.set_title("")
+              dialog.set_markup(primary);
+              dialog.format_secondary_text(secondary);
+              dialog.run()
           else:
               #print "runing: %s" % script
               os.execv(script,[])
@@ -824,13 +857,14 @@ class UpdateManager(SimpleGladeApp):
         d = gtk.MessageDialog(parent=self.window_main,
                               flags=gtk.DIALOG_MODAL,
                               type=gtk.MESSAGE_ERROR,
-                              buttons=gtk.BUTTONS_OK)
+                              buttons=gtk.BUTTONS_CLOSE)
         d.set_markup("<big><b>%s</b></big>\n\n%s" % (
-            _("Unable to get exclusive lock"),
-            _("This usually means that another package management "
-              "application (like apt-get or aptitude) already running. "
-              "Please close that application first")))
+            _("Only one software management tool is allowed to "
+              "run at the same time"),
+            _("Please close the other application e.g. \"aptitude\" "
+              "or \"Synaptic\" at first.")))
         print "error from apt: '%s'" % e
+        d.set_title("")
         res = d.run()
         d.destroy()
         sys.exit()
@@ -838,20 +872,19 @@ class UpdateManager(SimpleGladeApp):
     try:
         self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
                                                        self.progressbar_cache,
+						       self.label_cache,
                                                        self.window_main))
     except AssertionError:
         # we assert a clean cache
         msg=("<big><b>%s</b></big>\n\n%s"% \
-             (_("Your system has broken packages!"),
-              _("This means that some dependencies "
-                "of the installed packages are not "
-                "satisfied. Please use \"Synaptic\" "
-                "or \"apt-get\" to fix the "
-                "situation."
-                )))
+             (_("Software index is broken"),
+              _("It is impossible to install or remove any software. "
+                "Please use the package manager \"Synaptic\" or run "
+		"\"sudo apt-get install -f\" in a terminal to fix "
+		"this issue at first.")))
         dialog = gtk.MessageDialog(self.window_main,
                                    0, gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_OK,"")
+                                   gtk.BUTTONS_CLOSE,"")
         dialog.set_markup(msg)
         dialog.vbox.set_spacing(6)
         dialog.run()
@@ -863,16 +896,27 @@ class UpdateManager(SimpleGladeApp):
         self.cache._depcache.ReadPinFile(SYNAPTIC_PINFILE)
     self.cache._depcache.Init()
 
+
+  def check_auto_update(self):
+      # Check if automatic update is enabled. If not show a dialog to inform
+      # the user about the need of manual "reloads"
+      update_days = apt_pkg.Config.FindI("APT::Periodic::Update-Package-Lists")
+      if update_days < 1:
+          self.dialog_manual_update.set_transient_for(self.window_main)
+          res = self.dialog_manual_update.run()
+          self.dialog_manual_update.hide()
+          if res == gtk.RESPONSE_YES:
+              self.on_button_reload_clicked(None)
+
+
   def main(self):
     self.meta = MetaRelease()
     self.meta.connect("new_dist_available",self.new_dist_available)
     self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
     
-    self.store.append([True, _("Initializing and getting list of updates..."),
-                       None, None, None, None, None])
-
     while gtk.events_pending():
       gtk.main_iteration()
 
     self.fillstore()
+    self.check_auto_update()
     gtk.main()

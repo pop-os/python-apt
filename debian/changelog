@@ -4,7 +4,7 @@ update-manager (0.42.2ubuntu1) dapper; urgency=low
     - never offer a upgrade to a unsupported (i.e. developer) dist
   * data/gnome-software-properties.desktop.in: use X-KDE-SubstituteUID=true
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Jan 2006 22:57:43 +0100
 
 update-manager (0.42.1ubuntu1) dapper; urgency=low
 

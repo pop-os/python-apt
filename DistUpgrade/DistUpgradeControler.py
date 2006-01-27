@@ -277,7 +277,7 @@ class DistUpgradeControler(object):
     # this is the core
     def dapperUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
-        self._view.updateStatus(_("Checking update system"))
+        self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
         self.openCache()
         if not self.cache.sanityCheck(self._view):
@@ -296,7 +296,7 @@ class DistUpgradeControler(object):
             self.abort()
 
         # then open the cache (again)
-        self._view.updateStatus(_("Checking update system"))
+        self._view.updateStatus(_("Checking package manager"))
         self.openCache()
 
         # calc the dist-upgrade and see if the removals are ok/expected
@@ -317,6 +317,7 @@ class DistUpgradeControler(object):
         self.doPostUpgrade()
 
         # done, ask for reboot
+        self._view.setStep(5)
         self._view.updateStatus(_("System upgrade is complete."))            
         # FIXME should we look into /var/run/reboot-required here?
         if self._view.confirmRestart():
