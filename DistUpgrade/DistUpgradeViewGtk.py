@@ -46,14 +46,15 @@ def utf8(str):
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
-      self.progressbar.set_pulse_step(0.01)
-      self.progressbar.pulse()
+      #self.progressbar.set_pulse_step(0.01)
+      #self.progressbar.pulse()
 
   def update(self, percent):
-      if percent > 99:
-          self.progressbar.set_fraction(1)
-      else:
-          self.progressbar.pulse()
+      #if percent > 99:
+      #    self.progressbar.set_fraction(1)
+      #else:
+      #    self.progressbar.pulse()
+      self.progressbar.set_fraction(percent/100.0)
       while gtk.events_pending():
           gtk.main_iteration()
 
@@ -136,33 +137,20 @@ class GtkInstallProgressAdapter(InstallProgress):
                     "APT_LISTCHANGES_FRONTEND=none"]
 
     def error(self, pkg, errormsg):
-        self.dialog_error.set_transient_for(self.window_main)
-
-        self.expander_terminal.set_expanded(True)
-
-        summary = _("Could not install '%s'" % pkg)
-        msg = _("The upgrade will abort now. Please report the bug.")            
-        msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
-        self.label_error.set_markup(msg)
-
         logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
-        if errormsg != None:
-          scroll = gtk.ScrolledWindow()
-          scroll.set_size_request(400,200)
-          textview = gtk.TextView()
-          textview.set_cursor_visible(False)
-          textview.set_editable(False)
-          textview.get_buffer().set_text(utf8(errormsg))
-          textview.show()
-          scroll.add(textview)
-          scroll.show()
-          dialog.vbox.pack_end(scroll)
-        dialog.run()
-        dialog.destroy()
+        #self.expander_terminal.set_expanded(True)
+        self.parent.dialog_error.set_transient_for(self.parent.window_main)
+        summary = _("Could not install '%s'" % pkg)
+        msg = _("The upgrade will abort. Please report the bug.")            
+        markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
+        self.parent.label_error.set_markup(markup)
+        self.parent.textview_error.get_buffer().set_text(utf8(errormsg))
+        self.parent.scroll_error.show()
+        self.parent.dialog_error.run()
+        self.parent.dialog_error.hide()
     def conffile(self, current, new):
-        logging.debug("got a conffile-prompt from dpkg for pkg: '%s'" % current)
+        logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         self.expander.set_expanded(True)
-        pass
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
@@ -280,19 +268,16 @@ class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
 
                                 
     def error(self, summary, msg, extended_msg=None):
-
         self.dialog_error.set_transient_for(self.window_main)
-
-        self.expander_terminal.set_expanded(True)
-            
+        #self.expander_terminal.set_expanded(True)
         msg="<big><b>%s</b></big>\n\n%s" % (summary, msg)
         self.label_error.set_markup(msg)
-
         if extended_msg != None:
             buffer = self.textview_error.get_buffer()
             buffer.set_text(extended_msg)
             self.scroll_error.show()
-           
+        else:
+            self.scroll_error.hide()
         self.dialog_error.run()
         self.dialog_error.show()
         self.dialog_error.destroy()

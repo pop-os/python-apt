@@ -479,10 +479,10 @@ class UpdateManager(SimpleGladeApp):
 	# FIXME: wording
         dialog.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>"%\
                           _("Could not reload the update information"))
-        #dialog.format_secondary_text(_("An error occured during the package "
-        #                               "list reload. Please see the below "
-        #                               "information for details what went "
-        #                               "wrong."))
+        dialog.format_secondary_text(_("An error occured during the package "
+                                       "list reload. Please see the below "
+                                       "information for details what went "
+                                       "wrong."))
         diaolg.set_title("")
         dialog.set_border_width(6)
         dialog.set_size_request(width=500,height=-1)
@@ -705,9 +705,10 @@ class UpdateManager(SimpleGladeApp):
   def dist_no_longer_supported(self, meta_release):
     msg = "<big><b>%s</b></big>\n\n%s" % \
           (_("Your distribution is not supported anymore"),
-	   _("You will not get any further security fixes or critical updates. "
+	   _("You will not get any further security fixes or critical "
+             "updates. "
              "Upgrade to a later version of Ubuntu Linux. See "
-             "http://www.ubuntulinux.org for more information on "
+             "http://www.ubuntu.com for more information on "
              "upgrading."))
     dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_WARNING,
                                gtk.BUTTONS_CLOSE,"")
@@ -743,8 +744,7 @@ class UpdateManager(SimpleGladeApp):
           except urllib2.HTTPError:
               primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
                         _("Could not find the release notes")
-              secondary = _("Please check your software sources. Only use " \
-			    "official Ubuntu servers and mirrors.")
+              secondary = _("The server may be overloaded. ")
               dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
                                          gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
               dialog.set_title("")
@@ -801,8 +801,8 @@ class UpdateManager(SimpleGladeApp):
               # no script file found in extracted tarbal
               primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
                         _("Could not run the upgrade tool")
-              secondary = _("Please check your software sources. Only use " \
-			    "official Ubuntu servers and mirrors.")
+              secondary = _("This is most likely a bug in the upgrade tool. "
+                            "Please report it as a bug")
               dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
                                          gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
               dialog.set_title("")
