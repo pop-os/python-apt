@@ -266,7 +266,6 @@ class DistUpgradeControler(object):
                                    "Please see the below message for more "
                                    "information. "),
                                    "%s" % e)
-            self.cache.commit(fprogress,iprogress)
             
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
