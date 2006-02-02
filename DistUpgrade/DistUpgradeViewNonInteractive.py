@@ -22,7 +22,7 @@
 import apt
 import logging
 
-class NonInteractiveInstallProgress(InstallProgress):
+class NonInteractiveInstallProgress(apt.progress.InstallProgress):
     def error(self, pkg, errormsg):
         logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
     def conffile(self, current, new):
@@ -57,7 +57,7 @@ class NonInteractiveDistUpgradeView(object):
         pass
     def confirmChanges(self, summary, changes, downloadSize):
         DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
-	logging.debug("toinstall: '%s'", % self.toInstall)
+	logging.debug("toinstall: '%s'" % self.toInstall)
         logging.debug("toupgrade: '%s'" % self.toUpgrade)
         logging.debug("toremove: '%s'" % self.toRemove)
         return True
