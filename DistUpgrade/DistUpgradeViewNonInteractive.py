@@ -22,6 +22,12 @@
 import apt
 import logging
 
+class NonInteractiveInstallProgress(InstallProgress):
+    def error(self, pkg, errormsg):
+        logging.error("got a error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
+    def conffile(self, current, new):
+        logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
+
 class NonInteractiveDistUpgradeView(object):
     " non-interactive version of the upgrade view "
     def __init__(self):
@@ -34,7 +40,7 @@ class NonInteractiveDistUpgradeView(object):
         return apt.progress.FetchProgress()
     def getInstallProgress(self):
         " return a install progress object "
-        return apt.progress.InstallProgress()
+        return NonInteractiveInstallProgress()
     def updateStatus(self, msg):
         """ update the current status of the distUpgrade based
             on the current view
@@ -50,18 +56,10 @@ class NonInteractiveDistUpgradeView(object):
         """
         pass
     def confirmChanges(self, summary, changes, downloadSize):
-        """ display the list of changed packages (apt.Package) and
-            return if the user confirms them
-        """
-        self.toInstall = []
-        self.toUpgrade = []
-        self.toRemove = []
-        for pkg in changes:
-            if pkg.markedInstall: self.toInstall.append(pkg.name)
-            elif pkg.markedUpgrade: self.toUpgrade.append(pkg.name)
-            elif pkg.markedDelete: self.toRemove.append(pkg.name)
-        # no downgrades, re-installs 
-        assert(len(self.toInstall)+len(self.toUpgrade)+len(self.toRemove) == len(changes))
+        DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
+	logging.debug("toinstall: '%s'", % self.toInstall)
+        logging.debug("toupgrade: '%s'" % self.toUpgrade)
+        logging.debug("toremove: '%s'" % self.toRemove)
         return True
     def askYesNoQuestion(self, summary, msg):
         " ask a Yes/No question and return True on 'Yes' "
