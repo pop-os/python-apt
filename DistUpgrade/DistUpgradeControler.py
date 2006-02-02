@@ -52,7 +52,8 @@ class DistUpgradeControler(object):
 
         # forced obsoletes
         self.forced_obsoletes = self.config.getlist("Distro","ForcedObsoletes")
-
+        # forced purges
+        self.forced_purges = self.config.getlist("Distro","ForcedPurges")
 
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
@@ -116,6 +117,9 @@ class DistUpgradeControler(object):
 
         # re-check if the written self.sources are valid, if not revert and
         # bail out
+        # TODO: check if some main packages are still available or if we
+        #       accidently shot them, if not, maybe offer to write a standard
+        #       sources.list?
         try:
             sourceslist = apt_pkg.GetPkgSourceList()
             sourceslist.ReadMainList()
@@ -234,22 +238,35 @@ class DistUpgradeControler(object):
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
 
-        # now get the meta-pkg specific obsoletes
+        # now get the meta-pkg specific obsoletes and purges
         for pkg in self.config.getlist("Distro","MetaPkgs"):
             if self.cache.has_key(pkg) and self.cache[pkg].isInstalled:
                 self.forced_obsoletes.extend(self.config.getlist(pkg,"ForcedObsoletes"))
-        
+                self.forced_purges.extend(self.config.getlist(pkg,"ForcedPurges"))
+        logging.debug("forced_obsoletes: %s", self.forced_obsoletes)
+        logging.debug("forced_purges: %s", self.forced_purges)
+                
+       
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
         remove_candidates = now_obsolete - self.obsolete_pkgs
         remove_candidates |= set(self.forced_obsoletes)
+        logging.debug("remove_candidates: '%s'" % remove_candidates)
         logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
                 if not self.cache._tryMarkObsoleteForRemoval(pkgname, remove_candidates, self.foreign_pkgs):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
+
+        # mark some stuff for purge
+        for pkg in self.forced_purges:
+            if self.cache.has_key(pkg):
+                logging.debug("Marking '%s' for purge", pkg)
+                self.cache._depcache.MarkDelete(self.cache[pkg]._pkg,True)
+
+        # get changes
         changes = self.cache.getChanges()
         logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
         if len(changes) > 0 and \
