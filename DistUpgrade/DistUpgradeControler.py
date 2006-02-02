@@ -28,7 +28,7 @@ import subprocess
 import logging
 import re
 import statvfs
-from DistUpgradeConfigParser import DistUpgradeConfigParser
+from DistUpgradeConfigParser import DistUpgradeConfig
 
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
@@ -42,7 +42,7 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        self.config = DistUpgradeConfigParser()
+        self.config = DistUpgradeConfig()
         self.sources_backup_ext = "."+self.config.get("Files","BackupExt")
         
         # some constants here

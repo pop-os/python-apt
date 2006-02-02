@@ -1,7 +1,7 @@
 from ConfigParser import ConfigParser, NoOptionError
 
 
-class DistUpgradeConfigParser(ConfigParser):
+class DistUpgradeConfig(ConfigParser):
     def __init__(self):
         ConfigParser.__init__(self)
         self.read(['DistUpgrade.cfg'])

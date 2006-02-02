@@ -5,7 +5,7 @@ import os
 import re
 import logging
 from gettext import gettext as _
-from DistUpgradeConfigParser import DistUpgradeConfigParser
+from DistUpgradeConfigParser import DistUpgradeConfig
 
 class MyCache(apt.Cache):
     # init
@@ -14,7 +14,7 @@ class MyCache(apt.Cache):
         self.to_install = []
         self.to_remove = []
 
-        self.config = DistUpgradeConfigParser()
+        self.config = DistUpgradeConfig()
 
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")

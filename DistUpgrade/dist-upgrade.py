@@ -2,6 +2,7 @@
 
 from DistUpgradeViewGtk import GtkDistUpgradeView
 from DistUpgradeControler import DistUpgradeControler
+from DistUpgradeConfigParser import DistUpgradeConfig
 import logging
 import os
 
