@@ -28,8 +28,8 @@ import subprocess
 import logging
 import re
 import statvfs
+import ConfigParser 
 
-from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
 from DistUpgradeCache import MyCache
@@ -42,13 +42,13 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
+        self.config = ConfigParser.ConfigParser()
+        self.config.read(['DistUpgrade.cfg'])
+
         # some constants here
-        #self.fromDist = "hoary"
-        #self.toDist = "breezy"
-        self.fromDist = "breezy"
-        self.toDist = "dapper"
-       
-        self.origin = "Ubuntu"
+        self.fromDist = self.config.get("Distro","From")
+        self.toDist = self.config.get("Distro","To")
+        self.origin = self.config.get("Distro","ValidOrigin")
 
         # forced obsoletes
         self.forced_obsoletes = []
