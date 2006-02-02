@@ -71,5 +71,5 @@ class NonInteractiveDistUpgradeView(object):
         return False
     def error(self, summary, msg, extended_msg=None):
         " display a error "
-        logging.error("%s %s (%s)" % (summary, msg, extended_msg)
+        logging.error("%s %s (%s)" % (summary, msg, extended_msg))
     
