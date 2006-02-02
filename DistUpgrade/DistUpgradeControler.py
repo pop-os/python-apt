@@ -28,7 +28,7 @@ import subprocess
 import logging
 import re
 import statvfs
-import ConfigParser 
+from DistUpgradeConfigParser import DistUpgradeConfigParser
 
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
@@ -42,21 +42,16 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        self.config = ConfigParser.ConfigParser()
-        self.config.read(['DistUpgrade.cfg'])
-
+        self.config = DistUpgradeConfigParser()
+        self.sources_backup_ext = "."+self.config.get("Files","BackupExt")
+        
         # some constants here
-        self.fromDist = self.config.get("Distro","From")
-        self.toDist = self.config.get("Distro","To")
-        self.origin = self.config.get("Distro","ValidOrigin")
+        self.fromDist = self.config.get("Sources","From")
+        self.toDist = self.config.get("Sources","To")
+        self.origin = self.config.get("Sources","ValidOrigin")
 
         # forced obsoletes
-        self.forced_obsoletes = []
-        for line in open("forced_obsoletes.txt").readlines():
-            line = line.strip()
-            if not line == "" or line.startswith("#"):
-                self.forced_obsoletes.append(line)
-        logging.debug("forced obsoletes '%s'" % line)
+        self.forced_obsoletes = self.config.getlist("Distro","ForcedObsoletes")
 
 
     def openCache(self):
@@ -81,15 +76,16 @@ class DistUpgradeControler(object):
                    ]
 
         # list of valid mirrors that we can add
-        valid_mirrors = ["http://archive.ubuntu.com/ubuntu",
-                         "http://security.ubuntu.com/ubuntu"]
+        valid_mirrors = self.config.getlist("Sources","ValidMirrors")
 
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
             # check if it's a mirror (or offical site)
+            validMirror = False
             for mirror in valid_mirrors:
                 if self.sources.is_mirror(mirror,entry.uri):
+                    validMirror = True
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
                         # distro
@@ -103,10 +99,9 @@ class DistUpgradeControler(object):
                         entry.disabled = True
                     # it can only be one valid mirror, so we can break here
                     break
-                else:
-                    # disable non-official entries that point to dist
-                    if entry.dist == self.fromDist:
-                        entry.disabled = True
+            # disable anything that is not from a official mirror
+            if not validMirror:
+                entry.disabled = True
 
         if not foundToDist:
             # FIXME: offer to write a new self.sources.list entry
@@ -116,7 +111,6 @@ class DistUpgradeControler(object):
                                       "the upgrade was found.\n"))
         
         # write (well, backup first ;) !
-        self.sources_backup_ext = ".distUpgrade"
         self.sources.backup(self.sources_backup_ext)
         self.sources.save()
 
@@ -279,8 +273,12 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
         self.openCache()
+        
         if not self.cache.sanityCheck(self._view):
             abort(1)
+
+        # run a "apt-get update" now
+        self.doUpdate()
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
         self.doPreUpdate()
