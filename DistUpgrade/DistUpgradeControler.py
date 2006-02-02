@@ -233,6 +233,11 @@ class DistUpgradeControler(object):
         now_foreign = self.cache._getForeignPkgs(self.origin, self.fromDist, self.toDist)
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
+
+        # now get the meta-pkg specific obsoletes
+        for pkg in self.config.getlist("Distro","MetaPkgs"):
+            if self.cache.has_key(pkg) and self.cache[pkg].isInstalled:
+                self.forced_obsoletes.extend(self.config.getlist(pkg,"ForcedObsoletes"))
         
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
