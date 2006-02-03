@@ -164,7 +164,7 @@ class DistUpgradeControler(object):
             try:
                 res = self.cache.update(progress)
             except IOError, e:
-                logging.error("IOError in cache.update(): '%s'. Retrying (currentTry: %s)" % (e,currentTry))
+                logging.error("IOError in cache.update(): '%s'. Retrying (currentRetry: %s)" % (e,currentRetry))
                 currentRetry += 1
                 continue
             # no exception, so all was fine, we are done
@@ -199,7 +199,7 @@ class DistUpgradeControler(object):
                                         self.cache.requiredDownload)
         return res
 
-    def doDistUpgrade(self, currentTry=0):
+    def doDistUpgrade(self):
         currentRetry = 0
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
@@ -219,7 +219,7 @@ class DistUpgradeControler(object):
                 return False
             except IOError, e:
                 # fetch failed, will be retried
-                logging.error("IOError in cache.commit(): '%s'. Retrying (currentTry: %s)" % (e,currentTry))
+                logging.error("IOError in cache.commit(): '%s'. Retrying (currentTry: %s)" % (e,currentRetry))
                 currentRetry += 1
                 continue
             # no exception, so all was fine, we are done
