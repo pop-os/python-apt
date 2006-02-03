@@ -238,7 +238,7 @@ class UpdateManager(SimpleGladeApp):
     self.expander_details.connect("notify::expanded", self.activate_details)
 
     # useful exit stuff
-    self.window_main.connect("delete_event", lambda w, ev: self.exit())
+    self.window_main.connect("delete_event", self.close)
     self.button_cancel.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
@@ -291,6 +291,13 @@ class UpdateManager(SimpleGladeApp):
     self.restore_state()
       
 
+  def close(self, widget, data=None):
+    if self.window_main.get_property("sensitive") is False:
+        return True
+    else:
+        self.exit()
+
+  
   def set_changes_buffer(self, changes_buffer, text, name, srcpkg):
     changes_buffer.set_text("")
     lines = text.split("\n")
@@ -564,9 +571,6 @@ class UpdateManager(SimpleGladeApp):
     win.set_property("skip-pager-hint", True)
     win.resize(400,200)
     win.set_resizable(False)
-    # prevent the window from closing with the delete button (there is
-    # a cancel button in the window)
-    win.connect("delete_event", lambda e,w: True);
     
     # create the socket
     socket = gtk.Socket()
@@ -586,7 +590,7 @@ class UpdateManager(SimpleGladeApp):
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
-    self.window_main.set_sensitive(True)    
+    self.window_main.set_sensitive(True)
 
   def toggled(self, renderer, path_string):
     """ a toggle button in the listview was toggled """
