@@ -213,7 +213,13 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
- 
+    icons = gtk.icon_theme_get_default()
+    try:
+        logo=icons.load_icon("update-manager", 48, 0)
+        gtk.window_set_default_icon_list(logo)
+    except:
+        pass
+
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
@@ -549,6 +555,8 @@ class UpdateManager(SimpleGladeApp):
     win = gtk.Window()
     win.set_property("type-hint", gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
     win.set_title("")
+    win.realize()
+    win.window.set_functions(gtk.gdk.FUNC_MOVE)
     win.set_border_width(6)
     win.set_transient_for(self.window_main)
     win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
