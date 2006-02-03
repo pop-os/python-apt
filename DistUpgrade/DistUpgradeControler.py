@@ -158,17 +158,25 @@ class DistUpgradeControler(object):
         progress = self._view.getFetchProgress()
         # FIXME: retry here too? just like the DoDistUpgrade?
         #        also remove all files from the lists partial dir!
-        try:
-            res = self.cache.update(progress)
-        except IOError, e:
-            self._view.error(_("Error during update"),
-                             _("A problem occured during the update. "
-                               "This is usually some sort of network "
-                               "problem, please check your network "
-                               "connection and retry."),
-                             "%s" % e)
-            return False
-        return True
+        currentRetry = 0
+        maxRetries = self.config.get("Network","MaxRetries")
+        while currentRetry < maxRetries:
+            try:
+                res = self.cache.update(progress)
+            except IOError, e:
+                logging.error("IOError in cache.update(): '%s'. Retrying (currentTry: %s)" % (e,currentTry))
+                currentRetry += 1
+                continue
+            # no exception, so all was fine, we are done
+            return True
+                
+        self._view.error(_("Error during update"),
+                         _("A problem occured during the update. "
+                           "This is usually some sort of network "
+                           "problem, please check your network "
+                           "connection and retry."), "%s" % e)
+        return False
+
 
     def askDistUpgrade(self):
         if not self.cache.distUpgrade(self._view):
@@ -196,7 +204,8 @@ class DistUpgradeControler(object):
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
         # retry the fetching in case of errors
-        while currentRetry < 3:
+        maxRetries = self.config.get("Network","MaxRetries")
+        while currentRetry < maxRetries:
             try:
                 res = self.cache.commit(fprogress,iprogress)
             except SystemError, e:

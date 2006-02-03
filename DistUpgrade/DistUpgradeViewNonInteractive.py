@@ -21,6 +21,7 @@
 
 import apt
 import logging
+from DistUpgradeView import DistUpgradeView
 
 class NonInteractiveInstallProgress(apt.progress.InstallProgress):
     def error(self, pkg, errormsg):
@@ -28,7 +29,7 @@ class NonInteractiveInstallProgress(apt.progress.InstallProgress):
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
 
-class NonInteractiveDistUpgradeView(object):
+class NonInteractiveDistUpgradeView(DistUpgradeView):
     " non-interactive version of the upgrade view "
     def __init__(self):
         pass
