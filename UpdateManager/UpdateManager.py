@@ -637,7 +637,7 @@ class UpdateManager(SimpleGladeApp):
     #    self.window_main.set_sensitive(True)
     self.window_main.set_sensitive(False)
     from SoftwareProperties import SoftwareProperties
-    prop = SoftwareProperties(self.datadir, None)
+    prop = SoftwareProperties.SoftwareProperties(self.datadir, None)
     prop.window_main.set_transient_for(self.window_main)
     prop.run()
     prop.window_main.hide()

@@ -30,9 +30,10 @@ class NonInteractiveInstallProgress(apt.progress.InstallProgress):
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
     def updateInterface(self):
+	apt.progress.InstallProgress.updateInterface(self)
 	time.sleep(0.001)
 
-class NonInteractiveDistUpgradeView(DistUpgradeView):
+class DistUpgradeViewNonInteractive(DistUpgradeView):
     " non-interactive version of the upgrade view "
     def __init__(self):
         pass

@@ -173,7 +173,7 @@ class GtkInstallProgressAdapter(InstallProgress):
 	time.sleep(0.01)
 
 
-class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
+class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
 
       
