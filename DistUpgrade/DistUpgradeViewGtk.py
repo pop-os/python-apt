@@ -29,6 +29,7 @@ import gobject
 import pango
 import sys
 import logging
+import time
 
 import apt
 import apt_pkg
@@ -169,9 +170,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text(self.status)
         while gtk.events_pending():
             gtk.main_iteration()
+	time.sleep(0.01)
 
 
-class GtkDistUpgradeView(DistUpgradeView,SimpleGladeApp):
+class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
 
       

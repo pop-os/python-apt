@@ -37,7 +37,7 @@ from optparse import OptionParser
 
 #sys.path.append("@prefix@/share/update-manager/python")
 
-import SoftwareProperties
+from SoftwareProperties import SoftwareProperties
 
 if __name__ == "__main__":
   _ = gettext.gettext
