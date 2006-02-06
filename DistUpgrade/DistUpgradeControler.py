@@ -28,8 +28,8 @@ import subprocess
 import logging
 import re
 import statvfs
+from DistUpgradeConfigParser import DistUpgradeConfig
 
-from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from SoftwareProperties.aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
 from DistUpgradeCache import MyCache
@@ -42,22 +42,18 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
+        self.config = DistUpgradeConfig()
+        self.sources_backup_ext = "."+self.config.get("Files","BackupExt")
+        
         # some constants here
-        #self.fromDist = "hoary"
-        #self.toDist = "breezy"
-        self.fromDist = "breezy"
-        self.toDist = "dapper"
-       
-        self.origin = "Ubuntu"
+        self.fromDist = self.config.get("Sources","From")
+        self.toDist = self.config.get("Sources","To")
+        self.origin = self.config.get("Sources","ValidOrigin")
 
         # forced obsoletes
-        self.forced_obsoletes = []
-        for line in open("forced_obsoletes.txt").readlines():
-            line = line.strip()
-            if not line == "" or line.startswith("#"):
-                self.forced_obsoletes.append(line)
-        logging.debug("forced obsoletes '%s'" % line)
-
+        self.forced_obsoletes = self.config.getlist("Distro","ForcedObsoletes")
+        # forced purges
+        self.forced_purges = self.config.getlist("Distro","ForcedPurges")
 
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
@@ -81,15 +77,16 @@ class DistUpgradeControler(object):
                    ]
 
         # list of valid mirrors that we can add
-        valid_mirrors = ["http://archive.ubuntu.com/ubuntu",
-                         "http://security.ubuntu.com/ubuntu"]
+        valid_mirrors = self.config.getlist("Sources","ValidMirrors")
 
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
             # check if it's a mirror (or offical site)
+            validMirror = False
             for mirror in valid_mirrors:
                 if self.sources.is_mirror(mirror,entry.uri):
+                    validMirror = True
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
                         # distro
@@ -103,10 +100,9 @@ class DistUpgradeControler(object):
                         entry.disabled = True
                     # it can only be one valid mirror, so we can break here
                     break
-                else:
-                    # disable non-official entries that point to dist
-                    if entry.dist == self.fromDist:
-                        entry.disabled = True
+            # disable anything that is not from a official mirror
+            if not validMirror:
+                entry.disabled = True
 
         if not foundToDist:
             # FIXME: offer to write a new self.sources.list entry
@@ -116,12 +112,14 @@ class DistUpgradeControler(object):
                                       "the upgrade was found.\n"))
         
         # write (well, backup first ;) !
-        self.sources_backup_ext = ".distUpgrade"
         self.sources.backup(self.sources_backup_ext)
         self.sources.save()
 
         # re-check if the written self.sources are valid, if not revert and
         # bail out
+        # TODO: check if some main packages are still available or if we
+        #       accidently shot them, if not, maybe offer to write a standard
+        #       sources.list?
         try:
             sourceslist = apt_pkg.GetPkgSourceList()
             sourceslist.ReadMainList()
@@ -239,18 +237,36 @@ class DistUpgradeControler(object):
         now_foreign = self.cache._getForeignPkgs(self.origin, self.fromDist, self.toDist)
         logging.debug("Obsolete: %s" % " ".join(now_obsolete))
         logging.debug("Foreign: %s" % " ".join(now_foreign))
-        
+
+        # now get the meta-pkg specific obsoletes and purges
+        for pkg in self.config.getlist("Distro","MetaPkgs"):
+            if self.cache.has_key(pkg) and self.cache[pkg].isInstalled:
+                self.forced_obsoletes.extend(self.config.getlist(pkg,"ForcedObsoletes"))
+                self.forced_purges.extend(self.config.getlist(pkg,"ForcedPurges"))
+        logging.debug("forced_obsoletes: %s", self.forced_obsoletes)
+        logging.debug("forced_purges: %s", self.forced_purges)
+                
+       
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
         remove_candidates = now_obsolete - self.obsolete_pkgs
         remove_candidates |= set(self.forced_obsoletes)
+        logging.debug("remove_candidates: '%s'" % remove_candidates)
         logging.debug("Start checking for obsolete pkgs")
         for pkgname in remove_candidates:
             if pkgname not in self.foreign_pkgs:
                 if not self.cache._tryMarkObsoleteForRemoval(pkgname, remove_candidates, self.foreign_pkgs):
                     logging.debug("'%s' scheduled for remove but not in remove_candiates, skipping", pkgname)
         logging.debug("Finish checking for obsolete pkgs")
+
+        # mark some stuff for purge
+        for pkg in self.forced_purges:
+            if self.cache.has_key(pkg):
+                logging.debug("Marking '%s' for purge", pkg)
+                self.cache._depcache.MarkDelete(self.cache[pkg]._pkg,True)
+
+        # get changes
         changes = self.cache.getChanges()
         logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
         if len(changes) > 0 and \
@@ -266,7 +282,6 @@ class DistUpgradeControler(object):
                                    "Please see the below message for more "
                                    "information. "),
                                    "%s" % e)
-            self.cache.commit(fprogress,iprogress)
             
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
@@ -280,8 +295,12 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
         self.openCache()
+        
         if not self.cache.sanityCheck(self._view):
             abort(1)
+
+        # run a "apt-get update" now
+        self.doUpdate()
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
         self.doPreUpdate()

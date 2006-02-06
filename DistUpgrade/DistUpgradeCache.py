@@ -5,6 +5,7 @@ import os
 import re
 import logging
 from gettext import gettext as _
+from DistUpgradeConfigParser import DistUpgradeConfig
 
 class MyCache(apt.Cache):
     # init
@@ -12,6 +13,9 @@ class MyCache(apt.Cache):
         apt.Cache.__init__(self, progress)
         self.to_install = []
         self.to_remove = []
+
+        self.config = DistUpgradeConfig()
+
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT|os.O_TRUNC)
@@ -161,14 +165,12 @@ class MyCache(apt.Cache):
             return metapkg_found
 
         # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
-        metapkgs = {"ubuntu-desktop": ["gdm","gnome-panel", "ubuntu-artwork"],
-                    "kubuntu-desktop": ["kdm", "kicker",
-                                        "kubuntu-artwork-usplash"],
-                    "edubuntu-desktop": ["edubuntu-artwork", "tuxpaint"]
-                    }
+        metapkgs = self.config.getlist("Distro","MetaPkgs")
 
         # we never go without ubuntu-base
-        self["ubuntu-base"].markInstall()
+        for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
+            self[pkg].markInstall()
+
         # every meta-pkg that is installed currently, will be marked
         # install (that result in a upgrade and removes a markDelete)
         for key in metapkgs:
@@ -182,7 +184,7 @@ class MyCache(apt.Cache):
             logging.debug("no {ubuntu,edubuntu,kubuntu}-desktop pkg installed")
             for key in metapkgs:
                 deps_found = True
-                for pkg in metapkgs[key]:
+                for pkg in self.config.getlist(key,"KeyDependencies"):
                     deps_found &= self.has_key(pkg) and self[pkg].isInstalled
                 if deps_found:
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
@@ -208,8 +210,6 @@ class MyCache(apt.Cache):
                          "above first using synaptic or "
                          "apt-get before proceeding."))
             return False
-            
-        # FIXME: check for ubuntu-desktop, kubuntu-dekstop, edubuntu-desktop
         return True
 
     def _inRemovalBlacklist(self, pkgname):
