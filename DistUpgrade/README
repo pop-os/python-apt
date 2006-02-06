@@ -1,0 +1,32 @@
+The DistUpgrade.cfg format is based on the python ConfigParser.
+
+It supports the following sections:
+
+[View] - controls the output 
+
+[Distro] - global distribution specfic options
+BaseMetaPkgs: 
+  the basic meta-pkgs that must be installed (ubuntu-base usually)
+MetaPkgs: 
+  packages that define a "desktop" (e.g. ubuntu-desktop)
+PostUpgrade{Install,Remove,Purge}: 
+  action right after the upgrade was calculated in the cache (marking 
+  happens *before* the cache.commit())
+ForcedObsoletes: 
+  Obsolete packages that the user is asked about after the upgrade (marking 
+  happens *after* the cache.commit())
+
+[$meta-pkg]
+KeyDependencies:
+  Dependencies that are considered "key" dependencies of the meta-pkg to
+  detect if it was installed but later removed by the user
+PostUpgrade{Install,Remove,Purge}: 
+  s.above
+ForcedObsoletes: 
+  s.above
+
+[Files] - file specific stuff
+
+[Sources] - how to rewrite the sources.list
+
+[Network] - network specific options

@@ -15,6 +15,7 @@ class MyCache(apt.Cache):
         self.to_remove = []
 
         self.config = DistUpgradeConfig()
+        self.metapkgs = self.config.getlist("Distro","MetaPkgs")
 
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
@@ -97,10 +98,38 @@ class MyCache(apt.Cache):
                 return False
         return True
 
+    def markInstall(self, pkg, reason=""):
+        logging.debug("Installing '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self[pkg].markInstall()
+    def markRemove(self, pkg, reason=""):
+        logging.debug("Removing '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self[pkg].markDelete()
+    def markPurge(self, pkg, reason=""):
+        logging.debug("Purging '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self._depcache.MarkDelete(self[pkg]._pkg,True)
+
+    def postUpgradeRule(self):
+        " run after the upgrade was done in the cache "
+        for (rule, action) in [("Install", self.markInstall),
+                               ("Remove", self.markRemove),
+                               ("Purge", self.markPurge)]:
+            # first the global list
+            for pkg in self.config.getlist("Distro","PostUpgrade%s" % rule):
+                action(pkg, "Distro PostUpgrade%s rule" % rule)
+            for key in self.metapkgs:
+                if self.has_key(key) and self[key].isInstalled:
+                    for pkg in self.config.getlist(key,"PostUpgrade%s" % rule):
+                        action(pkg, "%s PostUpgrade%s rule" % (key, rule))
+
     def distUpgrade(self, view):
         try:
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
+            self.postUpgradeRule()
+            
             if not self._installMetaPkgs(view):
                 raise SystemError, _("Can't upgrade required meta-packages")
             if not self._verifyChanges():
@@ -176,6 +205,7 @@ class MyCache(apt.Cache):
         for key in metapkgs:
             try:
                 if self.has_key(key) and self[key].isInstalled:
+                    logging.debug("Marking '%s' for upgrade" % key)
                     self[key].markUpgrade()
             except SystemError, e:
                 logging.debug("Can't mark '%s' for upgrade" % key)
