@@ -4,6 +4,7 @@ update-manager (0.42.2ubuntu2) dapper; urgency=low
     - re-added the internet update options 
   * data/gnome-software-properties.desktop:
     - use gksu instead of gksudo (#30057)
+  * wording fixes (#30296)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  7 Feb 2006 13:13:09 +0100
 
