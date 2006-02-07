@@ -1,7 +1,7 @@
 update-manager (0.42.2ubuntu2) dapper; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:
-    - re-added the internet update options 
+    - re-added the internet update options (#27932)
   * data/gnome-software-properties.desktop:
     - use gksu instead of gksudo (#30057)
   * wording fixes (#30296)
