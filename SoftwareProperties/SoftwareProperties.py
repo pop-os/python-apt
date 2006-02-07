@@ -117,8 +117,8 @@ class SoftwareProperties(SimpleGladeApp):
 
     # Automatic removal of cached packages by age
     self.combobox_delete_interval_mapping = { 0 : 7,
-                                       1 : 14,
-                                       2 : 31 }
+                                              1 : 14,
+                                              2 : 30 }
 
     delete_days = apt_pkg.Config.FindI(CONF_MAP["max_age"])
 
@@ -133,9 +133,9 @@ class SoftwareProperties(SimpleGladeApp):
                                                       % delete_days))
             self.combobox_delete_interval_mapping[3] = delete_days
     
-    for key in self.combobox_interval_mapping:
-      if self.combobox_interval_mapping[key] == update_days:
-        self.combobox_update_interval.set_active(key)
+    for key in self.combobox_delete_interval_mapping:
+      if self.combobox_delete_interval_mapping[key] == delete_days:
+        self.combobox_delete_interval.set_active(key)
         break
 
     if delete_days >= 1 and apt_pkg.Config.FindI(CONF_MAP["autoclean"]) != 0:
@@ -211,7 +211,7 @@ class SoftwareProperties(SimpleGladeApp):
         if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
             apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
             self.write_config()
-      
+
   def on_opt_autoupdate_toggled(self, widget):
     if self.checkbutton_auto_update.get_active():
       self.combobox_update_interval.set_sensitive(True)
