@@ -117,8 +117,8 @@ class SoftwareProperties(SimpleGladeApp):
 
     # Automatic removal of cached packages by age
     self.combobox_delete_interval_mapping = { 0 : 7,
-                                       1 : 14,
-                                       2 : 31 }
+                                              1 : 14,
+                                              2 : 30 }
 
     delete_days = apt_pkg.Config.FindI(CONF_MAP["max_age"])
 
