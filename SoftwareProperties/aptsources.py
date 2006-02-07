@@ -517,3 +517,5 @@ if __name__ == "__main__":
                              "http://de.archive.ubuntu.com/ubuntu/")
   print "is_mirror(): %s" % mirror
   
+  print sources.is_mirror("http://archive.ubuntu.com/ubuntu",
+                             "http://de.archive.ubuntu.com/ubuntu/")

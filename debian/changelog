@@ -3,8 +3,9 @@ update-manager (0.42.2ubuntu1) dapper; urgency=low
   * UpdateManager/MetaRelease.py: 
     - never offer a upgrade to a unsupported (i.e. developer) dist
   * data/gnome-software-properties.desktop.in: use X-KDE-SubstituteUID=true
+  * small UI layout changes (should fix the cancel/close button problem)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Jan 2006 22:57:43 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Jan 2006 09:48:13 +0000
 
 update-manager (0.42.1ubuntu1) dapper; urgency=low
 

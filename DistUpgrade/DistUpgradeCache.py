@@ -5,6 +5,7 @@ import os
 import re
 import logging
 from gettext import gettext as _
+from DistUpgradeConfigParser import DistUpgradeConfig
 
 class MyCache(apt.Cache):
     # init
@@ -12,6 +13,10 @@ class MyCache(apt.Cache):
         apt.Cache.__init__(self, progress)
         self.to_install = []
         self.to_remove = []
+
+        self.config = DistUpgradeConfig()
+        self.metapkgs = self.config.getlist("Distro","MetaPkgs")
+
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT|os.O_TRUNC)
@@ -93,10 +98,38 @@ class MyCache(apt.Cache):
                 return False
         return True
 
+    def markInstall(self, pkg, reason=""):
+        logging.debug("Installing '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self[pkg].markInstall()
+    def markRemove(self, pkg, reason=""):
+        logging.debug("Removing '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self[pkg].markDelete()
+    def markPurge(self, pkg, reason=""):
+        logging.debug("Purging '%s' (%s)" % (pkg, reason))
+        if self.has_key(pkg):
+            self._depcache.MarkDelete(self[pkg]._pkg,True)
+
+    def postUpgradeRule(self):
+        " run after the upgrade was done in the cache "
+        for (rule, action) in [("Install", self.markInstall),
+                               ("Remove", self.markRemove),
+                               ("Purge", self.markPurge)]:
+            # first the global list
+            for pkg in self.config.getlist("Distro","PostUpgrade%s" % rule):
+                action(pkg, "Distro PostUpgrade%s rule" % rule)
+            for key in self.metapkgs:
+                if self.has_key(key) and self[key].isInstalled:
+                    for pkg in self.config.getlist(key,"PostUpgrade%s" % rule):
+                        action(pkg, "%s PostUpgrade%s rule" % (key, rule))
+
     def distUpgrade(self, view):
         try:
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
+            self.postUpgradeRule()
+            
             if not self._installMetaPkgs(view):
                 raise SystemError, _("Can't upgrade required meta-packages")
             if not self._verifyChanges():
@@ -161,19 +194,19 @@ class MyCache(apt.Cache):
             return metapkg_found
 
         # now check for ubuntu-desktop, kubuntu-desktop, edubuntu-desktop
-        metapkgs = {"ubuntu-desktop": ["gdm","gnome-panel", "ubuntu-artwork"],
-                    "kubuntu-desktop": ["kdm", "kicker",
-                                        "kubuntu-artwork-usplash"],
-                    "edubuntu-desktop": ["edubuntu-artwork", "tuxpaint"]
-                    }
+        metapkgs = self.config.getlist("Distro","MetaPkgs")
 
         # we never go without ubuntu-base
-        self["ubuntu-base"].markInstall()
+        for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
+            self[pkg].markInstall()
+
         # every meta-pkg that is installed currently, will be marked
         # install (that result in a upgrade and removes a markDelete)
         for key in metapkgs:
             try:
-                if self[key].isInstalled: self[key].markUpgrade()
+                if self.has_key(key) and self[key].isInstalled:
+                    logging.debug("Marking '%s' for upgrade" % key)
+                    self[key].markUpgrade()
             except SystemError, e:
                 logging.debug("Can't mark '%s' for upgrade" % key)
                 return False
@@ -182,7 +215,7 @@ class MyCache(apt.Cache):
             logging.debug("no {ubuntu,edubuntu,kubuntu}-desktop pkg installed")
             for key in metapkgs:
                 deps_found = True
-                for pkg in metapkgs[key]:
+                for pkg in self.config.getlist(key,"KeyDependencies"):
                     deps_found &= self.has_key(pkg) and self[pkg].isInstalled
                 if deps_found:
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
@@ -208,8 +241,6 @@ class MyCache(apt.Cache):
                          "above first using synaptic or "
                          "apt-get before proceeding."))
             return False
-            
-        # FIXME: check for ubuntu-desktop, kubuntu-dekstop, edubuntu-desktop
         return True
 
     def _inRemovalBlacklist(self, pkgname):
