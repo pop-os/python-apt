@@ -27,14 +27,17 @@ import apt_pkg
 from gettext import gettext as _
 
 class GtkOpProgress(apt.OpProgress):
-    def __init__(self, window, progressbar, status, parent):
+    def __init__(self, host_window, progressbar, status, parent):
         self._parent = parent
-        self._window = window
+        self._window = host_window
         self._status = status
         self._progressbar = progressbar
+        # Do not show the close button 
+        self._window.realize()
+        host_window.window.set_functions(gtk.gdk.FUNC_MOVE)
         #self._progressbar.set_pulse_step(0.01)
         #self._progressbar.pulse()
-        window.set_transient_for(parent)
+        self._window.set_transient_for(parent)
     def update(self, percent):
         #print percent
         #print self.Op
@@ -66,6 +69,8 @@ class GtkFetchProgress(apt.progress.FetchProgress):
         self.progress = parent.progressbar_fetch
         self.window_fetch = parent.window_fetch
         self.window_fetch.set_transient_for(parent.window_main)
+        self.window_fetch.realize()
+        self.window_fetch.window.set_functions(gtk.gdk.FUNC_MOVE)
         # set summary
         if self.summary != "":
             self.summary.set_markup("<big><b>%s</b></big> \n\n%s" %

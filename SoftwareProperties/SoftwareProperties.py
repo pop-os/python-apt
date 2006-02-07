@@ -115,6 +115,43 @@ class SoftwareProperties(SimpleGladeApp):
       self.checkbutton_auto_update.set_active(False)
       self.combobox_update_interval.set_sensitive(False)
 
+    # Automatic removal of cached packages by age
+    self.combobox_delete_interval_mapping = { 0 : 7,
+                                       1 : 14,
+                                       2 : 31 }
+
+    delete_days = apt_pkg.Config.FindI(CONF_MAP["max_age"])
+
+    self.combobox_delete_interval.append_text("After one week")
+    self.combobox_delete_interval.append_text("After two weeks")
+    self.combobox_delete_interval.append_text("After one month")
+    self.combobox_delete_interval.append_text("Immediatly")
+
+    # If a custom period is defined add an corresponding entry
+    if not delete_days in self.combobox_delete_interval_mapping.values():
+        if delete_days > 0 and CONF_MAP["autoclean"] != 0:
+            self.combobox_delete_interval.append_text(_("After %s days" 
+                                                      % delete_days))
+            self.combobox_delete_interval_mapping[3] = delete_days
+    
+    for key in self.combobox_interval_mapping:
+      if self.combobox_interval_mapping[key] == update_days:
+        self.combobox_update_interval.set_active(key)
+        break
+
+    if delete_days >= 1 and CONF_MAP["autoclean"] != 0:
+      self.checkbutton_auto_delete.set_active(True)
+      self.combobox_delete_interval.set_sensitive(True)
+    else:
+      self.checkbutton_auto_delete.set_active(False)
+      self.combobox_delete_interval.set_sensitive(False)
+
+    # Autodownload
+    if CONF_MAP["autodownload"] == 1:
+      self.checkbutton_auto_download.set_active(True)
+    else:
+      self.checkbutton_auto_download.set_active(False)
+
     # apt-key stuff
     self.apt_key = apt_key()
     self.init_keyslist()
@@ -175,7 +212,7 @@ class SoftwareProperties(SimpleGladeApp):
         apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
         self.write_config()
       
-  def opt_autoupdate_toggled(self, widget):  
+  def on_opt_autoupdate_toggled(self, widget):  
     if self.checkbutton_auto_update.get_active():
       self.combobox_update_interval.set_sensitive(True)
       # if no frequency was specified use daily
@@ -188,6 +225,40 @@ class SoftwareProperties(SimpleGladeApp):
       self.combobox_update_interval.set_sensitive(False)
       value = 0
     apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+    # FIXME: Write config options, apt_pkg should be able to do this.
+    self.write_config()
+
+  def on_opt_autodownload_toggled(self, widget):  
+    if self.checkbutton_auto_download.get_active():
+        apt_pkg.Config.Set(CONF_MAP["autodownload"], str(1))
+    else:
+        apt_pkg.Config.Set(CONF_MAP["autodownload"], str(0))
+    # FIXME: Write config options, apt_pkg should be able to do this.
+    self.write_config()
+
+  def on_combobox_delete_interval_changed(self, widget):
+    i = self.combobox_delete_interval.get_active()
+    value = self.combobox_delete_interval_mapping[i]
+    # Only write the key if it has changed
+    if not value == apt_pkg.Config.FindI(CONF_MAP["max_age"]):
+        apt_pkg.Config.Set(CONF_MAP["max_age"], str(value))
+        self.write_config()
+      
+  def opt_autodelete_toggled(self, widget):  
+    if self.checkbutton_auto_delete.get_active():
+      self.combobox_delete_interval.set_sensitive(True)
+      # if no frequency was specified use daily
+      i = self.combobox_delete_interval.get_active()
+      if i == -1:
+          i = 0
+          self.combobox_delete_interval.set_active(i)
+      value_maxage = self.combobox_delete_interval_mapping[i]
+      value_clean = 1
+      apt_pkg.Config.Set(CONF_MAP["max_age"], str(value_clean))
+    else:
+      self.combobox_delete_interval.set_sensitive(False)
+      value_clean = 0
+    apt_pkg.Config.Set(CONF_MAP["autoclean"], str(value_clean))
     # FIXME: Write config options, apt_pkg should be able to do this.
     self.write_config()
     

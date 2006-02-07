@@ -213,7 +213,13 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
- 
+    icons = gtk.icon_theme_get_default()
+    try:
+        logo=icons.load_icon("update-manager", 48, 0)
+        gtk.window_set_default_icon_list(logo)
+    except:
+        pass
+
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
@@ -232,7 +238,7 @@ class UpdateManager(SimpleGladeApp):
     self.expander_details.connect("notify::expanded", self.activate_details)
 
     # useful exit stuff
-    self.window_main.connect("delete_event", lambda w, ev: self.exit())
+    self.window_main.connect("delete_event", self.close)
     self.button_cancel.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
@@ -285,6 +291,13 @@ class UpdateManager(SimpleGladeApp):
     self.restore_state()
       
 
+  def close(self, widget, data=None):
+    if self.window_main.get_property("sensitive") is False:
+        return True
+    else:
+        self.exit()
+
+  
   def set_changes_buffer(self, changes_buffer, text, name, srcpkg):
     changes_buffer.set_text("")
     lines = text.split("\n")
@@ -549,6 +562,8 @@ class UpdateManager(SimpleGladeApp):
     win = gtk.Window()
     win.set_property("type-hint", gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
     win.set_title("")
+    win.realize()
+    win.window.set_functions(gtk.gdk.FUNC_MOVE)
     win.set_border_width(6)
     win.set_transient_for(self.window_main)
     win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
@@ -556,9 +571,6 @@ class UpdateManager(SimpleGladeApp):
     win.set_property("skip-pager-hint", True)
     win.resize(400,200)
     win.set_resizable(False)
-    # prevent the window from closing with the delete button (there is
-    # a cancel button in the window)
-    win.connect("delete_event", lambda e,w: True);
     
     # create the socket
     socket = gtk.Socket()
@@ -578,7 +590,7 @@ class UpdateManager(SimpleGladeApp):
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
-    self.window_main.set_sensitive(True)    
+    self.window_main.set_sensitive(True)
 
   def toggled(self, renderer, path_string):
     """ a toggle button in the listview was toggled """
