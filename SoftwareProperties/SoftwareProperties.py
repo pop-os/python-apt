@@ -125,7 +125,6 @@ class SoftwareProperties(SimpleGladeApp):
     self.combobox_delete_interval.append_text("After one week")
     self.combobox_delete_interval.append_text("After two weeks")
     self.combobox_delete_interval.append_text("After one month")
-    self.combobox_delete_interval.append_text("Immediatly")
 
     # If a custom period is defined add an corresponding entry
     if not delete_days in self.combobox_delete_interval_mapping.values():
@@ -134,9 +133,9 @@ class SoftwareProperties(SimpleGladeApp):
                                                       % delete_days))
             self.combobox_delete_interval_mapping[3] = delete_days
     
-    for key in self.combobox_interval_mapping:
-      if self.combobox_interval_mapping[key] == update_days:
-        self.combobox_update_interval.set_active(key)
+    for key in self.combobox_delete_interval_mapping:
+      if self.combobox_delete_interval_mapping[key] == delete_days:
+        self.combobox_delete_interval.set_active(key)
         break
 
     if delete_days >= 1 and CONF_MAP["autoclean"] != 0:
@@ -206,6 +205,8 @@ class SoftwareProperties(SimpleGladeApp):
 
   def on_combobox_update_interval_changed(self, widget):
     i = self.combobox_update_interval.get_active()
+    if not i in self.combobox_interval_mapping.keys():
+      return
     value = self.combobox_interval_mapping[i]
     # Only write the key if it has changed
     if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
