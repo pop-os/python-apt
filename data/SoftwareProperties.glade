@@ -390,8 +390,9 @@
 		      <child>
 			<widget class="GtkCheckButton" id="checkbutton_unattended">
 			  <property name="visible">True</property>
+			  <property name="tooltip" translatable="yes">Only security updates from the official Ubuntu servers will be installed automatically. The software package &quot;unattended-upgrades&quot; needs to be installed therefor</property>
 			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">_Install new updates without confirmation</property>
+			  <property name="label" translatable="yes">_Install security updates without confirmation</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="focus_on_click">True</property>
@@ -409,7 +410,6 @@
 
 		      <child>
 			<widget class="GtkHBox" id="hbox5">
-			  <property name="visible">True</property>
 			  <property name="homogeneous">False</property>
 			  <property name="spacing">6</property>
 
