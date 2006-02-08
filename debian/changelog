@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu3) dapper; urgency=low
+
+  * fixed description of the ubuntu repository (#30813)
+
+ --
+
 update-manager (0.42.2ubuntu2) dapper; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:

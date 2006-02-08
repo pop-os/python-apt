@@ -3,7 +3,7 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-_Description: Breezy 6.04 "Dapper Drake"
+_Description: Ubuntu 6.04 "Dapper Drake"
 Component: main
 Enabled: 1
 _CompDescription: Oficially supported
@@ -20,7 +20,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-_Description: Breezy 5.10 "Breezy Badger"
+_Description: Ubuntu 5.10 "Breezy Badger"
 Component: main
 Enabled: 1
 _CompDescription: Oficially supported
