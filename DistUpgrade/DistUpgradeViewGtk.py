@@ -170,7 +170,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text(self.status)
         while gtk.events_pending():
             gtk.main_iteration()
-	time.sleep(0.01)
+	time.sleep(0.001)
 
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
