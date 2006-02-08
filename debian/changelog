@@ -1,8 +1,9 @@
 update-manager (0.42.2ubuntu3) dapper; urgency=low
 
   * fixed description of the ubuntu repository (#30813)
+  * use the new synaptic --parent-window-id switch when runing the backend
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  8 Feb 2006 20:53:46 +0100
 
 update-manager (0.42.2ubuntu2) dapper; urgency=low
 

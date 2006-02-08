@@ -429,95 +429,36 @@ class UpdateManager(SimpleGladeApp):
 
   def run_synaptic(self, id, action, lock):
     try:
-        apt_pkg.PkgSystemUnLock()
+      apt_pkg.PkgSystemUnLock()
     except SystemError:
-        pass
+      pass
+#    cmd = ["gksu","--",
     cmd = ["/usr/sbin/synaptic", "--hide-main-window",  "--non-interactive",
-           "--plug-progress-into", "%s" % (id) ]
+           "--parent-window-id", "%s" % (id) ]
     if action == INSTALL:
-      cmd.append("--set-selections")
       cmd.append("--progress-str")
       cmd.append("%s" % _("Please wait, this can take some time."))
       cmd.append("--finish-str")
       cmd.append("%s" %  _("Update is complete"))
-      proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-      f = proc.stdin
+      f = tempfile.NamedTemporaryFile()
       for s in self.packages:
         f.write("%s\tinstall\n" % s)
+      cmd.append("--set-selections-file")
+      cmd.append("%s" % f.name)
+      f.flush()
+      subprocess.call(cmd)
       f.close()
-      proc.wait()
     elif action == UPDATE:
       cmd.append("--update-at-startup")
       subprocess.call(cmd)
     else:
       print "run_synaptic() called with unknown action"
       sys.exit(1)
-
-    # use this once gksudo does propper reporting
-    #if os.geteuid() != 0:
-    #  if os.system("gksudo  /bin/true") != 0:
-    #    return
-    #  cmd = "sudo " + cmd;
     lock.release()
-
-  def plug_removed(self, w, (win,socket)):
-    #print "plug_removed"
-    # plug was removed, but we don't want to get it removed, only hiden
-    # unti we get more 
-    win.hide()
-    return True
-
-  def plug_added(self, sock, win):
-    while gtk.events_pending():
-      gtk.main_iteration()
-    # hack around the problem that too early showing has unpleasnt effect
-    # (like double arrow, incorrect window size etc)
-    gobject.timeout_add(500, lambda win: win.show(), win)
 
   def on_button_reload_clicked(self, widget):
     #print "on_button_reload_clicked"
-    #self.invoke_manager(UPDATE)
-    progress = GtkProgress.GtkFetchProgress(self,
-                                            _("Reloading the information about "
-                                              "latest updates"),
-                                            _("It is important to check "
-                                              "the software sources for "
-                                              "available upgrades reguarly."))
-    # FIXME: do a try/except here otherwise it may bomb
-    try:
-        self.cache.update(progress)
-    except (IOError,SystemError), msg:
-        dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                   gtk.BUTTONS_CLOSE,"")
-	# FIXME: wording
-        dialog.set_markup("<span weight=\"bold\" size=\"larger\">%s</span>"%\
-                          _("Could not reload the update information"))
-        dialog.format_secondary_text(_("An error occured during the package "
-                                       "list reload. Please see the below "
-                                       "information for details what went "
-                                       "wrong."))
-        diaolg.set_title("")
-        dialog.set_border_width(6)
-        dialog.set_size_request(width=500,height=-1)
-        scroll = gtk.ScrolledWindow()
-        scroll.set_size_request(-1,200)
-        scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        text = gtk.TextView()
-        text.set_editable(False)
-        text.set_cursor_visible(False)
-        text.set_wrap_mode(gtk.WRAP_WORD)
-        buf = text.get_buffer()
-        buf.set_text("%s" % msg)
-        scroll.add(text)
-        dialog.vbox.pack_start(scroll)
-        scroll.show_all()
-        dialog.run()
-        dialog.destroy()
-    # unlock the cache here, it will be locked again in fillstore
-    try:
-        apt_pkg.PkgSystemUnLock()
-    except SystemError:
-        pass
+    self.invoke_manager(UPDATE)
     self.fillstore()
 
   def on_button_help_clicked(self, widget):
@@ -529,64 +470,20 @@ class UpdateManager(SimpleGladeApp):
 
   def invoke_manager(self, action):
     # check first if no other package manager is runing
-    import struct, fcntl
-    lock = os.path.dirname(apt_pkg.Config.Find("Dir::State::status"))+"/lock"
-    lock_file= open(lock)
-    flk=struct.pack('hhllhl',fcntl.F_WRLCK,0,0,0,0,0)
-    try:
-      rv = fcntl.fcntl(lock_file, fcntl.F_GETLK, flk)
-    except IOError:
-      print "Error getting lockstatus"
-      raise
-    locked = struct.unpack('hhllhl', rv)[0]
-    if locked != fcntl.F_UNLCK:
-      msg=("<big><b>%s</b></big>\n\n%s"%(_("Another package manager is "
-                                           "running"),
-                                         _("You can run only one "
-                                           "package management application "
-                                           "at the same time. Please close "
-                                           "this other application first.")));
-      dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_ERROR,
-                                 gtk.BUTTONS_CLOSE,"")
-      dialog.set_markup(msg)
-      dialog.run()
-      dialog.destroy()
-      return
 
     # don't display apt-listchanges, we already showed the changelog
     os.environ["APT_LISTCHANGES_FRONTEND"]="none"
 
     # set window to insensitive
     self.window_main.set_sensitive(False)
-    # create a progress window that will swallow the synaptic progress bars
-    win = gtk.Window()
-    win.set_property("type-hint", gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
-    win.set_title("")
-    win.realize()
-    win.window.set_functions(gtk.gdk.FUNC_MOVE)
-    win.set_border_width(6)
-    win.set_transient_for(self.window_main)
-    win.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    win.set_property("skip-taskbar-hint", True)
-    win.set_property("skip-pager-hint", True)
-    win.resize(400,200)
-    win.set_resizable(False)
-    
-    # create the socket
-    socket = gtk.Socket()
-    socket.show()
-    win.add(socket)
-
-    socket.connect("plug-added", self.plug_added, win)
-    socket.connect("plug-removed", self.plug_removed, (win,socket))
     lock = thread.allocate_lock()
     lock.acquire()
-    t = thread.start_new_thread(self.run_synaptic,(socket.get_id(),action,lock))
+    t = thread.start_new_thread(self.run_synaptic,
+                                (self.window_main.window.xid   ,action,lock))
     while lock.locked():
       while gtk.events_pending():
         gtk.main_iteration()
       time.sleep(0.05)
-    win.destroy()
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
