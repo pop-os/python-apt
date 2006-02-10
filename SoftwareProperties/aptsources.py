@@ -201,8 +201,9 @@ class SourcesList:
     except IndexError: # ok, somethings wrong here
       #print "IndexError"
       return False
-    # remove the leading "<country>." and see if that helps
-    if compare_srv[compare_srv.index(".")+1:] == master_srv:
+    # remove the leading "<country>." (if any) and see if that helps
+    if "." in compare_srv and \
+           compare_srv[compare_srv.index(".")+1:] == master_srv:
       #print "Mirror"
       return True
     return False
