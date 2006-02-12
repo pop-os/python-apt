@@ -1167,7 +1167,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label27">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">The upgrade of your system requires
+		      <property name="label">The upgrade of your system requires
 
   ... to download 2000 MByte
 

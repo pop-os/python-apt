@@ -1,45 +1,43 @@
-# Canadian English translation for update-manager
-# Copyright (C) 2005 Adam Weinberger and the GNOME Foundation
-# This file is distributed under the same licence as the update-manager package.
-# Adam Weinberger <adamw@gnome.org>, 2005.
-#
+# Lithuanian translation for Update Manager package.
+# Copyright (C) 2005, the Free Software Foundation, Inc.
+# This file is distributed under the same license as the update-manager package.
+# Žygimantas Beručka <uid0@akl.lt>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: update-manager\n"
+"Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-09 17:05+0100\n"
-"PO-Revision-Date: 2005-04-03 01:26-0500\n"
-"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
-"Language-Team: Canadian English <adamw@gnome.org>\n"
+"PO-Revision-Date: 2005-09-15 15:06+0300\n"
+"Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../data/SoftwareProperties.glade.h:1
 #, fuzzy
 msgid "<b>Channels</b>"
-msgstr "<b>Details</b>"
+msgstr "<b>Raktai</b>"
 
 #: ../data/SoftwareProperties.glade.h:2
 #, fuzzy
 msgid "<b>Internet updates</b>"
-msgstr "<b>Internet Updates</b>"
+msgstr "<b>Internetiniai atnaujinimai</b>"
 
 #: ../data/SoftwareProperties.glade.h:3
-#, fuzzy
 msgid "<b>Keys</b>"
-msgstr "<b>Details</b>"
+msgstr "<b>Raktai</b>"
 
 #: ../data/SoftwareProperties.glade.h:4
-#, fuzzy
 msgid "Add _Cdrom"
-msgstr "Add _CD"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:5
-#, fuzzy
 msgid "Authentication"
-msgstr "A_uthentication"
+msgstr "Autentikacija"
 
 #: ../data/SoftwareProperties.glade.h:6
 msgid "D_elete downloaded software files:"
@@ -48,34 +46,35 @@ msgstr ""
 #: ../data/SoftwareProperties.glade.h:7
 #, fuzzy
 msgid "Import the public key from a trusted software provider"
-msgstr "Remove the selected key from the trusted keyring."
+msgstr "Pašalinti pasirinktą raktą iš patikimo raktų žiedo."
 
 #: ../data/SoftwareProperties.glade.h:8
-#, fuzzy
 msgid "Installation Media"
-msgstr "Installing updates..."
+msgstr "Diegimo laikmenos"
 
 #: ../data/SoftwareProperties.glade.h:9
 #, fuzzy
 msgid "Internet Updates"
-msgstr "<b>Internet Updates</b>"
+msgstr "<b>Internetiniai atnaujinimai</b>"
 
 #: ../data/SoftwareProperties.glade.h:10
 #, fuzzy
 msgid "Restore _Defaults"
-msgstr "Restore default keys"
+msgstr "Atkurti numatytuosius"
 
 #: ../data/SoftwareProperties.glade.h:11
+#, fuzzy
 msgid "Restore the default keys of your distribution"
-msgstr ""
+msgstr "Atkurti numatytuosius raktus"
 
 #: ../data/SoftwareProperties.glade.h:12
 msgid "Software Preferences"
-msgstr "Software Preferences"
+msgstr "Programinės įrangos nustatymai"
 
 #: ../data/SoftwareProperties.glade.h:13
+#, fuzzy
 msgid "_Check for updates automatically:"
-msgstr ""
+msgstr "Tikrinti atnaujinimus kas"
 
 #: ../data/SoftwareProperties.glade.h:14
 msgid "_Download updates in the backgound, but do not install them"
@@ -112,9 +111,9 @@ msgid ""
 "\n"
 "Need to get the changes from the central server"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"<span weight=\"bold\" size=\"larger\">Parsiunčiami pakeitimai</span>\n"
 "\n"
-"Need to get the changes from the central server"
+"Reikia gauti pakeitimus iš centrinio serverio"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Cancel _Download"
@@ -122,11 +121,11 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Changes"
-msgstr "Changes"
+msgstr "Pakeitimai"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Description"
-msgstr "Description"
+msgstr "Aprašymas"
 
 #: ../data/UpdateManager.glade.h:14
 msgid "Release Notes"
@@ -135,7 +134,7 @@ msgstr ""
 #: ../data/UpdateManager.glade.h:15
 #, fuzzy
 msgid "Reload the latest information about updates"
-msgstr "Reload the package information from the server."
+msgstr "Atnaujinti serverio paketų informaciją."
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Show details"
@@ -147,7 +146,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:18
 msgid "Software Updates"
-msgstr "Software Updates"
+msgstr "Programinės įrangos atnaujinimai"
 
 #: ../data/UpdateManager.glade.h:19
 msgid ""
@@ -156,9 +155,8 @@ msgid ""
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:20
-#, fuzzy
 msgid "U_pgrade"
-msgstr "Upgrade finished"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:21
 msgid "Upgrade to the latest version of Ubuntu"
@@ -167,12 +165,12 @@ msgstr ""
 #: ../data/UpdateManager.glade.h:22
 #, fuzzy
 msgid "_Install Updates"
-msgstr "_Install"
+msgstr "Diegiami atnaujinimai..."
 
 #: ../data/UpdateManager.glade.h:23
 #, fuzzy
 msgid "_Reload"
-msgstr "Reload"
+msgstr "Atnaujinti"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -184,57 +182,55 @@ msgstr ""
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "CD su Ubuntu 5.10 „Breezy Badger“"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.10 saugumo atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.04 Updates"
+msgstr "Ubuntu 5.10 atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "CD su Ubuntu 5.04 „Hoary Hedgehog“"
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 saugumo atnaujinimai"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
-msgstr "Officially supported"
+msgstr "Prižiūrima oficialiai"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:97
 msgid "Restricted copyright"
-msgstr "Restricted copyright"
+msgstr "Apribotos autorinės teisės"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:100
 msgid "Community maintained (Universe)"
-msgstr "Community maintained (Universe)"
+msgstr "Prižiūrima bendruomenės (Universe)"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:103
 msgid "Non-free (Multiverse)"
-msgstr "Non-free (Multiverse)"
+msgstr "Ne Laisva (Multiverse)"
 
 #. ChangelogURI
 #: ../channels/Debian.info.in.h:4
@@ -245,7 +241,7 @@ msgstr ""
 #. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr ""
+msgstr "Debian 3.1 „Sarge“"
 
 #. BaseURI
 #: ../channels/Debian.info.in:19
@@ -256,12 +252,13 @@ msgstr ""
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "Debian Stable Security Updates"
+msgstr "Debian Stable saugumo atnaujinimai"
 
 #. Description
 #: ../channels/Debian.info.in:34
+#, fuzzy
 msgid "Debian \"Etch\" (testing)"
-msgstr ""
+msgstr "Debian Testing"
 
 #. BaseURI
 #: ../channels/Debian.info.in:47
@@ -270,8 +267,9 @@ msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:48
+#, fuzzy
 msgid "Debian \"Sid\" (unstable)"
-msgstr ""
+msgstr "Debian Non-US (Unstable)"
 
 #. CompDescription
 #: ../channels/Debian.info.in:54
@@ -299,20 +297,20 @@ msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:340
 msgid "Error importing selected file"
-msgstr "Error importing selected file"
+msgstr "Importuojant pasirinktą bylą įvyko klaida"
 
 #: ../SoftwareProperties/SoftwareProperties.py:341
 msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "Pasirinkta byla gali būti ne GPG rakto byla arba sugadinta byla."
 
 #: ../SoftwareProperties/SoftwareProperties.py:353
 msgid "Error removing the key"
-msgstr "Error removing the key"
+msgstr "Šalinant raktą įvyko klaida"
 
 #: ../SoftwareProperties/SoftwareProperties.py:354
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+"Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
 #: ../SoftwareProperties/SoftwareProperties.py:397
 #, python-format
@@ -359,7 +357,7 @@ msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
 msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+"Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
 #. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:168
@@ -384,7 +382,7 @@ msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+"Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
 #. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:240
@@ -428,7 +426,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:171
 #, fuzzy
 msgid "Error during update"
-msgstr "Error removing the key"
+msgstr "Šalinant raktą įvyko klaida"
 
 #: ../DistUpgrade/DistUpgradeControler.py:172
 msgid ""
@@ -448,9 +446,8 @@ msgid ""
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:196
-#, fuzzy
 msgid "Perform Upgrade?"
-msgstr "Upgrade finished"
+msgstr ""
 
 #. installing the packages failed, can't be retried
 #: ../DistUpgrade/DistUpgradeControler.py:211
@@ -467,7 +464,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:228
 #, fuzzy
 msgid "Error fetching the packages"
-msgstr "Error removing the key"
+msgstr "Šalinant raktą įvyko klaida"
 
 #: ../DistUpgrade/DistUpgradeControler.py:229
 msgid ""
@@ -491,7 +488,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:318
 #, fuzzy
 msgid "Checking package manager"
-msgstr "Another package manager is running"
+msgstr "Šiuo metu jau veikia kita paketų tvarkyklė"
 
 #: ../DistUpgrade/DistUpgradeControler.py:310
 msgid "Updating repository information"
@@ -504,7 +501,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:328
 #, fuzzy
 msgid "Upgrading"
-msgstr "Upgrade finished"
+msgstr "Atnaujinimas baigtas"
 
 #: ../DistUpgrade/DistUpgradeControler.py:335
 msgid "Searching for obsolete software"
@@ -545,7 +542,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeViewGtk.py:131
 #, fuzzy
 msgid "Installing updates"
-msgstr "Installing updates..."
+msgstr "Diegiami atnaujinimai..."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:144
 #, python-format
@@ -642,7 +639,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 #, fuzzy
 msgid "Details"
-msgstr "<b>Details</b>"
+msgstr "<b>Detalės</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid "Downloading and installing the upgrades"
@@ -672,73 +669,56 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
-#, fuzzy
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Keisti programinės įrangos šaltinius ir nustatymus"
+
+#~ msgid "Software Properties"
+#~ msgstr "Programinės įrangos savybės"
+
 #~ msgid "<b>Sources</b>"
-#~ msgstr "<b>Software Sources</b>"
+#~ msgstr "<b>Šaltiniai</b>"
 
-#, fuzzy
-#~ msgid "Automatically check for updates"
-#~ msgstr "Automatically check for software _updates."
-
-#, fuzzy
-#~ msgid "Cancel downloading of the changelog"
-#~ msgstr "Cancel downloading the ChangeLog"
-
-#~ msgid "Choose a key-file"
-#~ msgstr "Choose a key-file"
-
-#~ msgid "<b>Packages to install:</b>"
-#~ msgstr "<b>Packages to install:</b>"
-
-#~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
-#~ msgstr ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ msgid "day(s)"
+#~ msgstr "dieną(as)"
 
 #~ msgid "<b>Comment:</b>"
-#~ msgstr "<b>Comment:</b>"
+#~ msgstr "<b>Komentaras:</b>"
 
 #~ msgid "<b>Components</b>"
-#~ msgstr "<b>Components</b>"
+#~ msgstr "<b>Komponentai</b>"
 
 #~ msgid "<b>Distribution:</b>"
-#~ msgstr "<b>Distribution:</b>"
+#~ msgstr "<b>Distribucija:</b>"
 
 #~ msgid "<b>Repository</b>"
-#~ msgstr "<b>Repository</b>"
+#~ msgstr "<b>Saugykla</b>"
 
 #~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Sections:</b>"
+#~ msgstr "<b>Skyriai:</b>"
 
 #~ msgid "<b>Temporary files</b>"
-#~ msgstr "<b>Temporary files</b>"
+#~ msgstr "<b>Laikinos bylos</b>"
 
 #~ msgid "<b>Type:</b>"
-#~ msgstr "<b>Type:</b>"
+#~ msgstr "<b>Tipas:</b>"
 
 #~ msgid "<b>URI:</b>"
 #~ msgstr "<b>URI:</b>"
 
 #~ msgid "<b>User Interface</b>"
-#~ msgstr "<b>User Interface</b>"
+#~ msgstr "<b>Naudotojo sąsaja</b>"
 
-#, fuzzy
 #~ msgid ""
 #~ "<big><b>Authentication keys</b></big>\n"
 #~ "\n"
 #~ "You can add and remove authentication keys in this dialog. A key makes it "
 #~ "possible to verify the integrity of the software you download."
 #~ msgstr ""
-#~ "<big><b>Authentication keys</b></big>\n"
+#~ "<big><b>Autentikacijos raktai</b></big>\n"
 #~ "\n"
-#~ "You can add and remove authentication keys in this dialogue. A key makes "
-#~ "it possible to check verify the integrity of the software you download."
+#~ "Šiame dialoge Jūs galite pridėti ir pašalinti autentikacijos raktus. "
+#~ "Rakto pagalba galima patikrinti Jūsų parsiunčiamos programinės įrangos "
+#~ "integruotumą."
 
 #~ msgid ""
 #~ "<big><b>Enter the complete APT line of the repository that you want to "
@@ -748,250 +728,273 @@ msgstr ""
 #~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
 #~ "detailed description of the syntax in the documentation."
 #~ msgstr ""
-#~ "<big><b>Enter the complete APT line of the repository that you want to "
-#~ "add</b></big>\n"
+#~ "<big><b>Įveskite visą Jūsų norimos pridėti saugyklos APT eilutę</b></"
+#~ "big>\n"
 #~ "\n"
-#~ "The APT line contains the type, location and content of a repository, for "
-#~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
-#~ "detailed description of the syntax in the documentation."
+#~ "APT eilutė nurodo saugyklos tipą, vietą bei turinį, pvz., <i>„deb http://"
+#~ "ftp.debian.org sarge main“</i>. Išsamesnį sintaksės aprašymą galite rasti "
+#~ "dokumentacijoje."
 
 #~ msgid "APT line:"
-#~ msgstr "APT line:"
+#~ msgstr "APT eilutė:"
 
-#~ msgid "A_uthentication"
-#~ msgstr "A_uthentication"
-
-#, fuzzy
 #~ msgid ""
 #~ "Add a new key file to the trusted keyring. Make sure that you received "
 #~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
-#~ "Add a new key file to the trusted keyring. Make sure that you got the key "
-#~ "over a secure channel and that you trust the owner. "
+#~ "Įdėkite naują raktų bylą į patikimą raktų rinkinį. Įsitikinkite, kad Jūs "
+#~ "gavote raktą saugiu kanalu bei, kad Jūs pažįstate savininkas."
+
+#~ msgid "Add repository..."
+#~ msgstr "Pridėti saugyklą..."
+
+#~ msgid "Automatically check for software _updates."
+#~ msgstr "Automatiškai patikrinti ar yra _atnaujinimų."
 
 #~ msgid "Automatically clean _temporary packages files"
-#~ msgstr "Automatically clean _temporary packages files"
+#~ msgstr "Automatiškai išvalyti _laikinas paketų bylas"
 
 #~ msgid ""
 #~ "Binary\n"
 #~ "Source"
 #~ msgstr ""
-#~ "Binary\n"
-#~ "Source"
+#~ "Dvejetainis\n"
+#~ "Pradinis kodas"
 
 #~ msgid "Clean interval in days: "
-#~ msgstr "Clean interval in days: "
+#~ msgstr "Išvalymo intervalas dienomis:"
 
 #~ msgid "Delete _old packages in the package cache"
-#~ msgstr "Delete _old packages in the package cache"
+#~ msgstr "Ištrinti _senus paketus iš paketų sandėlio"
 
 #~ msgid "Edit Repository..."
-#~ msgstr "Edit Repository..."
+#~ msgstr "Keisti saugyklą..."
 
 #~ msgid "Maximum age in days:"
-#~ msgstr "Maximum age in days:"
+#~ msgstr "Maksimalus amžius dienomis:"
 
 #~ msgid "Maximum size in MB:"
-#~ msgstr "Maximum size in MB:"
+#~ msgstr "Maksimalus dydis megabaitais:"
 
-#, fuzzy
 #~ msgid ""
 #~ "Restore the default keys shipped with the distribution. This will not "
 #~ "change user installed keys."
 #~ msgstr ""
-#~ "Restore the default keys shiped with the distribution. This will not "
-#~ "change user-installed keys."
+#~ "Atkurti numatytuosius raktus atkeliavusius su distribucija. Tai nepakeis "
+#~ "naudotojo įdiegtų raktų."
 
 #~ msgid "Set _maximum size for the package cache"
-#~ msgstr "Set _maximum size for the package cache"
+#~ msgstr "Nustatyti _maksimalų paketų sandėlio dydį"
 
 #~ msgid "Settings"
-#~ msgstr "Settings"
+#~ msgstr "Nustatymai"
+
+#~ msgid "Show detailed package versions"
+#~ msgstr "Rodyti išsamias paketų versijas"
 
 #~ msgid "Show disabled software sources"
-#~ msgstr "Show disabled software sources"
+#~ msgstr "Rodyti atjungtus programinės įrangos šaltinius"
 
 #~ msgid "Update interval in days: "
-#~ msgstr "Update interval in days: "
+#~ msgstr "Atnaujinimų intervalas dienomis: "
 
 #~ msgid "_Add Repository"
-#~ msgstr "_Add Repository"
+#~ msgstr "_Pridėti saugyklą"
 
 #~ msgid "_Custom"
-#~ msgstr "_Custom"
+#~ msgstr "_Kita"
 
 #~ msgid "_Download upgradable packages"
-#~ msgstr "_Download upgradable packages"
+#~ msgstr "_Parsiųsti atnaujintus paketus"
+
+#~ msgid "<b>Status:</b>"
+#~ msgstr "<b>Būsena:</b>"
+
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>Prieinami atnaujinimai</b></big>\n"
+#~ "\n"
+#~ "Sekantys paketai gali būti atnaujinti. Juos atnaujinti galite paspausdami "
+#~ "mygtuką Įdiegti."
+
+#~ msgid "Cancel downloading the changelog"
+#~ msgstr "Atšaukti pakeitimų žurnalo parsiuntimą"
+
+#~ msgid "Downloading Changes"
+#~ msgstr "Parsiunčiami pakeitimai"
+
+#~ msgid "_Install"
+#~ msgstr "Į_diegti"
 
 #~ msgid "Show available updates and choose which to install"
-#~ msgstr "Show available updates and choose which to install"
+#~ msgstr "Rodyti galimus atnaujimus ir pasirinkti įdiegtinus"
 
 #~ msgid "Update Manager"
-#~ msgstr "Update Manager"
-
-#~ msgid "Your system has broken packages!"
-#~ msgstr "Your system has broken packages!"
-
-#~ msgid ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-#~ msgstr ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-
-#~ msgid "It is not possible to upgrade all packages."
-#~ msgstr "It is not possible to upgrade all packages."
-
-#~ msgid ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
-#~ msgstr ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
-
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "The following packages are not upgraded: "
-
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr "Changes not found, the server may not be updated yet."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Version %s: \n"
-
-#~ msgid "Downloading changes..."
-#~ msgstr "Downloading changes..."
-
-#~ msgid "The updates are being applied."
-#~ msgstr "The updates are being applied."
-
-#~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-#~ msgstr ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-
-#~ msgid "Updating package list..."
-#~ msgstr "Updating package list..."
-
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Your system is up-to-date!"
-
-#~ msgid "There are no updates available."
-#~ msgstr "There are no updates available."
-
-#~ msgid "New version: %s"
-#~ msgstr "New version: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Your distribution is no longer supported"
-
-#~ msgid ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-#~ msgstr ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "There is a new release of Ubuntu available!"
-
-#~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-#~ msgstr ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-
-#~ msgid "Never show this message again"
-#~ msgstr "Never show this message again"
+#~ msgstr "Atnaujinimų tvarkyklė"
 
 #, fuzzy
-#~ msgid ""
-#~ "This usually means that another package management application (like apt-"
-#~ "get or aptitude) already running. Please close that application first"
-#~ msgstr ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ msgid "Debian sarge"
+#~ msgstr "Debian 3.1 „Sarge“"
 
-#~ msgid "Initializing and getting list of updates..."
-#~ msgstr "Initializing and getting list of updates..."
+#, fuzzy
+#~ msgid "Debian etch"
+#~ msgstr "Debian Testing"
+
+#, fuzzy
+#~ msgid "Debian sid"
+#~ msgstr "Debian Testing"
+
+#, fuzzy
+#~ msgid "Oficial Distribution"
+#~ msgstr "<b>Distribucija:</b>"
 
 #~ msgid "You need to be root to run this program"
-#~ msgstr "You need to be root to run this program"
-
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Edit software sources and settings"
-
-#~ msgid "Software Properties"
-#~ msgstr "Software Properties"
-
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntu Update Manager"
+#~ msgstr "Jums reikia būti root, norint paleisti šią programą"
 
 #~ msgid "Binary"
-#~ msgstr "Binary"
+#~ msgstr "Dvejetainiai"
 
 #~ msgid "Source"
-#~ msgstr "Source"
+#~ msgstr "Pradiniai tekstai"
 
-#~ msgid "CD"
-#~ msgstr "CD"
+#~ msgid "CD disk with Ubuntu 4.10 \"Warty Warthog\""
+#~ msgstr "CD su Ubuntu 4.10 „Warthy Warthog“"
 
 #~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 Security Updates"
+#~ msgstr "Ubuntu 4.10 saugumo atnaujinimai"
+
+#~ msgid "Ubuntu 4.10 Updates"
+#~ msgstr "Ubuntu 4.10 atnaujinimai"
 
 #~ msgid "Contributed software"
-#~ msgstr "Contributed software"
+#~ msgstr "Paaukota programinė įranga"
 
 #~ msgid "Non-free software"
-#~ msgstr "Non-free software"
+#~ msgstr "Ne Laisva programinė įranga"
 
 #~ msgid "US export restricted software"
-#~ msgstr "US export restricted software"
+#~ msgstr "Draudžiama eksportuoti iš JAV programinė įranga"
+
+#~ msgid "Debian 3.0 \"Woody\""
+#~ msgstr "Debian 3.0 „Woody“"
+
+#~ msgid "Debian Stable"
+#~ msgstr "Debian Stable"
+
+#~ msgid "Debian Unstable \"Sid\""
+#~ msgstr "Debian Unstable „Sid“"
+
+#~ msgid "Debian Non-US (Stable)"
+#~ msgstr "Debian Non-US (Stable)"
+
+#~ msgid "Debian Non-US (Testing)"
+#~ msgstr "Debian Non-US (Testing)"
 
 #~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "Ubuntu archyvo automatinio pasirašymo raktas <ftpmaster@ubuntu.com>"
 
 #~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr ""
+#~ "Ubuntu CD atvaizdžių automatinio pasirašymo raktas <cdimage@ubuntu.com>"
 
-#~ msgid "Repositories changed"
-#~ msgstr "Repositories changed"
+#~ msgid "Choose a key-file"
+#~ msgstr "Pasirinkite rakto bylą"
+
+#~ msgid "Your system is up-to-date!"
+#~ msgstr "Jūsų sistema yra atnaujinta!"
+
+#~ msgid "There is one package available for updating."
+#~ msgstr "Yra vienas atnaujintinas paketas."
+
+#~ msgid "There are %s packages available for updating."
+#~ msgstr "Yra %s atnaujintini paketai."
+
+#~ msgid "Version %s: \n"
+#~ msgstr "Versija %s: \n"
+
+#~ msgid "Downloading changes..."
+#~ msgstr "Parsiunčiami pakeitimai..."
+
+#~ msgid "There are no updated packages"
+#~ msgstr "Nėra atnaujintų paketų"
+
+#~ msgid "You did not select any of the %s updated package"
+#~ msgid_plural "You did not select any of the %s updated packages"
+#~ msgstr[0] "Nepasirinkote nei vieno iš %s atnaujinto paketo"
+#~ msgstr[1] "Nepasirinkote nei vieno iš %s atnaujintų paketų"
+#~ msgstr[2] "Nepasirinkote nei vieno iš %s atnaujintų paketų"
+
+#~ msgid "You have selected %s updated package, size %s"
+#~ msgid_plural "You have selected all %s updated packages, total size %s"
+#~ msgstr[0] "Jūs pasirinkote %s atnaujintą paketą, dydis %s"
+#~ msgstr[1] "Jūs pasirinkote %s atnaujintus paketus, visas dydis %s"
+#~ msgstr[2] "Jūs pasirinkote %s atnaujintų paketų, visas dydis %s"
+
+#~ msgid "You have selected %s out of %s updated package, size %s"
+#~ msgid_plural ""
+#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgstr[0] "Jūs pasirinkote %s iš %s atnaujinto paketo, dydis %s"
+#~ msgstr[1] "Jūs pasirinkote %s iš %s atnaujintų paketų, visas dydis %s"
+#~ msgstr[2] "Jūs pasirinkote %s iš %s atnaujintų paketų, visas dydis %s"
+
+#~ msgid "The updates are being applied."
+#~ msgstr "Pritaikomi atnaujinimai."
 
 #~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
+#~ "Tuo pačiu metu Jūs galite paleisti tik vieną paketų tvarkyklę. Pirma "
+#~ "uždarykite tą kitą programą."
 
-#, fuzzy
+#~ msgid "Updating package list..."
+#~ msgstr "Atnaujinamas paketų sąrašas..."
+
+#~ msgid "Checking for updates..."
+#~ msgstr "Ieškoma atnaujinimų..."
+
+#~ msgid "There are no updates available."
+#~ msgstr "Nėra atnaujinimų."
+
+#~ msgid "New version:"
+#~ msgstr "Nauja versija:"
+
+#~ msgid "Your distribution is no longer supported"
+#~ msgstr "Jūsų distribucija daugiau nepalaikoma"
+
 #~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "Atnaujinkite Ubuntu Linux iki naujesnės versijos. Jūsų naudojamai "
+#~ "versijai nebebus teikiami saugumo pataisymai bei kiti kritiniai "
+#~ "atnaujinimai. Informaciją apie atnaujinimą galite rasti http://www."
+#~ "ubuntulinux.org."
+
+#~ msgid "There is a new release of Ubuntu available!"
+#~ msgstr "Yra išleistas naujas Ubuntu leidimas!"
+
+#~ msgid ""
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
+#~ msgstr ""
+#~ "Prieinamas naujas leidimas kodiniu pavadinimu „%s“. Atnaujinimo "
+#~ "instrukcijas galite rasti http://www.ubuntulinux.org."
+
+#~ msgid "Never show this message again"
+#~ msgstr "Daugiau nerodyti šios žinutės"
+
+#~ msgid "Changes not found, the server may not be updated yet."
+#~ msgstr "Pakeitimai nerasti, serveris gali būti dar neatnaujintas."
+
+#~ msgid ""
+#~ "Failed to download changes. Please check if there is an active internet "
+#~ "connection."
+#~ msgstr ""
+#~ "Nepavyko parsiųsti pakeitimų. Patikrinkite ar esate prisijungę prie "
+#~ "Interneto."

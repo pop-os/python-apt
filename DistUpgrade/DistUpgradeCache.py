@@ -120,7 +120,8 @@ class MyCache(apt.Cache):
             for pkg in self.config.getlist("Distro","PostUpgrade%s" % rule):
                 action(pkg, "Distro PostUpgrade%s rule" % rule)
             for key in self.metapkgs:
-                if self.has_key(key) and self[key].isInstalled:
+                if self.has_key(key) and (self[key].isInstalled or
+                                          self[key].markedInstall):
                     for pkg in self.config.getlist(key,"PostUpgrade%s" % rule):
                         action(pkg, "%s PostUpgrade%s rule" % (key, rule))
 
@@ -128,10 +129,15 @@ class MyCache(apt.Cache):
         try:
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
-            self.postUpgradeRule()
-            
+
+            # then see if meta-pkgs are missing
             if not self._installMetaPkgs(view):
                 raise SystemError, _("Can't upgrade required meta-packages")
+
+            # and if we have some special rules
+            self.postUpgradeRule()
+
+            # see if it all makes sense
             if not self._verifyChanges():
                 raise SystemError, _("A essential package would have to be removed")
         except SystemError, e:

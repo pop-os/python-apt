@@ -1,45 +1,41 @@
-# Canadian English translation for update-manager
-# Copyright (C) 2005 Adam Weinberger and the GNOME Foundation
-# This file is distributed under the same licence as the update-manager package.
-# Adam Weinberger <adamw@gnome.org>, 2005.
-#
-#
+# Ukrainian translation of update-manager.  
+# Copyright (C) 2005 Free Software Foundation, Inc.  
+# Maxim Dziumanenko <mvd@mylinux.ua>, 2005  
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-09 17:05+0100\n"
-"PO-Revision-Date: 2005-04-03 01:26-0500\n"
-"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
-"Language-Team: Canadian English <adamw@gnome.org>\n"
+"PO-Revision-Date: 2005-08-08 11:46+0300\n"
+"Last-Translator: Maxim Dziumanenko <mvd@mylinux.ua>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../data/SoftwareProperties.glade.h:1
 #, fuzzy
 msgid "<b>Channels</b>"
-msgstr "<b>Details</b>"
+msgstr "<b>Клавіші</b>"
 
 #: ../data/SoftwareProperties.glade.h:2
 #, fuzzy
 msgid "<b>Internet updates</b>"
-msgstr "<b>Internet Updates</b>"
+msgstr "<b>Оновлення через Інтернет</b>"
 
 #: ../data/SoftwareProperties.glade.h:3
-#, fuzzy
 msgid "<b>Keys</b>"
-msgstr "<b>Details</b>"
+msgstr "<b>Клавіші</b>"
 
 #: ../data/SoftwareProperties.glade.h:4
-#, fuzzy
 msgid "Add _Cdrom"
-msgstr "Add _CD"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:5
-#, fuzzy
 msgid "Authentication"
-msgstr "A_uthentication"
+msgstr "Аутентифікація"
 
 #: ../data/SoftwareProperties.glade.h:6
 msgid "D_elete downloaded software files:"
@@ -48,34 +44,35 @@ msgstr ""
 #: ../data/SoftwareProperties.glade.h:7
 #, fuzzy
 msgid "Import the public key from a trusted software provider"
-msgstr "Remove the selected key from the trusted keyring."
+msgstr "Видалити виділений ключ з в'язки довірених ключів."
 
 #: ../data/SoftwareProperties.glade.h:8
-#, fuzzy
 msgid "Installation Media"
-msgstr "Installing updates..."
+msgstr "Носій встановлення"
 
 #: ../data/SoftwareProperties.glade.h:9
 #, fuzzy
 msgid "Internet Updates"
-msgstr "<b>Internet Updates</b>"
+msgstr "<b>Оновлення через Інтернет</b>"
 
 #: ../data/SoftwareProperties.glade.h:10
 #, fuzzy
 msgid "Restore _Defaults"
-msgstr "Restore default keys"
+msgstr "Відновити початкові параметри"
 
 #: ../data/SoftwareProperties.glade.h:11
+#, fuzzy
 msgid "Restore the default keys of your distribution"
-msgstr ""
+msgstr "Відновити початкові ключі"
 
 #: ../data/SoftwareProperties.glade.h:12
 msgid "Software Preferences"
-msgstr "Software Preferences"
+msgstr "Параметри програм"
 
 #: ../data/SoftwareProperties.glade.h:13
+#, fuzzy
 msgid "_Check for updates automatically:"
-msgstr ""
+msgstr "Перевіряти оновлення кожні"
 
 #: ../data/SoftwareProperties.glade.h:14
 msgid "_Download updates in the backgound, but do not install them"
@@ -112,9 +109,9 @@ msgid ""
 "\n"
 "Need to get the changes from the central server"
 msgstr ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"<span weight=\"bold\" size=\"larger\">Завантаження змін</span>\n"
 "\n"
-"Need to get the changes from the central server"
+"Потрібно отримати зміни з центрального сервера"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Cancel _Download"
@@ -122,11 +119,11 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Changes"
-msgstr "Changes"
+msgstr "Зміни"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Description"
-msgstr "Description"
+msgstr "Опис"
 
 #: ../data/UpdateManager.glade.h:14
 msgid "Release Notes"
@@ -135,7 +132,7 @@ msgstr ""
 #: ../data/UpdateManager.glade.h:15
 #, fuzzy
 msgid "Reload the latest information about updates"
-msgstr "Reload the package information from the server."
+msgstr "Перезавантажити з сервера інформацію про пакет"
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Show details"
@@ -147,7 +144,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:18
 msgid "Software Updates"
-msgstr "Software Updates"
+msgstr "Оновлення програм"
 
 #: ../data/UpdateManager.glade.h:19
 msgid ""
@@ -156,9 +153,8 @@ msgid ""
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:20
-#, fuzzy
 msgid "U_pgrade"
-msgstr "Upgrade finished"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:21
 msgid "Upgrade to the latest version of Ubuntu"
@@ -167,12 +163,12 @@ msgstr ""
 #: ../data/UpdateManager.glade.h:22
 #, fuzzy
 msgid "_Install Updates"
-msgstr "_Install"
+msgstr "Встановлення оновлень..."
 
 #: ../data/UpdateManager.glade.h:23
 #, fuzzy
 msgid "_Reload"
-msgstr "Reload"
+msgstr "Перезавантажити"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -184,57 +180,55 @@ msgstr ""
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Оновлення Ubuntu 5.04"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "CD диск з Ubuntu 5.10 \"Breezy Badger\""
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Оновлення безпеки Ubuntu 5.10"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.04 Updates"
+msgstr "Оновлення Ubuntu 5.10"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "CD диск з Ubuntu 5.04 \"Hoary Hedgehog\""
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.04 Security Updates"
+msgstr "Оновлення безпеки Ubuntu 5.04"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
-msgstr "Officially supported"
+msgstr "Офіціально підтримуються"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:97
 msgid "Restricted copyright"
-msgstr "Restricted copyright"
+msgstr "Обмежені авторські права"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:100
 msgid "Community maintained (Universe)"
-msgstr "Community maintained (Universe)"
+msgstr "Підтримується спільнотою (Universe)"
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:103
 msgid "Non-free (Multiverse)"
-msgstr "Non-free (Multiverse)"
+msgstr "Не-вільний (Multiverse)"
 
 #. ChangelogURI
 #: ../channels/Debian.info.in.h:4
@@ -245,7 +239,7 @@ msgstr ""
 #. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr ""
+msgstr "Debian 3.1 \"Sarge\""
 
 #. BaseURI
 #: ../channels/Debian.info.in:19
@@ -256,12 +250,13 @@ msgstr ""
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "Debian Stable Security Updates"
+msgstr "Оновлення безпеки стабільного Debian"
 
 #. Description
 #: ../channels/Debian.info.in:34
+#, fuzzy
 msgid "Debian \"Etch\" (testing)"
-msgstr ""
+msgstr "Тестовий Debian"
 
 #. BaseURI
 #: ../channels/Debian.info.in:47
@@ -270,8 +265,9 @@ msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:48
+#, fuzzy
 msgid "Debian \"Sid\" (unstable)"
-msgstr ""
+msgstr "Debian поза США (Нестабільний)"
 
 #. CompDescription
 #: ../channels/Debian.info.in:54
@@ -299,20 +295,19 @@ msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:340
 msgid "Error importing selected file"
-msgstr "Error importing selected file"
+msgstr "Помилка імпорту вибраного файлу"
 
 #: ../SoftwareProperties/SoftwareProperties.py:341
 msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "Вибраний файл, можливо, не є файлом GPG ключа або він пошкоджений."
 
 #: ../SoftwareProperties/SoftwareProperties.py:353
 msgid "Error removing the key"
-msgstr "Error removing the key"
+msgstr "Помилка видалення ключа"
 
 #: ../SoftwareProperties/SoftwareProperties.py:354
 msgid "The key you selected could not be removed. Please report this as a bug."
-msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку."
 
 #: ../SoftwareProperties/SoftwareProperties.py:397
 #, python-format
@@ -358,8 +353,7 @@ msgstr ""
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
-msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку."
 
 #. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:168
@@ -383,8 +377,7 @@ msgstr ""
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr ""
-"The key you selected could not be removed. Please report this as a bug."
+msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку."
 
 #. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:240
@@ -428,7 +421,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:171
 #, fuzzy
 msgid "Error during update"
-msgstr "Error removing the key"
+msgstr "Помилка видалення ключа"
 
 #: ../DistUpgrade/DistUpgradeControler.py:172
 msgid ""
@@ -448,9 +441,8 @@ msgid ""
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:196
-#, fuzzy
 msgid "Perform Upgrade?"
-msgstr "Upgrade finished"
+msgstr ""
 
 #. installing the packages failed, can't be retried
 #: ../DistUpgrade/DistUpgradeControler.py:211
@@ -467,7 +459,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:228
 #, fuzzy
 msgid "Error fetching the packages"
-msgstr "Error removing the key"
+msgstr "Помилка видалення ключа"
 
 #: ../DistUpgrade/DistUpgradeControler.py:229
 msgid ""
@@ -491,7 +483,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:318
 #, fuzzy
 msgid "Checking package manager"
-msgstr "Another package manager is running"
+msgstr "Вже активний інший менеджер пакетів"
 
 #: ../DistUpgrade/DistUpgradeControler.py:310
 msgid "Updating repository information"
@@ -504,7 +496,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:328
 #, fuzzy
 msgid "Upgrading"
-msgstr "Upgrade finished"
+msgstr "Оновлення завершено"
 
 #: ../DistUpgrade/DistUpgradeControler.py:335
 msgid "Searching for obsolete software"
@@ -545,7 +537,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeViewGtk.py:131
 #, fuzzy
 msgid "Installing updates"
-msgstr "Installing updates..."
+msgstr "Встановлення оновлень..."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:144
 #, python-format
@@ -642,7 +634,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 #, fuzzy
 msgid "Details"
-msgstr "<b>Details</b>"
+msgstr "<b>Подробиці</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid "Downloading and installing the upgrades"
@@ -672,73 +664,55 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
-#, fuzzy
+#~ msgid "Edit software sources and settings"
+#~ msgstr "Редагування джерел програм та параметрів"
+
+#~ msgid "Software Properties"
+#~ msgstr "Властивості програм"
+
 #~ msgid "<b>Sources</b>"
-#~ msgstr "<b>Software Sources</b>"
+#~ msgstr "<b>Джерела</b>"
 
-#, fuzzy
-#~ msgid "Automatically check for updates"
-#~ msgstr "Automatically check for software _updates."
-
-#, fuzzy
-#~ msgid "Cancel downloading of the changelog"
-#~ msgstr "Cancel downloading the ChangeLog"
-
-#~ msgid "Choose a key-file"
-#~ msgstr "Choose a key-file"
-
-#~ msgid "<b>Packages to install:</b>"
-#~ msgstr "<b>Packages to install:</b>"
-
-#~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
-#~ msgstr ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ msgid "day(s)"
+#~ msgstr "діб"
 
 #~ msgid "<b>Comment:</b>"
-#~ msgstr "<b>Comment:</b>"
+#~ msgstr "<b>Коментар:</b>"
 
 #~ msgid "<b>Components</b>"
-#~ msgstr "<b>Components</b>"
+#~ msgstr "<b>Компоненти</b>"
 
 #~ msgid "<b>Distribution:</b>"
-#~ msgstr "<b>Distribution:</b>"
+#~ msgstr "<b>Дистрибутив:</b>"
 
 #~ msgid "<b>Repository</b>"
-#~ msgstr "<b>Repository</b>"
+#~ msgstr "<b>Репозиторій</b>"
 
 #~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Sections:</b>"
+#~ msgstr "<b>Розділи:</b>"
 
 #~ msgid "<b>Temporary files</b>"
-#~ msgstr "<b>Temporary files</b>"
+#~ msgstr "<b>Тимчасові файли</b>"
 
 #~ msgid "<b>Type:</b>"
-#~ msgstr "<b>Type:</b>"
+#~ msgstr "<b>Тип:</b>"
 
 #~ msgid "<b>URI:</b>"
 #~ msgstr "<b>URI:</b>"
 
 #~ msgid "<b>User Interface</b>"
-#~ msgstr "<b>User Interface</b>"
+#~ msgstr "<b>Інтерфейс користувача</b>"
 
-#, fuzzy
 #~ msgid ""
 #~ "<big><b>Authentication keys</b></big>\n"
 #~ "\n"
 #~ "You can add and remove authentication keys in this dialog. A key makes it "
 #~ "possible to verify the integrity of the software you download."
 #~ msgstr ""
-#~ "<big><b>Authentication keys</b></big>\n"
+#~ "<big><b>Ключі автентифікації</b></big>\n"
 #~ "\n"
-#~ "You can add and remove authentication keys in this dialogue. A key makes "
-#~ "it possible to check verify the integrity of the software you download."
+#~ "У цьому діалозі ви можете додавати та видаляти ключі автентифікації. Ключ "
+#~ "дає змогу перевірити цілісність завантаженого програмного забезпечення."
 
 #~ msgid ""
 #~ "<big><b>Enter the complete APT line of the repository that you want to "
@@ -748,250 +722,270 @@ msgstr ""
 #~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
 #~ "detailed description of the syntax in the documentation."
 #~ msgstr ""
-#~ "<big><b>Enter the complete APT line of the repository that you want to "
-#~ "add</b></big>\n"
+#~ "<big><b>Введіть повний рядок APT репозиторію, який ви бажаєте додати</b></"
+#~ "big>\n"
 #~ "\n"
-#~ "The APT line contains the type, location and content of a repository, for "
-#~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
-#~ "detailed description of the syntax in the documentation."
+#~ "Рядок APT містить тип, адресу та вміст репозиторію, наприклад <i>\"deb "
+#~ "http://ftp.debian.org sarge main\"</i>. Докладні приклади можна знайти у "
+#~ "документації."
 
 #~ msgid "APT line:"
-#~ msgstr "APT line:"
+#~ msgstr "Рядок APT"
 
-#~ msgid "A_uthentication"
-#~ msgstr "A_uthentication"
-
-#, fuzzy
 #~ msgid ""
 #~ "Add a new key file to the trusted keyring. Make sure that you received "
 #~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
-#~ "Add a new key file to the trusted keyring. Make sure that you got the key "
-#~ "over a secure channel and that you trust the owner. "
+#~ "Додайте новий ключ до в'язки довірених ключів. Перевірте, що ви отримали "
+#~ "ключ безпечним каналом та ви довіряєте власнику."
+
+#~ msgid "Add repository..."
+#~ msgstr "Додати репозиторій..."
+
+#~ msgid "Automatically check for software _updates."
+#~ msgstr "Автоматично перевіряти _оновлення програм."
 
 #~ msgid "Automatically clean _temporary packages files"
-#~ msgstr "Automatically clean _temporary packages files"
+#~ msgstr "Автоматично очищати _тимчасові файли пакетів"
 
 #~ msgid ""
 #~ "Binary\n"
 #~ "Source"
 #~ msgstr ""
-#~ "Binary\n"
-#~ "Source"
+#~ "Двійкові\n"
+#~ "вихідні"
 
 #~ msgid "Clean interval in days: "
-#~ msgstr "Clean interval in days: "
+#~ msgstr "Інтервал очистки (днів):"
 
 #~ msgid "Delete _old packages in the package cache"
-#~ msgstr "Delete _old packages in the package cache"
+#~ msgstr "Видаляти _старі пакети з кешу пакетів"
 
 #~ msgid "Edit Repository..."
-#~ msgstr "Edit Repository..."
+#~ msgstr "Правка репозиторію..."
 
 #~ msgid "Maximum age in days:"
-#~ msgstr "Maximum age in days:"
+#~ msgstr "Максимальний вік (днів): "
 
 #~ msgid "Maximum size in MB:"
-#~ msgstr "Maximum size in MB:"
+#~ msgstr "Максимальний розмір (Мб):"
 
-#, fuzzy
 #~ msgid ""
 #~ "Restore the default keys shipped with the distribution. This will not "
 #~ "change user installed keys."
 #~ msgstr ""
-#~ "Restore the default keys shiped with the distribution. This will not "
-#~ "change user-installed keys."
+#~ "Відновити початкові ключі, що постачались з дистрибутивом. Встановлені "
+#~ "користувачем ключі не будуть змінені."
 
 #~ msgid "Set _maximum size for the package cache"
-#~ msgstr "Set _maximum size for the package cache"
+#~ msgstr "Встановити _максимальний розмір кеша пакетів"
 
 #~ msgid "Settings"
-#~ msgstr "Settings"
+#~ msgstr "Параметри"
+
+#~ msgid "Show detailed package versions"
+#~ msgstr "Показувати детальні версії пакетів"
 
 #~ msgid "Show disabled software sources"
-#~ msgstr "Show disabled software sources"
+#~ msgstr "Показувати вимкнені джерела програм"
 
 #~ msgid "Update interval in days: "
-#~ msgstr "Update interval in days: "
+#~ msgstr "Інтервал оновлення (днів):"
 
 #~ msgid "_Add Repository"
-#~ msgstr "_Add Repository"
+#~ msgstr "_Додати репозиторій"
 
 #~ msgid "_Custom"
-#~ msgstr "_Custom"
+#~ msgstr "В_ласний"
 
 #~ msgid "_Download upgradable packages"
-#~ msgstr "_Download upgradable packages"
+#~ msgstr "_Завантажити оновлювані пакети"
+
+#~ msgid "<b>Status:</b>"
+#~ msgstr "<b>Стан:</b>"
+
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>Доступні оновлення</b></big>\n"
+#~ "\n"
+#~ "Знайдено наступні пакети для оновлення. Їх можна оновити натиснувши "
+#~ "кнопку Встановити."
+
+#~ msgid "Cancel downloading the changelog"
+#~ msgstr "Скасувати завантаження записів changelog"
+
+#~ msgid "Downloading Changes"
+#~ msgstr "Завантаження змін"
+
+#~ msgid "_Install"
+#~ msgstr "_Встановити"
 
 #~ msgid "Show available updates and choose which to install"
-#~ msgstr "Show available updates and choose which to install"
+#~ msgstr "Показати доступні оновлення та зміни до встановлених пакетів"
 
 #~ msgid "Update Manager"
-#~ msgstr "Update Manager"
-
-#~ msgid "Your system has broken packages!"
-#~ msgstr "Your system has broken packages!"
-
-#~ msgid ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-#~ msgstr ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-
-#~ msgid "It is not possible to upgrade all packages."
-#~ msgstr "It is not possible to upgrade all packages."
-
-#~ msgid ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
-#~ msgstr ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
-
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "The following packages are not upgraded: "
-
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr "Changes not found, the server may not be updated yet."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Version %s: \n"
-
-#~ msgid "Downloading changes..."
-#~ msgstr "Downloading changes..."
-
-#~ msgid "The updates are being applied."
-#~ msgstr "The updates are being applied."
-
-#~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-#~ msgstr ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-
-#~ msgid "Updating package list..."
-#~ msgstr "Updating package list..."
-
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Your system is up-to-date!"
-
-#~ msgid "There are no updates available."
-#~ msgstr "There are no updates available."
-
-#~ msgid "New version: %s"
-#~ msgstr "New version: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Your distribution is no longer supported"
-
-#~ msgid ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-#~ msgstr ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "There is a new release of Ubuntu available!"
-
-#~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-#~ msgstr ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-
-#~ msgid "Never show this message again"
-#~ msgstr "Never show this message again"
+#~ msgstr "Менеджер оновлення"
 
 #, fuzzy
-#~ msgid ""
-#~ "This usually means that another package management application (like apt-"
-#~ "get or aptitude) already running. Please close that application first"
-#~ msgstr ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ msgid "Debian sarge"
+#~ msgstr "Debian 3.1 \"Sarge\""
 
-#~ msgid "Initializing and getting list of updates..."
-#~ msgstr "Initializing and getting list of updates..."
+#, fuzzy
+#~ msgid "Debian etch"
+#~ msgstr "Тестовий Debian"
+
+#, fuzzy
+#~ msgid "Debian sid"
+#~ msgstr "Тестовий Debian"
+
+#, fuzzy
+#~ msgid "Oficial Distribution"
+#~ msgstr "<b>Дистрибутив:</b>"
 
 #~ msgid "You need to be root to run this program"
-#~ msgstr "You need to be root to run this program"
-
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Edit software sources and settings"
-
-#~ msgid "Software Properties"
-#~ msgstr "Software Properties"
-
-#~ msgid "Ubuntu Update Manager"
-#~ msgstr "Ubuntu Update Manager"
+#~ msgstr "Щоб запустити програму потрібні повноваження root."
 
 #~ msgid "Binary"
-#~ msgstr "Binary"
+#~ msgstr "Двійковий"
 
 #~ msgid "Source"
-#~ msgstr "Source"
+#~ msgstr "Текст програми"
 
-#~ msgid "CD"
-#~ msgstr "CD"
+#~ msgid "CD disk with Ubuntu 4.10 \"Warty Warthog\""
+#~ msgstr "CD диск з Ubuntu 4.10 \"Warty Warthog\""
 
 #~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 Security Updates"
+#~ msgstr "Оновлення безпеки Ubuntu 4.10"
+
+#~ msgid "Ubuntu 4.10 Updates"
+#~ msgstr "Оновлення Ubuntu 4.10"
 
 #~ msgid "Contributed software"
-#~ msgstr "Contributed software"
+#~ msgstr "Супутнє програмне забезпечення"
 
 #~ msgid "Non-free software"
-#~ msgstr "Non-free software"
+#~ msgstr "Не вільне програмне забезпечення"
 
 #~ msgid "US export restricted software"
-#~ msgstr "US export restricted software"
+#~ msgstr "ПЗ під експортними обмеженнями США"
+
+#~ msgid "Debian 3.0 \"Woody\""
+#~ msgstr "Debian 3.0 \"Woody\""
+
+#~ msgid "Debian Stable"
+#~ msgstr "Стабільний Debian"
+
+#~ msgid "Debian Unstable \"Sid\""
+#~ msgstr "Нестабільний Debian \"Sid\""
+
+#~ msgid "Debian Non-US (Stable)"
+#~ msgstr "Debian поза США (Стабільний)"
+
+#~ msgid "Debian Non-US (Testing)"
+#~ msgstr "Debian поза США (Тестовий)"
 
 #~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
+#~ msgstr "Автоматичний ключ підпису архіву Ubuntu <ftpmaster@ubuntu.com>"
 
 #~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
+#~ msgstr "Автоматичний ключ підпису компакт-диску Ubuntu <cdimage@ubuntu.com>"
 
-#~ msgid "Repositories changed"
-#~ msgstr "Repositories changed"
+#~ msgid "Choose a key-file"
+#~ msgstr "Виберіть ключовий файл"
+
+#~ msgid "Your system is up-to-date!"
+#~ msgstr "Ваша система оновлена!"
+
+#~ msgid "There is one package available for updating."
+#~ msgstr "Немає доступних для оновлення пакетів."
+
+#~ msgid "There are %s packages available for updating."
+#~ msgstr "Для оновлення доступно %s пакетів."
+
+#~ msgid "Version %s: \n"
+#~ msgstr "Версія %s: \n"
+
+#~ msgid "Downloading changes..."
+#~ msgstr "Завантаження змін..."
+
+#~ msgid "There are no updated packages"
+#~ msgstr "Немає оновлених пакетів"
+
+#~ msgid "You did not select any of the %s updated package"
+#~ msgid_plural "You did not select any of the %s updated packages"
+#~ msgstr[0] "Ви не виділили жодного з %s пакету оновлення"
+#~ msgstr[1] "Ви не виділили жодного з %s пакетів оновлення"
+#~ msgstr[2] "Ви не виділили жодного з %s пакетів оновлення"
+
+#~ msgid "You have selected %s updated package, size %s"
+#~ msgid_plural "You have selected all %s updated packages, total size %s"
+#~ msgstr[0] "Ви виділили %s пакет оновлення, розмір %s"
+#~ msgstr[1] "Ви виділили %s пакети оновлення, розмір %s"
+#~ msgstr[2] "Ви виділили %s пакетів оновлення, розмір %s"
+
+#~ msgid "You have selected %s out of %s updated package, size %s"
+#~ msgid_plural ""
+#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgstr[0] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
+#~ msgstr[1] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
+#~ msgstr[2] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
+
+#~ msgid "The updates are being applied."
+#~ msgstr "Застосовуються оновлення."
 
 #~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
+#~ "Одночасно можна запускати лише один менеджер пакетів. Спочатку закрийте "
+#~ "іншу програму.close this other application first."
 
-#, fuzzy
+#~ msgid "Updating package list..."
+#~ msgstr "Оновлення списку пакетів..."
+
+#~ msgid "Checking for updates..."
+#~ msgstr "Перевірка оновлень ..."
+
+#~ msgid "There are no updates available."
+#~ msgstr "Немає доступних оновлень."
+
+#~ msgid "New version:"
+#~ msgstr "Нова версія:"
+
+#~ msgid "Your distribution is no longer supported"
+#~ msgstr "Ваш дистрибутив вже не підтримується"
+
 #~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "Поновіть систему на більш нову версію Ubuntu Linux. Для встановленої "
+#~ "версії не випускаються виправлення безпеки та інші критичні оновлення. "
+#~ "Дивіться інформацію про оновлення на http://www.ubuntulinux.org"
+
+#~ msgid "There is a new release of Ubuntu available!"
+#~ msgstr "Доступний новий випуск Ubuntu!"
+
+#~ msgid ""
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
+#~ msgstr ""
+#~ "Доступний новий випуск з кодовою назвою '%s'. Інструкції оновлення "
+#~ "дивіться на http://www.ubuntulinux.org/"
+
+#~ msgid "Never show this message again"
+#~ msgstr "Не показуйте це повідомлення знову"
+
+#~ msgid "Changes not found, the server may not be updated yet."
+#~ msgstr "Зміне не знайдено, можливо сервер досі не оновлено."
+
+#~ msgid ""
+#~ "Failed to download changes. Please check if there is an active internet "
+#~ "connection."
+#~ msgstr ""
+#~ "не вдається завантажити зміни. Перевірте чи активне з'єднання з Інтернет."
