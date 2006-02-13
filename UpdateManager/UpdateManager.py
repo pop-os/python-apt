@@ -660,6 +660,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           except IOError:
               primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
                         _("Could not download the release notes")
@@ -670,6 +671,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           self.window_main.set_sensitive(True)
           self.window_main.window.set_cursor(None)
           # user clicked cancel
@@ -718,6 +720,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           else:
               #print "runing: %s" % script
               os.execv(script,[])
@@ -797,6 +800,7 @@ class UpdateManager(SimpleGladeApp):
         dialog.set_markup(msg)
         dialog.vbox.set_spacing(6)
         dialog.run()
+        dialog.destroy()
         sys.exit(1)
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
