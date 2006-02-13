@@ -29,7 +29,6 @@ import gtk
 import gtk.gdk
 import gtk.glade
 import gobject
-import gnome
 import apt
 import apt_pkg
 import gettext
@@ -223,7 +222,6 @@ class UpdateManager(SimpleGladeApp):
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
-    self.gnome_program = gnome.init("update-manager", "0.41")
 
     self.window_main.set_sensitive(False)
 
@@ -462,7 +460,7 @@ class UpdateManager(SimpleGladeApp):
     self.fillstore()
 
   def on_button_help_clicked(self, widget):
-    gnome.help_display_desktop(self.gnome_program, "update-manager", "update-manager", "")
+    subprocess.Popen(["/usr/bin/yelp", "ghelp:update-manager"])
 
   def on_button_install_clicked(self, widget):
     #print "on_button_install_clicked"
