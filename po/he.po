@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 17:05+0100\n"
+"POT-Creation-Date: 2006-02-13 10:48+0100\n"
 "PO-Revision-Date: 2005-08-07 14:49+0300\n"
 "Last-Translator: Yuval Tanny\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -85,203 +85,6 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Install new updates without confirmation"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:1
-msgid ""
-"<b><big>You need to manually reload the latest information about updates</"
-"big></b>\n"
-"\n"
-"Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Checking for available updates</b></big>\n"
-"\n"
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:7
-msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:8
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-"\n"
-"Need to get the changes from the central server"
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">הורדת שינויים</span>\n"
-"\n"
-"צריך להוריד את השינויים מהשרת המרכזי"
-
-#: ../data/UpdateManager.glade.h:11
-msgid "Cancel _Download"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:12
-msgid "Changes"
-msgstr "שינויים"
-
-#: ../data/UpdateManager.glade.h:13
-msgid "Description"
-msgstr "תיאור"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:15
-#, fuzzy
-msgid "Reload the latest information about updates"
-msgstr "טען מחדש את המידע על החבילה מהשרת"
-
-#: ../data/UpdateManager.glade.h:16
-msgid "Show details"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:17
-msgid "Show progress of single files"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:18
-msgid "Software Updates"
-msgstr "עדכוני תוכנה"
-
-#: ../data/UpdateManager.glade.h:19
-msgid ""
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:20
-msgid "U_pgrade"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:21
-msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:22
-#, fuzzy
-msgid "_Install Updates"
-msgstr "מתקין עדכונים..."
-
-#: ../data/UpdateManager.glade.h:23
-#, fuzzy
-msgid "_Reload"
-msgstr "טען מחדש"
-
-#. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
-msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:6
-#, fuzzy
-msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr "עדכונים - אובונטו 5.04"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-#, fuzzy
-msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "תקליטור עם אובונטו 5.10 \"Breezy Badger\""
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "עדכוני אבטחה - אובונטו 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 5.10 Updates"
-msgstr "עדכונים - אובונטו 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "תקליטור עם אובונטו 5.04 \"Hoary Hedgehog\""
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "עדכוני אבטחה - אובונטו 5.04"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "נתמך רשמית"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:97
-msgid "Restricted copyright"
-msgstr "זכויות יוצרים מגבילות"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:100
-msgid "Community maintained (Universe)"
-msgstr "מתוחזק ע\"י קהילה (Universe("
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:103
-msgid "Non-free (Multiverse)"
-msgstr "לא-חופשי (Multiverse("
-
-#. ChangelogURI
-#: ../channels/Debian.info.in.h:4
-#, no-c-format
-msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:6
-msgid "Debian 3.1 \"Sarge\""
-msgstr "דביאן 3.1 \"סארג'\""
-
-#. BaseURI
-#: ../channels/Debian.info.in:19
-msgid "http://security.debian.org/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:20
-#, fuzzy
-msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "עדכוני אבטחה - דביאן יציב"
-
-#. Description
-#: ../channels/Debian.info.in:34
-#, fuzzy
-msgid "Debian \"Etch\" (testing)"
-msgstr "דביאן בדיקה"
-
-#. BaseURI
-#: ../channels/Debian.info.in:47
-msgid "http://http.us.debian.org/debian/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:48
-#, fuzzy
-msgid "Debian \"Sid\" (unstable)"
-msgstr "דביאן לא ארה\"ב (לא יציב)"
-
-#. CompDescription
-#: ../channels/Debian.info.in:54
-msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:57
-msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:102
@@ -669,6 +472,211 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
+#: ../data/UpdateManager.glade.h:1
+msgid ""
+"<b><big>You need to manually reload the latest information about updates</"
+"big></b>\n"
+"\n"
+"Your system does not check for updates automatically. You can configure this "
+"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:4
+msgid ""
+"<big><b>Checking for available updates</b></big>\n"
+"\n"
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:7
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:8
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">הורדת שינויים</span>\n"
+"\n"
+"צריך להוריד את השינויים מהשרת המרכזי"
+
+#: ../data/UpdateManager.glade.h:11
+msgid "Cancel _Download"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
+msgid "Changes"
+msgstr "שינויים"
+
+#: ../data/UpdateManager.glade.h:13
+msgid "Description"
+msgstr "תיאור"
+
+#: ../data/UpdateManager.glade.h:14
+msgid "Release Notes"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:15
+#, fuzzy
+msgid "Reload the latest information about updates"
+msgstr "טען מחדש את המידע על החבילה מהשרת"
+
+#: ../data/UpdateManager.glade.h:16
+msgid "Show details"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:17
+msgid "Show progress of single files"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:18
+msgid "Software Updates"
+msgstr "עדכוני תוכנה"
+
+#: ../data/UpdateManager.glade.h:19
+msgid ""
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:20
+msgid "U_pgrade"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:21
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:22
+#, fuzzy
+msgid "_Install Updates"
+msgstr "מתקין עדכונים..."
+
+#: ../data/UpdateManager.glade.h:23
+#, fuzzy
+msgid "_Reload"
+msgstr "טען מחדש"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "הראה עדכונים זמינים ובחר את מה להתקין"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr "מנהל עדכונים"
+
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 6.04 \"Dapper Drake\""
+msgstr "עדכונים - אובונטו 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Ubuntu 5.10 \"Breezy Badger\""
+msgstr "תקליטור עם אובונטו 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "עדכוני אבטחה - אובונטו 5.10"
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+msgid "Ubuntu 5.10 Updates"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "תקליטור עם אובונטו 5.04 \"Hoary Hedgehog\""
+
+#. Description
+#: ../channels/Ubuntu.info.in:91
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "עדכוני אבטחה - אובונטו 5.04"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "נתמך רשמית"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:97
+msgid "Restricted copyright"
+msgstr "זכויות יוצרים מגבילות"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:100
+msgid "Community maintained (Universe)"
+msgstr "מתוחזק ע\"י קהילה (Universe("
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:103
+msgid "Non-free (Multiverse)"
+msgstr "לא-חופשי (Multiverse("
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr "דביאן 3.1 \"סארג'\""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "עדכוני אבטחה - דביאן יציב"
+
+#. Description
+#: ../channels/Debian.info.in:34
+#, fuzzy
+msgid "Debian \"Etch\" (testing)"
+msgstr "דביאן בדיקה"
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+#, fuzzy
+msgid "Debian \"Sid\" (unstable)"
+msgstr "דביאן לא ארה\"ב (לא יציב)"
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #~ msgid "Edit software sources and settings"
 #~ msgstr "ערוך מקורות תוכנה והגדרות"
 
@@ -825,12 +833,6 @@ msgstr ""
 
 #~ msgid "_Install"
 #~ msgstr "_התקן"
-
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "הראה עדכונים זמינים ובחר את מה להתקין"
-
-#~ msgid "Update Manager"
-#~ msgstr "מנהל עדכונים"
 
 #, fuzzy
 #~ msgid "Debian sarge"
