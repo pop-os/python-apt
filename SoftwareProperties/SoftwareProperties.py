@@ -48,6 +48,7 @@ CONF_MAP = {
   "autoupdate"   : "APT::Periodic::Update-Package-Lists",
   "autodownload" : "APT::Periodic::Download-Upgradeable-Packages",
   "autoclean"    : "APT::Periodic::AutocleanInterval",
+  "unattended"   : "APT::Periodic::Unattended-Upgrade",
   "max_size"     : "APT::Archives::MaxSize",
   "max_age"      : "APT::Archives::MaxAge"
 }
@@ -151,6 +152,21 @@ class SoftwareProperties(SimpleGladeApp):
     else:
       self.checkbutton_auto_download.set_active(False)
 
+    # Unattended updates
+    if os.path.exists("/usr/bin/unattended-upgrade"):
+        # FIXME: we should always show the option. if unattended-upgrades is
+        # not installed a dialog should popup and allow the user to install
+        # unattended-upgrade
+        #self.checkbutton_unattended.set_sensitive(True)
+        self.checkbutton_unattended.show()
+    else:
+        #self.checkbutton_unattended.set_sensitive(False)
+        self.checkbutton_unattended.hide()
+    if apt_pkg.Config.FindI(CONF_MAP["unattended"]) == 1:
+        self.checkbutton_unattended.set_active(True)
+    else:
+        self.checkbutton_unattended.set_active(False)
+
     # apt-key stuff
     self.apt_key = apt_key()
     self.init_keyslist()
@@ -225,6 +241,16 @@ class SoftwareProperties(SimpleGladeApp):
       self.combobox_update_interval.set_sensitive(False)
       value = 0
     apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+    # FIXME: Write config options, apt_pkg should be able to do this.
+    self.write_config()
+
+  def on_opt_unattended_toggled(self, widget):  
+    if self.checkbutton_unattended.get_active():
+        self.checkbutton_unattended.set_active(True)
+        apt_pkg.Config.Set(CONF_MAP["unattended"], str(1))
+    else:
+        self.checkbutton_unattended.set_active(False)
+        apt_pkg.Config.Set(CONF_MAP["unattended"], str(0))
     # FIXME: Write config options, apt_pkg should be able to do this.
     self.write_config()
 

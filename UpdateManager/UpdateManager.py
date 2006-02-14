@@ -29,7 +29,6 @@ import gtk
 import gtk.gdk
 import gtk.glade
 import gobject
-import gnome
 import apt
 import apt_pkg
 import gettext
@@ -179,7 +178,7 @@ class UpdateList:
       #print "WARNING, keeping packages"
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
-             _("Some updates require to install or remove further software. "
+             _("Some updates require to remove further software. "
                "Use the function \"Smart Upgrade\" of the package manager "
 	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
 	       "terminal to update your system completely.")))
@@ -223,7 +222,6 @@ class UpdateManager(SimpleGladeApp):
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
-    self.gnome_program = gnome.init("update-manager", "0.41")
 
     self.window_main.set_sensitive(False)
 
@@ -462,7 +460,7 @@ class UpdateManager(SimpleGladeApp):
     self.fillstore()
 
   def on_button_help_clicked(self, widget):
-    gnome.help_display_desktop(self.gnome_program, "update-manager", "update-manager", "")
+    subprocess.Popen(["/usr/bin/yelp", "ghelp:update-manager"])
 
   def on_button_install_clicked(self, widget):
     #print "on_button_install_clicked"
@@ -660,6 +658,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           except IOError:
               primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
                         _("Could not download the release notes")
@@ -670,6 +669,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           self.window_main.set_sensitive(True)
           self.window_main.window.set_cursor(None)
           # user clicked cancel
@@ -718,6 +718,7 @@ class UpdateManager(SimpleGladeApp):
               dialog.set_markup(primary);
               dialog.format_secondary_text(secondary);
               dialog.run()
+              dialog.destroy()
           else:
               #print "runing: %s" % script
               os.execv(script,[])
@@ -797,6 +798,7 @@ class UpdateManager(SimpleGladeApp):
         dialog.set_markup(msg)
         dialog.vbox.set_spacing(6)
         dialog.run()
+        dialog.destroy()
         sys.exit(1)
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
