@@ -1,8 +1,8 @@
 update-manager (0.42.2ubuntu4) dapper; urgency=low
 
-  * don't depend on python-gnome2 anymore (for xubuntu)
+  * removed some of the gnome dependencies (gconf still in)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 14 Feb 2006 14:39:12 +0100
+ --
 
 update-manager (0.42.2ubuntu3) dapper; urgency=low
 
