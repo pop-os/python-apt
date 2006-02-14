@@ -754,7 +754,7 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % upgradable_to.name)
+    self.label_new_release.set_markup("<b>New distribution release codename '%s' available</b>" % upgradable_to.name)
     self.new_dist = upgradable_to
     
 
