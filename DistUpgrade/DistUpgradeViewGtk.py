@@ -123,6 +123,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         # setup the child waiting
         reaper = vte.reaper_get()
         reaper.connect("child-exited", self.child_exited)
+        # some options for dpkg to make it die less easily
+        apt_pkg.Config.Set("DPkg::Options::","--force-overwrite")
     def startUpdate(self):
         self.finished = False
         # FIXME: add support for the timeout
