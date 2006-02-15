@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 17:05+0100\n"
+"POT-Creation-Date: 2006-02-13 10:48+0100\n"
 "PO-Revision-Date: 2005-03-21 22:00+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -81,201 +81,6 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Install new updates without confirmation"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:1
-msgid ""
-"<b><big>You need to manually reload the latest information about updates</"
-"big></b>\n"
-"\n"
-"Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Checking for available updates</b></big>\n"
-"\n"
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:7
-msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:8
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-"\n"
-"Need to get the changes from the central server"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:11
-msgid "Cancel _Download"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:12
-msgid "Changes"
-msgstr "更改"
-
-#: ../data/UpdateManager.glade.h:13
-msgid "Description"
-msgstr "描述"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:15
-#, fuzzy
-msgid "Reload the latest information about updates"
-msgstr "从服务器重新装入软件包信息。"
-
-#: ../data/UpdateManager.glade.h:16
-msgid "Show details"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:17
-msgid "Show progress of single files"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:18
-msgid "Software Updates"
-msgstr "软件更新"
-
-#: ../data/UpdateManager.glade.h:19
-msgid ""
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:20
-#, fuzzy
-msgid "U_pgrade"
-msgstr "更新已经完成"
-
-#: ../data/UpdateManager.glade.h:21
-msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:22
-#, fuzzy
-msgid "_Install Updates"
-msgstr "安装(_I)"
-
-#: ../data/UpdateManager.glade.h:23
-#, fuzzy
-msgid "_Reload"
-msgstr "重新装入"
-
-#. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
-msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:6
-#, fuzzy
-msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr "Ubuntu 5.04 安全更新"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-#, fuzzy
-msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "Ubuntu 5.04 安全更新"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-#, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.04 安全更新"
-
-#. Description
-#: ../channels/Ubuntu.info.in:57
-#, fuzzy
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.04 安全更新"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "Ubuntu 5.04 安全更新"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.04 安全更新"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "官方支持"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:97
-msgid "Restricted copyright"
-msgstr "版权限制"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:100
-msgid "Community maintained (Universe)"
-msgstr "社区维护"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:103
-msgid "Non-free (Multiverse)"
-msgstr "非自由"
-
-#. ChangelogURI
-#: ../channels/Debian.info.in.h:4
-#, no-c-format
-msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:6
-msgid "Debian 3.1 \"Sarge\""
-msgstr ""
-
-#. BaseURI
-#: ../channels/Debian.info.in:19
-msgid "http://security.debian.org/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:20
-#, fuzzy
-msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "Debian 稳定版安全更新"
-
-#. Description
-#: ../channels/Debian.info.in:34
-msgid "Debian \"Etch\" (testing)"
-msgstr ""
-
-#. BaseURI
-#: ../channels/Debian.info.in:47
-msgid "http://http.us.debian.org/debian/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:48
-msgid "Debian \"Sid\" (unstable)"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:54
-msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:57
-msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:102
@@ -659,6 +464,209 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
+#: ../data/UpdateManager.glade.h:1
+msgid ""
+"<b><big>You need to manually reload the latest information about updates</"
+"big></b>\n"
+"\n"
+"Your system does not check for updates automatically. You can configure this "
+"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:4
+msgid ""
+"<big><b>Checking for available updates</b></big>\n"
+"\n"
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:7
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:8
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:11
+msgid "Cancel _Download"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
+msgid "Changes"
+msgstr "更改"
+
+#: ../data/UpdateManager.glade.h:13
+msgid "Description"
+msgstr "描述"
+
+#: ../data/UpdateManager.glade.h:14
+msgid "Release Notes"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:15
+#, fuzzy
+msgid "Reload the latest information about updates"
+msgstr "从服务器重新装入软件包信息。"
+
+#: ../data/UpdateManager.glade.h:16
+msgid "Show details"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:17
+msgid "Show progress of single files"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:18
+msgid "Software Updates"
+msgstr "软件更新"
+
+#: ../data/UpdateManager.glade.h:19
+msgid ""
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:20
+#, fuzzy
+msgid "U_pgrade"
+msgstr "更新已经完成"
+
+#: ../data/UpdateManager.glade.h:21
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:22
+#, fuzzy
+msgid "_Install Updates"
+msgstr "安装(_I)"
+
+#: ../data/UpdateManager.glade.h:23
+#, fuzzy
+msgid "_Reload"
+msgstr "重新装入"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "显示可用的更新并选择要安装的更新"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr "更新管理器"
+
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 6.04 \"Dapper Drake\""
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Ubuntu 5.10 \"Breezy Badger\""
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+#, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+#, fuzzy
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:91
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "官方支持"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:97
+msgid "Restricted copyright"
+msgstr "版权限制"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:100
+msgid "Community maintained (Universe)"
+msgstr "社区维护"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:103
+msgid "Non-free (Multiverse)"
+msgstr "非自由"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Debian 稳定版安全更新"
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #, fuzzy
 #~ msgid "<b>Sources</b>"
 #~ msgstr "<b>软件源</b>"
@@ -741,12 +749,6 @@ msgstr ""
 
 #~ msgid "_Download upgradable packages"
 #~ msgstr "下载可更新的包(_D)"
-
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "显示可用的更新并选择要安装的更新"
-
-#~ msgid "Update Manager"
-#~ msgstr "更新管理器"
 
 #~ msgid "Your system has broken packages!"
 #~ msgstr "您的系统有损坏的软件包！"

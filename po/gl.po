@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 17:05+0100\n"
+"POT-Creation-Date: 2006-02-13 10:48+0100\n"
 "PO-Revision-Date: 2005-12-02 15:59+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
@@ -82,203 +82,6 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Install new updates without confirmation"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:1
-msgid ""
-"<b><big>You need to manually reload the latest information about updates</"
-"big></b>\n"
-"\n"
-"Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Checking for available updates</b></big>\n"
-"\n"
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:7
-msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:8
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-"\n"
-"Need to get the changes from the central server"
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</span>\n"
-"\n"
-"Necesítanse descargar os trocos do servidor actual"
-
-#: ../data/UpdateManager.glade.h:11
-msgid "Cancel _Download"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:12
-msgid "Changes"
-msgstr "Cambios"
-
-#: ../data/UpdateManager.glade.h:13
-msgid "Description"
-msgstr "Descrición"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:15
-#, fuzzy
-msgid "Reload the latest information about updates"
-msgstr "Recargar a información do paquete desde o servidor."
-
-#: ../data/UpdateManager.glade.h:16
-msgid "Show details"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:17
-msgid "Show progress of single files"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:18
-msgid "Software Updates"
-msgstr "Actualizacións de software"
-
-#: ../data/UpdateManager.glade.h:19
-msgid ""
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:20
-msgid "U_pgrade"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:21
-msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:22
-#, fuzzy
-msgid "_Install Updates"
-msgstr "Instalando actualizacións..."
-
-#: ../data/UpdateManager.glade.h:23
-#, fuzzy
-msgid "_Reload"
-msgstr "Recargar"
-
-#. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
-msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:6
-#, fuzzy
-msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr "Actualizacións de Ubuntu 5.04"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-#, fuzzy
-msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "CD con Ubuntu 5.10 \"Breezy Badger\""
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Actualizacións de seguranza de Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 5.10 Updates"
-msgstr "Actualizacións de Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "CD con Ubuntu 5.04 \"Hoary Hedgehog\""
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Actualizacións de seguranza de Ubuntu 5.04"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "Soporte oficial"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:97
-msgid "Restricted copyright"
-msgstr "Dereito de copia restrinxido"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:100
-msgid "Community maintained (Universe)"
-msgstr "Mantido pola comunidade (Universe)"
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:103
-msgid "Non-free (Multiverse)"
-msgstr "Non libre (Multiverse)"
-
-#. ChangelogURI
-#: ../channels/Debian.info.in.h:4
-#, no-c-format
-msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:6
-msgid "Debian 3.1 \"Sarge\""
-msgstr "Debian 3.1 \"Sarge\""
-
-#. BaseURI
-#: ../channels/Debian.info.in:19
-msgid "http://security.debian.org/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:20
-#, fuzzy
-msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "Actualizacións de seguranza de Debian estable"
-
-#. Description
-#: ../channels/Debian.info.in:34
-#, fuzzy
-msgid "Debian \"Etch\" (testing)"
-msgstr "Debian de probas"
-
-#. BaseURI
-#: ../channels/Debian.info.in:47
-msgid "http://http.us.debian.org/debian/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:48
-#, fuzzy
-msgid "Debian \"Sid\" (unstable)"
-msgstr "Debian Non-US (Inestable)"
-
-#. CompDescription
-#: ../channels/Debian.info.in:54
-msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:57
-msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:102
@@ -674,6 +477,211 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
+#: ../data/UpdateManager.glade.h:1
+msgid ""
+"<b><big>You need to manually reload the latest information about updates</"
+"big></b>\n"
+"\n"
+"Your system does not check for updates automatically. You can configure this "
+"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:4
+msgid ""
+"<big><b>Checking for available updates</b></big>\n"
+"\n"
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:7
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:8
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+"<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</span>\n"
+"\n"
+"Necesítanse descargar os trocos do servidor actual"
+
+#: ../data/UpdateManager.glade.h:11
+msgid "Cancel _Download"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
+msgid "Changes"
+msgstr "Cambios"
+
+#: ../data/UpdateManager.glade.h:13
+msgid "Description"
+msgstr "Descrición"
+
+#: ../data/UpdateManager.glade.h:14
+msgid "Release Notes"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:15
+#, fuzzy
+msgid "Reload the latest information about updates"
+msgstr "Recargar a información do paquete desde o servidor."
+
+#: ../data/UpdateManager.glade.h:16
+msgid "Show details"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:17
+msgid "Show progress of single files"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:18
+msgid "Software Updates"
+msgstr "Actualizacións de software"
+
+#: ../data/UpdateManager.glade.h:19
+msgid ""
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:20
+msgid "U_pgrade"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:21
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:22
+#, fuzzy
+msgid "_Install Updates"
+msgstr "Instalando actualizacións..."
+
+#: ../data/UpdateManager.glade.h:23
+#, fuzzy
+msgid "_Reload"
+msgstr "Recargar"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr "Amosar actualización dispoñibles e escoller cales instalar"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr "Xestor de actualizacións"
+
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:6
+#, fuzzy
+msgid "Ubuntu 6.04 \"Dapper Drake\""
+msgstr "Actualizacións de Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Ubuntu 5.10 \"Breezy Badger\""
+msgstr "CD con Ubuntu 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Actualizacións de seguranza de Ubuntu 5.10"
+
+#. Description
+#: ../channels/Ubuntu.info.in:57
+msgid "Ubuntu 5.10 Updates"
+msgstr "Actualizacións de Ubuntu 5.10"
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "CD con Ubuntu 5.04 \"Hoary Hedgehog\""
+
+#. Description
+#: ../channels/Ubuntu.info.in:91
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Actualizacións de seguranza de Ubuntu 5.04"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Soporte oficial"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:97
+msgid "Restricted copyright"
+msgstr "Dereito de copia restrinxido"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:100
+msgid "Community maintained (Universe)"
+msgstr "Mantido pola comunidade (Universe)"
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:103
+msgid "Non-free (Multiverse)"
+msgstr "Non libre (Multiverse)"
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr "Debian 3.1 \"Sarge\""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "Actualizacións de seguranza de Debian estable"
+
+#. Description
+#: ../channels/Debian.info.in:34
+#, fuzzy
+msgid "Debian \"Etch\" (testing)"
+msgstr "Debian de probas"
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+#, fuzzy
+msgid "Debian \"Sid\" (unstable)"
+msgstr "Debian Non-US (Inestable)"
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Editar fontes de software e preferencias"
 
@@ -833,12 +841,6 @@ msgstr ""
 
 #~ msgid "_Install"
 #~ msgstr "_Instalar"
-
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "Amosar actualización dispoñibles e escoller cales instalar"
-
-#~ msgid "Update Manager"
-#~ msgstr "Xestor de actualizacións"
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Necesita ser root para executar este programa"

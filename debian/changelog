@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu4) dapper; urgency=low
+
+  * removed some of the gnome dependencies (gconf still in)
+
+ --
+
 update-manager (0.42.2ubuntu3) dapper; urgency=low
 
   * fixed description of the ubuntu repository (#30813)

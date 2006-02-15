@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 17:05+0100\n"
+"POT-Creation-Date: 2006-02-13 10:48+0100\n"
 "PO-Revision-Date: 2005-10-23 10:48-0200\n"
 "Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-transa-pa@redhat.com>\n"
@@ -82,193 +82,6 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Install new updates without confirmation"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:1
-msgid ""
-"<b><big>You need to manually reload the latest information about updates</"
-"big></b>\n"
-"\n"
-"Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Checking for available updates</b></big>\n"
-"\n"
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:7
-msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:8
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-"\n"
-"Need to get the changes from the central server"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:11
-msgid "Cancel _Download"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:12
-msgid "Changes"
-msgstr "ਤਬਦੀਲ"
-
-#: ../data/UpdateManager.glade.h:13
-msgid "Description"
-msgstr "ਵੇਰਵਾ"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:15
-msgid "Reload the latest information about updates"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:16
-msgid "Show details"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:17
-msgid "Show progress of single files"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:18
-msgid "Software Updates"
-msgstr "ਸਾਫਟਵੇਅਰ ਅੱਪਡੇਟ"
-
-#: ../data/UpdateManager.glade.h:19
-msgid ""
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:20
-msgid "U_pgrade"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:21
-msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:22
-#, fuzzy
-msgid "_Install Updates"
-msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
-
-#: ../data/UpdateManager.glade.h:23
-#, fuzzy
-msgid "_Reload"
-msgstr "ਮੁੜ ਲੋਡ"
-
-#. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
-msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.04 \"Dapper Drake\""
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 5.10 Security Updates"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 5.10 Updates"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
-msgid "Oficially supported"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:97
-msgid "Restricted copyright"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:100
-msgid "Community maintained (Universe)"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Ubuntu.info.in:103
-msgid "Non-free (Multiverse)"
-msgstr ""
-
-#. ChangelogURI
-#: ../channels/Debian.info.in.h:4
-#, no-c-format
-msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:6
-msgid "Debian 3.1 \"Sarge\""
-msgstr "ਡੇਬੀਅਨ 3.1 \"Sarge\""
-
-#. BaseURI
-#: ../channels/Debian.info.in:19
-msgid "http://security.debian.org/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:20
-#, fuzzy
-msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "ਡੇਬੀਅਨ 3.1 \"Sarge\""
-
-#. Description
-#: ../channels/Debian.info.in:34
-msgid "Debian \"Etch\" (testing)"
-msgstr ""
-
-#. BaseURI
-#: ../channels/Debian.info.in:47
-msgid "http://http.us.debian.org/debian/"
-msgstr ""
-
-#. Description
-#: ../channels/Debian.info.in:48
-msgid "Debian \"Sid\" (unstable)"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:54
-msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:57
-msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:102
@@ -651,121 +464,198 @@ msgstr ""
 msgid "_Restart Now"
 msgstr ""
 
-#~ msgid "Software Properties"
-#~ msgstr "ਸਾਫਟਵੇਅਰ ਵਿਸ਼ੇਸਤਾ"
+#: ../data/UpdateManager.glade.h:1
+msgid ""
+"<b><big>You need to manually reload the latest information about updates</"
+"big></b>\n"
+"\n"
+"Your system does not check for updates automatically. You can configure this "
+"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+msgstr ""
 
+#: ../data/UpdateManager.glade.h:4
+msgid ""
+"<big><b>Checking for available updates</b></big>\n"
+"\n"
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:7
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:8
+msgid ""
+"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+"\n"
+"Need to get the changes from the central server"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:11
+msgid "Cancel _Download"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
+msgid "Changes"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:13
+msgid "Description"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:14
+msgid "Release Notes"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:15
+msgid "Reload the latest information about updates"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:16
 #, fuzzy
-#~ msgid "<b>Sources</b>"
-#~ msgstr "<b>ਸਥਿਤੀ:</b>"
+msgid "Show details"
+msgstr "<b>ਵੇਰਵਾ</b>"
 
-#~ msgid "<b>Comment:</b>"
-#~ msgstr "<b>ਟਿੱਪਣੀ:</b>"
+#: ../data/UpdateManager.glade.h:17
+msgid "Show progress of single files"
+msgstr ""
 
-#~ msgid "<b>Components</b>"
-#~ msgstr "<b>ਭਾਗ</b>"
-
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>ਭਾਗ:</b>"
-
-#~ msgid "<b>Temporary files</b>"
-#~ msgstr "<b>ਆਰਜ਼ੀ ਫਾਇਲਾਂ</b>"
-
-#~ msgid "<b>Type:</b>"
-#~ msgstr "<b>ਕਿਸਮ</b>"
-
-#~ msgid "<b>URI:</b>"
-#~ msgstr "<b>URI:</b>"
-
-#~ msgid "APT line:"
-#~ msgstr "APT ਸਤਰ:"
-
-#~ msgid ""
-#~ "Binary\n"
-#~ "Source"
-#~ msgstr ""
-#~ "ਬਾਈਨਰੀ\n"
-#~ "ਸਰੋਤ"
-
-#~ msgid "Settings"
-#~ msgstr "ਸੈਟਿੰਗ"
-
-#~ msgid "_Custom"
-#~ msgstr "ਪ੍ਰਚਲਣ(_C)"
-
-#~ msgid "<b>Status:</b>"
-#~ msgstr "<b>ਸਥਿਤੀ:</b>"
-
-#~ msgid "Downloading Changes"
-#~ msgstr "ਤਬਦੀਲੀਆਂ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
-
-#~ msgid "_Install"
-#~ msgstr "ਇੰਸਟਾਲ(_I)"
-
-#~ msgid "Update Manager"
-#~ msgstr "ਅੱਪਡੇਟ ਮੈਨੇਜਰ"
-
+#: ../data/UpdateManager.glade.h:18
 #, fuzzy
-#~ msgid "Debian sarge"
-#~ msgstr "ਡੇਬੀਅਨ 3.1 \"Sarge\""
+msgid "Software Updates"
+msgstr "<b>ਇੰਟਰਨੈਟ ਅੱਪਡੇਟ</b>"
 
-#~ msgid "Binary"
-#~ msgstr "ਬਾਈਨਰੀ"
+#: ../data/UpdateManager.glade.h:19
+msgid ""
+"Software updates can correct errors, eliminate security vulnerabilities, and "
+"provide new features to you."
+msgstr ""
 
-#~ msgid "Source"
-#~ msgstr "ਸਰੋਤ"
-
-#~ msgid "Non-free software"
-#~ msgstr "ਨਾ-ਮੁਫਤ ਸਾਫਟਵੇਅਰ"
-
-#~ msgid "Debian 3.0 \"Woody\""
-#~ msgstr "ਡੇਬੀਅਨ 3.0 \"Woody\""
-
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਅੱਪਡੇਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ!"
-
+#: ../data/UpdateManager.glade.h:20
 #, fuzzy
-#~ msgid "There is one package available for updating."
-#~ msgstr "ਕੋਈ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
+msgid "U_pgrade"
+msgstr "ਅੱਪਗਰੇਡ ਸਮਾਪਤ"
 
+#: ../data/UpdateManager.glade.h:21
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:22
 #, fuzzy
-#~ msgid "There are %s packages available for updating."
-#~ msgstr "ਕੋਈ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
+msgid "_Install Updates"
+msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#~ msgid "Version %s: \n"
-#~ msgstr "ਵਰਜਨ %s: \n"
+#: ../data/UpdateManager.glade.h:23
+msgid "_Reload"
+msgstr ""
 
-#~ msgid "Downloading changes..."
-#~ msgstr "ਤਬਦੀਲੀਆਂ ਡਾਊਨਲੋਡ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ..."
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show available updates and choose which to install"
+msgstr ""
 
-#~ msgid "There are no updated packages"
-#~ msgstr "ਕੋਈ ਪੈਕੇਜ ਅੱਪਡੇਟ ਨਹੀਂ"
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr ""
 
-#~ msgid "The updates are being applied."
-#~ msgstr "ਅੱਪਡੇਟ ਨੂੰ ਲਾਗੂ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ।"
+#. ChangelogURI
+#: ../channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
 
-#~ msgid "Updating package list..."
-#~ msgstr "ਪੈਕੇਜ ਸੂਚੀ ਅੱਪਡੇਟ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
+#. Description
+#: ../channels/Ubuntu.info.in:6
+msgid "Ubuntu 6.04 \"Dapper Drake\""
+msgstr ""
 
-#~ msgid "There are no updates available."
-#~ msgstr "ਕੋਈ ਅੱਪਡੇਟ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।"
+#. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 5.10 \"Breezy Badger\""
+msgstr ""
 
-#~ msgid "New version:"
-#~ msgstr "ਨਵਾਂ ਵਰਜਨ:"
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 5.10 Security Updates"
+msgstr ""
 
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "ਉਬੰਤੂ ਦਾ ਨਵਾਂ ਵਰਜਨ ਉਪਲੱਬਧ ਹੈ!"
+#. Description
+#: ../channels/Ubuntu.info.in:57
+msgid "Ubuntu 5.10 Updates"
+msgstr ""
 
-#~ msgid "Never show this message again"
-#~ msgstr "ਮੈਨੂੰ ਇਹ ਸੁਨੇਹਾ ਕਦੇ ਨਾ ਵੇਖਾਓ"
+#. Description
+#: ../channels/Ubuntu.info.in:74
+msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr ""
 
-#~ msgid "Your system has broken packages!"
-#~ msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਟੁੱਟੇ ਪੈਕੇਜ ਹਨ!"
+#. Description
+#: ../channels/Ubuntu.info.in:91
+msgid "Ubuntu 5.04 Security Updates"
+msgstr ""
 
-#~ msgid "It is not possible to upgrade all packages."
-#~ msgstr "ਸਭ ਪੈਕੇਜਾਂ ਨੂੰ ਅੱਪਗਰੇਡ ਕਰਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ।"
+#. CompDescription
+#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+msgid "Oficially supported"
+msgstr ""
 
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "ਹੇਠ ਦਿੱਤੇ ਪੈਕੇਜ ਅੱਪਗਰੇਡ ਨਹੀਂ ਹੋ ਸਕਦੇ:"
+#. CompDescription
+#: ../channels/Ubuntu.info.in:97
+msgid "Restricted copyright"
+msgstr ""
 
-#~ msgid "_Settings"
-#~ msgstr "ਸੈਟਿੰਗ(_S)"
+#. CompDescription
+#: ../channels/Ubuntu.info.in:100
+msgid "Community maintained (Universe)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Ubuntu.info.in:103
+msgid "Non-free (Multiverse)"
+msgstr ""
+
+#. ChangelogURI
+#: ../channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:20
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:34
+msgid "Debian \"Etch\" (testing)"
+msgstr ""
+
+#. BaseURI
+#: ../channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr ""
+
+#. Description
+#: ../channels/Debian.info.in:48
+msgid "Debian \"Sid\" (unstable)"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""

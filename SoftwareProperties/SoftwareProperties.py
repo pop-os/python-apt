@@ -22,8 +22,6 @@
 #  USA
 
 import sys
-import gnome
-import gconf
 import apt
 import apt_pkg
 import gobject
@@ -66,8 +64,8 @@ class SoftwareProperties(SimpleGladeApp):
                             None, domain="update-manager")
     self.modified = False
 
-    self.gnome_program = gnome.init("Software Properties", "0.41")
-    self.gconfclient = gconf.client_get_default()
+    #self.gnome_program = gnome.init("Software Properties", "0.41")
+    #self.gconfclient = gconf.client_get_default()
 
     if parent:
       self.window_main.set_transient_for(parent)

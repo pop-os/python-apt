@@ -178,7 +178,7 @@ class UpdateList:
       #print "WARNING, keeping packages"
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
-             _("Some updates require to install or remove further software. "
+             _("Some updates require to remove further software. "
                "Use the function \"Smart Upgrade\" of the package manager "
 	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
 	       "terminal to update your system completely.")))
@@ -754,7 +754,7 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distibution release codename '%s' available</b>" % upgradable_to.name)
+    self.label_new_release.set_markup("<b>New distribution release codename '%s' available</b>" % upgradable_to.name)
     self.new_dist = upgradable_to
     
 
