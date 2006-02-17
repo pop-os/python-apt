@@ -55,6 +55,7 @@ from gettext import gettext as _
 
 from Common.utils import *
 from Common.SimpleGladeApp import SimpleGladeApp
+from ReleaseNotesViewer import ReleaseNotesViewer
 import GtkProgress
 
 from MetaRelease import Dist, MetaRelease
@@ -644,7 +645,9 @@ class UpdateManager(SimpleGladeApp):
           try:
               release_notes = urllib2.urlopen(uri)
               notes = release_notes.read()
-              self.textview_release_notes.get_buffer().set_text(notes)
+              textview_release_notes = ReleaseNotesViewer(notes)
+              textview_release_notes.show()
+              self.scrolled_notes.add(textview_release_notes)
               self.dialog_release_notes.set_transient_for(self.window_main)
               res = self.dialog_release_notes.run()
               self.dialog_release_notes.hide()
