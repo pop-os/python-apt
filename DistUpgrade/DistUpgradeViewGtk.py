@@ -74,7 +74,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
     def mediaChange(self, medium, drive):
       #print "mediaChange %s %s" % (medium, drive)
       msg = _("Please insert '%s' into the drive '%s'" % (medium,drive))
-      dialog = gtk.MessageDialog(parent=self.main,
+      dialog = gtk.MessageDialog(parent=self.window_main,
                                  flags=gtk.DIALOG_MODAL,
                                  type=gtk.MESSAGE_QUESTION,
                                  buttons=gtk.BUTTONS_OK_CANCEL)
@@ -182,9 +182,13 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # FIXME: i18n must be somewhere relative do this dir
         bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
 
+        icons = gtk.icon_theme_get_default()
+        gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
                                 None, domain="update-manager")
         self.window_main.set_keep_above(True)
+        self.window_main.realize()
+        self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = GtkFetchProgressAdapter(self)
         self._installProgress = GtkInstallProgressAdapter(self)
@@ -328,6 +332,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     
     def confirmRestart(self):
         self.dialog_restart.set_transient_for(self.window_main)
+        self.dialog_restart.realize()
+        self.dialog_restart.window.set_functions(gtk.gdk.FUNC_MOVE)
         res = self.dialog_restart.run()
         self.dialog_restart.hide()
         if res == gtk.RESPONSE_YES:
@@ -335,14 +341,14 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return False
 
     def on_window_main_delete_event(self, widget, event):
-      #print "on_window_main_delete_event()"
-      summary = _("Are you sure you want cancel?")
-      msg = _("Canceling during a upgrade can leave the system in a "
-              "unstable state. It is strongly adviced to continue "
-              "the operation. ")
-      if self.askYesNoQuestion(summary, msg):
-        self.exit(1)
-      return True
+        self.dialog_cancel.set_transient_for(self.window_main)
+        self.dialog_cancel.realize()
+        self.dialog_cancel.window.set_functions(gtk.gdk.FUNC_MOVE)
+        res = self.dialog_cancel.run()
+        self.dialog_cancel.hide()
+        if res == gtk.RESPONSE_CANCEL:
+            self.destroy()
+        return True
 
 if __name__ == "__main__":
   view = GtkDistUpgradeView()
