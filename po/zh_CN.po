@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-13 10:48+0100\n"
+"POT-Creation-Date: 2006-02-20 09:36+0100\n"
 "PO-Revision-Date: 2005-03-21 22:00+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -59,61 +59,68 @@ msgid "Internet Updates"
 msgstr "<b>Internet 更新</b>"
 
 #: ../data/SoftwareProperties.glade.h:10
+msgid ""
+"Only security updates from the official Ubuntu servers will be installed "
+"automatically. The software package \"unattended-upgrades\" needs to be "
+"installed therefor"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:11
 #, fuzzy
 msgid "Restore _Defaults"
 msgstr "恢复默认密钥"
 
-#: ../data/SoftwareProperties.glade.h:11
+#: ../data/SoftwareProperties.glade.h:12
 msgid "Restore the default keys of your distribution"
 msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:12
+#: ../data/SoftwareProperties.glade.h:13
 msgid "Software Preferences"
 msgstr "软件首选项"
 
-#: ../data/SoftwareProperties.glade.h:13
+#: ../data/SoftwareProperties.glade.h:14
 msgid "_Check for updates automatically:"
 msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:14
+#: ../data/SoftwareProperties.glade.h:15
 msgid "_Download updates in the backgound, but do not install them"
 msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:15
-msgid "_Install new updates without confirmation"
+#: ../data/SoftwareProperties.glade.h:16
+msgid "_Install security updates without confirmation"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:102
+#: ../SoftwareProperties/SoftwareProperties.py:101
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:132
+#: ../SoftwareProperties/SoftwareProperties.py:131
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:330
+#: ../SoftwareProperties/SoftwareProperties.py:354
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:340
+#: ../SoftwareProperties/SoftwareProperties.py:364
 msgid "Error importing selected file"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:341
+#: ../SoftwareProperties/SoftwareProperties.py:365
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:353
+#: ../SoftwareProperties/SoftwareProperties.py:377
 msgid "Error removing the key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:354
+#: ../SoftwareProperties/SoftwareProperties.py:378
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:397
+#: ../SoftwareProperties/SoftwareProperties.py:421
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -121,11 +128,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:447
+#: ../SoftwareProperties/SoftwareProperties.py:471
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:463
+#: ../SoftwareProperties/SoftwareProperties.py:487
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -319,7 +326,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:105
 #, python-format
-msgid "Downloading file %li of %li with %s/s"
+msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:106
@@ -329,37 +336,37 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
 #, python-format
-msgid "Downloading file %li of %li with unknown speed"
+msgid "Downloading file %li of %li at unknown speed"
 msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:131
+#: ../DistUpgrade/DistUpgradeViewGtk.py:133
 msgid "Installing updates"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:144
+#: ../DistUpgrade/DistUpgradeViewGtk.py:146
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:145
+#: ../DistUpgrade/DistUpgradeViewGtk.py:147
 msgid "The upgrade will abort. Please report the bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#: ../DistUpgrade/DistUpgradeViewGtk.py:218
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:217
+#: ../DistUpgrade/DistUpgradeViewGtk.py:219
 msgid ""
 "During the operation a fatal error occured. Please report this as a bug and "
 "include the files ~/dist-upgrade.log and ~/dist-upgrade-apt.log in your "
 "report. The upgrade will abort now. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:293
+#: ../DistUpgrade/DistUpgradeViewGtk.py:295
 #, python-format
 msgid ""
 "%s packages are going to be removed.\n"
@@ -369,27 +376,27 @@ msgid ""
 "%s needs to be fetched"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:304
+#: ../DistUpgrade/DistUpgradeViewGtk.py:306
 #, python-format
 msgid "<b>To be removed: %s</b>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:306
+#: ../DistUpgrade/DistUpgradeViewGtk.py:308
 #, python-format
 msgid "To be installed: %s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:308
+#: ../DistUpgrade/DistUpgradeViewGtk.py:310
 #, python-format
 msgid "To be upgraded: %s"
 msgstr ""
 
 #. print "on_window_main_delete_event()"
-#: ../DistUpgrade/DistUpgradeViewGtk.py:339
+#: ../DistUpgrade/DistUpgradeViewGtk.py:341
 msgid "Are you sure you want cancel?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:340
+#: ../DistUpgrade/DistUpgradeViewGtk.py:342
 msgid ""
 "Canceling during a upgrade can leave the system in a unstable state. It is "
 "strongly adviced to continue the operation. "
@@ -441,7 +448,7 @@ msgid "Downloading and installing the upgrades"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
-msgid "Modifing the software channels"
+msgid "Modifying the software channels"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:9
