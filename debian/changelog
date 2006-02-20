@@ -1,8 +1,17 @@
+update-manager (0.42.2ubuntu5) dapper; urgency=low
+
+  * po/pt_BR.po: updated translation (thanks to 
+    Carlos Eduardo Pedroza Santiviago)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 20 Feb 2006 15:58:09 +0100
+
 update-manager (0.42.2ubuntu4) dapper; urgency=low
 
   * removed some of the gnome dependencies (gconf still in)
+  * the ReleaseNotes dialog has clickable links now (thanks to Sebastian 
+    Heinlein)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 20 Feb 2006 13:24:55 +0100
 
 update-manager (0.42.2ubuntu3) dapper; urgency=low
 

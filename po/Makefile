@@ -1,16 +1,17 @@
 
 DOMAIN=update-manager
 PO_FILES := $(wildcard *.po)
+CONTACT=michael.vogt@canonical.com
 
 all: update-po
 
 # update the pot
 $(DOMAIN).pot:
-	intltool-update -p -g $(DOMAIN)
+	XGETTEXT_ARGS=--msgid-bugs-address=$(CONTACT) intltool-update -p -g $(DOMAIN)
 
 # merge the new stuff into the po files
 merge-po: $(PO_FILES)
-	intltool-update -r -g $(DOMAIN); 
+	XGETTEXT_ARGS=--msgid-bugs-address=$(CONTACT) intltool-update -r -g $(DOMAIN); 
 
 # create mo from the pos
 %.mo : %.po
