@@ -5,6 +5,18 @@ import glob
 import os
 
 GETTEXT_NAME="update-manager"
+HELPFILES = []
+print "Setting up help files..."
+for filepath in glob.glob("help/*"):
+    lang = filepath[len("help/"):]
+    print " Language: %s" % lang
+    path_xml = "share/gnome/help/update-manager/" + lang
+    path_figures = "share/gnome/help/update-manager/" + lang + "/figures/"
+    HELPFILES.append((path_xml, (glob.glob("%s/*.xml" % filepath))))
+    HELPFILES.append((path_figures, (glob.glob("%s/figures/*.png" % \
+                                                filepath))))
+HELPFILES.append(('share/omf/update-manager', glob.glob("help/*/*.omf")))
+
 I18NFILES = []
 for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
     lang = filepath[len("po/mo/"):]
@@ -45,7 +57,7 @@ setup(name='update-manager',
                   ('share/pixmaps',
                    ["data/update-manager.png"]
                   )
-                  ]+I18NFILES,
+                  ] + I18NFILES + HELPFILES,
       )
 
 

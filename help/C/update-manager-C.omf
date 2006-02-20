@@ -1,12 +1,12 @@
 <?xml version="1.0" standalone="no"?>
 <omf>
  <resource>
-  <creator>sean@inwords.co.za (Sean Wheller) </creator>
-  <title>Update Manager Manual </title>
+  <creator>sean@inwords.co.za (Sean Wheller)</creator>
+  <title>Update Manager Manual</title>
   <date>2005-03-04 </date>
   <version identifier="0.0.1" date="2005-03-04" description="First Release"/>
-  <subject category="System|Administration"/>
-  <description> This document explains how to use the Update Manager. </description>
+  <subject category="Applications"/>
+  <description> Keep the software on your system up-to-date.</description>
   <type>manual </type>
   <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
   <identifier url=""/>
