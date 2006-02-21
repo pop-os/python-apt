@@ -16,6 +16,7 @@ DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us 
 #export DH_VERBOSE=1
 
 PYTHON=python2.3 python2.4
+PYTHON=python2.4
 
 build: build-stamp
 build-stamp:
