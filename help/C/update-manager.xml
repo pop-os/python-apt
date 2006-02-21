@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-  <!ENTITY legal SYSTEM "legal.xml">
-  <!ENTITY GFDL SYSTEM "fdl-appendix.xml">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY legal SYSTEM "legal.xml">
+<!ENTITY GFDL SYSTEM "fdl-appendix.xml">
 ]>
-<?yelp:chunk-depth 4?>
+<!--<?yelp:chunk-depth 4?>-->
 <!--
       (Do not remove this comment block.)
   Version: 0.0.3
@@ -130,7 +130,7 @@
         </revdescription>
       </revision>
     </revhistory>
-    <releaseinfo>This manual explains how to use Update Manager an apt update
+    <releaseinfo>This manual explains how to use Update Manager, an apt update
       management application for the GNOME desktop created by the Ubuntu Linux
       project.</releaseinfo>
     <legalnotice>
@@ -258,18 +258,17 @@ sudo update-manager
       <para>By default, all packages are marked for installation. In most
         cases you will install all of the packages right away. However, if there 
         are a large number of updates you may want to do only a few at a time.</para>
-      <para>To deselect a package, <action>uncheck</action> the
-          <guibutton>check box</guibutton> located on the left of each item
-        description. </para>
-      <para>To see additional information about a package, <action>click</action> on the 
-          <guibutton>Details</guibutton> option 
+      <para>To un-mark a package for installation, <action>clear</action> the check box 
+        for the package.</para>
+      <para>To see additional information about a package, <action>click</action> on 
+          <guibutton>Details</guibutton>. 
           (see <xref linkend="expanding-update-info"/>)</para> 
       <para>When you are ready to install the selected packages, 
-          <action>click</action> the <guibutton>Install</guibutton> button.</para>
-      <para>If <application>Update Manager</application> detects 
-        packages that do not contain a verification signature, the
-          <interface>Summary</interface> dialog will be displayed.</para>
-      <para>The <interface>Summary</interface> dialog lists three groups of update 
+          <action>click</action> on <guibutton>Install</guibutton>.</para>
+      <para>If <application>Update Manager</application> detects one or more
+        packages without a digital signature, the
+          <guilabel>Summary</guilabel> dialog is displayed.</para>
+      <para>The <guilabel>Summary</guilabel> dialog lists three groups of update 
       categories:</para>
       <variablelist>
         <varlistentry>
@@ -277,8 +276,7 @@ sudo update-manager
             <emphasis role="bold">NOT AUTHENTICATED</emphasis>
           </term>
           <listitem>
-            <para>If a digital signature is not found for an update package, it is
-              labeled &apos;NOT AUTHENTICATED.&apos;</para>
+            <para>Packages without a digital signature.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -297,59 +295,52 @@ sudo update-manager
             <para>Packages that will not be upgraded due to dependency issues.
               The packages will be upgraded in a future <application>Update 
               Manager</application> session, once the developers have
-              resolved the dependencies.</para>
+              resolved the package dependencies.</para>
           </listitem>
         </varlistentry>
       </variablelist>
-      <para>This is the final point to check the upgrade before the installation
-        starts. If you are not happy with the upgrade,
-          <action>click</action>
-        <guibutton>Cancel</guibutton> to return to the list and modify the
-        upgrade. If you are happy with the upgrade, <action>click</action>
-        <guibutton>Apply</guibutton>.</para>
+      <para>If you do not want to install non-authenticated packages, click
+      <guibutton>Cancel</guibutton>. The <guilabel>Summary</guilabel>
+       dialog will close, and you can 
+      deselect the packages in the <application>Update Manager</application> 
+      main window.</para>
       <note>
         <para>If a deselected package is required as a dependency for a selected
-          package, <application>Update Manager</application> may install the
+          package, <application>Update Manager</application> will install the
           deselected package to satisfy the dependency.</para>
       </note>
       <para>
-        <application>Update Manager</application> will download all of the
-        selected packages before installing them. The entire process may take a
+        <application>Update Manager</application> downloads all of the
+        selected packages before installing them. The entire process might take a
         long time depending on the amount of data that needs to be downloaded, the
         speed of your network connection, and the number of packages that need to 
-        be installed. </para>
-      <para>Installation of the update packages will
-        only start once all packages have been downloaded. The
-        download progress can be monitored (see <xref
+        be installed. While downloading packages, 
+        <application>Update Manager</application> displays a dialog box that 
+        monitors the download progress. (See <xref
           linkend="monitoring-download"/>).</para>
     </sect2>
     <sect2 id="expanding-update-info">
       <title>Expanded Update Information</title>
-      <para>When an item is selected, additional information about an update
-        package and the enhancements it provides can be obtained by expanding
-        the <guibutton>Details</guibutton> option, located at the bottom of the
-        list.</para>
-      <screenshot>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="figures/main-view-update-detail.png"/>
-          </imageobject>
-          <caption>
-            <para>Update Item Details</para>
-          </caption>
-        </mediaobject>
-      </screenshot>
-      <para>For each update package the following information is available:</para>
+      <para>To see additional information about a package:</para>
+      <orderedlist>
+        <listitem>
+            <para>Click on the package in the main window.</para>
+        </listitem>
+        <listitem>
+            <para>Click on <guibutton>Details</guibutton>.A tabbed section 
+            opens within the main window.</para>
+        </listitem>
+      </orderedlist>
+       <para>The tabs are as follows:</para>
       <variablelist>
         <varlistentry>
           <term>
             <emphasis role="bold">Changes</emphasis>
           </term>
           <listitem>
-            <para>The <guibutton>Changes</guibutton> tab displays the contents
-              of the packages <filename>ChangeLog</filename> file. This enables
-              the user to read about the changes contained in the update
-              package.</para>
+            <para>A list of the changes incorporated in the package. The list
+            is the contents of the <filename>ChangeLog</filename> file for the
+            package.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -357,99 +348,56 @@ sudo update-manager
             <emphasis role="bold">Description</emphasis>
           </term>
           <listitem>
-            <para>A single update package may contain multiple programs. These
-              programs are related in some way and are therefore bundled into a
-              single package. The <guibutton>Description</guibutton> tab
-              displays a short description for each program contained by the
-              package.</para>
+            <para>A short description of each program in the package.</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </sect2>
     <sect2 id="monitoring-download">
       <title>Monitoring Download Progress</title>
-      <para>When there are many packages in the update list, download can take a
-        considerable amount of time. In this case it can be useful to be able to
-        monitor the download progress.</para>
-      <para>A progress bar is automatically displayed when updates need to be
-        downloaded. <action>Click</action> the <guibutton>Show progress of
-          single files</guibutton> option to display an expanded view of
-        individual file download progress.</para>
-      <screenshot>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="figures/download-progressbar.png" format="PNG"/>
-          </imageobject>
-          <caption>
-            <para>Monitoring Download Progress Bar</para>
-          </caption>
-        </mediaobject>
-      </screenshot>
-      <para>Downloaded files are cached locally prior to installation. All files
-        must be downloaded in order for the installation stage to commence. The
-        cached files are automatically removed following successful installation
-        when the <guibutton>Automatically clean temporary packages
-        files</guibutton> option is checked (see <xref
-          linkend="managing-settings"/>).</para>
-      <note>
-        <para>If for any reason the network connection fails or times out, the
-          installation will not proceed. <application>Update
-          Manager</application> will automatically resume the download, from the
-          last successfully downloaded file, on the next attempt.</para>
+      <para><application>Update Manager</application> displays the 
+      <guilabel>Installing updates</guilabel> window while the 
+      packages are downloading. The progress bar in the 
+      <guilabel>Installing updates</guilabel> window shows the progress
+      of the entire update.</para>
+      <para>To display the download progress of each package, click on 
+      <guibutton>Show progress of single files</guibutton>.</para>
+      <para>To cancel the download, click <guibutton>Cancel</guibutton>.
+      </para>
+      <para>All files must be downloaded before <application>
+      Update Manager</application> can proceed to the installation stage. If
+      the network connections fails or if you cancel the download, the update
+      will not be installed.</para>
+     <note>
+        <para>To resume a canceled or failed download, click on Install in the
+         main window. <application>Update Manager</application> will resume the
+         download from the last successfully downloaded file.</para>
       </note>
     </sect2>
     <sect2 id="monitoring-installation">
       <title>Monitoring Installation Progress</title>
-      <para>It is common for software packages to use components belonging to
-        other pieces of software. This creates a dependency in the software that
-        uses external components. For this reason, installation of update
-        packages will only commence once all packages have been successfully
-        downloaded from the software repository (see <xref
-          linkend="monitoring-download"/>). The <application>Update
-        Manager</application> will take care to install packages in the required
-        sequence in order to satisfy any dependencies.</para>
-      <para>Once all update packages are downloaded installation will
-        automatically begin. During installation a progress bar, similar to that
-        of the download progress bar, is displayed.</para>
-      <screenshot>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="figures/install-progress.png" format="PNG"/>
-          </imageobject>
-          <caption>
-            <para>Monitoring Installation Progress Bar</para>
-          </caption>
-        </mediaobject>
-      </screenshot>
-      <para>During installation it is possible to view a verbose transcript of
-        installation operations by <action>clicking</action> the
-          <guibutton>Terminal</guibutton> option. This expands the dialog to
-        show terminal view. It is also possible to configure installation
-        progress to use Terminal Mode only, see <xref
-          linkend="configure-terminal-only-view"/>.</para>
-      <screenshot>
-        <mediaobject>
-          <imageobject>
-            <imagedata fileref="figures/install-progress-terminal.png"
-              format="PNG"/>
-          </imageobject>
-          <caption>
-            <para>Monitoring Installation Progress Bar and Terminal View</para>
-          </caption>
-        </mediaobject>
-      </screenshot>
+	  <para><application>Update Manager</application> displays the
+	  <guilabel>Installation updates</guilabel> window while the updates are
+	  being installed. The progress bar inside the <guilabel>Installation
+	  updates</guilabel> window shows the progress of the entire installation.
+	  </para>
+      <para>To display the installation progress of each package, click on
+	  <guibutton>Terminal</guibutton>. The terminal view opens within the
+	  window. The terminal view displays the unfiltered output of the Advanced
+	  Packaging Tool (APT). APT is the tool that Update Manager uses to
+	  perform the update.</para>
       <caution>
         <para>Do not terminate the installation process. This may lead to
           corruption of installed programs and general system
-        instability.</para>
+		  instability.</para>
       </caution>
     </sect2>
   </sect1>
   <sect1 id="setting-preferences">
     <title>Setting Preferences</title>
     <para>The <application>Update Manager</application>
-      <guibutton>Preferences</guibutton> button displays the <interface>Software
-        Preferences</interface> dialog. From this dialog users can perform the
+      <guibutton>Preferences</guibutton> button displays the <guilabel>Software
+        Preferences</guilabel> dialog. From this dialog you can perform the
       following tasks:</para>
     <itemizedlist>
       <listitem>
@@ -530,8 +478,8 @@ sudo update-manager
         </note>
         <para>A new software source can be defined by <action>clicking</action>
           the <guibutton>Add</guibutton> button located on the
-            <interface>Software Preferences</interface> dialog. This will
-          display the <interface>Edit Repository</interface> dialog.</para>
+            <guilabel>Software Preferences</guilabel> dialog. This will
+          display the <guilabel>Edit Repository</guilabel> dialog.</para>
         <screenshot>
           <mediaobject>
             <imageobject>
@@ -542,7 +490,7 @@ sudo update-manager
             </caption>
           </mediaobject>
         </screenshot>
-        <para>Complete the <interface>Edit Repository</interface> dialog to add
+        <para>Complete the <guilabel>Edit Repository</guilabel> dialog to add
           a new Software source.</para>
         <variablelist>
           <varlistentry>
@@ -651,8 +599,8 @@ sudo update-manager
         <title>Creating Custom Software Sources</title>
         <para>It is also possible to define custom software sources.</para>
         <para>To define a custom software source <action>click</action> the
-            <guibutton>Custom</guibutton> button located on the <interface>Edit
-            Repository</interface> dialog. This will display a dialog in which
+            <guibutton>Custom</guibutton> button located on the <guilabel>Edit
+            Repository</guilabel> dialog. This will display a dialog in which
           the custom repository can be defined using
           <application>apt</application> command syntax.
           <application>Apt</application> is an Advanced Packaging Tool and
@@ -688,7 +636,7 @@ sudo update-manager
         <para>Software sources can be removed from the sources list by selecting
           the software source then <action>clicking</action> the
             <guibutton>Remove</guibutton> button located on the
-            <interface>Software Preferences</interface> dialog.</para>
+            <guilabel>Software Preferences</guilabel> dialog.</para>
         <para>Removal of a software source requires that the
           <application>apt</application> file (<filename class="devicefile"
             >/etc/apt/sources.list</filename>) that contains the a list of
@@ -702,7 +650,7 @@ sudo update-manager
         <title>Editing Software Sources</title>
         <para>To change the values defining a software source, select the source
           record then <action>click</action> the edit button. This will display
-          the <interface>Edit Repository</interface> dialog.</para>
+          the <guilabel>Edit Repository</guilabel> dialog.</para>
         <screenshot>
           <mediaobject>
             <imageobject>
@@ -845,10 +793,10 @@ sudo update-manager
     <sect2 id="managing-authentication">
       <title>Managing Authentication Keys</title>
       <para>Authentication keys make it possible to verify the integrity of
-        update software. From the <interface>Authentication Keys</interface>
+        update software. From the <guilabel>Authentication Keys</guilabel>
         dialog it is possible to view and manage the list authentication keys.
         Each key corresponds to a Software Source defined in the
-          <interface>Software Preference</interface> dialog (see <xref
+          <guilabel>Software Preference</guilabel> dialog (see <xref
           linkend="managing-sources"/>). Keys can be added and removed. In the
         event of an error it is also possible to restore the default
         authentication keys provided by the defined update repositories.</para>
@@ -883,8 +831,8 @@ gpg -recv-key --keyserver www.keyserver.net
             phone, letter, or business card. Alternately you can check if the
             key is signed with a known-good key.</para>
         </note>
-        <para>Once the key is downloaded, select it using the <interface>Choose
-            a key-file</interface> dialog that is displayed when the
+        <para>Once the key is downloaded, select it using the <guilabel>Choose
+            a key-file</guilabel> dialog that is displayed when the
             <guibutton>Add</guibutton> button.</para>
         <screenshot>
           <mediaobject>
@@ -915,8 +863,8 @@ gpg -recv-key --keyserver www.keyserver.net
     <sect2 id="managing-settings">
       <title>Managing Settings</title>
       <para>The <guibutton>Settings</guibutton> button, located on the
-          <interface>Software Preferences</interface> dialog, displays the
-          <interface>Settings</interface> dialog. From this interface users can
+          <guilabel>Software Preferences</guilabel> dialog, displays the
+          <guilabel>Settings</guilabel> dialog. From this interface you can
         manage the behavior of the application and pre-update process.</para>
       <screenshot>
         <mediaobject>
@@ -934,8 +882,8 @@ gpg -recv-key --keyserver www.keyserver.net
         <listitem>
           <para>
             <emphasis>Show disabled software sources:</emphasis> - When checked
-            software sources that are not checked in the <interface>Software
-              Preferences</interface> dialog are displayed. When unchecked,
+            software sources that are not checked in the <guilabel>Software
+              Preferences</guilabel> dialog are displayed. When unchecked,
             these items are not displayed in the list.</para>
         </listitem>
       </itemizedlist>
@@ -1028,7 +976,7 @@ gpg -recv-key --keyserver www.keyserver.net
           <para>From the main menu, select <menuchoice>
               <guimenu>Settings</guimenu>
               <guimenuitem>Preferences</guimenuitem>
-            </menuchoice>. The <interface>Preferences</interface> dialog is
+            </menuchoice>. The <guilabel>Preferences</guilabel> dialog is
             displayed.</para>
         </step>
         <step>
