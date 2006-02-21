@@ -235,7 +235,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self._term.set_font_from_string("monospace 10")
         self._term.connect("contents-changed", self._term_content_changed)
         self._terminal_lines = []
-        self._terminal_log = open(os.path.expanduser("~/dist-upgrade-term.log"),"w")
+        self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
         return self._term
     def _term_content_changed(self, term):
         " called when the *visible* part of the terminal changes "
