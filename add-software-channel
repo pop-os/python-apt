@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+import pygtk
+import gtk
+import gtk.glade
+import gobject
+import os
+from optparse import OptionParser
+from SoftwareProperties.aptsources import SourcesList, SourceEntryMatcher
+from gettext import gettext as _
+import gettext
+import urllib
+
+class AddSoftwareChannel:
+    def __init__(self, data, file):
+        icons = gtk.icon_theme_get_default()
+        logo_pixbuf=icons.load_icon("gnome-settings-default-applications",
+                                    32, 0)
+        gtk.window_set_default_icon_list(logo_pixbuf)
+
+        self.glade = gtk.glade.XML(os.path.join(data,
+                                                "dialog_add_channels.glade"))
+        self.glade.signal_autoconnect(self)
+        self.dialog = self.glade.get_widget("dialog_add_channel")
+        self.label = self.glade.get_widget("label_sources")
+        self.button_add = self.glade.get_widget("button_add")
+        self.button_cancel = self.glade.get_widget("button_cancel")
+        self.treeview = self.glade.get_widget("treeview_sources")
+
+        self.dialog.realize()
+        self.dialog.window.set_functions(gtk.gdk.FUNC_MOVE)
+
+        # Setup the treeview
+        self.store = gtk.ListStore(gobject.TYPE_STRING)
+        self.treeview.set_model(self.store)
+        cell = gtk.CellRendererText()
+        column = gtk.TreeViewColumn("Software Channel", cell, markup=0)
+        column.set_max_width(500)
+        self.treeview.append_column(column)
+
+        # Parse the source.list file
+        self.sources = SingleSourcesList(self.format_uri(file))
+        self.matcher = SourceEntryMatcher()
+        for source in self.sources.list:
+            if source.invalid or source.disabled:
+                continue
+            (a_type, dist, comps) = self.matcher.match(source)
+            line = "<big><b>%s </b></big> (%s) <small>\n%s</small>" %\
+                   self.matcher.match(source)
+            self.store.append([line])
+
+        header = gettext.ngettext("Add the following software channel?",
+                                  "Add the following software channels?",
+                                  len(self.sources.list))
+        body = _("You can install software from a channel. Nice, or?")
+        self.label.set_markup("<big><b>%s</b></big>\n\n%s" % (header, body))
+        self.button_add.set_use_underline(True)
+        self.button_add.set_label(gettext.ngettext("_Add Channel",
+                                                   "_Add Channels",
+                                                   len(self.sources.list)))
+
+        self.dialog.run()
+        self.dialog.destroy()
+
+    def format_uri(self, uri):
+        path = urllib.url2pathname(uri) # escape special chars
+        path = path.strip('\r\n\x00') # remove \r\n and NULL
+        if path.startswith('file:\\\\\\'): # windows
+            path = path[8:] # 8 is len('file:///')
+        elif path.startswith('file://'): #nautilus, rox
+            path = path[7:] # 7 is len('file://')
+        elif path.startswith('file:'): # xffm
+            path = path[5:] # 5 is len('file:')
+        return path
+
+class SingleSourcesList(SourcesList):
+    def __init__(self, file):
+        self.list = []
+        self.load(file)
+
+def main(file):
+#    file="sources.list"
+    print file
+    data = "/usr/share/update-manager/glade"
+    dialog = AddSoftwareChannel(data, file)
+
+if __name__ == '__main__':
+    parser = OptionParser()
+    (options, args) = parser.parse_args()
+    main(args[0])
+

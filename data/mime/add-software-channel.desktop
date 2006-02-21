@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Add Software Channel
+GenericName=Add Software Channel
+Exec=/usr/bin/add-software-channel
+Icon=update-manager.png
+Terminal=false
+Hide=true
+Type=Application
+Encoding=UTF-8
+Categories=Application;System;
+MimeType=text/x-apt-sources;

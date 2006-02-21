@@ -39,7 +39,8 @@ setup(name='update-manager',
                 ],
       scripts=[
                'gnome-software-properties',
-               'update-manager'
+               'update-manager',
+               'add-software-channel'
                ],
       data_files=[
                   ('share/update-manager/glade',
@@ -56,6 +57,12 @@ setup(name='update-manager',
                   ),
                   ('share/pixmaps',
                    ["data/update-manager.png"]
+                  ),
+                  ('share/applications',
+                   ["data/mime/add-software-channel.desktop"]
+                  ),
+                  ('share/mime/packages',
+                   ["data/mime/apt.xml"]
                   )
                   ] + I18NFILES + HELPFILES,
       )
