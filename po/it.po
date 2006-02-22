@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-20 09:36+0100\n"
+"Report-Msgid-Bugs-To: michael.vogt@canonical.com\n"
+"POT-Creation-Date: 2006-02-22 16:57+0100\n"
 "PO-Revision-Date: 2005-10-26 12:25+0200\n"
 "Last-Translator: Fabio Marzocca <thesaltydog@gmail.com>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -249,49 +249,52 @@ msgid ""
 "problem, please check your network connection and retry."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:190
-msgid "Not enough free space"
-msgstr ""
-
 #: ../DistUpgrade/DistUpgradeControler.py:191
-msgid ""
-"There is not enough free space on your system to download the required "
-"pacakges. Please free some space before trying again with e.g. 'sudo apt-get "
-"clean'"
+msgid "Not enough free disk space"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:196
-msgid "Perform Upgrade?"
+#: ../DistUpgrade/DistUpgradeControler.py:192
+#, python-format
+msgid ""
+"The upgrade aborts now. Please free at least %s of disk space. Empty your "
+"trash and remove temporary packages of former installations using 'sudo apt-"
+"get clean'."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:198
+msgid "Do you want to start the upgrade?"
 msgstr ""
 
 #. installing the packages failed, can't be retried
-#: ../DistUpgrade/DistUpgradeControler.py:211
-#: ../DistUpgrade/DistUpgradeControler.py:280
-msgid "Error during commit"
+#: ../DistUpgrade/DistUpgradeControler.py:214
+msgid "Could not install the upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:212
+#: ../DistUpgrade/DistUpgradeControler.py:215
 msgid ""
-"Some problem occured during the upgrade. Most likely packages failed to "
-"install. Try 'sudo apt-get install -f' or synaptic to fix your system."
+"The upgrade aborts now. Your system can be in an unusable state. Please try "
+"'sudo apt-get install -f' or Synaptic to fix your system."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:228
-#, fuzzy
-msgid "Error fetching the packages"
-msgstr "Errore rimuovendo la chiave"
+#: ../DistUpgrade/DistUpgradeControler.py:230
+msgid "Could not download the upgrades"
+msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:229
+#: ../DistUpgrade/DistUpgradeControler.py:231
 msgid ""
-"Some problem occured during the fetching of the packages. This is most "
-"likely a network problem. Please check your network and try again. "
+"The upgrade aborts now. Please check your internet connection or "
+"installation media and try again. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:273
+#: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "Remove obsolete Packages?"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:281
+msgid "Error during commit"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:282
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -299,54 +302,54 @@ msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:295
-#: ../DistUpgrade/DistUpgradeControler.py:318
+#: ../DistUpgrade/DistUpgradeControler.py:296
+#: ../DistUpgrade/DistUpgradeControler.py:319
 #, fuzzy
 msgid "Checking package manager"
 msgstr "Un altro gestore di pacchetti è in esecuzione"
 
-#: ../DistUpgrade/DistUpgradeControler.py:310
+#: ../DistUpgrade/DistUpgradeControler.py:311
 msgid "Updating repository information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:324
+#: ../DistUpgrade/DistUpgradeControler.py:325
 msgid "Asking for confirmation"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:328
+#: ../DistUpgrade/DistUpgradeControler.py:329
 #, fuzzy
 msgid "Upgrading"
 msgstr "Aggiornamento terminato"
 
-#: ../DistUpgrade/DistUpgradeControler.py:335
+#: ../DistUpgrade/DistUpgradeControler.py:336
 msgid "Searching for obsolete software"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:340
+#: ../DistUpgrade/DistUpgradeControler.py:341
 msgid "System upgrade is complete."
 msgstr ""
 
 #. print "mediaChange %s %s" % (medium, drive)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:76
+#: ../DistUpgrade/DistUpgradeViewGtk.py:77
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:94
+#: ../DistUpgrade/DistUpgradeViewGtk.py:95
 msgid "Download is complete"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:105
-#, python-format
-msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:106
 #, python-format
+msgid "Downloading file %li of %li at %s/s"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:107
+#, python-format
 msgid "%s remaining"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:109
 #, python-format
 msgid "Downloading file %li of %li at unknown speed"
 msgstr ""
@@ -354,66 +357,82 @@ msgstr ""
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:133
+#: ../DistUpgrade/DistUpgradeViewGtk.py:134
 #, fuzzy
 msgid "Installing updates"
 msgstr "Installazione degli aggiornamenti..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:146
+#: ../DistUpgrade/DistUpgradeViewGtk.py:147
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:147
-msgid "The upgrade will abort. Please report the bug."
+#: ../DistUpgrade/DistUpgradeViewGtk.py:148
+#, fuzzy
+msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
+"La chiave selezionata non può essere rimossa. Per favore riporta questo come "
+"bug."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:218
+#: ../DistUpgrade/DistUpgradeViewGtk.py:226
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:219
+#: ../DistUpgrade/DistUpgradeViewGtk.py:227
 msgid ""
-"During the operation a fatal error occured. Please report this as a bug and "
-"include the files ~/dist-upgrade.log and ~/dist-upgrade-apt.log in your "
-"report. The upgrade will abort now. "
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:295
-#, python-format
-msgid ""
-"%s packages are going to be removed.\n"
-"%s packages are going to be newly installed.\n"
-"%s packages are going to be upgraded.\n"
-"\n"
-"%s needs to be fetched"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:306
-#, python-format
-msgid "<b>To be removed: %s</b>"
+"Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
+"dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:308
 #, python-format
-msgid "To be installed: %s"
-msgstr ""
+msgid "%s package is going to be removed."
+msgid_plural "%s packages are going to be removed."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:310
+#: ../DistUpgrade/DistUpgradeViewGtk.py:314
 #, python-format
-msgid "To be upgraded: %s"
+msgid "%s new package is going to be installed."
+msgid_plural "%s new packages are going to be installed."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:320
+#, python-format
+msgid "%s package is going to be upgraded."
+msgid_plural "%s packages are going to be upgraded."
+msgstr[0] ""
+msgstr[1] ""
+
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:327
+msgid "Could not find any upgrades"
 msgstr ""
 
-#. print "on_window_main_delete_event()"
+#: ../DistUpgrade/DistUpgradeViewGtk.py:328
+msgid "Your system has already been upgraded."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:332
+#, python-format
+msgid "You have to download a total of %s."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:339
+#, fuzzy, python-format
+msgid "<b>Remove %s</b>"
+msgstr "<b>Chiavi</b>"
+
 #: ../DistUpgrade/DistUpgradeViewGtk.py:341
-msgid "Are you sure you want cancel?"
-msgstr ""
+#, fuzzy, python-format
+msgid "Install %s"
+msgstr "_Installa"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:342
-msgid ""
-"Canceling during a upgrade can leave the system in a unstable state. It is "
-"strongly adviced to continue the operation. "
-msgstr ""
+#: ../DistUpgrade/DistUpgradeViewGtk.py:343
+#, fuzzy, python-format
+msgid "Upgrade %s"
+msgstr "Aggiornamento terminato"
 
 #: ../DistUpgrade/DistUpgradeView.py:67
 msgid "Reboot required"
@@ -434,54 +453,70 @@ msgid "    "
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:2
+msgid ""
+"<b><big>Cancel the running upgrade?</big></b>\n"
+"\n"
+"The system could be in an unusable state if you cancel the upgrade. You are "
+"strongly adviced to resume the upgrade."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:3
+#: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:4
+#: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.04</"
 "span>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:5
+#: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:6
+#: ../DistUpgrade/DistUpgrade.glade.h:9
 #, fuzzy
 msgid "Details"
 msgstr "<b>Dettagli</b>"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:7
+#: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Downloading and installing the upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:8
+#: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Modifying the software channels"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:9
+#: ../DistUpgrade/DistUpgrade.glade.h:12
 msgid "Preparing the upgrade"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:10
+#: ../DistUpgrade/DistUpgrade.glade.h:13
+msgid "Restarting the system"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:14
 msgid "Terminal"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:11
+#: ../DistUpgrade/DistUpgrade.glade.h:15
 msgid "Upgrading Ubuntu"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:12
+#: ../DistUpgrade/DistUpgrade.glade.h:16
 msgid "_Report Bug"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:13
+#: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Restart Now"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
+msgid "_Resume Upgrade"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:1
@@ -691,6 +726,10 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Error fetching the packages"
+#~ msgstr "Errore rimuovendo la chiave"
+
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Modifica le sorgenti e le impostazioni del software"
 
@@ -849,9 +888,6 @@ msgstr ""
 
 #~ msgid "Downloading Changes"
 #~ msgstr "Download modifiche in corso"
-
-#~ msgid "_Install"
-#~ msgstr "_Installa"
 
 #~ msgid "You need to be root to run this program"
 #~ msgstr "Devi essere root per eseguire questo programma"

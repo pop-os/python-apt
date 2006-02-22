@@ -1,0 +1,1 @@
+../UpdateManager/Common/DistInfo.py
