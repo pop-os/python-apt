@@ -260,14 +260,8 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview2.append_column(keys_col)
     
   def reload_sourceslist(self):
-    # To store the sources that provide updates
-    self.sources_updates = []
-    # To store the sources that provide securtiy fixes
-    self.sources_security = []
-    # To store the activated components of each dist
-    self.system_comps = {}
-
     self.source_store.clear()
+    self.sourceslist.check_for_endangered_dists()
     for source in self.sourceslist.list:
       if source.invalid:
         continue
@@ -279,58 +273,6 @@ class SoftwareProperties(SimpleGladeApp):
         contents = "<b>%s</b> - %s %s" % (nice_dist, nice_type, nice_comps)
       self.source_store.append([not source.disabled, contents, source])
     
-      # Collect the components of an activated system dist
-      if special == aptsources.SOURCE_SYSTEM and source.disabled != True:
-        if self.system_comps.has_key(source.dist):
-          current = self.system_comps[source.dist]
-          self.system_comps[source.dist] = (current | set(source.comps))
-        else:
-          self.system_comps[source.dist] = set(source.comps)
-      
-      # Collect sources that provide updates
-      elif special == aptsources.SOURCE_UPDATES:
-          self.sources_updates.append(source)
-      elif special == aptsources.SOURCE_SECURITY:
-          self.sources_security.append(source)
-
-      
-    print "\n\nSecurity Updates: %s" % self.sources_security
-    print "\nSystem Sources: %s " % self.sources_system
-    print "\nUpdates: %s" % self.sources_updates
-    print "\nSystem Compos: %s " % self.system_comps
-
-    modified = False
-    # Check if each security source contains all components of
-    # the same dist
-    for source in self.sources_security:
-      print "SecSource: %s" % source.dist
-      # Skip the "-security" from the dist
-      # FIXME: Does not work for debian
-      i = source.dist.find("-")
-      dist = source.dist[:i]
-      # Are there any active components for the dist?
-      if self.system_comps.has_key(dist):
-        comps_sys = self.system_comps[dist]
-        comps_sec = set(source.comps)
-        # Are there components without sec updates?
-        comps_endangered = comps_sys - comps_sec
-        print "In Danger: %s " % comps_endangered
-        if len(comps_endangered) > 0:
-          # convert the set into a list
-          comps_new=[]
-          for comp in comps_endangered:
-              comps_new.append(comp)
-          # add a security source with the additional components
-          print "Adding security updates for %s - %s" % (source.dist, comps_new)
-          self.sourceslist.add(source.type, source.uri,
-                               source.dist, comps_new,
-                               source.comment)
-          modified = True
-    # Reload the sourceslist if we added a new source
-    if modified == True:
-      print "modified"
-      self.reload_sourceslist()
-      
   def reload_keyslist(self):
     self.keys_store.clear()
     for key in self.apt_key.list():

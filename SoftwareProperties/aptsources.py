@@ -32,7 +32,7 @@ import os.path
 
 from UpdateManager.Common.DistInfo import DistInfo
 
-(SOURCE_SECURITY, SOURCE_UPDATES, SOURCE_SYSTEM) = range(3)
+(SOURCE_SECURITY, SOURCE_UPDATES, SOURCE_SYSTEM, SOURCE_BACKPORTS) = range(4)
 
 # actual source.list entries
 class SourceEntry:
@@ -280,6 +280,76 @@ class SourcesList:
       files[source.file].write(source.str())
     for f in files:
       files[f].close()
+      
+  def check_for_endangered_dists(self):
+    # To store the sources that provide updates
+    self.sources_updates = []
+    # To store the sources that provide backports
+    self.sources_backports = []
+    # To store the sources that provide securtiy fixes
+    self.sources_security = []
+    # To store the activated components of each dist
+    self.system_comps = {}
+    
+    # The matcher searches sets the required special tags
+    self.matcher = SourceEntryMatcher()
+
+    for source in self.list:
+      if source.invalid:
+        continue
+      (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
+      print "match: %s %s" % (source.dist, special)
+
+      # Collect the components of an activated system dist
+      if special == SOURCE_SYSTEM and source.disabled != True:
+        if self.system_comps.has_key(source.dist):
+          current = self.system_comps[source.dist]
+          self.system_comps[source.dist] = (current | set(source.comps))
+        else:
+          self.system_comps[source.dist] = set(source.comps)
+      
+      # Collect sources that provide updates
+      elif special == SOURCE_UPDATES:
+          self.sources_updates.append(source)
+      elif special == SOURCE_SECURITY:
+          self.sources_security.append(source)
+      elif special == SOURCE_BACKPORTS:
+          self.sources_backports.append(source)
+
+      
+    print "\nSystem Compos: %s " % self.system_comps
+
+    # Check if each security source contains all components of
+    # the same dist
+    self.add_updates(self.sources_security)
+    self.add_updates(self.sources_updates)
+    self.add_updates(self.sources_backports)
+
+  def add_updates(self, updates):
+    modified = False
+    for source in updates:
+      print "SecSource: %s" % source.dist
+      # Skip the "-security" and "-updates" from the dist
+      i = source.dist.find("-")
+      dist = source.dist[:i]
+      # Are there any active components for the dist?
+      if self.system_comps.has_key(dist):
+        comps_sys = self.system_comps[dist]
+        comps_sec = set(source.comps)
+        # Are there components without updates?
+        comps_endangered = comps_sys - comps_sec
+        print "In Danger: %s " % comps_endangered
+        if len(comps_endangered) > 0:
+          # convert the set into a list
+          comps_new=[]
+          for comp in comps_endangered:
+              comps_new.append(comp)
+          # add a security source with the additional components
+          print "Adding updates for %s - %s" % (source.dist, comps_new)
+          self.add(source.type, source.uri, source.dist, comps_new,
+                   source.comment)
+          modified = True
+    return modified
 
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
@@ -353,28 +423,33 @@ class SourceEntryMatcher:
                                          ".*",
                                         _("Cdrom with Ubuntu 6.04 'Dapper "\
                                           "Drake'"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.10",
                                          ".*",
                                         _("Cdrom with Ubuntu 5.10 'Breezy "\
                                           "Badger'"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.04",
                                          ".*",
                                         _("Cdrom with Ubuntu 5.04 'Hoary "\
                                           "Hedgehog'"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*4.10",
                                          ".*",
                                         _("Cdrom with Ubuntu 4.10 'Warty "\
                                           "Warthog'"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
     # URIs
     # Warty
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^warty$",
                                          "Ubuntu 4.10 'Warty Warthog'",
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
                                          "^warty-security$",
                                          _("Ubuntu 4.10 Security Updates"),
@@ -383,28 +458,44 @@ class SourceEntryMatcher:
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^warty-security$",
                                          _("Ubuntu 4.10 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SECURITY))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^warty-backports$",
+                                         _("Ubuntu 4.10 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_BACKPORTS))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^warty-updates$",
                                          _("Ubuntu 4.10 Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_UPDATES))
     # Hoary
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary-security$",
                                          _("Ubuntu 5.04 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SECURITY))
     self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
                                          "^hoary-security$",
                                          _("Ubuntu 5.04 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SECURITY))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary$",
                                          "Ubuntu 5.04 'Hoary Hedgehog'",
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_SYSTEM))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^hoary-backports$",
+                                         _("Ubuntu 5.04 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_BACKPORTS))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary-updates$",
                                          _("Ubuntu 5.04 Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_UPDATES))
     # Breezy
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy-security$",
@@ -421,6 +512,11 @@ class SourceEntryMatcher:
                                          "Ubuntu 5.10 'Breezy Badger'",
                                          ubuntu_comps, ubuntu_comps_descr,
                                          SOURCE_SYSTEM))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^breezy-backports$",
+                                         _("Ubuntu 5.10 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_BACKPORTS))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy-updates$",
                                          _("Ubuntu 5.10 Updates"),
@@ -442,6 +538,11 @@ class SourceEntryMatcher:
                                          "Ubuntu 6.04 'Dapper Drake'",
                                          ubuntu_comps, ubuntu_comps_descr,
                                          SOURCE_SYSTEM))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^dapper-backports$",
+                                         _("Ubuntu 6.04 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr,
+                                         SOURCE_BACKPORTS))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper-updates$",
                                          _("Ubuntu 6.04 Updates"),
