@@ -68,7 +68,7 @@
 		      <property name="right_padding">0</property>
 
 		      <child>
-			<widget class="GtkHBox" id="hbox1">
+			<widget class="GtkVBox" id="vbox5">
 			  <property name="visible">True</property>
 			  <property name="homogeneous">False</property>
 			  <property name="spacing">6</property>
@@ -104,9 +104,9 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkVButtonBox" id="vbuttonbox1">
+			    <widget class="GtkHBox" id="hbox6">
 			      <property name="visible">True</property>
-			      <property name="layout_style">GTK_BUTTONBOX_START</property>
+			      <property name="homogeneous">False</property>
 			      <property name="spacing">6</property>
 
 			      <child>
@@ -120,6 +120,11 @@
 				  <property name="focus_on_click">True</property>
 				  <signal name="clicked" handler="on_add_clicked" last_modification_time="Tue, 05 Jul 2005 01:31:37 GMT"/>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
 			      </child>
 
 			      <child>
@@ -133,6 +138,11 @@
 				  <property name="focus_on_click">True</property>
 				  <signal name="clicked" handler="on_remove_clicked" last_modification_time="Tue, 05 Jul 2005 02:21:36 GMT"/>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
 			      </child>
 
 			      <child>
@@ -146,6 +156,11 @@
 				  <property name="focus_on_click">True</property>
 				  <signal name="clicked" handler="on_edit_clicked" last_modification_time="Tue, 05 Jul 2005 02:18:34 GMT"/>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
 			      </child>
 
 			      <child>
@@ -221,6 +236,11 @@
 				    </widget>
 				  </child>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+				</packing>
 			      </child>
 			    </widget>
 			    <packing>

@@ -102,8 +102,16 @@ class SourceEntry:
       line = line[:i]
     # source is ok, split it and see what we have
     pieces = self.mysplit(line)
+    # Sanity check
+    if len(pieces) < 3:
+        self.invalid = True
+        return
     # Type, deb or deb-src
     self.type = string.strip(pieces[0])
+    # Sanity check
+    if self.type not in ("deb", "deb-src"):
+      self.invalid = True
+      return
     # URI
     self.uri = string.strip(pieces[1])
     # distro and components (optional)
@@ -326,7 +334,7 @@ class SourceEntryMatcher:
     _ = gettext.gettext
     self.type_list = []
     self.type_list.append(self.MatchType("^deb$",_("Binary")))
-    self.type_list.append(self.MatchType("^deb-src$",_("Source")))
+    self.type_list.append(self.MatchType("^deb-src$",_("Source Code")))
 
     self.dist_list = []
 
@@ -338,7 +346,7 @@ class SourceEntryMatcher:
     # CDs
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.10",
                                          ".*",
-                                        _("CD disk with Ubuntu 5.10 \"Breezy Badger\""),
+                                        _("CD disk with Ubuntu 5.10 'Breezy Badger'"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.04",
                                          ".*",
@@ -352,7 +360,7 @@ class SourceEntryMatcher:
     # Warty
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^warty$",
-                                         "Ubuntu 4.10 \"Warty Warthog\"",
+                                         "Ubuntu 4.10 'Warty Warthog'",
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
                                          "^warty-security$",
@@ -377,7 +385,7 @@ class SourceEntryMatcher:
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary$",
-                                         "Ubuntu 5.04 \"Hoary Hedgehog\"",
+                                         "Ubuntu 5.04 'Hoary Hedgehog'",
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary-updates$",
@@ -394,7 +402,7 @@ class SourceEntryMatcher:
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy$",
-                                         "Ubuntu 5.10 \"Breezy Badger\"",
+                                         "Ubuntu 5.10 'Breezy Badger'",
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy-updates$",
@@ -411,7 +419,7 @@ class SourceEntryMatcher:
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper$",
-                                         "Ubuntu 6.04 \"Dapper Drake\"",
+                                         "Ubuntu 6.04 'Dapper Drake'",
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper-updates$",
@@ -430,11 +438,11 @@ class SourceEntryMatcher:
     # dists by name
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^sarge$",
-                                         _("Debian 3.1 \"Sarge\""),
+                                         _("Debian 3.1 'Sarge'"),
                                          debian_comps, debian_comps_descr))
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^woody$",
-                                         _("Debian 3.0 \"Woody\""),
+                                         _("Debian 3.0 'Woody'"),
                                          debian_comps, debian_comps_descr))
     # securtiy
     self.dist_list.append(self.MatchDist(".*security.debian.org",
@@ -452,7 +460,7 @@ class SourceEntryMatcher:
                                          debian_comps, debian_comps_descr))
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^unstable$",
-                                         _("Debian Unstable \"Sid\""),
+                                         _("Debian Unstable 'Sid'"),
                                          debian_comps, debian_comps_descr))
 
     # non-us
@@ -477,6 +485,10 @@ class SourceEntryMatcher:
     # some sane defaults first
     type_description = source.type
     dist_description = source.uri + " " + source.dist
+    # if there is a comment use it instead of the url
+    if source.comment:
+        dist_description = source.comment
+
     comp_description = ""
     for c in source.comps:
       comp_description = comp_description + " " + c 
@@ -488,7 +500,7 @@ class SourceEntryMatcher:
 
     for d in self.dist_list:
       #print "'%s'" %source.uri
-      if re.match(d.uri, source.uri) and re.match(d.dist,source.dist):
+      if re.match(d.uri, source.uri) and re.match(d.dist, source.dist):
         dist_description = d.description
         comp_description = ""
         for c in source.comps:
