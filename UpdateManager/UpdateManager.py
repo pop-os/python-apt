@@ -28,6 +28,7 @@ pygtk.require('2.0')
 import gtk
 import gtk.gdk
 import gtk.glade
+import gconf
 import gobject
 import apt
 import apt_pkg
@@ -40,7 +41,6 @@ import os.path
 import urllib2
 import re
 import tempfile
-import gconf
 import pango
 import subprocess
 import pwd
@@ -289,6 +289,10 @@ class UpdateManager(SimpleGladeApp):
     # restore state
     self.restore_state()
       
+
+  def on_checkbutton_reminder_toggled(self, checkbutton):
+    self.gconfclient.set_bool("/apps/update-manager/remind_reload",
+                              not checkbutton.get_active())
 
   def close(self, widget, data=None):
     if self.window_main.get_property("sensitive") is False:
@@ -812,6 +816,10 @@ class UpdateManager(SimpleGladeApp):
   def check_auto_update(self):
       # Check if automatic update is enabled. If not show a dialog to inform
       # the user about the need of manual "reloads"
+      remind = self.gconfclient.get_bool("/apps/update-manager/remind_reload")
+      if remind == False:
+          return
+
       update_days = apt_pkg.Config.FindI("APT::Periodic::Update-Package-Lists")
       if update_days < 1:
           self.dialog_manual_update.set_transient_for(self.window_main)

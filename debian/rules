@@ -64,6 +64,7 @@ binary-arch: build install
 	dh_scrollkeeper
 	dh_installmime
 	dh_desktop
+	dh_gconf
 	dh_installexamples
 #	dh_install
 #	dh_installmenu

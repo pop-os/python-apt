@@ -1,9 +1,0 @@
-
-add-software-channel
-	command=add-software-channel
-	name=Add Software Channel
-	can_open_multiple_files=false
-	expects_uris=false
-	requires_terminal=false
-	mime_types=text/x-apt-sources
-

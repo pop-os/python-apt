@@ -45,16 +45,58 @@ class dialog_add:
     self.main = widget = self.gladexml.get_widget("dialog_add")
     self.main.set_transient_for(self.parent)
     
-    combo = self.gladexml.get_widget("combobox_what")
+    # Setup the official channel widgets
+    self.combo = self.gladexml.get_widget("combobox_what")
     self.gladexml.signal_connect("on_combobox_what_changed", self.on_combobox_what_changed, None)
-    # combox box needs 
     cell = gtk.CellRendererText()
-    combo.pack_start(cell, True)
-    combo.add_attribute(cell, 'text', 0)
-    self.fill_combo(combo)
-    self.gladexml.signal_connect("on_button_custom_clicked",
-                                 self.on_button_custom_clicked, None)
+    self.combo.pack_start(cell, True)
+    self.combo.add_attribute(cell, 'text', 0)
+    self.fill_combo(self.combo)
 
+    # Setup the custom channel widgets
+    self.entry = self.gladexml.get_widget("entry_source_line")
+    self.gladexml.signal_connect("on_entry_source_line_changed",
+                                 self.check_line)
+
+    # Setup the toggle action
+    self.radio_official = self.gladexml.get_widget("radiobutton_official")
+    self.radio_custom = self.gladexml.get_widget("radiobutton_custom")
+    self.button_add = self.gladexml.get_widget("button_add_channel")
+    self.gladexml.signal_connect("on_radiobutton_custom_toggled",
+                                 self.on_radio_custom_toggled)
+    self.gladexml.signal_connect("on_radiobutton_official_toggled",
+                                 self.on_radio_official_toggled)
+
+    # We start with the official channels:
+    self.official = True
+    self.radio_custom.toggled()
+
+  def check_line(self, *args):
+    """Check for a valid apt line"""
+    if self.official == True:
+      self.button_add.set_sensitive(True)
+      return
+
+    line = self.entry.get_text() + "\n"
+    source_entry = aptsources.SourceEntry(line)
+    if source_entry.invalid == True or source_entry.disabled == True:
+      self.button_add.set_sensitive(False)
+    else:
+      self.button_add.set_sensitive(True)
+
+  
+  def on_radio_custom_toggled(self, radio):
+    state = radio.get_active()
+    self.entry.set_sensitive(state)
+    self.check_line()
+
+  def on_radio_official_toggled(self, radio):
+    state = radio.get_active()
+    self.combo.set_sensitive(state)
+    for check in self.comps:
+        check.set_sensitive(state)
+    self.official = state
+    self.button_add.set_sensitive(state)
 
   def fill_combo(self,combo):
     liststore = gtk.ListStore(gobject.TYPE_STRING,gobject.TYPE_PYOBJECT)
@@ -72,25 +114,14 @@ class dialog_add:
     (name, template) = liststore.get(a_iter, 0,1)
     self.selected = template
     comps = template.comps
+    self.comps=[]
     for c in comps:
       checkbox = gtk.CheckButton(c.description)
       checkbox.set_active(c.on_by_default)
       checkbox.set_data("name",c.name)
       vbox.pack_start(checkbox)
       checkbox.show()
-
-  def on_button_custom_clicked(self, widget, data):
-    #print "on_button_custom_clicked()"
-    # this hide here is ugly :/
-    self.main.hide()
-    dialog = self.gladexml.get_widget("dialog_add_custom")
-    dialog.set_transient_for(self.parent)
-    res = dialog.run()
-    dialog.hide()
-    entry = self.gladexml.get_widget("entry_source_line")
-    line = entry.get_text() + "\n"
-    self.sourceslist.list.append(aptsources.SourceEntry(line))
-    self.main.response(res)
+      self.comps.append(checkbox)
 
   def get_enabled_comps(self, checkbutton):
     if checkbutton.get_active():
@@ -100,12 +131,16 @@ class dialog_add:
       res = self.main.run()
       if res == gtk.RESPONSE_OK:
           # add repository
-          self.selected_comps = []
-          vbox = self.gladexml.get_widget("vbox_comps")
-          vbox.foreach(self.get_enabled_comps)
-          self.sourceslist.add(self.selected.type,
-                               self.selected.uri,
-                               self.selected.dist,
-                               self.selected_comps)
+          if self.official == True:
+            self.selected_comps = []
+            vbox = self.gladexml.get_widget("vbox_comps")
+            vbox.foreach(self.get_enabled_comps)
+            self.sourceslist.add(self.selected.type,
+                                 self.selected.uri,
+                                 self.selected.dist,
+                                 self.selected_comps)
+          else:
+            line = self.entry.get_text() + "\n"
+            self.sourceslist.list.append(aptsources.SourceEntry(line))
       self.main.hide()
       return res

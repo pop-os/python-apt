@@ -23,6 +23,10 @@ for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
     targetpath = os.path.dirname(os.path.join("share/locale",lang))
     I18NFILES.append((targetpath, [filepath]))
 
+os.system("intltool-merge -d po data/update-manager.schemas.in"\
+           " build/update-manager.schemas")
+
+
 # HACK: make sure that the mo files are generated and up-to-date
 os.system("cd po; make update-po")
 # do the same for the desktop files
@@ -31,7 +35,7 @@ os.system("cd data; make")
 os.system("cd channels; make")
     
 setup(name='update-manager',
-      version='0.1',
+      version='0.42.2',
       packages=[
                 'SoftwareProperties',
                 'UpdateManager',
@@ -39,8 +43,7 @@ setup(name='update-manager',
                 ],
       scripts=[
                'gnome-software-properties',
-               'update-manager',
-               'add-software-channel'
+               'update-manager'
                ],
       data_files=[
                   ('share/update-manager/glade',
@@ -55,11 +58,11 @@ setup(name='update-manager',
                      ["data/update-manager.desktop",
                       "data/gnome-software-properties.desktop"]
                   ),
+                  ('share/gconf/schemas',
+                  glob.glob("build/*.schemas")
+                  ),
                   ('share/pixmaps',
                    ["data/update-manager.png"]
-                  ),
-                  ('share/applications',
-                   ["data/mime/add-software-channel.desktop"]
                   ),
                   ('share/mime/packages',
                    ["data/mime/apt.xml"]

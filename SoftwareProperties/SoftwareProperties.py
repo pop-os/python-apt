@@ -37,6 +37,7 @@ from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 import aptsources
 import dialog_add
 import dialog_edit
+import dialog_sources_list
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -50,11 +51,22 @@ CONF_MAP = {
   "max_size"     : "APT::Archives::MaxSize",
   "max_age"      : "APT::Archives::MaxAge"
 }
-
+(
+    COLUMN_ACTIVE,
+    COLUMN_DESC
+) = range(2)
 
 class SoftwareProperties(SimpleGladeApp):
 
-  def __init__(self, datadir=None, options=None, parent=None):
+  def __init__(self, datadir=None, options=None, file=None, parent=None):
+
+    # set a default window icon
+    icons = gtk.icon_theme_get_default()
+    try:
+      logo=icons.load_icon("update-manager", 48, 0)
+      gtk.window_set_default_icon_list(logo)
+    except:
+      pass
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -63,6 +75,8 @@ class SoftwareProperties(SimpleGladeApp):
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
                             None, domain="update-manager")
     self.modified = False
+
+    self.file = file
 
     #self.gnome_program = gnome.init("Software Properties", "0.41")
     #self.gconfclient = gconf.client_get_default()
@@ -170,25 +184,72 @@ class SoftwareProperties(SimpleGladeApp):
     self.init_keyslist()
     self.reload_keyslist()
 
+    # drag and drop support for sources.list
+    self.treeview_sources.drag_dest_set(gtk.DEST_DEFAULT_ALL, \
+                                        [('text/uri-list',0, 0)], \
+                                        gtk.gdk.ACTION_COPY)
+    self.treeview_sources.connect("drag_data_received",\
+                                  self.on_sources_drag_data_received)
+
+
+    # call the add sources.list dialog if we got a file from the cli
+    if self.file != None:
+        self.open_file(file)
+
+  def open_file(self, file):
+    """Show an confirmation for adding the channels of the specified file"""
+    dialog = dialog_sources_list.AddSourcesList(self.window_main, 
+                                                self.sourceslist,
+                                                self.datadir,
+                                                file)
+    res = dialog.run()
+    if res == gtk.RESPONSE_OK:
+      self.reload_sourceslist()
+      self.modified = True
+
+  def on_sources_drag_data_received(self, widget, context, x, y,
+                                     selection, target_type, timestamp):
+      """Extract the dropped file pathes and open the first file, only"""
+      uri = selection.data.strip()
+      uri_splitted = uri.split()
+      if len(uri_splitted)>0:
+          self.open_file(uri_splitted[0])
+
   def hide(self):
     self.window_main.hide()
     
   def init_sourceslist(self):
-    self.source_store = gtk.ListStore(str, bool, gobject.TYPE_PYOBJECT)
+    self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
+                                      gobject.TYPE_STRING,
+                                      gobject.TYPE_PYOBJECT)
     self.treeview_sources.set_model(self.source_store)
     
-    tr = gtk.CellRendererText()
-    tr.set_property("xpad", 10)
-    tr.set_property("ypad", 10)
-    
-    source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
-    source_col.set_max_width(500)
+    cell_desc = gtk.CellRendererText()
+    #cell_desc.set_property("xpad", 10)
+    #cell_desc.set_property("ypad", 10)
+    col_desc = gtk.TreeViewColumn(_("Software Channel"), cell_desc,
+                                  markup=COLUMN_DESC)
+    col_desc.set_max_width(500)
 
-    self.treeview_sources.append_column(source_col)
+    cell_toggle = gtk.CellRendererToggle()
+    cell_toggle.connect('toggled', self.on_channel_toggled)
+    col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
+                                    active=COLUMN_ACTIVE)
+
+    self.treeview_sources.append_column(col_active)
+    self.treeview_sources.append_column(col_desc)
     
     self.sourceslist = aptsources.SourcesList()
     self.matcher = aptsources.SourceEntryMatcher()
     
+  def on_channel_toggled(self, cell_toggle, path):
+    """Enable or disable the selected channel"""
+    iter = self.source_store.get_iter((int(path),))
+    source_entry = self.source_store.get_value(iter, LIST_ENTRY_OBJ)
+    source_entry.disabled = not source_entry.disabled
+    self.reload_sourceslist()
+    self.modified = True
+
   def init_keyslist(self):
     self.keys_store = gtk.ListStore(str)
     self.treeview2.set_model(self.keys_store)
@@ -201,16 +262,14 @@ class SoftwareProperties(SimpleGladeApp):
   def reload_sourceslist(self):
     self.source_store.clear()
     for source in self.sourceslist.list:
-      if source.invalid or source.disabled:
+      if source.invalid:
         continue
-      (a_type, dist, comps) = self.matcher.match(source)
-      
-      contents = ""
-      if source.comment != "":
-        contents += "<i>%s</i>\n\n" % (source.comment)
-      contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
+      (nice_type, nice_dist, nice_comps) = self.matcher.match(source)
 
-      self.source_store.append([contents, not source.disabled, source])
+      contents = "<b>%s</b>%s" % (nice_dist, nice_comps)
+      if source.type == "deb-src":
+        contents = "<b>%s</b> - %s %s" % (nice_dist, nice_type, nice_comps)
+      self.source_store.append([not source.disabled, contents, source])
       
   def reload_keyslist(self):
     self.keys_store.clear()
@@ -220,11 +279,11 @@ class SoftwareProperties(SimpleGladeApp):
   def on_combobox_update_interval_changed(self, widget):
     i = self.combobox_update_interval.get_active()
     if i != -1:
-        value = self.combobox_interval_mapping[i]
-        # Only write the key if it has changed
-        if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
-            apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
-            self.write_config()
+      value = self.combobox_interval_mapping[i]
+      # Only write the key if it has changed
+      if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
+        apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+        self.write_config()
 
   def on_opt_autoupdate_toggled(self, widget):
     if self.checkbutton_auto_update.get_active():
