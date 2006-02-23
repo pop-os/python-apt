@@ -1945,7 +1945,7 @@ You can add and remove authentication keys in this dialog. A key makes it possib
 </widget>
 
 <widget class="GtkDialog" id="dialog_cdrom_progress">
-  <property name="border_width">12</property>
+  <property name="border_width">6</property>
   <property name="title" translatable="yes">Scanning CD-ROM</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
