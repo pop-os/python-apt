@@ -480,7 +480,7 @@ class UpdateManager(SimpleGladeApp):
     lock = thread.allocate_lock()
     lock.acquire()
     t = thread.start_new_thread(self.run_synaptic,
-                                (self.window_main.window.xid   ,action,lock))
+                                (self.window_main.window.xid,action,lock))
     while lock.locked():
       while gtk.events_pending():
         gtk.main_iteration()
