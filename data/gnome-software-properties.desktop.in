@@ -11,3 +11,4 @@ Encoding=UTF-8
 MimeType=text/x-apt-sources-list
 Categories=Application;System;Settings;
 X-KDE-SubstituteUID=true
+X-Ubuntu-Gettext-Domain=update-manager
