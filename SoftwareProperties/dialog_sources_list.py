@@ -39,6 +39,8 @@ class AddSourcesList:
         self.store = gtk.ListStore(gobject.TYPE_STRING)
         self.treeview.set_model(self.store)
         cell = gtk.CellRendererText()
+        cell.set_property("xpad", 2)
+        cell.set_property("ypad", 2)
         column = gtk.TreeViewColumn("Software Channel", cell, markup=0)
         column.set_max_width(500)
         self.treeview.append_column(column)
@@ -49,35 +51,31 @@ class AddSourcesList:
         except:
             self.error()
             return
-        self.matcher = SourceEntryMatcher()
 
         # show the found channels or an error message
         if len(self.sources.list) > 0:
             self.button_close.hide()
-            found = False
+            counter = 0
             for source in self.sources.list:
                 if source.invalid or source.disabled:
                     continue
-                found = True
-                (a_type, dist, comps) = self.matcher.match(source)
-
-                line = "<b>%s</b> (%s)%s" %\
-                       (dist, a_type, comps)
+                counter = counter +1
+                line = self.sources.render_source(source)
                 self.store.append([line])
-            if found == False:
+            if counter == 0:
                 self.error()
                 return
 
             header = gettext.ngettext("Add the following software channel?",
                                       "Add the following software channels?",
-                                      len(self.sources.list))
+                                      counter)
             body = _("You can install software from a channel. Use "\
                      "trusted channels, only.")
             self.label.set_markup("<big><b>%s</b></big>\n\n%s" % (header, body))
             self.button_add.set_use_underline(True)
             self.button_add.set_label(gettext.ngettext("_Add Channel",
                                                        "_Add Channels",
-                                                       len(self.sources.list)))
+                                                       counter))
         else:
             self.error()
             return
@@ -118,5 +116,6 @@ class AddSourcesList:
 
 class SingleSourcesList(SourcesList):
     def __init__(self, file):
+        self.matcher = SourceEntryMatcher()
         self.list = []
         self.load(file)

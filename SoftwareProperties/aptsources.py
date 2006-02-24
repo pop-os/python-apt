@@ -236,6 +236,81 @@ class SourcesList:
     line = line + "\n"
     self.list.insert(pos, SourceEntry(line))
 
+  def disable_components(self, comps, source_entry):
+    """Disable components of a source"""
+    comps_remove = set(comps) & set(source_entry.comps)
+    if len(comps_remove) >= len(source_entry.comps):
+        # disable the whole source
+        source_entry.disabled = True
+    elif len(comps_remove) > 0:
+        # Remove the sections from the original source
+        comps_new = set(source_entry.comps) - comps_remove
+        comps_write=""
+        for comp in comps_new:
+            comps_write += " %s" % comp
+        line = "%s %s %s %s" % (source.type, source.uri, source.dist,
+                                comps_write)
+        if source.comment:
+            line += "# %s" % source.comment
+        line += "\n"
+        index = self.list.index(source_entry)
+        file = self.list[index].file
+        self.list[index] = SourceEntry(line, file)
+
+        # Add a disabled line with the disabled comps after the 
+        # original line
+        comps_write=""
+        for comp in comps_remove:
+            comps_write = " %s" % comp
+        line_disabled = "#%s %s %s %s" % (source.type, source.uri, source.dist,
+                                          comps_remove)
+        if source.comment:
+            line_disabled += "# %s" % source.comment
+        line_disabled += "\n"
+        self.list.insert[index+1](SourceEntry(line_disabled, file))
+
+  def remove_components(self, comps, source_entry):
+    """ Remove components of a source"""
+    # The components that need to be removed from the source
+    comps_remove = set(comps) & set(source_entry.comps)
+    if len(comps_remove) >= len(source_entry.comps):
+        # Delete the whole source if there are no comps left
+        self.list.remove(source_entry)
+    elif len(comps_remove) > 0:
+        # Remove the sections from the original source
+        comps_new = set(source_entry.comps) - comps_remove
+        comps_write = ""
+        for comp in comps_new:
+            comps_write += " %s" % comp
+        line = "%s %s %s %s" % (source.type, source.uri, source.dist,
+                                comps_write)
+        if source.comment:
+            line += "# %s" % source.comment
+        line += "\n"
+        index = self.list.index(source_entry)
+        file = self.list[index].file
+        self.list[index] = SourceEntry(line, file)
+
+  def render_source(self, source):
+    """Render a nice output to show the source in a treeview"""
+    (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
+
+    if special in (SOURCE_UPDATES, SOURCE_BACKPORTS, SOURCE_SECURITY):
+      contents = "<b>%s</b>" % nice_dist
+    elif special == SOURCE_SYSTEM:
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "\n%s" % comp
+    else:
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "%s" % comp
+    return contents
+
   def remove(self, source_entry):
     self.list.remove(source_entry)
 
@@ -298,7 +373,7 @@ class SourcesList:
       if source.invalid:
         continue
       (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
-      print "match: %s %s" % (source.dist, special)
+      #print "match: %s %s" % (source.dist, special)
 
       # Collect the components of an activated system dist
       if special == SOURCE_SYSTEM and source.disabled != True:
@@ -316,19 +391,18 @@ class SourcesList:
       elif special == SOURCE_BACKPORTS:
           self.sources_backports.append(source)
 
-      
-    print "\nSystem Compos: %s " % self.system_comps
+    #print "\nSystem Compos: %s " % self.system_comps
 
     # Check if each security source contains all components of
     # the same dist
-    self.add_updates(self.sources_security)
-    self.add_updates(self.sources_updates)
-    self.add_updates(self.sources_backports)
+    self.check_updates(self.sources_security)
+    self.check_updates(self.sources_updates)
+    self.check_updates(self.sources_backports)
 
-  def add_updates(self, updates):
+  def check_updates(self, updates):
     modified = False
     for source in updates:
-      print "SecSource: %s" % source.dist
+      #print "SecSource: %s" % source.dist
       # Skip the "-security" and "-updates" from the dist
       i = source.dist.find("-")
       dist = source.dist[:i]
@@ -338,17 +412,28 @@ class SourcesList:
         comps_sec = set(source.comps)
         # Are there components without updates?
         comps_endangered = comps_sys - comps_sec
-        print "In Danger: %s " % comps_endangered
+        #print "In Danger: %s " % comps_endangered
         if len(comps_endangered) > 0:
           # convert the set into a list
-          comps_new=[]
-          for comp in comps_endangered:
-              comps_new.append(comp)
-          # add a security source with the additional components
-          print "Adding updates for %s - %s" % (source.dist, comps_new)
-          self.add(source.type, source.uri, source.dist, comps_new,
-                   source.comment)
+          comps_write=""
+          for comp in comps_sys:
+              comps_write += " %s" % comp
+          # add all system components to the securtiy line
+          line = "%s %s %s %s" % (source.type, source.uri, source.dist,
+                                  comps_write)
+          if source.comment:
+              line += "# %s" % source.comment
+          line += "\n"
+          index = self.list.index(source)
+          file = self.list[index].file
+          self.list[index] = SourceEntry(line, file)
           modified = True
+      else:
+        # FIXME: What to do if there are no system sources?
+        #        To disable the security updates would be the best
+        #        option, but what about people with a local mirror
+        #        that fetch sec updates from the ubuntu servers
+        pass
     return modified
 
 # templates for the add dialog
@@ -562,43 +647,52 @@ class SourceEntryMatcher:
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^sarge$",
                                          _("Debian 3.1 'Sarge'"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^woody$",
                                          _("Debian 3.0 'Woody'"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     # securtiy
     self.dist_list.append(self.MatchDist(".*security.debian.org",
                                          "^stable.*$",
                                          _("Debian Stable Security Updates"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SECURITY))
     # dists by status
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^stable$",
                                          _("Debian Stable"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^testing$",
                                          _("Debian Testing"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*debian.org/debian",
                                          "^unstable$",
                                          _("Debian Unstable 'Sid'"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
 
     # non-us
     self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
                                          "^stable.*$",
                                          _("Debian Non-US (Stable)"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
                                          "^testing.*$",
                                          _("Debian Non-US (Testing)"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
     self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
                                          "^unstable.*$",
                                          _("Debian Non-US (Unstable)"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
 
   def match(self,source):
     _ = gettext.gettext
@@ -619,24 +713,24 @@ class SourceEntryMatcher:
         type_description = _(t.description)
         break
 
+    comp_descriptions = []
     for d in self.dist_list:
       #print "'%s'" %source.uri
       if re.match(d.uri, source.uri) and re.match(d.dist, source.dist):
         dist_description = d.description
-        comp_description = ""
+        comp_descriptions = []
         special = d.special
         for c in source.comps:
           found = False
           for i in range(len(d.comps)):
             if re.match(d.comps[i], c):
-              comp_description = comp_description+"\n"+d.comps_descriptions[i]
+              comp_descriptions.append(d.comps_descriptions[i])
               found = True
           if found == False:
-            comp_description = comp_description+" "+c
+            comp_descriptions.append(c)
         break
-      
-      
-    return (type_description, dist_description, comp_description, special)
+
+    return (type_description, dist_description, comp_descriptions, special)
 
 
 # some simple tests

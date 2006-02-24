@@ -225,13 +225,15 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview_sources.set_model(self.source_store)
     
     cell_desc = gtk.CellRendererText()
-    #cell_desc.set_property("xpad", 10)
-    #cell_desc.set_property("ypad", 10)
+    cell_desc.set_property("xpad", 2)
+    cell_desc.set_property("ypad", 2)
     col_desc = gtk.TreeViewColumn(_("Software Channel"), cell_desc,
                                   markup=COLUMN_DESC)
-    col_desc.set_max_width(500)
+    col_desc.set_max_width(1000)
 
     cell_toggle = gtk.CellRendererToggle()
+    cell_toggle.set_property("xpad", 2)
+    cell_toggle.set_property("ypad", 2)
     cell_toggle.connect('toggled', self.on_channel_toggled)
     col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
                                     active=COLUMN_ACTIVE)
@@ -265,12 +267,7 @@ class SoftwareProperties(SimpleGladeApp):
     for source in self.sourceslist.list:
       if source.invalid:
         continue
-      (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
-      print "match: %s %s" % (source.dist, special)
-
-      contents = "<b>%s</b>%s" % (nice_dist, nice_comps)
-      if source.type == "deb-src":
-        contents = "<b>%s</b> - %s %s" % (nice_dist, nice_type, nice_comps)
+      contents = self.sourceslist.render_source(source)
       self.source_store.append([not source.disabled, contents, source])
     
   def reload_keyslist(self):
