@@ -16,7 +16,7 @@ if [ ! -h $DIST ]; then
 	ln -s dist-upgrade.py $DIST
 fi
 
-# create the tarbal 
-tar -c -z -v --exclude=$DIST.tar.gz --exclude=$0 -f $DIST.tar.gz .
+# create the tarball, copy links in place 
+tar -c -h -z -v --exclude=$DIST.tar.gz --exclude=$0 -f $DIST.tar.gz .
 
 

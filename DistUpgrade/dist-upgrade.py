@@ -9,7 +9,7 @@ import sys
 if __name__ == "__main__":
 
     logging.basicConfig(level=logging.DEBUG,
-                        filename=os.path.expanduser("~/dist-upgrade.log"),
+                        filename="/var/log/dist-upgrade.log",
                         format='%(asctime)s %(levelname)s %(message)s',
                         filemode='w')
 
