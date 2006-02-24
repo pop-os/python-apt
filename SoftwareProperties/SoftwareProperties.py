@@ -377,6 +377,7 @@ class SoftwareProperties(SimpleGladeApp):
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
     #shutil.copy(location, location + ".save")
+    self.sourceslist.clearBackup(".save")
     self.sourceslist.backup(".save")
     self.sourceslist.save()
     
