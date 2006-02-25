@@ -179,7 +179,7 @@ class UpdateList:
       #print "WARNING, keeping packages"
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
-             _("Some updates require to remove further software. "
+             _("Some updates require the removal of further software. "
                "Use the function \"Smart Upgrade\" of the package manager "
 	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
 	       "terminal to update your system completely.")))
