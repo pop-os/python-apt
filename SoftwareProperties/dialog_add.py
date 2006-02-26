@@ -26,6 +26,7 @@ import os
 import gobject
 import gtk
 import gtk.glade
+from gettext import gettext as _
 
 import aptsources
 
@@ -52,6 +53,11 @@ class dialog_add:
     self.combo.pack_start(cell, True)
     self.combo.add_attribute(cell, 'text', 0)
     self.fill_combo(self.combo)
+    self.label_dist = self.gladexml.get_widget("label_dist")
+    if self.templatelist.dist != "":
+        # TRANSLATORS: %s is the distribution name, eg. Ubuntu or Debian
+        self.label_dist.set_markup("<b>%s</b>" %  \
+                                   _("%s channels" % self.templatelist.dist))
 
     # Setup the custom channel widgets
     self.entry = self.gladexml.get_widget("entry_source_line")

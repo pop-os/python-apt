@@ -450,7 +450,7 @@ class SourcesList:
 
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
-  def __init__(self,a_type,uri,dist,description,comps):
+  def __init__(self, a_type, uri, dist, description, comps):
     self.comps = []
     self.comps_descriptions = []
     self.type = a_type
@@ -471,6 +471,8 @@ class SourceEntryTemplates:
     self.templates = []
 
     dinfo = DistInfo (base_dir=datadir+"channels/")
+
+    self.dist = dinfo.dist
 
     for suite in dinfo.suites:
       comps = []
