@@ -91,6 +91,7 @@ class SoftwareProperties(SimpleGladeApp):
       
     self.init_sourceslist()
     self.reload_sourceslist()
+    self.button_revert.set_sensitive(False)
 
     # internet update setings
     
@@ -179,6 +180,10 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.checkbutton_unattended.set_active(False)
 
+    # Backup the source list
+    self.sourceslist.clearBackup(".save")
+    self.sourceslist.backup(".save")
+
     # apt-key stuff
     self.apt_key = apt_key()
     self.init_keyslist()
@@ -204,8 +209,7 @@ class SoftwareProperties(SimpleGladeApp):
                                                 file)
     res = dialog.run()
     if res == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
+      self.modified_sourceslist()
 
   def on_sources_drag_data_received(self, widget, context, x, y,
                                      selection, target_type, timestamp):
@@ -244,13 +248,27 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist = aptsources.SourcesList()
     self.matcher = aptsources.SourceEntryMatcher()
     
+  def on_channel_activate(self, treeview, path, column):
+    """Open the edit dialog if a channel was double clicked"""
+    self.on_edit_clicked(treeview)
+
+  def on_treeview_sources_cursor_changed(self, treeview):
+    """Enable the buttons remove and edit if a channel is selected"""
+    sel = self.treeview_sources.get_selection()
+    (model, iter) = sel.get_selected()
+    if iter:
+        self.button_edit.set_sensitive(True)
+        self.button_remove.set_sensitive(True)
+    else:
+        self.button_edit.set_sensitive(False)
+        self.button_remove.set_sensitive(False)
+  
   def on_channel_toggled(self, cell_toggle, path):
     """Enable or disable the selected channel"""
     iter = self.source_store.get_iter((int(path),))
     source_entry = self.source_store.get_value(iter, LIST_ENTRY_OBJ)
     source_entry.disabled = not source_entry.disabled
-    self.reload_sourceslist()
-    self.modified = True
+    self.modified_sourceslist()
 
   def init_keyslist(self):
     self.keys_store = gtk.ListStore(str)
@@ -261,6 +279,21 @@ class SoftwareProperties(SimpleGladeApp):
     keys_col = gtk.TreeViewColumn("Key", tr, text=0)
     self.treeview2.append_column(keys_col)
     
+  def on_button_revert_clicked(self, button):
+    """Restore the source list from the startup of the dialog"""
+    self.sourceslist.restoreBackup(".save")
+    self.sourceslist.clearBackup(".save")
+    self.sourceslist.backup(".save")
+    self.sourceslist.refresh()
+    self.reload_sourceslist()
+    self.button_revert.set_sensitive(False)
+  
+  def modified_sourceslist(self):
+    """The sources list was changed and now needs to be saved and reloaded"""
+    self.button_revert.set_sensitive(True)
+    self.save_sourceslist()
+    self.reload_sourceslist()
+
   def reload_sourceslist(self):
     self.source_store.clear()
     self.sourceslist.check_for_endangered_dists()
@@ -377,18 +410,17 @@ class SoftwareProperties(SimpleGladeApp):
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
     #shutil.copy(location, location + ".save")
-    self.sourceslist.clearBackup(".save")
-    self.sourceslist.backup(".save")
     self.sourceslist.save()
-    
+
   def on_add_clicked(self, widget):
+    """Open a dialog to add new channels"""
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
-      
+      self.modified_sourceslist()
+
   def on_edit_clicked(self, widget):
+    """Open a dialog to edit the currently selected dialog"""
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if not iter:
@@ -397,17 +429,17 @@ class SoftwareProperties(SimpleGladeApp):
     dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
                                      source_entry, self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
-      
+      self.modified_sourceslist()
+
   def on_remove_clicked(self, widget):
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if iter:
       source = model.get_value(iter, LIST_ENTRY_OBJ)
       self.sourceslist.remove(source)
-      self.reload_sourceslist()  
-      self.modified = True
+      self.modified_sourceslist()  
+      self.button_edit.set_sensitive(False)
+      self.button_remove.set_sensitive(False)
     
   def add_key_clicked(self, widget):
     chooser = gtk.FileChooserDialog(title=_("Import key"),
@@ -492,8 +524,7 @@ class SoftwareProperties(SimpleGladeApp):
     if line != "":
       full_path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),saved_entry)
       self.sourceslist.list.append(aptsources.SourceEntry(line,full_path))
-      self.reload_sourceslist()
-      self.modified = True
+      self.modified_sourceslist()
 
 
 # FIXME: move this into a different file
