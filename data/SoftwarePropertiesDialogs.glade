@@ -181,21 +181,26 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkVBox" id="vbox_comps">
+			<widget class="GtkVBox" id="vbox22">
 			  <property name="visible">True</property>
 			  <property name="homogeneous">False</property>
-			  <property name="spacing">6</property>
+			  <property name="spacing">0</property>
 
 			  <child>
-			    <placeholder/>
-			  </child>
+			    <widget class="GtkVBox" id="vbox_comps">
+			      <property name="visible">True</property>
+			      <property name="homogeneous">False</property>
+			      <property name="spacing">6</property>
 
-			  <child>
-			    <placeholder/>
-			  </child>
-
-			  <child>
-			    <placeholder/>
+			      <child>
+				<placeholder/>
+			      </child>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">True</property>
+			      <property name="fill">True</property>
+			    </packing>
 			  </child>
 			</widget>
 			<packing>
@@ -591,7 +596,7 @@ The APT line contains the type, location and content of a repository, for exampl
 
 <widget class="GtkDialog" id="dialog_edit">
   <property name="border_width">6</property>
-  <property name="title" translatable="yes">Edit Repository...</property>
+  <property name="title" translatable="yes">Edit Channel</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">True</property>
