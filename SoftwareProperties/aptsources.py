@@ -448,7 +448,7 @@ class SourceCompTemplate:
     self.on_by_default = on_by_default
 
 class SourceEntryTemplates:
-  def __init__(self,datadir):
+  def __init__(self, datadir):
     _ = gettext.gettext
     self.templates = []
 

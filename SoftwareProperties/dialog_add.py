@@ -120,11 +120,26 @@ class dialog_add:
     a_iter = liststore.iter_nth_child(None, combobox.get_active())
     (name, template) = liststore.get(a_iter, 0,1)
     self.selected = template
+
+    # figure what is currently active in the sources.list
+    already_enabled_comps = []
+    for entry in self.sourceslist:
+      if entry.disabled or entry.invalid or entry.type != "deb":
+        continue
+      if template.dist == entry.dist and \
+            self.sourceslist.is_mirror(template.uri, entry.uri):
+        already_enabled_comps = entry.comps
+        
     comps = template.comps
     self.comps=[]
     for c in comps:
       checkbox = gtk.CheckButton(c.description)
-      checkbox.set_active(c.on_by_default)
+      # show what should be enabled by default if the source was not found
+      # else show the already enabled ones
+      if len(already_enabled_comps) == 0:
+        checkbox.set_active(c.on_by_default)
+      else:
+        checkbox.set_active(c.name in already_enabled_comps)
       checkbox.set_data("name",c.name)
       checkbox.connect("toggled", self.count_comps)
       self.vbox.pack_start(checkbox)
@@ -150,7 +165,7 @@ class dialog_add:
       if res == gtk.RESPONSE_OK:
           # add repository
           if self.official == True:
-            self.selected_comps = []
+            #self.selected_comps = []
             self.sourceslist.add(self.selected.type,
                                  self.selected.uri,
                                  self.selected.dist,
