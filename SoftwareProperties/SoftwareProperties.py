@@ -288,12 +288,14 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.refresh()
     self.reload_sourceslist()
     self.button_revert.set_sensitive(False)
+    self.modified = False
   
   def modified_sourceslist(self):
     """The sources list was changed and now needs to be saved and reloaded"""
     self.button_revert.set_sensitive(True)
     self.save_sourceslist()
     self.reload_sourceslist()
+    self.modified = True
 
   def render_source(self, source):
     """Render a nice output to show the source in a treeview"""
