@@ -88,10 +88,10 @@ class SoftwareProperties(SimpleGladeApp):
     if options and options.toplevel != None:
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
-      
+
+    self.button_revert.set_sensitive(False)
     self.init_sourceslist()
     self.reload_sourceslist()
-    self.button_revert.set_sensitive(False)
 
     # internet update setings
     
@@ -203,8 +203,9 @@ class SoftwareProperties(SimpleGladeApp):
 
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
-    dialog = dialog_sources_list.AddSourcesList(self.window_main, 
+    dialog = dialog_sources_list.AddSourcesList(self.window_main,
                                                 self.sourceslist,
+                                                self.render_source,
                                                 self.datadir,
                                                 file)
     res = dialog.run()
@@ -294,13 +295,37 @@ class SoftwareProperties(SimpleGladeApp):
     self.save_sourceslist()
     self.reload_sourceslist()
 
+  def render_source(self, source):
+    """Render a nice output to show the source in a treeview"""
+    (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
+
+    if special in (aptsources.SOURCE_UPDATES,
+                   aptsources.SOURCE_BACKPORTS,
+                   aptsources.SOURCE_SECURITY):
+      contents = "<b>%s</b>" % nice_dist
+    elif special == aptsources.SOURCE_SYSTEM:
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "\n%s" % comp
+    else:
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "%s" % comp
+    return contents
+
   def reload_sourceslist(self):
     self.source_store.clear()
-    self.sourceslist.check_for_endangered_dists()
+    if self.sourceslist.check_for_endangered_dists():
+      self.button_revert.set_sensitive(True)
+      self.save_sourceslist()
     for source in self.sourceslist.list:
       if source.invalid:
         continue
-      contents = self.sourceslist.render_source(source)
+      contents = self.render_source(source)
       self.source_store.append([not source.disabled, contents, source])
     
   def reload_keyslist(self):

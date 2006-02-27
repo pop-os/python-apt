@@ -291,26 +291,6 @@ class SourcesList:
         file = self.list[index].file
         self.list[index] = SourceEntry(line, file)
 
-  def render_source(self, source):
-    """Render a nice output to show the source in a treeview"""
-    (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
-
-    if special in (SOURCE_UPDATES, SOURCE_BACKPORTS, SOURCE_SECURITY):
-      contents = "<b>%s</b>" % nice_dist
-    elif special == SOURCE_SYSTEM:
-      contents = "<b>%s</b>" % nice_dist
-      if source.type in ("deb-src", "rpm-src"):
-        contents += " (%s)" % nice_type
-      for comp in nice_comps:
-        contents += "\n%s" % comp
-    else:
-      contents = "<b>%s</b>" % nice_dist
-      if source.type in ("deb-src", "rpm-src"):
-        contents += " (%s)" % nice_type
-      for comp in nice_comps:
-        contents += "%s" % comp
-    return contents
-
   def remove(self, source_entry):
     self.list.remove(source_entry)
 
@@ -407,9 +387,11 @@ class SourcesList:
 
     # Check if each security source contains all components of
     # the same dist
-    self.check_updates(self.sources_security)
-    self.check_updates(self.sources_updates)
-    self.check_updates(self.sources_backports)
+    res = False
+    res |= self.check_updates(self.sources_security)
+    res |= self.check_updates(self.sources_updates)
+    res |= self.check_updates(self.sources_backports)
+    return res
 
   def check_updates(self, updates):
     modified = False

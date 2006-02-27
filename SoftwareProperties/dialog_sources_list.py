@@ -9,11 +9,13 @@ from aptsources import SourcesList, SourceEntryMatcher
 from gettext import gettext as _
 import gettext
 import urllib
+from utils import *
 
 class AddSourcesList:
-    def __init__(self, parent, sourceslist, datadir, file):
+    def __init__(self, parent, sourceslist, source_renderer, datadir, file):
         print file
         self.parent = parent
+        self.source_renderer = source_renderer
         self.sources_old = sourceslist
         self.file = self.format_uri(file)
         self.glade = gtk.glade.XML(os.path.join(datadir,
@@ -60,7 +62,7 @@ class AddSourcesList:
                 if source.invalid or source.disabled:
                     continue
                 counter = counter +1
-                line = self.sources.render_source(source)
+                line = self.source_renderer(source)
                 self.store.append([line])
             if counter == 0:
                 self.error()
