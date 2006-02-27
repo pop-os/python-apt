@@ -5,6 +5,11 @@ hoary->breezy
   (it will crash otherwise)
 - send a "\n" on the libc6 question on hoary->breezy
 
+breezy->dapper
+--------------
+- gnome-icon-theme changes a lot, icons move from hicolor to gnome.
+  this might have caused a specatular crash during a upgrade
+
 general
 -------
 - CDROM upgrades !!!

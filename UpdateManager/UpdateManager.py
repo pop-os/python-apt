@@ -1,6 +1,6 @@
 # UpdateManager.py 
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #                2004 Michiel Sikkes
 #                2005 Martin Willemoes Hansen
 #  
@@ -48,14 +48,12 @@ import time
 import thread
 import xml.sax.saxutils
 
-# dist-upgrade tool
-import tarfile
 
 from gettext import gettext as _
 
 from Common.utils import *
 from Common.SimpleGladeApp import SimpleGladeApp
-from ReleaseNotesViewer import ReleaseNotesViewer
+from DistUpgradeFetcher import DistUpgradeFetcher
 import GtkProgress
 
 from MetaRelease import Dist, MetaRelease
@@ -476,7 +474,7 @@ class UpdateManager(SimpleGladeApp):
     lock = thread.allocate_lock()
     lock.acquire()
     t = thread.start_new_thread(self.run_synaptic,
-                                (self.window_main.window.xid   ,action,lock))
+                                (self.window_main.window.xid,action,lock))
     while lock.locked():
       while gtk.events_pending():
         gtk.main_iteration()
@@ -625,116 +623,8 @@ class UpdateManager(SimpleGladeApp):
     
   def on_button_dist_upgrade_clicked(self, button):
       print "on_button_dist_upgrade_clicked"
-
-      # see if we have release notes
-
-      # FIXME: care about i18n! (append -$lang or something)
-      if self.new_dist.releaseNotesURI != None:
-          uri = self.new_dist.releaseNotesURI
-          print uri
-          self.window_main.set_sensitive(False)
-          self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
-          while gtk.events_pending():
-              gtk.main_iteration()
-
-          # download/display the release notes
-          # FIXME: add some progress reporting here
-          res = gtk.RESPONSE_CANCEL
-          try:
-              release_notes = urllib2.urlopen(uri)
-              notes = release_notes.read()
-              textview_release_notes = ReleaseNotesViewer(notes)
-              textview_release_notes.show()
-              self.scrolled_notes.add(textview_release_notes)
-              self.dialog_release_notes.set_transient_for(self.window_main)
-              res = self.dialog_release_notes.run()
-              self.dialog_release_notes.hide()
-          except urllib2.HTTPError:
-              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
-                        _("Could not find the release notes")
-              secondary = _("The server may be overloaded. ")
-              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
-                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
-              dialog.set_title("")
-              dialog.set_markup(primary);
-              dialog.format_secondary_text(secondary);
-              dialog.run()
-              dialog.destroy()
-          except IOError:
-              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
-                        _("Could not download the release notes")
-              secondary = _("Please check your internet connection.")
-              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
-                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
-              dialog.set_title("")
-              dialog.set_markup(primary);
-              dialog.format_secondary_text(secondary);
-              dialog.run()
-              dialog.destroy()
-          self.window_main.set_sensitive(True)
-          self.window_main.window.set_cursor(None)
-          # user clicked cancel
-          if res == gtk.RESPONSE_CANCEL:
-              return
-
-      # now download the tarball with the upgrade script
-      tmpdir = tempfile.mkdtemp()
-      os.chdir(tmpdir)
-      if self.new_dist.upgradeTool != None:
-          progress = GtkProgress.GtkFetchProgress(self,
-                                                  _("Downloading the upgrade "
-                                                    "tool"),
-                                                  _("The upgrade tool will "
-                                                    "guide you through the "
-						    "upgrade process."))
-          fetcher = apt_pkg.GetAcquire(progress)
-          uri = self.new_dist.upgradeTool
-          #print "Downloading %s to %s" % (uri, tmpdir)
-          af = apt_pkg.GetPkgAcqFile(fetcher,uri,
-                                     descr=_("Upgrade tool"))
-          fetcher.Run()
-          #print "Done downloading"
-
-          # extract the tarbal
-          print "extracting"
-          tar = tarfile.open(tmpdir+"/"+os.path.basename(uri),"r")
-          for tarinfo in tar:
-              tar.extract(tarinfo)
-          tar.close()
-
-          # FIXME: check a internal dependency file to make sure
-          #        that the script will run correctly
-          
-          # see if we have a script file that we can run
-          script = "%s/%s" % (tmpdir, self.new_dist.name)
-          if not os.path.exists(script):
-              # no script file found in extracted tarbal
-              primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
-                        _("Could not run the upgrade tool")
-              secondary = _("This is most likely a bug in the upgrade tool. "
-                            "Please report it as a bug")
-              dialog = gtk.MessageDialog(self.window_main,gtk.DIALOG_MODAL,
-                                         gtk.MESSAGE_ERROR,gtk.BUTTONS_CLOSE,"")
-              dialog.set_title("")
-              dialog.set_markup(primary);
-              dialog.format_secondary_text(secondary);
-              dialog.run()
-              dialog.destroy()
-          else:
-              #print "runing: %s" % script
-              os.execv(script,[])
-          
-      # cleanup
-      os.chdir("..")
-      # del tmpdir
-      for root, dirs, files in os.walk(tmpdir, topdown=False):
-          for name in files:
-              os.remove(os.path.join(root, name))
-              #print "would remove file: %s" % os.path.join(root, name)
-          for name in dirs:
-              os.rmdir(os.path.join(root, name))
-              #print "would remove dir: %s" % os.path.join(root, name)
-      os.rmdir(tmpdir)
+      fetcher = DistUpgradeFetcher(self, self.new_dist)
+      fetcher.run()
       
   def new_dist_available(self, meta_release, upgradable_to):
     print "new_dist_available: %s" % upgradable_to.name

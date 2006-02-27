@@ -1,10 +1,22 @@
-update-manager (0.42.2ubuntu5) dapper; urgency=low
+update-manager (0.42.2ubuntu6) dapper; urgency=low
 
+  * SoftwareProperties/*: fix some UI problems (thanks to Sebastian Heinlein)
+  * debian/control: arch: all now
   * po/pt_BR.po: updated translation (thanks to 
     Carlos Eduardo Pedroza Santiviago)
+  * data/gnome-software-properties.desktop.in, update-manager.desktop.in:
+  * debian/rules: undo the detection in favour of the simpler update of
+                  the desktop files
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 20 Feb 2006 15:58:09 +0100
 
+update-manager (0.42.2ubuntu5) dapper; urgency=low
+
+  * debian/rules: Add gettext domain to .server and .desktop files to get
+    language pack support for them. (Similarly to cdbs' gnome.mk)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Thu, 23 Feb 2006 18:42:04 +0100
+  
 update-manager (0.42.2ubuntu4) dapper; urgency=low
 
   * removed some of the gnome dependencies (gconf still in)
