@@ -55,6 +55,7 @@ from gettext import gettext as _
 
 from Common.utils import *
 from Common.SimpleGladeApp import SimpleGladeApp
+from ReleaseNotesViewer import ReleaseNotesViewer
 import GtkProgress
 
 from MetaRelease import Dist, MetaRelease
@@ -355,7 +356,6 @@ class UpdateManager(SimpleGladeApp):
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
     else:
       if self.expander_details.get_expanded():
-        self.hbox_footer.set_sensitive(False)
         lock = thread.allocate_lock()
         lock.acquire()
         t=thread.start_new_thread(self.cache.get_changelog,(name,lock))
@@ -372,7 +372,6 @@ class UpdateManager(SimpleGladeApp):
         # download finished (or canceld, or time-out)
         button.hide()
         button.disconnect(id);
-        self.hbox_footer.set_sensitive(True)
 
     if self.cache.all_changes.has_key(name):
       changes = self.cache.all_changes[name]
@@ -644,7 +643,9 @@ class UpdateManager(SimpleGladeApp):
           try:
               release_notes = urllib2.urlopen(uri)
               notes = release_notes.read()
-              self.textview_release_notes.get_buffer().set_text(notes)
+              textview_release_notes = ReleaseNotesViewer(notes)
+              textview_release_notes.show()
+              self.scrolled_notes.add(textview_release_notes)
               self.dialog_release_notes.set_transient_for(self.window_main)
               res = self.dialog_release_notes.run()
               self.dialog_release_notes.hide()
