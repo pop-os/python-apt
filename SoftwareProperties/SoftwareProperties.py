@@ -299,11 +299,16 @@ class SoftwareProperties(SimpleGladeApp):
     """Render a nice output to show the source in a treeview"""
     (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
 
+    # FIXME: add this back when it's more consistent
+    #if special in (aptsources.SOURCE_UPDATES,
+    #               aptsources.SOURCE_BACKPORTS,
+    #               aptsources.SOURCE_SECURITY):
+    #  contents = "<b>%s</b>" % nice_dist
+    #elif special == aptsources.SOURCE_SYSTEM:
     if special in (aptsources.SOURCE_UPDATES,
-                   aptsources.SOURCE_BACKPORTS,
-                   aptsources.SOURCE_SECURITY):
-      contents = "<b>%s</b>" % nice_dist
-    elif special == aptsources.SOURCE_SYSTEM:
+                aptsources.SOURCE_BACKPORTS,
+                aptsources.SOURCE_SECURITY,
+                aptsources.SOURCE_SYSTEM):
       contents = "<b>%s</b>" % nice_dist
       if source.type in ("deb-src", "rpm-src"):
         contents += " (%s)" % nice_type
@@ -319,9 +324,10 @@ class SoftwareProperties(SimpleGladeApp):
 
   def reload_sourceslist(self):
     self.source_store.clear()
-    if self.sourceslist.check_for_endangered_dists():
-      self.button_revert.set_sensitive(True)
-      self.save_sourceslist()
+    # FIXME: this happens with way too much magic, we need to either
+    #        ask the user or provide a different way to present this
+    #        )maybe some sort of configuration is enough?)
+    self.sourceslist.check_for_endangered_dists()
     for source in self.sourceslist.list:
       if source.invalid:
         continue

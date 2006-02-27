@@ -362,7 +362,7 @@ class SourcesList:
     self.matcher = SourceEntryMatcher()
 
     for source in self.list:
-      if source.invalid:
+      if source.invalid or source.type != "deb":
         continue
       (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
       #print "match: %s %s" % (source.dist, special)
@@ -406,7 +406,7 @@ class SourcesList:
         comps_sec = set(source.comps)
         # Are there components without updates?
         comps_endangered = comps_sys - comps_sec
-        #print "In Danger: %s " % comps_endangered
+        #print "In Danger: %s - %s = %s " % (comps_sys, comps_sec, comps_endangered)
         if len(comps_endangered) > 0:
           # convert the set into a list
           comps_write=""

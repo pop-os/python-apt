@@ -1,6 +1,8 @@
 update-manager (0.42.2ubuntu6) dapper; urgency=low
 
-  * SoftwareProperties/*: fix some UI problems (thanks to Sebastian Heinlein)
+  * SoftwareProperties/: 
+    - fix some UI problems (thanks to Sebastian Heinlein)
+    - add breezy-updates, breezy-security to the Add dialog
   * po/pt_BR.po: updated translation 
     (thanks to Carlos Eduardo Pedroza Santiviago)
   * po/pt.po: updated Portugise translation (thanks to Rui Azevedo)
