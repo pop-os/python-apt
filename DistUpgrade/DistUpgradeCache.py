@@ -19,7 +19,7 @@ class MyCache(apt.Cache):
 
         # turn on debuging
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open(os.path.expanduser("~/dist-upgrade-apt.log"), os.O_RDWR|os.O_CREAT|os.O_TRUNC)
+        fd = os.open("/var/log/dist-upgrade-apt.log", os.O_RDWR|os.O_CREAT|os.O_TRUNC)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
