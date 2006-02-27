@@ -156,7 +156,7 @@ class DistUpgradeFetcher(object):
 
     def runDistUpgrader(self):
         #print "runing: %s" % script
-        os.execv(script,[])
+        os.execv(self.script,[])
 
     def cleanup(self):
       # cleanup
