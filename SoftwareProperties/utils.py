@@ -1,7 +1,5 @@
 import gtk
 
-
-
 def dialog_error(parent, primary, secondary):
     p = "<span weight=\"bold\" size=\"larger\">%s</span>" % primary
     dialog = gtk.MessageDialog(parent,gtk.DIALOG_MODAL,
