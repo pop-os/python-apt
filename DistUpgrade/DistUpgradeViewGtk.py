@@ -230,6 +230,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                    "files ~/dist-upgrade.log and ~/dist-upgrade-apt.log "
                    "in your report. The upgrade aborts now. "),
                  "\n".join(lines))
+      sys.exit(1)
 
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
