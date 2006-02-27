@@ -65,9 +65,9 @@ class DistUpgradeView(object):
     def confirmRestart(self):
         " generic ask about the restart, can be overriden "
         summary = _("Reboot required")
-        msg =  _("The upgrade is finished now. "
-                 "A reboot is required to "
-                 "now, do you want to do this "
+        msg =  _("The upgrade is finished and "
+                 "a reboot is required. "
+                 "Do you want to do this "
                  "now?")
         return self.askYesNoQuestion(summary, msg)
     def error(self, summary, msg, extended_msg=None):
