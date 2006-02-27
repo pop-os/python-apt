@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <key>/schemas/apps/update-manager/remind_reload</key>
+      <applyto>/apps/update-manager/remind_reload</applyto>
+      <owner>update-manager</owner>
+      <type>bool</type>
+      <default>True</default>
+		
+      <locale name="C">
+        <short>Remind to reload the channel list</short>
+        <long>
+	  If automatic checking for updates is disabeld, you have
+	  to reload the channel list manually. This option allows
+	  to hide the reminder shown in this case.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/update-manager/show_details</key>
+      <applyto>/apps/update-manager/show_details</applyto>
+      <owner>update-manager</owner>
+      <type>bool</type>
+      <default>False</default>
+		
+      <locale name="C">
+        <short>Show details of an update</short>
+        <long>
+	    Stores the state of the expander that contains the
+	    list of changs and the description 
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <key>/schemas/apps/update-manager/window_size</key>
+      <applyto>/apps/update-manager/window_size</applyto>
+      <owner>update-manager</owner>
+      <type>pair</type>
+      <car_type>int</car_type>
+      <cdr_type>int</cdr_type>
+		
+      <locale name="C">
+        <short>The window size</short>
+        <long>
+	    Stores the size of the update-manager dialog
+        </long>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>
+

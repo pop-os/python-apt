@@ -5,11 +5,27 @@ import glob
 import os
 
 GETTEXT_NAME="update-manager"
+HELPFILES = []
+print "Setting up help files..."
+for filepath in glob.glob("help/*"):
+    lang = filepath[len("help/"):]
+    print " Language: %s" % lang
+    path_xml = "share/gnome/help/update-manager/" + lang
+    path_figures = "share/gnome/help/update-manager/" + lang + "/figures/"
+    HELPFILES.append((path_xml, (glob.glob("%s/*.xml" % filepath))))
+    HELPFILES.append((path_figures, (glob.glob("%s/figures/*.png" % \
+                                                filepath))))
+HELPFILES.append(('share/omf/update-manager', glob.glob("help/*/*.omf")))
+
 I18NFILES = []
 for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
     lang = filepath[len("po/mo/"):]
     targetpath = os.path.dirname(os.path.join("share/locale",lang))
     I18NFILES.append((targetpath, [filepath]))
+
+os.system("intltool-merge -d po data/update-manager.schemas.in"\
+           " build/update-manager.schemas")
+
 
 # HACK: make sure that the mo files are generated and up-to-date
 os.system("cd po; make update-po")
@@ -19,7 +35,7 @@ os.system("cd data; make")
 os.system("cd channels; make")
     
 setup(name='update-manager',
-      version='0.1',
+      version='0.42.2',
       packages=[
                 'SoftwareProperties',
                 'UpdateManager',
@@ -42,10 +58,16 @@ setup(name='update-manager',
                      ["data/update-manager.desktop",
                       "data/gnome-software-properties.desktop"]
                   ),
+                  ('share/gconf/schemas',
+                  glob.glob("build/*.schemas")
+                  ),
                   ('share/pixmaps',
                    ["data/update-manager.png"]
+                  ),
+                  ('share/mime/packages',
+                   ["data/mime/apt.xml"]
                   )
-                  ]+I18NFILES,
+                  ] + I18NFILES + HELPFILES,
       )
 
 

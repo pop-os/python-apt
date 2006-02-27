@@ -38,12 +38,13 @@ class Dist(object):
         self.supported = supported
         self.releaseNotesURI = None
         self.upgradeTool = None
+        self.upgradeToolSig = None
 
 class MetaRelease(gobject.GObject):
 
     # some constants
-    #METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test.save"
+    METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
+    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test2"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
@@ -73,6 +74,7 @@ class MetaRelease(gobject.GObject):
         if res != 0:
             sys.stderr.write("lsb_release returned exitcode: %i\n" % res)
         dist = string.strip(p.stdout.readline())
+        #dist = "breezy"
         return dist
     
     def check(self):
@@ -107,6 +109,8 @@ class MetaRelease(gobject.GObject):
                     dist.releaseNotesURI = index_tag.Section["ReleaseNotes"]
                 if index_tag.Section.has_key("UpgradeTool"):
                     dist.upgradeTool =  index_tag.Section["UpgradeTool"]
+                if index_tag.Section.has_key("UpgradeToolSignature"):
+                    dist.upgradeToolSig =  index_tag.Section["UpgradeToolSignature"]
                 dists.append(dist)
                 if name == current_dist_name:
                     current_dist = dist 

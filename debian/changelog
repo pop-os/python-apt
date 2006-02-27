@@ -1,11 +1,16 @@
 update-manager (0.42.2ubuntu6) dapper; urgency=low
 
+  * SoftwareProperties/: 
+    - fix some UI problems (thanks to Sebastian Heinlein)
+    - add breezy-updates, breezy-security to the Add dialog
+  * po/pt_BR.po: updated translation 
+    (thanks to Carlos Eduardo Pedroza Santiviago)
+  * po/pt.po: updated Portugise translation (thanks to Rui Azevedo)
   * debian/control: arch: all now
-  * po/pt_BR.po: updated translation (thanks to 
-    Carlos Eduardo Pedroza Santiviago)
-  * data/gnome-software-properties.desktop.in, update-manager.desktop.in,
-    debian/rules: undo the detection in favour of the simpler update of
+  * debian/rules: undo the detection in favour of the simpler update of
                   the desktop files
+  * data/gnome-software-properties.desktop.in, update-manager.desktop.in:
+    - added X-Ubuntu-Gettext-Domain
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 20 Feb 2006 15:58:09 +0100
 

@@ -37,6 +37,7 @@ from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 import aptsources
 import dialog_add
 import dialog_edit
+import dialog_sources_list
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -50,11 +51,22 @@ CONF_MAP = {
   "max_size"     : "APT::Archives::MaxSize",
   "max_age"      : "APT::Archives::MaxAge"
 }
-
+(
+    COLUMN_ACTIVE,
+    COLUMN_DESC
+) = range(2)
 
 class SoftwareProperties(SimpleGladeApp):
 
-  def __init__(self, datadir=None, options=None, parent=None):
+  def __init__(self, datadir=None, options=None, file=None, parent=None):
+
+    # set a default window icon
+    icons = gtk.icon_theme_get_default()
+    try:
+      logo=icons.load_icon("update-manager", 48, 0)
+      gtk.window_set_default_icon_list(logo)
+    except:
+      pass
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -63,6 +75,8 @@ class SoftwareProperties(SimpleGladeApp):
     SimpleGladeApp.__init__(self, datadir+"glade/SoftwareProperties.glade",
                             None, domain="update-manager")
     self.modified = False
+
+    self.file = file
 
     #self.gnome_program = gnome.init("Software Properties", "0.41")
     #self.gconfclient = gconf.client_get_default()
@@ -74,7 +88,8 @@ class SoftwareProperties(SimpleGladeApp):
     if options and options.toplevel != None:
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
-      
+
+    self.button_revert.set_sensitive(False)
     self.init_sourceslist()
     self.reload_sourceslist()
 
@@ -165,30 +180,97 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.checkbutton_unattended.set_active(False)
 
+    # Backup the source list
+    self.sourceslist.clearBackup(".save")
+    self.sourceslist.backup(".save")
+
     # apt-key stuff
     self.apt_key = apt_key()
     self.init_keyslist()
     self.reload_keyslist()
 
+    # drag and drop support for sources.list
+    self.treeview_sources.drag_dest_set(gtk.DEST_DEFAULT_ALL, \
+                                        [('text/uri-list',0, 0)], \
+                                        gtk.gdk.ACTION_COPY)
+    self.treeview_sources.connect("drag_data_received",\
+                                  self.on_sources_drag_data_received)
+
+
+    # call the add sources.list dialog if we got a file from the cli
+    if self.file != None:
+        self.open_file(file)
+
+  def open_file(self, file):
+    """Show an confirmation for adding the channels of the specified file"""
+    dialog = dialog_sources_list.AddSourcesList(self.window_main,
+                                                self.sourceslist,
+                                                self.render_source,
+                                                self.datadir,
+                                                file)
+    res = dialog.run()
+    if res == gtk.RESPONSE_OK:
+      self.modified_sourceslist()
+
+  def on_sources_drag_data_received(self, widget, context, x, y,
+                                     selection, target_type, timestamp):
+      """Extract the dropped file pathes and open the first file, only"""
+      uri = selection.data.strip()
+      uri_splitted = uri.split()
+      if len(uri_splitted)>0:
+          self.open_file(uri_splitted[0])
+
   def hide(self):
     self.window_main.hide()
     
   def init_sourceslist(self):
-    self.source_store = gtk.ListStore(str, bool, gobject.TYPE_PYOBJECT)
+    self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
+                                      gobject.TYPE_STRING,
+                                      gobject.TYPE_PYOBJECT)
     self.treeview_sources.set_model(self.source_store)
     
-    tr = gtk.CellRendererText()
-    tr.set_property("xpad", 10)
-    tr.set_property("ypad", 10)
-    
-    source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
-    source_col.set_max_width(500)
+    cell_desc = gtk.CellRendererText()
+    cell_desc.set_property("xpad", 2)
+    cell_desc.set_property("ypad", 2)
+    col_desc = gtk.TreeViewColumn(_("Software Channel"), cell_desc,
+                                  markup=COLUMN_DESC)
+    col_desc.set_max_width(1000)
 
-    self.treeview_sources.append_column(source_col)
+    cell_toggle = gtk.CellRendererToggle()
+    cell_toggle.set_property("xpad", 2)
+    cell_toggle.set_property("ypad", 2)
+    cell_toggle.connect('toggled', self.on_channel_toggled)
+    col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
+                                    active=COLUMN_ACTIVE)
+
+    self.treeview_sources.append_column(col_active)
+    self.treeview_sources.append_column(col_desc)
     
     self.sourceslist = aptsources.SourcesList()
     self.matcher = aptsources.SourceEntryMatcher()
     
+  def on_channel_activate(self, treeview, path, column):
+    """Open the edit dialog if a channel was double clicked"""
+    self.on_edit_clicked(treeview)
+
+  def on_treeview_sources_cursor_changed(self, treeview):
+    """Enable the buttons remove and edit if a channel is selected"""
+    sel = self.treeview_sources.get_selection()
+    (model, iter) = sel.get_selected()
+    if iter:
+        self.button_edit.set_sensitive(True)
+        self.button_remove.set_sensitive(True)
+    else:
+        self.button_edit.set_sensitive(False)
+        self.button_remove.set_sensitive(False)
+  
+  def on_channel_toggled(self, cell_toggle, path):
+    """Enable or disable the selected channel"""
+    iter = self.source_store.get_iter((int(path),))
+    source_entry = self.source_store.get_value(iter, LIST_ENTRY_OBJ)
+    source_entry.disabled = not source_entry.disabled
+    self.modified_sourceslist()
+
   def init_keyslist(self):
     self.keys_store = gtk.ListStore(str)
     self.treeview2.set_model(self.keys_store)
@@ -198,20 +280,62 @@ class SoftwareProperties(SimpleGladeApp):
     keys_col = gtk.TreeViewColumn("Key", tr, text=0)
     self.treeview2.append_column(keys_col)
     
+  def on_button_revert_clicked(self, button):
+    """Restore the source list from the startup of the dialog"""
+    self.sourceslist.restoreBackup(".save")
+    self.sourceslist.clearBackup(".save")
+    self.sourceslist.backup(".save")
+    self.sourceslist.refresh()
+    self.reload_sourceslist()
+    self.button_revert.set_sensitive(False)
+    self.modified = False
+  
+  def modified_sourceslist(self):
+    """The sources list was changed and now needs to be saved and reloaded"""
+    self.button_revert.set_sensitive(True)
+    self.save_sourceslist()
+    self.reload_sourceslist()
+    self.modified = True
+
+  def render_source(self, source):
+    """Render a nice output to show the source in a treeview"""
+    (nice_type, nice_dist, nice_comps, special) = self.matcher.match(source)
+
+    # FIXME: add this back when it's more consistent
+    #if special in (aptsources.SOURCE_UPDATES,
+    #               aptsources.SOURCE_BACKPORTS,
+    #               aptsources.SOURCE_SECURITY):
+    #  contents = "<b>%s</b>" % nice_dist
+    #elif special == aptsources.SOURCE_SYSTEM:
+    if special in (aptsources.SOURCE_UPDATES,
+                aptsources.SOURCE_BACKPORTS,
+                aptsources.SOURCE_SECURITY,
+                aptsources.SOURCE_SYSTEM):
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "\n%s" % comp
+    else:
+      contents = "<b>%s</b>" % nice_dist
+      if source.type in ("deb-src", "rpm-src"):
+        contents += " (%s)" % nice_type
+      for comp in nice_comps:
+        contents += "%s" % comp
+    return contents
+
   def reload_sourceslist(self):
     self.source_store.clear()
+    # FIXME: this happens with way too much magic, we need to either
+    #        ask the user or provide a different way to present this
+    #        )maybe some sort of configuration is enough?)
+    self.sourceslist.check_for_endangered_dists()
     for source in self.sourceslist.list:
-      if source.invalid or source.disabled:
+      if source.invalid:
         continue
-      (a_type, dist, comps) = self.matcher.match(source)
-      
-      contents = ""
-      if source.comment != "":
-        contents += "<i>%s</i>\n\n" % (source.comment)
-      contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
-
-      self.source_store.append([contents, not source.disabled, source])
-      
+      contents = self.render_source(source)
+      self.source_store.append([not source.disabled, contents, source])
+    
   def reload_keyslist(self):
     self.keys_store.clear()
     for key in self.apt_key.list():
@@ -220,11 +344,11 @@ class SoftwareProperties(SimpleGladeApp):
   def on_combobox_update_interval_changed(self, widget):
     i = self.combobox_update_interval.get_active()
     if i != -1:
-        value = self.combobox_interval_mapping[i]
-        # Only write the key if it has changed
-        if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
-            apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
-            self.write_config()
+      value = self.combobox_interval_mapping[i]
+      # Only write the key if it has changed
+      if not value == apt_pkg.Config.FindI(CONF_MAP["autoupdate"]):
+        apt_pkg.Config.Set(CONF_MAP["autoupdate"], str(value))
+        self.write_config()
 
   def on_opt_autoupdate_toggled(self, widget):
     if self.checkbutton_auto_update.get_active():
@@ -319,17 +443,17 @@ class SoftwareProperties(SimpleGladeApp):
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
     #shutil.copy(location, location + ".save")
-    self.sourceslist.backup(".save")
     self.sourceslist.save()
-    
+
   def on_add_clicked(self, widget):
+    """Open a dialog to add new channels"""
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
-      
+      self.modified_sourceslist()
+
   def on_edit_clicked(self, widget):
+    """Open a dialog to edit the currently selected dialog"""
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if not iter:
@@ -338,17 +462,17 @@ class SoftwareProperties(SimpleGladeApp):
     dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
                                      source_entry, self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
-      
+      self.modified_sourceslist()
+
   def on_remove_clicked(self, widget):
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
     if iter:
       source = model.get_value(iter, LIST_ENTRY_OBJ)
       self.sourceslist.remove(source)
-      self.reload_sourceslist()  
-      self.modified = True
+      self.modified_sourceslist()  
+      self.button_edit.set_sensitive(False)
+      self.button_remove.set_sensitive(False)
     
   def add_key_clicked(self, widget):
     chooser = gtk.FileChooserDialog(title=_("Import key"),
@@ -364,7 +488,7 @@ class SoftwareProperties(SimpleGladeApp):
               _("Error importing selected file"),
               _("The selected file may not be a GPG key file " \
                 "or it might be corrupt."))
-        self.reload_keyslist()
+      self.reload_keyslist()
         
   def remove_key_clicked(self, widget):
     selection = self.treeview2.get_selection()
@@ -418,7 +542,7 @@ class SoftwareProperties(SimpleGladeApp):
                                  type=gtk.MESSAGE_ERROR,
                                  buttons=gtk.BUTTONS_OK,
                                  message_format=None)
-      dialog.set_markup(_("<big><b>Error scaning the CD</b></big>\n\n%s"%msg))
+      dialog.set_markup(_("<big><b>Error scanning the CD</b></big>\n\n%s"%msg))
       res = dialog.run()
       dialog.destroy()
       return
@@ -433,8 +557,7 @@ class SoftwareProperties(SimpleGladeApp):
     if line != "":
       full_path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),saved_entry)
       self.sourceslist.list.append(aptsources.SourceEntry(line,full_path))
-      self.reload_sourceslist()
-      self.modified = True
+      self.modified_sourceslist()
 
 
 # FIXME: move this into a different file

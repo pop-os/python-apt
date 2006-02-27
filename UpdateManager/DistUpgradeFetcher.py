@@ -91,7 +91,19 @@ class DistUpgradeFetcher(object):
               return False
           return True
 
-    def authenticate(self, file, signature, keyring='/etc/apt/trusted.gpg'):
+    def authenticate(self):
+        if self.new_dist.upgradeToolSig:
+            f = self.tmpdir+"/"+os.path.basename(self.new_dist.upgradeTool)
+            sig = self.tmpdir+"/"+os.path.basename(self.new_dist.upgradeToolSig)
+            print "authenticate '%s' against '%s' " % (f,sig)
+            if not self.gpgauthenticate(f, sig):
+                return False
+
+        # we may return False here by default if we want to make a sig
+        # mandatory
+        return True
+
+    def gpgauthenticate(self, file, signature, keyring='/etc/apt/trusted.gpg'):
         """ authenticated a file against a given signature, if no keyring
             is given use the apt default keyring
         """
@@ -101,6 +113,7 @@ class DistUpgradeFetcher(object):
         proc = gpg.run(['--verify', signature, file],
                        create_fhs=['status','logger','stderr'])
         gpgres = proc.handles['status'].read()
+        proc.wait()
         if "VALIDSIG" in gpgres:
             return True
         return False
@@ -140,19 +153,28 @@ class DistUpgradeFetcher(object):
         # now download the tarball with the upgrade script
         self.tmpdir = tmpdir = tempfile.mkdtemp()
         os.chdir(tmpdir)
+
+        # turn debugging on here (if required)
+        #apt_pkg.Config.Set("Debug::Acquire::http","1")
+
+        progress = GtkProgress.GtkFetchProgress(self.parent,
+                                                _("Downloading the upgrade "
+                                                  "tool"),
+                                                _("The upgrade tool will "
+                                                  "guide you through the "
+                                                  "upgrade process."))
+        fetcher = apt_pkg.GetAcquire(progress)
+
+        if self.new_dist.upgradeToolSig != None:
+            uri = self.new_dist.upgradeToolSig
+            af = apt_pkg.GetPkgAcqFile(fetcher,uri, descr=_("Upgrade tool signature"))
         if self.new_dist.upgradeTool != None:
-            progress = GtkProgress.GtkFetchProgress(self.parent,
-                                                    _("Downloading the upgrade "
-                                                      "tool"),
-                                                    _("The upgrade tool will "
-                                                      "guide you through the "
-                                                      "upgrade process."))
-            fetcher = apt_pkg.GetAcquire(progress)
             self.uri = self.new_dist.upgradeTool
             af = apt_pkg.GetPkgAcqFile(fetcher,self.uri, descr=_("Upgrade tool"))
             if fetcher.Run() != fetcher.ResultContinue:
                 return False
             return True
+        return False
 
     def runDistUpgrader(self):
         #print "runing: %s" % script
@@ -185,10 +207,10 @@ class DistUpgradeFetcher(object):
             print "verify failed"
             self.cleanup()
             return
-        #if not self.authenticate(distUpgradeTar, distUpgradeSig):
-        #   print "authenticate failed"
-        #   self.cleanup()
-        #   return
+        if not self.authenticate():
+            print "authenticate failed"
+            self.cleanup()
+            return
         self.runDistUpgrader()
 
 

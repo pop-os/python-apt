@@ -126,6 +126,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         reaper.connect("child-exited", self.child_exited)
         # some options for dpkg to make it die less easily
         apt_pkg.Config.Set("DPkg::Options::","--force-overwrite")
+
     def startUpdate(self):
         self.finished = False
         # FIXME: add support for the timeout
@@ -161,15 +162,19 @@ class GtkInstallProgressAdapter(InstallProgress):
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
+
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
         self.finished = True
+
     def waitChild(self):
         while not self.finished:
             self.updateInterface()
         return self.apt_status
+
     def finishUpdate(self):
         self.label_status.set_text("")
+    
     def updateInterface(self):
         InstallProgress.updateInterface(self)
         self.progress.set_fraction(self.percent/100.0)
@@ -181,9 +186,6 @@ class GtkInstallProgressAdapter(InstallProgress):
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
-
-      
-    
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
         bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
@@ -228,6 +230,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                    "files ~/dist-upgrade.log and ~/dist-upgrade-apt.log "
                    "in your report. The upgrade aborts now. "),
                  "\n".join(lines))
+      sys.exit(1)
 
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
@@ -237,6 +240,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self._terminal_lines = []
         self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
         return self._term
+
     def _term_content_changed(self, term):
         " called when the *visible* part of the terminal changes "
 
@@ -277,7 +281,6 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
-                                
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
         #self.expander_terminal.set_expanded(True)
@@ -309,30 +312,41 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                                     pkgs_remove,
                                     "%s packages are going to be removed." %\
                                     pkgs_remove, pkgs_remove)
-            msg +=" "
+            msg += " "
         if pkgs_inst > 0:
             msg += gettext.ngettext("%s new package is going to be "\
                                     "installed." % pkgs_inst,
                                     "%s new packages are going to be "\
                                     "installed." % pkgs_inst, pkgs_inst)
-            msg +=" "
+            msg += " "
         if pkgs_upgrade > 0:
             msg += gettext.ngettext("%s package is going to be upgraded." %\
                                     pkgs_upgrade,
                                     "%s packages are going to be upgraded." %\
                                     pkgs_upgrade, pkgs_upgrade)
             msg +=" "
-        if msg == "":
+
+        if downloadSize > 0:
+            msg += _("You have to download a total of %s." %\
+                     apt_pkg.SizeToStr(downloadSize))
+
+        if (pkgs_upgrade + pkgs_inst + pkgs_remove) > 100:
+            msg += "\n\n%s" % _("The upgrade can take several hours and "\
+                                "cannot be canceled at any time later.")
+
+        msg += "\n\n<b>%s</b>" % _("To prevent data loss close all open "\
+                                   "applications and documents.")
+
+        # Show an error if no actions are planned
+        if (pkgs_upgrade + pkgs_inst + pkgs_remove) < 1:
             # FIXME: this should go into DistUpgradeController
             summary = _("Could not find any upgrades")
             msg = _("Your system has already been upgraded.")
             self.error(summary, msg)
             return False
-        else:
-            msg += _("You have to download a total of %s." %\
-                     apt_pkg.SizeToStr(downloadSize))
+
         self.label_summary.set_markup("<big><b>%s</b></big>" % summary)
-        self.label_changes.set_text(msg)
+        self.label_changes.set_markup(msg)
         # fill in the details
         self.details_list.clear()
         for rm in self.toRemove:
