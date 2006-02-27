@@ -26,6 +26,7 @@ import os
 import gobject
 import gtk
 import gtk.glade
+from gettext import gettext as _
 
 import aptsources
 
@@ -44,7 +45,9 @@ class dialog_add:
     
     self.main = widget = self.gladexml.get_widget("dialog_add")
     self.main.set_transient_for(self.parent)
-    
+
+    self.vbox = self.gladexml.get_widget("vbox_comps")
+
     # Setup the official channel widgets
     self.combo = self.gladexml.get_widget("combobox_what")
     self.gladexml.signal_connect("on_combobox_what_changed", self.on_combobox_what_changed, None)
@@ -52,6 +55,11 @@ class dialog_add:
     self.combo.pack_start(cell, True)
     self.combo.add_attribute(cell, 'text', 0)
     self.fill_combo(self.combo)
+    self.label_dist = self.gladexml.get_widget("label_dist")
+    if self.templatelist.dist != "":
+        # TRANSLATORS: %s is the distribution name, eg. Ubuntu or Debian
+        self.label_dist.set_markup("<b>%s</b>" %  \
+                                   _("%s channels" % self.templatelist.dist))
 
     # Setup the custom channel widgets
     self.entry = self.gladexml.get_widget("entry_source_line")
@@ -96,7 +104,7 @@ class dialog_add:
     for check in self.comps:
         check.set_sensitive(state)
     self.official = state
-    self.button_add.set_sensitive(state)
+    self.count_comps()
 
   def fill_combo(self,combo):
     liststore = gtk.ListStore(gobject.TYPE_STRING,gobject.TYPE_PYOBJECT)
@@ -107,8 +115,7 @@ class dialog_add:
 
   def on_combobox_what_changed(self, combobox, user):
     #print "on_combobox_what_changed"
-    vbox = self.gladexml.get_widget("vbox_comps")
-    vbox.foreach(lambda widget,vbox:  vbox.remove(widget), vbox)
+    self.vbox.foreach(lambda widget,vbox:  self.vbox.remove(widget), self.vbox)
     liststore = combobox.get_model()
     a_iter = liststore.iter_nth_child(None, combobox.get_active())
     (name, template) = liststore.get(a_iter, 0,1)
@@ -119,22 +126,31 @@ class dialog_add:
       checkbox = gtk.CheckButton(c.description)
       checkbox.set_active(c.on_by_default)
       checkbox.set_data("name",c.name)
-      vbox.pack_start(checkbox)
+      checkbox.connect("toggled", self.count_comps)
+      self.vbox.pack_start(checkbox)
       checkbox.show()
       self.comps.append(checkbox)
+    self.count_comps()
 
   def get_enabled_comps(self, checkbutton):
     if checkbutton.get_active():
       self.selected_comps.append(checkbutton.get_data("name"))
   
+  def count_comps(self, *args):
+    button_add = self.gladexml.get_widget("button_add_channel")
+    self.selected_comps=[]
+    self.vbox.foreach(self.get_enabled_comps)
+    if len(self.selected_comps) > 0:
+      button_add.set_sensitive(True)
+    else:
+      button_add.set_sensitive(False)
+
   def run(self):
       res = self.main.run()
       if res == gtk.RESPONSE_OK:
           # add repository
           if self.official == True:
             self.selected_comps = []
-            vbox = self.gladexml.get_widget("vbox_comps")
-            vbox.foreach(self.get_enabled_comps)
             self.sourceslist.add(self.selected.type,
                                  self.selected.uri,
                                  self.selected.dist,

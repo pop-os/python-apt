@@ -22,6 +22,7 @@
 
 import os
 import gettext
+from os import getenv
 import ConfigParser
 
 _ = gettext.gettext
@@ -50,6 +51,8 @@ class DistInfo:
             dist = pipe.read().strip()
             pipe.close()
             del pipe
+
+        self.dist = dist
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
         dist_file = open (dist_fname)
@@ -100,7 +103,7 @@ class DistInfo:
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Debian", "../distribution-data")
+    d = DistInfo ("Debian", "../../channels")
     print d.changelogs_uri
     for suite in d.suites:
         print suite.name

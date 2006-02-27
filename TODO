@@ -4,3 +4,7 @@
 - add /etc/apt/software-properties.d dir where the user can
   install matchers and templates
 - handle cases like "deb http://bla/ dist sec1 sec2 # comment" 
+- rework the add channel/cdrom dialogs
+- d'n'd for key files
+- use one row per section and not one per channel in the treeview
+- sort the sources by dist
