@@ -2,7 +2,8 @@ update-manager (0.42.2ubuntu6) dapper; urgency=low
 
   * SoftwareProperties/*: fix some UI problems (thanks to Sebastian Heinlein)
   * debian/control: arch: all now
-  * po/pt_BR.po: updated translation (thanks to 
+  * po/pt_BR.po: updated translation (thanks to Carlos Eduardo)
+  * po/pt.po: updated Portugise translation (thanks to Rui Azevedo)
     Carlos Eduardo Pedroza Santiviago)
   * data/gnome-software-properties.desktop.in, update-manager.desktop.in:
   * debian/rules: undo the detection in favour of the simpler update of
