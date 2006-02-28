@@ -1,3 +1,11 @@
+python-apt (0.6.16.2ubuntu2) dapper; urgency=low
+
+  * apt/progress.py: 
+    - initialize FetchProgress.eta with the correct type
+    - strip the staus str before passing it to InstallProgress.statusChanged()
+
+ --
+
 python-apt (0.6.16.2ubuntu1) dapper; urgency=low
 
   * apt/progress.py: 

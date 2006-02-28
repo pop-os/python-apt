@@ -180,7 +180,7 @@ class InstallProgress(DumbInstallProgress):
                     elif status == "pmstatus":
                         if float(percent) != self.percent or \
                            status_str != self.status:
-                            self.statusChange(pkg, float(percent), status_str)
+                            self.statusChange(pkg, float(percent), status_str.strip())
                         self.percent = float(percent)
                         self.status = string.strip(status_str)
                     self.read = ""
