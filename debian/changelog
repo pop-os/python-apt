@@ -8,7 +8,7 @@ python-apt (0.6.16.2) unstable; urgency=low
   * apt/cache.py, apt/package.py: fix various pychecker warnings
 
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 11:40:38 +0100
+ --
 
 python-apt (0.6.16.1) unstable; urgency=low
 
