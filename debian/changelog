@@ -1,3 +1,15 @@
+python-apt (0.6.16.2) unstable; urgency=low
+
+  * apt/progress.py: 
+    - added InstallProgress.statusChange(pkg, percent, status) 
+    - make DumbInstallProgress a new-style class 
+      (thanks to kamion for the suggestions)
+    - fix various pychecker warnings
+  * apt/cache.py, apt/package.py: fix various pychecker warnings
+
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 11:40:38 +0100
+
 python-apt (0.6.16.1) unstable; urgency=low
 
   * memleak fixed when pkgCache objects are deallocated

@@ -19,19 +19,21 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import apt_pkg, string, sys, random
+import apt_pkg
+import sys
+import random
 
 
 class Package(object):
     """ This class represents a package in the cache
     """
-    def __init__(self, cache, depcache, records, list, pcache, pkgiter):
+    def __init__(self, cache, depcache, records, sourcelist, pcache, pkgiter):
         """ Init the Package object """
         self._cache = cache             # low level cache
         self._depcache = depcache
         self._records = records
         self._pkg = pkgiter
-        self._list = list               # sourcelist
+        self._list = sourcelist               # sourcelist
         self._pcache = pcache           # python cache in cache.py
         pass
 
@@ -52,8 +54,8 @@ class Package(object):
         if ver.FileList == None:
             print "No FileList for: %s " % self._pkg.Name()
             return False
-        file, index = ver.FileList.pop(0)
-        self._records.Lookup((file,index))
+        f, index = ver.FileList.pop(0)
+        self._records.Lookup((f,index))
         return True
 
 
@@ -317,10 +319,10 @@ if __name__ == "__main__":
     cache = apt_pkg.GetCache()
     depcache = apt_pkg.GetDepCache(cache)
     records = apt_pkg.GetPkgRecords(cache)
-    list = apt_pkg.GetPkgSourceList()
+    sourcelist = apt_pkg.GetPkgSourceList()
 
-    iter = cache["apt-utils"]
-    pkg = Package(cache, depcache, records, list, None, iter)
+    pkgiter = cache["apt-utils"]
+    pkg = Package(cache, depcache, records, sourcelist, None, pkgiter)
     print "Name: %s " % pkg.name
     print "ID: %s " % pkg.id
     print "Priority (Candidate): %s " % pkg.priority

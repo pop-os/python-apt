@@ -44,12 +44,16 @@ class TextFetchProgress(apt.FetchProgress):
 
 class TextInstallProgress(apt.InstallProgress):
     def __init__(self):
+        apt.InstallProgress.__init__(self)
         pass
     def startUpdate(self):
         print "StartUpdate"
     def finishUpdate(self):
         print "FinishUpdate"
+    def statusChange(self, pkg, percent, status):
+        print "[%s] %s: %s" % (percent, pkg, status)
     def updateInterface(self):
+        apt.InstallProgress.updateInterface(self)
         # usefull to e.g. redraw a GUI
         time.sleep(0.1)
 
@@ -70,3 +74,16 @@ class TextCdromProgress(apt.CdromProgress):
         print "Please insert cdrom and press <ENTER>"
         answer =  sys.stdin.readline()
         return True
+
+
+if __name__ == "__main__":
+    c = apt.Cache()
+    pkg = c["3dchess"]
+    if pkg.isInstalled:
+        pkg.markDelete()
+    else:
+        pkg.markInstall()
+
+    res = c.commit(TextFetchProgress(), TextInstallProgress())
+
+    print res

@@ -83,11 +83,7 @@ class Cache(object):
         raise StopIteration
 
     def has_key(self, key):
-        try:
-            self._dict[key]
-        except KeyError:
-            return False
-        return True
+        return self._dict.has_key(key)
 
     def __len__(self):
         return len(self._dict)
@@ -266,11 +262,7 @@ class FilteredCache(object):
         return self._filtered.keys()
 
     def has_key(self, key):
-        try:
-            self._filtered[key]
-        except KeyError:
-            return False
-        return True
+        return self._filtered.has_key(key)
 
     def _reapplyFilter(self):
         " internal helper to refilter "
@@ -337,9 +329,9 @@ if __name__ == "__main__":
 
 
     # see if fetching works
-    for dir in ["/tmp/pytest", "/tmp/pytest/partial"]:
-        if not os.path.exists(dir):
-            os.mkdir(dir)
+    for d in ["/tmp/pytest", "/tmp/pytest/partial"]:
+        if not os.path.exists(d):
+            os.mkdir(d)
     apt_pkg.Config.Set("Dir::Cache::Archives","/tmp/pytest")
     pm = apt_pkg.GetPackageManager(c._depcache)
     fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
