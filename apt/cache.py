@@ -148,7 +148,6 @@ class Cache(object):
         # now run the fetcher, throw exception if something fails to be
         # fetched
         res = self._runFetcher(fetcher)
-        
         # cleanup
         os.close(lock)
         return res
@@ -165,8 +164,9 @@ class Cache(object):
         self._list.GetIndexes(fetcher)
         # now run the fetcher, throw exception if something fails to be
         # fetched
-        res = self._runFetcher(fetcher)
-        return res
+        if self._runFetcher(fetcher) == fetcher.ResultContinue:
+            return True
+        return False
         
     def installArchives(self, pm, installProgress):
         installProgress.startUpdate()

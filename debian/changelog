@@ -3,8 +3,10 @@ python-apt (0.6.16.2ubuntu2) dapper; urgency=low
   * apt/progress.py: 
     - initialize FetchProgress.eta with the correct type
     - strip the staus str before passing it to InstallProgress.statusChanged()
+  * apt/cache.py:
+    - return useful values on Cache.update()
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 14:07:06 +0100
 
 python-apt (0.6.16.2ubuntu1) dapper; urgency=low
 
