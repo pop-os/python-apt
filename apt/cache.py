@@ -112,8 +112,6 @@ class Cache(object):
     def _runFetcher(self, fetcher):
         # do the actual fetching
         res = fetcher.Run()
-        if res == fetcher.ResultFailed:
-            return False
         
         # now check the result (this is the code from apt-get.cc)
         failed = False
