@@ -1,4 +1,4 @@
-python-apt (0.6.16.2) unstable; urgency=low
+python-apt (0.6.16.2ubuntu1) dapper; urgency=low
 
   * apt/progress.py: 
     - added InstallProgress.statusChange(pkg, percent, status) 
@@ -8,7 +8,7 @@ python-apt (0.6.16.2) unstable; urgency=low
   * apt/cache.py, apt/package.py: fix various pychecker warnings
 
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 12:04:37 +0100
 
 python-apt (0.6.16.1) unstable; urgency=low
 

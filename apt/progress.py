@@ -62,7 +62,7 @@ class FetchProgress(object):
                    dlIgnored : "Ignored"}
     
     def __init__(self):
-        self.eta = ""
+        self.eta = 0.0
         self.percent = 0.0
         pass
     
@@ -180,7 +180,7 @@ class InstallProgress(DumbInstallProgress):
                     elif status == "pmstatus":
                         if float(percent) != self.percent or \
                            status_str != self.status:
-                            self.statusChange(pkg, percent, status_str)
+                            self.statusChange(pkg, float(percent), status_str)
                         self.percent = float(percent)
                         self.status = string.strip(status_str)
                     self.read = ""
