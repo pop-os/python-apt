@@ -83,11 +83,7 @@ class Cache(object):
         raise StopIteration
 
     def has_key(self, key):
-        try:
-            self._dict[key]
-        except KeyError:
-            return False
-        return True
+        return self._dict.has_key(key)
 
     def __len__(self):
         return len(self._dict)
@@ -116,8 +112,6 @@ class Cache(object):
     def _runFetcher(self, fetcher):
         # do the actual fetching
         res = fetcher.Run()
-        if res == fetcher.ResultFailed:
-            return False
         
         # now check the result (this is the code from apt-get.cc)
         failed = False
@@ -152,7 +146,6 @@ class Cache(object):
         # now run the fetcher, throw exception if something fails to be
         # fetched
         res = self._runFetcher(fetcher)
-        
         # cleanup
         os.close(lock)
         return res
@@ -169,8 +162,9 @@ class Cache(object):
         self._list.GetIndexes(fetcher)
         # now run the fetcher, throw exception if something fails to be
         # fetched
-        res = self._runFetcher(fetcher)
-        return res
+        if self._runFetcher(fetcher) == fetcher.ResultContinue:
+            return True
+        return False
         
     def installArchives(self, pm, installProgress):
         installProgress.startUpdate()
@@ -266,11 +260,7 @@ class FilteredCache(object):
         return self._filtered.keys()
 
     def has_key(self, key):
-        try:
-            self._filtered[key]
-        except KeyError:
-            return False
-        return True
+        return self._filtered.has_key(key)
 
     def _reapplyFilter(self):
         " internal helper to refilter "
@@ -337,9 +327,9 @@ if __name__ == "__main__":
 
 
     # see if fetching works
-    for dir in ["/tmp/pytest", "/tmp/pytest/partial"]:
-        if not os.path.exists(dir):
-            os.mkdir(dir)
+    for d in ["/tmp/pytest", "/tmp/pytest/partial"]:
+        if not os.path.exists(d):
+            os.mkdir(d)
     apt_pkg.Config.Set("Dir::Cache::Archives","/tmp/pytest")
     pm = apt_pkg.GetPackageManager(c._depcache)
     fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
