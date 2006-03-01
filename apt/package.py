@@ -22,6 +22,7 @@
 import apt_pkg
 import sys
 import random
+import string
 
 
 class Package(object):
