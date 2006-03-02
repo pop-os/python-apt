@@ -1,11 +1,40 @@
-python-apt (0.6.16ubuntu3) dapper; urgency=low
+python-apt (0.6.16.2ubuntu3) dapper; urgency=low
+
+  * apt/package.py: undo some damager from pychecker
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  1 Mar 2006 15:34:23 +0100
+
+python-apt (0.6.16.2ubuntu2) dapper; urgency=low
+
+  * apt/progress.py: 
+    - initialize FetchProgress.eta with the correct type
+    - strip the staus str before passing it to InstallProgress.statusChanged()
+  * apt/cache.py:
+    - return useful values on Cache.update()
+  * fix FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 14:07:06 +0100
+
+python-apt (0.6.16.2ubuntu1) dapper; urgency=low
+
+  * apt/progress.py: 
+    - added InstallProgress.statusChange(pkg, percent, status) 
+    - make DumbInstallProgress a new-style class 
+      (thanks to kamion for the suggestions)
+    - fix various pychecker warnings
+  * apt/cache.py, apt/package.py: fix various pychecker warnings
+
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 12:04:37 +0100
+
+python-apt (0.6.16.1) unstable; urgency=low
 
   * typos fixed (thanks to Gustavo Franco)
   * pkgRecords.Record added to get raw record data
   * python/cache.cc: "key" in pkgCache::VerIterator.DependsList[key] is
                      no longer locale specific but always englis
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 21 Feb 2006 19:23:09 +0100
+ -- Michael Vogt <mvo@debian.org>  Wed, 22 Feb 2006 10:41:13 +0100
 
 python-apt (0.6.16ubuntu2) dapper; urgency=low
 
