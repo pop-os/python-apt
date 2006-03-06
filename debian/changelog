@@ -9,7 +9,9 @@ python-apt (0.6.16.2) unstable; urgency=low
     - fix various pychecker warnings
   * apt/cache.py:
     - return useful values on Cache.update()
-  * apt/cache.py, apt/package.py: fix various pychecker warnings
+  * apt/package.py: 
+    - fix various pychecker warnings
+    - added setDelete(purge) option
 
 
  -- 
