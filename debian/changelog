@@ -1,3 +1,10 @@
+python-apt (0.6.16.2ubuntu4) dapper; urgency=low
+
+  * apt/package.py: 
+     - added Package.setDelete(purge) option
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  6 Mar 2006 18:59:33 +0000
+
 python-apt (0.6.16.2ubuntu3) dapper; urgency=low
 
   * apt/package.py: undo some damager from pychecker
@@ -23,7 +30,6 @@ python-apt (0.6.16.2ubuntu1) dapper; urgency=low
       (thanks to kamion for the suggestions)
     - fix various pychecker warnings
   * apt/cache.py, apt/package.py: fix various pychecker warnings
-
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 12:04:37 +0100
 
