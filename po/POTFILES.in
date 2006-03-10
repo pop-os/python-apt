@@ -1,6 +1,5 @@
 [encoding: UTF-8]
 SoftwareProperties/SoftwareProperties.py
-SoftwareProperties/dialog_sources_list.py
 DistUpgrade/DistUpgradeCache.py
 DistUpgrade/DistUpgradeControler.py
 DistUpgrade/DistUpgradeViewGtk.py
