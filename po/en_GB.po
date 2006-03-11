@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-10 17:56+0100\n"
+"POT-Creation-Date: 2006-03-11 18:47+0100\n"
 "PO-Revision-Date: 2005-04-19 22:51-0400\n"
 "Last-Translator: Abigail Brady <morwen@evilmagic.org>\n"
 "Language-Team: \n"
@@ -755,37 +755,49 @@ msgstr "Ubuntu 5.10 Updates"
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
+msgid "Ubuntu 6.04 Backports"
+msgstr "Ubuntu 5.10 Updates"
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD disk with Ubuntu 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../channels/Ubuntu.info.in:74
+#: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 Security Updates"
 
 #. Description
-#: ../channels/Ubuntu.info.in:91
+#: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 Updates"
 
+#. Description
+#: ../channels/Ubuntu.info.in:125
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.10 Updates"
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Officially supported"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Restricted copyright"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Community maintained (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Non-free (Multiverse)"
 

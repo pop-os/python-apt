@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-10 17:56+0100\n"
+"POT-Creation-Date: 2006-03-11 18:47+0100\n"
 "PO-Revision-Date: 2005-04-04 15:00+0200\n"
 "Last-Translator: Jorge Bernal <koke@amedias.org>\n"
 "Language-Team: Spanish <traductores@gnome.org>\n"
@@ -763,39 +763,51 @@ msgstr "Actualizaciones de Ubuntu 5.04"
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+msgid "Ubuntu 6.04 Backports"
+msgstr "Actualizaciones de Ubuntu 5.04"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
+msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
 #, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+
+#. Description
+#: ../channels/Ubuntu.info.in:108
+#, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualizaciones de Ubuntu 5.04"
 
+#. Description
+#: ../channels/Ubuntu.info.in:125
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "Actualizaciones de Ubuntu 5.04"
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Soportado oficialmente"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Copyright restringido"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Mantenido por la comunidad (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Software no libre (Multiverse)"
 

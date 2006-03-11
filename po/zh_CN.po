@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-10 17:56+0100\n"
+"POT-Creation-Date: 2006-03-11 18:47+0100\n"
 "PO-Revision-Date: 2005-03-21 22:00+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -736,39 +736,51 @@ msgstr "Ubuntu 5.04 安全更新"
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
-msgid "Ubuntu 5.10 'Breezy Badger'"
+msgid "Ubuntu 6.04 Backports"
 msgstr "Ubuntu 5.04 安全更新"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
+msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.04 安全更新"
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
 #, fuzzy
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.04 安全更新"
+
+#. Description
+#: ../channels/Ubuntu.info.in:108
+#, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.04 安全更新"
 
+#. Description
+#: ../channels/Ubuntu.info.in:125
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.04 安全更新"
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "官方支持"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "版权限制"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "社区维护"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "非自由"
 

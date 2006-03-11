@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-10 17:56+0100\n"
+"POT-Creation-Date: 2006-03-11 18:47+0100\n"
 "PO-Revision-Date: 2005-07-13 06:24+0100\n"
 "Last-Translator: Michiel Sikkes <michiels@gnome.org>\n"
 "Language-Team: Nederlands <vertaling@vrijschrift.org>\n"
@@ -712,36 +712,46 @@ msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 5.10 'Breezy Badger'"
+msgid "Ubuntu 6.04 Backports"
 msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 Security Updates"
+msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
+msgid "Ubuntu 5.10 Security Updates"
+msgstr ""
+
+#. Description
+#: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr ""
 
+#. Description
+#: ../channels/Ubuntu.info.in:125
+msgid "Ubuntu 5.10 Backports"
+msgstr ""
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Oficially supported"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr ""
 

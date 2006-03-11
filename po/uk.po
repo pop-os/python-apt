@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-10 17:56+0100\n"
+"POT-Creation-Date: 2006-03-11 18:47+0100\n"
 "PO-Revision-Date: 2005-08-08 11:46+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -747,37 +747,49 @@ msgstr "Оновлення Ubuntu 5.10"
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
+msgid "Ubuntu 6.04 Backports"
+msgstr "Оновлення Ubuntu 5.10"
+
+#. Description
+#: ../channels/Ubuntu.info.in:74
+#, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD диск з Ubuntu 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../channels/Ubuntu.info.in:74
+#: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Оновлення безпеки Ubuntu 5.10"
 
 #. Description
-#: ../channels/Ubuntu.info.in:91
+#: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Оновлення Ubuntu 5.10"
 
+#. Description
+#: ../channels/Ubuntu.info.in:125
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "Оновлення Ubuntu 5.10"
+
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Офіціально підтримуються"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Обмежені авторські права"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Підтримується спільнотою (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Не-вільний (Multiverse)"
 
