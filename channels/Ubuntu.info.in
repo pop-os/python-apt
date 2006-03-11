@@ -51,6 +51,23 @@ Component: multiverse
 Enabled: 0
 _CompDescription: Non-free (Multiverse)
 
+Suite: dapper-backports
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+_Description: Ubuntu 6.04 Backports
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
 Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
@@ -89,6 +106,23 @@ Suite: breezy-updates
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 Updates
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+_CompDescription: Non-free (Multiverse)
+
+Suite: breezy-backports
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+_Description: Ubuntu 5.10 Backports
 Component: main
 Enabled: 1
 _CompDescription: Oficially supported
