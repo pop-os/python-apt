@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-11 18:47+0100\n"
+"POT-Creation-Date: 2006-03-12 20:39+0100\n"
 "PO-Revision-Date: 2005-03-29 13:36-0300\n"
 "Last-Translator: Rui Az. <astronomy@mail.pt>\n"
 "Language-Team: Ubuntu Portuguese Team <ubuntu-pt.org>\n"
@@ -14,40 +14,40 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:101
+#: ../SoftwareProperties/SoftwareProperties.py:102
 #, python-format
 msgid "Every %s days"
 msgstr "Todos os % dias"
 
-#: ../SoftwareProperties/SoftwareProperties.py:131
+#: ../SoftwareProperties/SoftwareProperties.py:132
 #, python-format
 msgid "After %s days"
 msgstr "Depois de %s dias"
 
-#: ../SoftwareProperties/SoftwareProperties.py:354
+#: ../SoftwareProperties/SoftwareProperties.py:359
 msgid "Import key"
 msgstr "Importar chave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:364
+#: ../SoftwareProperties/SoftwareProperties.py:369
 msgid "Error importing selected file"
 msgstr "Erro ao importar ficheiro seleccionado"
 
-#: ../SoftwareProperties/SoftwareProperties.py:365
+#: ../SoftwareProperties/SoftwareProperties.py:370
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "O ficheiro seleccionado pode não ser um ficheiro de chave GPG ou pode estar "
 "corrompido."
 
-#: ../SoftwareProperties/SoftwareProperties.py:377
+#: ../SoftwareProperties/SoftwareProperties.py:382
 msgid "Error removing the key"
 msgstr "Erro ao remover a chave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:378
+#: ../SoftwareProperties/SoftwareProperties.py:383
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "A chave que seleccionou não pôde ser removida. Por favor reporte este erro."
 
-#: ../SoftwareProperties/SoftwareProperties.py:421
+#: ../SoftwareProperties/SoftwareProperties.py:424
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -58,11 +58,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:471
+#: ../SoftwareProperties/SoftwareProperties.py:474
 msgid "Please enter a name for the disc"
 msgstr "Por favor introduza um nome para o disco"
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:490
 msgid "Please insert a disc in the drive:"
 msgstr "Por favor introduza um disco no leitor:"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-11 18:47+0100\n"
+"POT-Creation-Date: 2006-03-12 20:39+0100\n"
 "PO-Revision-Date: 2005-07-03 16:06+0545\n"
 "Last-Translator: Jaydeep Bhusal <zaydeep@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -18,37 +18,37 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2;plural=(n!=0)\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:101
+#: ../SoftwareProperties/SoftwareProperties.py:102
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:131
+#: ../SoftwareProperties/SoftwareProperties.py:132
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:354
+#: ../SoftwareProperties/SoftwareProperties.py:359
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:364
+#: ../SoftwareProperties/SoftwareProperties.py:369
 msgid "Error importing selected file"
 msgstr "चयन गरिएको फाइल आयात गर्दा त्रुटि"
 
-#: ../SoftwareProperties/SoftwareProperties.py:365
+#: ../SoftwareProperties/SoftwareProperties.py:370
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "चयन गरिएको फाइल जिपिजि कुञ्जि फइल नहुन सक्छ अथवा यो दुषित हुन सक्दछ"
 
-#: ../SoftwareProperties/SoftwareProperties.py:377
+#: ../SoftwareProperties/SoftwareProperties.py:382
 msgid "Error removing the key"
 msgstr "कुञ्जि हटाउँदा त्रुटि"
 
-#: ../SoftwareProperties/SoftwareProperties.py:378
+#: ../SoftwareProperties/SoftwareProperties.py:383
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
-#: ../SoftwareProperties/SoftwareProperties.py:421
+#: ../SoftwareProperties/SoftwareProperties.py:424
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -56,11 +56,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:471
+#: ../SoftwareProperties/SoftwareProperties.py:474
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:490
 msgid "Please insert a disc in the drive:"
 msgstr ""
 

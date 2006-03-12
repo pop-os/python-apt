@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-11 18:47+0100\n"
+"POT-Creation-Date: 2006-03-12 20:39+0100\n"
 "PO-Revision-Date: 2005-12-02 15:59+0100\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
@@ -17,41 +17,41 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:101
+#: ../SoftwareProperties/SoftwareProperties.py:102
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:131
+#: ../SoftwareProperties/SoftwareProperties.py:132
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:354
+#: ../SoftwareProperties/SoftwareProperties.py:359
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:364
+#: ../SoftwareProperties/SoftwareProperties.py:369
 msgid "Error importing selected file"
 msgstr "Erro importando o ficheiro seleccionado"
 
-#: ../SoftwareProperties/SoftwareProperties.py:365
+#: ../SoftwareProperties/SoftwareProperties.py:370
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "O ficheiro seleccionado pode que non sexa un ficheiro de clave GPG ou que "
 "esté corrupto."
 
-#: ../SoftwareProperties/SoftwareProperties.py:377
+#: ../SoftwareProperties/SoftwareProperties.py:382
 msgid "Error removing the key"
 msgstr "Erro ao quitar a clave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:378
+#: ../SoftwareProperties/SoftwareProperties.py:383
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro."
 
-#: ../SoftwareProperties/SoftwareProperties.py:421
+#: ../SoftwareProperties/SoftwareProperties.py:424
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -59,11 +59,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:471
+#: ../SoftwareProperties/SoftwareProperties.py:474
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:490
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
