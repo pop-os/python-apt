@@ -320,13 +320,21 @@ class SoftwareProperties(SimpleGladeApp):
     for i in cnf.List():
       f.write("APT::Periodic::%s \"%s\";\n" % (i, cnf.FindI(i)))
     f.close()    
-    
+
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
     #shutil.copy(location, location + ".save")
     self.sourceslist.backup(".save")
     self.sourceslist.save()
-    
+    # show a dialog that a reload of the channel information is required
+    if self.modified == True:
+        #res = self.dialog_cache_outofdate.run()
+        #if res == gtk.RESPONSE_ACCEPT:
+        #    self.window_main.set_sensitive(False)
+        #    FIXME DO SOME SYNAPTIC MAGIC
+        #    self.window_main.set_sensitive(True)
+        pass
+
   def on_add_clicked(self, widget):
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
