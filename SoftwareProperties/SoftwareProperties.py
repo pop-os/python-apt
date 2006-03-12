@@ -34,6 +34,7 @@ import os
 #sys.path.append("@prefix/share/update-manager/python")
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
+from UpdateManager.Common.HelpViewer import HelpViewer
 import aptsources
 import dialog_add
 import dialog_edit
@@ -164,6 +165,10 @@ class SoftwareProperties(SimpleGladeApp):
         self.checkbutton_unattended.set_active(True)
     else:
         self.checkbutton_unattended.set_active(False)
+
+    self.help_viewer = HelpViewer("update-manager#setting-preferences")
+    if self.help_viewer.check() == False:
+        self.button_help.set_sensitive(False)
 
     # apt-key stuff
     self.apt_key = apt_key()
@@ -392,9 +397,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.quit()
     
   def on_help_button(self, widget):
-    gnome.help_display_desktop(self.gnome_program, 
-                               "update-manager", "update-manager", 
-                               "setting-preferences")
+    self.help_viewer.run()
 
   def on_button_add_cdrom_clicked(self, widget):
     #print "on_button_add_cdrom_clicked()"

@@ -47,6 +47,7 @@ import pwd
 import time
 import thread
 import xml.sax.saxutils
+from Common.HelpViewer import HelpViewer
 
 
 from gettext import gettext as _
@@ -283,6 +284,12 @@ class UpdateManager(SimpleGladeApp):
           opener = urllib2.build_opener(proxy_support)
           urllib2.install_opener(opener)
 
+    # setup the help viewer and disable the help button if there
+    # is no viewer available
+    self.help_viewer = HelpViewer("update-manager")
+    if self.help_viewer.check() == False:
+        self.button_help.set_sensitive(False)
+
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
@@ -461,7 +468,7 @@ class UpdateManager(SimpleGladeApp):
     self.fillstore()
 
   def on_button_help_clicked(self, widget):
-    subprocess.Popen(["/usr/bin/yelp", "ghelp:update-manager"])
+    self.help_viewer.run()
 
   def on_button_install_clicked(self, widget):
     #print "on_button_install_clicked"
