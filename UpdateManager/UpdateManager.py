@@ -683,10 +683,11 @@ class UpdateManager(SimpleGladeApp):
         sys.exit()
 
     try:
-        self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
-                                                       self.progressbar_cache,
-						       self.label_cache,
-                                                       self.window_main))
+        progress = GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
+                                             self.progressbar_cache,
+                                             self.label_cache,
+                                             self.window_main)
+        self.cache = MyCache(progress)
     except AssertionError:
         # we assert a clean cache
         msg=("<big><b>%s</b></big>\n\n%s"% \
@@ -703,6 +704,8 @@ class UpdateManager(SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         sys.exit(1)
+    else:
+        progress.hide()
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
     self.cache._depcache.ReadPinFile()

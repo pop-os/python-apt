@@ -26,8 +26,19 @@ import apt
 import apt_pkg
 from gettext import gettext as _
 
+# intervals of the start up progress
+# 3x caching and menu creation
+STEPS_UPDATE_CACHE = [33, 66, 100]
+
 class GtkOpProgress(apt.OpProgress):
-    def __init__(self, host_window, progressbar, status, parent):
+    def __init__(self, host_window, progressbar, status, parent,
+                 steps=STEPS_UPDATE_CACHE):
+        # used for the "one run progressbar"
+        self.steps = steps[:]
+        self.base = 0
+        self.old = 0
+        self.next = int(self.steps.pop(0))
+
         self._parent = parent
         self._window = host_window
         self._status = status
@@ -35,27 +46,32 @@ class GtkOpProgress(apt.OpProgress):
         # Do not show the close button 
         self._window.realize()
         host_window.window.set_functions(gtk.gdk.FUNC_MOVE)
-        #self._progressbar.set_pulse_step(0.01)
-        #self._progressbar.pulse()
         self._window.set_transient_for(parent)
+
     def update(self, percent):
         #print percent
         #print self.Op
         #print self.SubOp
-	# Use pulse until apt doesn't restarts the progress bar
-	# several times
         self._window.show()
         self._parent.set_sensitive(False)
+        # if the old percent was higher, a new progress was started
+        if self.old > percent:
+            # set the borders to the next interval
+            self.base = self.next
+            try:
+                self.next = int(self.steps.pop(0))
+            except:
+                pass
+        progress = self.base + percent/100 * (self.next - self.base)
+        self.old = percent
         self._status.set_markup("<i>%s</i>" % self.op)
-        self._progressbar.set_fraction(percent/100.0)
-        #if percent > 99:
-        #    self._progressbar.set_fraction(1)
-        #else:
-        #    self._progressbar.pulse()
+        self._progressbar.set_fraction(progress/100.0)
         while gtk.events_pending():
             gtk.main_iteration()
+
     def done(self):
         self._parent.set_sensitive(True)
+    def hide(self):
         self._window.hide()
 
 class GtkFetchProgress(apt.progress.FetchProgress):
