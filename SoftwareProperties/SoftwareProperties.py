@@ -38,6 +38,7 @@ from UpdateManager.Common.HelpViewer import HelpViewer
 import aptsources
 import dialog_add
 import dialog_edit
+import dialog_cache_outdated
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -328,12 +329,9 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.save()
     # show a dialog that a reload of the channel information is required
     if self.modified == True:
-        #res = self.dialog_cache_outofdate.run()
-        #if res == gtk.RESPONSE_ACCEPT:
-        #    self.window_main.set_sensitive(False)
-        #    FIXME DO SOME SYNAPTIC MAGIC
-        #    self.window_main.set_sensitive(True)
-        pass
+        d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
+                                                      self.datadir)
+        res = d.run()
 
   def on_add_clicked(self, widget):
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
