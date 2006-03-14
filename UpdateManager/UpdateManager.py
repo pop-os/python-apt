@@ -466,7 +466,6 @@ class UpdateManager(SimpleGladeApp):
   def on_button_reload_clicked(self, widget):
     #print "on_button_reload_clicked"
     self.invoke_manager(UPDATE)
-    self.fillstore()
 
   def on_button_help_clicked(self, widget):
     self.help_viewer.run()
@@ -657,7 +656,7 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distribution release codename '%s' available</b>" % upgradable_to.name)
+    self.label_new_release.set_markup("<b>New distribution release '%s' is available</b>" % upgradable_to.name)
     self.new_dist = upgradable_to
     
 
@@ -674,8 +673,8 @@ class UpdateManager(SimpleGladeApp):
         d.set_markup("<big><b>%s</b></big>\n\n%s" % (
             _("Only one software management tool is allowed to "
               "run at the same time"),
-            _("Please close the other application e.g. \"aptitude\" "
-              "or \"Synaptic\" at first.")))
+            _("Please close the other application e.g. 'aptitude' "
+              "or 'Synaptic' first.")))
         print "error from apt: '%s'" % e
         d.set_title("")
         res = d.run()
