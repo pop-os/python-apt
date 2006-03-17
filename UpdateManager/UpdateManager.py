@@ -405,7 +405,7 @@ class UpdateManager(SimpleGladeApp):
     self.update_count()
 
   def update_count(self):
-      if len(self.packages) == 0:
+      if self.list.num_updates == 0:
           text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
           self.expander_details.set_sensitive(False)
