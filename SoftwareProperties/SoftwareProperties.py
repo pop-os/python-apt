@@ -210,7 +210,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview2.append_column(keys_col)
     
   def reload_sourceslist(self):
-    path = self.treeview_sources.get_cursor()
+    (path_x, path_y) = self.treeview_sources.get_cursor()
     self.source_store.clear()
     for source in self.sourceslist.list:
       if source.invalid:
@@ -227,7 +227,7 @@ class SoftwareProperties(SimpleGladeApp):
         self.button_remove.set_sensitive(False)
         self.button_edit.set_sensitive(False)
     else:
-        if not self.treeview_sources.get_cursor(path):
+        if path_x == None or self.treeview_sources.set_cursor(path_x):
             self.treeview_sources.set_cursor(0)
         self.button_remove.set_sensitive(True)
         self.button_edit.set_sensitive(True)
