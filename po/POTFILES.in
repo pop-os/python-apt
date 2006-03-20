@@ -1,7 +1,5 @@
 [encoding: UTF-8]
-data/SoftwareProperties.glade
 SoftwareProperties/SoftwareProperties.py
-SoftwareProperties/dialog_sources_list.py
 DistUpgrade/DistUpgradeCache.py
 DistUpgrade/DistUpgradeControler.py
 DistUpgrade/DistUpgradeViewGtk.py
@@ -9,6 +7,8 @@ DistUpgrade/DistUpgradeView.py
 DistUpgrade/dist-upgrade.py
 DistUpgrade/DistUpgrade.glade
 data/UpdateManager.glade
+data/SoftwareProperties.glade
+data/SoftwarePropertiesDialogs.glade
 data/update-manager.desktop.in
 data/update-manager.schemas.in
 [type: gettext/rfc822deb] channels/Ubuntu.info.in

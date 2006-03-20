@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu7) dapper; urgency=low
+
+  * various spelling fixes and ui-glitches 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 14 Mar 2006 16:58:01 +0000
+
 update-manager (0.42.2ubuntu6) dapper; urgency=low
 
   * po/pt_BR.po: updated translation 

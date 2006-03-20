@@ -34,9 +34,11 @@ import os
 #sys.path.append("@prefix/share/update-manager/python")
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
+from UpdateManager.Common.HelpViewer import HelpViewer
 import aptsources
 import dialog_add
 import dialog_edit
+import dialog_cache_outdated
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -164,6 +166,10 @@ class SoftwareProperties(SimpleGladeApp):
         self.checkbutton_unattended.set_active(True)
     else:
         self.checkbutton_unattended.set_active(False)
+
+    self.help_viewer = HelpViewer("update-manager#setting-preferences")
+    if self.help_viewer.check() == False:
+        self.button_help.set_sensitive(False)
 
     # apt-key stuff
     self.apt_key = apt_key()
@@ -315,13 +321,18 @@ class SoftwareProperties(SimpleGladeApp):
     for i in cnf.List():
       f.write("APT::Periodic::%s \"%s\";\n" % (i, cnf.FindI(i)))
     f.close()    
-    
+
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
     #shutil.copy(location, location + ".save")
     self.sourceslist.backup(".save")
     self.sourceslist.save()
-    
+    # show a dialog that a reload of the channel information is required
+    if self.modified == True:
+        d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
+                                                      self.datadir)
+        res = d.run()
+
   def on_add_clicked(self, widget):
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
@@ -392,9 +403,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.quit()
     
   def on_help_button(self, widget):
-    gnome.help_display_desktop(self.gnome_program, 
-                               "update-manager", "update-manager", 
-                               "setting-preferences")
+    self.help_viewer.run()
 
   def on_button_add_cdrom_clicked(self, widget):
     #print "on_button_add_cdrom_clicked()"

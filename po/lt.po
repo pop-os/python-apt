@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
-"Report-Msgid-Bugs-To: michael.vogt@canonical.com\n"
-"POT-Creation-Date: 2006-02-22 16:57+0100\n"
+"Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
+"POT-Creation-Date: 2006-03-12 20:39+0100\n"
 "PO-Revision-Date: 2005-09-15 15:06+0300\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -17,112 +17,38 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
 "100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../data/SoftwareProperties.glade.h:1
-#, fuzzy
-msgid "<b>Channels</b>"
-msgstr "<b>Raktai</b>"
-
-#: ../data/SoftwareProperties.glade.h:2
-#, fuzzy
-msgid "<b>Internet updates</b>"
-msgstr "<b>Internetiniai atnaujinimai</b>"
-
-#: ../data/SoftwareProperties.glade.h:3
-msgid "<b>Keys</b>"
-msgstr "<b>Raktai</b>"
-
-#: ../data/SoftwareProperties.glade.h:4
-msgid "Add _Cdrom"
-msgstr ""
-
-#: ../data/SoftwareProperties.glade.h:5
-msgid "Authentication"
-msgstr "Autentikacija"
-
-#: ../data/SoftwareProperties.glade.h:6
-msgid "D_elete downloaded software files:"
-msgstr ""
-
-#: ../data/SoftwareProperties.glade.h:7
-#, fuzzy
-msgid "Import the public key from a trusted software provider"
-msgstr "Pašalinti pasirinktą raktą iš patikimo raktų žiedo."
-
-#: ../data/SoftwareProperties.glade.h:8
-msgid "Installation Media"
-msgstr "Diegimo laikmenos"
-
-#: ../data/SoftwareProperties.glade.h:9
-#, fuzzy
-msgid "Internet Updates"
-msgstr "<b>Internetiniai atnaujinimai</b>"
-
-#: ../data/SoftwareProperties.glade.h:10
-msgid ""
-"Only security updates from the official Ubuntu servers will be installed "
-"automatically. The software package \"unattended-upgrades\" needs to be "
-"installed therefor"
-msgstr ""
-
-#: ../data/SoftwareProperties.glade.h:11
-#, fuzzy
-msgid "Restore _Defaults"
-msgstr "Atkurti numatytuosius"
-
-#: ../data/SoftwareProperties.glade.h:12
-#, fuzzy
-msgid "Restore the default keys of your distribution"
-msgstr "Atkurti numatytuosius raktus"
-
-#: ../data/SoftwareProperties.glade.h:13
-msgid "Software Preferences"
-msgstr "Programinės įrangos nustatymai"
-
-#: ../data/SoftwareProperties.glade.h:14
-#, fuzzy
-msgid "_Check for updates automatically:"
-msgstr "Tikrinti atnaujinimus kas"
-
-#: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the backgound, but do not install them"
-msgstr ""
-
-#: ../data/SoftwareProperties.glade.h:16
-msgid "_Install security updates without confirmation"
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:101
+#: ../SoftwareProperties/SoftwareProperties.py:102
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:131
+#: ../SoftwareProperties/SoftwareProperties.py:132
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:354
+#: ../SoftwareProperties/SoftwareProperties.py:359
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:364
+#: ../SoftwareProperties/SoftwareProperties.py:369
 msgid "Error importing selected file"
 msgstr "Importuojant pasirinktą bylą įvyko klaida"
 
-#: ../SoftwareProperties/SoftwareProperties.py:365
+#: ../SoftwareProperties/SoftwareProperties.py:370
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Pasirinkta byla gali būti ne GPG rakto byla arba sugadinta byla."
 
-#: ../SoftwareProperties/SoftwareProperties.py:377
+#: ../SoftwareProperties/SoftwareProperties.py:382
 msgid "Error removing the key"
 msgstr "Šalinant raktą įvyko klaida"
 
-#: ../SoftwareProperties/SoftwareProperties.py:378
+#: ../SoftwareProperties/SoftwareProperties.py:383
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
-#: ../SoftwareProperties/SoftwareProperties.py:421
+#: ../SoftwareProperties/SoftwareProperties.py:424
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -130,11 +56,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:471
+#: ../SoftwareProperties/SoftwareProperties.py:474
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:490
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -352,33 +278,33 @@ msgstr ""
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:134
+#: ../DistUpgrade/DistUpgradeViewGtk.py:135
 #, fuzzy
 msgid "Installing updates"
 msgstr "Diegiami atnaujinimai..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:147
+#: ../DistUpgrade/DistUpgradeViewGtk.py:148
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:148
+#: ../DistUpgrade/DistUpgradeViewGtk.py:149
 #, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
 "Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:226
+#: ../DistUpgrade/DistUpgradeViewGtk.py:228
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:227
+#: ../DistUpgrade/DistUpgradeViewGtk.py:229
 msgid ""
 "Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
 "dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:308
+#: ../DistUpgrade/DistUpgradeViewGtk.py:311
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
@@ -386,7 +312,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:314
+#: ../DistUpgrade/DistUpgradeViewGtk.py:317
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
@@ -394,7 +320,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:320
+#: ../DistUpgrade/DistUpgradeViewGtk.py:323
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
@@ -402,31 +328,40 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:327
-msgid "Could not find any upgrades"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:328
-msgid "Your system has already been upgraded."
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:332
+#: ../DistUpgrade/DistUpgradeViewGtk.py:330
 #, python-format
 msgid "You have to download a total of %s."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:339
+#: ../DistUpgrade/DistUpgradeViewGtk.py:334
+msgid ""
+"The upgrade can take several hours and cannot be canceled at any time later."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+msgid "To prevent data loss close all open applications and documents."
+msgstr ""
+
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:343
+msgid "Could not find any upgrades"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:344
+msgid "Your system has already been upgraded."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:353
 #, fuzzy, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Raktai</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:341
+#: ../DistUpgrade/DistUpgradeViewGtk.py:355
 #, fuzzy, python-format
 msgid "Install %s"
 msgstr "Į_diegti"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:343
+#: ../DistUpgrade/DistUpgradeViewGtk.py:357
 #, fuzzy, python-format
 msgid "Upgrade %s"
 msgstr "Atnaujinimas baigtas"
@@ -437,8 +372,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeView.py:68
 msgid ""
-"The upgrade is finished now. A reboot is required to now, do you want to do "
-"this now?"
+"The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
 
 #. testcode to see if the bullets look nice in the dialog
@@ -446,6 +380,7 @@ msgstr ""
 #. view.setStep(i+1)
 #. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
+#: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
 msgstr ""
 
@@ -538,79 +473,257 @@ msgid "<big><b>Keep your system up-to-date</b></big>"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:8
-msgid ""
-"<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-"\n"
-"Need to get the changes from the central server"
-msgstr ""
-"<span weight=\"bold\" size=\"larger\">Parsiunčiami pakeitimai</span>\n"
-"\n"
-"Reikia gauti pakeitimus iš centrinio serverio"
-
-#: ../data/UpdateManager.glade.h:11
 msgid "Cancel _Download"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/UpdateManager.glade.h:9
 msgid "Changes"
 msgstr "Pakeitimai"
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/UpdateManager.glade.h:10
 msgid "Description"
 msgstr "Aprašymas"
 
-#: ../data/UpdateManager.glade.h:14
+#: ../data/UpdateManager.glade.h:11
 msgid "Release Notes"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/UpdateManager.glade.h:12
 #, fuzzy
 msgid "Reload the latest information about updates"
 msgstr "Atnaujinti serverio paketų informaciją."
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/UpdateManager.glade.h:13
 msgid "Show details"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/UpdateManager.glade.h:14
 msgid "Show progress of single files"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/UpdateManager.glade.h:15
 msgid "Software Updates"
 msgstr "Programinės įrangos atnaujinimai"
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/UpdateManager.glade.h:16
 msgid ""
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/UpdateManager.glade.h:17
 msgid "U_pgrade"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/UpdateManager.glade.h:18
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:22
+#: ../data/UpdateManager.glade.h:19
+msgid "_Hide this information in the future"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:20
 #, fuzzy
 msgid "_Install Updates"
 msgstr "Diegiami atnaujinimai..."
 
-#: ../data/UpdateManager.glade.h:23
+#: ../data/UpdateManager.glade.h:21
 #, fuzzy
 msgid "_Reload"
 msgstr "Atnaujinti"
 
+#: ../data/SoftwareProperties.glade.h:1
+#, fuzzy
+msgid "<b>Channels</b>"
+msgstr "<b>Raktai</b>"
+
+#: ../data/SoftwareProperties.glade.h:2
+#, fuzzy
+msgid "<b>Internet updates</b>"
+msgstr "<b>Internetiniai atnaujinimai</b>"
+
+#: ../data/SoftwareProperties.glade.h:3
+msgid "<b>Keys</b>"
+msgstr "<b>Raktai</b>"
+
+#: ../data/SoftwareProperties.glade.h:4
+msgid "Add _Cdrom"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:5
+msgid "Authentication"
+msgstr "Autentikacija"
+
+#: ../data/SoftwareProperties.glade.h:6
+msgid "D_elete downloaded software files:"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:7
+#, fuzzy
+msgid "Import the public key from a trusted software provider"
+msgstr "Pašalinti pasirinktą raktą iš patikimo raktų žiedo."
+
+#: ../data/SoftwareProperties.glade.h:8
+msgid "Installation Media"
+msgstr "Diegimo laikmenos"
+
+#: ../data/SoftwareProperties.glade.h:9
+#, fuzzy
+msgid "Internet Updates"
+msgstr "<b>Internetiniai atnaujinimai</b>"
+
+#: ../data/SoftwareProperties.glade.h:10
+msgid ""
+"Only security updates from the official Ubuntu servers will be installed "
+"automatically. The software package \"unattended-upgrades\" needs to be "
+"installed therefor"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:11
+#, fuzzy
+msgid "Restore _Defaults"
+msgstr "Atkurti numatytuosius"
+
+#: ../data/SoftwareProperties.glade.h:12
+#, fuzzy
+msgid "Restore the default keys of your distribution"
+msgstr "Atkurti numatytuosius raktus"
+
+#: ../data/SoftwareProperties.glade.h:13
+msgid "Software Preferences"
+msgstr "Programinės įrangos nustatymai"
+
+#: ../data/SoftwareProperties.glade.h:14
+#, fuzzy
+msgid "_Check for updates automatically:"
+msgstr "Tikrinti atnaujinimus kas"
+
+#: ../data/SoftwareProperties.glade.h:15
+msgid "_Download updates in the backgound, but do not install them"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:16
+msgid "_Install security updates without confirmation"
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:2
+msgid "     "
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:3
+#, fuzzy
+msgid "<b>Channel</b>"
+msgstr "<b>Raktai</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:4
+msgid "<b>Comment:</b>"
+msgstr "<b>Komentaras:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:5
+msgid "<b>Distribution:</b>"
+msgstr "<b>Distribucija:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:6
+msgid "<b>Sections:</b>"
+msgstr "<b>Skyriai:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:7
+#, fuzzy
+msgid "<b>Sections</b>"
+msgstr "<b>Skyriai:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:8
+msgid "<b>Type:</b>"
+msgstr "<b>Tipas:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:9
+msgid "<b>URI:</b>"
+msgstr "<b>URI:</b>"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:10
+#, fuzzy
+msgid ""
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
+"\n"
+"The APT line contains the type, location and sections of a channel, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>."
+msgstr ""
+"<big><b>Įveskite visą Jūsų norimos pridėti saugyklos APT eilutę</b></big>\n"
+"\n"
+"APT eilutė nurodo saugyklos tipą, vietą bei turinį, pvz., <i>„deb http://ftp."
+"debian.org sarge main“</i>. Išsamesnį sintaksės aprašymą galite rasti "
+"dokumentacijoje."
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:13
+msgid "APT line:"
+msgstr "APT eilutė:"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:14
+msgid "Add Channel"
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:15
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"Dvejetainis\n"
+"Pradinis kodas"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:17
+msgid "Edit Channel"
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:18
+msgid "Scanning CD-ROM"
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:19
+msgid "_Add Channel"
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:20
+msgid "_Custom"
+msgstr "_Kita"
+
 #: ../data/update-manager.desktop.in.h:1
-msgid "Show available updates and choose which to install"
-msgstr "Rodyti galimus atnaujimus ir pasirinkti įdiegtinus"
+msgid "Show and install available updates"
+msgstr ""
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
 msgstr "Atnaujinimų tvarkyklė"
+
+#: ../data/update-manager.schemas.in.h:1
+msgid ""
+"If automatic checking for updates is disabeld, you have to reload the "
+"channel list manually. This option allows to hide the reminder shown in this "
+"case."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Remind to reload the channel list"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid "Show details of an update"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:4
+msgid "Stores the size of the update-manager dialog"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:5
+msgid ""
+"Stores the state of the expander that contains the list of changs and the "
+"description"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:6
+msgid "The window size"
+msgstr ""
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -621,54 +734,67 @@ msgstr ""
 #. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
-msgid "Ubuntu 6.04 \"Dapper Drake\""
+msgid "Ubuntu 6.04 'Dapper Drake'"
 msgstr "Ubuntu 5.04 atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
-msgid "Ubuntu 5.10 \"Breezy Badger\""
-msgstr "CD su Ubuntu 5.10 „Breezy Badger“"
+msgid "Ubuntu 6.04 Security Updates"
+msgstr "Ubuntu 5.04 saugumo atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.10 saugumo atnaujinimai"
+#, fuzzy
+msgid "Ubuntu 6.04 Updates"
+msgstr "Ubuntu 5.10 atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 5.10 Updates"
+#, fuzzy
+msgid "Ubuntu 6.04 Backports"
 msgstr "Ubuntu 5.10 atnaujinimai"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
-msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-msgstr "CD su Ubuntu 5.04 „Hoary Hedgehog“"
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "CD su Ubuntu 5.10 „Breezy Badger“"
 
 #. Description
 #: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.04 saugumo atnaujinimai"
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.10 saugumo atnaujinimai"
+
+#. Description
+#: ../channels/Ubuntu.info.in:108
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.10 atnaujinimai"
+
+#. Description
+#: ../channels/Ubuntu.info.in:125
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.10 atnaujinimai"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:94 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Prižiūrima oficialiai"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:97
+#: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Apribotos autorinės teisės"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:100
+#: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Prižiūrima bendruomenės (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:103
+#: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Ne Laisva (Multiverse)"
 
@@ -722,6 +848,26 @@ msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #, fuzzy
+#~ msgid "Add Software Channels"
+#~ msgstr "Programinės įrangos atnaujinimai"
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+#~ "\n"
+#~ "Need to get the changes from the central server"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">Parsiunčiami pakeitimai</span>\n"
+#~ "\n"
+#~ "Reikia gauti pakeitimus iš centrinio serverio"
+
+#~ msgid "Show available updates and choose which to install"
+#~ msgstr "Rodyti galimus atnaujimus ir pasirinkti įdiegtinus"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
+#~ msgstr "CD su Ubuntu 5.04 „Hoary Hedgehog“"
+
+#, fuzzy
 #~ msgid "Error fetching the packages"
 #~ msgstr "Šalinant raktą įvyko klaida"
 
@@ -737,29 +883,14 @@ msgstr ""
 #~ msgid "day(s)"
 #~ msgstr "dieną(as)"
 
-#~ msgid "<b>Comment:</b>"
-#~ msgstr "<b>Komentaras:</b>"
-
 #~ msgid "<b>Components</b>"
 #~ msgstr "<b>Komponentai</b>"
-
-#~ msgid "<b>Distribution:</b>"
-#~ msgstr "<b>Distribucija:</b>"
 
 #~ msgid "<b>Repository</b>"
 #~ msgstr "<b>Saugykla</b>"
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Skyriai:</b>"
-
 #~ msgid "<b>Temporary files</b>"
 #~ msgstr "<b>Laikinos bylos</b>"
-
-#~ msgid "<b>Type:</b>"
-#~ msgstr "<b>Tipas:</b>"
-
-#~ msgid "<b>URI:</b>"
-#~ msgstr "<b>URI:</b>"
 
 #~ msgid "<b>User Interface</b>"
 #~ msgstr "<b>Naudotojo sąsaja</b>"
@@ -777,24 +908,6 @@ msgstr ""
 #~ "integruotumą."
 
 #~ msgid ""
-#~ "<big><b>Enter the complete APT line of the repository that you want to "
-#~ "add</b></big>\n"
-#~ "\n"
-#~ "The APT line contains the type, location and content of a repository, for "
-#~ "example <i>\"deb http://ftp.debian.org sarge main\"</i>. You can find a "
-#~ "detailed description of the syntax in the documentation."
-#~ msgstr ""
-#~ "<big><b>Įveskite visą Jūsų norimos pridėti saugyklos APT eilutę</b></"
-#~ "big>\n"
-#~ "\n"
-#~ "APT eilutė nurodo saugyklos tipą, vietą bei turinį, pvz., <i>„deb http://"
-#~ "ftp.debian.org sarge main“</i>. Išsamesnį sintaksės aprašymą galite rasti "
-#~ "dokumentacijoje."
-
-#~ msgid "APT line:"
-#~ msgstr "APT eilutė:"
-
-#~ msgid ""
 #~ "Add a new key file to the trusted keyring. Make sure that you received "
 #~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
@@ -809,13 +922,6 @@ msgstr ""
 
 #~ msgid "Automatically clean _temporary packages files"
 #~ msgstr "Automatiškai išvalyti _laikinas paketų bylas"
-
-#~ msgid ""
-#~ "Binary\n"
-#~ "Source"
-#~ msgstr ""
-#~ "Dvejetainis\n"
-#~ "Pradinis kodas"
 
 #~ msgid "Clean interval in days: "
 #~ msgstr "Išvalymo intervalas dienomis:"
@@ -856,9 +962,6 @@ msgstr ""
 
 #~ msgid "_Add Repository"
 #~ msgstr "_Pridėti saugyklą"
-
-#~ msgid "_Custom"
-#~ msgstr "_Kita"
 
 #~ msgid "_Download upgradable packages"
 #~ msgstr "_Parsiųsti atnaujintus paketus"

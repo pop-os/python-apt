@@ -1,7 +1,7 @@
 
 DOMAIN=update-manager
 PO_FILES := $(wildcard *.po)
-CONTACT=michael.vogt@canonical.com
+CONTACT=sebastian.heinlein@web.de
 
 all: update-po
 

@@ -47,6 +47,7 @@ import pwd
 import time
 import thread
 import xml.sax.saxutils
+from Common.HelpViewer import HelpViewer
 
 
 from gettext import gettext as _
@@ -283,6 +284,12 @@ class UpdateManager(SimpleGladeApp):
           opener = urllib2.build_opener(proxy_support)
           urllib2.install_opener(opener)
 
+    # setup the help viewer and disable the help button if there
+    # is no viewer available
+    self.help_viewer = HelpViewer("update-manager")
+    if self.help_viewer.check() == False:
+        self.button_help.set_sensitive(False)
+
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
@@ -409,6 +416,7 @@ class UpdateManager(SimpleGladeApp):
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
+          self.treeview_update.set_cursor(0)
           self.expander_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
@@ -458,10 +466,9 @@ class UpdateManager(SimpleGladeApp):
   def on_button_reload_clicked(self, widget):
     #print "on_button_reload_clicked"
     self.invoke_manager(UPDATE)
-    self.fillstore()
 
   def on_button_help_clicked(self, widget):
-    subprocess.Popen(["/usr/bin/yelp", "ghelp:update-manager"])
+    self.help_viewer.run()
 
   def on_button_install_clicked(self, widget):
     #print "on_button_install_clicked"
@@ -649,7 +656,7 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distribution release codename '%s' available</b>" % upgradable_to.name)
+    self.label_new_release.set_markup("<b>New distribution release '%s' is available</b>" % upgradable_to.name)
     self.new_dist = upgradable_to
     
 
@@ -666,8 +673,8 @@ class UpdateManager(SimpleGladeApp):
         d.set_markup("<big><b>%s</b></big>\n\n%s" % (
             _("Only one software management tool is allowed to "
               "run at the same time"),
-            _("Please close the other application e.g. \"aptitude\" "
-              "or \"Synaptic\" at first.")))
+            _("Please close the other application e.g. 'aptitude' "
+              "or 'Synaptic' first.")))
         print "error from apt: '%s'" % e
         d.set_title("")
         res = d.run()
@@ -675,10 +682,11 @@ class UpdateManager(SimpleGladeApp):
         sys.exit()
 
     try:
-        self.cache = MyCache(GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
-                                                       self.progressbar_cache,
-						       self.label_cache,
-                                                       self.window_main))
+        progress = GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
+                                             self.progressbar_cache,
+                                             self.label_cache,
+                                             self.window_main)
+        self.cache = MyCache(progress)
     except AssertionError:
         # we assert a clean cache
         msg=("<big><b>%s</b></big>\n\n%s"% \
@@ -695,6 +703,8 @@ class UpdateManager(SimpleGladeApp):
         dialog.run()
         dialog.destroy()
         sys.exit(1)
+    else:
+        progress.hide()
     #apt_pkg.Config.Set("Debug::pkgPolicy","1")
     #self.depcache = apt_pkg.GetDepCache(self.cache)
     self.cache._depcache.ReadPinFile()
