@@ -63,10 +63,6 @@ setup(name='update-manager',
                   ),
                   ('share/pixmaps',
                    ["data/update-manager.png"]
-                  ),
-                  ('share/mime/packages',
-                   ["data/mime/apt.xml"]
-                  )
                   ] + I18NFILES + HELPFILES,
       )
 
