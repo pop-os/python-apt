@@ -1,9 +1,16 @@
-python-apt (0.6.16.2ubuntu4) dapper; urgency=low
+python-apt (0.6.16.2ubuntu5) dapper; urgency=low
 
   * apt/cache.py: Release locks on failure (thanks to Colin Watson)
     (closes: #35867)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 21 Mar 2006 15:09:14 +0100
+
+python-apt (0.6.16.2ubuntu4) dapper; urgency=low
+
+  * apt/package.py: 
+     - added Package.setDelete(purge) option
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  6 Mar 2006 18:59:33 +0000
 
 python-apt (0.6.16.2ubuntu3) dapper; urgency=low
 

@@ -274,10 +274,13 @@ class Package(object):
         self._pcache.cachePreChange()
         self._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
-    def markDelete(self, autoFix=True):
-        """ mark a package for delete. Run the resolver if autoFix is set """
+    def markDelete(self, autoFix=True, purge=False):
+        """ mark a package for delete. Run the resolver if autoFix is set.
+            Mark the package as purge (remove with configuration) if 'purge'
+            is set.
+            """
         self._pcache.cachePreChange()
-        self._depcache.MarkDelete(self._pkg)
+        self._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
         if autoFix and self._depcache.BrokenCount > 0:
             Fix = apt_pkg.GetPkgProblemResolver(self._depcache)
