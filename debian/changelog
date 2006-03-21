@@ -10,7 +10,7 @@ python-apt (0.6.16.2) unstable; urgency=low
   * apt/cache.py:
     - return useful values on Cache.update()
   * apt/cache.py, apt/package.py: fix various pychecker warnings
-
+  * apt/cache.py: Release locks on failure (thanks to Colin Watson)
 
  -- 
 

@@ -140,31 +140,35 @@ class Cache(object):
         if lock < 0:
             raise IOError, "Failed to lock %s" % lockfile
 
-        # this may as well throw a SystemError exception
-        if not pm.GetArchives(fetcher, self._list, self._records):
-            return False
-        # now run the fetcher, throw exception if something fails to be
-        # fetched
-        res = self._runFetcher(fetcher)
-        # cleanup
-        os.close(lock)
-        return res
+        try:
+            # this may as well throw a SystemError exception
+            if not pm.GetArchives(fetcher, self._list, self._records):
+                return False
+            # now run the fetcher, throw exception if something fails to be
+            # fetched
+            return self._runFetcher(fetcher)
+        finally:
+            os.close(lock)
 
     def update(self, fetchProgress=None):
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
             raise IOError, "Failed to lock %s" % lockfile
-        if fetchProgress == None:
-            fetchProgress = apt.progress.FetchProgress()
-        fetcher = apt_pkg.GetAcquire(fetchProgress)
-        # this can throw a exception
-        self._list.GetIndexes(fetcher)
-        # now run the fetcher, throw exception if something fails to be
-        # fetched
-        if self._runFetcher(fetcher) == fetcher.ResultContinue:
-            return True
-        return False
+
+        try:
+            if fetchProgress == None:
+                fetchProgress = apt.progress.FetchProgress()
+            fetcher = apt_pkg.GetAcquire(fetchProgress)
+            # this can throw a exception
+            self._list.GetIndexes(fetcher)
+            # now run the fetcher, throw exception if something fails to be
+            # fetched
+            if self._runFetcher(fetcher) == fetcher.ResultContinue:
+                return True
+            return False
+        finally:
+            os.close(lock)
         
     def installArchives(self, pm, installProgress):
         installProgress.startUpdate()
