@@ -344,7 +344,7 @@ class SoftwareProperties(SimpleGladeApp):
     # show a dialog that a reload of the channel information is required
     # only if there is no parent defined
     if self.modified == True and \
-       self.window_main.get_transient_for() != None:
+       self.window_main.get_transient_for() == None:
         d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
                                                       self.datadir)
         res = d.run()
