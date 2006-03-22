@@ -49,7 +49,7 @@ class DialogCacheOutdated:
             pass
         cmd = ["/usr/sbin/synaptic", "--hide-main-window",
                "--non-interactive",
-               "--parent-window-id", "%s" % (id),
+               "--parent-window-id", "%s" % (window_id),
                "--update-at-startup"]
         subprocess.call(cmd)
         lock.release()
