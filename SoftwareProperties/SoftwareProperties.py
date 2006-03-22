@@ -73,6 +73,7 @@ class SoftwareProperties(SimpleGladeApp):
       self.window_main.set_transient_for(parent)
 
     # If externally called, reparent to external application.
+    self.options = options
     if options and options.toplevel != None:
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
@@ -188,7 +189,7 @@ class SoftwareProperties(SimpleGladeApp):
     tr.set_property("ypad", 10)
     
     source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
-    source_col.set_max_width(500)
+    #source_col.set_max_width(500)
 
     toggle = gtk.CellRendererToggle()
     toggle.connect("toggled", self.on_channel_toggled)
@@ -210,6 +211,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview2.append_column(keys_col)
     
   def reload_sourceslist(self):
+    (path_x, path_y) = self.treeview_sources.get_cursor()
     self.source_store.clear()
     for source in self.sourceslist.list:
       if source.invalid:
@@ -226,9 +228,10 @@ class SoftwareProperties(SimpleGladeApp):
         self.button_remove.set_sensitive(False)
         self.button_edit.set_sensitive(False)
     else:
+        if path_x == None or self.treeview_sources.set_cursor(path_x):
+            self.treeview_sources.set_cursor(0)
         self.button_remove.set_sensitive(True)
         self.button_edit.set_sensitive(True)
-        self.treeview_sources.set_cursor(0)
       
   def reload_keyslist(self):
     self.keys_store.clear()
@@ -340,7 +343,9 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.backup(".save")
     self.sourceslist.save()
     # show a dialog that a reload of the channel information is required
-    if self.modified == True:
+    # only if there is no parent defined
+    if self.modified == True and \
+       self.options.toplevel == None:
         d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
                                                       self.datadir)
         res = d.run()

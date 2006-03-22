@@ -1,3 +1,19 @@
+update-manager (0.42.2ubuntu9) dapper; urgency=low
+
+  * Better English (tm)  (fixes #35985)
+  * Use the the number of available and not selected updates to determinate
+    if the system is up-to-date (fixes #35300)
+  * fix ui problem with software preferences (fixes #35987)
+  * fix width problem in SoftwareProperties
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Mar 2006 21:57:28 +0100
+
+update-manager (0.42.2ubuntu8) dapper; urgency=low
+
+  * fix a FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 15 Mar 2006 17:54:08 +0000
+
 update-manager (0.42.2ubuntu7) dapper; urgency=low
 
   * various spelling fixes and ui-glitches 

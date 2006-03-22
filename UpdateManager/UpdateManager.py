@@ -224,6 +224,8 @@ class UpdateManager(SimpleGladeApp):
                             None, domain="update-manager")
 
     self.window_main.set_sensitive(False)
+    self.window_main.grab_focus()
+    self.button_close.grab_focus()
 
     self.packages = []
     self.dl_size = 0
@@ -237,7 +239,7 @@ class UpdateManager(SimpleGladeApp):
 
     # useful exit stuff
     self.window_main.connect("delete_event", self.close)
-    self.button_cancel.connect("clicked", lambda w: self.exit())
+    self.button_close.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
     self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
@@ -425,7 +427,7 @@ class UpdateManager(SimpleGladeApp):
           self.expander_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
-          self.button_cancel.grab_default()
+          self.button_close.grab_default()
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           

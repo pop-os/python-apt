@@ -27,7 +27,7 @@ import apt_pkg
 import tarfile
 import urllib2
 import tempfile
-import shutils
+import shutil
 import GnuPGInterface
 from gettext import gettext as _
 
@@ -185,7 +185,7 @@ class DistUpgradeFetcher(object):
       # cleanup
       os.chdir("..")
       # del tmpdir
-      shutils.rmtree(self.tmpdir)
+      shutil.rmtree(self.tmpdir)
 
     def run(self):
         # see if we have release notes

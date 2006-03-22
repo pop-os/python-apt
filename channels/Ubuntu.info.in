@@ -6,7 +6,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 6.04 'Dapper Drake'
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -23,7 +23,7 @@ BaseURI: http://security.ubuntu.com/ubuntu/
 _Description: Ubuntu 6.04 Security Updates
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -40,7 +40,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 6.04 Updates
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -57,7 +57,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 6.04 Backports
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -74,7 +74,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -91,7 +91,7 @@ BaseURI: http://security.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 Security Updates
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -108,7 +108,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 Updates
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -125,7 +125,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 Backports
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
