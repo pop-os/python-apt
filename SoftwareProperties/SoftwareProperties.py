@@ -189,7 +189,7 @@ class SoftwareProperties(SimpleGladeApp):
     tr.set_property("ypad", 10)
     
     source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
-    source_col.set_max_width(500)
+    #source_col.set_max_width(500)
 
     toggle = gtk.CellRendererToggle()
     toggle.connect("toggled", self.on_channel_toggled)
