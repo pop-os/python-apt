@@ -224,6 +224,8 @@ class UpdateManager(SimpleGladeApp):
                             None, domain="update-manager")
 
     self.window_main.set_sensitive(False)
+    self.window_main.grab_focus()
+    self.button_close.grab_focus()
 
     self.packages = []
     self.dl_size = 0
@@ -237,7 +239,7 @@ class UpdateManager(SimpleGladeApp):
 
     # useful exit stuff
     self.window_main.connect("delete_event", self.close)
-    self.button_cancel.connect("clicked", lambda w: self.exit())
+    self.button_close.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
     self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
@@ -346,14 +348,28 @@ class UpdateManager(SimpleGladeApp):
     iter = model.get_iter(path)
 
     # set descr
-    long_desc = model.get_value(iter, 5)
+    long_desc = model.get_value(iter, LIST_LONG_DESCR)
     if long_desc == None:
       return
+    # Skip the first line - it's a duplicate of the summary
+    i = long_desc.find("\n")
+    long_desc = long_desc[i+1:]
+    # do some regular expression magic on the description
+    # Add a newline before each bullet
+    p = re.compile(r'^(\s|\t)*(\*|0|-)',re.MULTILINE)
+    long_desc = p.sub('\n*', long_desc)
+    # replace all newlines by spaces
+    p = re.compile(r'\n', re.MULTILINE)
+    long_desc = p.sub(" ", long_desc)
+    # replace all multiple spaces by newlines
+    p = re.compile(r'\s\s+', re.MULTILINE)
+    long_desc = p.sub("\n", long_desc)
+
     desc_buffer = self.textview_descr.get_buffer()
     desc_buffer.set_text(utf8(long_desc))
 
     # now do the changelog
-    name = model.get_value(iter, 2)
+    name = model.get_value(iter, LIST_NAME)
     if name == None:
       return
 
@@ -405,13 +421,13 @@ class UpdateManager(SimpleGladeApp):
     self.update_count()
 
   def update_count(self):
-      if len(self.packages) == 0:
+      if self.list.num_updates == 0:
           text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
           self.expander_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
-          self.button_cancel.grab_default()
+          self.button_close.grab_default()
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
@@ -609,7 +625,8 @@ class UpdateManager(SimpleGladeApp):
         contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
         contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
 
-        iter = self.store.append([True, contents, pkg.name, pkg.summary, pkg.candidateVersion, pkg.description, pkg])
+        iter = self.store.append([True, contents, pkg.name, pkg.summary,
+                                  pkg.candidateVersion, pkg.description, pkg])
         self.add_update(pkg)
         i = i + 1
 

@@ -190,6 +190,11 @@ class SoftwareProperties(SimpleGladeApp):
     source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
     source_col.set_max_width(500)
 
+    toggle = gtk.CellRendererToggle()
+    toggle.connect("toggled", self.on_channel_toggled)
+    toggle_col = gtk.TreeViewColumn("Active", toggle, active=LIST_ENABLED)
+
+    self.treeview_sources.append_column(toggle_col)
     self.treeview_sources.append_column(source_col)
     
     self.sourceslist = aptsources.SourcesList()
@@ -205,9 +210,10 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview2.append_column(keys_col)
     
   def reload_sourceslist(self):
+    (path_x, path_y) = self.treeview_sources.get_cursor()
     self.source_store.clear()
     for source in self.sourceslist.list:
-      if source.invalid or source.disabled:
+      if source.invalid:
         continue
       (a_type, dist, comps) = self.matcher.match(source)
       
@@ -217,6 +223,14 @@ class SoftwareProperties(SimpleGladeApp):
       contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
 
       self.source_store.append([contents, not source.disabled, source])
+    if len(self.source_store) < 1:
+        self.button_remove.set_sensitive(False)
+        self.button_edit.set_sensitive(False)
+    else:
+        if path_x == None or self.treeview_sources.set_cursor(path_x):
+            self.treeview_sources.set_cursor(0)
+        self.button_remove.set_sensitive(True)
+        self.button_edit.set_sensitive(True)
       
   def reload_keyslist(self):
     self.keys_store.clear()
@@ -328,7 +342,9 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.backup(".save")
     self.sourceslist.save()
     # show a dialog that a reload of the channel information is required
-    if self.modified == True:
+    # only if there is no parent defined
+    if self.modified == True and \
+       self.window_main.get_transient_for() == None:
         d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
                                                       self.datadir)
         res = d.run()
@@ -445,6 +461,13 @@ class SoftwareProperties(SimpleGladeApp):
       self.reload_sourceslist()
       self.modified = True
 
+  def on_channel_toggled(self, cell_toggle, path):
+      """Enable or disable the selected channel"""
+      iter = self.source_store.get_iter((int(path),))
+      source_entry = self.source_store.get_value(iter, LIST_ENTRY_OBJ)
+      source_entry.disabled = not source_entry.disabled
+      self.reload_sourceslist()
+      self.modified = True
 
 # FIXME: move this into a different file
 class GtkCdromProgress(apt.progress.CdromProgress, SimpleGladeApp):
