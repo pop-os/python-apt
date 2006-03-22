@@ -43,7 +43,6 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
    
-   Struct.Records->Restart();
    Struct.Last = Struct.Records->Find(Name, false);
    if (Struct.Last == 0) {
       Struct.Records->Restart();
@@ -54,9 +53,25 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i", 1);
 }
 
+static char *doc_PkgSrcRecordsRestart = "Start Lookup from the begining";
+static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
+{   
+   PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
+   
+   char *Name = 0;
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   
+   Struct.Records->Restart();
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);	
+}
+
 static PyMethodDef PkgSrcRecordsMethods[] = 
 {
    {"Lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
+   {"Restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
    {}
 };
 
@@ -126,10 +141,10 @@ PyTypeObject PkgSrcRecordsType =
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
    "pkgSrcRecords",                          // tp_name
-   sizeof(CppOwnedPyObject<PkgSrcRecordsStruct>),   // tp_basicsize
+   sizeof(CppPyObject<PkgSrcRecordsStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgSrcRecordsStruct>,   // tp_dealloc
+   CppDealloc<PkgSrcRecordsStruct>,   // tp_dealloc
    0,                                   // tp_print
    PkgSrcRecordsAttr,                      // tp_getattr
    0,                                   // tp_setattr
@@ -145,11 +160,17 @@ PyTypeObject PkgSrcRecordsType =
 
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 {
+#if 0
    PyObject *Owner;
    if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
       return 0;
 
    return HandleErrors(CppOwnedPyObject_NEW<PkgSrcRecordsStruct>(Owner,
 			   &PkgSrcRecordsType));
+#endif
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   
+   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PkgSrcRecordsType));
 }
 
