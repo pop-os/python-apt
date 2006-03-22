@@ -96,8 +96,10 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
              *b != 0;
              ++b)
             PyList_Append(List, CppPyString(*b));
-
          return List; // todo
+      } else if (strcmp("Index",Name) == 0) {
+	 const pkgIndexFile &tmp = Struct.Last->Index();
+	 return CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PackageIndexFileType, (pkgIndexFile*)&tmp);
       } else if (strcmp("Files",Name) == 0) {
          PyObject *List = PyList_New(0);
 
