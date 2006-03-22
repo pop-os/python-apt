@@ -73,6 +73,7 @@ class SoftwareProperties(SimpleGladeApp):
       self.window_main.set_transient_for(parent)
 
     # If externally called, reparent to external application.
+    self.options = options
     if options and options.toplevel != None:
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
@@ -344,7 +345,7 @@ class SoftwareProperties(SimpleGladeApp):
     # show a dialog that a reload of the channel information is required
     # only if there is no parent defined
     if self.modified == True and \
-       self.window_main.get_transient_for() == None:
+       self.options.toplevel == None:
         d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
                                                       self.datadir)
         res = d.run()
