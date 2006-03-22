@@ -15,8 +15,11 @@ python-apt (0.6.16.2) unstable; urgency=low
     - add "Restart" method
     - don't run auto "Restart" before performing a Lookup 
     - fix the initalization (no need to pass a PkgCacheType to the records)
+    - added "Index" attribute
+  * python/indexfile.cc:
+    - added ArchiveURI() method
   
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Mar 2006 11:19:34 +0100
+ -- 
 
 python-apt (0.6.16.1) unstable; urgency=low
 
