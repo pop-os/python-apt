@@ -428,17 +428,16 @@ class UpdateManager(SimpleGladeApp):
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
           self.button_close.grab_default()
+          return (text_header, text_download, None)
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
-          self.treeview_update.set_cursor(0)
           self.expander_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
+          return (text_header, text_download, 0)
 
-      self.label_header.set_markup(text_header)
-      self.label_downsize.set_markup(text_download)
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
@@ -631,7 +630,10 @@ class UpdateManager(SimpleGladeApp):
         i = i + 1
 
 
-    self.update_count()
+    (text_header, text_download, selected) = self.update_count()
+    self.label_header.set_markup(text_header)
+    self.label_downsize.set_markup(text_download)
+    self.treeview_update.set_cursor(selected)
     return False
 
   def dist_no_longer_supported(self, meta_release):
