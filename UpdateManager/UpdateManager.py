@@ -409,7 +409,6 @@ class UpdateManager(SimpleGladeApp):
       self.dl_size -= pkg.packageSize
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
-    self.update_count()
 
   def add_update(self, pkg):
     name = pkg.name
@@ -418,26 +417,25 @@ class UpdateManager(SimpleGladeApp):
       self.dl_size += pkg.packageSize
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
-    self.update_count()
 
   def update_count(self):
       if self.list.num_updates == 0:
           text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
-          self.expander_details.set_sensitive(False)
+          self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
           self.button_close.grab_default()
-          return (text_header, text_download, None)
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
-          self.expander_details.set_sensitive(True)
+          self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
-          return (text_header, text_download, 0)
-
+          self.treeview_update.set_cursor(0)
+      self.label_header.set_markup(text_header)
+      self.label_downsize.set_markup(text_download)
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
@@ -633,15 +631,7 @@ class UpdateManager(SimpleGladeApp):
         self.add_update(pkg)
         i = i + 1
 
-
-    # show the text messages corresponding to the number of available 
-    # updates
-    (text_header, text_download, selected) = self.update_count()
-    self.label_header.set_markup(text_header)
-    self.label_downsize.set_markup(text_download)
-    # select the first update
-    if selected != None: self.treeview_update.set_cursor(selected)
-
+    self.update_count()
     # use the normal cursor
     self.window_main.window.set_cursor(None)
     return False
