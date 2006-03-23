@@ -428,17 +428,16 @@ class UpdateManager(SimpleGladeApp):
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
           self.button_close.grab_default()
+          return (text_header, text_download, None)
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
           text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
-          self.treeview_update.set_cursor(0)
           self.expander_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
+          return (text_header, text_download, 0)
 
-      self.label_header.set_markup(text_header)
-      self.label_downsize.set_markup(text_download)
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
@@ -498,6 +497,7 @@ class UpdateManager(SimpleGladeApp):
 
     # set window to insensitive
     self.window_main.set_sensitive(False)
+    self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
     lock = thread.allocate_lock()
     lock.acquire()
     t = thread.start_new_thread(self.run_synaptic,
@@ -510,6 +510,7 @@ class UpdateManager(SimpleGladeApp):
       gtk.main_iteration()
     self.fillstore()
     self.window_main.set_sensitive(True)
+    self.window_main.window.set_cursor(None)
 
   def toggled(self, renderer, path_string):
     """ a toggle button in the listview was toggled """
@@ -589,6 +590,8 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(True)
 
   def fillstore(self):
+    # use the watch cursor
+    self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
 
     # clean most objects
     self.packages = []
@@ -631,7 +634,16 @@ class UpdateManager(SimpleGladeApp):
         i = i + 1
 
 
-    self.update_count()
+    # show the text messages corresponding to the number of available 
+    # updates
+    (text_header, text_download, selected) = self.update_count()
+    self.label_header.set_markup(text_header)
+    self.label_downsize.set_markup(text_download)
+    # select the first update
+    if selected != None: self.treeview_update.set_cursor(selected)
+
+    # use the normal cursor
+    self.window_main.window.set_cursor(None)
     return False
 
   def dist_no_longer_supported(self, meta_release):

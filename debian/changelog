@@ -1,3 +1,13 @@
+update-manager (0.42.2ubuntu10) unstable; urgency=low
+
+  * update-manger: fix a missing import (#36138)
+  * typo fix (#36123)
+  * correct dapper version number (#36136)
+  * keybindings fixed (#36116)
+  * calc the update before downloading the changelog (#36140)
+  
+ --
+
 update-manager (0.42.2ubuntu9) dapper; urgency=low
 
   * Better English (tm)  (fixes #35985)
