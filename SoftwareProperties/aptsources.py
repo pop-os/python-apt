@@ -338,22 +338,23 @@ class SourceEntryMatcher:
     # CDs
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*6.06",
                                          ".*",
-                                        _("CD disk with Ubuntu 6.06 'Dapper "\
-                                          "Drake'"),
+                                         _("CD disk with Ubuntu 6.06 'Dapper "\
+                                           "Drake'"),
+                                         ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.10",
                                          ".*",
-                                        _("CD disk with Ubuntu 5.10 'Breezy "\
-                                          "Badger'"),
+                                         _("CD disk with Ubuntu 5.10 'Breezy "\
+                                           "Badger'"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.04",
                                          ".*",
-                                        _("CD disk with Ubuntu 5.04 "\
-                                          "'Hoary Hedgehog'"),
+                                         _("CD disk with Ubuntu 5.04 'Hoary "\
+                                           "Hedgehog'"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*4.10",
                                          ".*",
-                                        _("CD disk with Ubuntu 4.10 "\
-                                          "'Warty Warthog'"),
+                                         _("CD disk with Ubuntu 4.10 "\
+                                           "'Warty Warthog'"),
                                          ubuntu_comps, ubuntu_comps_descr))
     # URIs
     # Warty
@@ -373,6 +374,10 @@ class SourceEntryMatcher:
                                          "^warty-updates$",
                                          _("Ubuntu 4.10 Updates"),
                                          ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^warty-backports$",
+                                         _("Ubuntu 4.10 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr))
     # Hoary
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^hoary-security$",
@@ -390,6 +395,10 @@ class SourceEntryMatcher:
                                          "^hoary-updates$",
                                          _("Ubuntu 5.04 Updates"),
                                          ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^hoary-backports$",
+                                         _("Ubuntu 5.04 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr))
     # Breezy
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy-security$",
@@ -402,6 +411,10 @@ class SourceEntryMatcher:
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy$",
                                          "Ubuntu 5.10 'Breezy Badger'",
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^breezy-backports$",
+                                         _("Ubuntu 5.10 Backports"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^breezy-updates$",
@@ -419,6 +432,10 @@ class SourceEntryMatcher:
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper$",
                                          "Ubuntu 6.06 'Dapper Drake'",
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^dapper-backports$",
+                                         _("Ubuntu 6.06 Backports"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper-updates$",
