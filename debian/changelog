@@ -1,4 +1,4 @@
-update-manager (0.42.2ubuntu10) unstable; urgency=low
+update-manager (0.42.2ubuntu10) dapper; urgency=low
 
   * update-manger: fix a missing import (#36138)
   * typo fix (#36123)
