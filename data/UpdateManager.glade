@@ -478,7 +478,7 @@
 		  <property name="spacing">6</property>
 
 		  <child>
-		    <widget class="GtkNotebook" id="notebook1">
+		    <widget class="GtkNotebook" id="notebook_details">
 		      <property name="height_request">200</property>
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
