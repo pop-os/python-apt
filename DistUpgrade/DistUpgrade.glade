@@ -520,7 +520,7 @@
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 
 	  <child>
-	    <widget class="GtkButton" id="button_cancel">
+	    <widget class="GtkButton" id="button_cancel_changes">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -533,7 +533,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="button_start">
+	    <widget class="GtkButton" id="button_confirm_changes">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>

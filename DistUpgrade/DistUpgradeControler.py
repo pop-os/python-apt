@@ -157,7 +157,7 @@ class DistUpgradeControler(object):
         # FIXME: retry here too? just like the DoDistUpgrade?
         #        also remove all files from the lists partial dir!
         currentRetry = 0
-        maxRetries = self.config.get("Network","MaxRetries")
+        maxRetries = int(self.config.get("Network","MaxRetries"))
         while currentRetry < maxRetries:
             try:
                 res = self.cache.update(progress)
@@ -183,7 +183,7 @@ class DistUpgradeControler(object):
         # log the changes for debuging
         self._logChanges()
         # ask the user if he wants to do the changes
-        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives ")
+        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
         st = os.statvfs(archivedir)
         free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
         if self.cache.requiredDownload > free:
@@ -205,7 +205,7 @@ class DistUpgradeControler(object):
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
         # retry the fetching in case of errors
-        maxRetries = self.config.get("Network","MaxRetries")
+        maxRetries = int(self.config.get("Network","MaxRetries"))
         while currentRetry < maxRetries:
             try:
                 res = self.cache.commit(fprogress,iprogress)
@@ -270,9 +270,12 @@ class DistUpgradeControler(object):
         # get changes
         changes = self.cache.getChanges()
         logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
+        summary = _("Remove obsolete packages?")
+        actions = [_("_Skip This Step"), _("_Remove")]
+        # FIXME Add an explanation about what obsolete pacages are
+        #explanation = _("")
         if len(changes) > 0 and \
-               self._view.confirmChanges(_("Remove obsolete Packages?"),
-                                         changes, 0):
+               self._view.confirmChanges(summary, changes, 0, actions):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
             try:
@@ -301,7 +304,8 @@ class DistUpgradeControler(object):
             abort(1)
 
         # run a "apt-get update" now
-        self.doUpdate()
+        if not self.doUpdate():
+            self.abort()
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
         self.doPreUpdate()

@@ -132,7 +132,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        self.label_status.set_text(_("Installing updates"))
+        self.label_status.set_text(_("Applying changes"))
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
@@ -163,6 +163,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         pid = self.term.forkpty(envv=self.env)
         return pid
 
+    def statusChange(self, pkg, percent, status):
+        self.progress.set_fraction(float(percent)/100.0)
+        self.label_status.set_text(status.strip())
+
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
         self.finished = True
@@ -177,8 +181,6 @@ class GtkInstallProgressAdapter(InstallProgress):
     
     def updateInterface(self):
         InstallProgress.updateInterface(self)
-        self.progress.set_fraction(self.percent/100.0)
-        self.label_status.set_text(self.status)
         while gtk.events_pending():
             gtk.main_iteration()
 	time.sleep(0.02)
@@ -217,7 +219,6 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         self.label_status.set_property("attributes", attrlist)
-
         # reasonable fault handler
         sys.excepthook = self._handleException
 
@@ -298,7 +299,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self.dialog_error.destroy()
         return False
 
-    def confirmChanges(self, summary, changes, downloadSize):
+    def confirmChanges(self, summary, changes, downloadSize, actions=None):
         # FIXME: add a whitelist here for packages that we expect to be
         # removed (how to calc this automatically?)
         DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
@@ -345,6 +346,12 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             self.error(summary, msg)
             return False
 
+        if actions != None:
+            self.button_cancel_changes.set_use_stock(False)
+            self.button_cancel_changes.set_use_underline(True)
+            self.button_cancel_changes.set_label(actions[0])
+            self.button_confirm_changes.set_label(actions[1])
+
         self.label_summary.set_markup("<big><b>%s</b></big>" % summary)
         self.label_changes.set_markup(msg)
         # fill in the details
@@ -355,6 +362,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             self.details_list.append([_("Install %s" % inst)])
         for up in self.toUpgrade:
             self.details_list.append([_("Upgrade %s" % up)])
+        self.treeview_details.scroll_to_cell((0,))
         self.dialog_changes.set_transient_for(self.window_main)
         self.dialog_changes.realize()
         self.dialog_changes.window.set_functions(gtk.gdk.FUNC_MOVE)
@@ -400,7 +408,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return True
 
 if __name__ == "__main__":
-  view = GtkDistUpgradeView()
+  view = DistUpgradeViewGtk()
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
@@ -410,3 +418,4 @@ if __name__ == "__main__":
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              )
+  view.confirmChanges("xx",[], 100)
