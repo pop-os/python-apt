@@ -367,7 +367,11 @@ class SoftwareProperties(SimpleGladeApp):
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
       self.modified = True
-      
+
+  def on_channel_activated(self, treeview, path, column):
+     """Open the edit dialog if a channel was double clicked"""
+     self.on_edit_clicked(treeview)
+
   def on_remove_clicked(self, widget):
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
