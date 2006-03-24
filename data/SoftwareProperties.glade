@@ -93,6 +93,8 @@
 				  <property name="fixed_height_mode">False</property>
 				  <property name="hover_selection">False</property>
 				  <property name="hover_expand">False</property>
+				  <signal name="row_activated" handler="on_channel_activated" last_modification_time="Fri, 24 Mar 2006 12:56:00 GMT"/>
+				  <signal name="cursor_changed" handler="on_treeview_sources_cursor_changed" last_modification_time="Fri, 24 Mar 2006 13:00:27 GMT"/>
 				</widget>
 			      </child>
 			    </widget>

@@ -266,7 +266,7 @@ class UpdateManager(SimpleGladeApp):
       #self.treeview_update.set_fixed_height_mode(True)
 
     self.treeview_update.append_column(self.cb)
-    self.cb.set_visible(False)
+    self.cb.set_visible(True)
     self.treeview_update.append_column(c0)
     self.treeview_update.set_search_column(LIST_NAME)	
 
@@ -419,6 +419,8 @@ class UpdateManager(SimpleGladeApp):
         self.button_install.set_sensitive(True)
 
   def update_count(self):
+      """activate or disable widgets and show dialog texts correspoding to
+         the number of available updates"""
       if self.list.num_updates == 0:
           text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
@@ -426,6 +428,8 @@ class UpdateManager(SimpleGladeApp):
           self.treeview_update.set_sensitive(False)
           self.label_downsize.set_text=""
           self.button_close.grab_default()
+          self.textview_changes.get_buffer().set_text("")
+          self.textview_descr.get_buffer().set_text("")
       else:
           text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
           
@@ -600,24 +604,7 @@ class UpdateManager(SimpleGladeApp):
 
     # fill them again
     self.list.update(self.cache)
-    if self.list.num_updates < 1:
-      # set the label and treeview and hide the checkbox column
-      self.cb.set_visible(False)
-      text = "<big><b>%s</b></big>\n\n%s" % (_("Your system is up-to-date"),
-                                             _("There are no updates available."))
-      self.label_header.set_markup(text)
-      # make sure no install is possible
-      self.button_install.set_sensitive(False)
-      self.textview_changes.get_buffer().set_text("")
-      self.textview_descr.get_buffer().set_text("")
-    else:
-      self.cb.set_visible(True)
-      self.treeview_update.set_headers_visible(False)
-      text = _("<big><b>Available Updates</b></big>\n"
-               "\n"
-               "The following packages are found to be upgradable. You can upgrade them by "
-               "using the Install button.")
-      self.label_header.set_markup(text)
+    if self.list.num_updates > 0:
       i=0
       for pkg in self.list.pkgs:
 

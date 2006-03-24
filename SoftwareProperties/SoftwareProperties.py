@@ -224,15 +224,15 @@ class SoftwareProperties(SimpleGladeApp):
       contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
 
       self.source_store.append([contents, not source.disabled, source])
-    if len(self.source_store) < 1:
-        self.button_remove.set_sensitive(False)
-        self.button_edit.set_sensitive(False)
-    else:
-        if path_x == None or self.treeview_sources.set_cursor(path_x):
+    # try to reselect the latest selected channel or if it fails the first
+    # one
+    if len(self.source_store) > 0 and \
+       (path_x == None or self.treeview_sources.set_cursor(path_x)):
             self.treeview_sources.set_cursor(0)
-        self.button_remove.set_sensitive(True)
-        self.button_edit.set_sensitive(True)
-      
+    else:
+        # call the cursor_changed signal if no channel is selected
+        self.treeview_sources.emit("cursor_changed")
+
   def reload_keyslist(self):
     self.keys_store.clear()
     for key in self.apt_key.list():
@@ -368,7 +368,32 @@ class SoftwareProperties(SimpleGladeApp):
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
       self.modified = True
-      
+
+  def on_channel_activated(self, treeview, path, column):
+     """Open the edit dialog if a channel was double clicked"""
+     # check if the channel can be edited
+     if self.button_edit.get_property("sensitive") == True:
+         self.on_edit_clicked(treeview)
+
+  def on_treeview_sources_cursor_changed(self, treeview):
+    """set the sensitiveness of the edit and remove button
+       corresponding to the selected channel"""
+    sel = self.treeview_sources.get_selection()
+    (model, iter) = sel.get_selected()
+    if not iter:
+        # No channel is selected, so disable edit and remove
+        self.button_edit.set_sensitive(False)
+        self.button_remove.set_sensitive(False)
+        return
+    # allow to remove the selected channel
+    self.button_remove.set_sensitive(True)
+    # disable editing of cdrom sources
+    source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
+    if source_entry.uri.startswith("cdrom:"):
+        self.button_edit.set_sensitive(False)
+    else:
+        self.button_edit.set_sensitive(True)
+
   def on_remove_clicked(self, widget):
     sel = self.treeview_sources.get_selection()
     (model, iter) = sel.get_selected()
