@@ -1,8 +1,37 @@
+update-manager (0.42.2ubuntu10) dapper; urgency=low
+
+  * update-manger: fix a missing import (#36138)
+  * typo fix (#36123)
+  * correct dapper version number (#36136)
+  * keybindings fixed (#36116)
+  * calc the update before downloading the changelog (#36140)
+  
+ --
+
+update-manager (0.42.2ubuntu9) dapper; urgency=low
+
+  * Better English (tm)  (fixes #35985)
+  * Use the the number of available and not selected updates to determinate
+    if the system is up-to-date (fixes #35300)
+  * fix ui problem with software preferences (fixes #35987)
+  * fix width problem in SoftwareProperties
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Mar 2006 21:57:28 +0100
+
+update-manager (0.42.2ubuntu8) dapper; urgency=low
+
+  * fix a FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 15 Mar 2006 17:54:08 +0000
+
+update-manager (0.42.2ubuntu7) dapper; urgency=low
+
+  * various spelling fixes and ui-glitches 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 14 Mar 2006 16:58:01 +0000
+
 update-manager (0.42.2ubuntu6) dapper; urgency=low
 
-  * SoftwareProperties/: 
-    - fix some UI problems (thanks to Sebastian Heinlein)
-    - add breezy-updates, breezy-security to the Add dialog
   * po/pt_BR.po: updated translation 
     (thanks to Carlos Eduardo Pedroza Santiviago)
   * po/pt.po: updated Portugise translation (thanks to Rui Azevedo)
@@ -11,6 +40,7 @@ update-manager (0.42.2ubuntu6) dapper; urgency=low
                   the desktop files
   * data/gnome-software-properties.desktop.in, update-manager.desktop.in:
     - added X-Ubuntu-Gettext-Domain
+  * help/*: updated to latest svn
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 20 Feb 2006 15:58:09 +0100
 
