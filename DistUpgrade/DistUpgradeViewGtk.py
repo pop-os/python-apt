@@ -107,7 +107,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             self.status.set_text(_("Downloading file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
             self.progress.set_text(_("%s remaining" % apt_pkg.TimeToStr(self.eta)))
         else:
-            self.status.set_text(_("Downloading file %li of %li at unknown speed" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
