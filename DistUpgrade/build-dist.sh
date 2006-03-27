@@ -10,6 +10,7 @@
 TARGETDIR=../dist-upgrade-build
 SOURCEDIR=`pwd`
 DIST=dapper
+MAINTAINER="Michael Vogt <michael.vogt@ubuntu.com>"
 NOTES=ReleaseAnouncement
 version=$(date +%Y%m%d.%H%M)
 
@@ -33,11 +34,20 @@ TARBALL="dist-upgrader_"$version"_all.tar.gz"
 tar czvf $TARBALL $version
 
 # now create a changes file
-CHANGES="dist-upgrader_$version.changes"
-echo "Format: 1.7" > $CHANGES
+CHANGES="dist-upgrader_"$version"_all.changes"
+echo > $CHANGES
+echo "Origin: Ubuntu/$DIST" >> $CHANGES 
+echo "Format: 1.7" >> $CHANGES
 echo "Date: `date -R`" >> $CHANGES
 echo "Architecture: all">>$CHANGES
 echo "Version: $version" >>$CHANGES
-echo "Distribution: dapper"  >>$CHANGES
+echo "Distribution: $DIST"  >>$CHANGES
+echo "Source: dist-upgrader" >> $CHANGES
+echo "Binary: dist-upgrader" >> $CHANGES
+echo "Urgency: low" >> $CHANGES
+echo "Maintainer: $MAINTAINER" >> $CHANGES
+echo "Changed-By: $MAINTAINER" >> $CHANGES
+echo "Changes: "  >> $CHANGES
+echo " * new upstream version"  >> $CHANGES 
 echo "Files: " >> $CHANGES
-echo " `md5sum $TARBALL | awk '{print $1}'` `stat --format=%s $TARBALL` raw-dist-upgrader $TARBALL" >> $CHANGES
+echo " `md5sum $TARBALL | awk '{print $1}'` `stat --format=%s $TARBALL` raw-dist-upgrader - $TARBALL" >> $CHANGES
