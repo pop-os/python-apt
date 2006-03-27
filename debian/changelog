@@ -6,7 +6,7 @@ update-manager (0.42.2ubuntu10) dapper; urgency=low
   * keybindings fixed (#36116)
   * calc the update before downloading the changelog (#36140)
   
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 27 Mar 2006 16:45:56 +0200
 
 update-manager (0.42.2ubuntu9) dapper; urgency=low
 
