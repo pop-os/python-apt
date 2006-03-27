@@ -210,6 +210,14 @@ class GtkInstallProgressAdapter(InstallProgress):
             gtk.main_iteration()
 	time.sleep(0.02)
 
+class DistUpgradeVteTerminal(object):
+  def __init__(self, parent, term):
+    self.term = term
+    self.parent = parent
+  def call(self, cmd):
+    self.term.show()
+    self.parent.expander_terminal.set_expanded(True)
+    self.term.fork_command(command=cmd[0],argv=cmd)
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
@@ -258,13 +266,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                  "\n".join(lines))
       sys.exit(1)
 
+    def getTerminal(self):
+        return DistUpgradeVteTerminal(self, self._term)
+
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
         self._term = vte.Terminal()
         self._term.set_font_from_string("monospace 10")
         self._term.connect("contents-changed", self._term_content_changed)
         self._terminal_lines = []
-        self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+        try:
+          self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+        except IOError:
+          # if something goes wrong (permission denied etc), use stdout
+          self._terminal_log = sys.stdout
         return self._term
 
     def _term_content_changed(self, term):
@@ -437,7 +452,8 @@ if __name__ == "__main__":
   view = DistUpgradeViewGtk()
   ip = GtkInstallProgressAdapter(view)
   ip.conffile("TODO","TODO~")
-
+  view.getTerminal().call(["dpkg","--configure","-a"])
+  #view.getTerminal().call(["ls"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
@@ -448,4 +464,3 @@ if __name__ == "__main__":
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              )
   #view.confirmChanges("xx",[], 100)
-  
