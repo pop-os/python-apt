@@ -145,6 +145,9 @@ class dialog_add:
   
   def _make_source_entry(self):
     " helper for the 'edit' mode "
+    # we use "selected" for pretty much everything *but* we use
+    # self.source_entry.uri to make sure that the mirror information is
+    # preserved
     line = "%s %s %s" % (self.selected.type, self.source_entry.uri, self.selected.dist)
     if len(self.selected_comps) > 0:
       line += " " + " ".join(self.selected_comps)
