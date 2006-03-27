@@ -1,10 +1,11 @@
 MUSTFIX:
 --------
 * debconf gnome dosn't work (can't connect to the session)
+  [ should be fixed with the bugfix on gksu ]
 * display a message that all applications should be closed for the 
   dist-upgrade (and that strange things like a crashing panel can
   happen)
-
+  [done in current dialog]
 
 
 breezy->dapper

@@ -30,6 +30,7 @@ import pango
 import sys
 import logging
 import time
+import subprocess
 
 import apt
 import apt_pkg
@@ -158,7 +159,31 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
-        self.expander.set_expanded(True)
+        #self.expander.set_expanded(True)
+        prim = _("Replace configuration file\n'%s'?" % current)
+        sec = ("The configuration file %s was modified (by "
+               "you or by a script). An updated version is shipped "
+               "in this package. If you want to keep your current "
+               "version say 'Keep'. Do you want to replace the "
+               "current file and install the new package "
+               "maintainers version? " % current)
+        markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
+        self.parent.label_conffile.set_markup(markup)
+        self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
+
+        # now get the diff
+        cmd = ["/usr/bin/diff", "-u", current, new]
+        diff = utf8(subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0])
+        self.parent.textview_conffile.get_buffer().set_text(diff)
+        res = self.parent.dialog_conffile.run()
+        self.parent.dialog_conffile.hide()
+        # if replace, send this to the terminal
+        if res == gtk.RESPONSE_YES:
+          self.term.feed_child("y\n")
+        else:
+          self.term.feed_child("n\n")
+        
+        
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
@@ -408,7 +433,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return True
 
 if __name__ == "__main__":
+  
   view = DistUpgradeViewGtk()
+  ip = GtkInstallProgressAdapter(view)
+  ip.conffile("TODO","TODO~")
+
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
@@ -418,4 +447,5 @@ if __name__ == "__main__":
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              )
-  view.confirmChanges("xx",[], 100)
+  #view.confirmChanges("xx",[], 100)
+  
