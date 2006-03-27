@@ -58,7 +58,6 @@ class DistUpgradeControler(object):
 
 
     def updateSourcesList(self):
-        self.sources = SourcesList()
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
@@ -299,8 +298,10 @@ class DistUpgradeControler(object):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
+
         self.openCache()
-        
+        self.sources = SourcesList()
+     
         if not self.cache.sanityCheck(self._view):
             abort(1)
 

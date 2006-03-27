@@ -102,8 +102,16 @@ class SourceEntry:
       line = line[:i]
     # source is ok, split it and see what we have
     pieces = self.mysplit(line)
+    # Sanity check
+    if len(pieces) < 3:
+        self.invalid = True
+        return
     # Type, deb or deb-src
     self.type = string.strip(pieces[0])
+    # Sanity check
+    if self.type not in ("deb", "deb-src"):
+      self.invalid = True
+      return
     # URI
     self.uri = string.strip(pieces[1])
     # distro and components (optional)

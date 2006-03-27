@@ -70,13 +70,19 @@ class SoftwareProperties(SimpleGladeApp):
     #self.gconfclient = gconf.client_get_default()
 
     if parent:
+      self.window_main.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+      self.window_main.show()
       self.window_main.set_transient_for(parent)
 
     # If externally called, reparent to external application.
     self.options = options
     if options and options.toplevel != None:
+      self.window_main.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+      self.window_main.show()
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
+    
+    self.window_main.show()
       
     self.init_sourceslist()
     self.reload_sourceslist()
