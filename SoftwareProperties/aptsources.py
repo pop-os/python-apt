@@ -189,24 +189,6 @@ class SourceEntry:
     line += "\n"
     return line
     
-  def add(self, type, uri, dist, comps, comment="", pos=-1):
-    # if there is a repo with the same (type, uri, dist) just add the
-    # components
-    for i in self.list:
-      if i.type == type and is_mirror(uri,i.uri) and i.dist == dist:
-        comps = uniq(i.comps + comps)
-        # set to the old position and preserve comment
-        comment = i.comment
-        pos = self.list.index(i)
-        self.list.remove(i)
-    line = "%s %s %s" % (type,uri,dist)
-    for c in comps:
-      line = line + " " + c;
-    if comment != "":
-      line = "%s #%s\n" %(line,comment)
-    line = line + "\n"
-    self.list.insert(pos, SourceEntry(line))
-
 # the SourceList file as a class
 class SourcesList:
   def __init__(self):
@@ -228,6 +210,24 @@ class SourcesList:
     for entry in self.list:
       yield entry
     raise StopIteration
+
+  def add(self, type, uri, dist, comps, comment="", pos=-1):
+    # if there is a repo with the same (type, uri, dist) just add the
+    # components
+    for i in self.list:
+      if i.type == type and is_mirror(uri,i.uri) and i.dist == dist:
+        comps = uniq(i.comps + comps)
+        # set to the old position and preserve comment
+        comment = i.comment
+        pos = self.list.index(i)
+        self.list.remove(i)
+    line = "%s %s %s" % (type,uri,dist)
+    for c in comps:
+      line = line + " " + c;
+    if comment != "":
+      line = "%s #%s\n" %(line,comment)
+    line = line + "\n"
+    self.list.insert(pos, SourceEntry(line))
 
   def remove(self, source_entry):
     self.list.remove(source_entry)

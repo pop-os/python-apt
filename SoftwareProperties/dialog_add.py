@@ -39,6 +39,10 @@ class dialog_add:
     self.custom = False
     # we have a source_entry that we want to modify
     self.source_entry = source_entry
+    if source_entry:
+      self.source_entry_index = sourceslist.list.index(source_entry)
+    else:
+      self.source_entry_index = None
     
     # templates
     self.templatelist = aptsources.SourceEntryTemplates(datadir)
@@ -116,14 +120,13 @@ class dialog_add:
       # since we're passing the SourceEntry as it is now,
       # this SourceEntry needs to be in the sourceslist,
       # so temporarily swap the original for the current
-      source_entry_index = self.sourcelist.list.index(source_entry)
-      self.sourceslist.list[source_entry_index] = source_entry
+      self.sourceslist.list[self.source_entry_index] = source_entry
       dialog = dialog_edit.dialog_edit(self.parent, self.sourceslist,
                                        source_entry, self.datadir)
       res = dialog.run()
       if res == gtk.RESPONSE_CANCEL:
         # restore original SourceEntry
-        self.sourceslist.list[source_entry_index] = self.source_entry
+        self.sourceslist.list[self.source_entry_index] = self.source_entry
       elif res == gtk.RESPONSE_OK:
         # the sourceslist is allready updated, but we'll overwrite it
         # in self.run if we're not carefull
@@ -167,8 +170,7 @@ class dialog_add:
           if self.source_entry:
             # 'edit' - ode
             if not self.custom:
-              source_entry_index = self.sourcelist.list.index(source_entry)
-              self.sourceslist.list[source_entry_index] = self._make_source_entry()
+              self.sourceslist.list[self.source_entry_index] = self._make_source_entry()
           else:
             # 'add' mode
             self.sourceslist.add(self.selected.type,
