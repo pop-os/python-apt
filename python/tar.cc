@@ -88,7 +88,7 @@ bool ProcessTar::DoItem(Item &Itm,int &Fd)
 // ---------------------------------------------------------------------
 /* */
 char *doc_tarExtract =
-"tarExtract(File,Func,Comp) -> None"
+"tarExtract(File,Func,Comp) -> None\n"
 "The tar file referenced by the file object File, Func called for each\n"
 "Tar member. Comp must be the string \"gzip\" (gzip is automatically invoked) \n";   
 PyObject *tarExtract(PyObject *Self,PyObject *Args)
@@ -128,7 +128,7 @@ PyObject *tarExtract(PyObject *Self,PyObject *Args)
 // ---------------------------------------------------------------------
 /* */
 char *doc_debExtract =
-"debExtract(File,Func,Chunk) -> None"
+"debExtract(File,Func,Chunk) -> None\n"
 "The deb referenced by the file object File is examined. The AR member\n"
 "given by Chunk is treated as a tar.gz and fed through Func like\n"
 "tarExtract\n";
