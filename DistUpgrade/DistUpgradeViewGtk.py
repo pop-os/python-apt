@@ -115,9 +115,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         return True
 
 class GtkInstallProgressAdapter(InstallProgress):
-    UPDATE_HZ = 2
-    INITIAL_DATA_GATHERING = 10
-  
+
     def __init__(self,parent):
         InstallProgress.__init__(self)
         self.label_status = parent.label_status
@@ -199,13 +197,21 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def statusChange(self, pkg, percent, status):
         # start the timer when the first package changes its status
-        eta = 0
         if self.start_time == 0.0:
           #print "setting start time to %s" % self.start_time
           self.start_time = time.time()
-          self.last_time = self.start_time
         self.progress.set_fraction(float(self.percent)/100.0)
         self.label_status.set_text(status.strip())
+        # start showing when we gathered some data
+        if percent > 2.0:
+          delta = time.time() - self.start_time
+          time_per_percent = (float(delta)/percent)
+          eta = (100.0 - self.percent) * time_per_percent
+          # only show if we have some sensible data
+          if eta > 1.0 and eta < (60*60*24*2):
+            self.progress.set_text(_("%s remaining")%apt_pkg.TimeToStr(eta))
+          else:
+            self.progress.set_text(" ")
 
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
@@ -225,22 +231,6 @@ class GtkInstallProgressAdapter(InstallProgress):
         if self.start_time == 0.0:
           self.progress.pulse()
           time.sleep(0.2)
-        else:
-          # it started!
-          if (self.start_time + self.INITIAL_DATA_GATHERING) < time.time() and\
-                 (time.time() - self.last_time) > self.UPDATE_HZ:
-            self.last_time = time.time()
-            delta = self.last_time - self.start_time
-            time_per_percent = (float(delta)/self.percent)
-            if self.longest_time_per_percent < time_per_percent:
-              self.longest_time_per_percent =  time_per_percent
-            eta = (100.0 - self.percent) * self.longest_time_per_percent
-            # only show if it is in sensible bounds
-            if eta > 1.0 and eta < (60*60*24*2):
-              self.progress.set_text(_("%s remaining")%apt_pkg.TimeToStr(eta))
-            else:
-              self.progress.set_text(" ")
-            
         while gtk.events_pending():
             gtk.main_iteration()
 	time.sleep(0.02)
