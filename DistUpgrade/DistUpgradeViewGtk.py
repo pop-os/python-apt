@@ -115,7 +115,8 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         return True
 
 class GtkInstallProgressAdapter(InstallProgress):
-    UPDATE_HZ = 1
+    UPDATE_HZ = 2
+    INITIAL_DATA_GATHERING = 15
   
     def __init__(self,parent):
         InstallProgress.__init__(self)
@@ -222,10 +223,11 @@ class GtkInstallProgressAdapter(InstallProgress):
         # check if we haven't started yet with packages, pulse then
         if self.start_time == 0.0:
           self.progress.pulse()
-          time.sleep(0.15)
+          time.sleep(0.2)
         else:
           # it started!
-          if (time.time() - self.last_time) > self.UPDATE_HZ:
+          if (self.start_time + self.INITIAL_DATA_GATHERING) < time.time() and\
+                 (time.time() - self.last_time) > self.UPDATE_HZ:
             self.last_time = time.time()
             delta = self.last_time - self.start_time
             eta = (100.0 - self.percent) * (float(delta)/self.percent)
