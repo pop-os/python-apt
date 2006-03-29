@@ -116,7 +116,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
 
 class GtkInstallProgressAdapter(InstallProgress):
     UPDATE_HZ = 2
-    INITIAL_DATA_GATHERING = 15
+    INITIAL_DATA_GATHERING = 10
   
     def __init__(self,parent):
         InstallProgress.__init__(self)
@@ -147,7 +147,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         # do a bit of time-keeping
         self.start_time = 0.0
         self.time_ui = 0.0
-
+        self.longest_time_per_percent = 0.0
+        
     def error(self, pkg, errormsg):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         #self.expander_terminal.set_expanded(True)
@@ -230,7 +231,10 @@ class GtkInstallProgressAdapter(InstallProgress):
                  (time.time() - self.last_time) > self.UPDATE_HZ:
             self.last_time = time.time()
             delta = self.last_time - self.start_time
-            eta = (100.0 - self.percent) * (float(delta)/self.percent)
+            time_per_percent = (float(delta)/self.percent)
+            if self.longest_time_per_percent < time_per_percent:
+              self.longest_time_per_percent =  time_per_percent
+            eta = (100.0 - self.percent) * self.longest_time_per_percent
             # only show if it is in sensible bounds
             if eta > 1.0 and eta < (60*60*24*2):
               self.progress.set_text(_("%s remaining")%apt_pkg.TimeToStr(eta))
