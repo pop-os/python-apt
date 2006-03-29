@@ -210,10 +210,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.progress.set_fraction(float(percent)/100.0)
         # only show if more than 5s and less than 2 days
         if eta > 5.0 and eta < (60*60*24*2):
-          status = "%s (%s remaining)" % (status.strip(),apt_pkg.TimeToStr(eta))
+          self.progress.set_text(_("%s remaining") % apt_pkg.TimeToStr(eta))
         else:
-          status = status.strip()
-        self.label_status.set_text(status)
+          self.progress.set_text(" ")
+        self.label_status.set_text(status.strip())
 
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
@@ -229,6 +229,7 @@ class GtkInstallProgressAdapter(InstallProgress):
     
     def updateInterface(self):
         InstallProgress.updateInterface(self)
+        # check if we haven't started yet with packages, pulse then
         if self.start_time == 0.0:
           self.progress.pulse()
           time.sleep(0.15)
