@@ -141,6 +141,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=none"]
+        # do a bit of time-keeping
+        self.start_time = 0.0
+        self.time_ui = 0.0
 
     def error(self, pkg, errormsg):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
@@ -172,9 +175,12 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
 
         # now get the diff
-        cmd = ["/usr/bin/diff", "-u", current, new]
-        diff = utf8(subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0])
-        self.parent.textview_conffile.get_buffer().set_text(diff)
+        if os.path.exists("/usr/bin/diff"):
+          cmd = ["/usr/bin/diff", "-u", current, new]
+          diff = utf8(subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0])
+          self.parent.textview_conffile.get_buffer().set_text(diff)
+        else:
+          self.parent.textview_conffile.get_buffer().set_text(_("The 'diff' command was not found"))
         res = self.parent.dialog_conffile.run()
         self.parent.dialog_conffile.hide()
         # if replace, send this to the terminal
@@ -183,14 +189,31 @@ class GtkInstallProgressAdapter(InstallProgress):
         else:
           self.term.feed_child("n\n")
         
-        
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
 
     def statusChange(self, pkg, percent, status):
+        # start the timer when the first package changes its status
+        eta = 0
+        if self.start_time == 0.0:
+          #print "setting start time to %s" % self.start_time
+          self.start_time = time.time()
+        else:
+          delta = time.time() - self.start_time
+          #print "delta: %s (%s - %s) " % (delta, time.time(), self.start_time)
+          #print "percent: %s" % percent
+          eta = (100.0 - percent) * (float(delta)/percent)
+          #print "eta: %s" % eta
+          #print "eta (TimeToStr): %s" % apt_pkg.TimeToStr(eta)
+          #print
         self.progress.set_fraction(float(percent)/100.0)
-        self.label_status.set_text(status.strip())
+        # only show if more than 5s and less than 2 days
+        if eta > 5.0 and eta < (60*60*24*2):
+          status = "%s (%s remaining)" % (status.strip(),apt_pkg.TimeToStr(eta))
+        else:
+          status = status.strip()
+        self.label_status.set_text(status)
 
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
@@ -450,10 +473,19 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
 if __name__ == "__main__":
   
   view = DistUpgradeViewGtk()
+  fp = GtkFetchProgressAdapter(view)
   ip = GtkInstallProgressAdapter(view)
+
+
+  cache = apt.Cache()
+  for pkg in sys.argv[1:]:
+    cache[pkg].markInstall()
+  cache.commit(fp,ip)
+  
+  sys.exit(0)
   ip.conffile("TODO","TODO~")
   view.getTerminal().call(["dpkg","--configure","-a"])
-  #view.getTerminal().call(["ls"])
+  view.getTerminal().call(["ls"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
@@ -463,4 +495,5 @@ if __name__ == "__main__":
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              )
-  #view.confirmChanges("xx",[], 100)
+  view.confirmChanges("xx",[], 100)
+  
