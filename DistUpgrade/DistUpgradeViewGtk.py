@@ -203,7 +203,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.progress.set_fraction(float(self.percent)/100.0)
         self.label_status.set_text(status.strip())
         # start showing when we gathered some data
-        if percent > 2.0:
+        if percent > 1.0:
           delta = time.time() - self.start_time
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
