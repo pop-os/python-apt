@@ -229,6 +229,9 @@ class GtkInstallProgressAdapter(InstallProgress):
     
     def updateInterface(self):
         InstallProgress.updateInterface(self)
+        if self.start_time == 0.0:
+          self.progress.pulse()
+          time.sleep(0.15)
         while gtk.events_pending():
             gtk.main_iteration()
 	time.sleep(0.02)
