@@ -115,7 +115,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         return True
 
 class GtkInstallProgressAdapter(InstallProgress):
-
+    # timeout with no status change when the terminal is expanded
+    # automatically
+    TIMEOUT_TERMINAL_ACTIVITY = 120
+    
     def __init__(self,parent):
         InstallProgress.__init__(self)
         self.label_status = parent.label_status
@@ -145,7 +148,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # do a bit of time-keeping
         self.start_time = 0.0
         self.time_ui = 0.0
-        self.longest_time_per_percent = 0.0
+        self.last_activity = 0.0
         
     def error(self, pkg, errormsg):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
@@ -204,7 +207,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text(status.strip())
         # start showing when we gathered some data
         if percent > 1.0:
-          delta = time.time() - self.start_time
+          self.last_activity = time.time()
+          delta = self.last_activity - self.start_time
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
           # only show if we have some sensible data
@@ -231,6 +235,11 @@ class GtkInstallProgressAdapter(InstallProgress):
         if self.start_time == 0.0:
           self.progress.pulse()
           time.sleep(0.2)
+        # check about terminal activity
+        if self.last_activity > 0 and \
+           (self.last_activity + self.TIMEOUT_TERMINAL_ACTIVITY) < time.time():
+          logging.warning("no activity on terminal for %s seconds" % self.TIMEOUT_TERMINAL_ACTIVITY)
+          self.parent.expander_terminal.set_expanded(True)
         while gtk.events_pending():
             gtk.main_iteration()
 	time.sleep(0.02)
