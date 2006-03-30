@@ -20,7 +20,7 @@
 #  USA
 
 class DumbTerminal(object):
-    def run(self, cmd):
+    def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
         subprocess.call(cmd)
         
