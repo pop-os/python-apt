@@ -30,6 +30,7 @@ import pango
 import sys
 import logging
 import time
+import subprocess
 
 import apt
 import apt_pkg
@@ -106,7 +107,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             self.status.set_text(_("Downloading file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
             self.progress.set_text(_("%s remaining" % apt_pkg.TimeToStr(self.eta)))
         else:
-            self.status.set_text(_("Downloading file %li of %li at unknown speed" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
@@ -114,6 +115,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         return True
 
 class GtkInstallProgressAdapter(InstallProgress):
+    # timeout with no status change when the terminal is expanded
+    # automatically
+    TIMEOUT_TERMINAL_ACTIVITY = 120
+    
     def __init__(self,parent):
         InstallProgress.__init__(self)
         self.label_status = parent.label_status
@@ -132,7 +137,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # FIXME: add support for the timeout
         # of the terminal (to display something useful then)
         # -> longer term, move this code into python-apt 
-        self.label_status.set_text(_("Installing updates"))
+        self.label_status.set_text(_("Applying changes"))
         self.progress.set_fraction(0.0)
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
@@ -140,7 +145,11 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=none"]
-
+        # do a bit of time-keeping
+        self.start_time = 0.0
+        self.time_ui = 0.0
+        self.last_activity = 0.0
+        
     def error(self, pkg, errormsg):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         #self.expander_terminal.set_expanded(True)
@@ -158,10 +167,55 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
-        self.expander.set_expanded(True)
+        #self.expander.set_expanded(True)
+        prim = _("Replace configuration file\n'%s'?" % current)
+        sec = ("The configuration file %s was modified (by "
+               "you or by a script). An updated version is shipped "
+               "in this package. If you want to keep your current "
+               "version say 'Keep'. Do you want to replace the "
+               "current file and install the new package "
+               "maintainers version? " % current)
+        markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
+        self.parent.label_conffile.set_markup(markup)
+        self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
+
+        # now get the diff
+        if os.path.exists("/usr/bin/diff"):
+          cmd = ["/usr/bin/diff", "-u", current, new]
+          diff = utf8(subprocess.Popen(cmd, stdout=subprocess.PIPE).communicate()[0])
+          self.parent.textview_conffile.get_buffer().set_text(diff)
+        else:
+          self.parent.textview_conffile.get_buffer().set_text(_("The 'diff' command was not found"))
+        res = self.parent.dialog_conffile.run()
+        self.parent.dialog_conffile.hide()
+        # if replace, send this to the terminal
+        if res == gtk.RESPONSE_YES:
+          self.term.feed_child("y\n")
+        else:
+          self.term.feed_child("n\n")
+        
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
         return pid
+
+    def statusChange(self, pkg, percent, status):
+        # start the timer when the first package changes its status
+        if self.start_time == 0.0:
+          #print "setting start time to %s" % self.start_time
+          self.start_time = time.time()
+        self.progress.set_fraction(float(self.percent)/100.0)
+        self.label_status.set_text(status.strip())
+        # start showing when we gathered some data
+        if percent > 1.0:
+          self.last_activity = time.time()
+          delta = self.last_activity - self.start_time
+          time_per_percent = (float(delta)/percent)
+          eta = (100.0 - self.percent) * time_per_percent
+          # only show if we have some sensible data
+          if eta > 1.0 and eta < (60*60*24*2):
+            self.progress.set_text(_("%s remaining")%apt_pkg.TimeToStr(eta))
+          else:
+            self.progress.set_text(" ")
 
     def child_exited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
@@ -177,12 +231,27 @@ class GtkInstallProgressAdapter(InstallProgress):
     
     def updateInterface(self):
         InstallProgress.updateInterface(self)
-        self.progress.set_fraction(self.percent/100.0)
-        self.label_status.set_text(self.status)
+        # check if we haven't started yet with packages, pulse then
+        if self.start_time == 0.0:
+          self.progress.pulse()
+          time.sleep(0.2)
+        # check about terminal activity
+        if self.last_activity > 0 and \
+           (self.last_activity + self.TIMEOUT_TERMINAL_ACTIVITY) < time.time():
+          logging.warning("no activity on terminal for %s seconds" % self.TIMEOUT_TERMINAL_ACTIVITY)
+          self.parent.expander_terminal.set_expanded(True)
         while gtk.events_pending():
             gtk.main_iteration()
 	time.sleep(0.02)
 
+class DistUpgradeVteTerminal(object):
+  def __init__(self, parent, term):
+    self.term = term
+    self.parent = parent
+  def call(self, cmd):
+    self.term.show()
+    self.parent.expander_terminal.set_expanded(True)
+    self.term.fork_command(command=cmd[0],argv=cmd)
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
@@ -217,7 +286,6 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         self.label_status.set_property("attributes", attrlist)
-
         # reasonable fault handler
         sys.excepthook = self._handleException
 
@@ -232,13 +300,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                  "\n".join(lines))
       sys.exit(1)
 
+    def getTerminal(self):
+        return DistUpgradeVteTerminal(self, self._term)
+
     def create_terminal(self, arg1,arg2,arg3,arg4):
         " helper to create a vte terminal "
         self._term = vte.Terminal()
         self._term.set_font_from_string("monospace 10")
         self._term.connect("contents-changed", self._term_content_changed)
         self._terminal_lines = []
-        self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+        try:
+          self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+        except IOError:
+          # if something goes wrong (permission denied etc), use stdout
+          self._terminal_log = sys.stdout
         return self._term
 
     def _term_content_changed(self, term):
@@ -298,7 +373,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self.dialog_error.destroy()
         return False
 
-    def confirmChanges(self, summary, changes, downloadSize):
+    def confirmChanges(self, summary, changes, downloadSize, actions=None):
         # FIXME: add a whitelist here for packages that we expect to be
         # removed (how to calc this automatically?)
         DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
@@ -345,6 +420,12 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             self.error(summary, msg)
             return False
 
+        if actions != None:
+            self.button_cancel_changes.set_use_stock(False)
+            self.button_cancel_changes.set_use_underline(True)
+            self.button_cancel_changes.set_label(actions[0])
+            self.button_confirm_changes.set_label(actions[1])
+
         self.label_summary.set_markup("<big><b>%s</b></big>" % summary)
         self.label_changes.set_markup(msg)
         # fill in the details
@@ -355,6 +436,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             self.details_list.append([_("Install %s" % inst)])
         for up in self.toUpgrade:
             self.details_list.append([_("Upgrade %s" % up)])
+        self.treeview_details.scroll_to_cell((0,))
         self.dialog_changes.set_transient_for(self.window_main)
         self.dialog_changes.realize()
         self.dialog_changes.window.set_functions(gtk.gdk.FUNC_MOVE)
@@ -400,7 +482,21 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return True
 
 if __name__ == "__main__":
-  view = GtkDistUpgradeView()
+  
+  view = DistUpgradeViewGtk()
+  fp = GtkFetchProgressAdapter(view)
+  ip = GtkInstallProgressAdapter(view)
+
+
+  cache = apt.Cache()
+  for pkg in sys.argv[1:]:
+    cache[pkg].markInstall()
+  cache.commit(fp,ip)
+  
+  sys.exit(0)
+  ip.conffile("TODO","TODO~")
+  view.getTerminal().call(["dpkg","--configure","-a"])
+  view.getTerminal().call(["ls"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
@@ -410,3 +506,5 @@ if __name__ == "__main__":
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              )
+  view.confirmChanges("xx",[], 100)
+  

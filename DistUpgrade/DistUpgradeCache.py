@@ -157,6 +157,7 @@ class MyCache(apt.Cache):
             origins = pkg.candidateOrigin
             trusted = False
             for origin in origins:
+                #print origin
                 trusted |= origin.trusted
             if not trusted:
                 untrusted.append(pkg.name)

@@ -7,51 +7,52 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-12 20:39+0100\n"
-"PO-Revision-Date: 2005-12-02 15:59+0100\n"
+"POT-Creation-Date: 2006-03-22 23:28+0000\n"
+"PO-Revision-Date: 2006-03-23 00:18+0000\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:102
+#: ../SoftwareProperties/SoftwareProperties.py:104
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:132
+#: ../SoftwareProperties/SoftwareProperties.py:134
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:359
+#: ../SoftwareProperties/SoftwareProperties.py:382
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:369
+#: ../SoftwareProperties/SoftwareProperties.py:392
 msgid "Error importing selected file"
 msgstr "Erro importando o ficheiro seleccionado"
 
-#: ../SoftwareProperties/SoftwareProperties.py:370
+#: ../SoftwareProperties/SoftwareProperties.py:393
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "O ficheiro seleccionado pode que non sexa un ficheiro de clave GPG ou que "
 "esté corrupto."
 
-#: ../SoftwareProperties/SoftwareProperties.py:382
+#: ../SoftwareProperties/SoftwareProperties.py:405
 msgid "Error removing the key"
 msgstr "Erro ao quitar a clave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:383
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:406
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro."
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:447
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -59,11 +60,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:474
+#: ../SoftwareProperties/SoftwareProperties.py:504
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:490
+#: ../SoftwareProperties/SoftwareProperties.py:520
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -85,7 +86,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -97,9 +97,8 @@ msgid ""
 "this as a bug. "
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
-"erro."
+"erro. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:168
 msgid "Error authenticating some packages"
 msgstr ""
@@ -123,9 +122,8 @@ msgid ""
 "bug. "
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
-"erro."
+"erro. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:240
 msgid "Can't guess meta-package"
 msgstr ""
@@ -143,7 +141,6 @@ msgstr ""
 msgid "Reading cache"
 msgstr ""
 
-#. FIXME: offer to write a new self.sources.list entry
 #: ../DistUpgrade/DistUpgradeControler.py:107
 msgid "No valid entry found"
 msgstr ""
@@ -191,7 +188,6 @@ msgstr ""
 msgid "Do you want to start the upgrade?"
 msgstr ""
 
-#. installing the packages failed, can't be retried
 #: ../DistUpgrade/DistUpgradeControler.py:214
 msgid "Could not install the upgrades"
 msgstr ""
@@ -227,7 +223,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:296
 #: ../DistUpgrade/DistUpgradeControler.py:319
 #, fuzzy
@@ -255,7 +250,6 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:77
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -282,7 +276,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:135
 #, fuzzy
 msgid "Installing updates"
@@ -306,8 +299,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:229
 msgid ""
-"Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
-"dist-upgrade-apt.log in your report. The upgrade aborts now. "
+"Please report this as a bug and include the files ~/dist-upgrade.log and "
+"~/dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:311
@@ -345,7 +338,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:343
 msgid "Could not find any upgrades"
 msgstr ""
@@ -355,19 +347,19 @@ msgid "Your system has already been upgraded."
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:353
-#, fuzzy, python-format
+#, fuzzy
 msgid "<b>Remove %s</b>"
-msgstr "<b>Claves</b>"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:355
-#, fuzzy, python-format
+#, fuzzy
 msgid "Install %s"
-msgstr "_Instalar"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:357
-#, fuzzy, python-format
+#, fuzzy
 msgid "Upgrade %s"
-msgstr "Actualización rematada"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeView.py:67
 msgid "Reboot required"
@@ -381,11 +373,10 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: ../DistUpgrade/DistUpgrade.glade.h:2
 msgid ""
@@ -405,8 +396,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.04</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.04</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -456,8 +447,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:1
 msgid ""
-"<b><big>You need to manually reload the latest information about updates</"
-"big></b>\n"
+"<b><big>You must check for updates manually</big></b>\n"
 "\n"
 "Your system does not check for updates automatically. You can configure this "
 "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
@@ -484,17 +474,17 @@ msgid "Changes"
 msgstr "Cambios"
 
 #: ../data/UpdateManager.glade.h:10
+#, fuzzy
+msgid "Check for available updates"
+msgstr "Comprobando se hai actualizacións..."
+
+#: ../data/UpdateManager.glade.h:11
 msgid "Description"
 msgstr "Descrición"
 
-#: ../data/UpdateManager.glade.h:11
+#: ../data/UpdateManager.glade.h:12
 msgid "Release Notes"
 msgstr ""
-
-#: ../data/UpdateManager.glade.h:12
-#, fuzzy
-msgid "Reload the latest information about updates"
-msgstr "Recargar a información do paquete desde o servidor."
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Show details"
@@ -523,18 +513,17 @@ msgid "Upgrade to the latest version of Ubuntu"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:19
-msgid "_Hide this information in the future"
+msgid "_Check"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:20
-#, fuzzy
-msgid "_Install Updates"
-msgstr "Instalando actualizacións..."
+msgid "_Hide this information in the future"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:21
 #, fuzzy
-msgid "_Reload"
-msgstr "Recargar"
+msgid "_Install Updates"
+msgstr "Instalando actualizacións..."
 
 #: ../data/SoftwareProperties.glade.h:1
 #, fuzzy
@@ -612,63 +601,73 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:2
 msgid "     "
-msgstr ""
+msgstr "     "
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:3
+msgid ""
+"<b><big>The channel information is out-of-date</big></b>\n"
+"\n"
+"You have to reload the channel information to install software and updates "
+"from newly added or changed channels. \n"
+"\n"
+"You need a working internet connection to continue."
+msgstr ""
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:8
 #, fuzzy
 msgid "<b>Channel</b>"
 msgstr "<b>Claves</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:4
+#: ../data/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Comment:</b>"
 msgstr "<b>Comentario:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:5
+#: ../data/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>Distribution:</b>"
 msgstr "<b>Distribución:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:6
+#: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Sections:</b>"
 msgstr "<b>Seccións:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:7
+#: ../data/SoftwarePropertiesDialogs.glade.h:12
 #, fuzzy
 msgid "<b>Sections</b>"
 msgstr "<b>Seccións:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:8
+#: ../data/SoftwarePropertiesDialogs.glade.h:13
 msgid "<b>Type:</b>"
 msgstr "<b>Tipo:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:9
+#: ../data/SoftwarePropertiesDialogs.glade.h:14
 msgid "<b>URI:</b>"
 msgstr "<b>URI:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:10
+#: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line contains the type, location and sections of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Introduza a liña completa do repositorio APT que quere engadir</b></"
-"big>\n"
+"<big><b>Introduza a liña completa do repositorio APT que quere "
+"engadir</b></big>\n"
 "\n"
 "A liña de APT contén o tipo, ubicación e contido dun repositorio, por "
 "exemplo <i>\"deb http://ftp.debian.org sarge main\"</i>. Pode atopar unha "
 "descrición detallada da sintase na documentación."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:13
+#: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
 msgstr "Liña de APT:"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:14
+#: ../data/SoftwarePropertiesDialogs.glade.h:19
 msgid "Add Channel"
 msgstr ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:15
+#: ../data/SoftwarePropertiesDialogs.glade.h:20
 msgid ""
 "Binary\n"
 "Source"
@@ -676,21 +675,28 @@ msgstr ""
 "Binario\n"
 "Fonte"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:17
+#: ../data/SoftwarePropertiesDialogs.glade.h:22
 msgid "Edit Channel"
 msgstr ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:18
+#: ../data/SoftwarePropertiesDialogs.glade.h:23
 msgid "Scanning CD-ROM"
 msgstr ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:19
+#: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:20
+#: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
 msgstr "_Personalizar"
+
+#: ../data/SoftwarePropertiesDialogs.glade.h:26
+#, fuzzy
+msgid "_Reload"
+msgstr "Recargar"
 
 #: ../data/update-manager.desktop.in.h:1
 msgid "Show and install available updates"
@@ -729,127 +735,114 @@ msgstr ""
 msgid "The window size"
 msgstr ""
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.04 'Dapper Drake'"
 msgstr "Actualizacións de Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.04 Security Updates"
 msgstr "Actualizacións de seguranza de Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.04 Updates"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.04 Backports"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD con Ubuntu 5.10 \"Breezy Badger\""
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualizacións de seguranza de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:128
 #, fuzzy
-msgid "Oficially supported"
+msgid "Officially supported"
 msgstr "Soporte oficial"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Dereito de copia restrinxido"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Mantido pola comunidade (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Non libre (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Actualizacións de seguranza de Debian estable"
 
-#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian de probas"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian Non-US (Inestable)"
 
-#. CompDescription
+#: ../channels/Debian.info.in:51
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Soporte oficial"
+
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Reload the latest information about updates"
+#~ msgstr "Recargar a información do paquete desde o servidor."
 
 #, fuzzy
 #~ msgid "Add Software Channels"
@@ -860,8 +853,7 @@ msgstr ""
 #~ "\n"
 #~ "Need to get the changes from the central server"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</"
-#~ "span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</span>\n"
 #~ "\n"
 #~ "Necesítanse descargar os trocos do servidor actual"
 
@@ -908,15 +900,15 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>Claves de autenticación</b></big>\n"
 #~ "\n"
-#~ "Pode engadir e quitar claves de autenticación desde este diálogo. Unha "
-#~ "clave fai posible verificar a integridade do software que descarga."
+#~ "Pode engadir e quitar claves de autenticación desde este diálogo. Unha clave "
+#~ "fai posible verificar a integridade do software que descarga."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Engadir un novo ficheiro de clave de anel de confianza. Asegúrese de que "
-#~ "obtivo a clave a través dun canle seguro e que confía no propietario."
+#~ "obtivo a clave a través dun canle seguro e que confía no propietario. "
 
 #~ msgid "Add repository..."
 #~ msgstr "Engadir repositorio..."
@@ -943,8 +935,8 @@ msgstr ""
 #~ msgstr "Tamaño máximo en MB:"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
 #~ "Recupera as claves entregadas orixinalmente coa distribución. Isto non "
 #~ "cambiará as claves instaladas polo usuario."
@@ -962,7 +954,7 @@ msgstr ""
 #~ msgstr "Amosar fontes de software desactivado"
 
 #~ msgid "Update interval in days: "
-#~ msgstr "Intervalo de actualización en días:"
+#~ msgstr "Intervalo de actualización en días: "
 
 #~ msgid "_Add Repository"
 #~ msgstr "_Engadir repositorio"
@@ -976,13 +968,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizacións dispoñibles</b></big>\n"
 #~ "\n"
-#~ "O xestor de actualizacións atopou os seguintes paquetes actualizables. "
-#~ "Pode actualizalos usando o botón Instalar."
+#~ "O xestor de actualizacións atopou os seguintes paquetes actualizables. Pode "
+#~ "actualizalos usando o botón Instalar."
 
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Cancelar a descarga do informe de cambios"
@@ -1038,8 +1030,7 @@ msgstr ""
 
 #~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
 #~ msgstr ""
-#~ "Clave de asinado automático das imaxes de CD de Ubuntu <cdimage@ubuntu."
-#~ "com>"
+#~ "Clave de asinado automático das imaxes de CD de Ubuntu <cdimage@ubuntu.com>"
 
 #~ msgid "Choose a key-file"
 #~ msgstr "Escolla un ficheiro de clave"
@@ -1054,7 +1045,7 @@ msgstr ""
 #~ msgstr "Hai %s paquetes dispoñibles para ser actualizados."
 
 #~ msgid "Version %s: \n"
-#~ msgstr "Versión %s:\n"
+#~ msgstr "Versión %s: \n"
 
 #~ msgid "Downloading changes..."
 #~ msgstr "Descargando cambios..."
@@ -1073,8 +1064,7 @@ msgstr ""
 #~ msgstr[1] "Seleccionou %s paquetes actualizables, de tamaño total %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "Seleccionou %s paquete actualizable de %s, de tamaño %s"
 #~ msgstr[1] "Seleccionou %s paquetes actualizables de %s, de tamaño total %s"
 
@@ -1082,17 +1072,14 @@ msgstr ""
 #~ msgstr "Estanse aplicando as actualizacións."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
-#~ "Só pode executar unha aplicación de xestión de paquetes ao mesmo tempo. "
-#~ "Por favor peche a outra aplicación primeiro."
+#~ "Só pode executar unha aplicación de xestión de paquetes ao mesmo tempo. Por "
+#~ "favor peche a outra aplicación primeiro."
 
 #~ msgid "Updating package list..."
 #~ msgstr "Actualizando a lista de paquetes..."
-
-#~ msgid "Checking for updates..."
-#~ msgstr "Comprobando se hai actualizacións..."
 
 #~ msgid "There are no updates available."
 #~ msgstr "Non hai actualizacións dispoñibles."
@@ -1105,35 +1092,35 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
 #~ "Por favor actualícese a unha versión de Ubuntu linux. A versión que está "
-#~ "usando non obterá máis actualizacións de seguranza nin outras "
-#~ "actualizacións críticas. Visite http://www.ubuntulinux.org para máis "
-#~ "información acerca de como actualizar."
+#~ "usando non obterá máis actualizacións de seguranza nin outras actualizacións "
+#~ "críticas. Visite http://www.ubuntulinux.org para máis información acerca de "
+#~ "como actualizar."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Hai unha versión nova de Ubuntu dispoñible!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
-#~ "Está dispoñible unha nova versión co nome '%s'. Por favor visite http://"
-#~ "www.ubuntulinux.org  para recibir instruccións de como actualizar."
+#~ "Está dispoñible unha nova versión co nome '%s'. Por favor visite "
+#~ "http://www.ubuntulinux.org  para recibir instruccións de como actualizar."
 
 #~ msgid "Never show this message again"
 #~ msgstr "Non amosar máis esta mensaxe"
 
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr ""
-#~ "Non se atopou o informe de cambios, pode que o servidor non esté "
-#~ "actualizado aínda."
+#~ "Non se atopou o informe de cambios, pode que o servidor non esté actualizado "
+#~ "aínda."
 
 #~ msgid ""
 #~ "Failed to download changes. Please check if there is an active internet "
 #~ "connection."
 #~ msgstr ""
-#~ "Fallou ao descargar o informe de cambios. Comprobe se ten algunha "
-#~ "conexión activa."
+#~ "Fallou ao descargar o informe de cambios. Comprobe se ten algunha conexión "
+#~ "activa."

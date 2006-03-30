@@ -1,10 +1,11 @@
 MUSTFIX:
 --------
 * debconf gnome dosn't work (can't connect to the session)
+  [ should be fixed with the bugfix on gksu ]
 * display a message that all applications should be closed for the 
   dist-upgrade (and that strange things like a crashing panel can
   happen)
-
+  [done in current dialog]
 
 
 breezy->dapper
@@ -18,11 +19,6 @@ hoary->breezy
 - stop gnome-volume-manager before the hoary->breezy upgrade
   (it will crash otherwise)
 - send a "\n" on the libc6 question on hoary->breezy
-
-breezy->dapper
---------------
-- gnome-icon-theme changes a lot, icons move from hicolor to gnome.
-  this might have caused a specatular crash during a upgrade
 
 general
 -------

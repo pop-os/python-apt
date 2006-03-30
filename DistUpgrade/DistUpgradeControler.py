@@ -58,7 +58,6 @@ class DistUpgradeControler(object):
 
 
     def updateSourcesList(self):
-        self.sources = SourcesList()
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
@@ -157,7 +156,7 @@ class DistUpgradeControler(object):
         # FIXME: retry here too? just like the DoDistUpgrade?
         #        also remove all files from the lists partial dir!
         currentRetry = 0
-        maxRetries = self.config.get("Network","MaxRetries")
+        maxRetries = int(self.config.get("Network","MaxRetries"))
         while currentRetry < maxRetries:
             try:
                 res = self.cache.update(progress)
@@ -183,7 +182,7 @@ class DistUpgradeControler(object):
         # log the changes for debuging
         self._logChanges()
         # ask the user if he wants to do the changes
-        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives ")
+        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
         st = os.statvfs(archivedir)
         free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
         if self.cache.requiredDownload > free:
@@ -205,7 +204,7 @@ class DistUpgradeControler(object):
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress()
         # retry the fetching in case of errors
-        maxRetries = self.config.get("Network","MaxRetries")
+        maxRetries = int(self.config.get("Network","MaxRetries"))
         while currentRetry < maxRetries:
             try:
                 res = self.cache.commit(fprogress,iprogress)
@@ -213,9 +212,10 @@ class DistUpgradeControler(object):
                 # installing the packages failed, can't be retried
                 self._view.error(_("Could not install the upgrades"),
                                  _("The upgrade aborts now. Your system "
-                                   "can be in an unusable state. Please "
-                                   "try 'sudo apt-get install -f' or Synaptic "
-                                   "to fix your system."), "%s" % e)
+                                   "can be in an unusable state. A recovery "
+                                   "is now run (dpkg --configure -a)."),
+                                 "%s" % e)
+                self._view.getTerminal().call(["dpkg","--configure","-a"])
                 return False
             except IOError, e:
                 # fetch failed, will be retried
@@ -270,9 +270,12 @@ class DistUpgradeControler(object):
         # get changes
         changes = self.cache.getChanges()
         logging.debug("The following packages are remove candidates: %s" % " ".join([pkg.name for pkg in changes]))
+        summary = _("Remove obsolete packages?")
+        actions = [_("_Skip This Step"), _("_Remove")]
+        # FIXME Add an explanation about what obsolete pacages are
+        #explanation = _("")
         if len(changes) > 0 and \
-               self._view.confirmChanges(_("Remove obsolete Packages?"),
-                                         changes, 0):
+               self._view.confirmChanges(summary, changes, 0, actions):
             fprogress = self._view.getFetchProgress()
             iprogress = self._view.getInstallProgress()
             try:
@@ -295,13 +298,16 @@ class DistUpgradeControler(object):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
+
         self.openCache()
-        
+        self.sources = SourcesList()
+     
         if not self.cache.sanityCheck(self._view):
             abort(1)
 
         # run a "apt-get update" now
-        self.doUpdate()
+        if not self.doUpdate():
+            self.abort()
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
         self.doPreUpdate()
