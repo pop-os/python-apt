@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: update-manager 0.37.2\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
 "POT-Creation-Date: 2006-03-22 23:28+0000\n"
-"PO-Revision-Date: 2006-03-29 05:45+0000\n"
+"PO-Revision-Date: 2006-04-02 06:12+0000\n"
 "Last-Translator: Alexandre Patenaude <alexandre.patenaude@gmail.com>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -115,8 +115,8 @@ msgid ""
 "unauthenticated packages."
 msgstr ""
 "Il a été impossible d'authentifier certains paquets. Cela peut provenir d'un "
-"problème de transmission du réseau. Vous voudrez sans doute réessayer plus "
-"tard. Vous trouverez ci-dessous une liste des paquets non authentifiés."
+"problème temporaire du réseau. Vous voudrez sans doute réessayer plus tard. "
+"Vous trouverez ci-dessous une liste des paquets non authentifiés."
 
 #: ../DistUpgrade/DistUpgradeCache.py:232
 #, python-format
@@ -133,7 +133,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:240
 msgid "Can't guess meta-package"
-msgstr "Impossible de déterminer le meta-paquet"
+msgstr "Impossible de déterminer le méta-paquet"
 
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid ""
@@ -174,7 +174,7 @@ msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
-"La mise à jour des informations de le dépôt a créé un fichier invalide. "
+"La mise à jour des informations du dépôt a créé un fichier invalide. "
 "Veuillez rapporter ceci en tant que bogue."
 
 #: ../DistUpgrade/DistUpgradeControler.py:171

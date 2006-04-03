@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-27 16:38+0200\n"
+"POT-Creation-Date: 2006-04-03 11:03+0200\n"
 "PO-Revision-Date: 2005-06-08 23:10+0200\n"
 "Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
+#: ../SoftwareProperties/SoftwareProperties.py:110
 #, python-format
 msgid "Every %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:140
 #, python-format
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:407
+#: ../SoftwareProperties/SoftwareProperties.py:413
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:417
+#: ../SoftwareProperties/SoftwareProperties.py:423
 msgid "Error importing selected file"
 msgstr "Feil under importering av fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:418
+#: ../SoftwareProperties/SoftwareProperties.py:424
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Den valgte filen er ikke en GPG-fil eller så er den skadet."
 
-#: ../SoftwareProperties/SoftwareProperties.py:430
+#: ../SoftwareProperties/SoftwareProperties.py:436
 msgid "Error removing the key"
 msgstr "Feil under fjerning av nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:431
+#: ../SoftwareProperties/SoftwareProperties.py:437
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Nøkkelen du valgte kan ikke bli fjernet. Vennligst rapporter denne feilen."
 
-#: ../SoftwareProperties/SoftwareProperties.py:472
+#: ../SoftwareProperties/SoftwareProperties.py:478
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -56,11 +56,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:529
+#: ../SoftwareProperties/SoftwareProperties.py:535
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:545
+#: ../SoftwareProperties/SoftwareProperties.py:551
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -139,42 +139,42 @@ msgid "Reading cache"
 msgstr ""
 
 #. FIXME: offer to write a new self.sources.list entry
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#: ../DistUpgrade/DistUpgradeControler.py:106
 msgid "No valid entry found"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:108
+#: ../DistUpgrade/DistUpgradeControler.py:107
 msgid ""
 "While scaning your repository information no valid entry for the upgrade was "
 "found.\n"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:125
+#: ../DistUpgrade/DistUpgradeControler.py:124
 msgid "Repository information invalid"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:126
+#: ../DistUpgrade/DistUpgradeControler.py:125
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:171
+#: ../DistUpgrade/DistUpgradeControler.py:170
 #, fuzzy
 msgid "Error during update"
 msgstr "Feil under fjerning av nøkkel"
 
-#: ../DistUpgrade/DistUpgradeControler.py:172
+#: ../DistUpgrade/DistUpgradeControler.py:171
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:191
+#: ../DistUpgrade/DistUpgradeControler.py:190
 msgid "Not enough free disk space"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:192
+#: ../DistUpgrade/DistUpgradeControler.py:191
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -182,48 +182,48 @@ msgid ""
 "get clean'."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:197
 msgid "Do you want to start the upgrade?"
 msgstr ""
 
 #. installing the packages failed, can't be retried
-#: ../DistUpgrade/DistUpgradeControler.py:214
+#: ../DistUpgrade/DistUpgradeControler.py:213
 msgid "Could not install the upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:215
+#: ../DistUpgrade/DistUpgradeControler.py:214
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "is now run (dpkg --configure -a)."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:231
+#: ../DistUpgrade/DistUpgradeControler.py:230
 msgid "Could not download the upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:232
+#: ../DistUpgrade/DistUpgradeControler.py:231
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:274
+#: ../DistUpgrade/DistUpgradeControler.py:273
 msgid "Remove obsolete packages?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:275
+#: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Skip This Step"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:275
+#: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Remove"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:285
+#: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:286
+#: ../DistUpgrade/DistUpgradeControler.py:285
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -231,31 +231,31 @@ msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:300
-#: ../DistUpgrade/DistUpgradeControler.py:324
+#: ../DistUpgrade/DistUpgradeControler.py:299
+#: ../DistUpgrade/DistUpgradeControler.py:325
 #, fuzzy
 msgid "Checking package manager"
 msgstr "En annen pakkehåndterer kjører"
 
-#: ../DistUpgrade/DistUpgradeControler.py:316
+#: ../DistUpgrade/DistUpgradeControler.py:317
 msgid "Updating repository information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:330
+#: ../DistUpgrade/DistUpgradeControler.py:331
 #, fuzzy
 msgid "Asking for confirmation"
 msgstr "Undersøker systemkonfigurasjon"
 
-#: ../DistUpgrade/DistUpgradeControler.py:334
+#: ../DistUpgrade/DistUpgradeControler.py:335
 #, fuzzy
 msgid "Upgrading"
 msgstr "Oppgradering fullført"
 
-#: ../DistUpgrade/DistUpgradeControler.py:341
+#: ../DistUpgrade/DistUpgradeControler.py:342
 msgid "Searching for obsolete software"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:346
+#: ../DistUpgrade/DistUpgradeControler.py:347
 msgid "System upgrade is complete."
 msgstr ""
 
@@ -275,108 +275,113 @@ msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:216
 #, python-format
 msgid "%s remaining"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:110
 #, python-format
-msgid "Downloading file %li of %li at unknown speed"
+msgid "Downloading file %li of %li"
 msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:136
+#: ../DistUpgrade/DistUpgradeViewGtk.py:140
 #, fuzzy
 msgid "Applying changes"
 msgstr "Laster ned endringer..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:149
+#: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:150
+#: ../DistUpgrade/DistUpgradeViewGtk.py:158
 #, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
 "Nøkkelen du valgte kan ikke bli fjernet. Vennligst rapporter denne feilen."
 
 #. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:163
+#: ../DistUpgrade/DistUpgradeViewGtk.py:171
 #, python-format
 msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:262
+#: ../DistUpgrade/DistUpgradeViewGtk.py:188
+msgid "The 'diff' command was not found"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:263
+#: ../DistUpgrade/DistUpgradeViewGtk.py:297
 msgid ""
 "Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
 "dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:352
+#: ../DistUpgrade/DistUpgradeViewGtk.py:386
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:358
+#: ../DistUpgrade/DistUpgradeViewGtk.py:392
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:364
+#: ../DistUpgrade/DistUpgradeViewGtk.py:398
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:371
+#: ../DistUpgrade/DistUpgradeViewGtk.py:405
 #, python-format
 msgid "You have to download a total of %s."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:375
+#: ../DistUpgrade/DistUpgradeViewGtk.py:409
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:378
+#: ../DistUpgrade/DistUpgradeViewGtk.py:412
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:384
+#: ../DistUpgrade/DistUpgradeViewGtk.py:418
 msgid "Could not find any upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:385
+#: ../DistUpgrade/DistUpgradeViewGtk.py:419
 #, fuzzy
 msgid "Your system has already been upgraded."
 msgstr "Systemet har ødelagte pakker!"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:400
+#: ../DistUpgrade/DistUpgradeViewGtk.py:434
 #, fuzzy, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Detaljer</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:402
+#: ../DistUpgrade/DistUpgradeViewGtk.py:436
 #, fuzzy, python-format
 msgid "Install %s"
 msgstr "_Installer"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:404
+#: ../DistUpgrade/DistUpgradeViewGtk.py:438
 #, fuzzy, python-format
 msgid "Upgrade %s"
 msgstr "Oppgradering fullført"
@@ -417,7 +422,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.04</"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
 "span>"
 msgstr ""
 
