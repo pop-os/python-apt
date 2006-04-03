@@ -114,7 +114,11 @@ class DistUpgradeFetcher(object):
         proc = gpg.run(['--verify', signature, file],
                        create_fhs=['status','logger','stderr'])
         gpgres = proc.handles['status'].read()
-        proc.wait()
+        try:
+            proc.wait()
+        except IOError:
+            # gnupg returned a problem (non-zero exit)
+            return False
         if "VALIDSIG" in gpgres:
             return True
         return False
