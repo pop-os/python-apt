@@ -30,7 +30,7 @@ import re
 import statvfs
 from DistUpgradeConfigParser import DistUpgradeConfig
 
-from SoftwareProperties.aptsources import SourcesList, SourceEntry
+from aptsources import SourcesList, SourceEntry
 from gettext import gettext as _
 from DistUpgradeCache import MyCache
 
