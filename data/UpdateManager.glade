@@ -467,7 +467,7 @@
 	    <widget class="GtkExpander" id="expander_details">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="expanded">True</property>
+	      <property name="expanded">False</property>
 	      <property name="spacing">6</property>
 	      <signal name="activate" handler="on_expander_details_activate" last_modification_time="Mon, 31 Jan 2005 17:55:19 GMT"/>
 
@@ -1364,7 +1364,7 @@ Your system does not check for updates automatically. You can configure this beh
       <child>
 	<widget class="GtkLabel" id="label22">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Checking for available updates&lt;/b&gt;&lt;/big&gt;
+	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Analysing your system&lt;/b&gt;&lt;/big&gt;
 
 Software updates can correct errors, eliminate security vulnerabilities, and provide new features to you.</property>
 	  <property name="use_underline">False</property>
