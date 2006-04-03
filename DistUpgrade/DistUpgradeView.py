@@ -54,7 +54,7 @@ class DistUpgradeView(object):
         5. Complete
         """
         pass
-    def confirmChanges(self, summary, changes, downloadSize):
+    def confirmChanges(self, summary, changes, downloadSize, actions=None):
         """ display the list of changed packages (apt.Package) and
             return if the user confirms them
         """
