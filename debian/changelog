@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu11) dapper; urgency=low
+
+  * debian/control: depend on unattended-upgrades
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Apr 2006 21:47:05 +0200
+
 update-manager (0.42.2ubuntu10) dapper; urgency=low
 
   * update-manger: fix a missing import (#36138)
@@ -8,7 +14,7 @@ update-manager (0.42.2ubuntu10) dapper; urgency=low
   * add a fake gconf interface for xubuntu (nop for normal ubuntu)
     (Thanks to Jani Monoses for the patch)
   
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Apr 2006 18:17:16 +0200
 
 update-manager (0.42.2ubuntu9) dapper; urgency=low
 
