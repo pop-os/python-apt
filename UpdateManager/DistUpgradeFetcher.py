@@ -116,11 +116,14 @@ class DistUpgradeFetcher(object):
         gpgres = proc.handles['status'].read()
         try:
             proc.wait()
-        except IOError:
+        except IOError,e:
             # gnupg returned a problem (non-zero exit)
+            print "exception from gpg: %s", e
             return False
         if "VALIDSIG" in gpgres:
             return True
+        print "invalid result from gpg:"
+        print gpgres
         return False
 
     def extractDistUpgrader(self):
@@ -196,27 +199,27 @@ class DistUpgradeFetcher(object):
         if not self.showReleaseNotes():
             return
         if not self.fetchDistUpgrader():
-            error(self.parent,
+            error(self.window_main,
                   _("Failed to fetch"),
                   _("Fetching the upgrade failed. There may be a network "
                     "problem. "))
             return
         if not self.extractDistUpgrader():
-            error(self.parent,
+            error(self.window_main,
                   _("Failed to extract"),
                   _("Extracting the upgrade failed. There may be a problem "
                   "with the network or with the server. "))
                   
             return
         if not self.verifyDistUprader():
-            error(self.parent,
+            error(self.window_main,
                   _("Verfication failed"),
                   _("Verfing the upgrade failed.  There may be a problem "
                     "with the network or with the server. "))
             self.cleanup()
             return
         if not self.authenticate():
-            error(self.parent,
+            error(self.window_main,
                   _("Authentication failed"),
                   _("Authenticating the upgrade failed. There may be a problem "
                     "with the network or with the server. "))
