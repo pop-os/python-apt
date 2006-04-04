@@ -5,6 +5,8 @@ update-manager (0.42.2ubuntu10) dapper; urgency=low
   * correct dapper version number (#36136)
   * keybindings fixed (#36116)
   * calc the update before downloading the changelog (#36140)
+  * add a fake gconf interface for xubuntu (nop for normal ubuntu)
+    (Thanks to Jani Monoses for the patch)
   
  --
 

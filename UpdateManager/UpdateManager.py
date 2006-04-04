@@ -28,7 +28,10 @@ pygtk.require('2.0')
 import gtk
 import gtk.gdk
 import gtk.glade
-import gconf
+try:
+	import gconf
+except:
+	import fakegconf as gconf
 import gobject
 import apt
 import apt_pkg
