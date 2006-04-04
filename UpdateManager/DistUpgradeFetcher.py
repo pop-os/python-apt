@@ -90,7 +90,7 @@ class DistUpgradeFetcher(object):
           # user clicked cancel
           if res == gtk.RESPONSE_CANCEL:
               return False
-        return True
+      return True
 
     def authenticate(self):
         if self.new_dist.upgradeToolSig:
