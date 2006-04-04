@@ -196,26 +196,26 @@ class DistUpgradeFetcher(object):
         if not self.showReleaseNotes():
             return
         if not self.fetchDistUpgrader():
-            error("Failed to fetch",
-                  "Fetching the upgrade failed. There may be a network "
-                  "problem. ")
+            error(_("Failed to fetch"),
+                  _("Fetching the upgrade failed. There may be a network "
+                    "problem. "))
             return
         if not self.extractDistUpgrader():
-            error("Failed to extract",
-                  "Extracting the upgrade failed. There may be a problem "
-                  "with the network or with the server. ")
+            error(_("Failed to extract"),
+                  _("Extracting the upgrade failed. There may be a problem "
+                  "with the network or with the server. "))
                   
             return
         if not self.verifyDistUprader():
-            error("Verfication failed",
+            error(_("Verfication failed"),
                   "Verfing the upgrade failed.  There may be a problem "
-                  "with the network or with the server. ")
+                  "with the network or with the server. "))
             self.cleanup()
             return
         if not self.authenticate():
-            error("Authentication failed",
+            error(_("Authentication failed"),
                   "Authenticating the upgrade failed. There may be a problem "
-                  "with the network or with the server. ")
+                  "with the network or with the server. "))
             self.cleanup()
             return
         self.runDistUpgrader()
