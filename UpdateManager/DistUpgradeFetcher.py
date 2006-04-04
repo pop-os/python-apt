@@ -33,7 +33,7 @@ from gettext import gettext as _
 
 import GtkProgress
 from ReleaseNotesViewer import ReleaseNotesViewer
-
+from Common.utils import *
 
 class DistUpgradeFetcher(object):
 
@@ -196,22 +196,33 @@ class DistUpgradeFetcher(object):
         if not self.showReleaseNotes():
             return
         if not self.fetchDistUpgrader():
-            print "Fetch failed"
+            error("Failed to fetch",
+                  "Fetching the upgrade failed. There may be a network "
+                  "problem. ")
             return
         if not self.extractDistUpgrader():
-            print "extract failed"
+            error("Failed to extract",
+                  "Extracting the upgrade failed. There may be a problem "
+                  "with the network or with the server. ")
+                  
             return
         if not self.verifyDistUprader():
-            print "verify failed"
+            error("Verfication failed",
+                  "Verfing the upgrade failed.  There may be a problem "
+                  "with the network or with the server. ")
             self.cleanup()
             return
         if not self.authenticate():
-            print "authenticate failed"
+            error("Authentication failed",
+                  "Authenticating the upgrade failed. There may be a problem "
+                  "with the network or with the server. ")
             self.cleanup()
             return
         self.runDistUpgrader()
 
 
 if __name__ == "__main__":
-    d = DistUpgradeFetcher(None)
+    error(None, "summary","message")
+    d = DistUpgradeFetcher(None,None)
     print d.authenticate('/tmp/Release','/tmp/Release.gpg')
+
