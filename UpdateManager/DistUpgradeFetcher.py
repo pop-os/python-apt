@@ -208,14 +208,14 @@ class DistUpgradeFetcher(object):
             return
         if not self.verifyDistUprader():
             error(_("Verfication failed"),
-                  "Verfing the upgrade failed.  There may be a problem "
-                  "with the network or with the server. "))
+                  _("Verfing the upgrade failed.  There may be a problem "
+                    "with the network or with the server. "))
             self.cleanup()
             return
         if not self.authenticate():
             error(_("Authentication failed"),
-                  "Authenticating the upgrade failed. There may be a problem "
-                  "with the network or with the server. "))
+                  _("Authenticating the upgrade failed. There may be a problem "
+                    "with the network or with the server. "))
             self.cleanup()
             return
         self.runDistUpgrader()
