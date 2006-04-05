@@ -1,8 +1,11 @@
 update-manager (0.42.2ubuntu11) dapper; urgency=low
 
-  * debian/control: depend on unattended-upgrades
+  * debian/control: 
+    - depend on unattended-upgrades
+    - move python-gnome2 to recommends (we only use gconf from it)
+  * UpdateManager/fakegconf.py: update for xubuntu (thanks to Jani Monoses)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Apr 2006 21:47:05 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  5 Apr 2006 14:46:10 +0200
 
 update-manager (0.42.2ubuntu10) dapper; urgency=low
 

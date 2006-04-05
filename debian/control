@@ -7,7 +7,8 @@ Standards-Version: 3.6.1.1
 
 Package: update-manager
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python, python-gnome2, python-glade2, python-apt (>= 0.6.15), synaptic (>= 0.57.8), lsb-release,  python-gnupginterface, unattended-upgrades
+Depends: ${python:Depends}, ${misc:Depends}, python, python-glade2, python-apt (>= 0.6.15), synaptic (>= 0.57.8), lsb-release,  python-gnupginterface, unattended-upgrades
+Recommends: python-gnome2
 Description: GNOME application that manages apt updates
  This is the GNOME apt update manager. It checks for updates and lets the user
  choose which to install.
