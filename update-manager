@@ -33,7 +33,10 @@ from UpdateManager.UpdateManager import UpdateManager
 import gettext
 from gettext import gettext as _
 
+from optparse import OptionParser
+
 if __name__ == "__main__":
+  _ = gettext.gettext
 
   APP="update-manager"
   DIR="/usr/share/locale"
@@ -42,6 +45,15 @@ if __name__ == "__main__":
   gettext.textdomain(APP)
   gtk.glade.bindtextdomain(APP, DIR)
   gtk.glade.textdomain(APP)
+
+  # Begin parsing of options
+  parser = OptionParser()
+  parser.add_option ("-d", "--devel-release", action="store_true",
+                     dest="devel_release", default=False,
+                     help="Check if upgrading to the latest devel release "
+                          "is possible")
+
+  (options, args) = parser.parse_args()
 
   if os.geteuid() != 0:
     dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
@@ -53,4 +65,4 @@ if __name__ == "__main__":
   data_dir="/usr/share/update-manager/"
   #data_dir="/tmp/xxx/share/update-manager/"
   app = UpdateManager(data_dir)
-  app.main()
+  app.main(options)

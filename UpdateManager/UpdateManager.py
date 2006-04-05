@@ -738,8 +738,11 @@ class UpdateManager(SimpleGladeApp):
               self.on_button_reload_clicked(None)
 
 
-  def main(self):
+  def main(self, options):
     self.meta = MetaRelease()
+    # the user wants to see the development release
+    if options.devel_release:
+        self.meta.METARELEASE_URI = self.meta.METARELEASE_URI_UNSTABLE
     self.meta.connect("new_dist_available",self.new_dist_available)
     self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
     

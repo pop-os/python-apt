@@ -44,7 +44,7 @@ class MetaRelease(gobject.GObject):
 
     # some constants
     METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test2"
+    METARELEASE_URI_UNSTABLE = "http://changelogs.ubuntu.com/meta-release-development"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
