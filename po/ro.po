@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-03-22 23:28+0000\n"
+"POT-Creation-Date: 2006-04-07 21:25+0200\n"
 "PO-Revision-Date: 2006-03-23 00:19+0000\n"
 "Last-Translator: Dan Damian <dand@codemonkey.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -17,43 +17,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1 ? 0: (((n %\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
-#, fuzzy
+#: ../SoftwareProperties/SoftwareProperties.py:110
+#, fuzzy, python-format
 msgid "Every %s days"
 msgstr "La fiecare %s zile"
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:140
 #, python-format
 msgid "After %s days"
 msgstr "După %s zile"
 
-#: ../SoftwareProperties/SoftwareProperties.py:382
+#: ../SoftwareProperties/SoftwareProperties.py:413
 #, fuzzy
 msgid "Import key"
 msgstr "Importă cheie"
 
-#: ../SoftwareProperties/SoftwareProperties.py:392
+#: ../SoftwareProperties/SoftwareProperties.py:423
 #, fuzzy
 msgid "Error importing selected file"
 msgstr "Eroare la importarea fişierului ales"
 
-#: ../SoftwareProperties/SoftwareProperties.py:393
+#: ../SoftwareProperties/SoftwareProperties.py:424
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Fişierul selectat nu pare a fi o cheie GPG sau poate fi corupt."
 
-#: ../SoftwareProperties/SoftwareProperties.py:405
+#: ../SoftwareProperties/SoftwareProperties.py:436
 msgid "Error removing the key"
 msgstr "Eroare la ştergerea cheii."
 
-#: ../SoftwareProperties/SoftwareProperties.py:406
+#: ../SoftwareProperties/SoftwareProperties.py:437
 #, fuzzy
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Cheia selectată nu poate fi ştearsă. Raportaţi acest lucru ca un bug "
 "(eroare)."
 
-#: ../SoftwareProperties/SoftwareProperties.py:447
+#: ../SoftwareProperties/SoftwareProperties.py:478
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -64,11 +63,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:504
+#: ../SoftwareProperties/SoftwareProperties.py:535
 msgid "Please enter a name for the disc"
 msgstr "Introduceţi un nume pentru disc"
 
-#: ../SoftwareProperties/SoftwareProperties.py:520
+#: ../SoftwareProperties/SoftwareProperties.py:551
 #, fuzzy
 msgid "Please insert a disc in the drive:"
 msgstr "Introduceţi un disc în dispozitiv:"
@@ -91,6 +90,7 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -101,23 +101,24 @@ msgid ""
 "this as a bug. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:168
+#. FIXME: maybe ask a question here? instead of failing?
+#: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#: ../DistUpgrade/DistUpgradeCache.py:170
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:232
+#: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Nu pot instala '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:234
 #, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
@@ -126,11 +127,12 @@ msgstr ""
 "Nu am reuşit să instalez pachetul cerut. Puteţi raporta acest lucru ca bug "
 "(eroare). "
 
-#: ../DistUpgrade/DistUpgradeCache.py:240
+#. FIXME: provide a list
+#: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -143,41 +145,42 @@ msgstr ""
 msgid "Reading cache"
 msgstr "Citire cache"
 
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#. FIXME: offer to write a new self.sources.list entry
+#: ../DistUpgrade/DistUpgradeControler.py:106
 msgid "No valid entry found"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:108
+#: ../DistUpgrade/DistUpgradeControler.py:107
 msgid ""
 "While scaning your repository information no valid entry for the upgrade was "
 "found.\n"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:125
+#: ../DistUpgrade/DistUpgradeControler.py:124
 msgid "Repository information invalid"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:126
+#: ../DistUpgrade/DistUpgradeControler.py:125
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:171
+#: ../DistUpgrade/DistUpgradeControler.py:170
 msgid "Error during update"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:172
+#: ../DistUpgrade/DistUpgradeControler.py:171
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:191
+#: ../DistUpgrade/DistUpgradeControler.py:190
 msgid "Not enough free disk space"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:192
+#: ../DistUpgrade/DistUpgradeControler.py:191
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -185,18 +188,19 @@ msgid ""
 "get clean'."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:197
 msgid "Do you want to start the upgrade?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:214
+#. installing the packages failed, can't be retried
+#: ../DistUpgrade/DistUpgradeControler.py:213
 msgid "Could not install the upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:215
+#: ../DistUpgrade/DistUpgradeControler.py:214
 msgid ""
-"The upgrade aborts now. Your system can be in an unusable state. Please try "
-"'sudo apt-get install -f' or Synaptic to fix your system."
+"The upgrade aborts now. Your system can be in an unusable state. A recovery "
+"is now run (dpkg --configure -a)."
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:230
@@ -209,98 +213,123 @@ msgid ""
 "installation media and try again. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:274
-msgid "Remove obsolete Packages?"
+#: ../DistUpgrade/DistUpgradeControler.py:273
+msgid "Remove obsolete packages?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:281
+#: ../DistUpgrade/DistUpgradeControler.py:274
+msgid "_Skip This Step"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:274
+msgid "_Remove"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:282
+#: ../DistUpgrade/DistUpgradeControler.py:285
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#: ../DistUpgrade/DistUpgradeControler.py:296
-#: ../DistUpgrade/DistUpgradeControler.py:319
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:299
+#: ../DistUpgrade/DistUpgradeControler.py:325
 #, fuzzy
 msgid "Checking package manager"
 msgstr "Un alt manager de pachete rulează"
 
-#: ../DistUpgrade/DistUpgradeControler.py:311
+#: ../DistUpgrade/DistUpgradeControler.py:317
 msgid "Updating repository information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:325
+#: ../DistUpgrade/DistUpgradeControler.py:331
 msgid "Asking for confirmation"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:329
+#: ../DistUpgrade/DistUpgradeControler.py:335
 #, fuzzy
 msgid "Upgrading"
 msgstr "Actualizare completă"
 
-#: ../DistUpgrade/DistUpgradeControler.py:336
+#: ../DistUpgrade/DistUpgradeControler.py:342
 msgid "Searching for obsolete software"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:341
+#: ../DistUpgrade/DistUpgradeControler.py:347
 msgid "System upgrade is complete."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:77
+#. print "mediaChange %s %s" % (medium, drive)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:78
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:95
+#: ../DistUpgrade/DistUpgradeViewGtk.py:96
 msgid "Download is complete"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:106
-#, python-format
-msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:107
 #, python-format
+msgid "Downloading file %li of %li at %s/s"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#, python-format
 msgid "%s remaining"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:109
+#: ../DistUpgrade/DistUpgradeViewGtk.py:110
 #, python-format
-msgid "Downloading file %li of %li at unknown speed"
+msgid "Downloading file %li of %li"
 msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:135
-msgid "Installing updates"
-msgstr ""
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:140
+#, fuzzy
+msgid "Applying changes"
+msgstr "Descarc modificările..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:148
+#: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:149
+#: ../DistUpgrade/DistUpgradeViewGtk.py:158
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:228
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:171
+#, python-format
+msgid ""
+"Replace configuration file\n"
+"'%s'?"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:188
+msgid "The 'diff' command was not found"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:229
+#: ../DistUpgrade/DistUpgradeViewGtk.py:297
 msgid ""
-"Please report this as a bug and include the files ~/dist-upgrade.log and "
-"~/dist-upgrade-apt.log in your report. The upgrade aborts now. "
+"Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
+"dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:311
+#: ../DistUpgrade/DistUpgradeViewGtk.py:386
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
@@ -308,7 +337,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:317
+#: ../DistUpgrade/DistUpgradeViewGtk.py:392
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
@@ -316,7 +345,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:323
+#: ../DistUpgrade/DistUpgradeViewGtk.py:398
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
@@ -324,49 +353,50 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:330
+#: ../DistUpgrade/DistUpgradeViewGtk.py:405
 #, python-format
 msgid "You have to download a total of %s."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:334
+#: ../DistUpgrade/DistUpgradeViewGtk.py:409
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+#: ../DistUpgrade/DistUpgradeViewGtk.py:412
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:343
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:418
 msgid "Could not find any upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:344
+#: ../DistUpgrade/DistUpgradeViewGtk.py:419
 #, fuzzy
 msgid "Your system has already been upgraded."
 msgstr "Sistemul dvs. este la zi!"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:353
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:434
+#, python-format
 msgid "<b>Remove %s</b>"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:436
+#, python-format
 msgid "Install %s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:357
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:438
+#, python-format
 msgid "Upgrade %s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeView.py:67
+#: ../DistUpgrade/DistUpgradeView.py:75
 msgid "Reboot required"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeView.py:68
+#: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
@@ -374,6 +404,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -397,8 +428,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
-"6.04</span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
+"span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -411,38 +442,50 @@ msgid "Details"
 msgstr "<b>Detalii</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
-msgid "Downloading and installing the upgrades"
+msgid "Difference between the files"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
-msgid "Modifying the software channels"
+msgid "Downloading and installing the upgrades"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:12
-msgid "Preparing the upgrade"
+msgid "Modifying the software channels"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:13
-msgid "Restarting the system"
+msgid "Preparing the upgrade"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:14
-msgid "Terminal"
+msgid "Restarting the system"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:15
-msgid "Upgrading Ubuntu"
+msgid "Terminal"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
-msgid "_Report Bug"
+msgid "Upgrading Ubuntu"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
-msgid "_Restart Now"
+msgid "_Keep"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
+msgid "_Replace"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:19
+msgid "_Report Bug"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:20
+msgid "_Restart Now"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 #, fuzzy
 msgid "_Resume Upgrade"
 msgstr "Actualizare completă"
@@ -457,7 +500,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
-"<big><b>Checking for available updates</b></big>\n"
+"<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
@@ -476,53 +519,57 @@ msgid "Changes"
 msgstr "Modificări"
 
 #: ../data/UpdateManager.glade.h:10
-msgid "Check for available updates"
+msgid "Chec_k"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:11
+msgid "Check the software channels for new updates"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
 msgid "Description"
 msgstr "Descriere"
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:14
+#: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
 msgstr "Actualizări software"
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/UpdateManager.glade.h:17
 msgid ""
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/UpdateManager.glade.h:18
 #, fuzzy
 msgid "U_pgrade"
 msgstr "Actualizare completă"
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/UpdateManager.glade.h:20
 msgid "_Check"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
 msgstr ""
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/UpdateManager.glade.h:22
 #, fuzzy
 msgid "_Install Updates"
 msgstr "_Instalează"
@@ -594,7 +641,7 @@ msgid "_Check for updates automatically:"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the backgound, but do not install them"
+msgid "_Download updates in the background, but do not install them"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:16
@@ -626,12 +673,13 @@ msgid "<b>Comment:</b>"
 msgstr "<b>Comentariu:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-msgid "<b>Distribution:</b>"
-msgstr "<b>Distribuţie:</b>"
+#, fuzzy
+msgid "<b>Components:</b>"
+msgstr "<b>Componente</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Sections:</b>"
-msgstr "<b>Secţiuni:</b>"
+msgid "<b>Distribution:</b>"
+msgstr "<b>Distribuţie:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
 #, fuzzy
@@ -649,8 +697,8 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to "
-"add</b></big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
 "\n"
 "The APT line contains the type, location and sections of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -658,9 +706,9 @@ msgstr ""
 "<big><b>Introduceţi linia APT completă a locaţiei pe care doriţi să o "
 "adăugaţi</b></big>\n"
 "\n"
-"Linia APT conţine tipul, adresa şi conţinutul unei locaţii, de "
-"exemplu<i>\"deb http://ftp.debian.org sarge main\"</i>. Puteţi găsi o "
-"descriere detaliată a sintaxei în documentaţie."
+"Linia APT conţine tipul, adresa şi conţinutul unei locaţii, de exemplu<i>"
+"\"deb http://ftp.debian.org sarge main\"</i>. Puteţi găsi o descriere "
+"detaliată a sintaxei în documentaţie."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -688,10 +736,7 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgid_plural "_Add Channels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -739,110 +784,134 @@ msgstr ""
 msgid "The window size"
 msgstr ""
 
+#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
-msgid "Ubuntu 6.04 'Dapper Drake'"
+msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
-msgid "Ubuntu 6.04 Security Updates"
+msgid "Ubuntu 6.06 Security Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
-msgid "Ubuntu 6.04 Updates"
+msgid "Ubuntu 6.06 Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
-msgid "Ubuntu 6.04 Backports"
+msgid "Ubuntu 6.06 Backports"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:91
 #, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:108
 #, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
-#: ../channels/Ubuntu.info.in:128
+#. CompDescription
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Pachete suportate oficial"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Copyright restrictiv"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Pachete întreţinute de comunitate (Universe)"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Pachete non-libere (Multiverse)"
 
+#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr ""
 
+#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Actualizări de securitate Debian Stable"
 
+#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
+#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#: ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "Pachete suportate oficial"
-
+#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
+#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>Secţiuni:</b>"
+
+#, fuzzy
+#~ msgid "Oficially supported"
+#~ msgstr "Pachete suportate oficial"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"
@@ -884,16 +953,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizări disponibile</b></big>\n"
 #~ "\n"
-#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările apăsând "
-#~ "pe butonul Instalează."
-
-#~ msgid "<b>Components</b>"
-#~ msgstr "<b>Componente</b>"
+#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările "
+#~ "apăsând pe butonul Instalează."
 
 #~ msgid "<b>Repository</b>"
 #~ msgstr "<b>Locaţie</b>"
@@ -913,8 +979,8 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>Chei autentificare</b></big>\n"
 #~ "\n"
-#~ "Din acest dialog puteţi adăuga sau şterge chei de autentificare. Rolul unei "
-#~ "chei estede a permite verificarea integrităţii unui pachet software "
+#~ "Din acest dialog puteţi adăuga sau şterge chei de autentificare. Rolul "
+#~ "unei chei estede a permite verificarea integrităţii unui pachet software "
 #~ "descărcat."
 
 #~ msgid "A_uthentication"
@@ -922,8 +988,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received the "
-#~ "key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received "
+#~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Adăugaţi o nouă cheie în keyring-ul de încredere. Asiguraţi-vă că aţi "
 #~ "obţinut cheia printr-un canal sigur şi că aveţi încredere în proprietarul "
@@ -940,8 +1006,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not change "
-#~ "user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not "
+#~ "change user installed keys."
 #~ msgstr ""
 #~ "Restaurează cheile implicite furnizate împreună cu distribuţia. Această "
 #~ "acţiune nu va influenţa cheile instalate ca utilizator."
@@ -972,15 +1038,12 @@ msgstr ""
 #~ msgid "Version %s: \n"
 #~ msgstr "Versiunea %s: \n"
 
-#~ msgid "Downloading changes..."
-#~ msgstr "Descarc modificările..."
-
 #~ msgid "The updates are being applied."
 #~ msgstr "Actualizările sunt în curs de aplicare."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. Please "
-#~ "close this other application first."
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
 #~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
 #~ "închideţi ceilalţi manageri mai întâi."
@@ -1003,8 +1066,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "This usually means that another package management application (like apt-get "
-#~ "or aptitude) already running. Please close that application first"
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
 #~ msgstr ""
 #~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
 #~ "închideţi ceilalţi manageri mai întâi."
@@ -1047,8 +1110,8 @@ msgstr ""
 #~ msgstr "Locaţiile au fost schimbate"
 
 #~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources.list "
-#~ "is stored in %s.save. \n"
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
 #~ "\n"
 #~ "You need to reload the package list from the servers for your changes to "
 #~ "take effect. Do you want to do this now?"
@@ -1062,13 +1125,13 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizări disponibile</b></big>\n"
 #~ "\n"
-#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările apăsând "
-#~ "pe butonul Instalează."
+#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările "
+#~ "apăsând pe butonul Instalează."
 
 #~ msgid "0"
 #~ msgstr "0"

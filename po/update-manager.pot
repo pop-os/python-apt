@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-03 11:03+0200\n"
+"POT-Creation-Date: 2006-04-07 21:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -479,7 +479,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
-"<big><b>Checking for available updates</b></big>\n"
+"<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
@@ -502,7 +502,7 @@ msgid "Chec_k"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:11
-msgid "Check for available updates"
+msgid "Check the software channels for new updates"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:12
@@ -787,7 +787,7 @@ msgid "Ubuntu 5.10 Backports"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
@@ -840,11 +840,6 @@ msgstr ""
 #. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
-msgstr ""
-
-#. CompDescription
-#: ../channels/Debian.info.in:51
-msgid "Oficially supported"
 msgstr ""
 
 #. CompDescription

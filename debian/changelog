@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu12) dapper; urgency=low
+
+  * channels/*.in: typo fix
+
+ --
+
 update-manager (0.42.2ubuntu11) dapper; urgency=low
 
   * debian/control: 

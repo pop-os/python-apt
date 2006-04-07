@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
-"Report-Msgid-Bugs-To: michael.vogt@canonical.com\n"
-"POT-Creation-Date: 2006-03-22 23:28+0000\n"
+"Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
+"POT-Creation-Date: 2006-04-07 21:25+0200\n"
 "PO-Revision-Date: 2006-03-27 10:27+0000\n"
 "Last-Translator: Marko Kervinen <marko_kervinen@hotmail.com>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
@@ -16,41 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
+#: ../SoftwareProperties/SoftwareProperties.py:110
 #, python-format
 msgid "Every %s days"
 msgstr "%s päivän välein"
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:140
 #, python-format
 msgid "After %s days"
 msgstr "%s päivän jälkeen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:382
+#: ../SoftwareProperties/SoftwareProperties.py:413
 msgid "Import key"
 msgstr "Tuo avain"
 
-#: ../SoftwareProperties/SoftwareProperties.py:392
+#: ../SoftwareProperties/SoftwareProperties.py:423
 msgid "Error importing selected file"
 msgstr "Virhe tuotaessa valittua avainta"
 
-#: ../SoftwareProperties/SoftwareProperties.py:393
+#: ../SoftwareProperties/SoftwareProperties.py:424
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Valittu tiedosto ei ole kelvollinen GPG-avaintiedosto, tai se on "
 "vahingoittunut."
 
-#: ../SoftwareProperties/SoftwareProperties.py:405
+#: ../SoftwareProperties/SoftwareProperties.py:436
 msgid "Error removing the key"
 msgstr "Virhe poistettaessa avainta"
 
-#: ../SoftwareProperties/SoftwareProperties.py:406
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:437
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Valitsemaasi avainta ei voitu poistaa. Ole hyvä ja luo tästä virheilmoitus."
 
-#: ../SoftwareProperties/SoftwareProperties.py:447
+#: ../SoftwareProperties/SoftwareProperties.py:478
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -61,11 +60,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:504
+#: ../SoftwareProperties/SoftwareProperties.py:535
 msgid "Please enter a name for the disc"
 msgstr "Syötä nimi levylle"
 
-#: ../SoftwareProperties/SoftwareProperties.py:520
+#: ../SoftwareProperties/SoftwareProperties.py:551
 msgid "Please insert a disc in the drive:"
 msgstr "Aseta levy asemaan:"
 
@@ -90,6 +89,7 @@ msgstr "Ei voida päivittää tarvittavia metapaketteja"
 msgid "A essential package would have to be removed"
 msgstr "Välttämätön paketti jouduttaisiin poistamaan"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "Ei voitu tehdä tarvittavia päivitykseen liittyviä tarkistuksia"
@@ -102,11 +102,12 @@ msgstr ""
 "Tehtäessä päivitykseen liittyviä tarkistuksia tapahtui virhe jota ei voitu "
 "korjata. Ilmoita tästä virheraportilla. "
 
-#: ../DistUpgrade/DistUpgradeCache.py:168
+#. FIXME: maybe ask a question here? instead of failing?
+#: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "Tapahtui virhe varmennettaessa joitain paketteja"
 
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#: ../DistUpgrade/DistUpgradeCache.py:170
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -116,23 +117,24 @@ msgstr ""
 "ongelma. Voit yrittää myöhemmin uudelleen. Alla on luettelo "
 "varmentamattomista paketeista."
 
-#: ../DistUpgrade/DistUpgradeCache.py:232
+#: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Ei voitu asentaa pakettia '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:234
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr ""
 "Pyydettyä pakettia ei voitu asentaa. Ole hyvä ja luo tästä virheilmoitus. "
 
-#: ../DistUpgrade/DistUpgradeCache.py:240
+#. FIXME: provide a list
+#: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "Ei voitu arvata metapakettia"
 
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -150,11 +152,12 @@ msgstr ""
 msgid "Reading cache"
 msgstr "Luetaan kätköä"
 
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#. FIXME: offer to write a new self.sources.list entry
+#: ../DistUpgrade/DistUpgradeControler.py:106
 msgid "No valid entry found"
 msgstr "Ei löytynyt kelpoa ohjelmavarastomerkintää"
 
-#: ../DistUpgrade/DistUpgradeControler.py:108
+#: ../DistUpgrade/DistUpgradeControler.py:107
 msgid ""
 "While scaning your repository information no valid entry for the upgrade was "
 "found.\n"
@@ -162,11 +165,11 @@ msgstr ""
 "Luettaessa varastotietoja ei löydetty kelvollisia ohjelmavarastoja "
 "päivittämistä varten.\n"
 
-#: ../DistUpgrade/DistUpgradeControler.py:125
+#: ../DistUpgrade/DistUpgradeControler.py:124
 msgid "Repository information invalid"
 msgstr "Virhe ohjelmavarastotiedoissa"
 
-#: ../DistUpgrade/DistUpgradeControler.py:126
+#: ../DistUpgrade/DistUpgradeControler.py:125
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -174,11 +177,11 @@ msgstr ""
 "Ohjelmavarastotietojen päivittäminen johti epäkelpoon tiedostoon. Ilmoita "
 "tästä virheraportilla."
 
-#: ../DistUpgrade/DistUpgradeControler.py:171
+#: ../DistUpgrade/DistUpgradeControler.py:170
 msgid "Error during update"
 msgstr "Virhe päivitettäessä"
 
-#: ../DistUpgrade/DistUpgradeControler.py:172
+#: ../DistUpgrade/DistUpgradeControler.py:171
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -186,11 +189,11 @@ msgstr ""
 "Päivitettäessä tapahtui virhe. Tämä on yleensä jonkinlainen verkko-ongelma. "
 "Tarkista verkkoyhteytesi toiminta ja yritä uudelleen."
 
-#: ../DistUpgrade/DistUpgradeControler.py:191
+#: ../DistUpgrade/DistUpgradeControler.py:190
 msgid "Not enough free disk space"
 msgstr "Levytilaa ei ole riittävästi"
 
-#: ../DistUpgrade/DistUpgradeControler.py:192
+#: ../DistUpgrade/DistUpgradeControler.py:191
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -201,18 +204,20 @@ msgstr ""
 "poista aiempien asennusten väliaikaiset pakettitiedostot käyttämällä "
 "komentoa 'sudo apt-get clean'."
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:197
 msgid "Do you want to start the upgrade?"
 msgstr "Haluatko aloittaaa päivityksen?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:214
+#. installing the packages failed, can't be retried
+#: ../DistUpgrade/DistUpgradeControler.py:213
 msgid "Could not install the upgrades"
 msgstr "Ei voitu asentaa päivityksiä"
 
-#: ../DistUpgrade/DistUpgradeControler.py:215
+#: ../DistUpgrade/DistUpgradeControler.py:214
+#, fuzzy
 msgid ""
-"The upgrade aborts now. Your system can be in an unusable state. Please try "
-"'sudo apt-get install -f' or Synaptic to fix your system."
+"The upgrade aborts now. Your system can be in an unusable state. A recovery "
+"is now run (dpkg --configure -a)."
 msgstr ""
 "Päivitys keskeytyy. Järjestelmäsi voi olla käyttökelvottomassa tilassa. "
 "Kokeile komentoa 'sudo apt-get install -f' tai Synaptic-ohjelmaa "
@@ -230,15 +235,23 @@ msgstr ""
 "Päivitys keskeytyy. Tarkista Internet-yhteytesi tai asennuslähteesi (esim. "
 "CD) toiminta ja yritä uudelleen. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:274
-msgid "Remove obsolete Packages?"
+#: ../DistUpgrade/DistUpgradeControler.py:273
+msgid "Remove obsolete packages?"
 msgstr "Poista vanhentuneet paketit?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:281
+#: ../DistUpgrade/DistUpgradeControler.py:274
+msgid "_Skip This Step"
+msgstr "_Ohita tämä kohta"
+
+#: ../DistUpgrade/DistUpgradeControler.py:274
+msgid "_Remove"
+msgstr "_Poista"
+
+#: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
 msgstr "Virhe suoritettaesa"
 
-#: ../DistUpgrade/DistUpgradeControler.py:282
+#: ../DistUpgrade/DistUpgradeControler.py:285
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -247,147 +260,165 @@ msgstr ""
 "lisätietoja. "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#: ../DistUpgrade/DistUpgradeControler.py:296
-#: ../DistUpgrade/DistUpgradeControler.py:319
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:299
+#: ../DistUpgrade/DistUpgradeControler.py:325
 msgid "Checking package manager"
 msgstr "Tarkistetaan pakettienhallintaa"
 
-#: ../DistUpgrade/DistUpgradeControler.py:311
+#: ../DistUpgrade/DistUpgradeControler.py:317
 msgid "Updating repository information"
 msgstr "Päivitetään ohjelmavarastotietoja"
 
-#: ../DistUpgrade/DistUpgradeControler.py:325
+#: ../DistUpgrade/DistUpgradeControler.py:331
 msgid "Asking for confirmation"
 msgstr "Pyydetään vahvistusta"
 
-#: ../DistUpgrade/DistUpgradeControler.py:329
+#: ../DistUpgrade/DistUpgradeControler.py:335
 msgid "Upgrading"
 msgstr "Päivitetään"
 
-#: ../DistUpgrade/DistUpgradeControler.py:336
+#: ../DistUpgrade/DistUpgradeControler.py:342
 msgid "Searching for obsolete software"
 msgstr "Etsitään vanhetuneita ohjelmia"
 
-#: ../DistUpgrade/DistUpgradeControler.py:341
+#: ../DistUpgrade/DistUpgradeControler.py:347
 msgid "System upgrade is complete."
 msgstr "Järjestelmän päivitys on valmis."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:77
+#. print "mediaChange %s %s" % (medium, drive)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:78
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr "Laita '%s' asemaan '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:95
+#: ../DistUpgrade/DistUpgradeViewGtk.py:96
 msgid "Download is complete"
 msgstr "Lataus on valmis"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:106
+#: ../DistUpgrade/DistUpgradeViewGtk.py:107
 #, python-format
 msgid "Downloading file %li of %li at %s/s"
 msgstr "Ladataan tiedostoa %li/%li nopeudella %s/s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:107
+#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:216
 #, python-format
 msgid "%s remaining"
 msgstr "%s jäljellä"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:109
-#, python-format
-msgid "Downloading file %li of %li at unknown speed"
-msgstr "Ladataan tiedostoa %li/%li tuntemattomalla nopeudella"
+#: ../DistUpgrade/DistUpgradeViewGtk.py:110
+#, fuzzy, python-format
+msgid "Downloading file %li of %li"
+msgstr "Ladataan tiedostoa %li/%li nopeudella %s/s"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:135
-msgid "Installing updates"
-msgstr "Asennetaan päivityksiä"
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:140
+#, fuzzy
+msgid "Applying changes"
+msgstr "Ladataan muutoksia..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:148
+#: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
 msgid "Could not install '%s'"
 msgstr "Ei voituu asentaa: '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:149
+#: ../DistUpgrade/DistUpgradeViewGtk.py:158
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Päivitys keskeytyy. Ilmoita tästä virheraportilla."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:228
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:171
+#, python-format
+msgid ""
+"Replace configuration file\n"
+"'%s'?"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:188
+msgid "The 'diff' command was not found"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
 msgstr "Vakava virhe tapahtui"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:229
+#: ../DistUpgrade/DistUpgradeViewGtk.py:297
 msgid ""
-"Please report this as a bug and include the files ~/dist-upgrade.log and "
-"~/dist-upgrade-apt.log in your report. The upgrade aborts now. "
+"Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
+"dist-upgrade-apt.log in your report. The upgrade aborts now. "
 msgstr ""
-"Ilmoita tästä virheraportilla ja sisällytä siihen tiedostot ~/dist-"
-"upgrade.log ja ~/dist-upgrade-apt.log. Päivitys keskeytyy nyt. "
+"Ilmoita tästä virheraportilla ja sisällytä siihen tiedostot ~/dist-upgrade."
+"log ja ~/dist-upgrade-apt.log. Päivitys keskeytyy nyt. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:311
+#: ../DistUpgrade/DistUpgradeViewGtk.py:386
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s paketti poistetaan"
 msgstr[1] "%s pakettia poistetaan"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:317
+#: ../DistUpgrade/DistUpgradeViewGtk.py:392
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s uusi paketti asennetaan"
 msgstr[1] "%s uutta pakettia asennetaan"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:323
+#: ../DistUpgrade/DistUpgradeViewGtk.py:398
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s paketti päivitetään"
 msgstr[1] "%s pakettia päivitetään"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:330
+#: ../DistUpgrade/DistUpgradeViewGtk.py:405
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Ladattavaa yhteensä %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:334
+#: ../DistUpgrade/DistUpgradeViewGtk.py:409
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "Päivitys voi kestää useita tunteja, eikä sitä voi keskeyttää enää myöhemmin."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+#: ../DistUpgrade/DistUpgradeViewGtk.py:412
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "Jottei tietoja häviäisi, sulje kaikki avoinna olevat ohjelmat ja dokumentit."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:343
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:418
 msgid "Could not find any upgrades"
 msgstr "Päivityksiä ei löytynyt"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:344
+#: ../DistUpgrade/DistUpgradeViewGtk.py:419
 msgid "Your system has already been upgraded."
 msgstr "Järjestelmäsi on jo päivitetty."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:353
+#: ../DistUpgrade/DistUpgradeViewGtk.py:434
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Poista %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
+#: ../DistUpgrade/DistUpgradeViewGtk.py:436
 #, python-format
 msgid "Install %s"
 msgstr "Asenna %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:357
+#: ../DistUpgrade/DistUpgradeViewGtk.py:438
 #, python-format
 msgid "Upgrade %s"
 msgstr "Päivitä %s"
 
-#: ../DistUpgrade/DistUpgradeView.py:67
+#: ../DistUpgrade/DistUpgradeView.py:75
 msgid "Reboot required"
 msgstr "Uudellenkäynnistys vaaditaan"
 
-#: ../DistUpgrade/DistUpgradeView.py:68
+#: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
@@ -396,6 +427,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -416,17 +448,18 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
 msgstr ""
-"<b><big>Käynnistä järjestelmä uudelleen saattaaksesi päivityksen "
-"loppuun</big></b>"
+"<b><big>Käynnistä järjestelmä uudelleen saattaaksesi päivityksen loppuun</"
+"big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Aloita päivitys?</big/</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
+#, fuzzy
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
-"6.04</span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
+"span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Päivitetään seuraavaksi: Ubuntu "
 "\"Dapper\" 6.04</span>"
@@ -440,38 +473,51 @@ msgid "Details"
 msgstr "Yksityiskohdat"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
+msgid "Difference between the files"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
 msgstr "Ladataan ja asennetaan päivityksiä"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:11
+#: ../DistUpgrade/DistUpgrade.glade.h:12
 msgid "Modifying the software channels"
 msgstr "Muutetaan ohjelmakanavia"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:12
+#: ../DistUpgrade/DistUpgrade.glade.h:13
 msgid "Preparing the upgrade"
 msgstr "Valmistellaan päivitystä"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:13
+#: ../DistUpgrade/DistUpgrade.glade.h:14
 msgid "Restarting the system"
 msgstr "Käynnistetään järjestelmä uudelleen"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:14
+#: ../DistUpgrade/DistUpgrade.glade.h:15
 msgid "Terminal"
 msgstr "Pääte"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:15
+#: ../DistUpgrade/DistUpgrade.glade.h:16
 msgid "Upgrading Ubuntu"
 msgstr "Päivitetään Ubuntua"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:16
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Keep"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
+#, fuzzy
+msgid "_Replace"
+msgstr "_Lataa uudelleen"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
 msgstr "_Tee virheraportti"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:17
+#: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Restart Now"
 msgstr "_Uudelleenkäynnistä nyt"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:18
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Resume Upgrade"
 msgstr "_Jatka päivitystä"
 
@@ -484,12 +530,13 @@ msgid ""
 msgstr ""
 "<b><big>Sinun täytyy tarkistaa päivitykset itse</big></b>\n"
 "Sinun järjestelmäsi ei tutki päivityksiä automaattisesti. Voit muuttaa näitä "
-"asetuksia kohdasta \"Järjestelmä\" -> \"Ylläpito\" -> \"Ohjelmien "
-"asetukset\"."
+"asetuksia kohdasta \"Järjestelmä\" -> \"Ylläpito\" -> \"Ohjelmien asetukset"
+"\"."
 
 #: ../data/UpdateManager.glade.h:4
+#, fuzzy
 msgid ""
-"<big><b>Checking for available updates</b></big>\n"
+"<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
@@ -512,30 +559,35 @@ msgid "Changes"
 msgstr "Muutokset"
 
 #: ../data/UpdateManager.glade.h:10
-msgid "Check for available updates"
-msgstr "Tarkista saatavilla olevat päivitykset"
+#, fuzzy
+msgid "Chec_k"
+msgstr "_Check"
 
 #: ../data/UpdateManager.glade.h:11
+msgid "Check the software channels for new updates"
+msgstr ""
+
+#: ../data/UpdateManager.glade.h:12
 msgid "Description"
 msgstr "Kuvaus"
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr "Julkaisutiedot"
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Näytä yksityiskohdat"
 
-#: ../data/UpdateManager.glade.h:14
+#: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
 msgstr "Näytä edistyminen yksittäisten tiedostojen osalta"
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
 msgstr "Ohjelmapäivitykset"
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/UpdateManager.glade.h:17
 msgid ""
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
@@ -543,23 +595,23 @@ msgstr ""
 "Ohjelmapäivitykset voivat korjata virheitä ja turva-aukkoja tai tarjota "
 "uusia ominaisuuksia."
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/UpdateManager.glade.h:18
 msgid "U_pgrade"
 msgstr "_Päivitä"
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr "Päivitä Ubuntun viimeisimpään versioon"
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/UpdateManager.glade.h:20
 msgid "_Check"
 msgstr "_Check"
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
 msgstr "P_iilota tämä tieto jatkossa"
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/UpdateManager.glade.h:22
 msgid "_Install Updates"
 msgstr "_Asenna päivitykset"
 
@@ -626,7 +678,7 @@ msgid "_Check for updates automatically:"
 msgstr "_Tarkista päivitykset automaattisesti:"
 
 #: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the backgound, but do not install them"
+msgid "_Download updates in the background, but do not install them"
 msgstr "_Lataa päivitykset taustalla, mutta älä asenna niitä"
 
 #: ../data/SoftwareProperties.glade.h:16
@@ -662,12 +714,13 @@ msgid "<b>Comment:</b>"
 msgstr "<b>Kommentti:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-msgid "<b>Distribution:</b>"
-msgstr "<b>Jakelu:</b>"
+#, fuzzy
+msgid "<b>Components:</b>"
+msgstr "<b>Komponentit</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Sections:</b>"
-msgstr "<b>Osastot:</b>"
+msgid "<b>Distribution:</b>"
+msgstr "<b>Jakelu:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
 msgid "<b>Sections</b>"
@@ -683,16 +736,16 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to "
-"add</b></big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
 "\n"
 "The APT line contains the type, location and sections of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>Kirjoita haluamasi kanavan koko APT-rivi</b></big>\n"
 "\n"
-"APT-rivi sisältää kanavan tyypin, sijainnin ja sisällön, esimerkiksi "
-"<i>\"deb http://ftp.debian.org sarge main\"</i>."
+"APT-rivi sisältää kanavan tyypin, sijainnin ja sisällön, esimerkiksi <i>"
+"\"deb http://ftp.debian.org sarge main\"</i>."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -719,10 +772,9 @@ msgid "Scanning CD-ROM"
 msgstr "Luetaan CD-levyä"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
+#, fuzzy
 msgid "_Add Channel"
-msgid_plural "_Add Channels"
-msgstr[0] "_Lisää kanava"
-msgstr[1] "_Lisää kanavia"
+msgstr "_Lisää kanava"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -773,104 +825,143 @@ msgstr ""
 msgid "The window size"
 msgstr "Ikkunan koko"
 
+#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.04 'Dapper Drake'"
+#, fuzzy
+msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 6.04 'Dapper Drake'"
 
+#. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.04 Security Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 Security Updates"
 msgstr "Ubuntu 6.04 turvallisuuspäivitykset"
 
+#. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.04 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 Updates"
 msgstr "Ubuntu 6.04 päivitykset"
 
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.04 Backports"
+#, fuzzy
+msgid "Ubuntu 6.06 Backports"
 msgstr "Ubuntu 6.04 takaisinsovitukset"
 
+#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 turvallisuuspäivitykset"
 
+#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 päivitykset"
 
+#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 takaisinsovitukset"
 
-#: ../channels/Ubuntu.info.in:128
+#. CompDescription
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Virallisesti tuettu"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Rajoitettu tekijänoikeus"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Yhteisön ylläpitämät (universe)"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Ei-vapaat ohjelmat (multiverse)"
 
+#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org"
 
+#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" turvallisuuspäivitykset"
 
+#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testattava)"
 
+#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (epävakaa)"
 
-#: ../channels/Debian.info.in:51
-msgid "Oficially supported"
-msgstr "Virallisesti tuettu"
-
+#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 "DFSG-yhteensopivat ohjelmat joilla riippuvuuksia epävapaisiin ohjelmiin"
 
+#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-epäyhteensopivat ohjelmat"
 
-#~ msgid "_Download updates in the background, but do not install them"
+#~ msgid "Remove obsolete Packages?"
+#~ msgstr "Poista vanhentuneet paketit?"
+
+#~ msgid "Downloading file %li of %li at unknown speed"
+#~ msgstr "Ladataan tiedostoa %li/%li tuntemattomalla nopeudella"
+
+#~ msgid "Installing updates"
+#~ msgstr "Asennetaan päivityksiä"
+
+#~ msgid "Check for available updates"
+#~ msgstr "Tarkista saatavilla olevat päivitykset"
+
+#~ msgid "_Download updates in the backgound, but do not install them"
 #~ msgstr "_Lataa päivitykset taustalla, mutta älä asenna niitä"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>Osastot:</b>"
+
+#~ msgid "Oficially supported"
+#~ msgstr "Virallisesti tuettu"
 
 #~ msgid "Software Channel"
 #~ msgstr "Ohjelmistokanava"
@@ -904,21 +995,13 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgid "The file '%s' does not contain any valid software channels."
 #~ msgstr "Tiedosto '%s' ei sisällä sopivia ohjelmistokanavia."
 
-#~ msgid "Remove obsolete packages?"
-#~ msgstr "Poista vanhentuneet paketit?"
-
-#~ msgid "_Skip This Step"
-#~ msgstr "_Ohita tämä kohta"
-
-#~ msgid "_Remove"
-#~ msgstr "_Poista"
-
 #~ msgid ""
-#~ "<b><big>You need to manually reload the latest information about "
-#~ "updates</big></b>\n"
+#~ "<b><big>You need to manually reload the latest information about updates</"
+#~ "big></b>\n"
 #~ "\n"
-#~ "Your system does not check for updates automatically. You can configure this "
-#~ "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+#~ "Your system does not check for updates automatically. You can configure "
+#~ "this behavior in \"System\" -> \"Administration\" -> \"Software Properties"
+#~ "\"."
 #~ msgstr ""
 #~ "<b><big>Sinun pitää ladata päivitystiedot uudelleen käsin</big></b>\n"
 #~ "\n"
@@ -942,9 +1025,6 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 
 #~ msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
 #~ msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
-
-#~ msgid "<b>Components</b>"
-#~ msgstr "<b>Komponentit</b>"
 
 #~ msgid "<b>Software Sources</b>"
 #~ msgstr "<b>Ohjelmalähteet</b>"
@@ -976,19 +1056,20 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgstr ""
 #~ "<big><b>Kirjoita haluamasi varaston koko APT-rivi</b></big>\n"
 #~ "\n"
-#~ "APT-rivi sisältää varaston tyypin, sijainnin ja sisällön, esimerkiksi "
-#~ "<i>\"deb http://ftp.debian.org sarge main\"</i>. Lisätietoja aiheesta löydät "
+#~ "APT-rivi sisältää varaston tyypin, sijainnin ja sisällön, esimerkiksi <i>"
+#~ "\"deb http://ftp.debian.org sarge main\"</i>. Lisätietoja aiheesta löydät "
 #~ "dokumentaatiosta."
 
 #~ msgid "A_uthentication"
 #~ msgstr "Varmenn_us"
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received the "
-#~ "key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received "
+#~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
-#~ "Lisää uusi avaintiedosto luotettuihin avaimiin. Varmista, että vastaanotit "
-#~ "avaimen luotettavaa kanavaa pitkin, ja että luotat sen omistajaan. "
+#~ "Lisää uusi avaintiedosto luotettuihin avaimiin. Varmista, että "
+#~ "vastaanotit avaimen luotettavaa kanavaa pitkin, ja että luotat sen "
+#~ "omistajaan. "
 
 #~ msgid "Automatically check for software _updates."
 #~ msgstr "Tarkista ohjelma_päivitykset automaattisesti."
@@ -1012,8 +1093,8 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgstr "Maksimikoko megatavuissa:"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not change "
-#~ "user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not "
+#~ "change user installed keys."
 #~ msgstr ""
 #~ "Palauta jakelun mukana toimitetut oletusavaimet. Tämä ei muuta tai poista "
 #~ "itse asennettuja avaimia."
@@ -1042,8 +1123,8 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>Saatavilla olevat päivitykset</b></big>\n"
 #~ "\n"
@@ -1056,17 +1137,17 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgid ""
 #~ "Reload the package information from the server. \n"
 #~ "\n"
-#~ "If you have a permanent internet connection this is done automatically. If "
-#~ "you are behind an internet connection that needs to be started by hand (e.g. "
-#~ "a modem) you should use this button so that update-manager knows about new "
-#~ "updates."
+#~ "If you have a permanent internet connection this is done automatically. "
+#~ "If you are behind an internet connection that needs to be started by hand "
+#~ "(e.g. a modem) you should use this button so that update-manager knows "
+#~ "about new updates."
 #~ msgstr ""
 #~ "Lataa pakettitiedot palvelimelta uudelleen. \n"
 #~ "\n"
 #~ "Jos sinulla on kiinteä Internet-yhteys, tämä tehdään automaattisesti. Jos "
 #~ "olet käsin muodostettavan Internet-yhteyden (esim. modeemi) takana, sinun "
-#~ "täytyy käyttää tätä valintaa jotta päivitystenhallinta saisi tiedon uusista "
-#~ "päivityksistä."
+#~ "täytyy käyttää tätä valintaa jotta päivitystenhallinta saisi tiedon "
+#~ "uusista päivityksistä."
 
 #~ msgid "Binary"
 #~ msgstr "Binääri"
@@ -1104,8 +1185,8 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgstr "Varastot muuttuneet"
 
 #~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources.list "
-#~ "is stored in %s.save. \n"
+#~ "The repository information has changes. A backup copy of your sources."
+#~ "list is stored in %s.save. \n"
 #~ "\n"
 #~ "You need to reload the package list from the servers for your changes to "
 #~ "take effect. Do you want to do this now?"
@@ -1120,8 +1201,8 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ "This means that some dependencies of the installed packages are not "
 #~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
 #~ msgstr ""
-#~ "Jotkut asennettujen pakettien riippuvuuksista ovat siis täyttämättä. Käytä "
-#~ "\"Synaptic\"- tai \"apt-get\"-ohjelmia korjataksesi ongelman."
+#~ "Jotkut asennettujen pakettien riippuvuuksista ovat siis täyttämättä. "
+#~ "Käytä \"Synaptic\"- tai \"apt-get\"-ohjelmia korjataksesi ongelman."
 
 #~ msgid "It is not possible to upgrade all packages."
 #~ msgstr "Kaikkia paketteja ei voida päivittää."
@@ -1129,12 +1210,13 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgid ""
 #~ "This means that besides the actual upgrade of the packages some further "
 #~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
+#~ "situation."
 #~ msgstr ""
-#~ "Pakettien päivittämisen lisäksi tarvitaan siis joitain muita toimenpiteitä "
-#~ "(kuten pakettien asentamista tai poistamista). Käytä Synaptic-ohjelman "
-#~ "\"Smart Upgrade\"-toimintoa tai \"apt-get dist-upgrade\"-komentoa "
-#~ "korjataksesi ongelman."
+#~ "Pakettien päivittämisen lisäksi tarvitaan siis joitain muita "
+#~ "toimenpiteitä (kuten pakettien asentamista tai poistamista). Käytä "
+#~ "Synaptic-ohjelman \"Smart Upgrade\"-toimintoa tai \"apt-get dist-upgrade"
+#~ "\"-komentoa korjataksesi ongelman."
 
 #~ msgid "The following packages are not upgraded: "
 #~ msgstr "Seuraavia paketteja ei päivitetä: "
@@ -1145,20 +1227,18 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgid ""
 #~ "Failed to download changes. Please check if there is an active internet "
 #~ "connection."
-#~ msgstr "Muutosten lataus epäonnistui. Tarkista, että Internet-yhteys toimii."
+#~ msgstr ""
+#~ "Muutosten lataus epäonnistui. Tarkista, että Internet-yhteys toimii."
 
 #~ msgid "Version %s: \n"
 #~ msgstr "Versio: %s: \n"
-
-#~ msgid "Downloading changes..."
-#~ msgstr "Ladataan muutoksia..."
 
 #~ msgid "The updates are being applied."
 #~ msgstr "Päivityksiä asennetaan."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. Please "
-#~ "close this other application first."
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
 #~ "Voit hallita paketteja vain yhdellä ohjelmalla kerrallaan. Sulje toinen "
 #~ "ohjelma ensin."
@@ -1180,19 +1260,20 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. Please "
-#~ "see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "Päivitä uudempaan versioon Ubuntu Linuxista. Käyttämällesi versiolle ei enää "
-#~ "ole tulossa turvallisuuspäivityksiä tai muita kriittisiä päivityksiä. "
-#~ "Tietoja päivittämisestä löydät sivulta http://www.ubuntulinux.org."
+#~ "Päivitä uudempaan versioon Ubuntu Linuxista. Käyttämällesi versiolle ei "
+#~ "enää ole tulossa turvallisuuspäivityksiä tai muita kriittisiä "
+#~ "päivityksiä. Tietoja päivittämisestä löydät sivulta http://www."
+#~ "ubuntulinux.org."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Ubuntusta on uusi julkaisu saatavilla!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see "
-#~ "http://www.ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
 #~ "Uusi julkaisu nimeltään '%s' on saatavilla. Päivitysohjeet löydät "
 #~ "osoitteesta http://www.ubuntulinux.org/."
@@ -1204,11 +1285,11 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ msgstr "Ei saatu haluttua lukitusta"
 
 #~ msgid ""
-#~ "This usually means that another package management application (like apt-get "
-#~ "or aptitude) already running. Please close that application first"
+#~ "This usually means that another package management application (like apt-"
+#~ "get or aptitude) already running. Please close that application first"
 #~ msgstr ""
-#~ "Tämä tarkoittaa yleensä, että toinen pakettienhallintaohjelma (kuten apt-get "
-#~ "tai aptitude) on jo käynnissä. Sulje tämä toinen ohjelma ensin."
+#~ "Tämä tarkoittaa yleensä, että toinen pakettienhallintaohjelma (kuten apt-"
+#~ "get tai aptitude) on jo käynnissä. Sulje tämä toinen ohjelma ensin."
 
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Alustetaan ja ladataan luetteloa päivityksistä..."
@@ -1237,15 +1318,16 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #~ "Add a new key file to the trusted keyring. Make sure that you got the key "
 #~ "over a secure channel and that you trust the owner. "
 #~ msgstr ""
-#~ "Lisää uusi avaintiedosto luotettuihin avaimiin. Varmista, että vastaanotit "
-#~ "avaimen luotettua kanavaa pitkin ja että luotat avaimen omistajaan. "
+#~ "Lisää uusi avaintiedosto luotettuihin avaimiin. Varmista, että "
+#~ "vastaanotit avaimen luotettua kanavaa pitkin ja että luotat avaimen "
+#~ "omistajaan. "
 
 #~ msgid ""
-#~ "Restore the default keys shiped with the distribution. This will not change "
-#~ "user installed keys."
+#~ "Restore the default keys shiped with the distribution. This will not "
+#~ "change user installed keys."
 #~ msgstr ""
-#~ "Palauta jakelun mukana toimitetut avaimet. Tämä ei tee muutoksia käyttäjän "
-#~ "asentamiin avaimiin."
+#~ "Palauta jakelun mukana toimitetut avaimet. Tämä ei tee muutoksia "
+#~ "käyttäjän asentamiin avaimiin."
 
 #~ msgid "Ubuntu Update Manager"
 #~ msgstr "Ubuntun päivitysten hallinta"
@@ -1253,8 +1335,8 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 #, fuzzy
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>Saatavilla olevat päivitykset</b></big>\n"
 #~ "\n"

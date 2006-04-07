@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-03 11:03+0200\n"
+"POT-Creation-Date: 2006-04-07 21:25+0200\n"
 "PO-Revision-Date: 2005-06-08 23:10+0200\n"
 "Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -494,7 +494,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
-"<big><b>Checking for available updates</b></big>\n"
+"<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
@@ -517,7 +517,7 @@ msgid "Chec_k"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:11
-msgid "Check for available updates"
+msgid "Check the software channels for new updates"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:12
@@ -831,7 +831,7 @@ msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Updates"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128
+#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Offisielt støttet"
@@ -891,12 +891,6 @@ msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian Non-US (Unstable)"
 
 #. CompDescription
-#: ../channels/Debian.info.in:51
-#, fuzzy
-msgid "Oficially supported"
-msgstr "Offisielt støttet"
-
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
@@ -905,6 +899,10 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Oficially supported"
+#~ msgstr "Offisielt støttet"
 
 #, fuzzy
 #~ msgid "Installing updates"
