@@ -182,7 +182,7 @@ class UpdateList:
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
              _("Some updates require the removal of further software. "
-               "Use the function \"Smart Upgrade\" of the package manager "
+               "Use the function \"Mark All Upgrades\" of the package manager "
 	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
 	       "terminal to update your system completely.")))
       dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_INFO,
