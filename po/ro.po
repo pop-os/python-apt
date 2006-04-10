@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 00:19+0000\n"
 "Last-Translator: Dan Damian <dand@codemonkey.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -490,6 +490,226 @@ msgstr ""
 msgid "_Resume Upgrade"
 msgstr "Actualizare completă"
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+msgid "Could not find the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+msgid "Could not download the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+msgid "Could not run the upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"Cheia selectată nu poate fi ştearsă. Raportaţi acest lucru ca un bug "
+"(eroare)."
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+msgid "Downloading the upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+#, fuzzy
+msgid "Upgrade tool"
+msgstr "Actualizare completă"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "A_utentificare"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:111
+#, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr ""
+"Nu am putut descărca modificările. Vă rog să verificaţi dacă aveţi o "
+"conexiune internet activă."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+msgid "Cannot install all available updates"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+msgid "The following updates will be skipped:"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "Versiunea %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Întrerupe descărcarea jurnalului de modificări"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "Sistemul dvs. este la zi!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../UpdateManager/UpdateManager.py:439
+#, python-format
+msgid "Download size: %s"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "<b>Detalii</b>"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+msgid "Update is complete"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr "Locaţiile au fost schimbate"
+
+#: ../UpdateManager/UpdateManager.py:584
+#, fuzzy
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"Informaţiile despre locaţii au fost schimbate. O copie de siguranţă a "
+"fişierului sources.list a fost salvată în %s.save.\n"
+"\n"
+"Pentru ca modificările să aibe efect, trebuie să reîncărcaţi lista de "
+"pachete de pe servere. Doriţi să faceţi acum acest lucru?"
+
+#: ../UpdateManager/UpdateManager.py:617
+#, fuzzy, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr "Versiune nouă: %s"
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "Distribuţia dvs. nu mai este suportată"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -532,10 +752,6 @@ msgstr "Descriere"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:15
@@ -943,10 +1159,6 @@ msgstr ""
 #~ msgstr "Verifică a_utomat actualizările software."
 
 #, fuzzy
-#~ msgid "Cancel downloading of the changelog"
-#~ msgstr "Întrerupe descărcarea jurnalului de modificări"
-
-#, fuzzy
 #~ msgid "<b>Packages to install:</b>"
 #~ msgstr "Pachete de instalat:"
 
@@ -1028,16 +1240,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Nu am găsit modificări, s-ar putea ca serverul să nu fi fost actualizat."
 
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Nu am putut descărca modificările. Vă rog să verificaţi dacă aveţi o "
-#~ "conexiune internet activă."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Versiunea %s: \n"
-
 #~ msgid "The updates are being applied."
 #~ msgstr "Actualizările sunt în curs de aplicare."
 
@@ -1048,17 +1250,8 @@ msgstr ""
 #~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
 #~ "închideţi ceilalţi manageri mai întâi."
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Sistemul dvs. este la zi!"
-
 #~ msgid "There are no updates available."
 #~ msgstr "Nu există nici un pachet de actualizat."
-
-#~ msgid "New version: %s"
-#~ msgstr "Versiune nouă: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Distribuţia dvs. nu mai este suportată"
 
 #, fuzzy
 #~ msgid "There is a new release of Ubuntu available!"
@@ -1105,22 +1298,6 @@ msgstr ""
 
 #~ msgid "US export restricted software"
 #~ msgstr "Software cu restricţii de export din SUA"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Locaţiile au fost schimbate"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Informaţiile despre locaţii au fost schimbate. O copie de siguranţă a "
-#~ "fişierului sources.list a fost salvată în %s.save.\n"
-#~ "\n"
-#~ "Pentru ca modificările să aibe efect, trebuie să reîncărcaţi lista de "
-#~ "pachete de pe servere. Doriţi să faceţi acum acest lucru?"
 
 #, fuzzy
 #~ msgid ""

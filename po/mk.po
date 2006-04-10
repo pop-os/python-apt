@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 00:18+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -490,6 +490,222 @@ msgstr ""
 msgid "_Resume Upgrade"
 msgstr ""
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+msgid "Could not find the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+msgid "Could not download the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+msgid "Could not run the upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"Клучот што го избравте не може да биде отстранет. Ве молам пријавете го ова "
+"како бубачка. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "Преземам промени"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+msgid "Upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "Проверка"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:111
+#, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr ""
+"Не успеав да ги преземам промените. Ве молам проверете дали Вашата интернет "
+"врска е активна."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "Проверувам за надградби..."
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+msgid "The following updates will be skipped:"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "Верзија %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Преземам промени"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "Вашиот систем е надграден!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "Инсталирам надградби..."
+msgstr[1] "Инсталирам надградби..."
+msgstr[2] "Инсталирам надградби..."
+
+#: ../UpdateManager/UpdateManager.py:439
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "Преземам промени"
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "<b>Детали</b>"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+msgid "Update is complete"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:584
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:617
+#, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "Вашата дистрибуција повеќе не е поддржана"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -532,10 +748,6 @@ msgstr "Опис"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:15
@@ -903,14 +1115,6 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Installing updates"
-#~ msgstr "Инсталирам надградби..."
-
-#, fuzzy
-#~ msgid "Check for available updates"
-#~ msgstr "Проверувам за надградби..."
-
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Оддели:</b>"
 
@@ -1070,9 +1274,6 @@ msgstr ""
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Откажи го преземањето на логот со промени"
 
-#~ msgid "Downloading Changes"
-#~ msgstr "Преземам промени"
-
 #~ msgid "Reload"
 #~ msgstr "Освежи"
 
@@ -1157,17 +1358,11 @@ msgstr ""
 #~ msgid "Choose a key-file"
 #~ msgstr "Одберете датотека за клуч"
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Вашиот систем е надграден!"
-
 #~ msgid "There is one package available for updating."
 #~ msgstr "Има еден достапен пакет за надградба."
 
 #~ msgid "There are %s packages available for updating."
 #~ msgstr "Има %s достапни пакети за надградба."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Верзија %s: \n"
 
 #~ msgid "There are no updated packages"
 #~ msgstr "Нема надградени пакети"
@@ -1222,9 +1417,6 @@ msgstr ""
 #~ msgid "New version:"
 #~ msgstr "Нова верзија:"
 
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Вашата дистрибуција повеќе не е поддржана"
-
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
 #~ "running will no longer get security fixes or other critical updates. "
@@ -1250,10 +1442,3 @@ msgstr ""
 
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr "Не се пронајдени промени, серверот може да не е надграден сеуште."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Не успеав да ги преземам промените. Ве молам проверете дали Вашата "
-#~ "интернет врска е активна."

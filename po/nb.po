@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-26 14:48+0000\n"
 "Last-Translator: Ingar Saltvik <ingar@saltvik.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -523,6 +523,231 @@ msgstr "_Omstart nå"
 msgid "_Resume Upgrade"
 msgstr "_Gjenoppta oppgradering"
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+#, fuzzy
+msgid "Could not find the release notes"
+msgstr "Kunne ikke finne noen oppgraderinger"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+#, fuzzy
+msgid "Could not download the release notes"
+msgstr "Kunne ikke laste ned alle oppgraderingene."
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+#, fuzzy
+msgid "Could not run the upgrade tool"
+msgstr "Kunne ikke installere oppgraderingene"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"Et uopprettelig problem oppstå ved forberedelse av oppgraderingen. Vennligst "
+"rapporter dette som en feil. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "Laster ned og installerer oppgraderingene"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+#, fuzzy
+msgid "Upgrade tool"
+msgstr "Oppgradèr %s"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "Autentisering"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr "Laster ned fil %li av %li med %s/s"
+
+#: ../UpdateManager/GtkProgress.py:111
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr "Laster ned fil %li av %li med ukjent hastighet"
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr "Feil under nedlasting av endringer. Sjekk tilkoblingen til internett."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "Vis og installèr tilgjengelige oppdateringer"
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+#, fuzzy
+msgid "The following updates will be skipped:"
+msgstr "De følgende pakkene er ikke oppgradert: "
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "Versjon %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Laster ned endringer"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "Systemet er helt oppdatert!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "Vis og installèr tilgjengelige oppdateringer"
+msgstr[1] "Vis og installèr tilgjengelige oppdateringer"
+
+#: ../UpdateManager/UpdateManager.py:439
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "Laster ned endringer"
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "Vis detaljer"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr "Vis detaljer"
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+#, fuzzy
+msgid "Update is complete"
+msgstr "Nedlastingen er fullført"
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr "Arkiv har blitt endret"
+
+#: ../UpdateManager/UpdateManager.py:584
+#, fuzzy
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"Arkivinformasjonen har blitt endret. En sikkerhetskopi av «sources.list»-"
+"filen er lagret i %s.save.\n"
+"\n"
+"Du må oppdatere pakkelisten fra tjenerene for at endringene skal tre i "
+"kraft. Vil du gjøre det nå?"
+
+#: ../UpdateManager/UpdateManager.py:617
+#, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "Din distribusjon er ikke lenger støttet"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -577,10 +802,6 @@ msgstr "Beskrivelse"
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr "Utgivelsesinformasjon"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Vis detaljer"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
@@ -945,9 +1166,6 @@ msgstr "DFSG-kompatiblel programvare med Non-Free avhengigheter"
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
 
-#~ msgid "Downloading file %li of %li at unknown speed"
-#~ msgstr "Laster ned fil %li av %li med ukjent hastighet"
-
 #~ msgid "Installing updates"
 #~ msgstr "Installerer oppdateringer"
 
@@ -1094,9 +1312,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Avbryt nedlasting av endringslogg"
 
-#~ msgid "Downloading Changes"
-#~ msgstr "Laster ned endringer"
-
 #, fuzzy
 #~ msgid "Debian sarge"
 #~ msgstr "Debian 3.1 «Sarge»"
@@ -1164,9 +1379,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid "Choose a key-file"
 #~ msgstr "Velg en nøkkelfil"
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Systemet er helt oppdatert!"
-
 #, fuzzy
 #~ msgid "There is one package available for updating."
 #~ msgstr "Det er ingen tilgjengelige oppdateringer."
@@ -1174,9 +1386,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #, fuzzy
 #~ msgid "There are %s packages available for updating."
 #~ msgstr "Det er ingen tilgjengelige oppdateringer."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Versjon %s: \n"
 
 #~ msgid "There are no updated packages"
 #~ msgstr "Det er ingen utdaterte pakker"
@@ -1216,9 +1425,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid "New version:"
 #~ msgstr "Ny versjon:"
 
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Din distribusjon er ikke lenger støttet"
-
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
 #~ "running will no longer get security fixes or other critical updates. "
@@ -1244,12 +1450,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr "Ingen endringer funnet, tjeneren er kanskje ikke oppdatert enda."
 
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Feil under nedlasting av endringer. Sjekk tilkoblingen til internett."
-
 #~ msgid "A_uthentication"
 #~ msgstr "A_utentisering"
 
@@ -1258,22 +1458,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 
 #~ msgid "Ubuntu Update Manager"
 #~ msgstr "Ubuntu oppdateringshåndterer"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Arkiv har blitt endret"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Arkivinformasjonen har blitt endret. En sikkerhetskopi av «sources.list»-"
-#~ "filen er lagret i %s.save.\n"
-#~ "\n"
-#~ "Du må oppdatere pakkelisten fra tjenerene for at endringene skal tre i "
-#~ "kraft. Vil du gjøre det nå?"
 
 #~ msgid ""
 #~ "This means that some dependencies of the installed packages are not "
@@ -1294,6 +1478,3 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ "Dette betyr at ved siden av å oppgradere pakkene kreves det ekstra "
 #~ "handling (som å installere eller fjerne pakker). Bruk «Synaptic» eller "
 #~ "«apt-get dist-upgrade» for å løse problemet."
-
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "De følgende pakkene er ikke oppgradert: "

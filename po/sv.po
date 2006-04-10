@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-27 18:10+0000\n"
 "Last-Translator: Robin Sonefors <ozamosi@blinkenlights.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -521,6 +521,229 @@ msgstr "_Starta om nu"
 msgid "_Resume Upgrade"
 msgstr "_Återuppta uppdateringen"
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+#, fuzzy
+msgid "Could not find the release notes"
+msgstr "Kunde inte hitta några uppdateringar"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+#, fuzzy
+msgid "Could not download the release notes"
+msgstr "Det gick inte ladda ner uppdateringarna"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+#, fuzzy
+msgid "Could not run the upgrade tool"
+msgstr "Det gick inte att installera uppdateringarna"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"Ett problem som inte gick att lösa uppstod när uppdateringen kontrolerades. "
+"Rapportera gärna detta som en bugg. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "Hämtar och installerar uppdateringarna"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+#, fuzzy
+msgid "Upgrade tool"
+msgstr "Uppdatera %s"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+#, fuzzy
+msgid "Verfication failed"
+msgstr "Transaktion misslyckades"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "Autentisering"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr "Hämtar hem fil %li av %li med en hastighet av %s/s"
+
+#: ../UpdateManager/GtkProgress.py:111
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr "Hämtar hem fil %li av %li med en okänd hastighet"
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr ""
+"Misslyckades med att hämta ändringar. Kontrollera att det finns en aktiv "
+"Internetanslutning."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "Visa och installera tillgängliga uppdateringar"
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+#, fuzzy
+msgid "The following updates will be skipped:"
+msgstr "Följande kanaler är våra kanaltips! "
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "Version %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Hämtar spegellista..."
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "Ditt system är aktuellt!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "Visa och installera tillgängliga uppdateringar"
+msgstr[1] "Visa och installera tillgängliga uppdateringar"
+
+#: ../UpdateManager/UpdateManager.py:439
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "Hämtar %s..."
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "Visa detaljer"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr "Visa detaljer"
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+#, fuzzy
+msgid "Update is complete"
+msgstr "Hämtningen är färdig"
+
+#: ../UpdateManager/UpdateManager.py:583
+#, fuzzy
+msgid "Repositories changed"
+msgstr "Värdnamnet har ändrats"
+
+#: ../UpdateManager/UpdateManager.py:584
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:617
+#, fuzzy, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr "Ny version: %s"
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "Din distribution stöds inte längre"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -576,10 +799,6 @@ msgstr "Beskrivning"
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr "Utgåveanteckningar"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Visa detaljer"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
@@ -945,9 +1164,6 @@ msgstr "DFSG-kompatibel mjukvara med beroenden till ickefri"
 msgid "Non-DFSG-compatible Software"
 msgstr "Inte DFSG-kompatibel mjukvara"
 
-#~ msgid "Downloading file %li of %li at unknown speed"
-#~ msgstr "Hämtar hem fil %li av %li med en okänd hastighet"
-
 #~ msgid "Installing updates"
 #~ msgstr "Installerar uppdateringar"
 
@@ -1060,23 +1276,9 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 #~ msgid "It is not possible to upgrade all packages."
 #~ msgstr "Det går inte att uppgradera alla paket."
 
-#, fuzzy
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "Följande kanaler är våra kanaltips! "
-
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr ""
 #~ "Ändringar kunde inte hittas, servern har kanske inte uppdaterats än."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Misslyckades med att hämta ändringar. Kontrollera att det finns en aktiv "
-#~ "Internetanslutning."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Version %s: \n"
 
 #~ msgid "The updates are being applied."
 #~ msgstr "Uppdateringarna verkställs."
@@ -1095,17 +1297,8 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 #~ msgid "Updating package list..."
 #~ msgstr "Hittade %d matchande paket"
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Ditt system är aktuellt!"
-
 #~ msgid "There are no updates available."
 #~ msgstr "Det finns inga tillgängliga uppdateringar."
-
-#~ msgid "New version: %s"
-#~ msgstr "Ny version: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Din distribution stöds inte längre"
 
 #, fuzzy
 #~ msgid "There is a new release of Ubuntu available!"
@@ -1158,10 +1351,6 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 
 #~ msgid "US export restricted software"
 #~ msgstr "Programvara med USA-exportbegränsningar"
-
-#, fuzzy
-#~ msgid "Repositories changed"
-#~ msgstr "Värdnamnet har ändrats"
 
 #~ msgid "Software Sources"
 #~ msgstr "Programvarukällor"
@@ -1638,9 +1827,6 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 #~ msgid "Install from File"
 #~ msgstr "Installera från fil"
 
-#~ msgid "Downloading %s..."
-#~ msgstr "Hämtar %s..."
-
 #~ msgid "Install from URL"
 #~ msgstr "Installera från URL"
 
@@ -1833,9 +2019,6 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 
 #~ msgid "The transaction has completed successfully"
 #~ msgstr "Transaktionen har färdigställts utan problem"
-
-#~ msgid "Transaction failed"
-#~ msgstr "Transaktion misslyckades"
 
 #~ msgid "Transaction Failed"
 #~ msgstr "Transaktion misslyckades"
@@ -2825,9 +3008,6 @@ msgstr "Inte DFSG-kompatibel mjukvara"
 #~ msgstr ""
 #~ "Kan inte komma åt paketsystem:<br>%s<p>Försäkra dig om att inga andra "
 #~ "pakethanteringsprogram kör, och försök igen."
-
-#~ msgid "Downloading mirror list..."
-#~ msgstr "Hämtar spegellista..."
 
 #~ msgid "Downloading channel artwork..."
 #~ msgstr "Hämtar kanalgrafik..."

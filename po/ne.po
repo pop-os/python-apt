@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 00:19+0000\n"
 "Last-Translator: Jaydeep Bhusal <zaydeep@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -480,6 +480,223 @@ msgstr ""
 msgid "_Resume Upgrade"
 msgstr ""
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+msgid "Could not find the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+msgid "Could not download the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+msgid "Could not run the upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "परिवर्तनहरु डाउनलोड गर्दै"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+msgid "Upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "प्रमाणिकरण"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:111
+#, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr "परिवर्तनहरु डाउनलोड गर्न असफल. यदि सक्रिय इन्टरनेट जडान छ भने जाँच्नुहोस"
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+msgid "Cannot install all available updates"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+#, fuzzy
+msgid "The following updates will be skipped:"
+msgstr "निम्न प्याकेजहरु स्तरवृद्धि गरिएको छैन "
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "संस्करण %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "परिवर्तनहरु डाउनलोड गर्दै"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "तपाइं को प्रणालि अप-टु-डेट छ!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "स्तरवृद्धिहरु स्थापना गर्दै"
+msgstr[1] "स्तरवृद्धिहरु स्थापना गर्दै"
+
+#: ../UpdateManager/UpdateManager.py:439
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "परिवर्तनहरु डाउनलोड गर्दै"
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "<b>विवरणहरु</b>"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+msgid "Update is complete"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr "कोषहरु परिवर्तित"
+
+#: ../UpdateManager/UpdateManager.py:584
+#, fuzzy
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"कोष जानकारी संग परिवर्तनहरु छन. %s मा तपाईंको स्रोतहरु को सुची को ब्याकअप प्रति "
+"भण्डारण गरिएको छ. बचत गर्नुहोस. \n"
+"\n"
+"तपाईको परिवर्तनहरुले प्रभाव लिनको लागि तपाईंले सर्भरहरु बाट प्याकेज सुची  फेरि लोड "
+"गर्नुपर्दछ. के तपाईं यो अहिले गर्न चाहनुहुन्छ?"
+
+#: ../UpdateManager/UpdateManager.py:617
+#, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "तपाईंको वितरण समर्थित छैन"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -522,10 +739,6 @@ msgstr "बर्णन"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:15
@@ -898,10 +1111,6 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Installing updates"
-#~ msgstr "स्तरवृद्धिहरु स्थापना गर्दै"
-
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>सेक्सनहरु:</b>"
 
@@ -1046,10 +1255,6 @@ msgstr ""
 #~ msgstr "परिवर्तनलग को डाउनलोड रद्द गर्नुहोस"
 
 #, fuzzy
-#~ msgid "Downloading Changes"
-#~ msgstr "परिवर्तनहरु डाउनलोड गर्दै"
-
-#, fuzzy
 #~ msgid "Oficial Distribution"
 #~ msgstr "<b>वितरण:</b>"
 
@@ -1091,9 +1296,6 @@ msgstr ""
 #~ msgid "Choose a key-file"
 #~ msgstr "एउटा कुञ्जि-फाइल रोज्नुहोस"
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "तपाइं को प्रणालि अप-टु-डेट छ!"
-
 #, fuzzy
 #~ msgid "There is one package available for updating."
 #~ msgstr "कुनै स्तरवृद्धिहरु उपलब्ध छैन"
@@ -1101,9 +1303,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "There are %s packages available for updating."
 #~ msgstr "कुनै स्तरवृद्धिहरु उपलब्ध छैन"
-
-#~ msgid "Version %s: \n"
-#~ msgstr "संस्करण %s: \n"
 
 #, fuzzy
 #~ msgid "There are no updated packages"
@@ -1128,9 +1327,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "New version:"
 #~ msgstr "नयाँ संस्करण: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "तपाईंको वितरण समर्थित छैन"
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
@@ -1157,11 +1353,6 @@ msgstr ""
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr "परिवर्तनहरु भेटिएन, सर्भर अझै स्तरवृद्धि नगरिएको हुन सक्दछ."
 
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr "परिवर्तनहरु डाउनलोड गर्न असफल. यदि सक्रिय इन्टरनेट जडान छ भने जाँच्नुहोस"
-
 #~ msgid "Ubuntu Update Manager"
 #~ msgstr "युबन्टु अद्यावधिक व्यवस्थापक"
 
@@ -1170,22 +1361,6 @@ msgstr ""
 
 #~ msgid "CD"
 #~ msgstr "सिडि"
-
-#~ msgid "Repositories changed"
-#~ msgstr "कोषहरु परिवर्तित"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "कोष जानकारी संग परिवर्तनहरु छन. %s मा तपाईंको स्रोतहरु को सुची को ब्याकअप प्रति "
-#~ "भण्डारण गरिएको छ. बचत गर्नुहोस. \n"
-#~ "\n"
-#~ "तपाईको परिवर्तनहरुले प्रभाव लिनको लागि तपाईंले सर्भरहरु बाट प्याकेज सुची  फेरि लोड "
-#~ "गर्नुपर्दछ. के तपाईं यो अहिले गर्न चाहनुहुन्छ?"
 
 #~ msgid ""
 #~ "This means that some dependencies of the installed packages are not "
@@ -1206,9 +1381,6 @@ msgstr ""
 #~ "यसको मतलब प्याकेजहरु को उचित स्तरवृद्धि बाहेक केहि अधिक कार्य (जस्तै प्याकेजहरुको स्थापन "
 #~ "र विस्थापन) आवश्यक छ. कृपया स्थिति ठीक गर्नको लागि साइनाप्टिक \"स्मार्ट स्तरवृद्धि\" "
 #~ "अथवा \"एपिटि-गेट डिस्ट-स्तरवृद्धि\" प्रयोग गर्नुहोस"
-
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "निम्न प्याकेजहरु स्तरवृद्धि गरिएको छैन "
 
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "अद्यावधिकहरुको इनिसियलाइज गर्दै र सुची प्राप्त गर्दै"

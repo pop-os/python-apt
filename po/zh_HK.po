@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.41.1\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 00:20+0000\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -476,6 +476,217 @@ msgstr ""
 msgid "_Resume Upgrade"
 msgstr ""
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+msgid "Could not find the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+msgid "Could not download the release notes"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+msgid "Could not run the upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr "你選定的密碼匙無法移除，請匯報問題。 "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "正在下載更改紀錄"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+msgid "Upgrade tool"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "認證"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:111
+#, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr "無法下載更改紀錄。請檢查網絡連線是否正常。"
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "正在檢查更新套件..."
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+msgid "The following updates will be skipped:"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "版本 %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "正在下載更改紀錄"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "系統已經在最新狀態！"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "正在安裝軟件更新..."
+msgstr[1] "正在安裝軟件更新..."
+
+#: ../UpdateManager/UpdateManager.py:439
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "正在下載更改紀錄"
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "<b>細節</b>"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+msgid "Update is complete"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:584
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:617
+#, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "已經不再支援你用的發行版本"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -518,10 +729,6 @@ msgstr "詳細說明"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:15
@@ -888,14 +1095,6 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Installing updates"
-#~ msgstr "正在安裝軟件更新..."
-
-#, fuzzy
-#~ msgid "Check for available updates"
-#~ msgstr "正在檢查更新套件..."
-
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>分類:</b>"
 
@@ -1037,9 +1236,6 @@ msgstr ""
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "取消下載更改紀錄"
 
-#~ msgid "Downloading Changes"
-#~ msgstr "正在下載更改紀錄"
-
 #~ msgid "You need to be root to run this program"
 #~ msgstr "你需要 root 的身分方可使用本程式"
 
@@ -1091,17 +1287,11 @@ msgstr ""
 #~ msgid "Choose a key-file"
 #~ msgstr "選擇密碼匙檔"
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "系統已經在最新狀態！"
-
 #~ msgid "There is one package available for updating."
 #~ msgstr "有 1 個套件可以更新。"
 
 #~ msgid "There are %s packages available for updating."
 #~ msgstr "有 %s 個套件可以更新。"
-
-#~ msgid "Version %s: \n"
-#~ msgstr "版本 %s: \n"
 
 #~ msgid "There are no updated packages"
 #~ msgstr "沒有任何套件需要更新"
@@ -1140,9 +1330,6 @@ msgstr ""
 #~ msgid "New version:"
 #~ msgstr "新版本:"
 
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "已經不再支援你用的發行版本"
-
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
 #~ "running will no longer get security fixes or other critical updates. "
@@ -1166,8 +1353,3 @@ msgstr ""
 
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr "沒有更改紀錄，可能伺服器資料未更新。"
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr "無法下載更改紀錄。請檢查網絡連線是否正常。"

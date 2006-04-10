@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 11:00+0000\n"
 "Last-Translator: Julian Turner <julian.turner@gmx.de>\n"
 "Language-Team: German GNOME Translations <gnome-de@gnome.org>\n"
@@ -532,6 +532,233 @@ msgstr "_Neu starten"
 msgid "_Resume Upgrade"
 msgstr "_Aktualisierung fortsetzen"
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+#, fuzzy
+msgid "Could not find the release notes"
+msgstr "Konnte keine Aktualisierungen finden"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+#, fuzzy
+msgid "Could not download the release notes"
+msgstr "Konnte die Aktualisierungen nicht herunterladen"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+#, fuzzy
+msgid "Could not run the upgrade tool"
+msgstr "Konnte die Aktualisierungen nicht installieren"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"Ein unlösbares Problem trat beim Ausrechnen der Aktualisierung auf. Bitte "
+"erstellen Sie hierfür einen Fehlerbericht. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "Lade Aktualisierungen herunter und installiere"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+#, fuzzy
+msgid "Upgrade tool"
+msgstr "Aktualisiere %s"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "A_uthentifizierung"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr "Lade Datei %li von %li mit %s/s herunter"
+
+#: ../UpdateManager/GtkProgress.py:111
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr "Lade Datei %li von %li mit unbekannter Geschwindigkeit herunter"
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr ""
+"Das Herunterladen der Änderungen ist fehlgeschlagen. Bitte prüfen Sie, ob "
+"eine Internetverbindung besteht."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "Verfügbare Aktualisierungen anzeigen und installieren"
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+#, fuzzy
+msgid "The following updates will be skipped:"
+msgstr "Die folgenden Pakete wurden nicht aktualisiert: "
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "Version %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Lade Datei %li von %li mit %s/s herunter"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "Das System ist auf dem aktuellen Stand!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "Verfügbare Aktualisierungen anzeigen und installieren"
+msgstr[1] "Verfügbare Aktualisierungen anzeigen und installieren"
+
+#: ../UpdateManager/UpdateManager.py:439
+#, python-format
+msgid "Download size: %s"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "Details zeigen"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr "Details zeigen"
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+#, fuzzy
+msgid "Update is complete"
+msgstr "Herunterladen abgeschlossen"
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr "Geänderte Repositories"
+
+#: ../UpdateManager/UpdateManager.py:584
+#, fuzzy
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"Die Repository-Informationen wurden geändert. Eine Sicherheitskopie der "
+"Datei »sources.list« wurde als »%s.save« gespeichert.\n"
+"\n"
+"Um die Änderungen zu übernehmen, müssen die Paketinformationen der Server "
+"neu abgerufen werden. Wollen Sie dies jetzt tun?"
+
+#: ../UpdateManager/UpdateManager.py:617
+#, fuzzy, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr "Neue Version: %s"
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "Diese Distribution wird nicht länger unterstützt"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -581,10 +808,6 @@ msgstr "Beschreibung"
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr "Notizen zur Veröffentlichung"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Details zeigen"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
@@ -958,9 +1181,6 @@ msgstr "DFSG-kompatible Software mit unfreien Abhängigkeiten"
 msgid "Non-DFSG-compatible Software"
 msgstr "Nicht DFSG-kompatible Software"
 
-#~ msgid "Downloading file %li of %li at unknown speed"
-#~ msgstr "Lade Datei %li von %li mit unbekannter Geschwindigkeit herunter"
-
 #~ msgid "Installing updates"
 #~ msgstr "Aktualisierungen werden installiert"
 
@@ -1138,23 +1358,10 @@ msgstr "Nicht DFSG-kompatible Software"
 #~ "notwendig sind. Verwenden Sie bitte die »Intelligente Aktualisierung« von "
 #~ "Synaptic oder »apt-get dist-upgrade« zur Behebung des Problems."
 
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "Die folgenden Pakete wurden nicht aktualisiert: "
-
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr ""
 #~ "Die Änderungen wurden nicht gefunden. Möglicherweise ist der Server noch "
 #~ "nicht aktualisiert."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Das Herunterladen der Änderungen ist fehlgeschlagen. Bitte prüfen Sie, ob "
-#~ "eine Internetverbindung besteht."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "Version %s: \n"
 
 #~ msgid "The updates are being applied."
 #~ msgstr "Die Aktualisierungen werden ausgeführt."
@@ -1169,17 +1376,8 @@ msgstr "Nicht DFSG-kompatible Software"
 #~ msgid "Updating package list..."
 #~ msgstr "Paketliste wird aktualisiert..."
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "Das System ist auf dem aktuellen Stand!"
-
 #~ msgid "There are no updates available."
 #~ msgstr "Es sind keine Aktualisierungen verfügbar."
-
-#~ msgid "New version: %s"
-#~ msgstr "Neue Version: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "Diese Distribution wird nicht länger unterstützt"
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
@@ -1257,22 +1455,6 @@ msgstr "Nicht DFSG-kompatible Software"
 #~ msgstr ""
 #~ "Automatischer Signaturschlüssel für das Ubuntu-CD-Image <cdimage@ubuntu."
 #~ "com>"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Geänderte Repositories"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "Die Repository-Informationen wurden geändert. Eine Sicherheitskopie der "
-#~ "Datei »sources.list« wurde als »%s.save« gespeichert.\n"
-#~ "\n"
-#~ "Um die Änderungen zu übernehmen, müssen die Paketinformationen der Server "
-#~ "neu abgerufen werden. Wollen Sie dies jetzt tun?"
 
 #, fuzzy
 #~ msgid ""

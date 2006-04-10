@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-07 21:25+0200\n"
+"POT-Creation-Date: 2006-04-10 10:51+0200\n"
 "PO-Revision-Date: 2006-03-23 12:21+0000\n"
 "Last-Translator: Tamás Nepusz <nepusz@mit.bme.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -519,6 +519,232 @@ msgstr "Újrain_dítás most"
 msgid "_Resume Upgrade"
 msgstr "Frissítés _folytatása"
 
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+#, fuzzy
+msgid "Could not find the release notes"
+msgstr "Nincs elérhető frissítés"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+#, fuzzy
+msgid "Could not download the release notes"
+msgstr "A frissítések nem tölthetőek le"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr ""
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:151
+#, fuzzy
+msgid "Could not run the upgrade tool"
+msgstr "A frissítések nem telepíthetőek"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr ""
+"A frissítés megtervezése közben feloldhatatlan probléma lépett fel. Kérem, "
+"jelentse ezt hibaként. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
+msgid "Downloading the upgrade tool"
+msgstr "Frissítések letöltése és telepítése"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:175
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:182
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:185
+#, fuzzy
+msgid "Upgrade tool"
+msgstr "%s frissítése"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:207
+msgid "Failed to fetch"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:213
+msgid "Failed to extract"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:220
+msgid "Verfication failed"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid ""
+"Verfing the upgrade failed.  There may be a problem with the network or with "
+"the server. "
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
+msgid "Authentication failed"
+msgstr "Hitelesítés"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:107
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with %s/s"
+msgstr "Fájlok letöltése (%li, összesen: %li), sebesség: %s/s"
+
+#: ../UpdateManager/GtkProgress.py:111
+#, fuzzy, python-format
+msgid "Downloading file %li of %li with unknown speed"
+msgstr "Fájlok letöltése (%li, összesen: %li), sebesség: ismeretlen"
+
+#: ../UpdateManager/UpdateManager.py:147
+msgid "The list of changes is not available yet. Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:152
+#, fuzzy
+msgid ""
+"Failed to download the listof changes. Please check your internet connection."
+msgstr ""
+"Nem sikerült a módosításokat letölteni. Kérem ellenőrizze, hogy aktív-e az "
+"internetkapcsolata."
+
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:183
+#, fuzzy
+msgid "Cannot install all available updates"
+msgstr "Rendelkezésre álló frissítések megjelenítése és telepítése"
+
+#: ../UpdateManager/UpdateManager.py:184
+msgid ""
+"Some updates require the removal of further software. Use the function "
+"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
+"dist-upgrade\" in a terminal to update your system completely."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:194
+#, fuzzy
+msgid "The following updates will be skipped:"
+msgstr "A következő csomagok nem lesznek frissítve: "
+
+#: ../UpdateManager/UpdateManager.py:330
+#, python-format
+msgid "Version %s: \n"
+msgstr "%s verzió: \n"
+
+#: ../UpdateManager/UpdateManager.py:390
+#, fuzzy
+msgid "Downloading the list of changes..."
+msgstr "Fájlok letöltése (%li, összesen: %li), sebesség: %s/s"
+
+#: ../UpdateManager/UpdateManager.py:428
+#, fuzzy
+msgid "Your system is up-to-date"
+msgstr "A rendszere naprakész!"
+
+#: ../UpdateManager/UpdateManager.py:437
+#, fuzzy, python-format
+msgid "You can install one update"
+msgid_plural "You can install %s updates"
+msgstr[0] "Rendelkezésre álló frissítések megjelenítése és telepítése"
+
+#: ../UpdateManager/UpdateManager.py:439
+#, python-format
+msgid "Download size: %s"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:450
+#, fuzzy
+msgid "Hide details"
+msgstr "Részletek megjelenítése"
+
+#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+msgid "Show details"
+msgstr "Részletek megjelenítése"
+
+#: ../UpdateManager/UpdateManager.py:467
+msgid "Please wait, this can take some time."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:469
+#, fuzzy
+msgid "Update is complete"
+msgstr "A letöltés befejeződött"
+
+#: ../UpdateManager/UpdateManager.py:583
+msgid "Repositories changed"
+msgstr "Megváltoztak a tárolók"
+
+#: ../UpdateManager/UpdateManager.py:584
+#, fuzzy
+msgid ""
+"You need to reload the package list from the servers for your changes to "
+"take effect. Do you want to do this now?"
+msgstr ""
+"A tárolóinformációk megváltoztak. A sources.list biztonsági másolata %s.save "
+"néven van elmentve.\n"
+"\n"
+"A csomaglistákat újra le kell tölteni a kiszolgálókról, hogy a változtatások "
+"életbe lépjenek. Meg akarja ezt tenni most?"
+
+#: ../UpdateManager/UpdateManager.py:617
+#, fuzzy, python-format
+msgid "New version: %s   (Size: %s)"
+msgstr "Új verzió: %s"
+
+#: ../UpdateManager/UpdateManager.py:631
+#, fuzzy
+msgid "Your distribution is not supported anymore"
+msgstr "A disztribúciója már nem támogatott"
+
+#: ../UpdateManager/UpdateManager.py:632
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:683
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:685
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgstr ""
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:702
+msgid "Software index is broken"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:703
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+
 #: ../data/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
@@ -574,10 +800,6 @@ msgstr "Leírás"
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
 msgstr "Kiadási megjegyzések"
-
-#: ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Részletek megjelenítése"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
@@ -943,9 +1165,6 @@ msgstr "DFSG-kompatibilis szoftver nem-szabad függőségekkel"
 msgid "Non-DFSG-compatible Software"
 msgstr "Nem DFSG-kompatibilis szoftver"
 
-#~ msgid "Downloading file %li of %li at unknown speed"
-#~ msgstr "Fájlok letöltése (%li, összesen: %li), sebesség: ismeretlen"
-
 #~ msgid "Installing updates"
 #~ msgstr "Frissítések telepítése"
 
@@ -1115,22 +1334,9 @@ msgstr "Nem DFSG-kompatibilis szoftver"
 #~ "a Synaptic \"Intelligens frissítés\" lehetőségét, vagy az \"apt-get dist-"
 #~ "upgrade\" parancsot a probléma megoldására."
 
-#~ msgid "The following packages are not upgraded: "
-#~ msgstr "A következő csomagok nem lesznek frissítve: "
-
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr ""
 #~ "Nem találhatóak módosítások, lehet, hogy a kiszolgáló még nem frissült."
-
-#~ msgid ""
-#~ "Failed to download changes. Please check if there is an active internet "
-#~ "connection."
-#~ msgstr ""
-#~ "Nem sikerült a módosításokat letölteni. Kérem ellenőrizze, hogy aktív-e "
-#~ "az internetkapcsolata."
-
-#~ msgid "Version %s: \n"
-#~ msgstr "%s verzió: \n"
 
 #~ msgid "The updates are being applied."
 #~ msgstr "A frissítések alkalmazása folyamatban."
@@ -1145,17 +1351,8 @@ msgstr "Nem DFSG-kompatibilis szoftver"
 #~ msgid "Updating package list..."
 #~ msgstr "Csomaglista frissítése..."
 
-#~ msgid "Your system is up-to-date!"
-#~ msgstr "A rendszere naprakész!"
-
 #~ msgid "There are no updates available."
 #~ msgstr "Nem állnak rendelkezésre frissítések."
-
-#~ msgid "New version: %s"
-#~ msgstr "Új verzió: %s"
-
-#~ msgid "Your distribution is no longer supported"
-#~ msgstr "A disztribúciója már nem támogatott"
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
@@ -1229,22 +1426,6 @@ msgstr "Nem DFSG-kompatibilis szoftver"
 
 #~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
 #~ msgstr "Ubuntu CD-kép automatikus aláírókulcs <cdimage@ubuntu.com>"
-
-#~ msgid "Repositories changed"
-#~ msgstr "Megváltoztak a tárolók"
-
-#~ msgid ""
-#~ "The repository information has changes. A backup copy of your sources."
-#~ "list is stored in %s.save. \n"
-#~ "\n"
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr ""
-#~ "A tárolóinformációk megváltoztak. A sources.list biztonsági másolata %s."
-#~ "save néven van elmentve.\n"
-#~ "\n"
-#~ "A csomaglistákat újra le kell tölteni a kiszolgálókról, hogy a "
-#~ "változtatások életbe lépjenek. Meg akarja ezt tenni most?"
 
 #, fuzzy
 #~ msgid ""

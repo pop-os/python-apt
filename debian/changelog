@@ -1,6 +1,7 @@
 update-manager (0.42.2ubuntu12) dapper; urgency=low
 
   * channels/*.in: typo fix
+  * po/POTFILES.in: add missing files (ubuntu: #38738)
 
  --
 
