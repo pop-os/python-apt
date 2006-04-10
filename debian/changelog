@@ -3,6 +3,8 @@ update-manager (0.42.2ubuntu12) dapper; urgency=low
   * channels/*.in: typo fix
   * po/POTFILES.in: add missing files (ubuntu: #38738)
   * fix the help string in update-manager (ubuntu: #23274)
+  * fix the bad grammar in "Cannot install all available updates"
+    (ubuntu: #32864)
 
  --
 
