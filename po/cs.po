@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-26 19:43+0000\n"
-"Last-Translator: Texis <tomas@ciganek.cz>\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-12 13:20+0000\n"
+"Last-Translator: Ondřej Nový <ubuntu@ondrej.org>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -413,7 +413,7 @@ msgstr "Upgradovat %s"
 
 #: ../DistUpgrade/DistUpgradeView.py:75
 msgid "Reboot required"
-msgstr "Je třeba restartovat"
+msgstr "Vyžadován restartovat"
 
 #: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
@@ -469,7 +469,7 @@ msgstr "Detaily"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "Rozdíl mezi soubory"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -633,8 +633,8 @@ msgstr "Zobrazit a nainstalovat dostupné aktualizace"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -997,7 +997,7 @@ msgstr "Zobrazit a nainstalovat dostupné aktualizace"
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr "Spávce Aktualizací"
+msgstr "Správce Aktualizací"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
@@ -1147,6 +1147,9 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr "Žádný DFSG kompatibilní  Software"
 
+#~ msgid "Oficially supported"
+#~ msgstr "Oficiálně podporované"
+
 #~ msgid "Installing updates"
 #~ msgstr "Instaluji aktualizace"
 
@@ -1155,6 +1158,3 @@ msgstr "Žádný DFSG kompatibilní  Software"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Sekce:</b>"
-
-#~ msgid "Oficially supported"
-#~ msgstr "Oficiálně podporované"

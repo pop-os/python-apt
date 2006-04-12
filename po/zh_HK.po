@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.41.1\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-23 00:20+0000\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-04 20:25+0000\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -588,8 +588,8 @@ msgstr "正在檢查更新套件..."
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -1095,12 +1095,12 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>分類:</b>"
-
 #, fuzzy
 #~ msgid "Oficially supported"
 #~ msgstr "官方支援"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>分類:</b>"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-31 07:38+0000\n"
-"Last-Translator: Lennart Hansen <lahansen@gmail.com>\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-10 19:53+0000\n"
+"Last-Translator: Andreas Lloyd <lloydinho@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr "Efter %s dag(e)"
 
 #: ../SoftwareProperties/SoftwareProperties.py:413
 msgid "Import key"
-msgstr "Importer nøgle"
+msgstr "Importér nøgle"
 
 #: ../SoftwareProperties/SoftwareProperties.py:423
 msgid "Error importing selected file"
@@ -37,8 +37,7 @@ msgstr "Fejl under importering af den valgte fil"
 
 #: ../SoftwareProperties/SoftwareProperties.py:424
 msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr ""
-"Den valgte fil lader ikke til at være en GPG nøgle fil eller er korrupt"
+msgstr "Den valgte fil lader ikke til at være en GPG nøglefil eller er korrupt"
 
 #: ../SoftwareProperties/SoftwareProperties.py:436
 msgid "Error removing the key"
@@ -411,7 +410,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
-msgstr ""
+msgstr "    "
 
 #: ../DistUpgrade/DistUpgrade.glade.h:2
 msgid ""
@@ -606,8 +605,8 @@ msgstr "Kan ikke installere opgraderingerne"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -848,7 +847,7 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:2
 msgid "     "
-msgstr ""
+msgstr "     "
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:3
 msgid ""

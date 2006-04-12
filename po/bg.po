@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-23 00:18+0000\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-04 20:18+0000\n"
 "Last-Translator: Rostislav Raykov <nostalgiafed@gmail.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -602,8 +602,8 @@ msgstr "Проверка за обновления..."
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -1111,12 +1111,12 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Раздели:</b>"
-
 #, fuzzy
 #~ msgid "Oficially supported"
 #~ msgstr "Официално поддържан"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>Раздели:</b>"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"

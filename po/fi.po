@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-27 10:27+0000\n"
-"Last-Translator: Marko Kervinen <marko_kervinen@hotmail.com>\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-10 07:26+0000\n"
+"Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -214,14 +214,12 @@ msgid "Could not install the upgrades"
 msgstr "Ei voitu asentaa päivityksiä"
 
 #: ../DistUpgrade/DistUpgradeControler.py:214
-#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "is now run (dpkg --configure -a)."
 msgstr ""
 "Päivitys keskeytyy. Järjestelmäsi voi olla käyttökelvottomassa tilassa. "
-"Kokeile komentoa 'sudo apt-get install -f' tai Synaptic-ohjelmaa "
-"korjataksesi järjestelmän."
+"Korjaustoimenpiteet käynnistetään (dpkg --configure -a)."
 
 #: ../DistUpgrade/DistUpgradeControler.py:230
 msgid "Could not download the upgrades"
@@ -308,17 +306,16 @@ msgid "%s remaining"
 msgstr "%s jäljellä"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %li of %li"
-msgstr "Ladataan tiedostoa %li/%li nopeudella %s/s"
+msgstr "Noudetaan tiedostoa %li/%li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:140
-#, fuzzy
 msgid "Applying changes"
-msgstr "Ladataan muutoksia..."
+msgstr "Toteutetaan muutoksia"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
@@ -336,10 +333,12 @@ msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
+"Korvataanko asetustiedosto\n"
+"'%s'?"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "Komentoa 'diff' ei löytynyt"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
@@ -456,13 +455,12 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Aloita päivitys?</big/</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
 "span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Päivitetään seuraavaksi: Ubuntu "
-"\"Dapper\" 6.04</span>"
+"<span weight=\"bold\" size=\"x-large\">Päivitetään versioon: Ubuntu \"Dapper"
+"\" 6.06</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -474,7 +472,7 @@ msgstr "Yksityiskohdat"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "Tiedostojen väliset erot"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -502,12 +500,11 @@ msgstr "Päivitetään Ubuntua"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "_Pidä"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "_Lataa uudelleen"
+msgstr "_Korvaa"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
@@ -639,8 +636,8 @@ msgstr "Näytä ja asenna saatavilla olevat päivitykset"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -656,7 +653,7 @@ msgstr "Versio: %s: \n"
 #: ../UpdateManager/UpdateManager.py:390
 #, fuzzy
 msgid "Downloading the list of changes..."
-msgstr "Ladataan tiedostoa %li/%li nopeudella %s/s"
+msgstr "Noudetaan tiedostoa %li/%li"
 
 #: ../UpdateManager/UpdateManager.py:428
 #, fuzzy
@@ -759,7 +756,6 @@ msgstr ""
 "\"."
 
 #: ../data/UpdateManager.glade.h:4
-#, fuzzy
 msgid ""
 "<big><b>Analysing your system</b></big>\n"
 "\n"
@@ -784,13 +780,12 @@ msgid "Changes"
 msgstr "Muutokset"
 
 #: ../data/UpdateManager.glade.h:10
-#, fuzzy
 msgid "Chec_k"
-msgstr "_Check"
+msgstr "_Tarkista"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "Tarkista onko ohjelmakanavissa uusia päivityksiä"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -935,9 +930,8 @@ msgid "<b>Comment:</b>"
 msgstr "<b>Kommentti:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
-msgstr "<b>Komponentit</b>"
+msgstr "<b>Komponentit:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Distribution:</b>"
@@ -1054,27 +1048,23 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.04 'Dapper Drake'"
+msgstr "Ubuntu 6.06 'Dapper Drake'"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
-msgstr "Ubuntu 6.04 turvallisuuspäivitykset"
+msgstr "Ubuntu 6.06 turvallisuuspäivitykset"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 Updates"
-msgstr "Ubuntu 6.04 päivitykset"
+msgstr "Ubuntu 6.06 päivitykset"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.04 takaisinsovitukset"
+msgstr "Ubuntu 6.06 takaisinsovitukset"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
@@ -1163,6 +1153,9 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-epäyhteensopivat ohjelmat"
 
+#~ msgid "Oficially supported"
+#~ msgstr "Virallisesti tuettu"
+
 #~ msgid "Remove obsolete Packages?"
 #~ msgstr "Poista vanhentuneet paketit?"
 
@@ -1177,9 +1170,6 @@ msgstr "DFSG-epäyhteensopivat ohjelmat"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Osastot:</b>"
-
-#~ msgid "Oficially supported"
-#~ msgstr "Virallisesti tuettu"
 
 #~ msgid "Software Channel"
 #~ msgstr "Ohjelmistokanava"

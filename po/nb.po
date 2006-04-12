@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-26 14:48+0000\n"
-"Last-Translator: Ingar Saltvik <ingar@saltvik.org>\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-12 07:28+0000\n"
+"Last-Translator: Tor Harald Thorland <linux@strigen.com>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,13 +215,12 @@ msgid "Could not install the upgrades"
 msgstr "Kunne ikke installere oppgraderingene"
 
 #: ../DistUpgrade/DistUpgradeControler.py:214
-#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "is now run (dpkg --configure -a)."
 msgstr ""
-"Oppgraderingen avbrytes nå. Systemet ditt kan være ubrukelig. Vennlist prøv "
-"'sudo apt-get install -f' eller Synaptic for å fikse systemet ditt."
+"Oppgraderingen avbrytes nå. Systemet ditt kan være ubrukelig. En reperasjon "
+"kan være å kjøre (dpkg --configure -a)."
 
 #: ../DistUpgrade/DistUpgradeControler.py:230
 msgid "Could not download the upgrades"
@@ -236,17 +235,16 @@ msgstr ""
 "installasjonsmediet og prøv på nytt. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:273
-#, fuzzy
 msgid "Remove obsolete packages?"
 msgstr "Ønsker du å fjerne utdaterte pakker?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Skip This Step"
-msgstr ""
+msgstr "_Hopp over dette punktet"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Remove"
-msgstr ""
+msgstr "_Fjern"
 
 #: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
@@ -309,17 +307,16 @@ msgid "%s remaining"
 msgstr "%s gjenstår"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %li of %li"
-msgstr "Laster ned fil %li av %li med %s/s"
+msgstr "Laster ned fil %li av %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:140
-#, fuzzy
 msgid "Applying changes"
-msgstr "Laster ned endringer..."
+msgstr "Lagrer endringer"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
@@ -337,10 +334,12 @@ msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
+"Vil du erstatte konfigurasjonsfilen\n"
+"'%s?'"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "Kommandoen 'diff' ble ikke funnet"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
@@ -458,13 +457,12 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Vil du starte oppgraderingen?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
 "span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Oppgraderer til  Ubuntu \"Dapper\" "
-"6.04</span>"
+"6.06</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -476,7 +474,7 @@ msgstr "Detaljer"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "Forskjell mellom filene"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -504,12 +502,11 @@ msgstr "Oppgraderer Ubuntu"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "_Ta vare på"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "_Last på nytt"
+msgstr "_Erstatt"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
@@ -641,8 +638,8 @@ msgstr "Vis og installèr tilgjengelige oppdateringer"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -762,17 +759,16 @@ msgstr ""
 "\"Programvareegenskaper\""
 
 #: ../data/UpdateManager.glade.h:4
-#, fuzzy
 msgid ""
 "<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
 msgstr ""
-"<big><b>Sjekker for tilgjengelige oppdateringer</b></big>\n"
+"<big><b>Analyserer ditt system</b></big>\n"
 "\n"
-"Programvareoppdateringer kan fikse feil, eliminere sikkerhetsproblemer og gi "
-"deg ny funksjonalitet."
+"Programvareoppdateringer kan reparere feil, eliminere sikkerhets problemer "
+"og gi deg ny funksjonalitet."
 
 #: ../data/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
@@ -787,13 +783,12 @@ msgid "Changes"
 msgstr "Endringer"
 
 #: ../data/UpdateManager.glade.h:10
-#, fuzzy
 msgid "Chec_k"
-msgstr "Sjekk"
+msgstr "Sjek_k"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "Sjekk programvare kanaler for nye oppdateringer"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -902,7 +897,6 @@ msgid "_Check for updates automatically:"
 msgstr "_Sjekk for oppdateringer automatisk:"
 
 #: ../data/SoftwareProperties.glade.h:15
-#, fuzzy
 msgid "_Download updates in the background, but do not install them"
 msgstr "_Last ned oppdateringer i bakgrunnen, men ikke installer dem"
 
@@ -939,7 +933,6 @@ msgid "<b>Comment:</b>"
 msgstr "<b>Kommentar:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
 msgstr "<b>Komponenter</b>"
 
@@ -1041,10 +1034,13 @@ msgid "Stores the size of the update-manager dialog"
 msgstr "Lagrer størrelsen for update-manager dialogen"
 
 #: ../data/update-manager.schemas.in.h:5
+#, fuzzy
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
 msgstr ""
+"Lagrer innstillingene til delen som inneholder listen over endringer og "
+"beskrivelser"
 
 #: ../data/update-manager.schemas.in.h:6
 msgid "The window size"
@@ -1054,31 +1050,27 @@ msgstr "Vindusstørrelsen"
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.04 'Dapper Drake'"
+msgstr "Ubuntu 6.06 'Dapper Drake'"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
-msgstr "Sikkerhetsoppdateringer for Ubuntu 6.04"
+msgstr "Sikkerhetsoppdateringer for Ubuntu 6.06"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 Updates"
-msgstr "Ubuntu 6.04 Oppdateringer"
+msgstr "Ubuntu 6.06 Oppdateringer"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.04 Backports"
+msgstr "Ubuntu 6.06 Backports"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
@@ -1124,7 +1116,7 @@ msgstr "Non-free (Multiverse)"
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Debian.info.in:6
@@ -1134,7 +1126,7 @@ msgstr "Debian 3.1 «Sarge»"
 #. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
-msgstr ""
+msgstr "http://security.debian.org/"
 
 #. Description
 #: ../channels/Debian.info.in:20
@@ -1149,7 +1141,7 @@ msgstr "Debian \"Etch\" (testing)"
 #. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
-msgstr ""
+msgstr "http://http.us.debian.org/debian/"
 
 #. Description
 #: ../channels/Debian.info.in:48
@@ -1166,6 +1158,9 @@ msgstr "DFSG-kompatiblel programvare med Non-Free avhengigheter"
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
 
+#~ msgid "Oficially supported"
+#~ msgstr "Offisielt støttet"
+
 #~ msgid "Installing updates"
 #~ msgstr "Installerer oppdateringer"
 
@@ -1174,9 +1169,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Seksjoner:</b>"
-
-#~ msgid "Oficially supported"
-#~ msgstr "Offisielt støttet"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"

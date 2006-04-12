@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-26 12:31+0000\n"
-"Last-Translator: firingstone <firingstone@gmail.com>\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-08 11:35+0000\n"
+"Last-Translator: stone_unix <gaoghy@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -197,13 +197,12 @@ msgid "Could not install the upgrades"
 msgstr "无法安装升级"
 
 #: ../DistUpgrade/DistUpgradeControler.py:214
-#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "is now run (dpkg --configure -a)."
 msgstr ""
-"升级现在取消。你的系统可能处于不稳定状态。请试着用'sudo apt-get install -f'或"
-"者新立得来修复你的系统。"
+"升级现在取消。你的系统可能处于不稳定状态。恢复工作在运行中(dpkg --configure -"
+"a)。"
 
 #: ../DistUpgrade/DistUpgradeControler.py:230
 msgid "Could not download the upgrades"
@@ -216,17 +215,16 @@ msgid ""
 msgstr "升级现在取消。请检查你的网络连接活重新放置安装媒体后再试。 "
 
 #: ../DistUpgrade/DistUpgradeControler.py:273
-#, fuzzy
 msgid "Remove obsolete packages?"
 msgstr "删除陈旧的软件包？"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Skip This Step"
-msgstr ""
+msgstr "跳过这个步骤(_S)"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Remove"
-msgstr ""
+msgstr "删除(_R)"
 
 #: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
@@ -287,17 +285,16 @@ msgid "%s remaining"
 msgstr "还剩%s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %li of %li"
-msgstr "正在下载文件%li来自%li速度是%s/s"
+msgstr "正在下载第 %li 个文件(共 %li 个文件)"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:140
-#, fuzzy
 msgid "Applying changes"
-msgstr "正在下载更改..."
+msgstr "正在应用更新"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
@@ -315,10 +312,12 @@ msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
+"替换配置文件\n"
+"“%s”吗？"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "外部命令“diff”没有找到"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
@@ -425,12 +424,11 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>开始升级？</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
 "span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">升级到 Ubuntu \"Dapper\" 6.04</span>"
+"<span weight=\"bold\" size=\"x-large\">升级到 Ubuntu \"Dapper\" 6.06</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -442,7 +440,7 @@ msgstr "详细信息"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "文件之间的区别"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -470,12 +468,11 @@ msgstr "升级Ubuntu"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "维持原状(_K)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "重新载入(_R)"
+msgstr "替换(_R)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
@@ -604,8 +601,8 @@ msgstr "显示并安装可用更新"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -620,7 +617,7 @@ msgstr "版本 %s： \n"
 #: ../UpdateManager/UpdateManager.py:390
 #, fuzzy
 msgid "Downloading the list of changes..."
-msgstr "正在下载文件%li来自%li速度是%s/s"
+msgstr "正在下载第 %li 个文件(共 %li 个文件)"
 
 #: ../UpdateManager/UpdateManager.py:428
 #, fuzzy
@@ -716,7 +713,6 @@ msgstr ""
 "变."
 
 #: ../data/UpdateManager.glade.h:4
-#, fuzzy
 msgid ""
 "<big><b>Analysing your system</b></big>\n"
 "\n"
@@ -725,7 +721,7 @@ msgid ""
 msgstr ""
 "<big><b>正在检查有效的更新</b></big>\n"
 "\n"
-"软件更新可以为你修复错误，除去安全漏洞及提供新的特性。"
+"软件更新可以为你修复错误，除去安全漏洞，并提供新的特性。"
 
 #: ../data/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
@@ -740,13 +736,12 @@ msgid "Changes"
 msgstr "更改"
 
 #: ../data/UpdateManager.glade.h:10
-#, fuzzy
 msgid "Chec_k"
-msgstr "检查（_C）"
+msgstr "检查（_K）"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "检查软件频道以获得新的更新"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -852,7 +847,6 @@ msgid "_Check for updates automatically:"
 msgstr "自动检查更新(_C)"
 
 #: ../data/SoftwareProperties.glade.h:15
-#, fuzzy
 msgid "_Download updates in the background, but do not install them"
 msgstr "在后台下载更新，但是不安装(_D)"
 
@@ -886,9 +880,8 @@ msgid "<b>Comment:</b>"
 msgstr "<b>注释：</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
-msgstr "<b>组件</b>"
+msgstr "<b>组件:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Distribution:</b>"
@@ -1001,27 +994,23 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.04 'Dapper Drake'"
+msgstr "Ubuntu 6-06 'Dapper Drake'"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
-msgstr "Ubuntu 6.04 安全更新"
+msgstr "Ubuntu 6-06 安全更新"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 Updates"
-msgstr "Ubuntu 6.04 更新"
+msgstr "Ubuntu 6-06 升级"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.04 移植"
+msgstr "Ubuntu 6-06 降级移植"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
@@ -1109,6 +1098,9 @@ msgstr "带有非自由依赖关系的DFSG兼容软件"
 msgid "Non-DFSG-compatible Software"
 msgstr "非DFSG兼容软件"
 
+#~ msgid "Oficially supported"
+#~ msgstr "官方支持"
+
 #~ msgid "Installing updates"
 #~ msgstr "安装更新"
 
@@ -1117,9 +1109,6 @@ msgstr "非DFSG兼容软件"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>节：</b>"
-
-#~ msgid "Oficially supported"
-#~ msgstr "官方支持"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"

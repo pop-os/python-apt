@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-23 11:17+0000\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-08 13:26+0000\n"
 "Last-Translator: Ricardo Pérez López <ricardo@iesdonana.org>\n"
 "Language-Team: Spanish <traductores@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -220,14 +220,13 @@ msgid "Could not install the upgrades"
 msgstr "No se han podido instalar las actualizaciones"
 
 #: ../DistUpgrade/DistUpgradeControler.py:214
-#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "is now run (dpkg --configure -a)."
 msgstr ""
 "La actualización se cancelará ahora. Su sistema puede haber quedado en un "
-"estado no usable. Por favor, intente con «sudo apt-get install -f» en una "
-"terminal, o bien con Synaptic, para arreglar su sistema."
+"estado inutilizable. Se llevará a cabo ahora una recuperación (dpkg --"
+"configure -a)."
 
 #: ../DistUpgrade/DistUpgradeControler.py:230
 msgid "Could not download the upgrades"
@@ -242,17 +241,16 @@ msgstr ""
 "internet (o su soporte de instalación) y vuelva a intentarlo. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:273
-#, fuzzy
 msgid "Remove obsolete packages?"
 msgstr "¿Desinstalar los paquetes obsoletos?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Skip This Step"
-msgstr ""
+msgstr "_Saltar este paso"
 
 #: ../DistUpgrade/DistUpgradeControler.py:274
 msgid "_Remove"
-msgstr ""
+msgstr "_Quitar"
 
 #: ../DistUpgrade/DistUpgradeControler.py:284
 msgid "Error during commit"
@@ -315,17 +313,16 @@ msgid "%s remaining"
 msgstr "%s restantes"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:110
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %li of %li"
-msgstr "Descargando archivo %li de %li a %s/s"
+msgstr "Descargando archivo %li de %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:140
-#, fuzzy
 msgid "Applying changes"
-msgstr "Descargando informe de cambios..."
+msgstr "Aplicando los cambios"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
@@ -344,10 +341,12 @@ msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
+"¿Desea reemplazar el archivo de configuración\n"
+"«%s»?"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "No se ha encontrado el comando «diff»"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:296
 msgid "A fatal error occured"
@@ -466,12 +465,11 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>¿Comenzar la actualización?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
 "span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Actualizando a Ubuntu «Dapper» 6.04</"
+"<span weight=\"bold\" size=\"x-large\">Actualizando a Ubuntu «Dapper» 6.06</"
 "span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -484,7 +482,7 @@ msgstr "Detalles"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "Diferencia entre los archivos"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -512,12 +510,11 @@ msgstr "Actualizando Ubuntu"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "_Conservar"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "_Recargar"
+msgstr "_Sustituir"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
@@ -651,8 +648,8 @@ msgstr "Muestra e instala las actualizaciones disponibles"
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -668,7 +665,7 @@ msgstr "Versión %s: \n"
 #: ../UpdateManager/UpdateManager.py:390
 #, fuzzy
 msgid "Downloading the list of changes..."
-msgstr "Descargando archivo %li de %li a %s/s"
+msgstr "Descargando archivo %li de %li"
 
 #: ../UpdateManager/UpdateManager.py:428
 #, fuzzy
@@ -772,14 +769,13 @@ msgstr ""
 "software»."
 
 #: ../data/UpdateManager.glade.h:4
-#, fuzzy
 msgid ""
 "<big><b>Analysing your system</b></big>\n"
 "\n"
 "Software updates can correct errors, eliminate security vulnerabilities, and "
 "provide new features to you."
 msgstr ""
-"<big><b>Comprobando actualizaciones disponibles</b></big>\n"
+"<big><b>Analizando su sistema</b></big>\n"
 "\n"
 "Las actualizaciones de software pueden corregir errores, eliminar fallos de "
 "seguridad, y proporcionar nuevas funcionalidades."
@@ -797,13 +793,12 @@ msgid "Changes"
 msgstr "Cambios"
 
 #: ../data/UpdateManager.glade.h:10
-#, fuzzy
 msgid "Chec_k"
 msgstr "_Comprobar"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "Comprobar si hay nuevas actualizaciones en los canales de software"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -815,7 +810,7 @@ msgstr "Notas de publicación"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
-msgstr "Mostrar el progreso de cada archivo individua"
+msgstr "Mostrar el progreso de cada archivo individual"
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
@@ -912,9 +907,8 @@ msgid "_Check for updates automatically:"
 msgstr "_Comprobar actualizaciones automáticamente:"
 
 #: ../data/SoftwareProperties.glade.h:15
-#, fuzzy
 msgid "_Download updates in the background, but do not install them"
-msgstr "_Descargar actualizaciones en segundo plano, pero no instalarlas"
+msgstr "_Descargar actualizaciones en segundo plano, pero sin instalarlas"
 
 #: ../data/SoftwareProperties.glade.h:16
 msgid "_Install security updates without confirmation"
@@ -950,9 +944,8 @@ msgid "<b>Comment:</b>"
 msgstr "<b>Comentario:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
-msgstr "<b>Componentes</b>"
+msgstr "<b>Componentes:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Distribution:</b>"
@@ -1071,27 +1064,23 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.04 «Dapper Drake»"
+msgstr "Ubuntu 6.06 «Dapper Drake»"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
-msgstr "Actualizaciones de seguridad de Ubuntu 6.04"
+msgstr "Actualizaciones de seguridad de Ubuntu 6.06"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 Updates"
-msgstr "Actualizaciones de Ubuntu 6.04"
+msgstr "Actualizaciones de Ubuntu 6.06"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 Backports"
-msgstr "«Backports» de Ubuntu 6.04"
+msgstr "«Backports» de Ubuntu 6.06"
 
 #. Description
 #: ../channels/Ubuntu.info.in:74
@@ -1179,6 +1168,9 @@ msgstr "Software compatible con la DFSG con dependencias no libres"
 msgid "Non-DFSG-compatible Software"
 msgstr "Software no compatible con la DFSG"
 
+#~ msgid "Oficially supported"
+#~ msgstr "Soportado oficialmente"
+
 #~ msgid "Installing updates"
 #~ msgstr "Instalando actualizaciones"
 
@@ -1187,9 +1179,6 @@ msgstr "Software no compatible con la DFSG"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Secciones:</b>"
-
-#~ msgid "Oficially supported"
-#~ msgstr "Soportado oficialmente"
 
 #~ msgid "Reload the latest information about updates"
 #~ msgstr "Recargar la última información sobre actualizaciones"

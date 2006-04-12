@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-23 00:18+0000\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-04 20:23+0000\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
@@ -604,8 +604,8 @@ msgstr "Comprobando se hai actualizacións..."
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -1113,12 +1113,12 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Seccións:</b>"
-
 #, fuzzy
 #~ msgid "Oficially supported"
 #~ msgstr "Soporte oficial"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>Seccións:</b>"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"

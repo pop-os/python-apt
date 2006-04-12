@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager Gnome HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-10 10:51+0200\n"
-"PO-Revision-Date: 2006-03-23 00:20+0000\n"
+"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"PO-Revision-Date: 2006-04-04 20:25+0000\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -588,8 +588,8 @@ msgstr "Đang kiểm tra có cập nhật..."
 #: ../UpdateManager/UpdateManager.py:184
 msgid ""
 "Some updates require the removal of further software. Use the function "
-"\"Smart Upgrade\" of the package manager \"Synaptic\" or run \"sudo apt-get "
-"dist-upgrade\" in a terminal to update your system completely."
+"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+"get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:194
@@ -1095,12 +1095,12 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>Phần:</b>"
-
 #, fuzzy
 #~ msgid "Oficially supported"
 #~ msgstr "Được hỗ trợ một cách chính thức"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>Phần:</b>"
 
 #, fuzzy
 #~ msgid "Reload the latest information about updates"
@@ -1243,7 +1243,6 @@ msgstr ""
 
 # #-#-#-#-#  compendium3.po (alleyoop HEAD)  #-#-#-#-#
 # #-#-#-#-#  vi.po (Gnome-icon-theme)  #-#-#-#-#
-# 48x48/emblems/emblem-bin.icon.in.h:1
 #~ msgid "Binary"
 #~ msgstr "Nhị phân"
 
