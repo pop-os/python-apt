@@ -317,31 +317,29 @@ class SoftwareProperties(SimpleGladeApp):
     self.write_config()
     
   def write_config(self):
-    #print "write_config()"
-    periodic = "/etc/apt/apt.conf.d/10periodic"
+    # update the adept file as well if it is there
+    for periodic in ["/etc/apt/apt.conf.d/10periodic",
+                     "/etc/apt/apt.conf.d/15adept-periodic-update"]:
 
-    # read the old content
-    content = []
-    if os.path.isfile(periodic):
-      content = open(periodic, "r").readlines()
-    
-    cnf = apt_pkg.Config.SubTree("APT::Periodic")
+      # read the old content first
+      content = []
+      if os.path.isfile(periodic):
+        content = open(periodic, "r").readlines()
+        cnf = apt_pkg.Config.SubTree("APT::Periodic")
 
-    # write a new file without the updated keys
-    f = open(periodic, "w")
-    for line in content:
-      found = False
-      for key in cnf.List():
-        if line.find("APT::Periodic::%s" % (key)) >= 0:
-          found = True
-          break
-      if not found:
-        f.write(line)
+        # then write a new file without the updated keys
+        f = open(periodic, "w")
+        for line in content:
+          for key in cnf.List():
+            if line.find("APT::Periodic::%s" % (key)) >= 0:
+              break
+          else:
+            f.write(line)
 
-    # append the updated keys
-    for i in cnf.List():
-      f.write("APT::Periodic::%s \"%s\";\n" % (i, cnf.FindI(i)))
-    f.close()    
+        # and append the updated keys
+        for i in cnf.List():
+          f.write("APT::Periodic::%s \"%s\";\n" % (i, cnf.FindI(i)))
+        f.close()    
 
   def save_sourceslist(self):
     #location = "/etc/apt/sources.list"
