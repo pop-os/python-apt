@@ -120,7 +120,8 @@ class dialog_add:
       # since we're passing the SourceEntry as it is now,
       # this SourceEntry needs to be in the sourceslist,
       # so temporarily swap the original for the current
-      self.sourceslist.list[self.source_entry_index] = source_entry
+      if source_entry:
+        self.sourceslist.list[self.source_entry_index] = source_entry
       dialog = dialog_edit.dialog_edit(self.parent, self.sourceslist,
                                        source_entry, self.datadir)
       res = dialog.run()
@@ -151,8 +152,13 @@ class dialog_add:
     # we use "selected" for pretty much everything *but* we use
     # self.source_entry.uri to make sure that the mirror information is
     # preserved
+
     line = "%s %s %s" % (self.selected.type, self.source_entry.uri, self.selected.dist)
-    if len(self.selected_comps) > 0:
+    if self.source_entry.disabled:
+      line = "#" + line
+    if len(self.selected.comps) > 0 and len(self.selected_comps) == 0:
+      line = "#" + line
+    elif len(self.selected_comps) > 0:
       line += " " + " ".join(self.selected_comps)
     if self.selected.matches(self.source_entry) and self.source_entry.comment != "":
       line += " #"+self.source_entry.comment
@@ -170,7 +176,9 @@ class dialog_add:
           if self.source_entry:
             # 'edit' - ode
             if not self.custom:
-              self.sourceslist.list[self.source_entry_index] = self._make_source_entry()
+              entry = self._make_source_entry()
+              if entry:
+                self.sourceslist.list[self.source_entry_index] = entry
           else:
             # 'add' mode
             self.sourceslist.add(self.selected.type,
