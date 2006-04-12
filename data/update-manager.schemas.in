@@ -47,6 +47,22 @@
         </long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/update-manager/check_dist_upgrades</key>
+      <applyto>/apps/update-manager/check_dist_upgrades</applyto>
+      <owner>update-manager</owner>
+      <type>bool</type>
+      <default>False</default>
+		
+      <locale name="C">
+        <short>Remind to reload the channel list</short>
+        <long>
+	  If automatic checking for updates is disabeld, you have
+	  to reload the channel list manually. This option allows
+	  to hide the reminder shown in this case.
+        </long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>
 

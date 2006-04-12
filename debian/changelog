@@ -5,6 +5,8 @@ update-manager (0.42.2ubuntu12) dapper; urgency=low
   * fix the help string in update-manager (ubuntu: #23274)
   * fix the bad grammar in "Cannot install all available updates"
     (ubuntu: #32864)
+  * don't inform about new distro release on dapper by default (can be
+    changed via a gconf setting/commandline switch)
 
  --
 

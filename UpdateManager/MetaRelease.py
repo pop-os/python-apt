@@ -57,8 +57,10 @@ class MetaRelease(gobject.GObject):
 
         }
 
-    def __init__(self):
+    def __init__(self, useDevelopmentRelase=False):
         gobject.GObject.__init__(self)
+        if useDevelopmentRelase:
+            self.METARELEASE_URI = self.METARELEASE_URI_UNSTABLE
         self.metarelease_information = None
         self.downloading = True
         # we start the download thread here and we have a timeout

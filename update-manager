@@ -48,6 +48,9 @@ if __name__ == "__main__":
 
   # Begin parsing of options
   parser = OptionParser()
+  parser.add_option ("-c", "--check-dist-upgrades", action="store_true",
+                     dest="check_dist_upgrades", default=False,
+                     help="Check if a new distribution release is available")
   parser.add_option ("-d", "--devel-release", action="store_true",
                      dest="devel_release", default=False,
                      help="Check if upgrading to the latest devel release "
