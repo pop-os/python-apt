@@ -739,15 +739,15 @@ class UpdateManager(SimpleGladeApp):
 
 
   def main(self, options):
+    gconfclient = gconf.client_get_default() 
+    self.meta = MetaRelease(options.devel_release)
+    self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
+
     # check if we are interessted in dist-upgrade information
     # (we are not by default on dapper)
-    gconfclient = gconf.client_get_default() 
     if options.check_dist_upgrades or \
 	   gconfclient.get_bool("/apps/update-manager/check_dist_upgrades"):
-      # the user wants to see the development release
-      self.meta = MetaRelease(options.devel_release)
       self.meta.connect("new_dist_available",self.new_dist_available)
-      self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
     
     while gtk.events_pending():
       gtk.main_iteration()
