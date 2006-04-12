@@ -642,12 +642,12 @@ class UpdateManager(SimpleGladeApp):
     dialog.destroy()
     
   def on_button_dist_upgrade_clicked(self, button):
-      print "on_button_dist_upgrade_clicked"
+      #print "on_button_dist_upgrade_clicked"
       fetcher = DistUpgradeFetcher(self, self.new_dist)
       fetcher.run()
       
   def new_dist_available(self, meta_release, upgradable_to):
-    print "new_dist_available: %s" % upgradable_to.name
+    #print "new_dist_available: %s" % upgradable_to.name
     # check if the user already knowns about this dist
     #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
     #if name == seen:
