@@ -55,11 +55,11 @@
       <default>False</default>
 		
       <locale name="C">
-        <short>Remind to reload the channel list</short>
+        <short>Check for new distribution releases</short>
         <long>
-	  If automatic checking for updates is disabeld, you have
-	  to reload the channel list manually. This option allows
-	  to hide the reminder shown in this case.
+	   Check automatically if a new version of the current 
+           distribution is available and offer to upgrade (if
+           possible).
         </long>
       </locale>
     </schema>
