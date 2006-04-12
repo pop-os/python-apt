@@ -369,8 +369,18 @@ class SoftwareProperties(SimpleGladeApp):
     if not iter:
       return
     source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
-    dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
-                                     source_entry, self.datadir)
+    # see if we know what this thing should look like
+    found_matcher = False
+    for item in aptsources.SourceEntryTemplates(self.datadir).templates:
+      if item.matches(source_entry):
+        found_matcher = True
+        break
+    if found_matcher:
+      dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
+                                     self.datadir, source_entry)
+    else:
+      dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
+                                       source_entry, self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
       self.reload_sourceslist()
       self.modified = True

@@ -7,8 +7,10 @@ update-manager (0.42.2ubuntu12) dapper; urgency=low
     (ubuntu: #32864)
   * don't inform about new distro release on dapper by default (can be
     changed via a gconf setting/commandline switch)
-
- --
+  * fix UI issue of the edit dialog for given templates (thanks to
+    Chipzz for the patch)
+   
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 12 Apr 2006 20:23:21 +0200
 
 update-manager (0.42.2ubuntu11) dapper; urgency=low
 
