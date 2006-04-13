@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu13) dapper; urgency=low
+
+  * po/POTFILES.in: add missing desktop file (ubuntu: #39410)
+
+ --
+
 update-manager (0.42.2ubuntu12) dapper; urgency=low
 
   * channels/*.in: typo fix

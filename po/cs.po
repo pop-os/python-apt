@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-12 13:20+0000\n"
 "Last-Translator: Ondřej Nový <ubuntu@ondrej.org>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -28,28 +28,28 @@ msgstr "Každých %s dní"
 msgid "After %s days"
 msgstr "Po %s dnech"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 msgid "Import key"
 msgstr "Importovat klíč"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 msgid "Error importing selected file"
 msgstr "Chyba při importování vybraného souboru"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Vybraný soubor nemusí obsahovat GPG klíč nebo může být porušen."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "Chyba při odstraňování klíče"
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Vybraný klíč nemohl být odstraněn. Prosim nahlašte tento problém jako chybu"
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -60,11 +60,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "Prosím zadejte jméno disku"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 msgid "Please insert a disc in the drive:"
 msgstr "Prosím vložte disk do mechaniky:"
 
@@ -1001,6 +1001,16 @@ msgstr "Správce Aktualizací"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
@@ -1009,27 +1019,36 @@ msgstr ""
 "zdrojů ručne. Tato volba umožní ukrytí upomínky zobrazované v takovém "
 "případě."
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr "Připomenout obnovení seznamu zdrojů"
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr "Zobrazit detaily aktualizace"
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr "Uchovává velikost dialogu update-manageru"
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr "Velikost okna"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+msgid "Configure software channels and internet updates"
+msgstr ""
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Properties"
+msgstr "Předvolby software"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4

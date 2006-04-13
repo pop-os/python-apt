@@ -17,6 +17,7 @@ data/SoftwareProperties.glade
 data/SoftwarePropertiesDialogs.glade
 data/update-manager.desktop.in
 data/update-manager.schemas.in
+data/gnome-software-properties.desktop.in
 [type: gettext/rfc822deb] channels/Ubuntu.info.in
 [type: gettext/rfc822deb] channels/Debian.info.in
 [type: python] update-manager

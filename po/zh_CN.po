@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-08 11:35+0000\n"
 "Last-Translator: stone_unix <gaoghy@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -26,27 +26,27 @@ msgstr "每%s天"
 msgid "After %s days"
 msgstr "%s天后"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 msgid "Import key"
 msgstr "导入密钥"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 msgid "Error importing selected file"
 msgstr "在导入所选文件时出错"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "所选文件可能不是GPG密钥文件或者已经损坏."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "删除密钥时候出错"
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "你所选择的密钥不能被删除。请汇报这个bug"
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -57,11 +57,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "请输入光盘的名称"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 msgid "Please insert a disc in the drive:"
 msgstr "请将光盘插入到光驱里:"
 
@@ -957,6 +957,16 @@ msgstr "更新管理器"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
@@ -964,27 +974,36 @@ msgstr ""
 "如果自动检查更新被禁用，你将不得不手动重载频道列表。本选项允许隐藏此种情况下"
 "要出现的提醒语。"
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr "提醒重载频道列表"
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr "显示升级细节"
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr "储存更新管理器对话框的大小"
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
 msgstr "储存包含变动和描述列表的扩展器的状态"
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr "窗口大小"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+#, fuzzy
+msgid "Configure software channels and internet updates"
+msgstr "检查软件频道以获得新的更新"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "软件属性"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -1204,9 +1223,6 @@ msgstr "非DFSG兼容软件"
 
 #~ msgid "Edit software sources and settings"
 #~ msgstr "编辑软件源及设置"
-
-#~ msgid "Software Properties"
-#~ msgstr "软件属性"
 
 #~ msgid "Ubuntu Update Manager"
 #~ msgstr "Ubuntu 更新管理器"

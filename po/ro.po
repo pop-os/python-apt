@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-04 20:24+0000\n"
 "Last-Translator: Dan Damian <dand@codemonkey.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -27,32 +27,32 @@ msgstr "La fiecare %s zile"
 msgid "After %s days"
 msgstr "După %s zile"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 #, fuzzy
 msgid "Import key"
 msgstr "Importă cheie"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 #, fuzzy
 msgid "Error importing selected file"
 msgstr "Eroare la importarea fişierului ales"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Fişierul selectat nu pare a fi o cheie GPG sau poate fi corupt."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "Eroare la ştergerea cheii."
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 #, fuzzy
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Cheia selectată nu poate fi ştearsă. Raportaţi acest lucru ca un bug "
 "(eroare)."
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -63,11 +63,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "Introduceţi un nume pentru disc"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 #, fuzzy
 msgid "Please insert a disc in the drive:"
 msgstr "Introduceţi un disc în dispozitiv:"
@@ -973,32 +973,51 @@ msgstr "Actualizări Ubuntu 4.10"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
 msgstr ""
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr ""
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+msgid "Configure software channels and internet updates"
+msgstr ""
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Properties"
+msgstr "Preferinţe software"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -1267,10 +1286,6 @@ msgstr ""
 
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "Iniţializez şi obţin lista actualizărilor..."
-
-#, fuzzy
-#~ msgid "Software Properties"
-#~ msgstr "Preferinţe software"
 
 #, fuzzy
 #~ msgid "Binary"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-12 07:28+0000\n"
 "Last-Translator: Tor Harald Thorland <linux@strigen.com>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -27,28 +27,28 @@ msgstr "Hver %s dag"
 msgid "After %s days"
 msgstr "Etter %s dager"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 msgid "Import key"
 msgstr "Importer nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 msgid "Error importing selected file"
 msgstr "Feil under importering av fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Den valgte filen er ikke en GPG-fil, ellers er den skadet."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "Feil under fjerning av nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Nøkkelen du valgte kan ikke bli fjernet. Vennligst rapporter denne feilen."
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -59,11 +59,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "Vennligst skriv inn et navn for platen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 msgid "Please insert a disc in the drive:"
 msgstr "Vennligst sett inn planen i stasjonen:"
 
@@ -1013,6 +1013,16 @@ msgstr "Oppdateringshåndterer"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
@@ -1021,19 +1031,19 @@ msgstr ""
 "kanallisten på nytt manuelt. Dette valget tillater å skjule påminnelsen som "
 "er vist her."
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr "Minn på å laste kanallisten på nytt"
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr "Vis detaljer for en oppdatering"
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr "Lagrer størrelsen for update-manager dialogen"
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 #, fuzzy
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
@@ -1042,9 +1052,18 @@ msgstr ""
 "Lagrer innstillingene til delen som inneholder listen over endringer og "
 "beskrivelser"
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr "Vindusstørrelsen"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+#, fuzzy
+msgid "Configure software channels and internet updates"
+msgstr "Sjekk programvare kanaler for nye oppdateringer"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "Egenskaper for programvare"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -1200,9 +1219,6 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Rediger programvarekilder og instillinger"
-
-#~ msgid "Software Properties"
-#~ msgstr "Egenskaper for programvare"
 
 #, fuzzy
 #~ msgid "<b>Sources</b>"

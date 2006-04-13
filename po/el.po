@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-05 14:17+0000\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -26,31 +26,31 @@ msgstr "Κάθε %s ημέρες"
 msgid "After %s days"
 msgstr "Μετά από %s ημέρες"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 msgid "Import key"
 msgstr "Εισαγωγή κλειδιού"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 msgid "Error importing selected file"
 msgstr "Σφάλμα εισαγωγής επιλεγμένου αρχείου"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Το επιλεγμένο αρχείο μπορεί να μην είναι ένα αρχείο κλειδιού GPG ή μπορεί να "
 "είναι κατεστραμμένο."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "Σφάλμα απομάκρυνσης του κλειδιού"
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Το επιλεγμένο κλειδί δεν μπορεί να απομακρυνθεί. Παρακαλώ αναφέρετε το ως "
 "σφάλμα."
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -61,11 +61,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "Παρακαλώ εισάγετε ένα όνομα για το δίσκο"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 msgid "Please insert a disc in the drive:"
 msgstr "Παρακαλώ εισάγετε ένα δίσκο στον οδηγό:"
 
@@ -1007,6 +1007,16 @@ msgstr "Διαχείριση αναβαθμίσεων"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
@@ -1014,19 +1024,19 @@ msgstr ""
 "Αν έχει απενεργοποιηθεί ο αυτόματος έλεγχος για ενημερώσεις, θα πρέπει να "
 "ανανεώσετε τη λίστα καναλιών χειροκίνητα."
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr "Υπενθύμιση για την ανανέωση της λίστας καναλιών"
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr "Εμφάνιση λεπτομερειών μιας ενημέρωσης"
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr "Αποθηκεύει το μέγεθος του διαλόγου του update-manager"
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
@@ -1034,9 +1044,19 @@ msgstr ""
 "Αποθηκεύει τη κατάσταση του expander που περιέχει τη λίστα των αλλαγών και "
 "τις περιγραφής τους"
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr "Το μέγεθος του παραθύρου"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+#, fuzzy
+msgid "Configure software channels and internet updates"
+msgstr "Έλεγχος των καναλιών λογισμικού για ενημερώσεις"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Properties"
+msgstr "Προτιμήσεις λογισμικού"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4

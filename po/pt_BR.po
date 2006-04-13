@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-12 16:40+0200\n"
+"POT-Creation-Date: 2006-04-13 12:19+0200\n"
 "PO-Revision-Date: 2006-04-10 05:17+0000\n"
 "Last-Translator: Mário Meyer <mariomeyer@ubuntubrasil.org>\n"
 "Language-Team: Ubuntu-BR <tradutores@listas.ubuntubrasil.org>\n"
@@ -26,31 +26,31 @@ msgstr "A cada %s dias"
 msgid "After %s days"
 msgstr "Após %s dias"
 
-#: ../SoftwareProperties/SoftwareProperties.py:413
+#: ../SoftwareProperties/SoftwareProperties.py:421
 msgid "Import key"
 msgstr "Importar Chave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:423
+#: ../SoftwareProperties/SoftwareProperties.py:431
 msgid "Error importing selected file"
 msgstr "Erro importando o arquivo selecionado"
 
-#: ../SoftwareProperties/SoftwareProperties.py:424
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "O arquivo selecionado pode não ser um arquivo de chave GPG ou pode estar "
 "corrompido."
 
-#: ../SoftwareProperties/SoftwareProperties.py:436
+#: ../SoftwareProperties/SoftwareProperties.py:444
 msgid "Error removing the key"
 msgstr "Erro removendo a chave"
 
-#: ../SoftwareProperties/SoftwareProperties.py:437
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "A chave que você selecionou não pôde se removida. Por favor reporte isto "
 "como um erro."
 
-#: ../SoftwareProperties/SoftwareProperties.py:478
+#: ../SoftwareProperties/SoftwareProperties.py:486
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -61,11 +61,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:535
+#: ../SoftwareProperties/SoftwareProperties.py:543
 msgid "Please enter a name for the disc"
 msgstr "Por favor digite um nome para o disco"
 
-#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:559
 msgid "Please insert a disc in the drive:"
 msgstr "Por favor insira um disco no drive:"
 
@@ -1014,6 +1014,16 @@ msgstr "Gerenciador de Atualizações"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
@@ -1022,28 +1032,37 @@ msgstr ""
 "recarregar manualmente a lista de canais. Esta opção perminte que você "
 "esconda o lembrete mostrado neste caso."
 
-#: ../data/update-manager.schemas.in.h:2
+#: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
 msgstr "Lembrar de recarregar a lista de canais"
 
-#: ../data/update-manager.schemas.in.h:3
+#: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
 msgstr "Exibir detalhes de uma atualização"
 
-#: ../data/update-manager.schemas.in.h:4
+#: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
 msgstr "Armazena o tamanho do diálogo do update-manager"
 
-#: ../data/update-manager.schemas.in.h:5
+#: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
 msgstr ""
 "Armazena o estado do expansor que contém a lista de mudanças e a descrição"
 
-#: ../data/update-manager.schemas.in.h:6
+#: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
 msgstr "O tamanho da janela"
+
+#: ../data/gnome-software-properties.desktop.in.h:1
+#, fuzzy
+msgid "Configure software channels and internet updates"
+msgstr "Verificar os canais de software por novas atualizações"
+
+#: ../data/gnome-software-properties.desktop.in.h:2
+msgid "Software Properties"
+msgstr "Software Properties"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -1433,9 +1452,6 @@ msgstr "Programas não compatíveis com a DFSG"
 
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Edit software sources and settings"
-
-#~ msgid "Software Properties"
-#~ msgstr "Software Properties"
 
 #~ msgid "Ubuntu Update Manager"
 #~ msgstr "Ubuntu Update Manager"
