@@ -30,7 +30,7 @@ import re
 import statvfs
 from DistUpgradeConfigParser import DistUpgradeConfig
 
-from aptsources import SourcesList, SourceEntry
+from aptsources import SourcesList, SourceEntry, is_mirror
 from gettext import gettext as _
 from DistUpgradeCache import MyCache
 
@@ -82,7 +82,7 @@ class DistUpgradeControler(object):
             # check if it's a mirror (or offical site)
             validMirror = False
             for mirror in valid_mirrors:
-                if self.sources.is_mirror(mirror,entry.uri):
+                if is_mirror(mirror,entry.uri):
                     validMirror = True
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
