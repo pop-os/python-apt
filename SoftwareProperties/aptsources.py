@@ -32,6 +32,47 @@ import os.path
 
 from UpdateManager.Common.DistInfo import DistInfo
 
+
+# some global helpers
+def is_mirror(master_uri, compare_uri):
+  """check if the given add_url is idential or a mirror of orig_uri
+    e.g. master_uri = archive.ubuntu.com
+      compare_uri = de.archive.ubuntu.com
+      -> True
+  """
+  # remove traling spaces and "/"
+  compare_uri = compare_uri.rstrip("/ ")
+  master_uri = master_uri.rstrip("/ ")
+  # uri is identical
+  if compare_uri == master_uri:
+    #print "Identical"
+    return True
+  # add uri is a master site and orig_uri has the from "XX.mastersite"
+  # (e.g. de.archive.ubuntu.com)
+  try:
+    compare_srv = compare_uri.split("//")[1]
+    master_srv = master_uri.split("//")[1]
+    #print "%s == %s " % (add_srv, orig_srv)
+  except IndexError: # ok, somethings wrong here
+    #print "IndexError"
+    return False
+  # remove the leading "<country>." (if any) and see if that helps
+  if "." in compare_srv and \
+         compare_srv[compare_srv.index(".")+1:] == master_srv:
+    #print "Mirror"
+    return True
+  return False
+
+def uniq(s):
+  """ simple (and not efficient) way to return uniq list """
+  u = []
+  for x in s:
+    if x not in u:
+      u.append(x)
+  return u 
+
+
+
 # actual source.list entries
 class SourceEntry:
 
@@ -156,15 +197,6 @@ class SourceEntry:
     line += "\n"
     return line
     
-def uniq(s):
-  """ simple (and not efficient) way to return uniq list """
-  u = []
-  for x in s:
-    if x not in u:
-      u.append(x)
-  return u 
-  
-
 # the SourceList file as a class
 class SourcesList:
   def __init__(self):
@@ -187,40 +219,11 @@ class SourcesList:
       yield entry
     raise StopIteration
 
-  def is_mirror(self, master_uri, compare_uri):
-    """check if the given add_url is idential or a mirror of orig_uri
-       e.g. master_uri = archive.ubuntu.com
-            compare_uri = de.archive.ubuntu.com
-            -> True
-    """
-    # remove traling spaces and "/"
-    compare_uri = compare_uri.rstrip("/ ")
-    master_uri = master_uri.rstrip("/ ")
-    # uri is identical
-    if compare_uri == master_uri:
-      #print "Identical"
-      return True
-    # add uri is a master site and orig_uri has the from "XX.mastersite"
-    # (e.g. de.archive.ubuntu.com)
-    try:
-      compare_srv = compare_uri.split("//")[1]
-      master_srv = master_uri.split("//")[1]
-      #print "%s == %s " % (add_srv, orig_srv)
-    except IndexError: # ok, somethings wrong here
-      #print "IndexError"
-      return False
-    # remove the leading "<country>." (if any) and see if that helps
-    if "." in compare_srv and \
-           compare_srv[compare_srv.index(".")+1:] == master_srv:
-      #print "Mirror"
-      return True
-    return False
-
   def add(self, type, uri, dist, comps, comment="", pos=-1):
     # if there is a repo with the same (type, uri, dist) just add the
     # components
     for i in self.list:
-      if i.type == type and self.is_mirror(uri,i.uri) and i.dist == dist:
+      if i.type == type and is_mirror(uri,i.uri) and i.dist == dist:
         comps = uniq(i.comps + comps)
         # set to the old position and preserve comment
         comment = i.comment
@@ -282,13 +285,27 @@ class SourcesList:
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
   def __init__(self,a_type,uri,dist,description,comps):
-    self.comps = []
     self.comps_descriptions = []
     self.type = a_type
     self.uri = uri
     self.dist = dist
     self.description = description
     self.comps = comps
+
+  def matches(self,source_entry):
+    """ check if a given source_entry matches this one """
+    if (self.type != source_entry.type):
+      return False
+    if (self.dist != source_entry.dist):
+      return False
+    if not is_mirror(self.uri,source_entry.uri):
+      return False
+    for e_comp in source_entry.comps:
+      for t_comp in self.comps:
+        if e_comp == t_comp.name: break
+      else:
+        return False
+    return True
 
 class SourceCompTemplate:
   def __init__(self, name, description, on_by_default):
@@ -546,9 +563,9 @@ if __name__ == "__main__":
     print entry.str()
     #print entry.uri
 
-  mirror = sources.is_mirror("http://archive.ubuntu.com/ubuntu/",
-                             "http://de.archive.ubuntu.com/ubuntu/")
+  mirror = is_mirror("http://archive.ubuntu.com/ubuntu/",
+                     "http://de.archive.ubuntu.com/ubuntu/")
   print "is_mirror(): %s" % mirror
   
-  print sources.is_mirror("http://archive.ubuntu.com/ubuntu",
-                             "http://de.archive.ubuntu.com/ubuntu/")
+  print is_mirror("http://archive.ubuntu.com/ubuntu",
+                  "http://de.archive.ubuntu.com/ubuntu/")

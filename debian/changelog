@@ -1,3 +1,32 @@
+update-manager (0.42.2ubuntu13) dapper; urgency=low
+
+  * po/POTFILES.in: add missing desktop file (ubuntu: #39410)
+
+ --
+
+update-manager (0.42.2ubuntu12) dapper; urgency=low
+
+  * channels/*.in: typo fix
+  * po/POTFILES.in: add missing files (ubuntu: #38738)
+  * fix the help string in update-manager (ubuntu: #23274)
+  * fix the bad grammar in "Cannot install all available updates"
+    (ubuntu: #32864)
+  * don't inform about new distro release on dapper by default (can be
+    changed via a gconf setting/commandline switch)
+  * fix UI issue of the edit dialog for given templates (thanks to
+    Chipzz for the patch)
+   
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 12 Apr 2006 20:23:21 +0200
+
+update-manager (0.42.2ubuntu11) dapper; urgency=low
+
+  * debian/control: 
+    - depend on unattended-upgrades
+    - move python-gnome2 to recommends (we only use gconf from it)
+  * UpdateManager/fakegconf.py: update for xubuntu (thanks to Jani Monoses)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  5 Apr 2006 14:46:10 +0200
+
 update-manager (0.42.2ubuntu10) dapper; urgency=low
 
   * update-manger: fix a missing import (#36138)
@@ -5,8 +34,10 @@ update-manager (0.42.2ubuntu10) dapper; urgency=low
   * correct dapper version number (#36136)
   * keybindings fixed (#36116)
   * calc the update before downloading the changelog (#36140)
+  * add a fake gconf interface for xubuntu (nop for normal ubuntu)
+    (Thanks to Jani Monoses for the patch)
   
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Apr 2006 18:17:16 +0200
 
 update-manager (0.42.2ubuntu9) dapper; urgency=low
 

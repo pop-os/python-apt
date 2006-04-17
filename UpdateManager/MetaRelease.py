@@ -44,7 +44,7 @@ class MetaRelease(gobject.GObject):
 
     # some constants
     METARELEASE_URI = "http://changelogs.ubuntu.com/meta-release"
-    #METARELEASE_URI = "http://people.ubuntu.com/~mvo/dist-upgrader/meta-release-test2"
+    METARELEASE_URI_UNSTABLE = "http://changelogs.ubuntu.com/meta-release-development"
     METARELEASE_FILE = "/var/lib/update-manager/meta-release"
 
     __gsignals__ = { 
@@ -57,8 +57,10 @@ class MetaRelease(gobject.GObject):
 
         }
 
-    def __init__(self):
+    def __init__(self, useDevelopmentRelase=False):
         gobject.GObject.__init__(self)
+        if useDevelopmentRelase:
+            self.METARELEASE_URI = self.METARELEASE_URI_UNSTABLE
         self.metarelease_information = None
         self.downloading = True
         # we start the download thread here and we have a timeout

@@ -28,7 +28,10 @@ pygtk.require('2.0')
 import gtk
 import gtk.gdk
 import gtk.glade
-import gconf
+try:
+	import gconf
+except:
+	import fakegconf as gconf
 import gobject
 import apt
 import apt_pkg
@@ -179,7 +182,7 @@ class UpdateList:
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
              _("Some updates require the removal of further software. "
-               "Use the function \"Smart Upgrade\" of the package manager "
+               "Use the function \"Mark All Upgrades\" of the package manager "
 	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
 	       "terminal to update your system completely.")))
       dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_INFO,
@@ -639,12 +642,12 @@ class UpdateManager(SimpleGladeApp):
     dialog.destroy()
     
   def on_button_dist_upgrade_clicked(self, button):
-      print "on_button_dist_upgrade_clicked"
+      #print "on_button_dist_upgrade_clicked"
       fetcher = DistUpgradeFetcher(self, self.new_dist)
       fetcher.run()
       
   def new_dist_available(self, meta_release, upgradable_to):
-    print "new_dist_available: %s" % upgradable_to.name
+    #print "new_dist_available: %s" % upgradable_to.name
     # check if the user already knowns about this dist
     #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
     #if name == seen:
@@ -735,10 +738,16 @@ class UpdateManager(SimpleGladeApp):
               self.on_button_reload_clicked(None)
 
 
-  def main(self):
-    self.meta = MetaRelease()
-    self.meta.connect("new_dist_available",self.new_dist_available)
+  def main(self, options):
+    gconfclient = gconf.client_get_default() 
+    self.meta = MetaRelease(options.devel_release)
     self.meta.connect("dist_no_longer_supported",self.dist_no_longer_supported)
+
+    # check if we are interessted in dist-upgrade information
+    # (we are not by default on dapper)
+    if options.check_dist_upgrades or \
+	   gconfclient.get_bool("/apps/update-manager/check_dist_upgrades"):
+      self.meta.connect("new_dist_available",self.new_dist_available)
     
     while gtk.events_pending():
       gtk.main_iteration()
