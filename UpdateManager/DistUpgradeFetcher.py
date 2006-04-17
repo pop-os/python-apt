@@ -33,7 +33,7 @@ from gettext import gettext as _
 
 import GtkProgress
 from ReleaseNotesViewer import ReleaseNotesViewer
-
+from Common.utils import *
 
 class DistUpgradeFetcher(object):
 
@@ -90,7 +90,7 @@ class DistUpgradeFetcher(object):
           # user clicked cancel
           if res == gtk.RESPONSE_CANCEL:
               return False
-          return True
+      return True
 
     def authenticate(self):
         if self.new_dist.upgradeToolSig:
@@ -104,19 +104,30 @@ class DistUpgradeFetcher(object):
         # mandatory
         return True
 
-    def gpgauthenticate(self, file, signature, keyring='/etc/apt/trusted.gpg'):
+    def gpgauthenticate(self, file, signature,
+                        keyring='/etc/apt/trusted.gpg',
+                        trustdb='/etc/apt/trustdb.gpg'):
         """ authenticated a file against a given signature, if no keyring
             is given use the apt default keyring
         """
         gpg = GnuPGInterface.GnuPG()
-        gpg.options.extra_args = ['--no-default-keyring',
+        gpg.options.extra_args = ['--no-options',
+                                  '--no-default-keyring',
+                                  '--trustdb-name',trustdb,
                                   '--keyring', keyring]
         proc = gpg.run(['--verify', signature, file],
                        create_fhs=['status','logger','stderr'])
         gpgres = proc.handles['status'].read()
-        proc.wait()
+        try:
+            proc.wait()
+        except IOError,e:
+            # gnupg returned a problem (non-zero exit)
+            print "exception from gpg: %s" % e
+            return False
         if "VALIDSIG" in gpgres:
             return True
+        print "invalid result from gpg:"
+        print gpgres
         return False
 
     def extractDistUpgrader(self):
@@ -192,22 +203,37 @@ class DistUpgradeFetcher(object):
         if not self.showReleaseNotes():
             return
         if not self.fetchDistUpgrader():
-            print "Fetch failed"
+            error(self.window_main,
+                  _("Failed to fetch"),
+                  _("Fetching the upgrade failed. There may be a network "
+                    "problem. "))
             return
         if not self.extractDistUpgrader():
-            print "extract failed"
+            error(self.window_main,
+                  _("Failed to extract"),
+                  _("Extracting the upgrade failed. There may be a problem "
+                  "with the network or with the server. "))
+                  
             return
         if not self.verifyDistUprader():
-            print "verify failed"
+            error(self.window_main,
+                  _("Verfication failed"),
+                  _("Verfing the upgrade failed.  There may be a problem "
+                    "with the network or with the server. "))
             self.cleanup()
             return
         if not self.authenticate():
-            print "authenticate failed"
+            error(self.window_main,
+                  _("Authentication failed"),
+                  _("Authenticating the upgrade failed. There may be a problem "
+                    "with the network or with the server. "))
             self.cleanup()
             return
         self.runDistUpgrader()
 
 
 if __name__ == "__main__":
-    d = DistUpgradeFetcher(None)
+    error(None, "summary","message")
+    d = DistUpgradeFetcher(None,None)
     print d.authenticate('/tmp/Release','/tmp/Release.gpg')
+

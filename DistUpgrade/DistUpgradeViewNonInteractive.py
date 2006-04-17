@@ -60,8 +60,8 @@ class DistUpgradeViewNonInteractive(DistUpgradeView):
         5. Complete
         """
         pass
-    def confirmChanges(self, summary, changes, downloadSize):
-        DistUpgradeView.confirmChanges(self, summary, changes, downloadSize)
+    def confirmChanges(self, summary, changes, downloadSize, actions=None):
+        DistUpgradeView.confirmChanges(self, summary, changes, downloadSize, actions)
 	logging.debug("toinstall: '%s'" % self.toInstall)
         logging.debug("toupgrade: '%s'" % self.toUpgrade)
         logging.debug("toremove: '%s'" % self.toRemove)

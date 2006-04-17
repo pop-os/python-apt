@@ -11,7 +11,7 @@ TARGETDIR=../dist-upgrade-build
 SOURCEDIR=`pwd`
 DIST=dapper
 MAINTAINER="Michael Vogt <michael.vogt@ubuntu.com>"
-NOTES=ReleaseAnouncement
+NOTES=ReleaseAnnouncement
 version=$(date +%Y%m%d.%H%M)
 
 # create targetdir

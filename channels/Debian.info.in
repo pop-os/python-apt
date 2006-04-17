@@ -6,7 +6,7 @@ _BaseURI: http://http.us.debian.org/debian/
 _Description: Debian 3.1 "Sarge"
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: contrib
 Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
@@ -20,7 +20,7 @@ _BaseURI: http://security.debian.org/
 _Description: Debian 3.1 "Sarge" Security Updates
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: contrib
 Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
@@ -34,7 +34,7 @@ _BaseURI: http://http.us.debian.org/debian/
 _Description: Debian "Etch" (testing)
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: contrib
 Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
@@ -48,7 +48,7 @@ _BaseURI: http://http.us.debian.org/debian/
 _Description: Debian "Sid" (unstable)
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: contrib
 Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies

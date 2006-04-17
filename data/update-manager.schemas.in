@@ -47,6 +47,22 @@
         </long>
       </locale>
     </schema>
+    <schema>
+      <key>/schemas/apps/update-manager/check_dist_upgrades</key>
+      <applyto>/apps/update-manager/check_dist_upgrades</applyto>
+      <owner>update-manager</owner>
+      <type>bool</type>
+      <default>False</default>
+		
+      <locale name="C">
+        <short>Check for new distribution releases</short>
+        <long>
+	   Check automatically if a new version of the current 
+           distribution is available and offer to upgrade (if
+           possible).
+        </long>
+      </locale>
+    </schema>
   </schemalist>
 </gconfschemafile>
 
