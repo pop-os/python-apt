@@ -172,13 +172,19 @@ class dialog_add:
           self.selected_comps = []
           vbox = self.gladexml.get_widget("vbox_comps")
           vbox.foreach(self.get_enabled_comps)
+           
           # check if we are in 'add' or 'edit' mode
           if self.source_entry:
             # 'edit' - ode
-            if not self.custom:
-              entry = self._make_source_entry()
-              if entry:
-                self.sourceslist.list[self.source_entry_index] = entry
+            # check if there are no selected components
+            if len(self.selected_comps) < 1:
+              # remove the source
+              self.sourceslist.remove(self.source_entry)
+            else:
+              if not self.custom:
+                entry = self._make_source_entry()
+                if entry:
+                  self.sourceslist.list[self.source_entry_index] = entry
           else:
             # 'add' mode
             self.sourceslist.add(self.selected.type,
