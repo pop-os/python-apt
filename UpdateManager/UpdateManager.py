@@ -226,6 +226,7 @@ class UpdateManager(SimpleGladeApp):
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
 
+    self.image_logo.set_from_pixbuf(logo)
     self.window_main.set_sensitive(False)
     self.window_main.grab_focus()
     self.button_close.grab_focus()
