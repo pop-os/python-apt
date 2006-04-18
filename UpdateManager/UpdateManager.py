@@ -215,18 +215,13 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
-    icons = gtk.icon_theme_get_default()
-    try:
-        logo=icons.load_icon("update-manager", 48, 0)
-        gtk.window_set_default_icon_list(logo)
-    except:
-        pass
+    gtk.window_set_default_icon_name("update-manager")
 
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
 
-    self.image_logo.set_from_pixbuf(logo)
+    self.image_logo.set_from_icon_name("update-manager", gtk.ICON_SIZE_DIALOG)
     self.window_main.set_sensitive(False)
     self.window_main.grab_focus()
     self.button_close.grab_focus()
