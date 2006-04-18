@@ -196,6 +196,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         
     def fork(self):
         pid = self.term.forkpty(envv=self.env)
+        if pid == 0:
+          # HACK to work around bug in python/vte and unregister the logging
+          #      atexit func in the child
+          sys.exitfunc = lambda: True
         return pid
 
     def statusChange(self, pkg, percent, status):

@@ -113,6 +113,7 @@ class DistUpgradeControler(object):
 
         if not foundToDist:
             # FIXME: offer to write a new self.sources.list entry
+            #        DONT'T ERROR, write a line with mirror here
             logging.error("No valid entry found")
             return self._view.error(_("No valid entry found"),
                                     _("While scaning your repository "
