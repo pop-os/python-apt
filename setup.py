@@ -23,6 +23,19 @@ for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
     targetpath = os.path.dirname(os.path.join("share/locale",lang))
     I18NFILES.append((targetpath, [filepath]))
 
+ICONS = []
+for size in glob.glob("data/icons/*"):
+    for category in glob.glob("%s/*" % size):
+        icons = []
+        for icon in glob.glob("%s/*" % category):
+            icons.append(icon)
+        ICONS.append(("share/icons/hicolor/%s/%s" % \
+                      (os.path.basename(size), \
+                       os.path.basename(category)), \
+                       icons))
+print ICONS
+
+
 os.system("intltool-merge -d po data/update-manager.schemas.in"\
            " build/update-manager.schemas")
 
@@ -59,10 +72,7 @@ setup(name='update-manager',
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")
                   ),
-                  ('share/icons/hicolor',
-                   ["data/icons/*"]
-                  ),
-                  ] + I18NFILES + HELPFILES,
+                  ] + I18NFILES + HELPFILES + ICONS,
       )
 
 
