@@ -42,7 +42,7 @@ setup(name='update-manager',
                 'UpdateManager.Common'
                 ],
       scripts=[
-               'gnome-software-properties',
+               'software-properties',
                'update-manager'
                ],
       data_files=[
@@ -56,7 +56,7 @@ setup(name='update-manager',
                   ),
                   ('share/applications',
                      ["data/update-manager.desktop",
-                      "data/gnome-software-properties.desktop"]
+                      "data/software-properties.desktop"]
                   ),
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")

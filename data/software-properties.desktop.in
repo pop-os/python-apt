@@ -2,7 +2,7 @@
 _Name=Software Properties
 _GenericName=Software Properties
 _Comment=Configure software channels and internet updates
-Exec=gksu /usr/bin/gnome-software-properties
+Exec=gksu /usr/bin/software-properties
 Icon=update-manager
 Terminal=false
 X-MultipleArgs=false
