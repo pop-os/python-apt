@@ -411,6 +411,8 @@ class UpdateManager(SimpleGladeApp):
     if name in self.packages:
       self.packages.remove(name)
       self.dl_size -= pkg.packageSize
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     apt_pkg.SizeToStr(self.dl_size)))
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
 
@@ -419,6 +421,8 @@ class UpdateManager(SimpleGladeApp):
     if name not in self.packages:
       self.packages.append(name)
       self.dl_size += pkg.packageSize
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     apt_pkg.SizeToStr(self.dl_size)))
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
 
