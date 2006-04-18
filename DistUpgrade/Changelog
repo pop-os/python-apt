@@ -1,0 +1,3 @@
+2006-04-18:
+	- add logging to the sources.list modification code
+	- general logging improvements (thanks to Xavier Poinsard)

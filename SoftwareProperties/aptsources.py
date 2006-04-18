@@ -182,6 +182,10 @@ class SourceEntry:
       if string.strip(self.line)[0] != "#":
         self.line = "#" + self.line
 
+  def __str__(self):
+    """ debug helper """
+    return self.str().strip()
+
   def str(self):
     """ return the current line as string """
     if self.invalid:

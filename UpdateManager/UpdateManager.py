@@ -285,6 +285,8 @@ class UpdateManager(SimpleGladeApp):
         proxy_host = cnf.Find("Synaptic::httpProxy")
         proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
         if proxy_host and proxy_port:
+	  # FIXME: set the proxy for libapt here as well (e.g. for the
+	  #        DistUpgradeFetcher
           proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
           opener = urllib2.build_opener(proxy_support)
           urllib2.install_opener(opener)

@@ -59,6 +59,8 @@ class DistUpgradeControler(object):
 
     def updateSourcesList(self):
 
+        logging.debug("updateSourcesList()")
+        
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
         #  component names here)
@@ -79,6 +81,10 @@ class DistUpgradeControler(object):
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
+            # ignore invalid records (but update disabled ones) 
+            if entry.invalid:
+                continue
+            logging.debug("examining: '%s'" % entry)
             # check if it's a mirror (or offical site)
             validMirror = False
             for mirror in valid_mirrors:
@@ -87,22 +93,27 @@ class DistUpgradeControler(object):
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
                         # distro
+                        logging.debug("entry '%s' is already set to new dist" % entry)
                         foundToDist = True
                     elif entry.dist in fromDists:
                         foundToDist = True
                         entry.dist = toDists[fromDists.index(entry.dist)]
+                        logging.debug("entry '%s' updated to new dist" % entry)
                     else:
                         # disable all entries that are official but don't
                         # point to the "from" dist
                         entry.disabled = True
+                        logging.debug("entry '%s' was disabled (unknown dist)" % entry)
                     # it can only be one valid mirror, so we can break here
                     break
             # disable anything that is not from a official mirror
             if not validMirror:
                 entry.disabled = True
+                logging.debug("entry '%s' was disabled (unknown mirror)" % entry)
 
         if not foundToDist:
             # FIXME: offer to write a new self.sources.list entry
+            logging.error("No valid entry found")
             return self._view.error(_("No valid entry found"),
                                     _("While scaning your repository "
                                       "information no valid entry for "
@@ -121,6 +132,7 @@ class DistUpgradeControler(object):
             sourceslist = apt_pkg.GetPkgSourceList()
             sourceslist.ReadMainList()
         except SystemError:
+            logging.error("Repository information invalid after updating (we broke it!)")
             self._view.error(_("Repository information invalid"),
                              _("Upgrading the repository information "
                                "resulted in a invalid file. Please "

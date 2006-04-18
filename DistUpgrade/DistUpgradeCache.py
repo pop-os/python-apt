@@ -215,7 +215,7 @@ class MyCache(apt.Cache):
                     logging.debug("Marking '%s' for upgrade" % key)
                     self[key].markUpgrade()
             except SystemError, e:
-                logging.debug("Can't mark '%s' for upgrade" % key)
+                logging.debug("Can't mark '%s' for upgrade (%s)" % (key,e))
                 return False
         # check if we have a meta-pkg, if not, try to guess which one to pick
         if not metaPkgInstalled():
