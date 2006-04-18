@@ -47,9 +47,7 @@ setup(name='update-manager',
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/*.glade")+
-		      ["data/update-manager-logo.png",
-                       "data/update-manager.png"]
+                     glob.glob("data/*.glade")
                   ),
                   ('share/update-manager/channels',
                      glob.glob("channels/*")
@@ -61,8 +59,8 @@ setup(name='update-manager',
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")
                   ),
-                  ('share/pixmaps',
-                   ["data/update-manager.png"]
+                  ('share/icons/hicolor',
+                   ["data/icons/*"]
                   ),
                   ] + I18NFILES + HELPFILES,
       )
