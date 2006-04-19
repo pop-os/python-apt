@@ -102,10 +102,11 @@ class MyCache(apt.Cache):
 
         # assume "main" section 
         src_section = "main"
-        # check if we have something else
-        l = string.split(pkg.section,"/")
+        # make sure to get the section of the candidate
+	section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
+        l = section.split("/")
         if len(l) > 1:
-            sec_section = l[0]
+            src_section = l[0]
 
         # lib is handled special
         prefix = srcpkg[0]

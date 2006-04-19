@@ -1,6 +1,8 @@
 update-manager (0.42.2ubuntu13) dapper; urgency=low
 
   * po/POTFILES.in: add missing desktop file (ubuntu: #39410)
+  * UpdateManager/UpdateManager.py: 
+    - fix in the get_changelog logic (ubuntu: #40058)
 
  --
 
