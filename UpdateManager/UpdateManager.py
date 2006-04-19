@@ -325,7 +325,7 @@ class UpdateManager(SimpleGladeApp):
     
       end_iter = changes_buffer.get_end_iter()
       
-      version_match = re.match("^%s \((.*)\)(.*)$" % (srcpkg), line)
+      version_match = re.match(r'^%s \((.*)\)(.*)$' % re.escape(srcpkg), line)
       #bullet_match = re.match("^.*[\*-]", line)
       author_match = re.match("^.*--.*<.*@.*>.*$", line)
       if version_match:
