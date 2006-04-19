@@ -41,6 +41,7 @@ class dialog_edit:
       self.gladexml = gtk.glade.XML("%s/glade/SoftwarePropertiesDialogs.glade" % datadir)
     self.main = self.gladexml.get_widget("dialog_edit")
     self.main.set_transient_for(parent)
+    self.button_edit_ok = self.gladexml.get_widget("button_edit_ok")
     
     # type
     combo_type = self.gladexml.get_widget("combobox_type")
@@ -70,29 +71,61 @@ class dialog_edit:
     entry = self.gladexml.get_widget("entry_comment")
     entry.set_text(source_entry.comment)
 
+    # finally set the signal so that the check function is not tiggered 
+    # during initialisation
+    self.gladexml.signal_connect("on_entry_source_line_changed",
+                                 self.check_line)
+
+  def check_line(self, *args):
+    """Check for a valid apt line and set the sensitiveness of the
+       button 'add' accordingly"""
+    line = self.get_line()
+    if line == False:
+      self.button_edit_ok.set_sensitive(False)
+      return
+    source_entry = aptsources.SourceEntry(line)
+    if (source_entry.invalid == True or source_entry.disabled == True):
+      self.button_edit_ok.set_sensitive(False)
+    else:
+      self.button_edit_ok.set_sensitive(True)
+
+  def get_line(self):
+    """Collect all values from the entries and create an apt line"""
+    combo_type = self.gladexml.get_widget("combobox_type")
+    if combo_type.get_active() == 0:
+      line = "deb"
+    else:
+      line = "deb-src"
+
+    entry = self.gladexml.get_widget("entry_uri")
+    text = entry.get_text()
+    if len(text) < 1 or text.find(" ") != -1 or text.find("#") != -1:
+      return False  
+    line = line + " " + entry.get_text()
+
+    entry = self.gladexml.get_widget("entry_dist")
+    text = entry.get_text()
+    if len(text) < 1 or text.find(" ") != -1 or text.find("#") != -1:
+      return False    
+    line = line + " " + entry.get_text()
+
+    entry = self.gladexml.get_widget("entry_comps")
+    text = entry.get_text()
+    if len(text) < 1 or text.find("#") != -1:
+      return False    
+    line = line + " " + entry.get_text()
+
+    entry = self.gladexml.get_widget("entry_comment")
+    if entry.get_text() != "":
+      line = line + " #" + entry.get_text() + "\n"
+    else:
+      line = line + "\n"
+    return line
+          
   def run(self):
       res = self.main.run()
       if res == gtk.RESPONSE_OK:
-        # get values
-        combo_type = self.gladexml.get_widget("combobox_type")
-        if combo_type.get_active() == 0:
-          line = "deb"
-        else:
-          line = "deb-src"
-        entry = self.gladexml.get_widget("entry_uri")
-        line = line + " " + entry.get_text()
-
-        entry = self.gladexml.get_widget("entry_dist")
-        line = line + " " + entry.get_text()
-
-        entry = self.gladexml.get_widget("entry_comps")
-        line = line + " " + entry.get_text()
-
-        entry = self.gladexml.get_widget("entry_comment")
-        if entry.get_text() != "":
-          line = line + " #" + entry.get_text() + "\n"
-        else:
-          line = line + "\n"
+        line = self.get_line()
 
         # change repository
         index = self.sourceslist.list.index(self.source_entry)

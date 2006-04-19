@@ -155,6 +155,8 @@ class SourceEntry:
       return
     # URI
     self.uri = string.strip(pieces[1])
+    if len(self.uri) < 1:
+      self.invalid = True
     # distro and components (optional)
     # Directory or distro
     self.dist = string.strip(pieces[2])

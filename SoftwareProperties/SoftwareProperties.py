@@ -57,6 +57,7 @@ CONF_MAP = {
 class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir=None, options=None, parent=None):
+    gtk.window_set_default_icon_name("software-properties")
 
     # FIXME: some saner way is needed here
     if datadir == None:

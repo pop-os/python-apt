@@ -216,17 +216,13 @@ class UpdateList:
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
-    icons = gtk.icon_theme_get_default()
-    try:
-        logo=icons.load_icon("update-manager", 48, 0)
-        gtk.window_set_default_icon_list(logo)
-    except:
-        pass
+    gtk.window_set_default_icon_name("update-manager")
 
     self.datadir = datadir
     SimpleGladeApp.__init__(self, datadir+"glade/UpdateManager.glade",
                             None, domain="update-manager")
 
+    self.image_logo.set_from_icon_name("update-manager", gtk.ICON_SIZE_DIALOG)
     self.window_main.set_sensitive(False)
     self.window_main.grab_focus()
     self.button_close.grab_focus()
@@ -413,6 +409,8 @@ class UpdateManager(SimpleGladeApp):
     if name in self.packages:
       self.packages.remove(name)
       self.dl_size -= pkg.packageSize
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     apt_pkg.SizeToStr(self.dl_size)))
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
 
@@ -421,6 +419,8 @@ class UpdateManager(SimpleGladeApp):
     if name not in self.packages:
       self.packages.append(name)
       self.dl_size += pkg.packageSize
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     apt_pkg.SizeToStr(self.dl_size)))
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
 

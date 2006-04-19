@@ -23,6 +23,19 @@ for filepath in glob.glob("po/mo/*/LC_MESSAGES/*.mo"):
     targetpath = os.path.dirname(os.path.join("share/locale",lang))
     I18NFILES.append((targetpath, [filepath]))
 
+ICONS = []
+for size in glob.glob("data/icons/*"):
+    for category in glob.glob("%s/*" % size):
+        icons = []
+        for icon in glob.glob("%s/*" % category):
+            icons.append(icon)
+        ICONS.append(("share/icons/hicolor/%s/%s" % \
+                      (os.path.basename(size), \
+                       os.path.basename(category)), \
+                       icons))
+print ICONS
+
+
 os.system("intltool-merge -d po data/update-manager.schemas.in"\
            " build/update-manager.schemas")
 
@@ -42,29 +55,24 @@ setup(name='update-manager',
                 'UpdateManager.Common'
                 ],
       scripts=[
-               'gnome-software-properties',
+               'software-properties',
                'update-manager'
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/*.glade")+
-		      ["data/update-manager-logo.png",
-                       "data/update-manager.png"]
+                     glob.glob("data/*.glade")
                   ),
                   ('share/update-manager/channels',
                      glob.glob("channels/*")
                   ),
                   ('share/applications',
                      ["data/update-manager.desktop",
-                      "data/gnome-software-properties.desktop"]
+                      "data/software-properties.desktop"]
                   ),
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")
                   ),
-                  ('share/pixmaps',
-                   ["data/update-manager.png"]
-                  ),
-                  ] + I18NFILES + HELPFILES,
+                  ] + I18NFILES + HELPFILES + ICONS,
       )
 
 

@@ -15,6 +15,8 @@ def error(parent, summary, message):
                         type=gtk.MESSAGE_ERROR,
                         buttons=gtk.BUTTONS_CLOSE)
   d.set_markup("<big><b>%s</b></big>\n\n%s" % (summary, message))
+  d.realize()
+  d.window.set_functions(gtk.gdk.FUNC_MOVE)
   d.set_title("")
   res = d.run()
   d.destroy()

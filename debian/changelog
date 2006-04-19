@@ -4,8 +4,12 @@ update-manager (0.42.2ubuntu13) dapper; urgency=low
   * UpdateManager/UpdateManager.py: 
     - fix in the get_changelog logic (ubuntu: #40058)
     - correct a error in the changelog parser (ubuntu: #40060)
+    - fix download size reporting (ubuntu: #39579)
+  * debian/rules: added dh_iconcache
+  * setup.py: install the icons into the hicolor icon schema
+    (thanks to Sebastian Heinlein)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 19 Apr 2006 14:44:14 +0200
 
 update-manager (0.42.2ubuntu12) dapper; urgency=low
 
