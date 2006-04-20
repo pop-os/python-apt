@@ -102,10 +102,11 @@ class MyCache(apt.Cache):
 
         # assume "main" section 
         src_section = "main"
-        # check if we have something else
-        l = string.split(pkg.section,"/")
+        # make sure to get the section of the candidate
+	section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
+        l = section.split("/")
         if len(l) > 1:
-            sec_section = l[0]
+            src_section = l[0]
 
         # lib is handled special
         prefix = srcpkg[0]
@@ -281,6 +282,8 @@ class UpdateManager(SimpleGladeApp):
         proxy_host = cnf.Find("Synaptic::httpProxy")
         proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
         if proxy_host and proxy_port:
+	  # FIXME: set the proxy for libapt here as well (e.g. for the
+	  #        DistUpgradeFetcher
           proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
           opener = urllib2.build_opener(proxy_support)
           urllib2.install_opener(opener)
@@ -318,7 +321,7 @@ class UpdateManager(SimpleGladeApp):
     
       end_iter = changes_buffer.get_end_iter()
       
-      version_match = re.match("^%s \((.*)\)(.*)$" % (srcpkg), line)
+      version_match = re.match(r'^%s \((.*)\)(.*)$' % re.escape(srcpkg), line)
       #bullet_match = re.match("^.*[\*-]", line)
       author_match = re.match("^.*--.*<.*@.*>.*$", line)
       if version_match:
