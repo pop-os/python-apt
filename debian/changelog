@@ -9,7 +9,7 @@ update-manager (0.42.2ubuntu13) dapper; urgency=low
   * setup.py: install the icons into the hicolor icon schema
     (thanks to Sebastian Heinlein)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 19 Apr 2006 14:44:14 +0200
+ --
 
 update-manager (0.42.2ubuntu12) dapper; urgency=low
 
