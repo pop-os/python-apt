@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
 "POT-Creation-Date: 2006-04-23 21:13+0200\n"
-"PO-Revision-Date: 2006-04-23 21:15+0200\n"
+"PO-Revision-Date: 2006-04-23 21:29+0200\n"
 "Last-Translator: Andreas Nagl <andreas.nagl@aon.at>\n"
 "Language-Team: German GNOME Translations <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -942,7 +942,7 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:16
 msgid "_Install security updates without confirmation"
-msgstr "Sicherheitsaktualisierungen ohne Bestätigung _installieren"
+msgstr "Sicherheitsaktualisierungen _ohne Bestätigung installieren"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:2
 msgid "     "
