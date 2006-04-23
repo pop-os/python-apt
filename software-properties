@@ -28,7 +28,6 @@ import gtk
 import gtk.gdk
 import gtk.glade
 import gobject
-import gnome
 import gettext
 import os
 import sys
