@@ -581,51 +581,6 @@ class UpdateManager(SimpleGladeApp):
     if x > 0 and y > 0:
       self.window_main.resize(x,y)
 
-  def on_button_preferences_clicked(self, widget):
-    """ start gnome-software preferences """
-    # args: "-n" means we take care of the reloading of the
-    # package list ourself
-    #apt_pkg.PkgSystemUnLock()
-    #args = ['/usr/bin/gnome-software-properties', '-n']
-    #child = subprocess.Popen(args)
-    #self.window_main.set_sensitive(False)
-    #res = None
-    #while res == None:
-    #  res = child.poll()
-    #  time.sleep(0.05)
-    ##  while gtk.events_pending():
-    #    gtk.main_iteration()
-    # repository information changed, call "reload"
-    #try:
-    #    apt_pkg.PkgSystemLock()
-    #except SystemError:
-    #	print "Error geting the cache"
-    #    apt_pkg.PkgSystemLock()
-    #    if res > 0:
-    #      self.on_button_reload_clicked(None)
-    #    self.window_main.set_sensitive(True)
-    self.window_main.set_sensitive(False)
-    from SoftwareProperties import SoftwareProperties
-    prop = SoftwareProperties.SoftwareProperties(self.datadir, None)
-    prop.window_main.set_transient_for(self.window_main)
-    prop.run()
-    prop.window_main.hide()
-    if prop.modified:
-        primary = "<span weight=\"bold\" size=\"larger\">%s</span>" % \
-                  _("Repositories changed")
-        secondary = _("You need to reload the package list from the servers "
-                      "for your changes to take effect. Do you want to do "
-                      "this now?") 
-        dialog = gtk.MessageDialog(self.window_main, 0,
-                               gtk.MESSAGE_INFO,gtk.BUTTONS_YES_NO,"")
-        dialog.set_markup(primary);
-        dialog.format_secondary_text(secondary);
-        res = dialog.run()
-        dialog.destroy()
-        if res == gtk.RESPONSE_YES:
-            self.on_button_reload_clicked(None)
-    self.window_main.set_sensitive(True)
-
   def fillstore(self):
     # use the watch cursor
     self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
