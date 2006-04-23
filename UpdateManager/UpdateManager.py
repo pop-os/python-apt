@@ -498,6 +498,8 @@ class UpdateManager(SimpleGladeApp):
     self.invoke_manager(INSTALL)
 
   def invoke_manager(self, action):
+    # Do not suspend during the update process
+    (dev, cookie) = self.inhibit_sleep()
     # check first if no other package manager is runing
 
     # don't display apt-listchanges, we already showed the changelog
@@ -519,6 +521,30 @@ class UpdateManager(SimpleGladeApp):
     self.fillstore()
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
+    # Allow suspend after synaptic is finished
+    if cookie != False:
+        self.allow_sleep(dev, cookie)
+
+  def inhibit_sleep(self):
+    """Send a dbus signal to gnome-power-manager to not suspend
+       the system"""
+    try:
+      import dbus
+      bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+      devobj = bus.get_object('org.gnome.PowerManager', 
+                              '/org/gnome/PowerManager')
+      dev = dbus.Interface(devobj, "org.gnome.PowerManager")
+      cookie = dev.InhibitInactiveSleep('UpdateManager', 
+                                        'Updating system')
+      return (dev, cookie)
+    except:
+      print "could not send the dbus InhibitInactiveSleep signal"
+      return (False, False)
+
+  def allow_sleep(self, dev, cookie):
+    """Send a dbus signal to gnome-power-manager to allow a suspending
+       the system"""
+    dev.AllowInactiveSleep(cookie)
 
   def toggled(self, renderer, path_string):
     """ a toggle button in the listview was toggled """
