@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-23 21:06+0200\n"
+"POT-Creation-Date: 2006-04-23 21:13+0200\n"
 "PO-Revision-Date: 2006-04-04 20:23+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -17,9 +17,38 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural= n==1 || n%10==1 ? 0 : 1\n"
 "X-Generator: KBabel 1.10\n"
 
+#: ../SoftwareProperties/SoftwareProperties.py:103
+#, fuzzy
+msgid "Daily"
+msgstr "<b>Детали</b>"
+
+#: ../SoftwareProperties/SoftwareProperties.py:104
+msgid "Every two days"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:105
+msgid "Weekly"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:106
+msgid "Every two weeks"
+msgstr ""
+
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:134
+msgid "After one week"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:135
+msgid "After two weeks"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:136
+msgid "After one month"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
