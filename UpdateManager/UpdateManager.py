@@ -437,9 +437,12 @@ class UpdateManager(SimpleGladeApp):
           self.textview_changes.get_buffer().set_text("")
           self.textview_descr.get_buffer().set_text("")
       else:
-          text_header = "<big><b>"+gettext.ngettext("You can install one update", "You can install %s updates" % len(self.store), len(self.store))+"</b></big>"
-          
-          text_download = _("Download size: %s" % apt_pkg.SizeToStr(self.dl_size))
+          text_header = "<big><b>" + \
+                        gettext.ngettext("You can install %s update",
+                                         "You can install %s updates", 
+                                         len(self.store)) % \
+                                        len(self.store) + "</b></big>"
+          text_download = _("Download size: %s") % apt_pkg.SizeToStr(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()

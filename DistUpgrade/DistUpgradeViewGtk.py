@@ -299,7 +299,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       logging.error("not handled expection:\n%s" % "\n".join(lines))
       self.error(_("A fatal error occured"),
                  _("Please report this as a bug and include the "
-                   "files ~/dist-upgrade.log and ~/dist-upgrade-apt.log "
+                   "files '/var/log/dist-upgrade.log' and "
+                   "'/var/log/dist-upgrade-apt.log' "
                    "in your report. The upgrade aborts now. "),
                  "\n".join(lines))
       sys.exit(1)
