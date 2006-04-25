@@ -253,9 +253,19 @@ class DistUpgradeVteTerminal(object):
     self.term = term
     self.parent = parent
   def call(self, cmd):
+    def wait_for_child(widget):
+      #print "wait for child finished"
+      self.finished=True
     self.term.show()
+    self.term.connect("child-exited", wait_for_child)
     self.parent.expander_terminal.set_expanded(True)
     self.term.fork_command(command=cmd[0],argv=cmd)
+    self.finished = False
+    while not self.finished:
+      while gtk.events_pending():
+        gtk.main_iteration()
+      time.sleep(0.1)
+    del self.finished
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
@@ -497,10 +507,10 @@ if __name__ == "__main__":
     cache[pkg].markInstall()
   cache.commit(fp,ip)
   
-  sys.exit(0)
+  #sys.exit(0)
   ip.conffile("TODO","TODO~")
   view.getTerminal().call(["dpkg","--configure","-a"])
-  view.getTerminal().call(["ls"])
+  view.getTerminal().call(["ls","-R","/usr"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"

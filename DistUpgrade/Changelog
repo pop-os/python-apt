@@ -1,3 +1,6 @@
+2006-04-25:
+	- make sure that DistUpgradeView.getTerminal().call() actually
+          waits until the command has finished (dpkg --configure -a)
 2006-04-18:
 	- add logging to the sources.list modification code
 	- general logging improvements (thanks to Xavier Poinsard)

@@ -223,12 +223,12 @@ class DistUpgradeControler(object):
                 res = self.cache.commit(fprogress,iprogress)
             except SystemError, e:
                 # installing the packages failed, can't be retried
+                self._view.getTerminal().call(["dpkg","--configure","-a"])
                 self._view.error(_("Could not install the upgrades"),
                                  _("The upgrade aborts now. Your system "
                                    "can be in an unusable state. A recovery "
-                                   "is now run (dpkg --configure -a)."),
+                                   "was run (dpkg --configure -a)."),
                                  "%s" % e)
-                self._view.getTerminal().call(["dpkg","--configure","-a"])
                 return False
             except IOError, e:
                 # fetch failed, will be retried
