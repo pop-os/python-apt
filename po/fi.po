@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-23 21:13+0200\n"
+"POT-Creation-Date: 2006-04-25 15:52+0200\n"
 "PO-Revision-Date: 2006-04-10 07:26+0000\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
@@ -722,37 +722,37 @@ msgstr ""
 msgid "Update is complete"
 msgstr "Lataus on valmis"
 
-#: ../UpdateManager/UpdateManager.py:604
+#: ../UpdateManager/UpdateManager.py:578
 #, fuzzy, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Uusi versio: %s"
 
-#: ../UpdateManager/UpdateManager.py:618
+#: ../UpdateManager/UpdateManager.py:592
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "Jakeluasi ei enää tueta"
 
-#: ../UpdateManager/UpdateManager.py:619
+#: ../UpdateManager/UpdateManager.py:593
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:670
+#: ../UpdateManager/UpdateManager.py:644
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:672
+#: ../UpdateManager/UpdateManager.py:646
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:689
+#: ../UpdateManager/UpdateManager.py:663
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:690
+#: ../UpdateManager/UpdateManager.py:664
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -774,7 +774,7 @@ msgstr ""
 #: ../data/UpdateManager.glade.h:4
 #, fuzzy
 msgid ""
-"<big><b>Analysing your system</b></big>\n"
+"<big><b>Examining your system</b></big>\n"
 "\n"
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
