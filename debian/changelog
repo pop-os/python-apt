@@ -1,4 +1,4 @@
-python-apt (0.6.16.2) unstable; urgency=low
+python-apt (0.6.17) unstable; urgency=low
 
   * apt/progress.py: 
     - initialize FetchProgress.eta with the correct type
@@ -19,8 +19,17 @@ python-apt (0.6.16.2) unstable; urgency=low
   * python/indexfile.cc:
     - added ArchiveURI() method
   
- -- 
+ --
 
+python-apt (0.6.16.2) unstable; urgency=low
+  
+  * Non-maintainer upload.
+  * debian/control:
+    + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+      correct here. (closes: #308586).
+
+ -- Pierre Habouzit <madcoder@debian.org>  Fri, 14 Apr 2006 19:30:51 +0200
+  
 python-apt (0.6.16.1) unstable; urgency=low
 
   * memleak fixed when pkgCache objects are deallocated
