@@ -346,7 +346,7 @@ class DistUpgradeControler(object):
                                    "updated the essential package '%s' can "
                                    "not be found anymore.\n"
                                    "This indicates a serious error, please "
-                                   "report this as a bug.")
+                                   "report this as a bug."))
                 self.abort()
 
         # then open the cache (again)
