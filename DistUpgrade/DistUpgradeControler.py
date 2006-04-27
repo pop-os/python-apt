@@ -336,6 +336,10 @@ class DistUpgradeControler(object):
         # then update the package index files
         if not self.doUpdate():
             self.abort()
+
+        # then open the cache (again)
+        self._view.updateStatus(_("Checking package manager"))
+        self.openCache()
         # now check if we still have some key packages after the update
         # if not something went seriously wrong
         for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
@@ -346,12 +350,8 @@ class DistUpgradeControler(object):
                                    "updated the essential package '%s' can "
                                    "not be found anymore.\n"
                                    "This indicates a serious error, please "
-                                   "report this as a bug."))
+                                   "report this as a bug.") % pkg)
                 self.abort()
-
-        # then open the cache (again)
-        self._view.updateStatus(_("Checking package manager"))
-        self.openCache()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
