@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-13 12:19+0200\n"
+"POT-Creation-Date: 2006-04-27 18:14+0200\n"
 "PO-Revision-Date: 2006-04-12 07:28+0000\n"
 "Last-Translator: Tor Harald Thorland <linux@strigen.com>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -17,38 +17,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.10\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:110
+#: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
 msgstr "Hver %s dag"
 
-#: ../SoftwareProperties/SoftwareProperties.py:140
+#: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
 msgid "After %s days"
 msgstr "Etter %s dager"
 
-#: ../SoftwareProperties/SoftwareProperties.py:421
+#: ../SoftwareProperties/SoftwareProperties.py:422
 msgid "Import key"
 msgstr "Importer nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:431
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Error importing selected file"
 msgstr "Feil under importering av fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:433
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Den valgte filen er ikke en GPG-fil, ellers er den skadet."
 
-#: ../SoftwareProperties/SoftwareProperties.py:444
+#: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "Error removing the key"
 msgstr "Feil under fjerning av nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:446
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Nøkkelen du valgte kan ikke bli fjernet. Vennligst rapporter denne feilen."
 
-#: ../SoftwareProperties/SoftwareProperties.py:486
+#: ../SoftwareProperties/SoftwareProperties.py:487
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -59,11 +59,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:543
+#: ../SoftwareProperties/SoftwareProperties.py:544
 msgid "Please enter a name for the disc"
 msgstr "Vennligst skriv inn et navn for platen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:559
+#: ../SoftwareProperties/SoftwareProperties.py:560
 msgid "Please insert a disc in the drive:"
 msgstr "Vennligst sett inn planen i stasjonen:"
 
@@ -152,12 +152,11 @@ msgstr ""
 msgid "Reading cache"
 msgstr "Leser mellomlager"
 
-#. FIXME: offer to write a new self.sources.list entry
-#: ../DistUpgrade/DistUpgradeControler.py:106
+#: ../DistUpgrade/DistUpgradeControler.py:119
 msgid "No valid entry found"
 msgstr "Fant ikke noen gyldig oppføring"
 
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#: ../DistUpgrade/DistUpgradeControler.py:120
 msgid ""
 "While scaning your repository information no valid entry for the upgrade was "
 "found.\n"
@@ -165,11 +164,11 @@ msgstr ""
 "Fant ikke noen gyldig oppføring for oppgradering ved lesing av "
 "arkivinformasjon.\n"
 
-#: ../DistUpgrade/DistUpgradeControler.py:124
+#: ../DistUpgrade/DistUpgradeControler.py:138
 msgid "Repository information invalid"
 msgstr "Ugyldig informasjon om arkiv"
 
-#: ../DistUpgrade/DistUpgradeControler.py:125
+#: ../DistUpgrade/DistUpgradeControler.py:139
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -177,11 +176,11 @@ msgstr ""
 "Oppgradering av arkivinformasjon resulterte i en ugyldig fil. Vennligst "
 "rapporter dette som en feil."
 
-#: ../DistUpgrade/DistUpgradeControler.py:170
+#: ../DistUpgrade/DistUpgradeControler.py:184
 msgid "Error during update"
 msgstr "Feil under oppdatering"
 
-#: ../DistUpgrade/DistUpgradeControler.py:171
+#: ../DistUpgrade/DistUpgradeControler.py:185
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -190,11 +189,11 @@ msgstr ""
 "problem med nettverkstilkoblingen. Vennligst sjekk nettverkstilkoblingen din "
 "og prøv igjen."
 
-#: ../DistUpgrade/DistUpgradeControler.py:190
+#: ../DistUpgrade/DistUpgradeControler.py:204
 msgid "Not enough free disk space"
 msgstr "Ikke nok ledig diskplass"
 
-#: ../DistUpgrade/DistUpgradeControler.py:191
+#: ../DistUpgrade/DistUpgradeControler.py:205
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -205,28 +204,28 @@ msgstr ""
 "papirkurven og fjern midlertidige pakker fra tidligere installasjoner ved å "
 "bruke 'sudo apt-get-clean'."
 
-#: ../DistUpgrade/DistUpgradeControler.py:197
+#: ../DistUpgrade/DistUpgradeControler.py:211
 msgid "Do you want to start the upgrade?"
 msgstr "Ønsker du å starte oppgraderingen?"
 
-#. installing the packages failed, can't be retried
-#: ../DistUpgrade/DistUpgradeControler.py:213
+#: ../DistUpgrade/DistUpgradeControler.py:228
 msgid "Could not install the upgrades"
 msgstr "Kunne ikke installere oppgraderingene"
 
-#: ../DistUpgrade/DistUpgradeControler.py:214
+#: ../DistUpgrade/DistUpgradeControler.py:229
+#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
-"is now run (dpkg --configure -a)."
+"was run (dpkg --configure -a)."
 msgstr ""
 "Oppgraderingen avbrytes nå. Systemet ditt kan være ubrukelig. En reperasjon "
 "kan være å kjøre (dpkg --configure -a)."
 
-#: ../DistUpgrade/DistUpgradeControler.py:230
+#: ../DistUpgrade/DistUpgradeControler.py:244
 msgid "Could not download the upgrades"
 msgstr "Kunne ikke laste ned alle oppgraderingene."
 
-#: ../DistUpgrade/DistUpgradeControler.py:231
+#: ../DistUpgrade/DistUpgradeControler.py:245
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -234,23 +233,23 @@ msgstr ""
 "Oppgraderingen avbrytes nå. Vennligst sjekk internet tilkoblingen eller "
 "installasjonsmediet og prøv på nytt. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:273
+#: ../DistUpgrade/DistUpgradeControler.py:287
 msgid "Remove obsolete packages?"
 msgstr "Ønsker du å fjerne utdaterte pakker?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:274
+#: ../DistUpgrade/DistUpgradeControler.py:288
 msgid "_Skip This Step"
 msgstr "_Hopp over dette punktet"
 
-#: ../DistUpgrade/DistUpgradeControler.py:274
+#: ../DistUpgrade/DistUpgradeControler.py:288
 msgid "_Remove"
 msgstr "_Fjern"
 
-#: ../DistUpgrade/DistUpgradeControler.py:284
+#: ../DistUpgrade/DistUpgradeControler.py:298
 msgid "Error during commit"
 msgstr "Feil ved commit"
 
-#: ../DistUpgrade/DistUpgradeControler.py:285
+#: ../DistUpgrade/DistUpgradeControler.py:299
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -260,28 +259,40 @@ msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:299
-#: ../DistUpgrade/DistUpgradeControler.py:325
+#: ../DistUpgrade/DistUpgradeControler.py:315
+#: ../DistUpgrade/DistUpgradeControler.py:341
 msgid "Checking package manager"
 msgstr "Sjekker pakkehåndterer"
 
-#: ../DistUpgrade/DistUpgradeControler.py:317
+#: ../DistUpgrade/DistUpgradeControler.py:333
 msgid "Updating repository information"
 msgstr "Oppdaterer informasjon om arkivet"
 
-#: ../DistUpgrade/DistUpgradeControler.py:331
+#: ../DistUpgrade/DistUpgradeControler.py:348
+msgid "Inavlid package information"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:349
+#, python-format
+msgid ""
+"After your package information was updated the essential package '%s' can "
+"not be found anymore.\n"
+"This indicates a serious error, please report this as a bug."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:359
 msgid "Asking for confirmation"
 msgstr "Spør om bekreftelse"
 
-#: ../DistUpgrade/DistUpgradeControler.py:335
+#: ../DistUpgrade/DistUpgradeControler.py:363
 msgid "Upgrading"
 msgstr "Oppgraderer"
 
-#: ../DistUpgrade/DistUpgradeControler.py:342
+#: ../DistUpgrade/DistUpgradeControler.py:370
 msgid "Searching for obsolete software"
 msgstr "Søker etter utdatert programvare"
 
-#: ../DistUpgrade/DistUpgradeControler.py:347
+#: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "System upgrade is complete."
 msgstr "Systemoppgraderingen er fullført"
 
@@ -301,7 +312,7 @@ msgid "Downloading file %li of %li at %s/s"
 msgstr "Laster ned fil %li av %li med %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
-#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#: ../DistUpgrade/DistUpgradeViewGtk.py:220
 #, python-format
 msgid "%s remaining"
 msgstr "%s gjenstår"
@@ -341,76 +352,78 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "Kommandoen 'diff' ble ikke funnet"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:296
+#: ../DistUpgrade/DistUpgradeViewGtk.py:310
 msgid "A fatal error occured"
 msgstr "En uopprettelig feil oppsto"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:297
+#: ../DistUpgrade/DistUpgradeViewGtk.py:311
+#, fuzzy
 msgid ""
-"Please report this as a bug and include the files ~/dist-upgrade.log and ~/"
-"dist-upgrade-apt.log in your report. The upgrade aborts now. "
+"Please report this as a bug and include the files /var/log/dist-upgrade.log "
+"and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
+"Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 "Vennligst rapporter feilen og inkluder filene ~/dist-upgrade.log og ~/dist-"
 "upgrade-apt.log i din melding. Oppgraderingen avbrytes nå. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:386
+#: ../DistUpgrade/DistUpgradeViewGtk.py:403
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s pakke vil bli fjernet."
 msgstr[1] "%s pakker vil bli fjernet"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:392
+#: ../DistUpgrade/DistUpgradeViewGtk.py:409
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s pakke vil bli installert."
 msgstr[1] "%s pakker vil bli installert."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:398
+#: ../DistUpgrade/DistUpgradeViewGtk.py:415
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s pakke vil bli oppgradert."
 msgstr[1] "%s pakker vil bli oppgradert."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:405
+#: ../DistUpgrade/DistUpgradeViewGtk.py:422
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Du må laste ned totalt %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:409
+#: ../DistUpgrade/DistUpgradeViewGtk.py:426
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "Oppgraderingen kan ta flere timer og kan ikke avbrytes på noe senere "
 "tidspunkt."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:412
+#: ../DistUpgrade/DistUpgradeViewGtk.py:429
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "For å forhindre tap av data bør du lukke alle åpne programmer og dokumenter."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:418
+#: ../DistUpgrade/DistUpgradeViewGtk.py:435
 msgid "Could not find any upgrades"
 msgstr "Kunne ikke finne noen oppgraderinger"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:419
+#: ../DistUpgrade/DistUpgradeViewGtk.py:436
 msgid "Your system has already been upgraded."
 msgstr "Systemet ditt er allerede oppgradert."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:434
+#: ../DistUpgrade/DistUpgradeViewGtk.py:451
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Fjern %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:436
+#: ../DistUpgrade/DistUpgradeViewGtk.py:453
 #, python-format
 msgid "Install %s"
 msgstr "Installèr %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:438
+#: ../DistUpgrade/DistUpgradeViewGtk.py:455
 #, python-format
 msgid "Upgrade %s"
 msgstr "Oppgradèr %s"
@@ -619,84 +632,85 @@ msgstr "Laster ned fil %li av %li med %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Laster ned fil %li av %li med ukjent hastighet"
 
-#: ../UpdateManager/UpdateManager.py:147
+#: ../UpdateManager/UpdateManager.py:148
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:152
+#: ../UpdateManager/UpdateManager.py:153
 #, fuzzy
 msgid ""
 "Failed to download the listof changes. Please check your internet connection."
 msgstr "Feil under nedlasting av endringer. Sjekk tilkoblingen til internett."
 
 #. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:183
+#: ../UpdateManager/UpdateManager.py:184
 #, fuzzy
 msgid "Cannot install all available updates"
 msgstr "Vis og installèr tilgjengelige oppdateringer"
 
-#: ../UpdateManager/UpdateManager.py:184
+#: ../UpdateManager/UpdateManager.py:185
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:194
+#: ../UpdateManager/UpdateManager.py:195
 #, fuzzy
 msgid "The following updates will be skipped:"
 msgstr "De følgende pakkene er ikke oppgradert: "
 
-#: ../UpdateManager/UpdateManager.py:330
+#: ../UpdateManager/UpdateManager.py:329
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versjon %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:390
+#: ../UpdateManager/UpdateManager.py:389
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "Laster ned endringer"
 
-#: ../UpdateManager/UpdateManager.py:428
+#: ../UpdateManager/UpdateManager.py:412 ../UpdateManager/UpdateManager.py:422
+#: ../UpdateManager/UpdateManager.py:442
+#, fuzzy, python-format
+msgid "Download size: %s"
+msgstr "Laster ned endringer"
+
+#: ../UpdateManager/UpdateManager.py:431
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "Systemet er helt oppdatert!"
 
-#: ../UpdateManager/UpdateManager.py:437
+#: ../UpdateManager/UpdateManager.py:440
 #, fuzzy, python-format
 msgid "You can install one update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Vis og installèr tilgjengelige oppdateringer"
 msgstr[1] "Vis og installèr tilgjengelige oppdateringer"
 
-#: ../UpdateManager/UpdateManager.py:439
-#, fuzzy, python-format
-msgid "Download size: %s"
-msgstr "Laster ned endringer"
-
-#: ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:453
 #, fuzzy
 msgid "Hide details"
 msgstr "Vis detaljer"
 
-#: ../UpdateManager/UpdateManager.py:452 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:455 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Vis detaljer"
 
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:470
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:469
+#: ../UpdateManager/UpdateManager.py:472
 #, fuzzy
 msgid "Update is complete"
 msgstr "Nedlastingen er fullført"
 
-#: ../UpdateManager/UpdateManager.py:583
+#: ../UpdateManager/UpdateManager.py:586
 msgid "Repositories changed"
 msgstr "Arkiv har blitt endret"
 
-#: ../UpdateManager/UpdateManager.py:584
+#: ../UpdateManager/UpdateManager.py:587
 #, fuzzy
 msgid ""
 "You need to reload the package list from the servers for your changes to "
@@ -708,37 +722,37 @@ msgstr ""
 "Du må oppdatere pakkelisten fra tjenerene for at endringene skal tre i "
 "kraft. Vil du gjøre det nå?"
 
-#: ../UpdateManager/UpdateManager.py:617
+#: ../UpdateManager/UpdateManager.py:620
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:631
+#: ../UpdateManager/UpdateManager.py:634
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "Din distribusjon er ikke lenger støttet"
 
-#: ../UpdateManager/UpdateManager.py:632
+#: ../UpdateManager/UpdateManager.py:635
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:683
+#: ../UpdateManager/UpdateManager.py:686
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:688
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:702
+#: ../UpdateManager/UpdateManager.py:705
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:703
+#: ../UpdateManager/UpdateManager.py:706
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -937,12 +951,13 @@ msgid "<b>Components:</b>"
 msgstr "<b>Komponenter</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Distribution:</b>"
-msgstr "<b>Distribusjon:</b>"
+#, fuzzy
+msgid "<b>Components</b>"
+msgstr "<b>Komponenter</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
-msgid "<b>Sections</b>"
-msgstr "<b>Seksjoner</b>"
+msgid "<b>Distribution:</b>"
+msgstr "<b>Distribusjon:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:13
 msgid "<b>Type:</b>"
@@ -1056,12 +1071,12 @@ msgstr ""
 msgid "The window size"
 msgstr "Vindusstørrelsen"
 
-#: ../data/gnome-software-properties.desktop.in.h:1
+#: ../data/software-properties.desktop.in.h:1
 #, fuzzy
 msgid "Configure software channels and internet updates"
 msgstr "Sjekk programvare kanaler for nye oppdateringer"
 
-#: ../data/gnome-software-properties.desktop.in.h:2
+#: ../data/software-properties.desktop.in.h:2
 msgid "Software Properties"
 msgstr "Egenskaper for programvare"
 
@@ -1176,6 +1191,9 @@ msgstr "DFSG-kompatiblel programvare med Non-Free avhengigheter"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
+
+#~ msgid "<b>Sections</b>"
+#~ msgstr "<b>Seksjoner</b>"
 
 #~ msgid "Oficially supported"
 #~ msgstr "Offisielt støttet"

@@ -3,6 +3,8 @@
           (check for BaseMetaPkgs still in the cache)
         - on abort reopen() the cache to force writing a new 
           /var/cache/apt/pkgcache.bin
+        - use a much more compelte mirror list (based on the information 
+          from https://wiki.ubuntu.com/Archive)
 2006-04-25:
 	- make sure that DistUpgradeView.getTerminal().call() actually
           waits until the command has finished (dpkg --configure -a)

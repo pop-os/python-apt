@@ -76,7 +76,7 @@ class DistUpgradeControler(object):
                    ]
 
         # list of valid mirrors that we can add
-        valid_mirrors = self.config.getlist("Sources","ValidMirrors")
+        valid_mirrors = self.config.getListFromFile("Sources","ValidMirrors")
 
         # look over the stuff we have
         foundToDist = False
