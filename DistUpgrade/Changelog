@@ -1,3 +1,8 @@
+2006-04-27:
+	- add a additonal sanity check after the rewriting of the sources.list
+          (check for BaseMetaPkgs still in the cache)
+        - on abort reopen() the cache to force writing a new 
+          /var/cache/apt/pkgcache.bin
 2006-04-25:
 	- make sure that DistUpgradeView.getTerminal().call() actually
           waits until the command has finished (dpkg --configure -a)

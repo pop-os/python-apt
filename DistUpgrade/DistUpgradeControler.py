@@ -111,6 +111,7 @@ class DistUpgradeControler(object):
                 entry.disabled = True
                 logging.debug("entry '%s' was disabled (unknown mirror)" % entry)
 
+
         if not foundToDist:
             # FIXME: offer to write a new self.sources.list entry
             #        DONT'T ERROR, write a line with mirror here
@@ -303,6 +304,8 @@ class DistUpgradeControler(object):
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
+        # generate a new cache
+        self.openCache()
         sys.exit(1)
 
     
@@ -333,6 +336,18 @@ class DistUpgradeControler(object):
         # then update the package index files
         if not self.doUpdate():
             self.abort()
+        # now check if we still have some key packages after the update
+        # if not something went seriously wrong
+        for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
+            if not self.cache.has_key(pkg):
+                logging.error("No '%s' after sources.list rewrite+update")
+                self._view.error(_("Inavlid package information"),
+                                 _("After your package information was "
+                                   "updated the essential package '%s' can "
+                                   "not be found anymore.\n"
+                                   "This indicates a serious error, please "
+                                   "report this as a bug.")
+                self.abort()
 
         # then open the cache (again)
         self._view.updateStatus(_("Checking package manager"))

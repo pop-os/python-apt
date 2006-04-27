@@ -19,6 +19,8 @@ MUSTFIX:
   to universe (if the user has only main enabled this is considered 
   obsolete). It would also be nice inform about packages that went from
   main->universe. We could ship a list of demotions.
+* [kamion]: we could use debconf-frontend=dialog and then detect the ansi
+            seqence that clear the screen and open the terminal then 
 
 breezy->dapper
 --------------
