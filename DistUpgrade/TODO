@@ -21,6 +21,8 @@ MUSTFIX:
   main->universe. We could ship a list of demotions.
 * [kamion]: we could use debconf-frontend=dialog and then detect the ansi
             seqence that clear the screen and open the terminal then 
+            -> trouble: vte does not give me the raw codes but only the
+                        text (as \n\n\n\n\n... for cls)
 
 breezy->dapper
 --------------

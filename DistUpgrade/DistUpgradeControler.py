@@ -90,18 +90,20 @@ class DistUpgradeControler(object):
             for mirror in valid_mirrors:
                 if is_mirror(mirror,entry.uri):
                     validMirror = True
+                    # security is a special case
+                    res = not entry.uri.startswith("http://security.ubuntu.com")
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
                         # distro
                         logging.debug("entry '%s' is already set to new dist" % entry)
-                        foundToDist = True
+                        foundToDist = res
                     elif entry.dist in fromDists:
-                        foundToDist = True
+                        foundToDist = res
                         entry.dist = toDists[fromDists.index(entry.dist)]
                         logging.debug("entry '%s' updated to new dist" % entry)
                     else:
                         # disable all entries that are official but don't
-                        # point to the "from" dist
+                        # point to either "to" or "from" dist
                         entry.disabled = True
                         logging.debug("entry '%s' was disabled (unknown dist)" % entry)
                     # it can only be one valid mirror, so we can break here
