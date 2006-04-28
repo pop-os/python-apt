@@ -80,8 +80,9 @@ class DistUpgradeControler(object):
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
-            # ignore invalid records (but update disabled ones) 
-            if entry.invalid:
+            # ignore invalid records (but update disabled ones)
+            # or cdrom entries
+            if entry.invalid or entry.uri.startswith("cdrom:"):
                 continue
             logging.debug("examining: '%s'" % entry)
             # check if it's a mirror (or offical site)
@@ -90,7 +91,7 @@ class DistUpgradeControler(object):
                 if not mirror_check or is_mirror(mirror,entry.uri):
                     validMirror = True
                     # security is a special case
-                    res = not entry.uri.startswith("http://security.ubuntu.com")
+                    res = not entry.uri.startswith("http://security.ubuntu.com") and not entry.disabled
                     if entry.dist in toDists:
                         # so the self.sources.list is already set to the new
                         # distro
@@ -134,7 +135,24 @@ class DistUpgradeControler(object):
             if res:
                 # re-init the sources and try again
                 self.sources = SourcesList()
-                self.rewriteSourcesList(mirror_check=False)
+                if not self.rewriteSourcesList(mirror_check=False):
+                    #hm, still nothing useful ...
+                    prim = _("Generate default sources?")
+                    secon = _("After scanning your 'sources.list' no "
+                              "valid entry for '%s' was found.\n\n"
+                              "Should the default entries for '%s' be "
+                              "added? If you select 'No' the update "
+                              "will cancel.") % (self.fromDist, self.toDist)
+                    if not self._view.askYesNoQuestion(prim, secon):
+                        self.abort()
+                    # add some defaults
+                    uri = "http://archive.ubuntu.com/ubuntu"
+                    comps = ["main","restricted"]
+                    self.sources.add("deb", uri, self.toDist, comps)
+                    self.sources.add("deb", uri, self.toDist+"-updates", comps)
+                    self.sources.add("deb",
+                                     "http://security.ubuntu.com/ubuntu/",
+                                     self.toDist+"-security", comps)
             else:
                 self.abort()
         
