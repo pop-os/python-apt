@@ -57,10 +57,9 @@ class DistUpgradeControler(object):
         self.cache = MyCache(self._view.getOpCacheProgress())
 
 
-    def updateSourcesList(self):
+    def rewriteSourcesList(self, mirror_check=True):
+        logging.debug("rewriteSourcesList()")
 
-        logging.debug("updateSourcesList()")
-        
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
         #  component names here)
@@ -88,7 +87,7 @@ class DistUpgradeControler(object):
             # check if it's a mirror (or offical site)
             validMirror = False
             for mirror in valid_mirrors:
-                if is_mirror(mirror,entry.uri):
+                if not mirror_check or is_mirror(mirror,entry.uri):
                     validMirror = True
                     # security is a special case
                     res = not entry.uri.startswith("http://security.ubuntu.com")
@@ -96,9 +95,9 @@ class DistUpgradeControler(object):
                         # so the self.sources.list is already set to the new
                         # distro
                         logging.debug("entry '%s' is already set to new dist" % entry)
-                        foundToDist = res
+                        foundToDist |= res
                     elif entry.dist in fromDists:
-                        foundToDist = res
+                        foundToDist |= res
                         entry.dist = toDists[fromDists.index(entry.dist)]
                         logging.debug("entry '%s' updated to new dist" % entry)
                     else:
@@ -112,16 +111,32 @@ class DistUpgradeControler(object):
             if not validMirror:
                 entry.disabled = True
                 logging.debug("entry '%s' was disabled (unknown mirror)" % entry)
+        return foundToDist
 
-
-        if not foundToDist:
-            # FIXME: offer to write a new self.sources.list entry
-            #        DONT'T ERROR, write a line with mirror here
-            logging.error("No valid entry found")
-            return self._view.error(_("No valid entry found"),
-                                    _("While scaning your repository "
-                                      "information no valid entry for "
-                                      "the upgrade was found.\n"))
+    def updateSourcesList(self):
+        logging.debug("updateSourcesList()")
+        self.sources = SourcesList()
+        if not self.rewriteSourcesList(mirror_check=True):
+            logging.error("No valid mirror found")
+            res = self._view.askYesNoQuestion(_("No valid mirror found"),
+                             _("While scaning your repository "
+                               "information no mirror entry for "
+                               "the upgrade was found."
+                               "This cam happen if you run a interal "
+                               "mirror or if the mirror information is "
+                               "out of date.\n\n"
+                               "Do you want to rewrite your "
+                               "'sources.list' file anyway? If you choose "
+                               "'Yes' here it will update all '%s' to '%s' "
+                               "entries.\n"
+                               "If you select 'no' the update will cancel."
+                               ) % (self.fromDist, self.toDist))
+            if res:
+                # re-init the sources and try again
+                self.sources = SourcesList()
+                self.rewriteSourcesList(mirror_check=False)
+            else:
+                self.abort()
         
         # write (well, backup first ;) !
         self.sources.backup(self.sources_backup_ext)
@@ -318,8 +333,6 @@ class DistUpgradeControler(object):
         self._view.setStep(1)
 
         self.openCache()
-        self.sources = SourcesList()
-     
         if not self.cache.sanityCheck(self._view):
             abort(1)
 
