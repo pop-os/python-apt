@@ -244,7 +244,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         if self.last_activity > 0 and \
            (self.last_activity + self.TIMEOUT_TERMINAL_ACTIVITY) < time.time():
           if not self.activity_timeout_reported:
-            logging.warning("no activity on terminal for %s seconds (%s)" % (self.TIMEOUT_TERMINAL_ACTIVITY, self.label_status.get_text())
+            logging.warning("no activity on terminal for %s seconds (%s)" % (self.TIMEOUT_TERMINAL_ACTIVITY, self.label_status.get_text()))
             self.activity_timeout_reported = True
           self.parent.expander_terminal.set_expanded(True)
         while gtk.events_pending():
