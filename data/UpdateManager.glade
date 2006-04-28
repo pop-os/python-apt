@@ -89,7 +89,7 @@
 		  <child>
 		    <widget class="GtkLabel" id="label26">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Software updates can correct errors, eliminate security vulnerabilities, and provide new features to you.</property>
+		      <property name="label" translatable="yes">Software updates correct errors, eliminate security vulnerabilities and provide new features.</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">False</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1362,9 +1362,9 @@ Your system does not check for updates automatically. You can configure this beh
       <child>
 	<widget class="GtkLabel" id="label22">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Analysing your system&lt;/b&gt;&lt;/big&gt;
+	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Examining your system&lt;/b&gt;&lt;/big&gt;
 
-Software updates can correct errors, eliminate security vulnerabilities, and provide new features to you.</property>
+Software updates correct errors, eliminate security vulnerabilities and provide new features.</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>

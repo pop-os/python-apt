@@ -390,7 +390,7 @@
 		      <child>
 			<widget class="GtkCheckButton" id="checkbutton_unattended">
 			  <property name="visible">True</property>
-			  <property name="tooltip" translatable="yes">Only security updates from the official Ubuntu servers will be installed automatically. The software package &quot;unattended-upgrades&quot; needs to be installed therefor</property>
+			  <property name="tooltip" translatable="yes">Only security updates from the official Ubuntu servers will be installed automatically</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">_Install security updates without confirmation</property>
 			  <property name="use_underline">True</property>

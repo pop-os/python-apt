@@ -100,16 +100,16 @@ class SoftwareProperties(SimpleGladeApp):
 
     update_days = apt_pkg.Config.FindI(CONF_MAP["autoupdate"])
 
-    self.combobox_update_interval.append_text("Daily")
-    self.combobox_update_interval.append_text("Every two days")
-    self.combobox_update_interval.append_text("Weekly")
-    self.combobox_update_interval.append_text("Every two weeks")
+    self.combobox_update_interval.append_text(_("Daily"))
+    self.combobox_update_interval.append_text(_("Every two days"))
+    self.combobox_update_interval.append_text(_("Weekly"))
+    self.combobox_update_interval.append_text(_("Every two weeks"))
 
     # If a custom period is defined add an corresponding entry
     if not update_days in self.combobox_interval_mapping.values():
         if update_days > 0:
-            self.combobox_update_interval.append_text(_("Every %s days" 
-                                                      % update_days))
+            self.combobox_update_interval.append_text(_("Every %s days") 
+                                                      % update_days)
             self.combobox_interval_mapping[4] = update_days
     
     for key in self.combobox_interval_mapping:
@@ -131,15 +131,15 @@ class SoftwareProperties(SimpleGladeApp):
 
     delete_days = apt_pkg.Config.FindI(CONF_MAP["max_age"])
 
-    self.combobox_delete_interval.append_text("After one week")
-    self.combobox_delete_interval.append_text("After two weeks")
-    self.combobox_delete_interval.append_text("After one month")
+    self.combobox_delete_interval.append_text(_("After one week"))
+    self.combobox_delete_interval.append_text(_("After two weeks"))
+    self.combobox_delete_interval.append_text(_("After one month"))
 
     # If a custom period is defined add an corresponding entry
     if not delete_days in self.combobox_delete_interval_mapping.values():
         if delete_days > 0 and CONF_MAP["autoclean"] != 0:
-            self.combobox_delete_interval.append_text(_("After %s days" 
-                                                      % delete_days))
+            self.combobox_delete_interval.append_text(_("After %s days") 
+                                                      % delete_days)
             self.combobox_delete_interval_mapping[3] = delete_days
     
     for key in self.combobox_delete_interval_mapping:
