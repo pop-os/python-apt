@@ -15,6 +15,7 @@ MUSTFIX:
 * inform about commented out sources
   [Done]
 * fix "no activity for 120s warning" being repeated every sec in the logs
+  [Done]
 * use the dialog frontend (for debconf) and detect the ansi sequence that
   clear the screen and expand the terminal then 
 * [fabbio]: we probably don't want to remove stuff that moved from main
@@ -25,6 +26,8 @@ MUSTFIX:
             seqence that clear the screen and open the terminal then 
             -> trouble: vte does not give me the raw codes but only the
                         text (as \n\n\n\n\n... for cls)
+* add "add cdrom" to the "Do upgrade?" screen? And recalc the download 
+  size again then :) ?
 
 breezy->dapper
 --------------
