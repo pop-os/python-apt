@@ -1,3 +1,10 @@
+update-manager (0.42.2ubuntu14) dapper; urgency=low
+
+  * wording/glade file fixes (thanks to Sebastian Heinlein)
+  * many updates to the dist-upgrader code
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 28 Apr 2006 23:04:08 +0200
+
 update-manager (0.42.2ubuntu13) dapper; urgency=low
 
   * po/POTFILES.in: add missing desktop file (ubuntu: #39410)
@@ -9,7 +16,7 @@ update-manager (0.42.2ubuntu13) dapper; urgency=low
   * setup.py: install the icons into the hicolor icon schema
     (thanks to Sebastian Heinlein)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 20 Apr 2006 18:23:54 +0200
 
 update-manager (0.42.2ubuntu12) dapper; urgency=low
 
