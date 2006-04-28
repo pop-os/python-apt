@@ -77,6 +77,8 @@ class DistUpgradeControler(object):
         # list of valid mirrors that we can add
         valid_mirrors = self.config.getListFromFile("Sources","ValidMirrors")
 
+        self.sources_disabled = False
+
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
@@ -105,12 +107,14 @@ class DistUpgradeControler(object):
                         # disable all entries that are official but don't
                         # point to either "to" or "from" dist
                         entry.disabled = True
+                        self.sources_disabled = True
                         logging.debug("entry '%s' was disabled (unknown dist)" % entry)
                     # it can only be one valid mirror, so we can break here
                     break
             # disable anything that is not from a official mirror
             if not validMirror:
                 entry.disabled = True
+                self.sources_disabled = True
                 logging.debug("entry '%s' was disabled (unknown mirror)" % entry)
         return foundToDist
 
@@ -123,7 +127,7 @@ class DistUpgradeControler(object):
                              _("While scaning your repository "
                                "information no mirror entry for "
                                "the upgrade was found."
-                               "This cam happen if you run a interal "
+                               "This cam happen if you run a internal "
                                "mirror or if the mirror information is "
                                "out of date.\n\n"
                                "Do you want to rewrite your "
@@ -140,7 +144,7 @@ class DistUpgradeControler(object):
                     prim = _("Generate default sources?")
                     secon = _("After scanning your 'sources.list' no "
                               "valid entry for '%s' was found.\n\n"
-                              "Should the default entries for '%s' be "
+                              "Should default entries for '%s' be "
                               "added? If you select 'No' the update "
                               "will cancel.") % (self.fromDist, self.toDist)
                     if not self._view.askYesNoQuestion(prim, secon):
@@ -175,6 +179,14 @@ class DistUpgradeControler(object):
                                "resulted in a invalid file. Please "
                                "report this as a bug."))
             return False
+
+        if self.sources_disabled:
+            self._view.information(_("Third party sources disabled"),
+                             _("Some third party entries in your souces.list "
+                               "where disabled. You can re-enable them "
+                               "after the upgrade with the "
+                               "'software-properties' tool or with synaptic."
+                               ))
         return True
 
     def _logChanges(self):

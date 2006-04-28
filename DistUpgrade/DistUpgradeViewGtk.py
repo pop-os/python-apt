@@ -373,6 +373,16 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
+    def information(self, summary, msg):
+      msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
+      dialog = gtk.MessageDialog(parent=self.window_main,
+                                 flags=gtk.DIALOG_MODAL,
+                                 type=gtk.MESSAGE_INFO,
+                                 buttons=gtk.BUTTONS_CLOSE)
+      dialog.set_markup(msg)
+      dialog.run()
+      dialog.destroy()
+
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
         #self.expander_terminal.set_expanded(True)
