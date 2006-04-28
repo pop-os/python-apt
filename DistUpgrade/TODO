@@ -11,7 +11,9 @@ MUSTFIX:
   are commented out
   (or for sources that can't be identified and rewrite ask the user
    what to do by just s/breezy/dapper/g?)
+  [Done]
 * inform about commented out sources
+  [Done]
 * fix "no activity for 120s warning" being repeated every sec in the logs
 * use the dialog frontend (for debconf) and detect the ansi sequence that
   clear the screen and expand the terminal then 

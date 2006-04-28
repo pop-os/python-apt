@@ -1,3 +1,10 @@
+2006-04-28:
+        - add more sanity checking, if no valid mirror is found in the 
+          sources.list ask for "dumb" rewrite
+        - if nothing valid was found after a dumb rewrite, add official
+          sources
+        - don't report install TIMEOUT over and over in the log
+        - report what package caused a install TIMEOUT
 2006-04-27:
 	- add a additonal sanity check after the rewriting of the sources.list
           (check for BaseMetaPkgs still in the cache)

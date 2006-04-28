@@ -212,6 +212,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # start showing when we gathered some data
         if percent > 1.0:
           self.last_activity = time.time()
+          self.activity_timeout_reported = False
           delta = self.last_activity - self.start_time
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
@@ -242,7 +243,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         # check about terminal activity
         if self.last_activity > 0 and \
            (self.last_activity + self.TIMEOUT_TERMINAL_ACTIVITY) < time.time():
-          logging.warning("no activity on terminal for %s seconds" % self.TIMEOUT_TERMINAL_ACTIVITY)
+          if not self.activity_timeout_reported:
+            logging.warning("no activity on terminal for %s seconds (%s)" % (self.TIMEOUT_TERMINAL_ACTIVITY, self.label_status.get_text())
+            self.activity_timeout_reported = True
           self.parent.expander_terminal.set_expanded(True)
         while gtk.events_pending():
             gtk.main_iteration()

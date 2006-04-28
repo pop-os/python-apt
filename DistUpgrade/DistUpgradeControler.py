@@ -149,7 +149,9 @@ class DistUpgradeControler(object):
                               "will cancel.") % (self.fromDist, self.toDist)
                     if not self._view.askYesNoQuestion(prim, secon):
                         self.abort()
-                    # add some defaults
+
+                    # add some defaults here
+                    # FIXME: find mirror here
                     uri = "http://archive.ubuntu.com/ubuntu"
                     comps = ["main","restricted"]
                     self.sources.add("deb", uri, self.toDist, comps)
@@ -389,6 +391,10 @@ class DistUpgradeControler(object):
         # if not something went seriously wrong
         for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
             if not self.cache.has_key(pkg):
+                # FIXME: we could offer to add default source entries here,
+                #        but we need to be careful to not duplicate them
+                #        (i.e. the error here could be something else than
+                #        missing sources entires but network errors etc)
                 logging.error("No '%s' after sources.list rewrite+update")
                 self._view.error(_("Inavlid package information"),
                                  _("After your package information was "
