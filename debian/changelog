@@ -1,3 +1,35 @@
+python-apt (0.6.17) unstable; urgency=low
+
+  * apt/progress.py: 
+    - initialize FetchProgress.eta with the correct type
+    - strip the staus str before passing it to InstallProgress.statusChanged()
+    - added InstallProgress.statusChange(pkg, percent, status) 
+    - make DumbInstallProgress a new-style class 
+      (thanks to kamion for the suggestions)
+    - fix various pychecker warnings
+  * apt/cache.py:
+    - return useful values on Cache.update()
+  * apt/cache.py, apt/package.py: fix various pychecker warnings
+  * apt/cache.py: Release locks on failure (thanks to Colin Watson)
+  * python/srcrecords.cc:
+    - add "Restart" method
+    - don't run auto "Restart" before performing a Lookup 
+    - fix the initalization (no need to pass a PkgCacheType to the records)
+    - added "Index" attribute
+  * python/indexfile.cc:
+    - added ArchiveURI() method
+  
+ --
+
+python-apt (0.6.16.2) unstable; urgency=low
+  
+  * Non-maintainer upload.
+  * debian/control:
+    + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+      correct here. (closes: #308586).
+
+ -- Pierre Habouzit <madcoder@debian.org>  Fri, 14 Apr 2006 19:30:51 +0200
+  
 python-apt (0.6.16.1) unstable; urgency=low
 
   * memleak fixed when pkgCache objects are deallocated

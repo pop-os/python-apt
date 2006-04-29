@@ -21,7 +21,7 @@
 
 import sys, apt_pkg, os, fcntl, string, re
 
-class OpProgress:
+class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
         Subclass this class to implement simple Operation progress reporting
     """
@@ -62,7 +62,7 @@ class FetchProgress(object):
                    dlIgnored : "Ignored"}
     
     def __init__(self):
-        self.eta = ""
+        self.eta = 0.0
         self.percent = 0.0
         pass
     
@@ -117,7 +117,7 @@ class TextFetchProgress(FetchProgress):
             res = false;
         return res
 
-class DumbInstallProgress:
+class DumbInstallProgress(object):
     """ Report the install progress
         Subclass this class to implement install progress reporting
     """
@@ -135,9 +135,10 @@ class DumbInstallProgress:
 class InstallProgress(DumbInstallProgress):
     """ A InstallProgress that is pretty useful.
         It supports the attributes 'percent' 'status' and callbacks
-        for the dpkg errors and conffiles (not implemented yet)
+        for the dpkg errors and conffiles and status changes 
      """
     def __init__(self):
+        DumbInstallProgress.__init__(self)
         (read, write) = os.pipe()
         self.writefd=write
         self.statusfd = os.fdopen(read, "r")
@@ -151,6 +152,9 @@ class InstallProgress(DumbInstallProgress):
     def conffile(self,current,new):
         " called when a conffile question from dpkg is detected "
         pass
+    def statusChange(self, pkg, percent, status):
+	" called when the status changed "
+	pass
     def updateInterface(self):
         if self.statusfd != None:
                 try:
@@ -173,8 +177,12 @@ class InstallProgress(DumbInstallProgress):
                         match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
                         if match:
                             self.conffile(match.group(1), match.group(2))
-                    self.percent = float(percent)
-                    self.status = string.strip(status_str)
+                    elif status == "pmstatus":
+                        if float(percent) != self.percent or \
+                           status_str != self.status:
+                            self.statusChange(pkg, float(percent), status_str.strip())
+                        self.percent = float(percent)
+                        self.status = string.strip(status_str)
                     self.read = ""
                     
     def fork(self):

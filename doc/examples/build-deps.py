@@ -24,7 +24,7 @@ cache = apt_pkg.GetCache()
 depcache = apt_pkg.GetDepCache(cache)
 depcache.Init()
 records = apt_pkg.GetPkgRecords(cache)
-srcrecords = apt_pkg.GetPkgSrcRecords(cache)
+srcrecords = apt_pkg.GetPkgSrcRecords()
 
 # base package that we use for build-depends calculation
 if len(sys.argv) < 2:

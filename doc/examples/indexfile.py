@@ -18,3 +18,4 @@ for (f,i) in cand.FileList:
         print index.IsTrusted
         print index.Exists
         print index.HasPackages
+        print index.ArchiveURI("some/path")
