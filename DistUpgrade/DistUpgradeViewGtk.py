@@ -212,6 +212,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         # start showing when we gathered some data
         if percent > 1.0:
           self.last_activity = time.time()
+          self.activity_timeout_reported = False
           delta = self.last_activity - self.start_time
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
@@ -242,7 +243,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         # check about terminal activity
         if self.last_activity > 0 and \
            (self.last_activity + self.TIMEOUT_TERMINAL_ACTIVITY) < time.time():
-          logging.warning("no activity on terminal for %s seconds" % self.TIMEOUT_TERMINAL_ACTIVITY)
+          if not self.activity_timeout_reported:
+            logging.warning("no activity on terminal for %s seconds (%s)" % (self.TIMEOUT_TERMINAL_ACTIVITY, self.label_status.get_text()))
+            self.activity_timeout_reported = True
           self.parent.expander_terminal.set_expanded(True)
         while gtk.events_pending():
             gtk.main_iteration()
@@ -253,9 +256,19 @@ class DistUpgradeVteTerminal(object):
     self.term = term
     self.parent = parent
   def call(self, cmd):
+    def wait_for_child(widget):
+      #print "wait for child finished"
+      self.finished=True
     self.term.show()
+    self.term.connect("child-exited", wait_for_child)
     self.parent.expander_terminal.set_expanded(True)
     self.term.fork_command(command=cmd[0],argv=cmd)
+    self.finished = False
+    while not self.finished:
+      while gtk.events_pending():
+        gtk.main_iteration()
+      time.sleep(0.1)
+    del self.finished
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
@@ -299,9 +312,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       logging.error("not handled expection:\n%s" % "\n".join(lines))
       self.error(_("A fatal error occured"),
                  _("Please report this as a bug and include the "
-                   "files '/var/log/dist-upgrade.log' and "
-                   "'/var/log/dist-upgrade-apt.log' "
-                   "in your report. The upgrade aborts now. "),
+                   "files /var/log/dist-upgrade.log and "
+                   "/var/log/dist-upgrade-apt.log "
+                   "in your report. The upgrade aborts now.\n"
+                   "Your original sources.list was saved in "
+                   "/etc/apt/sources.list.distUpgrade."),
                  "\n".join(lines))
       sys.exit(1)
 
@@ -360,6 +375,16 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
+
+    def information(self, summary, msg):
+      msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
+      dialog = gtk.MessageDialog(parent=self.window_main,
+                                 flags=gtk.DIALOG_MODAL,
+                                 type=gtk.MESSAGE_INFO,
+                                 buttons=gtk.BUTTONS_CLOSE)
+      dialog.set_markup(msg)
+      dialog.run()
+      dialog.destroy()
 
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
@@ -498,10 +523,10 @@ if __name__ == "__main__":
     cache[pkg].markInstall()
   cache.commit(fp,ip)
   
-  sys.exit(0)
+  #sys.exit(0)
   ip.conffile("TODO","TODO~")
   view.getTerminal().call(["dpkg","--configure","-a"])
-  view.getTerminal().call(["ls"])
+  view.getTerminal().call(["ls","-R","/usr"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"

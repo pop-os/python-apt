@@ -81,4 +81,6 @@ class DistUpgradeView(object):
     def error(self, summary, msg, extended_msg=None):
         " display a error "
         pass
-    
+    def information(self, summary, msg):
+        " display a information msg"
+        pass
