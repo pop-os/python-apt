@@ -297,6 +297,7 @@ class UpdateManager(SimpleGladeApp):
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
+    self.window_main.show()
       
 
   def on_checkbutton_reminder_toggled(self, checkbutton):
