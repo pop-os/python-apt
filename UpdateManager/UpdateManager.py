@@ -150,9 +150,9 @@ class MyCache(apt.Cache):
                                             "later."), srcpkg]
         except IOError:
             if lock.locked():
-                self.all_changes[name] = [_("Failed to download the list"
+                self.all_changes[name] = [_("Failed to download the list "
                                             "of changes. Please "
-                                            "check your internet "
+                                            "check your Internet "
                                             "connection."), srcpkg]
         if lock.locked():
             lock.release()
@@ -297,6 +297,7 @@ class UpdateManager(SimpleGladeApp):
     self.gconfclient = gconf.client_get_default()
     # restore state
     self.restore_state()
+    self.window_main.show()
       
 
   def on_checkbutton_reminder_toggled(self, checkbutton):
@@ -432,6 +433,7 @@ class UpdateManager(SimpleGladeApp):
           text_download = ""
           self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
+          self.button_install.set_sensitive(False)
           self.label_downsize.set_text=""
           self.button_close.grab_default()
           self.textview_changes.get_buffer().set_text("")

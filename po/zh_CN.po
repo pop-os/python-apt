@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-04-27 18:14+0200\n"
+"POT-Creation-Date: 2006-05-02 11:43+0200\n"
 "PO-Revision-Date: 2006-04-08 11:35+0000\n"
 "Last-Translator: stone_unix <gaoghy@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -16,10 +16,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
+#: ../SoftwareProperties/SoftwareProperties.py:103
+#, fuzzy
+msgid "Daily"
+msgstr "详细信息"
+
+#: ../SoftwareProperties/SoftwareProperties.py:104
+#, fuzzy
+msgid "Every two days"
+msgstr "每%s天"
+
+#: ../SoftwareProperties/SoftwareProperties.py:105
+msgid "Weekly"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:106
+msgid "Every two weeks"
+msgstr ""
+
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
 msgstr "每%s天"
+
+#: ../SoftwareProperties/SoftwareProperties.py:134
+msgid "After one week"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:135
+msgid "After two weeks"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:136
+msgid "After one month"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
@@ -142,41 +172,73 @@ msgstr ""
 msgid "Reading cache"
 msgstr "正在读取缓存"
 
-#: ../DistUpgrade/DistUpgradeControler.py:119
-msgid "No valid entry found"
+#: ../DistUpgrade/DistUpgradeControler.py:126
+#, fuzzy
+msgid "No valid mirror found"
 msgstr "未找到有效记录"
 
-#: ../DistUpgrade/DistUpgradeControler.py:120
+#: ../DistUpgrade/DistUpgradeControler.py:127
+#, python-format
 msgid ""
-"While scaning your repository information no valid entry for the upgrade was "
-"found.\n"
-msgstr "在检查你的源的信息时未能找到有效的升级记录\n"
+"While scaning your repository information no mirror entry for the upgrade "
+"was found.This cam happen if you run a internal mirror or if the mirror "
+"information is out of date.\n"
+"\n"
+"Do you want to rewrite your 'sources.list' file anyway? If you choose 'Yes' "
+"here it will update all '%s' to '%s' entries.\n"
+"If you select 'no' the update will cancel."
+msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:138
+#. hm, still nothing useful ...
+#: ../DistUpgrade/DistUpgradeControler.py:144
+msgid "Generate default sources?"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:145
+#, python-format
+msgid ""
+"After scanning your 'sources.list' no valid entry for '%s' was found.\n"
+"\n"
+"Should default entries for '%s' be added? If you select 'No' the update will "
+"cancel."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:179
 msgid "Repository information invalid"
 msgstr "源的信息无效"
 
-#: ../DistUpgrade/DistUpgradeControler.py:139
+#: ../DistUpgrade/DistUpgradeControler.py:180
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr "升级源的信息时产生一个无效文件。请汇报这个bug。"
 
-#: ../DistUpgrade/DistUpgradeControler.py:184
+#: ../DistUpgrade/DistUpgradeControler.py:186
+msgid "Third party sources disabled"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:187
+msgid ""
+"Some third party entries in your souces.list where disabled. You can re-"
+"enable them after the upgrade with the 'software-properties' tool or with "
+"synaptic."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:233
 msgid "Error during update"
 msgstr "升级时出错"
 
-#: ../DistUpgrade/DistUpgradeControler.py:185
+#: ../DistUpgrade/DistUpgradeControler.py:234
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr "升级时候出错。这通常是一些网络问题，请检查你的网络连接后再试。"
 
-#: ../DistUpgrade/DistUpgradeControler.py:204
+#: ../DistUpgrade/DistUpgradeControler.py:253
 msgid "Not enough free disk space"
 msgstr "磁盘空间不足"
 
-#: ../DistUpgrade/DistUpgradeControler.py:205
+#: ../DistUpgrade/DistUpgradeControler.py:254
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -186,15 +248,15 @@ msgstr ""
 "升级已被取消。请清理出至少%s的磁盘空间。清空你的回收站并通过'sudo apt-get "
 "clean'命令来删除之前安装的临时软件包。"
 
-#: ../DistUpgrade/DistUpgradeControler.py:211
+#: ../DistUpgrade/DistUpgradeControler.py:260
 msgid "Do you want to start the upgrade?"
 msgstr "你要开始升级么？"
 
-#: ../DistUpgrade/DistUpgradeControler.py:228
+#: ../DistUpgrade/DistUpgradeControler.py:277
 msgid "Could not install the upgrades"
 msgstr "无法安装升级"
 
-#: ../DistUpgrade/DistUpgradeControler.py:229
+#: ../DistUpgrade/DistUpgradeControler.py:278
 #, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
@@ -203,33 +265,33 @@ msgstr ""
 "升级现在取消。你的系统可能处于不稳定状态。恢复工作在运行中(dpkg --configure -"
 "a)。"
 
-#: ../DistUpgrade/DistUpgradeControler.py:244
+#: ../DistUpgrade/DistUpgradeControler.py:293
 msgid "Could not download the upgrades"
 msgstr "无法下载升级包"
 
-#: ../DistUpgrade/DistUpgradeControler.py:245
+#: ../DistUpgrade/DistUpgradeControler.py:294
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr "升级现在取消。请检查你的网络连接活重新放置安装媒体后再试。 "
 
-#: ../DistUpgrade/DistUpgradeControler.py:287
+#: ../DistUpgrade/DistUpgradeControler.py:336
 msgid "Remove obsolete packages?"
 msgstr "删除陈旧的软件包？"
 
-#: ../DistUpgrade/DistUpgradeControler.py:288
+#: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "_Skip This Step"
 msgstr "跳过这个步骤(_S)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:288
+#: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "_Remove"
 msgstr "删除(_R)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:298
+#: ../DistUpgrade/DistUpgradeControler.py:347
 msgid "Error during commit"
 msgstr "确认时出错"
 
-#: ../DistUpgrade/DistUpgradeControler.py:299
+#: ../DistUpgrade/DistUpgradeControler.py:348
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -237,20 +299,20 @@ msgstr "在清理时发生问题。更多信息请查看以下消息。 "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:315
-#: ../DistUpgrade/DistUpgradeControler.py:341
+#: ../DistUpgrade/DistUpgradeControler.py:364
+#: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
 msgstr "正在检查软件包管理器"
 
-#: ../DistUpgrade/DistUpgradeControler.py:333
+#: ../DistUpgrade/DistUpgradeControler.py:380
 msgid "Updating repository information"
 msgstr "更新源的信息"
 
-#: ../DistUpgrade/DistUpgradeControler.py:348
-msgid "Inavlid package information"
+#: ../DistUpgrade/DistUpgradeControler.py:399
+msgid "Invalid package information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:349
+#: ../DistUpgrade/DistUpgradeControler.py:400
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -258,19 +320,19 @@ msgid ""
 "This indicates a serious error, please report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:359
+#: ../DistUpgrade/DistUpgradeControler.py:410
 msgid "Asking for confirmation"
 msgstr "请求确认"
 
-#: ../DistUpgrade/DistUpgradeControler.py:363
+#: ../DistUpgrade/DistUpgradeControler.py:414
 msgid "Upgrading"
 msgstr "正在更新"
 
-#: ../DistUpgrade/DistUpgradeControler.py:370
+#: ../DistUpgrade/DistUpgradeControler.py:421
 msgid "Searching for obsolete software"
 msgstr "寻找陈旧的软件包"
 
-#: ../DistUpgrade/DistUpgradeControler.py:375
+#: ../DistUpgrade/DistUpgradeControler.py:426
 msgid "System upgrade is complete."
 msgstr "系统更新完毕"
 
@@ -290,7 +352,7 @@ msgid "Downloading file %li of %li at %s/s"
 msgstr "正在下载文件%li来自%li速度是%s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
-#: ../DistUpgrade/DistUpgradeViewGtk.py:220
+#: ../DistUpgrade/DistUpgradeViewGtk.py:221
 #, python-format
 msgid "%s remaining"
 msgstr "还剩%s"
@@ -330,11 +392,11 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "外部命令“diff”没有找到"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:310
+#: ../DistUpgrade/DistUpgradeViewGtk.py:313
 msgid "A fatal error occured"
 msgstr "出现致命错误"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:311
+#: ../DistUpgrade/DistUpgradeViewGtk.py:314
 #, fuzzy
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
@@ -344,58 +406,58 @@ msgstr ""
 "请报告这个bug并在你的报告中包括这些文件~/dist-upgrade.log和~/dist-upgrade-"
 "apt.log。升级现在取消。 "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:403
+#: ../DistUpgrade/DistUpgradeViewGtk.py:416
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s软件包将被删除。"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:409
+#: ../DistUpgrade/DistUpgradeViewGtk.py:422
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s新的软件包将被安装。"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:415
+#: ../DistUpgrade/DistUpgradeViewGtk.py:428
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s软件包将被升级"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:422
+#: ../DistUpgrade/DistUpgradeViewGtk.py:435
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "你下载了总体的%s。"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:426
+#: ../DistUpgrade/DistUpgradeViewGtk.py:439
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr "升级会持续几个小时且不能在此后的任何时候被终止"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:429
+#: ../DistUpgrade/DistUpgradeViewGtk.py:442
 msgid "To prevent data loss close all open applications and documents."
 msgstr "关闭所有打开的程序和文档以防止数据丢失。"
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:435
+#: ../DistUpgrade/DistUpgradeViewGtk.py:448
 msgid "Could not find any upgrades"
 msgstr "不能找到任何升级"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:436
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 msgid "Your system has already been upgraded."
 msgstr "你的系统已经升级。"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:451
+#: ../DistUpgrade/DistUpgradeViewGtk.py:464
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>删除%s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:453
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "Install %s"
 msgstr "安装%s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:455
+#: ../DistUpgrade/DistUpgradeViewGtk.py:468
 #, python-format
 msgid "Upgrade %s"
 msgstr "升级%s"
@@ -602,7 +664,8 @@ msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:153
 msgid ""
-"Failed to download the listof changes. Please check your internet connection."
+"Failed to download the list of changes. Please check your Internet "
+"connection."
 msgstr ""
 
 #. print "WARNING, keeping packages"
@@ -622,92 +685,82 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:329
+#: ../UpdateManager/UpdateManager.py:330
 #, python-format
 msgid "Version %s: \n"
 msgstr "版本 %s： \n"
 
-#: ../UpdateManager/UpdateManager.py:389
+#: ../UpdateManager/UpdateManager.py:390
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "正在下载第 %li 个文件(共 %li 个文件)"
 
-#: ../UpdateManager/UpdateManager.py:412 ../UpdateManager/UpdateManager.py:422
-#: ../UpdateManager/UpdateManager.py:442
+#: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
+#: ../UpdateManager/UpdateManager.py:447
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:431
+#: ../UpdateManager/UpdateManager.py:432
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "您的系统已为最新！"
 
-#: ../UpdateManager/UpdateManager.py:440
+#: ../UpdateManager/UpdateManager.py:443
 #, fuzzy, python-format
-msgid "You can install one update"
+msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "显示并安装可用更新"
 
-#: ../UpdateManager/UpdateManager.py:453
+#: ../UpdateManager/UpdateManager.py:458
 #, fuzzy
 msgid "Hide details"
 msgstr "显示详情"
 
-#: ../UpdateManager/UpdateManager.py:455 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:460 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "显示详情"
 
-#: ../UpdateManager/UpdateManager.py:470
+#: ../UpdateManager/UpdateManager.py:475
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:472
+#: ../UpdateManager/UpdateManager.py:477
 #, fuzzy
 msgid "Update is complete"
 msgstr "下载完成"
 
-#: ../UpdateManager/UpdateManager.py:586
-msgid "Repositories changed"
-msgstr "仓库已变更"
-
-#: ../UpdateManager/UpdateManager.py:587
-msgid ""
-"You need to reload the package list from the servers for your changes to "
-"take effect. Do you want to do this now?"
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:620
+#: ../UpdateManager/UpdateManager.py:580
 #, fuzzy, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "新版本：%s"
 
-#: ../UpdateManager/UpdateManager.py:634
+#: ../UpdateManager/UpdateManager.py:594
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "您的发行版不再被支持"
 
-#: ../UpdateManager/UpdateManager.py:635
+#: ../UpdateManager/UpdateManager.py:595
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:646
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:688
+#: ../UpdateManager/UpdateManager.py:648
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:705
+#: ../UpdateManager/UpdateManager.py:665
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:706
+#: ../UpdateManager/UpdateManager.py:666
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -727,11 +780,12 @@ msgstr ""
 "变."
 
 #: ../data/UpdateManager.glade.h:4
+#, fuzzy
 msgid ""
-"<big><b>Analysing your system</b></big>\n"
+"<big><b>Examining your system</b></big>\n"
 "\n"
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
+"Software updates correct errors, eliminate security vulnerabilities and "
+"provide new features."
 msgstr ""
 "<big><b>正在检查有效的更新</b></big>\n"
 "\n"
@@ -774,9 +828,10 @@ msgid "Software Updates"
 msgstr "软件更新"
 
 #: ../data/UpdateManager.glade.h:17
+#, fuzzy
 msgid ""
-"Software updates can correct errors, eliminate security vulnerabilities, and "
-"provide new features to you."
+"Software updates correct errors, eliminate security vulnerabilities and "
+"provide new features."
 msgstr "软件更行可以为你修复错误，消除安全漏洞及提供新的特性"
 
 #: ../data/UpdateManager.glade.h:18
@@ -836,10 +891,10 @@ msgid "Internet Updates"
 msgstr "<b>Internet 更新</b>"
 
 #: ../data/SoftwareProperties.glade.h:10
+#, fuzzy
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
-"automatically. The software package \"unattended-upgrades\" needs to be "
-"installed therefor"
+"automatically"
 msgstr ""
 "只有来自官方Ubuntu服务器的安全更新才会被自动安装。为此，名为\"unattended-"
 "upgrades\"软件包需要被安装。"
@@ -915,11 +970,12 @@ msgid "<b>URI:</b>"
 msgstr "<b>URI：</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
+#, fuzzy
 msgid ""
 "<big><b>Enter the complete APT line of the channel that you want to add</b></"
 "big>\n"
 "\n"
-"The APT line contains the type, location and sections of a channel, for "
+"The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>输入你想增加的完整的频道 APT 命令行</b></big>\n"
@@ -1131,6 +1187,14 @@ msgstr "带有非自由依赖关系的DFSG兼容软件"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "非DFSG兼容软件"
+
+#~ msgid ""
+#~ "While scaning your repository information no valid entry for the upgrade "
+#~ "was found.\n"
+#~ msgstr "在检查你的源的信息时未能找到有效的升级记录\n"
+
+#~ msgid "Repositories changed"
+#~ msgstr "仓库已变更"
 
 #~ msgid "<b>Sections</b>"
 #~ msgstr "<b>节：</b>"

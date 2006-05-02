@@ -1,3 +1,11 @@
+update-manager (0.42.2ubuntu15) dapper; urgency=low
+
+  * disable the install button if there no updates
+  * show main window after restoring the size
+  * fix broken spelling, typos (ubuntu: #42431, #28777)
+
+ --
+
 update-manager (0.42.2ubuntu14) dapper; urgency=low
 
   * wording/glade file fixes (thanks to Sebastian Heinlein)
