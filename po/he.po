@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:23+0000\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-28 23:30+0000\n"
 "Last-Translator: Yaniv Abir <yanivabir@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -580,7 +580,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג. "
+msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 #, fuzzy
@@ -639,9 +639,9 @@ msgid ""
 msgstr ""
 
 #: ../UpdateManager/GtkProgress.py:107
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %li of %li with %s/s"
-msgstr "מוריד קובץ %li מתוך %li במהירות לא ידועה"
+msgstr ""
 
 #: ../UpdateManager/GtkProgress.py:111
 #, fuzzy, python-format
@@ -688,9 +688,9 @@ msgstr "מוריד שינוייים"
 
 #: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
 #: ../UpdateManager/UpdateManager.py:447
-#, fuzzy, python-format
+#, python-format
 msgid "Download size: %s"
-msgstr "מוריד שינוייים"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:432
 #, fuzzy

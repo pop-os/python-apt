@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:23+0000\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-28 23:30+0000\n"
 "Last-Translator: Abigail Brady <morwen@evilmagic.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -580,7 +580,7 @@ msgstr ""
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
 msgstr ""
-"The key you selected could not be removed. Please report this as a bug. "
+"The key you selected could not be removed. Please report this as a bug."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 #, fuzzy
@@ -676,7 +676,7 @@ msgstr ""
 #: ../UpdateManager/UpdateManager.py:195
 #, fuzzy
 msgid "The following updates will be skipped:"
-msgstr "The following packages are not upgraded: "
+msgstr "The following packages are not upgraded:"
 
 #: ../UpdateManager/UpdateManager.py:330
 #, python-format
@@ -690,9 +690,9 @@ msgstr "Downloading Changes"
 
 #: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
 #: ../UpdateManager/UpdateManager.py:447
-#, fuzzy, python-format
+#, python-format
 msgid "Download size: %s"
-msgstr "Downloading Changes"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:432
 #, fuzzy

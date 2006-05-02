@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:24+0000\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-28 23:31+0000\n"
 "Last-Translator: Jaydeep Bhusal <zaydeep@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
 "MIME-Version: 1.0\n"
@@ -576,7 +576,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस "
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 #, fuzzy
@@ -670,7 +670,7 @@ msgstr ""
 #: ../UpdateManager/UpdateManager.py:195
 #, fuzzy
 msgid "The following updates will be skipped:"
-msgstr "निम्न प्याकेजहरु स्तरवृद्धि गरिएको छैन "
+msgstr "निम्न प्याकेजहरु स्तरवृद्धि गरिएको छैन"
 
 #: ../UpdateManager/UpdateManager.py:330
 #, python-format

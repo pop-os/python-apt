@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:23+0000\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-28 23:30+0000\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
@@ -586,7 +586,7 @@ msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
-"erro. "
+"erro."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 #, fuzzy
@@ -696,9 +696,9 @@ msgstr "Descargando cambios"
 
 #: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
 #: ../UpdateManager/UpdateManager.py:447
-#, fuzzy, python-format
+#, python-format
 msgid "Download size: %s"
-msgstr "Descargando cambios"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:432
 #, fuzzy

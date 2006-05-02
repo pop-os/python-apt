@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:24+0000\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-28 23:32+0000\n"
 "Last-Translator: Dan Damian <dand@codemonkey.ro>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -713,6 +713,7 @@ msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Nu pot instala '%s'"
 msgstr[1] "Nu pot instala '%s'"
+msgstr[2] ""
 
 #: ../UpdateManager/UpdateManager.py:458
 #, fuzzy

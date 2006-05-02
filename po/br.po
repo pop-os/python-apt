@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 11:43+0200\n"
-"PO-Revision-Date: 2006-04-04 20:18+0000\n"
-"Last-Translator: Rosetta Administrators <rosetta@launchpad.net>\n"
+"POT-Creation-Date: 2006-05-02 17:43+0200\n"
+"PO-Revision-Date: 2006-04-27 10:09+0000\n"
+"Last-Translator: Oublieuse <oublieuse@gmail.com>\n"
 "Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
-msgstr ""
+msgstr "Bep %s devezh"
 
 #: ../SoftwareProperties/SoftwareProperties.py:134
 msgid "After one week"
@@ -53,27 +53,31 @@ msgstr ""
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
 msgid "After %s days"
-msgstr ""
+msgstr "War-lerc'h %s devezh"
 
 #: ../SoftwareProperties/SoftwareProperties.py:422
 msgid "Import key"
-msgstr ""
+msgstr "Emborzhiañ an alc'hwezh"
 
 #: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Error importing selected file"
-msgstr ""
+msgstr "Fazi en ur emborzhiañ ar restr dibabet"
 
 #: ../SoftwareProperties/SoftwareProperties.py:433
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
+"Moarvat n'eo ket ur restr alc'hwezh GPG ar restr dibabet, pe neuze eo "
+"gwastet."
 
 #: ../SoftwareProperties/SoftwareProperties.py:445
 msgid "Error removing the key"
-msgstr ""
+msgstr "Fazi en ur zilemel an alc'hwezh"
 
 #: ../SoftwareProperties/SoftwareProperties.py:446
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
+"N'eus ket tu da zilemel an alc'whezh ho peus dibabet. Kelaouit eo ur bug "
+"marplij."
 
 #: ../SoftwareProperties/SoftwareProperties.py:487
 #, python-format
@@ -85,15 +89,15 @@ msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:544
 msgid "Please enter a name for the disc"
-msgstr ""
+msgstr "Roit un anv evit ar bladenn marplij"
 
 #: ../SoftwareProperties/SoftwareProperties.py:560
 msgid "Please insert a disc in the drive:"
-msgstr ""
+msgstr "Lakait ur bladenn e-barzh ul lenner marplij:"
 
 #: ../DistUpgrade/DistUpgradeCache.py:92
 msgid "Broken packages"
-msgstr ""
+msgstr "Pakadoù torr"
 
 #: ../DistUpgrade/DistUpgradeCache.py:93
 msgid ""
