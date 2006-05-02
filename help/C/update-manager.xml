@@ -8,11 +8,11 @@
 <!--
       (Do not remove this comment block.)
   Version: 0.0.3
-  Last modified: March 26, 2005
+  Last modified: March 24, 2006
   Maintainers:
                Sean Wheller  <sean@inwords.co.za>
                Jeff Schering <jeffschering@gmail.com>
-               
+               Jerome S. Gotangco <jgotangco@ubuntu.com
   Translators:
                (translators put your name and email here)
 -->
@@ -23,7 +23,7 @@
   <articleinfo>
     <title>Update Manager Manual</title>
     <copyright>
-      <year>2005</year>
+      <year>2006</year>
       <holder>In Words</holder>
     </copyright>
     <!-- translators: uncomment this:
@@ -61,6 +61,11 @@
         <firstname>Jeff</firstname>
         <surname>Schering</surname>
         <contrib>Editor</contrib>
+      </othercredit>
+      <othercredit role="maintainer">
+        <firstname>Jerome</firstname>
+        <surname>Gotangco</surname>
+        <contrib>Maintainer</contrib>
       </othercredit>
       <!-- This is appropriate place for other contributors: translators,
       maintainers,  etc. Commented out by default.
@@ -131,7 +136,7 @@
       </revision>
     </revhistory>
     <releaseinfo>This manual explains how to use Update Manager, an apt update
-      management application for the GNOME desktop created by the Ubuntu Linux
+      management application for the GNOME desktop created by the Ubuntu
       project.</releaseinfo>
     <legalnotice>
       <title>Feedback</title>
@@ -193,7 +198,7 @@
           <command>apt-get</command>. To install <application>Update
         Manager</application> from the command line:</para>
 <programlisting>
-sudo apt-get update-manager
+sudo apt-get install update-manager
 </programlisting>
       <para>
         <application>Update Manager</application> is dependent on the following
@@ -1011,7 +1016,7 @@ gpg -recv-key --keyserver www.keyserver.net
       Sikkes <email>michiel@eyeopened.nl</email> and Michael Vogt
         <email>michael.vogt@ubuntu.com</email> as an
       <application>apt</application> update manager for the GNOME Desktop of the
-      Ubuntu Linux distribution. The user manual was written by Sean Wheller
+      Ubuntu distribution. The user manual was written by Sean Wheller
         <email>sean@inwords.co.za</email>.</para>
     <para>To report a bug or make a suggestion regarding this package or this
       manual, send mail to <email>ubuntu-users@lists.ubuntu.com</email>.</para>
