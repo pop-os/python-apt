@@ -31,9 +31,11 @@ rsync://gd.tuwien.ac.at/ubuntu/archive/
 
 #===Belgium===
 http://ftp.belnet.be/pub/mirror/ubuntu.com/
+http://ftp.belnet.be/packages/ubuntu/ubuntu
 http://ubuntu.mirrors.skynet.be/pub/ubuntu.com/
 http://mirror.freax.be/ubuntu/archive.ubuntu.com/
 ftp://ftp.belnet.be/pub/mirror/ubuntu.com/
+ftp://ftp.belnet.be/packages/ubuntu/ubuntu
 ftp://ubuntu.mirrors.skynet.be/pub/ubuntu.com/
 
 #===Brazil===

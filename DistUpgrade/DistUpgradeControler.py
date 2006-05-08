@@ -396,7 +396,7 @@ class DistUpgradeControler(object):
                 #        (i.e. the error here could be something else than
                 #        missing sources entires but network errors etc)
                 logging.error("No '%s' after sources.list rewrite+update")
-                self._view.error(_("Inavlid package information"),
+                self._view.error(_("Invalid package information"),
                                  _("After your package information was "
                                    "updated the essential package '%s' can "
                                    "not be found anymore.\n"

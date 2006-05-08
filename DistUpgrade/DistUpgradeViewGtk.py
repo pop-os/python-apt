@@ -73,10 +73,11 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         # if this is set to false the download will cancel
         self.status = parent.label_status
         self.progress = parent.progressbar_cache
+        self.parent = parent
     def mediaChange(self, medium, drive):
       #print "mediaChange %s %s" % (medium, drive)
       msg = _("Please insert '%s' into the drive '%s'" % (medium,drive))
-      dialog = gtk.MessageDialog(parent=self.window_main,
+      dialog = gtk.MessageDialog(parent=self.parent.window_main,
                                  flags=gtk.DIALOG_MODAL,
                                  type=gtk.MESSAGE_QUESTION,
                                  buttons=gtk.BUTTONS_OK_CANCEL)
@@ -280,7 +281,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
                                 None, domain="update-manager")
-        self.window_main.set_keep_above(True)
+        # we dont use this currently
+        #self.window_main.set_keep_above(True)
         self.window_main.realize()
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)

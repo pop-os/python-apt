@@ -1,3 +1,7 @@
+2006-05-08: 
+	- fix error when asking for media-change (ubuntu: 43442)
+2006-05-02: 
+        - upload
 2006-04-28:
         - add more sanity checking, if no valid mirror is found in the 
           sources.list ask for "dumb" rewrite
