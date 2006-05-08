@@ -97,8 +97,24 @@ class MyCache(apt.Cache):
         # don't touch the gui in this function, it needs to be thread-safe
         pkg = self[name]
 
-        verstr = pkg.candidateVersion
+	# get the src package name
         srcpkg = pkg.sourcePackageName
+	
+	# get the source version, start with the binaries version
+	srcver = pkg.candidateVersion
+	try:
+		# try to get the source version of the pkg, this differs
+		# for some (e.g. libnspr4 on ubuntu)
+		srcrecords = apt_pkg.GetPkgSrcRecords()
+		srcrec = srcrecords.Lookup(srcpkg)
+		if srcrec:
+			srcver = srcrecords.Version
+			#print "srcver: %s" % srcver
+	except SystemError, e:
+		# catch errors and ignore them,
+		# this feature only works if deb-src are in the sources.list
+		# otherwise we fall back to the binary version number
+		pass
 
         # assume "main" section 
         src_section = "main"
@@ -114,12 +130,12 @@ class MyCache(apt.Cache):
             prefix = "lib" + srcpkg[3]
 
         # stip epoch
-        l = string.split(verstr,":")
+        l = string.split(srcver,":")
         if len(l) > 1:
-            verstr = l[1]
+            srcstr = l[1]
 
         try:
-            uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, verstr)
+            uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, srcver)
             #print "Trying: %s " % uri
             changelog = urllib2.urlopen(uri)
             #print changelog.read()

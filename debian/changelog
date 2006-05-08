@@ -1,3 +1,9 @@
+update-manager (0.42.2ubuntu16) dapper; urgency=low
+
+  * 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 May 2006 16:53:28 +0200
+
 update-manager (0.42.2ubuntu15) dapper; urgency=low
 
   * disable the install button if there no updates (ubuntu: #42284)
