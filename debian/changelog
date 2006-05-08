@@ -1,6 +1,7 @@
 update-manager (0.42.2ubuntu16) dapper; urgency=low
 
-  * 
+  * use version and section of the source package (if this information is
+    available) when building the changelog URL (ubuntu #40058)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 May 2006 16:53:28 +0200
 

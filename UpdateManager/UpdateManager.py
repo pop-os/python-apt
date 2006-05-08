@@ -99,6 +99,11 @@ class MyCache(apt.Cache):
 
 	# get the src package name
         srcpkg = pkg.sourcePackageName
+
+        # assume "main" section 
+        src_section = "main"
+        # use the section of the candidate as a starting point
+	section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
 	
 	# get the source version, start with the binaries version
 	srcver = pkg.candidateVersion
@@ -110,16 +115,15 @@ class MyCache(apt.Cache):
 		if srcrec:
 			srcver = srcrecords.Version
 			#print "srcver: %s" % srcver
+			section = srcrecords.Section
+			#print "srcsect: %s" % section
 	except SystemError, e:
 		# catch errors and ignore them,
 		# this feature only works if deb-src are in the sources.list
 		# otherwise we fall back to the binary version number
 		pass
 
-        # assume "main" section 
-        src_section = "main"
-        # make sure to get the section of the candidate
-	section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
+	
         l = section.split("/")
         if len(l) > 1:
             src_section = l[0]
