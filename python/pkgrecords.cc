@@ -46,7 +46,7 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
    // always return true (to make it consistent with the pkgsrcrecords object
    return Py_BuildValue("i", 1);
 }
-
+    
 static PyMethodDef PkgRecordsMethods[] = 
 {
    {"Lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},

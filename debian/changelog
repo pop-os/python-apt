@@ -1,10 +1,14 @@
-python-apt (0.6.16.2ubuntu6) unstable; urgency=low
+python-apt (0.6.16.2ubuntu6) dapper; urgency=low
 
   * debian/control:
-    + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+    - Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
       correct here. (closes: #308586).
+  * python/srcrecords.cc:
+    - don't run auto "Restart" before performing a Lookup (but require
+      explicit "Restart", fixes the docs/examples/sources.py example)
+    - fix the initalization (no need to pass a PkgCacheType to the records)
   
- -- 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 May 2006 16:40:14 +0200
 
 python-apt (0.6.16.2ubuntu5) dapper; urgency=low
 
