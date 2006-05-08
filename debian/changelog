@@ -1,3 +1,11 @@
+python-apt (0.6.16.2ubuntu6) unstable; urgency=low
+
+  * debian/control:
+    + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+      correct here. (closes: #308586).
+  
+ -- 
+
 python-apt (0.6.16.2ubuntu5) dapper; urgency=low
 
   * apt/cache.py: Release locks on failure (thanks to Colin Watson)

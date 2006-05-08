@@ -3,8 +3,8 @@ Section: python
 Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
-Standards-Version: 3.6.1.1
-Build-Depends: debhelper (>= 4.2.28), libapt-pkg-dev (>= 0.6.40), apt-utils, python-dev, python2.4-dev
+Standards-Version: 3.6.2.0
+Build-Depends: debhelper (>= 5.0), libapt-pkg-dev (>= 0.6.40), apt-utils, python-dev, python2.4-dev
 
 Package: python-apt
 Architecture: all
@@ -23,7 +23,7 @@ Description: Python interface to libapt-pkg
 Package: python2.4-apt
 Architecture: any
 Depends: python2.4, ${shlibs:Depends}
-Conflicts: python-apt (<< 0.6.11)
+Replaces: python-apt (<< 0.6.11)
 Priority: optional
 Description: Python interface to libapt-pkg
  The apt-pkg Python interface will provide full access to the internal 
