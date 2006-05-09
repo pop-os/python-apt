@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-08 15:08+0200\n"
-"PO-Revision-Date: 2006-04-28 23:32+0000\n"
+"POT-Creation-Date: 2006-05-02 18:11+0000\n"
+"PO-Revision-Date: 2006-05-02 20:16+0000\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -84,7 +84,8 @@ msgstr "i Urufunguzo"
 
 #: ../SoftwareProperties/SoftwareProperties.py:446
 #, fuzzy
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
 
 #: ../SoftwareProperties/SoftwareProperties.py:487
@@ -121,7 +122,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -133,7 +133,6 @@ msgid ""
 "this as a bug. "
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
@@ -157,7 +156,6 @@ msgid ""
 "bug. "
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
@@ -191,7 +189,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -296,7 +293,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 #, fuzzy
@@ -336,127 +332,122 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:79
+#: ../DistUpgrade/DistUpgradeViewGtk.py:78
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:97
+#: ../DistUpgrade/DistUpgradeViewGtk.py:96
 msgid "Download is complete"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:107
 #, python-format
 msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:109
-#: ../DistUpgrade/DistUpgradeViewGtk.py:222
+#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:221
 #, python-format
 msgid "%s remaining"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:111
+#: ../DistUpgrade/DistUpgradeViewGtk.py:110
 #, python-format
 msgid "Downloading file %li of %li"
 msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
-#: ../DistUpgrade/DistUpgradeViewGtk.py:141
+#: ../DistUpgrade/DistUpgradeViewGtk.py:140
 #, fuzzy
 msgid "Applying changes"
 msgstr "Amahinduka"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:158
+#: ../DistUpgrade/DistUpgradeViewGtk.py:157
 #, python-format
 msgid "Could not install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:159
+#: ../DistUpgrade/DistUpgradeViewGtk.py:158
 #, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
 
-#. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:172
+#: ../DistUpgrade/DistUpgradeViewGtk.py:171
 #, python-format
 msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:189
+#: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid "The 'diff' command was not found"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:315
+#: ../DistUpgrade/DistUpgradeViewGtk.py:313
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:316
+#: ../DistUpgrade/DistUpgradeViewGtk.py:314
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:418
+#: ../DistUpgrade/DistUpgradeViewGtk.py:416
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:424
+#: ../DistUpgrade/DistUpgradeViewGtk.py:422
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:430
+#: ../DistUpgrade/DistUpgradeViewGtk.py:428
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:437
+#: ../DistUpgrade/DistUpgradeViewGtk.py:435
 #, python-format
 msgid "You have to download a total of %s."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:441
+#: ../DistUpgrade/DistUpgradeViewGtk.py:439
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:444
+#: ../DistUpgrade/DistUpgradeViewGtk.py:442
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:450
+#: ../DistUpgrade/DistUpgradeViewGtk.py:448
 msgid "Could not find any upgrades"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:451
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, fuzzy
 msgid "Your system has already been upgraded."
 msgstr "Sisitemu"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:466
+#: ../DistUpgrade/DistUpgradeViewGtk.py:464
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr ""
 
-# #-#-#-#-#  setup2.pot (PACKAGE VERSION)  #-#-#-#-#
-#: ../DistUpgrade/DistUpgradeViewGtk.py:468
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "Install %s"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:470
+#: ../DistUpgrade/DistUpgradeViewGtk.py:468
 #, python-format
 msgid "Upgrade %s"
 msgstr ""
@@ -473,7 +464,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -497,8 +487,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -576,7 +566,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -664,7 +653,6 @@ msgid ""
 msgstr ""
 "Kuri Gufungura Amahinduka Kugenzura... NIBA ni Gikora Interineti Ukwihuza"
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:184
 msgid "Cannot install all available updates"
 msgstr ""
@@ -682,7 +670,7 @@ msgid "The following updates will be skipped:"
 msgstr "OYA"
 
 #: ../UpdateManager/UpdateManager.py:330
-#, fuzzy, python-format
+#, fuzzy
 msgid "Version %s: \n"
 msgstr "Verisiyo \n"
 
@@ -703,7 +691,7 @@ msgid "Your system is up-to-date"
 msgstr "Sisitemu ni Hejuru Kuri Itariki"
 
 #: ../UpdateManager/UpdateManager.py:443
-#, fuzzy, python-format
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Sisitemu ni Hejuru Kuri Itariki"
@@ -747,10 +735,10 @@ msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:648
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:665
 msgid "Software index is broken"
 msgstr ""
@@ -798,7 +786,6 @@ msgstr ""
 msgid "Check the software channels for new updates"
 msgstr ""
 
-# #-#-#-#-#  basctl.pot (PACKAGE VERSION)  #-#-#-#-#
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
 msgstr "Isobanuramiterere"
@@ -838,7 +825,6 @@ msgstr ""
 msgid "_Hide this information in the future"
 msgstr ""
 
-# #-#-#-#-#  setup2.pot (PACKAGE VERSION)  #-#-#-#-#
 #: ../data/UpdateManager.glade.h:22
 #, fuzzy
 msgid "_Install Updates"
@@ -968,8 +954,8 @@ msgstr "<B B"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1004,7 +990,8 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 #, fuzzy
@@ -1072,125 +1059,103 @@ msgstr ""
 msgid "Software Properties"
 msgstr "Ibihuzagihe bya porogaramumudasobwa"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 Updates"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 Backports"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 #, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 #, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "5"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "5"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 #, fuzzy
 msgid "Restricted copyright"
 msgstr "Uburenganzira bw'umuhimbyi"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 #, fuzzy
 msgid "Non-free (Multiverse)"
 msgstr "Kigenga"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "4. 10"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1262,8 +1227,8 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr "<B B Byabonetse Kuri ku ikoresha i Akabuto"
 
 #, fuzzy
@@ -1285,13 +1250,13 @@ msgstr ""
 #~ "You can add and remove authentication keys in this dialog. A key makes it "
 #~ "possible to verify the integrity of the software you download."
 #~ msgstr ""
-#~ "<B Utubuto B Kongeramo Na Gukuraho... Utubuto in iyi Ikiganiro A "
-#~ "Urufunguzo Kuri Kugenzura... i Bya i Gufungura"
+#~ "<B Utubuto B Kongeramo Na Gukuraho... Utubuto in iyi Ikiganiro A Urufunguzo "
+#~ "Kuri Kugenzura... i Bya i Gufungura"
 
 #, fuzzy
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr "a Gishya Urufunguzo IDOSIYE Kuri i i Urufunguzo KURI a Na i "
 
 #, fuzzy
@@ -1316,8 +1281,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
 #~ "i Mburabuzi Utubuto Na: i Ikwirakwiza... OYA Guhindura>> Ukoresha: Utubuto"
 
@@ -1350,8 +1315,7 @@ msgstr ""
 #~ msgid ""
 #~ "This means that besides the actual upgrade of the packages some further "
 #~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
 #~ msgstr ""
 #~ "i Bya i Igikorwa Nka gukora iyinjizaporogaramu:%s Cyangwa ni Bya ngombwa "
 #~ "Gukoresha Cyangwa Kubona Kuri i"
@@ -1366,8 +1330,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
 #~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
 
@@ -1382,11 +1346,11 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "Kuri a Verisiyo Bya Verisiyo Oya Kubona Umutekano Cyangwa Ikindi "
-#~ "Ibyangombwa HTTP www org kugirango Ibisobanuro"
+#~ "Kuri a Verisiyo Bya Verisiyo Oya Kubona Umutekano Cyangwa Ikindi Ibyangombwa "
+#~ "HTTP www org kugirango Ibisobanuro"
 
 #, fuzzy
 #~ msgid "There is a new release of Ubuntu available!"
@@ -1394,8 +1358,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr "A Gishya Na: i ni Bihari HTTP www org kugirango Amabwiriza"
 
 #, fuzzy
@@ -1404,8 +1368,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "This usually means that another package management application (like apt-"
-#~ "get or aptitude) already running. Please close that application first"
+#~ "This usually means that another package management application (like apt-get "
+#~ "or aptitude) already running. Please close that application first"
 #~ msgstr ""
 #~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
 
@@ -1423,7 +1387,6 @@ msgstr ""
 
 # #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 # officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Filter.Graphic.Export.PBM.FileFormat..0.text
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 #~ msgid "Binary"
 #~ msgstr "Nyabibiri"
 
