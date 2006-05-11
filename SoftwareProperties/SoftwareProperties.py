@@ -319,9 +319,19 @@ class SoftwareProperties(SimpleGladeApp):
     
   def write_config(self):
     # update the adept file as well if it is there
-    for periodic in ["/etc/apt/apt.conf.d/10periodic",
-                     "/etc/apt/apt.conf.d/15adept-periodic-update"]:
+    conffiles = ["/etc/apt/apt.conf.d/10periodic",
+                 "/etc/apt/apt.conf.d/15adept-periodic-update"]
 
+    # check (beforehand) if one exists, if not create one
+    for f in conffiles:
+      if os.path.isfile(f):
+        break
+    else:
+      print "No config found, creating one"
+      open(conffiles[0], "w")
+
+    # now update them
+    for periodic in conffiles:
       # read the old content first
       content = []
       if os.path.isfile(periodic):
