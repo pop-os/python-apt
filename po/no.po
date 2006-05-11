@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-08 15:08+0200\n"
+"POT-Creation-Date: 2006-05-09 17:13+0200\n"
 "PO-Revision-Date: 2005-06-08 23:10+0200\n"
 "Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -650,11 +650,11 @@ msgstr ""
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:148
+#: ../UpdateManager/UpdateManager.py:168
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:153
+#: ../UpdateManager/UpdateManager.py:173
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
@@ -662,98 +662,98 @@ msgid ""
 msgstr "Feil under nedlasting av endringer. Sjekk tilkoblingen til internett."
 
 #. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:184
+#: ../UpdateManager/UpdateManager.py:204
 msgid "Cannot install all available updates"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:185
+#: ../UpdateManager/UpdateManager.py:205
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:195
+#: ../UpdateManager/UpdateManager.py:215
 #, fuzzy
 msgid "The following updates will be skipped:"
 msgstr "De følgende pakkene er ikke oppgradert:"
 
-#: ../UpdateManager/UpdateManager.py:330
+#: ../UpdateManager/UpdateManager.py:350
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versjon %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:390
+#: ../UpdateManager/UpdateManager.py:410
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "Laster ned endringer"
 
-#: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
-#: ../UpdateManager/UpdateManager.py:447
+#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
+#: ../UpdateManager/UpdateManager.py:467
 #, fuzzy, python-format
 msgid "Download size: %s"
 msgstr "Laster ned endringer"
 
-#: ../UpdateManager/UpdateManager.py:432
+#: ../UpdateManager/UpdateManager.py:452
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "Systemet er helt oppdatert!"
 
-#: ../UpdateManager/UpdateManager.py:443
+#: ../UpdateManager/UpdateManager.py:463
 #, fuzzy, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Installerer oppdateringer..."
 msgstr[1] "Installerer oppdateringer..."
 
-#: ../UpdateManager/UpdateManager.py:458
+#: ../UpdateManager/UpdateManager.py:478
 #, fuzzy
 msgid "Hide details"
 msgstr "<b>Detaljer</b>"
 
-#: ../UpdateManager/UpdateManager.py:460 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:475
+#: ../UpdateManager/UpdateManager.py:495
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:477
+#: ../UpdateManager/UpdateManager.py:497
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:580
+#: ../UpdateManager/UpdateManager.py:600
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:594
+#: ../UpdateManager/UpdateManager.py:614
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "Din distribusjon er ikke lenger støttet"
 
-#: ../UpdateManager/UpdateManager.py:595
+#: ../UpdateManager/UpdateManager.py:615
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:646
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:648
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:665
+#: ../UpdateManager/UpdateManager.py:685
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:686
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

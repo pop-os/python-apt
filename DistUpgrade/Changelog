@@ -1,5 +1,7 @@
+2006-05-09: 
+        - upload
 2006-05-08: 
-	- fix error when asking for media-change (ubuntu: 43442)
+	- fix error when asking for media-change (ubuntu: 43442,43728)
 2006-05-02: 
         - upload
 2006-04-28:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-02 18:11+0000\n"
+"POT-Creation-Date: 2006-05-09 17:13+0200\n"
 "PO-Revision-Date: 2006-05-02 20:15+0000\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
@@ -72,8 +72,7 @@ msgid "Error removing the key"
 msgstr "Hiba a kulcs eltávolítása közben"
 
 #: ../SoftwareProperties/SoftwareProperties.py:446
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Az Ön által kijelölt kulcs nem távolítható el. Kérem, jelentse ezt hibaként."
 
@@ -117,6 +116,7 @@ msgstr "A szükséges meta-csomagok nem frissíthetőek"
 msgid "A essential package would have to be removed"
 msgstr "Egy alapvető csomag eltávolításra kerülne"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "Nem tudom megtervezni a frissítés menetét"
@@ -129,6 +129,7 @@ msgstr ""
 "A frissítés megtervezése közben feloldhatatlan probléma lépett fel. Kérem, "
 "jelentse ezt hibaként. "
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "Hiba történt néhány csomag hitelesítése közben"
@@ -154,6 +155,7 @@ msgid ""
 "bug. "
 msgstr "Egy szükséges csomag nem telepíthető. Kérem, jelentse ezt hibaként. "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "Nem tudom megállapítani a meta-csomagot"
@@ -200,6 +202,7 @@ msgstr ""
 "frissítve. \n"
 "A \"Nem\" kiválasztása megszakítja a frissítést."
 
+#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr "Alapértelmezett források ismételt előállítása?"
@@ -324,6 +327,7 @@ msgstr ""
 "információkat tartalmaz a hibára vonatkozóan. "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -364,47 +368,50 @@ msgstr "Elavult szoftverek keresése"
 msgid "System upgrade is complete."
 msgstr "A rendszer frissítése befejeződött."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:78
+#. print "mediaChange %s %s" % (medium, drive)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr "Helyezze be a következő médiát: '%s', ebbe a meghajtóba: '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:96
+#: ../DistUpgrade/DistUpgradeViewGtk.py:97
 msgid "Download is complete"
 msgstr "A letöltés befejeződött"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:107
+#: ../DistUpgrade/DistUpgradeViewGtk.py:108
 #, python-format
 msgid "Downloading file %li of %li at %s/s"
 msgstr "Fájlok letöltése (%li, összesen: %li), sebesség: %s/s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:108
-#: ../DistUpgrade/DistUpgradeViewGtk.py:221
+#: ../DistUpgrade/DistUpgradeViewGtk.py:109
+#: ../DistUpgrade/DistUpgradeViewGtk.py:222
 #, python-format
 msgid "%s remaining"
 msgstr "%s van hátra"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:110
+#: ../DistUpgrade/DistUpgradeViewGtk.py:111
 #, python-format
 msgid "Downloading file %li of %li"
 msgstr "Fájl letöltése: %li/%li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:140
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "Módosítások alkalmazása..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:157
+#: ../DistUpgrade/DistUpgradeViewGtk.py:158
 #, python-format
 msgid "Could not install '%s'"
 msgstr "'%s' nem telepíthető"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:158
+#: ../DistUpgrade/DistUpgradeViewGtk.py:159
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "A frissítés félbeszakadt. Kérem, jelentse ezt hibaként."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:171
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
 "Replace configuration file\n"
@@ -414,15 +421,15 @@ msgstr ""
 "\"%s\"\n"
 "konfigurációs fájlt?"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:188
+#: ../DistUpgrade/DistUpgradeViewGtk.py:189
 msgid "The 'diff' command was not found"
 msgstr "A 'diff' parancs nem található"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:313
+#: ../DistUpgrade/DistUpgradeViewGtk.py:315
 msgid "A fatal error occured"
 msgstr "Végzetes hiba történt"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:314
+#: ../DistUpgrade/DistUpgradeViewGtk.py:316
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
@@ -434,61 +441,62 @@ msgstr ""
 "Az eredeti sources.list /etc/apt/sources.list.distUpgrade néven került "
 "mentésre."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:416
+#: ../DistUpgrade/DistUpgradeViewGtk.py:418
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s csomag el lesz távolítva."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:422
+#: ../DistUpgrade/DistUpgradeViewGtk.py:424
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s új csomag kerül telepítésre."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:428
+#: ../DistUpgrade/DistUpgradeViewGtk.py:430
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s csomag frissítve lesz."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:435
+#: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Összes letöltendő adatmennyiség: %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:439
+#: ../DistUpgrade/DistUpgradeViewGtk.py:441
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "A frissítés több órát is igénybe vehet és a későbbiek során nem lehet "
 "bármikor megszakítani."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:442
+#: ../DistUpgrade/DistUpgradeViewGtk.py:444
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "Az esetleges adatvesztés elkerülése érdekében zárjon be minden nyitott "
 "alkalmazást és dokumentumot."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:448
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "Nincs elérhető frissítés"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:449
+#: ../DistUpgrade/DistUpgradeViewGtk.py:451
 msgid "Your system has already been upgraded."
 msgstr "Az Ön rendszere már frissítve lett."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:464
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>%s eltávolítása</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:466
+#: ../DistUpgrade/DistUpgradeViewGtk.py:468
 #, python-format
 msgid "Install %s"
 msgstr "%s telepítése"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:468
+#: ../DistUpgrade/DistUpgradeViewGtk.py:470
 #, python-format
 msgid "Upgrade %s"
 msgstr "%s frissítése"
@@ -507,6 +515,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -534,8 +543,8 @@ msgstr "<b><big>Megkezdi a frissítést?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
-"6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
+"span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Frissítés az Ubuntu \"Dapper\" 6.06 "
 "változatra</span>"
@@ -612,6 +621,7 @@ msgstr "A kiadási megjegyzések nem tölthetők le"
 msgid "Please check your internet connection."
 msgstr "Kérjük ellenőrizze az internetkapcsolatát."
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "Nem sikerült futtatni a frissítőeszközt"
@@ -694,11 +704,11 @@ msgstr "%li. fájl letöltése, összesen: %li, sebesség: %s/mp"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "%li. fájl letöltése, összesen: %li, ismeretlen sebességgel"
 
-#: ../UpdateManager/UpdateManager.py:148
+#: ../UpdateManager/UpdateManager.py:168
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "A módosítások listája még nem érhető el. Próbálkozzon később."
 
-#: ../UpdateManager/UpdateManager.py:153
+#: ../UpdateManager/UpdateManager.py:173
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -706,11 +716,12 @@ msgstr ""
 "A módosítások listájának letöltése meghiúsult. Ellenőrizze az "
 "internetkapcsolatát."
 
-#: ../UpdateManager/UpdateManager.py:184
+#. print "WARNING, keeping packages"
+#: ../UpdateManager/UpdateManager.py:204
 msgid "Cannot install all available updates"
 msgstr "Nem telepíthető minden rendelkezésre álló frissítés"
 
-#: ../UpdateManager/UpdateManager.py:185
+#: ../UpdateManager/UpdateManager.py:205
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -721,61 +732,61 @@ msgstr ""
 "futtassa terminálból a \"sudo apt-get dist-upgrade\" parancsot a rendszer "
 "teljes frissítéshez."
 
-#: ../UpdateManager/UpdateManager.py:195
+#: ../UpdateManager/UpdateManager.py:215
 msgid "The following updates will be skipped:"
 msgstr "A következő frissítések ki lesznek hagyva:"
 
-#: ../UpdateManager/UpdateManager.py:330
+#: ../UpdateManager/UpdateManager.py:350
 #, python-format
 msgid "Version %s: \n"
 msgstr "%s verzió: \n"
 
-#: ../UpdateManager/UpdateManager.py:390
+#: ../UpdateManager/UpdateManager.py:410
 msgid "Downloading the list of changes..."
 msgstr "Módosítások listájának letöltése..."
 
-#: ../UpdateManager/UpdateManager.py:413 ../UpdateManager/UpdateManager.py:423
-#: ../UpdateManager/UpdateManager.py:447
+#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
+#: ../UpdateManager/UpdateManager.py:467
 #, python-format
 msgid "Download size: %s"
 msgstr "Letöltés mérete: %s"
 
-#: ../UpdateManager/UpdateManager.py:432
+#: ../UpdateManager/UpdateManager.py:452
 msgid "Your system is up-to-date"
 msgstr "A rendszere naprakész"
 
-#: ../UpdateManager/UpdateManager.py:443
+#: ../UpdateManager/UpdateManager.py:463
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "%s frissítést telepíthet"
 
-#: ../UpdateManager/UpdateManager.py:458
+#: ../UpdateManager/UpdateManager.py:478
 msgid "Hide details"
 msgstr "Részletek elrejtése"
 
-#: ../UpdateManager/UpdateManager.py:460 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Részletek megjelenítése"
 
-#: ../UpdateManager/UpdateManager.py:475
+#: ../UpdateManager/UpdateManager.py:495
 msgid "Please wait, this can take some time."
 msgstr "Kis türelmet, ez eltarthat egy ideig."
 
-#: ../UpdateManager/UpdateManager.py:477
+#: ../UpdateManager/UpdateManager.py:497
 msgid "Update is complete"
 msgstr "A frissítés befejeződött"
 
-#: ../UpdateManager/UpdateManager.py:580
+#: ../UpdateManager/UpdateManager.py:600
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Új verzió: %s (Méret: %s)"
 
-#: ../UpdateManager/UpdateManager.py:594
+#: ../UpdateManager/UpdateManager.py:614
 msgid "Your distribution is not supported anymore"
 msgstr "A terjesztés már nem támogatott"
 
-#: ../UpdateManager/UpdateManager.py:595
+#: ../UpdateManager/UpdateManager.py:615
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -785,21 +796,21 @@ msgstr ""
 "Frissítsen az Ubuntu Linux egy újabb változatára. A frissítéssel kapcsolatos "
 "információkat az http://www.ubuntu.com weboldalon talál."
 
-#: ../UpdateManager/UpdateManager.py:646
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "Csak egy szoftverkezelő eszköz futhat egyidejűleg"
 
-#: ../UpdateManager/UpdateManager.py:648
-msgid ""
-"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:668
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 "Zárja be a másik alkalmazást, például az aptitude vagy Synaptic programokat."
 
-#: ../UpdateManager/UpdateManager.py:665
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:685
 msgid "Software index is broken"
 msgstr "A szoftverindex sérült"
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:686
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -816,8 +827,8 @@ msgid ""
 "Your system does not check for updates automatically. You can configure this "
 "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
 msgstr ""
-"<b><big>Önnek kézzel kell megkeresnie a rendelkezésre álló "
-"frissítéseket</big></b>\n"
+"<b><big>Önnek kézzel kell megkeresnie a rendelkezésre álló frissítéseket</"
+"big></b>\n"
 "\n"
 "Az Ön rendszere jelenleg nem keresi automatikusan a frissítéseket. Ezt a "
 "viselkedést a \"Rendszer\" -> \"Adminisztráció\" -> \"Szoftverbeállítások\" "
@@ -1017,16 +1028,16 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to "
-"add</b></big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>Adja meg a felvenni kívánt csatorna teljes APT sorát</b></big>\n"
 "\n"
-"Az APT sor tartalmazza a csatorna típusát, helyét és összetevőit, például "
-"<i>\"deb http://ftp.debian.org sarge main\"</i>."
+"Az APT sor tartalmazza a csatorna típusát, helyét és összetevőit, például <i>"
+"\"deb http://ftp.debian.org sarge main\"</i>."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -1054,8 +1065,7 @@ msgstr "CD-ROM átvizsgálása"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgid_plural "_Add Channels"
-msgstr[0] "Csatorna hozzá_adása"
+msgstr "Csatorna hozzá_adása"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1127,93 +1137,114 @@ msgstr "Szoftvercsatornák és internetes frissítések beállítása"
 msgid "Software Properties"
 msgstr "Szoftvertulajdonságok"
 
+#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 6.06 \"Dapper Drake\""
 
+#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Ubuntu 6.06 biztonsági frissítések"
 
+#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr "Ubuntu 6.06 frissítések"
 
+#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 Backports"
 msgstr "Ubuntu 6.06 visszaportolt csomagok"
 
+#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 biztonsági frissítések"
 
+#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 frissítések"
 
+#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 visszaportolt csomagok"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Hivatalosan támogatott"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Szerzői jogi korlátozás alatt"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Közösségi karbantartású (Universe)"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Nem-szabad (Multiverse)"
 
+#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" biztonsági frissítések"
 
+#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (tesztelés alatt)"
 
+#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (instabil)"
 
+#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatibilis szoftver nem-szabad függőségekkel"
 
+#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Nem DFSG-kompatibilis szoftver"
