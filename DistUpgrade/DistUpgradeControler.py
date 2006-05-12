@@ -372,7 +372,7 @@ class DistUpgradeControler(object):
                        open(demotions_file).readlines()))
         installed_demotions = filter(lambda pkg: pkg.isInstalled and pkg.name in demotions, self.cache)
         if len(installed_demotions) > 0:
-            self._view.information(_("Some software no longer supported"),
+            self._view.information(_("Some software no longer officially supported"),
                                    _("Some of your installed packages are "
                                      "no longer officially supported. See "
                                      "below for a list of installed packages "
@@ -380,7 +380,10 @@ class DistUpgradeControler(object):
                                      "'officially "
                                      "supported' area (main) to the "
                                      "'community supported' area "
-                                     "(universe). "),
+                                     "(universe).\n\n "
+                                     "If you don't have 'universe' enabled "
+                                     "these packages will be suggested for "
+                                     "removal in the next step. "),
                                    "\n".join([pkg.name for pkg in installed_demotions]))
        
         # mark packages that are now obsolete (and where not obsolete
