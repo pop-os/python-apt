@@ -478,9 +478,9 @@ class DistUpgradeControler(object):
             self.abort()
 
         self._view.updateStatus(_("Upgrading"))            
-#        if not self.doDistUpgrade():
-#            # don't abort here, because it would restore the sources.list
-#            sys.exit(1) 
+        if not self.doDistUpgrade():
+            # don't abort here, because it would restore the sources.list
+            sys.exit(1) 
             
         # do post-upgrade stuff
         self._view.setStep(4)
