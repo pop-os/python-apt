@@ -5,15 +5,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-11 16:41+0000\n"
+"POT-Creation-Date: 2006-05-12 19:57+0200\n"
 "PO-Revision-Date: 2006-05-02 20:16+0000\n"
 "Last-Translator: Serhey Kusyumoff <gpalco@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
 #, fuzzy
@@ -72,8 +72,7 @@ msgid "Error removing the key"
 msgstr "Помилка видалення ключа"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку."
 
 #: ../SoftwareProperties/SoftwareProperties.py:497
@@ -92,11 +91,11 @@ msgstr "Введіть назву диску"
 msgid "Please insert a disc in the drive:"
 msgstr "Вставте диск в пристрій:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:92
+#: ../DistUpgrade/DistUpgradeCache.py:90
 msgid "Broken packages"
 msgstr "Пошкоджені пакунки"
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -104,53 +103,56 @@ msgstr ""
 "Ваша система містить пошкоджені пакунки, котрі не можуть бути виправлені "
 "цією програмою. Скористайтесь перш програмами synaptic чи apt-get."
 
-#: ../DistUpgrade/DistUpgradeCache.py:135
+#: ../DistUpgrade/DistUpgradeCache.py:133
 msgid "Can't upgrade required meta-packages"
 msgstr "Не можливо поновити необхідні meta-пакунки"
 
-#: ../DistUpgrade/DistUpgradeCache.py:142
+#: ../DistUpgrade/DistUpgradeCache.py:140
 msgid "A essential package would have to be removed"
 msgstr "Це призведе довидалення базового пакунку системи"
 
-#: ../DistUpgrade/DistUpgradeCache.py:145
+#. FIXME: change the text to something more useful
+#: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr "Не можливо розрахувати поновлення"
 
-#: ../DistUpgrade/DistUpgradeCache.py:146
+#: ../DistUpgrade/DistUpgradeCache.py:144
 #, fuzzy
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
 msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку. "
 
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#. FIXME: maybe ask a question here? instead of failing?
+#: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr "Помилка підписів в деяких пакунках"
 
-#: ../DistUpgrade/DistUpgradeCache.py:170
+#: ../DistUpgrade/DistUpgradeCache.py:168
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:231
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Не можливо встановити '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:234
+#: ../DistUpgrade/DistUpgradeCache.py:232
 #, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку. "
 
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#. FIXME: provide a list
+#: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr "Не можливо підібрати meta-пакунок"
 
-#: ../DistUpgrade/DistUpgradeCache.py:242
+#: ../DistUpgrade/DistUpgradeCache.py:240
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -163,12 +165,12 @@ msgstr ""
 msgid "Reading cache"
 msgstr "Зчитування кешу"
 
-#: ../DistUpgrade/DistUpgradeControler.py:126
+#: ../DistUpgrade/DistUpgradeControler.py:133
 #, fuzzy
 msgid "No valid mirror found"
 msgstr "Не знайдено"
 
-#: ../DistUpgrade/DistUpgradeControler.py:127
+#: ../DistUpgrade/DistUpgradeControler.py:134
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -180,11 +182,12 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:144
+#. hm, still nothing useful ...
+#: ../DistUpgrade/DistUpgradeControler.py:151
 msgid "Generate default sources?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:145
+#: ../DistUpgrade/DistUpgradeControler.py:152
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -193,59 +196,60 @@ msgid ""
 "cancel."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:179
+#: ../DistUpgrade/DistUpgradeControler.py:186
 msgid "Repository information invalid"
 msgstr "Помилка в даних про репозиторій"
 
-#: ../DistUpgrade/DistUpgradeControler.py:180
+#: ../DistUpgrade/DistUpgradeControler.py:187
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:186
+#: ../DistUpgrade/DistUpgradeControler.py:193
 msgid "Third party sources disabled"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:187
+#: ../DistUpgrade/DistUpgradeControler.py:194
 msgid ""
 "Some third party entries in your souces.list where disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:233
+#: ../DistUpgrade/DistUpgradeControler.py:240
 #, fuzzy
 msgid "Error during update"
 msgstr "Помилка підчас поновлення"
 
-#: ../DistUpgrade/DistUpgradeControler.py:234
+#: ../DistUpgrade/DistUpgradeControler.py:241
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:250
 msgid "Not enough free disk space"
 msgstr "Недостатньо місця на диску"
 
-#: ../DistUpgrade/DistUpgradeControler.py:254
+#: ../DistUpgrade/DistUpgradeControler.py:251
 #, python-format
 msgid ""
-"The upgrade aborts now. Please free at least %s of disk space. Empty your "
-"trash and remove temporary packages of former installations using 'sudo apt-"
-"get clean'."
+"The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
+"your trash and remove temporary packages of former installations using 'sudo "
+"apt-get clean'."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:260
+#. ask the user if he wants to do the changes
+#: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr "Бажаєте почати апгрейд системи?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:277
+#: ../DistUpgrade/DistUpgradeControler.py:325
 msgid "Could not install the upgrades"
 msgstr "Неможливо провести апргрейд системи"
 
-#: ../DistUpgrade/DistUpgradeControler.py:278
+#: ../DistUpgrade/DistUpgradeControler.py:326
 #, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
@@ -255,11 +259,11 @@ msgstr ""
 "Виконайте команду 'sudo apt-get install -f', або скористайдесь програмою "
 "Synaptic для налаштування системи."
 
-#: ../DistUpgrade/DistUpgradeControler.py:293
+#: ../DistUpgrade/DistUpgradeControler.py:341
 msgid "Could not download the upgrades"
 msgstr "Неможливо завантажити пакунки для апргрейду системи"
 
-#: ../DistUpgrade/DistUpgradeControler.py:294
+#: ../DistUpgrade/DistUpgradeControler.py:342
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -267,24 +271,37 @@ msgstr ""
 "Апргрейд системи щойно перервано. Будь ласка, перевірте зєднання з "
 "інтернетом чи носії та спробуйте знов. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:336
+#: ../DistUpgrade/DistUpgradeControler.py:375
+msgid "Some software no longer officially supported"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:377
+msgid ""
+"These installed packages are no longer officially supported, and are now "
+"only community-supported ('universe').\n"
+"\n"
+"If you don't have 'universe' enabled these packages will be suggested for "
+"removal in the next step. "
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:402
 #, fuzzy
 msgid "Remove obsolete packages?"
 msgstr "Видалити непотрібні пакунки?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:337
+#: ../DistUpgrade/DistUpgradeControler.py:403
 msgid "_Skip This Step"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:337
+#: ../DistUpgrade/DistUpgradeControler.py:403
 msgid "_Remove"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:347
+#: ../DistUpgrade/DistUpgradeControler.py:413
 msgid "Error during commit"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:348
+#: ../DistUpgrade/DistUpgradeControler.py:414
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -292,21 +309,28 @@ msgstr ""
 "При очищенні системи виникли проблеми. Прочитайте детальнішу інформацію "
 "нижче. "
 
+#. generate a new cache
+#: ../DistUpgrade/DistUpgradeControler.py:423
+#, fuzzy
+msgid "Restoring originale system state"
+msgstr "Перезавантаження системи"
+
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#: ../DistUpgrade/DistUpgradeControler.py:364
-#: ../DistUpgrade/DistUpgradeControler.py:388
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:431
+#: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
 msgstr "Перевірка програми управління пакунками"
 
-#: ../DistUpgrade/DistUpgradeControler.py:380
+#: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Updating repository information"
 msgstr "Отримання інформації про репозиторій"
 
-#: ../DistUpgrade/DistUpgradeControler.py:399
+#: ../DistUpgrade/DistUpgradeControler.py:466
 msgid "Invalid package information"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:400
+#: ../DistUpgrade/DistUpgradeControler.py:467
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -314,81 +338,98 @@ msgid ""
 "This indicates a serious error, please report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:410
+#: ../DistUpgrade/DistUpgradeControler.py:477
 msgid "Asking for confirmation"
 msgstr "Запит підтвердження"
 
-#: ../DistUpgrade/DistUpgradeControler.py:414
+#: ../DistUpgrade/DistUpgradeControler.py:481
 #, fuzzy
 msgid "Upgrading"
 msgstr "Оновлення завершено"
 
-#: ../DistUpgrade/DistUpgradeControler.py:421
+#: ../DistUpgrade/DistUpgradeControler.py:488
 msgid "Searching for obsolete software"
 msgstr "Пошук програм, що не використовуються"
 
-#: ../DistUpgrade/DistUpgradeControler.py:426
+#: ../DistUpgrade/DistUpgradeControler.py:493
 msgid "System upgrade is complete."
 msgstr "Апргрейд системи завершено."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:79
+#: ../DistUpgrade/DistUpgradeViewGtk.py:52
+#, python-format
+msgid "About %li days %li hours %li minutes remaining"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:56
+#, python-format
+msgid "About %li hours %li minutes remaining"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:59
+#, fuzzy, python-format
+msgid "About %li minutes remaining"
+msgstr "%s залишилось"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:60
+#, fuzzy, python-format
+msgid "About %li seconds remaining"
+msgstr "%s залишилось"
+
+#. print "mediaChange %s %s" % (medium, drive)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
 msgstr "Вставте '%s' в пристрій '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:97
+#: ../DistUpgrade/DistUpgradeViewGtk.py:111
 msgid "Download is complete"
 msgstr "Завантадення пакунків завершено"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:108
+#: ../DistUpgrade/DistUpgradeViewGtk.py:122
 #, python-format
 msgid "Downloading file %li of %li at %s/s"
 msgstr "Завантажується файл %li of %li at %s/s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:109
-#: ../DistUpgrade/DistUpgradeViewGtk.py:222
-#, python-format
-msgid "%s remaining"
-msgstr "%s залишилось"
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:111
+#: ../DistUpgrade/DistUpgradeViewGtk.py:125
 #, python-format
 msgid "Downloading file %li of %li"
 msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:141
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:155
 #, fuzzy
 msgid "Applying changes"
 msgstr "Завантаження змін..."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:158
+#: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid "Could not install '%s'"
 msgstr "Не можливо встановити '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:159
+#: ../DistUpgrade/DistUpgradeViewGtk.py:173
 #, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Вибраний ключ неможливо видалити. Сповістіть про це як про помилку."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:172
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:189
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 msgid "The 'diff' command was not found"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:315
+#: ../DistUpgrade/DistUpgradeViewGtk.py:329
 msgid "A fatal error occured"
 msgstr "Виникла невиправна помилка"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:316
+#: ../DistUpgrade/DistUpgradeViewGtk.py:330
 #, fuzzy
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
@@ -398,7 +439,7 @@ msgstr ""
 "Будь ласка, повідмте це я помилку, включивши в повідомлення файли ~/dist-"
 "upgrade.log and ~/dist-upgrade-apt.log . Апргрейд щойно перервано."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:418
+#: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
@@ -406,7 +447,7 @@ msgstr[0] "%s пакунків буде видалено."
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:424
+#: ../DistUpgrade/DistUpgradeViewGtk.py:443
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
@@ -414,7 +455,7 @@ msgstr[0] "%s пакунків буде встановлено."
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:430
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
@@ -422,42 +463,43 @@ msgstr[0] "буде проведено апргрейд %s пакунків."
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:437
+#: ../DistUpgrade/DistUpgradeViewGtk.py:456
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Потрібно завантажити всього %s пакунків."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:441
+#: ../DistUpgrade/DistUpgradeViewGtk.py:460
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "Апрейд може продовжуватись декілька годин, і не може бути перервано протягом "
 "всього часу."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:444
+#: ../DistUpgrade/DistUpgradeViewGtk.py:463
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:450
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr "Не знайдено пакунків для апгрейду"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:451
+#: ../DistUpgrade/DistUpgradeViewGtk.py:470
 msgid "Your system has already been upgraded."
 msgstr "Апгрейд вашої системи вже проведено."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:466
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:485
+#, fuzzy, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Видалити %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:468
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:487
+#, fuzzy, python-format
 msgid "Install %s"
 msgstr "Встановити %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:470
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:489
+#, fuzzy, python-format
 msgid "Upgrade %s"
 msgstr "Апргрейд %s"
 
@@ -475,6 +517,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -500,8 +543,8 @@ msgstr "<b><big>Почати апгрейд системи?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
-"6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
+"span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -579,6 +622,7 @@ msgstr "Неможливо завантажити пакунки для апрг
 msgid "Please check your internet connection."
 msgstr ""
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 #, fuzzy
 msgid "Could not run the upgrade tool"
@@ -648,12 +692,12 @@ msgid ""
 msgstr ""
 
 #: ../UpdateManager/GtkProgress.py:107
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %li of %li with %s/s"
 msgstr "Завантажується файл %li of %li at %s/s"
 
 #: ../UpdateManager/GtkProgress.py:111
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Завантажується файл %li of %li на невизначенії швидкості"
 
@@ -669,6 +713,7 @@ msgid ""
 msgstr ""
 "не вдається завантажити зміни. Перевірте чи активне з'єднання з Інтернет."
 
+#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 #, fuzzy
 msgid "Cannot install all available updates"
@@ -707,7 +752,7 @@ msgid "Your system is up-to-date"
 msgstr "Ваша система оновлена!"
 
 #: ../UpdateManager/UpdateManager.py:470
-#, fuzzy
+#, fuzzy, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Неможливо провести апргрейд системи"
@@ -754,10 +799,10 @@ msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:675
-msgid ""
-"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
+#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr ""
@@ -969,14 +1014,14 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to "
-"add</b></big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Введіть повний рядок APT репозиторію, який ви бажаєте "
-"додати</b></big>\n"
+"<big><b>Введіть повний рядок APT репозиторію, який ви бажаєте додати</b></"
+"big>\n"
 "\n"
 "Рядок APT містить тип, адресу та вміст репозиторію, наприклад <i>\"deb "
 "http://ftp.debian.org sarge main\"</i>. Докладні приклади можна знайти у "
@@ -1008,10 +1053,7 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgid_plural "_Add Channels"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1077,102 +1119,124 @@ msgstr ""
 msgid "Software Properties"
 msgstr "Властивості програм"
 
+#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Оновлення Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Оновлення безпеки Ubuntu 5.04"
 
+#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 Updates"
 msgstr "Оновлення Ubuntu 5.10"
 
+#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 Backports"
 msgstr "Оновлення Ubuntu 5.10"
 
+#. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD диск з Ubuntu 5.10 \"Breezy Badger\""
 
+#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Оновлення безпеки Ubuntu 5.10"
 
+#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Оновлення Ubuntu 5.10"
 
+#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Оновлення Ubuntu 5.10"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Офіціально підтримуються"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Обмежені авторські права"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Підтримується спільнотою (Universe)"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Не-вільний (Multiverse)"
 
+#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Оновлення безпеки стабільного Debian"
 
+#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "Тестовий Debian"
 
+#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
+#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian поза США (Нестабільний)"
 
+#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
+#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1250,8 +1314,8 @@ msgstr ""
 #~ "дає змогу перевірити цілісність завантаженого програмного забезпечення."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received the "
-#~ "key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received "
+#~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Додайте новий ключ до в'язки довірених ключів. Перевірте, що ви отримали "
 #~ "ключ безпечним каналом та ви довіряєте власнику. "
@@ -1281,8 +1345,8 @@ msgstr ""
 #~ msgstr "Максимальний розмір (Мб):"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not change "
-#~ "user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not "
+#~ "change user installed keys."
 #~ msgstr ""
 #~ "Відновити початкові ключі, що постачались з дистрибутивом. Встановлені "
 #~ "користувачем ключі не будуть змінені."
@@ -1314,13 +1378,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>Доступні оновлення</b></big>\n"
 #~ "\n"
-#~ "Знайдено наступні пакети для оновлення. Їх можна оновити натиснувши кнопку "
-#~ "Встановити."
+#~ "Знайдено наступні пакети для оновлення. Їх можна оновити натиснувши "
+#~ "кнопку Встановити."
 
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Скасувати завантаження записів changelog"
@@ -1414,7 +1478,8 @@ msgstr ""
 #~ msgstr[2] "Ви виділили %s пакетів оновлення, розмір %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural ""
+#~ "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
 #~ msgstr[1] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
 #~ msgstr[2] "Ви виділили %s з %s пакетів оновлення, загальний розмір %s"
@@ -1423,11 +1488,11 @@ msgstr ""
 #~ msgstr "Застосовуються оновлення."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. Please "
-#~ "close this other application first."
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
-#~ "Одночасно можна запускати лише один менеджер пакетів. Спочатку закрийте іншу "
-#~ "програму.close this other application first."
+#~ "Одночасно можна запускати лише один менеджер пакетів. Спочатку закрийте "
+#~ "іншу програму.close this other application first."
 
 #~ msgid "Updating package list..."
 #~ msgstr "Оновлення списку пакетів..."
@@ -1440,22 +1505,22 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. Please "
-#~ "see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "Поновіть систему на більш нову версію Ubuntu Linux. Для встановленої версії "
-#~ "не випускаються виправлення безпеки та інші критичні оновлення. Дивіться "
-#~ "інформацію про оновлення на http://www.ubuntulinux.org"
+#~ "Поновіть систему на більш нову версію Ubuntu Linux. Для встановленої "
+#~ "версії не випускаються виправлення безпеки та інші критичні оновлення. "
+#~ "Дивіться інформацію про оновлення на http://www.ubuntulinux.org"
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Доступний новий випуск Ubuntu!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see "
-#~ "http://www.ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
-#~ "Доступний новий випуск з кодовою назвою '%s'. Інструкції оновлення дивіться "
-#~ "на http://www.ubuntulinux.org/"
+#~ "Доступний новий випуск з кодовою назвою '%s'. Інструкції оновлення "
+#~ "дивіться на http://www.ubuntulinux.org/"
 
 #~ msgid "Never show this message again"
 #~ msgstr "Не показуйте це повідомлення знову"
