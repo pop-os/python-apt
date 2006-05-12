@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
-"PO-Revision-Date: 2006-05-06 19:09+0000\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
+"PO-Revision-Date: 2006-05-11 18:49+0000\n"
 "Last-Translator: Bogdan Ilisei <znuffy@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -55,28 +55,29 @@ msgstr "După o lună"
 msgid "After %s days"
 msgstr "După %s zile"
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 #, fuzzy
 msgid "Import key"
 msgstr "Importă cheie"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "Eroare la importarea fişierului selectat"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Fişierul selectat nu pare a fi o cheie GPG sau poate fi corupt."
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "Eroare la ştergerea cheii."
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr "Cheia selectată nu poate fi ştearsă. Raportaţi această eroare."
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -87,11 +88,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr "Introduceţi un nume pentru disc"
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 #, fuzzy
 msgid "Please insert a disc in the drive:"
 msgstr "Introduceţi un disc in unitatea:"
@@ -114,7 +115,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -125,7 +125,6 @@ msgid ""
 "this as a bug. "
 msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
@@ -151,7 +150,6 @@ msgstr ""
 "Nu am reuşit să instalez pachetul cerut. Puteţi raporta acest lucru ca bug "
 "(eroare). "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
@@ -185,7 +183,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -289,7 +286,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -327,7 +323,6 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -355,7 +350,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "Se aplică modificările"
@@ -369,7 +363,6 @@ msgstr ""
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -430,7 +423,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "Nu s-au găsit actualizări"
@@ -466,7 +458,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -490,8 +481,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -566,7 +557,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr "Verificaţi conexiunea internet"
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -643,11 +633,11 @@ msgstr ""
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
@@ -656,43 +646,42 @@ msgstr ""
 "Nu am putut descărca modificările. Vă rog să verificaţi dacă aveţi o "
 "conexiune internet activă."
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versiunea %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "Se descarcă listă schimbărilor..."
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr "Sistemul dumneavoastră este actualizat la zi!"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
@@ -700,53 +689,53 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
 msgstr "Ascunde detaliile"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Versiunea nouă: %s (Mărime: %s)"
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "Distribuţia dvs. nu mai este suportată"
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -949,8 +938,8 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -958,9 +947,9 @@ msgstr ""
 "<big><b>Introduceţi linia APT completă a locaţiei pe care doriţi să o "
 "adăugaţi</b></big>\n"
 "\n"
-"Linia APT conţine tipul, adresa şi conţinutul unei locaţii, de exemplu<i>"
-"\"deb http://ftp.debian.org sarge main\"</i>. Puteţi găsi o descriere "
-"detaliată a sintaxei în documentaţie."
+"Linia APT conţine tipul, adresa şi conţinutul unei locaţii, de "
+"exemplu<i>\"deb http://ftp.debian.org sarge main\"</i>. Puteţi găsi o "
+"descriere detaliată a sintaxei în documentaţie."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -988,7 +977,10 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1055,119 +1047,97 @@ msgstr ""
 msgid "Software Properties"
 msgstr "Preferinţe software"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 Updates"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 Backports"
 msgstr "Actualizări de securitate Ubuntu 6.06"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualizări de Securitate Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualizări Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Actualizări de securitate Ubuntu 5.04"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Pachete suportate oficial"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Copyright restrictiv"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Pachete întreţinute de comunitate (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Pachete non-libere (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Actualizări de securitate Debian 3.1 \"Sarge\""
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1233,13 +1203,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizări disponibile</b></big>\n"
 #~ "\n"
-#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările "
-#~ "apăsând pe butonul Instalează."
+#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările apăsând "
+#~ "pe butonul Instalează."
 
 #~ msgid "<b>Repository</b>"
 #~ msgstr "<b>Locaţie</b>"
@@ -1259,8 +1229,8 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>Chei autentificare</b></big>\n"
 #~ "\n"
-#~ "Din acest dialog puteţi adăuga sau şterge chei de autentificare. Rolul "
-#~ "unei chei estede a permite verificarea integrităţii unui pachet software "
+#~ "Din acest dialog puteţi adăuga sau şterge chei de autentificare. Rolul unei "
+#~ "chei estede a permite verificarea integrităţii unui pachet software "
 #~ "descărcat."
 
 #~ msgid "A_uthentication"
@@ -1268,8 +1238,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Adăugaţi o nouă cheie în keyring-ul de încredere. Asiguraţi-vă că aţi "
 #~ "obţinut cheia printr-un canal sigur şi că aveţi încredere în proprietarul "
@@ -1286,8 +1256,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
 #~ "Restaurează cheile implicite furnizate împreună cu distribuţia. Această "
 #~ "acţiune nu va influenţa cheile instalate ca utilizator."
@@ -1312,8 +1282,8 @@ msgstr ""
 #~ msgstr "Actualizările sunt în curs de aplicare."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
 #~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
 #~ "închideţi ceilalţi manageri mai întâi."
@@ -1327,8 +1297,8 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "This usually means that another package management application (like apt-"
-#~ "get or aptitude) already running. Please close that application first"
+#~ "This usually means that another package management application (like apt-get "
+#~ "or aptitude) already running. Please close that application first"
 #~ msgstr ""
 #~ "Puteţi rula doar un singur manager de pachete la un moment dat. Vă rog să "
 #~ "închideţi ceilalţi manageri mai întâi."
@@ -1366,13 +1336,13 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizări disponibile</b></big>\n"
 #~ "\n"
-#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările "
-#~ "apăsând pe butonul Instalează."
+#~ "Pachetele următoare pot fi actualizate. Puteţi instala actualizările apăsând "
+#~ "pe butonul Instalează."
 
 #~ msgid "0"
 #~ msgstr "0"

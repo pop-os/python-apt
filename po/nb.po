@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
-"PO-Revision-Date: 2006-05-05 12:30+0000\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
+"PO-Revision-Date: 2006-05-11 18:48+0000\n"
 "Last-Translator: Anders Martinsen <anders@andersmartinsen.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -55,28 +55,30 @@ msgstr "Etter en måned"
 msgid "After %s days"
 msgstr "Etter %s dager"
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr "Importer nøkkel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "Feil under importering av valgt fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Enten er valgt fil ikke en GPG-nøkkelfil, eller så er den kanskje skadet"
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "Kunne ikke fjerne nøkkelen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
-msgstr "Nøkkelen du valgte kan ikke fjernes. Vennligst rapporter denne feilen."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
+msgstr ""
+"Nøkkelen du valgte kan ikke fjernes. Vennligst rapporter denne feilen."
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -87,11 +89,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr "Vennligst oppgi et navn for platen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr "Vennligst sett inn en plate i CD-spilleren:"
 
@@ -116,7 +118,6 @@ msgstr "Kan ikke oppgradere nødvendige meta-pakker"
 msgid "A essential package would have to be removed"
 msgstr "En nødvendig pakke ville måtte bli fjernet"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "Kunne ikke forberede oppgraderingen"
@@ -129,7 +130,6 @@ msgstr ""
 "Et uløselig problem oppstod ved forberedelse av oppgraderingen. Vennligst "
 "rapporter dette som en feil. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "Kunne ikke autentisere noen pakker"
@@ -147,7 +147,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
-msgstr "Kan ikke installere \"%s\""
+msgstr "Kan ikke installere '%s'"
 
 #: ../DistUpgrade/DistUpgradeCache.py:234
 msgid ""
@@ -156,7 +156,6 @@ msgid ""
 msgstr ""
 "Kunne ikke installere en nødvendig pakke. Vennligst rapporter denne feilen. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "Kan ikke gjette på meta-pakke"
@@ -196,7 +195,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 #, fuzzy
 msgid "Generate default sources?"
@@ -320,7 +318,6 @@ msgstr ""
 "informasjon. "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -335,14 +332,14 @@ msgid "Invalid package information"
 msgstr "Ugyldig pakkeinformasjon"
 
 #: ../DistUpgrade/DistUpgradeControler.py:400
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "After your package information was updated the essential package '%s' can "
 "not be found anymore.\n"
 "This indicates a serious error, please report this as a bug."
 msgstr ""
-"Etter at pakkeinformasjonen ble oppdatert finnes ikke den viktige pakken '%"
-"s'.\n"
+"Etter at pakkeinformasjonen ble oppdatert finnes ikke den viktige pakken "
+"'%s'.\n"
 "Dette indikerer en alvorlig feil, vennligst rapportèr denne feilen."
 
 #: ../DistUpgrade/DistUpgradeControler.py:410
@@ -361,7 +358,6 @@ msgstr "Søker etter utdatert programvare"
 msgid "System upgrade is complete."
 msgstr "Systemoppgraderingen er fullført"
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -389,7 +385,6 @@ msgstr "Laster ned fil %li av %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "Lagrer endringer"
@@ -403,7 +398,6 @@ msgstr "Kunne ikke installere '%s'"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Oppgraderingen avbrytes nå. Vennligst rapporter dette som en feil."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -469,7 +463,6 @@ msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "For å forhindre tap av data bør du lukke alle åpne programmer og dokumenter."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "Kunne ikke finne noen oppgraderinger"
@@ -507,7 +500,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -536,8 +528,8 @@ msgstr "<b><big>Vil du starte oppgraderingen?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Oppgraderer til  Ubuntu \"Dapper\" "
 "6.06</span>"
@@ -614,7 +606,6 @@ msgstr "Kunne ikke laste ned utgivelsesnotatene"
 msgid "Please check your internet connection."
 msgstr "Vennligst kontrollèr internettforbindelsen."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "Kunne ikke kjøre oppgraderingsverktøyet"
@@ -697,11 +688,11 @@ msgstr "Laster ned filen %li av %li med %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Laster ned fil %li av %li ved ukjent hastighet"
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "Listen over endringer er ikke tilgjengelig ennå. Prøv senere."
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -709,12 +700,11 @@ msgstr ""
 "Kunne ikke laste ned listen med endringer. Vennligst kontrollèr "
 "internettilkoblingen."
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "Kan ikke installere alle tilgjengelige oppdateringer."
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -725,87 +715,87 @@ msgstr ""
 "kjør kommandoen \"sudo apt-get dist-upgrade\" i en terminal for å oppgradere "
 "systemet fullstendig."
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr "Følgende pakker vil ikke bli oppgradert:"
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versjon %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 msgid "Downloading the list of changes..."
-msgstr "Laster ned endringslisten..."
+msgstr "Laster ned listen med endringer..."
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr "Nedlastings størrelse: %s"
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr "Systemet ditt er oppdatert!"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Du kan installere %s oppdatering"
 msgstr[1] "Du kan installere %s oppdateringer"
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
 msgstr "Skjul detaljer"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Vis detaljer"
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr "Vennligst vent, dette kan ta litt tid."
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr "Oppdateringen er fullført"
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Ny versjon: %s (Størrelse: %s)"
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
 msgstr "Din distribusjon er ikke lenger støttet"
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 "Du vil ikke lenger motta flere sikkerhetsmessige eller kritiske "
-"oppdateringer. Oppgrader til en nyere utgivelse av Ubuntu. Se http://www."
-"ubuntu.com for mer informasjon om oppgradering."
+"oppdateringer. Oppgrader til en nyere utgivelse av Ubuntu. Se "
+"http://www.ubuntu.com for mer informasjon om oppgradering."
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "Du kan ikke bruke flere pakkebehandlingsprogram samtidig"
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 "Vennligst lukk andre programmer som f.eks \"aptitude\" eller \"Synaptic\" "
 "først."
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
-msgstr "Programvareoversikten er feilaktig."
+msgstr "Programvareoversikten er ødelagt."
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1022,8 +1012,8 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1058,9 +1048,10 @@ msgid "Scanning CD-ROM"
 msgstr "Søker gjennom CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
-msgstr "Legg til k_anal"
+msgid_plural "_Add Channels"
+msgstr[0] "Legg til k_anal"
+msgstr[1] "Legg til k_analer"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1131,121 +1122,100 @@ msgstr "Sett opp programvarekanaler og oppdateringer"
 msgid "Software Properties"
 msgstr "Egenskaper for programvare"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Sikkerhetsoppdateringer for Ubuntu 6.06"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr "Ubuntu 6.06 Oppdateringer"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 Backports"
 msgstr "Ubuntu 6.06 Backports"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 Security Updates"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 Updates"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Backports"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Offisielt støttet"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Begrenset opphavsrett"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Non-free (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 «Sarge»"
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" sikkerhetsoppdateringer"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (unstable)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatiblel programvare med Non-Free avhengigheter"
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
 
 #~ msgid ""
-#~ "While scaning your repository information no valid entry for the upgrade "
-#~ "was found.\n"
+#~ "While scaning your repository information no valid entry for the upgrade was "
+#~ "found.\n"
 #~ msgstr ""
 #~ "Fant ikke noen gyldig oppføring for oppgradering ved lesing av "
 #~ "arkivinformasjon.\n"
@@ -1257,8 +1227,8 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ "You need to reload the package list from the servers for your changes to "
 #~ "take effect. Do you want to do this now?"
 #~ msgstr ""
-#~ "Du må oppdatere pakkelisten for at endringene skal tre i kraft. Vil du "
-#~ "gjøre dette nå?"
+#~ "Du må oppdatere pakkelisten for at endringene skal tre i kraft. Vil du gjøre "
+#~ "dette nå?"
 
 #~ msgid "<b>Sections</b>"
 #~ msgstr "<b>Seksjoner</b>"
@@ -1327,13 +1297,13 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgstr ""
 #~ "<big><b>Autentiseringsnøkler</b></big>\n"
 #~ "\n"
-#~ "Du kan legge til eller fjerne autentiseringsnøkler i dette vinduet. "
-#~ "Nøkler gjør det mulig å kontrollere integriteten til programvare som blir "
-#~ "lastet ned."
+#~ "Du kan legge til eller fjerne autentiseringsnøkler i dette vinduet. Nøkler "
+#~ "gjør det mulig å kontrollere integriteten til programvare som blir lastet "
+#~ "ned."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Legg til en ny nøkkelfil til den sikre nøkkelringen. Vær sikker på at du "
 #~ "mottok nøkkelen over en sikker kanal og at du stoler på eieren. "
@@ -1364,8 +1334,8 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgstr "Maksimum størrelse i MB:"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr "Gjenoppret nøklene som kom med distri"
 
 #~ msgid "Set _maximum size for the package cache"
@@ -1395,13 +1365,13 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Tilgjengelige oppdateringer</b></big>\n"
 #~ "\n"
-#~ "De følgende pakkene kan oppgraderes. Du kan oppgradere dem ved å trykke "
-#~ "på «Installer»-knappen."
+#~ "De følgende pakkene kan oppgraderes. Du kan oppgradere dem ved å trykke på "
+#~ "«Installer»-knappen."
 
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Avbryt nedlasting av endringslogg"
@@ -1495,8 +1465,7 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgstr[1] "Du har valgt alle de %s oppdaterte pakkene, total størrelse %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "Du har valgt %s av %s oppdaterte pakker, størrelse %s"
 #~ msgstr[1] "Du har valgt %s av de %s oppdaterte pakkene, total størrelse %s"
 
@@ -1504,8 +1473,8 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgstr "Oppdateringene blir tilført."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
 #~ "Du kan bare kjøre et pakkehåndteringsprogram samtidig. Lukk det andre "
 #~ "programmet først."
@@ -1521,19 +1490,19 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "Oppgrader til en nyere versjon av Ubuntu Linux. Versjonen du kjører får "
-#~ "ikke sikkerhetsoppdateringer eller andre kritiske oppdateringer lenger. "
-#~ "Se http://www.ubuntulinux.org for informasjon om oppgradering."
+#~ "Oppgrader til en nyere versjon av Ubuntu Linux. Versjonen du kjører får ikke "
+#~ "sikkerhetsoppdateringer eller andre kritiske oppdateringer lenger. Se "
+#~ "http://www.ubuntulinux.org for informasjon om oppgradering."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Det er en ny versjon av Ubuntu tilgjengelig!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
 #~ "En ny versjon med kodenavnet «%s» er tilgjengelig. Se http://www. "
 #~ "ubuntulinux.org/ for instruksjoner om oppgradering."
@@ -1566,9 +1535,8 @@ msgstr "Ikke-DFSG-kompatibel programvare"
 #~ msgid ""
 #~ "This means that besides the actual upgrade of the packages some further "
 #~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
-#~ "situation."
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
 #~ msgstr ""
-#~ "Dette betyr at ved siden av å oppgradere pakkene kreves det ekstra "
-#~ "handling (som å installere eller fjerne pakker). Bruk «Synaptic» eller "
-#~ "«apt-get dist-upgrade» for å løse problemet."
+#~ "Dette betyr at ved siden av å oppgradere pakkene kreves det ekstra handling "
+#~ "(som å installere eller fjerne pakker). Bruk «Synaptic» eller «apt-get dist-"
+#~ "upgrade» for å løse problemet."

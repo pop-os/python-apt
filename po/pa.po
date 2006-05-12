@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
 "PO-Revision-Date: 2006-04-28 23:31+0000\n"
 "Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-transa-pa@redhat.com>\n"
@@ -56,27 +56,28 @@ msgstr ""
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -84,11 +85,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -110,7 +111,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -121,7 +121,6 @@ msgid ""
 "this as a bug. "
 msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
@@ -144,7 +143,6 @@ msgid ""
 "bug. "
 msgstr ""
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
@@ -178,7 +176,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -282,7 +279,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -321,7 +317,6 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -349,7 +344,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr ""
@@ -363,7 +357,6 @@ msgstr ""
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -421,7 +414,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr ""
@@ -457,7 +449,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -481,8 +472,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -559,7 +550,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -635,106 +625,105 @@ msgstr ""
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
 msgstr ""
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 msgid "Downloading the list of changes..."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:463
-#, fuzzy, python-format
+#: ../UpdateManager/UpdateManager.py:470
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 msgstr[1] "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 #, fuzzy
 msgid "Hide details"
 msgstr "<b>ਵੇਰਵਾ</b>"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 #, fuzzy
 msgid "Show details"
 msgstr "<b>ਵੇਰਵਾ</b>"
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -945,8 +934,8 @@ msgstr "<b>ਵੇਰਵਾ</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -976,7 +965,9 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1043,114 +1034,92 @@ msgstr ""
 msgid "Software Properties"
 msgstr "ਸਾਫਟਵੇਅਰ ਪਸੰਦ"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 Backports"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr ""
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""

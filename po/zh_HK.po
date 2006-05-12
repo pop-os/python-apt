@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.41.1\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
 "PO-Revision-Date: 2006-05-02 20:17+0000\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -54,27 +54,28 @@ msgstr ""
 msgid "After %s days"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "匯入指定檔案時發生錯誤"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "選定的檔案可能不是 GPG 密碼匙，或者內容已損壞。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "移除密碼匙時發生錯誤"
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr "你選定的密碼匙無法移除，請匯報問題。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -82,11 +83,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
@@ -108,7 +109,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -120,7 +120,6 @@ msgid ""
 "this as a bug. "
 msgstr "你選定的密碼匙無法移除，請匯報問題。 "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
@@ -144,7 +143,6 @@ msgid ""
 "bug. "
 msgstr "你選定的密碼匙無法移除，請匯報問題。 "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
@@ -178,7 +176,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -283,7 +280,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 #, fuzzy
@@ -323,7 +319,6 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -351,7 +346,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 #, fuzzy
 msgid "Applying changes"
@@ -367,7 +361,6 @@ msgstr ""
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "你選定的密碼匙無法移除，請匯報問題。"
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -425,7 +418,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr ""
@@ -461,7 +453,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -485,8 +476,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -563,7 +554,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -640,110 +630,109 @@ msgstr ""
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
 msgstr "無法下載更改紀錄。請檢查網絡連線是否正常。"
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 #, fuzzy
 msgid "Cannot install all available updates"
 msgstr "正在檢查更新套件..."
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "版本 %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "正在下載更改紀錄"
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "系統已經在最新狀態！"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 #, fuzzy
 msgid "Hide details"
 msgstr "<b>細節</b>"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "已經不再支援你用的發行版本"
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -950,16 +939,16 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>請輸入整行你想加入的 APT 軟件庫位置</b></big>\n"
 "\n"
-"該行的內容包括 APT 軟件庫的類型、位置和內容，例如： <i>\"deb http://ftp."
-"debian.org sarge main\"</i>。你可以在文件中尋找有關該行的格式的詳細描述。"
+"該行的內容包括 APT 軟件庫的類型、位置和內容，例如： <i>\"deb http://ftp.debian.org sarge "
+"main\"</i>。你可以在文件中尋找有關該行的格式的詳細描述。"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -987,7 +976,9 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1053,124 +1044,102 @@ msgstr ""
 msgid "Software Properties"
 msgstr "軟件屬性"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 5.04 更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Ubuntu 5.04 安全性更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 Updates"
 msgstr "Ubuntu 5.10 更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 Backports"
 msgstr "Ubuntu 5.10 更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 光碟 “Breezy Badger”"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 安全性更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 更新"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 更新"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "官方支援"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "版權受限"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "協力維護軟件 (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "非自由軟件 (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 “Sarge”"
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 穩定版安全性更新"
 
-#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian 測試版"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian Non-US (不穩定版)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1240,15 +1209,12 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>認證用密碼匙</b></big>\n"
 #~ "\n"
-#~ "你可以在本對話窗內加減認證用的密碼匙。這些密碼匙可以用來檢查下載的軟件是否"
-#~ "完整。"
+#~ "你可以在本對話窗內加減認證用的密碼匙。這些密碼匙可以用來檢查下載的軟件是否完整。"
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
-#~ msgstr ""
-#~ "將新的密碼匙檔加入你信任的密碼匙圈之內。請確保該密碼匙是經安全的途徑獲得"
-#~ "的，而且屬於你信任的擁有者。 "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
+#~ msgstr "將新的密碼匙檔加入你信任的密碼匙圈之內。請確保該密碼匙是經安全的途徑獲得的，而且屬於你信任的擁有者。 "
 
 #~ msgid "Add repository..."
 #~ msgstr "加入軟件庫..."
@@ -1275,10 +1241,9 @@ msgstr ""
 #~ msgstr "大小上限 (MB):"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
-#~ msgstr ""
-#~ "將發行版本提供的預設密碼匙還原。這個程序不會更改用戶自行安裝的密碼匙。"
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
+#~ msgstr "將發行版本提供的預設密碼匙還原。這個程序不會更改用戶自行安裝的密碼匙。"
 
 #~ msgid "Set _maximum size for the package cache"
 #~ msgstr "指定套件快取的大小上限(_M)"
@@ -1307,8 +1272,8 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
@@ -1389,8 +1354,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "你選取了 %2$s 個更新套件中的 %1$s 個，大小為 %3$s"
 #~ msgstr[1] "你選取了 %2$s 個更新套件中的 %1$s 個，大小總共為 %3$s"
 
@@ -1398,8 +1362,8 @@ msgstr ""
 #~ msgstr "現在安裝更新套件。"
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr "你在任何時候只可以執行一個套件管理員程式。請關閉其它程式。"
 
 #~ msgid "Updating package list..."
@@ -1413,21 +1377,19 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "請升級至新版本的 Ubuntu Linux。你現在用的版本不會再有任何安全性更新或重要"
-#~ "的更新。有關升級的資料，請瀏覽 http://www.ubuntulinux.org 。"
+#~ "請升級至新版本的 Ubuntu Linux。你現在用的版本不會再有任何安全性更新或重要的更新。有關升級的資料，請瀏覽 "
+#~ "http://www.ubuntulinux.org 。"
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Ubuntu 已推出新版本！"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-#~ msgstr ""
-#~ "名稱為 “%s” 的新版本已經推出。請瀏覽 http://www.ubuntulinux.org/ 獲取有關"
-#~ "升級的指引。"
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
+#~ msgstr "名稱為 “%s” 的新版本已經推出。請瀏覽 http://www.ubuntulinux.org/ 獲取有關升級的指引。"
 
 #~ msgid "Never show this message again"
 #~ msgstr "以後不再顯示此訊息"

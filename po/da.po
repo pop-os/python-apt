@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
 "PO-Revision-Date: 2006-05-02 20:13+0000\n"
 "Last-Translator: Andreas Lloyd <lloydinho@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -35,7 +35,7 @@ msgid "Every two weeks"
 msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:111
-#, fuzzy, python-format
+#, fuzzy
 msgid "Every %s days"
 msgstr "Hver %s. dag"
 
@@ -56,28 +56,29 @@ msgstr ""
 msgid "After %s days"
 msgstr "Efter %s dag(e)"
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr "Importér nøgle"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "Fejl under importering af den valgte fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Den valgte fil er ikke en GPG-nøglefil eller den er i stykker."
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "Fejl ved fjernelse af nøgle"
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Den valgte nøgle kunne ikke fjernes. Rapporter venligst dette som en fejl."
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -88,11 +89,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr "Indtast venligst et navn for disken"
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr "Indsæt venligst en disk i drevet:"
 
@@ -117,7 +118,6 @@ msgstr "Kan ikke opgradere de krævede meta-pakker"
 msgid "A essential package would have to be removed"
 msgstr "Det ville være nødvendigt at fjerne en system kritisk pakke"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 #, fuzzy
 msgid "Could not calculate the upgrade"
@@ -132,7 +132,6 @@ msgstr ""
 "Der er forkommet et uløseligt problem under beregning af opgraderingen. "
 "Raporter venligst dette som en fejl. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "Fejl ved godkendelse af nogle pakker"
@@ -160,7 +159,6 @@ msgstr ""
 "Det var umuligt at installere en påkrævet pakke. Rapporter venligst dette "
 "som en fejl. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 #, fuzzy
 msgid "Can't guess meta-package"
@@ -200,7 +198,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -317,7 +314,6 @@ msgstr ""
 "information. "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -355,7 +351,6 @@ msgstr "Søger efter forældet software"
 msgid "System upgrade is complete."
 msgstr "Systemopgradering er fuldført"
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -366,7 +361,7 @@ msgid "Download is complete"
 msgstr "Overførsel fuldført"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li at %s/s"
 msgstr "Henter fil %li af %li fra %s/s"
 
@@ -383,7 +378,6 @@ msgstr "Henter fil %li af %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "Udfører ændringer"
@@ -397,7 +391,6 @@ msgstr "Kunne ikke installere '%s'"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Opgraderingen afbryder nu. Rapporter venligst denne fejl."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -444,7 +437,7 @@ msgstr[0] "%s pakke vil blive opgraderet."
 msgstr[1] "%s pakker vil bliver opgraderet."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
-#, fuzzy, python-format
+#, fuzzy
 msgid "You have to download a total of %s."
 msgstr "Der skal i alt hentes %s."
 
@@ -457,7 +450,6 @@ msgstr "Opgraderingen kan tage flere timer og kan ikke fortrydes senere."
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Luk alle åbne programmer og dokumenter for at undgå tab af data."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "Kunne ikke finde nogen tilgængelige opgraderinger"
@@ -495,7 +487,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -523,8 +514,8 @@ msgstr "<b><big>Start opgraderinegn?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Opgraderer til Ubuntu \"Dapper\" "
 "6.06</span>"
@@ -602,7 +593,6 @@ msgstr "Kunne ikke hente udgivelsesnoterne"
 msgid "Please check your internet connection."
 msgstr "Undersøg venligst din internetforbindelse"
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "Kunne ikke køre opgraderingsværktøjet"
@@ -676,7 +666,7 @@ msgstr ""
 "netværket eller med serveren. "
 
 #: ../UpdateManager/GtkProgress.py:107
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li with %s/s"
 msgstr "Henter fil %li af %li med %s/s"
 
@@ -685,11 +675,11 @@ msgstr "Henter fil %li af %li med %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Henter fil %li af %li med ukendt hastighed"
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "Listen med ændringer er ikke klar endnu. Prøv venligst igen senere."
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
@@ -698,12 +688,11 @@ msgstr ""
 "Fejl ved hentning af ændringslisten. Undersøg venligst din "
 "internetforbindelse."
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "Kan ikke installere alle tilgængelige opdateringer"
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -713,95 +702,95 @@ msgstr ""
 "opgraderinger\" i pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo "
 "apt-get dist-upgrade\" i en terminal for at opdatere dit system fuldstændigt."
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr "Følgende opdateringer vil blive sprunget over:"
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "Version %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 msgid "Downloading the list of changes..."
 msgstr "Henter listen med ændringer..."
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr "Overføringsstørelse: %s"
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr "Dit system er opdateret"
 
-#: ../UpdateManager/UpdateManager.py:463
-#, fuzzy, python-format
+#: ../UpdateManager/UpdateManager.py:470
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Kan ikke installere opgraderingerne"
 msgstr[1] "Kan ikke installere opgraderingerne"
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
 msgstr "Skjul detaljer"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Vis detaljer"
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr "Vent venligst, dette kan tage et stykke tid."
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr "Opdatering udført"
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Ny version: %s (Size: %s)"
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
 msgstr "Din distribution understøtes ikke længere"
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 "Du vil ikke modtage yderligere sikkerhedrettelser eller krittiske "
-"opdateringer. Opgrader til en senere version af Ubuntu Linux. Se http://www."
-"ubuntu.com (engalsk) for mere informaiton om opgradering."
+"opdateringer. Opgrader til en senere version af Ubuntu Linux. Se "
+"http://www.ubuntu.com (engalsk) for mere informaiton om opgradering."
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 "Det er kun tilladt at have et softwarestyringsværktøj kørende ad gangen."
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 "Luk venligst det andet program (f.eks. 'Aptitude eller 'Synaptic') først."
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr "Software indexet er i stykker"
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
 "Det er umuligt at installere eller fjerne software. Brug venligst "
-"pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo apt-get install -f"
-"\" i en terminal for at ordne dette problem først."
+"pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo apt-get install -"
+"f\" i en terminal for at ordne dette problem først."
 
 #: ../data/UpdateManager.glade.h:1
 #, fuzzy
@@ -1016,8 +1005,8 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1051,9 +1040,10 @@ msgid "Scanning CD-ROM"
 msgstr "Skanner CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
-msgstr "_Tilføj kanal"
+msgid_plural "_Add Channels"
+msgstr[0] "_Tilføj kanal"
+msgstr[1] "_Tilføj kanaler"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1132,117 +1122,95 @@ msgstr "Konfigurer softwarekanaler og internetopdateringer"
 msgid "Software Properties"
 msgstr "Softwareinstillinger"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Ubuntu 6.06 Sikkerhedsopdateringer"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr "Ubuntu 6.06 Opdateringer"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 Backports"
 msgstr "Ubuntu 6.06 Backports"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 Sikkerhedsopdateringer"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 Opdateringer"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Backports"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Officielt understøttet"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Vedligeholdt af fællesskabet (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Ikke frit programmel (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" Sikkerhedsopdateringer"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""

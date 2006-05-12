@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
-"PO-Revision-Date: 2006-05-04 10:57+0000\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
+"PO-Revision-Date: 2006-05-11 18:46+0000\n"
 "Last-Translator: Jordi Irazuzta <irazuzta@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,31 +54,32 @@ msgstr "Després d'un mes"
 msgid "After %s days"
 msgstr "Després de %s dies"
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr "Importa un clau"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "S'ha produït un error en importar el fitxer seleccionat"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "El fitxer que heu seleccionat no correspon a una clau GPG o pot estar "
 "corromput."
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "S'ha produït un error en esborrar la clau"
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "La clau que heu seleccionat no es pot esborrar. Notifiqueu-ho com a error de "
 "programació."
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -89,11 +90,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr "Introduïu un nom per al disc"
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr "Inseriu un disc a la unitat:"
 
@@ -116,7 +117,6 @@ msgstr "No s'han pogut actualitzar els metapaquets sol·licitats"
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "No s'ha pogut calcular l'actualització"
@@ -127,7 +127,6 @@ msgid ""
 "this as a bug. "
 msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "S'ha produït un error en autenticar alguns paquets"
@@ -152,7 +151,6 @@ msgstr ""
 "No s'ha pogut instal·lar un dels paquets sol·licitats. Envieu un informe amb "
 "els error. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr ""
@@ -191,7 +189,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -299,7 +296,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -337,7 +333,6 @@ msgstr "S'està cercant programari obsolet"
 msgid "System upgrade is complete."
 msgstr "S'ha completat l'actualització del sistema"
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -365,7 +360,6 @@ msgstr "S'està descarregant el fitxer %li de %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "S'estan aplicant els canvis"
@@ -379,7 +373,6 @@ msgstr "No s'ha pogut instal·lar '%s'"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "L'actualització s'ha cancel·lat. Informeu d'aquest error"
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -426,7 +419,7 @@ msgstr[0] "S'actualitzarà %s paquet"
 msgstr[1] "S'actualitzaran %s paquets"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
-#, fuzzy, python-format
+#, fuzzy
 msgid "You have to download a total of %s."
 msgstr "Heu de descarregar un total de %s."
 
@@ -445,7 +438,6 @@ msgstr ""
 "Per a evitar una possible pèrdua de dades, tanqueu tos els documents i "
 "aplicacions."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "No s'han pogut trobar actualitzacions"
@@ -484,7 +476,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -500,7 +491,8 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
-msgstr "<b><big>Reinicieu el sistema per a completar l'actualització</big></b>"
+msgstr ""
+"<b><big>Reinicieu el sistema per a completar l'actualització</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
@@ -508,11 +500,11 @@ msgstr "<b><big>Voleu iniciar l'actualització?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">S'està actualitzant a Ubuntu \"Dapper"
-"\" 6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">S'està actualitzant a Ubuntu "
+"\"Dapper\" 6.06</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -586,7 +578,6 @@ msgstr "No s'han pogut descarregar les notes de la versió"
 msgid "Please check your internet connection."
 msgstr "Comproveu la vostra connexió a Internet"
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "No es pot executar l'eina d'actualització"
@@ -661,11 +652,11 @@ msgstr "S'està descarregant el fitxer %li de %li amb %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "S'està descarregant el fitxer %li de %li a una velocitat desconeguda"
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "La llista de canvis encara no està disponible. Proveu-ho després."
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
@@ -674,96 +665,95 @@ msgstr ""
 "S'ha produït un error en descarregar els canvis. Comproveu si teniu connexió "
 "a Internet."
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "No es poden instal·lar les actualitzacions disponibles"
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versió %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 msgid "Downloading the list of changes..."
 msgstr "S'està descarregant la llista de canvis..."
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr "Mida de la descàrrega: %s"
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr "El vostre sistema està actualitzat"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
 msgstr "Amaga els detalls"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Mostra els detalls"
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr "Espereu, això pot tardar una estona."
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr "S'ha completat l'actualització"
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "Només podeu utilitzar un gestor de programari alhora."
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 "Abans heu de tancar l'altre gestor de paquets, p. ex. l'Aptitude o el "
 "Synaptic"
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -963,8 +953,8 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -996,7 +986,9 @@ msgstr "S'està analitzant el CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1061,116 +1053,95 @@ msgstr "Configura els canals de programari i les actualitzacions d'Internet"
 msgid "Software Properties"
 msgstr "Propietats del programari"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "Actualitzacions de seguretat d'Ubuntu 6.06"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr "Actualitzacions d'Ubuntu 6.06"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 Backports"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualitzacions de seguretat d'Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualitzacions d'Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Paquets mantinguts oficialment"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr "Paquets amb restriccions per copyright"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr "Paquets mantinguts per la comunitat (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr "Paquets sense llicència lliure (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Actualitzacions de seguretat de Debian 3.1 \"Sarge\""
 
-#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
-#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (unstable)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1213,9 +1184,8 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>Claus d'autenticació</b></big>\n"
 #~ "\n"
-#~ "Des d'aquest quadre de diàleg podeu afegir i esborrar claus "
-#~ "d'autenticació. Les claus permeten comprovar la integritat del programari "
-#~ "que descarregueu."
+#~ "Des d'aquest quadre de diàleg podeu afegir i esborrar claus d'autenticació. "
+#~ "Les claus permeten comprovar la integritat del programari que descarregueu."
 
 #~ msgid ""
 #~ "<big><b>Enter the complete APT line of the repository that you want to "
@@ -1228,15 +1198,15 @@ msgstr ""
 #~ "<big><b>Introduïu la línia APT del dipòsit que voleu afegir</b></big>\n"
 #~ "\n"
 #~ "La línia APT conté el tipus, la ubicació i el contingut del dipòsit; per "
-#~ "exemple, <i>\"deb http://ftp.debian.org sarge main\"</i>. Podeu trobar "
-#~ "una descripció més detallada de la sintaxi en la documentació."
+#~ "exemple, <i>\"deb http://ftp.debian.org sarge main\"</i>. Podeu trobar una "
+#~ "descripció més detallada de la sintaxi en la documentació."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner."
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner."
 #~ msgstr ""
-#~ "Afegeix una clau nova a l'anell de confiança. Assegureu-vos que heu rebut "
-#~ "la clau per un canal segur i que confieu en el propietari."
+#~ "Afegeix una clau nova a l'anell de confiança. Assegureu-vos que heu rebut la "
+#~ "clau per un canal segur i que confieu en el propietari."
 
 #~ msgid "Add repository..."
 #~ msgstr "Afegeix un dipòsit..."
@@ -1269,11 +1239,11 @@ msgstr ""
 #~ msgstr "Restaura les claus per defecte"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
-#~ "Restaura les claus per defecte de la distribució. Això no afecta les "
-#~ "claus instal·lades per l'usuari."
+#~ "Restaura les claus per defecte de la distribució. Això no afecta les claus "
+#~ "instal·lades per l'usuari."
 
 #~ msgid "Set _maximum size for the package cache"
 #~ msgstr "Fixa la mida _màxima de memòria cau per als paquets descarregats"
@@ -1305,8 +1275,8 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualitzacions disponibles</b></big>\n"
 #~ "\n"
@@ -1318,8 +1288,8 @@ msgstr ""
 #~ "\n"
 #~ "Need to get the changes from the central server"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">S'estan descarregant els canvis</"
-#~ "span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">S'estan descarregant els "
+#~ "canvis</span>\n"
 #~ "\n"
 #~ "Es necessita obtenir els canvis des del servidor central"
 
@@ -1441,8 +1411,7 @@ msgstr ""
 #~ "Heu seleccionat els %s paquets actualitzats, la mida total és de %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "Heu seleccionat %s paquet actualitzat de %s, la mida és de $s"
 #~ msgstr[1] ""
 #~ "Heu seleccionat %s paquets actualitzats de %s, la mida total és de %s"
@@ -1457,8 +1426,8 @@ msgstr ""
 #~ msgstr "S'està executant un altre gestor de paquets"
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
 #~ "Només podeu executar un gestor de paquets a la vegada. Tanqueu l'altra "
 #~ "aplicació."
@@ -1483,24 +1452,24 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
 #~ "Actualitzeu el sistema amb una versió més nova d'Ubuntu Linux. La vostra "
 #~ "versió ja no disposarà de més actualitzacions de seguretat ni d'altres "
-#~ "actualitzacions crítiques. Si voleu més informació, visiteu http://www."
-#~ "ubuntulinux.org/."
+#~ "actualitzacions crítiques. Si voleu més informació, visiteu "
+#~ "http://www.ubuntulinux.org/."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Ja disposeu del nou llançament d'Ubuntu"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
 #~ "Ja disposeu del nou llançament d'Ubuntu amb el nom en clau '%s'. Si "
-#~ "necessiteu instruccions per a actualitzar el sistema, visiteu http://www."
-#~ "ubuntulinux.org/."
+#~ "necessiteu instruccions per a actualitzar el sistema, visiteu "
+#~ "http://www.ubuntulinux.org/."
 
 #~ msgid "Never show this message again"
 #~ msgstr "No tornis a mostrar aquest missatge"

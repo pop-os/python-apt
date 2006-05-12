@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-09 17:13+0200\n"
+"POT-Creation-Date: 2006-05-11 16:41+0000\n"
 "PO-Revision-Date: 2006-05-02 20:13+0000\n"
 "Last-Translator: Jamil Ahmed <itsjamil@gmail.com>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -55,27 +55,28 @@ msgstr ""
 msgid "After %s days"
 msgstr "%s দিন পর"
 
-#: ../SoftwareProperties/SoftwareProperties.py:422
+#: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
 msgstr "কী ইম্পোর্ট"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
 msgstr "নির্বাচিত ফাইলটি ইম্পোর্ট করতে সমস্যা হয়েছে"
 
-#: ../SoftwareProperties/SoftwareProperties.py:433
+#: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:445
+#: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
 msgstr "কী সরাতে সমস্যা হয়েছে"
 
-#: ../SoftwareProperties/SoftwareProperties.py:446
-msgid "The key you selected could not be removed. Please report this as a bug."
+#: ../SoftwareProperties/SoftwareProperties.py:456
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:487
+#: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -83,11 +84,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
+#: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
 msgstr "ডিস্কের জন্য একটি নাম দিন"
 
-#: ../SoftwareProperties/SoftwareProperties.py:560
+#: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
 msgstr "অনুগ্রহ করে ড্রাইভে একটি ডিস্ক দিন:"
 
@@ -109,7 +110,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -120,7 +120,6 @@ msgid ""
 "this as a bug. "
 msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
@@ -142,10 +141,9 @@ msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr ""
-"একটি প্রয়োজনীয় প্যাকেজ ইন্সটল করা অসম্ভব ছিল। অনুগ্রহ করে একে একটি বাগ হিসাবে "
-"রিপোর্ট করুন। "
+"একটি প্রয়োজনীয় প্যাকেজ ইন্সটল করা অসম্ভব ছিল। অনুগ্রহ করে একে একটি বাগ "
+"হিসাবে রিপোর্ট করুন। "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "meta-package অনুমান করা যাচ্ছ না"
@@ -179,7 +177,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
 msgstr ""
@@ -202,8 +199,8 @@ msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
-"রিপোজিটোরি তথ্য আপগ্রেড করার সময় একটি ভুল ফাইল তৈরী হয়েছে। অনুগ্রহ করে এটিকে বাগ "
-"হিসাবে রিপোর্ট করুন।"
+"রিপোজিটোরি তথ্য আপগ্রেড করার সময় একটি ভুল ফাইল তৈরী হয়েছে। অনুগ্রহ করে এটিকে "
+"বাগ হিসাবে রিপোর্ট করুন।"
 
 #: ../DistUpgrade/DistUpgradeControler.py:186
 msgid "Third party sources disabled"
@@ -225,8 +222,8 @@ msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
-"আপগ্রেড করার সময় একটি সমস্যা হয়েছে। এটি সাধারনত নেটওয়ার্কের সমস্যা, অনুগ্রহ করে "
-"আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করুন এবং পুনরায় চেষ্টা করুন।"
+"আপগ্রেড করার সময় একটি সমস্যা হয়েছে। এটি সাধারনত নেটওয়ার্কের সমস্যা, অনুগ্রহ "
+"করে আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করুন এবং পুনরায় চেষ্টা করুন।"
 
 #: ../DistUpgrade/DistUpgradeControler.py:253
 msgid "Not enough free disk space"
@@ -287,7 +284,6 @@ msgid ""
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
 msgid "Checking package manager"
@@ -325,7 +321,6 @@ msgstr "অপ্রচলিত সফ্টওয়্যার অনুসন�
 msgid "System upgrade is complete."
 msgstr "সিস্টেম আপগ্রেড সম্পন্ন।"
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -353,7 +348,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
 msgid "Applying changes"
 msgstr "পরিবর্তনগুলো প্রয়োগ করছি"
@@ -365,9 +359,9 @@ msgstr "'%s' ইন্সটল করা যায় নি"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:159
 msgid "The upgrade aborts now. Please report this bug."
-msgstr "আপগ্রেডটি নিস্ফল ভাবে বের হয়ে যাচ্ছ। অনুগ্রহ করে এই বাগটি রিপোর্ট করুন।"
+msgstr ""
+"আপগ্রেডটি নিস্ফল ভাবে বের হয়ে যাচ্ছ। অনুগ্রহ করে এই বাগটি রিপোর্ট করুন।"
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid ""
@@ -421,13 +415,13 @@ msgstr "আপনাকে সর্বমোট %s ডাউনলোড কর
 #: ../DistUpgrade/DistUpgradeViewGtk.py:441
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
-msgstr "আপগ্রেড করতে কয়েক ঘন্টা লেগে যেতে পারে এবং পরে এটি বাতিল করা যাবে না।"
+msgstr ""
+"আপগ্রেড করতে কয়েক ঘন্টা লেগে যেতে পারে এবং পরে এটি বাতিল করা যাবে না।"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:444
 msgid "To prevent data loss close all open applications and documents."
 msgstr "তথ্য হারাতে না চাইলে সকল অ্যাপলিকেশন এবং ডকুমেন্ট বন্ধ রাখুন।"
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
 msgstr "কোন আপগ্রেড পাওয়া যায় নি"
@@ -458,12 +452,12 @@ msgstr "রিবুট করা প্রয়োজন"
 #: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
-msgstr "আপগ্রেডটি সম্পন্ন এবং রিবুট করা প্রয়োজন। আপনি কি এক্ষুনি তা করতে চান?"
+msgstr ""
+"আপগ্রেডটি সম্পন্ন এবং রিবুট করা প্রয়োজন। আপনি কি এক্ষুনি তা করতে চান?"
 
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -487,11 +481,11 @@ msgstr "<b><big>আপগ্রেড শুরু করবো?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
+"6.06</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">উবুন্টু \"ড্যাপার\" ৬.০৬ এ আপগ্রেড করছি</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">উবুন্টু \"ড্যাপার\" ৬.০৬ এ আপগ্রেড "
+"করছি</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -565,7 +559,6 @@ msgstr "রিলিজ নোট ডাউনলোড করা যায় ন�
 msgid "Please check your internet connection."
 msgstr "অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।"
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "আপগ্রেড টুলটি চালানো যায় নি"
@@ -607,7 +600,9 @@ msgstr "এক্সট্রাক্ট করতে ব্যর্থ"
 msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
-msgstr "আপগ্রেডটি এক্সট্রাক্ট করতে ব্যর্থ। নেটওয়ার্ক অথবা সার্ভারে সমস্যা থাকতে পারে। "
+msgstr ""
+"আপগ্রেডটি এক্সট্রাক্ট করতে ব্যর্থ। নেটওয়ার্ক অথবা সার্ভারে সমস্যা থাকতে "
+"পারে। "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:220
 msgid "Verfication failed"
@@ -618,8 +613,8 @@ msgid ""
 "Verfing the upgrade failed.  There may be a problem with the network or with "
 "the server. "
 msgstr ""
-"আপগ্রেড যথার্থ্য হয়েছে কিনা তা পরীক্ষা করতে ব্যর্থ। নেটওয়ার্ক অথবা সার্ভারে সমস্যা "
-"থাকতে পারে। "
+"আপগ্রেড যথার্থ্য হয়েছে কিনা তা পরীক্ষা করতে ব্যর্থ। নেটওয়ার্ক অথবা সার্ভারে "
+"সমস্যা থাকতে পারে। "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:227
 msgid "Authentication failed"
@@ -641,107 +636,108 @@ msgstr ""
 msgid "Downloading file %li of %li with unknown speed"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:168
+#: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "পরিবর্তনের তালিকা এখনে উপস্হিত নয়। অনুগ্রহ করে পরে আবার চেষ্টা করুন।"
 
-#: ../UpdateManager/UpdateManager.py:173
+#: ../UpdateManager/UpdateManager.py:180
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
 msgstr ""
-"পরিবর্তন তালিকা ডাউনলোড করতে ব্যর্থ। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।"
+"পরিবর্তন তালিকা ডাউনলোড করতে ব্যর্থ। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ "
+"পরীক্ষা করুন।"
 
-#. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:204
+#: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "সকল উপস্হিত আপডেট ইন্সটল করা যায় নি"
 
-#: ../UpdateManager/UpdateManager.py:205
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:215
+#: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
 msgstr "নিম্নের আপডেটগুলো বাদ দেয়া হবে:"
 
-#: ../UpdateManager/UpdateManager.py:350
+#: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
 msgstr "ভার্সন %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:410
+#: ../UpdateManager/UpdateManager.py:417
 msgid "Downloading the list of changes..."
 msgstr "পরিবর্তনের তালিকা ডাউনলোড করা হচ্ছ..."
 
-#: ../UpdateManager/UpdateManager.py:433 ../UpdateManager/UpdateManager.py:443
-#: ../UpdateManager/UpdateManager.py:467
+#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
 msgstr "ডাউনলোড এর আকার: %s"
 
-#: ../UpdateManager/UpdateManager.py:452
+#: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
 msgstr "আপনার সিস্টেম আপ-টু-ডেট"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
 msgstr "বিস্তারিত আড়াল"
 
-#: ../UpdateManager/UpdateManager.py:480 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "বিস্তারিত প্রদর্শন"
 
-#: ../UpdateManager/UpdateManager.py:495
+#: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
 msgstr "অনুগ্রহ করে অপেক্ষা করুন, এটি কিছুটা সময় নিতে পারে।"
 
-#: ../UpdateManager/UpdateManager.py:497
+#: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
 msgstr "আপডেট সম্পন্ন"
 
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "নতুন ভার্সন: %s (আকার: %s)"
 
-#: ../UpdateManager/UpdateManager.py:614
+#: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
 msgstr "আপনার ডিস্ট্রিবিউশনটি আর সমর্থিত নয়"
 
-#: ../UpdateManager/UpdateManager.py:615
+#: ../UpdateManager/UpdateManager.py:622
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:666
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "শুধুমাত্র একটি সফ্টওয়্যার ম্যানেজমেন্ট টুল একসময়ে চালানো যাবে"
 
-#: ../UpdateManager/UpdateManager.py:668
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:675
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
-"অনুগ্রহ করে অন্যান্য অ্যাপলিকেশন যেমন, 'aptitude' অথবা 'Synaptic' প্রথমে বন্ধ করুন।"
+"অনুগ্রহ করে অন্যান্য অ্যাপলিকেশন যেমন, 'aptitude' অথবা 'Synaptic' প্রথমে "
+"বন্ধ করুন।"
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:685
+#: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
 msgstr "সফ্টওয়্যার ইন্ডেক্সটি নস্ট"
 
-#: ../UpdateManager/UpdateManager.py:686
+#: ../UpdateManager/UpdateManager.py:693
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -936,8 +932,8 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -968,9 +964,10 @@ msgid "Scanning CD-ROM"
 msgstr "সিডিরম স্ক্যান করা হচ্ছে"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
-msgstr "চ্যানেল যোগ (_A)"
+msgid_plural "_Add Channels"
+msgstr[0] "চ্যানেল যোগ (_A)"
+msgstr[1] "চ্যানেল যোগ (_A)"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1035,114 +1032,93 @@ msgstr "সফ্টওয়্যার চ্যানেল এবং ইন্
 msgid "Software Properties"
 msgstr "সফ্টওয়্যার বৈশিষ্ট্য"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 'Dapper Drake'"
 msgstr "উবুন্টু ৬.০৬ 'ড্যাপার ড্রেক'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 Security Updates"
 msgstr "উবুন্টু ৬.০৬ নিরাপত্তামুলক আপডেট"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 Updates"
 msgstr "উবুন্টু ৬.০৬ আপডেট"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 Backports"
 msgstr "উবুন্টু ৬.০৬ ব্যাকপোর্ট"
 
-#. Description
 #: ../channels/Ubuntu.info.in:74
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "উবুন্টু ৫.১০ 'ব্রিজী ব্যাজার'"
 
-#. Description
 #: ../channels/Ubuntu.info.in:91
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "উবুন্টু ৫.১০ নিরাপত্তামুলক আপডেট"
 
-#. Description
 #: ../channels/Ubuntu.info.in:108
 msgid "Ubuntu 5.10 Updates"
 msgstr "উবুন্টু ৫.১০ আপডেট"
 
-#. Description
 #: ../channels/Ubuntu.info.in:125
 msgid "Ubuntu 5.10 Backports"
 msgstr "উবুন্টু ৫.১০ ব্যাকপোর্ট"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "অফিসিয়াল ভাবে সমর্থিত"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:131
 msgid "Restricted copyright"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:137
 msgid "Non-free (Multiverse)"
 msgstr ""
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "ডেবিয়ান ৩.১ \"সার্জ\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "ডেবিয়ান ৩.১ \"Sarge\" নিরাপত্তামুলক আপডেট"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "ডেবিয়ান \"Etch\" (testing)"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "ডেবিয়ান \"Sid\" (unstable)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""

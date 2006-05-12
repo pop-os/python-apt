@@ -1,92 +1,80 @@
-# translation of update-manager to Kinyarwanda.
-# Copyright (C) 2005 Free Software Foundation, Inc.
+# Korean translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the update-manager package.
-# Steve Murphy <murf@e-tools.com>, 2005
-# Steve performed initial rough translation from compendium built from translations provided by the following translators:
-# Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
-# Viateur MUGENZI <muvia1@yahoo.fr>, 2005.
-# Noëlla Mupole <s24211045@tuks.co.za>, 2005.
-# Carole Karema <karemacarole@hotmail.com>, 2005.
-# JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>, 2005.
-# Augustin KIBERWA  <akiberwa@yahoo.co.uk>, 2005.
-# Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, 2005..
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: update-manager HEAD\n"
-"Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
+"Project-Id-Version: update-manager\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2006-05-11 16:41+0000\n"
-"PO-Revision-Date: 2006-05-02 20:16+0000\n"
-"Last-Translator: Steve Murphy <murf@e-tools.com>\n"
-"Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2006-05-04 21:22+0000\n"
+"Last-Translator: atie <atie.at.matrix@gmail.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
-#, fuzzy
 msgid "Daily"
-msgstr "<B B"
+msgstr "매일"
 
 #: ../SoftwareProperties/SoftwareProperties.py:104
 msgid "Every two days"
-msgstr ""
+msgstr "이틀 마다"
 
 #: ../SoftwareProperties/SoftwareProperties.py:105
 msgid "Weekly"
-msgstr ""
+msgstr "매주"
 
 #: ../SoftwareProperties/SoftwareProperties.py:106
 msgid "Every two weeks"
-msgstr ""
+msgstr "두 주 마다"
 
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
-msgstr ""
+msgstr "%s 일 마다"
 
 #: ../SoftwareProperties/SoftwareProperties.py:134
 msgid "After one week"
-msgstr ""
+msgstr "한 주 후에"
 
 #: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "After two weeks"
-msgstr ""
+msgstr "두 주 후에"
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "After one month"
-msgstr ""
+msgstr "한 달 후에"
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
 msgid "After %s days"
-msgstr ""
+msgstr "%s 일 후에"
 
 #: ../SoftwareProperties/SoftwareProperties.py:432
 msgid "Import key"
-msgstr ""
+msgstr "키 가져오기"
 
 #: ../SoftwareProperties/SoftwareProperties.py:442
-#, fuzzy
 msgid "Error importing selected file"
-msgstr "Kuzaza Byahiswemo IDOSIYE"
+msgstr "선택한 파일 가져오기 오류"
 
 #: ../SoftwareProperties/SoftwareProperties.py:443
-#, fuzzy
 msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr "Byahiswemo IDOSIYE Gicurasi OYA a Urufunguzo IDOSIYE Cyangwa"
+msgstr "선택된 파일은 GPG 키 파일이 아니거나 잘못된 것입니다."
 
 #: ../SoftwareProperties/SoftwareProperties.py:455
-#, fuzzy
 msgid "Error removing the key"
-msgstr "i Urufunguzo"
+msgstr "키 삭제 오류"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-#, fuzzy
 msgid ""
 "The key you selected could not be removed. Please report this as a bug."
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
+msgstr "선택한 키를 지울 수 없습니다. 버그 리포팅 하십시오."
 
 #: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
@@ -95,47 +83,50 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"<big><b>CD 검색 오류</b></big>\n"
+"\n"
+"%s"
 
 #: ../SoftwareProperties/SoftwareProperties.py:554
 msgid "Please enter a name for the disc"
-msgstr ""
+msgstr "디스크에 사용할 이름을 입력하십시오."
 
 #: ../SoftwareProperties/SoftwareProperties.py:570
 msgid "Please insert a disc in the drive:"
-msgstr ""
+msgstr "드라이브에 디스크를 넣으십시오:"
 
 #: ../DistUpgrade/DistUpgradeCache.py:92
 msgid "Broken packages"
-msgstr ""
+msgstr "망가진 꾸러미"
 
 #: ../DistUpgrade/DistUpgradeCache.py:93
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
+"이 소프트웨어로 수정할 수 없는 망가진 꾸러미가 있습니다. 진행 전에 먼저 시냅틱이나 apt-get을 사용하여 그것을 수정하십시오."
 
 #: ../DistUpgrade/DistUpgradeCache.py:135
 msgid "Can't upgrade required meta-packages"
-msgstr ""
+msgstr "요청된 메타 꾸러미를 업그레이드 할 수 없습니다"
 
 #: ../DistUpgrade/DistUpgradeCache.py:142
 msgid "A essential package would have to be removed"
-msgstr ""
+msgstr "필수 꾸러미를 지워야만 합니다."
 
 #: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
-msgstr ""
+msgstr "업그레이드에 필요한 의존성을 계산할 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeCache.py:146
-#, fuzzy
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a "
+msgstr "업그레이드에 필요한 의존성을 계산하던 중 해결할 수 없는 문제가 발생했습니다. 버그를 보고하여 주십시오. "
 
 #: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
-msgstr ""
+msgstr "패키지 인증 오류"
 
 #: ../DistUpgrade/DistUpgradeCache.py:170
 msgid ""
@@ -143,22 +134,23 @@ msgid ""
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
+"몇몇 꾸러미를 인증할 수 없습니다. 이것은 일시적인 네트워크 문제일 가능성이 큽니다. 나중에 다시 시도하십시오. 아래는 인증하지 못한 "
+"꾸러미 목록입니다."
 
 #: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
-msgstr ""
+msgstr "'%s'을(를) 설치할 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeCache.py:234
-#, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a "
+msgstr "요청된 꾸러미를 설치할 수 없습니다. 버그를 보고하여 주십시오. "
 
 #: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
-msgstr ""
+msgstr "메타 꾸러미를 추측할 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeCache.py:242
 msgid ""
@@ -168,14 +160,17 @@ msgid ""
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
+"시스템에 ubuntu-desktop이나 kubuntu-desktop 또는 edubuntu-desktop 꾸러미가 없습니다. 현재 실행중인 "
+"우분투의 버젼을 알 수 없습니다.\n"
+" 위의 꾸러미 중 하나를 시냅틱이나 apt-get을 이용해서 먼저 설치하십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:42
 msgid "Reading cache"
-msgstr ""
+msgstr "캐시를 읽는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:126
 msgid "No valid mirror found"
-msgstr ""
+msgstr "적합한 미러 서버를 찾지 못했습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:127
 #, python-format
@@ -188,10 +183,15 @@ msgid ""
 "here it will update all '%s' to '%s' entries.\n"
 "If you select 'no' the update will cancel."
 msgstr ""
+"저장소 정보를 검색하는 동안 업그레이드를 하기 위한 어떠한 미러 서버 항목도 찾지 못했습니다. 이것은 내부에서 미러 서버가 실행중이거나 "
+"미러 서버 정보가 오래됐을 때 일어납니다.\n"
+"\n"
+"'sources.list' 파일을 다시 작성하시겠습니까? '예'를 고른다면 모든 '%s'을(를) '%s' 항목으로 업데이트 합니다.\n"
+"'아니오'를 고르면 업데이트는 취소됩니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:144
 msgid "Generate default sources?"
-msgstr ""
+msgstr "기본 설정된 소스 목록을 만듭니까?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:145
 #, python-format
@@ -201,20 +201,23 @@ msgid ""
 "Should default entries for '%s' be added? If you select 'No' the update will "
 "cancel."
 msgstr ""
+"'sources.list'를 검색했지만 '%s'에 적합한 항목을 찾지 못했습니다.\n"
+"\n"
+"'%s'에 대한 기본 항목을 추가하시겠습니까? '아니오'를 고르면 업데이트는 취소됩니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:179
 msgid "Repository information invalid"
-msgstr ""
+msgstr "저장소 정보가 올바르지 않습니다"
 
 #: ../DistUpgrade/DistUpgradeControler.py:180
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
-msgstr ""
+msgstr "저장소 정보를 업그레이드하는 것이 잘못된 파일로 만들어졌습니다. 버그를 보고하여 주십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:186
 msgid "Third party sources disabled"
-msgstr ""
+msgstr "써드 파티 소스는 이용할 수 없습니다"
 
 #: ../DistUpgrade/DistUpgradeControler.py:187
 msgid ""
@@ -222,21 +225,23 @@ msgid ""
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
+"souces.list에서 몇몇 써드 파티 목록은 이용할 수 없게 되었습니다. 'software-properties' 도구나 시냅틱으로 "
+"업그레이드 한 후에 다시 사용가능하게 할 수 있습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:233
-#, fuzzy
 msgid "Error during update"
-msgstr "i Urufunguzo"
+msgstr "업데이트 중 오류"
 
 #: ../DistUpgrade/DistUpgradeControler.py:234
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
+"업데이트를 하는 동안에 문제가 발생했습니다. 이것은 보통 네트워크 문제입니다. 네트워크의 연결상태를 확인하시고 다시 시도하십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:253
 msgid "Not enough free disk space"
-msgstr ""
+msgstr "디스크 여유 공간이 충분하지 않습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:254
 #, python-format
@@ -245,67 +250,69 @@ msgid ""
 "trash and remove temporary packages of former installations using 'sudo apt-"
 "get clean'."
 msgstr ""
+"업그레이드가 중지되었습니다. 적어도 %s 정도의 디스크 공간을 확보하시기 바랍니다. 쓰레기통을 비우고 'sudo apt-get "
+"clean'을 사용하여 이전 설치 시 사용했던 임시 꾸러미를 지우십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:260
 msgid "Do you want to start the upgrade?"
-msgstr ""
+msgstr "업그레이드를 시작하시겠습니까?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:277
 msgid "Could not install the upgrades"
-msgstr ""
+msgstr "업그레이드를 설치하지 못했습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:278
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
 msgstr ""
+"업그레이드가 중지되었습니다. 시스템을 이용할 수 없는 상태일 수 있습니다. (dpkg --configure -a)를 실행하여 복구하십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:293
 msgid "Could not download the upgrades"
-msgstr ""
+msgstr "업그레이드 파일을 다운로드 할 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:294
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
-msgstr ""
+msgstr "업그레이드가 중지되었습니다. 인터넷 연결과 설치 미디어를 확인하시고 다시 시도하십시오. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:336
 msgid "Remove obsolete packages?"
-msgstr ""
+msgstr "못쓰게 된 꾸러미를 삭제하시겠습니까?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "_Skip This Step"
-msgstr ""
+msgstr "이 단계 건너뛰기(_S)"
 
 #: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "_Remove"
-msgstr ""
+msgstr "삭제(_R)"
 
 #: ../DistUpgrade/DistUpgradeControler.py:347
 msgid "Error during commit"
-msgstr ""
+msgstr "커밋 도중에 오류"
 
 #: ../DistUpgrade/DistUpgradeControler.py:348
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
-msgstr ""
+msgstr "필요없는 패키지를 지우는 동안에 오류가 발생했습니다. 아래의 글에서 더 많은 정보를 얻으실 수 있습니다. "
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #: ../DistUpgrade/DistUpgradeControler.py:364
 #: ../DistUpgrade/DistUpgradeControler.py:388
-#, fuzzy
 msgid "Checking package manager"
-msgstr "Muyobozi ni"
+msgstr "꾸러미 관리자 확인 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:380
 msgid "Updating repository information"
-msgstr ""
+msgstr "저장소 정보 업데이트 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:399
 msgid "Invalid package information"
-msgstr ""
+msgstr "잘못된 꾸러미 정보"
 
 #: ../DistUpgrade/DistUpgradeControler.py:400
 #, python-format
@@ -314,65 +321,64 @@ msgid ""
 "not be found anymore.\n"
 "This indicates a serious error, please report this as a bug."
 msgstr ""
+"꾸러미 정보가 업데이트 된 후에 필수 꾸러미 '%s'를 어디에서도 찾을 수 없습니다.\n"
+"이것은 심각한 오류라고 여겨집니다. 버그를 보고하여 주십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:410
 msgid "Asking for confirmation"
-msgstr ""
+msgstr "확인을 요청하는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:414
-#, fuzzy
 msgid "Upgrading"
-msgstr "Byarangiye"
+msgstr "업그레이드 하는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:421
 msgid "Searching for obsolete software"
-msgstr ""
+msgstr "못쓰게 된 소프트웨어를 검색하는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:426
 msgid "System upgrade is complete."
-msgstr ""
+msgstr "시스템 업그레이드가 끝났습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:79
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
-msgstr ""
+msgstr "'%s'(을)를 드라이브 '%s'에 넣으십시오."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:97
 msgid "Download is complete"
-msgstr ""
+msgstr "다운로드가 끝났습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:108
 #, python-format
 msgid "Downloading file %li of %li at %s/s"
-msgstr ""
+msgstr "내려받는 중, %li의 %li 파일, 속도 %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:109
 #: ../DistUpgrade/DistUpgradeViewGtk.py:222
 #, python-format
 msgid "%s remaining"
-msgstr ""
+msgstr "%s 남음"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:111
 #, python-format
 msgid "Downloading file %li of %li"
-msgstr ""
+msgstr "%li의 %li 파일 내려받는 중"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:141
-#, fuzzy
 msgid "Applying changes"
-msgstr "Amahinduka"
+msgstr "변경 사항을 적용하는 중"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:158
 #, python-format
 msgid "Could not install '%s'"
-msgstr ""
+msgstr "'%s'(을)를 설치할 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:159
-#, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
+msgstr "업그레이드가 중지되었습니다. 버그를 보고하여 주십시오."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
@@ -380,14 +386,16 @@ msgid ""
 "Replace configuration file\n"
 "'%s'?"
 msgstr ""
+"설정 파일을 바꾸시겠습니까?\n"
+"'%s'"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:189
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "'diff' 명령어를 찾지 못했습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:315
 msgid "A fatal error occured"
-msgstr ""
+msgstr "심각한 오류 발생"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:316
 msgid ""
@@ -395,71 +403,73 @@ msgid ""
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
+"이것을 버그로 간주하여 /var/log/dist-upgrade.log 파일과 /var/log/dist-upgrade-apt.log 파일을 "
+"첨부하여 보고하십시오.  업그레이드가 중지되었습니다.\n"
+"원래의 sources.list는 /etc/apt/sources.list.distUpgrade에 저장되어 있습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:418
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
-msgstr[0] ""
+msgstr[0] "%s개의 꾸러미가 삭제될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:424
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
-msgstr[0] ""
+msgstr[0] "%s개의 새로운 꾸러미가 설치될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:430
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
-msgstr[0] ""
+msgstr[0] "%s개의 꾸러미가 업그레이드 될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
 msgid "You have to download a total of %s."
-msgstr ""
+msgstr "총 %s개의 꾸러미를 다운로드 합니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:441
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
-msgstr ""
+msgstr "업그레이드는 여러 시간이 걸 릴 수 있고, 어떤 때에도 취소될 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:444
 msgid "To prevent data loss close all open applications and documents."
-msgstr ""
+msgstr "데이터 손실을 막으려면 열려있는 모든 프로그램과 문서를 닫으십시오."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:450
 msgid "Could not find any upgrades"
-msgstr ""
+msgstr "어떤 업그레이드 꾸러미도 찾을 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:451
-#, fuzzy
 msgid "Your system has already been upgraded."
-msgstr "Sisitemu"
+msgstr "이미 시스템이 업그레이드 되어 있습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "<b>Remove %s</b>"
-msgstr ""
+msgstr "<b>삭제 %s</b>"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:468
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "설치 %s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:470
 #, python-format
 msgid "Upgrade %s"
-msgstr ""
+msgstr "업그레이드 %s"
 
 #: ../DistUpgrade/DistUpgradeView.py:75
 msgid "Reboot required"
-msgstr ""
+msgstr "재부팅이 필요합니다."
 
 #: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
-msgstr ""
+msgstr "업그레이드가 끝났습니다. 재부팅이 필요합니다. 지금 재부팅 하시겠습니까?"
 
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
@@ -476,186 +486,183 @@ msgid ""
 "The system could be in an unusable state if you cancel the upgrade. You are "
 "strongly adviced to resume the upgrade."
 msgstr ""
+"<b><big>실행 중인 업그레이드를 취소하시겠습니까?</big></b>\n"
+"\n"
+"업그레이드를 취소하면 시스템이 사용하기 어려운 상태가 됩니다. 업그레이드를 계속 하시는 쪽을 강력히 추천합니다."
 
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
-msgstr ""
+msgstr "<b><big>업그레이드가 완료되어 시스템을 재시작합니다.</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
-msgstr ""
+msgstr "<b><big>업그레이드를 시작하시겠습니까?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" "
 "6.06</span>"
 msgstr ""
+"<span weight=\"bold\" size=\"x-large\">우분투 \"Dapper\" 6.06을 업그레이드 하는 중</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
-msgstr ""
+msgstr "지우는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:9
-#, fuzzy
 msgid "Details"
-msgstr "<B B"
+msgstr "자세히"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "파일의 차이점"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
-msgstr ""
+msgstr "업그레이드를 다운로드하고 설치하는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:12
 msgid "Modifying the software channels"
-msgstr ""
+msgstr "소프트웨어 채널을 수정하는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:13
 msgid "Preparing the upgrade"
-msgstr ""
+msgstr "업그레이드를 준비하는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:14
 msgid "Restarting the system"
-msgstr ""
+msgstr "시스템을 재시작하는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:15
 msgid "Terminal"
-msgstr ""
+msgstr "터미널"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
 msgid "Upgrading Ubuntu"
-msgstr ""
+msgstr "우분투를 업그레이드 하는 중"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "유지(_K)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "Kongera Gutangiza"
+msgstr "바꾸기(_R)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
-msgstr ""
+msgstr "버그 보고(_R)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Restart Now"
-msgstr ""
+msgstr "지금 바로 재시작(_R)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:21
-#, fuzzy
 msgid "_Resume Upgrade"
-msgstr "Byarangiye"
+msgstr "업그레이드 계속(_R)"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68
 msgid "Could not find the release notes"
-msgstr ""
+msgstr "릴리즈 정보를 찾을 수 없습니다."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:69
 msgid "The server may be overloaded. "
-msgstr ""
+msgstr "서버에 접속자가 너무 많습니다. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:79
 msgid "Could not download the release notes"
-msgstr ""
+msgstr "릴리즈 정보를 다운로드 할 수 없습니다."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:80
 msgid "Please check your internet connection."
-msgstr ""
+msgstr "인터넷 연결 상태를 확인하십시오."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
-msgstr ""
+msgstr "업그레이드 도구를 실행할 수 없습니다."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:152
-#, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr "Urufunguzo Byahiswemo OYA Cyavanyweho Icyegeranyo iyi Nka a"
+msgstr "업그레이드 도구에 버그가 있을 가능성이 높습니다. 버그를 보고하여 주십시오."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 msgid "Downloading the upgrade tool"
-msgstr ""
+msgstr "업그레이드 도구를 다운로드하는 중"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:175
 msgid "The upgrade tool will guide you through the upgrade process."
-msgstr ""
+msgstr "업그레이드 도구가 업그레이드 과정으로 안내할 것입니다."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:182
 msgid "Upgrade tool signature"
-msgstr ""
+msgstr "업그레이드 도구 서명"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:185
-#, fuzzy
 msgid "Upgrade tool"
-msgstr "Byarangiye"
+msgstr "업그레이드 도구"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:207
 msgid "Failed to fetch"
-msgstr ""
+msgstr "패치가 실패했습니다."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:208
 msgid "Fetching the upgrade failed. There may be a network problem. "
-msgstr ""
+msgstr "업그레이드를 패치하는데 실패했습니다. 네트워크 문제일 것 같습니다. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:213
 msgid "Failed to extract"
-msgstr ""
+msgstr "압축 풀기 실패"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:214
 msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
-msgstr ""
+msgstr "업그레이드의 압축을 푸는데 실패했습니다. 네트워크나 서버에 문제가 있을 수 있습니다. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:220
 msgid "Verfication failed"
-msgstr ""
+msgstr "검사 실패"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:221
 msgid ""
 "Verfing the upgrade failed.  There may be a problem with the network or with "
 "the server. "
-msgstr ""
+msgstr "업그레이드를 검사하는데 실패했습니다. 네트워크나 서버에 문제가 있을 수 있습니다. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:227
 msgid "Authentication failed"
-msgstr ""
+msgstr "인증 실패"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:228
 msgid ""
 "Authenticating the upgrade failed. There may be a problem with the network "
 "or with the server. "
-msgstr ""
+msgstr "업그레이드를 인증하는데 실패했습니다. 네트워크나 서버의 문제일 것 같습니다. "
 
 #: ../UpdateManager/GtkProgress.py:107
 #, python-format
 msgid "Downloading file %li of %li with %s/s"
-msgstr ""
+msgstr "%li 의 %li 파일 내려 받는 중, 속도 %s/s"
 
 #: ../UpdateManager/GtkProgress.py:111
 #, python-format
 msgid "Downloading file %li of %li with unknown speed"
-msgstr ""
+msgstr "%li 의 %li 파일 내려 받는 중, 속도 알 수 없음"
 
 #: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
-msgstr ""
+msgstr "바뀐 목록을 아직 이용할 수 없습니다. 잠시 후에 다시 해주시기 바랍니다."
 
 #: ../UpdateManager/UpdateManager.py:180
-#, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
-msgstr ""
-"Kuri Gufungura Amahinduka Kugenzura... NIBA ni Gikora Interineti Ukwihuza"
+msgstr "바뀐 목록을 다운로드하는데 실패했습니다. 인터넷 연결을 확인해 주십시오."
 
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
-msgstr ""
+msgstr "가능한 모든 업데이트를 설치하지 못했습니다."
 
 #: ../UpdateManager/UpdateManager.py:212
 msgid ""
@@ -663,65 +670,62 @@ msgid ""
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
+"몇몇의 업데이트를 설치하려면 다른 소프트웨어를 삭제하여야 합니다. \"시냅틱\" 꾸러미 관리자의 \"모든 업그레이드 하기\"를 실행하거나 "
+"터미널에서 \"sudo apt-get dist-upgrade\"를 실행하여 시스템을 완전하게 업데이트 하십시오."
 
 #: ../UpdateManager/UpdateManager.py:222
-#, fuzzy
 msgid "The following updates will be skipped:"
-msgstr "OYA"
+msgstr "다음의 업데이트는 무시될 것입니다:"
 
 #: ../UpdateManager/UpdateManager.py:357
-#, fuzzy
+#, python-format
 msgid "Version %s: \n"
-msgstr "Verisiyo \n"
+msgstr "버젼 %s: \n"
 
 #: ../UpdateManager/UpdateManager.py:417
-#, fuzzy
 msgid "Downloading the list of changes..."
-msgstr "Iyimura... i"
+msgstr "바뀐 목록을 다운로드 하는 중..."
 
 #: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
 #: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
-msgstr ""
+msgstr "다운로드 크기: %s"
 
 #: ../UpdateManager/UpdateManager.py:459
-#, fuzzy
 msgid "Your system is up-to-date"
-msgstr "Sisitemu ni Hejuru Kuri Itariki"
+msgstr "시스템이 최신의 상태입니다."
 
 #: ../UpdateManager/UpdateManager.py:470
-#, fuzzy
+#, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
-msgstr[0] "Sisitemu ni Hejuru Kuri Itariki"
+msgstr[0] "%s 개의 업데이트를 설치할 수 있습니다."
 
 #: ../UpdateManager/UpdateManager.py:485
-#, fuzzy
 msgid "Hide details"
-msgstr "<B B"
+msgstr "세부 정보 숨기기"
 
 #: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
-msgstr ""
+msgstr "자세히 보기"
 
 #: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
-msgstr ""
+msgstr "잠시만 기다리십시오. 이 작업은 약간의 시간이 걸립니다."
 
 #: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
-msgstr ""
+msgstr "업데이트가 끝났습니다."
 
 #: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
-msgstr ""
+msgstr "새 버젼: %s (크기: %s)"
 
 #: ../UpdateManager/UpdateManager.py:621
-#, fuzzy
 msgid "Your distribution is not supported anymore"
-msgstr "Ikwirakwiza... ni Oya"
+msgstr "더 이상 지원되지 않는 배포판입니다."
 
 #: ../UpdateManager/UpdateManager.py:622
 msgid ""
@@ -729,19 +733,21 @@ msgid ""
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
+"더 이상 보안이나 중요 업데이트를 받을 수 없습니다. 최신의 우분투 리눅스로 업그레이드 하십시오. 업그레이드에 대한 더 많은 정보는 "
+"http://www.ubuntu.com에서 보실 수 있습니다."
 
 #: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
-msgstr ""
+msgstr "동시에 한 가지 소프트웨어 관리 도구만 실행할 수 있습니다."
 
 #: ../UpdateManager/UpdateManager.py:675
 msgid ""
 "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
-msgstr ""
+msgstr "'aptitude'나 '시냅틱'과 같은 다른 프로그램을 먼저 닫으십시오."
 
 #: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
-msgstr ""
+msgstr "소프트웨어 목록이 망가졌습니다."
 
 #: ../UpdateManager/UpdateManager.py:693
 msgid ""
@@ -749,6 +755,8 @@ msgid ""
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
+"어떤 소프트웨어도 설치하거나 삭제할 수 없습니다. \"시냅틱\"이나 터미널에서 \"sudo apt-get install -f\"를 "
+"실행하여 이 문제를 먼저 해결하십시오."
 
 #: ../data/UpdateManager.glade.h:1
 msgid ""
@@ -757,6 +765,10 @@ msgid ""
 "Your system does not check for updates automatically. You can configure this "
 "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
 msgstr ""
+"<b><big>수동으로 업데이트를 확인해야 합니다.</big></b>\n"
+"\n"
+"자동으로 업데이트를 확인할 수 없습니다. 이것을 \"시스템\" -> \"관리 도구\" -> \"Software Properties\"에서 "
+"설정할 수 있습니다."
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
@@ -765,142 +777,137 @@ msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
 msgstr ""
+"big><b>시스템 검사 중</b></big>\n"
+"\n"
+"소프트웨어 업데이트는 에러를 고치고, 보안 위험을 제거하며 새로운 기능을 제공합니다."
 
 #: ../data/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
+msgstr "<big><b>시스템을 최신으로 유지하십시오.</b></big>"
 
 #: ../data/UpdateManager.glade.h:8
 msgid "Cancel _Download"
-msgstr ""
+msgstr "다운로드 취소(_D)"
 
 #: ../data/UpdateManager.glade.h:9
 msgid "Changes"
-msgstr "Amahinduka"
+msgstr "변경 사항"
 
 #: ../data/UpdateManager.glade.h:10
 msgid "Chec_k"
-msgstr ""
+msgstr "점검(_k)"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "새로운 업데이트를 위한 소프트웨어 채널을 확인합니다."
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
-msgstr "Isobanuramiterere"
+msgstr "설명"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
+msgstr "릴리즈 정보"
 
 #: ../data/UpdateManager.glade.h:15
 msgid "Show progress of single files"
-msgstr ""
+msgstr "각각 파일의 진행 상황 표시"
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
-msgstr "Ibihuzagihe bya porogaramumudasobwa"
+msgstr "소프트웨어 업데이트"
 
 #: ../data/UpdateManager.glade.h:17
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
-msgstr ""
+msgstr "소프트웨어 업데이트는 에러를 고치고, 보안 위험을 제거하며 새로운 기능을 제공합니다."
 
 #: ../data/UpdateManager.glade.h:18
-#, fuzzy
 msgid "U_pgrade"
-msgstr "Byarangiye"
+msgstr "업그레이드(_p)"
 
 #: ../data/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
+msgstr "우분투 최신 버젼으로 업그레이드 합니다."
 
 #: ../data/UpdateManager.glade.h:20
 msgid "_Check"
-msgstr ""
+msgstr "점검(_C)"
 
 #: ../data/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
-msgstr ""
+msgstr "앞으로 이 정보 숨김(_H)"
 
 #: ../data/UpdateManager.glade.h:22
-#, fuzzy
 msgid "_Install Updates"
-msgstr "Kwinjiza porogaramu"
+msgstr "업데이트를 설치(_I)"
 
 #: ../data/SoftwareProperties.glade.h:1
-#, fuzzy
 msgid "<b>Channels</b>"
-msgstr "<B B"
+msgstr "<b>채널</b>"
 
 #: ../data/SoftwareProperties.glade.h:2
-#, fuzzy
 msgid "<b>Internet updates</b>"
-msgstr "<B B"
+msgstr "<b>인터넷 업데이트</b>"
 
 #: ../data/SoftwareProperties.glade.h:3
-#, fuzzy
 msgid "<b>Keys</b>"
-msgstr "<B B"
+msgstr "<b>키</b>"
 
 #: ../data/SoftwareProperties.glade.h:4
 msgid "Add _Cdrom"
-msgstr ""
+msgstr "CD롬 추가(_C)"
 
 #: ../data/SoftwareProperties.glade.h:5
 msgid "Authentication"
-msgstr ""
+msgstr "인증"
 
 #: ../data/SoftwareProperties.glade.h:6
 msgid "D_elete downloaded software files:"
-msgstr ""
+msgstr "다운로드 받은 소프트웨어 파일 삭제(_D):"
 
 #: ../data/SoftwareProperties.glade.h:7
-#, fuzzy
 msgid "Import the public key from a trusted software provider"
-msgstr "i Byahiswemo Urufunguzo Bivuye i"
+msgstr "믿을 만한 소프트웨어 제공자로부터 공개 키를 가져옵니다."
 
 #: ../data/SoftwareProperties.glade.h:8
 msgid "Installation Media"
-msgstr ""
+msgstr "설치 미디어"
 
 #: ../data/SoftwareProperties.glade.h:9
-#, fuzzy
 msgid "Internet Updates"
-msgstr "<B B"
+msgstr "인터넷 업데이트"
 
 #: ../data/SoftwareProperties.glade.h:10
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
-msgstr ""
+msgstr "공식 우분투 서버에서 보안 업데이트는 자동으로 설치될 것입니다."
 
 #: ../data/SoftwareProperties.glade.h:11
-#, fuzzy
 msgid "Restore _Defaults"
-msgstr "Mburabuzi Utubuto"
+msgstr "기본값 불러오기(_D)"
 
 #: ../data/SoftwareProperties.glade.h:12
 msgid "Restore the default keys of your distribution"
-msgstr ""
+msgstr "배포판의 기본 키 불러오기"
 
 #: ../data/SoftwareProperties.glade.h:13
 msgid "Software Preferences"
-msgstr ""
+msgstr "소프트웨어 설정"
 
 #: ../data/SoftwareProperties.glade.h:14
 msgid "_Check for updates automatically:"
-msgstr ""
+msgstr "업데이트를 자동으로 확인(_C):"
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Download updates in the background, but do not install them"
-msgstr ""
+msgstr "백그라운드에서 업데이트 다운로드, 설치는 안함(_D)"
 
 #: ../data/SoftwareProperties.glade.h:16
 msgid "_Install security updates without confirmation"
-msgstr ""
+msgstr "확인없이 보안 업데이트 설치(_I)"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:2
 msgid "     "
@@ -915,44 +922,41 @@ msgid ""
 "\n"
 "You need a working internet connection to continue."
 msgstr ""
+"<b><big>채널 정보가 오래된 것입니다.</big></b>\n"
+"\n"
+"소프트웨어를 설치하기 위하여 채널 정보를 새로 불러와야하고 새롭게 추가되거나 변경된 채얼에서 업데이트를 합니다. \n"
+"\n"
+"계속하기 위하여 동작하는 인터넷 연결이 필요합니다."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:8
-#, fuzzy
 msgid "<b>Channel</b>"
-msgstr "<B B"
+msgstr "<b>채널</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:9
-#, fuzzy
 msgid "<b>Comment:</b>"
-msgstr "<B B"
+msgstr "<b>덧글:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
-msgstr "<B B"
+msgstr "<b>구성요소:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
-#, fuzzy
 msgid "<b>Components</b>"
-msgstr "<B B"
+msgstr "<b>구성요소</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
-#, fuzzy
 msgid "<b>Distribution:</b>"
-msgstr "<B B"
+msgstr "<b>배포판:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:13
-#, fuzzy
 msgid "<b>Type:</b>"
-msgstr "<B B"
+msgstr "<b>종류:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:14
-#, fuzzy
 msgid "<b>URI:</b>"
-msgstr "<B B"
+msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
-#, fuzzy
 msgid ""
 "<big><b>Enter the complete APT line of the channel that you want to "
 "add</b></big>\n"
@@ -960,66 +964,65 @@ msgid ""
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<B i Byuzuye Umurongo Bya i Kuri Kongeramo B Umurongo Kirimo i Ubwoko Ahantu "
-"Na Ibikubiyemo Bya a kugirango Urugero i HTTP FTP org i Gushaka a "
-"Isobanuramiterere Bya i in i"
+"<big><b>추가하길 원하는 채널에 대한 완전한 APT 줄을 입력하십시오.</b></big>\n"
+"\n"
+"APT 줄은 다음의 예와 같이 채널의 종류, 위치, 구성요소를 포함합니다. <i>\"deb http://ftp.debian.org "
+"sarge main\"</i>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
-#, fuzzy
 msgid "APT line:"
-msgstr "Umurongo"
+msgstr "APT 줄:"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:19
 msgid "Add Channel"
-msgstr ""
+msgstr "채널 추가"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:20
-#, fuzzy
 msgid ""
 "Binary\n"
 "Source"
-msgstr "Inkomoko"
+msgstr ""
+"바이너리\n"
+"소스"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:22
 msgid "Edit Channel"
-msgstr ""
+msgstr "채널 편집"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:23
 msgid "Scanning CD-ROM"
-msgstr ""
+msgstr "CD-ROM을 읽는 중"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
 msgid_plural "_Add Channels"
-msgstr[0] ""
+msgstr[0] "채널 추가(_A)"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
-#, fuzzy
 msgid "_Custom"
-msgstr "Guhanga"
+msgstr "사용자 정의(_C)"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:26
-#, fuzzy
 msgid "_Reload"
-msgstr "Kongera Gutangiza"
+msgstr "새로고침(_R)"
 
 #: ../data/update-manager.desktop.in.h:1
 msgid "Show and install available updates"
-msgstr ""
+msgstr "이용가능한 업데이트를 보여주고, 설치합니다."
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr ""
+msgstr "업데이트 관리자"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
 "Check automatically if a new version of the current distribution is "
 "available and offer to upgrade (if possible)."
-msgstr ""
+msgstr "현재 버젼보다 새 버젼이 있고, 업그레이드 가능한 지 자동으로 확인합니다."
 
 #: ../data/update-manager.schemas.in.h:2
 msgid "Check for new distribution releases"
-msgstr ""
+msgstr "새로운 배포판을 확인합니다."
 
 #: ../data/update-manager.schemas.in.h:3
 msgid ""
@@ -1027,380 +1030,126 @@ msgid ""
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
 msgstr ""
+"자동으로 업데이트 확인하는 기능을 사용하지 않는다면 채널 목록을 수동으로 새로고침해야만 합니다. 이 설정은 이 경우에 알림 기능이 "
+"보여지지 않도록 합니다."
 
 #: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
-msgstr ""
+msgstr "채널 목록을 새로고침하는 것을 알려줍니다."
 
 #: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
-msgstr ""
+msgstr "업데이트의 세부사항을 보여줍니다."
 
 #: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
-msgstr ""
+msgstr "업데이트 관리자 대화상자의 크기를 저장합니다."
 
 #: ../data/update-manager.schemas.in.h:7
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
-msgstr ""
+msgstr "변경과 설명의 목록을 가지는 확장자의 상태를 저장합니다."
 
 #: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
-msgstr ""
+msgstr "윈도우 크기"
 
 #: ../data/software-properties.desktop.in.h:1
 msgid "Configure software channels and internet updates"
-msgstr ""
+msgstr "소프트웨어 채널과 인터넷 업데이트를 설정합니다."
 
 #: ../data/software-properties.desktop.in.h:2
-#, fuzzy
 msgid "Software Properties"
-msgstr "Ibihuzagihe bya porogaramumudasobwa"
+msgstr "소프트웨어 설정"
 
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "5"
+msgstr "우분투 6.06 'Dapper Drake'"
 
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 Security Updates"
-msgstr "5"
+msgstr "우분투 6.06 보안 업데이트"
 
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 Updates"
-msgstr "5"
+msgstr "우분투 6.06 업데이트"
 
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 Backports"
-msgstr "5"
+msgstr "우분투 6.06 Backports"
 
 #: ../channels/Ubuntu.info.in:74
-#, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "5"
+msgstr "우분투 5.10 'Breezy Badger'"
 
 #: ../channels/Ubuntu.info.in:91
-#, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
-msgstr "5"
+msgstr "우분투 5.10 보안 업데이트"
 
 #: ../channels/Ubuntu.info.in:108
-#, fuzzy
 msgid "Ubuntu 5.10 Updates"
-msgstr "5"
+msgstr "우분투 5.10 업데이트"
 
 #: ../channels/Ubuntu.info.in:125
-#, fuzzy
 msgid "Ubuntu 5.10 Backports"
-msgstr "5"
+msgstr "우분투 5.10 Backports"
 
 #: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
 msgid "Officially supported"
-msgstr ""
+msgstr "공식적으로 지원됨"
 
 #: ../channels/Ubuntu.info.in:131
-#, fuzzy
 msgid "Restricted copyright"
-msgstr "Uburenganzira bw'umuhimbyi"
+msgstr "저작권 제한됨"
 
 #: ../channels/Ubuntu.info.in:134
 msgid "Community maintained (Universe)"
-msgstr ""
+msgstr "커뮤니티에서 관리유지함 (Universe)"
 
 #: ../channels/Ubuntu.info.in:137
-#, fuzzy
 msgid "Non-free (Multiverse)"
-msgstr "Kigenga"
+msgstr "자유소프트웨어 아님 (Multiverse)"
 
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr ""
+msgstr "데비안 3.1 \"Sarge\""
 
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
-msgstr ""
+msgstr "http://security.debian.org/"
 
 #: ../channels/Debian.info.in:20
-#, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "4. 10"
+msgstr "데비안 3.1 \"Sarge\" 보안 업데이트"
 
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
-msgstr ""
+msgstr "데비안 \"Etch\" (testing)"
 
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
-msgstr ""
+msgstr "http://http.us.debian.org/debian/"
 
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
-msgstr ""
+msgstr "데비안 \"Sid\" (unstable)"
 
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
+msgstr "자유소프트웨어가 아닌 의존성을 가지는 DFSG와 호환성 있는 소프트웨어"
 
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Repositories changed"
-#~ msgstr "Byahinduwe"
-
-#, fuzzy
-#~ msgid ""
-#~ "You need to reload the package list from the servers for your changes to "
-#~ "take effect. Do you want to do this now?"
-#~ msgstr "Kubika."
-
-#, fuzzy
-#~ msgid "<b>Sections</b>"
-#~ msgstr "<B B"
-
-#, fuzzy
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<B B"
-
-#, fuzzy
-#~ msgid "Reload the latest information about updates"
-#~ msgstr "Kongerakuyitangiza i Ibisobanuro Bivuye i Seriveri"
-
-#, fuzzy
-#~ msgid "Add Software Channels"
-#~ msgstr "Ibihuzagihe bya porogaramumudasobwa"
-
-#, fuzzy
-#~ msgid ""
-#~ "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-#~ "\n"
-#~ "Need to get the changes from the central server"
-#~ msgstr ""
-#~ "<Uburemere UTSINDAGIYE Ingano Kinini Amahinduka Kuri Kubona i Amahinduka "
-#~ "Bivuye i Seriveri"
-
-#, fuzzy
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "Bihari Na Guhitamo Kuri Kwinjiza porogaramu"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-#~ msgstr "5"
-
-#, fuzzy
-#~ msgid "Error fetching the packages"
-#~ msgstr "i Urufunguzo"
-
-#, fuzzy
-#~ msgid "<b>Sources</b>"
-#~ msgstr "<B B"
-
-#, fuzzy
-#~ msgid "Automatically check for updates"
-#~ msgstr "Kugenzura... kugirango"
-
-#, fuzzy
-#~ msgid "Choose a key-file"
-#~ msgstr "a Urufunguzo IDOSIYE"
-
-#, fuzzy
-#~ msgid "<b>Packages to install:</b>"
-#~ msgstr "<B Kuri Kwinjiza porogaramu B"
-
-#, fuzzy
-#~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
-#~ msgstr "<B B Byabonetse Kuri ku ikoresha i Akabuto"
-
-#, fuzzy
-#~ msgid "<b>Repository</b>"
-#~ msgstr "<B B"
-
-#, fuzzy
-#~ msgid "<b>Temporary files</b>"
-#~ msgstr "<B Idosiye B"
-
-#, fuzzy
-#~ msgid "<b>User Interface</b>"
-#~ msgstr "<B B"
-
-#, fuzzy
-#~ msgid ""
-#~ "<big><b>Authentication keys</b></big>\n"
-#~ "\n"
-#~ "You can add and remove authentication keys in this dialog. A key makes it "
-#~ "possible to verify the integrity of the software you download."
-#~ msgstr ""
-#~ "<B Utubuto B Kongeramo Na Gukuraho... Utubuto in iyi Ikiganiro A Urufunguzo "
-#~ "Kuri Kugenzura... i Bya i Gufungura"
-
-#, fuzzy
-#~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received the "
-#~ "key over a secure channel and that you trust the owner. "
-#~ msgstr "a Gishya Urufunguzo IDOSIYE Kuri i i Urufunguzo KURI a Na i "
-
-#, fuzzy
-#~ msgid "Automatically clean _temporary packages files"
-#~ msgstr "GUSUKURA By'igihe gito Idosiye"
-
-#, fuzzy
-#~ msgid "Clean interval in days: "
-#~ msgstr "Intera in Iminsi "
-
-#, fuzzy
-#~ msgid "Delete _old packages in the package cache"
-#~ msgstr "ki/ bishaje in i Ubwihisho"
-
-#, fuzzy
-#~ msgid "Maximum age in days:"
-#~ msgstr "in Iminsi"
-
-#, fuzzy
-#~ msgid "Maximum size in MB:"
-#~ msgstr "Ingano in"
-
-#, fuzzy
-#~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not change "
-#~ "user installed keys."
-#~ msgstr ""
-#~ "i Mburabuzi Utubuto Na: i Ikwirakwiza... OYA Guhindura>> Ukoresha: Utubuto"
-
-#, fuzzy
-#~ msgid "Set _maximum size for the package cache"
-#~ msgstr "Kinini Ingano kugirango i Ubwihisho"
-
-#~ msgid "Settings"
-#~ msgstr "Amagenamiterere"
-
-#, fuzzy
-#~ msgid "Show disabled software sources"
-#~ msgstr "Yahagaritswe"
-
-#, fuzzy
-#~ msgid "Update interval in days: "
-#~ msgstr "Intera in Iminsi "
-
-#, fuzzy
-#~ msgid ""
-#~ "This means that some dependencies of the installed packages are not "
-#~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
-#~ msgstr "Bya i OYA Gukoresha Cyangwa Kubona Kuri i"
-
-#, fuzzy
-#~ msgid "It is not possible to upgrade all packages."
-#~ msgstr "ni OYA Kuri Byose"
-
-#, fuzzy
-#~ msgid ""
-#~ "This means that besides the actual upgrade of the packages some further "
-#~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
-#~ msgstr ""
-#~ "i Bya i Igikorwa Nka gukora iyinjizaporogaramu:%s Cyangwa ni Bya ngombwa "
-#~ "Gukoresha Cyangwa Kubona Kuri i"
-
-#, fuzzy
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr "OYA Byabonetse i Seriveri Gicurasi OYA"
-
-#, fuzzy
-#~ msgid "The updates are being applied."
-#~ msgstr "Byashyizweho"
-
-#, fuzzy
-#~ msgid ""
-#~ "You can run only one package management application at the same time. Please "
-#~ "close this other application first."
-#~ msgstr ""
-#~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
-
-#, fuzzy
-#~ msgid "Updating package list..."
-#~ msgstr "Urutonde"
-
-#, fuzzy
-#~ msgid "There are no updates available."
-#~ msgstr "Oya Bihari"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. Please "
-#~ "see http://www.ubuntulinux.org for upgrade information."
-#~ msgstr ""
-#~ "Kuri a Verisiyo Bya Verisiyo Oya Kubona Umutekano Cyangwa Ikindi Ibyangombwa "
-#~ "HTTP www org kugirango Ibisobanuro"
-
-#, fuzzy
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "ni a Gishya Bya Bihari"
-
-#, fuzzy
-#~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see "
-#~ "http://www.ubuntulinux.org/ for upgrade instructions."
-#~ msgstr "A Gishya Na: i ni Bihari HTTP www org kugirango Amabwiriza"
-
-#, fuzzy
-#~ msgid "Never show this message again"
-#~ msgstr "Garagaza iyi Ubutumwa"
-
-#, fuzzy
-#~ msgid ""
-#~ "This usually means that another package management application (like apt-get "
-#~ "or aptitude) already running. Please close that application first"
-#~ msgstr ""
-#~ "Gukoresha Porogaramu ku i Igihe Gufunga iyi Ikindi Porogaramu Itangira"
-
-#, fuzzy
-#~ msgid "Initializing and getting list of updates..."
-#~ msgstr "Na Urutonde Bya"
-
-#, fuzzy
-#~ msgid "You need to be root to run this program"
-#~ msgstr "Kuri Imizi Kuri Gukoresha iyi Porogaramu"
-
-#, fuzzy
-#~ msgid "Edit software sources and settings"
-#~ msgstr "Na Amagenamiterere"
-
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
-#~ msgid "Binary"
-#~ msgstr "Nyabibiri"
-
-#, fuzzy
-#~ msgid "Non-free software"
-#~ msgstr "Kigenga"
-
-#, fuzzy
-#~ msgid "US export restricted software"
-#~ msgstr "Kohereza Nta gukoresha bisesuye"
-
-#, fuzzy
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "com"
-
-#, fuzzy
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "com"
+msgstr "DFSG와 호환성이 없는 소프트웨어"
