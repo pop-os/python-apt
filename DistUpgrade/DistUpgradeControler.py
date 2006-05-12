@@ -376,7 +376,8 @@ class DistUpgradeControler(object):
                                    _("Some of your installed packages are "
                                      "no longer officially supported. See "
                                      "below for a list of installed packages "
-                                     "that moved from the 'officially "
+                                     "that have been moved from the "
+                                     "'officially "
                                      "supported' area (main) to the "
                                      "'community supported' area "
                                      "(universe). "),
