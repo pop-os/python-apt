@@ -46,6 +46,20 @@ from gettext import gettext as _
 def utf8(str):
   return unicode(str, 'latin1').encode('utf-8')
 
+def FuzzyTimeToStr(sec):
+  " return the time a bit fuzzy (no seconds if time > 60 secs "
+  if sec > 60*60*24:
+    return _("About %li days %li hours %li minutes remaining") % (sec/60/60/24,
+                                                                  (sec/60/60) % 24,
+                                                                  (sec/60) % 60)
+  if sec > 60*60:
+    return _("About %li hours %li minutes remaining") % (sec/60/60,
+                                          (sec/60) % 60)
+  if sec > 60:
+    return _("About %li minutes remaining") % (sec/60)
+  return _("About %li seconds remaining") % sec
+
+
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
@@ -106,7 +120,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
 
         if self.currentCPS > 0:
             self.status.set_text(_("Downloading file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
-            self.progress.set_text(_("%s remaining" % apt_pkg.TimeToStr(self.eta)))
+            self.progress.set_text(FuzzyTimeToStr(self.eta))
         else:
             self.status.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
@@ -218,8 +232,8 @@ class GtkInstallProgressAdapter(InstallProgress):
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
           # only show if we have some sensible data
-          if eta > 1.0 and eta < (60*60*24*2):
-            self.progress.set_text(_("%s remaining")%apt_pkg.TimeToStr(eta))
+          if eta > 61.0 and eta < (60*60*24*2):
+            self.progress.set_text(FuzzyTimeToStr(eta))
           else:
             self.progress.set_text(" ")
 
@@ -533,7 +547,7 @@ if __name__ == "__main__":
   #sys.exit(0)
   ip.conffile("TODO","TODO~")
   view.getTerminal().call(["dpkg","--configure","-a"])
-  view.getTerminal().call(["ls","-R","/usr"])
+  #view.getTerminal().call(["ls","-R","/usr"])
   view.error("short","long",
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"
              "asfds afsdj af asdf asdf asf dsa fadsf asdf as fasf sextended\n"

@@ -91,7 +91,7 @@ class DistUpgradeControler(object):
         for entry in self.sources:
             # ignore invalid records (but update disabled ones)
             # or cdrom entries
-            if entry.invalid or entry.uri.startswith("cdrom:"):
+            if entry.invalid or entry.uri.startswith("cdrom:") or entry.disabled:
                 continue
             logging.debug("examining: '%s'" % entry)
             # check if it's a mirror (or offical site)
@@ -375,9 +375,9 @@ class DistUpgradeControler(object):
             self._view.information(_("Some software no longer officially "
                                      "supported"),
                                    _("These installed packages are "
-                                     "no longer officially supported,
-                                     and are now only
-                                     community-supported ('universe').\n\n"
+                                     "no longer officially supported, "
+                                     "and are now only "
+                                     "community-supported ('universe').\n\n"
                                      "If you don't have 'universe' enabled "
                                      "these packages will be suggested for "
                                      "removal in the next step. "),

@@ -1,5 +1,7 @@
 2006-05-12: 
 	- space checking improved (ubuntu: #43948)
+        - show software that was demoted from main -> universe 
+        - improve the remaining time reporting
         - translation updates
 2006-05-09: 
         - upload
