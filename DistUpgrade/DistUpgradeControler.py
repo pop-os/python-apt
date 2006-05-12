@@ -238,25 +238,66 @@ class DistUpgradeControler(object):
         return False
 
 
+    def _checkFreeSpace(self):
+        " this checks if we have enough free space on /var and /usr"
+        err_sum = _("Not enough free disk space")
+        err_long= _("The upgrade aborts now. "
+                    "Please free at least %s of disk space on %s. "
+                    "Empty your trash and remove temporary "
+                    "packages of former installations using "
+                    "'sudo apt-get clean'.")
+
+        # first check for /var (or where the archives are downloaded too)
+        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
+        st_archivedir = os.statvfs(archivedir)
+        free = st_archivedir[statvfs.F_BAVAIL]*st_archivedir[statvfs.F_FRSIZE]
+        logging.debug("required download: %s " % self.cache.requiredDownload)
+        logging.debug("free on %s: %s " % (archivedir, free))
+        if self.cache.requiredDownload > free:
+            free_at_least = apt_pkg.SizeToStr(self.cache.requiredDownload-free)
+            self._view.error(err_sum, err_long % (free_at_least,archivedir))
+            return False
+        
+        # then check for /usr assuming that all the data goes into /usr
+        # this won't catch space problems when e.g. /boot,/usr/,/ are all
+        # seperated partitions, but with a fragmented
+        # patition layout we can't do a lot better because we don't know
+        # the space-requirements on a per dir basis inside the deb without
+        # looking into each
+        logging.debug("need additional space: %s" % self.cache.additionalRequiredSpace)
+        dir = "/usr"
+        st_usr = os.statvfs(dir)
+        if st_archivedir == st_usr:
+            # we are on the same filesystem, so we need to take the space
+            # for downloading the debs into account
+            free -= self.cache.additionalRequiredSpace
+            logging.debug("/usr on same fs as %s, taking dl-size into account, new free: %s" % (archivedir, free))
+        else:
+            free = st_usr[statvfs.F_BAVAIL]*st_usr[statvfs.F_FRSIZE]
+            logging.debug("/usr on different fs than %s, free: %s" % (archivedir, free))
+
+        if self.cache.additionalRequiredSpace > free:
+            free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace-free)
+            logging.error("not enough free space, we need addional %s" % free_at_least)
+            self._view.error(err_sum, err_long % (free_at_least,dir))
+            return False
+
+        # FIXME: we should try to esitmate if "/" has enough free space,
+        # linux-restricted-modules and linux-image- are both putting there
+        # modules there and those take a lot of space
+            
+        return True
+
     def askDistUpgrade(self):
         if not self.cache.distUpgrade(self._view):
             return False
         changes = self.cache.getChanges()
         # log the changes for debuging
         self._logChanges()
-        # ask the user if he wants to do the changes
-        archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
-        st = os.statvfs(archivedir)
-        free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
-        if self.cache.requiredDownload > free:
-            free_at_least = apt_pkg.SizeToStr(self.cache.requiredDownload-free)
-            self._view.error(_("Not enough free disk space"),
-                             _("The upgrade aborts now. "
-                               "Please free at least %s of disk space. "
-                               "Empty your trash and remove temporary "
-                               "packages of former installations using "
-                               "'sudo apt-get clean'." % free_at_least ))
+        # check if we have enough free space 
+        if not self._checkFreeSpace():
             return False
+        # ask the user if he wants to do the changes
         res = self._view.confirmChanges(_("Do you want to start the upgrade?"),
                                         changes,
                                         self.cache.requiredDownload)
@@ -354,6 +395,7 @@ class DistUpgradeControler(object):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
         # generate a new cache
+        self._view.updateStatus(_("Restoring originale system state"))
         self.openCache()
         sys.exit(1)
 
