@@ -374,10 +374,10 @@ class DistUpgradeControler(object):
         if len(installed_demotions) > 0:
             self._view.information(_("Some software no longer officially "
                                      "supported"),
-                                   _("These of your installed packages are "
+                                   _("These installed packages are "
                                      "no longer officially supported,
                                      and are now only
-                                     community-support ('universe').\n\n"
+                                     community-supported ('universe').\n\n"
                                      "If you don't have 'universe' enabled "
                                      "these packages will be suggested for "
                                      "removal in the next step. "),

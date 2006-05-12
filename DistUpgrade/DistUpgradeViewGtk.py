@@ -118,7 +118,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
 class GtkInstallProgressAdapter(InstallProgress):
     # timeout with no status change when the terminal is expanded
     # automatically
-    TIMEOUT_TERMINAL_ACTIVITY = 120
+    TIMEOUT_TERMINAL_ACTIVITY = 240
     
     def __init__(self,parent):
         InstallProgress.__init__(self)
