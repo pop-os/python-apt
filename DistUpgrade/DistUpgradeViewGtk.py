@@ -378,15 +378,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
-    def information(self, summary, msg):
+    def information(self, summary, msg, extended_msg=None):
+      self.dialog_information.set_transient_for(self.window_main)
       msg = "<big><b>%s</b></big>\n\n%s" % (summary,msg)
-      dialog = gtk.MessageDialog(parent=self.window_main,
-                                 flags=gtk.DIALOG_MODAL,
-                                 type=gtk.MESSAGE_INFO,
-                                 buttons=gtk.BUTTONS_CLOSE)
-      dialog.set_markup(msg)
-      dialog.run()
-      dialog.destroy()
+      self.label_information.set_markup(msg)
+      if extended_msg != None:
+        buffer = self.textview_information.get_buffer()
+        buffer.set_text(extended_msg)
+        self.scroll_information.show()
+      else:
+        self.scroll_information.hide()
+      self.dialog_information.realize()
+      self.dialog_information.window.set_functions(gtk.gdk.FUNC_MOVE)
+      self.dialog_information.run()
+      self.dialog_information.hide()
 
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
@@ -402,7 +407,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self.dialog_error.realize()
         self.dialog_error.window.set_functions(gtk.gdk.FUNC_MOVE)
         self.dialog_error.run()
-        self.dialog_error.destroy()
+        self.dialog_error.hide()
         return False
 
     def confirmChanges(self, summary, changes, downloadSize, actions=None):

@@ -17,12 +17,6 @@ class MyCache(apt.Cache):
         self.config = DistUpgradeConfig()
         self.metapkgs = self.config.getlist("Distro","MetaPkgs")
 
-        # turn on debuging
-        apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open("/var/log/dist-upgrade-apt.log", os.O_RDWR|os.O_CREAT|os.O_TRUNC)
-        os.dup2(fd,1)
-        os.dup2(fd,2)
-
         # a list of regexp that are not allowed to be removed
         self.removal_blacklist = []
         for line in open("removal_blacklist.txt").readlines():

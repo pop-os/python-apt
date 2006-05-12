@@ -53,6 +53,13 @@ class DistUpgradeControler(object):
         # forced obsoletes
         self.forced_obsoletes = self.config.getlist("Distro","ForcedObsoletes")
 
+        # turn on debuging in the cache
+        apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
+        fd = os.open("/var/log/dist-upgrade-apt.log",
+                     os.O_RDWR|os.O_CREAT|os.O_TRUNC)
+        os.dup2(fd,1)
+        os.dup2(fd,2)
+
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
 
@@ -356,7 +363,24 @@ class DistUpgradeControler(object):
                 self.forced_obsoletes.extend(self.config.getlist(pkg,"ForcedObsoletes"))
         logging.debug("forced_obsoletes: %s", self.forced_obsoletes)
 
-                
+        # check what packages got demoted
+        demotions_file = self.config.get("Distro","Demotions")
+        demotions = set()
+        if os.path.exists(demotions_file):
+            map(lambda pkgname: demotions.add(pkgname.strip()),
+                filter(lambda line: not line.startswith("#"),
+                       open(demotions_file).readlines()))
+        installed_demotions = filter(lambda pkg: pkg.isInstalled and pkg.name in demotions, self.cache)
+        if len(installed_demotions) > 0:
+            self._view.information(_("Some software no longer supported"),
+                                   _("Some of your installed packages are "
+                                     "no longer officially supported. See "
+                                     "below for a list of installed packages "
+                                     "that moved from the 'officially "
+                                     "supported' area (main) to the "
+                                     "'community supported' area "
+                                     "(universe). "),
+                                   "\n".join([pkg.name for pkg in installed_demotions]))
        
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
@@ -454,9 +478,9 @@ class DistUpgradeControler(object):
             self.abort()
 
         self._view.updateStatus(_("Upgrading"))            
-        if not self.doDistUpgrade():
-            # don't abort here, because it would restore the sources.list
-            sys.exit(1) 
+#        if not self.doDistUpgrade():
+#            # don't abort here, because it would restore the sources.list
+#            sys.exit(1) 
             
         # do post-upgrade stuff
         self._view.setStep(4)
