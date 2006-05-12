@@ -4,6 +4,9 @@ update-manager (0.42.2ubuntu16) dapper; urgency=low
     available) when building the changelog URL (ubuntu #40058)
   * SoftwareProperties/SoftwareProperties.py:
     - if no config is found create a new one (ubuntu: #37560)
+  * UpdateManager/UpdateManager.py:
+    - fix problem in changelog reading code when matching against
+      installed versions with epochs (ubuntu: #40058)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 11 May 2006 17:33:40 +0200
 

@@ -145,17 +145,24 @@ class MyCache(apt.Cache):
             #print changelog.read()
             # do only get the lines that are new
             alllines = ""
-            regexp = "^%s \((.*)\)(.*)$" % (srcpkg)
+            regexp = "^%s \((.*)\)(.*)$" % (re.escape(srcpkg))
 
             i=0
             while True:
                 line = changelog.readline()
-                #print line
+                print line
                 if line == "":
                     break
                 match = re.match(regexp,line)
                 if match:
-                    if apt_pkg.VersionCompare(match.group(1),pkg.installedVersion) <= 0:
+		    # FIXME: the installed version can have a epoch, but th
+		    #        changelog does not have one, we do a dumb
+		    #        approach here and just strip it away, but I'm
+		    #        sure that this can lead to problems
+		    installed = pkg.installedVersion
+		    if ":" in installed:
+			    installed = installed.split(":",1)[1]
+                    if apt_pkg.VersionCompare(match.group(1),installed) <= 0:
                         break
                     # EOF (shouldn't really happen)
                 alllines = alllines + line
