@@ -49,7 +49,7 @@ class Package(object):
 
         # check if we found a version
         if ver == None:
-            #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
+            print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
             return False
         
         if ver.FileList == None:
@@ -149,13 +149,15 @@ class Package(object):
 
     def summary(self):
         """ Return the short description (one line summary) """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.ShortDesc
     summary = property(summary)
 
     def description(self, format=True):
         """ Return the formated long description """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         desc = ""
         for line in string.split(self._records.LongDesc, "\n"):
                 tmp = string.strip(line)
@@ -168,7 +170,8 @@ class Package(object):
 
     def rawDescription(self):
         """ return the long description (raw)"""
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.LongDesc
     rawDescription = property(rawDescription)
         
