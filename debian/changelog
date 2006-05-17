@@ -14,6 +14,7 @@ python-apt (0.6.17) unstable; urgency=low
   * apt/package.py: 
     - fix various pychecker warnings
     - check if looupRecords succeeded
+    - fix bug in the return statement of _downloadable()
   * apt/cache.py:
   * python/srcrecords.cc:
     - add "Restart" method
