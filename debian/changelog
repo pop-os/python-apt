@@ -9,8 +9,12 @@ python-apt (0.6.17) unstable; urgency=low
     - fix various pychecker warnings
   * apt/cache.py:
     - return useful values on Cache.update()
-  * apt/cache.py, apt/package.py: fix various pychecker warnings
-  * apt/cache.py: Release locks on failure (thanks to Colin Watson)
+    - Release locks on failure (thanks to Colin Watson)
+    - fix various pychecker warnings
+  * apt/package.py: 
+    - fix various pychecker warnings
+    - check if looupRecords succeeded
+  * apt/cache.py:
   * python/srcrecords.cc:
     - add "Restart" method
     - don't run auto "Restart" before performing a Lookup 
