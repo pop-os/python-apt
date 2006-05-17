@@ -49,7 +49,7 @@ class Package(object):
 
         # check if we found a version
         if ver == None:
-            print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
+            #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
             return False
         
         if ver.FileList == None:
