@@ -105,12 +105,12 @@ class Package(object):
         return ver.Downloadable
     def candidateDownloadable(self):
         " returns if the canidate is downloadable "
-        self._downloadable(useCandidate=True)
+        return self._downloadable(useCandidate=True)
     candidateDownloadable = property(candidateDownloadable)
 
     def installedDownloadable(self):
         " returns if the installed version is downloadable "
-        self._downloadable(useCandidate=False)
+        return self._downloadable(useCandidate=False)
     installedDownloadable = property(installedDownloadable)
 
     def sourcePackageName(self):
