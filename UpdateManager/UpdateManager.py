@@ -150,7 +150,7 @@ class MyCache(apt.Cache):
             i=0
             while True:
                 line = changelog.readline()
-                print line
+                #print line
                 if line == "":
                     break
                 match = re.match(regexp,line)
