@@ -1,3 +1,10 @@
+update-manager (0.42.2ubuntu17) dapper; urgency=low
+
+  * debian/control:
+    - depend on later python-apt (#45325)
+
+ --
+
 update-manager (0.42.2ubuntu16) dapper; urgency=low
 
   * use version and section of the source package (if this information is
