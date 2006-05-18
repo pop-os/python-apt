@@ -136,7 +136,7 @@ class MyCache(apt.Cache):
         # stip epoch
         l = string.split(srcver,":")
         if len(l) > 1:
-            srcstr = l[1]
+            srcver = "".join(l[1:])
 
         try:
             uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, srcver)
