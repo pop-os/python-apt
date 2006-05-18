@@ -442,7 +442,7 @@ class SoftwareProperties(SimpleGladeApp):
               _("Error importing selected file"),
               _("The selected file may not be a GPG key file " \
                 "or it might be corrupt."))
-        self.reload_keyslist()
+      self.reload_keyslist()
         
   def remove_key_clicked(self, widget):
     selection = self.treeview2.get_selection()

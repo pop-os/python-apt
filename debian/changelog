@@ -2,8 +2,10 @@ update-manager (0.42.2ubuntu17) dapper; urgency=low
 
   * debian/control:
     - depend on later python-apt (#45325)
+  * SoftwareProperties/SoftwareProperties.py:
+    - fix key updating after import (ubuntu #44927)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 19 May 2006 00:04:02 +0200
 
 update-manager (0.42.2ubuntu16) dapper; urgency=low
 
