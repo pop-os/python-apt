@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-05-10 16:12+0000\n"
 "Last-Translator: Jonas Slivka <jonas.slivka@gmail.com>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -1004,6 +1004,11 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "_Atsiųsti atnaujinimus fone, tačiau jų neįdiegti"
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
+msgid "_Import Key File"
+msgstr "Importuoti raktą"
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr "Į_diegti saugumo atnaujinimus neklausiant patvirtinimo"
 

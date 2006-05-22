@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-05-02 20:13+0000\n"
 "Last-Translator: Jamil Ahmed <itsjamil@gmail.com>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -923,6 +923,11 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "আড়ালে আপডেট ডাউনলোড করো, কিন্তু তাদেরকে ইন্সটল করো না (_D)"
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
+msgid "_Import Key File"
+msgstr "কী ইম্পোর্ট"
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr "নিরাপত্তা জনিত আপডেট গুলো অনুমদন ছাড়াই ইন্সটল করো (_I)"
 

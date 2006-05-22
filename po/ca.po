@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-05-11 18:46+0000\n"
 "Last-Translator: Jordi Irazuzta <irazuzta@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -950,6 +950,11 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "_Descarrega les actualitzacions en segon pla, però no les instal·lis"
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
+msgid "_Import Key File"
+msgstr "Importa un clau"
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr "_Instal·la actualitzacions de seguretat sense confirmació"
 

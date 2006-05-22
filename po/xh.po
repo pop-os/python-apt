@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-notifier\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-04-20 19:15+0000\n"
 "Last-Translator: Canonical Ltd <translations@canonical.com>\n"
 "Language-Team: Xhosa <xh-translate@ubuntu.com>\n"
@@ -913,6 +913,10 @@ msgid "_Download updates in the background, but do not install them"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:16
+msgid "_Import Key File"
+msgstr ""
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr ""
 

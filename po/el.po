@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-05-11 18:27+0000\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -1017,6 +1017,11 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "Λή_ψη ενημερώσεων στο παρασκήνιο χωρίς να εγκατασταθούν"
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
+msgid "_Import Key File"
+msgstr "Εισαγωγή κλειδιού"
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr "Ε_γκατάσταση ενημερώσεων ασφαλείας χωρίς επιβεβαίωση"
 

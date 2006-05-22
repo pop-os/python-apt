@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="window_main">
   <property name="border_width">6</property>
-  <property name="width_request">580</property>
+  <property name="width_request">620</property>
   <property name="height_request">400</property>
   <property name="title" translatable="yes">Software Preferences</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -614,7 +614,7 @@
 			      <property name="visible">True</property>
 			      <property name="tooltip" translatable="yes">Import the public key from a trusted software provider</property>
 			      <property name="can_focus">True</property>
-			      <property name="label">_Import Key File</property>
+			      <property name="label" translatable="yes">_Import Key File</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>

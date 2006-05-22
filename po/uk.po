@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-12 19:57+0200\n"
+"POT-Creation-Date: 2006-05-22 09:11+0200\n"
 "PO-Revision-Date: 2006-05-02 20:16+0000\n"
 "Last-Translator: Serhey Kusyumoff <gpalco@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -963,6 +963,11 @@ msgid "_Download updates in the background, but do not install them"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
+msgid "_Import Key File"
+msgstr "Імпортувати ключ"
+
+#: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
 msgstr ""
 
