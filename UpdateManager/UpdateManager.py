@@ -160,9 +160,9 @@ class MyCache(apt.Cache):
 		    #        approach here and just strip it away, but I'm
 		    #        sure that this can lead to problems
 		    installed = pkg.installedVersion
-		    if ":" in installed:
+		    if installed and ":" in installed:
 			    installed = installed.split(":",1)[1]
-                    if apt_pkg.VersionCompare(match.group(1),installed) <= 0:
+                    if installed and apt_pkg.VersionCompare(match.group(1),installed) <= 0:
                         break
                     # EOF (shouldn't really happen)
                 alllines = alllines + line
