@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-02 20:13+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 02:42+0000\n"
 "Last-Translator: Jamil Ahmed <itsjamil@gmail.com>\n"
 "Language-Team: Bengali <bn@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -356,14 +356,14 @@ msgid "About %li hours %li minutes remaining"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s বাকি আছে"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s বাকি আছে"
+msgstr ""
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -521,8 +521,7 @@ msgstr "<b><big>আপগ্রেড শুরু করবো?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">উবুন্টু \"ড্যাপার\" ৬.০৬ এ আপগ্রেড করছি</"
 "span>"
@@ -1082,61 +1081,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "উবুন্টু ৬.০৬ 'ড্যাপার ড্রেক'"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
+msgstr "উবুন্টু ৬.০৬ আপডেট"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
+msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "উবুন্টু ৬.০৬ নিরাপত্তামুলক আপডেট"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+msgid "Ubuntu 6.06 LTS Updates"
 msgstr "উবুন্টু ৬.০৬ আপডেট"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
 msgstr "উবুন্টু ৬.০৬ ব্যাকপোর্ট"
 
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "উবুন্টু ৫.১০ 'ব্রিজী ব্যাজার'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "উবুন্টু ৫.১০ নিরাপত্তামুলক আপডেট"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "উবুন্টু ৫.১০ আপডেট"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "উবুন্টু ৫.১০ ব্যাকপোর্ট"
-
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "অফিসিয়াল ভাবে সমর্থিত"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr ""
 
@@ -1185,3 +1165,18 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "উবুন্টু ৬.০৬ 'ড্যাপার ড্রেক'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "উবুন্টু ৫.১০ 'ব্রিজী ব্যাজার'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "উবুন্টু ৫.১০ নিরাপত্তামুলক আপডেট"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "উবুন্টু ৫.১০ আপডেট"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "উবুন্টু ৫.১০ ব্যাকপোর্ট"

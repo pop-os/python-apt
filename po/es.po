@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-10 09:24+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-22 12:05+0000\n"
 "Last-Translator: Ricardo Pérez López <ricardo@iesdonana.org>\n"
 "Language-Team: Spanish <traductores@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,12 +63,12 @@ msgstr "Importar clave"
 
 #: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
-msgstr "Hubo un error al importar el fichero seleccionado"
+msgstr "Hubo un error al importar el archivo seleccionado"
 
 #: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
-"Puede que el fichero seleccionado no sea un fichero de clave GPG o que esté "
+"Puede que el archivo seleccionado no sea un archivo de clave GPG o que esté "
 "corrupto."
 
 #: ../SoftwareProperties/SoftwareProperties.py:455
@@ -132,7 +132,7 @@ msgid ""
 "this as a bug. "
 msgstr ""
 "Ha ocurrido un problema imposible de resolver cuando se calculaba la "
-"actualización. Por favor, informe de ésto como un error: "
+"actualización. Por favor, informe de ésto como un fallo. "
 
 #. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
@@ -268,19 +268,20 @@ msgstr ""
 "conexión de red y vuelva a intentarlo."
 
 #: ../DistUpgrade/DistUpgradeControler.py:250
+#, fuzzy
 msgid "Not enough free disk space"
-msgstr "No hay espacio suficiente en el disco"
+msgstr "No hay suficiente espacio en disco"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"La actualización se cancelará ahora. Por favor, libere al menos %s de "
-"espacio en disco. Vacíe su papelera y elimine los paquetes temporales de "
-"instalaciones anteriores usando «sudo apt-get clean» en una terminal."
+"La actualización se interrumpirá ahora. Por favor, libere al menos %s de "
+"espacio en disco en %s. Vacíe su papelera, y elimine los paquetes temporales "
+"de instalaciones anteriores tecleando «sudo apt-get clean» en una terminal."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -296,7 +297,7 @@ msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
 msgstr ""
-"La actualización se cancelará ahora. Su sistema puede haber quedado en un "
+"La actualización se interrumpirá ahora. Su sistema puede haber quedado en un "
 "estado inutilizable. Se está llevando a cabo una recuperación (dpkg --"
 "configure -a)."
 
@@ -309,12 +310,12 @@ msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
-"La actualización se cancelará ahora. Por favor, compruebe su conexión a "
-"internet (o su soporte de instalación) y vuelva a intentarlo. "
+"La actualización se interrumpirá ahora. Por favor, compruebe su conexión a "
+"Internet (o su soporte de instalación) y vuelva a intentarlo. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Algunos programas ya no están soportados oficialmente"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -324,6 +325,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Estos paquetes instalados ya no están soportados oficialmente, y desde ahora "
+"sólo están soportados por la comunidad («universe»).\n"
+"\n"
+"Si no tiene activado el «universe», se le sugerirá que desinstale estos "
+"paquetes en el siguiente paso. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -351,9 +357,8 @@ msgstr ""
 
 #. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
-#, fuzzy
 msgid "Restoring originale system state"
-msgstr "Reiniciando el sistema"
+msgstr "Restaurando el estado original del sistema"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
@@ -400,22 +405,22 @@ msgstr "La actualización del sistema se ha completado."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Faltan %li dias %li horas %li minutos"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Faltan %li horas %li minutos"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s restantes"
+msgstr "Faltan %li minutos"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s restantes"
+msgstr "Faltan %li segundos"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -450,9 +455,11 @@ msgid "Could not install '%s'"
 msgstr "No se ha podido instalar «%s»"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:173
+#, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
 msgstr ""
-"La actualización se cancelará ahora. Por favor, avise de esto como un fallo."
+"La actualización se cancelará ahora. Por favor, porte esto como un fallo "
+"(bug)."
 
 #. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
@@ -514,8 +521,8 @@ msgstr "Debe descargar un total de %s."
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
-"La actualización puede durar varias horas, y no puede cancelarse después en "
-"ningún momento."
+"La actualización puede durar varias horas, y no podrá ser cancelada después "
+"en ningún momento."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:463
 msgid "To prevent data loss close all open applications and documents."
@@ -589,11 +596,9 @@ msgstr "<b><big>¿Comenzar la actualización?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Actualizando a Ubuntu «Dapper» 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Actualizando a Ubuntu 6.06 LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -1028,9 +1033,8 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "_Descargar actualizaciones en segundo plano, pero sin instalarlas"
 
 #: ../data/SoftwareProperties.glade.h:16
-#, fuzzy
 msgid "_Import Key File"
-msgstr "Importar clave"
+msgstr "_Importar clave"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -1093,11 +1097,11 @@ msgid ""
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Introduzca la línea APT completa del canal que quiere añadir</b></"
+"<big><b>Introduzca la línea de APT completa del canal que quiera añadir</b></"
 "big>\n"
 "\n"
-"La línea APT contiene el tipo, la ubicación y los componentes de un canal, "
-"por ejemplo <i>\"deb http://ftp.debian.org sarge main\"</i>."
+"La línea de APT contiene el tipo, la ubicación y los componentes de un "
+"canal, por ejemplo «<i>deb http://ftp.debian.org sarge main</i>»."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -1206,61 +1210,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 «Dapper Drake»"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Actualizaciones de seguridad de Ubuntu 6.06"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
 msgstr "Actualizaciones de Ubuntu 6.06"
 
 #. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Actualizaciones de seguridad de Ubuntu 6.06 LTS"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Actualizaciones de Ubuntu 6.06 LTS"
+
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "«Backports» de Ubuntu 6.06"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 «Breezy Badger»"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Actualizaciones de Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "«Backports» de Ubuntu 5.10"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "«Backports» de Ubuntu 6.06 LTS"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Soportado oficialmente"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Copyright restringido"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Mantenido por la comunidad (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Software no libre (Multiverse)"
 
@@ -1309,6 +1294,21 @@ msgstr "Software compatible con la DFSG con dependencias no libres"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Software no compatible con la DFSG"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 «Dapper Drake»"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 «Breezy Badger»"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Actualizaciones de seguridad de Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Actualizaciones de Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "«Backports» de Ubuntu 5.10"
 
 #~ msgid ""
 #~ "While scaning your repository information no valid entry for the upgrade "

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-04 21:22+0000\n"
-"Last-Translator: atie <atie.at.matrix@gmail.com>\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 11:40+0000\n"
+"Last-Translator: darehanl <darehanl@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,7 +104,7 @@ msgid ""
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
 "이 소프트웨어로 수정할 수 없는 망가진 꾸러미가 있습니다. 진행 전에 먼저 시냅"
-"틱이나 apt-get을 사용하여 그것을 수정하십시오."
+"틱이나 apt-get을 사용하여 복구하십시오."
 
 #: ../DistUpgrade/DistUpgradeCache.py:133
 msgid "Can't upgrade required meta-packages"
@@ -257,15 +257,15 @@ msgid "Not enough free disk space"
 msgstr "디스크 여유 공간이 충분하지 않습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"업그레이드가 중지되었습니다. 적어도 %s 정도의 디스크 공간을 확보하시기 바랍니"
-"다. 쓰레기통을 비우고 'sudo apt-get clean'을 사용하여 이전 설치 시 사용했던 "
-"임시 꾸러미를 지우십시오."
+"업그레이드를 지금 중단합니다. 최소한 %s만큼을 %s에 확보하시기 바랍니다. 휴지"
+"통을 비우시고 'sudo apt-get clean' 명령으로 이전 설치 과정 중에 사용했던 임"
+"시 꾸러미들을 삭제하시기 바랍니다."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -298,7 +298,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "더 이상 공식적으로 지원하지 않는 소프트웨어가 있습니다."
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -308,6 +308,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"이 소프트웨어들은 더 이상 공식적으로 지원하지 않으며, 이제 Universe 계열에 해"
+"당합니다. \n"
+"\n"
+"'Universe' 저장소를 활성화하지 않았다면 다음 단계에서 이 꾸러미들을 삭제할 "
+"수 있습니다. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -323,7 +328,7 @@ msgstr "삭제(_R)"
 
 #: ../DistUpgrade/DistUpgradeControler.py:413
 msgid "Error during commit"
-msgstr "커밋 도중에 오류"
+msgstr "커밋 도중 오류 발생"
 
 #: ../DistUpgrade/DistUpgradeControler.py:414
 msgid ""
@@ -335,9 +340,8 @@ msgstr ""
 
 #. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
-#, fuzzy
 msgid "Restoring originale system state"
-msgstr "시스템을 재시작하는 중"
+msgstr "시스템을 원상태로 복구하는 중"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
@@ -363,7 +367,7 @@ msgid ""
 msgstr ""
 "꾸러미 정보가 업데이트 된 후에 필수 꾸러미 '%s'를 어디에서도 찾을 수 없습니"
 "다.\n"
-"이것은 심각한 오류라고 여겨집니다. 버그를 보고하여 주십시오."
+"심각한 오류입니다. 버그를 보고하여 주십시오."
 
 #: ../DistUpgrade/DistUpgradeControler.py:477
 msgid "Asking for confirmation"
@@ -375,7 +379,7 @@ msgstr "업그레이드 하는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:488
 msgid "Searching for obsolete software"
-msgstr "못쓰게 된 소프트웨어를 검색하는 중"
+msgstr "못 쓰게 된 소프트웨어를 검색하는 중"
 
 #: ../DistUpgrade/DistUpgradeControler.py:493
 msgid "System upgrade is complete."
@@ -384,22 +388,22 @@ msgstr "시스템 업그레이드가 끝났습니다."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "%li 일 %li 시간 %li 분 정도 남았음"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "%li 시간 %li 분 정도 남았음"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s 남음"
+msgstr "%li 분 정도 남았음"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s 남음"
+msgstr "%li 초 정도 남았음"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -469,19 +473,19 @@ msgstr ""
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
-msgstr[0] "%s개의 꾸러미가 삭제될 것입니다."
+msgstr[0] "꾸러미가 % s개 삭제될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:443
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
-msgstr[0] "%s개의 새로운 꾸러미가 설치될 것입니다."
+msgstr[0] "새로운 꾸러미가 %s 개 설치될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
-msgstr[0] "%s개의 꾸러미가 업그레이드 될 것입니다."
+msgstr[0] "꾸러미가 %s 개 업그레이드 될 것입니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:456
 #, python-format
@@ -491,8 +495,7 @@ msgstr "총 %s개의 꾸러미를 다운로드 합니다."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:460
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
-msgstr ""
-"업그레이드는 여러 시간이 걸 릴 수 있고, 어떤 때에도 취소될 수 없습니다."
+msgstr "업그레이드는 여러 시간이 걸릴 수 있고, 어떤 때에도 취소될 수 없습니다."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:463
 msgid "To prevent data loss close all open applications and documents."
@@ -563,11 +566,8 @@ msgstr "<b><big>업그레이드를 시작하시겠습니까?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">우분투 \"Dapper\" 6.06을 업그레이드 하"
-"는 중</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -984,9 +984,8 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "백그라운드에서 업데이트 다운로드, 설치는 안함(_D)"
 
 #: ../data/SoftwareProperties.glade.h:16
-#, fuzzy
 msgid "_Import Key File"
-msgstr "키 가져오기"
+msgstr "키 가져오기(_I)"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -1155,61 +1154,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "우분투 6.06 'Dapper Drake'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "우분투 6.06 보안 업데이트"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
 msgstr "우분투 6.06 업데이트"
 
 #. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "우분투 6.06 LTS 보안 업데이트"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "우분투 6.06 LTS 업데이트"
+
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "우분투 6.06 Backports"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "우분투 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "우분투 5.10 보안 업데이트"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "우분투 5.10 업데이트"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "우분투 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "우분투 6.06 LTS Backports"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "공식적으로 지원됨"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "저작권 제한됨"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "커뮤니티에서 관리유지함 (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "자유소프트웨어 아님 (Multiverse)"
 
@@ -1258,3 +1238,18 @@ msgstr "자유소프트웨어가 아닌 의존성을 가지는 DFSG와 호환성
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG와 호환성이 없는 소프트웨어"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "우분투 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "우분투 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "우분투 5.10 보안 업데이트"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "우분투 5.10 업데이트"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "우분투 5.10 Backports"

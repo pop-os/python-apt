@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-11 18:47+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 06:57+0000\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -265,14 +265,14 @@ msgid "Not enough free disk space"
 msgstr "Levytilaa ei ole riittävästi"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"Päivitys keskeytyy. Vapauta levytilaa vähintään %s. Tyhjennä roskakorisi ja "
-"poista aiempien asennusten väliaikaiset pakettitiedostot käyttämällä "
+"Päivitys keskeytyy nyt. Vapauta vähintään %s levytilaa levyllä %s. Tyhjennä "
+"roskakori ja poista väliaikaistiedostot aiemmista asennuksista käyttämällä "
 "komentoa 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
@@ -306,7 +306,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Jotkin ohjelmat eivät ole enää virallisesti tuettuja"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -316,6 +316,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Seuraavia paketteja ei enää tueta virallisesti, vaan ovat nyt yhteisön "
+"ylläpitämiä ('universe'-ohjelmat).\n"
+"\n"
+"Jos sinulla ei ole 'universe'-ohjelmakanavaa otettuna käyttöön, nämä paketit "
+"suositellaan poistettaviksi seuraavassa kohdassa. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -343,9 +348,8 @@ msgstr ""
 
 #. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
-#, fuzzy
 msgid "Restoring originale system state"
-msgstr "Käynnistetään järjestelmä uudelleen"
+msgstr "Palautetaan alkuperäistä järjestelmän tilaa"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
@@ -392,22 +396,22 @@ msgstr "Järjestelmän päivitys on valmis."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Noin %li päivää, %li tuntia, %li minuuttia jäljellä"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Noin %li tuntia, %li minuuttia jäljellä"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s jäljellä"
+msgstr "Noin %li minuuttia jäljellä"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s jäljellä"
+msgstr "Noin %li sekuntia jäljellä"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -576,11 +580,10 @@ msgstr "<b><big>Aloita päivitys?</big/</b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Päivitetään jakeluun: Ubuntu \"Dapper"
-"\" 6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">Päivitetään jakeluun: Ubuntu 6.06 "
+"LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -1004,9 +1007,8 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "_Nouda päivitykset taustalla, mutta älä asenna niitä"
 
 #: ../data/SoftwareProperties.glade.h:16
-#, fuzzy
 msgid "_Import Key File"
-msgstr "Tuo avain"
+msgstr "_Tuo avaintiedosto"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -1179,61 +1181,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Ubuntu 6.06 turvallisuuspäivitykset"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
 msgstr "Ubuntu 6.06 päivitykset"
 
 #. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Ubuntu 6.06 LTS turvallisuuspäivitykset"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Ubuntu 6.06 LTS päivitykset"
+
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.06 takaisinsovitukset"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.10 turvallisuuspäivitykset"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.10 päivitykset"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "Ubuntu 5.10 takaisinsovitukset"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Ubuntu 6.06 LTS takaisinsovitukset"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Virallisesti tuettu"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Rajoitettu tekijänoikeus"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Yhteisön ylläpitämät (universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Ei-vapaat ohjelmat (multiverse)"
 
@@ -1283,6 +1266,21 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-epäyhteensopivat ohjelmat"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Ubuntu 5.10 turvallisuuspäivitykset"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Ubuntu 5.10 päivitykset"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Ubuntu 5.10 takaisinsovitukset"
 
 #~ msgid ""
 #~ "While scaning your repository information no valid entry for the upgrade "

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-11 18:48+0000\n"
-"Last-Translator: Anders Martinsen <anders@andersmartinsen.net>\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-22 08:06+0000\n"
+"Last-Translator: Hans Petter Birkeland <hanspb@bluezone.no>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,7 +114,7 @@ msgstr "Kan ikke oppgradere nødvendige meta-pakker"
 
 #: ../DistUpgrade/DistUpgradeCache.py:140
 msgid "A essential package would have to be removed"
-msgstr "En nødvendig pakke ville måtte bli fjernet"
+msgstr "En nødvendig pakke må fjernes"
 
 #. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
@@ -195,6 +195,13 @@ msgid ""
 "here it will update all '%s' to '%s' entries.\n"
 "If you select 'no' the update will cancel."
 msgstr ""
+"Under gjennomsøking av arkivinformasjonen din ble det ikke funnet noe speil "
+"for oppgraderingen. Dette kan hende hvis du kjører et internt speil eller "
+"hvis informasjonen om speilet er gammel.\n"
+"\n"
+"Vil du skrive din \"sources.list\"-fil likevel? Hvis du velger \"Ja\" vil "
+"alle forekomster av '%s' endres til '%s'.\n"
+"Hvis du velger \"Nei\" vil oppgraderingen avbrytes."
 
 #. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
@@ -210,6 +217,11 @@ msgid ""
 "Should default entries for '%s' be added? If you select 'No' the update will "
 "cancel."
 msgstr ""
+"Etter gjennomsøkingen av din 'sources.list' filen din ble det ikke funnet "
+"noen gyldig linje for '%s'.\n"
+"\n"
+"Skal standard linjer for '%s' legges til? Hvis du velger 'Nei' vil "
+"oppdateringen avbrytes."
 
 #: ../DistUpgrade/DistUpgradeControler.py:186
 msgid "Repository information invalid"
@@ -228,14 +240,13 @@ msgid "Third party sources disabled"
 msgstr "Tredjepartskilder er deaktivert"
 
 #: ../DistUpgrade/DistUpgradeControler.py:194
-#, fuzzy
 msgid ""
 "Some third party entries in your souces.list where disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
 "Enkelte tredjeparts linjer i sources.list filen din ble deaktivert. Du kan "
-"aktivere dem etter oppgraderingen ved hjelp av 'software-properties' "
+"aktivere dem etter oppgraderingen ved hjelp av 'Egenskaper for programvare' "
 "verktøyet eller med Synaptic."
 
 #: ../DistUpgrade/DistUpgradeControler.py:240
@@ -256,15 +267,15 @@ msgid "Not enough free disk space"
 msgstr "Ikke nok ledig diskplass"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"Oppdateringen avbrytes nå. Vennlig frigjør minst %s diskplass. Tøm "
+"Oppgraderingen avbrytes nå. Vennligst frigi minst %s diskplass på %s. Tøm "
 "papirkurven og fjern midlertidige pakker fra tidligere installasjoner ved å "
-"bruke 'sudo apt-get-clean'."
+"bruke 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -298,7 +309,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Noe programvare er ikke lenger offisielt støttet"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -308,6 +319,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Disse installerte pakkene er ikke lenger offisielt støttet og er nå kun "
+"støttet av miljøet 'universe'.\n"
+"\n"
+"Hvis du ikke har 'universe' aktivert vil disse pakkene bli foreslått fjernet "
+"i neste steg. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -337,7 +353,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:423
 #, fuzzy
 msgid "Restoring originale system state"
-msgstr "Starter systemet på nytt"
+msgstr "Gjenoppretter systemets originale tilstand"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
@@ -361,9 +377,9 @@ msgid ""
 "not be found anymore.\n"
 "This indicates a serious error, please report this as a bug."
 msgstr ""
-"Etter at pakkeinformasjonen ble oppdatert finnes ikke den viktige pakken '%"
-"s'.\n"
-"Dette indikerer en alvorlig feil, vennligst rapportèr denne feilen."
+"Etter at pakkeinformasjonen ble oppdatert finnes ikke lengre den viktige "
+"pakken '%s'.\n"
+"Dette indikerer en alvorlig feil, vennligst rapportér denne feilen."
 
 #: ../DistUpgrade/DistUpgradeControler.py:477
 msgid "Asking for confirmation"
@@ -384,22 +400,22 @@ msgstr "Systemoppgraderingen er fullført"
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Rundt %li dager, %li timer og %li minutter gjenstår"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Rundt %li timer og %li minutter gjenstår"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s gjenstår"
+msgstr "Rundt %li minutter gjenstår"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s gjenstår"
+msgstr "Rundt %li sekunder gjenstår"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -456,14 +472,14 @@ msgid "A fatal error occured"
 msgstr "En uopprettelig feil oppsto"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:330
-#, fuzzy
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
-"Vennligst rapporter feilen og inkluder filene ~/dist-upgrade.log og ~/dist-"
-"upgrade-apt.log i din melding. Oppgraderingen avbrytes nå."
+"Vennligst rapporter feilen og inkluder filene /var/log/dist-upgrade.log og  /"
+"var/log/dist-upgrade-apt.log i din melding. Oppgraderingen avbrytes nå.\n"
+"Din orginale sources.list ble lagret i /etc/apt/sources.list.distUpgrade."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
@@ -570,11 +586,10 @@ msgstr "<b><big>Vil du starte oppgraderingen?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Oppgraderer til  Ubuntu \"Dapper\" "
-"6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">Oppgraderer til  Ubuntu 6.06 LTS</"
+"span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -683,7 +698,8 @@ msgstr "Kunne ikke hente"
 #: ../UpdateManager/DistUpgradeFetcher.py:208
 msgid "Fetching the upgrade failed. There may be a network problem. "
 msgstr ""
-"Henting av oppgraderingen mislykkes. En mulig årsak er nettverksproblemer. "
+"Henting av oppgraderingen mislykkes. En mulig årsak kan være "
+"nettverksproblemer. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:213
 msgid "Failed to extract"
@@ -694,7 +710,7 @@ msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
 msgstr ""
-"Feil ved utpakking av oppgraderinge. Det kan være et problem med nettverket "
+"Feil ved utpakking av oppgraderingen. Det kan være et problem med nettverket "
 "eller tjeneren. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:220
@@ -821,12 +837,12 @@ msgid ""
 "information on upgrading."
 msgstr ""
 "Du vil ikke lenger motta flere sikkerhetsmessige eller kritiske "
-"oppdateringer. Oppgrader til en nyere utgivelse av Ubuntu. Se http://www."
+"oppdateringer. Oppgradèr til en nyere utgivelse av Ubuntu. Se http://www."
 "ubuntu.com for mer informasjon om oppgradering."
 
 #: ../UpdateManager/UpdateManager.py:673
 msgid "Only one software management tool is allowed to run at the same time"
-msgstr "Du kan ikke bruke flere pakkebehandlingsprogram samtidig"
+msgstr "Du kan ikke bruke flere pakkebehandlingsprogrammer samtidig"
 
 #: ../UpdateManager/UpdateManager.py:675
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
@@ -858,9 +874,8 @@ msgid ""
 msgstr ""
 "<b><big>Du må sjekke for oppdateringer manuelt</big></b>\n"
 "\n"
-"Systemet ditt sjekker ikke for oppdateringer automatisk. Du kan sette opp "
-"denne oppførselen under \"System\" -> \"Administrasjon\" -> "
-"\"Programvareegenskaper\""
+"Systemet ditt sjekker ikke for oppdateringer automatisk. Du kan endre dette "
+"under \"System\" -> \"Administrasjon\" -> \"Egenskaper for programvare\""
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
@@ -892,7 +907,7 @@ msgstr "Sjek_k"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr "Sjekk programvare kanaler for nye oppdateringer"
+msgstr "Sjekk programvarekanalene for nye oppdateringer"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -1000,12 +1015,12 @@ msgstr "_Sjekk for oppdateringer automatisk:"
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Download updates in the background, but do not install them"
-msgstr "_Last ned oppdateringer i bakgrunnen, men ikke installer dem"
+msgstr "_Last ned oppdateringer i bakgrunnen, men ikke installèr dem"
 
 #: ../data/SoftwareProperties.glade.h:16
 #, fuzzy
 msgid "_Import Key File"
-msgstr "Importer nøkkel"
+msgstr "_Importer nøkkel"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -1027,7 +1042,7 @@ msgstr ""
 "<b><big>Kanalinformasjonen er utdatert</big></b>\n"
 "\n"
 "Du må laste kanalinformasjonen på nytt for å installere programvare og "
-"oppdateringer for nye og endrede kanaler. \n"
+"oppdateringer fra nye og endrede kanaler. \n"
 "\n"
 "Du trenger en fungerende Internettilkobling for å kunne fortsette."
 
@@ -1041,7 +1056,7 @@ msgstr "<b>Kommentar:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>Components:</b>"
-msgstr "<b>Komponenter</b>"
+msgstr "<b>Komponenter:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Components</b>"
@@ -1178,61 +1193,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Sikkerhetsoppdateringer for Ubuntu 6.06"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
 msgstr "Ubuntu 6.06 Oppdateringer"
 
 #. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Sikkerhetsoppdateringer for Ubuntu 6.06 LTS"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Ubuntu 6.06 LTS Oppdateringer"
+
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.06 Backports"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.10 Security Updates"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.10 Updates"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "Ubuntu 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Ubuntu 6.06 LTS Backports"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Offisielt støttet"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Begrenset opphavsrett"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Non-free (Multiverse)"
 
@@ -1245,7 +1241,7 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr "Debian 3.1 «Sarge»"
+msgstr "Debian 3.1 \"Sarge\""
 
 #. BaseURI
 #: ../channels/Debian.info.in:19
@@ -1281,6 +1277,21 @@ msgstr "DFSG-kompatiblel programvare med Non-Free avhengigheter"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Ubuntu 5.10 Sikkerhetsoppdateringer"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Ubuntu 5.10 Oppdateringer"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Ubuntu 5.10 Backports"
 
 #~ msgid ""
 #~ "While scaning your repository information no valid entry for the upgrade "

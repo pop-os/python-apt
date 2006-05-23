@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-11 18:46+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 02:42+0000\n"
 "Last-Translator: Jordi Irazuzta <irazuzta@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
 msgid "Daily"
-msgstr ""
+msgstr "Diàriament"
 
 #: ../SoftwareProperties/SoftwareProperties.py:104
 msgid "Every two days"
@@ -106,6 +106,8 @@ msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
+"El vostre sistema conté paquets trencats que no es poden arreglar amb "
+"aquesta aplicació. Utilitzeu el Synaptic o apt-get abans de continuar."
 
 #: ../DistUpgrade/DistUpgradeCache.py:133
 #, fuzzy
@@ -138,6 +140,9 @@ msgid ""
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
+"No s'han pogut autenticar alguns paquets. Potser hi ha un problema temporal "
+"amb la xarxa. Podeu provar-ho després. A continuació es mostra la llista amb "
+"els paquets no autenticats."
 
 #: ../DistUpgrade/DistUpgradeCache.py:231
 #, python-format
@@ -276,6 +281,8 @@ msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
+"S'ha cancel·lat l'actualització. Comproveu la vostra connexió a Internet o "
+"el mitjà d'instal·lació i torneu-ho a provar. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
@@ -542,11 +549,10 @@ msgstr "<b><big>Voleu iniciar l'actualització?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">S'està actualitzant a Ubuntu \"Dapper"
-"\" 6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">S'està actualitzant a Ubuntu 6.06 "
+"LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -719,6 +725,10 @@ msgid ""
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
+"Algunes actualitzacions requereixen la desinstal·lació de programari "
+"adicional. Per actualitzar completament el vostre sistema utilitzeu la "
+"funció \"Marca totes les actualitzacions\" del gestor de paquets \"Synaptic"
+"\" o executeu \"sudo apt-get dist-upgrade\" en un terminal."
 
 #: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
@@ -747,8 +757,8 @@ msgstr "El vostre sistema està actualitzat"
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Podeu instal·lar %s actualització"
+msgstr[1] "Podeu instal·lar %s actualitzacions"
 
 #: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
@@ -769,7 +779,7 @@ msgstr "S'ha completat l'actualització"
 #: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
-msgstr ""
+msgstr "Versió nova: %s (Mida: %s)"
 
 #: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
@@ -795,7 +805,7 @@ msgstr ""
 #. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
-msgstr ""
+msgstr "L'índex de programari s'ha trencat"
 
 #: ../UpdateManager/UpdateManager.py:693
 msgid ""
@@ -803,6 +813,9 @@ msgid ""
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
+"No és possible instal·lar o desinstal·lar programari. Per arreglar-ho, "
+"utilitzeu el gestor de paquets \"Synaptic\" o executeu \"sudo apt-get "
+"install -f\" en un terminal."
 
 #: ../data/UpdateManager.glade.h:1
 msgid ""
@@ -843,7 +856,7 @@ msgstr "Compro_va"
 
 #: ../data/UpdateManager.glade.h:11
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "Comprov"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
@@ -866,6 +879,8 @@ msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
 msgstr ""
+"Les actualitzacions de programari corregeixen errors, eliminen problemes de "
+"seguretat i proporcionen prestacions noves."
 
 #: ../data/UpdateManager.glade.h:18
 msgid "U_pgrade"
@@ -971,6 +986,12 @@ msgid ""
 "\n"
 "You need a working internet connection to continue."
 msgstr ""
+"<b><big>La informació del canal no està actualitzada</bid><b>\n"
+"\n"
+"Heu de recarregar la informació dels canals per a instal·lar programari o "
+"actualitzacions des dels nous canals.\n"
+"\n"
+"Necessiteu una connexió a Internet per poder continuar."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Channel</b>"
@@ -1008,6 +1029,10 @@ msgid ""
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
+"<big><b>Introduïu la línia APT del canal que voleu afegir</b></big>\n"
+"\n"
+"La línia APT inclou el tipus, la ubicació i els components del canal, per "
+"exemple <i>\"deb http://ftp.debian.org sarge main\"</i>."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -1027,15 +1052,16 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:22
 msgid "Edit Channel"
-msgstr ""
+msgstr "Edita el canal"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:23
 msgid "Scanning CD-ROM"
 msgstr "S'està analitzant el CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
+#, fuzzy
 msgid "_Add Channel"
-msgstr ""
+msgstr "_Afegeix el canal"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1108,61 +1134,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
+msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Actualitzacions de seguretat d'Ubuntu 6.06"
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Actualitzacions de seguretat d'Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
-msgstr "Actualitzacions d'Ubuntu 6.06"
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Actualitzacions de seguretat d'Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Actualitzacions d'Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr ""
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Paquets mantinguts oficialment"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Paquets amb restriccions per copyright"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Paquets mantinguts per la comunitat (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Paquets sense llicència lliure (Multiverse)"
 
@@ -1207,12 +1214,24 @@ msgstr "Debian \"Sid\" (unstable)"
 #. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
+msgstr "Programari compatible DFSG amb dependències no lliures"
 
 #. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
-msgstr ""
+msgstr "Programari no compatible DFSG"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Actualitzacions de seguretat d'Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Actualitzacions d'Ubuntu 5.10"
 
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Edita les fonts i els paràmetres del programari"

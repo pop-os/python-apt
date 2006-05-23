@@ -1,37 +1,39 @@
+# translation of update-manager.po to Georgian
 # Georgian translation for update-manager
 # Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the update-manager package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
+# Vladimer Sichinava <alinux@siena.linux.it>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-02 20:15+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-21 15:36+0000\n"
 "Last-Translator: Vladimer Sichinava <alinux@siena.linux.it>\n"
-"Language-Team: Georgian <ka@li.org>\n"
+"Language-Team: Georgian <geognome@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
 msgid "Daily"
-msgstr ""
+msgstr "ყოველ დღიურად"
 
 #: ../SoftwareProperties/SoftwareProperties.py:104
 msgid "Every two days"
-msgstr ""
+msgstr "ყოველ 2 დღეში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:105
 msgid "Weekly"
-msgstr ""
+msgstr "კვირეული"
 
 #: ../SoftwareProperties/SoftwareProperties.py:106
 msgid "Every two weeks"
-msgstr ""
+msgstr "ყოველ 2 კვირაში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
@@ -40,15 +42,15 @@ msgstr "ყოველ %s დღეში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:134
 msgid "After one week"
-msgstr ""
+msgstr "ერთ კვირაში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "After two weeks"
-msgstr ""
+msgstr "ორი კვირის შემდგომ"
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "After one month"
-msgstr ""
+msgstr "ერთი თვის შემდგომ"
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
@@ -115,13 +117,15 @@ msgid "Can't upgrade required meta-packages"
 msgstr "საჭჳრო მეტა-პაკეტების განახლება ვერ მოხერხდა"
 
 #: ../DistUpgrade/DistUpgradeCache.py:140
+#, fuzzy
 msgid "A essential package would have to be removed"
-msgstr ""
+msgstr "A არსებითი -სკენ"
 
 #. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
+#, fuzzy
 msgid "Could not calculate the upgrade"
-msgstr ""
+msgstr "არა"
 
 #: ../DistUpgrade/DistUpgradeCache.py:144
 msgid ""
@@ -163,6 +167,7 @@ msgid "Can't guess meta-package"
 msgstr "მეტა-პაკეტი ვერ გამოვიცანით"
 
 #: ../DistUpgrade/DistUpgradeCache.py:240
+#, fuzzy
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -170,6 +175,8 @@ msgid ""
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
+"არა შეიცავს a ან და არა -სკენ ვერსია ის\n"
+" ის ან."
 
 #: ../DistUpgrade/DistUpgradeControler.py:42
 msgid "Reading cache"
@@ -177,7 +184,7 @@ msgstr "მიმდინარეობს ქეშის წაკითხ�
 
 #: ../DistUpgrade/DistUpgradeControler.py:133
 msgid "No valid mirror found"
-msgstr ""
+msgstr "არავითარი გამოსადეგი სერვერის ანარეკლი"
 
 #: ../DistUpgrade/DistUpgradeControler.py:134
 #, python-format
@@ -193,8 +200,9 @@ msgstr ""
 
 #. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
+#, fuzzy
 msgid "Generate default sources?"
-msgstr ""
+msgstr "გენერაცია ნაგულისხმევი?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:152
 #, python-format
@@ -218,15 +226,17 @@ msgstr ""
 "ხარვეზი."
 
 #: ../DistUpgrade/DistUpgradeControler.py:193
+#, fuzzy
 msgid "Third party sources disabled"
-msgstr ""
+msgstr "გამორთული"
 
 #: ../DistUpgrade/DistUpgradeControler.py:194
+#, fuzzy
 msgid ""
 "Some third party entries in your souces.list where disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
-msgstr ""
+msgstr "-ში სია გამორთული თქვენ პარამეტრები ან."
 
 #: ../DistUpgrade/DistUpgradeControler.py:240
 msgid "Error during update"
@@ -255,62 +265,70 @@ msgstr ""
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
-msgstr ""
+msgstr "გნებავთ განახლების დაწყება?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:325
+#, fuzzy
 msgid "Could not install the upgrades"
-msgstr ""
+msgstr "არა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:326
+#, fuzzy
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
-msgstr ""
+msgstr "ახლა -ში A a."
 
 #: ../DistUpgrade/DistUpgradeControler.py:341
+#, fuzzy
 msgid "Could not download the upgrades"
-msgstr ""
+msgstr "არა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:342
+#, fuzzy
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
-msgstr ""
+msgstr "ახლა ან და "
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
+#, fuzzy
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "არა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
+#, fuzzy
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
 "\n"
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
-msgstr ""
+msgstr "არა და ახლა n t ჩართული -თვის -ში ნაბიჯი "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
-msgstr ""
+msgstr "წავშალო მოძველებული პაკეტები?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:403
 msgid "_Skip This Step"
-msgstr ""
+msgstr "ნაბიჯის გა_მოტოვება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:403
 msgid "_Remove"
-msgstr ""
+msgstr "_წაშლა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:413
+#, fuzzy
 msgid "Error during commit"
-msgstr ""
+msgstr "შეცდომა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:414
+#, fuzzy
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
-msgstr ""
+msgstr "-თვის ინფორმაცია "
 
 #. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
@@ -322,15 +340,15 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
-msgstr ""
+msgstr "ვამოწმებ პროგრამულ მენეჯერს"
 
 #: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Updating repository information"
-msgstr ""
+msgstr "რეპოზტორიის ინფორმაციის განახლება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:466
 msgid "Invalid package information"
-msgstr ""
+msgstr "გაფუჭებული პაკეტის შესახებ ინფორმაცია"
 
 #: ../DistUpgrade/DistUpgradeControler.py:467
 #, python-format
@@ -341,20 +359,23 @@ msgid ""
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:477
+#, fuzzy
 msgid "Asking for confirmation"
-msgstr ""
+msgstr "-თვის"
 
 #: ../DistUpgrade/DistUpgradeControler.py:481
 msgid "Upgrading"
-msgstr ""
+msgstr "მიმდინარეობს განახლებების ჩაყენება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:488
+#, fuzzy
 msgid "Searching for obsolete software"
-msgstr ""
+msgstr "ვეძებ -თვის"
 
 #: ../DistUpgrade/DistUpgradeControler.py:493
+#, fuzzy
 msgid "System upgrade is complete."
-msgstr ""
+msgstr "სისტემა ტოლია სრული."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
@@ -383,8 +404,9 @@ msgid "Please insert '%s' into the drive '%s'"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:111
+#, fuzzy
 msgid "Download is complete"
-msgstr ""
+msgstr "ჩამოტვირთვა ტოლია სრული"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:122
 #, python-format
@@ -401,16 +423,17 @@ msgstr ""
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 msgid "Applying changes"
-msgstr ""
+msgstr "ცვლილებების დამტკიცება"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
 msgid "Could not install '%s'"
-msgstr ""
+msgstr "ვერ ჩავდგი '%s'"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:173
+#, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
-msgstr ""
+msgstr "ახლა."
 
 #. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
@@ -421,19 +444,22 @@ msgid ""
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#, fuzzy
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "არა"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:329
+#, fuzzy
 msgid "A fatal error occured"
-msgstr ""
+msgstr "A შეცდომა"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:330
+#, fuzzy
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
-msgstr ""
+msgstr "a და შემცველობა და -ში ახლა თავდაპირველი სია -ში სია."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
@@ -459,46 +485,49 @@ msgid "You have to download a total of %s."
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:460
+#, fuzzy
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
-msgstr ""
+msgstr "საათი და ნებისმიერი დრო."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:463
+#, fuzzy
 msgid "To prevent data loss close all open applications and documents."
-msgstr ""
+msgstr "ვის დახურვა ყველა გახსნა და დოკუმენტები."
 
 #. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
-msgstr ""
+msgstr "ვერ ვპოულობ განახლებებს"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:470
 msgid "Your system has already been upgraded."
-msgstr ""
+msgstr "თქვენი სისტემა სულ ახლახანს განახლდა."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:485
 #, python-format
 msgid "<b>Remove %s</b>"
-msgstr ""
+msgstr "<b> ამოშლა %s</b>"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:487
 #, python-format
 msgid "Install %s"
-msgstr ""
+msgstr "დაყენება %s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:489
 #, python-format
 msgid "Upgrade %s"
-msgstr ""
+msgstr "ჩასაყენებელი განახლება %s"
 
 #: ../DistUpgrade/DistUpgradeView.py:75
 msgid "Reboot required"
-msgstr ""
+msgstr "საჭიროა გადატვირთვა"
 
 #: ../DistUpgrade/DistUpgradeView.py:76
+#, fuzzy
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
-msgstr ""
+msgstr "ტოლია დასრულდა და a ტოლია -სკენ ახლა?"
 
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
@@ -510,42 +539,47 @@ msgid "    "
 msgstr "    "
 
 #: ../DistUpgrade/DistUpgrade.glade.h:2
+#, fuzzy
 msgid ""
 "<b><big>Cancel the running upgrade?</big></b>\n"
 "\n"
 "The system could be in an unusable state if you cancel the upgrade. You are "
 "strongly adviced to resume the upgrade."
-msgstr ""
+msgstr "<b><big> გაუქმება გაშვებული</big></b> n -ში გაუქმება თქვენ -სკენ."
 
 #: ../DistUpgrade/DistUpgrade.glade.h:5
+#, fuzzy
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
-msgstr ""
+msgstr "<b><big> გადატვირთვა -სკენ სრული</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
+#, fuzzy
 msgid "<b><big>Start the upgrade?</big></b>"
-msgstr ""
+msgstr "<b><big> გაშვება</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
+#, fuzzy
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
-msgstr ""
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
+msgstr "<span weight=\"bold\" size=\"x-large\"> -სკენ</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
-msgstr ""
+msgstr "გასუფთავება"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:9
 msgid "Details"
-msgstr ""
+msgstr "ცნობები"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
+#, fuzzy
 msgid "Difference between the files"
-msgstr ""
+msgstr "განსხვავება"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
+#, fuzzy
 msgid "Downloading and installing the upgrades"
-msgstr ""
+msgstr "მიმდინარეობს ჩამოქაჩვა და"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:12
 msgid "Modifying the software channels"
@@ -553,119 +587,130 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:13
 msgid "Preparing the upgrade"
-msgstr ""
+msgstr "განახლების ჩადგმის მომზადება"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:14
 msgid "Restarting the system"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:15
+#, fuzzy
 msgid "Terminal"
-msgstr ""
+msgstr "ტერმინალი"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
 msgid "Upgrading Ubuntu"
-msgstr ""
+msgstr "მიმდინარეობს უბუნტუს განახლებების ჩაყენება"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
 msgid "_Keep"
-msgstr ""
+msgstr "_დატოვე"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
 msgid "_Replace"
-msgstr ""
+msgstr "_ჩაანაცვლე"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
-msgstr ""
+msgstr "_შეცდომის-ოქმის გაგავნა"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Restart Now"
-msgstr ""
+msgstr "_მყისვე გადატვირთვა"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Resume Upgrade"
-msgstr ""
+msgstr "განახლება _გაგრძელება"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68
 msgid "Could not find the release notes"
-msgstr ""
+msgstr "ვერ ვპოულობ ვერსიის შენიშვნებს"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:69
 msgid "The server may be overloaded. "
-msgstr ""
+msgstr "შესაძლებელია რომ ამ მომენტისთვის სერვერი გადატვირთულია. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:79
 msgid "Could not download the release notes"
-msgstr ""
+msgstr "შეუძლებელია ვერსიის შენიშვნების გადმოწერა"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:80
 msgid "Please check your internet connection."
-msgstr ""
+msgstr "გთხოვთ შეამოწმოთ თქვენი ინტერნეტ კავშირი."
 
 #. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
-msgstr ""
+msgstr "ვერ ვრთავ განახლების ჩადგმის ხელსაწყოს"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:152
+#, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr ""
+msgstr "ტოლია a -ში a"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
+#, fuzzy
 msgid "Downloading the upgrade tool"
-msgstr ""
+msgstr "მიმდინარეობს ჩამოქაჩვა"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:175
 msgid "The upgrade tool will guide you through the upgrade process."
 msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:182
+#, fuzzy
 msgid "Upgrade tool signature"
-msgstr ""
+msgstr "განახლება"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:185
 msgid "Upgrade tool"
-msgstr ""
+msgstr "განახლების ჩაყენების ხელსაწყო"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:207
+#, fuzzy
 msgid "Failed to fetch"
-msgstr ""
+msgstr "ვერ განხორციელდა -სკენ"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:208
+#, fuzzy
 msgid "Fetching the upgrade failed. There may be a network problem. "
-msgstr ""
+msgstr "ვერ შედგა a "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:213
 msgid "Failed to extract"
-msgstr ""
+msgstr "ამოარქივება ვერ განხორციელდა"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:214
+#, fuzzy
 msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
-msgstr ""
+msgstr "ამოღება ვერ შედგა a ან "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:220
+#, fuzzy
 msgid "Verfication failed"
-msgstr ""
+msgstr "ვერ შედგა"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:221
+#, fuzzy
 msgid ""
 "Verfing the upgrade failed.  There may be a problem with the network or with "
 "the server. "
-msgstr ""
+msgstr "ვერ შედგა a ან "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:227
+#, fuzzy
 msgid "Authentication failed"
-msgstr ""
+msgstr "იდენთიფიკაციამ ჩაიშალა"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:228
+#, fuzzy
 msgid ""
 "Authenticating the upgrade failed. There may be a problem with the network "
 "or with the server. "
-msgstr ""
+msgstr "მიმდენარეობს აუტენტიფიკაცია ვერ შედგა a ან "
 
 #: ../UpdateManager/GtkProgress.py:107
 #, python-format
@@ -680,24 +725,29 @@ msgstr ""
 #: ../UpdateManager/UpdateManager.py:175
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
+"ცვლილებების სია ჯერ-ჯერობით არ არის ხელმისაწვდომი. გთხოვთ სცადოთ მოგვიანებით."
 
 #: ../UpdateManager/UpdateManager.py:180
+#, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
-msgstr ""
+msgstr "ვერ განხორციელდა -სკენ სია ის ინტერნეტი."
 
 #. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
-msgstr ""
+msgstr "შეუძლებელია ყველა არსებული განახლების ჩაყენება"
 
 #: ../UpdateManager/UpdateManager.py:212
+#, fuzzy
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
+"ის გამოყენება მონიშვნა ყველა ის Synaptic ან sudo -ში a ტერმინალი -სკენ "
+"განახლება."
 
 #: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
@@ -706,87 +756,98 @@ msgstr ""
 #: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
-msgstr ""
+msgstr "ვერსია %s: \n"
 
 #: ../UpdateManager/UpdateManager.py:417
+#, fuzzy
 msgid "Downloading the list of changes..."
-msgstr ""
+msgstr "მიმდინარეობს ჩამოქაჩვა სია ის."
 
 #: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
 #: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Download size: %s"
-msgstr ""
+msgstr "ჩამოსატვირთის ზომა: %s"
 
 #: ../UpdateManager/UpdateManager.py:459
 msgid "Your system is up-to-date"
-msgstr ""
+msgstr "თქვენი სისტემა განახლებულია"
 
 #: ../UpdateManager/UpdateManager.py:470
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
-msgstr[0] ""
+msgstr[0] "თქვენ შეგიძლიათ %s განახლების ჩადგმა"
 
 #: ../UpdateManager/UpdateManager.py:485
 msgid "Hide details"
-msgstr ""
+msgstr "დეტალების დამალვა"
 
 #: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
-msgstr ""
+msgstr "დეტალების ჩვენება"
 
 #: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
-msgstr ""
+msgstr "გთხოვთ მოითმინოთ, მიმდინარე პროცესს საკმაო დრო ესაჭიორება."
 
 #: ../UpdateManager/UpdateManager.py:504
 msgid "Update is complete"
-msgstr ""
+msgstr "განახლება გასრულებულია"
 
 #: ../UpdateManager/UpdateManager.py:607
 #, python-format
 msgid "New version: %s   (Size: %s)"
-msgstr ""
+msgstr "ახალი ვერსია: %s   (ზომა: %s)"
 
 #: ../UpdateManager/UpdateManager.py:621
 msgid "Your distribution is not supported anymore"
-msgstr ""
+msgstr "თქვენი დისტრიბუტივს აღარ გააჩნია მხარდაჭერა"
 
 #: ../UpdateManager/UpdateManager.py:622
+#, fuzzy
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
+"თქვენ არა ნებისმიერი ან კრიტიკული განახლება -სკენ a ვერსია ის ლინუქსი "
+"იხილეთhttp://www.ubuntu.com -თვის ინფორმაცია ჩართულია."
 
 #: ../UpdateManager/UpdateManager.py:673
+#, fuzzy
 msgid "Only one software management tool is allowed to run at the same time"
-msgstr ""
+msgstr "მხოლოდ ტოლია -სკენ დრო"
 
 #: ../UpdateManager/UpdateManager.py:675
+#, fuzzy
 msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
-msgstr ""
+msgstr "დახურვა სხვა პროგრამა e ან Synaptic."
 
 #. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:692
 msgid "Software index is broken"
-msgstr ""
+msgstr "პროგრამების სიის ინდექსი დაზიანებულია"
 
 #: ../UpdateManager/UpdateManager.py:693
+#, fuzzy
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
+"ტოლია -სკენ ან წაშლა ნებისმიერი Synaptic ან sudo -ში a ტერმინალი -სკენ."
 
 #: ../data/UpdateManager.glade.h:1
+#, fuzzy
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
 "Your system does not check for updates automatically. You can configure this "
 "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
 msgstr ""
+"<b><big> თქვენ -თვის</big></b> n არა -თვის თქვენ -ში სისტემა ადმინისტრაცია "
+"პროგრამა პარამეტრები."
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
@@ -795,145 +856,164 @@ msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
 msgstr ""
+"<big><b>ვამოწმებ თქვენს სისტემას</b></big>\n"
+"\n"
+"მოცემული პროგრამა გიჩვენებთ განახლებებს, გაასწორებს სისტემურ შეცდომებს და "
+"წარმოგიდგენთ ახალ შესაძლებლობებს."
 
 #: ../data/UpdateManager.glade.h:7
+#, fuzzy
 msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
+msgstr "<big><b> დატოვება -სკენ თარიღი</b></big>"
 
 #: ../data/UpdateManager.glade.h:8
 msgid "Cancel _Download"
-msgstr ""
+msgstr "ჩამოტვირთვის _გაუქმება"
 
 #: ../data/UpdateManager.glade.h:9
 msgid "Changes"
-msgstr ""
+msgstr "ცვლილებები"
 
 #: ../data/UpdateManager.glade.h:10
 msgid "Chec_k"
-msgstr ""
+msgstr "შე_მოწმება"
 
 #: ../data/UpdateManager.glade.h:11
+#, fuzzy
 msgid "Check the software channels for new updates"
-msgstr ""
+msgstr "შემოწმება -თვის ახალი"
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
-msgstr ""
+msgstr "აღწერილობა"
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
-msgstr ""
+msgstr "ვერსიის მონაცემები"
 
 #: ../data/UpdateManager.glade.h:15
+#, fuzzy
 msgid "Show progress of single files"
-msgstr ""
+msgstr "ჩვენება მიმდინარეობა ის ცალი"
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
-msgstr ""
+msgstr "პროგრამული განახლებები"
 
 #: ../data/UpdateManager.glade.h:17
+#, fuzzy
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
-msgstr ""
+msgstr "პროგრამა სწორეა და ახალი."
 
 #: ../data/UpdateManager.glade.h:18
 msgid "U_pgrade"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:19
+#, fuzzy
 msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
+msgstr "განახლება -სკენ ვერსია ის"
 
 #: ../data/UpdateManager.glade.h:20
 msgid "_Check"
-msgstr ""
+msgstr "შ_ემოწმება"
 
 #: ../data/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
-msgstr ""
+msgstr "_დამალე მომავალში მოცემული ინფორმაცია"
 
 #: ../data/UpdateManager.glade.h:22
 msgid "_Install Updates"
-msgstr ""
+msgstr "განახლებების _დაყენება"
 
 #: ../data/SoftwareProperties.glade.h:1
 msgid "<b>Channels</b>"
-msgstr ""
+msgstr "<b>არხები</b>"
 
 #: ../data/SoftwareProperties.glade.h:2
 msgid "<b>Internet updates</b>"
-msgstr ""
+msgstr "<b>ინტერნეტ განახლებები</b>"
 
 #: ../data/SoftwareProperties.glade.h:3
 msgid "<b>Keys</b>"
-msgstr ""
+msgstr "<b>გასაღებები</b>"
 
 #: ../data/SoftwareProperties.glade.h:4
+#, fuzzy
 msgid "Add _Cdrom"
-msgstr ""
+msgstr "დამატება"
 
 #: ../data/SoftwareProperties.glade.h:5
+#, fuzzy
 msgid "Authentication"
-msgstr ""
+msgstr "აუთენტიფიკაცია"
 
 #: ../data/SoftwareProperties.glade.h:6
 msgid "D_elete downloaded software files:"
-msgstr ""
+msgstr "ჩამოტვირთული პაკეტების ფაილების წ_აშლა:"
 
 #: ../data/SoftwareProperties.glade.h:7
+#, fuzzy
 msgid "Import the public key from a trusted software provider"
-msgstr ""
+msgstr "იმპორტი გასაღები a"
 
 #: ../data/SoftwareProperties.glade.h:8
+#, fuzzy
 msgid "Installation Media"
-msgstr ""
+msgstr "დაყენება მედია"
 
 #: ../data/SoftwareProperties.glade.h:9
 msgid "Internet Updates"
-msgstr ""
+msgstr "ინტერნეტ განახლებები"
 
 #: ../data/SoftwareProperties.glade.h:10
+#, fuzzy
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
-msgstr ""
+msgstr "მხოლოდ"
 
 #: ../data/SoftwareProperties.glade.h:11
+#, fuzzy
 msgid "Restore _Defaults"
-msgstr ""
+msgstr "ნაგულისხმები პარამეტრები"
 
 #: ../data/SoftwareProperties.glade.h:12
+#, fuzzy
 msgid "Restore the default keys of your distribution"
-msgstr ""
+msgstr "ნაგულისხმევი ის დისტრიბუტივი"
 
 #: ../data/SoftwareProperties.glade.h:13
 msgid "Software Preferences"
-msgstr ""
+msgstr "პროგრამების პარამეტრები"
 
 #: ../data/SoftwareProperties.glade.h:14
 msgid "_Check for updates automatically:"
-msgstr ""
+msgstr "განახლებების ავტომატური შ_ემოწმება:"
 
 #: ../data/SoftwareProperties.glade.h:15
+#, fuzzy
 msgid "_Download updates in the background, but do not install them"
-msgstr ""
+msgstr "ჩამოტვირთვა -ში არა"
 
 #: ../data/SoftwareProperties.glade.h:16
 #, fuzzy
 msgid "_Import Key File"
-msgstr "გასაღების იმპორტი"
+msgstr "იმპორტი გასაღები ფაილი"
 
 #: ../data/SoftwareProperties.glade.h:17
+#, fuzzy
 msgid "_Install security updates without confirmation"
-msgstr ""
+msgstr "დაყენება"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:2
 msgid "     "
 msgstr "     "
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:3
+#, fuzzy
 msgid ""
 "<b><big>The channel information is out-of-date</big></b>\n"
 "\n"
@@ -942,36 +1022,39 @@ msgid ""
 "\n"
 "You need a working internet connection to continue."
 msgstr ""
+"<b><big> ინფორმაცია ტოლია ის თარიღი</big></b> n -სკენ ინფორმაცია -სკენ და ან "
+"შეცვლილი n a -სკენ."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Channel</b>"
-msgstr ""
+msgstr "<b>არხი</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Comment:</b>"
-msgstr ""
+msgstr "<b>კომენტარი:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>Components:</b>"
-msgstr ""
+msgstr "<b>Components:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Components</b>"
-msgstr ""
+msgstr "<b>კომპონენტები</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
 msgid "<b>Distribution:</b>"
-msgstr ""
+msgstr "<b>დისტრიბუტივი:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:13
 msgid "<b>Type:</b>"
-msgstr ""
+msgstr "<b>ტიპი:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:14
 msgid "<b>URI:</b>"
-msgstr ""
+msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
+#, fuzzy
 msgid ""
 "<big><b>Enter the complete APT line of the channel that you want to add</b></"
 "big>\n"
@@ -979,172 +1062,170 @@ msgid ""
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
+"<big><b> შეყვანა სრული ის -სკენ დამატება</b></big> n ტიპი მდებარეობა და "
+"კომპონენტები ის a -თვის მაგალითი<i>http://ftp.debian.org</i>."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
 msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:19
+#, fuzzy
 msgid "Add Channel"
-msgstr ""
+msgstr "არხის დამატება"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:20
+#, fuzzy
 msgid ""
 "Binary\n"
 "Source"
-msgstr ""
+msgstr "ორობითი"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:22
 msgid "Edit Channel"
-msgstr ""
+msgstr "არხის რედაქტორება"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:23
+#, fuzzy
 msgid "Scanning CD-ROM"
-msgstr ""
+msgstr "CD-ROM-ის სკანირება"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
+#, fuzzy
 msgid "_Add Channel"
-msgstr ""
+msgstr "დამატება არხი"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
-msgstr ""
+msgstr "_პირადი"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:26
 msgid "_Reload"
-msgstr ""
+msgstr "_გადატვირთვა"
 
 #: ../data/update-manager.desktop.in.h:1
 msgid "Show and install available updates"
-msgstr ""
+msgstr "ახალი განახლებების შემოწმება და ჩადგმა"
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr ""
+msgstr "განახლების მენეჯერი"
 
 #: ../data/update-manager.schemas.in.h:1
+#, fuzzy
 msgid ""
 "Check automatically if a new version of the current distribution is "
 "available and offer to upgrade (if possible)."
-msgstr ""
+msgstr "შემოწმება a ახალი ვერსია ის დისტრიბუტივი ტოლია და -სკენ."
 
 #: ../data/update-manager.schemas.in.h:2
+#, fuzzy
 msgid "Check for new distribution releases"
-msgstr ""
+msgstr "შემოწმება -თვის ახალი დისტრიბუტივი"
 
 #: ../data/update-manager.schemas.in.h:3
+#, fuzzy
 msgid ""
 "If automatic checking for updates is disabeld, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
-msgstr ""
+msgstr "-თვის ტოლია -სკენ სია -სკენ -ში."
 
 #: ../data/update-manager.schemas.in.h:4
+#, fuzzy
 msgid "Remind to reload the channel list"
-msgstr ""
+msgstr "-სკენ სია"
 
 #: ../data/update-manager.schemas.in.h:5
+#, fuzzy
 msgid "Show details of an update"
-msgstr ""
+msgstr "ჩვენება ის განახლება"
 
 #: ../data/update-manager.schemas.in.h:6
+#, fuzzy
 msgid "Stores the size of the update-manager dialog"
-msgstr ""
+msgstr "ზომა ის განახლება დიალოგი"
 
 #: ../data/update-manager.schemas.in.h:7
+#, fuzzy
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
-msgstr ""
+msgstr "ის შეიცავს სია ის და აღწერა"
 
 #: ../data/update-manager.schemas.in.h:8
+#, fuzzy
 msgid "The window size"
-msgstr ""
+msgstr "ფანჯარა ზომა"
 
 #: ../data/software-properties.desktop.in.h:1
+#, fuzzy
 msgid "Configure software channels and internet updates"
-msgstr ""
+msgstr "კონფიგურირება და"
 
 #: ../data/software-properties.desktop.in.h:2
+#, fuzzy
 msgid "Software Properties"
-msgstr ""
+msgstr "პროგრამა პარამეტრები"
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/ s s s s s"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr ""
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
+msgstr "Ubuntu 6.06 განახლებები"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr ""
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Ubuntu 6.06 LTS უსაფრთხოების განახლება"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
-msgstr ""
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Ubuntu 6.06 LTS განახლებები"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr ""
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr ""
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Ubuntu 6.06 LTS დამატებითი პროგრამები"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
+#, fuzzy
 msgid "Restricted copyright"
-msgstr ""
+msgstr "შეზღუდული"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
-msgstr ""
+msgstr "არათავისუფალი (Multiverse)"
 
 #. ChangelogURI
 #: ../channels/Debian.info.in.h:4
-#, no-c-format
+#, fuzzy, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://packages.debian.org/changelogs/pool/ s s s s s"
 
 #. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr ""
+msgstr "Debian 3.1 \"Sarge\""
 
 #. BaseURI
 #: ../channels/Debian.info.in:19
@@ -1153,8 +1234,9 @@ msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:20
+#, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr ""
+msgstr "უსაფრთხოება"
 
 #. Description
 #: ../channels/Debian.info.in:34
@@ -1173,10 +1255,27 @@ msgstr ""
 
 #. CompDescription
 #: ../channels/Debian.info.in:54
+#, fuzzy
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
+msgstr "პროგრამა თავისუფალი დამოკიდებულებანი"
 
 #. CompDescription
 #: ../channels/Debian.info.in:57
+#, fuzzy
 msgid "Non-DFSG-compatible Software"
-msgstr ""
+msgstr "პროგრამა"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Ubuntu 5.10 უსაფრთხოების განახლება"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Ubuntu 5.10 განახლებები"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Ubuntu 5.10 დამატებითი პროგრამები"

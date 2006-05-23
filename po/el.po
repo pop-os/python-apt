@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-11 18:27+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 02:43+0000\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
@@ -268,15 +268,15 @@ msgid "Not enough free disk space"
 msgstr "Δεν υπάρχει αρκετός χώρος στο δίσκο"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
 "Η αναβάθμιση τώρα θα τερματιστεί. Παρακαλώ ελευθερώστε τουλάχιστον %s χώρου "
-"στο δίσκο. Αδειάστε τα απορρίμματα σας και αφαιρέστε διάφορα προσωρινά "
-"πακέτα από προηγούμενες εγκαταστάσεις με την εντολή 'sudo apt-get clean'."
+"στο %s. Αδειάστε τα απορρίμματα σας και απομακρύνετε τα προσωρινά πακέτα "
+"προηγούμενων εγκαταστάσεων με  την εντολή 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -309,7 +309,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Μερικά πακέτα λογισμικού δεν υποστηρίζονται πια επίσημα"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -319,6 +319,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Αυτά τα εγκατεστημένα πακέτα δεν υποστηρίζονται πια επίσημα, και τώρα "
+"ανήκουν στο community-supported ('universe').\n"
+"\n"
+"Αν δεν έχετε ενεργοποιημένο το 'universe' , θα γίνει πρόταση για απομάκρυνση "
+"αυτών των πακέτων στο επόμενο βήμα. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -395,22 +400,22 @@ msgstr "Η αναβάθμιση συστήματος ολοκληρώθηκε."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Απομένουν περίπου %li ημέρες %li ώρες και %li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Απομένουν περίπου %li ώρες και %li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s απομένουν"
+msgstr "Απομένουν περίπου %li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s απομένουν"
+msgstr "Απομένουν περίπου %li δευτερόλεπτα"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -584,11 +589,9 @@ msgstr "<b><big>Έναρξη της αναβάθμισης;</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Αναβάθμιση σε Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Αναβάθμιση σε Ubuntu 6.06 LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -1194,61 +1197,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
+msgstr "Ενημερώσεις Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Ενημερώσεις ασφαλείας Ubuntu 6.06"
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Ενημερώσεις ασφαλείας Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
-msgstr "Ενημερώσεις Ubuntu 6.06"
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Ενημερώσεις Ubuntu 6.06 LTS"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.06 Backports"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Αναβαθμίσεις  Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "Ubuntu 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Ubuntu 6.06 LTS Backports"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Με επίσημη υποστήριξη"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Περιορισμένα πνευματικά δικαιώματα"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Community maintained (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Όχι-ελεύθερα (Multiverse)"
 
@@ -1297,6 +1281,21 @@ msgstr "Λογισμικό συμβατό με DFSG με μη Ελεύθερες
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Λογισμικό μη συμβατό με DFSG"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Αναβαθμίσεις  Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Ubuntu 5.10 Backports"
 
 #~ msgid "Inavlid package information"
 #~ msgstr "Μη έγκυρες πληροφορίες πακέτου"

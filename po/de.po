@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-11 18:46+0000\n"
-"Last-Translator: Johannes Postler <josi@dr-postler.at>\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 16:16+0000\n"
+"Last-Translator: Doris Tilg <a0015194@unet.univie.ac.at>\n"
 "Language-Team: German GNOME Translations <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -271,15 +271,15 @@ msgid "Not enough free disk space"
 msgstr "Unzureichender freier Festplattenspeicher"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"Die Aktualisierung wird jetzt abgebrochen. Bitte schaffen Sie mindestens %s "
-"an freien Festplattenspeicher. Leeren Sie ihren Mülleimer und entfernen Sie "
-"temporäre Pakete von früheren Installationen mit »sudo apt-get clean«."
+"Die Systemaktualisierung bricht jetzt ab. Bitte machen Sie mindestens %s "
+"Plattenplatz auf %s frei. Leeren Sie Ihren Mülleimer und entfernen die "
+"temporäre Pakete von frühreren Installation mit 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -314,7 +314,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Einige Programme werden nicht mehr länger offiziell unterstützt"
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -324,6 +324,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Die installierten Pakete werden nicht mehr länger offiziell unterstützt und "
+"werden jetzt nur mehr von der Gemeinschaft unterstützt ('universe').\n"
+"\n"
+"Wenn sie 'universe' nicht aktiviert haben, werden diese Pakete im nächsten "
+"Schritt zum Entfernen vorgeschlagen. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -351,9 +356,8 @@ msgstr ""
 
 #. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
-#, fuzzy
 msgid "Restoring originale system state"
-msgstr "System neu starten"
+msgstr "Wiederherstellen des alten Systemzustandes"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
@@ -401,22 +405,22 @@ msgstr "Aktualisierung ist abgeschlossen."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Ungefähr %li Tag(e) %li Stunde(n) %li Minute(n) verbleibend"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Ungefähr %li Stunde(n) %li Minute(n) verbleibend"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "%s verbleiben"
+msgstr "Ungefähr %li Minute(n) verbleibend"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "%s verbleiben"
+msgstr "Ungefähr %li Sekunden verbleibend"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -592,11 +596,10 @@ msgstr "<b><big>Mit der Aktualisierung beginnen?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Auf Ubuntu \"Dapper\" 6.06 "
-"aktualisieren</span>"
+"<span weight=\"bold\" size=\"x-large\">Auf Ubuntu 6.06 LTS aktualisieren</"
+"span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -608,9 +611,7 @@ msgstr "Details"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
-"Unterschied zwischen den Dateien\r\n"
-"Unterschiede zwischen den Dateien"
+msgstr "Unterschiede zwischen den Dateien"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Downloading and installing the upgrades"
@@ -815,7 +816,7 @@ msgstr "Ihr System ist auf dem aktuellen Stand"
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
-msgstr[0] "Sie können eine Aktualisierung installieren"
+msgstr[0] "Sie können %s Aktualisierung installieren"
 msgstr[1] "Sie können %s Aktualisierungen installieren"
 
 #: ../UpdateManager/UpdateManager.py:485
@@ -824,7 +825,7 @@ msgstr "Details verbergen"
 
 #: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
-msgstr "Details zeigen"
+msgstr "Details anzeigen"
 
 #: ../UpdateManager/UpdateManager.py:502
 msgid "Please wait, this can take some time."
@@ -902,8 +903,8 @@ msgid ""
 msgstr ""
 "<big><b>Ihr System wird überprüft</b></big>\n"
 "\n"
-"Software-Updates korrigieren Fehler, beseitigen Sicherheitsmängel und bieten "
-"neue Funktionen."
+"Software-Aktualisierungen beheben Fehler, schließen Sicherheitslücken und "
+"stellen neue Funktionen bereit."
 
 #: ../data/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
@@ -1037,9 +1038,8 @@ msgstr ""
 "Aktualisierungen im _Hintergrund herunterladen, aber nicht installieren"
 
 #: ../data/SoftwareProperties.glade.h:16
-#, fuzzy
 msgid "_Import Key File"
-msgstr "Schlüssel importieren"
+msgstr "Schlüsseldatei _importieren"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -1132,7 +1132,6 @@ msgid "Scanning CD-ROM"
 msgstr "CD wird eingelesen"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
 msgstr "Kanal _hinzufügen"
 
@@ -1214,61 +1213,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 \"Dapper Drake\""
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
+msgstr "Ubuntu 6.06 LTS Aktualisierungen"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Ubuntu 6.06 Sicherheitsaktualisierungen"
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Ubuntu 6.06 LTS Sicherheitsaktualisierungen"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
-msgstr "Ubuntu 6.06 Aktualisierungen"
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Ubuntu 6.06 LTS Aktualisierungen"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "Ubuntu 6.06 Backports"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 \"Breezy Badger\""
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 5.10 Sicherheitsaktualisierungen"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 5.10 Aktualisierungen"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "Ubuntu 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Ubuntu 6.06 LTS Backports"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Offiziell unterstützt"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Urheberrechtlich eingeschränkt"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Von der Gemeinschaft betreut (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Unfrei (Multiverse)"
 
@@ -1317,6 +1297,33 @@ msgstr "DFSG-kompatible Software mit unfreien Abhängigkeiten"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Nicht DFSG-kompatible Software"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 \"Dapper Drake\""
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 \"Breezy Badger\""
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Ubuntu 5.10 Sicherheitsaktualisierungen"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Ubuntu 5.10 Aktualisierungen"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Ubuntu 5.10 Backports"
+
+#~ msgid ""
+#~ "The upgrade aborts now. Please free at least %s of disk space. Empty your "
+#~ "trash and remove temporary packages of former installations using 'sudo "
+#~ "apt-get clean'."
+#~ msgstr ""
+#~ "Die Aktualisierung wird jetzt abgebrochen. Bitte schaffen Sie mindestens %"
+#~ "s an freien Festplattenspeicher. Leeren Sie ihren Mülleimer und entfernen "
+#~ "Sie temporäre Pakete von früheren Installationen mit »sudo apt-get clean«."
+
+#~ msgid "%s remaining"
+#~ msgstr "%s verbleiben"
 
 #~ msgid "No valid entry found"
 #~ msgstr "Keinen gültigen Eintrag gefunden"

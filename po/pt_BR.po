@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
-"PO-Revision-Date: 2006-05-10 14:44+0000\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
+"PO-Revision-Date: 2006-05-19 02:45+0000\n"
 "Last-Translator: Fábio Nogueira <deb-user-ba@ubuntu.com>\n"
 "Language-Team: Ubuntu-BR <tradutores@listas.ubuntubrasil.org>\n"
 "MIME-Version: 1.0\n"
@@ -268,15 +268,15 @@ msgid "Not enough free disk space"
 msgstr "Não há espaço suficiente no disco"
 
 #: ../DistUpgrade/DistUpgradeControler.py:251
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"A atualização será abortada agora. Por favor, libere ao menos %s de espaço "
-"em disco. Limpe a sua lixeira e remova pacotes temporários de instalações "
-"anteriores executando 'sudo apt-get clean'."
+"A atualização cancela agora. Por favor libere pelo menos %s de espaço de "
+"disco no %s. Esvazie seu lixo e remova temporariamente pacotes de "
+"instalações anteriores usando 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
@@ -309,7 +309,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:375
 msgid "Some software no longer officially supported"
-msgstr ""
+msgstr "Alguns softwares não são mais oficialmente suportado."
 
 #: ../DistUpgrade/DistUpgradeControler.py:377
 msgid ""
@@ -319,6 +319,11 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
+"Estes pacotes já instalados não são mais oficialmente suportados, e agora "
+"são suportados somente pela comunidade ('universe').\n"
+"\n"
+"Se você não tem o repositório 'universe' habilitado, estes pacotes serão "
+"sugeridos à remoção no próximo passo. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:402
 msgid "Remove obsolete packages?"
@@ -396,22 +401,22 @@ msgstr "A Atualização do Sistema está completa."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:52
 #, python-format
 msgid "About %li days %li hours %li minutes remaining"
-msgstr ""
+msgstr "Aproximadamente %li dias %li horas %li minutos restando"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:56
 #, python-format
 msgid "About %li hours %li minutes remaining"
-msgstr ""
+msgstr "Aproximadamente %li horas %li minutos restando"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:59
-#, fuzzy, python-format
+#, python-format
 msgid "About %li minutes remaining"
-msgstr "Faltam %s"
+msgstr "Aproximadamente %li minutos restando"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "About %li seconds remaining"
-msgstr "Faltam %s"
+msgstr "Aproximadamente %li segundos restando"
 
 #. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
@@ -580,11 +585,10 @@ msgstr "<b><big>Iniciar a Atualização?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Atualizando para o Ubuntu \"Dapper\" "
-"6.06</span>"
+"<span weight=\"bold\" size=\"x-large\">Atualizando para o Ubuntu 6.06 LTS</"
+"span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -1191,61 +1195,42 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 Security Updates"
-msgstr "Atualizações de Segurança do Ubuntu 6.06"
-
-#. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 Updates"
+#, fuzzy
+msgid "Ubuntu 6.06 LTS"
 msgstr "Atualizações do Ubuntu 6.06"
 
 #. Description
+#: ../channels/Ubuntu.info.in:23
+msgid "Ubuntu 6.06 LTS Security Updates"
+msgstr "Atualizações de Segurança do Ubuntu 6.06 LTS"
+
+#. Description
+#: ../channels/Ubuntu.info.in:40
+msgid "Ubuntu 6.06 LTS Updates"
+msgstr "Atualizações do Ubuntu 6.06 LTS"
+
+#. Description
 #: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 Backports"
-msgstr "Backports do Ubuntu 6.06"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Atualizações de Segurança do Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Atualizações do Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-msgid "Ubuntu 5.10 Backports"
-msgstr "Backports do Ubuntu 5.10"
+msgid "Ubuntu 6.06 LTS Backports"
+msgstr "Backports do Ubuntu 6.06 LTS"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Suporte oficial"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Restrito por copyright"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Mantido pela Comunidade (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Não-livre (Multiverse)"
 
@@ -1294,6 +1279,21 @@ msgstr "Programa compatível com a DFSG mas com dependências não-livres"
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Programas não compatíveis com a DFSG"
+
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Ubuntu 6.06 'Dapper Drake'"
+
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Atualizações de Segurança do Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Atualizações do Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Backports do Ubuntu 5.10"
 
 #~ msgid ""
 #~ "While scaning your repository information no valid entry for the upgrade "

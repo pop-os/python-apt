@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager Gnome HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
 "PO-Revision-Date: 2006-05-11 18:51+0000\n"
 "Last-Translator: Tran The Trung <tttrung@hotmail.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -515,8 +515,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -1098,67 +1097,45 @@ msgstr ""
 #. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
-msgid "Ubuntu 6.06 'Dapper Drake'"
-msgstr "Bản cập nhật Ubuntu 5.04"
+msgid "Ubuntu 6.06 LTS"
+msgstr "Bản cập nhật Ubuntu 5.10"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
-msgid "Ubuntu 6.06 Security Updates"
+msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "Bản cập nhật bảo mặt Ubuntu 5.04"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
-msgid "Ubuntu 6.06 Updates"
+msgid "Ubuntu 6.06 LTS Updates"
 msgstr "Bản cập nhật Ubuntu 5.10"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
-msgid "Ubuntu 6.06 Backports"
-msgstr "Bản cập nhật Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "Đĩa CD chứa « Breezy Badger » của Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Bản cập nhật bảo mặt Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-msgid "Ubuntu 5.10 Updates"
-msgstr "Bản cập nhật Ubuntu 5.10"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-#, fuzzy
-msgid "Ubuntu 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
 msgstr "Bản cập nhật Ubuntu 5.10"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Được hỗ trợ một cách chính thức"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Bản quyền bị giới hạn"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Do cộng đồng bảo quản (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Không tự do (Multiverse)"
 
@@ -1210,6 +1187,24 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "Bản cập nhật Ubuntu 5.04"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "Đĩa CD chứa « Breezy Badger » của Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "Bản cập nhật bảo mặt Ubuntu 5.10"
+
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "Bản cập nhật Ubuntu 5.10"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "Bản cập nhật Ubuntu 5.10"
 
 #, fuzzy
 #~ msgid "<b>Sections</b>"

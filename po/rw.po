@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-22 09:11+0200\n"
+"POT-Creation-Date: 2006-05-23 16:59+0200\n"
 "PO-Revision-Date: 2006-05-02 20:16+0000\n"
 "Last-Translator: Steve Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -529,8 +529,7 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu \"Dapper\" 6.06</"
-"span>"
+"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
@@ -1115,69 +1114,45 @@ msgstr ""
 #. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
-msgid "Ubuntu 6.06 'Dapper Drake'"
+msgid "Ubuntu 6.06 LTS"
 msgstr "5"
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
-msgid "Ubuntu 6.06 Security Updates"
+msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "5"
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
-msgid "Ubuntu 6.06 Updates"
+msgid "Ubuntu 6.06 LTS Updates"
 msgstr "5"
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
-msgid "Ubuntu 6.06 Backports"
-msgstr "5"
-
-#. Description
-#: ../channels/Ubuntu.info.in:74
-#, fuzzy
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr "5"
-
-#. Description
-#: ../channels/Ubuntu.info.in:91
-#, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "5"
-
-#. Description
-#: ../channels/Ubuntu.info.in:108
-#, fuzzy
-msgid "Ubuntu 5.10 Updates"
-msgstr "5"
-
-#. Description
-#: ../channels/Ubuntu.info.in:125
-#, fuzzy
-msgid "Ubuntu 5.10 Backports"
+msgid "Ubuntu 6.06 LTS Backports"
 msgstr "5"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:128 ../channels/Debian.info.in:51
+#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:131
+#: ../channels/Ubuntu.info.in:63
 #, fuzzy
 msgid "Restricted copyright"
 msgstr "Uburenganzira bw'umuhimbyi"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:134
+#: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:137
+#: ../channels/Ubuntu.info.in:69
 #, fuzzy
 msgid "Non-free (Multiverse)"
 msgstr "Kigenga"
@@ -1228,6 +1203,26 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 'Dapper Drake'"
+#~ msgstr "5"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 'Breezy Badger'"
+#~ msgstr "5"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 Security Updates"
+#~ msgstr "5"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 Updates"
+#~ msgstr "5"
+
+#, fuzzy
+#~ msgid "Ubuntu 5.10 Backports"
+#~ msgstr "5"
 
 #, fuzzy
 #~ msgid "Repositories changed"
@@ -1455,7 +1450,6 @@ msgstr ""
 #~ msgid "Edit software sources and settings"
 #~ msgstr "Na Amagenamiterere"
 
-# #-#-#-#-#  officecfg.pot (PACKAGE VERSION)  #-#-#-#-#
 #~ msgid "Binary"
 #~ msgstr "Nyabibiri"
 

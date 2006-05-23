@@ -1,78 +1,80 @@
-# traditional Chinese translation of update-manager.
-# Copyright (C) 2005 Free Software Foundation, Inc.
-# Abel Cheung <abel@oaka.org>, 2005.
+# Urdu translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: update-manager 0.41.1\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
 "POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-02 20:17+0000\n"
-"Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
-"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"PO-Revision-Date: 2006-05-19 02:46+0000\n"
+"Last-Translator: Hameed محمد حمید <hameeduddin517@yahoo.com>\n"
+"Language-Team: Urdu <urd@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
-#, fuzzy
 msgid "Daily"
-msgstr "<b>細節</b>"
+msgstr "روز"
 
 #: ../SoftwareProperties/SoftwareProperties.py:104
 msgid "Every two days"
-msgstr ""
+msgstr "ھر دو دن"
 
 #: ../SoftwareProperties/SoftwareProperties.py:105
 msgid "Weekly"
-msgstr ""
+msgstr "ھفتھ وار"
 
 #: ../SoftwareProperties/SoftwareProperties.py:106
 msgid "Every two weeks"
-msgstr ""
+msgstr "ھر دو ھفتے"
 
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
 msgid "Every %s days"
-msgstr ""
+msgstr "ھر %s دن"
 
 #: ../SoftwareProperties/SoftwareProperties.py:134
 msgid "After one week"
-msgstr ""
+msgstr "ایک ھفتھ"
 
 #: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "After two weeks"
-msgstr ""
+msgstr "دو ھفتھ باد"
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "After one month"
-msgstr ""
+msgstr "ایک ماھ باد"
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
 msgid "After %s days"
-msgstr ""
+msgstr "بعد %s دن"
 
 #: ../SoftwareProperties/SoftwareProperties.py:432
+#, fuzzy
 msgid "Import key"
-msgstr ""
+msgstr "امپورٹ کی"
 
 #: ../SoftwareProperties/SoftwareProperties.py:442
 msgid "Error importing selected file"
-msgstr "匯入指定檔案時發生錯誤"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:443
 msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr "選定的檔案可能不是 GPG 密碼匙，或者內容已損壞。"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:455
 msgid "Error removing the key"
-msgstr "移除密碼匙時發生錯誤"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
 msgid "The key you selected could not be removed. Please report this as a bug."
-msgstr "你選定的密碼匙無法移除，請匯報問題。"
+msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:497
 #, python-format
@@ -114,11 +116,10 @@ msgid "Could not calculate the upgrade"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:144
-#, fuzzy
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
-msgstr "你選定的密碼匙無法移除，請匯報問題。 "
+msgstr ""
 
 #. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
@@ -138,11 +139,10 @@ msgid "Can't install '%s'"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:232
-#, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr "你選定的密碼匙無法移除，請匯報問題。 "
+msgstr ""
 
 #. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
@@ -214,9 +214,8 @@ msgid ""
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:240
-#, fuzzy
 msgid "Error during update"
-msgstr "移除密碼匙時發生錯誤"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:241
 msgid ""
@@ -305,9 +304,8 @@ msgstr ""
 #. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
-#, fuzzy
 msgid "Checking package manager"
-msgstr "另一個套件管理員正在執行中"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Updating repository information"
@@ -330,9 +328,8 @@ msgid "Asking for confirmation"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:481
-#, fuzzy
 msgid "Upgrading"
-msgstr "完成升級"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:488
 msgid "Searching for obsolete software"
@@ -386,9 +383,8 @@ msgstr ""
 #. of the terminal (to display something useful then)
 #. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
-#, fuzzy
 msgid "Applying changes"
-msgstr "正在下載更改紀錄..."
+msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:172
 #, python-format
@@ -396,9 +392,8 @@ msgid "Could not install '%s'"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:173
-#, fuzzy
 msgid "The upgrade aborts now. Please report this bug."
-msgstr "你選定的密碼匙無法移除，請匯報問題。"
+msgstr ""
 
 #. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
@@ -526,9 +521,8 @@ msgid "Cleaning up"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:9
-#, fuzzy
 msgid "Details"
-msgstr "<b>細節</b>"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
@@ -563,9 +557,8 @@ msgid "_Keep"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-#, fuzzy
 msgid "_Replace"
-msgstr "重新載入"
+msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Report Bug"
@@ -601,15 +594,13 @@ msgid "Could not run the upgrade tool"
 msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:152
-#, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr "你選定的密碼匙無法移除，請匯報問題。"
+msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
-#, fuzzy
 msgid "Downloading the upgrade tool"
-msgstr "正在下載更改紀錄"
+msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:175
 msgid "The upgrade tool will guide you through the upgrade process."
@@ -652,9 +643,8 @@ msgid ""
 msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:227
-#, fuzzy
 msgid "Authentication failed"
-msgstr "認證"
+msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:228
 msgid ""
@@ -677,17 +667,15 @@ msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:180
-#, fuzzy
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
-msgstr "無法下載更改紀錄。請檢查網絡連線是否正常。"
+msgstr ""
 
 #. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
-#, fuzzy
 msgid "Cannot install all available updates"
-msgstr "正在檢查更新套件..."
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:212
 msgid ""
@@ -703,12 +691,11 @@ msgstr ""
 #: ../UpdateManager/UpdateManager.py:357
 #, python-format
 msgid "Version %s: \n"
-msgstr "版本 %s: \n"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:417
-#, fuzzy
 msgid "Downloading the list of changes..."
-msgstr "正在下載更改紀錄"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
 #: ../UpdateManager/UpdateManager.py:474
@@ -717,9 +704,8 @@ msgid "Download size: %s"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:459
-#, fuzzy
 msgid "Your system is up-to-date"
-msgstr "系統已經在最新狀態！"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:470
 #, python-format
@@ -729,9 +715,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../UpdateManager/UpdateManager.py:485
-#, fuzzy
 msgid "Hide details"
-msgstr "<b>細節</b>"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
 msgid "Show details"
@@ -751,9 +736,8 @@ msgid "New version: %s   (Size: %s)"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:621
-#, fuzzy
 msgid "Your distribution is not supported anymore"
-msgstr "已經不再支援你用的發行版本"
+msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:622
 msgid ""
@@ -808,7 +792,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:9
 msgid "Changes"
-msgstr "更改紀錄"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:10
 msgid "Chec_k"
@@ -820,7 +804,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:12
 msgid "Description"
-msgstr "詳細說明"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:13
 msgid "Release Notes"
@@ -832,7 +816,7 @@ msgstr ""
 
 #: ../data/UpdateManager.glade.h:16
 msgid "Software Updates"
-msgstr "軟件更新"
+msgstr ""
 
 #: ../data/UpdateManager.glade.h:17
 msgid ""
@@ -857,23 +841,20 @@ msgid "_Hide this information in the future"
 msgstr ""
 
 #: ../data/UpdateManager.glade.h:22
-#, fuzzy
 msgid "_Install Updates"
-msgstr "正在安裝軟件更新..."
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:1
-#, fuzzy
 msgid "<b>Channels</b>"
-msgstr "<b>密碼匙</b>"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:2
-#, fuzzy
 msgid "<b>Internet updates</b>"
-msgstr "<b>線上更新</b>"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:3
 msgid "<b>Keys</b>"
-msgstr "<b>密碼匙</b>"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:4
 msgid "Add _Cdrom"
@@ -881,25 +862,23 @@ msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:5
 msgid "Authentication"
-msgstr "認證"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:6
 msgid "D_elete downloaded software files:"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:7
-#, fuzzy
 msgid "Import the public key from a trusted software provider"
-msgstr "由你信任的密碼匙圈中移除指定的密碼匙。"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:8
 msgid "Installation Media"
-msgstr "安裝媒體"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:9
-#, fuzzy
 msgid "Internet Updates"
-msgstr "<b>線上更新</b>"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:10
 msgid ""
@@ -908,31 +887,29 @@ msgid ""
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:11
-#, fuzzy
 msgid "Restore _Defaults"
-msgstr "還原為預設值"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:12
-#, fuzzy
 msgid "Restore the default keys of your distribution"
-msgstr "還原為預設密碼匙"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:13
 msgid "Software Preferences"
-msgstr "軟件偏好設定"
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:14
-#, fuzzy
 msgid "_Check for updates automatically:"
-msgstr "檢查軟件更新間隔："
+msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:15
 msgid "_Download updates in the background, but do not install them"
 msgstr ""
 
 #: ../data/SoftwareProperties.glade.h:16
+#, fuzzy
 msgid "_Import Key File"
-msgstr ""
+msgstr "امپورٹ کی"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -953,38 +930,34 @@ msgid ""
 msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:8
-#, fuzzy
 msgid "<b>Channel</b>"
-msgstr "<b>密碼匙</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Comment:</b>"
-msgstr "<b>備註:</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
-#, fuzzy
 msgid "<b>Components:</b>"
-msgstr "<b>元件</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
-#, fuzzy
 msgid "<b>Components</b>"
-msgstr "<b>元件</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
 msgid "<b>Distribution:</b>"
-msgstr "<b>發行版本:</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:13
 msgid "<b>Type:</b>"
-msgstr "<b>類型:</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:14
 msgid "<b>URI:</b>"
-msgstr "<b>URI:</b>"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
-#, fuzzy
 msgid ""
 "<big><b>Enter the complete APT line of the channel that you want to add</b></"
 "big>\n"
@@ -992,14 +965,10 @@ msgid ""
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>請輸入整行你想加入的 APT 軟件庫位置</b></big>\n"
-"\n"
-"該行的內容包括 APT 軟件庫的類型、位置和內容，例如： <i>\"deb http://ftp."
-"debian.org sarge main\"</i>。你可以在文件中尋找有關該行的格式的詳細描述。"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
-msgstr "APT 軟件庫:"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:19
 msgid "Add Channel"
@@ -1010,8 +979,6 @@ msgid ""
 "Binary\n"
 "Source"
 msgstr ""
-"可執行檔\n"
-"源程式碼"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:22
 msgid "Edit Channel"
@@ -1027,12 +994,11 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
-msgstr "自選(_C)"
+msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:26
-#, fuzzy
 msgid "_Reload"
-msgstr "重新載入"
+msgstr ""
 
 #: ../data/update-manager.desktop.in.h:1
 msgid "Show and install available updates"
@@ -1040,7 +1006,7 @@ msgstr ""
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr "更新管理員"
+msgstr ""
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
@@ -1087,7 +1053,7 @@ msgstr ""
 
 #: ../data/software-properties.desktop.in.h:2
 msgid "Software Properties"
-msgstr "軟件屬性"
+msgstr ""
 
 #. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
@@ -1097,48 +1063,43 @@ msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 LTS"
-msgstr "Ubuntu 5.10 更新"
+msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:23
-#, fuzzy
 msgid "Ubuntu 6.06 LTS Security Updates"
-msgstr "Ubuntu 5.04 安全性更新"
+msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:40
-#, fuzzy
 msgid "Ubuntu 6.06 LTS Updates"
-msgstr "Ubuntu 5.10 更新"
+msgstr ""
 
 #. Description
 #: ../channels/Ubuntu.info.in:57
-#, fuzzy
 msgid "Ubuntu 6.06 LTS Backports"
-msgstr "Ubuntu 5.10 更新"
+msgstr ""
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
-#, fuzzy
 msgid "Officially supported"
-msgstr "官方支援"
+msgstr ""
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
-msgstr "版權受限"
+msgstr ""
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
-msgstr "協力維護軟件 (Universe)"
+msgstr ""
 
 #. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
-msgstr "非自由軟件 (Multiverse)"
+msgstr ""
 
 #. ChangelogURI
 #: ../channels/Debian.info.in.h:4
@@ -1149,7 +1110,7 @@ msgstr ""
 #. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
-msgstr "Debian 3.1 “Sarge”"
+msgstr ""
 
 #. BaseURI
 #: ../channels/Debian.info.in:19
@@ -1158,15 +1119,13 @@ msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:20
-#, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr "Debian 穩定版安全性更新"
+msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:34
-#, fuzzy
 msgid "Debian \"Etch\" (testing)"
-msgstr "Debian 測試版"
+msgstr ""
 
 #. BaseURI
 #: ../channels/Debian.info.in:47
@@ -1175,9 +1134,8 @@ msgstr ""
 
 #. Description
 #: ../channels/Debian.info.in:48
-#, fuzzy
 msgid "Debian \"Sid\" (unstable)"
-msgstr "Debian Non-US (不穩定版)"
+msgstr ""
 
 #. CompDescription
 #: ../channels/Debian.info.in:54
@@ -1188,281 +1146,3 @@ msgstr ""
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Ubuntu 6.06 'Dapper Drake'"
-#~ msgstr "Ubuntu 5.04 更新"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.10 'Breezy Badger'"
-#~ msgstr "Ubuntu 5.10 光碟 “Breezy Badger”"
-
-#~ msgid "Ubuntu 5.10 Security Updates"
-#~ msgstr "Ubuntu 5.10 安全性更新"
-
-#~ msgid "Ubuntu 5.10 Updates"
-#~ msgstr "Ubuntu 5.10 更新"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.10 Backports"
-#~ msgstr "Ubuntu 5.10 更新"
-
-#, fuzzy
-#~ msgid "<b>Sections</b>"
-#~ msgstr "<b>分類:</b>"
-
-#, fuzzy
-#~ msgid "Oficially supported"
-#~ msgstr "官方支援"
-
-#~ msgid "<b>Sections:</b>"
-#~ msgstr "<b>分類:</b>"
-
-#, fuzzy
-#~ msgid "Reload the latest information about updates"
-#~ msgstr "由伺服器重新載入套件資料。"
-
-#, fuzzy
-#~ msgid "Add Software Channels"
-#~ msgstr "軟件更新"
-
-#~ msgid ""
-#~ "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
-#~ "\n"
-#~ "Need to get the changes from the central server"
-#~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">下載更改紀錄</span>\n"
-#~ "\n"
-#~ "現在由伺服器下載更改紀錄"
-
-#~ msgid "Show available updates and choose which to install"
-#~ msgstr "顯示所有可更新的套件，並選擇要安裝的套件"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-#~ msgstr "Ubuntu 5.04 光碟 “Hoary Hedgehog”"
-
-#, fuzzy
-#~ msgid "Error fetching the packages"
-#~ msgstr "移除密碼匙時發生錯誤"
-
-#~ msgid "Edit software sources and settings"
-#~ msgstr "修改軟件來源和設定"
-
-#~ msgid "<b>Sources</b>"
-#~ msgstr "<b>來源</b>"
-
-#~ msgid "day(s)"
-#~ msgstr "日"
-
-#~ msgid "<b>Repository</b>"
-#~ msgstr "<b>軟件庫</b>"
-
-#~ msgid "<b>Temporary files</b>"
-#~ msgstr "<b>暫存檔</b>"
-
-#~ msgid "<b>User Interface</b>"
-#~ msgstr "<b>介面</b>"
-
-#~ msgid ""
-#~ "<big><b>Authentication keys</b></big>\n"
-#~ "\n"
-#~ "You can add and remove authentication keys in this dialog. A key makes it "
-#~ "possible to verify the integrity of the software you download."
-#~ msgstr ""
-#~ "<big><b>認證用密碼匙</b></big>\n"
-#~ "\n"
-#~ "你可以在本對話窗內加減認證用的密碼匙。這些密碼匙可以用來檢查下載的軟件是否"
-#~ "完整。"
-
-#~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
-#~ msgstr ""
-#~ "將新的密碼匙檔加入你信任的密碼匙圈之內。請確保該密碼匙是經安全的途徑獲得"
-#~ "的，而且屬於你信任的擁有者。 "
-
-#~ msgid "Add repository..."
-#~ msgstr "加入軟件庫..."
-
-#~ msgid "Automatically check for software _updates."
-#~ msgstr "自動檢查軟件更新(_U)"
-
-#~ msgid "Automatically clean _temporary packages files"
-#~ msgstr "自動清理暫存檔案(_T)"
-
-#~ msgid "Clean interval in days: "
-#~ msgstr "每隔多少天自動清理: "
-
-#~ msgid "Delete _old packages in the package cache"
-#~ msgstr "刪除套件快取中的舊套件(_O)"
-
-#~ msgid "Edit Repository..."
-#~ msgstr "編輯軟件庫..."
-
-#~ msgid "Maximum age in days:"
-#~ msgstr "時間上限 (日):"
-
-#~ msgid "Maximum size in MB:"
-#~ msgstr "大小上限 (MB):"
-
-#~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
-#~ msgstr ""
-#~ "將發行版本提供的預設密碼匙還原。這個程序不會更改用戶自行安裝的密碼匙。"
-
-#~ msgid "Set _maximum size for the package cache"
-#~ msgstr "指定套件快取的大小上限(_M)"
-
-#~ msgid "Settings"
-#~ msgstr "設定"
-
-#~ msgid "Show detailed package versions"
-#~ msgstr "顯示詳細套件版本資料"
-
-#~ msgid "Show disabled software sources"
-#~ msgstr "顯示被停用的軟件來源"
-
-#~ msgid "Update interval in days: "
-#~ msgstr "每隔多少天自動更新: "
-
-#~ msgid "_Add Repository"
-#~ msgstr "加入軟件庫(_A)"
-
-#~ msgid "_Download upgradable packages"
-#~ msgstr "下載所有可以更新的套件(_D)"
-
-#~ msgid "<b>Status:</b>"
-#~ msgstr "<b>狀態:</b>"
-
-#~ msgid ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
-#~ msgstr ""
-#~ "<big><b>Available Updates</b></big>\n"
-#~ "\n"
-#~ "以下的軟件是可以更新的。你可以按「安裝」按鈕開始更新。"
-
-#~ msgid "Cancel downloading the changelog"
-#~ msgstr "取消下載更改紀錄"
-
-#~ msgid "You need to be root to run this program"
-#~ msgstr "你需要 root 的身分方可使用本程式"
-
-#~ msgid "Binary"
-#~ msgstr "可執行檔"
-
-#~ msgid "Source"
-#~ msgstr "源程式碼"
-
-#~ msgid "CD disk with Ubuntu 4.10 \"Warty Warthog\""
-#~ msgstr "Ubuntu 4.10 光碟 “Warty Warthog”"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 安全性更新"
-
-#~ msgid "Ubuntu 4.10 Updates"
-#~ msgstr "Ubuntu 4.10 更新"
-
-#~ msgid "Contributed software"
-#~ msgstr "協力維護軟件"
-
-#~ msgid "Non-free software"
-#~ msgstr "非自由軟件"
-
-#~ msgid "US export restricted software"
-#~ msgstr "美國禁止出口軟件"
-
-#~ msgid "Debian 3.0 \"Woody\""
-#~ msgstr "Debian 3.0 “Woody”"
-
-#~ msgid "Debian Stable"
-#~ msgstr "Debian 穩定版"
-
-#~ msgid "Debian Unstable \"Sid\""
-#~ msgstr "Debian 不穩定版 “Sid”"
-
-#~ msgid "Debian Non-US (Stable)"
-#~ msgstr "Debian Non-US (穩定版)"
-
-#~ msgid "Debian Non-US (Testing)"
-#~ msgstr "Debian Non-US (測試版)"
-
-#~ msgid "Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>"
-#~ msgstr "Ubuntu 套件自動簽署用密碼匙 <ftpmaster@ubuntu.com>"
-
-#~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
-#~ msgstr "Ubuntu 光碟自動簽署用密碼匙 <cdimage@ubuntu.com>"
-
-#~ msgid "Choose a key-file"
-#~ msgstr "選擇密碼匙檔"
-
-#~ msgid "There is one package available for updating."
-#~ msgstr "有 1 個套件可以更新。"
-
-#~ msgid "There are %s packages available for updating."
-#~ msgstr "有 %s 個套件可以更新。"
-
-#~ msgid "There are no updated packages"
-#~ msgstr "沒有任何套件需要更新"
-
-#~ msgid "You did not select any of the %s updated package"
-#~ msgid_plural "You did not select any of the %s updated packages"
-#~ msgstr[0] "你沒有選取 %s 個更新套件中的任何一個"
-#~ msgstr[1] "你沒有選取 %s 個更新套件中的任何一個"
-
-#~ msgid "You have selected %s updated package, size %s"
-#~ msgid_plural "You have selected all %s updated packages, total size %s"
-#~ msgstr[0] "你選取了 %s 個更新套件，大小為 %s"
-#~ msgstr[1] "你選取了 %s 個更新套件，大小為 %s"
-
-#, fuzzy
-#~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
-#~ msgstr[0] "你選取了 %2$s 個更新套件中的 %1$s 個，大小為 %3$s"
-#~ msgstr[1] "你選取了 %2$s 個更新套件中的 %1$s 個，大小總共為 %3$s"
-
-#~ msgid "The updates are being applied."
-#~ msgstr "現在安裝更新套件。"
-
-#~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
-#~ msgstr "你在任何時候只可以執行一個套件管理員程式。請關閉其它程式。"
-
-#~ msgid "Updating package list..."
-#~ msgstr "正在更新套件清單..."
-
-#~ msgid "There are no updates available."
-#~ msgstr "沒有任何軟件可以更新。"
-
-#~ msgid "New version:"
-#~ msgstr "新版本:"
-
-#~ msgid ""
-#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
-#~ msgstr ""
-#~ "請升級至新版本的 Ubuntu Linux。你現在用的版本不會再有任何安全性更新或重要"
-#~ "的更新。有關升級的資料，請瀏覽 http://www.ubuntulinux.org 。"
-
-#~ msgid "There is a new release of Ubuntu available!"
-#~ msgstr "Ubuntu 已推出新版本！"
-
-#~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
-#~ msgstr ""
-#~ "名稱為 “%s” 的新版本已經推出。請瀏覽 http://www.ubuntulinux.org/ 獲取有關"
-#~ "升級的指引。"
-
-#~ msgid "Never show this message again"
-#~ msgstr "以後不再顯示此訊息"
-
-#~ msgid "Changes not found, the server may not be updated yet."
-#~ msgstr "沒有更改紀錄，可能伺服器資料未更新。"
