@@ -20,7 +20,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: dapper-security
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.06 Security Updates
+_Description: Ubuntu 6.06 LTS Security Updates
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
@@ -37,7 +37,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: dapper-updates
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.06 Updates
+_Description: Ubuntu 6.06 LTS Updates
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
@@ -54,7 +54,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: dapper-backports
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.06 Backports
+_Description: Ubuntu 6.06 LTS Backports
 Component: main
 Enabled: 1
 _CompDescription: Officially supported

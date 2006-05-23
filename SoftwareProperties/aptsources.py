@@ -462,11 +462,11 @@ class SourceEntryMatcher:
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper-backports$",
-                                         _("Ubuntu 6.06 Backports"),
+                                         _("Ubuntu 6.06 LTS Backports"),
                                          ubuntu_comps, ubuntu_comps_descr))
     self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
                                          "^dapper-updates$",
-                                         _("Ubuntu 6.06 Updates"),
+                                         _("Ubuntu 6.06 LTS Updates"),
                                          ubuntu_comps, ubuntu_comps_descr))
 
 
