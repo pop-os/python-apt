@@ -32,8 +32,9 @@ import rfc822
 from subprocess import Popen,PIPE
 
 class Dist(object):
-    def __init__(self, name, date, supported):
+    def __init__(self, name, version, date, supported):
         self.name = name
+        self.version = version
         self.date = date
         self.supported = supported
         self.releaseNotesURI = None

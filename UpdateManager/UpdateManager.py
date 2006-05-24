@@ -314,6 +314,10 @@ class UpdateManager(SimpleGladeApp):
           proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
           opener = urllib2.build_opener(proxy_support)
           urllib2.install_opener(opener)
+	  # install a proxy environment too
+	  if not os.environ.has_key("http_proxy"):
+		  os.putenv("http_proxy",
+			    "http://%s:%s/" % (proxy_host, proxy_port))
 
     # setup the help viewer and disable the help button if there
     # is no viewer available
@@ -655,7 +659,7 @@ class UpdateManager(SimpleGladeApp):
     #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
     #dialog.destroy()
     self.frame_new_release.show()
-    self.label_new_release.set_markup("<b>New distribution release '%s' is available</b>" % upgradable_to.name)
+    self.label_new_release.set_markup("<b>New distribution release '%s' is available</b>" % upgradable_to.version)
     self.new_dist = upgradable_to
     
 
