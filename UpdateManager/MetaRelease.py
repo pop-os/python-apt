@@ -106,8 +106,9 @@ class MetaRelease(gobject.GObject):
                 rawdate = index_tag.Section["Date"]
                 date = time.mktime(rfc822.parsedate(rawdate))
                 supported = bool(index_tag.Section["Supported"])
+                version = index_tag.Section["Version"]
                 # add the information to a new date object
-                dist = Dist(name,date,supported)
+                dist = Dist(name, version, date,supported)
                 if index_tag.Section.has_key("ReleaseNotes"):
                     dist.releaseNotesURI = index_tag.Section["ReleaseNotes"]
                 if index_tag.Section.has_key("UpgradeTool"):
