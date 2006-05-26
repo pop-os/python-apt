@@ -37,6 +37,7 @@ if __name__ == "__main__":
   # init
   apt_pkg.Config.Set("Dir::state","./apt/")
   apt_pkg.Config.Set("Dir::Etc","./apt")
+  apt_pkg.Config.Set("Dir::State::status","./apt/status")
   try:
     os.makedirs("apt/lists/partial")
   except OSError:
