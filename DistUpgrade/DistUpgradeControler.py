@@ -100,7 +100,7 @@ class DistUpgradeControler(object):
                 entry.disabled = True
                 continue
             # ignore cdrom sources otherwise
-            elif entry.uri.startwith("cdrom:"):
+            elif entry.uri.startswith("cdrom:"):
                 continue
                 
             logging.debug("examining: '%s'" % entry)
