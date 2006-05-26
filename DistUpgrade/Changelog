@@ -3,6 +3,8 @@
           to restore the old sources.list (nothing was modified yet)
           Ubuntu: #46712
 	- fix a bug in the sourcesList rewriting (ubuntu: #46245)
+	- expand the terminal when no libgnome2-perl is installed
+          because debconf might want to ask questions (ubuntu: #46214)
 2006-05-12: 
 	- space checking improved (ubuntu: #43948)
         - show software that was demoted from main -> universe 

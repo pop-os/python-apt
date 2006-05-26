@@ -136,6 +136,7 @@ class GtkInstallProgressAdapter(InstallProgress):
     
     def __init__(self,parent):
         InstallProgress.__init__(self)
+        self._cache = None
         self.label_status = parent.label_status
         self.progress = parent.progressbar_cache
         self.expander = parent.expander_terminal
@@ -157,8 +158,15 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.progress.set_text(" ")
         self.expander.set_sensitive(True)
         self.term.show()
+        # if no libgnome2-perl is installed show the terminal
+        frontend="gnome"
+        if self._cache:
+          if not self._cache.has_key("libgnome2-perl") or \
+             not self._cache["libgnome2-perl"].isInstalled:
+            frontend = "dialog"
+            self.expander.set_expanded(True)
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
-                    "DEBIAN_FRONTEND=gnome",
+                    "DEBIAN_FRONTEND=%s" % frontend,
                     "APT_LISTCHANGES_FRONTEND=none"]
         # do a bit of time-keeping
         self.start_time = 0.0
@@ -368,7 +376,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self._terminal_lines = new_lines
     def getFetchProgress(self):
         return self._fetchProgress
-    def getInstallProgress(self):
+    def getInstallProgress(self, cache):
+        self._installProgress._cache = cache
         return self._installProgress
     def getOpCacheProgress(self):
         return self._opCacheProgress

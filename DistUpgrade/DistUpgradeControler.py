@@ -313,7 +313,7 @@ class DistUpgradeControler(object):
     def doDistUpgrade(self):
         currentRetry = 0
         fprogress = self._view.getFetchProgress()
-        iprogress = self._view.getInstallProgress()
+        iprogress = self._view.getInstallProgress(self.cache)
         # retry the fetching in case of errors
         maxRetries = int(self.config.get("Network","MaxRetries"))
         while currentRetry < maxRetries:
@@ -406,7 +406,7 @@ class DistUpgradeControler(object):
         if len(changes) > 0 and \
                self._view.confirmChanges(summary, changes, 0, actions):
             fprogress = self._view.getFetchProgress()
-            iprogress = self._view.getInstallProgress()
+            iprogress = self._view.getInstallProgress(self.cache)
             try:
                 res = self.cache.commit(fprogress,iprogress)
             except (SystemError, IOError), e:

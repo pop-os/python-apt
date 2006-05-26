@@ -35,9 +35,9 @@ class DistUpgradeView(object):
     def getFetchProgress(self):
         " return a fetch progress object "
         return apt.progress.FetchProgress()
-    def getInstallProgress(self):
+    def getInstallProgress(self, cache=None):
         " return a install progress object "
-        return apt.progress.InstallProgress()
+        return apt.progress.InstallProgress(cache)
     def getTerminal(self):
         return DumbTerminal()
     def updateStatus(self, msg):
