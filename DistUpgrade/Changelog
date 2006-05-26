@@ -9,6 +9,7 @@
 	  packages work properly (ubuntu: #46336)
 	- translations updated from rosetta
 	- fixed a bug in the demotions calculation (ubuntu: #46245)
+	- typos fixed and translations unfuzzied (ubuntu: #46792,#46464)
 2006-05-12: 
 	- space checking improved (ubuntu: #43948)
         - show software that was demoted from main -> universe 

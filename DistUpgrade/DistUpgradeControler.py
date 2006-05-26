@@ -202,7 +202,7 @@ class DistUpgradeControler(object):
         if self.sources_disabled:
             self._view.information(_("Third party sources disabled"),
                              _("Some third party entries in your souces.list "
-                               "where disabled. You can re-enable them "
+                               "were disabled. You can re-enable them "
                                "after the upgrade with the "
                                "'software-properties' tool or with synaptic."
                                ))
@@ -432,7 +432,7 @@ class DistUpgradeControler(object):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
         # generate a new cache
-        self._view.updateStatus(_("Restoring originale system state"))
+        self._view.updateStatus(_("Restoring original system state"))
         self.openCache()
         sys.exit(1)
 

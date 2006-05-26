@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"POT-Creation-Date: 2006-05-26 22:13+0200\n"
 "PO-Revision-Date: 2006-05-24 16:44+0000\n"
 "Last-Translator: Roys Hengwatanakul <roysheng@msn.com>\n"
 "Language-Team: Thai <th@li.org>\n"
@@ -71,8 +71,7 @@ msgid "Error removing the key"
 msgstr "มีปัญหาขณะลบกุจแจ"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "กุญแจที่คุณเลือกไม่สามารถลบออกได้ กรุณารายงานว่าเป็นปัญหา"
 
 #: ../SoftwareProperties/SoftwareProperties.py:497
@@ -103,8 +102,8 @@ msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
-"ระบบของคุณมีแพกเกจที่มีปัญหาที่ไม่สามารถซ่อมได้ด้วยโปรแกรมนี้ "
-"กรุณาซ่อมโดยใช้โปรแกรม synaptic หรือ apt-get ก่อนดำเนินการต่อไป"
+"ระบบของคุณมีแพกเกจที่มีปัญหาที่ไม่สามารถซ่อมได้ด้วยโปรแกรมนี้ กรุณาซ่อมโดยใช้โปรแกรม synaptic "
+"หรือ apt-get ก่อนดำเนินการต่อไป"
 
 #: ../DistUpgrade/DistUpgradeCache.py:133
 msgid "Can't upgrade required meta-packages"
@@ -114,6 +113,7 @@ msgstr "ไม่สามารถปรับปรุง meta แพกเก
 msgid "A essential package would have to be removed"
 msgstr "แพจเกจที่สำคัญจะถูกลบออก"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr "ไม่สามารถคำนวนการปรับปรุงได้"
@@ -122,10 +122,9 @@ msgstr "ไม่สามารถคำนวนการปรับปรุ
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
-msgstr ""
-"ไม่สามารถแก้ไขปัญหาที่เกิดขึ้นได้ขณะคำนวนการปรับปรุง "
-"กรุณารายงานว่านี่เป็นปัญหา "
+msgstr "ไม่สามารถแก้ไขปัญหาที่เกิดขึ้นได้ขณะคำนวนการปรับปรุง กรุณารายงานว่านี่เป็นปัญหา "
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr "ไม่ปัญหาในการยืนยันว่าเป็บของจริงสำหรับบางแพกเกจ"
@@ -136,9 +135,8 @@ msgid ""
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
-"ไม่สามารถที่จะยืนยันความถูกต้องของแพกเกจบางอันได้ "
-"นี่อาจจะเกี่ยวกับปัญหาในด้านเครือข่าย คุณอาจจะลองอีกครั้งภายหลังก็ได้ "
-"กรุณาตรวจดูรายการของแพกเกจที่ไม่ผ่านการยืนยัน"
+"ไม่สามารถที่จะยืนยันความถูกต้องของแพกเกจบางอันได้ นี่อาจจะเกี่ยวกับปัญหาในด้านเครือข่าย "
+"คุณอาจจะลองอีกครั้งภายหลังก็ได้ กรุณาตรวจดูรายการของแพกเกจที่ไม่ผ่านการยืนยัน"
 
 #: ../DistUpgrade/DistUpgradeCache.py:231
 #, python-format
@@ -151,6 +149,7 @@ msgid ""
 "bug. "
 msgstr "ไม่สามารถที่จะติดตั้งแพกเกจที่ต้องการได้ กรุณารายงานว่าเป็นปัญหา "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr "ไม่สามารถเดาเมททาแพกเกจ(meta-package)ได้"
@@ -165,18 +164,18 @@ msgid ""
 msgstr ""
 "ระบบของคุณไม่มีอูบันตูเดสก์ท็อป คูบันตูเดสก์ท็อป หรือ เอ็ดดูบันตูเดกส์ท็อป "
 "แพกเกจและไม่สามารถที่จะตรวจสอบได้ว่าคุณใช้อูบันตูรุ่นไหนอยู่\n"
-"กรุณาติดตั้งแพกเกจข้างบนอย่างใดอย่างหนึ่งก่อนโดยใช้โปรแกรม synaptic "
-"หรือโปรแกรม apt-get ก่อนดำเนินการต่อไป"
+"กรุณาติดตั้งแพกเกจข้างบนอย่างใดอย่างหนึ่งก่อนโดยใช้โปรแกรม synaptic หรือโปรแกรม apt-get "
+"ก่อนดำเนินการต่อไป"
 
 #: ../DistUpgrade/DistUpgradeControler.py:42
 msgid "Reading cache"
 msgstr "กำลังอ่านจากที่เก็บชั่วคราว"
 
-#: ../DistUpgrade/DistUpgradeControler.py:133
+#: ../DistUpgrade/DistUpgradeControler.py:143
 msgid "No valid mirror found"
 msgstr "ไม่เจอเซิรฟ์เวอร์เสริม(mirror)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:134
+#: ../DistUpgrade/DistUpgradeControler.py:144
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -188,19 +187,18 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 "ไม่เจอรายการของเซิรฟ์เวอร์เสริมสำหรับปรับปรุงขณะที่ตรวจสอบแหล่งข้อมูลของคุณ "
-"นี"
-"่อาจจะเกิดขึ้นได้ถ้าคุณใช้เซิรฟ์เวอร์เสริมภายในหรือข้อมูลของเซิรฟ์เวอร์เสริม"
-"ล้าสมัย\n"
+"นี่อาจจะเกิดขึ้นได้ถ้าคุณใช้เซิรฟ์เวอร์เสริมภายในหรือข้อมูลของเซิรฟ์เวอร์เสริมล้าสมัย\n"
 "\n"
-"คุณต้องการที่จะเขียนทับไฟล์  'sources.list' ของคุณหรือไม่? ถ้าคุณเลือก  "
-"'Yes' ตรงนี้มันจะถูกปรับปรุงรายการทั้งหมดจาก '%s' to '%s' \n"
+"คุณต้องการที่จะเขียนทับไฟล์  'sources.list' ของคุณหรือไม่? ถ้าคุณเลือก  'Yes' "
+"ตรงนี้มันจะถูกปรับปรุงรายการทั้งหมดจาก '%s' to '%s' \n"
 "ถ้าคุณเลือก  'no' การปรับปรุงจะถูกยกเลิก"
 
-#: ../DistUpgrade/DistUpgradeControler.py:151
+#. hm, still nothing useful ...
+#: ../DistUpgrade/DistUpgradeControler.py:161
 msgid "Generate default sources?"
 msgstr "สร้าง default sources?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:152
+#: ../DistUpgrade/DistUpgradeControler.py:162
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -212,24 +210,23 @@ msgstr ""
 "\n"
 "ควรเพิ่มรายการสำหรับ  '%s' หรือไม่?ถ้าคุณเลือก 'No' การปรับปรุงจะถูกยกเลิก"
 
-#: ../DistUpgrade/DistUpgradeControler.py:186
+#: ../DistUpgrade/DistUpgradeControler.py:196
 msgid "Repository information invalid"
 msgstr "ข้อมูลเกี่ยวกับแหล่งเก็บข้อมูลใช้ไม่ได้"
 
-#: ../DistUpgrade/DistUpgradeControler.py:187
+#: ../DistUpgrade/DistUpgradeControler.py:197
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
-msgstr ""
-"การปรับปรุงข้อมูลของแหล่งข้อมูลทำให้ไฟล์เสียหาย กรุณารายงานว่าเป็นปัญหา"
+msgstr "การปรับปรุงข้อมูลของแหล่งข้อมูลทำให้ไฟล์เสียหาย กรุณารายงานว่าเป็นปัญหา"
 
-#: ../DistUpgrade/DistUpgradeControler.py:193
+#: ../DistUpgrade/DistUpgradeControler.py:203
 msgid "Third party sources disabled"
 msgstr "แหล่งอื่นๆใช้ไม่ได้"
 
-#: ../DistUpgrade/DistUpgradeControler.py:194
+#: ../DistUpgrade/DistUpgradeControler.py:204
 msgid ""
-"Some third party entries in your souces.list where disabled. You can re-"
+"Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
@@ -237,11 +234,11 @@ msgstr ""
 "คุณสามารถเปลี่ยนให้ใช้ได้หลังการปรับปรุงด้วยเครื่องมือ 'software-properties' "
 "หรือด้วยโปรแกรม synaptic"
 
-#: ../DistUpgrade/DistUpgradeControler.py:240
+#: ../DistUpgrade/DistUpgradeControler.py:250
 msgid "Error during update"
 msgstr "เกิดข้อผิดพลาดขณะปรับปรุง"
 
-#: ../DistUpgrade/DistUpgradeControler.py:241
+#: ../DistUpgrade/DistUpgradeControler.py:251
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -249,11 +246,11 @@ msgstr ""
 "มีปัญหาเกิดขึ้นขณะทำการปรับปรุง โดยปกติแล้วจะเป็นปัญหาด้านเครือข่าย "
 "กรุณาตรวจสอบการสื่อสารในเครือข่ายของคุณแล้วลองใหม่อีกที"
 
-#: ../DistUpgrade/DistUpgradeControler.py:250
+#: ../DistUpgrade/DistUpgradeControler.py:260
 msgid "Not enough free disk space"
 msgstr "ไม่มีพื้นที่ว่างในดิสก์เพียงพอ"
 
-#: ../DistUpgrade/DistUpgradeControler.py:251
+#: ../DistUpgrade/DistUpgradeControler.py:261
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -261,42 +258,42 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 "การปรับปรุงถูกยกเลิกแล้ว กรุณาฟรีอย่างน้อย %s ของดิสก์พื้นที่บน %s "
-"เทถังขยะทิ้งและลบแพกเกจชั่วคราวจากการติดตั้งครั้งก่อนโดยใช้คำสั่ง 'sudo apt-"
-"get clean'"
+"เทถังขยะทิ้งและลบแพกเกจชั่วคราวจากการติดตั้งครั้งก่อนโดยใช้คำสั่ง 'sudo apt-get clean'"
 
-#: ../DistUpgrade/DistUpgradeControler.py:308
+#. ask the user if he wants to do the changes
+#: ../DistUpgrade/DistUpgradeControler.py:318
 msgid "Do you want to start the upgrade?"
 msgstr "คุณต้องการที่จะเริ่มการปรับปรุงหรือไม่?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:325
+#: ../DistUpgrade/DistUpgradeControler.py:335
 msgid "Could not install the upgrades"
 msgstr "ไม่สามารถปรับปรุงได้"
 
-#: ../DistUpgrade/DistUpgradeControler.py:326
+#: ../DistUpgrade/DistUpgradeControler.py:336
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
 msgstr ""
-"การปรับปรุงถูกยกเลิก ระบบของคุณอาจจะอยู่ในสภาพที่ไม่มั่นคง "
-"โปรแกรมกู้ระบบถูกเรียกใช้ (dpkg --configure -a)"
+"การปรับปรุงถูกยกเลิก ระบบของคุณอาจจะอยู่ในสภาพที่ไม่มั่นคง โปรแกรมกู้ระบบถูกเรียกใช้ (dpkg --"
+"configure -a)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:341
+#: ../DistUpgrade/DistUpgradeControler.py:351
 msgid "Could not download the upgrades"
 msgstr "ไม่สามารถดาวน์โหลดข้อมูลปรับปรุงรุ่น"
 
-#: ../DistUpgrade/DistUpgradeControler.py:342
+#: ../DistUpgrade/DistUpgradeControler.py:352
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
-"การปรับปรุงถูกยกเลิก กรุณาตรวจสอบการสื่อสารทางอินเตอร์เน็ตของคุณหรือ "
-"installation mediaและลองอีกครั้ง "
+"การปรับปรุงถูกยกเลิก กรุณาตรวจสอบการสื่อสารทางอินเตอร์เน็ตของคุณหรือ installation "
+"mediaและลองอีกครั้ง "
 
-#: ../DistUpgrade/DistUpgradeControler.py:375
+#: ../DistUpgrade/DistUpgradeControler.py:387
 msgid "Some software no longer officially supported"
 msgstr "ซอฟแวร์บางตัวไม่ได้รับการสนับสนุนอย่างเป็นทางการแล้ว"
 
-#: ../DistUpgrade/DistUpgradeControler.py:377
+#: ../DistUpgrade/DistUpgradeControler.py:389
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -304,56 +301,54 @@ msgid ""
 "If you don't have 'universe' enabled these packages will be suggested for "
 "removal in the next step. "
 msgstr ""
-""
-"แพกเกจเหล่านีไม่ได้รับการสนับสนุนอย่างเป็นทางการแล้วและตอนนี้ได้รับสนับสนุนจาก"
-"ชุมชน ('universe') แต่เพียงอย่างเดียว\\n\n"
+"แพกเกจเหล่านีไม่ได้รับการสนับสนุนอย่างเป็นทางการแล้วและตอนนี้ได้รับสนับสนุนจากชุมชน "
+"('universe') แต่เพียงอย่างเดียว\\n\n"
 "\\n\n"
-"ถ้าคุณไม่ได้เลือกใช้แหล่งข้อมูล 'universe' "
-"แพกเกจเหล่านี้จะถูกแนะนำให้ลบออกในขั้นต่อไป "
+"ถ้าคุณไม่ได้เลือกใช้แหล่งข้อมูล 'universe' แพกเกจเหล่านี้จะถูกแนะนำให้ลบออกในขั้นต่อไป "
 
-#: ../DistUpgrade/DistUpgradeControler.py:402
+#: ../DistUpgrade/DistUpgradeControler.py:414
 msgid "Remove obsolete packages?"
 msgstr "ลบแพจเกจที่ล้าสมัยทิ้งหรือไม่?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:403
+#: ../DistUpgrade/DistUpgradeControler.py:415
 msgid "_Skip This Step"
 msgstr "_ข้ามขั้นตอนนี้"
 
-#: ../DistUpgrade/DistUpgradeControler.py:403
+#: ../DistUpgrade/DistUpgradeControler.py:415
 msgid "_Remove"
 msgstr "เ_อาออก"
 
-#: ../DistUpgrade/DistUpgradeControler.py:413
+#: ../DistUpgrade/DistUpgradeControler.py:425
 msgid "Error during commit"
 msgstr "เกิดข้อผิดพลาดขณะแก้ไขปรับปรุง"
 
-#: ../DistUpgrade/DistUpgradeControler.py:414
+#: ../DistUpgrade/DistUpgradeControler.py:426
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
-msgstr ""
-"เกิดปัญหาขึ้นขณะทำการเก็บกวาด "
-"กรุณาตรวจสอบข้อความข้างล่างสำหรับรายละเอียดเพิ่มเติม "
+msgstr "เกิดปัญหาขึ้นขณะทำการเก็บกวาด กรุณาตรวจสอบข้อความข้างล่างสำหรับรายละเอียดเพิ่มเติม "
 
-#: ../DistUpgrade/DistUpgradeControler.py:423
-msgid "Restoring originale system state"
+#. generate a new cache
+#: ../DistUpgrade/DistUpgradeControler.py:435
+#, fuzzy
 msgstr "คืนระบบสู่สถานะเดิม"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#: ../DistUpgrade/DistUpgradeControler.py:431
-#: ../DistUpgrade/DistUpgradeControler.py:455
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:443
+#: ../DistUpgrade/DistUpgradeControler.py:467
 msgid "Checking package manager"
 msgstr "กำลังตรวจสอบโปรแกรมจัดการแพกเกจ"
 
-#: ../DistUpgrade/DistUpgradeControler.py:447
+#: ../DistUpgrade/DistUpgradeControler.py:459
 msgid "Updating repository information"
 msgstr "ปรับปรุงข้อมูลของแหล่งข้อมูล"
 
-#: ../DistUpgrade/DistUpgradeControler.py:466
+#: ../DistUpgrade/DistUpgradeControler.py:478
 msgid "Invalid package information"
 msgstr "ข้อมูลของแพกเกจไม่ถูกต้อง"
 
-#: ../DistUpgrade/DistUpgradeControler.py:467
+#: ../DistUpgrade/DistUpgradeControler.py:479
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -363,19 +358,19 @@ msgstr ""
 "หลังจากการปรับปรุงข้อมูลของแพจเกจ แพจเกจที่จำเป็น '%s'ได้หายไป\n"
 "นี่แสดงว่าเป็นปัญหาร้ายแรง กรุณารายงานว่าเป็นปัญหา"
 
-#: ../DistUpgrade/DistUpgradeControler.py:477
+#: ../DistUpgrade/DistUpgradeControler.py:489
 msgid "Asking for confirmation"
 msgstr "_ถามการยืนยันจากคุณก่อน"
 
-#: ../DistUpgrade/DistUpgradeControler.py:481
+#: ../DistUpgrade/DistUpgradeControler.py:493
 msgid "Upgrading"
 msgstr "กำลังปรับปรุง"
 
-#: ../DistUpgrade/DistUpgradeControler.py:488
+#: ../DistUpgrade/DistUpgradeControler.py:500
 msgid "Searching for obsolete software"
 msgstr "ค้นหาซอฟแวร์ที่ล้าสมัย"
 
-#: ../DistUpgrade/DistUpgradeControler.py:493
+#: ../DistUpgrade/DistUpgradeControler.py:505
 msgid "System upgrade is complete."
 msgstr "ปรับปรุงระบบเสร็จแล้ว"
 
@@ -399,6 +394,7 @@ msgstr "เหลือประมาณ %li นาที"
 msgid "About %li seconds remaining"
 msgstr "เหลือประมาณ %li วินาที"
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -420,20 +416,22 @@ msgstr "ดาวน์โหลดไฟล์ %li จาก %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:155
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:156
 msgid "Applying changes"
 msgstr "กำลังเปลี่ยนแปลง"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:172
+#: ../DistUpgrade/DistUpgradeViewGtk.py:180
 #, python-format
 msgid "Could not install '%s'"
 msgstr "ไม่สามารถติดตั้ง '%s'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:173
+#: ../DistUpgrade/DistUpgradeViewGtk.py:181
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "การปรัปรุงถูกยกเลิก กรุณารายงานปัญหานี้"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:186
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:194
 #, python-format
 msgid ""
 "Replace configuration file\n"
@@ -442,76 +440,76 @@ msgstr ""
 "เปลี่ยนไฟล์ปรับแต่ง\n"
 "'%s'?"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#: ../DistUpgrade/DistUpgradeViewGtk.py:211
 msgid "The 'diff' command was not found"
 msgstr "ไม่เจอคำสั่ง  'diff'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:329
+#: ../DistUpgrade/DistUpgradeViewGtk.py:337
 msgid "A fatal error occured"
 msgstr "เกิดข้อผิดพลาดอย่างร้ายแรง"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:330
+#: ../DistUpgrade/DistUpgradeViewGtk.py:338
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
-"กรุณารายงานว่าเป็นปัญหาและส่งไฟล์ /var/log/dist-upgrade.log and "
-"/var/log/dist-upgrade-apt.log มาในรายงานของคุณ การปรับปรุงถูกยกเลิก\n"
+"กรุณารายงานว่าเป็นปัญหาและส่งไฟล์ /var/log/dist-upgrade.log and /var/log/dist-"
+"upgrade-apt.log มาในรายงานของคุณ การปรับปรุงถูกยกเลิก\n"
 "ไฟล์เก่า sources.list ของคุณถูกเก็บไว้ที่ /etc/apt/sources.list.distUpgrade"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:437
+#: ../DistUpgrade/DistUpgradeViewGtk.py:446
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s แพกเกจจะถูกลบออก"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:443
+#: ../DistUpgrade/DistUpgradeViewGtk.py:452
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s แพกเกจใหม่จะถูกติดตั้ง"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:449
+#: ../DistUpgrade/DistUpgradeViewGtk.py:458
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s แพกเกจจะถูกปรับปรุง"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:456
+#: ../DistUpgrade/DistUpgradeViewGtk.py:465
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "คุณจะต้องดาวน์โหลดทั้งหมด  %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:460
+#: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
-msgstr ""
-"การปรับปรุงอาจจะใช้เวลานานหลายชั่วโมงและไม่สามารถที่จะยกเลิกได้หลังจากนี้ไป"
+msgstr "การปรับปรุงอาจจะใช้เวลานานหลายชั่วโมงและไม่สามารถที่จะยกเลิกได้หลังจากนี้ไป"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:463
+#: ../DistUpgrade/DistUpgradeViewGtk.py:472
 msgid "To prevent data loss close all open applications and documents."
 msgstr "เพื่อป้องกันข้อมูลสูญหายกรุณาออกจากทุกโปรแกรมและเอกสารที่เปิดอยู่"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:469
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:478
 msgid "Could not find any upgrades"
 msgstr "ไม่มีอะไรให้ปรับปรุง"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:470
+#: ../DistUpgrade/DistUpgradeViewGtk.py:479
 msgid "Your system has already been upgraded."
 msgstr "ระบบของคุณได้ผ่านการปรับปรุงแล้ว"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:485
+#: ../DistUpgrade/DistUpgradeViewGtk.py:494
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>ลบออก %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:487
+#: ../DistUpgrade/DistUpgradeViewGtk.py:496
 #, python-format
 msgid "Install %s"
 msgstr "ติดตั้ง  %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:489
+#: ../DistUpgrade/DistUpgradeViewGtk.py:498
 #, python-format
 msgid "Upgrade %s"
 msgstr "ปรับปรุงรุ่น %s"
@@ -523,13 +521,12 @@ msgstr "ต้องเริ่มระบบใหม่"
 #: ../DistUpgrade/DistUpgradeView.py:76
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
-msgstr ""
-"การปรับปรุงเสร็จสิ้นแล้วและต้องการที่จะเริ่มระบบใหม่ "
-"คุณต้องการที่จะทำเดี๋ยวนี้หรือเปล่า?"
+msgstr "การปรับปรุงเสร็จสิ้นแล้วและต้องการที่จะเริ่มระบบใหม่ คุณต้องการที่จะทำเดี๋ยวนี้หรือเปล่า?"
 
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -544,8 +541,7 @@ msgid ""
 msgstr ""
 "<b><big>ต้องการยกเลิกการปรับปรุงที่กำลังทำอยู่หรือไม่?</big></b>\n"
 "\n"
-"ระบบอาจจะไม่มั่นคงถ้าคุณยกเลิกการปรับปรุง "
-"ขอแนะนำเป็นอย่างยิ่งให้คุณดำเนินการปรับปรุงต่อไป"
+"ระบบอาจจะไม่มั่นคงถ้าคุณยกเลิกการปรับปรุง ขอแนะนำเป็นอย่างยิ่งให้คุณดำเนินการปรับปรุงต่อไป"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
@@ -558,8 +554,7 @@ msgstr "<b><big>เริ่มการปรับปรุงหรือไ�
 #: ../DistUpgrade/DistUpgrade.glade.h:7
 msgid ""
 "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
-msgstr ""
-"<span weight=\"bold\" size=\"x-large\">กำลังปรับปรุงอูบันตู  6.06 LTS</span>"
+msgstr "<span weight=\"bold\" size=\"x-large\">กำลังปรับปรุงอูบันตู  6.06 LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -633,6 +628,7 @@ msgstr "ไม่สามารถดาวน์โหลดบันทึก
 msgid "Please check your internet connection."
 msgstr "กรุณาตรวจสอบการสื่อสารทางอินเตอร์เน็ตของคุณ"
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "ไม่สามารถเรียกใช้เครื่องมือปรับปรุง"
@@ -674,9 +670,7 @@ msgstr "ไม่สามารถเอาออกมาได้"
 msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
-msgstr ""
-"ไม่สามารถแกะข้อมูลปรับปรุงออกมาได้ "
-"อาจจะเป็นปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
+msgstr "ไม่สามารถแกะข้อมูลปรับปรุงออกมาได้ อาจจะเป็นปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:220
 msgid "Verfication failed"
@@ -686,8 +680,7 @@ msgstr "ไม่สามารถตรวจเช็คความถูก
 msgid ""
 "Verfing the upgrade failed.  There may be a problem with the network or with "
 "the server. "
-msgstr ""
-"ตรวจทานการปรับปรุงไม่สำเร็จ อาจจะมีปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
+msgstr "ตรวจทานการปรับปรุงไม่สำเร็จ อาจจะมีปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:227
 msgid "Authentication failed"
@@ -697,8 +690,7 @@ msgstr "ไม่สามารถยืนยันว่าเป็นขอ
 msgid ""
 "Authenticating the upgrade failed. There may be a problem with the network "
 "or with the server. "
-msgstr ""
-"ยืนยันการปรับปรุงไม่สำเร็จ อาจจะมีปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
+msgstr "ยืนยันการปรับปรุงไม่สำเร็จ อาจจะมีปัญหาในเครือข่ายหรือที่เซิรฟ์เวอร์ "
 
 #: ../UpdateManager/GtkProgress.py:107
 #, python-format
@@ -719,9 +711,9 @@ msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
 msgstr ""
-"ไม่สามารถดาวน์โหลดรายการของการเปลี่ยนแปลง "
-"กรุณาตรวจสอบการสื่อสารทางอินเตอร์เน็ตของคุณ"
+"ไม่สามารถดาวน์โหลดรายการของการเปลี่ยนแปลง กรุณาตรวจสอบการสื่อสารทางอินเตอร์เน็ตของคุณ"
 
+#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "ไม่สามารถปรับปรุงทั้งหมดที่มีได้"
@@ -732,9 +724,9 @@ msgid ""
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
 "get dist-upgrade\" in a terminal to update your system completely."
 msgstr ""
-"การปรับปรุงบางอันต้องการที่จะลบซอฟแวร์ออกอีก กรุณาใช้ตัวเลือก  \"Mark All "
-"Upgrades\" ของโปรแกรมจัดการแพกเกจ \"Synaptic\" หรือใช้คำสั่ง  \"sudo apt-get "
-"dist-upgrade\" ในเทอร์มินัล ในการปรับปรุงระบบของคุณให้เสร็จสิ้นสมบรูณ์"
+"การปรับปรุงบางอันต้องการที่จะลบซอฟแวร์ออกอีก กรุณาใช้ตัวเลือก  \"Mark All Upgrades\" "
+"ของโปรแกรมจัดการแพกเกจ \"Synaptic\" หรือใช้คำสั่ง  \"sudo apt-get dist-upgrade\" "
+"ในเทอร์มินัล ในการปรับปรุงระบบของคุณให้เสร็จสิ้นสมบรูณ์"
 
 #: ../UpdateManager/UpdateManager.py:222
 msgid "The following updates will be skipped:"
@@ -810,10 +802,10 @@ msgid "Only one software management tool is allowed to run at the same time"
 msgstr "มีเพียงเครื่องมือจัดการซอฟแวร์เดียวที่อนุญาตให้เรียกใช้พร้อมกันได้"
 
 #: ../UpdateManager/UpdateManager.py:679
-msgid ""
-"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr "กรุณาออกจากโปรแกรมอื่นๆเช่น  'aptitude' หรือ 'Synaptic' ก่อน"
 
+#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr "ดัชนีของซอฟแวร์เสียหาย"
@@ -824,9 +816,8 @@ msgid ""
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
-"ไม่สามารถที่จะติดตั้งหรือลบออกซอฟแวร์ใดๆ กรุณาใช้โปรแกรมจัดการแพกเกจ "
-"\"Synaptic\" หรือ คำสั่ง \"sudo apt-get install -f\" "
-"ในเทอร์มินัลเพื่อที่จะแก้ปัญหานี้ก่อน"
+"ไม่สามารถที่จะติดตั้งหรือลบออกซอฟแวร์ใดๆ กรุณาใช้โปรแกรมจัดการแพกเกจ \"Synaptic\" หรือ "
+"คำสั่ง \"sudo apt-get install -f\" ในเทอร์มินัลเพื่อที่จะแก้ปัญหานี้ก่อน"
 
 #: ../data/UpdateManager.glade.h:1
 msgid ""
@@ -837,8 +828,8 @@ msgid ""
 msgstr ""
 "<b><big>คุณต้องตรวจหารายการปรับปรุงด้วยตนเอง</big></b>\n"
 "\n"
-"ระบบของคุณไม่ตรวจหารายการปรับปรุงโดยอัตโนมัตื คุณสามารถปรับแต่งใน\"System\" -"
-"> \"Administration\" -> \"Software Properties\"."
+"ระบบของคุณไม่ตรวจหารายการปรับปรุงโดยอัตโนมัตื คุณสามารถปรับแต่งใน\"System\" -> "
+"\"Administration\" -> \"Software Properties\"."
 
 #: ../data/UpdateManager.glade.h:4
 msgid ""
@@ -891,8 +882,7 @@ msgstr "ซอฟต์แวร์ปรับปรุง"
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
-msgstr ""
-"ซอฟแวร์ปรับปรุงแก้ปัญหา,กำจัดจุดอ่อนด้านความปลอดภัยและเพิ่มความสามารถใหม่"
+msgstr "ซอฟแวร์ปรับปรุงแก้ปัญหา,กำจัดจุดอ่อนด้านความปลอดภัยและเพิ่มความสามารถใหม่"
 
 #: ../data/UpdateManager.glade.h:18
 msgid "U_pgrade"
@@ -954,10 +944,7 @@ msgstr "ปรัปรุงทางอินเทอร์เน็ต"
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
-msgstr ""
-""
-"การปรับปรุงด้านความปลอดภัยจะติดตั้งโดยอัตโนมัติจากเซิรฟ์เวอร์ทางการของอูบันตูเ"
-"ท่านั้น"
+msgstr "การปรับปรุงด้านความปลอดภัยจะติดตั้งโดยอัตโนมัติจากเซิรฟ์เวอร์ทางการของอูบันตูเท่านั้น"
 
 #: ../data/SoftwareProperties.glade.h:11
 msgid "Restore _Defaults"
@@ -1002,9 +989,7 @@ msgid ""
 msgstr ""
 "<b><big>ข้อมูลของช่องล้าสมัย</big></b>\n"
 "\n"
-""
-"คุณจะต้องดาวน์โหลดข้อมูลใหม่ของช่องเพื่อที่จะติดตั้งซอฟแวร็หรือปรับปรุงจากช่อง"
-"ที่เพิ่มใหม่หรือเปลี่ยนช่องใหม่\n"
+"คุณจะต้องดาวน์โหลดข้อมูลใหม่ของช่องเพื่อที่จะติดตั้งซอฟแวร็หรือปรับปรุงจากช่องที่เพิ่มใหม่หรือเปลี่ยนช่องใหม่\n"
 "\n"
 "คุณจะต้องมีการสื่อสารทางอินเตอร์เน็ตที่ใช้งานได้ที่เพื่อที่จะดำเนินการต่อไป"
 
@@ -1038,16 +1023,16 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to "
-"add</b></big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>กรุณาเติมให้ครบบรรทัด APT ของช่องที่คุณต้องการจะเพิ่ม</b></big>\n"
 "\n"
-"บรรทัด APT ประกอบด้วย ชนิด,สถานที่,ส่วนประกอบของช่อง เช่น <i>\"deb "
-"http://ftp.debian.org sarge main\"</i>"
+"บรรทัด APT ประกอบด้วย ชนิด,สถานที่,ส่วนประกอบของช่อง เช่น <i>\"deb http://ftp.debian."
+"org sarge main\"</i>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
 msgid "APT line:"
@@ -1075,8 +1060,7 @@ msgstr "ตรวจสอบแผ่นซีดี"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgid_plural "_Add Channels"
-msgstr[0] "_เพิ่มช่องทาง"
+msgstr "_เพิ่มช่องทาง"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1099,9 +1083,7 @@ msgid ""
 "Check automatically if a new version of the current distribution is "
 "available and offer to upgrade (if possible)."
 msgstr ""
-""
-"ตรวจหาโดยอัตโนมัติว่ารุ่นใหม่ของชุดเผยแพร่นี้มีหรือยังและสามารถใช้ปรับปรุงรุ่น"
-"ได้(ถ้าเป็นไปได้)"
+"ตรวจหาโดยอัตโนมัติว่ารุ่นใหม่ของชุดเผยแพร่นี้มีหรือยังและสามารถใช้ปรับปรุงรุ่นได้(ถ้าเป็นไปได้)"
 
 #: ../data/update-manager.schemas.in.h:2
 msgid "Check for new distribution releases"
@@ -1113,8 +1095,8 @@ msgid ""
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
 msgstr ""
-"ถ้าการตรวจสอบสำหรับปรับปรุงโดยอัตโนมัติถูกปิดไว้ "
-"คุณจะต้องโหลดช่องรายการใหม่เอง ตัวเลือกนี้จะซ่อนคำเตือนที่จะแสดงในกรณีนี้"
+"ถ้าการตรวจสอบสำหรับปรับปรุงโดยอัตโนมัติถูกปิดไว้ คุณจะต้องโหลดช่องรายการใหม่เอง "
+"ตัวเลือกนี้จะซ่อนคำเตือนที่จะแสดงในกรณีนี้"
 
 #: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
@@ -1132,8 +1114,7 @@ msgstr "บึนทึกขนาดของหน้าต่างของ
 msgid ""
 "Stores the state of the expander that contains the list of changs and the "
 "description"
-msgstr ""
-"บันทึกสถานะของตัวขยาย(expander)ที่มีรายการของการเปลี่ยนแปลงและคำบรรยาย"
+msgstr "บันทึกสถานะของตัวขยาย(expander)ที่มีรายการของการเปลี่ยนแปลงและคำบรรยาย"
 
 #: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
@@ -1147,77 +1128,94 @@ msgstr "ปรับแต่งช่องทางซอฟแวร์แล
 msgid "Software Properties"
 msgstr "คุณสมบัติของซอฟแวร์"
 
+#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Ubuntu.info.in:6
 msgid "Ubuntu 6.06 LTS"
 msgstr "อูบันตู 6.06 LTS"
 
+#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "อูบันตู 6.06 LTS Security Updates"
 
+#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "อูบันตู 6.06 LTS Updates"
 
+#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "อูบันตู 6.06 LTS Backports"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "สนับสนุนอย่างเป็นทางการ"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "จำกัดลิขสิทธิ์"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "ชุมชนดูแล (Universe)"
 
+#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "ไม่ฟรี(ลิขสิทธิ์)"
 
+#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "เดเบียน 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "เดเบียน 3.1 \"Sarge\" ปรับปรุงด้านความปลอดภัย"
 
+#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "เดเบียน \"Etch\" (กำลังทดสอบ)"
 
+#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "เดเบียน  \"Sid\" (ผันผวน)"
 
+#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "เข้ากับ DFSG ซอฟแวร์แต่ขึ้นอยู่กับไม่ฟรี"
 
+#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "ไม่เข้ากับ DFSG ซอฟแวร์"
@@ -1237,16 +1235,14 @@ msgstr "ไม่เข้ากับ DFSG ซอฟแวร์"
 #~ msgid "Ubuntu 5.10 Backports"
 #~ msgstr "อูบันตู 5.10 Backports"
 
-#, python-format
 #~ msgid ""
 #~ "The upgrade aborts now. Please free at least %s of disk space. Empty your "
-#~ "trash and remove temporary packages of former installations using 'sudo apt-"
-#~ "get clean'."
+#~ "trash and remove temporary packages of former installations using 'sudo "
+#~ "apt-get clean'."
 #~ msgstr ""
 #~ "การปรับปรุงถูกยกเลิก กรุณาทำให้มีพื้นที่ว่างในดิสก์อย่างน้อย  %s "
-#~ "เทถังขยะทิ้งและลบทิ้งแพกเกจชั่วคราวจากการติดตั้งครั้งก่อนโดยใช้คำสั่ง 'sudo "
-#~ "apt-get clean'."
+#~ "เทถังขยะทิ้งและลบทิ้งแพกเกจชั่วคราวจากการติดตั้งครั้งก่อนโดยใช้คำสั่ง 'sudo apt-get "
+#~ "clean'."
 
-#, python-format
 #~ msgid "%s remaining"
 #~ msgstr "%s เหลืออีก"
