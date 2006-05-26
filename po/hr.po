@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-20 18:29+0000\n"
+"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"PO-Revision-Date: 2006-05-24 20:54+0000\n"
 "Last-Translator: Ante Karamatić <ivoks@ubuntu.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
 msgid "Daily"
@@ -73,7 +73,8 @@ msgid "Error removing the key"
 msgstr "Greška prilikom brisanja ključa"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Ključ koji ste odabrali se ne može obrisati. Molimo prijavite ovu grešku."
 
@@ -116,7 +117,6 @@ msgstr "Ne mogu nadograditi potrebne meta-pakete"
 msgid "A essential package would have to be removed"
 msgstr "Bitan paket bi morao biti uklonjen"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr "Nisam mogao riješiti nadogradnju"
@@ -129,7 +129,6 @@ msgstr ""
 "Neriješiv problem se pojavio prilikom rješavanja nadogradnje. Molimo "
 "prijavite ovo kao grešku. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr "Greška prilikom identificiranja nekih paketa"
@@ -157,7 +156,6 @@ msgstr ""
 "Nije bilo moguće instalirati potreban paket. Molimo prijavite ovo kao "
 "grešku. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr "Nisam mogao odrediti meta-paket"
@@ -202,7 +200,6 @@ msgstr ""
 "odaberete 'Da' nadograditi će se svih '%s' do '%s' unosa.\n"
 "Ako odaberete 'ne' nadogradnja će se prekinuti."
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
 msgid "Generate default sources?"
 msgstr "Kreirati uobičajene izvore?"
@@ -215,8 +212,8 @@ msgid ""
 "Should default entries for '%s' be added? If you select 'No' the update will "
 "cancel."
 msgstr ""
-"Nakon očitavanja vaše 'sources.list' datoteke nisam našao ispravan unos za '%"
-"s'.\n"
+"Nakon očitavanja vaše 'sources.list' datoteke nisam našao ispravan unos za "
+"'%s'.\n"
 "Treba li dodati uobičajene unose za '%s' ? Ako odaberete 'Ne' nadogradnja će "
 "prekinuti."
 
@@ -273,7 +270,6 @@ msgstr ""
 "Ispraznite smeće i uklonite privremene pakete od prošlih instalacija "
 "koristeći 'sudo apt-get clean'."
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr "Želite li pokrenuti nadogradnju?"
@@ -344,13 +340,11 @@ msgstr ""
 "Neki problemi su se pojavili prilikom čišćenja. Molim pogledajte poruku za "
 "više informacija. "
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "Restoring originale system state"
 msgstr "Vraćam u početno stanje"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
@@ -411,7 +405,6 @@ msgstr "Otprilike je ostalo %li minuta"
 msgid "About %li seconds remaining"
 msgstr "Otprilike je ostalo %li sekundi"
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -433,7 +426,6 @@ msgstr "Preuzimam datoteku %li od %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 msgid "Applying changes"
 msgstr "Primjenjujem promjene"
@@ -447,7 +439,6 @@ msgstr "Nisam mogao instalirati '%s'"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Nadogradnja se prekida. Molim, prijavite ovaj bug."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
@@ -474,8 +465,8 @@ msgstr ""
 "Molim, prijavite ovo kao bug i uključite datoteke /var/log/dist-upgrade.log "
 "i /var/log/dist-upgrade-apt.log u vaše izvješće. Nadogradnja se sada "
 "prekida.\n"
-"Vaša originalna sources.list datoteka je spremljena u /etc/apt/sources.list."
-"distUpgrade."
+"Vaša originalna sources.list datoteka je spremljena u "
+"/etc/apt/sources.list.distUpgrade."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
@@ -517,7 +508,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Da spriječite gubitak podataka zatvorite sve programe i datoteke."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr "Nisam mogao naći niti jednu nadogradnju"
@@ -555,7 +545,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -576,8 +565,8 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
 msgstr ""
-"<b><big>Ponovno pokretanje računala potrebno je za završetak nadogradnje</"
-"big></b>"
+"<b><big>Ponovno pokretanje računala potrebno je za završetak "
+"nadogradnje</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
@@ -661,7 +650,6 @@ msgstr "Nisam mogao dobaviti bilješke izdanja"
 msgid "Please check your internet connection."
 msgstr "Molim, provjerite vašu internet vezu."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "Nisam mogao pokrenuti alat za nadogradnju"
@@ -695,7 +683,8 @@ msgstr "Preuzimanje nije uspjelo"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:208
 msgid "Fetching the upgrade failed. There may be a network problem. "
-msgstr "Preuzimanje nadogradnje nije uspjelo. Vjerovatno je problem u mreži. "
+msgstr ""
+"Preuzimanje nadogradnje nije uspjelo. Vjerovatno je problem u mreži. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:213
 msgid "Failed to extract"
@@ -756,7 +745,6 @@ msgstr ""
 "Preuzimanje popisa promjena nije uspjelo. Molim, provjerite svoju internet "
 "vezu."
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "Ne mogu instalirati sve dostupne nadogradnje"
@@ -776,26 +764,26 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr "Slijedeći paketi će biti preskočeni:"
 
-#: ../UpdateManager/UpdateManager.py:357
+#: ../UpdateManager/UpdateManager.py:361
 #, python-format
 msgid "Version %s: \n"
 msgstr "Verzija %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:417
+#: ../UpdateManager/UpdateManager.py:421
 msgid "Downloading the list of changes..."
 msgstr "Preuzimam popis promjena..."
 
-#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Download size: %s"
 msgstr "Veličina preuzimanja: %s"
 
-#: ../UpdateManager/UpdateManager.py:459
+#: ../UpdateManager/UpdateManager.py:463
 msgid "Your system is up-to-date"
 msgstr "Vaš sustav sadrži posljednje nadogradnje"
 
-#: ../UpdateManager/UpdateManager.py:470
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
@@ -803,32 +791,32 @@ msgstr[0] "Možete instalirati %s nadogradnju"
 msgstr[1] "Možete instalirati %s nadogradnje"
 msgstr[2] "Možete instalirati %s nadogradnji"
 
-#: ../UpdateManager/UpdateManager.py:485
+#: ../UpdateManager/UpdateManager.py:489
 msgid "Hide details"
 msgstr "Sakrij detalje"
 
-#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Prikaži detalje"
 
-#: ../UpdateManager/UpdateManager.py:502
+#: ../UpdateManager/UpdateManager.py:506
 msgid "Please wait, this can take some time."
 msgstr "Molim pričekajte, ovo može potrajati."
 
-#: ../UpdateManager/UpdateManager.py:504
+#: ../UpdateManager/UpdateManager.py:508
 msgid "Update is complete"
 msgstr "Nadogradnja je gotova"
 
-#: ../UpdateManager/UpdateManager.py:607
+#: ../UpdateManager/UpdateManager.py:611
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Nova verzija: %s (Veličina: %s)"
 
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:625
 msgid "Your distribution is not supported anymore"
 msgstr "Vaša distibucija više nije podržana"
 
-#: ../UpdateManager/UpdateManager.py:622
+#: ../UpdateManager/UpdateManager.py:626
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -838,20 +826,25 @@ msgstr ""
 "na noviju verziju Ubuntu Linuxa. Pogledajte na http://www.ubuntu.com za više "
 "detalja o nadogradnji."
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:662
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:677
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "Dozvoljno je pokretanje samo jednog paketnog alata u istom trenutku"
 
-#: ../UpdateManager/UpdateManager.py:675
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:679
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr "Molim, prvo zatvorite drugi program npr. 'aptitude' ili 'Synaptic'."
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:692
+#: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr "Popis programa je oštećen"
 
-#: ../UpdateManager/UpdateManager.py:693
+#: ../UpdateManager/UpdateManager.py:697
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1071,14 +1064,14 @@ msgstr "<b>URI:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Unesite kompletnu APT liniju repozitorija koji želite dodati</b></"
-"big>\n"
+"<big><b>Unesite kompletnu APT liniju repozitorija koji želite "
+"dodati</b></big>\n"
 "\n"
 "APT linija uključuje vstu, lokaciju i komponente kanala, na primjer <i>\"deb "
 "http://ftp.debian.org sarge main\"</i>."
@@ -1108,9 +1101,11 @@ msgid "Scanning CD-ROM"
 msgstr "Pretražujem CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
-msgstr "_Dodaj repozitorij"
+msgid_plural "_Add Channels"
+msgstr[0] "_Dodaj repozitorij"
+msgstr[1] "_Dodaj repoztorije"
+msgstr[2] "_Dodaj repozotrije"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1180,95 +1175,77 @@ msgstr "Podesi repozitorije i internet nadogradnje"
 msgid "Software Properties"
 msgstr "Postavke nadogradnje"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
-#, fuzzy
 msgid "Ubuntu 6.06 LTS"
-msgstr "Ubuntu 6.06 osvježenja"
+msgstr "Ubuntu 6.06 LTS"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "Ubuntu 6.06 LTS sigurnosne nadogradnje"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "Ubuntu 6.06 LTS osvježenja"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "Ubuntu 6.06 LTS backporti"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Službeno podržani"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Ograničeno autorsko pravo"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Održavani od strane zajednice (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Neslobodni (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" sigurnosne nadogradnje"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testni)"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (nestabilni)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatibilni programi sa neslobodnim ovisnostima"
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-nekompatibilni programi"

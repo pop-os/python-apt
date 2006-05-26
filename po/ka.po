@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-21 15:36+0000\n"
+"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"PO-Revision-Date: 2006-05-23 19:19+0000\n"
 "Last-Translator: Vladimer Sichinava <alinux@siena.linux.it>\n"
 "Language-Team: Georgian <geognome@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,8 @@ msgid "Error removing the key"
 msgstr "გასღების წაშლა ვერ მოხერხდა"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "ამორჩეული გასაღების წაშლა ვე რმოხერხდა. გთხოვთ აცნობოთ ეს როგორც ხარვეზი."
 
@@ -121,7 +122,6 @@ msgstr "საჭჳრო მეტა-პაკეტების განა
 msgid "A essential package would have to be removed"
 msgstr "A არსებითი -სკენ"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 #, fuzzy
 msgid "Could not calculate the upgrade"
@@ -135,7 +135,6 @@ msgstr ""
 "მოხდა დაუდგენელი შეცდომა განახლების დათვლისას. შეატყობინეთ ეს როგორხ "
 "ხარვეზი. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr "ზოგიერთი პაკეტის ავთენთიფიკაციის შეცდომა"
@@ -159,9 +158,9 @@ msgstr "'%s' ვერ დაყენდა"
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr "საჭირო პაკეტის დაყენება ვერ მოხერხდა. შეატყობინეთ ეს როგორხ ხარვეზი. "
+msgstr ""
+"საჭირო პაკეტის დაყენება ვერ მოხერხდა. შეატყობინეთ ეს როგორხ ხარვეზი. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr "მეტა-პაკეტი ვერ გამოვიცანით"
@@ -198,7 +197,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
 #, fuzzy
 msgid "Generate default sources?"
@@ -262,7 +260,6 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr "გნებავთ განახლების დაწყება?"
@@ -330,13 +327,11 @@ msgid ""
 "more information. "
 msgstr "-თვის ინფორმაცია "
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "Restoring originale system state"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
@@ -397,7 +392,6 @@ msgstr ""
 msgid "About %li seconds remaining"
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -420,7 +414,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 msgid "Applying changes"
 msgstr "ცვლილებების დამტკიცება"
@@ -435,7 +428,6 @@ msgstr "ვერ ჩავდგი '%s'"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "ახლა."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
@@ -495,7 +487,6 @@ msgstr "საათი და ნებისმიერი დრო."
 msgid "To prevent data loss close all open applications and documents."
 msgstr "ვის დახურვა ყველა გახსნა და დოკუმენტები."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr "ვერ ვპოულობ განახლებებს"
@@ -532,7 +523,6 @@ msgstr "ტოლია დასრულდა და a ტოლია -ს�
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -638,7 +628,6 @@ msgstr "შეუძლებელია ვერსიის შენიშ�
 msgid "Please check your internet connection."
 msgstr "გთხოვთ შეამოწმოთ თქვენი ინტერნეტ კავშირი."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "ვერ ვრთავ განახლების ჩადგმის ხელსაწყოს"
@@ -734,7 +723,6 @@ msgid ""
 "connection."
 msgstr "ვერ განხორციელდა -სკენ სია ის ინტერნეტი."
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "შეუძლებელია ყველა არსებული განახლების ჩაყენება"
@@ -753,58 +741,58 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:357
+#: ../UpdateManager/UpdateManager.py:361
 #, python-format
 msgid "Version %s: \n"
 msgstr "ვერსია %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:417
+#: ../UpdateManager/UpdateManager.py:421
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "მიმდინარეობს ჩამოქაჩვა სია ის."
 
-#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Download size: %s"
 msgstr "ჩამოსატვირთის ზომა: %s"
 
-#: ../UpdateManager/UpdateManager.py:459
+#: ../UpdateManager/UpdateManager.py:463
 msgid "Your system is up-to-date"
 msgstr "თქვენი სისტემა განახლებულია"
 
-#: ../UpdateManager/UpdateManager.py:470
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "თქვენ შეგიძლიათ %s განახლების ჩადგმა"
 
-#: ../UpdateManager/UpdateManager.py:485
+#: ../UpdateManager/UpdateManager.py:489
 msgid "Hide details"
 msgstr "დეტალების დამალვა"
 
-#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "დეტალების ჩვენება"
 
-#: ../UpdateManager/UpdateManager.py:502
+#: ../UpdateManager/UpdateManager.py:506
 msgid "Please wait, this can take some time."
 msgstr "გთხოვთ მოითმინოთ, მიმდინარე პროცესს საკმაო დრო ესაჭიორება."
 
-#: ../UpdateManager/UpdateManager.py:504
+#: ../UpdateManager/UpdateManager.py:508
 msgid "Update is complete"
 msgstr "განახლება გასრულებულია"
 
-#: ../UpdateManager/UpdateManager.py:607
+#: ../UpdateManager/UpdateManager.py:611
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "ახალი ვერსია: %s   (ზომა: %s)"
 
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:625
 msgid "Your distribution is not supported anymore"
 msgstr "თქვენი დისტრიბუტივს აღარ გააჩნია მხარდაჭერა"
 
-#: ../UpdateManager/UpdateManager.py:622
+#: ../UpdateManager/UpdateManager.py:626
 #, fuzzy
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
@@ -814,22 +802,27 @@ msgstr ""
 "თქვენ არა ნებისმიერი ან კრიტიკული განახლება -სკენ a ვერსია ის ლინუქსი "
 "იხილეთhttp://www.ubuntu.com -თვის ინფორმაცია ჩართულია."
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:662
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:677
 #, fuzzy
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr "მხოლოდ ტოლია -სკენ დრო"
 
-#: ../UpdateManager/UpdateManager.py:675
+#: ../UpdateManager/UpdateManager.py:679
 #, fuzzy
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr "დახურვა სხვა პროგრამა e ან Synaptic."
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:692
+#: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr "პროგრამების სიის ინდექსი დაზიანებულია"
 
-#: ../UpdateManager/UpdateManager.py:693
+#: ../UpdateManager/UpdateManager.py:697
 #, fuzzy
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
@@ -1056,8 +1049,8 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1093,7 +1086,8 @@ msgstr "CD-ROM-ის სკანირება"
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 #, fuzzy
 msgid "_Add Channel"
-msgstr "დამატება არხი"
+msgid_plural "_Add Channels"
+msgstr[0] "დამატება არხი"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1168,98 +1162,80 @@ msgstr "კონფიგურირება და"
 msgid "Software Properties"
 msgstr "პროგრამა პარამეტრები"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
-#, fuzzy, no-c-format
+#, fuzzy
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/ s s s s s"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 LTS"
 msgstr "Ubuntu 6.06 განახლებები"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "Ubuntu 6.06 LTS უსაფრთხოების განახლება"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "Ubuntu 6.06 LTS განახლებები"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "Ubuntu 6.06 LTS დამატებითი პროგრამები"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 #, fuzzy
 msgid "Restricted copyright"
 msgstr "შეზღუდული"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "არათავისუფალი (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
-#, fuzzy, no-c-format
+#, fuzzy
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/ s s s s s"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "უსაფრთხოება"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 #, fuzzy
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "პროგრამა თავისუფალი დამოკიდებულებანი"
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 #, fuzzy
 msgid "Non-DFSG-compatible Software"

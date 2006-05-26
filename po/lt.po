@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-19 02:45+0000\n"
+"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"PO-Revision-Date: 2006-05-23 19:43+0000\n"
 "Last-Translator: Jonas Slivka <jonas.slivka@gmail.com>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:103
 msgid "Daily"
@@ -72,7 +72,8 @@ msgid "Error removing the key"
 msgstr "Šalinant raktą įvyko klaida"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Jūsų pasirinkto rakto pašalinti nepavyko. Praneškite apie tai kaip klaidą."
 
@@ -116,7 +117,6 @@ msgstr "Negalima atnaujinti reikiamų metapaketų"
 msgid "A essential package would have to be removed"
 msgstr "Turėtų būti pašalintas esminis paketas"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr "Nepavyko paskaičiuoti atnaujinimo"
@@ -129,7 +129,6 @@ msgstr ""
 "Iškilo neišsprendžiama problema apskaičiuojant atnaujinimą. Praneškite apie "
 "tai kaip klaidą. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr "Klaida autentikuojant keletą paketų"
@@ -155,7 +154,6 @@ msgid ""
 msgstr ""
 "Buvo neįmanoma įdiegti reikalingo paketo. Praneškite apie tai, kaip klaidą. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 #, fuzzy
 msgid "Can't guess meta-package"
@@ -196,7 +194,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
 msgid "Generate default sources?"
 msgstr "Ar sukurti numatytųjų šaltinių sąrašą?"
@@ -260,7 +257,6 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr "At norite pradėti atnaujinimą?"
@@ -332,14 +328,12 @@ msgstr ""
 "Išvalymo metu iškilo problema. Daugiau informacijos rasite žemiau esančiame "
 "pranešime. "
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
 #, fuzzy
 msgid "Restoring originale system state"
 msgstr "Perkraunama sistema"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
@@ -400,7 +394,6 @@ msgstr ""
 msgid "About %li seconds remaining"
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -416,13 +409,12 @@ msgid "Downloading file %li of %li at %s/s"
 msgstr "Atsiunčiama rinkmena %li iš %li, %s/s greičiu"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:125
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li"
 msgstr "Atsiunčiama rinkmena %li iš %li, %s/s greičiu"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 msgid "Applying changes"
 msgstr "Pritaikomi pakeitimai"
@@ -436,7 +428,6 @@ msgstr "Nepavyko įdiegti „%s“"
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "Atnaujinimas nutrūko. Praneškite apie tai kaip apie klaidą."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
@@ -463,8 +454,8 @@ msgstr ""
 "Praneškite apie tai kaip klaidą ir prie pranešimo pridėkite „/var/log/dist-"
 "upgrade.log“ bei „/var/log/dist-upgrade-apt.log“ bylas. Atnaujinimas dabar "
 "bus nutrauktas.\n"
-"Jūsų originalioji „sources.list“ byla buvo išsaugota „/etc/apt/sources.list."
-"distUpgrade“ aplanke."
+"Jūsų originalioji „sources.list“ byla buvo išsaugota "
+"„/etc/apt/sources.list.distUpgrade“ aplanke."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:437
 #, python-format
@@ -507,7 +498,6 @@ msgstr ""
 "Norint išvengti duomenų praradimo turite užverti visas atvertas programas ir "
 "dokumentus."
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr "Nepavyko rasti jokių atnaujinimų"
@@ -545,7 +535,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -566,7 +555,8 @@ msgstr ""
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 #, fuzzy
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
-msgstr "<b><big>Iš naujo įkrauti sistemą norint užbaigti atnaujinimą</big></b>"
+msgstr ""
+"<b><big>Iš naujo įkrauti sistemą norint užbaigti atnaujinimą</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
@@ -651,7 +641,6 @@ msgstr "Nepavyko atsiųsti laidos informacijos"
 msgid "Please check your internet connection."
 msgstr "Patikrinkite savo Interneto ryšį."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr "Nepavyko paleisti atnaujinimo priemonės"
@@ -724,7 +713,7 @@ msgstr ""
 "serverio problema. "
 
 #: ../UpdateManager/GtkProgress.py:107
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li with %s/s"
 msgstr "Atsiunčiama rinkmena %li iš %li, %s/s greičiu"
 
@@ -744,7 +733,6 @@ msgid ""
 "connection."
 msgstr "Nepavyko atsiųsti pakeitimų sąrašo. Patikrinkite Interneto ryšį."
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 msgid "Cannot install all available updates"
 msgstr "Negalima įdiegti visų galimų atnaujinimų"
@@ -764,59 +752,59 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr "Šie atnaujinimai nebus įdiegti:"
 
-#: ../UpdateManager/UpdateManager.py:357
+#: ../UpdateManager/UpdateManager.py:361
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versija %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:417
+#: ../UpdateManager/UpdateManager.py:421
 msgid "Downloading the list of changes..."
 msgstr "Atsiunčiamas pakeitimų sąrašas..."
 
-#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Download size: %s"
 msgstr "Atsiuntimo dydis: %s"
 
-#: ../UpdateManager/UpdateManager.py:459
+#: ../UpdateManager/UpdateManager.py:463
 msgid "Your system is up-to-date"
 msgstr "Jūsų sistema atnaujinta"
 
-#: ../UpdateManager/UpdateManager.py:470
-#, fuzzy, python-format
+#: ../UpdateManager/UpdateManager.py:474
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Rodyti ir įdiegti galimus atnaujinimus"
 msgstr[1] "Rodyti ir įdiegti galimus atnaujinimus"
 msgstr[2] "Rodyti ir įdiegti galimus atnaujinimus"
 
-#: ../UpdateManager/UpdateManager.py:485
+#: ../UpdateManager/UpdateManager.py:489
 msgid "Hide details"
 msgstr "Slėpti detales"
 
-#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr "Rodyti detales"
 
-#: ../UpdateManager/UpdateManager.py:502
+#: ../UpdateManager/UpdateManager.py:506
 msgid "Please wait, this can take some time."
 msgstr "Palaukite, tai gali užtrukti."
 
-#: ../UpdateManager/UpdateManager.py:504
+#: ../UpdateManager/UpdateManager.py:508
 msgid "Update is complete"
 msgstr "Atnaujinimas užbaigtas"
 
-#: ../UpdateManager/UpdateManager.py:607
+#: ../UpdateManager/UpdateManager.py:611
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Nauja versija: %s (Dydis: %s)"
 
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:625
 msgid "Your distribution is not supported anymore"
 msgstr "Jūsų distribucija daugiau nebepalaikoma"
 
-#: ../UpdateManager/UpdateManager.py:622
+#: ../UpdateManager/UpdateManager.py:626
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -826,20 +814,26 @@ msgstr ""
 "Atnaujinkite į naujausią „Ubuntu Linux“ versiją. Daugiau informacijos apie "
 "atnaujinimą rasite http://www.ubuntu.com ."
 
-#: ../UpdateManager/UpdateManager.py:673
-msgid "Only one software management tool is allowed to run at the same time"
-msgstr "Tik viena programinės įrangos tvarkymo priemonė gali veikti vienu metu"
+#: ../UpdateManager/UpdateManager.py:662
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:675
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:677
+msgid "Only one software management tool is allowed to run at the same time"
+msgstr ""
+"Tik viena programinės įrangos tvarkymo priemonė gali veikti vienu metu"
+
+#: ../UpdateManager/UpdateManager.py:679
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr "Pirmiausia užverkite kitą programą, pvz., „aptitude“ ar „Synaptic“."
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:692
+#: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr "Programinės įrangos turinys sugadintas"
 
-#: ../UpdateManager/UpdateManager.py:693
+#: ../UpdateManager/UpdateManager.py:697
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1066,8 +1060,8 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1102,9 +1096,11 @@ msgid "Scanning CD-ROM"
 msgstr "Skanuojamas CD-ROM"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
-#, fuzzy
 msgid "_Add Channel"
-msgstr "_Pridėti kanalą"
+msgid_plural "_Add Channels"
+msgstr[0] "_Pridėti kanalą"
+msgstr[1] "_Pridėti kanalus"
+msgstr[2] "_Pridėti kanalų"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1176,95 +1172,79 @@ msgstr ""
 msgid "Software Properties"
 msgstr "Programinės įrangos nustatymai"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 LTS"
 msgstr "Ubuntu 6.06 atnaujinimai"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "Ubuntu 6.06 LTS saugumo atnaujinimai"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "Ubuntu 6.06 LTS atnaujinimai"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "Ubuntu 6.06 LTS atnaujinimai"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Oficialiai palaikoma"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Apribotos autorinės teisės"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Prižiūrima bendruomenės (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Ne Laisva (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 „Sarge“"
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 „Sarge“ saugumo atnaujinimai"
 
-#. Description
 #: ../channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian „Etch“ (testing)"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.lt.debian.org/debian/"
 
-#. Description
 #: ../channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian „Sid“ (unstable)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr "Su DFSG suderinama programinė įranga su Ne Laisvomis priklausomybėmis"
+msgstr ""
+"Su DFSG suderinama programinė įranga su Ne Laisvomis priklausomybėmis"
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Su DFSG nesuderinama programinė įranga"
@@ -1286,8 +1266,8 @@ msgstr "Su DFSG nesuderinama programinė įranga"
 
 #, fuzzy
 #~ msgid ""
-#~ "While scaning your repository information no valid entry for the upgrade "
-#~ "was found.\n"
+#~ "While scaning your repository information no valid entry for the upgrade was "
+#~ "found.\n"
 #~ msgstr ""
 #~ "Skanuojant Jūsų saugyklos informaciją nebuvo rasta tinkamo atnaujinimo "
 #~ "įrašo.\n"
@@ -1305,19 +1285,17 @@ msgstr "Su DFSG nesuderinama programinė įranga"
 #~ msgstr "<b>Skyriai:</b>"
 
 #~ msgid ""
-#~ "<b><big>You need to manually reload the latest information about updates</"
-#~ "big></b>\n"
+#~ "<b><big>You need to manually reload the latest information about "
+#~ "updates</big></b>\n"
 #~ "\n"
-#~ "Your system does not check for updates automatically. You can configure "
-#~ "this behavior in \"System\" -> \"Administration\" -> \"Software Properties"
-#~ "\"."
+#~ "Your system does not check for updates automatically. You can configure this "
+#~ "behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
 #~ msgstr ""
-#~ "<b><big>Jūs turite patys įkelti naujausią informaciją apie atnaujinimus</"
-#~ "big></b>\n"
+#~ "<b><big>Jūs turite patys įkelti naujausią informaciją apie "
+#~ "atnaujinimus</big></b>\n"
 #~ "\n"
 #~ "Jūsų sistema automatiškai neieško atnaujinimų. Šią elgseną galite "
-#~ "konfigūruoti „Sistema“ -> „Administravimas“ -> „Programinės įrangos "
-#~ "savybės“."
+#~ "konfigūruoti „Sistema“ -> „Administravimas“ -> „Programinės įrangos savybės“."
 
 #~ msgid "Reload the latest information about updates"
 #~ msgstr "Įkelti naujausią informaciją apie atnaujinimus"

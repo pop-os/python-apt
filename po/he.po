@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-02 20:14+0000\n"
+"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"PO-Revision-Date: 2006-05-24 11:42+0000\n"
 "Last-Translator: Yaniv Abir <yanivabir@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,20 +23,19 @@ msgstr ""
 #: ../SoftwareProperties/SoftwareProperties.py:103
 #, fuzzy
 msgid "Daily"
-msgstr "<b>פרטים</b>"
+msgstr "מידי יום"
 
 #: ../SoftwareProperties/SoftwareProperties.py:104
-#, fuzzy
 msgid "Every two days"
-msgstr "כל %s ימים"
+msgstr "כל יומיים"
 
 #: ../SoftwareProperties/SoftwareProperties.py:105
 msgid "Weekly"
-msgstr ""
+msgstr "כל שבוע"
 
 #: ../SoftwareProperties/SoftwareProperties.py:106
 msgid "Every two weeks"
-msgstr ""
+msgstr "כל שבועים"
 
 #: ../SoftwareProperties/SoftwareProperties.py:111
 #, python-format
@@ -45,15 +44,15 @@ msgstr "כל %s ימים"
 
 #: ../SoftwareProperties/SoftwareProperties.py:134
 msgid "After one week"
-msgstr ""
+msgstr "אחרי שבוע"
 
 #: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "After two weeks"
-msgstr ""
+msgstr "אחרי שבועים"
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "After one month"
-msgstr ""
+msgstr "אחרי חודש"
 
 #: ../SoftwareProperties/SoftwareProperties.py:141
 #, python-format
@@ -77,7 +76,8 @@ msgid "Error removing the key"
 msgstr "שגיאה בהסרת המפתח"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג."
 
 #: ../SoftwareProperties/SoftwareProperties.py:497
@@ -101,13 +101,15 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:90
 msgid "Broken packages"
-msgstr ""
+msgstr "חבילות פגומות"
 
 #: ../DistUpgrade/DistUpgradeCache.py:91
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
+"במערכת שלך נמצאות חבילות פגומות שתוכנה זו לא יכולה לתקן. אנא תקן אותן "
+"באמצעות synaptic או apt-get לפני שתמשיך."
 
 #: ../DistUpgrade/DistUpgradeCache.py:133
 msgid "Can't upgrade required meta-packages"
@@ -115,21 +117,18 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:140
 msgid "A essential package would have to be removed"
-msgstr ""
+msgstr "חבילה חיונית תוסר בלית ברירה"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeCache.py:144
-#, fuzzy
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
-msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג. "
+msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr ""
@@ -147,13 +146,11 @@ msgid "Can't install '%s'"
 msgstr "לא ניתן להתקין את \"%s\""
 
 #: ../DistUpgrade/DistUpgradeCache.py:232
-#, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג. "
+msgstr "לא ניתן להתקין חבילה הכרחית. אנא דווחו על זה כבאג. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr ""
@@ -187,7 +184,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
 msgid "Generate default sources?"
 msgstr ""
@@ -246,7 +242,6 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr ""
@@ -306,13 +301,11 @@ msgid ""
 "more information. "
 msgstr ""
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "Restoring originale system state"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 msgid "Checking package manager"
@@ -370,7 +363,6 @@ msgstr ""
 msgid "About %li seconds remaining"
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -386,13 +378,12 @@ msgid "Downloading file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:125
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li"
 msgstr "מוריד קובץ %li מתוך %li במהירות לא ידועה"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 #, fuzzy
 msgid "Applying changes"
@@ -408,7 +399,6 @@ msgstr ""
 msgid "The upgrade aborts now. Please report this bug."
 msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
@@ -466,7 +456,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr ""
@@ -502,7 +491,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -603,7 +591,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -676,7 +663,7 @@ msgid "Downloading file %li of %li with %s/s"
 msgstr ""
 
 #: ../UpdateManager/GtkProgress.py:111
-#, fuzzy, python-format
+#, fuzzy
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "מוריד קובץ %li מתוך %li במהירות לא ידועה"
 
@@ -691,7 +678,6 @@ msgid ""
 "connection."
 msgstr "נכשל בהורדת השינויים. אנא בדוק אם החיבור לאינטרנט עובד."
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 #, fuzzy
 msgid "Cannot install all available updates"
@@ -708,83 +694,88 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:357
+#: ../UpdateManager/UpdateManager.py:361
 #, python-format
 msgid "Version %s: \n"
 msgstr "גרסה %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:417
+#: ../UpdateManager/UpdateManager.py:421
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "מוריד שינוייים"
 
-#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:459
+#: ../UpdateManager/UpdateManager.py:463
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "המערכת שלך מעודכנת!"
 
-#: ../UpdateManager/UpdateManager.py:470
-#, fuzzy, python-format
+#: ../UpdateManager/UpdateManager.py:474
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "מתקין עדכונים..."
 msgstr[1] "מתקין עדכונים..."
 
-#: ../UpdateManager/UpdateManager.py:485
+#: ../UpdateManager/UpdateManager.py:489
 #, fuzzy
 msgid "Hide details"
 msgstr "<b>פרטים</b>"
 
-#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:502
+#: ../UpdateManager/UpdateManager.py:506
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:504
+#: ../UpdateManager/UpdateManager.py:508
 #, fuzzy
 msgid "Update is complete"
 msgstr "ההורדה הושלמה"
 
-#: ../UpdateManager/UpdateManager.py:607
+#: ../UpdateManager/UpdateManager.py:611
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:625
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "ההפצה שלך כבר לא נתמכת, סליחה."
 
-#: ../UpdateManager/UpdateManager.py:622
+#: ../UpdateManager/UpdateManager.py:626
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:662
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:677
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:675
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:679
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:692
+#: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:693
+#: ../UpdateManager/UpdateManager.py:697
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -995,16 +986,16 @@ msgstr "<b>כתובת:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>הכנס את שורת APT השלמה של המאגר שברצונך להוסיף</b></big>\n"
 "\n"
-"שורת APT מכילה סוג, מיקום ותוכן של המאגר. לדוגמה: <i>\"deb http://ftp.debian."
-"org sarge main\"</i>\n"
+"שורת APT מכילה סוג, מיקום ותוכן של המאגר. לדוגמה: <i>\"deb "
+"http://ftp.debian.org sarge main\"</i>\n"
 "אפשר למצוא הסבר מפורט על זה בתיעוד."
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:18
@@ -1033,7 +1024,9 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1099,102 +1092,84 @@ msgstr ""
 msgid "Software Properties"
 msgstr "מאפייני תוכנה"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 LTS"
 msgstr "עדכונים - אובונטו 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "עדכוני אבטחה - אובונטו 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "עדכונים - אובונטו 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "עדכונים - אובונטו 5.10"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "נתמך רשמית"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "זכויות יוצרים מגבילות"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "מתוחזק ע\"י קהילה (Universe("
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "לא-חופשי (Multiverse("
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "דביאן 3.1 \"סארג'\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "עדכוני אבטחה - דביאן יציב"
 
-#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "דביאן בדיקה"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "דביאן לא ארה\"ב (לא יציב)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1286,8 +1261,8 @@ msgstr ""
 #~ "תקינות התוכנה שאתה מוריד."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "הוסף קובץ מפתח חדש לרשימת המפתחות שאתה בוטח בהם. אנא וודא שאתה שקיבלת את "
 #~ "המפתח בדרך מאובטחת ושאתה בוטח בבעלים. "
@@ -1317,8 +1292,8 @@ msgstr ""
 #~ msgstr "גודל מקסימלי במגה-בתים:"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
 #~ "שחזר את מפתחות ברירת המחדל שבאו עם ההפצה. זה לא ישנה את המפתחות המותקנים."
 
@@ -1349,8 +1324,8 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>עדכונים זמינים</b></big>\n"
 #~ "\n"
@@ -1440,8 +1415,7 @@ msgstr ""
 #~ msgstr[1] "בחרת את כל %s החבילות המעודכנות, בגודל כולל של %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "בחרת %s מתוך חבילה מעודכנת אחת, בגודל של %s"
 #~ msgstr[1] "בחרת %s מתוך %s חבילות מעודכנות, בגודל כולל של %s"
 
@@ -1449,8 +1423,8 @@ msgstr ""
 #~ msgstr "העדכונים מתבצעים כרגע."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
 #~ "אפשר להריץ רק מנהל חבילות אחד באותו זמן. אנא סגור מנהלי חבילות אחרים קודם."
 
@@ -1465,19 +1439,19 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "אנא עדכן לגרסת אובונטו לינוקס חדשה. הגרסה שאתה משתמש בה כבר לא מקבלת "
-#~ "עדכוני אבטחה או עדכונים קריטיים אחרים. אנא ראה http://www.ubuntulinux.org "
-#~ "בשביל מידע אודות שדרוג."
+#~ "אנא עדכן לגרסת אובונטו לינוקס חדשה. הגרסה שאתה משתמש בה כבר לא מקבלת עדכוני "
+#~ "אבטחה או עדכונים קריטיים אחרים. אנא ראה http://www.ubuntulinux.org בשביל "
+#~ "מידע אודות שדרוג."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "גרסה חדשה של אובונטו זמינה!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
 #~ "הפצה חדשה עם שם קוד '%s' זמינה. אנא ראה http://www.ubuntulinux.org/ בשביל "
 #~ "הוראות שדרוג."

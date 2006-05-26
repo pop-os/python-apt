@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-23 16:59+0200\n"
-"PO-Revision-Date: 2006-05-02 20:14+0000\n"
+"POT-Creation-Date: 2006-05-24 17:48+0000\n"
+"PO-Revision-Date: 2006-05-23 19:42+0000\n"
 "Last-Translator: Ignacio Casal Quinteiro <nacho.resa@gmail.com>\n"
 "Language-Team: Galego\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,8 @@ msgid "Error removing the key"
 msgstr "Erro ao quitar a clave"
 
 #: ../SoftwareProperties/SoftwareProperties.py:456
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro."
@@ -114,7 +115,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:143
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -128,7 +128,6 @@ msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro. "
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:167
 msgid "Error authenticating some packages"
 msgstr ""
@@ -154,7 +153,6 @@ msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:239
 msgid "Can't guess meta-package"
 msgstr ""
@@ -188,7 +186,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:151
 msgid "Generate default sources?"
 msgstr ""
@@ -246,7 +243,6 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:308
 msgid "Do you want to start the upgrade?"
 msgstr ""
@@ -306,13 +302,11 @@ msgid ""
 "more information. "
 msgstr ""
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "Restoring originale system state"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:431
 #: ../DistUpgrade/DistUpgradeControler.py:455
 #, fuzzy
@@ -372,7 +366,6 @@ msgstr ""
 msgid "About %li seconds remaining"
 msgstr ""
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:93
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -394,7 +387,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:155
 #, fuzzy
 msgid "Applying changes"
@@ -412,7 +404,6 @@ msgstr ""
 "Non se pode quitar a clave que seleccionou. Por favor, reporte isto coma un "
 "erro."
 
-#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:186
 #, python-format
 msgid ""
@@ -470,7 +461,6 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:469
 msgid "Could not find any upgrades"
 msgstr ""
@@ -506,7 +496,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/SoftwarePropertiesDialogs.glade.h:1
 msgid "    "
@@ -607,7 +596,6 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:151
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -699,7 +687,6 @@ msgstr ""
 "Fallou ao descargar o informe de cambios. Comprobe se ten algunha conexión "
 "activa."
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:211
 #, fuzzy
 msgid "Cannot install all available updates"
@@ -716,82 +703,87 @@ msgstr ""
 msgid "The following updates will be skipped:"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:357
+#: ../UpdateManager/UpdateManager.py:361
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versión %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:417
+#: ../UpdateManager/UpdateManager.py:421
 #, fuzzy
 msgid "Downloading the list of changes..."
 msgstr "Descargando cambios"
 
-#: ../UpdateManager/UpdateManager.py:440 ../UpdateManager/UpdateManager.py:450
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Download size: %s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:459
+#: ../UpdateManager/UpdateManager.py:463
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "O seu sistema está actualizado!"
 
-#: ../UpdateManager/UpdateManager.py:470
-#, fuzzy, python-format
+#: ../UpdateManager/UpdateManager.py:474
+#, fuzzy
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Instalando actualizacións..."
 msgstr[1] "Instalando actualizacións..."
 
-#: ../UpdateManager/UpdateManager.py:485
+#: ../UpdateManager/UpdateManager.py:489
 #, fuzzy
 msgid "Hide details"
 msgstr "<b>Detalles</b>"
 
-#: ../UpdateManager/UpdateManager.py:487 ../data/UpdateManager.glade.h:14
+#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
 msgid "Show details"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:502
+#: ../UpdateManager/UpdateManager.py:506
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:504
+#: ../UpdateManager/UpdateManager.py:508
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:607
+#: ../UpdateManager/UpdateManager.py:611
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:625
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "A súa distribución xa non está soportada"
 
-#: ../UpdateManager/UpdateManager.py:622
+#: ../UpdateManager/UpdateManager.py:626
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:662
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:677
 msgid "Only one software management tool is allowed to run at the same time"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:675
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#: ../UpdateManager/UpdateManager.py:679
+msgid ""
+"Please close the other application e.g. 'aptitude' or 'Synaptic' first."
 msgstr ""
 
-#. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:692
+#: ../UpdateManager/UpdateManager.py:696
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:693
+#: ../UpdateManager/UpdateManager.py:697
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1002,14 +994,14 @@ msgstr "<b>URI:</b>"
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 #, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the channel that you want to "
+"add</b></big>\n"
 "\n"
 "The APT line includes the type, location and components of a channel, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Introduza a liña completa do repositorio APT que quere engadir</b></"
-"big>\n"
+"<big><b>Introduza a liña completa do repositorio APT que quere "
+"engadir</b></big>\n"
 "\n"
 "A liña de APT contén o tipo, ubicación e contido dun repositorio, por "
 "exemplo <i>\"deb http://ftp.debian.org sarge main\"</i>. Pode atopar unha "
@@ -1041,7 +1033,9 @@ msgstr ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:24
 msgid "_Add Channel"
-msgstr ""
+msgid_plural "_Add Channels"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:25
 msgid "_Custom"
@@ -1107,102 +1101,84 @@ msgstr ""
 msgid "Software Properties"
 msgstr "Propiedades de software"
 
-#. ChangelogURI
 #: ../channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Ubuntu.info.in:6
 #, fuzzy
 msgid "Ubuntu 6.06 LTS"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:23
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Security Updates"
 msgstr "Actualizacións de seguranza de Ubuntu 5.04"
 
-#. Description
 #: ../channels/Ubuntu.info.in:40
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Updates"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. Description
 #: ../channels/Ubuntu.info.in:57
 #, fuzzy
 msgid "Ubuntu 6.06 LTS Backports"
 msgstr "Actualizacións de Ubuntu 5.10"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "Soporte oficial"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:63
 msgid "Restricted copyright"
 msgstr "Dereito de copia restrinxido"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:66
 msgid "Community maintained (Universe)"
 msgstr "Mantido pola comunidade (Universe)"
 
-#. CompDescription
 #: ../channels/Ubuntu.info.in:69
 msgid "Non-free (Multiverse)"
 msgstr "Non libre (Multiverse)"
 
-#. ChangelogURI
 #: ../channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Actualizacións de seguranza de Debian estable"
 
-#. Description
 #: ../channels/Debian.info.in:34
 #, fuzzy
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian de probas"
 
-#. BaseURI
 #: ../channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian Non-US (Inestable)"
 
-#. CompDescription
 #: ../channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1249,8 +1225,7 @@ msgstr ""
 #~ "\n"
 #~ "Need to get the changes from the central server"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</"
-#~ "span>\n"
+#~ "<span weight=\"bold\" size=\"larger\">Descargando informe de trocos</span>\n"
 #~ "\n"
 #~ "Necesítanse descargar os trocos do servidor actual"
 
@@ -1291,12 +1266,12 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>Claves de autenticación</b></big>\n"
 #~ "\n"
-#~ "Pode engadir e quitar claves de autenticación desde este diálogo. Unha "
-#~ "clave fai posible verificar a integridade do software que descarga."
+#~ "Pode engadir e quitar claves de autenticación desde este diálogo. Unha clave "
+#~ "fai posible verificar a integridade do software que descarga."
 
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received "
-#~ "the key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received the "
+#~ "key over a secure channel and that you trust the owner. "
 #~ msgstr ""
 #~ "Engadir un novo ficheiro de clave de anel de confianza. Asegúrese de que "
 #~ "obtivo a clave a través dun canle seguro e que confía no propietario. "
@@ -1326,8 +1301,8 @@ msgstr ""
 #~ msgstr "Tamaño máximo en MB:"
 
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not "
-#~ "change user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not change "
+#~ "user installed keys."
 #~ msgstr ""
 #~ "Recupera as claves entregadas orixinalmente coa distribución. Isto non "
 #~ "cambiará as claves instaladas polo usuario."
@@ -1359,13 +1334,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them "
-#~ "by using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them by "
+#~ "using the Install button."
 #~ msgstr ""
 #~ "<big><b>Actualizacións dispoñibles</b></big>\n"
 #~ "\n"
-#~ "O xestor de actualizacións atopou os seguintes paquetes actualizables. "
-#~ "Pode actualizalos usando o botón Instalar."
+#~ "O xestor de actualizacións atopou os seguintes paquetes actualizables. Pode "
+#~ "actualizalos usando o botón Instalar."
 
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "Cancelar a descarga do informe de cambios"
@@ -1418,8 +1393,7 @@ msgstr ""
 
 #~ msgid "Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>"
 #~ msgstr ""
-#~ "Clave de asinado automático das imaxes de CD de Ubuntu <cdimage@ubuntu."
-#~ "com>"
+#~ "Clave de asinado automático das imaxes de CD de Ubuntu <cdimage@ubuntu.com>"
 
 #~ msgid "Choose a key-file"
 #~ msgstr "Escolla un ficheiro de clave"
@@ -1444,8 +1418,7 @@ msgstr ""
 #~ msgstr[1] "Seleccionou %s paquetes actualizables, de tamaño total %s"
 
 #~ msgid "You have selected %s out of %s updated package, size %s"
-#~ msgid_plural ""
-#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgid_plural "You have selected %s out of %s updated packages, total size %s"
 #~ msgstr[0] "Seleccionou %s paquete actualizable de %s, de tamaño %s"
 #~ msgstr[1] "Seleccionou %s paquetes actualizables de %s, de tamaño total %s"
 
@@ -1453,11 +1426,11 @@ msgstr ""
 #~ msgstr "Estanse aplicando as actualizacións."
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. "
-#~ "Please close this other application first."
+#~ "You can run only one package management application at the same time. Please "
+#~ "close this other application first."
 #~ msgstr ""
-#~ "Só pode executar unha aplicación de xestión de paquetes ao mesmo tempo. "
-#~ "Por favor peche a outra aplicación primeiro."
+#~ "Só pode executar unha aplicación de xestión de paquetes ao mesmo tempo. Por "
+#~ "favor peche a outra aplicación primeiro."
 
 #~ msgid "Updating package list..."
 #~ msgstr "Actualizando a lista de paquetes..."
@@ -1470,28 +1443,28 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. "
-#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. Please "
+#~ "see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
 #~ "Por favor actualícese a unha versión de Ubuntu linux. A versión que está "
-#~ "usando non obterá máis actualizacións de seguranza nin outras "
-#~ "actualizacións críticas. Visite http://www.ubuntulinux.org para máis "
-#~ "información acerca de como actualizar."
+#~ "usando non obterá máis actualizacións de seguranza nin outras actualizacións "
+#~ "críticas. Visite http://www.ubuntulinux.org para máis información acerca de "
+#~ "como actualizar."
 
 #~ msgid "There is a new release of Ubuntu available!"
 #~ msgstr "Hai unha versión nova de Ubuntu dispoñible!"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see http://www."
-#~ "ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see "
+#~ "http://www.ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
-#~ "Está dispoñible unha nova versión co nome '%s'. Por favor visite http://"
-#~ "www.ubuntulinux.org  para recibir instruccións de como actualizar."
+#~ "Está dispoñible unha nova versión co nome '%s'. Por favor visite "
+#~ "http://www.ubuntulinux.org  para recibir instruccións de como actualizar."
 
 #~ msgid "Never show this message again"
 #~ msgstr "Non amosar máis esta mensaxe"
 
 #~ msgid "Changes not found, the server may not be updated yet."
 #~ msgstr ""
-#~ "Non se atopou o informe de cambios, pode que o servidor non esté "
-#~ "actualizado aínda."
+#~ "Non se atopou o informe de cambios, pode que o servidor non esté actualizado "
+#~ "aínda."
