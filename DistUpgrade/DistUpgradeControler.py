@@ -89,10 +89,20 @@ class DistUpgradeControler(object):
         # look over the stuff we have
         foundToDist = False
         for entry in self.sources:
-            # ignore invalid records (but update disabled ones)
-            # or cdrom entries
-            if entry.invalid or entry.uri.startswith("cdrom:") or entry.disabled:
+
+            # ignore invalid records or disabled ones
+            if entry.invalid or entry.disabled:
                 continue
+            
+            # we disable breezy cdrom sources to make sure that demoted
+            # packages are removed
+            if entry.uri.startswith("cdrom:") and entry.dist == "breezy":
+                entry.disabled = True
+                continue
+            # ignore cdrom sources otherwise
+            elif entry.uri.startwith("cdrom:"):
+                continue
+                
             logging.debug("examining: '%s'" % entry)
             # check if it's a mirror (or offical site)
             validMirror = False
@@ -372,6 +382,8 @@ class DistUpgradeControler(object):
                        open(demotions_file).readlines()))
         installed_demotions = filter(lambda pkg: pkg.isInstalled and pkg.name in demotions, self.cache)
         if len(installed_demotions) > 0:
+            demoted = [pkg.name for pkg in installed_demotions]
+            logging.debug("demoted: '%s'" % " ".join(demoted))
             self._view.information(_("Some software no longer officially "
                                      "supported"),
                                    _("These installed packages are "
@@ -381,7 +393,7 @@ class DistUpgradeControler(object):
                                      "If you don't have 'universe' enabled "
                                      "these packages will be suggested for "
                                      "removal in the next step. "),
-                                   "\n".join([pkg.name for pkg in installed_demotions]))
+                                   "\n".join(demoted))
        
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
