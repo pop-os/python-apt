@@ -437,7 +437,7 @@ class DistUpgradeControler(object):
 
         # run a "apt-get update" now
         if not self.doUpdate():
-            self.abort()
+            sys.exit(1)
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
         self.doPreUpdate()

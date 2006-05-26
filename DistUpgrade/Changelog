@@ -1,3 +1,7 @@
+2006-05-24: 
+	- if the initial "update()" fails, just exit, don't try
+          to restore the old sources.list (nothing was modified yet)
+          Ubuntu: #46712
 2006-05-12: 
 	- space checking improved (ubuntu: #43948)
         - show software that was demoted from main -> universe 
