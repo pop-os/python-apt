@@ -1,6 +1,8 @@
 #ubuntu
 http://archive.ubuntu.com/ubuntu
 http://security.ubuntu.com/ubuntu
+ftp://archive.ubuntu.com/ubuntu
+ftp://security.ubuntu.com/ubuntu
 
 ##===Australia===
 http://ftp.iinet.net.au/pub/ubuntu/
