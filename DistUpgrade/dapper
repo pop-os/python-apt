@@ -1,0 +1,3 @@
+#!/bin/sh
+
+catchsegv ./dist-upgrade.py 2>&1 > /var/log/dist-upgrade-segv.log
