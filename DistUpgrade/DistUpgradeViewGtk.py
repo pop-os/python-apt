@@ -298,7 +298,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
         bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
-
+        gettext.textdomain("update-manager")
+        
         icons = gtk.icon_theme_get_default()
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, "DistUpgrade.glade",
@@ -443,22 +444,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         msg = ""
 
         if pkgs_remove > 0:
-            msg += gettext.ngettext("%s package is going to be removed." %\
-                                    pkgs_remove,
-                                    "%s packages are going to be removed." %\
-                                    pkgs_remove, pkgs_remove)
+            msg += gettext.ngettext("%s package is going to be removed.",
+                                    "%s packages are going to be removed.",
+                                    pkgs_remove)% pkgs_remove
             msg += " "
         if pkgs_inst > 0:
-            msg += gettext.ngettext("%s new package is going to be "\
-                                    "installed." % pkgs_inst,
-                                    "%s new packages are going to be "\
-                                    "installed." % pkgs_inst, pkgs_inst)
+            msg += gettext.ngettext("%s new package is going to be "
+                                    "installed.",
+                                    "%s new packages are going to be "
+                                    "installed.",pkgs_inst) % pkgs_inst
             msg += " "
         if pkgs_upgrade > 0:
-            msg += gettext.ngettext("%s package is going to be upgraded." %\
-                                    pkgs_upgrade,
-                                    "%s packages are going to be upgraded." %\
-                                    pkgs_upgrade, pkgs_upgrade)
+            msg += gettext.ngettext("%s package is going to be upgraded.",
+                                    "%s packages are going to be upgraded.",
+                                    pkgs_upgrade) % pkgs_upgrade
             msg +=" "
 
         if downloadSize > 0:

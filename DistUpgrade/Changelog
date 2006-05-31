@@ -1,5 +1,9 @@
 2006-05-30: 
 	- fix bug in the free space calculation (#47092)
+	- updated ReleaseAnnouncement
+	- updated translations
+	- fix a missing bindtextdomain
+	- fix a incorrect ngettext usage
 2006-05-24: 
 	- if the initial "update()" fails, just exit, don't try
           to restore the old sources.list (nothing was modified yet)
