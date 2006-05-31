@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-26 22:13+0200\n"
+"POT-Creation-Date: 2006-05-31 18:19+0200\n"
 "PO-Revision-Date: 2006-05-25 19:23+0000\n"
 "Last-Translator: Igor Zubarev <igor4u@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -96,11 +96,11 @@ msgstr "Введите название для диска"
 msgid "Please insert a disc in the drive:"
 msgstr "Пожалуйста, вставьте диск в привод:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:90
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid "Broken packages"
 msgstr "Поврежденные пакеты"
 
-#: ../DistUpgrade/DistUpgradeCache.py:91
+#: ../DistUpgrade/DistUpgradeCache.py:93
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -109,20 +109,20 @@ msgstr ""
 "данной программой. Пожалуйста, исправьте их, используя synaptic или apt-get, "
 "прежде чем продолжить."
 
-#: ../DistUpgrade/DistUpgradeCache.py:133
+#: ../DistUpgrade/DistUpgradeCache.py:135
 msgid "Can't upgrade required meta-packages"
 msgstr "Невозможно обновить требуемые мета-пакеты"
 
-#: ../DistUpgrade/DistUpgradeCache.py:140
+#: ../DistUpgrade/DistUpgradeCache.py:142
 msgid "A essential package would have to be removed"
 msgstr "Будет удален необходимый пакет"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:143
+#: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "Невозможно подготовить обновление системы"
 
-#: ../DistUpgrade/DistUpgradeCache.py:144
+#: ../DistUpgrade/DistUpgradeCache.py:146
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
@@ -131,11 +131,11 @@ msgstr ""
 "Пожалуйста, отправьте отчет об ошибке. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:167
+#: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr "Ошибка при проверке подлинности некоторых пакетов"
 
-#: ../DistUpgrade/DistUpgradeCache.py:168
+#: ../DistUpgrade/DistUpgradeCache.py:170
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -145,12 +145,12 @@ msgstr ""
 "кратковременная проблема с сетью и стоит попробовать позже. Ниже приведен "
 "список пакетов, не прошедших проверку."
 
-#: ../DistUpgrade/DistUpgradeCache.py:231
+#: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Невозможно установить '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:232
+#: ../DistUpgrade/DistUpgradeCache.py:234
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -159,11 +159,11 @@ msgstr ""
 "ошибке. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:239
+#: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "Невозможно подобрать мета-пакет"
 
-#: ../DistUpgrade/DistUpgradeCache.py:240
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -176,15 +176,15 @@ msgstr ""
 " Для продолжения сначала установите один из приведенных выше пакетов с "
 "помощью synaptic или apt-get."
 
-#: ../DistUpgrade/DistUpgradeControler.py:42
+#: ../DistUpgrade/DistUpgradeControler.py:44
 msgid "Reading cache"
 msgstr "Чтение кэша"
 
-#: ../DistUpgrade/DistUpgradeControler.py:143
+#: ../DistUpgrade/DistUpgradeControler.py:145
 msgid "No valid mirror found"
 msgstr "Не найдено действующее зеркало"
 
-#: ../DistUpgrade/DistUpgradeControler.py:144
+#: ../DistUpgrade/DistUpgradeControler.py:146
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -204,11 +204,11 @@ msgstr ""
 "Ответ 'Нет' отменит обновление."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:161
+#: ../DistUpgrade/DistUpgradeControler.py:163
 msgid "Generate default sources?"
 msgstr "Сгенерировать источники по умолчанию?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:162
+#: ../DistUpgrade/DistUpgradeControler.py:164
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -221,11 +221,11 @@ msgstr ""
 "\n"
 "Добавить записи по умолчанию для '%s'? Ответ 'Нет' прервет обновление."
 
-#: ../DistUpgrade/DistUpgradeControler.py:196
+#: ../DistUpgrade/DistUpgradeControler.py:198
 msgid "Repository information invalid"
 msgstr "Информация о репозитории неверна"
 
-#: ../DistUpgrade/DistUpgradeControler.py:197
+#: ../DistUpgrade/DistUpgradeControler.py:199
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -233,11 +233,11 @@ msgstr ""
 "В результате обновления информации о репозиториях образовался неверный файл. "
 "Пожалуйста отправьте отчет об ошибке."
 
-#: ../DistUpgrade/DistUpgradeControler.py:203
+#: ../DistUpgrade/DistUpgradeControler.py:205
 msgid "Third party sources disabled"
 msgstr "Источники третьих сторон отключены"
 
-#: ../DistUpgrade/DistUpgradeControler.py:204
+#: ../DistUpgrade/DistUpgradeControler.py:206
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -247,11 +247,11 @@ msgstr ""
 "обновления вы можете снова включить их с помощью утилиты 'software-"
 "properties' или synaptic."
 
-#: ../DistUpgrade/DistUpgradeControler.py:250
+#: ../DistUpgrade/DistUpgradeControler.py:252
 msgid "Error during update"
 msgstr "Ошибка при обновлении"
 
-#: ../DistUpgrade/DistUpgradeControler.py:251
+#: ../DistUpgrade/DistUpgradeControler.py:253
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -259,11 +259,11 @@ msgstr ""
 "При обновлении возникла проблема. Обычно это бывает вызвано проблемами в "
 "сети, проверьте сетевые подключения и повторите попытку."
 
-#: ../DistUpgrade/DistUpgradeControler.py:260
+#: ../DistUpgrade/DistUpgradeControler.py:262
 msgid "Not enough free disk space"
 msgstr "Недостаточно свободного места на диске"
 
-#: ../DistUpgrade/DistUpgradeControler.py:261
+#: ../DistUpgrade/DistUpgradeControler.py:263
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -275,15 +275,15 @@ msgstr ""
 "предыдущих установок с помощью команды 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:318
+#: ../DistUpgrade/DistUpgradeControler.py:320
 msgid "Do you want to start the upgrade?"
 msgstr "Вы хотите начать обновление системы?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:335
+#: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "Could not install the upgrades"
 msgstr "Невозможно установить обновления"
 
-#: ../DistUpgrade/DistUpgradeControler.py:336
+#: ../DistUpgrade/DistUpgradeControler.py:338
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
@@ -291,11 +291,11 @@ msgstr ""
 "Обновление прервано. Система, возможно, находится в неработоспособном "
 "состоянии. Запущено восстановление системы (dpkg --configure -a)."
 
-#: ../DistUpgrade/DistUpgradeControler.py:351
+#: ../DistUpgrade/DistUpgradeControler.py:353
 msgid "Could not download the upgrades"
 msgstr "Невозможно загрузить обновления"
 
-#: ../DistUpgrade/DistUpgradeControler.py:352
+#: ../DistUpgrade/DistUpgradeControler.py:354
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -303,11 +303,11 @@ msgstr ""
 "Обновление прервано. Проверьте соединение с Интернет или установочный диск и "
 "попробуйте снова. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:387
+#: ../DistUpgrade/DistUpgradeControler.py:389
 msgid "Some software no longer officially supported"
 msgstr "Некоторые программы больше не поддерживаются официально"
 
-#: ../DistUpgrade/DistUpgradeControler.py:389
+#: ../DistUpgrade/DistUpgradeControler.py:391
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -321,23 +321,23 @@ msgstr ""
 "Если у вас не подключен репозиторий 'universe', на следующем шаге вам "
 "предложат удалить эти пакеты. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:414
+#: ../DistUpgrade/DistUpgradeControler.py:416
 msgid "Remove obsolete packages?"
 msgstr "Удалить устаревшие пакеты?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:417
 msgid "_Skip This Step"
 msgstr "_Пропустить этот шаг"
 
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:417
 msgid "_Remove"
 msgstr "_Удалить"
 
-#: ../DistUpgrade/DistUpgradeControler.py:425
+#: ../DistUpgrade/DistUpgradeControler.py:427
 msgid "Error during commit"
 msgstr "Ошибка при фиксировании"
 
-#: ../DistUpgrade/DistUpgradeControler.py:426
+#: ../DistUpgrade/DistUpgradeControler.py:428
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -346,26 +346,26 @@ msgstr ""
 "ниже. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:435
+#: ../DistUpgrade/DistUpgradeControler.py:437
 msgid "Restoring original system state"
 msgstr "Восстановление первоначального состояния системы"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:443
-#: ../DistUpgrade/DistUpgradeControler.py:467
+#: ../DistUpgrade/DistUpgradeControler.py:445
+#: ../DistUpgrade/DistUpgradeControler.py:469
 msgid "Checking package manager"
 msgstr "Проверка менеджера пакетов"
 
-#: ../DistUpgrade/DistUpgradeControler.py:459
+#: ../DistUpgrade/DistUpgradeControler.py:461
 msgid "Updating repository information"
 msgstr "Обновление информации о репозитории"
 
-#: ../DistUpgrade/DistUpgradeControler.py:478
+#: ../DistUpgrade/DistUpgradeControler.py:480
 msgid "Invalid package information"
 msgstr "Неверная информация о пакете"
 
-#: ../DistUpgrade/DistUpgradeControler.py:479
+#: ../DistUpgrade/DistUpgradeControler.py:481
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -376,19 +376,19 @@ msgstr ""
 "найден.\n"
 "Это говорит о серьезной проблеме, пожалуйста отправьте отчет об ошибке."
 
-#: ../DistUpgrade/DistUpgradeControler.py:489
+#: ../DistUpgrade/DistUpgradeControler.py:491
 msgid "Asking for confirmation"
 msgstr "Запрос подтверждения"
 
-#: ../DistUpgrade/DistUpgradeControler.py:493
+#: ../DistUpgrade/DistUpgradeControler.py:495
 msgid "Upgrading"
 msgstr "Обновление"
 
-#: ../DistUpgrade/DistUpgradeControler.py:500
+#: ../DistUpgrade/DistUpgradeControler.py:502
 msgid "Searching for obsolete software"
 msgstr "Поиск устаревших программ"
 
-#: ../DistUpgrade/DistUpgradeControler.py:505
+#: ../DistUpgrade/DistUpgradeControler.py:507
 msgid "System upgrade is complete."
 msgstr "Обновление системы завершено."
 

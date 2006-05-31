@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-26 22:13+0200\n"
-"PO-Revision-Date: 2006-05-26 11:57+0000\n"
+"POT-Creation-Date: 2006-05-31 18:19+0200\n"
+"PO-Revision-Date: 2006-05-26 12:09+0000\n"
 "Last-Translator: Khandakar Mujahidul Islam <suzan@bengalinux.org>\n"
 "Language-Team: Bengali <bn@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,53 +94,53 @@ msgstr "ডিস্কের জন্য একটি নাম দিন"
 msgid "Please insert a disc in the drive:"
 msgstr "অনুগ্রহ করে ড্রাইভে একটি ডিস্ক দিন:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:90
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid "Broken packages"
 msgstr "ভাঙা প্যাকেজসমূহ"
 
-#: ../DistUpgrade/DistUpgradeCache.py:91
+#: ../DistUpgrade/DistUpgradeCache.py:93
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:133
+#: ../DistUpgrade/DistUpgradeCache.py:135
 msgid "Can't upgrade required meta-packages"
 msgstr "দরকারী meta-packages আপগ্রেড করতে পারে নি"
 
-#: ../DistUpgrade/DistUpgradeCache.py:140
+#: ../DistUpgrade/DistUpgradeCache.py:142
 msgid "A essential package would have to be removed"
 msgstr "একটি প্রয়োজনীয় প্যকেজ অপসারণ করা হতে পারে"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:143
+#: ../DistUpgrade/DistUpgradeCache.py:145
 msgid "Could not calculate the upgrade"
 msgstr "আপগ্রেড গণনা করতে পারছে না"
 
-#: ../DistUpgrade/DistUpgradeCache.py:144
+#: ../DistUpgrade/DistUpgradeCache.py:146
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
 msgstr ""
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:167
+#: ../DistUpgrade/DistUpgradeCache.py:169
 msgid "Error authenticating some packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:168
+#: ../DistUpgrade/DistUpgradeCache.py:170
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:231
+#: ../DistUpgrade/DistUpgradeCache.py:233
 #, python-format
 msgid "Can't install '%s'"
 msgstr "'%s' ইন্সটল করা যাচ্ছে না"
 
-#: ../DistUpgrade/DistUpgradeCache.py:232
+#: ../DistUpgrade/DistUpgradeCache.py:234
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -149,11 +149,11 @@ msgstr ""
 "রিপোর্ট করুন। "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:239
+#: ../DistUpgrade/DistUpgradeCache.py:241
 msgid "Can't guess meta-package"
 msgstr "meta-package অনুমান করা যাচ্ছ না"
 
-#: ../DistUpgrade/DistUpgradeCache.py:240
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -162,15 +162,15 @@ msgid ""
 "before proceeding."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:42
+#: ../DistUpgrade/DistUpgradeControler.py:44
 msgid "Reading cache"
 msgstr "ক্যাশ পড়া হচ্ছে"
 
-#: ../DistUpgrade/DistUpgradeControler.py:143
+#: ../DistUpgrade/DistUpgradeControler.py:145
 msgid "No valid mirror found"
 msgstr "কোন সঠিক মিরর পাওয়া যায় নি"
 
-#: ../DistUpgrade/DistUpgradeControler.py:144
+#: ../DistUpgrade/DistUpgradeControler.py:146
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -183,11 +183,11 @@ msgid ""
 msgstr ""
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:161
+#: ../DistUpgrade/DistUpgradeControler.py:163
 msgid "Generate default sources?"
 msgstr "ডিফল্ট sources তৈরি করে?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:162
+#: ../DistUpgrade/DistUpgradeControler.py:164
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -201,11 +201,11 @@ msgstr ""
 "'%s' জন্য ডিফল্ট যুক্ত করার উচিত? আপনি যদি 'না' নির্বাচন করেন তাহলে আপডেট বাতিল "
 "হবে।"
 
-#: ../DistUpgrade/DistUpgradeControler.py:196
+#: ../DistUpgrade/DistUpgradeControler.py:198
 msgid "Repository information invalid"
 msgstr "রিপোজিটরির তথ্য সঠিক নয়"
 
-#: ../DistUpgrade/DistUpgradeControler.py:197
+#: ../DistUpgrade/DistUpgradeControler.py:199
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -213,22 +213,22 @@ msgstr ""
 "রিপোজিটোরি তথ্য আপগ্রেড করার সময় একটি ভুল ফাইল তৈরী হয়েছে। অনুগ্রহ করে এটিকে বাগ "
 "হিসাবে রিপোর্ট করুন।"
 
-#: ../DistUpgrade/DistUpgradeControler.py:203
+#: ../DistUpgrade/DistUpgradeControler.py:205
 msgid "Third party sources disabled"
 msgstr "তৃতীয় পার্টির উত্স নিষ্ক্রিয়"
 
-#: ../DistUpgrade/DistUpgradeControler.py:204
+#: ../DistUpgrade/DistUpgradeControler.py:206
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:250
+#: ../DistUpgrade/DistUpgradeControler.py:252
 msgid "Error during update"
 msgstr "আপগ্রেড করার সময় সমস্যা"
 
-#: ../DistUpgrade/DistUpgradeControler.py:251
+#: ../DistUpgrade/DistUpgradeControler.py:253
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -236,11 +236,11 @@ msgstr ""
 "আপগ্রেড করার সময় একটি সমস্যা হয়েছে। এটি সাধারনত নেটওয়ার্কের সমস্যা, অনুগ্রহ করে "
 "আপনার নেটওয়ার্ক সংযোগ পরীক্ষা করুন এবং পুনরায় চেষ্টা করুন।"
 
-#: ../DistUpgrade/DistUpgradeControler.py:260
+#: ../DistUpgrade/DistUpgradeControler.py:262
 msgid "Not enough free disk space"
 msgstr "ডিস্কে যথেস্ট ফাঁকা জায়গা নেই"
 
-#: ../DistUpgrade/DistUpgradeControler.py:261
+#: ../DistUpgrade/DistUpgradeControler.py:263
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -249,35 +249,37 @@ msgid ""
 msgstr ""
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:318
+#: ../DistUpgrade/DistUpgradeControler.py:320
 msgid "Do you want to start the upgrade?"
 msgstr "আপনি কি আপগ্রেড শুরু করতে চান?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:335
+#: ../DistUpgrade/DistUpgradeControler.py:337
 msgid "Could not install the upgrades"
 msgstr "আপগ্রেড ইন্সটল করা যায় নি"
 
-#: ../DistUpgrade/DistUpgradeControler.py:336
+#: ../DistUpgrade/DistUpgradeControler.py:338
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:351
+#: ../DistUpgrade/DistUpgradeControler.py:353
 msgid "Could not download the upgrades"
 msgstr "আপগ্রেড ডাউনলোড করা যায় নি"
 
-#: ../DistUpgrade/DistUpgradeControler.py:352
+#: ../DistUpgrade/DistUpgradeControler.py:354
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
+"আপগ্রেড এখন বন্ধ হবে। দয়া করে আপনার ইন্টারনেট সংযুক্তি বা ইনস্টলেশন মিডিয়া পরীক্ষা "
+"করুন এবং আবার চেষ্টা করুন। "
 
-#: ../DistUpgrade/DistUpgradeControler.py:387
+#: ../DistUpgrade/DistUpgradeControler.py:389
 msgid "Some software no longer officially supported"
 msgstr "কিছু সফটওয়্যার অফিসিয়ালি আর সমর্থিত নয়"
 
-#: ../DistUpgrade/DistUpgradeControler.py:389
+#: ../DistUpgrade/DistUpgradeControler.py:391
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -286,49 +288,49 @@ msgid ""
 "removal in the next step. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:414
+#: ../DistUpgrade/DistUpgradeControler.py:416
 msgid "Remove obsolete packages?"
 msgstr "অপ্রচলিত প্যাকেজগুলো মুছে ফেলা হবে?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:417
 msgid "_Skip This Step"
 msgstr "এই ধাপটি এড়িয়ে যাও (_এ)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:417
 msgid "_Remove"
 msgstr "সরাও (_স)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:425
+#: ../DistUpgrade/DistUpgradeControler.py:427
 msgid "Error during commit"
 msgstr "প্রেরণ করার সময় সমস্যা"
 
-#: ../DistUpgrade/DistUpgradeControler.py:426
+#: ../DistUpgrade/DistUpgradeControler.py:428
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
 msgstr ""
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:435
+#: ../DistUpgrade/DistUpgradeControler.py:437
 msgid "Restoring original system state"
 msgstr "সিস্টেমটি রিস্টার্ট করছি"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:443
-#: ../DistUpgrade/DistUpgradeControler.py:467
+#: ../DistUpgrade/DistUpgradeControler.py:445
+#: ../DistUpgrade/DistUpgradeControler.py:469
 msgid "Checking package manager"
 msgstr "প্যাকেজ ম্যানেজার পরীক্ষা করা হচ্ছ"
 
-#: ../DistUpgrade/DistUpgradeControler.py:459
+#: ../DistUpgrade/DistUpgradeControler.py:461
 msgid "Updating repository information"
 msgstr "রিপজিটরির তথ্য আপডেট করা হচ্ছে"
 
-#: ../DistUpgrade/DistUpgradeControler.py:478
+#: ../DistUpgrade/DistUpgradeControler.py:480
 msgid "Invalid package information"
 msgstr "ভুল প্যাকেজ তথ্য"
 
-#: ../DistUpgrade/DistUpgradeControler.py:479
+#: ../DistUpgrade/DistUpgradeControler.py:481
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -336,19 +338,19 @@ msgid ""
 "This indicates a serious error, please report this as a bug."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:489
+#: ../DistUpgrade/DistUpgradeControler.py:491
 msgid "Asking for confirmation"
 msgstr "তথ্যের জন্য জিজ্ঞাসা"
 
-#: ../DistUpgrade/DistUpgradeControler.py:493
+#: ../DistUpgrade/DistUpgradeControler.py:495
 msgid "Upgrading"
 msgstr "আপগ্রেড করা হচ্ছে"
 
-#: ../DistUpgrade/DistUpgradeControler.py:500
+#: ../DistUpgrade/DistUpgradeControler.py:502
 msgid "Searching for obsolete software"
 msgstr "অপ্রচলিত সফ্টওয়্যার অনুসন্ধান করা হচ্ছে"
 
-#: ../DistUpgrade/DistUpgradeControler.py:505
+#: ../DistUpgrade/DistUpgradeControler.py:507
 msgid "System upgrade is complete."
 msgstr "সিস্টেম আপগ্রেড সম্পন্ন।"
 
@@ -732,8 +734,8 @@ msgstr "আপনার সিস্টেম আপ-টু-ডেট"
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "আপনি %s আপডেট ইনস্টল করতে পারেন"
+msgstr[1] "আপনি %s আপডেট ইনস্টল করতে পারেন"
 
 #: ../UpdateManager/UpdateManager.py:489
 msgid "Hide details"
@@ -934,9 +936,8 @@ msgid "_Download updates in the background, but do not install them"
 msgstr "আড়ালে আপডেট ডাউনলোড করো, কিন্তু তাদেরকে ইন্সটল করো না (_D)"
 
 #: ../data/SoftwareProperties.glade.h:16
-#, fuzzy
 msgid "_Import Key File"
-msgstr "কী ইম্পোর্ট"
+msgstr "কী ফাইল ইম্পোর্ট(_ই)"
 
 #: ../data/SoftwareProperties.glade.h:17
 msgid "_Install security updates without confirmation"
@@ -962,27 +963,27 @@ msgstr "<b>চ্যানেল</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Comment:</b>"
-msgstr ""
+msgstr "<b>মন্তব্য:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>Components:</b>"
-msgstr ""
+msgstr "<b>উপাদান:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:11
 msgid "<b>Components</b>"
-msgstr ""
+msgstr "<b>উপাদান</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:12
 msgid "<b>Distribution:</b>"
-msgstr ""
+msgstr "<b>ডিস্ট্রিবিউসন:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:13
 msgid "<b>Type:</b>"
-msgstr ""
+msgstr "<b>ধরন:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:14
 msgid "<b>URI:</b>"
-msgstr ""
+msgstr "<b>ইউ-আর-আই:</b>"
 
 #: ../data/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
