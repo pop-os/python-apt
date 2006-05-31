@@ -289,7 +289,7 @@ class DistUpgradeControler(object):
         if st_archivedir == st_usr:
             # we are on the same filesystem, so we need to take the space
             # for downloading the debs into account
-            free -= self.cache.additionalRequiredSpace
+            free -= self.cache.requiredDownload
             logging.debug("/usr on same fs as %s, taking dl-size into account, new free: %s" % (archivedir, free))
         else:
             free = st_usr[statvfs.F_BAVAIL]*st_usr[statvfs.F_FRSIZE]

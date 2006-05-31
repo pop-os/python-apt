@@ -1,6 +1,5 @@
 2006-05-30: 
-	- added a segv handler that writes into 
-          /var/log/dist-upgrade-segv.log
+	- fix bug in the free space calculation (#47092)
 2006-05-24: 
 	- if the initial "update()" fails, just exit, don't try
           to restore the old sources.list (nothing was modified yet)
