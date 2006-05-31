@@ -34,12 +34,16 @@ from DistUpgradeConfigParser import DistUpgradeConfig
 
 from aptsources import SourcesList, SourceEntry, is_mirror
 from gettext import gettext as _
+import gettext
 from DistUpgradeCache import MyCache
 
             
 
 class DistUpgradeControler(object):
     def __init__(self, distUpgradeView):
+        gettext.bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
+        gettext.textdomain("update-manager")
+
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
