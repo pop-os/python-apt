@@ -126,19 +126,19 @@ class MyCache(apt.Cache):
                         action(pkg, "%s PostUpgrade%s rule" % (key, rule))
 
         # get the distro-specific quirks handler and run it
-        quirksFunc = "%sQuirks" % self.config.get("Sources","To")
-        if quirksFunc in dir(self):
-            eval("self.%s()"%quirksFunc)
-            
+        quirksFuncName = "%sQuirks" % self.config.get("Sources","To")
+        func = getattr(self, quirksFuncName, None)
+        if func is not None:
+            func()
 
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
         logging.debug("running dapperQuirks handler")
-        if self.has_key("nvidia-glx") and self["nvidia-glx"].isInstalled:
-            if self.has_key("nvidia-settings") and self["nvidia-settings"].isInstalled:
-                logging.debug("nvidia-settings and nvidia-glx is installed")
-                self.markRemove("nvidia-settings")
-                self.markInstall("nvidia-glx")
+        if (self.has_key("nvidia-glx") and self["nvidia-glx"].isInstalled and
+            self.has_key("nvidia-settings") and self["nvidia-settings"].isInstalled):
+            logging.debug("nvidia-settings and nvidia-glx is installed")
+            self.markRemove("nvidia-settings")
+            self.markInstall("nvidia-glx")
 
     def distUpgrade(self, view):
         try:
