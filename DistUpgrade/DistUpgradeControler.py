@@ -299,8 +299,9 @@ class DistUpgradeControler(object):
             free = st_usr[statvfs.F_BAVAIL]*st_usr[statvfs.F_FRSIZE]
             logging.debug("/usr on different fs than %s, free: %s" % (archivedir, free))
 
-        if self.cache.additionalRequiredSpace > free:
-            free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace-free)
+        safety_buffer = 1024*1024*75 # 75 Mb
+        if (self.cache.additionalRequiredSpace+safety_buffer) > free:
+            free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace+safety_buffer-free)
             logging.error("not enough free space, we need addional %s" % free_at_least)
             self._view.error(err_sum, err_long % (free_at_least,dir))
             return False
