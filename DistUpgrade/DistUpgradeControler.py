@@ -300,6 +300,7 @@ class DistUpgradeControler(object):
             logging.debug("/usr on different fs than %s, free: %s" % (archivedir, free))
 
         safety_buffer = 1024*1024*75 # 75 Mb
+        logging.debug("using safety buffer: %s" % safety_buffer)
         if (self.cache.additionalRequiredSpace+safety_buffer) > free:
             free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace+safety_buffer-free)
             logging.error("not enough free space, we need addional %s" % free_at_least)
