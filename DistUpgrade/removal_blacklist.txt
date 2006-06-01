@@ -5,3 +5,4 @@ kubuntu-destkop
 edubuntu-desktop
 linux-image-.*
 linux-restricted-.*
+nvidia-glx.*
