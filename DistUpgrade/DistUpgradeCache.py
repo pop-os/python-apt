@@ -132,11 +132,11 @@ class MyCache(apt.Cache):
             
 
     def dapperQuirks(self):
-        """ this function works around quirks in the breezy dapper upgrade """
+        """ this function works around quirks in the breezy->dapper upgrade """
         logging.debug("running dapperQuirks handler")
         if self.has_key("nvidia-glx") and self["nvidia-glx"].isInstalled:
             if self.has_key("nvidia-settings") and self["nvidia-settings"].isInstalled:
-                self.debug("nvidia-settings and nvidia-glx is installed")
+                logging.debug("nvidia-settings and nvidia-glx is installed")
                 self.markRemove("nvidia-settings")
                 self.markInstall("nvidia-glx")
 
