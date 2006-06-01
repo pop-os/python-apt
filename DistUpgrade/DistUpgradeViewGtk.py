@@ -444,9 +444,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         msg = ""
 
         if pkgs_remove > 0:
+            # FIXME: make those two seperate lines to make it clear
+            #        that the "%" applies to the result of ngettext
             msg += gettext.ngettext("%s package is going to be removed.",
                                     "%s packages are going to be removed.",
-                                    pkgs_remove)% pkgs_remove
+                                    pkgs_remove) % pkgs_remove
             msg += " "
         if pkgs_inst > 0:
             msg += gettext.ngettext("%s new package is going to be "
