@@ -19,7 +19,7 @@ python-apt (0.6.17) unstable; urgency=low
   * python/indexfile.cc:
     - added ArchiveURI() method
   
- --
+ -- Michael Vogt <mvo@debian.org>  Mon,  8 May 2006 22:34:58 +0200
 
 python-apt (0.6.16.2) unstable; urgency=low
   
