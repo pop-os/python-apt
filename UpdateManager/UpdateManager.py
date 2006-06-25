@@ -485,10 +485,11 @@ class UpdateManager(SimpleGladeApp):
 
   def activate_details(self, expander, data):
     expanded = self.expander_details.get_expanded()
-    if expanded:
-        expander.set_label(_("Hide details"))
-    else:
-        expander.set_label(_("Show details"))
+    self.vbox_updates.set_child_packing(self.expander_details,
+                                        expanded,
+                                        True,
+                                        0,
+                                        True)
     self.gconfclient.set_bool("/apps/update-manager/show_details",expanded)
     if expanded:
       self.on_treeview_update_cursor_changed(self.treeview_update)
