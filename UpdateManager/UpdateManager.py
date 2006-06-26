@@ -584,6 +584,11 @@ class UpdateManager(SimpleGladeApp):
     """ restore the state (window-size for now) """
     expanded = self.gconfclient.get_bool("/apps/update-manager/show_details")
     self.expander_details.set_expanded(expanded)
+    self.vbox_updates.set_child_packing(self.expander_details,
+                                        expanded,
+                                        True,
+                                        0,
+                                        True)
     (x,y) = self.gconfclient.get_pair("/apps/update-manager/window_size",
                                       gconf.VALUE_INT, gconf.VALUE_INT)
     if x > 0 and y > 0:
