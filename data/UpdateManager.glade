@@ -229,6 +229,9 @@
 		      <property name="fixed_height_mode">False</property>
 		      <property name="hover_selection">False</property>
 		      <property name="hover_expand">False</property>
+		      <accessibility>
+			<atkproperty name="AtkObject::accessible_name" translatable="yes">updates</atkproperty>
+		      </accessibility>
 		      <signal name="cursor_changed" handler="on_treeview_update_cursor_changed" last_modification_time="Tue, 29 Nov 2005 17:19:48 GMT"/>
 		    </widget>
 		  </child>
@@ -464,7 +467,7 @@
 	    <widget class="GtkExpander" id="expander_details">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="expanded">True</property>
+	      <property name="expanded">False</property>
 	      <property name="spacing">6</property>
 	      <signal name="activate" handler="on_expander_details_activate" last_modification_time="Mon, 31 Jan 2005 17:55:19 GMT"/>
 
@@ -517,6 +520,9 @@
 				  <property name="right_margin">6</property>
 				  <property name="indent">0</property>
 				  <property name="text" translatable="yes"></property>
+				  <accessibility>
+				    <atkproperty name="AtkObject::accessible_name" translatable="yes">changes</atkproperty>
+				  </accessibility>
 				</widget>
 			      </child>
 			    </widget>
@@ -669,6 +675,9 @@
 			      <property name="right_margin">6</property>
 			      <property name="indent">0</property>
 			      <property name="text" translatable="yes"></property>
+			      <accessibility>
+				<atkproperty name="AtkObject::accessible_name" translatable="yes">Description</atkproperty>
+			      </accessibility>
 			    </widget>
 			  </child>
 			</widget>
@@ -695,6 +704,9 @@
 			  <property name="width_chars">-1</property>
 			  <property name="single_line_mode">False</property>
 			  <property name="angle">0</property>
+			  <accessibility>
+			    <atkproperty name="AtkObject::accessible_name" translatable="yes">Description</atkproperty>
+			  </accessibility>
 			</widget>
 			<packing>
 			  <property name="type">tab</property>
@@ -1347,7 +1359,7 @@ Your system does not check for updates automatically. You can configure this beh
   <property name="skip_pager_hint">True</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">False</property>
+  <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
 
   <child>

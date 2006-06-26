@@ -52,6 +52,9 @@ import thread
 import xml.sax.saxutils
 from Common.HelpViewer import HelpViewer
 
+import dbus
+import dbus.service
+import dbus.glib
 
 from gettext import gettext as _
 
@@ -239,10 +242,23 @@ class UpdateList:
       dialog.run()
       dialog.destroy()
 
-        
+
+class UpdateManagerDbusControler(dbus.service.Object):
+    """ this is a helper to provide the UpdateManagerIFace """
+    def __init__(self, parent, bus_name,
+                 object_path='/org/freedesktop/UpdateManagerObject'):
+        dbus.service.Object.__init__(self, bus_name, object_path)
+        self.parent = parent
+
+    @dbus.service.method('org.freedesktop.UpdateManagerIFace')
+    def bringToFront(self):
+        self.parent.window_main.present()
+        return True
+
 class UpdateManager(SimpleGladeApp):
 
   def __init__(self, datadir):
+    self.setupDbus()
     gtk.window_set_default_icon_name("update-manager")
 
     self.datadir = datadir
@@ -329,7 +345,28 @@ class UpdateManager(SimpleGladeApp):
     # restore state
     self.restore_state()
     self.window_main.show()
-      
+
+  def setupDbus(self):
+    """ this sets up a dbus listener if none is installed alread """
+    # check if there is another g-a-i already and if not setup one
+    # listening on dbus
+    try:
+        bus = dbus.SessionBus()
+    except:
+        print "warning: could not initiate dbus"
+        return
+    proxy_obj = bus.get_object('org.freedesktop.UpdateManager', 
+                               '/org/freedesktop/UpdateManagerObject')
+    iface = dbus.Interface(proxy_obj, 'org.freedesktop.UpdateManagerIFace')
+    try:
+        iface.bringToFront()
+        #print "send bringToFront"
+        sys.exit(0)
+    except dbus.DBusException, e:
+         print "no listening object (%s) "% e
+         bus_name = dbus.service.BusName('org.freedesktop.UpdateManager',bus)
+         self.dbusControler = UpdateManagerDbusControler(self, bus_name)
+
 
   def on_checkbutton_reminder_toggled(self, checkbutton):
     self.gconfclient.set_bool("/apps/update-manager/remind_reload",
@@ -500,8 +537,9 @@ class UpdateManager(SimpleGladeApp):
     except SystemError:
       pass
 #    cmd = ["gksu","--",
-    cmd = ["/usr/sbin/synaptic", "--hide-main-window",  "--non-interactive",
-           "--parent-window-id", "%s" % (id) ]
+    cmd = ["gksu", "--desktop", "/usr/share/applications/synaptic.desktop", 
+           "--", "/usr/sbin/synaptic", "--hide-main-window",  
+           "--non-interactive", "--parent-window-id", "%s" % (id) ]
     if action == INSTALL:
       cmd.append("--progress-str")
       cmd.append("%s" % _("Please wait, this can take some time."))
@@ -675,20 +713,21 @@ class UpdateManager(SimpleGladeApp):
     try:
         apt_pkg.PkgSystemLock()
     except SystemError, e:
-        d = gtk.MessageDialog(parent=self.window_main,
-                              flags=gtk.DIALOG_MODAL,
-                              type=gtk.MESSAGE_ERROR,
-                              buttons=gtk.BUTTONS_CLOSE)
-        d.set_markup("<big><b>%s</b></big>\n\n%s" % (
-            _("Only one software management tool is allowed to "
-              "run at the same time"),
-            _("Please close the other application e.g. 'aptitude' "
-              "or 'Synaptic' first.")))
-        print "error from apt: '%s'" % e
-        d.set_title("")
-        res = d.run()
-        d.destroy()
-        sys.exit()
+        pass
+        #d = gtk.MessageDialog(parent=self.window_main,
+        #                      flags=gtk.DIALOG_MODAL,
+        #                      type=gtk.MESSAGE_ERROR,
+        #                      buttons=gtk.BUTTONS_CLOSE)
+        #d.set_markup("<big><b>%s</b></big>\n\n%s" % (
+        #    _("Only one software management tool is allowed to "
+        #      "run at the same time"),
+        #    _("Please close the other application e.g. 'aptitude' "
+        #      "or 'Synaptic' first.")))
+        #print "error from apt: '%s'" % e
+        #d.set_title("")
+        #res = d.run()
+        #d.destroy()
+        #sys.exit()
 
     try:
         progress = GtkProgress.GtkOpProgress(self.dialog_cacheprogress,
