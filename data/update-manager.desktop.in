@@ -2,11 +2,10 @@
 _Name=Update Manager
 _GenericName=Update Manager
 _Comment=Show and install available updates
-Exec=gksu /usr/bin/update-manager
+Exec=/usr/bin/update-manager
 Icon=update-manager
 Terminal=false
 Type=Application
 Encoding=UTF-8
 Categories=Application;System;Settings;
-X-KDE-SubstituteUID=true
 X-Ubuntu-Gettext-Domain=update-manager
