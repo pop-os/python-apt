@@ -58,13 +58,6 @@ if __name__ == "__main__":
 
   (options, args) = parser.parse_args()
 
-  if os.geteuid() != 0:
-    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
-                               _("You need to be root to run this program"))
-    dialog.run()
-    dialog.destroy()
-    sys.exit(1)
-
   data_dir="/usr/share/update-manager/"
   #data_dir="/tmp/xxx/share/update-manager/"
   app = UpdateManager(data_dir)
