@@ -83,6 +83,8 @@ class SoftwareProperties(SimpleGladeApp):
                             None, domain="update-manager")
     self.modified = False
 
+    self.file = file
+
     #self.gnome_program = gnome.init("Software Properties", "0.41")
     #self.gconfclient = gconf.client_get_default()
 

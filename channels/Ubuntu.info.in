@@ -56,6 +56,7 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 5.10 'Breezy Badger'
+Component: main
 Enabled: 1
 _CompDescription: Officially supported
 Component: restricted
