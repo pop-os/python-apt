@@ -1,3 +1,10 @@
+update-manager (0.43) edgy; urgency=low
+
+  * fixes in the changelog reading code
+  * speedup in the cache clear code
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Jun 2006 10:17:48 +0200
+
 update-manager (0.42.2ubuntu22) dapper; urgency=low
 
   * UpdateManager/UpdateManager.py:
