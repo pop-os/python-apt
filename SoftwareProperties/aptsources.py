@@ -89,6 +89,7 @@ class SourceEntry:
       file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
     self.file = file
     self.parse(line)
+    self.template = None
 
   # works mostely like split but takes [] into account
   def mysplit(self, line):
@@ -207,6 +208,7 @@ class SourceEntry:
 class SourcesList:
   def __init__(self):
     self.list = []      # of Type SourceEntries
+    self.matcher = SourceEntryMatcher()
     self.refresh()
 
   def refresh(self):
@@ -219,6 +221,10 @@ class SourcesList:
     partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
     for file in glob.glob("%s/*.list" % partsdir):
       self.load(file)
+    # check if the source item fits a predefined template
+    for source in self.list:
+        if source.invalid == False:
+            self.matcher.match(source)
 
   def __iter__(self):
     for entry in self.list:
@@ -241,7 +247,9 @@ class SourcesList:
     if comment != "":
       line = "%s #%s\n" %(line,comment)
     line = line + "\n"
-    self.list.insert(pos, SourceEntry(line))
+    new_entry = SourceEntry(line)
+    self.matcher.match(new_entry)
+    self.list.insert(pos, new_entry)
 
   def remove(self, source_entry):
     self.list.remove(source_entry)
@@ -271,12 +279,16 @@ class SourcesList:
 
   def load(self,file):
     """ (re)load the current sources """
-    f = open(file, "r")
-    lines = f.readlines()
-    for line in lines:
-      source = SourceEntry(line,file)
-      self.list.append(source)
-    f.close()
+    try:
+      f = open(file, "r")
+      lines = f.readlines()
+      for line in lines:
+        source = SourceEntry(line,file)
+        self.list.append(source)
+    except:
+      print "could not open file '%s'" % file
+    else:
+      f.close()
 
   def save(self):
     """ save the current sources """
@@ -287,6 +299,41 @@ class SourcesList:
       files[source.file].write(source.str())
     for f in files:
       files[f].close()
+
+  def check_for_relations(self, sources_list):
+    """get all parent and child channels in the sources list"""
+    parents = []
+    used_child_templates = {}
+    for source in sources_list:
+      # try to avoid checking uninterressting sources
+      if source.template == None:
+        continue
+      # set up a dict with all used child templates and corresponding 
+      # source entries
+      if source.template.child == True:
+          key = source.template
+          if not used_child_templates.has_key(key):
+              used_child_templates[key] = []
+          temp = used_child_templates[key]
+          temp.append(source)
+      else:
+          # store each source with children aka. a parent :)
+          if len(source.template.children) > 0:
+              parents.append(source)
+    #print self.used_child_templates
+    #print self.parents
+    return (parents, used_child_templates)
+
+  def check_for_endangered_dists(self):
+    """set the components of a child source to the ones of the parent channel"""
+    (parents, used_child_templates) = self.check_for_relations(self.list)
+    # the magical part
+    for mother in parents:
+        for child_template in mother.template.children:
+            if used_child_templates.has_key(child_template):
+                for child in used_child_templates[child_template]:
+                    if child.type == mother.type:
+                        child.comps = mother.comps
 
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
@@ -354,121 +401,20 @@ class SourceEntryMatcher:
       self.comps_descriptions = l_comps_descr
 
   def __init__(self):
-    _ = gettext.gettext
-    self.type_list = []
-    self.type_list.append(self.MatchType("^deb$",_("Binary")))
-    self.type_list.append(self.MatchType("^deb-src$",_("Source")))
+    self.templates = []
+    # Get the human readable channel and comp names from the channel .infos
+    spec_files = glob.glob("/usr/share/update-manager/channels/*.info")
+    for f in spec_files:
+        f = os.path.basename(f)
+        i = f.find(".info")
+        f = f[0:i]
+        dist = DistInfo(f)
+        for suite in dist.suites:
+            if suite.match_uri != None:
+                self.templates.append(suite)
 
-    self.dist_list = []
-
-    ubuntu_comps = ["^main$","^restricted$","^universe$","^multiverse$"]
-    ubuntu_comps_descr = [_("Officially supported"),
-                          _("Restricted copyright"),
-                          _("Community maintained (Universe)"),
-                          _("Non-free (Multiverse)")]
-    # CDs
-    self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*6.06",
-                                         ".*",
-                                         _("CD disk with Ubuntu 6.06 LTS"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.10",
-                                         ".*",
-                                         _("CD disk with Ubuntu 5.10"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*5.04",
-                                         ".*",
-                                         _("CD disk with Ubuntu 5.04"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist("cdrom:\[Ubuntu.*4.10",
-                                         ".*",
-                                         _("CD disk with Ubuntu 4.10"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    # URIs
-    # Warty
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^warty$",
-                                         "Ubuntu 4.10",
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
-                                         "^warty-security$",
-                                         _("Ubuntu 4.10 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^warty-security$",
-                                         _("Ubuntu 4.10 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^warty-updates$",
-                                         _("Ubuntu 4.10 Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^warty-backports$",
-                                         _("Ubuntu 4.10 Backports"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    # Hoary
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^hoary-security$",
-                                         _("Ubuntu 5.04 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
-                                         "^hoary-security$",
-                                         _("Ubuntu 5.04 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^hoary$",
-                                         "Ubuntu 5.04",
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^hoary-updates$",
-                                         _("Ubuntu 5.04 Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^hoary-backports$",
-                                         _("Ubuntu 5.04 Backports"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    # Breezy
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^breezy-security$",
-                                         _("Ubuntu 5.10 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
-                                         "^breezy-security$",
-                                         _("Ubuntu 5.10 Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^breezy$",
-                                         "Ubuntu 5.10",
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^breezy-backports$",
-                                         _("Ubuntu 5.10 Backports"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^breezy-updates$",
-                                         _("Ubuntu 5.10 Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    # dapper
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^dapper-security$",
-                                         _("Ubuntu 6.06 LTS Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
-                                         "^dapper-security$",
-                                         _("Ubuntu 6.06 LTS Security Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^dapper$",
-                                         "Ubuntu 6.06 LTS",
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^dapper-backports$",
-                                         _("Ubuntu 6.06 LTS Backports"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
-                                         "^dapper-updates$",
-                                         _("Ubuntu 6.06 LTS Updates"),
-                                         ubuntu_comps, ubuntu_comps_descr))
-
+    # FIXME: The specifications should go into the .info files
+    return
 
     # DEBIAN
     debian_comps =  ["^main$","^contrib$","^non-free$","^non-US$"]
@@ -518,43 +464,21 @@ class SourceEntryMatcher:
     self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
                                          "^unstable.*$",
                                          _("Debian Non-US (Unstable)"),
-                                         debian_comps, debian_comps_descr))
+                                         debian_comps, debian_comps_descr,
+                                         SOURCE_SYSTEM))
 
-
-
-  
-  def match(self,source):
+  def match(self, source):
+    """Add a matching template to the source"""
     _ = gettext.gettext
-    # some sane defaults first
-    type_description = source.type
-    dist_description = source.uri + " " + source.dist
-    comp_description = ""
-    for c in source.comps:
-      comp_description = comp_description + " " + c 
-    
-    for t in self.type_list:
-      if re.match(t.type, source.type):
-        type_description = _(t.description)
-        break
-
-    for d in self.dist_list:
+    found = False
+    for template in self.templates:
       #print "'%s'" %source.uri
-      if re.match(d.uri, source.uri) and re.match(d.dist,source.dist):
-        dist_description = d.description
-        comp_description = ""
-        for c in source.comps:
-          found = False
-          for i in range(len(d.comps)):
-            if re.match(d.comps[i], c):
-              comp_description = comp_description+"\n"+d.comps_descriptions[i]
-              found = True
-          if found == False:
-            comp_description = comp_description+" "+c
+      if re.search(template.match_uri, source.uri) and \
+         re.match(template.match_name, source.dist):
+        found = True
+        source.template = template
         break
-      
-      
-    return (type_description,dist_description,comp_description)
-
+    return found
 
 # some simple tests
 if __name__ == "__main__":
