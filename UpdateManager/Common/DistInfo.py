@@ -135,8 +135,8 @@ if __name__ == "__main__":
         print "BaseURI: %s" % suite.base_uri
         print "MatchURI: %s" % suite.match_uri
         for component in suite.components:
-            print "  %s - %s - %s " % (component.name,
-                                       component.description,
-                                       component.enabled)
+            print "  %s - %s - %s " % (component, 
+                                       suite.components[component][0],
+                                       suite.components[component][1])
         for child in suite.children:
             print "  %s" % child.description

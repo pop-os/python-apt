@@ -56,6 +56,11 @@ CONF_MAP = {
   "max_age"      : "APT::Archives::MaxAge"
 }
 
+(
+COLUMN_ACTIVE,
+COLUMN_DESC
+) = range(2)
+
 
 # columns of the source_store
 (SORE_ACTIVE, STORE_DESCRIPTION, STORE_SOURCE, STORE_SEPARATOR) = range(4)
