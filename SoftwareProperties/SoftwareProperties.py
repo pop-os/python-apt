@@ -30,6 +30,7 @@ import gettext
 import tempfile
 from gettext import gettext as _
 import os
+import string
 
 #sys.path.append("@prefix/share/update-manager/python")
 
@@ -39,6 +40,8 @@ import aptsources
 import dialog_add
 import dialog_edit
 import dialog_cache_outdated
+#import dialog_edit_predefined
+#import dialog_sources_list
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -54,10 +57,18 @@ CONF_MAP = {
 }
 
 
+# columns of the source_store
+(SORE_ACTIVE, STORE_DESCRIPTION, STORE_SOURCE, STORE_SEPARATOR) = range(4)
+
 class SoftwareProperties(SimpleGladeApp):
 
-  def __init__(self, datadir=None, options=None, parent=None):
+  def __init__(self, datadir=None, options=None, parent=None, file=None):
     gtk.window_set_default_icon_name("software-properties")
+
+    # get the current LSB distribution name
+    pipe = os.popen("lsb_release -i | cut -d : -f 2-")
+    self.distribution = pipe.read().strip()
+    del pipe
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -184,30 +195,92 @@ class SoftwareProperties(SimpleGladeApp):
     self.init_keyslist()
     self.reload_keyslist()
 
+    # drag and drop support for sources.list
+    self.treeview_sources.drag_dest_set(gtk.DEST_DEFAULT_ALL, \
+                                        [('text/uri-list',0, 0)], \
+                                        gtk.gdk.ACTION_COPY)
+    self.treeview_sources.connect("drag_data_received",\
+                                  self.on_sources_drag_data_received)
+
+    # call the add sources.list dialog if we got a file from the cli
+    if self.file != None:
+        self.open_file(file)
+
+  def open_file(self, file):
+    """Show an confirmation for adding the channels of the specified file"""
+    #dialog = dialog_sources_list.AddSourcesList(self.window_main,
+    #                                            self.sourceslist,
+    #                                            self.render_source,
+    #                                            self.get_comparable,
+    #                                            self.datadir,
+    #                                            file)
+    #res = dialog.run()
+    #if res == gtk.RESPONSE_OK:
+    #  self.modified_sourceslist()
+    print "droped a sources.list"
+
+  def on_sources_drag_data_received(self, widget, context, x, y,
+                                     selection, target_type, timestamp):
+      """Extract the dropped file pathes and open the first file, only"""
+      uri = selection.data.strip()
+      uri_splitted = uri.split()
+      if len(uri_splitted)>0:
+          self.open_file(uri_splitted[0])
+
   def hide(self):
     self.window_main.hide()
     
   def init_sourceslist(self):
-    self.source_store = gtk.ListStore(str, bool, gobject.TYPE_PYOBJECT)
+    self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
+                                      gobject.TYPE_STRING,
+                                      gobject.TYPE_PYOBJECT,
+                                      gobject.TYPE_BOOLEAN)
     self.treeview_sources.set_model(self.source_store)
-    
-    tr = gtk.CellRendererText()
-    tr.set_property("xpad", 10)
-    tr.set_property("ypad", 10)
-    
-    source_col = gtk.TreeViewColumn("Description", tr, markup=LIST_MARKUP)
-    #source_col.set_max_width(500)
+    self.treeview_sources.set_row_separator_func(self.is_separator,
+                                                 STORE_SEPARATOR)
+    #self.treeview_sources.set_rules_hint(False)
 
-    toggle = gtk.CellRendererToggle()
-    toggle.connect("toggled", self.on_channel_toggled)
-    toggle_col = gtk.TreeViewColumn("Active", toggle, active=LIST_ENABLED)
+    cell_desc = gtk.CellRendererText()
+    cell_desc.set_property("xpad", 2)
+    cell_desc.set_property("ypad", 2)
+    col_desc = gtk.TreeViewColumn(_("Software Channel"), cell_desc,
+                                  markup=COLUMN_DESC)
+    col_desc.set_max_width(1000)
 
-    self.treeview_sources.append_column(toggle_col)
-    self.treeview_sources.append_column(source_col)
-    
+    cell_toggle = gtk.CellRendererToggle()
+    cell_toggle.set_property("xpad", 2)
+    cell_toggle.set_property("ypad", 2)
+    cell_toggle.connect('toggled', self.on_channel_toggled)
+    col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
+                                    active=COLUMN_ACTIVE)
+
+    self.treeview_sources.append_column(col_active)
+    self.treeview_sources.append_column(col_desc)
+
     self.sourceslist = aptsources.SourcesList()
-    self.matcher = aptsources.SourceEntryMatcher()
-    
+
+  def on_channel_activate(self, treeview, path, column):
+    """Open the edit dialog if a channel was double clicked"""
+    self.on_edit_clicked(treeview)
+
+  def on_treeview_sources_cursor_changed(self, treeview):
+    """Enable the buttons remove and edit if a channel is selected"""
+    sel = self.treeview_sources.get_selection()
+    (model, iter) = sel.get_selected()
+    if iter:
+        self.button_edit.set_sensitive(True)
+        self.button_remove.set_sensitive(True)
+    else:
+        self.button_edit.set_sensitive(False)
+        self.button_remove.set_sensitive(False)
+  
+  def on_channel_toggled(self, cell_toggle, path):
+    """Enable or disable the selected channel"""
+    iter = self.source_store.get_iter((int(path),))
+    source_entry = self.source_store.get_value(iter, STORE_SOURCE) 
+    source_entry.disabled = not source_entry.disabled
+    self.modified_sourceslist()
+
   def init_keyslist(self):
     self.keys_store = gtk.ListStore(str)
     self.treeview2.set_model(self.keys_store)
@@ -217,29 +290,100 @@ class SoftwareProperties(SimpleGladeApp):
     keys_col = gtk.TreeViewColumn("Key", tr, text=0)
     self.treeview2.append_column(keys_col)
     
+  def on_button_revert_clicked(self, button):
+    """Restore the source list from the startup of the dialog"""
+    self.sourceslist.restoreBackup(".save")
+    self.sourceslist.clearBackup(".save")
+    self.sourceslist.backup(".save")
+    self.sourceslist.refresh()
+    self.reload_sourceslist()
+    self.button_revert.set_sensitive(False)
+    self.modified = False
+  
+  def modified_sourceslist(self):
+    """The sources list was changed and now needs to be saved and reloaded"""
+    self.button_revert.set_sensitive(True)
+    self.sourceslist.check_for_endangered_dists()
+    self.save_sourceslist()
+    self.reload_sourceslist()
+    self.modified = True
+
+  def render_source(self, source):
+    """Render a nice output to show the source in a treeview"""
+
+    if source.template == None:
+        if source.comment:
+            contents = "<b>%s</b>" % source.comment
+            # Only show the components if there are more than one
+            if len(source.comps) > 1:
+                for c in source.comps:
+                    contents += " %s" % c
+        else:
+            contents = "<b>%s %s</b>" % (source.uri, source.dist)
+            for c in source.comps:
+                contents += " %s" % c
+        if source.type in ("deb-src", "rpm-src"):
+            contents += " %s" % _("(Source Code)")
+        return contents
+    else:
+        # try to make use of an corresponding template
+        contents = "<b>%s</b>" % source.template.description
+        if source.type in ("deb-src", "rpm-src"):
+            contents += " (%s)" % _("Source Code")
+        if source.comment:
+            contents +=" %s" % source.comment
+        if source.template.child == False:
+            for comp in source.comps:
+                if source.template.components.has_key(comp):
+                    (desc, enabled) = source.template.components[comp]
+                    contents += "\n%s" % desc
+                else:
+                    contents += "\n%s" % comp
+        return contents
+
+  def get_comparable(self, source):
+      """extract attributes to sort the sources"""
+      cur_sys = 1
+      has_template = 1
+      has_comment = 1
+      is_source = 1
+      revert_numbers = string.maketrans("0123456789", "9876543210")
+      if source.template:
+        has_template = 0
+        desc = source.template.description
+        if source.template.distribution == self.distribution:
+            cur_sys = 0
+      else:
+          desc = "%s %s %s" % (source.uri, source.dist, source.comps)
+          if source.comment:
+              has_comment = 0
+      if source.type.find("src"):
+          is_source = 0
+      return (cur_sys, has_template, has_comment, is_source,
+              desc.translate(revert_numbers))
+
   def reload_sourceslist(self):
     (path_x, path_y) = self.treeview_sources.get_cursor()
     self.source_store.clear()
+    self.sourceslist.refresh()
+    self.sourceslist_visible=[]
     for source in self.sourceslist.list:
-      if source.invalid:
-        continue
-      (a_type, dist, comps) = self.matcher.match(source)
+      if not source.invalid:
+        self.sourceslist_visible.append(source)
+
+    # Sort the sources list
+    self.sourceslist_visible.sort(key=self.get_comparable)
+
+    dist_first = False
+    for source in self.sourceslist_visible:
+        contents = self.render_source(source)
+
+        self.source_store.append([not source.disabled, contents,
+                                  source, False])
+    
+  def is_separator(self, model, iter, column):
+    return model.get_value(iter, column) 
       
-      contents = ""
-      if source.comment != "":
-        contents += "<i>%s</i>\n\n" % (source.comment)
-      contents +="<big><b>%s </b></big> (%s) <small>\n%s</small>" % (dist,a_type, comps)
-
-      self.source_store.append([contents, not source.disabled, source])
-    # try to reselect the latest selected channel or if it fails the first
-    # one
-    if len(self.source_store) > 0 and \
-       (path_x == None or self.treeview_sources.set_cursor(path_x)):
-            self.treeview_sources.set_cursor(0)
-    else:
-        # call the cursor_changed signal if no channel is selected
-        self.treeview_sources.emit("cursor_changed")
-
   def reload_keyslist(self):
     self.keys_store.clear()
     for key in self.apt_key.list():
@@ -378,28 +522,24 @@ class SoftwareProperties(SimpleGladeApp):
     if not iter:
       return
     source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
-    # see if we know what this thing should look like
-    found_matcher = False
-    for item in aptsources.SourceEntryTemplates(self.datadir).templates:
-      if item.matches(source_entry):
-        found_matcher = True
-        break
-    if found_matcher:
-      dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
-                                     self.datadir, source_entry)
+    if source_entry.template == None:
+        dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
+                                         source_entry, self.datadir)
     else:
-      dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
-                                       source_entry, self.datadir)
+        dialog = dialog_edit_predefined.dialog_edit_predefined(self.window_main, 
+                                                    self.sourceslist,
+                                                    source_entry, self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
+        self.modified_sourceslist()
 
+  # FIXME:outstanding from merge
   def on_channel_activated(self, treeview, path, column):
      """Open the edit dialog if a channel was double clicked"""
      # check if the channel can be edited
      if self.button_edit.get_property("sensitive") == True:
          self.on_edit_clicked(treeview)
 
+  # FIXME:outstanding from merge
   def on_treeview_sources_cursor_changed(self, treeview):
     """set the sensitiveness of the edit and remove button
        corresponding to the selected channel"""
