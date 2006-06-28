@@ -95,38 +95,40 @@ class MyCache(apt.Cache):
             self.clean()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
-        
+
     def get_changelog(self, name, lock):
         # don't touch the gui in this function, it needs to be thread-safe
         pkg = self[name]
 
-	# get the src package name
+    # get the src package name
         srcpkg = pkg.sourcePackageName
 
         # assume "main" section 
         src_section = "main"
         # use the section of the candidate as a starting point
-	section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
-	
-	# get the source version, start with the binaries version
-	srcver = pkg.candidateVersion
-	try:
-		# try to get the source version of the pkg, this differs
-		# for some (e.g. libnspr4 on ubuntu)
-		srcrecords = apt_pkg.GetPkgSrcRecords()
-		srcrec = srcrecords.Lookup(srcpkg)
-		if srcrec:
-			srcver = srcrecords.Version
-			#print "srcver: %s" % srcver
-			section = srcrecords.Section
-			#print "srcsect: %s" % section
-	except SystemError, e:
-		# catch errors and ignore them,
-		# this feature only works if deb-src are in the sources.list
-		# otherwise we fall back to the binary version number
-		pass
+        section = pkg._depcache.GetCandidateVer(pkg._pkg).Section
 
-	
+        # get the source version, start with the binaries version
+        binver = pkg.candidateVersion
+        #print "bin: %s" % binver
+        try:
+            # try to get the source version of the pkg, this differs
+            # for some (e.g. libnspr4 on ubuntu)
+            # this feature only works if the correct deb-src are in the 
+            # sources.list
+            # otherwise we fall back to the binary version number
+            srcrecords = apt_pkg.GetPkgSrcRecords()
+            srcrec = srcrecords.Lookup(srcpkg)
+            if srcrec:
+                srcver = srcrecords.Version
+                if apt_pkg.VersionCompare(binver, srcver) > 0:
+                    srcver = binver
+                #print "srcver: %s" % srcver
+                section = srcrecords.Section
+                #print "srcsect: %s" % section
+        except SystemError, e:
+            srcver = binver
+
         l = section.split("/")
         if len(l) > 1:
             src_section = l[0]
@@ -143,7 +145,7 @@ class MyCache(apt.Cache):
 
         try:
             uri = CHANGELOGS_URI % (src_section,prefix,srcpkg,srcpkg, srcver)
-            #print "Trying: %s " % uri
+            # print "Trying: %s " % uri
             changelog = urllib2.urlopen(uri)
             #print changelog.read()
             # do only get the lines that are new
@@ -153,23 +155,26 @@ class MyCache(apt.Cache):
             i=0
             while True:
                 line = changelog.readline()
-                #print line
                 if line == "":
                     break
                 match = re.match(regexp,line)
                 if match:
-		    # FIXME: the installed version can have a epoch, but th
-		    #        changelog does not have one, we do a dumb
-		    #        approach here and just strip it away, but I'm
-		    #        sure that this can lead to problems
-		    installed = pkg.installedVersion
-		    if installed and ":" in installed:
-			    installed = installed.split(":",1)[1]
-                    if installed and apt_pkg.VersionCompare(match.group(1),installed) <= 0:
+                    # FIXME: the installed version can have a epoch, but th
+                    #        changelog does not have one, we do a dumb
+                    #        approach here and just strip it away, but I'm
+                    #        sure that this can lead to problems
+                    installed = pkg.installedVersion
+                    if installed and ":" in installed:
+                        installed = installed.split(":",1)[1]
+                    if installed and \
+                        apt_pkg.VersionCompare(match.group(1),installed)<=0:
                         break
-                    # EOF (shouldn't really happen)
+                # EOF (shouldn't really happen)
                 alllines = alllines + line
 
+            # Print an error if we failed to extract a changelog
+            if len(alllines) == 0:
+                alllines = _("The list of changes is not available")
             # only write if we where not canceld
             if lock.locked():
                 self.all_changes[name] = [alllines, srcpkg]
@@ -186,9 +191,6 @@ class MyCache(apt.Cache):
                                             "connection."), srcpkg]
         if lock.locked():
             lock.release()
-
-        
-
 
 class UpdateList:
   def __init__(self, parent_window):
