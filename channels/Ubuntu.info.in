@@ -8,15 +8,19 @@ _Description: Ubuntu 6.04 'Dapper Drake'
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
-Component: restricted
-Enabled: 1
-_CompDescription: Restricted copyright
+_CompDescriptionLong: Free software that is officially supported by Canonical Ltd. (main)
 Component: universe
 Enabled: 0
-_CompDescription: Community maintained (Universe)
+_CompDescription: Community maintained (universe)
+_CompDescriptionLong: Free software that is maintained by the community (universe)
+Component: restricted
+Enabled: 1
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Non-free drivers for devices (restricted) 
 Component: multiverse
 Enabled: 0
-_CompDescription: Non-free (Multiverse)
+_CompDescription: Restricted software (Multiverse)
+_CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
 
 Suite: dapper
 MatchName: .*

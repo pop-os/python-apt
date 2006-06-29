@@ -31,6 +31,7 @@ import tempfile
 from gettext import gettext as _
 import os
 import string
+import re
 
 #sys.path.append("@prefix/share/update-manager/python")
 
@@ -120,6 +121,7 @@ class Distribution:
             break
     if self.source_template == None:
         print "Error: could not find a distribution template"
+        # FIXME: will go away - only for debugging issues
         sys.exit(1)
 
     # find main and child sources
@@ -141,9 +143,6 @@ class Distribution:
             print "yeah! child found: %s" % source.template.name
             if source.type == "deb":
                 self.child_sources.append(source)
-                media.append(source.uri)
-            elif source.type == "deb-src":
-                self.source_code_sources.append(source)
     self.enabled_comps = set(comps)
     self.used_media = set(media)
 
@@ -174,8 +173,8 @@ class Distribution:
         else:
             # seems to be a network source
             self.use_internet = True
-            if medium != self.main_server or \
-               medium != self.nearest_server:
+            if not re.match(medium, self.main_server) and \
+               not re.match(medium, self.nearest_server):
                 self.other_servers.append(medium)
 
 
@@ -338,7 +337,7 @@ class SoftwareProperties(SimpleGladeApp):
     for checkbutton in self.vbox_dist_comps.get_children():
          self.vbox_dist_comps.remove(checkbutton)
     for comp in self.distribution.source_template.components.keys():
-        checkbox = gtk.CheckButton(label=self.distribution.source_template.components[comp][0])
+        checkbox = gtk.CheckButton(label=self.distribution.source_template.components[comp][2])
         # check if the comp is enabled
         # FIXME: use inconsistence if there are main sources with not all comps
         if comp in self.distribution.enabled_comps:
@@ -395,6 +394,8 @@ class SoftwareProperties(SimpleGladeApp):
     cell = gtk.CellRendererText()
     self.combobox_server.pack_start(cell, True)
     self.combobox_server.add_attribute(cell, 'text', 0)
+    # load the mirror list in to the combo and select the one of the first
+    # main source
     server_store.append([_("%s (default)") % self.distribution.main_server, 
                         self.distribution.main_server])
     server_store.append([_("%s (nearest)") % self.distribution.nearest_server, 
@@ -557,7 +558,8 @@ class SoftwareProperties(SimpleGladeApp):
         if source.template.child == False:
             for comp in source.comps:
                 if source.template.components.has_key(comp):
-                    (desc, enabled) = source.template.components[comp]
+                    print source.template.components[comp]
+                    (desc, enabled, desc_long) = source.template.components[comp]
                     contents += "\n%s" % desc
                 else:
                     contents += "\n%s" % comp
@@ -591,8 +593,8 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist_visible=[]
     self.distribution.get_sources(self.sourceslist)
     for source in self.sourceslist.list:
-      if not source.invalid or\
-         source not in self.distribution.main_sources or\
+      if not source.invalid and\
+         source not in self.distribution.main_sources and\
          source not in self.distribution.child_sources:
         self.sourceslist_visible.append(source)
 

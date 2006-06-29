@@ -43,8 +43,9 @@ class Suite:
 
 class Component:
     def __init__(self):
-        self.name = None
-        self.description = None
+        self.name = ""
+        self.description = ""
+        self.description_long = ""
         self.enabled = None
 
 class DistInfo:
@@ -82,7 +83,8 @@ class DistInfo:
                 if suite:
                     if component:
                         suite.components["%s" % component.name] = \
-                            (component.description, component.enabled)
+                            (component.description, component.enabled,
+                             component.description_long)
                         component = None
                     self.suites.append (suite)
                 suite = Suite ()
@@ -110,17 +112,21 @@ class DistInfo:
             elif field == 'Component':
                 if component:
                     suite.components["%s" % component.name] = \
-                        (component.description, component.enabled)
+                        (component.description, component.enabled,
+                         component.description_long)
                 component = Component ()
                 component.name = value
             elif field == 'Enabled':
                 component.enabled = bool(int(value))
             elif field == 'CompDescription':
                 component.description = _(value)
+            elif field == 'CompDescriptionLong':
+                component.description_long = _(value)
         if suite:
             if component:
                 suite.components["%s" % component.name] = \
-                    (component.description, component.enabled)
+                    (component.description, component.enabled,
+                     component.description_long)
                 component = None
             self.suites.append (suite)
             suite = None
@@ -135,8 +141,9 @@ if __name__ == "__main__":
         print "BaseURI: %s" % suite.base_uri
         print "MatchURI: %s" % suite.match_uri
         for component in suite.components:
-            print "  %s - %s - %s " % (component, 
+            print "  %s - %s - %s - %s" % (component, 
                                        suite.components[component][0],
-                                       suite.components[component][1])
+                                       suite.components[component][1],
+                                       suite.components[component][2])
         for child in suite.children:
             print "  %s" % child.description
