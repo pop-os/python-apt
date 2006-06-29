@@ -57,33 +57,132 @@ CONF_MAP = {
 }
 
 (
-COLUMN_ACTIVE,
-COLUMN_DESC
+    COLUMN_ACTIVE,
+    COLUMN_DESC
 ) = range(2)
 
 
 # columns of the source_store
-(STORE_ACTIVE, STORE_DESCRIPTION, STORE_SOURCE, STORE_SEPARATOR) = range(4)
+(
+    STORE_ACTIVE, 
+    STORE_DESCRIPTION, 
+    STORE_SOURCE, 
+    STORE_SEPARATOR,
+    STORE_VISIBLE
+) = range(5)
+
+class Distribution:
+  def __init__(self):
+    """"
+    Container for distribution specific informations
+    """
+    # LSB information
+    self.id = ""
+    self.codename = ""
+    self.description = ""
+    self.release = ""
+
+    # corresponding sources
+    self.source_template = None
+    self.child_sources = []
+    self.main_sources = []
+    self.enabled_comps = []
+    self.used_media = []
+    self.source_code_sources = []
+
+    # location of the sources
+    self.cdrom_available = False
+    self.use_internet = False
+    self.main_server = ""
+    self.nearest_server = ""
+    self.other_servers = []
+    
+    # get the LSB information
+    lsb_info = []
+    for lsb_option in ["-i", "-c", "-d", "-r"]:
+        pipe = os.popen("lsb_release %s | cut -d : -f 2-" % lsb_option)
+        lsb_info.append(pipe.read().strip())
+        del pipe
+    (self.id, self.codename, self.description, self.release) = lsb_info
+
+  def get_sources(self, sources_list):
+    """
+    Find the corresponding template, main and child sources 
+    for the distribution 
+    """
+    # find the distro template
+    for template in sources_list.matcher.templates:
+        if template.name == self.codename and\
+           template.distribution == self.id:
+            print "yeah! found a template for %s" % self.description
+            print template.description, template.base_uri, template.components
+            self.source_template = template
+            break
+    if self.source_template == None:
+        print "Error: could not find a distribution template"
+        sys.exit(1)
+
+    # find main and child sources
+    media = []
+    comps = []
+    source_code = []
+    for source in sources_list.list:
+        if source.disabled == False and source.invalid == False and\
+           source.dist == self.codename and\
+           source.template.name == self.codename:
+            print "yeah! found a distro repo:  %s" % source.line
+            if source.type == "deb":
+                self.main_sources.append(source)
+                comps.extend(source.comps)
+                media.append(source.uri)
+            elif source.type == "deb-src":
+                self.source_code_sources.append(source)
+        if source.template in self.source_template.children:
+            print "yeah! child found: %s" % source.template.name
+            if source.type == "deb":
+                self.child_sources.append(source)
+                media.append(source.uri)
+            elif source.type == "deb-src":
+                self.source_code_sources.append(source)
+    self.enabled_comps = set(comps)
+    self.used_media = set(media)
+
+    self.get_mirrors()
+  
+  def get_mirrors(self):
+    """
+    Provide a set of mirrors where you can get the distribution from
+    """
+    # the main server is stored in the template
+    self.main_server = self.source_template.base_uri
+
+    # try to guess the nearest mirror from the locale
+    # FIXME: for debian we need something different
+    if self.id == "Ubuntu":
+        locale = os.getenv("LANG", default="en.UK")
+        a = locale.find("_")
+        z = locale.find(".")
+        if z == -1:
+            z = len(locale)
+        country = locale[a+1:z].lower()
+        self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % country
+
+    # other used servers
+    for medium in self.used_media:
+        if medium.startswith("cdrom:"):
+            self.cdrom_available = True
+        else:
+            # seems to be a network source
+            self.use_internet = True
+            if medium != self.main_server or \
+               medium != self.nearest_server:
+                self.other_servers.append(medium)
+
 
 class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir=None, options=None, parent=None, file=None):
     gtk.window_set_default_icon_name("software-properties")
-
-    # get the current LSB distribution name
-    pipe = os.popen("lsb_release -i | cut -d : -f 2-")
-    self.distribution = pipe.read().strip()
-    del pipe
-
-    # get the current LSB distribution description
-    pipe = os.popen("lsb_release -d | cut -d : -f 2-")
-    self.dist_desc = pipe.read().strip()
-    del pipe
-
-    # get the current LSB distribution codename
-    pipe = os.popen("lsb_release -c | cut -d : -f 2-")
-    self.dist_codename = pipe.read().strip()
-    del pipe
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -94,6 +193,8 @@ class SoftwareProperties(SimpleGladeApp):
     self.modified = False
 
     self.file = file
+
+    self.distribution = Distribution()
 
     #self.gnome_program = gnome.init("Software Properties", "0.41")
     #self.gconfclient = gconf.client_get_default()
@@ -113,43 +214,6 @@ class SoftwareProperties(SimpleGladeApp):
     
     self.init_sourceslist()
     self.reload_sourceslist()
-
-    # Set up options in the user interface
-    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_updates.set_label(_("%s Updates") % self.distribution)
-    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_dist_software.set_label(_("%s Software") % self.distribution)
-    self.label_dist_name.set_label("<b>%s</b>" % self.dist_desc)
-
-    # find the source entry for your current distribution
-    for template in self.sourceslist.matcher.templates:
-        if template.name == self.dist_codename and\
-           template.distribution == template.distribution:
-            print "yeah! found source for %s" % self.dist_desc
-            print template.description, template.base_uri, template.components
-            self.dist_template = template
-            break
-    # FIXME: Make this configurable for reuse in Debian
-    #components = [("main", _("Free software that is supported by Canonical"
-    #                         " Ltd. (main)")),
-    #              ("universe", _("Free software that is maintained by "
-    #                             "the community (universe)")),
-    #              ("restricted", _("Non-free drivers (restricted)")),
-    #              ("multiverse", _("Software that is restricted by copyright "
-    #                               "or legal issues (multiverse)"))]
-
-    # Setup the checkbuttons for the components
-    print self.dist_template.components.keys()
-    for comp in self.dist_template.components.keys():
-        checkbox = gtk.CheckButton(label=self.dist_template.components[comp][0])
-        self.vbox_dist_comps.add(checkbox)
-        checkbox.show()
-
-    # Setup the checkbuttons for the child repos / updates
-    for template in self.dist_template.children:
-        checkbox = gtk.CheckButton(label=template.description)
-        self.vbox_updates.add(checkbox)
-        checkbox.show()
 
     self.window_main.show()
 
@@ -260,6 +324,101 @@ class SoftwareProperties(SimpleGladeApp):
     if self.file != None:
         self.open_file(file)
 
+  def distro_to_widgets(self):
+    """
+    Represent the distro information in the user interface
+    """
+    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+    self.label_updates.set_label(_("%s Updates") % self.distribution.id)
+    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+    self.label_dist_software.set_label(_("%s Software") % self.distribution.id)
+    self.label_dist_name.set_label("<b>%s</b>" % self.distribution.description)
+
+    # Setup the checkbuttons for the components
+    for checkbutton in self.vbox_dist_comps.get_children():
+         self.vbox_dist_comps.remove(checkbutton)
+    for comp in self.distribution.source_template.components.keys():
+        checkbox = gtk.CheckButton(label=self.distribution.source_template.components[comp][0])
+        # check if the comp is enabled
+        # FIXME: use inconsistence if there are main sources with not all comps
+        if comp in self.distribution.enabled_comps:
+            checkbox.set_active(True)
+        # do not allow to disable an enabled main component
+        if comp == "main":
+            checkbox.set_property("sensitive", False)
+        # setup the callback and show the checkbutton
+        checkbox.connect("toggled", self.on_checkbutton_comp_toggled, comp)
+        self.vbox_dist_comps.add(checkbox)
+        checkbox.show()
+
+    # Setup the checkbuttons for the child repos / updates
+    for checkbutton in self.vbox_updates.get_children():
+         self.vbox_updates.remove(checkbutton)
+    for template in self.distribution.source_template.children:
+        checkbox = gtk.CheckButton(label=template.description)
+        for child in self.distribution.child_sources:
+            if child.template == template:
+                # check if all comps of the main source are also enabled 
+                # for the child source
+                if len(set(child.comps) - self.distribution.enabled_comps) == 0:
+                    checkbox.set_active(True)
+                elif len(set(child.comps) - self.distribution.enabled_comps) ==\
+                     len(self.distribution.enabled_comps):
+                    checkbox.set_active(False)
+                else:
+                    checkbox.set_inconsistent(True)
+                #FIXME: currently we don't handle multiple sources of the same
+                #       child source - the required effort would be questionable
+                break
+        # setup the callback and show the checkbutton
+        checkbox.connect("toggled", self.on_checkbutton_child_toggled,
+                         template.name)
+        self.vbox_updates.add(checkbox)
+        checkbox.show()
+
+    # setup the location
+    # FIXME: how to handle uncommented cdroms?
+    if self.distribution.cdrom_available == True:
+        self.checkbutton_cdrom.set_active(True)
+    else:
+        self.checkbutton_cdrom.set_active(False)
+
+    # FIXME: needs inconsistence
+    if self.distribution.use_internet == True:
+        self.checkbutton_internet.set_active(True)
+        self.combobox_server.set_property("sensitive", True)
+    else:
+        self.checkbutton_internet.set_active(False)
+        self.combobox_server.set_property("sensitive", False)
+    server_store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+    self.combobox_server.set_model(server_store)
+    cell = gtk.CellRendererText()
+    self.combobox_server.pack_start(cell, True)
+    self.combobox_server.add_attribute(cell, 'text', 0)
+    server_store.append([_("%s (default)") % self.distribution.main_server, 
+                        self.distribution.main_server])
+    server_store.append([_("%s (nearest)") % self.distribution.nearest_server, 
+                        self.distribution.main_server])
+    for server in self.distribution.other_servers:
+        server_store.append(["%s" % server, server])
+    # FIXME: which one to choose?
+    self.combobox_server.set_active(0)
+
+
+  def on_checkbutton_comp_toggled(self, checkbutton, comp):
+    """
+    Enable or disable a component for the distribution main repository
+    and its children
+    """
+    print "Set %s to %s" % (checkbutton.get_active(), comp)
+    state = checkbutton.get_active()
+
+  def on_checkbutton_child_toggled(self, checkbutton, child):
+    """
+    Enable or disable a child repo of the distribution main repository
+    """
+    print "Set %s to %s" % (checkbutton.get_active(), child)
+
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
     #dialog = dialog_sources_list.AddSourcesList(self.window_main,
@@ -292,9 +451,11 @@ class SoftwareProperties(SimpleGladeApp):
     # STORE_DESCRIPTION - description of the source entry
     # STORE_SOURCE - the source entry object
     # STORE_SEPARATOR - if the entry is a separator
+    # STORE_VISIBLE - if the entry is shown or hidden
     self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
                                       gobject.TYPE_STRING,
                                       gobject.TYPE_PYOBJECT,
+                                      gobject.TYPE_BOOLEAN,
                                       gobject.TYPE_BOOLEAN)
     self.treeview_sources.set_model(self.source_store)
     self.treeview_sources.set_row_separator_func(self.is_separator,
@@ -428,8 +589,11 @@ class SoftwareProperties(SimpleGladeApp):
     self.source_store.clear()
     self.sourceslist.refresh()
     self.sourceslist_visible=[]
+    self.distribution.get_sources(self.sourceslist)
     for source in self.sourceslist.list:
-      if not source.invalid:
+      if not source.invalid or\
+         source not in self.distribution.main_sources or\
+         source not in self.distribution.child_sources:
         self.sourceslist_visible.append(source)
 
     # Sort the sources list
@@ -440,7 +604,8 @@ class SoftwareProperties(SimpleGladeApp):
         contents = self.render_source(source)
 
         self.source_store.append([not source.disabled, contents,
-                                  source, False])
+                                  source, False, True])
+    self.distro_to_widgets()
     
   def is_separator(self, model, iter, column):
     return model.get_value(iter, column) 

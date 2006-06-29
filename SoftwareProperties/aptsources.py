@@ -90,6 +90,7 @@ class SourceEntry:
     self.file = file
     self.parse(line)
     self.template = None
+    self.children = []
 
   # works mostely like split but takes [] into account
   def mysplit(self, line):
