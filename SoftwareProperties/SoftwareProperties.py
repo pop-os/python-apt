@@ -63,7 +63,7 @@ COLUMN_DESC
 
 
 # columns of the source_store
-(SORE_ACTIVE, STORE_DESCRIPTION, STORE_SOURCE, STORE_SEPARATOR) = range(4)
+(STORE_ACTIVE, STORE_DESCRIPTION, STORE_SOURCE, STORE_SEPARATOR) = range(4)
 
 class SoftwareProperties(SimpleGladeApp):
 
@@ -73,6 +73,16 @@ class SoftwareProperties(SimpleGladeApp):
     # get the current LSB distribution name
     pipe = os.popen("lsb_release -i | cut -d : -f 2-")
     self.distribution = pipe.read().strip()
+    del pipe
+
+    # get the current LSB distribution description
+    pipe = os.popen("lsb_release -d | cut -d : -f 2-")
+    self.dist_desc = pipe.read().strip()
+    del pipe
+
+    # get the current LSB distribution codename
+    pipe = os.popen("lsb_release -c | cut -d : -f 2-")
+    self.dist_codename = pipe.read().strip()
     del pipe
 
     # FIXME: some saner way is needed here
@@ -101,10 +111,47 @@ class SoftwareProperties(SimpleGladeApp):
       toplevel = gtk.gdk.window_foreign_new(int(options.toplevel))
       self.window_main.window.set_transient_for(toplevel)
     
-    self.window_main.show()
-      
     self.init_sourceslist()
     self.reload_sourceslist()
+
+    # Set up options in the user interface
+    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+    self.label_updates.set_label(_("%s Updates") % self.distribution)
+    # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+    self.label_dist_software.set_label(_("%s Software") % self.distribution)
+    self.label_dist_name.set_label("<b>%s</b>" % self.dist_desc)
+
+    # find the source entry for your current distribution
+    for template in self.sourceslist.matcher.templates:
+        if template.name == self.dist_codename and\
+           template.distribution == template.distribution:
+            print "yeah! found source for %s" % self.dist_desc
+            print template.description, template.base_uri, template.components
+            self.dist_template = template
+            break
+    # FIXME: Make this configurable for reuse in Debian
+    #components = [("main", _("Free software that is supported by Canonical"
+    #                         " Ltd. (main)")),
+    #              ("universe", _("Free software that is maintained by "
+    #                             "the community (universe)")),
+    #              ("restricted", _("Non-free drivers (restricted)")),
+    #              ("multiverse", _("Software that is restricted by copyright "
+    #                               "or legal issues (multiverse)"))]
+
+    # Setup the checkbuttons for the components
+    print self.dist_template.components.keys()
+    for comp in self.dist_template.components.keys():
+        checkbox = gtk.CheckButton(label=self.dist_template.components[comp][0])
+        self.vbox_dist_comps.add(checkbox)
+        checkbox.show()
+
+    # Setup the checkbuttons for the child repos / updates
+    for template in self.dist_template.children:
+        checkbox = gtk.CheckButton(label=template.description)
+        self.vbox_updates.add(checkbox)
+        checkbox.show()
+
+    self.window_main.show()
 
     # internet update setings
     
@@ -238,6 +285,13 @@ class SoftwareProperties(SimpleGladeApp):
     self.window_main.hide()
     
   def init_sourceslist(self):
+    """
+    Read all valid sources into our ListStore
+    """
+    # STORE_ACTIVE - is the source enabled or disabled
+    # STORE_DESCRIPTION - description of the source entry
+    # STORE_SOURCE - the source entry object
+    # STORE_SEPARATOR - if the entry is a separator
     self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
                                       gobject.TYPE_STRING,
                                       gobject.TYPE_PYOBJECT,
