@@ -87,6 +87,7 @@ class Distribution:
     self.source_template = None
     self.child_sources = []
     self.main_sources = []
+    self.cdrom_sources = []
     self.enabled_comps = []
     self.used_media = []
     self.source_code_sources = []
@@ -129,20 +130,28 @@ class Distribution:
     comps = []
     source_code = []
     for source in sources_list.list:
-        if source.disabled == False and source.invalid == False and\
+        if source.invalid == False and\
            source.dist == self.codename and\
            source.template.name == self.codename:
             print "yeah! found a distro repo:  %s" % source.line
+            # cdroms need do be handled differently
+            if source.uri.startswith("cdrom:"):
+                self.cdrom_sources.append(source)
             if source.type == "deb":
                 self.main_sources.append(source)
-                comps.extend(source.comps)
-                media.append(source.uri)
+                if source.disabled == False: 
+                    comps.extend(source.comps)
+                    media.append(source.uri)
             elif source.type == "deb-src":
                 self.source_code_sources.append(source)
+            print source.type
+            print len(self.source_code_sources)
         if source.template in self.source_template.children:
             print "yeah! child found: %s" % source.template.name
             if source.type == "deb":
                 self.child_sources.append(source)
+            elif source.type == "deb-src":
+                self.source_code_sources.append(source)
     self.enabled_comps = set(comps)
     self.used_media = set(media)
 
@@ -342,9 +351,6 @@ class SoftwareProperties(SimpleGladeApp):
         # FIXME: use inconsistence if there are main sources with not all comps
         if comp in self.distribution.enabled_comps:
             checkbox.set_active(True)
-        # do not allow to disable an enabled main component
-        if comp == "main":
-            checkbox.set_property("sensitive", False)
         # setup the callback and show the checkbutton
         checkbox.connect("toggled", self.on_checkbutton_comp_toggled, comp)
         self.vbox_dist_comps.add(checkbox)
@@ -405,6 +411,7 @@ class SoftwareProperties(SimpleGladeApp):
     # FIXME: which one to choose?
     self.combobox_server.set_active(0)
 
+    # Check for source code sources
 
   def on_checkbutton_comp_toggled(self, checkbutton, comp):
     """
@@ -592,10 +599,14 @@ class SoftwareProperties(SimpleGladeApp):
     self.sourceslist.refresh()
     self.sourceslist_visible=[]
     self.distribution.get_sources(self.sourceslist)
+    # Only show sources that are no binary or source code repos for
+    # the current distribution, but show cdrom based repos
     for source in self.sourceslist.list:
       if not source.invalid and\
-         source not in self.distribution.main_sources and\
-         source not in self.distribution.child_sources:
+         ((source not in self.distribution.main_sources and\
+           source not in self.distribution.child_sources) or\
+          source in self.distribution.cdrom_sources) and\
+         source not in self.distribution.source_code_sources:
         self.sourceslist_visible.append(source)
 
     # Sort the sources list
