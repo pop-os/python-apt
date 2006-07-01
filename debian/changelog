@@ -9,6 +9,7 @@ python-apt (0.6.19) unstable; urgency=low
   * apt/cache.py:
     - fix commit doc string to also cite the open related callbacks
     - allow change of rootdir for APT database loading
+    - add dh_installexamples in package building
   
  -- 
 
