@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.6.2.0
-Build-Depends: debhelper (>= 5.0), libapt-pkg-dev (>= 0.6.40), apt-utils, python-dev, python2.4-dev
+Build-Depends: debhelper (>= 5.0), libapt-pkg-dev (>= 0.6.44.2), apt-utils, python-dev, python2.4-dev
 
 Package: python-apt
 Architecture: all

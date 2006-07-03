@@ -1,3 +1,10 @@
+python-apt (0.6.16.2ubuntu9) edgy; urgency=low
+
+  * rebuild against the latest apt (with auto-mark support)
+  * the full merge needs a newer python-support 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  3 Jul 2006 21:33:40 +0200
+
 python-apt (0.6.16.2ubuntu8) dapper; urgency=low
 
   * apt/package.py:
