@@ -468,6 +468,27 @@ class SourceEntryMatcher:
                                          "^dapper-updates$",
                                          _("Ubuntu 6.06 LTS Updates"),
                                          ubuntu_comps, ubuntu_comps_descr))
+    # edgy
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^edgy-security$",
+                                         _("Ubuntu 6.10 Security Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*security.ubuntu.com/ubuntu",
+                                         "^edgy-security$",
+                                         _("Ubuntu 6.10 Security Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^edgy$",
+                                         "Ubuntu 6.10",
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^edgy-backports$",
+                                         _("Ubuntu 6.10 Backports"),
+                                         ubuntu_comps, ubuntu_comps_descr))
+    self.dist_list.append(self.MatchDist(".*archive.ubuntu.com/ubuntu",
+                                         "^edgy-updates$",
+                                         _("Ubuntu 6.10 Updates"),
+                                         ubuntu_comps, ubuntu_comps_descr))
 
 
     # DEBIAN
