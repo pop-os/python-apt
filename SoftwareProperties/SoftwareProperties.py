@@ -21,6 +21,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import pdb
 import sys
 import apt
 import apt_pkg
@@ -83,22 +84,6 @@ class Distribution:
     self.description = ""
     self.release = ""
 
-    # corresponding sources
-    self.source_template = None
-    self.child_sources = []
-    self.main_sources = []
-    self.cdrom_sources = []
-    self.enabled_comps = []
-    self.used_media = []
-    self.source_code_sources = []
-
-    # location of the sources
-    self.cdrom_available = False
-    self.use_internet = False
-    self.main_server = ""
-    self.nearest_server = ""
-    self.other_servers = []
-    
     # get the LSB information
     lsb_info = []
     for lsb_option in ["-i", "-c", "-d", "-r"]:
@@ -112,12 +97,29 @@ class Distribution:
     Find the corresponding template, main and child sources 
     for the distribution 
     """
+    # corresponding sources
+    self.source_template = None
+    self.child_sources = []
+    self.main_sources = []
+    self.cdrom_sources = []
+    self.enabled_comps = []
+    self.used_media = []
+    self.get_source_code = False
+    self.source_code_sources = []
+
+    # location of the sources
+    self.cdrom_available = False
+    self.use_internet = False
+    self.main_server = ""
+    self.nearest_server = ""
+    self.other_servers = []
+
     # find the distro template
     for template in sources_list.matcher.templates:
         if template.name == self.codename and\
            template.distribution == self.id:
-            print "yeah! found a template for %s" % self.description
-            print template.description, template.base_uri, template.components
+            #print "yeah! found a template for %s" % self.description
+            #print template.description, template.base_uri, template.components
             self.source_template = template
             break
     if self.source_template == None:
@@ -132,8 +134,9 @@ class Distribution:
     for source in sources_list.list:
         if source.invalid == False and\
            source.dist == self.codename and\
+           source.template and\
            source.template.name == self.codename:
-            print "yeah! found a distro repo:  %s" % source.line
+            #print "yeah! found a distro repo:  %s" % source.line
             # cdroms need do be handled differently
             if source.uri.startswith("cdrom:"):
                 self.cdrom_sources.append(source)
@@ -144,10 +147,8 @@ class Distribution:
                     media.append(source.uri)
             elif source.type == "deb-src":
                 self.source_code_sources.append(source)
-            print source.type
-            print len(self.source_code_sources)
         if source.template in self.source_template.children:
-            print "yeah! child found: %s" % source.template.name
+            #print "yeah! child found: %s" % source.template.name
             if source.type == "deb":
                 self.child_sources.append(source)
             elif source.type == "deb-src":
@@ -186,6 +187,24 @@ class Distribution:
                not re.match(medium, self.nearest_server):
                 self.other_servers.append(medium)
 
+  def add_source(self, sources_list, type=None, 
+                 uri=None, dist=None, comps=None, comment=""):
+    if uri == None:
+        # FIXME: Add support for the server selector
+        uri = self.main_server
+    if dist == None:
+        dist = self.codename
+    if comps == None:
+        comps = list(self.enabled_comps)
+    if type == None:
+        type = "deb"
+    if comment == "":
+        comment == "Added by software-properties"
+
+    sources_list.add(type, uri, dist, comps, comment)
+    # FIXME: get rid of the ui dependency
+    if self.get_source_code == True:
+        sources_list.add("deb-src", uri, dist, comps, comment)
 
 class SoftwareProperties(SimpleGladeApp):
 
@@ -203,6 +222,9 @@ class SoftwareProperties(SimpleGladeApp):
     self.file = file
 
     self.distribution = Distribution()
+    cell = gtk.CellRendererText()
+    self.combobox_server.pack_start(cell, True)
+    self.combobox_server.add_attribute(cell, 'text', 0)
 
     #self.gnome_program = gnome.init("Software Properties", "0.41")
     #self.gconfclient = gconf.client_get_default()
@@ -352,7 +374,7 @@ class SoftwareProperties(SimpleGladeApp):
         if comp in self.distribution.enabled_comps:
             checkbox.set_active(True)
         # setup the callback and show the checkbutton
-        checkbox.connect("toggled", self.on_checkbutton_comp_toggled, comp)
+        checkbox.connect("toggled", self.on_component_toggled, comp)
         self.vbox_dist_comps.add(checkbox)
         checkbox.show()
 
@@ -367,19 +389,24 @@ class SoftwareProperties(SimpleGladeApp):
                 # for the child source
                 if len(set(child.comps) - self.distribution.enabled_comps) == 0:
                     checkbox.set_active(True)
-                elif len(set(child.comps) - self.distribution.enabled_comps) ==\
-                     len(self.distribution.enabled_comps):
-                    checkbox.set_active(False)
                 else:
+                    checkbox.set_active(False)
+                if len(self.distribution.enabled_comps ^ set(child.comps)) > 0:
                     checkbox.set_inconsistent(True)
+                    checkbox.set_active(False)
                 #FIXME: currently we don't handle multiple sources of the same
                 #       child source - the required effort would be questionable
                 break
         # setup the callback and show the checkbutton
         checkbox.connect("toggled", self.on_checkbutton_child_toggled,
-                         template.name)
+                         template)
         self.vbox_updates.add(checkbox)
         checkbox.show()
+
+    if len(self.distribution.enabled_comps) < 1:
+        self.vbox_updates.set_sensitive(False)
+    else:
+        self.vbox_updates.set_sensitive(True)
 
     # setup the location
     # FIXME: how to handle uncommented cdroms?
@@ -397,9 +424,6 @@ class SoftwareProperties(SimpleGladeApp):
         self.combobox_server.set_property("sensitive", False)
     server_store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     self.combobox_server.set_model(server_store)
-    cell = gtk.CellRendererText()
-    self.combobox_server.pack_start(cell, True)
-    self.combobox_server.add_attribute(cell, 'text', 0)
     # load the mirror list in to the combo and select the one of the first
     # main source
     server_store.append([_("%s (default)") % self.distribution.main_server, 
@@ -410,22 +434,127 @@ class SoftwareProperties(SimpleGladeApp):
         server_store.append(["%s" % server, server])
     # FIXME: which one to choose?
     self.combobox_server.set_active(0)
+    self.combobox_server.connect("changed", self.on_combobox_server_changed)
 
     # Check for source code sources
+    self.checkbutton_source_code.set_inconsistent(False)
+    if len(self.distribution.source_code_sources) < 1:
+        # we don't have any source code sources, so
+        # uncheck the button
+        self.checkbutton_source_code.set_active(False)
+        self.distribution.get_source_code = False
+    else:
+        # there are source code sources, so we check the button
+        self.checkbutton_source_code.set_active(True)
+        self.distribution.get_source_code = True
+        # check if there is a corresponding source code source for
+        # every binary source. if not set the checkbutton to inconsistent
+        templates = {}
+        sources = []
+        sources.extend(self.distribution.main_sources)
+        sources.extend(self.distribution.child_sources)
+        for source in sources:
+            if templates.has_key(source.template):
+                templates[source.template] += set(source.comps)
+            else:
+                templates[source.template] = set(source.comps)
+        # add fake http sources for the cdrom, since the sources
+        # for the cdrom are only available in the internet
+        for source in self.distribution.cdrom_sources:
+            if templates.has_key(self.distribution.source_template):
+                templates[self.distribution.source_template] += set(source.comps)
+            else:
+                templates[self.distribution.source_template] += set(source.comps)
+        for source in self.distribution.source_code_sources:
+            if not templates.has_key(source.template) or \
+               (templates.has_key(source.template) and \
+                len(set(templates[source.template]) ^ set(source.comps)) > 0):
+                self.checkbutton_source_code.set_inconsistent(True)
+                self.distribution.get_source_code = False
+                break
+    self.checkbutton_source_code.connect("toggled",
+                                         self.on_checkbutton_source_code_toggled)
 
-  def on_checkbutton_comp_toggled(self, checkbutton, comp):
+  def on_component_toggled(self, checkbutton, comp):
     """
-    Enable or disable a component for the distribution main repository
-    and its children
+    Sync the components of all main sources (excluding cdroms),
+    child sources and source code sources
     """
-    print "Set %s to %s" % (checkbutton.get_active(), comp)
-    state = checkbutton.get_active()
+    sources = []
+    sources.extend(self.distribution.main_sources)
+    sources.extend(self.distribution.child_sources)
+    if checkbutton.get_active() == True:
+        # check if there is a main source at all
+        if len(self.distribution.main_sources) < 1:
+            # create a new main source
+            self.distribution.add_source(self.sourceslist, comps=[comp])
+        # add the comp to all main, child and source code sources
+        for source in sources:
+            if comp not in source.comps:
+                source.comps.append(comp)
+        if self.distribution.get_source_code == True:
+            for source in self.distribution.source_code_sources:
+                if comp not in source.comps: source.comps.append(comp)
+    else:
+        for source in sources:
+            if comp in source.comps: 
+                source.comps.remove(comp)
+                if len(source.comps) < 1: 
+                    self.sourceslist.remove(source)
+    self.massive_debug_output()
 
-  def on_checkbutton_child_toggled(self, checkbutton, child):
+  def massive_debug_output(self):
+      """
+      do not write our changes yet - just print them to std_out
+      """
+      print "START SOURCES.LIST:"
+      for source in self.sourceslist:
+          print source.str()
+      print "END SOURCES.LIST\n"
+      self.distribution.get_sources(self.sourceslist)
+      self.distro_to_widgets()
+
+  def on_checkbutton_child_toggled(self, checkbutton, template):
     """
     Enable or disable a child repo of the distribution main repository
     """
-    print "Set %s to %s" % (checkbutton.get_active(), child)
+    if checkbutton.get_active() == False:
+        for source in self.distribution.child_sources:
+            if source.template == template:
+                self.sourceslist.remove(source)
+    else:
+        self.distribution.add_source(self.sourceslist,
+                                     uri=template.base_uri,
+                                     dist=template.name)
+    self.massive_debug_output()
+  
+  def on_checkbutton_source_code_toggled(self, checkbutton):
+    """
+    Disable or enable the source code for all sources
+    """
+    self.distribution.get_source_code = checkbutton.get_active()
+    sources = []
+    sources.extend(self.distribution.main_sources)
+    sources.extend(self.distribution.child_sources)
+
+    # remove all exisiting sources
+    for source in self.distribution.source_code_sources:
+        self.sourceslist.remove(source)
+
+    if checkbutton.get_active() == True:
+        for source in sources:
+            self.sourceslist.add("deb-src",
+                                 source.uri,
+                                 source.dist,
+                                 source.comps,
+                                 "Added by software-properties")
+        for source in self.distribution.cdrom_sources:
+            self.sourceslist.add("deb-src",
+                                 self.distribution.source_template.base_uri,
+                                 self.distribution.source_template.name,
+                                 source.comps,
+                                 "Added by software-properties")
+    self.massive_debug_output()
 
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
