@@ -474,6 +474,8 @@ class SoftwareProperties(SimpleGladeApp):
                 break
     self.checkbutton_source_code.connect("toggled",
                                          self.on_checkbutton_source_code_toggled)
+  def on_combobox_server_changed(self, combobox):
+      print "FIXME"
 
   def on_component_toggled(self, checkbutton, comp):
     """
