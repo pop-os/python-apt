@@ -92,6 +92,21 @@ class Distribution:
         del pipe
     (self.id, self.codename, self.description, self.release) = lsb_info
 
+    # get a list of country codes and real names
+    self.countries = {}
+    try:
+        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
+        lines = f.readlines()
+        for line in lines:
+            parts = line.split("\t")
+            self.countries[parts[0].lower()] = parts[1]
+    except:
+        print "could not open file '%s'" % file
+    else:
+        f.close()
+
+
+
   def get_sources(self, sources_list):
     """
     Find the corresponding template, main and child sources 
@@ -101,6 +116,7 @@ class Distribution:
     self.source_template = None
     self.child_sources = []
     self.main_sources = []
+    self.disabled_sources = []
     self.cdrom_sources = []
     self.enabled_comps = []
     self.used_media = []
@@ -112,7 +128,7 @@ class Distribution:
     self.use_internet = False
     self.main_server = ""
     self.nearest_server = ""
-    self.other_servers = []
+    self.used_servers = []
 
     # find the distro template
     for template in sources_list.matcher.templates:
@@ -140,13 +156,16 @@ class Distribution:
             # cdroms need do be handled differently
             if source.uri.startswith("cdrom:"):
                 self.cdrom_sources.append(source)
-            if source.type == "deb":
+            if source.type == "deb" and source.disabled == False:
                 self.main_sources.append(source)
-                if source.disabled == False: 
-                    comps.extend(source.comps)
-                    media.append(source.uri)
-            elif source.type == "deb-src":
+                comps.extend(source.comps)
+                media.append(source.uri)
+            elif source.type == "deb" and source.disabled == True:
+                self.disabled_sources.append(source)
+            elif source.type.endswith("-src") and source.disabled == False:
                 self.source_code_sources.append(source)
+            elif source.type.endswith("-src") and source.disabled == True:
+                self.disabled_sources.append(source)
         if source.template in self.source_template.children:
             #print "yeah! child found: %s" % source.template.name
             if source.type == "deb":
@@ -173,8 +192,10 @@ class Distribution:
         z = locale.find(".")
         if z == -1:
             z = len(locale)
-        country = locale[a+1:z].lower()
-        self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % country
+        country_code = locale[a+1:z].lower()
+        self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
+                              country_code
+        self.country = self.countries[country_code]
 
     # other used servers
     for medium in self.used_media:
@@ -183,12 +204,13 @@ class Distribution:
         else:
             # seems to be a network source
             self.use_internet = True
-            if not re.match(medium, self.main_server) and \
-               not re.match(medium, self.nearest_server):
-                self.other_servers.append(medium)
+            self.used_servers.append(medium)
 
   def add_source(self, sources_list, type=None, 
                  uri=None, dist=None, comps=None, comment=""):
+    """
+    Add distribution specific sources
+    """
     if uri == None:
         # FIXME: Add support for the server selector
         uri = self.main_server
@@ -200,11 +222,13 @@ class Distribution:
         type = "deb"
     if comment == "":
         comment == "Added by software-properties"
-
-    sources_list.add(type, uri, dist, comps, comment)
-    # FIXME: get rid of the ui dependency
-    if self.get_source_code == True:
-        sources_list.add("deb-src", uri, dist, comps, comment)
+    new_source = sources_list.add(type, uri, dist, comps, comment)
+    # if source code is enabled add a deb-src line after the new
+    # source
+    if self.get_source_code == True and not type.endswith("-src"):
+        sources_list.add("%s-src" % type, uri, dist, comps, comment, 
+                         file=new_source.file,
+                         pos=sources_list.list.index(new_source)+1)
 
 class SoftwareProperties(SimpleGladeApp):
 
@@ -225,9 +249,14 @@ class SoftwareProperties(SimpleGladeApp):
     cell = gtk.CellRendererText()
     self.combobox_server.pack_start(cell, True)
     self.combobox_server.add_attribute(cell, 'text', 0)
-
-    #self.gnome_program = gnome.init("Software Properties", "0.41")
-    #self.gconfclient = gconf.client_get_default()
+    
+    # set up the handler id for the callbacks 
+    self.handler_server_changed = self.combobox_server.connect("changed", 
+                                  self.on_combobox_server_changed)
+    self.handler_source_code_changed = self.checkbutton_source_code.connect(
+                                         "toggled",
+                                         self.on_checkbutton_source_code_toggled
+                                         )
 
     if parent:
       self.window_main.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
@@ -415,28 +444,41 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.checkbutton_cdrom.set_active(False)
 
-    # FIXME: needs inconsistence
+    # Intiate the combobox which allows do specify a server for all
+    # distro related sources
     if self.distribution.use_internet == True:
         self.checkbutton_internet.set_active(True)
         self.combobox_server.set_property("sensitive", True)
     else:
         self.checkbutton_internet.set_active(False)
         self.combobox_server.set_property("sensitive", False)
+    self.combobox_server.handler_block(self.handler_server_changed)
     server_store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     self.combobox_server.set_model(server_store)
-    # load the mirror list in to the combo and select the one of the first
-    # main source
-    server_store.append([_("%s (default)") % self.distribution.main_server, 
+    server_store.append([_("Main server"),
                         self.distribution.main_server])
-    server_store.append([_("%s (nearest)") % self.distribution.nearest_server, 
-                        self.distribution.main_server])
-    for server in self.distribution.other_servers:
-        server_store.append(["%s" % server, server])
-    # FIXME: which one to choose?
-    self.combobox_server.set_active(0)
-    self.combobox_server.connect("changed", self.on_combobox_server_changed)
+    server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
+                         self.distribution.country).rstrip(),
+                         self.distribution.nearest_server])
+    if len(self.distribution.used_servers) > 0:
+        for server in self.distribution.used_servers:
+            if not re.match(server, self.distribution.main_server) and \
+               not re.match(server, self.distribution.nearest_server):
+                server_store.append(["%s" % server, server])
+        if len(self.distribution.used_servers) > 1:
+            server_store.append([_("Custom servers"), None])
+            self.combobox_server.set_active(2)
+        elif self.distribution.used_servers[0] == self.distribution.main_server:
+            self.combobox_server.set_active(0)
+        elif self.distribution.used_servers[0] == self.distribution.nearest_server:
+            self.combobox_server.set_active(1)
+    else:
+        self.combobox_server.set_active(0)
+
+    self.combobox_server.handler_unblock(self.handler_server_changed)
 
     # Check for source code sources
+    self.checkbutton_source_code.handler_block(self.handler_source_code_changed)
     self.checkbutton_source_code.set_inconsistent(False)
     if len(self.distribution.source_code_sources) < 1:
         # we don't have any source code sources, so
@@ -455,7 +497,8 @@ class SoftwareProperties(SimpleGladeApp):
         sources.extend(self.distribution.child_sources)
         for source in sources:
             if templates.has_key(source.template):
-                templates[source.template] += set(source.comps)
+                for comp in source.comps:
+                    templates[source.template].add(comp)
             else:
                 templates[source.template] = set(source.comps)
         # add fake http sources for the cdrom, since the sources
@@ -468,14 +511,29 @@ class SoftwareProperties(SimpleGladeApp):
         for source in self.distribution.source_code_sources:
             if not templates.has_key(source.template) or \
                (templates.has_key(source.template) and \
-                len(set(templates[source.template]) ^ set(source.comps)) > 0):
+                len(set(templates[source.template]) ^ set(source.comps)) != 0):
                 self.checkbutton_source_code.set_inconsistent(True)
                 self.distribution.get_source_code = False
                 break
-    self.checkbutton_source_code.connect("toggled",
-                                         self.on_checkbutton_source_code_toggled)
+    self.checkbutton_source_code.handler_unblock(self.handler_source_code_changed)
+
   def on_combobox_server_changed(self, combobox):
-      print "FIXME"
+    """
+    Replace the servers used by the main and update sources with
+    the selected one
+    """
+    server_store = combobox.get_model()
+    iter = combobox.get_active_iter()
+    uri_selected = server_store.get_value(iter, 1)
+    sources = []
+    sources.extend(self.distribution.main_sources)
+    sources.extend(self.distribution.child_sources)
+    sources.extend(self.distribution.source_code_sources)
+    for source in sources:
+        # FIXME: ugly
+        if not "security.ubuntu.com" in source.uri:
+            source.uri = uri_selected
+    self.massive_debug_output()
 
   def on_component_toggled(self, checkbutton, comp):
     """
@@ -489,11 +547,12 @@ class SoftwareProperties(SimpleGladeApp):
         # check if there is a main source at all
         if len(self.distribution.main_sources) < 1:
             # create a new main source
-            self.distribution.add_source(self.sourceslist, comps=[comp])
-        # add the comp to all main, child and source code sources
-        for source in sources:
-            if comp not in source.comps:
-                source.comps.append(comp)
+            self.distribution.add_source(self.sourceslist, comps=["%s"%comp])
+        else:
+            # add the comp to all main, child and source code sources
+            for source in sources:
+                if comp not in source.comps:
+                    source.comps.append(comp)
         if self.distribution.get_source_code == True:
             for source in self.distribution.source_code_sources:
                 if comp not in source.comps: source.comps.append(comp)
@@ -549,13 +608,17 @@ class SoftwareProperties(SimpleGladeApp):
                                  source.uri,
                                  source.dist,
                                  source.comps,
-                                 "Added by software-properties")
+                                 "Added by software-properties",
+                                 self.sourceslist.list.index(source)+1,
+                                 source.file)
         for source in self.distribution.cdrom_sources:
             self.sourceslist.add("deb-src",
                                  self.distribution.source_template.base_uri,
                                  self.distribution.source_template.name,
                                  source.comps,
-                                 "Added by software-properties")
+                                 "Added by software-properties",
+                                 self.sourceslist.list.index(source)+1,
+                                 source.file)
     self.massive_debug_output()
 
   def open_file(self, file):
@@ -735,7 +798,8 @@ class SoftwareProperties(SimpleGladeApp):
     for source in self.sourceslist.list:
       if not source.invalid and\
          ((source not in self.distribution.main_sources and\
-           source not in self.distribution.child_sources) or\
+           source not in self.distribution.child_sources and\
+           source not in self.distribution.disabled_sources) or\
           source in self.distribution.cdrom_sources) and\
          source not in self.distribution.source_code_sources:
         self.sourceslist_visible.append(source)

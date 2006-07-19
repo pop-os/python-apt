@@ -30,6 +30,8 @@ import shutil
 import time
 import os.path
 
+import pdb
+
 from UpdateManager.Common.DistInfo import DistInfo
 
 
@@ -64,12 +66,8 @@ def is_mirror(master_uri, compare_uri):
   return False
 
 def uniq(s):
-  """ simple (and not efficient) way to return uniq list """
-  u = []
-  for x in s:
-    if x not in u:
-      u.append(x)
-  return u 
+  """ simple and efficient way to return uniq list """
+  return list(set(s))
 
 
 
@@ -232,16 +230,29 @@ class SourcesList:
       yield entry
     raise StopIteration
 
-  def add(self, type, uri, dist, comps, comment="", pos=-1):
-    # if there is a repo with the same (type, uri, dist) just add the
-    # components
-    for i in self.list:
-      if i.type == type and is_mirror(uri,i.uri) and i.dist == dist:
-        comps = uniq(i.comps + comps)
-        # set to the old position and preserve comment
-        comment = i.comment
-        pos = self.list.index(i)
-        self.list.remove(i)
+  def add(self, type, uri, dist, comps, comment="", pos=-1, file=None):
+    """
+    Add a new source to the sources.list.
+    The method will search for existing matching repos and will try to 
+    reuse them as far as possible
+    """
+    for source in self.list:
+      # if there is a repo with the same (type, uri, dist) just add the
+      # components
+      if source.disabled == False and source.invalid == False and \
+         source.type == type and uri == source.uri and \
+         source.dist == dist:
+        comps = uniq(source.comps + comps)
+        source.comps = comps
+        return source
+      # if there is a corresponding repo which is disabled, enable it
+      elif source.disabled == True and source.invalid == False and \
+           source.type == type and uri == source.uri and \
+           source.dist == dist and \
+           len(set(source.comps) & set(comps)) == len(comps):
+        source.disabled = False
+        return source
+    # there isn't any matching source, so create a new line and parse it
     line = "%s %s %s" % (type,uri,dist)
     for c in comps:
       line = line + " " + c;
@@ -249,8 +260,11 @@ class SourcesList:
       line = "%s #%s\n" %(line,comment)
     line = line + "\n"
     new_entry = SourceEntry(line)
+    if file != None:
+      new_entry.file = file
     self.matcher.match(new_entry)
     self.list.insert(pos, new_entry)
+    return source
 
   def remove(self, source_entry):
     self.list.remove(source_entry)
