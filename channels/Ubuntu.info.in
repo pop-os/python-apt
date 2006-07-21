@@ -4,19 +4,19 @@ Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.04 'Dapper Drake'
+_Description: Ubuntu 6.06 'Dapper Drake'
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
-_CompDescriptionLong: Free software that is officially supported by Canonical Ltd. (main)
+_CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
 Component: universe
 Enabled: 0
 _CompDescription: Community maintained (universe)
-_CompDescriptionLong: Free software that is maintained by the community (universe)
+_CompDescriptionLong: OpenSource software that is maintained by the community (universe)
 Component: restricted
 Enabled: 1
 _CompDescription: Non-free drivers
-_CompDescriptionLong: Non-free drivers for devices (restricted) 
+_CompDescriptionLong: Proprietary drivers for devices (restricted) 
 Component: multiverse
 Enabled: 0
 _CompDescription: Restricted software (Multiverse)
@@ -24,8 +24,8 @@ _CompDescriptionLong: Software that is restricted by copyright or legal issues (
 
 Suite: dapper
 MatchName: .*
-BaseURI: cdrom:\[Ubuntu.*6.04
-_Description: Cdrom with Ubuntu 6.04 'Dapper Drake'
+BaseURI: cdrom:\[Ubuntu.*6.06
+_Description: Cdrom with Ubuntu 6.06 'Dapper Drake'
 Available: False
 Component: main
 Enabled: 1
@@ -39,21 +39,21 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
-_Description: Ubuntu 6.04 Security Updates
+_Description: Important security updates
 
 Suite: dapper-updates
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.04 Updates
+_Description: Recommended updates
 
 Suite: dapper-backports
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.04 Backports
+_Description: Backported updates
 
 Suite: dapper-backports
 RepositoryType: deb

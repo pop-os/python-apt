@@ -124,8 +124,6 @@ class Distribution:
     self.source_code_sources = []
 
     # location of the sources
-    self.cdrom_available = False
-    self.use_internet = False
     self.main_server = ""
     self.nearest_server = ""
     self.used_servers = []
@@ -199,11 +197,8 @@ class Distribution:
 
     # other used servers
     for medium in self.used_media:
-        if medium.startswith("cdrom:"):
-            self.cdrom_available = True
-        else:
+        if not medium.startswith("cdrom:"):
             # seems to be a network source
-            self.use_internet = True
             self.used_servers.append(medium)
 
   def add_source(self, sources_list, type=None, 
@@ -383,15 +378,16 @@ class SoftwareProperties(SimpleGladeApp):
     if self.file != None:
         self.open_file(file)
 
+
   def distro_to_widgets(self):
     """
     Represent the distro information in the user interface
     """
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_updates.set_label(_("%s Updates") % self.distribution.id)
+    self.label_updates.set_label("<b>%s</b>" % (_("%s Updates") %\
+                                                self.distribution.id))
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_dist_software.set_label(_("%s Software") % self.distribution.id)
-    self.label_dist_name.set_label("<b>%s</b>" % self.distribution.description)
+    self.label_dist_name.set_label("%s" % self.distribution.description)
 
     # Setup the checkbuttons for the components
     for checkbutton in self.vbox_dist_comps.get_children():
@@ -437,21 +433,8 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.vbox_updates.set_sensitive(True)
 
-    # setup the location
-    # FIXME: how to handle uncommented cdroms?
-    if self.distribution.cdrom_available == True:
-        self.checkbutton_cdrom.set_active(True)
-    else:
-        self.checkbutton_cdrom.set_active(False)
-
     # Intiate the combobox which allows do specify a server for all
     # distro related sources
-    if self.distribution.use_internet == True:
-        self.checkbutton_internet.set_active(True)
-        self.combobox_server.set_property("sensitive", True)
-    else:
-        self.checkbutton_internet.set_active(False)
-        self.combobox_server.set_property("sensitive", False)
     self.combobox_server.handler_block(self.handler_server_changed)
     server_store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     self.combobox_server.set_model(server_store)
@@ -503,11 +486,13 @@ class SoftwareProperties(SimpleGladeApp):
                 templates[source.template] = set(source.comps)
         # add fake http sources for the cdrom, since the sources
         # for the cdrom are only available in the internet
+        pdb.set_trace()
         for source in self.distribution.cdrom_sources:
+            # FIXME: produces a key error
             if templates.has_key(self.distribution.source_template):
                 templates[self.distribution.source_template] += set(source.comps)
             else:
-                templates[self.distribution.source_template] += set(source.comps)
+                templates[self.distribution.source_template] = set(source.comps)
         for source in self.distribution.source_code_sources:
             if not templates.has_key(source.template) or \
                (templates.has_key(source.template) and \
@@ -516,6 +501,11 @@ class SoftwareProperties(SimpleGladeApp):
                 self.distribution.get_source_code = False
                 break
     self.checkbutton_source_code.handler_unblock(self.handler_source_code_changed)
+
+    if len(self.cdrom_store) == 0:
+        self.treeview_cdroms.set_sensitive(False)
+    else:
+        self.treeview_cdroms.set_sensitive(True)
 
   def on_combobox_server_changed(self, combobox):
     """
@@ -533,7 +523,7 @@ class SoftwareProperties(SimpleGladeApp):
         # FIXME: ugly
         if not "security.ubuntu.com" in source.uri:
             source.uri = uri_selected
-    self.massive_debug_output()
+    self.modified_sourceslist()
 
   def on_component_toggled(self, checkbutton, comp):
     """
@@ -562,7 +552,7 @@ class SoftwareProperties(SimpleGladeApp):
                 source.comps.remove(comp)
                 if len(source.comps) < 1: 
                     self.sourceslist.remove(source)
-    self.massive_debug_output()
+    self.modified_sourceslist()
 
   def massive_debug_output(self):
       """
@@ -587,7 +577,7 @@ class SoftwareProperties(SimpleGladeApp):
         self.distribution.add_source(self.sourceslist,
                                      uri=template.base_uri,
                                      dist=template.name)
-    self.massive_debug_output()
+    self.modified_sourceslist()
   
   def on_checkbutton_source_code_toggled(self, checkbutton):
     """
@@ -619,7 +609,7 @@ class SoftwareProperties(SimpleGladeApp):
                                  "Added by software-properties",
                                  self.sourceslist.list.index(source)+1,
                                  source.file)
-    self.massive_debug_output()
+    self.modified_sourceslist()
 
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
@@ -654,6 +644,12 @@ class SoftwareProperties(SimpleGladeApp):
     # STORE_SOURCE - the source entry object
     # STORE_SEPARATOR - if the entry is a separator
     # STORE_VISIBLE - if the entry is shown or hidden
+    self.cdrom_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
+                                     gobject.TYPE_STRING,
+                                     gobject.TYPE_PYOBJECT,
+                                     gobject.TYPE_BOOLEAN,
+                                     gobject.TYPE_BOOLEAN)
+    self.treeview_cdroms.set_model(self.cdrom_store)
     self.source_store = gtk.ListStore(gobject.TYPE_BOOLEAN, 
                                       gobject.TYPE_STRING,
                                       gobject.TYPE_PYOBJECT,
@@ -662,7 +658,6 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview_sources.set_model(self.source_store)
     self.treeview_sources.set_row_separator_func(self.is_separator,
                                                  STORE_SEPARATOR)
-    #self.treeview_sources.set_rules_hint(False)
 
     cell_desc = gtk.CellRendererText()
     cell_desc.set_property("xpad", 2)
@@ -674,7 +669,24 @@ class SoftwareProperties(SimpleGladeApp):
     cell_toggle = gtk.CellRendererToggle()
     cell_toggle.set_property("xpad", 2)
     cell_toggle.set_property("ypad", 2)
-    cell_toggle.connect('toggled', self.on_channel_toggled)
+    cell_toggle.connect('toggled', self.on_channel_toggled, self.cdrom_store)
+    col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
+                                    active=COLUMN_ACTIVE)
+
+    self.treeview_cdroms.append_column(col_active)
+    self.treeview_cdroms.append_column(col_desc)
+
+    cell_desc = gtk.CellRendererText()
+    cell_desc.set_property("xpad", 2)
+    cell_desc.set_property("ypad", 2)
+    col_desc = gtk.TreeViewColumn(_("Software Channel"), cell_desc,
+                                  markup=COLUMN_DESC)
+    col_desc.set_max_width(1000)
+
+    cell_toggle = gtk.CellRendererToggle()
+    cell_toggle.set_property("xpad", 2)
+    cell_toggle.set_property("ypad", 2)
+    cell_toggle.connect('toggled', self.on_channel_toggled, self.source_store)
     col_active = gtk.TreeViewColumn(_("Active"), cell_toggle,
                                     active=COLUMN_ACTIVE)
 
@@ -698,11 +710,12 @@ class SoftwareProperties(SimpleGladeApp):
         self.button_edit.set_sensitive(False)
         self.button_remove.set_sensitive(False)
   
-  def on_channel_toggled(self, cell_toggle, path):
+  def on_channel_toggled(self, cell_toggle, path, store):
     """Enable or disable the selected channel"""
-    iter = self.source_store.get_iter((int(path),))
-    source_entry = self.source_store.get_value(iter, STORE_SOURCE) 
+    iter = store.get_iter((int(path),))
+    source_entry = store.get_value(iter, STORE_SOURCE) 
     source_entry.disabled = not source_entry.disabled
+    store.set_value(iter, STORE_ACTIVE, not source_entry.disabled)
     self.modified_sourceslist()
 
   def init_keyslist(self):
@@ -726,10 +739,10 @@ class SoftwareProperties(SimpleGladeApp):
   
   def modified_sourceslist(self):
     """The sources list was changed and now needs to be saved and reloaded"""
-    self.button_revert.set_sensitive(True)
-    self.sourceslist.check_for_endangered_dists()
-    self.save_sourceslist()
-    self.reload_sourceslist()
+    self.massive_debug_output()
+    #self.button_revert.set_sensitive(True)
+    #self.save_sourceslist()
+    #self.reload_sourceslist()
     self.modified = True
 
   def render_source(self, source):
@@ -790,24 +803,27 @@ class SoftwareProperties(SimpleGladeApp):
   def reload_sourceslist(self):
     (path_x, path_y) = self.treeview_sources.get_cursor()
     self.source_store.clear()
+    self.cdrom_store.clear()
     self.sourceslist.refresh()
     self.sourceslist_visible=[]
     self.distribution.get_sources(self.sourceslist)
     # Only show sources that are no binary or source code repos for
     # the current distribution, but show cdrom based repos
     for source in self.sourceslist.list:
-      if not source.invalid and\
-         ((source not in self.distribution.main_sources and\
-           source not in self.distribution.child_sources and\
-           source not in self.distribution.disabled_sources) or\
-          source in self.distribution.cdrom_sources) and\
-         source not in self.distribution.source_code_sources:
-        self.sourceslist_visible.append(source)
+        if not source.invalid and\
+           (source not in self.distribution.main_sources and\
+            source not in self.distribution.child_sources and\
+            source not in self.distribution.disabled_sources) and\
+           source not in self.distribution.source_code_sources:
+            self.sourceslist_visible.append(source)
+        elif not source.invalid and source in self.distribution.cdrom_sources:
+            contents = self.render_source(source)
+            self.cdrom_store.append([not source.disabled, contents,
+                                    source, False, True])
 
     # Sort the sources list
     self.sourceslist_visible.sort(key=self.get_comparable)
 
-    dist_first = False
     for source in self.sourceslist_visible:
         contents = self.render_source(source)
 
@@ -1086,13 +1102,13 @@ class SoftwareProperties(SimpleGladeApp):
       self.reload_sourceslist()
       self.modified = True
 
-  def on_channel_toggled(self, cell_toggle, path):
-      """Enable or disable the selected channel"""
-      iter = self.source_store.get_iter((int(path),))
-      source_entry = self.source_store.get_value(iter, LIST_ENTRY_OBJ)
-      source_entry.disabled = not source_entry.disabled
-      self.reload_sourceslist()
-      self.modified = True
+ # def on_channel_toggled(self, cell_toggle, path, store):
+ #     """Enable or disable the selected channel"""
+ #     iter = store.get_iter((int(path),))
+  #    source_entry = store.get_value(iter, LIST_ENTRY_OBJ)
+  #    source_entry.disabled = not source_entry.disabled
+  #    self.reload_sourceslist()
+  #    self.modified = True
 
 # FIXME: move this into a different file
 class GtkCdromProgress(apt.progress.CdromProgress, SimpleGladeApp):
