@@ -339,17 +339,6 @@ class SourcesList:
     #print self.parents
     return (parents, used_child_templates)
 
-  def check_for_endangered_dists(self):
-    """set the components of a child source to the ones of the parent channel"""
-    (parents, used_child_templates) = self.check_for_relations(self.list)
-    # the magical part
-    for mother in parents:
-        for child_template in mother.template.children:
-            if used_child_templates.has_key(child_template):
-                for child in used_child_templates[child_template]:
-                    if child.type == mother.type:
-                        child.comps = mother.comps
-
 # templates for the add dialog
 class SourceEntryTemplate(SourceEntry):
   def __init__(self,a_type,uri,dist,description,comps):
@@ -494,6 +483,214 @@ class SourceEntryMatcher:
         source.template = template
         break
     return found
+
+class Distribution:
+  def __init__(self):
+    """"
+    Container for distribution specific informations
+    """
+    # LSB information
+    self.id = ""
+    self.codename = ""
+    self.description = ""
+    self.release = ""
+
+    # get the LSB information
+    lsb_info = []
+    for lsb_option in ["-i", "-c", "-d", "-r"]:
+        pipe = os.popen("lsb_release %s | cut -d : -f 2-" % lsb_option)
+        lsb_info.append(pipe.read().strip())
+        del pipe
+    (self.id, self.codename, self.description, self.release) = lsb_info
+
+    # get a list of country codes and real names
+    self.countries = {}
+    try:
+        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
+        lines = f.readlines()
+        for line in lines:
+            parts = line.split("\t")
+            self.countries[parts[0].lower()] = parts[1]
+    except:
+        print "could not open file '%s'" % file
+    else:
+        f.close()
+
+  def get_sources(self, sources_list):
+    """
+    Find the corresponding template, main and child sources 
+    for the distribution 
+    """
+    # corresponding sources
+    self.source_template = None
+    self.child_sources = []
+    self.main_sources = []
+    self.disabled_sources = []
+    self.cdrom_sources = []
+    self.download_comps = []
+    self.enabled_comps = []
+    self.cdrom_comps = []
+    self.used_media = []
+    self.get_source_code = False
+    self.source_code_sources = []
+
+    # location of the sources
+    self.main_server = ""
+    self.nearest_server = ""
+    self.used_servers = []
+
+    # find the distro template
+    for template in sources_list.matcher.templates:
+        if template.name == self.codename and\
+           template.distribution == self.id:
+            #print "yeah! found a template for %s" % self.description
+            #print template.description, template.base_uri, template.components
+            self.source_template = template
+            break
+    if self.source_template == None:
+        print "Error: could not find a distribution template"
+        # FIXME: will go away - only for debugging issues
+        sys.exit(1)
+
+    # find main and child sources
+    media = []
+    comps = []
+    cdrom_comps = []
+    enabled_comps = []
+    source_code = []
+    for source in sources_list.list:
+        if source.invalid == False and\
+           source.dist == self.codename and\
+           source.template and\
+           source.template.name == self.codename:
+            #print "yeah! found a distro repo:  %s" % source.line
+            # cdroms need do be handled differently
+            if source.uri.startswith("cdrom:") and \
+               source.disabled == False:
+                self.cdrom_sources.append(source)
+                cdrom_comps.extend(source.comps)
+            elif source.uri.startswith("cdrom:") and \
+                 source.disabled == True:
+                self.cdrom_sources.append(source)
+            elif source.type == "deb" and source.disabled == False:
+                self.main_sources.append(source)
+                comps.extend(source.comps)
+                media.append(source.uri)
+            elif source.type == "deb" and source.disabled == True:
+                self.disabled_sources.append(source)
+            elif source.type.endswith("-src") and source.disabled == False:
+                self.source_code_sources.append(source)
+            elif source.type.endswith("-src") and source.disabled == True:
+                self.disabled_sources.append(source)
+        if source.template in self.source_template.children:
+            #print "yeah! child found: %s" % source.template.name
+            if source.type == "deb":
+                self.child_sources.append(source)
+            elif source.type == "deb-src":
+                self.source_code_sources.append(source)
+    self.download_comps = set(comps)
+    self.cdrom_comps = set(cdrom_comps)
+    enabled_comps.extend(comps)
+    enabled_comps.extend(cdrom_comps)
+    self.enabled_comps = set(enabled_comps)
+    self.used_media = set(media)
+
+    self.get_mirrors()
+  
+  def get_mirrors(self):
+    """
+    Provide a set of mirrors where you can get the distribution from
+    """
+    # the main server is stored in the template
+    self.main_server = self.source_template.base_uri
+
+    # try to guess the nearest mirror from the locale
+    # FIXME: for debian we need something different
+    if self.id == "Ubuntu":
+        locale = os.getenv("LANG", default="en.UK")
+        a = locale.find("_")
+        z = locale.find(".")
+        if z == -1:
+            z = len(locale)
+        country_code = locale[a+1:z].lower()
+        self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
+                              country_code
+        self.country = self.countries[country_code]
+
+    # other used servers
+    for medium in self.used_media:
+        if not medium.startswith("cdrom:"):
+            # seems to be a network source
+            self.used_servers.append(medium)
+
+  def add_source(self, sources_list, type=None, 
+                 uri=None, dist=None, comps=None, comment=""):
+    """
+    Add distribution specific sources
+    """
+    if uri == None:
+        # FIXME: Add support for the server selector
+        uri = self.main_server
+    if dist == None:
+        dist = self.codename
+    if comps == None:
+        comps = list(self.enabled_comps)
+    if type == None:
+        type = "deb"
+    if comment == "":
+        comment == "Added by software-properties"
+    new_source = sources_list.add(type, uri, dist, comps, comment)
+    # if source code is enabled add a deb-src line after the new
+    # source
+    if self.get_source_code == True and not type.endswith("-src"):
+        sources_list.add("%s-src" % type, uri, dist, comps, comment, 
+                         file=new_source.file,
+                         pos=sources_list.list.index(new_source)+1)
+
+  def enable_component(self, sourceslist, comp):
+    """
+    Disable a component in all main, child and source code sources
+    (excluding cdrom based sources)
+
+    sourceslist:  an aptsource.sources_list
+    comp:         the component that should be enabled
+    """
+    sources = []
+    sources.extend(self.main_sources)
+    sources.extend(self.child_sources)
+    sources.extend(self.source_code_sources)
+    # check if there is a main source at all
+    if len(self.main_sources) < 1:
+        # create a new main source
+        self.add_source(sourceslist, comps=["%s"%comp])
+    else:
+        # add the comp to all main, child and source code sources
+        for source in sources:
+            if comp not in source.comps:
+                source.comps.append(comp)
+    if self.get_source_code == True:
+        for source in self.source_code_sources:
+            if comp not in source.comps: source.comps.append(comp)
+
+  def disable_component(self, sourceslist, comp):
+    """
+    Disable a component in all main, child and source code sources
+    (excluding cdrom based sources)
+    """
+    sources = []
+    sources.extend(self.main_sources)
+    sources.extend(self.child_sources)
+    sources.extend(self.source_code_sources)
+    if comp in self.cdrom_comps:
+        sources = []
+        sources.extend(self.main_sources)
+
+    for source in sources:
+        if comp in source.comps: 
+            source.comps.remove(comp)
+            if len(source.comps) < 1: 
+               sourceslist.remove(source)
+
 
 # some simple tests
 if __name__ == "__main__":
