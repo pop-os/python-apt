@@ -751,12 +751,10 @@ class SoftwareProperties(SimpleGladeApp):
   def modified_sourceslist(self):
     """The sources list was changed and now needs to be saved and reloaded"""
     self.massive_debug_output()
-    #self.button_revert.set_sensitive(True)
-    #self.save_sourceslist()
-    #self.reload_sourceslist()
     self.modified = True
-    self.distro.get_sources(self.sourceslist)
-    self.distro_to_widgets()
+    #self.button_revert.set_sensitive(True)
+    self.save_sourceslist()
+    self.reload_sourceslist()
 
   def render_source(self, source):
     """Render a nice output to show the source in a treeview"""
@@ -843,6 +841,13 @@ class SoftwareProperties(SimpleGladeApp):
 
         self.source_store.append([not source.disabled, contents,
                                   source, False, True])
+
+    if len(self.source_store) < 1:
+        self.button_remove.set_sensitive(False)
+        self.button_edit.set_sensitive(False)
+    else:
+        self.treeview_sources.set_cursor(0)
+    self.distro.get_sources(self.sourceslist)
     self.distro_to_widgets()
     
   def is_separator(self, model, iter, column):
@@ -965,20 +970,14 @@ class SoftwareProperties(SimpleGladeApp):
     #shutil.copy(location, location + ".save")
     self.sourceslist.backup(".save")
     self.sourceslist.save()
-    # show a dialog that a reload of the channel information is required
-    # only if there is no parent defined
-    if self.modified == True and \
-       self.options.toplevel == None:
-        d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
-                                                      self.datadir)
-        res = d.run()
 
   def on_add_clicked(self, widget):
     dialog = dialog_add.dialog_add(self.window_main, self.sourceslist,
                                    self.datadir)
-    if dialog.run() == gtk.RESPONSE_OK:
-      self.reload_sourceslist()
-      self.modified = True
+    line = dialog.run()
+    if line != None:
+      self.sourceslist.list.append(aptsources.SourceEntry(line))
+      self.modified_sourceslist()
       
   def on_edit_clicked(self, widget):
     sel = self.treeview_sources.get_selection()
@@ -1024,14 +1023,14 @@ class SoftwareProperties(SimpleGladeApp):
         self.button_edit.set_sensitive(True)
 
   def on_remove_clicked(self, widget):
-    sel = self.treeview_sources.get_selection()
-    (model, iter) = sel.get_selected()
+    model = self.treeview_sources.get_model()
+    (path, column) = self.treeview_sources.get_cursor()
+    iter = model.get_iter(path)
     if iter:
       source = model.get_value(iter, LIST_ENTRY_OBJ)
       self.sourceslist.remove(source)
-      self.reload_sourceslist()  
-      self.modified = True
-    
+      self.modified_sourceslist()
+
   def add_key_clicked(self, widget):
     chooser = gtk.FileChooserDialog(title=_("Import key"),
                                     parent=self.window_main,
@@ -1066,11 +1065,16 @@ class SoftwareProperties(SimpleGladeApp):
     self.reload_keyslist()
     
   def on_delete_event(self, widget, args):
-    self.save_sourceslist()
-    self.quit()
-    
+    self.on_close_button(self, widget)
+
   def on_close_button(self, widget):
-    self.save_sourceslist()
+    # show a dialog that a reload of the channel information is required
+    # only if there is no parent defined
+    if self.modified == True and \
+       self.options.toplevel == None:
+        d = dialog_cache_outdated.DialogCacheOutdated(self.window_main,
+                                                      self.datadir)
+        res = d.run()
     self.quit()
     
   def on_help_button(self, widget):
