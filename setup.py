@@ -45,7 +45,7 @@ os.system("cd po; make update-po")
 # do the same for the desktop files
 os.system("cd data; make")
 # and channels
-os.system("cd channels; make")
+os.system("cd data/channels; make")
     
 setup(name='update-manager',
       version='0.42.2',
@@ -60,10 +60,13 @@ setup(name='update-manager',
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/*.glade")
+                     glob.glob("data/glade/*.glade")
+                  ),
+                  ('share/doc/update-manager',
+                     glob.glob("data/channels/README.channels")
                   ),
                   ('share/update-manager/channels',
-                     glob.glob("channels/*")
+                     glob.glob("data/channels/*.info")
                   ),
                   ('share/applications',
                      ["data/update-manager.desktop",
@@ -74,5 +77,3 @@ setup(name='update-manager',
                   ),
                   ] + I18NFILES + HELPFILES + ICONS,
       )
-
-
