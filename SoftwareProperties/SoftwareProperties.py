@@ -156,9 +156,13 @@ class Distribution:
            source.template.name == self.codename:
             #print "yeah! found a distro repo:  %s" % source.line
             # cdroms need do be handled differently
-            if source.uri.startswith("cdrom:"):
+            if source.uri.startswith("cdrom:") and \
+               source.disabled == False:
                 self.cdrom_sources.append(source)
                 cdrom_comps.extend(source.comps)
+            elif source.uri.startswith("cdrom:") and \
+                 source.disabled == True:
+                self.cdrom_sources.append(source)
             elif source.type == "deb" and source.disabled == False:
                 self.main_sources.append(source)
                 comps.extend(source.comps)
@@ -493,16 +497,13 @@ class SoftwareProperties(SimpleGladeApp):
                 templates[source.template] = set(source.comps)
         # add fake http sources for the cdrom, since the sources
         # for the cdrom are only available in the internet
-        for source in self.distro.cdrom_sources:
-            # FIXME: produces a key error
-            if templates.has_key(self.distro.source_template):
-                templates[self.distro.source_template] += set(source.comps)
-            else:
-                templates[self.distro.source_template] = set(source.comps)
+        if len(self.distro.cdrom_sources) > 0:
+            templates[self.distro.source_template] = self.distro.cdrom_comps
         for source in self.distro.source_code_sources:
             if not templates.has_key(source.template) or \
-               (templates.has_key(source.template) and \
-                len(set(templates[source.template]) ^ set(source.comps)) != 0):
+               (templates.has_key(source.template) and not \
+                (len(set(templates[source.template]) ^ set(source.comps)) == 0\
+                 or (len(set(source.comps) ^ self.distro.enabled_comps) == 0))):
                 self.checkbutton_source_code.set_inconsistent(True)
                 self.distro.get_source_code = False
                 break
