@@ -249,7 +249,7 @@ class SoftwareProperties(SimpleGladeApp):
 
     self.file = file
 
-    self.distribution = Distribution()
+    self.distro = Distribution()
     cell = gtk.CellRendererText()
     self.combobox_server.pack_start(cell, True)
     self.combobox_server.add_attribute(cell, 'text', 0)
@@ -392,18 +392,18 @@ class SoftwareProperties(SimpleGladeApp):
     """
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
     self.label_updates.set_label("<b>%s</b>" % (_("%s updates") %\
-                                                self.distribution.id))
+                                                self.distro.id))
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_dist_name.set_label("%s" % self.distribution.description)
+    self.label_dist_name.set_label("%s" % self.distro.description)
 
     # Setup the checkbuttons for the components
     for checkbutton in self.vbox_dist_comps.get_children():
          self.vbox_dist_comps.remove(checkbutton)
-    for comp in self.distribution.source_template.components.keys():
-        checkbox = gtk.CheckButton(label=self.distribution.source_template.components[comp][2])
+    for comp in self.distro.source_template.components.keys():
+        checkbox = gtk.CheckButton(label=self.distro.source_template.components[comp][2])
         # check if the comp is enabled
         # FIXME: use inconsistence if there are main sources with not all comps
-        if comp in self.distribution.download_comps:
+        if comp in self.distro.download_comps:
             checkbox.set_active(True)
         # setup the callback and show the checkbutton
         checkbox.connect("toggled", self.on_component_toggled, comp)
@@ -413,17 +413,17 @@ class SoftwareProperties(SimpleGladeApp):
     # Setup the checkbuttons for the child repos / updates
     for checkbutton in self.vbox_updates.get_children():
          self.vbox_updates.remove(checkbutton)
-    for template in self.distribution.source_template.children:
+    for template in self.distro.source_template.children:
         checkbox = gtk.CheckButton(label=template.description)
-        for child in self.distribution.child_sources:
+        for child in self.distro.child_sources:
             if child.template == template:
                 # check if all comps of the main source are also enabled 
                 # for the child source
-                if len(set(child.comps) - self.distribution.enabled_comps) == 0:
+                if len(set(child.comps) - self.distro.enabled_comps) == 0:
                     checkbox.set_active(True)
                 else:
                     checkbox.set_active(False)
-                if len(self.distribution.enabled_comps ^ set(child.comps)) > 0:
+                if len(self.distro.enabled_comps ^ set(child.comps)) > 0:
                     checkbox.set_inconsistent(True)
                     checkbox.set_active(False)
                 #FIXME: currently we don't handle multiple sources of the same
@@ -435,7 +435,7 @@ class SoftwareProperties(SimpleGladeApp):
         self.vbox_updates.add(checkbox)
         checkbox.show()
 
-    if len(self.distribution.enabled_comps) < 1:
+    if len(self.distro.enabled_comps) < 1:
         self.vbox_updates.set_sensitive(False)
     else:
         self.vbox_updates.set_sensitive(True)
@@ -446,21 +446,21 @@ class SoftwareProperties(SimpleGladeApp):
     server_store = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     self.combobox_server.set_model(server_store)
     server_store.append([_("Main server"),
-                        self.distribution.main_server])
+                        self.distro.main_server])
     server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
-                         self.distribution.country).rstrip(),
-                         self.distribution.nearest_server])
-    if len(self.distribution.used_servers) > 0:
-        for server in self.distribution.used_servers:
-            if not re.match(server, self.distribution.main_server) and \
-               not re.match(server, self.distribution.nearest_server):
+                         self.distro.country).rstrip(),
+                         self.distro.nearest_server])
+    if len(self.distro.used_servers) > 0:
+        for server in self.distro.used_servers:
+            if not re.match(server, self.distro.main_server) and \
+               not re.match(server, self.distro.nearest_server):
                 server_store.append(["%s" % server, server])
-        if len(self.distribution.used_servers) > 1:
+        if len(self.distro.used_servers) > 1:
             server_store.append([_("Custom servers"), None])
             self.combobox_server.set_active(2)
-        elif self.distribution.used_servers[0] == self.distribution.main_server:
+        elif self.distro.used_servers[0] == self.distro.main_server:
             self.combobox_server.set_active(0)
-        elif self.distribution.used_servers[0] == self.distribution.nearest_server:
+        elif self.distro.used_servers[0] == self.distro.nearest_server:
             self.combobox_server.set_active(1)
     else:
         self.combobox_server.set_active(0)
@@ -470,21 +470,21 @@ class SoftwareProperties(SimpleGladeApp):
     # Check for source code sources
     self.checkbutton_source_code.handler_block(self.handler_source_code_changed)
     self.checkbutton_source_code.set_inconsistent(False)
-    if len(self.distribution.source_code_sources) < 1:
+    if len(self.distro.source_code_sources) < 1:
         # we don't have any source code sources, so
         # uncheck the button
         self.checkbutton_source_code.set_active(False)
-        self.distribution.get_source_code = False
+        self.distro.get_source_code = False
     else:
         # there are source code sources, so we check the button
         self.checkbutton_source_code.set_active(True)
-        self.distribution.get_source_code = True
+        self.distro.get_source_code = True
         # check if there is a corresponding source code source for
         # every binary source. if not set the checkbutton to inconsistent
         templates = {}
         sources = []
-        sources.extend(self.distribution.main_sources)
-        sources.extend(self.distribution.child_sources)
+        sources.extend(self.distro.main_sources)
+        sources.extend(self.distro.child_sources)
         for source in sources:
             if templates.has_key(source.template):
                 for comp in source.comps:
@@ -493,18 +493,18 @@ class SoftwareProperties(SimpleGladeApp):
                 templates[source.template] = set(source.comps)
         # add fake http sources for the cdrom, since the sources
         # for the cdrom are only available in the internet
-        for source in self.distribution.cdrom_sources:
+        for source in self.distro.cdrom_sources:
             # FIXME: produces a key error
-            if templates.has_key(self.distribution.source_template):
-                templates[self.distribution.source_template] += set(source.comps)
+            if templates.has_key(self.distro.source_template):
+                templates[self.distro.source_template] += set(source.comps)
             else:
-                templates[self.distribution.source_template] = set(source.comps)
-        for source in self.distribution.source_code_sources:
+                templates[self.distro.source_template] = set(source.comps)
+        for source in self.distro.source_code_sources:
             if not templates.has_key(source.template) or \
                (templates.has_key(source.template) and \
                 len(set(templates[source.template]) ^ set(source.comps)) != 0):
                 self.checkbutton_source_code.set_inconsistent(True)
-                self.distribution.get_source_code = False
+                self.distro.get_source_code = False
                 break
     self.checkbutton_source_code.handler_unblock(self.handler_source_code_changed)
 
@@ -522,9 +522,9 @@ class SoftwareProperties(SimpleGladeApp):
     iter = combobox.get_active_iter()
     uri_selected = server_store.get_value(iter, 1)
     sources = []
-    sources.extend(self.distribution.main_sources)
-    sources.extend(self.distribution.child_sources)
-    sources.extend(self.distribution.source_code_sources)
+    sources.extend(self.distro.main_sources)
+    sources.extend(self.distro.child_sources)
+    sources.extend(self.distro.source_code_sources)
     for source in sources:
         # FIXME: ugly
         if not "security.ubuntu.com" in source.uri:
@@ -537,26 +537,26 @@ class SoftwareProperties(SimpleGladeApp):
     child sources and source code sources
     """
     sources = []
-    sources.extend(self.distribution.main_sources)
-    sources.extend(self.distribution.child_sources)
-    sources.extend(self.distribution.source_code_sources)
+    sources.extend(self.distro.main_sources)
+    sources.extend(self.distro.child_sources)
+    sources.extend(self.distro.source_code_sources)
     if checkbutton.get_active() == True:
         # check if there is a main source at all
-        if len(self.distribution.main_sources) < 1:
+        if len(self.distro.main_sources) < 1:
             # create a new main source
-            self.distribution.add_source(self.sourceslist, comps=["%s"%comp])
+            self.distro.add_source(self.sourceslist, comps=["%s"%comp])
         else:
             # add the comp to all main, child and source code sources
             for source in sources:
                 if comp not in source.comps:
                     source.comps.append(comp)
-        if self.distribution.get_source_code == True:
-            for source in self.distribution.source_code_sources:
+        if self.distro.get_source_code == True:
+            for source in self.distro.source_code_sources:
                 if comp not in source.comps: source.comps.append(comp)
     else:
-        if comp in self.distribution.cdrom_comps:
+        if comp in self.distro.cdrom_comps:
             sources = []
-            sources.extend(self.distribution.main_sources)
+            sources.extend(self.distro.main_sources)
 
         for source in sources:
             if comp in source.comps: 
@@ -579,11 +579,11 @@ class SoftwareProperties(SimpleGladeApp):
     Enable or disable a child repo of the distribution main repository
     """
     if checkbutton.get_active() == False:
-        for source in self.distribution.child_sources:
+        for source in self.distro.child_sources:
             if source.template == template:
                 self.sourceslist.remove(source)
     else:
-        self.distribution.add_source(self.sourceslist,
+        self.distro.add_source(self.sourceslist,
                                      uri=template.base_uri,
                                      dist=template.name)
     self.modified_sourceslist()
@@ -592,13 +592,13 @@ class SoftwareProperties(SimpleGladeApp):
     """
     Disable or enable the source code for all sources
     """
-    self.distribution.get_source_code = checkbutton.get_active()
+    self.distro.get_source_code = checkbutton.get_active()
     sources = []
-    sources.extend(self.distribution.main_sources)
-    sources.extend(self.distribution.child_sources)
+    sources.extend(self.distro.main_sources)
+    sources.extend(self.distro.child_sources)
 
     # remove all exisiting sources
-    for source in self.distribution.source_code_sources:
+    for source in self.distro.source_code_sources:
         self.sourceslist.remove(source)
 
     if checkbutton.get_active() == True:
@@ -610,10 +610,10 @@ class SoftwareProperties(SimpleGladeApp):
                                  "Added by software-properties",
                                  self.sourceslist.list.index(source)+1,
                                  source.file)
-        for source in self.distribution.cdrom_sources:
+        for source in self.distro.cdrom_sources:
             self.sourceslist.add("deb-src",
-                                 self.distribution.source_template.base_uri,
-                                 self.distribution.source_template.name,
+                                 self.distro.source_template.base_uri,
+                                 self.distro.source_template.name,
                                  source.comps,
                                  "Added by software-properties",
                                  self.sourceslist.list.index(source)+1,
@@ -754,7 +754,7 @@ class SoftwareProperties(SimpleGladeApp):
     #self.save_sourceslist()
     #self.reload_sourceslist()
     self.modified = True
-    self.distribution.get_sources(self.sourceslist)
+    self.distro.get_sources(self.sourceslist)
     self.distro_to_widgets()
 
   def render_source(self, source):
@@ -801,7 +801,7 @@ class SoftwareProperties(SimpleGladeApp):
       if source.template:
         has_template = 0
         desc = source.template.description
-        if source.template.distribution == self.distribution:
+        if source.template.distribution == self.distro:
             cur_sys = 0
       else:
           desc = "%s %s %s" % (source.uri, source.dist, source.comps)
@@ -818,18 +818,18 @@ class SoftwareProperties(SimpleGladeApp):
     self.cdrom_store.clear()
     self.sourceslist.refresh()
     self.sourceslist_visible=[]
-    self.distribution.get_sources(self.sourceslist)
+    self.distro.get_sources(self.sourceslist)
     # Only show sources that are no binary or source code repos for
     # the current distribution, but show cdrom based repos
     for source in self.sourceslist.list:
         if not source.invalid and\
-           (source not in self.distribution.main_sources and\
-            source not in self.distribution.cdrom_sources and\
-            source not in self.distribution.child_sources and\
-            source not in self.distribution.disabled_sources) and\
-           source not in self.distribution.source_code_sources:
+           (source not in self.distro.main_sources and\
+            source not in self.distro.cdrom_sources and\
+            source not in self.distro.child_sources and\
+            source not in self.distro.disabled_sources) and\
+           source not in self.distro.source_code_sources:
             self.sourceslist_visible.append(source)
-        elif not source.invalid and source in self.distribution.cdrom_sources:
+        elif not source.invalid and source in self.distro.cdrom_sources:
             contents = self.render_source(source)
             self.cdrom_store.append([not source.disabled, contents,
                                     source, False, True])
