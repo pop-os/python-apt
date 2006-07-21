@@ -264,7 +264,7 @@ class SourcesList:
       new_entry.file = file
     self.matcher.match(new_entry)
     self.list.insert(pos, new_entry)
-    return source
+    return new_entry
 
   def remove(self, source_entry):
     self.list.remove(source_entry)

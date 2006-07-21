@@ -118,7 +118,9 @@ class Distribution:
     self.main_sources = []
     self.disabled_sources = []
     self.cdrom_sources = []
+    self.download_comps = []
     self.enabled_comps = []
+    self.cdrom_comps = []
     self.used_media = []
     self.get_source_code = False
     self.source_code_sources = []
@@ -144,6 +146,8 @@ class Distribution:
     # find main and child sources
     media = []
     comps = []
+    cdrom_comps = []
+    enabled_comps = []
     source_code = []
     for source in sources_list.list:
         if source.invalid == False and\
@@ -154,7 +158,8 @@ class Distribution:
             # cdroms need do be handled differently
             if source.uri.startswith("cdrom:"):
                 self.cdrom_sources.append(source)
-            if source.type == "deb" and source.disabled == False:
+                cdrom_comps.extend(source.comps)
+            elif source.type == "deb" and source.disabled == False:
                 self.main_sources.append(source)
                 comps.extend(source.comps)
                 media.append(source.uri)
@@ -170,7 +175,11 @@ class Distribution:
                 self.child_sources.append(source)
             elif source.type == "deb-src":
                 self.source_code_sources.append(source)
-    self.enabled_comps = set(comps)
+    self.download_comps = set(comps)
+    self.cdrom_comps = set(cdrom_comps)
+    enabled_comps.extend(comps)
+    enabled_comps.extend(cdrom_comps)
+    self.enabled_comps = set(enabled_comps)
     self.used_media = set(media)
 
     self.get_mirrors()
@@ -271,8 +280,6 @@ class SoftwareProperties(SimpleGladeApp):
 
     self.window_main.show()
 
-    # internet update setings
-    
     # this maps the key (combo-box-index) to the auto-update-interval value
     # where (-1) means, no key
     self.combobox_interval_mapping = { 0 : 1,
@@ -384,7 +391,7 @@ class SoftwareProperties(SimpleGladeApp):
     Represent the distro information in the user interface
     """
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-    self.label_updates.set_label("<b>%s</b>" % (_("%s Updates") %\
+    self.label_updates.set_label("<b>%s</b>" % (_("%s updates") %\
                                                 self.distribution.id))
     # TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
     self.label_dist_name.set_label("%s" % self.distribution.description)
@@ -396,7 +403,7 @@ class SoftwareProperties(SimpleGladeApp):
         checkbox = gtk.CheckButton(label=self.distribution.source_template.components[comp][2])
         # check if the comp is enabled
         # FIXME: use inconsistence if there are main sources with not all comps
-        if comp in self.distribution.enabled_comps:
+        if comp in self.distribution.download_comps:
             checkbox.set_active(True)
         # setup the callback and show the checkbutton
         checkbox.connect("toggled", self.on_component_toggled, comp)
@@ -486,7 +493,6 @@ class SoftwareProperties(SimpleGladeApp):
                 templates[source.template] = set(source.comps)
         # add fake http sources for the cdrom, since the sources
         # for the cdrom are only available in the internet
-        pdb.set_trace()
         for source in self.distribution.cdrom_sources:
             # FIXME: produces a key error
             if templates.has_key(self.distribution.source_template):
@@ -533,6 +539,7 @@ class SoftwareProperties(SimpleGladeApp):
     sources = []
     sources.extend(self.distribution.main_sources)
     sources.extend(self.distribution.child_sources)
+    sources.extend(self.distribution.source_code_sources)
     if checkbutton.get_active() == True:
         # check if there is a main source at all
         if len(self.distribution.main_sources) < 1:
@@ -547,6 +554,10 @@ class SoftwareProperties(SimpleGladeApp):
             for source in self.distribution.source_code_sources:
                 if comp not in source.comps: source.comps.append(comp)
     else:
+        if comp in self.distribution.cdrom_comps:
+            sources = []
+            sources.extend(self.distribution.main_sources)
+
         for source in sources:
             if comp in source.comps: 
                 source.comps.remove(comp)
@@ -562,8 +573,6 @@ class SoftwareProperties(SimpleGladeApp):
       for source in self.sourceslist:
           print source.str()
       print "END SOURCES.LIST\n"
-      self.distribution.get_sources(self.sourceslist)
-      self.distro_to_widgets()
 
   def on_checkbutton_child_toggled(self, checkbutton, template):
     """
@@ -712,6 +721,7 @@ class SoftwareProperties(SimpleGladeApp):
   
   def on_channel_toggled(self, cell_toggle, path, store):
     """Enable or disable the selected channel"""
+    #FIXME cdroms need to disable the comps in the childs and sources
     iter = store.get_iter((int(path),))
     source_entry = store.get_value(iter, STORE_SOURCE) 
     source_entry.disabled = not source_entry.disabled
@@ -744,6 +754,8 @@ class SoftwareProperties(SimpleGladeApp):
     #self.save_sourceslist()
     #self.reload_sourceslist()
     self.modified = True
+    self.distribution.get_sources(self.sourceslist)
+    self.distro_to_widgets()
 
   def render_source(self, source):
     """Render a nice output to show the source in a treeview"""
@@ -812,6 +824,7 @@ class SoftwareProperties(SimpleGladeApp):
     for source in self.sourceslist.list:
         if not source.invalid and\
            (source not in self.distribution.main_sources and\
+            source not in self.distribution.cdrom_sources and\
             source not in self.distribution.child_sources and\
             source not in self.distribution.disabled_sources) and\
            source not in self.distribution.source_code_sources:
