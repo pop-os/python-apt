@@ -535,6 +535,7 @@ class Distribution:
     self.source_code_sources = []
 
     # location of the sources
+    self.default_server = ""
     self.main_server = ""
     self.nearest_server = ""
     self.used_servers = []
@@ -623,6 +624,11 @@ class Distribution:
             # seems to be a network source
             self.used_servers.append(medium)
 
+    if len(self.main_sources) == 0:
+        self.default_server = self.main_server
+    else:
+        self.default_server = self.main_sources[0].uri
+
   def add_source(self, sources_list, type=None, 
                  uri=None, dist=None, comps=None, comment=""):
     """
@@ -630,7 +636,7 @@ class Distribution:
     """
     if uri == None:
         # FIXME: Add support for the server selector
-        uri = self.main_server
+        uri = self.default_server
     if dist == None:
         dist = self.codename
     if comps == None:

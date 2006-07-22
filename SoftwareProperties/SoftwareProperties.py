@@ -366,6 +366,7 @@ class SoftwareProperties(SimpleGladeApp):
         # FIXME: ugly
         if not "security.ubuntu.com" in source.uri:
             source.uri = uri_selected
+    self.distro.ddefault_server = uri_selected
     self.modified_sourceslist()
 
   def on_component_toggled(self, checkbutton, comp):
