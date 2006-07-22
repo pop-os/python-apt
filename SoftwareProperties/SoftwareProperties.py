@@ -42,8 +42,7 @@ import aptsources
 import dialog_add
 import dialog_edit
 import dialog_cache_outdated
-#import dialog_edit_predefined
-#import dialog_sources_list
+import dialog_add_sources_list
 from dialog_apt_key import apt_key
 from utils import *
 
@@ -224,7 +223,6 @@ class SoftwareProperties(SimpleGladeApp):
     # call the add sources.list dialog if we got a file from the cli
     if self.file != None:
         self.open_file(file)
-
 
   def distro_to_widgets(self):
     """
@@ -442,16 +440,15 @@ class SoftwareProperties(SimpleGladeApp):
 
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
-    #dialog = dialog_sources_list.AddSourcesList(self.window_main,
-    #                                            self.sourceslist,
-    #                                            self.render_source,
-    #                                            self.get_comparable,
-    #                                            self.datadir,
-    #                                            file)
-    #res = dialog.run()
-    #if res == gtk.RESPONSE_OK:
-    #  self.modified_sourceslist()
-    print "droped a sources.list"
+    dialog = dialog_add_sources_list.AddSourcesList(self.window_main,
+                                                    self.sourceslist,
+                                                    self.render_source,
+                                                    self.get_comparable,
+                                                    self.datadir,
+                                                    file)
+    res = dialog.run()
+    if res == gtk.RESPONSE_OK:
+      self.modified_sourceslist()
 
   def on_sources_drag_data_received(self, widget, context, x, y,
                                      selection, target_type, timestamp):
@@ -804,13 +801,8 @@ class SoftwareProperties(SimpleGladeApp):
     if not iter:
       return
     source_entry = model.get_value(iter, LIST_ENTRY_OBJ)
-    if source_entry.template == None:
-        dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
-                                         source_entry, self.datadir)
-    else:
-        dialog = dialog_edit_predefined.dialog_edit_predefined(self.window_main, 
-                                                    self.sourceslist,
-                                                    source_entry, self.datadir)
+    dialog = dialog_edit.dialog_edit(self.window_main, self.sourceslist,
+                                     source_entry, self.datadir)
     if dialog.run() == gtk.RESPONSE_OK:
         self.modified_sourceslist()
 
