@@ -36,6 +36,10 @@ for size in glob.glob("data/icons/*"):
 print ICONS
 
 
+for template in glob.glob("data/channels/*.info.in"):
+    os.system("intltool-merge -d po data/channels/%s"
+              " build/%s" % (os.path.basename(template),
+                  os.path.basename(template)[:-3]))
 os.system("intltool-merge -d po data/mime/apt.xml.in"\
            " build/apt.xml")
 os.system("intltool-merge -d po data/update-manager.schemas.in"\
@@ -68,7 +72,7 @@ setup(name='update-manager',
                      glob.glob("data/channels/README.channels")
                   ),
                   ('share/update-manager/channels',
-                     glob.glob("data/channels/*.info")
+                     glob.glob("build/*.info")
                   ),
                   ('share/applications',
                      ["data/update-manager.desktop",
