@@ -9,5 +9,6 @@ X-MultipleArgs=false
 Type=Application
 Encoding=UTF-8
 Categories=Application;System;Settings;
+MimeType=text/x-apt-sources-list
 X-KDE-SubstituteUID=true
 X-Ubuntu-Gettext-Domain=update-manager
