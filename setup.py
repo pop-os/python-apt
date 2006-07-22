@@ -36,6 +36,8 @@ for size in glob.glob("data/icons/*"):
 print ICONS
 
 
+os.system("intltool-merge -d po data/mime/apt.xml.in"\
+           " build/apt.xml")
 os.system("intltool-merge -d po data/update-manager.schemas.in"\
            " build/update-manager.schemas")
 
@@ -75,5 +77,9 @@ setup(name='update-manager',
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")
                   ),
+                  ('share/mime/packages',
+                   ["build/apt.xml"]
+                  )
+
                   ] + I18NFILES + HELPFILES + ICONS,
       )
