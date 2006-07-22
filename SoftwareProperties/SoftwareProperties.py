@@ -62,6 +62,8 @@ CONF_MAP = {
     COLUMN_DESC
 ) = range(2)
 
+RESPONSE_REPLACE = 1
+RESPONSE_ADD = 2
 
 # columns of the source_store
 (
@@ -446,9 +448,17 @@ class SoftwareProperties(SimpleGladeApp):
                                                     self.get_comparable,
                                                     self.datadir,
                                                     file)
-    res = dialog.run()
-    if res == gtk.RESPONSE_OK:
-      self.modified_sourceslist()
+    (res, new_sources) = dialog.run()
+    if res == RESPONSE_REPLACE:
+        self.sourceslist.list = []
+    if res in (RESPONSE_ADD, RESPONSE_REPLACE):
+        for source in new_sources:
+            self.sourceslist.add(source.type,
+                                 source.uri,
+                                 source.dist,
+                                 source.comps,
+                                 source.comment)
+        self.modified_sourceslist()
 
   def on_sources_drag_data_received(self, widget, context, x, y,
                                      selection, target_type, timestamp):

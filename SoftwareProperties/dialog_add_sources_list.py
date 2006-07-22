@@ -17,18 +17,18 @@ class AddSourcesList:
         print file
         self.parent = parent
         self.source_renderer = source_renderer
-        self.sources_old = sourceslist
+        self.sourceslist = sourceslist
         self.get_comparable = get_comparable
         self.file = self.format_uri(file)
         self.glade = gtk.glade.XML(os.path.join(datadir,
                      "glade/SoftwarePropertiesDialogs.glade"))
         self.glade.signal_autoconnect(self)
-        self.dialog = self.glade.get_widget("dialog_sources_list")
+        self.dialog = self.glade.get_widget("dialog_add_sources_list")
         self.label = self.glade.get_widget("label_sources")
         self.button_add = self.glade.get_widget("button_add")
         self.button_cancel = self.glade.get_widget("button_cancel")
+        self.button_replace = self.glade.get_widget("button_replace")
         self.treeview = self.glade.get_widget("treeview_sources")
-        self.button_close = self.glade.get_widget("button_close")
         self.scrolled = self.glade.get_widget("scrolled_window")
         self.image = self.glade.get_widget("image_sources_list")
 
@@ -51,24 +51,23 @@ class AddSourcesList:
 
         # Parse the source.list file
         try:
-            self.sources = SingleSourcesList(self.file)
+            self.new_sources = SingleSourcesList(self.file)
         except:
             self.error()
             return
 
         # show the found channels or an error message
-        if len(self.sources.list) > 0:
-            self.button_close.hide()
+        if len(self.new_sources.list) > 0:
             counter = 0
 
-            for source in self.sources.list:
+            for source in self.new_sources.list:
                 if source.invalid or source.disabled:
                     continue
-                self.sources.matcher.match(source)
+                self.new_sources.matcher.match(source)
             # sort the list
-            self.sources.list.sort(key=self.get_comparable)
+            self.new_sources.list.sort(key=self.get_comparable)
             
-            for source in self.sources.list:
+            for source in self.new_sources.list:
                 if source.invalid or source.disabled:
                     continue
                 counter = counter +1
@@ -78,42 +77,35 @@ class AddSourcesList:
                 self.error()
                 return
 
-            header = gettext.ngettext("Add the following software channel?",
-                                      "Add the following software channels?",
+            header = gettext.ngettext("Install software additionally or "
+                                      "only from this source?",
+                                      "Install software additionally or "
+                                      "only from these sources?",
                                       counter)
-            body = _("You can install software from a channel. Use "\
-                     "trusted channels, only.")
+            body = _("You can either add the following sources or replace your "
+                     "current sources by them. Only install software from "
+                     "trusted sources.")
             self.label.set_markup("<big><b>%s</b></big>\n\n%s" % (header, body))
-            self.button_add.set_use_underline(True)
-            self.button_add.set_label(gettext.ngettext("_Add Channel",
-                                                       "_Add Channels",
-                                                       counter))
         else:
             self.error()
             return
 
     def error(self):
         self.button_add.hide()
-        self.button_cancel.hide()
+        self.button_cancel.set_use_stock(True)
+        self.button_cancel.set_label("gtk-close")
+        self.button_replace.hide()
         self.scrolled.hide()
-        self.button_close.show()
         self.image.set_from_stock(gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_DIALOG)
-        header = _("Could not add any software channels")
+        header = _("There are no sources to install software from")
         body = _("The file '%s' does not contain any valid "
-                 "software channels." % self.file)
+                 "software sources." % self.file)
         self.label.set_markup("<big><b>%s</b></big>\n\n%s" % (header, body))
 
     def run(self):
         res = self.dialog.run()
-        if res == gtk.RESPONSE_OK:
-            for source in self.sources:
-                self.sources_old.add(source.type,
-                                     source.uri,
-                                     source.dist,
-                                     source.comps,
-                                     source.comment)
         self.dialog.destroy()
-        return res
+        return res, self.new_sources
 
     def format_uri(self, uri):
         path = urllib.url2pathname(uri) # escape special chars
