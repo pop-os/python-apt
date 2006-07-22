@@ -255,20 +255,25 @@ class SoftwareProperties(SimpleGladeApp):
          self.vbox_updates.remove(checkbutton)
     for template in self.distro.source_template.children:
         checkbox = gtk.CheckButton(label=template.description)
+        comps = []
         for child in self.distro.child_sources:
             if child.template == template:
-                # check if all comps of the main source are also enabled 
-                # for the child source
-                if len(set(child.comps) - self.distro.enabled_comps) == 0:
-                    checkbox.set_active(True)
-                else:
-                    checkbox.set_active(False)
-                if len(self.distro.enabled_comps ^ set(child.comps)) > 0:
-                    checkbox.set_inconsistent(True)
-                    checkbox.set_active(False)
-                #FIXME: currently we don't handle multiple sources of the same
-                #       child source - the required effort would be questionable
-                break
+                comps.extend(child.comps)
+        # check if all comps of the main source are also enabled 
+        # for the corresponding child sources
+        if len(comps) > 0 and \
+             len(self.distro.enabled_comps ^ set(comps)) == 0:
+            # the cild source covers all components
+            checkbox.set_active(True)
+        elif len(comps) > 0 and\
+             len(self.distro.enabled_comps ^ set(comps)) != 0:
+            # the cild is enabled, but doesn't cover 
+            # all components
+            checkbox.set_active(False)
+            checkbox.set_inconsistent(True)
+        else:
+            # there is no corresponding child source at all
+            checkbox.set_active(False)
         # setup the callback and show the checkbutton
         checkbox.connect("toggled", self.on_checkbutton_child_toggled,
                          template)
