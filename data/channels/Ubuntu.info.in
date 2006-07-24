@@ -1,10 +1,65 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: edgy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+_Description: Ubuntu 6.10 'Edgy Eft'
+Component: main
+Enabled: 1
+_CompDescription: Officially supported
+_CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
+Component: universe
+Enabled: 0
+_CompDescription: Community maintained (universe)
+_CompDescriptionLong: OpenSource software that is maintained by the community (universe)
+Component: restricted
+Enabled: 1
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices (restricted) 
+Component: multiverse
+Enabled: 0
+_CompDescription: Restricted software (Multiverse)
+_CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
+
+Suite: edgy
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*6.10
+_Description: Cdrom with Ubuntu 6.10 'Edgy Eft'
+Available: False
+Component: main
+Enabled: 1
+_CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+_CompDescription: Restricted copyright
+
+Suite: edgy-security
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+_Description: Important security updates
+
+Suite: edgy-updates
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+_Description: Recommended updates
+
+Suite: edgy-backports
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+_Description: Backported updates
+
 Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
-_Description: Ubuntu 6.06 'Dapper Drake'
+_Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
@@ -25,7 +80,7 @@ _CompDescriptionLong: Software that is restricted by copyright or legal issues (
 Suite: dapper
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.06
-_Description: Cdrom with Ubuntu 6.06 'Dapper Drake'
+_Description: Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'
 Available: False
 Component: main
 Enabled: 1
