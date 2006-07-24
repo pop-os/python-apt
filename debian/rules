@@ -53,13 +53,13 @@ binary-arch: build
 	dh_installdocs
 	dh_installchangelogs
 	dh_installexamples
+	dh_pycentral
+	dh_python
 	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	dh_pycentral
-	dh_python
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

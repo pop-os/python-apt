@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.40), apt-utils, p
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
 Priority: optional
 Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
