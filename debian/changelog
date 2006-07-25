@@ -4,6 +4,7 @@ python-apt (0.6.19) unstable; urgency=low
   * doc/examples/print_uris.py:
     - added a example to show how the indexfile.ArchiveURI() can be used
       with binary packages
+  * re-added dh_installexamples (NMU breakage). Closes: #376014
 
   [ Otavio Salvador ]
   * apt/cache.py:
