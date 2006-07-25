@@ -35,21 +35,21 @@ Enabled: 1
 _CompDescription: Restricted copyright
 
 Suite: edgy-security
-ParentSuite: dapper
+ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
 _Description: Important security updates
 
 Suite: edgy-updates
-ParentSuite: dapper
+ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Recommended updates
 
 Suite: edgy-backports
-ParentSuite: dapper
+ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
