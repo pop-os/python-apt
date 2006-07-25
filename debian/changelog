@@ -1,3 +1,41 @@
+python-apt (0.6.19) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * doc/examples/print_uris.py:
+    - added a example to show how the indexfile.ArchiveURI() can be used
+      with binary packages
+
+  [ Otavio Salvador ]
+  * apt/cache.py:
+    - fix commit doc string to also cite the open related callbacks
+    - allow change of rootdir for APT database loading
+    - add dh_installexamples in package building Closes: #376014
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 25 Jul 2006 11:45:28 +0200
+
+python-apt (0.6.18-0.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add ${shlibs:Depends} and ${misc:Depends} (Closes: #377615).
+
+ -- Christoph Berg <myon@debian.org>  Tue, 18 Jul 2006 11:39:52 +0200
+
+python-apt (0.6.18-0.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Call dh_pycentral and dh_python before dh_installdeb, to make sure
+    the dh_pycentral snippets are put into the maintainer scripts; patch from
+    Sam Morris. (Closes: #376416)
+
+ -- Steinar H. Gunderson <sesse@debian.org>  Wed, 12 Jul 2006 23:26:50 +0200
+
+python-apt (0.6.18) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update for the new Python policy. Closes: #373512
+
+ -- Raphael Hertzog <hertzog@debian.org>  Sat, 17 Jun 2006 15:09:28 +0200
+
 python-apt (0.6.17) unstable; urgency=low
 
   * apt/progress.py: 
@@ -9,8 +47,12 @@ python-apt (0.6.17) unstable; urgency=low
     - fix various pychecker warnings
   * apt/cache.py:
     - return useful values on Cache.update()
-  * apt/cache.py, apt/package.py: fix various pychecker warnings
-  * apt/cache.py: Release locks on failure (thanks to Colin Watson)
+    - Release locks on failure (thanks to Colin Watson)
+    - fix various pychecker warnings
+  * apt/package.py: 
+    - fix various pychecker warnings
+    - check if looupRecords succeeded
+    - fix bug in the return statement of _downloadable()
   * python/srcrecords.cc:
     - add "Restart" method
     - don't run auto "Restart" before performing a Lookup 

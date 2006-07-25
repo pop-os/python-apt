@@ -105,12 +105,12 @@ class Package(object):
         return ver.Downloadable
     def candidateDownloadable(self):
         " returns if the canidate is downloadable "
-        self._downloadable(useCandidate=True)
+        return self._downloadable(useCandidate=True)
     candidateDownloadable = property(candidateDownloadable)
 
     def installedDownloadable(self):
         " returns if the installed version is downloadable "
-        self._downloadable(useCandidate=False)
+        return self._downloadable(useCandidate=False)
     installedDownloadable = property(installedDownloadable)
 
     def sourcePackageName(self):
@@ -149,13 +149,15 @@ class Package(object):
 
     def summary(self):
         """ Return the short description (one line summary) """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.ShortDesc
     summary = property(summary)
 
     def description(self, format=True):
         """ Return the formated long description """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         desc = ""
         for line in string.split(self._records.LongDesc, "\n"):
                 tmp = string.strip(line)
@@ -168,7 +170,8 @@ class Package(object):
 
     def rawDescription(self):
         """ return the long description (raw)"""
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.LongDesc
     rawDescription = property(rawDescription)
         
@@ -287,10 +290,12 @@ class Package(object):
             Fix.InstallProtect()
             Fix.Resolve()
         self._pcache.cachePostChange()
-    def markInstall(self, autoFix=True):
-        """ mark a package for install. Run the resolver if autoFix is set """
+    def markInstall(self, autoFix=True, autoInst=True):
+        """ mark a package for install. Run the resolver if autoFix is set,
+            automatically install required dependencies if autoInst is set
+        """
         self._pcache.cachePreChange()
-        self._depcache.MarkInstall(self._pkg)
+        self._depcache.MarkInstall(self._pkg, autoInst)
         # try to fix broken stuff
         if autoFix and self._depcache.BrokenCount > 0:
             fixer = apt_pkg.GetPkgProblemResolver(self._depcache)

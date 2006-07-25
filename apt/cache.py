@@ -31,9 +31,13 @@ class Cache(object):
         dictionary
     """
 
-    def __init__(self, progress=None):
+    def __init__(self, progress=None, rootdir=None):
         self._callbacks = {}
         self.open(progress)
+
+        if rootdir:
+            apt_pkg.Config.Set("Dir", rootdir)
+            apt_pkg.Config.Set("Dir::State::status", rootdir + "/var/lib/dpkg/status")
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
@@ -218,7 +222,7 @@ class Cache(object):
 
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
-            cache_{post,pre}_changed """
+            cache_{post,pre}_{changed,open} """
         if not self._callbacks.has_key(name):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
