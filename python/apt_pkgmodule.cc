@@ -408,7 +408,7 @@ static PyMethodDef methods[] =
    // Stuff
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
    {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
-   {"sha256sum",sha1sum,METH_VARARGS,doc_sha256sum},
+   {"sha256sum",sha256sum,METH_VARARGS,doc_sha256sum},
 
    // Strings
    {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
