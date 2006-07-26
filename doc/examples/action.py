@@ -30,9 +30,6 @@ sys.exit(0)
 
 
 
-
-
-
 iter = cache["base-config"]
 print "example package iter: %s" % iter
 

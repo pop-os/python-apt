@@ -19,9 +19,9 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import sys
+import sys, apt_pkg, os, fcntl, string, re
 
-class OpProgress:
+class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
         Subclass this class to implement simple Operation progress reporting
     """
@@ -62,6 +62,8 @@ class FetchProgress(object):
                    dlIgnored : "Ignored"}
     
     def __init__(self):
+        self.eta = 0.0
+        self.percent = 0.0
         pass
     
     def start(self):
@@ -104,7 +106,7 @@ class TextFetchProgress(FetchProgress):
         sys.stdout.flush()
         return True
     def stop(self):
-        print "\rDone                  " 
+        print "\rDone downloading            " 
     def mediaChange(self, medium, drive):
         """ react to media change events """
         res = True;
@@ -115,7 +117,7 @@ class TextFetchProgress(FetchProgress):
             res = false;
         return res
 
-class InstallProgress:
+class DumbInstallProgress(object):
     """ Report the install progress
         Subclass this class to implement install progress reporting
     """
@@ -123,10 +125,84 @@ class InstallProgress:
         pass
     def startUpdate(self):
         pass
+    def run(self, pm):
+        return pm.DoInstall()
     def finishUpdate(self):
         pass
     def updateInterface(self):
         pass
+
+class InstallProgress(DumbInstallProgress):
+    """ A InstallProgress that is pretty useful.
+        It supports the attributes 'percent' 'status' and callbacks
+        for the dpkg errors and conffiles and status changes 
+     """
+    def __init__(self):
+        DumbInstallProgress.__init__(self)
+        (read, write) = os.pipe()
+        self.writefd=write
+        self.statusfd = os.fdopen(read, "r")
+        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
+        self.read = ""
+        self.percent = 0.0
+        self.status = ""
+    def error(self, pkg, errormsg):
+        " called when a error is detected during the install "
+        pass
+    def conffile(self,current,new):
+        " called when a conffile question from dpkg is detected "
+        pass
+    def statusChange(self, pkg, percent, status):
+	" called when the status changed "
+	pass
+    def updateInterface(self):
+        if self.statusfd != None:
+                try:
+		    while not self.read.endswith("\n"):
+	                    self.read += os.read(self.statusfd.fileno(),1)
+                except OSError, (errno,errstr):
+                    # resource temporarly unavailable is ignored
+                    if errno != 11:
+                        print errstr
+                if self.read.endswith("\n"):
+                    s = self.read
+                    #print s
+                    (status, pkg, percent, status_str) = string.split(s, ":")
+                    #print "percent: %s %s" % (pkg, float(percent)/100.0)
+                    if status == "pmerror":
+                        self.error(pkg,status_str)
+                    elif status == "pmconffile":
+                        # we get a string like this:
+                        # 'current-conffile' 'new-conffile' useredited distedited
+                        match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
+                        if match:
+                            self.conffile(match.group(1), match.group(2))
+                    elif status == "pmstatus":
+                        if float(percent) != self.percent or \
+                           status_str != self.status:
+                            self.statusChange(pkg, float(percent), status_str.strip())
+                        self.percent = float(percent)
+                        self.status = string.strip(status_str)
+                    self.read = ""
+                    
+    def fork(self):
+        return os.fork()
+    def waitChild(self):
+        while True:
+            (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
+            if pid == self.child_pid:
+                break
+            self.updateInterface()
+        return os.WEXITSTATUS(res)
+    def run(self, pm):
+        pid = self.fork()
+        if pid == 0:
+            # child
+            res = pm.DoInstall(self.writefd)
+            sys.exit(res)
+        self.child_pid = pid
+        res = self.waitChild()
+        return res
 
 class CdromProgress:
     """ Report the cdrom add progress

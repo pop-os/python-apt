@@ -116,16 +116,24 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       bool Failed = false;
       for (pkgAcquire::ItemIterator I = Fetcher.ItemsBegin(); I != Fetcher.ItemsEnd(); I++)
       {
+	 
+	 //std::cout << "looking at: " << (*I)->DestFile 
+	 //	   << " status: " << (*I)->Status << std::endl;
+
 	 if ((*I)->Status == pkgAcquire::Item::StatDone &&
 	     (*I)->Complete == true)
 	    continue;
 	 
 	 if ((*I)->Status == pkgAcquire::Item::StatIdle)
 	 {
+	    //std::cout << "transient failure" << std::endl;
+
 	    Transient = true;
-	    // Failed = true;
+	    //Failed = true;
 	    continue;
 	 }
+
+	 //std::cout << "something is wrong!" << std::endl;
 
 	 _error->Warning(_("Failed to fetch %s  %s\n"),(*I)->DescURI().c_str(),
 			 (*I)->ErrorText.c_str());
@@ -135,6 +143,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       if (Transient == true && Failed == true)
       {
 	 _error->Error(_("--fix-missing and media swapping is not currently supported"));
+	 Py_INCREF(Py_None);
 	 return HandleErrors(Py_None);
       }
       
@@ -143,27 +152,33 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       {
 	 //std::cerr << "Unable to correct missing packages." << std::endl;
 	 _error->Error("Aborting install.");
+	 Py_INCREF(Py_None);
 	 return HandleErrors(Py_None);
       }
 
-      _system->UnLock();
+      // fail if something else went wrong 
+      //FIXME: make this more flexible, e.g. with a failedDl handler 
+      if(Failed) 
+	 return Py_BuildValue("b", false);
+      _system->UnLock(true);
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
-      //FIXME: return usefull values here
+      //std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
+
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
-	 result = Py_BuildValue("b", false);
-	 return result;
+	 return HandleErrors(Py_BuildValue("b", false));
       }
       if (Res == pkgPackageManager::Completed) {
-	 result = Py_BuildValue("b", true);
-	 return result;
+	 //std::cout << "iprogress.Run() returned Completed " << std::endl;
+	 return Py_BuildValue("b", true);
       }
 
+      //std::cout << "looping again, install unfinished" << std::endl;
+      
       // Reload the fetcher object and loop again for media swapping
       Fetcher.Shutdown();
       if (PM->GetArchives(&Fetcher,&List,&Recs) == false) {
-	 result = Py_BuildValue("b", false);
-	 return result;
+	 return Py_BuildValue("b", false);
       }
       _system->Lock();
    }   
@@ -218,14 +233,29 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"|b",&distUpgrade) == 0)
       return 0;
 
+   bool res;
    if(distUpgrade)
-      pkgDistUpgrade(*depcache);
+      res = pkgDistUpgrade(*depcache);
    else
-      pkgAllUpgrade(*depcache);
+      res = pkgAllUpgrade(*depcache);
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_BuildValue("b",res));   
 }
+
+static PyObject *PkgDepCacheMinimizeUpgrade(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+
+   bool res = pkgMinimizeUpgrade(*depcache);
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_BuildValue("b",res));   
+}
+
 
 static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
 {   
@@ -249,14 +279,15 @@ static PyObject *PkgDepCacheReadPinFile(PyObject *Self,PyObject *Args)
 static PyObject *PkgDepCacheFixBroken(PyObject *Self,PyObject *Args)
 {   
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
-
+   
+   bool res=true;
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   pkgFixBroken(*depcache);
+   res &=pkgFixBroken(*depcache);
+   res &=pkgMinimizeUpgrade(*depcache);
 
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_BuildValue("b",res));   
 }
 
 
@@ -337,6 +368,20 @@ static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
    return HandleErrors(Py_BuildValue("b",state.Upgradable()));   
+}
+
+static PyObject *PkgDepCacheIsGarbage(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   pkgDepCache::StateCache &state = (*depcache)[Pkg];
+
+   return HandleErrors(Py_BuildValue("b",state.Garbage));   
 }
 
 static PyObject *PkgDepCacheIsNowBroken(PyObject *Self,PyObject *Args)
@@ -466,6 +511,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
    {"FixBroken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
    {"ReadPinFile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
+   {"MinimizeUpgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,"Go over the entire set of packages and try to keep each package marked for upgrade. If a conflict is generated then the package is restored."},
    // Manipulators
    {"MarkKeep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
    {"MarkDelete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
@@ -475,6 +521,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"IsUpgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
    {"IsNowBroken",PkgDepCacheIsNowBroken,METH_VARARGS,"Is pkg is now broken"},
    {"IsInstBroken",PkgDepCacheIsInstBroken,METH_VARARGS,"Is pkg broken on the current install"},
+   {"IsGarbage",PkgDepCacheIsGarbage,METH_VARARGS,"Is pkg garbage (mark-n-sweep)"},
    {"MarkedInstall",PkgDepCacheMarkedInstall,METH_VARARGS,"Is pkg marked for install"},
    {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
    {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},

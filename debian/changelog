@@ -1,3 +1,96 @@
+python-apt (0.6.19) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * doc/examples/print_uris.py:
+    - added a example to show how the indexfile.ArchiveURI() can be used
+      with binary packages
+
+  [ Otavio Salvador ]
+  * apt/cache.py:
+    - fix commit doc string to also cite the open related callbacks
+    - allow change of rootdir for APT database loading
+  
+ -- 
+
+python-apt (0.6.18) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update for the new Python policy. Closes: #373512
+
+ -- Raphael Hertzog <hertzog@debian.org>  Sat, 17 Jun 2006 15:09:28 +0200
+
+python-apt (0.6.17) unstable; urgency=low
+
+  * apt/progress.py: 
+    - initialize FetchProgress.eta with the correct type
+    - strip the staus str before passing it to InstallProgress.statusChanged()
+    - added InstallProgress.statusChange(pkg, percent, status) 
+    - make DumbInstallProgress a new-style class 
+      (thanks to kamion for the suggestions)
+    - fix various pychecker warnings
+  * apt/cache.py:
+    - return useful values on Cache.update()
+    - Release locks on failure (thanks to Colin Watson)
+    - fix various pychecker warnings
+  * apt/package.py: 
+    - fix various pychecker warnings
+    - check if looupRecords succeeded
+    - fix bug in the return statement of _downloadable()
+  * apt/cache.py:
+  * python/srcrecords.cc:
+    - add "Restart" method
+    - don't run auto "Restart" before performing a Lookup 
+    - fix the initalization (no need to pass a PkgCacheType to the records)
+    - added "Index" attribute
+  * python/indexfile.cc:
+    - added ArchiveURI() method
+  
+ -- Michael Vogt <mvo@debian.org>  Mon, 8 May 2006 22:34:58 +0200
+
+python-apt (0.6.16.2) unstable; urgency=low
+  
+  * Non-maintainer upload.
+  * debian/control:
+    + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+      correct here. (closes: #308586).
+
+ -- Pierre Habouzit <madcoder@debian.org>  Fri, 14 Apr 2006 19:30:51 +0200
+  
+python-apt (0.6.16.1) unstable; urgency=low
+
+  * memleak fixed when pkgCache objects are deallocated
+  * typos fixed (thanks to Gustavo Franco)
+  * pkgRecords.Record added to get raw record data
+  * python/cache.cc: "key" in pkgCache::VerIterator.DependsList[key] is
+                     no longer locale specific but always english
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 22 Feb 2006 10:41:13 +0100
+
+python-apt (0.6.16) unstable; urgency=low
+
+  * added GetPkgAcqFile to queue individual file downloads with the 
+    system (dosn't make use of the improved pkgAcqFile yet)
+  * added SourceList.GetIndexes()
+  * rewrote apt.cache.update() to use the improved aquire interface
+  * apt/ API change: apt.Package.candidateOrigin returns a list of origins 
+    now instead of a single one
+  * apt_pkg.Cdrom.Add() returns a boolean now, CdromProgress has totalSteps
+  * added support for pkgIndexFile and added SourcesList.FindIndex()
+  * added "trusted" to the Origin class
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  5 Jan 2006 00:56:36 +0100
+
+python-apt (0.6.15) unstable; urgency=low
+
+  * rewrote cache.Commit() and make it raise proper Exception if stuff
+    goes wrong
+  * fix a invalid return from cache.commit(), fail if a download failed
+  * apt.Package.candidateOrigin returns a class now
+  * added pkgAcquire, pkgPackageManager and a example (acquire.py)
+  * tightend build-dependencies for new apt and the c++ transition
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 28 Nov 2005 23:48:37 +0100
+
 python-apt (0.6.14) unstable; urgency=low
 
   * doc/examples/build-deps.py:
@@ -9,9 +102,9 @@ python-apt (0.6.14) unstable; urgency=low
     - always run "Restart" before performing a Lookup 
   * export locking via: GetLock(),PkgSystem{Lock,UnLock} 
   * apt/cache.py:
-    - add  __iter__ 
+    - added  __iter__ to make "for pkg in apt.Cache:" stuff possible
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 20 Sep 2005 13:24:31 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed,  9 Nov 2005 04:52:08 +0100
 
 python-apt (0.6.13) unstable; urgency=low
 

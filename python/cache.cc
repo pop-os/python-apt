@@ -231,6 +231,17 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Self,&PackageType,Pkg);
 }
 
+// we need a special dealloc here to make sure that the CacheFile
+// is closed before deallocation the cache (otherwise we have a bad)
+// memory leak
+void PkgCacheFileDealloc(PyObject *Self)
+{
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
+   CacheF->Close();
+   CppOwnedDealloc<pkgCache *>(Self);
+}
+
 static PyMappingMethods CacheMap = {0,CacheMapOp,0};
 PyTypeObject PkgCacheType =
 {
@@ -240,7 +251,7 @@ PyTypeObject PkgCacheType =
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgCache *>,        // tp_dealloc
+   PkgCacheFileDealloc,                  // tp_dealloc
    0,                                   // tp_print
    CacheAttr,                           // tp_getattr
    0,                                   // tp_setattr
@@ -452,7 +463,17 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 PyObject *Dep = PyString_FromString(Start.DepType());
+	 // must be in sync with pkgCache::DepType in libapt
+	 // it sucks to have it here duplicated, but we get it
+	 // translated from libapt and that is certainly not what
+	 // we want in a programing interface
+	 const char *Types[] =  
+	 {
+	    "", "Depends","PreDepends","Suggests",
+	    "Recommends","Conflicts","Replaces",
+	    "Obsoletes"
+	 };
+	 PyObject *Dep = PyString_FromString(Types[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -637,8 +658,6 @@ static PyObject *PackageFileAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotAutomatic) != 0);
    else if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",File->ID);
-   /* mtime is really a cookie these days and has no meaning outside the
-      list handlers */
    
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;

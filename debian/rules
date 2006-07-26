@@ -6,16 +6,13 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-# This is the debhelper compatibility version to use.
-export DH_COMPAT=3
-
 DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
 DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PYTHON=python2.3 python2.4
+PYTHON=$(shell pyversions -r debian/control)
 
 build: build-stamp
 build-stamp:
@@ -41,18 +38,6 @@ clean:
 # Build architecture-independent files here.
 binary-indep: DH_OPTIONS=-i
 binary-indep: build
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples doc/examples/*.py
-	dh_installchangelogs
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_python
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
 # Build architecture-dependent files here.
 binary-arch: DH_OPTIONS=-a
@@ -60,11 +45,11 @@ binary-arch: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-
+	
 	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/$${PY}-apt/usr; \
+		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/python-apt/usr; \
 	done
-
+	
 	dh_installdocs
 	dh_installchangelogs
 	dh_strip
@@ -72,6 +57,7 @@ binary-arch: build
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
+	dh_pycentral
 	dh_python
 	dh_gencontrol
 	dh_md5sums
@@ -83,7 +69,7 @@ source diff:
 arch-build:
 	rm -rf debian/arch-build
 	mkdir -p debian/arch-build/python-apt-$(DEBVER)
-	baz inventory -s | xargs cp -a --parents --target=debian/arch-build/python-apt-$(DEBVER)
+	tar -c --exclude=arch-build --no-recursion -f - `bzr inventory` | (cd debian/arch-build/python-apt-$(DEBVER);tar xf -)
 	(cd debian/arch-build/python-apt-$(DEBVER); $(DEB_BUILD_PROG))
 
 binary: binary-indep binary-arch

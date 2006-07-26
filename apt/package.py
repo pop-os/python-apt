@@ -19,18 +19,22 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import apt_pkg, string
+import apt_pkg
+import sys
 import random
+import string
+
 
 class Package(object):
     """ This class represents a package in the cache
     """
-    def __init__(self, cache, depcache, records, pcache, pkgiter):
+    def __init__(self, cache, depcache, records, sourcelist, pcache, pkgiter):
         """ Init the Package object """
         self._cache = cache             # low level cache
         self._depcache = depcache
         self._records = records
         self._pkg = pkgiter
+        self._list = sourcelist               # sourcelist
         self._pcache = pcache           # python cache in cache.py
         pass
 
@@ -45,14 +49,14 @@ class Package(object):
 
         # check if we found a version
         if ver == None:
-            print "No version for: %s (Candiate: %s)" % (self._pkg.Name, UseCandidate)
+            #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
             return False
         
         if ver.FileList == None:
             print "No FileList for: %s " % self._pkg.Name()
             return False
-        file, index = ver.FileList.pop(0)
-        self._records.Lookup((file,index))
+        f, index = ver.FileList.pop(0)
+        self._records.Lookup((f,index))
         return True
 
 
@@ -90,9 +94,29 @@ class Package(object):
             return None
     candidateVersion = property(candidateVersion)
 
+    def _downloadable(self, useCandidate=True):
+        """ helper, return if the version is downloadable """
+        if useCandidate:
+            ver = self._depcache.GetCandidateVer(self._pkg)
+        else:
+            ver = self._pkg.CurrentVer
+        if ver == None:
+            return False
+        return ver.Downloadable
+    def candidateDownloadable(self):
+        " returns if the canidate is downloadable "
+        return self._downloadable(useCandidate=True)
+    candidateDownloadable = property(candidateDownloadable)
+
+    def installedDownloadable(self):
+        " returns if the installed version is downloadable "
+        return self._downloadable(useCandidate=False)
+    installedDownloadable = property(installedDownloadable)
+
     def sourcePackageName(self):
         """ Return the source package name as string """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return None
         src = self._records.SourcePkg
         if src != "":
             return src
@@ -125,13 +149,15 @@ class Package(object):
 
     def summary(self):
         """ Return the short description (one line summary) """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.ShortDesc
     summary = property(summary)
 
     def description(self, format=True):
         """ Return the formated long description """
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         desc = ""
         for line in string.split(self._records.LongDesc, "\n"):
                 tmp = string.strip(line)
@@ -144,7 +170,8 @@ class Package(object):
 
     def rawDescription(self):
         """ return the long description (raw)"""
-        self._lookupRecord()
+        if not self._lookupRecord():
+            return ""
         return self._records.LongDesc
     rawDescription = property(rawDescription)
         
@@ -215,12 +242,33 @@ class Package(object):
     installedSize = property(installedSize)
 
     # canidate origin
+    class Origin:
+        def __init__(self, pkg, VerFileIter):
+            self.component = VerFileIter.Component
+            self.archive = VerFileIter.Archive
+            self.origin = VerFileIter.Origin
+            self.label = VerFileIter.Label
+            self.site = VerFileIter.Site
+            # check the trust
+            indexfile = pkg._list.FindIndex(VerFileIter)
+            if indexfile and indexfile.IsTrusted:
+                self.trusted = True
+            else:
+                self.trusted = False
+        def __repr__(self):
+            return "component: '%s' archive: '%s' origin: '%s' label: '%s' " \
+                   "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
+                                                  self.origin, self.label,
+                                                  self.site, self.trusted)
+        
     def candidateOrigin(self):
         ver = self._depcache.GetCandidateVer(self._pkg)
-        (VerFileIter,index) = ver.FileList.pop()
-        print len(VerFileIter)
-        print VerFileIter
-        return VerFileIter.Component
+        if not ver:
+            return None
+        origins = []
+        for (verFileIter,index) in ver.FileList:
+            origins.append(self.Origin(self, verFileIter))
+        return origins
     candidateOrigin = property(candidateOrigin)
 
     # depcache actions
@@ -242,10 +290,12 @@ class Package(object):
             Fix.InstallProtect()
             Fix.Resolve()
         self._pcache.cachePostChange()
-    def markInstall(self, autoFix=True):
-        """ mark a package for install. Run the resolver if autoFix is set """
+    def markInstall(self, autoFix=True, autoInst=True):
+        """ mark a package for install. Run the resolver if autoFix is set,
+            automatically install required dependencies if autoInst is set
+        """
         self._pcache.cachePreChange()
-        self._depcache.MarkInstall(self._pkg)
+        self._depcache.MarkInstall(self._pkg, autoInst)
         # try to fix broken stuff
         if autoFix and self._depcache.BrokenCount > 0:
             fixer = apt_pkg.GetPkgProblemResolver(self._depcache)
@@ -256,9 +306,10 @@ class Package(object):
     def markUpgrade(self):
         """ mark a package for upgrade """
         if self.isUpgradable:
-            self.MarkInstall()
-        # FIXME: we may want to throw a exception here
-        sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg")
+            self.markInstall()
+        else:
+            # FIXME: we may want to throw a exception here
+            sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg: '%s'\n"  %self._pkg.Name)
 
     def commit(self, fprogress, iprogress):
         """ commit the changes, need a FetchProgress and InstallProgress
@@ -274,16 +325,18 @@ if __name__ == "__main__":
     cache = apt_pkg.GetCache()
     depcache = apt_pkg.GetDepCache(cache)
     records = apt_pkg.GetPkgRecords(cache)
+    sourcelist = apt_pkg.GetPkgSourceList()
 
-    iter = cache["apt-utils"]
-    pkg = Package(cache, depcache, records, None, iter)
+    pkgiter = cache["apt-utils"]
+    pkg = Package(cache, depcache, records, sourcelist, None, pkgiter)
     print "Name: %s " % pkg.name
     print "ID: %s " % pkg.id
     print "Priority (Candidate): %s " % pkg.priority
     print "Priority (Installed): %s " % pkg.installedPriority
     print "Installed: %s " % pkg.installedVersion
     print "Candidate: %s " % pkg.candidateVersion
-    print "CandiateOrigin: %s" % pkg.candidateOrigin
+    print "CandidateDownloadable: %s" % pkg.candidateDownloadable
+    print "CandidateOrigins: %s" % pkg.candidateOrigin
     print "SourcePkg: %s " % pkg.sourcePackageName
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.summary

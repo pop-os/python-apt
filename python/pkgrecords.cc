@@ -10,20 +10,12 @@
 // Include Files							/*{{{*/
 #include "generic.h"
 #include "apt_pkgmodule.h"
+#include "pkgrecords.h"
 
-#include <apt-pkg/pkgrecords.h>
 
 #include <Python.h>
 									/*}}}*/
 
-struct PkgRecordsStruct
-{
-   pkgRecords Records;
-   pkgRecords::Parser *Last;
-   
-   PkgRecordsStruct(pkgCache *Cache) : Records(*Cache), Last(0) {};
-   PkgRecordsStruct() : Records(*(pkgCache *)0) {abort();};  // G++ Bug..
-};
     
 // PkgRecords Class							/*{{{*/
 // ---------------------------------------------------------------------
@@ -54,7 +46,7 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
    // always return true (to make it consistent with the pkgsrcrecords object
    return Py_BuildValue("i", 1);
 }
-
+    
 static PyMethodDef PkgRecordsMethods[] = 
 {
    {"Lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
@@ -81,6 +73,12 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->LongDesc());
       else if (strcmp("Name",Name) == 0)
 	 return CppPyString(Struct.Last->Name());
+      else if (strcmp("Record", Name) == 0) 
+      {
+	 const char *start, *stop;
+	 Struct.Last->GetRec(start, stop);
+	 return PyString_FromStringAndSize(start,stop-start);
+      }
    }
    
    return Py_FindMethod(PkgRecordsMethods,Self,Name);

@@ -72,11 +72,27 @@ PyObject *GetPkgProblemResolver(PyObject *Self, PyObject *Args);
 extern PyTypeObject PkgCdromType;
 PyObject *GetCdrom(PyObject *Self,PyObject *Args);
 
+// acquire
+extern PyTypeObject PkgAcquireType;
+PyObject *GetAcquire(PyObject *Self,PyObject *Args);
+PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject *kwds);
+
+// packagemanager
+extern PyTypeObject PkgManagerType;
+PyObject *GetPkgManager(PyObject *Self,PyObject *Args);
+
 
 // PkgRecords Stuff
 extern PyTypeObject PkgRecordsType;
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args);
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args);
+
+// pkgSourceList
+extern PyTypeObject PkgSourceListType;
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args);
+
+// pkgSourceList
+extern PyTypeObject PackageIndexFileType;
+
 
 #endif

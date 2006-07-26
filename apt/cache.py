@@ -21,8 +21,9 @@
 
 import apt_pkg
 from apt import Package
-from apt.progress import OpTextProgress
-from UserDict import UserDict
+import apt.progress
+import os
+import sys
 
 class Cache(object):
     """ Dictionary-like package cache 
@@ -30,9 +31,13 @@ class Cache(object):
         dictionary
     """
 
-    def __init__(self, progress=None):
+    def __init__(self, progress=None, rootdir=None):
         self._callbacks = {}
         self.open(progress)
+
+        if rootdir:
+            apt_pkg.Config.Set("Dir", rootdir)
+            apt_pkg.Config.Set("Dir::State::status", rootdir + "/var/lib/dpkg/status")
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
@@ -48,6 +53,8 @@ class Cache(object):
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
         self._records = apt_pkg.GetPkgRecords(self._cache)
+        self._list = apt_pkg.GetPkgSourceList()
+        self._list.ReadMainList()
         self._dict = {}
 
         # build the packages dict
@@ -62,7 +69,8 @@ class Cache(object):
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
                 self._dict[pkg.Name] = Package(self._cache, self._depcache,
-                                               self._records, self, pkg)
+                                               self._records, self._list,
+                                               self, pkg)
                 
             i += 1
         if progress != None:
@@ -79,11 +87,7 @@ class Cache(object):
         raise StopIteration
 
     def has_key(self, key):
-        try:
-            self._dict[key]
-        except KeyError:
-            return False
-        return True
+        return self._dict.has_key(key)
 
     def __len__(self):
         return len(self._dict)
@@ -109,15 +113,102 @@ class Cache(object):
         self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
-    def update(self, fetchProgress=None, opProgress=None):
-        if(opProgress != None):
-            self._cache.Update(fetchProgress, opProgress);
-        else:
-            self._cache.Update(fetchProgress);
+    def _runFetcher(self, fetcher):
+        # do the actual fetching
+        res = fetcher.Run()
+        
+        # now check the result (this is the code from apt-get.cc)
+        failed = False
+        transient = False
+        errMsg = ""
+        for item in fetcher.Items:
+            if item.Status == item.StatDone:
+                continue
+            if item.StatIdle:
+                transient = True
+                continue
+            errMsg += "Failed to fetch %s %s\n" % (item.DescURI,item.ErrorText)
+            failed = True
 
-    def commit(self, fprogress, iprogress):
+        # we raise a exception if the download failed
+        if failed:
+            raise IOError, errMsg
+        return res
+
+    def _fetchArchives(self, fetcher, pm):
+        """ fetch the needed archives """
+
+        # get lock
+        lockfile = apt_pkg.Config.FindDir("Dir::Cache::Archives") + "lock"
+        lock = apt_pkg.GetLock(lockfile)
+        if lock < 0:
+            raise IOError, "Failed to lock %s" % lockfile
+
+        try:
+            # this may as well throw a SystemError exception
+            if not pm.GetArchives(fetcher, self._list, self._records):
+                return False
+            # now run the fetcher, throw exception if something fails to be
+            # fetched
+            return self._runFetcher(fetcher)
+        finally:
+            os.close(lock)
+
+    def update(self, fetchProgress=None):
+        lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
+        lock = apt_pkg.GetLock(lockfile)
+        if lock < 0:
+            raise IOError, "Failed to lock %s" % lockfile
+
+        try:
+            if fetchProgress == None:
+                fetchProgress = apt.progress.FetchProgress()
+            fetcher = apt_pkg.GetAcquire(fetchProgress)
+            # this can throw a exception
+            self._list.GetIndexes(fetcher)
+            # now run the fetcher, throw exception if something fails to be
+            # fetched
+            if self._runFetcher(fetcher) == fetcher.ResultContinue:
+                return True
+            return False
+        finally:
+            os.close(lock)
+        
+    def installArchives(self, pm, installProgress):
+        installProgress.startUpdate()
+        res = installProgress.run(pm)
+        installProgress.finishUpdate()
+        return res
+    
+    def commit(self, fetchProgress=None, installProgress=None):
         """ Apply the marked changes to the cache """
-        self._depcache.Commit(fprogress, iprogress)
+        # FIXME:
+        # use the new acquire/pkgmanager interface here,
+        # raise exceptions when a download or install fails
+        # and send proper error strings to the application.
+        # Current a failed download will just display "error"
+        # which is less than optimal!
+
+        if fetchProgress == None:
+            fetchProgress = apt.progress.FetchProgress()
+        if installProgress == None:
+            installProgress = apt.progress.InstallProgress()
+
+        pm = apt_pkg.GetPackageManager(self._depcache)
+        fetcher = apt_pkg.GetAcquire(fetchProgress)
+        while True:
+            # fetch archives first
+            res = self._fetchArchives(fetcher, pm)
+
+            # then install
+            res = self.installArchives(pm, installProgress)
+            if res == pm.ResultCompleted:
+                break
+            if res == pm.ResultFailed:
+                raise SystemError, "installArchives() failed"
+            # reload the fetcher for media swaping
+            fetcher.Shutdown()
+        return (res == pm.ResultCompleted)
 
     # cache changes
     def cachePostChange(self):
@@ -131,7 +222,7 @@ class Cache(object):
 
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
-            cache_{post,pre}_changed """
+            cache_{post,pre}_{changed,open} """
         if not self._callbacks.has_key(name):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
@@ -177,11 +268,7 @@ class FilteredCache(object):
         return self._filtered.keys()
 
     def has_key(self, key):
-        try:
-            self._filtered[key]
-        except KeyError:
-            return False
-        return True
+        return self._filtered.has_key(key)
 
     def _reapplyFilter(self):
         " internal helper to refilter "
@@ -228,7 +315,7 @@ def cache_post_changed():
 if __name__ == "__main__":
     print "Cache self test"
     apt_pkg.init()
-    c = Cache(OpTextProgress())
+    c = Cache(apt.progress.OpTextProgress())
     c.connect("cache_pre_change", cache_pre_changed)
     c.connect("cache_post_change", cache_post_changed)
     print c.has_key("aptitude")
@@ -245,6 +332,17 @@ if __name__ == "__main__":
     for p in changes:
         #print p.name
         x = p.name
+
+
+    # see if fetching works
+    for d in ["/tmp/pytest", "/tmp/pytest/partial"]:
+        if not os.path.exists(d):
+            os.mkdir(d)
+    apt_pkg.Config.Set("Dir::Cache::Archives","/tmp/pytest")
+    pm = apt_pkg.GetPackageManager(c._depcache)
+    fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
+    c._fetchArchives(fetcher, pm)
+    #sys.exit(1)
 
     print "Testing filtered cache (argument is old cache)"
     f = FilteredCache(c)

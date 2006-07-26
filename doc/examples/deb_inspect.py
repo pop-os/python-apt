@@ -4,6 +4,7 @@
 import apt_pkg
 import apt_inst
 import sys
+import os.path
 
 def Callback(What,Name,Link,Mode,UID,GID,Size,MTime,Major,Minor):
     """ callback for debExtract """
@@ -35,5 +36,12 @@ if __name__ == "__main__":
     print apt_pkg.ParseDepends(depends)
 
 
-
-
+    print "extracting archive"
+    dir = "/tmp/deb"
+    os.mkdir(dir)
+    apt_inst.debExtractArchive(open(file),dir)
+    def visit(arg, dirname, names):
+        print "%s/" % dirname
+        for file in names:
+            print "\t%s" % file
+    os.path.walk(dir, visit, None)

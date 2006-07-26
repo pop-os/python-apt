@@ -2,6 +2,7 @@
 # example how to install in a custom terminal widget
 # see also gnome bug: #169201
 
+import apt
 import apt_pkg
 import sys, os, fcntl
 import copy
@@ -13,6 +14,7 @@ pygtk.require('2.0')
 import gtk
 import vte
 import time
+import posix
 
 from apt.progress import OpProgress, FetchProgress, InstallProgress
 
@@ -36,10 +38,12 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
     def stop(self):
 	self.hide()
     def pulse(self):
-	self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
+        FetchProgress.pulse(self)
+        self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
 	#self.progressbar.set_fraction(self.currentBytes/self.totalBytes)
 	while gtk.events_pending():
 		gtk.main_iteration()
+        return True
 
 class TermInstallProgress(InstallProgress, gtk.Window):
     def __init__(self):
@@ -50,11 +54,16 @@ class TermInstallProgress(InstallProgress, gtk.Window):
         self.add(box)
 	self.term = vte.Terminal()
 	self.term.show()
+        # check for the child
+        self.reaper = vte.reaper_get()
+        self.reaper.connect("child-exited",self.child_exited)
+        self.finished = False
+
 	box.pack_start(self.term)
         self.progressbar = gtk.ProgressBar()
         self.progressbar.show()
         box.pack_start(self.progressbar)
-
+        
         (read, write) = os.pipe()
         self.writefd=write
         self.status = os.fdopen(read, "r")
@@ -62,7 +71,12 @@ class TermInstallProgress(InstallProgress, gtk.Window):
         print "read-fd: %s" % self.status.fileno()
         print "write-fd: %s" % self.writefd
         self.read = ""
-            
+
+    def child_exited(self,term, pid, status):
+        print "child_exited: %s %s %s %s" % (self,term,pid,status)
+        self.apt_status = posix.WEXITSTATUS(status)
+        self.finished = True
+
     def startUpdate(self):
         print "start"
         self.show()
@@ -84,29 +98,26 @@ class TermInstallProgress(InstallProgress, gtk.Window):
                     self.read = ""
         while gtk.events_pending():
             gtk.main_iteration()
+        
     def finishUpdate(self):
 	sys.stdin.readline()
-    def fork(self):
+    def run(self, pm):
         print "fork"
         env = ["VTE_PTY_KEEP_FD=%s"%self.writefd]
         print env
 	pid = self.term.forkpty(envv=env)
+        if pid == 0:
+            res = pm.DoInstall(self.writefd)
+            print res
+            sys.exit(res)
         print "After fork: %s " % pid
-        return pid
+        while not self.finished:
+            self.updateInterface()
+        return self.apt_status
 
+cache = apt.Cache()
+print "Available packages: %s " % cache._cache.PackageCount
 
-# init
-apt_pkg.init()
-
-progress = OpProgress()
-cache = apt_pkg.GetCache(progress)
-print "Available packages: %s " % cache.PackageCount
-
-
-# get depcache
-depcache = apt_pkg.GetDepCache(cache)
-depcache.ReadPinFile()
-depcache.Init(progress)
 
 # update the cache
 fprogress = GuiFetchProgress()
@@ -125,15 +136,15 @@ while gtk.events_pending():
 	gtk.main_iteration()
   
 
-iter = cache["3dchess"]
-print "\n%s"%iter
+pkg = cache["3dchess"]
+print "\n%s"%pkg.name
 
 # install or remove, the importend thing is to keep us busy :)
-if iter.CurrentVer == None:
-	depcache.MarkInstall(iter)
+if pkg.isInstalled:
+	pkg.markDelete()
 else:
-	depcache.MarkDelete(iter)
-depcache.Commit(fprogress, iprogress)
+	pkg.markInstall()
+cache.commit(fprogress, iprogress)
 
 print "Exiting"
 sys.exit(0)
