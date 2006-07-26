@@ -4,6 +4,8 @@ python-apt (0.6.19) unstable; urgency=low
   * doc/examples/print_uris.py:
     - added a example to show how the indexfile.ArchiveURI() can be used
       with binary packages
+  * python/apt_pkgmodule.cc:
+    - export sha256 generation
 
   [ Otavio Salvador ]
   * apt/cache.py:
@@ -11,7 +13,7 @@ python-apt (0.6.19) unstable; urgency=low
     - allow change of rootdir for APT database loading
     - add dh_installexamples in package building Closes: #376014
 
- --
+ -- 
 
 python-apt (0.6.18-0.2) unstable; urgency=low
 
