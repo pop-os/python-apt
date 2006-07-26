@@ -9,8 +9,25 @@ python-apt (0.6.19) unstable; urgency=low
   * apt/cache.py:
     - fix commit doc string to also cite the open related callbacks
     - allow change of rootdir for APT database loading
-  
- -- 
+    - add dh_installexamples in package building Closes: #376014
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 25 Jul 2006 11:45:28 +0200
+
+python-apt (0.6.18-0.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add ${shlibs:Depends} and ${misc:Depends} (Closes: #377615).
+
+ -- Christoph Berg <myon@debian.org>  Tue, 18 Jul 2006 11:39:52 +0200
+
+python-apt (0.6.18-0.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Call dh_pycentral and dh_python before dh_installdeb, to make sure
+    the dh_pycentral snippets are put into the maintainer scripts; patch from
+    Sam Morris. (Closes: #376416)
+
+ -- Steinar H. Gunderson <sesse@debian.org>  Wed, 12 Jul 2006 23:26:50 +0200
 
 python-apt (0.6.18) unstable; urgency=low
 
@@ -36,7 +53,6 @@ python-apt (0.6.17) unstable; urgency=low
     - fix various pychecker warnings
     - check if looupRecords succeeded
     - fix bug in the return statement of _downloadable()
-  * apt/cache.py:
   * python/srcrecords.cc:
     - add "Restart" method
     - don't run auto "Restart" before performing a Lookup 
@@ -45,7 +61,7 @@ python-apt (0.6.17) unstable; urgency=low
   * python/indexfile.cc:
     - added ArchiveURI() method
   
- -- Michael Vogt <mvo@debian.org>  Mon, 8 May 2006 22:34:58 +0200
+ -- Michael Vogt <mvo@debian.org>  Mon,  8 May 2006 22:34:58 +0200
 
 python-apt (0.6.16.2) unstable; urgency=low
   
