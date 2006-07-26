@@ -1,4 +1,4 @@
-python-apt (0.6.19) unstable; urgency=low
+python-apt (0.6.19exp1) experimental; urgency=low
 
   [ Michael Vogt ]
   * doc/examples/print_uris.py:
@@ -10,8 +10,10 @@ python-apt (0.6.19) unstable; urgency=low
     - fix commit doc string to also cite the open related callbacks
     - allow change of rootdir for APT database loading
     - add dh_installexamples in package building Closes: #376014
+  * python/depcache.cc:
+    - "IsGarbage()" method added (to support auto-mark)
 
- -- Michael Vogt <mvo@debian.org>  Tue, 25 Jul 2006 11:45:28 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed, 26 Jul 2006 17:30:08 +0200
 
 python-apt (0.6.18-0.2) unstable; urgency=low
 
