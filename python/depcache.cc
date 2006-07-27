@@ -370,6 +370,20 @@ static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_BuildValue("b",state.Upgradable()));   
 }
 
+static PyObject *PkgDepCacheIsGarbage(PyObject *Self,PyObject *Args)
+{   
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+
+   PyObject *PackageObj;
+   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   pkgDepCache::StateCache &state = (*depcache)[Pkg];
+
+   return HandleErrors(Py_BuildValue("b",state.Garbage));   
+}
+
 static PyObject *PkgDepCacheIsNowBroken(PyObject *Self,PyObject *Args)
 {   
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
@@ -507,6 +521,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"IsUpgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
    {"IsNowBroken",PkgDepCacheIsNowBroken,METH_VARARGS,"Is pkg is now broken"},
    {"IsInstBroken",PkgDepCacheIsInstBroken,METH_VARARGS,"Is pkg broken on the current install"},
+   {"IsGarbage",PkgDepCacheIsGarbage,METH_VARARGS,"Is pkg garbage (mark-n-sweep)"},
    {"MarkedInstall",PkgDepCacheMarkedInstall,METH_VARARGS,"Is pkg marked for install"},
    {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
    {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
