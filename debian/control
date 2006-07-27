@@ -4,27 +4,17 @@ Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.6.2.0
-Build-Depends: debhelper (>= 5.0), libapt-pkg-dev (>= 0.6.44.2), apt-utils, python-dev, python2.4-dev
+XS-Python-Version: all
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.44.2), apt-utils, python-all-dev, python-central
 
 Package: python-apt
-Architecture: all
-Depends: ${python:Depends}
-Priority: optional
-Description: Python interface to libapt-pkg
- The apt-pkg Python interface will provide full access to the internal 
- libapt-pkg structures allowing Python programs to easily perform a
- variety of functions, such as:
- .
-  - Access to the APT configuration system
-  - Access to the APT package information database
-  - Parsing of Debian package control files, and other files with a
-    similar structure
-
-Package: python2.4-apt
 Architecture: any
-Depends: python2.4, ${shlibs:Depends}
-Replaces: python-apt (<< 0.6.11)
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
 Priority: optional
+Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
+Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
+Provides: ${python:Provides}
+XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
  The apt-pkg Python interface will provide full access to the internal 
  libapt-pkg structures allowing Python programs to easily perform a

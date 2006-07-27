@@ -15,6 +15,22 @@
 
 #include <Python.h>
 
+static PyObject *PackageIndexFileArchiveURI(PyObject *Self,PyObject *Args)
+{   
+   pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
+   char *path;
+
+   if (PyArg_ParseTuple(Args, "s",&path) == 0)
+      return 0;
+
+   return HandleErrors(Safe_FromString(File->ArchiveURI(path).c_str()));
+}
+
+static PyMethodDef PackageIndexFileMethods[] = 
+{
+   {"ArchiveURI",PackageIndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
+   {}
+};
 
 
 static PyObject *PackageIndexFileAttr(PyObject *Self,char *Name)
@@ -33,8 +49,7 @@ static PyObject *PackageIndexFileAttr(PyObject *Self,char *Name)
    else if (strcmp("IsTrusted",Name) == 0)
       return Py_BuildValue("i",(File->IsTrusted()));
    
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+   return Py_FindMethod(PackageIndexFileMethods,Self,Name);
 }
 
 static PyObject *PackageIndexFileRepr(PyObject *Self)
@@ -51,6 +66,7 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
             File->IsTrusted(), File->ArchiveURI("").c_str());
    return PyString_FromString(S);
 }
+
 PyTypeObject PackageIndexFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)

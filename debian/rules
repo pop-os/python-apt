@@ -12,8 +12,7 @@ DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-PYTHON=python2.3 python2.4
-PYTHON=python2.4
+PYTHON=$(shell pyversions -r debian/control)
 
 build: build-stamp
 build-stamp:
@@ -39,18 +38,6 @@ clean:
 # Build architecture-independent files here.
 binary-indep: DH_OPTIONS=-i
 binary-indep: build
-	dh_testdir
-	dh_testroot
-	dh_installdocs
-	dh_installexamples doc/examples/*.py
-	dh_installchangelogs
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_python
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
 
 # Build architecture-dependent files here.
 binary-arch: DH_OPTIONS=-a
@@ -58,19 +45,21 @@ binary-arch: build
 	dh_testdir
 	dh_testroot
 	dh_clean -k
-
+	
 	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/$${PY}-apt/usr; \
+		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/python-apt/usr; \
 	done
-
+	
 	dh_installdocs
 	dh_installchangelogs
+	dh_installexamples
+	dh_pycentral
+	dh_python
 	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	dh_python
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb

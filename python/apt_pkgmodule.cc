@@ -19,6 +19,7 @@
 #include <apt-pkg/tagfile.h>
 #include <apt-pkg/md5.h>
 #include <apt-pkg/sha1.h>
+#include <apt-pkg/sha256.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
     
@@ -236,6 +237,43 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
    return 0;
 }
 									/*}}}*/
+// sha256sum - Compute the sha1sum of a file or string			/*{{{*/
+// ---------------------------------------------------------------------
+static char *doc_sha256sum = "sha256sum(String) -> String or sha256sum(File) -> String";
+static PyObject *sha256sum(PyObject *Self,PyObject *Args)
+{
+   PyObject *Obj;
+   if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
+      return 0;
+   
+   // Digest of a string.
+   if (PyString_Check(Obj) != 0)
+   {
+      SHA256Summation Sum;
+      Sum.Add(PyString_AsString(Obj));
+      return CppPyString(Sum.Result().Value());
+   }   
+   
+   // Digest of a file
+   if (PyFile_Check(Obj) != 0)
+   {
+      SHA256Summation Sum;
+      int Fd = fileno(PyFile_AsFile(Obj));
+      struct stat St;
+      if (fstat(Fd,&St) != 0 ||
+	  Sum.AddFD(Fd,St.st_size) == false)
+      {
+	 PyErr_SetFromErrno(PyExc_SystemError);
+	 return 0;
+      }
+      
+      return CppPyString(Sum.Result().Value());
+   }
+   
+   PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
+   return 0;
+}
+									/*}}}*/
 // init - 3 init functions						/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_Init = 
@@ -370,6 +408,7 @@ static PyMethodDef methods[] =
    // Stuff
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
    {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
+   {"sha256sum",sha256sum,METH_VARARGS,doc_sha256sum},
 
    // Strings
    {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
