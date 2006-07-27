@@ -1,7 +1,7 @@
 [Desktop Entry]
-_Name=Software Properties
-_GenericName=Software Properties
-_Comment=Configure software channels and internet updates
+_Name=Software Sources
+_GenericName=Software Sources
+_Comment=Configure the sources for installable software and updates
 Exec=gksu /usr/bin/software-properties
 Icon=software-properties
 Terminal=false
@@ -9,5 +9,6 @@ X-MultipleArgs=false
 Type=Application
 Encoding=UTF-8
 Categories=Application;System;Settings;
+MimeType=text/x-apt-sources-list
 X-KDE-SubstituteUID=true
 X-Ubuntu-Gettext-Domain=update-manager

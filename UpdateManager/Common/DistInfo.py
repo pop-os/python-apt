@@ -28,21 +28,30 @@ import ConfigParser
 _ = gettext.gettext
 
 class Suite:
-    name = None
-    description = None
-    base_uri = None
-    repository_type = None
-    components = None
+    def __init__(self):
+        self.name = None
+        self.child = False
+        self.match_name = None
+        self.description = None
+        self.base_uri = None
+        self.type = None
+        self.components = {}
+        self.children = []
+        self.match_uri = None
+        self.distribution = None
+        self.available = True
 
 class Component:
-    name = None
-    description = None
-    enabled = None
+    def __init__(self):
+        self.name = ""
+        self.description = ""
+        self.description_long = ""
+        self.enabled = None
 
 class DistInfo:
     def __init__(self,
                  dist = None,
-                 base_dir = "/usr/share/update-manager/dists"):
+                 base_dir = "/usr/share/update-manager/channels"):
         self.metarelease_uri = ''
         self.suites = []
 
@@ -73,43 +82,68 @@ class DistInfo:
             elif field == 'Suite':
                 if suite:
                     if component:
-                        suite.components.append (component)
+                        suite.components["%s" % component.name] = \
+                            (component.description, component.enabled,
+                             component.description_long)
                         component = None
                     self.suites.append (suite)
                 suite = Suite ()
                 suite.name = value
-                suite.components = []
+                suite.distribution = dist
+                suite.match_name = "^%s$" % value
+            elif field == 'MatchName':
+                suite.match_name = value
+            elif field == 'ParentSuite':
+                suite.child = True
+                for nanny in self.suites:
+                    if nanny.name == value:
+                        nanny.children.append(suite)
+            elif field == 'Available':
+                suite.available = value
             elif field == 'RepositoryType':
-                suite.repository_type = value
+                suite.type = value
             elif field == 'BaseURI':
                 suite.base_uri = value
+                suite.match_uri = value
+            elif field == 'MatchURI':
+                suite.match_uri = value
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
                 if component:
-                    suite.components.append (component)
+                    suite.components["%s" % component.name] = \
+                        (component.description, component.enabled,
+                         component.description_long)
                 component = Component ()
                 component.name = value
             elif field == 'Enabled':
                 component.enabled = bool(int(value))
             elif field == 'CompDescription':
                 component.description = _(value)
+            elif field == 'CompDescriptionLong':
+                component.description_long = _(value)
         if suite:
             if component:
-                suite.components.append (component)
+                suite.components["%s" % component.name] = \
+                    (component.description, component.enabled,
+                     component.description_long)
                 component = None
             self.suites.append (suite)
             suite = None
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Debian", "../../channels")
+    d = DistInfo ("Ubuntu", "../../channels")
     print d.changelogs_uri
     for suite in d.suites:
-        print suite.name
-        print suite.description
-        print suite.base_uri
+        print "\nSuite: %s" % suite.name
+        print "Desc: %s" % suite.description
+        print "BaseURI: %s" % suite.base_uri
+        print "MatchURI: %s" % suite.match_uri
         for component in suite.components:
-            print component.name
-            print component.description
-            print component.enabled
+            print "  %s - %s - %s - %s" % (component, 
+                                       suite.components[component][0],
+                                       suite.components[component][1],
+                                       suite.components[component][2])
+        for child in suite.children:
+            print "  %s" % child.description

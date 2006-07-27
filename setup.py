@@ -36,6 +36,12 @@ for size in glob.glob("data/icons/*"):
 print ICONS
 
 
+for template in glob.glob("data/channels/*.info.in"):
+    os.system("sed s/^_// data/channels/%s"
+              " > build/%s" % (os.path.basename(template),
+                  os.path.basename(template)[:-3]))
+os.system("intltool-merge -d po data/mime/apt.xml.in"\
+           " build/apt.xml")
 os.system("intltool-merge -d po data/update-manager.schemas.in"\
            " build/update-manager.schemas")
 
@@ -45,7 +51,7 @@ os.system("cd po; make update-po")
 # do the same for the desktop files
 os.system("cd data; make")
 # and channels
-os.system("cd channels; make")
+os.system("cd data/channels; make")
     
 setup(name='update-manager',
       version='0.42.2',
@@ -60,10 +66,13 @@ setup(name='update-manager',
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/*.glade")
+                     glob.glob("data/glade/*.glade")
+                  ),
+                  ('share/doc/update-manager',
+                     glob.glob("data/channels/README.channels")
                   ),
                   ('share/update-manager/channels',
-                     glob.glob("channels/*")
+                     glob.glob("build/*.info")
                   ),
                   ('share/applications',
                      ["data/update-manager.desktop",
@@ -72,7 +81,9 @@ setup(name='update-manager',
                   ('share/gconf/schemas',
                   glob.glob("build/*.schemas")
                   ),
+                  ('share/mime/packages',
+                   ["build/apt.xml"]
+                  )
+
                   ] + I18NFILES + HELPFILES + ICONS,
       )
-
-
