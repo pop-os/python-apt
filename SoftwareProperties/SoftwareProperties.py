@@ -118,6 +118,7 @@ class SoftwareProperties(SimpleGladeApp):
     
     self.init_sourceslist()
     self.reload_sourceslist()
+    self.backup_sourceslist()
 
     self.window_main.show()
 
@@ -572,6 +573,15 @@ class SoftwareProperties(SimpleGladeApp):
 
     self.sourceslist = aptsources.SourcesList()
 
+  def backup_sourceslist(self):
+    """
+    Duplicate the list of sources
+    """
+    self.sourceslist_backup = []
+    for source in self.sourceslist.list:
+        source_bkp = aptsources.SourceEntry(line=source.line,file=source.file)
+        self.sourceslist_backup.append(source_bkp)
+
   def on_channel_activate(self, treeview, path, column):
     """Open the edit dialog if a channel was double clicked"""
     self.on_edit_clicked(treeview)
@@ -607,10 +617,11 @@ class SoftwareProperties(SimpleGladeApp):
     
   def on_button_revert_clicked(self, button):
     """Restore the source list from the startup of the dialog"""
-    self.sourceslist.restoreBackup(".save")
-    self.sourceslist.clearBackup(".save")
-    self.sourceslist.backup(".save")
-    self.sourceslist.refresh()
+    self.sourceslist.list = []
+    for source in self.sourceslist_backup:
+        source_reset = aptsources.SourceEntry(line=source.line,file=source.file)
+        self.sourceslist.list.append(source_reset)
+    self.save_sourceslist()
     self.reload_sourceslist()
     self.button_revert.set_sensitive(False)
     self.modified = False
@@ -619,7 +630,7 @@ class SoftwareProperties(SimpleGladeApp):
     """The sources list was changed and now needs to be saved and reloaded"""
     self.massive_debug_output()
     self.modified = True
-    #self.button_revert.set_sensitive(True)
+    self.button_revert.set_sensitive(True)
     self.save_sourceslist()
     self.reload_sourceslist()
 
