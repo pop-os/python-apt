@@ -34,6 +34,8 @@ import sys
 
 from optparse import OptionParser
 
+import SoftwareProperties.aptsources as aptsources
+
 #sys.path.append("@prefix@/share/update-manager/python")
 
 from SoftwareProperties import SoftwareProperties
@@ -51,14 +53,18 @@ if __name__ == "__main__":
                     action="store", type="string", dest="toplevel",
                     help="Set x-window-id of the toplevel parent for the "\
                     "dialog (usefull for embedding)")
+  parser.add_option("-e", "--enable-component", 
+                    action="store", type="string", dest="enable_component",
+                    help="Enable the specified component of the distro's "\
+                    "repositories")
                    
 
   (options, args) = parser.parse_args()
   # Check for root permissions
   if os.geteuid() != 0:
-    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, 
+    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_CLOSE, 
                                _("You need to be root to run this program") )
-    dialog.set_default_response(gtk.RESPONSE_OK)
+    dialog.set_default_response(gtk.RESPONSE_CLOSE)
     dialog.run()
     dialog.destroy()
     sys.exit(1)
@@ -74,7 +80,14 @@ if __name__ == "__main__":
   #data_dir="/tmp/xxx/share/update-manager/"
   file = None
   if len(args) > 0:
-      file = args[0]
-  app = SoftwareProperties.SoftwareProperties(data_dir, options, file)
-  app.run()
-  sys.exit(app.modified)
+    file = args[0]
+  if options.enable_component:
+    sourceslist = aptsources.SourcesList()
+    distro = aptsources.Distribution()
+    distro.get_sources(sourceslist)
+    distro.enable_component(sourceslist, options.enable_component)
+    sourceslist.save()
+  else:
+    app = SoftwareProperties.SoftwareProperties(data_dir, options, file)
+    app.run()
+    sys.exit(app.modified)
