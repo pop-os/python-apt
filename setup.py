@@ -37,8 +37,8 @@ print ICONS
 
 
 for template in glob.glob("data/channels/*.info.in"):
-    os.system("intltool-merge -d po data/channels/%s"
-              " build/%s" % (os.path.basename(template),
+    os.system("sed s/^_// data/channels/%s"
+              " > build/%s" % (os.path.basename(template),
                   os.path.basename(template)[:-3]))
 os.system("intltool-merge -d po data/mime/apt.xml.in"\
            " build/apt.xml")
