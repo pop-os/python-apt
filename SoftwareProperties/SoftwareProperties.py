@@ -292,10 +292,14 @@ class SoftwareProperties(SimpleGladeApp):
     self.combobox_server.set_model(server_store)
     server_store.append([_("Main server"),
                         self.distro.main_server])
-    # TRANSLATORS: %s is a country
-    server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
-                         self.distro.country).rstrip(),
-                         self.distro.nearest_server])
+    if self.distro.country != None:
+        # TRANSLATORS: %s is a country
+        server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
+                             self.distro.country).rstrip(),
+                             self.distro.nearest_server])
+    else:
+        server_store.append([_("Nearest server"),
+                             self.distro.nearest_server])
     if len(self.distro.used_servers) > 0:
         for server in self.distro.used_servers:
             if not re.match(server, self.distro.main_server) and \

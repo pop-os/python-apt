@@ -563,7 +563,10 @@ class Distribution:
         country_code = locale[a+1:z].lower()
         self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
                               country_code
-        self.country = self.countries[country_code]
+        if self.countries.has_key(country_code):
+            self.country = self.countries[country_code]
+        else:
+            self.country = None
 
     # other used servers
     for medium in self.used_media:
