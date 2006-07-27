@@ -440,6 +440,27 @@ class SoftwareProperties(SimpleGladeApp):
                                  source.file)
     self.modified_sourceslist()
 
+  def on_checkbutton_popcon_toggled(self, widget):
+    """ The user clicked on the popcon paritipcation button """
+    popcon = "/etc/popularity-contest.conf"
+    if widget.get_active():
+      new_value = "yes"
+    else:
+      new_value = "no"
+    if os.path.exists(popcon):
+      # read it
+      lines = open(popcon).read().split("\n")
+      for line in lines:
+        try:
+          (key,value) = line.split("=")
+          if key == "PARTICIPATE":
+            lines[lines.index(line)] = 'PARTICIPATE=\"%s"' % new_value
+        except ValueError:
+          continue
+      # write it
+      open(popcon,"w").write("\n".join(lines))
+
+
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
     dialog = dialog_add_sources_list.AddSourcesList(self.window_main,
@@ -1003,3 +1024,4 @@ class GtkCdromProgress(apt.progress.CdromProgress, SimpleGladeApp):
       return True
     return False
   
+    

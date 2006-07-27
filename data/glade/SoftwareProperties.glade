@@ -1057,7 +1057,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label20">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;i&gt;Please take part in the popularity contest, to improve the user experience of Ubuntu. Therefor the following data will be collected and sent to the Ubuntu project anonymously on a weekly basis: the list of installed software and how often it was used.
+		  <property name="label" translatable="yes">&lt;i&gt;To improve the user experience of Ubuntu please take part in the popularity contest. If you do so the list of installed software and how often it was used will be collected and sent anonymously to the Ubuntu project  on a weekly basis.
 
 The results are used to improve the support for popular applications and to rank applications in the search results.&lt;/i&gt;</property>
 		  <property name="use_underline">False</property>
