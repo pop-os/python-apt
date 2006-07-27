@@ -110,7 +110,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Backported updates
 
-Suite: dapper-backports
+Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/

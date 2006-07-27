@@ -1,3 +1,13 @@
+update-manager (0.43) edgy; urgency=low
+
+  * fixes in the changelog reading code
+  * speedup in the cache clear code
+  * runs as user by default now
+  * uses dbus to implement singleton behaviour
+  * updated the software-properties code to know about edgy
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Jul 2006 11:16:31 +0200
+
 update-manager (0.42.2ubuntu22) dapper; urgency=low
 
   * UpdateManager/UpdateManager.py:

@@ -83,11 +83,19 @@ CHANGELOGS_URI="http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chan
 class MyCache(apt.Cache):
     def __init__(self, progress):
         apt.Cache.__init__(self, progress)
+        self._initDepCache()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self.all_changes = {}
+    def _initDepCache(self):
+        #apt_pkg.Config.Set("Debug::pkgPolicy","1")
+        #self.depcache = apt_pkg.GetDepCache(self.cache)
+        #self._depcache = apt_pkg.GetDepCache(self._cache)
+        self._depcache.ReadPinFile()
+        if os.path.exists(SYNAPTIC_PINFILE):
+            self._depcache.ReadPinFile(SYNAPTIC_PINFILE)
+        self._depcache.Init()
     def clean(self):
-        for pkg in self:
-            pkg.markKeep()
+        self._initDepCache()
     def saveDistUpgrade(self):
         """ this functions mimics a upgrade but will never remove anything """
         self._depcache.Upgrade(True)
@@ -755,13 +763,6 @@ class UpdateManager(SimpleGladeApp):
         sys.exit(1)
     else:
         progress.hide()
-    #apt_pkg.Config.Set("Debug::pkgPolicy","1")
-    #self.depcache = apt_pkg.GetDepCache(self.cache)
-    self.cache._depcache.ReadPinFile()
-    if os.path.exists(SYNAPTIC_PINFILE):
-        self.cache._depcache.ReadPinFile(SYNAPTIC_PINFILE)
-    self.cache._depcache.Init()
-
 
   def check_auto_update(self):
       # Check if automatic update is enabled. If not show a dialog to inform

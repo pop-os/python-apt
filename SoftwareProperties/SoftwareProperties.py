@@ -21,7 +21,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import pdb
+#import pdb
 import sys
 import apt
 import apt_pkg
@@ -292,6 +292,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.combobox_server.set_model(server_store)
     server_store.append([_("Main server"),
                         self.distro.main_server])
+    # TRANSLATORS: %s is a country
     server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
                          self.distro.country).rstrip(),
                          self.distro.nearest_server])
@@ -299,7 +300,19 @@ class SoftwareProperties(SimpleGladeApp):
         for server in self.distro.used_servers:
             if not re.match(server, self.distro.main_server) and \
                not re.match(server, self.distro.nearest_server):
-                server_store.append(["%s" % server, server])
+                #FIXME: an ubuntu hack
+                i = server.find("http://")
+                l = server.find(".archive.ubuntu.com")
+                if i != -1 and l != -1:
+                    country = server[i+7:l]
+                if self.distro.countries.has_key(country):
+                    # TRANSLATORS: %s is a country
+                    server_store.append([_("Server for %s") % \
+                                        gettext.dgettext("iso-3166",
+                                        self.distro.countries[country].rstrip()),
+                                        server])
+                else:
+                    server_store.append(["%s" % server, server])
         if len(self.distro.used_servers) > 1:
             server_store.append([_("Custom servers"), None])
             self.combobox_server.set_active(2)
@@ -307,6 +320,9 @@ class SoftwareProperties(SimpleGladeApp):
             self.combobox_server.set_active(0)
         elif self.distro.used_servers[0] == self.distro.nearest_server:
             self.combobox_server.set_active(1)
+        elif len(self.distro.used_servers) == 1:
+            self.combobox_server.set_active(2)
+
     else:
         self.combobox_server.set_active(0)
 
@@ -439,6 +455,27 @@ class SoftwareProperties(SimpleGladeApp):
                                  self.sourceslist.list.index(source)+1,
                                  source.file)
     self.modified_sourceslist()
+
+  def on_checkbutton_popcon_toggled(self, widget):
+    """ The user clicked on the popcon paritipcation button """
+    popcon = "/etc/popularity-contest.conf"
+    if widget.get_active():
+      new_value = "yes"
+    else:
+      new_value = "no"
+    if os.path.exists(popcon):
+      # read it
+      lines = open(popcon).read().split("\n")
+      for line in lines:
+        try:
+          (key,value) = line.split("=")
+          if key == "PARTICIPATE":
+            lines[lines.index(line)] = 'PARTICIPATE=\"%s"' % new_value
+        except ValueError:
+          continue
+      # write it
+      open(popcon,"w").write("\n".join(lines))
+
 
   def open_file(self, file):
     """Show an confirmation for adding the channels of the specified file"""
@@ -1003,3 +1040,4 @@ class GtkCdromProgress(apt.progress.CdromProgress, SimpleGladeApp):
       return True
     return False
   
+    

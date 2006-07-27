@@ -30,7 +30,7 @@ import shutil
 import time
 import os.path
 
-import pdb
+#import pdb
 
 from UpdateManager.Common.DistInfo import DistInfo
 
@@ -416,60 +416,7 @@ class SourceEntryMatcher:
         for suite in dist.suites:
             if suite.match_uri != None:
                 self.templates.append(suite)
-
-    # FIXME: The specifications should go into the .info files
     return
-
-    # DEBIAN
-    debian_comps =  ["^main$","^contrib$","^non-free$","^non-US$"]
-    debian_comps_descr = [_("Officially supported"),
-                          _("Contributed software"),
-                          _("Non-free software"),
-                          _("US export restricted software")
-                          ]
-
-    # dists by name
-    self.dist_list.append(self.MatchDist(".*debian.org/debian",
-                                         "^sarge$",
-                                         _("Debian 3.1 \"Sarge\""),
-                                         debian_comps, debian_comps_descr))
-    self.dist_list.append(self.MatchDist(".*debian.org/debian",
-                                         "^woody$",
-                                         _("Debian 3.0 \"Woody\""),
-                                         debian_comps, debian_comps_descr))
-    # securtiy
-    self.dist_list.append(self.MatchDist(".*security.debian.org",
-                                         "^stable.*$",
-                                         _("Debian Stable Security Updates"),
-                                         debian_comps, debian_comps_descr))
-    # dists by status
-    self.dist_list.append(self.MatchDist(".*debian.org/debian",
-                                         "^stable$",
-                                         _("Debian Stable"),
-                                         debian_comps, debian_comps_descr))
-    self.dist_list.append(self.MatchDist(".*debian.org/debian",
-                                         "^testing$",
-                                         _("Debian Testing"),
-                                         debian_comps, debian_comps_descr))
-    self.dist_list.append(self.MatchDist(".*debian.org/debian",
-                                         "^unstable$",
-                                         _("Debian Unstable \"Sid\""),
-                                         debian_comps, debian_comps_descr))
-
-    # non-us
-    self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
-                                         "^stable.*$",
-                                         _("Debian Non-US (Stable)"),
-                                         debian_comps, debian_comps_descr))
-    self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
-                                         "^testing.*$",
-                                         _("Debian Non-US (Testing)"),
-                                         debian_comps, debian_comps_descr))
-    self.dist_list.append(self.MatchDist(".*debian.org/debian-non-US",
-                                         "^unstable.*$",
-                                         _("Debian Non-US (Unstable)"),
-                                         debian_comps, debian_comps_descr,
-                                         SOURCE_SYSTEM))
 
   def match(self, source):
     """Add a matching template to the source"""
