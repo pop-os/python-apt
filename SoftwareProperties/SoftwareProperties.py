@@ -927,7 +927,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.reload_keyslist()
     
   def on_delete_event(self, widget, args):
-    self.on_close_button(self, widget)
+    self.on_close_button(widget)
 
   def on_close_button(self, widget):
     # show a dialog that a reload of the channel information is required
