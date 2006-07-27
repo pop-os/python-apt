@@ -1,3 +1,10 @@
+update-manager (0.44) edgy; urgency=low
+
+  * new SoftwareProperties GUI (thanks to Sebastian Heinlein)
+  * support easy Popcon pariticipation
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 28 Jul 2006 01:06:16 +0200
+
 update-manager (0.43) edgy; urgency=low
 
   * fixes in the changelog reading code

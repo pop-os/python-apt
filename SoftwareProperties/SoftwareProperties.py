@@ -21,7 +21,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import pdb
+#import pdb
 import sys
 import apt
 import apt_pkg
@@ -118,6 +118,7 @@ class SoftwareProperties(SimpleGladeApp):
     
     self.init_sourceslist()
     self.reload_sourceslist()
+    self.backup_sourceslist()
 
     self.window_main.show()
 
@@ -292,14 +293,31 @@ class SoftwareProperties(SimpleGladeApp):
     self.combobox_server.set_model(server_store)
     server_store.append([_("Main server"),
                         self.distro.main_server])
-    server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
-                         self.distro.country).rstrip(),
-                         self.distro.nearest_server])
+    if self.distro.country != None:
+        # TRANSLATORS: %s is a country
+        server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
+                             self.distro.country).rstrip(),
+                             self.distro.nearest_server])
+    else:
+        server_store.append([_("Nearest server"),
+                             self.distro.nearest_server])
     if len(self.distro.used_servers) > 0:
         for server in self.distro.used_servers:
             if not re.match(server, self.distro.main_server) and \
                not re.match(server, self.distro.nearest_server):
-                server_store.append(["%s" % server, server])
+                #FIXME: an ubuntu hack
+                i = server.find("http://")
+                l = server.find(".archive.ubuntu.com")
+                if i != -1 and l != -1:
+                    country = server[i+7:l]
+                if self.distro.countries.has_key(country):
+                    # TRANSLATORS: %s is a country
+                    server_store.append([_("Server for %s") % \
+                                        gettext.dgettext("iso-3166",
+                                        self.distro.countries[country].rstrip()),
+                                        server])
+                else:
+                    server_store.append(["%s" % server, server])
         if len(self.distro.used_servers) > 1:
             server_store.append([_("Custom servers"), None])
             self.combobox_server.set_active(2)
@@ -307,6 +325,9 @@ class SoftwareProperties(SimpleGladeApp):
             self.combobox_server.set_active(0)
         elif self.distro.used_servers[0] == self.distro.nearest_server:
             self.combobox_server.set_active(1)
+        elif len(self.distro.used_servers) == 1:
+            self.combobox_server.set_active(2)
+
     else:
         self.combobox_server.set_active(0)
 
@@ -552,6 +573,15 @@ class SoftwareProperties(SimpleGladeApp):
 
     self.sourceslist = aptsources.SourcesList()
 
+  def backup_sourceslist(self):
+    """
+    Duplicate the list of sources
+    """
+    self.sourceslist_backup = []
+    for source in self.sourceslist.list:
+        source_bkp = aptsources.SourceEntry(line=source.line,file=source.file)
+        self.sourceslist_backup.append(source_bkp)
+
   def on_channel_activate(self, treeview, path, column):
     """Open the edit dialog if a channel was double clicked"""
     self.on_edit_clicked(treeview)
@@ -587,10 +617,11 @@ class SoftwareProperties(SimpleGladeApp):
     
   def on_button_revert_clicked(self, button):
     """Restore the source list from the startup of the dialog"""
-    self.sourceslist.restoreBackup(".save")
-    self.sourceslist.clearBackup(".save")
-    self.sourceslist.backup(".save")
-    self.sourceslist.refresh()
+    self.sourceslist.list = []
+    for source in self.sourceslist_backup:
+        source_reset = aptsources.SourceEntry(line=source.line,file=source.file)
+        self.sourceslist.list.append(source_reset)
+    self.save_sourceslist()
     self.reload_sourceslist()
     self.button_revert.set_sensitive(False)
     self.modified = False
@@ -599,7 +630,7 @@ class SoftwareProperties(SimpleGladeApp):
     """The sources list was changed and now needs to be saved and reloaded"""
     self.massive_debug_output()
     self.modified = True
-    #self.button_revert.set_sensitive(True)
+    self.button_revert.set_sensitive(True)
     self.save_sourceslist()
     self.reload_sourceslist()
 
@@ -907,7 +938,7 @@ class SoftwareProperties(SimpleGladeApp):
     self.reload_keyslist()
     
   def on_delete_event(self, widget, args):
-    self.on_close_button(self, widget)
+    self.on_close_button(widget)
 
   def on_close_button(self, widget):
     # show a dialog that a reload of the channel information is required
