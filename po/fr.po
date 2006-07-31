@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.37.2\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-31 18:19+0200\n"
+"POT-Creation-Date: 2006-07-31 18:12+0200\n"
 "PO-Revision-Date: 2006-05-26 21:09+0000\n"
 "Last-Translator: Claude Paroz <paroz@email.ch>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
@@ -17,69 +17,115 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:103
+#: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "Daily"
 msgstr "Quotidiennement"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Every two days"
 msgstr "Tous les deux jours"
 
-#: ../SoftwareProperties/SoftwareProperties.py:105
+#: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
-#: ../SoftwareProperties/SoftwareProperties.py:106
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Every two weeks"
 msgstr "Toutes les deux semaines"
 
-#: ../SoftwareProperties/SoftwareProperties.py:111
+#: ../SoftwareProperties/SoftwareProperties.py:143
 #, python-format
 msgid "Every %s days"
 msgstr "Tous les %s jours"
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:166
 msgid "After one week"
 msgstr "Après une semaine"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After two weeks"
 msgstr "Après deux semaines"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
+#: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After one month"
 msgstr "Après un mois"
 
-#: ../SoftwareProperties/SoftwareProperties.py:141
+#: ../SoftwareProperties/SoftwareProperties.py:173
 #, python-format
 msgid "After %s days"
 msgstr "Après %s jours"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+#: ../SoftwareProperties/SoftwareProperties.py:235
+#, fuzzy, python-format
+msgid "%s updates"
+msgstr "Installation des mises à jour"
+
+#: ../SoftwareProperties/SoftwareProperties.py:294
+msgid "Main server"
+msgstr ""
+
+#. TRANSLATORS: %s is a country
+#: ../SoftwareProperties/SoftwareProperties.py:298
+#: ../SoftwareProperties/SoftwareProperties.py:315
+#, python-format
+msgid "Server for %s"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:302
+msgid "Nearest server"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:322
+msgid "Custom servers"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:543
+#: ../SoftwareProperties/SoftwareProperties.py:560
+#, fuzzy
+msgid "Software Channel"
+msgstr "Mises à jour des logiciels"
+
+#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:568
+msgid "Active"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:652
+#, fuzzy
+msgid "(Source Code)"
+msgstr "Source"
+
+#: ../SoftwareProperties/SoftwareProperties.py:658
+#, fuzzy
+msgid "Source Code"
+msgstr "Source"
+
+#: ../SoftwareProperties/SoftwareProperties.py:908
 msgid "Import key"
 msgstr "Importer la clé"
 
-#: ../SoftwareProperties/SoftwareProperties.py:442
+#: ../SoftwareProperties/SoftwareProperties.py:918
 msgid "Error importing selected file"
 msgstr "Erreur lors de l'importation du fichier sélectionné"
 
-#: ../SoftwareProperties/SoftwareProperties.py:443
+#: ../SoftwareProperties/SoftwareProperties.py:919
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Le fichier sélectionné n'est peut-être pas une clé GPG ou alors il est "
 "corrompu."
 
-#: ../SoftwareProperties/SoftwareProperties.py:455
+#: ../SoftwareProperties/SoftwareProperties.py:931
 msgid "Error removing the key"
 msgstr "Erreur lors de la suppression de la clé"
 
-#: ../SoftwareProperties/SoftwareProperties.py:456
+#: ../SoftwareProperties/SoftwareProperties.py:932
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "La clé que vous avez sélectionnée ne peut être supprimée. Veuillez rapporter "
 "ce bogue."
 
-#: ../SoftwareProperties/SoftwareProperties.py:497
+#: ../SoftwareProperties/SoftwareProperties.py:978
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -90,11 +136,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:554
+#: ../SoftwareProperties/SoftwareProperties.py:1035
 msgid "Please enter a name for the disc"
 msgstr "Veuillez saisir un nom pour le disque"
 
-#: ../SoftwareProperties/SoftwareProperties.py:570
+#: ../SoftwareProperties/SoftwareProperties.py:1051
 msgid "Please insert a disc in the drive:"
 msgstr "Veuillez insérer un disque dans le lecteur :"
 
@@ -111,20 +157,20 @@ msgstr ""
 "ce logiciel. Veuillez d'abord les réparer à l'aide de Synaptic ou d'apt-get "
 "avant de continuer."
 
-#: ../DistUpgrade/DistUpgradeCache.py:135
+#: ../DistUpgrade/DistUpgradeCache.py:150
 msgid "Can't upgrade required meta-packages"
 msgstr "Les meta-paquets désirés n'ont pu être mis à jour"
 
-#: ../DistUpgrade/DistUpgradeCache.py:142
+#: ../DistUpgrade/DistUpgradeCache.py:157
 msgid "A essential package would have to be removed"
 msgstr "Un paquet essentiel devrait être enlevé"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:145
+#: ../DistUpgrade/DistUpgradeCache.py:160
 msgid "Could not calculate the upgrade"
 msgstr "Impossible de calculer la mise à jour"
 
-#: ../DistUpgrade/DistUpgradeCache.py:146
+#: ../DistUpgrade/DistUpgradeCache.py:161
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
@@ -133,11 +179,11 @@ msgstr ""
 "rapporter ce bogue. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#: ../DistUpgrade/DistUpgradeCache.py:184
 msgid "Error authenticating some packages"
 msgstr "Erreur lors de l'authentification de certains paquets"
 
-#: ../DistUpgrade/DistUpgradeCache.py:170
+#: ../DistUpgrade/DistUpgradeCache.py:185
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -147,12 +193,12 @@ msgstr ""
 "problème temporaire du réseau. Vous voudrez sans doute réessayer plus tard. "
 "Vous trouverez ci-dessous une liste des paquets non authentifiés."
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:248
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Impossible d'installer « %s »"
 
-#: ../DistUpgrade/DistUpgradeCache.py:234
+#: ../DistUpgrade/DistUpgradeCache.py:249
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -161,11 +207,11 @@ msgstr ""
 "rapporter ce bogue. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#: ../DistUpgrade/DistUpgradeCache.py:256
 msgid "Can't guess meta-package"
 msgstr "Impossible de déterminer le méta-paquet"
 
-#: ../DistUpgrade/DistUpgradeCache.py:242
+#: ../DistUpgrade/DistUpgradeCache.py:257
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -179,15 +225,15 @@ msgstr ""
 " Veuillez d'abord installer l'un des paquets ci-dessus, en utilisant "
 "Synaptic ou apt-get, avant de continuer."
 
-#: ../DistUpgrade/DistUpgradeControler.py:44
+#: ../DistUpgrade/DistUpgradeControler.py:48
 msgid "Reading cache"
 msgstr "Lecture du cache"
 
-#: ../DistUpgrade/DistUpgradeControler.py:145
+#: ../DistUpgrade/DistUpgradeControler.py:149
 msgid "No valid mirror found"
 msgstr "Aucun mirroir valide n'a pu être trouvé"
 
-#: ../DistUpgrade/DistUpgradeControler.py:146
+#: ../DistUpgrade/DistUpgradeControler.py:150
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -208,11 +254,11 @@ msgstr ""
 "Sinon, la mise à jour sera annulée."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:163
+#: ../DistUpgrade/DistUpgradeControler.py:167
 msgid "Generate default sources?"
 msgstr "Générer les sources par défaut ?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:164
+#: ../DistUpgrade/DistUpgradeControler.py:168
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -226,11 +272,11 @@ msgstr ""
 "Les entrées par défaut pour « %s » doivent-elles être ajoutées ? Si vous "
 "sélectionnez « Non », la mise à jour sera annulée."
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:202
 msgid "Repository information invalid"
 msgstr "Informations sur le dépôt invalides"
 
-#: ../DistUpgrade/DistUpgradeControler.py:199
+#: ../DistUpgrade/DistUpgradeControler.py:203
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -238,11 +284,11 @@ msgstr ""
 "La mise à jour des informations du dépôt a créé un fichier invalide. Merci "
 "de rapporter ce bogue."
 
-#: ../DistUpgrade/DistUpgradeControler.py:205
+#: ../DistUpgrade/DistUpgradeControler.py:209
 msgid "Third party sources disabled"
 msgstr "Sources provenant de tiers désactivées"
 
-#: ../DistUpgrade/DistUpgradeControler.py:206
+#: ../DistUpgrade/DistUpgradeControler.py:210
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -252,11 +298,11 @@ msgstr ""
 "désactivées. Vous pouvez les réactiver après la mise à jour avec l'outil « "
 "Gestionnaire de canaux logiciels » ou avec Synaptic."
 
-#: ../DistUpgrade/DistUpgradeControler.py:252
+#: ../DistUpgrade/DistUpgradeControler.py:256
 msgid "Error during update"
 msgstr "Erreur lors de la mise à jour"
 
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:257
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -265,11 +311,11 @@ msgstr ""
 "un problème de réseau. Veuillez vérifier votre connexion au réseau et "
 "réessayer."
 
-#: ../DistUpgrade/DistUpgradeControler.py:262
+#: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Not enough free disk space"
 msgstr "Il n'y a pas assez d'espace libre sur le disque"
 
-#: ../DistUpgrade/DistUpgradeControler.py:263
+#: ../DistUpgrade/DistUpgradeControler.py:267
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -282,15 +328,15 @@ msgstr ""
 "get clean'."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:320
+#: ../DistUpgrade/DistUpgradeControler.py:326
 msgid "Do you want to start the upgrade?"
 msgstr "Voulez-vous commencer la mise à jour ?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:337
+#: ../DistUpgrade/DistUpgradeControler.py:343
 msgid "Could not install the upgrades"
 msgstr "Les mises à jour n'ont pu être installées"
 
-#: ../DistUpgrade/DistUpgradeControler.py:338
+#: ../DistUpgrade/DistUpgradeControler.py:344
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
@@ -298,11 +344,11 @@ msgstr ""
 "Abandon de la mise à jour. Votre système est peut-être inutilisable. Une "
 "recupération a été lancée (dpkg --configure -a)."
 
-#: ../DistUpgrade/DistUpgradeControler.py:353
+#: ../DistUpgrade/DistUpgradeControler.py:359
 msgid "Could not download the upgrades"
 msgstr "Les mises à jour n'ont pu être téléchargées"
 
-#: ../DistUpgrade/DistUpgradeControler.py:354
+#: ../DistUpgrade/DistUpgradeControler.py:360
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -310,11 +356,11 @@ msgstr ""
 "Abandon de la mise à jour. Veuillez vérifier votre connexion Internet ou "
 "votre médium d'installation puis réessayez. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:389
+#: ../DistUpgrade/DistUpgradeControler.py:395
 msgid "Some software no longer officially supported"
 msgstr "Certains logiciels ne sont plus supportés officiellement"
 
-#: ../DistUpgrade/DistUpgradeControler.py:391
+#: ../DistUpgrade/DistUpgradeControler.py:397
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -328,23 +374,23 @@ msgstr ""
 "Si vous n'avez pas activé le dépot 'universe', la suppression de ces paquets "
 "vous sera suggérée lors de la prochaine étape. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:416
+#: ../DistUpgrade/DistUpgradeControler.py:422
 msgid "Remove obsolete packages?"
 msgstr "Enlever les paquets obsolètes ?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Skip This Step"
 msgstr "_Passer cette étape"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Remove"
 msgstr "_Supprimer"
 
-#: ../DistUpgrade/DistUpgradeControler.py:427
+#: ../DistUpgrade/DistUpgradeControler.py:433
 msgid "Error during commit"
 msgstr "Erreur pendant la soumission"
 
-#: ../DistUpgrade/DistUpgradeControler.py:428
+#: ../DistUpgrade/DistUpgradeControler.py:434
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -353,26 +399,26 @@ msgstr ""
 "ci-dessous pour plus d'informations. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:437
+#: ../DistUpgrade/DistUpgradeControler.py:443
 msgid "Restoring original system state"
 msgstr "Restaurer le système dans son état d'origine"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:445
-#: ../DistUpgrade/DistUpgradeControler.py:469
+#: ../DistUpgrade/DistUpgradeControler.py:451
+#: ../DistUpgrade/DistUpgradeControler.py:475
 msgid "Checking package manager"
 msgstr "Vérification du gestionnaire de paquets"
 
-#: ../DistUpgrade/DistUpgradeControler.py:461
+#: ../DistUpgrade/DistUpgradeControler.py:467
 msgid "Updating repository information"
 msgstr "Mise à jour des informations sur les dépôts en cours"
 
-#: ../DistUpgrade/DistUpgradeControler.py:480
+#: ../DistUpgrade/DistUpgradeControler.py:486
 msgid "Invalid package information"
 msgstr "Information sur les paquet invalides"
 
-#: ../DistUpgrade/DistUpgradeControler.py:481
+#: ../DistUpgrade/DistUpgradeControler.py:487
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -384,19 +430,19 @@ msgstr ""
 "Ceci est indique qu'une erreur important s'est produite, veuillez rapporter "
 "ce bogue."
 
-#: ../DistUpgrade/DistUpgradeControler.py:491
+#: ../DistUpgrade/DistUpgradeControler.py:497
 msgid "Asking for confirmation"
 msgstr "Demande de confirmation"
 
-#: ../DistUpgrade/DistUpgradeControler.py:495
+#: ../DistUpgrade/DistUpgradeControler.py:501
 msgid "Upgrading"
 msgstr "Mise à jour en cours"
 
-#: ../DistUpgrade/DistUpgradeControler.py:502
+#: ../DistUpgrade/DistUpgradeControler.py:508
 msgid "Searching for obsolete software"
 msgstr "Recherche de logiciels obsolètes"
 
-#: ../DistUpgrade/DistUpgradeControler.py:507
+#: ../DistUpgrade/DistUpgradeControler.py:513
 msgid "System upgrade is complete."
 msgstr "La mise à jour du système est terminée."
 
@@ -470,11 +516,11 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "La commande « diff » n'a pu être trouvée"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+#: ../DistUpgrade/DistUpgradeViewGtk.py:338
 msgid "A fatal error occured"
 msgstr "Une erreur fatale est survenue"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:338
+#: ../DistUpgrade/DistUpgradeViewGtk.py:339
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
@@ -486,65 +532,67 @@ msgstr ""
 "Votre sources.list d'origine a été sauvé dans /etc/apt/source.list."
 "distUpgrade."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:446
+#. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "Le paquet %s va être supprimé."
 msgstr[1] "Les paquets %s vont être supprimés."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:452
+#: ../DistUpgrade/DistUpgradeViewGtk.py:454
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "Le paquet %s va être installé."
 msgstr[1] "Les paquets %s vont être installés."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:458
+#: ../DistUpgrade/DistUpgradeViewGtk.py:460
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "Le paquet %s va être mis à jour."
 msgstr[1] "Les paquets %s vont être mis à jour."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:465
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Vous devez télécharger un total de %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:469
+#: ../DistUpgrade/DistUpgradeViewGtk.py:470
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "La mise à jour peut prendre plusieurs heures et ne peut être annulée "
 "ultérieurement."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:472
+#: ../DistUpgrade/DistUpgradeViewGtk.py:473
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "Pour éviter toute perte de données accidentelle, veuillez fermer toutes les "
 "applications et documents ouverts."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:478
+#: ../DistUpgrade/DistUpgradeViewGtk.py:479
 msgid "Could not find any upgrades"
 msgstr "Aucune mise à jour n'est disponible"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:479
+#: ../DistUpgrade/DistUpgradeViewGtk.py:480
 msgid "Your system has already been upgraded."
 msgstr "Votre système a déjà été mis à jour."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:494
+#: ../DistUpgrade/DistUpgradeViewGtk.py:495
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Supprimer %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:496
+#: ../DistUpgrade/DistUpgradeViewGtk.py:497
 #, python-format
 msgid "Install %s"
 msgstr "Installer %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:499
 #, python-format
 msgid "Upgrade %s"
 msgstr "Mettre à jour %s"
@@ -565,7 +613,7 @@ msgstr ""
 #. view.setStep(i+1)
 #. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
-#: ../data/SoftwarePropertiesDialogs.glade.h:1
+#: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
 msgstr "    "
 
@@ -753,13 +801,20 @@ msgstr "Téléchargement du fichier %li sur %li à %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Téléchargement du fichier %li sur %li à une vitesse inconnue"
 
-#: ../UpdateManager/UpdateManager.py:175
+#: ../UpdateManager/UpdateManager.py:185
+#, fuzzy
+msgid "The list of changes is not available"
+msgstr ""
+"La liste des modifications n'est pas encore disponible. Veuillez réessayer "
+"plus tard."
+
+#: ../UpdateManager/UpdateManager.py:191
 msgid "The list of changes is not available yet. Please try again later."
 msgstr ""
 "La liste des modifications n'est pas encore disponible. Veuillez réessayer "
 "plus tard."
 
-#: ../UpdateManager/UpdateManager.py:180
+#: ../UpdateManager/UpdateManager.py:196
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -768,11 +823,11 @@ msgstr ""
 "votre connexion Internet est activée."
 
 #. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:211
+#: ../UpdateManager/UpdateManager.py:224
 msgid "Cannot install all available updates"
 msgstr "Impossible d'installer toutes les mises à jour disponibles"
 
-#: ../UpdateManager/UpdateManager.py:212
+#: ../UpdateManager/UpdateManager.py:225
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -783,62 +838,54 @@ msgstr ""
 "jour » du « Gestionnaire de paquets Synaptic » ou lancez « sudo apt-get dist-"
 "upgrade » dans un terminal pour mettre votre système complètement à jour."
 
-#: ../UpdateManager/UpdateManager.py:222
+#: ../UpdateManager/UpdateManager.py:235
 msgid "The following updates will be skipped:"
 msgstr "Les paquets suivants ne seront pas mis à jour :"
 
-#: ../UpdateManager/UpdateManager.py:361
+#: ../UpdateManager/UpdateManager.py:408
 #, python-format
 msgid "Version %s: \n"
 msgstr "Version %s : \n"
 
-#: ../UpdateManager/UpdateManager.py:421
+#: ../UpdateManager/UpdateManager.py:468
 msgid "Downloading the list of changes..."
 msgstr "Téléchargement de la liste des nouveautés…"
 
-#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:491 ../UpdateManager/UpdateManager.py:501
+#: ../UpdateManager/UpdateManager.py:525
 #, python-format
 msgid "Download size: %s"
 msgstr "Taille du téléchargement : %s"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:510
 msgid "Your system is up-to-date"
 msgstr "Votre système est à jour"
 
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:521
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Vous pouvez installer %s mise à jour"
 msgstr[1] "Vous pouvez installer %s mises à jour"
 
-#: ../UpdateManager/UpdateManager.py:489
-msgid "Hide details"
-msgstr "Masquer les détails"
-
-#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Montrer les détails"
-
-#: ../UpdateManager/UpdateManager.py:506
+#: ../UpdateManager/UpdateManager.py:555
 msgid "Please wait, this can take some time."
 msgstr "Veuillez patienter, cela peut prendre du temps."
 
-#: ../UpdateManager/UpdateManager.py:508
+#: ../UpdateManager/UpdateManager.py:557
 msgid "Update is complete"
 msgstr "La mise à jour est terminée"
 
-#: ../UpdateManager/UpdateManager.py:611
+#: ../UpdateManager/UpdateManager.py:665
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Nouvelle version : %s (taille : %s)"
 
-#: ../UpdateManager/UpdateManager.py:625
+#: ../UpdateManager/UpdateManager.py:679
 msgid "Your distribution is not supported anymore"
 msgstr "Votre distribution n'est plus supportée"
 
-#: ../UpdateManager/UpdateManager.py:626
+#: ../UpdateManager/UpdateManager.py:680
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -848,26 +895,17 @@ msgstr ""
 "devez passer à une version plus récente d'Ubuntu Linux. Rendez-vous sur "
 "http://www.ubuntu.com pour de plus amples informations à ce sujet."
 
-#: ../UpdateManager/UpdateManager.py:662
+#: ../UpdateManager/UpdateManager.py:716
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Une nouvelle version « %s » est disponible</b>"
 
-#: ../UpdateManager/UpdateManager.py:677
-msgid "Only one software management tool is allowed to run at the same time"
-msgstr "Vous ne pouvez utilisez qu'un seul gestionnaire de logiciels à la fois"
-
-#: ../UpdateManager/UpdateManager.py:679
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
-msgstr ""
-"Veuillez fermer l'autre application, par ex. « Aptitude » ou « Synaptic »."
-
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:696
+#: ../UpdateManager/UpdateManager.py:751
 msgid "Software index is broken"
 msgstr "La liste des logiciels est corrompue"
 
-#: ../UpdateManager/UpdateManager.py:697
+#: ../UpdateManager/UpdateManager.py:752
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -877,7 +915,7 @@ msgstr ""
 "utiliser d'abord le « Gestionnaire de paquets Synaptic » ou lancez « sudo "
 "apt-get install -f » dans un terminal pour réparer ce problème."
 
-#: ../data/UpdateManager.glade.h:1
+#: ../data/glade/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
@@ -891,7 +929,7 @@ msgstr ""
 "configurer ce comportement dans « Système » -> « Administration » -> « "
 "Gestionnaire de canaux logiciels »"
 
-#: ../data/UpdateManager.glade.h:4
+#: ../data/glade/UpdateManager.glade.h:4
 msgid ""
 "<big><b>Examining your system</b></big>\n"
 "\n"
@@ -903,43 +941,47 @@ msgstr ""
 "Les mises à jour de logiciels peuvent corriger des erreurs, éliminer des "
 "problèmes de sécurité et apporter de nouvelles fonctionalités."
 
-#: ../data/UpdateManager.glade.h:7
+#: ../data/glade/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
 msgstr "<big><b>Maintenir votre système à jour</b></big>"
 
-#: ../data/UpdateManager.glade.h:8
+#: ../data/glade/UpdateManager.glade.h:8
 msgid "Cancel _Download"
 msgstr "_Annuler le téléchargement"
 
-#: ../data/UpdateManager.glade.h:9
+#: ../data/glade/UpdateManager.glade.h:9
 msgid "Changes"
 msgstr "Changements"
 
-#: ../data/UpdateManager.glade.h:10
+#: ../data/glade/UpdateManager.glade.h:10
+msgid "Changes and description of the update"
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:11
 msgid "Chec_k"
 msgstr "_Vérifier"
 
-#: ../data/UpdateManager.glade.h:11
+#: ../data/glade/UpdateManager.glade.h:12
 msgid "Check the software channels for new updates"
 msgstr "Vérifier les canaux logiciels pour de nouvelles mises à jour"
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/glade/UpdateManager.glade.h:13
 msgid "Description"
 msgstr "Description"
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/glade/UpdateManager.glade.h:14
 msgid "Release Notes"
 msgstr "Notes de publication"
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/glade/UpdateManager.glade.h:15
 msgid "Show progress of single files"
 msgstr "Afficher l'avancement des fichiers individuels"
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/glade/UpdateManager.glade.h:16
 msgid "Software Updates"
 msgstr "Mises à jour des logiciels"
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/glade/UpdateManager.glade.h:17
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
@@ -947,64 +989,86 @@ msgstr ""
 "Les mises à jour de logiciels peuvent corriger des erreurs, éliminer des "
 "problèmes de sécurité et apporter de nouvelles fonctionalités."
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/glade/UpdateManager.glade.h:18
 msgid "U_pgrade"
 msgstr "Mettre à _jour"
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/glade/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr "Mettre à jour vers la version la plus récente d'Ubuntu"
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/glade/UpdateManager.glade.h:20
 msgid "_Check"
 msgstr "_Vérifier"
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/glade/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
 msgstr "_Masquer ces informations à l'avenir"
 
-#: ../data/UpdateManager.glade.h:22
+#: ../data/glade/UpdateManager.glade.h:22
 msgid "_Install Updates"
 msgstr "_Installer les mises à jour"
 
-#: ../data/SoftwareProperties.glade.h:1
-msgid "<b>Channels</b>"
-msgstr "<b>Dépôts</b>"
+#: ../data/glade/UpdateManager.glade.h:23
+#, fuzzy
+msgid "changes"
+msgstr "Changements"
 
-#: ../data/SoftwareProperties.glade.h:2
+#: ../data/glade/UpdateManager.glade.h:24
+msgid "updates"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:2
+#, fuzzy
+msgid "<b>Automatic updates</b>"
+msgstr "<b>Mises à jour par Internet</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:3
+msgid "<b>CDROM/DVD</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:4
+msgid "<b>Downloadable software</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:5
 msgid "<b>Internet updates</b>"
 msgstr "<b>Mises à jour par Internet</b>"
 
-#: ../data/SoftwareProperties.glade.h:3
-msgid "<b>Keys</b>"
-msgstr "<b>Clés</b>"
+#: ../data/glade/SoftwareProperties.glade.h:6
+msgid ""
+"<i>To improve the user experience of Ubuntu please take part in the "
+"popularity contest. If you do so the list of installed software and how "
+"often it was used will be collected and sent anonymously to the Ubuntu "
+"project  on a weekly basis.\n"
+"\n"
+"The results are used to improve the support for popular applications and to "
+"rank applications in the search results.</i>"
+msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:4
-msgid "Add _Cdrom"
-msgstr "Ajouter un _CD-ROM"
-
-#: ../data/SoftwareProperties.glade.h:5
+#: ../data/glade/SoftwareProperties.glade.h:9
 msgid "Authentication"
 msgstr "Authentification"
 
-#: ../data/SoftwareProperties.glade.h:6
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "D_elete downloaded software files:"
 msgstr "_Effacer les fichiers des logiciels téléchargés :"
 
-#: ../data/SoftwareProperties.glade.h:7
+#: ../data/glade/SoftwareProperties.glade.h:11
+#, fuzzy
+msgid "Download from:"
+msgstr "Le téléchargement est terminé"
+
+#: ../data/glade/SoftwareProperties.glade.h:12
 msgid "Import the public key from a trusted software provider"
 msgstr ""
 "Importer la clé publique d'un fournisseur de logiciels digne de confiance"
 
-#: ../data/SoftwareProperties.glade.h:8
-msgid "Installation Media"
-msgstr "Médium d'installation"
-
-#: ../data/SoftwareProperties.glade.h:9
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Internet Updates"
 msgstr "Mises à jour par Internet"
 
-#: ../data/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
@@ -1012,40 +1076,56 @@ msgstr ""
 "Seules les mises à jour de sécurité des serveurs officiels d'Ubuntu seront "
 "automatiquement installées."
 
-#: ../data/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid "Restore _Defaults"
 msgstr "Restaurer les clés par _défaut"
 
-#: ../data/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore the default keys of your distribution"
 msgstr "Restaurer les clés par défaut de votre distribution"
 
-#: ../data/SoftwareProperties.glade.h:13
-msgid "Software Preferences"
+#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Sources"
 msgstr "Gestionnaire de canaux logiciels"
 
-#: ../data/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:18
+#, fuzzy
+msgid "Source code"
+msgstr "Source"
+
+#: ../data/glade/SoftwareProperties.glade.h:19
+msgid "Statistics"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:20
+msgid "Submit statistical information"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:21
+msgid "Third Party"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "_Check for updates automatically:"
 msgstr "_Rechercher des mises à jour automatiquement :"
 
-#: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the background, but do not install them"
+#: ../data/glade/SoftwareProperties.glade.h:23
+#, fuzzy
+msgid "_Download updates automatically, but do not install them"
 msgstr ""
 "Télécharger les mises à jour en arrière-plan, mais ne pas les installer"
 
-#: ../data/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:24
 msgid "_Import Key File"
 msgstr "_Importer la clé"
 
-#: ../data/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Install security updates without confirmation"
 msgstr "_Installer les mises à jour de sécurité sans confirmation"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:2
-msgid "     "
-msgstr "     "
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:3
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
 msgid ""
 "<b><big>The channel information is out-of-date</big></b>\n"
 "\n"
@@ -1063,40 +1143,33 @@ msgstr ""
 "Vous devez disposer d'une connexion fonctionnelle à Internet avant de "
 "continuer."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:8
-msgid "<b>Channel</b>"
-msgstr "<b>Canal</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:9
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:6
 msgid "<b>Comment:</b>"
 msgstr "<b>Commentaire :</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:10
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:7
 msgid "<b>Components:</b>"
 msgstr "<b>Composants :</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Components</b>"
-msgstr "<b>Composants</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:12
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Distribution:</b>"
 msgstr "<b>Distribution :</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:13
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Type:</b>"
 msgstr "<b>Type :</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:14
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>URI:</b>"
 msgstr "<b>URI :</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:15
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
+#, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"<big><b>Enter the complete APT line of the source that you want to add</b></"
 "big>\n"
 "\n"
-"The APT line includes the type, location and components of a channel, for "
+"The APT line includes the type, location and components of a source, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>Saisissez la ligne APT complète du canal logiciel que vous souhaitez "
@@ -1105,15 +1178,11 @@ msgstr ""
 "La ligne APT contient le type, la source et le contenu d'un canal logiciel, "
 "par exemple <i> « deb http://ftp.debian.org sarge main »</i>."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:18
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
 msgid "APT line:"
 msgstr "Ligne APT :"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:19
-msgid "Add Channel"
-msgstr "Ajouter un canal logiciel"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:20
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
 "Binary\n"
 "Source"
@@ -1121,24 +1190,21 @@ msgstr ""
 "Binaire\n"
 "Source"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:22
-msgid "Edit Channel"
-msgstr "Modifier un canal logiciel"
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
+#, fuzzy
+msgid "Edit Source"
+msgstr "Source"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:23
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
 msgid "Scanning CD-ROM"
 msgstr "Examen du CD-ROM"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:24
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
 #, fuzzy
-msgid "_Add Channel"
-msgstr "_Ajouter un canal logiciel"
+msgid "_Add Source"
+msgstr "Source"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:25
-msgid "_Custom"
-msgstr "_Personnaliser"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:26
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
 msgid "_Reload"
 msgstr "A_ctualiser"
 
@@ -1197,121 +1263,314 @@ msgid "The window size"
 msgstr "La taille de la fenêtre"
 
 #: ../data/software-properties.desktop.in.h:1
-msgid "Configure software channels and internet updates"
+#, fuzzy
+msgid "Configure the sources for installable software and updates"
 msgstr "Configurer les canaux logiciels et les mises à jour via Internet"
 
-#: ../data/software-properties.desktop.in.h:2
-msgid "Software Properties"
-msgstr "Gestionnaire de canaux logiciels"
-
 #. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
+#: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 LTS"
-msgstr "Ubuntu 6.06 LTS"
+#: ../data/channels/Ubuntu.info.in:7
+#, fuzzy
+msgid "Ubuntu 6.10 'Edgy Eft'"
+msgstr "Mises à jour pour Ubuntu 5.10"
 
 #. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 LTS Security Updates"
-msgstr "Mises à jour de sécurité pour Ubuntu 6.06 LTS"
+#: ../data/channels/Ubuntu.info.in:28
+msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
+msgstr ""
 
 #. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 LTS Updates"
-msgstr "Mises à jour pour Ubuntu 6.06 LTS"
+#: ../data/channels/Ubuntu.info.in:62
+#, fuzzy
+msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Ubuntu Dapper Drake 6.06"
 
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 LTS Backports"
-msgstr "« Backports » pour Ubuntu 6.06 LTS"
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:66
+msgid ""
+"OpenSource software that is officially supported by Canonical Ltd. (main)"
+msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
+#: ../data/channels/Ubuntu.info.in:69
+#, fuzzy
+msgid "Community maintained (universe)"
+msgstr "Maintenu par la communauté (Universe)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:70
+msgid "OpenSource software that is maintained by the community (universe)"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:73
+#, fuzzy
+msgid "Non-free drivers"
+msgstr "Non-libre (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:74
+msgid "Proprietary drivers for devices (restricted) "
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:77
+#, fuzzy
+msgid "Restricted software (Multiverse)"
+msgstr "Non-libre (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:78
+msgid "Software that is restricted by copyright or legal issues (multiverse)"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:83
+#, fuzzy
+msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Ubuntu Dapper Drake 6.06"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:97
+#, fuzzy
+msgid "Important security updates"
+msgstr "Mises à jour de sécurité pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:104
+msgid "Recommended updates"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:111
+msgid "Backported updates"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:117
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu Breezy Badger 5.10"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:120 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Supportés officiellement"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:63
-msgid "Restricted copyright"
-msgstr "Copyright restreint"
+#. Description
+#: ../data/channels/Ubuntu.info.in:134
+#, fuzzy
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu Breezy Badger 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:148
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Mises à jour de sécurité pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:155
+msgid "Ubuntu 5.10 Updates"
+msgstr "Mises à jour pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:162
+msgid "Ubuntu 5.10 Backports"
+msgstr "« Backports » pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:168
+#, fuzzy
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 5.04 Mises à jour de sécurité"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:185
+#, fuzzy
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 5.04 Mises à jour de sécurité"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:199
+#, fuzzy
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Mises à jour de sécurité pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:206
+#, fuzzy
+msgid "Ubuntu 5.04 Updates"
+msgstr "Mises à jour pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:213
+#, fuzzy
+msgid "Ubuntu 5.04 Backports"
+msgstr "« Backports » pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:219
+#, fuzzy
+msgid "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu Breezy Badger 5.10"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:66
+#: ../data/channels/Ubuntu.info.in:228
 msgid "Community maintained (Universe)"
 msgstr "Maintenu par la communauté (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:69
+#: ../data/channels/Ubuntu.info.in:231
 msgid "Non-free (Multiverse)"
 msgstr "Non-libre (Multiverse)"
 
+#. Description
+#: ../data/channels/Ubuntu.info.in:236
+msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:240
+msgid "Oficially supported"
+msgstr "Supporté officiellement"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:243
+msgid "Restricted copyright"
+msgstr "Copyright restreint"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:250
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Ubuntu 4.10 Mises à jour de sécurité"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:257
+#, fuzzy
+msgid "Ubuntu 4.10 Updates"
+msgstr "Mises à jour pour Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:264
+#, fuzzy
+msgid "Ubuntu 4.10 Backports"
+msgstr "« Backports » pour Ubuntu 5.10"
+
 #. ChangelogURI
-#: ../channels/Debian.info.in.h:4
+#: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Debian.info.in:6
+#: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian « Sarge » 3.1"
 
 #. BaseURI
-#: ../channels/Debian.info.in:19
+#: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
 #. Description
-#: ../channels/Debian.info.in:20
+#: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Mises à jour de sécurité pour Debian « Sarge » 3.1"
 
 #. Description
-#: ../channels/Debian.info.in:34
+#: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian « Etch » (en test)"
 
 #. BaseURI
-#: ../channels/Debian.info.in:47
+#: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
 #. Description
-#: ../channels/Debian.info.in:48
+#: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian « Sid » (instable)"
 
 #. CompDescription
-#: ../channels/Debian.info.in:54
+#: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 "Logiciel libre (selon les lignes directrices du projet Debian) dont les "
 "dépendances ne sont pas libres"
 
 #. CompDescription
-#: ../channels/Debian.info.in:57
+#: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Logiciel non libre (selon les lignes directrices du projet Debian)"
 
-#~ msgid "Ubuntu 6.06 'Dapper Drake'"
-#~ msgstr "Ubuntu Dapper Drake 6.06"
+#~ msgid "Hide details"
+#~ msgstr "Masquer les détails"
 
-#~ msgid "Ubuntu 5.10 'Breezy Badger'"
-#~ msgstr "Ubuntu Breezy Badger 5.10"
+#~ msgid "Show details"
+#~ msgstr "Montrer les détails"
 
-#~ msgid "Ubuntu 5.10 Security Updates"
-#~ msgstr "Mises à jour de sécurité pour Ubuntu 5.10"
+#~ msgid "Only one software management tool is allowed to run at the same time"
+#~ msgstr ""
+#~ "Vous ne pouvez utilisez qu'un seul gestionnaire de logiciels à la fois"
 
-#~ msgid "Ubuntu 5.10 Updates"
-#~ msgstr "Mises à jour pour Ubuntu 5.10"
+#~ msgid ""
+#~ "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#~ msgstr ""
+#~ "Veuillez fermer l'autre application, par ex. « Aptitude » ou « Synaptic »."
 
-#~ msgid "Ubuntu 5.10 Backports"
-#~ msgstr "« Backports » pour Ubuntu 5.10"
+#~ msgid "<b>Channels</b>"
+#~ msgstr "<b>Dépôts</b>"
+
+#~ msgid "<b>Keys</b>"
+#~ msgstr "<b>Clés</b>"
+
+#~ msgid "Add _Cdrom"
+#~ msgstr "Ajouter un _CD-ROM"
+
+#~ msgid "Installation Media"
+#~ msgstr "Médium d'installation"
+
+#~ msgid "Software Preferences"
+#~ msgstr "Gestionnaire de canaux logiciels"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#~ msgid "<b>Channel</b>"
+#~ msgstr "<b>Canal</b>"
+
+#~ msgid "<b>Components</b>"
+#~ msgstr "<b>Composants</b>"
+
+#~ msgid "Add Channel"
+#~ msgstr "Ajouter un canal logiciel"
+
+#~ msgid "Edit Channel"
+#~ msgstr "Modifier un canal logiciel"
+
+#, fuzzy
+#~ msgid "_Add Channel"
+#~ msgstr "_Ajouter un canal logiciel"
+
+#~ msgid "_Custom"
+#~ msgstr "_Personnaliser"
+
+#~ msgid "Ubuntu 6.06 LTS"
+#~ msgstr "Ubuntu 6.06 LTS"
+
+#~ msgid "Ubuntu 6.06 LTS Security Updates"
+#~ msgstr "Mises à jour de sécurité pour Ubuntu 6.06 LTS"
+
+#~ msgid "Ubuntu 6.06 LTS Updates"
+#~ msgstr "Mises à jour pour Ubuntu 6.06 LTS"
+
+#~ msgid "Ubuntu 6.06 LTS Backports"
+#~ msgstr "« Backports » pour Ubuntu 6.06 LTS"
 
 #~ msgid ""
 #~ "While scaning your repository information no valid entry for the upgrade "
@@ -1333,12 +1592,6 @@ msgstr "Logiciel non libre (selon les lignes directrices du projet Debian)"
 #~ msgid "<b>Sections</b>"
 #~ msgstr "<b>Catégories :</b>"
 
-#~ msgid "Oficially supported"
-#~ msgstr "Supporté officiellement"
-
-#~ msgid "Installing updates"
-#~ msgstr "Installation des mises à jour"
-
 #~ msgid "Check for available updates"
 #~ msgstr "Rechercher les mises à jour disponibles"
 
@@ -1348,10 +1601,6 @@ msgstr "Logiciel non libre (selon les lignes directrices du projet Debian)"
 #, fuzzy
 #~ msgid "Reload the latest information about updates"
 #~ msgstr "Recharger les informations des paquets depuis le serveur"
-
-#, fuzzy
-#~ msgid "Add Software Channels"
-#~ msgstr "Mises à jour des logiciels"
 
 #~ msgid ""
 #~ "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
@@ -1365,10 +1614,6 @@ msgstr "Logiciel non libre (selon les lignes directrices du projet Debian)"
 
 #~ msgid "Show available updates and choose which to install"
 #~ msgstr "Montre les mises à jours disponibles et choisir celles à installer"
-
-#, fuzzy
-#~ msgid "Ubuntu 5.04 \"Hoary Hedgehog\""
-#~ msgstr "Ubuntu 5.04 Mises à jour de sécurité"
 
 #, fuzzy
 #~ msgid "Error fetching the packages"
@@ -1570,14 +1815,8 @@ msgstr "Logiciel non libre (selon les lignes directrices du projet Debian)"
 #~ msgid "Binary"
 #~ msgstr "Binaire"
 
-#~ msgid "Source"
-#~ msgstr "Source"
-
 #~ msgid "CD"
 #~ msgstr "CD"
-
-#~ msgid "Ubuntu 4.10 Security Updates"
-#~ msgstr "Ubuntu 4.10 Mises à jour de sécurité"
 
 #~ msgid "Contributed software"
 #~ msgstr "Logiciel contribué"

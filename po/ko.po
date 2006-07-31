@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-31 18:19+0200\n"
+"POT-Creation-Date: 2006-07-31 18:12+0200\n"
 "PO-Revision-Date: 2006-05-28 15:14+0000\n"
 "Last-Translator: darehanl <darehanl@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -17,65 +17,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:103
+#: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "Daily"
 msgstr "매일"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Every two days"
 msgstr "이틀 마다"
 
-#: ../SoftwareProperties/SoftwareProperties.py:105
+#: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Weekly"
 msgstr "매주"
 
-#: ../SoftwareProperties/SoftwareProperties.py:106
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Every two weeks"
 msgstr "두 주 마다"
 
-#: ../SoftwareProperties/SoftwareProperties.py:111
+#: ../SoftwareProperties/SoftwareProperties.py:143
 #, python-format
 msgid "Every %s days"
 msgstr "%s 일 마다"
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:166
 msgid "After one week"
 msgstr "한 주 후에"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After two weeks"
 msgstr "두 주 후에"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
+#: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After one month"
 msgstr "한 달 후에"
 
-#: ../SoftwareProperties/SoftwareProperties.py:141
+#: ../SoftwareProperties/SoftwareProperties.py:173
 #, python-format
 msgid "After %s days"
 msgstr "%s 일 후에"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+#: ../SoftwareProperties/SoftwareProperties.py:235
+#, fuzzy, python-format
+msgid "%s updates"
+msgstr "업데이트를 설치(_I)"
+
+#: ../SoftwareProperties/SoftwareProperties.py:294
+msgid "Main server"
+msgstr ""
+
+#. TRANSLATORS: %s is a country
+#: ../SoftwareProperties/SoftwareProperties.py:298
+#: ../SoftwareProperties/SoftwareProperties.py:315
+#, python-format
+msgid "Server for %s"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:302
+msgid "Nearest server"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:322
+msgid "Custom servers"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:543
+#: ../SoftwareProperties/SoftwareProperties.py:560
+#, fuzzy
+msgid "Software Channel"
+msgstr "소프트웨어 업데이트"
+
+#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:568
+msgid "Active"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:652
+msgid "(Source Code)"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:658
+msgid "Source Code"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:908
 msgid "Import key"
 msgstr "키 가져오기"
 
-#: ../SoftwareProperties/SoftwareProperties.py:442
+#: ../SoftwareProperties/SoftwareProperties.py:918
 msgid "Error importing selected file"
 msgstr "선택한 파일 가져오기 오류"
 
-#: ../SoftwareProperties/SoftwareProperties.py:443
+#: ../SoftwareProperties/SoftwareProperties.py:919
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "선택된 파일은 GPG 키 파일이 아니거나 잘못된 것입니다."
 
-#: ../SoftwareProperties/SoftwareProperties.py:455
+#: ../SoftwareProperties/SoftwareProperties.py:931
 msgid "Error removing the key"
 msgstr "키 삭제 오류"
 
-#: ../SoftwareProperties/SoftwareProperties.py:456
+#: ../SoftwareProperties/SoftwareProperties.py:932
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "선택한 키를 지울 수 없습니다. 버그 리포팅 하십시오."
 
-#: ../SoftwareProperties/SoftwareProperties.py:497
+#: ../SoftwareProperties/SoftwareProperties.py:978
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -86,11 +130,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:554
+#: ../SoftwareProperties/SoftwareProperties.py:1035
 msgid "Please enter a name for the disc"
 msgstr "디스크에 사용할 이름을 입력하십시오."
 
-#: ../SoftwareProperties/SoftwareProperties.py:570
+#: ../SoftwareProperties/SoftwareProperties.py:1051
 msgid "Please insert a disc in the drive:"
 msgstr "드라이브에 디스크를 넣으십시오:"
 
@@ -106,20 +150,20 @@ msgstr ""
 "이 소프트웨어로 수정할 수 없는 망가진 꾸러미가 있습니다. 진행 전에 먼저 시냅"
 "틱이나 apt-get을 사용하여 복구하십시오."
 
-#: ../DistUpgrade/DistUpgradeCache.py:135
+#: ../DistUpgrade/DistUpgradeCache.py:150
 msgid "Can't upgrade required meta-packages"
 msgstr "요청된 메타 꾸러미를 업그레이드 할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeCache.py:142
+#: ../DistUpgrade/DistUpgradeCache.py:157
 msgid "A essential package would have to be removed"
 msgstr "필수 꾸러미를 지워야만 합니다."
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:145
+#: ../DistUpgrade/DistUpgradeCache.py:160
 msgid "Could not calculate the upgrade"
 msgstr "업그레이드에 필요한 의존성을 계산할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:146
+#: ../DistUpgrade/DistUpgradeCache.py:161
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
@@ -128,11 +172,11 @@ msgstr ""
 "버그를 보고하여 주십시오. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#: ../DistUpgrade/DistUpgradeCache.py:184
 msgid "Error authenticating some packages"
 msgstr "꾸러미 인증 오류"
 
-#: ../DistUpgrade/DistUpgradeCache.py:170
+#: ../DistUpgrade/DistUpgradeCache.py:185
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -141,23 +185,23 @@ msgstr ""
 "인증하는데 실패한 꾸러미가 있습니다. 일시적인 네트워크 문제일 수 있으니 나중"
 "에 다시 시도하십시오. 인증에 실패한 꾸러미의 목록은 다음과 같습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:248
 #, python-format
 msgid "Can't install '%s'"
 msgstr "'%s'을(를) 설치할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:234
+#: ../DistUpgrade/DistUpgradeCache.py:249
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr "요청된 꾸러미를 설치할 수 없습니다. 버그로 보고하여 주십시오. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#: ../DistUpgrade/DistUpgradeCache.py:256
 msgid "Can't guess meta-package"
 msgstr "메타 꾸러미를 추측할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:242
+#: ../DistUpgrade/DistUpgradeCache.py:257
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -170,15 +214,15 @@ msgstr ""
 " 위의 꾸러미 중 하나를 시냅틱이나 apt-get을 이용해서 먼저 설치하시기 바랍니"
 "다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:44
+#: ../DistUpgrade/DistUpgradeControler.py:48
 msgid "Reading cache"
 msgstr "캐시를 읽는 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:145
+#: ../DistUpgrade/DistUpgradeControler.py:149
 msgid "No valid mirror found"
 msgstr "적합한 미러 서버를 찾지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:146
+#: ../DistUpgrade/DistUpgradeControler.py:150
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -198,11 +242,11 @@ msgstr ""
 "'아니오'를 고르면 업데이트가 취소됩니다."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:163
+#: ../DistUpgrade/DistUpgradeControler.py:167
 msgid "Generate default sources?"
 msgstr "기본 설정된 소스 목록을 만듭니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:164
+#: ../DistUpgrade/DistUpgradeControler.py:168
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -215,11 +259,11 @@ msgstr ""
 "'%s'에 대한 기본 항목을 추가하시겠습니까? '아니오'를 고르면 업데이트가 취소됩"
 "니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:202
 msgid "Repository information invalid"
 msgstr "저장소 정보가 올바르지 않습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:199
+#: ../DistUpgrade/DistUpgradeControler.py:203
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -227,11 +271,11 @@ msgstr ""
 "저장소 정보를 업그레이드하는 것이 잘못된 파일로 만들어졌습니다. 버그를 보고하"
 "여 주십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:205
+#: ../DistUpgrade/DistUpgradeControler.py:209
 msgid "Third party sources disabled"
 msgstr "써드 파티 소스는 이용할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:206
+#: ../DistUpgrade/DistUpgradeControler.py:210
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -241,11 +285,11 @@ msgstr ""
 "properties' 도구나 시냅틱으로 업그레이드 한 후에 다시 사용가능하게 할 수 있습"
 "니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:252
+#: ../DistUpgrade/DistUpgradeControler.py:256
 msgid "Error during update"
 msgstr "업데이트 중 오류"
 
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:257
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -253,11 +297,11 @@ msgstr ""
 "업데이트를 하는 동안에 문제가 발생했습니다. 보통 네트워크 문제인 경우가 많습"
 "니다. 네트워크의 연결 상태를 확인하시고 다시 시도하십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:262
+#: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Not enough free disk space"
 msgstr "디스크 여유 공간이 충분하지 않습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:263
+#: ../DistUpgrade/DistUpgradeControler.py:267
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -269,15 +313,15 @@ msgstr ""
 "에 사용했던 임시 꾸러미들을 삭제하시기 바랍니다."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:320
+#: ../DistUpgrade/DistUpgradeControler.py:326
 msgid "Do you want to start the upgrade?"
 msgstr "업그레이드를 시작하시겠습니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:337
+#: ../DistUpgrade/DistUpgradeControler.py:343
 msgid "Could not install the upgrades"
 msgstr "업그레이드를 설치하지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:338
+#: ../DistUpgrade/DistUpgradeControler.py:344
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
@@ -285,11 +329,11 @@ msgstr ""
 "업그레이드가 중지되었습니다. 시스템을 이용할 수 없는 상태일 수 있습니다. "
 "(dpkg --configure -a)를 실행하여 복구하십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:353
+#: ../DistUpgrade/DistUpgradeControler.py:359
 msgid "Could not download the upgrades"
 msgstr "업그레이드 파일을 다운로드 할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:354
+#: ../DistUpgrade/DistUpgradeControler.py:360
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -297,11 +341,11 @@ msgstr ""
 "업그레이드가 중지되었습니다. 인터넷 연결과 설치 미디어를 확인하시고 다시 시도"
 "하십시오. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:389
+#: ../DistUpgrade/DistUpgradeControler.py:395
 msgid "Some software no longer officially supported"
 msgstr "더 이상 공식적으로 지원하지 않는 소프트웨어가 있습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:391
+#: ../DistUpgrade/DistUpgradeControler.py:397
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -315,23 +359,23 @@ msgstr ""
 "'Universe' 저장소를 활성화하지 않았다면 다음 단계에서 이 꾸러미들을 삭제할 "
 "수 있습니다. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:416
+#: ../DistUpgrade/DistUpgradeControler.py:422
 msgid "Remove obsolete packages?"
 msgstr "못쓰게 된 꾸러미를 삭제하시겠습니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Skip This Step"
 msgstr "이 단계 건너뛰기(_S)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Remove"
 msgstr "삭제(_R)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:427
+#: ../DistUpgrade/DistUpgradeControler.py:433
 msgid "Error during commit"
 msgstr "커밋 도중 오류 발생"
 
-#: ../DistUpgrade/DistUpgradeControler.py:428
+#: ../DistUpgrade/DistUpgradeControler.py:434
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -340,26 +384,26 @@ msgstr ""
 "보를 얻으실 수 있습니다. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:437
+#: ../DistUpgrade/DistUpgradeControler.py:443
 msgid "Restoring original system state"
 msgstr "시스템을 원상태로 복구하는 중"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:445
-#: ../DistUpgrade/DistUpgradeControler.py:469
+#: ../DistUpgrade/DistUpgradeControler.py:451
+#: ../DistUpgrade/DistUpgradeControler.py:475
 msgid "Checking package manager"
 msgstr "꾸러미 관리자 확인 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:461
+#: ../DistUpgrade/DistUpgradeControler.py:467
 msgid "Updating repository information"
 msgstr "저장소 정보 업데이트 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:480
+#: ../DistUpgrade/DistUpgradeControler.py:486
 msgid "Invalid package information"
 msgstr "잘못된 꾸러미 정보"
 
-#: ../DistUpgrade/DistUpgradeControler.py:481
+#: ../DistUpgrade/DistUpgradeControler.py:487
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -370,19 +414,19 @@ msgstr ""
 "다.\n"
 "심각한 오류입니다. 버그를 보고하여 주십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:491
+#: ../DistUpgrade/DistUpgradeControler.py:497
 msgid "Asking for confirmation"
 msgstr "확인을 요청하는 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:495
+#: ../DistUpgrade/DistUpgradeControler.py:501
 msgid "Upgrading"
 msgstr "업그레이드 하는 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:502
+#: ../DistUpgrade/DistUpgradeControler.py:508
 msgid "Searching for obsolete software"
 msgstr "못 쓰게 된 소프트웨어를 검색하는 중"
 
-#: ../DistUpgrade/DistUpgradeControler.py:507
+#: ../DistUpgrade/DistUpgradeControler.py:513
 msgid "System upgrade is complete."
 msgstr "시스템 업그레이드가 끝났습니다."
 
@@ -456,11 +500,11 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "'diff' 명령어를 찾지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+#: ../DistUpgrade/DistUpgradeViewGtk.py:338
 msgid "A fatal error occured"
 msgstr "심각한 오류 발생"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:338
+#: ../DistUpgrade/DistUpgradeViewGtk.py:339
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
@@ -470,58 +514,60 @@ msgstr ""
 "upgrade-apt.log 파일을 첨부하여 보고하십시오.  업그레이드가 중지되었습니다.\n"
 "원래의 sources.list는 /etc/apt/sources.list.distUpgrade에 저장되어 있습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:446
+#. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "꾸러미 %s 개가 삭제될 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:452
+#: ../DistUpgrade/DistUpgradeViewGtk.py:454
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "새로운 꾸러미가 %s 개 설치될 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:458
+#: ../DistUpgrade/DistUpgradeViewGtk.py:460
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "꾸러미가 %s 개 업그레이드 될 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:465
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "총 %s개의 꾸러미를 다운로드 합니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:469
+#: ../DistUpgrade/DistUpgradeViewGtk.py:470
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr "업그레이드는 여러 시간이 걸릴 수 있고, 어떤 때에도 취소될 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:472
+#: ../DistUpgrade/DistUpgradeViewGtk.py:473
 msgid "To prevent data loss close all open applications and documents."
 msgstr "데이터 손실을 막으려면 열려있는 모든 프로그램과 문서를 닫으십시오."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:478
+#: ../DistUpgrade/DistUpgradeViewGtk.py:479
 msgid "Could not find any upgrades"
 msgstr "어떤 업그레이드 꾸러미도 찾을 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:479
+#: ../DistUpgrade/DistUpgradeViewGtk.py:480
 msgid "Your system has already been upgraded."
 msgstr "이미 시스템이 업그레이드 되어 있습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:494
+#: ../DistUpgrade/DistUpgradeViewGtk.py:495
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>%s 삭제</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:496
+#: ../DistUpgrade/DistUpgradeViewGtk.py:497
 #, python-format
 msgid "Install %s"
 msgstr "%s 설치"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:499
 #, python-format
 msgid "Upgrade %s"
 msgstr "%s 업그레이드"
@@ -541,7 +587,7 @@ msgstr ""
 #. view.setStep(i+1)
 #. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
-#: ../data/SoftwarePropertiesDialogs.glade.h:1
+#: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
 msgstr "    "
 
@@ -726,11 +772,16 @@ msgstr "%li 의 %li 파일 내려 받는 중, 속도 %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "%li 의 %li 파일 내려 받는 중, 속도 알 수 없음"
 
-#: ../UpdateManager/UpdateManager.py:175
+#: ../UpdateManager/UpdateManager.py:185
+#, fuzzy
+msgid "The list of changes is not available"
+msgstr "바뀐 목록을 아직 이용할 수 없습니다. 잠시 후에 다시 해주시기 바랍니다."
+
+#: ../UpdateManager/UpdateManager.py:191
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "바뀐 목록을 아직 이용할 수 없습니다. 잠시 후에 다시 해주시기 바랍니다."
 
-#: ../UpdateManager/UpdateManager.py:180
+#: ../UpdateManager/UpdateManager.py:196
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -738,11 +789,11 @@ msgstr ""
 "바뀐 목록을 다운로드하는데 실패했습니다. 인터넷 연결을 확인해 주십시오."
 
 #. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:211
+#: ../UpdateManager/UpdateManager.py:224
 msgid "Cannot install all available updates"
 msgstr "설치할 수 없는 업데이트가 있습니다"
 
-#: ../UpdateManager/UpdateManager.py:212
+#: ../UpdateManager/UpdateManager.py:225
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -752,61 +803,53 @@ msgstr ""
 "미 관리자의 \"모든 업그레이드 하기\" 기능을 사용하거나 터미널에서 \"sudo apt-"
 "get dist-upgrade\"를 실행하여 시스템을 완전하게 업데이트 하십시오."
 
-#: ../UpdateManager/UpdateManager.py:222
+#: ../UpdateManager/UpdateManager.py:235
 msgid "The following updates will be skipped:"
 msgstr "다음 업데이트는 무시됩니다:"
 
-#: ../UpdateManager/UpdateManager.py:361
+#: ../UpdateManager/UpdateManager.py:408
 #, python-format
 msgid "Version %s: \n"
 msgstr "버전 %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:421
+#: ../UpdateManager/UpdateManager.py:468
 msgid "Downloading the list of changes..."
 msgstr "바뀐 목록을 다운로드 하는 중..."
 
-#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:491 ../UpdateManager/UpdateManager.py:501
+#: ../UpdateManager/UpdateManager.py:525
 #, python-format
 msgid "Download size: %s"
 msgstr "다운로드 크기: %s"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:510
 msgid "Your system is up-to-date"
 msgstr "시스템이 최신의 상태입니다."
 
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:521
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "%s 개의 업데이트를 설치할 수 있습니다."
 
-#: ../UpdateManager/UpdateManager.py:489
-msgid "Hide details"
-msgstr "세부 정보 숨기기"
-
-#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "자세히 보기"
-
-#: ../UpdateManager/UpdateManager.py:506
+#: ../UpdateManager/UpdateManager.py:555
 msgid "Please wait, this can take some time."
 msgstr "잠시만 기다리십시오. 이 작업은 약간의 시간이 걸립니다."
 
-#: ../UpdateManager/UpdateManager.py:508
+#: ../UpdateManager/UpdateManager.py:557
 msgid "Update is complete"
 msgstr "업데이트가 끝났습니다."
 
-#: ../UpdateManager/UpdateManager.py:611
+#: ../UpdateManager/UpdateManager.py:665
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "새 버전: %s (크기: %s)"
 
-#: ../UpdateManager/UpdateManager.py:625
+#: ../UpdateManager/UpdateManager.py:679
 msgid "Your distribution is not supported anymore"
 msgstr "더 이상 지원되지 않는 배포판입니다."
 
-#: ../UpdateManager/UpdateManager.py:626
+#: ../UpdateManager/UpdateManager.py:680
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -816,25 +859,17 @@ msgstr ""
 "그레이드 하십시오. 업그레이드에 대한 더 많은 정보는 http://www.ubuntu.com에"
 "서 보실 수 있습니다."
 
-#: ../UpdateManager/UpdateManager.py:662
+#: ../UpdateManager/UpdateManager.py:716
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>새 배포판 '%s'를 이용할 수 있습니다</b>"
 
-#: ../UpdateManager/UpdateManager.py:677
-msgid "Only one software management tool is allowed to run at the same time"
-msgstr "동시에 한 가지 소프트웨어 관리 도구만 실행할 수 있습니다."
-
-#: ../UpdateManager/UpdateManager.py:679
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
-msgstr "'aptitude'나 '시냅틱'과 같은 다른 프로그램을 먼저 닫으십시오."
-
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:696
+#: ../UpdateManager/UpdateManager.py:751
 msgid "Software index is broken"
 msgstr "소프트웨어 목록이 망가졌습니다."
 
-#: ../UpdateManager/UpdateManager.py:697
+#: ../UpdateManager/UpdateManager.py:752
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -843,7 +878,7 @@ msgstr ""
 "어떤 소프트웨어도 설치하거나 삭제할 수 없습니다. \"시냅틱\"이나 터미널에서 "
 "\"sudo apt-get install -f\"를 실행하여 이 문제를 먼저 해결하십시오."
 
-#: ../data/UpdateManager.glade.h:1
+#: ../data/glade/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
@@ -855,7 +890,7 @@ msgstr ""
 "현재 자동으로 업데이트를 확인하지 않습니다. \"시스템\" -> \"관리 도구\" -> "
 "\"Software Properties\"에서 설정할 수 있습니다."
 
-#: ../data/UpdateManager.glade.h:4
+#: ../data/glade/UpdateManager.glade.h:4
 msgid ""
 "<big><b>Examining your system</b></big>\n"
 "\n"
@@ -867,43 +902,47 @@ msgstr ""
 "소프트웨어 업데이트는 에러를 고치고, 보안 문제를 제거하며 새로운 기능을 제공"
 "합니다."
 
-#: ../data/UpdateManager.glade.h:7
+#: ../data/glade/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
 msgstr "<big><b>시스템을 최신으로 유지하십시오.</b></big>"
 
-#: ../data/UpdateManager.glade.h:8
+#: ../data/glade/UpdateManager.glade.h:8
 msgid "Cancel _Download"
 msgstr "다운로드 취소(_D)"
 
-#: ../data/UpdateManager.glade.h:9
+#: ../data/glade/UpdateManager.glade.h:9
 msgid "Changes"
 msgstr "변경 사항"
 
-#: ../data/UpdateManager.glade.h:10
+#: ../data/glade/UpdateManager.glade.h:10
+msgid "Changes and description of the update"
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:11
 msgid "Chec_k"
 msgstr "점검(_k)"
 
-#: ../data/UpdateManager.glade.h:11
+#: ../data/glade/UpdateManager.glade.h:12
 msgid "Check the software channels for new updates"
 msgstr "새로운 업데이트를 위해 소프트웨어 채널을 확인합니다."
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/glade/UpdateManager.glade.h:13
 msgid "Description"
 msgstr "설명"
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/glade/UpdateManager.glade.h:14
 msgid "Release Notes"
 msgstr "릴리즈 정보"
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/glade/UpdateManager.glade.h:15
 msgid "Show progress of single files"
 msgstr "각 파일의 진행 상황 표시"
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/glade/UpdateManager.glade.h:16
 msgid "Software Updates"
 msgstr "소프트웨어 업데이트"
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/glade/UpdateManager.glade.h:17
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
@@ -911,101 +950,138 @@ msgstr ""
 "소프트웨어 업데이트는 에러를 고치고, 보안 문제를 제거하며 새로운 기능을 제공"
 "합니다."
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/glade/UpdateManager.glade.h:18
 msgid "U_pgrade"
 msgstr "업그레이드(_p)"
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/glade/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr "우분투 최신 버젼으로 업그레이드 합니다."
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/glade/UpdateManager.glade.h:20
 msgid "_Check"
 msgstr "점검(_C)"
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/glade/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
 msgstr "앞으로 이 정보 숨김(_H)"
 
-#: ../data/UpdateManager.glade.h:22
+#: ../data/glade/UpdateManager.glade.h:22
 msgid "_Install Updates"
 msgstr "업데이트를 설치(_I)"
 
-#: ../data/SoftwareProperties.glade.h:1
-msgid "<b>Channels</b>"
-msgstr "<b>채널</b>"
+#: ../data/glade/UpdateManager.glade.h:23
+#, fuzzy
+msgid "changes"
+msgstr "변경 사항"
 
-#: ../data/SoftwareProperties.glade.h:2
+#: ../data/glade/UpdateManager.glade.h:24
+msgid "updates"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:2
+#, fuzzy
+msgid "<b>Automatic updates</b>"
+msgstr "<b>인터넷 업데이트</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:3
+msgid "<b>CDROM/DVD</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:4
+msgid "<b>Downloadable software</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:5
 msgid "<b>Internet updates</b>"
 msgstr "<b>인터넷 업데이트</b>"
 
-#: ../data/SoftwareProperties.glade.h:3
-msgid "<b>Keys</b>"
-msgstr "<b>키</b>"
+#: ../data/glade/SoftwareProperties.glade.h:6
+msgid ""
+"<i>To improve the user experience of Ubuntu please take part in the "
+"popularity contest. If you do so the list of installed software and how "
+"often it was used will be collected and sent anonymously to the Ubuntu "
+"project  on a weekly basis.\n"
+"\n"
+"The results are used to improve the support for popular applications and to "
+"rank applications in the search results.</i>"
+msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:4
-msgid "Add _Cdrom"
-msgstr "CD롬 추가(_C)"
-
-#: ../data/SoftwareProperties.glade.h:5
+#: ../data/glade/SoftwareProperties.glade.h:9
 msgid "Authentication"
 msgstr "인증"
 
-#: ../data/SoftwareProperties.glade.h:6
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "D_elete downloaded software files:"
 msgstr "다운로드 받은 소프트웨어 파일 삭제(_e):"
 
-#: ../data/SoftwareProperties.glade.h:7
+#: ../data/glade/SoftwareProperties.glade.h:11
+#, fuzzy
+msgid "Download from:"
+msgstr "다운로드가 끝났습니다."
+
+#: ../data/glade/SoftwareProperties.glade.h:12
 msgid "Import the public key from a trusted software provider"
 msgstr "믿을 만한 소프트웨어 제공자로부터 공개 키를 가져옵니다."
 
-#: ../data/SoftwareProperties.glade.h:8
-msgid "Installation Media"
-msgstr "설치 미디어"
-
-#: ../data/SoftwareProperties.glade.h:9
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Internet Updates"
 msgstr "인터넷 업데이트"
 
-#: ../data/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
 msgstr "공식 우분투 서버의 보안 업데이트만 자동으로 설치됩니다."
 
-#: ../data/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid "Restore _Defaults"
 msgstr "기본값 불러오기(_D)"
 
-#: ../data/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore the default keys of your distribution"
 msgstr "배포판의 기본 키 불러오기"
 
-#: ../data/SoftwareProperties.glade.h:13
-msgid "Software Preferences"
+#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/software-properties.desktop.in.h:2
+#, fuzzy
+msgid "Software Sources"
 msgstr "소프트웨어 설정"
 
-#: ../data/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:18
+msgid "Source code"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:19
+msgid "Statistics"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:20
+msgid "Submit statistical information"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:21
+msgid "Third Party"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "_Check for updates automatically:"
 msgstr "업데이트를 자동으로 확인(_C):"
 
-#: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the background, but do not install them"
+#: ../data/glade/SoftwareProperties.glade.h:23
+#, fuzzy
+msgid "_Download updates automatically, but do not install them"
 msgstr "백그라운드에서 업데이트 다운로드하되, 설치는 하지 않음(_D)"
 
-#: ../data/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:24
 msgid "_Import Key File"
 msgstr "키 가져오기(_I)"
 
-#: ../data/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Install security updates without confirmation"
 msgstr "확인없이 보안 업데이트 설치(_I)"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:2
-msgid "     "
-msgstr "     "
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:3
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
 msgid ""
 "<b><big>The channel information is out-of-date</big></b>\n"
 "\n"
@@ -1021,40 +1097,33 @@ msgstr ""
 "\n"
 "계속하기 위해서는 인터넷 연결이 필요합니다."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:8
-msgid "<b>Channel</b>"
-msgstr "<b>채널</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:9
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:6
 msgid "<b>Comment:</b>"
 msgstr "<b>참고:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:10
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:7
 msgid "<b>Components:</b>"
 msgstr "<b>구성요소:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Components</b>"
-msgstr "<b>구성요소</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:12
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Distribution:</b>"
 msgstr "<b>배포판:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:13
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Type:</b>"
 msgstr "<b>종류:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:14
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>URI:</b>"
 msgstr "<b>URI:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:15
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
+#, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"<big><b>Enter the complete APT line of the source that you want to add</b></"
 "big>\n"
 "\n"
-"The APT line includes the type, location and components of a channel, for "
+"The APT line includes the type, location and components of a source, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>추가하고자 하는 채널의 APT 줄을 완전히 입력하십시오.</b></big>\n"
@@ -1062,15 +1131,11 @@ msgstr ""
 "APT 줄은 다음 예와 같이 채널의 종류, 위치, 구성요소를 포함합니다. <i>\"deb "
 "http://ftp.debian.org sarge main\"</i>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:18
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
 msgid "APT line:"
 msgstr "APT 줄:"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:19
-msgid "Add Channel"
-msgstr "채널 추가"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:20
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
 "Binary\n"
 "Source"
@@ -1078,23 +1143,19 @@ msgstr ""
 "바이너리\n"
 "소스"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:22
-msgid "Edit Channel"
-msgstr "채널 편집"
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
+msgid "Edit Source"
+msgstr ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:23
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
 msgid "Scanning CD-ROM"
 msgstr "CD-ROM을 읽는 중"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:24
-msgid "_Add Channel"
-msgstr "채널 추가(_A)"
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
+msgid "_Add Source"
+msgstr ""
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:25
-msgid "_Custom"
-msgstr "사용자 정의(_C)"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:26
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
 msgid "_Reload"
 msgstr "새로고침(_R)"
 
@@ -1149,116 +1210,307 @@ msgid "The window size"
 msgstr "창 크기"
 
 #: ../data/software-properties.desktop.in.h:1
-msgid "Configure software channels and internet updates"
+#, fuzzy
+msgid "Configure the sources for installable software and updates"
 msgstr "소프트웨어 채널과 인터넷 업데이트를 설정합니다."
 
-#: ../data/software-properties.desktop.in.h:2
-msgid "Software Properties"
-msgstr "소프트웨어 설정"
-
 #. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
+#: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Ubuntu.info.in:6
-msgid "Ubuntu 6.06 LTS"
-msgstr "우분투 6.06 LTS"
+#: ../data/channels/Ubuntu.info.in:7
+#, fuzzy
+msgid "Ubuntu 6.10 'Edgy Eft'"
+msgstr "우분투 5.10 업데이트"
 
 #. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 LTS Security Updates"
-msgstr "우분투 6.06 LTS 보안 업데이트"
+#: ../data/channels/Ubuntu.info.in:28
+msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
+msgstr ""
 
 #. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 LTS Updates"
-msgstr "우분투 6.06 LTS 업데이트"
+#: ../data/channels/Ubuntu.info.in:62
+#, fuzzy
+msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "우분투 6.06 'Dapper Drake'"
 
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 LTS Backports"
-msgstr "우분투 6.06 LTS 백포트"
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:66
+msgid ""
+"OpenSource software that is officially supported by Canonical Ltd. (main)"
+msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
+#: ../data/channels/Ubuntu.info.in:69
+#, fuzzy
+msgid "Community maintained (universe)"
+msgstr "커뮤니티에서 관리유지함 (Universe)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:70
+msgid "OpenSource software that is maintained by the community (universe)"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:73
+#, fuzzy
+msgid "Non-free drivers"
+msgstr "자유소프트웨어 아님 (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:74
+msgid "Proprietary drivers for devices (restricted) "
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:77
+#, fuzzy
+msgid "Restricted software (Multiverse)"
+msgstr "자유소프트웨어 아님 (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:78
+msgid "Software that is restricted by copyright or legal issues (multiverse)"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:83
+#, fuzzy
+msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "우분투 6.06 'Dapper Drake'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:97
+#, fuzzy
+msgid "Important security updates"
+msgstr "우분투 5.10 보안 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:104
+msgid "Recommended updates"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:111
+msgid "Backported updates"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:117
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "우분투 5.10 'Breezy Badger'"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:120 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "공식적으로 지원됨"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:63
-msgid "Restricted copyright"
-msgstr "저작권 제한됨"
+#. Description
+#: ../data/channels/Ubuntu.info.in:134
+#, fuzzy
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "우분투 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:148
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "우분투 5.10 보안 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:155
+msgid "Ubuntu 5.10 Updates"
+msgstr "우분투 5.10 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:162
+msgid "Ubuntu 5.10 Backports"
+msgstr "우분투 5.10 Backports"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:168
+#, fuzzy
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "우분투 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:185
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:199
+#, fuzzy
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "우분투 5.10 보안 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:206
+#, fuzzy
+msgid "Ubuntu 5.04 Updates"
+msgstr "우분투 5.10 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:213
+#, fuzzy
+msgid "Ubuntu 5.04 Backports"
+msgstr "우분투 5.10 Backports"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:219
+#, fuzzy
+msgid "Ubuntu 4.10 'Warty Warthog'"
+msgstr "우분투 5.10 'Breezy Badger'"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:66
+#: ../data/channels/Ubuntu.info.in:228
 msgid "Community maintained (Universe)"
 msgstr "커뮤니티에서 관리유지함 (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:69
+#: ../data/channels/Ubuntu.info.in:231
 msgid "Non-free (Multiverse)"
 msgstr "자유소프트웨어 아님 (Multiverse)"
 
+#. Description
+#: ../data/channels/Ubuntu.info.in:236
+msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:240
+#, fuzzy
+msgid "Oficially supported"
+msgstr "공식적으로 지원됨"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:243
+msgid "Restricted copyright"
+msgstr "저작권 제한됨"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:250
+#, fuzzy
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "우분투 5.10 보안 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:257
+#, fuzzy
+msgid "Ubuntu 4.10 Updates"
+msgstr "우분투 5.10 업데이트"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:264
+#, fuzzy
+msgid "Ubuntu 4.10 Backports"
+msgstr "우분투 5.10 Backports"
+
 #. ChangelogURI
-#: ../channels/Debian.info.in.h:4
+#: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Debian.info.in:6
+#: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "데비안 3.1 \"Sarge\""
 
 #. BaseURI
-#: ../channels/Debian.info.in:19
+#: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
 #. Description
-#: ../channels/Debian.info.in:20
+#: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "데비안 3.1 \"Sarge\" 보안 업데이트"
 
 #. Description
-#: ../channels/Debian.info.in:34
+#: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "데비안 \"Etch\" (testing)"
 
 #. BaseURI
-#: ../channels/Debian.info.in:47
+#: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
 #. Description
-#: ../channels/Debian.info.in:48
+#: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "데비안 \"Sid\" (unstable)"
 
 #. CompDescription
-#: ../channels/Debian.info.in:54
+#: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG 호환이지만 자유소프트웨어가 아닌 의존성이 있는 소프트웨어"
 
 #. CompDescription
-#: ../channels/Debian.info.in:57
+#: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG와 호환이 안되는 소프트웨어"
 
-#~ msgid "Ubuntu 6.06 'Dapper Drake'"
-#~ msgstr "우분투 6.06 'Dapper Drake'"
+#~ msgid "Hide details"
+#~ msgstr "세부 정보 숨기기"
 
-#~ msgid "Ubuntu 5.10 'Breezy Badger'"
-#~ msgstr "우분투 5.10 'Breezy Badger'"
+#~ msgid "Show details"
+#~ msgstr "자세히 보기"
 
-#~ msgid "Ubuntu 5.10 Security Updates"
-#~ msgstr "우분투 5.10 보안 업데이트"
+#~ msgid "Only one software management tool is allowed to run at the same time"
+#~ msgstr "동시에 한 가지 소프트웨어 관리 도구만 실행할 수 있습니다."
 
-#~ msgid "Ubuntu 5.10 Updates"
-#~ msgstr "우분투 5.10 업데이트"
+#~ msgid ""
+#~ "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#~ msgstr "'aptitude'나 '시냅틱'과 같은 다른 프로그램을 먼저 닫으십시오."
 
-#~ msgid "Ubuntu 5.10 Backports"
-#~ msgstr "우분투 5.10 Backports"
+#~ msgid "<b>Channels</b>"
+#~ msgstr "<b>채널</b>"
+
+#~ msgid "<b>Keys</b>"
+#~ msgstr "<b>키</b>"
+
+#~ msgid "Add _Cdrom"
+#~ msgstr "CD롬 추가(_C)"
+
+#~ msgid "Installation Media"
+#~ msgstr "설치 미디어"
+
+#~ msgid "Software Preferences"
+#~ msgstr "소프트웨어 설정"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#~ msgid "<b>Channel</b>"
+#~ msgstr "<b>채널</b>"
+
+#~ msgid "<b>Components</b>"
+#~ msgstr "<b>구성요소</b>"
+
+#~ msgid "Add Channel"
+#~ msgstr "채널 추가"
+
+#~ msgid "Edit Channel"
+#~ msgstr "채널 편집"
+
+#~ msgid "_Add Channel"
+#~ msgstr "채널 추가(_A)"
+
+#~ msgid "_Custom"
+#~ msgstr "사용자 정의(_C)"
+
+#~ msgid "Ubuntu 6.06 LTS"
+#~ msgstr "우분투 6.06 LTS"
+
+#~ msgid "Ubuntu 6.06 LTS Security Updates"
+#~ msgstr "우분투 6.06 LTS 보안 업데이트"
+
+#~ msgid "Ubuntu 6.06 LTS Updates"
+#~ msgstr "우분투 6.06 LTS 업데이트"
+
+#~ msgid "Ubuntu 6.06 LTS Backports"
+#~ msgstr "우분투 6.06 LTS 백포트"

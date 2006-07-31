@@ -446,7 +446,7 @@ class DistUpgradeControler(object):
 
     
     # this is the core
-    def dapperUpgrade(self):
+    def edgyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
@@ -516,6 +516,6 @@ class DistUpgradeControler(object):
             subprocess.call(["reboot"])
         
     def run(self):
-        self.dapperUpgrade()
+        self.edgyUpgrade()
 
 

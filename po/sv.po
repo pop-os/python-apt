@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-05-31 18:19+0200\n"
+"POT-Creation-Date: 2006-07-31 18:12+0200\n"
 "PO-Revision-Date: 2006-05-23 19:18+0000\n"
 "Last-Translator: Robin Sonefors <ozamosi@blinkenlights.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -17,67 +17,114 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:103
+#: ../SoftwareProperties/SoftwareProperties.py:135
 msgid "Daily"
 msgstr "Dagligen"
 
-#: ../SoftwareProperties/SoftwareProperties.py:104
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Every two days"
 msgstr "Varannan dag"
 
-#: ../SoftwareProperties/SoftwareProperties.py:105
+#: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Weekly"
 msgstr "Varje vecka"
 
-#: ../SoftwareProperties/SoftwareProperties.py:106
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Every two weeks"
 msgstr "Varannan vecka"
 
-#: ../SoftwareProperties/SoftwareProperties.py:111
+#: ../SoftwareProperties/SoftwareProperties.py:143
 #, python-format
 msgid "Every %s days"
 msgstr "Var %s:e dag"
 
-#: ../SoftwareProperties/SoftwareProperties.py:134
+#: ../SoftwareProperties/SoftwareProperties.py:166
 msgid "After one week"
 msgstr "Efter en vecka"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After two weeks"
 msgstr "Efter två veckor"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
+#: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After one month"
 msgstr "Efter en månad"
 
-#: ../SoftwareProperties/SoftwareProperties.py:141
+#: ../SoftwareProperties/SoftwareProperties.py:173
 #, python-format
 msgid "After %s days"
 msgstr "Efter %s dagar"
 
-#: ../SoftwareProperties/SoftwareProperties.py:432
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+#: ../SoftwareProperties/SoftwareProperties.py:235
+#, fuzzy, python-format
+msgid "%s updates"
+msgstr "%d uppdateringar"
+
+#: ../SoftwareProperties/SoftwareProperties.py:294
+msgid "Main server"
+msgstr ""
+
+#. TRANSLATORS: %s is a country
+#: ../SoftwareProperties/SoftwareProperties.py:298
+#: ../SoftwareProperties/SoftwareProperties.py:315
+#, fuzzy, python-format
+msgid "Server for %s"
+msgstr "Server"
+
+#: ../SoftwareProperties/SoftwareProperties.py:302
+msgid "Nearest server"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:322
+msgid "Custom servers"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:543
+#: ../SoftwareProperties/SoftwareProperties.py:560
+#, fuzzy
+msgid "Software Channel"
+msgstr "Programvaruuppdateringar"
+
+#: ../SoftwareProperties/SoftwareProperties.py:551
+#: ../SoftwareProperties/SoftwareProperties.py:568
+#, fuzzy
+msgid "Active"
+msgstr "Aktivera"
+
+#: ../SoftwareProperties/SoftwareProperties.py:652
+#, fuzzy
+msgid "(Source Code)"
+msgstr "Källkod"
+
+#: ../SoftwareProperties/SoftwareProperties.py:658
+#, fuzzy
+msgid "Source Code"
+msgstr "Källkod"
+
+#: ../SoftwareProperties/SoftwareProperties.py:908
 msgid "Import key"
 msgstr "Importera nyckel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:442
+#: ../SoftwareProperties/SoftwareProperties.py:918
 msgid "Error importing selected file"
 msgstr "Fel vid importing av vald fil"
 
-#: ../SoftwareProperties/SoftwareProperties.py:443
+#: ../SoftwareProperties/SoftwareProperties.py:919
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Den valda filen verkar inte vara en GPG-nyckel eller så är filen trasig."
 
-#: ../SoftwareProperties/SoftwareProperties.py:455
+#: ../SoftwareProperties/SoftwareProperties.py:931
 msgid "Error removing the key"
 msgstr "Fel vid borttagning av nyckeln"
 
-#: ../SoftwareProperties/SoftwareProperties.py:456
+#: ../SoftwareProperties/SoftwareProperties.py:932
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Nyckeln du valde kan inte tas bort. Var vänlig anmäl detta som en bugg."
 
-#: ../SoftwareProperties/SoftwareProperties.py:497
+#: ../SoftwareProperties/SoftwareProperties.py:978
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -88,11 +135,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:554
+#: ../SoftwareProperties/SoftwareProperties.py:1035
 msgid "Please enter a name for the disc"
 msgstr "Skriv in ett namn på skivan"
 
-#: ../SoftwareProperties/SoftwareProperties.py:570
+#: ../SoftwareProperties/SoftwareProperties.py:1051
 msgid "Please insert a disc in the drive:"
 msgstr "Sätt in en skiva i enheten:"
 
@@ -109,20 +156,20 @@ msgstr ""
 "programmet. Reparera dem först med synaptic eller apt-get innan du "
 "fortsätter."
 
-#: ../DistUpgrade/DistUpgradeCache.py:135
+#: ../DistUpgrade/DistUpgradeCache.py:150
 msgid "Can't upgrade required meta-packages"
 msgstr "Kan inte uppdatera obligatoriska meta-paket"
 
-#: ../DistUpgrade/DistUpgradeCache.py:142
+#: ../DistUpgrade/DistUpgradeCache.py:157
 msgid "A essential package would have to be removed"
 msgstr "Ett grundläggande paket skulle behöva tas bort"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:145
+#: ../DistUpgrade/DistUpgradeCache.py:160
 msgid "Could not calculate the upgrade"
 msgstr "Kunde inte beräkna uppdateringen"
 
-#: ../DistUpgrade/DistUpgradeCache.py:146
+#: ../DistUpgrade/DistUpgradeCache.py:161
 msgid ""
 "A unresolvable problem occured while calculating the upgrade. Please report "
 "this as a bug. "
@@ -131,11 +178,11 @@ msgstr ""
 "vänlig rapportera detta som en bugg. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:169
+#: ../DistUpgrade/DistUpgradeCache.py:184
 msgid "Error authenticating some packages"
 msgstr "Det gick inte att autentisiera vissa paket"
 
-#: ../DistUpgrade/DistUpgradeCache.py:170
+#: ../DistUpgrade/DistUpgradeCache.py:185
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -145,12 +192,12 @@ msgstr ""
 "nätverksfel. Det kan hjälpa med att försöka senare. Se nedan för en lista "
 "med icke autentisierade paket."
 
-#: ../DistUpgrade/DistUpgradeCache.py:233
+#: ../DistUpgrade/DistUpgradeCache.py:248
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Kan inte installera \"%s\""
 
-#: ../DistUpgrade/DistUpgradeCache.py:234
+#: ../DistUpgrade/DistUpgradeCache.py:249
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -159,11 +206,11 @@ msgstr ""
 "rapportera detta som en bugg. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:241
+#: ../DistUpgrade/DistUpgradeCache.py:256
 msgid "Can't guess meta-package"
 msgstr "Kan inte gissa meta-paket"
 
-#: ../DistUpgrade/DistUpgradeCache.py:242
+#: ../DistUpgrade/DistUpgradeCache.py:257
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -177,15 +224,15 @@ msgstr ""
 " Installera ett av dessa paket med synaptic eller apt-get innan du "
 "fortsätter."
 
-#: ../DistUpgrade/DistUpgradeControler.py:44
+#: ../DistUpgrade/DistUpgradeControler.py:48
 msgid "Reading cache"
 msgstr "Läser cache"
 
-#: ../DistUpgrade/DistUpgradeControler.py:145
+#: ../DistUpgrade/DistUpgradeControler.py:149
 msgid "No valid mirror found"
 msgstr "Hittade ingen giltig serverspegel"
 
-#: ../DistUpgrade/DistUpgradeControler.py:146
+#: ../DistUpgrade/DistUpgradeControler.py:150
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -205,11 +252,11 @@ msgstr ""
 "Om du väljer \"nej\" kommer uppdateringen avbrytas."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:163
+#: ../DistUpgrade/DistUpgradeControler.py:167
 msgid "Generate default sources?"
 msgstr "Lägg till standardförråd?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:164
+#: ../DistUpgrade/DistUpgradeControler.py:168
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -222,11 +269,11 @@ msgstr ""
 "Ska standardposter för \"%s\" läggas till? Om du väljer \"Nej\" kommer "
 "uppdateringen avbrytas."
 
-#: ../DistUpgrade/DistUpgradeControler.py:198
+#: ../DistUpgrade/DistUpgradeControler.py:202
 msgid "Repository information invalid"
 msgstr "Information om förråd ogiltig"
 
-#: ../DistUpgrade/DistUpgradeControler.py:199
+#: ../DistUpgrade/DistUpgradeControler.py:203
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -234,11 +281,11 @@ msgstr ""
 "Uppdatering av förrådsinformationen orsakade en ogiltig fil. Var vänlig "
 "rapportera detta som en bugg."
 
-#: ../DistUpgrade/DistUpgradeControler.py:205
+#: ../DistUpgrade/DistUpgradeControler.py:209
 msgid "Third party sources disabled"
 msgstr "Tredjepartskällor inaktiverade"
 
-#: ../DistUpgrade/DistUpgradeControler.py:206
+#: ../DistUpgrade/DistUpgradeControler.py:210
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -248,11 +295,11 @@ msgstr ""
 "aktivera dem efter uppgraderingen med verktyget \"software-properties\" "
 "eller med synaptic."
 
-#: ../DistUpgrade/DistUpgradeControler.py:252
+#: ../DistUpgrade/DistUpgradeControler.py:256
 msgid "Error during update"
 msgstr "Fel vid uppdatering"
 
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:257
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -261,11 +308,11 @@ msgstr ""
 "av nätverksproblem, var god kontrollera din nätverksanslutning och försök "
 "igen."
 
-#: ../DistUpgrade/DistUpgradeControler.py:262
+#: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Not enough free disk space"
 msgstr "Inte tillräckligt med ledigt diskutrymme"
 
-#: ../DistUpgrade/DistUpgradeControler.py:263
+#: ../DistUpgrade/DistUpgradeControler.py:267
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -277,15 +324,15 @@ msgstr ""
 "använda 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:320
+#: ../DistUpgrade/DistUpgradeControler.py:326
 msgid "Do you want to start the upgrade?"
 msgstr "Vill du starta uppdateringen?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:337
+#: ../DistUpgrade/DistUpgradeControler.py:343
 msgid "Could not install the upgrades"
 msgstr "Det gick inte att installera uppgraderingarna"
 
-#: ../DistUpgrade/DistUpgradeControler.py:338
+#: ../DistUpgrade/DistUpgradeControler.py:344
 msgid ""
 "The upgrade aborts now. Your system can be in an unusable state. A recovery "
 "was run (dpkg --configure -a)."
@@ -293,11 +340,11 @@ msgstr ""
 "Uppgraderingen avbryts nu. Ditt system kan vara i ett oanvändbart tillstånd. "
 "En återställning kördes (dpkg --configure -a)."
 
-#: ../DistUpgrade/DistUpgradeControler.py:353
+#: ../DistUpgrade/DistUpgradeControler.py:359
 msgid "Could not download the upgrades"
 msgstr "Det gick inte ladda ner uppgraderingarna"
 
-#: ../DistUpgrade/DistUpgradeControler.py:354
+#: ../DistUpgrade/DistUpgradeControler.py:360
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -305,11 +352,11 @@ msgstr ""
 "Uppdateringen avbryts nu. Var god kontrollera din internetanslutning eller "
 "ditt installationsmedia och försök igen. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:389
+#: ../DistUpgrade/DistUpgradeControler.py:395
 msgid "Some software no longer officially supported"
 msgstr "Viss programvara har inte längre officiellt stöd"
 
-#: ../DistUpgrade/DistUpgradeControler.py:391
+#: ../DistUpgrade/DistUpgradeControler.py:397
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -321,23 +368,23 @@ msgstr ""
 "gemenskapsunderhållna ('universe').Om du inte har 'universe' aktiverat "
 "kommer dessa paket föreslås för borttagning i nästa steg. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:416
+#: ../DistUpgrade/DistUpgradeControler.py:422
 msgid "Remove obsolete packages?"
 msgstr "Ta bort föråldrade paket?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Skip This Step"
 msgstr "_Hoppa över det här steget"
 
-#: ../DistUpgrade/DistUpgradeControler.py:417
+#: ../DistUpgrade/DistUpgradeControler.py:423
 msgid "_Remove"
 msgstr "_Ta bort"
 
-#: ../DistUpgrade/DistUpgradeControler.py:427
+#: ../DistUpgrade/DistUpgradeControler.py:433
 msgid "Error during commit"
 msgstr "Fel inträffade vid utförandet"
 
-#: ../DistUpgrade/DistUpgradeControler.py:428
+#: ../DistUpgrade/DistUpgradeControler.py:434
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -346,26 +393,26 @@ msgstr ""
 "information. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:437
+#: ../DistUpgrade/DistUpgradeControler.py:443
 msgid "Restoring original system state"
 msgstr "Återställer systemstatus"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:445
-#: ../DistUpgrade/DistUpgradeControler.py:469
+#: ../DistUpgrade/DistUpgradeControler.py:451
+#: ../DistUpgrade/DistUpgradeControler.py:475
 msgid "Checking package manager"
 msgstr "Kontrollerar pakethanterare"
 
-#: ../DistUpgrade/DistUpgradeControler.py:461
+#: ../DistUpgrade/DistUpgradeControler.py:467
 msgid "Updating repository information"
 msgstr "Uppdaterar förrådsinformation"
 
-#: ../DistUpgrade/DistUpgradeControler.py:480
+#: ../DistUpgrade/DistUpgradeControler.py:486
 msgid "Invalid package information"
 msgstr "Ogiltig paketinformation"
 
-#: ../DistUpgrade/DistUpgradeControler.py:481
+#: ../DistUpgrade/DistUpgradeControler.py:487
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -376,19 +423,19 @@ msgstr ""
 "nödvändiga paketet \"%s\" längre.\n"
 "Det här tyder på ett alvarligt fel, var god och rapportera detto som en bugg."
 
-#: ../DistUpgrade/DistUpgradeControler.py:491
+#: ../DistUpgrade/DistUpgradeControler.py:497
 msgid "Asking for confirmation"
 msgstr "Ber om bekräftelse"
 
-#: ../DistUpgrade/DistUpgradeControler.py:495
+#: ../DistUpgrade/DistUpgradeControler.py:501
 msgid "Upgrading"
 msgstr "Uppgraderar"
 
-#: ../DistUpgrade/DistUpgradeControler.py:502
+#: ../DistUpgrade/DistUpgradeControler.py:508
 msgid "Searching for obsolete software"
 msgstr "Söker efter föråldrad mjukvara"
 
-#: ../DistUpgrade/DistUpgradeControler.py:507
+#: ../DistUpgrade/DistUpgradeControler.py:513
 msgid "System upgrade is complete."
 msgstr "Systemuppdateringen är klar."
 
@@ -462,11 +509,11 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "Kommandot \"diff\" hittades inte"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:337
+#: ../DistUpgrade/DistUpgradeViewGtk.py:338
 msgid "A fatal error occured"
 msgstr "Ett kritiskt fel uppstod"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:338
+#: ../DistUpgrade/DistUpgradeViewGtk.py:339
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade.log "
 "and /var/log/dist-upgrade-apt.log in your report. The upgrade aborts now.\n"
@@ -477,62 +524,64 @@ msgstr ""
 "avbryts nu.\n"
 "Din ursprungliga sources.list sparades i /etc/apt/sources.list.distUpgrade."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:446
+#. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
+#: ../DistUpgrade/DistUpgradeViewGtk.py:449
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
 msgstr[0] "%s paket kommer att tas bort."
 msgstr[1] "%s paket kommer att tas bort."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:452
+#: ../DistUpgrade/DistUpgradeViewGtk.py:454
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
 msgstr[0] "%s nytt paket kommer att installeras."
 msgstr[1] "%s nya paket kommer att installeras."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:458
+#: ../DistUpgrade/DistUpgradeViewGtk.py:460
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
 msgstr[0] "%s paket kommer att uppgraderas."
 msgstr[1] "%s paket kommer att uppgraderas."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:465
+#: ../DistUpgrade/DistUpgradeViewGtk.py:466
 #, python-format
 msgid "You have to download a total of %s."
 msgstr "Du behöver ladda ner totalt %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:469
+#: ../DistUpgrade/DistUpgradeViewGtk.py:470
 msgid ""
 "The upgrade can take several hours and cannot be canceled at any time later."
 msgstr ""
 "Uppdateringen kan ta flera timmar och kan inte avbrytas någon gång senare."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:472
+#: ../DistUpgrade/DistUpgradeViewGtk.py:473
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Stäng alla öppna program och dokument för att undvika dataförlust."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:478
+#: ../DistUpgrade/DistUpgradeViewGtk.py:479
 msgid "Could not find any upgrades"
 msgstr "Kunde inte hitta några uppgraderingar"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:479
+#: ../DistUpgrade/DistUpgradeViewGtk.py:480
 msgid "Your system has already been upgraded."
 msgstr "Ditt system har redan uppgraderats."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:494
+#: ../DistUpgrade/DistUpgradeViewGtk.py:495
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Ta bort %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:496
+#: ../DistUpgrade/DistUpgradeViewGtk.py:497
 #, python-format
 msgid "Install %s"
 msgstr "Installera %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:499
 #, python-format
 msgid "Upgrade %s"
 msgstr "Uppgradera %s"
@@ -552,7 +601,7 @@ msgstr ""
 #. view.setStep(i+1)
 #. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
-#: ../data/SoftwarePropertiesDialogs.glade.h:1
+#: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
 msgstr "    "
 
@@ -740,11 +789,16 @@ msgstr "Hämtar hem fil %li av %li i %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "Hämtar hem fil %li av %li med okänd hastighet"
 
-#: ../UpdateManager/UpdateManager.py:175
+#: ../UpdateManager/UpdateManager.py:185
+#, fuzzy
+msgid "The list of changes is not available"
+msgstr "Listan med ändringar är inte tillgänglig än. Försök igen senare"
+
+#: ../UpdateManager/UpdateManager.py:191
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "Listan med ändringar är inte tillgänglig än. Försök igen senare"
 
-#: ../UpdateManager/UpdateManager.py:180
+#: ../UpdateManager/UpdateManager.py:196
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -753,11 +807,11 @@ msgstr ""
 "internetanslutning."
 
 #. print "WARNING, keeping packages"
-#: ../UpdateManager/UpdateManager.py:211
+#: ../UpdateManager/UpdateManager.py:224
 msgid "Cannot install all available updates"
 msgstr "Det går inte att installera alla tillgängliga uppdateringar"
 
-#: ../UpdateManager/UpdateManager.py:212
+#: ../UpdateManager/UpdateManager.py:225
 msgid ""
 "Some updates require the removal of further software. Use the function "
 "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
@@ -768,62 +822,54 @@ msgstr ""
 "kör \"sudo apt-get dist-upgrade\" i en terminal för att uppdatera ditt "
 "system helt och hållet."
 
-#: ../UpdateManager/UpdateManager.py:222
+#: ../UpdateManager/UpdateManager.py:235
 msgid "The following updates will be skipped:"
 msgstr "Följande uppdateringar kommer att hoppas över"
 
-#: ../UpdateManager/UpdateManager.py:361
+#: ../UpdateManager/UpdateManager.py:408
 #, python-format
 msgid "Version %s: \n"
 msgstr "Version %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:421
+#: ../UpdateManager/UpdateManager.py:468
 msgid "Downloading the list of changes..."
 msgstr "Hämtar lista med ändringar..."
 
-#: ../UpdateManager/UpdateManager.py:444 ../UpdateManager/UpdateManager.py:454
-#: ../UpdateManager/UpdateManager.py:478
+#: ../UpdateManager/UpdateManager.py:491 ../UpdateManager/UpdateManager.py:501
+#: ../UpdateManager/UpdateManager.py:525
 #, python-format
 msgid "Download size: %s"
 msgstr "Nerladdningsstorlek: %s"
 
-#: ../UpdateManager/UpdateManager.py:463
+#: ../UpdateManager/UpdateManager.py:510
 msgid "Your system is up-to-date"
 msgstr "Ditt system är uppdaterat"
 
-#: ../UpdateManager/UpdateManager.py:474
+#: ../UpdateManager/UpdateManager.py:521
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Du kan installera %s uppdatering"
 msgstr[1] "Du kan installera %s uppdateringar"
 
-#: ../UpdateManager/UpdateManager.py:489
-msgid "Hide details"
-msgstr "Dölj detaljer"
-
-#: ../UpdateManager/UpdateManager.py:491 ../data/UpdateManager.glade.h:14
-msgid "Show details"
-msgstr "Visa detaljer"
-
-#: ../UpdateManager/UpdateManager.py:506
+#: ../UpdateManager/UpdateManager.py:555
 msgid "Please wait, this can take some time."
 msgstr "Var god vänta, det här kan ta lite tid"
 
-#: ../UpdateManager/UpdateManager.py:508
+#: ../UpdateManager/UpdateManager.py:557
 msgid "Update is complete"
 msgstr "Uppdateringen är färdig"
 
-#: ../UpdateManager/UpdateManager.py:611
+#: ../UpdateManager/UpdateManager.py:665
 #, python-format
 msgid "New version: %s   (Size: %s)"
 msgstr "Ny version: %s (Storlek: %s)"
 
-#: ../UpdateManager/UpdateManager.py:625
+#: ../UpdateManager/UpdateManager.py:679
 msgid "Your distribution is not supported anymore"
 msgstr "Din distribution stöds inte längre"
 
-#: ../UpdateManager/UpdateManager.py:626
+#: ../UpdateManager/UpdateManager.py:680
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -833,25 +879,17 @@ msgstr ""
 "till en senare version av Ubuntu Linux. Se http://www.ubuntu.com för mer "
 "information om att uppgradera."
 
-#: ../UpdateManager/UpdateManager.py:662
+#: ../UpdateManager/UpdateManager.py:716
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:677
-msgid "Only one software management tool is allowed to run at the same time"
-msgstr "Endast ett programvaruhanteringsverktyg tillåts att köra samtidigt"
-
-#: ../UpdateManager/UpdateManager.py:679
-msgid "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
-msgstr "Stäng det andra programmet först, t.ex. 'aptitude' eller 'Synaptic'"
-
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:696
+#: ../UpdateManager/UpdateManager.py:751
 msgid "Software index is broken"
 msgstr "Indexet för program är trasigt"
 
-#: ../UpdateManager/UpdateManager.py:697
+#: ../UpdateManager/UpdateManager.py:752
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -861,7 +899,7 @@ msgstr ""
 "packethanteraren \"Synaptic\" eller kör \"sudo apt-get install -f\" i en "
 "terminal för att rätta till det här problemet först."
 
-#: ../data/UpdateManager.glade.h:1
+#: ../data/glade/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
@@ -874,7 +912,7 @@ msgstr ""
 "detta beteende i \"System\" -> \"Administration\" -> "
 "\"Programvaruinställningar\""
 
-#: ../data/UpdateManager.glade.h:4
+#: ../data/glade/UpdateManager.glade.h:4
 msgid ""
 "<big><b>Examining your system</b></big>\n"
 "\n"
@@ -886,43 +924,47 @@ msgstr ""
 "Mjukvaruuppdateringar fixar fel, eliminerar säkerhetsproblem och ger dig nya "
 "funktioner."
 
-#: ../data/UpdateManager.glade.h:7
+#: ../data/glade/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
 msgstr "<big><b>Håll ditt system uppdaterat</b></big>"
 
-#: ../data/UpdateManager.glade.h:8
+#: ../data/glade/UpdateManager.glade.h:8
 msgid "Cancel _Download"
 msgstr "Avbryt _nedladdningen"
 
-#: ../data/UpdateManager.glade.h:9
+#: ../data/glade/UpdateManager.glade.h:9
 msgid "Changes"
 msgstr "Ändringar"
 
-#: ../data/UpdateManager.glade.h:10
+#: ../data/glade/UpdateManager.glade.h:10
+msgid "Changes and description of the update"
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:11
 msgid "Chec_k"
 msgstr "_Kontrollera"
 
-#: ../data/UpdateManager.glade.h:11
+#: ../data/glade/UpdateManager.glade.h:12
 msgid "Check the software channels for new updates"
 msgstr "Kontrollera programvarukanalerna efter nya uppdateringar"
 
-#: ../data/UpdateManager.glade.h:12
+#: ../data/glade/UpdateManager.glade.h:13
 msgid "Description"
 msgstr "Beskrivning"
 
-#: ../data/UpdateManager.glade.h:13
+#: ../data/glade/UpdateManager.glade.h:14
 msgid "Release Notes"
 msgstr "Versionsinformation"
 
-#: ../data/UpdateManager.glade.h:15
+#: ../data/glade/UpdateManager.glade.h:15
 msgid "Show progress of single files"
 msgstr "Visa förlopp för enstaka filer"
 
-#: ../data/UpdateManager.glade.h:16
+#: ../data/glade/UpdateManager.glade.h:16
 msgid "Software Updates"
 msgstr "Programvaruuppdateringar"
 
-#: ../data/UpdateManager.glade.h:17
+#: ../data/glade/UpdateManager.glade.h:17
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
@@ -930,63 +972,86 @@ msgstr ""
 "Mjukvaruuppdateringar fixar fel, eliminerar säkerhetsproblem och ger dig nya "
 "funktioner."
 
-#: ../data/UpdateManager.glade.h:18
+#: ../data/glade/UpdateManager.glade.h:18
 msgid "U_pgrade"
 msgstr "_Uppdateringar"
 
-#: ../data/UpdateManager.glade.h:19
+#: ../data/glade/UpdateManager.glade.h:19
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr "Uppdatera till senaste versionen av Ubuntu"
 
-#: ../data/UpdateManager.glade.h:20
+#: ../data/glade/UpdateManager.glade.h:20
 msgid "_Check"
 msgstr "_Kontrollera"
 
-#: ../data/UpdateManager.glade.h:21
+#: ../data/glade/UpdateManager.glade.h:21
 msgid "_Hide this information in the future"
 msgstr "_Dölj denna information i framtiden"
 
-#: ../data/UpdateManager.glade.h:22
+#: ../data/glade/UpdateManager.glade.h:22
 msgid "_Install Updates"
 msgstr "_Installera uppdateringar"
 
-#: ../data/SoftwareProperties.glade.h:1
-msgid "<b>Channels</b>"
-msgstr "<b>Kanaler</b>"
+#: ../data/glade/UpdateManager.glade.h:23
+#, fuzzy
+msgid "changes"
+msgstr "Ändringar"
 
-#: ../data/SoftwareProperties.glade.h:2
+#: ../data/glade/UpdateManager.glade.h:24
+#, fuzzy
+msgid "updates"
+msgstr "Uppdateringar"
+
+#: ../data/glade/SoftwareProperties.glade.h:2
+#, fuzzy
+msgid "<b>Automatic updates</b>"
+msgstr "<b>Internetuppdateringar</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:3
+msgid "<b>CDROM/DVD</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:4
+msgid "<b>Downloadable software</b>"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:5
 msgid "<b>Internet updates</b>"
 msgstr "<b>Internetuppdateringar</b>"
 
-#: ../data/SoftwareProperties.glade.h:3
-msgid "<b>Keys</b>"
-msgstr "<b>Nycklar</b>"
+#: ../data/glade/SoftwareProperties.glade.h:6
+msgid ""
+"<i>To improve the user experience of Ubuntu please take part in the "
+"popularity contest. If you do so the list of installed software and how "
+"often it was used will be collected and sent anonymously to the Ubuntu "
+"project  on a weekly basis.\n"
+"\n"
+"The results are used to improve the support for popular applications and to "
+"rank applications in the search results.</i>"
+msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:4
-msgid "Add _Cdrom"
-msgstr "Lägg till _CD"
-
-#: ../data/SoftwareProperties.glade.h:5
+#: ../data/glade/SoftwareProperties.glade.h:9
 msgid "Authentication"
 msgstr "Autentisering"
 
-#: ../data/SoftwareProperties.glade.h:6
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "D_elete downloaded software files:"
 msgstr "_Ta bort nerladdade programfiler:"
 
-#: ../data/SoftwareProperties.glade.h:7
+#: ../data/glade/SoftwareProperties.glade.h:11
+#, fuzzy
+msgid "Download from:"
+msgstr "Hämtningslogg"
+
+#: ../data/glade/SoftwareProperties.glade.h:12
 msgid "Import the public key from a trusted software provider"
 msgstr "Importera den publika nyckeln från en betrodd mjukvaruutgivare"
 
-#: ../data/SoftwareProperties.glade.h:8
-msgid "Installation Media"
-msgstr "Installationsmedia"
-
-#: ../data/SoftwareProperties.glade.h:9
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Internet Updates"
 msgstr "Internetuppdateringar"
 
-#: ../data/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
@@ -994,39 +1059,56 @@ msgstr ""
 "Bara säkerhetsuppdateringar från de officiella Ubuntuservrarna kommer "
 "installeras automatiskt"
 
-#: ../data/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid "Restore _Defaults"
 msgstr "_Återställ standardalternativ"
 
-#: ../data/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore the default keys of your distribution"
 msgstr "Återställ standardnycklarna för din distribution"
 
-#: ../data/SoftwareProperties.glade.h:13
-msgid "Software Preferences"
-msgstr "Programvaruinställningar"
+#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/software-properties.desktop.in.h:2
+msgid "Software Sources"
+msgstr "Programvarukällor"
 
-#: ../data/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:18
+#, fuzzy
+msgid "Source code"
+msgstr "Källkod"
+
+#: ../data/glade/SoftwareProperties.glade.h:19
+#, fuzzy
+msgid "Statistics"
+msgstr "Status"
+
+#: ../data/glade/SoftwareProperties.glade.h:20
+#, fuzzy
+msgid "Submit statistical information"
+msgstr "Hämta användningsinformation"
+
+#: ../data/glade/SoftwareProperties.glade.h:21
+msgid "Third Party"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "_Check for updates automatically:"
 msgstr "Kolla efter uppdateringar _automatiskt:"
 
-#: ../data/SoftwareProperties.glade.h:15
-msgid "_Download updates in the background, but do not install them"
+#: ../data/glade/SoftwareProperties.glade.h:23
+#, fuzzy
+msgid "_Download updates automatically, but do not install them"
 msgstr "_Hämta uppdateringar i bakgrunden, men installera dem inte"
 
-#: ../data/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:24
 msgid "_Import Key File"
 msgstr ""
 
-#: ../data/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Install security updates without confirmation"
 msgstr "_Installera säkerhetsuppdateringar utan bekräftelse"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:2
-msgid "     "
-msgstr "     "
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:3
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
 msgid ""
 "<b><big>The channel information is out-of-date</big></b>\n"
 "\n"
@@ -1042,40 +1124,33 @@ msgstr ""
 "\n"
 "Du behöver en fungerande internetanslutning för att kunna fortsätta."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:8
-msgid "<b>Channel</b>"
-msgstr "<b>Kanal</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:9
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:6
 msgid "<b>Comment:</b>"
 msgstr "<b>Kommentar:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:10
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:7
 msgid "<b>Components:</b>"
 msgstr "<b>Komponenter:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:11
-msgid "<b>Components</b>"
-msgstr "<b>Komponenter</b>"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:12
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Distribution:</b>"
 msgstr "<b>Distribution:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:13
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Type:</b>"
 msgstr "<b>Typ:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:14
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:10
 msgid "<b>URI:</b>"
 msgstr "<b>URI:</b>"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:15
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
+#, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the channel that you want to add</b></"
+"<big><b>Enter the complete APT line of the source that you want to add</b></"
 "big>\n"
 "\n"
-"The APT line includes the type, location and components of a channel, for "
+"The APT line includes the type, location and components of a source, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>Skriv in hela APT-raden till kanalen du vill lägga till</b></big>\n"
@@ -1083,15 +1158,11 @@ msgstr ""
 "APT-raden innehåller typ, plats och komponenter för en kanal, till exempel "
 "<i>\"deb http://ftp.debian.org sarge main\"</i>."
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:18
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
 msgid "APT line:"
 msgstr "APT-rad:"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:19
-msgid "Add Channel"
-msgstr "Lägg till kanal"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:20
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:15
 msgid ""
 "Binary\n"
 "Source"
@@ -1099,24 +1170,21 @@ msgstr ""
 "Binär\n"
 "Källkod"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:22
-msgid "Edit Channel"
-msgstr "Redigera kanal"
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
+#, fuzzy
+msgid "Edit Source"
+msgstr "Redigera tjänster"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:23
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
 msgid "Scanning CD-ROM"
 msgstr "Söker igenom CD-skivan"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:24
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
 #, fuzzy
-msgid "_Add Channel"
-msgstr "_Lägg till kanal"
+msgid "_Add Source"
+msgstr "Lägg till tjänst"
 
-#: ../data/SoftwarePropertiesDialogs.glade.h:25
-msgid "_Custom"
-msgstr "An_passad"
-
-#: ../data/SoftwarePropertiesDialogs.glade.h:26
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
 msgid "_Reload"
 msgstr "_Läs om"
 
@@ -1175,120 +1243,316 @@ msgid "The window size"
 msgstr "Fönsterstorleken"
 
 #: ../data/software-properties.desktop.in.h:1
-msgid "Configure software channels and internet updates"
+#, fuzzy
+msgid "Configure the sources for installable software and updates"
 msgstr "Konfigurera programkanaler och internetuppdateringar"
 
-#: ../data/software-properties.desktop.in.h:2
-msgid "Software Properties"
-msgstr "Programvaruegenskaper"
-
 #. ChangelogURI
-#: ../channels/Ubuntu.info.in.h:4
+#: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Ubuntu.info.in:6
+#: ../data/channels/Ubuntu.info.in:7
 #, fuzzy
-msgid "Ubuntu 6.06 LTS"
-msgstr "Ubuntu 6.06 Uppdateringar"
+msgid "Ubuntu 6.10 'Edgy Eft'"
+msgstr "Ubuntu 5.10 Uppdateringar"
 
 #. Description
-#: ../channels/Ubuntu.info.in:23
-msgid "Ubuntu 6.06 LTS Security Updates"
-msgstr "Ubuntu 6.06 LTS Säkerhetsuppdateringar"
+#: ../data/channels/Ubuntu.info.in:28
+msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
+msgstr ""
 
 #. Description
-#: ../channels/Ubuntu.info.in:40
-msgid "Ubuntu 6.06 LTS Updates"
-msgstr "Ubuntu 6.06 LTS Uppdateringar"
+#: ../data/channels/Ubuntu.info.in:62
+#, fuzzy
+msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Ubuntu 6.06 \"Dapper Drake\""
 
-#. Description
-#: ../channels/Ubuntu.info.in:57
-msgid "Ubuntu 6.06 LTS Backports"
-msgstr "Ubuntu 6.06 LTS Bakåtportar"
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:66
+msgid ""
+"OpenSource software that is officially supported by Canonical Ltd. (main)"
+msgstr ""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:60 ../channels/Debian.info.in:51
+#: ../data/channels/Ubuntu.info.in:69
+#, fuzzy
+msgid "Community maintained (universe)"
+msgstr "Gemenskapsunderhållen (Universe)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:70
+msgid "OpenSource software that is maintained by the community (universe)"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:73
+#, fuzzy
+msgid "Non-free drivers"
+msgstr "Ickefri (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:74
+msgid "Proprietary drivers for devices (restricted) "
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:77
+#, fuzzy
+msgid "Restricted software (Multiverse)"
+msgstr "Ickefri (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:78
+msgid "Software that is restricted by copyright or legal issues (multiverse)"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:83
+#, fuzzy
+msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Ubuntu 6.06 \"Dapper Drake\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:97
+#, fuzzy
+msgid "Important security updates"
+msgstr "Ubuntu 5.10 Säkerhetsuppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:104
+#, fuzzy
+msgid "Recommended updates"
+msgstr "%d uppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:111
+#, fuzzy
+msgid "Backported updates"
+msgstr "%d uppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:117
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu 5.10 \"Breezy Badger\""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:120 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Stöds officiellt"
 
-#. CompDescription
-#: ../channels/Ubuntu.info.in:63
-msgid "Restricted copyright"
-msgstr "Begränsad upphovsrätt"
+#. Description
+#: ../data/channels/Ubuntu.info.in:134
+#, fuzzy
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:148
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.10 Säkerhetsuppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:155
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.10 Uppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:162
+msgid "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.10 Bakåtportar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:168
+#, fuzzy
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:185
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:199
+#, fuzzy
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Ubuntu 5.10 Säkerhetsuppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:206
+#, fuzzy
+msgid "Ubuntu 5.04 Updates"
+msgstr "Ubuntu 5.10 Uppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:213
+#, fuzzy
+msgid "Ubuntu 5.04 Backports"
+msgstr "Ubuntu 5.10 Bakåtportar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:219
+#, fuzzy
+msgid "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 5.10 \"Breezy Badger\""
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:66
+#: ../data/channels/Ubuntu.info.in:228
 msgid "Community maintained (Universe)"
 msgstr "Gemenskapsunderhållen (Universe)"
 
 #. CompDescription
-#: ../channels/Ubuntu.info.in:69
+#: ../data/channels/Ubuntu.info.in:231
 msgid "Non-free (Multiverse)"
 msgstr "Ickefri (Multiverse)"
 
+#. Description
+#: ../data/channels/Ubuntu.info.in:236
+msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:240
+msgid "Oficially supported"
+msgstr "Stöds officiellt"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:243
+msgid "Restricted copyright"
+msgstr "Begränsad upphovsrätt"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:250
+#, fuzzy
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "Ubuntu 5.10 Säkerhetsuppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:257
+#, fuzzy
+msgid "Ubuntu 4.10 Updates"
+msgstr "Ubuntu 5.10 Uppdateringar"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:264
+#, fuzzy
+msgid "Ubuntu 4.10 Backports"
+msgstr "Ubuntu 5.10 Bakåtportar"
+
 #. ChangelogURI
-#: ../channels/Debian.info.in.h:4
+#: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../channels/Debian.info.in:6
+#: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
 #. BaseURI
-#: ../channels/Debian.info.in:19
+#: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
 #. Description
-#: ../channels/Debian.info.in:20
+#: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" Säkerhetsuppdateringar"
 
 #. Description
-#: ../channels/Debian.info.in:34
+#: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
 #. BaseURI
-#: ../channels/Debian.info.in:47
+#: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://ftp.se.debian.org/debian/"
 
 #. Description
-#: ../channels/Debian.info.in:48
+#: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (unstable)"
 
 #. CompDescription
-#: ../channels/Debian.info.in:54
+#: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatibel programvara med icke-fria beroenden"
 
 #. CompDescription
-#: ../channels/Debian.info.in:57
+#: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Inte DFSG-kompatibel programvara"
 
-#~ msgid "Ubuntu 6.06 'Dapper Drake'"
-#~ msgstr "Ubuntu 6.06 \"Dapper Drake\""
+#~ msgid "Hide details"
+#~ msgstr "Dölj detaljer"
 
-#~ msgid "Ubuntu 5.10 'Breezy Badger'"
-#~ msgstr "Ubuntu 5.10 \"Breezy Badger\""
+#~ msgid "Show details"
+#~ msgstr "Visa detaljer"
 
-#~ msgid "Ubuntu 5.10 Security Updates"
-#~ msgstr "Ubuntu 5.10 Säkerhetsuppdateringar"
+#~ msgid "Only one software management tool is allowed to run at the same time"
+#~ msgstr "Endast ett programvaruhanteringsverktyg tillåts att köra samtidigt"
 
-#~ msgid "Ubuntu 5.10 Updates"
-#~ msgstr "Ubuntu 5.10 Uppdateringar"
+#~ msgid ""
+#~ "Please close the other application e.g. 'aptitude' or 'Synaptic' first."
+#~ msgstr "Stäng det andra programmet först, t.ex. 'aptitude' eller 'Synaptic'"
 
-#~ msgid "Ubuntu 5.10 Backports"
-#~ msgstr "Ubuntu 5.10 Bakåtportar"
+#~ msgid "<b>Channels</b>"
+#~ msgstr "<b>Kanaler</b>"
+
+#~ msgid "<b>Keys</b>"
+#~ msgstr "<b>Nycklar</b>"
+
+#~ msgid "Add _Cdrom"
+#~ msgstr "Lägg till _CD"
+
+#~ msgid "Installation Media"
+#~ msgstr "Installationsmedia"
+
+#~ msgid "Software Preferences"
+#~ msgstr "Programvaruinställningar"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#~ msgid "<b>Channel</b>"
+#~ msgstr "<b>Kanal</b>"
+
+#~ msgid "<b>Components</b>"
+#~ msgstr "<b>Komponenter</b>"
+
+#~ msgid "Add Channel"
+#~ msgstr "Lägg till kanal"
+
+#~ msgid "Edit Channel"
+#~ msgstr "Redigera kanal"
+
+#, fuzzy
+#~ msgid "_Add Channel"
+#~ msgstr "_Lägg till kanal"
+
+#~ msgid "_Custom"
+#~ msgstr "An_passad"
+
+#~ msgid "Software Properties"
+#~ msgstr "Programvaruegenskaper"
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 LTS"
+#~ msgstr "Ubuntu 6.06 Uppdateringar"
+
+#~ msgid "Ubuntu 6.06 LTS Security Updates"
+#~ msgstr "Ubuntu 6.06 LTS Säkerhetsuppdateringar"
+
+#~ msgid "Ubuntu 6.06 LTS Updates"
+#~ msgstr "Ubuntu 6.06 LTS Uppdateringar"
+
+#~ msgid "Ubuntu 6.06 LTS Backports"
+#~ msgstr "Ubuntu 6.06 LTS Bakåtportar"
 
 #~ msgid ""
 #~ "The upgrade aborts now. Please free at least %s of disk space. Empty your "
@@ -1385,9 +1649,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ "APT-raden innehåller typ, plats och avdelningar för kanalen, till exempel "
 #~ "<i>\"deb http://ftp.debian.org sarge main\"</i>."
 
-#~ msgid "Oficially supported"
-#~ msgstr "Stöds officiellt"
-
 #~ msgid "Installing updates"
 #~ msgstr "Installerar uppdateringar"
 
@@ -1400,10 +1661,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #, fuzzy
 #~ msgid "Reload the latest information about updates"
 #~ msgstr "Läs om paketinformationen från servern."
-
-#, fuzzy
-#~ msgid "Add Software Channels"
-#~ msgstr "Programvaruuppdateringar"
 
 #, fuzzy
 #~ msgid "Could not add any software channels"
@@ -1555,9 +1812,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ msgid "Binary"
 #~ msgstr "Binär"
 
-#~ msgid "Source"
-#~ msgstr "Källkod"
-
 #~ msgid "CD"
 #~ msgstr "CD"
 
@@ -1569,9 +1823,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "US export restricted software"
 #~ msgstr "Programvara med USA-exportbegränsningar"
-
-#~ msgid "Software Sources"
-#~ msgstr "Programvarukällor"
 
 #~ msgid "Sources"
 #~ msgstr "Källor"
@@ -1684,9 +1935,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "Activation Code:"
 #~ msgstr "Aktiveringskod:"
-
-#~ msgid "Activate"
-#~ msgstr "Aktivera"
 
 #~ msgid "Please fill in both email and activation code."
 #~ msgstr "Fyll i både e-postadress och aktiveringskod."
@@ -2117,9 +2365,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ msgid "Print client version and exit"
 #~ msgstr "Skriv ut klientversionsnummer och avsluta"
 
-#~ msgid "Get usage information"
-#~ msgstr "Hämta användningsinformation"
-
 #~ msgid "Usage: %s <options> ..."
 #~ msgstr "Användning: %s <flaggor> ..."
 
@@ -2194,9 +2439,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "Info"
 #~ msgstr "Info"
-
-#~ msgid "Status"
-#~ msgstr "Status"
 
 #~ msgid "Patches"
 #~ msgstr "Programfixar"
@@ -2312,9 +2554,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ msgid "All Packages"
 #~ msgstr "Alla paket"
 
-#~ msgid "Updates"
-#~ msgstr "Uppdateringar"
-
 #~ msgid "Uninstalled Packages"
 #~ msgstr "Avinstallerade paket"
 
@@ -2399,9 +2638,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ msgid "Choose file to write XML to"
 #~ msgstr "Välj fil att skriva XML till"
 
-#~ msgid "Edit Services"
-#~ msgstr "Redigera tjänster"
-
 #~ msgid "URL"
 #~ msgstr "URL"
 
@@ -2410,9 +2646,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "_Add service"
 #~ msgstr "_Lägg till tjänst"
-
-#~ msgid "Add Service"
-#~ msgstr "Lägg till tjänst"
 
 #~ msgid "Service URL"
 #~ msgstr "Tjänst-URL"
@@ -2556,9 +2789,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "Unable to mount '%s' as a channel"
 #~ msgstr "Kan inte montera \"%s\" som en kanal"
-
-#~ msgid "Server"
-#~ msgstr "Server"
 
 #~ msgid "Server URL:"
 #~ msgstr "Server-URL:"
@@ -3086,9 +3316,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 #~ msgid "1 update"
 #~ msgstr "1 uppdatering"
 
-#~ msgid "%d updates"
-#~ msgstr "%d uppdateringar"
-
 #~ msgid ""
 #~ "The following packages from this channel are currently installed on your "
 #~ "system."
@@ -3280,9 +3507,6 @@ msgstr "Inte DFSG-kompatibel programvara"
 
 #~ msgid "Unable to create directory %s for local package storage"
 #~ msgstr "Kan inte skapa katalogen %s för lokal paketlagring"
-
-#~ msgid "Download Log"
-#~ msgstr "Hämtningslogg"
 
 #~ msgid "Verification Log"
 #~ msgstr "Verifieringslogg"
