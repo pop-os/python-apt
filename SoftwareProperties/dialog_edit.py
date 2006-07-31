@@ -27,7 +27,7 @@ import gobject
 import gtk
 import gtk.glade
 
-import aptsources
+import UpdateManager.Common.aptsources as aptsources
 
 class dialog_edit:
   def __init__(self, parent, sourceslist, source_entry, datadir):

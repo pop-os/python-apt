@@ -29,7 +29,7 @@ import gtk
 import gtk.glade
 from gettext import gettext as _
 
-import aptsources
+import UpdateManager.Common.aptsources as aptsources
 
 class dialog_add:
   def __init__(self, parent, sourceslist, datadir):
