@@ -34,7 +34,7 @@ import sys
 
 from optparse import OptionParser
 
-import SoftwareProperties.aptsources as aptsources
+import UpdateManager.Common.aptsources as aptsources
 
 #sys.path.append("@prefix@/share/update-manager/python")
 

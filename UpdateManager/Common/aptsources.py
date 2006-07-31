@@ -205,9 +205,10 @@ class SourceEntry:
     
 # the SourceList file as a class
 class SourcesList:
-  def __init__(self):
+  def __init__(self, withMatcher=True):
     self.list = []      # of Type SourceEntries
-    self.matcher = SourceEntryMatcher()
+    if withMatcher:
+      self.matcher = SourceEntryMatcher()
     self.refresh()
 
   def refresh(self):

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DIST=dapper
+DIST=edgy
 
 # cleanup
 rm -f *~ *.bak *.pyc *.moved '#'*

@@ -38,7 +38,7 @@ import re
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from UpdateManager.Common.HelpViewer import HelpViewer
-import aptsources
+import UpdateManager.Common.aptsources as aptsources
 import dialog_add
 import dialog_edit
 import dialog_cache_outdated
