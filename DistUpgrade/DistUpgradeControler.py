@@ -143,7 +143,7 @@ class DistUpgradeControler(object):
 
     def updateSourcesList(self):
         logging.debug("updateSourcesList()")
-        self.sources = SourcesList()
+        self.sources = SourcesList(withMatcher=False)
         if not self.rewriteSourcesList(mirror_check=True):
             logging.error("No valid mirror found")
             res = self._view.askYesNoQuestion(_("No valid mirror found"),

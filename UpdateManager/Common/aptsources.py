@@ -204,11 +204,17 @@ class SourceEntry:
     return line
     
 # the SourceList file as a class
+class NullMatcher(object):
+  def match(self, s):
+    return True
+
 class SourcesList:
   def __init__(self, withMatcher=True):
     self.list = []      # of Type SourceEntries
     if withMatcher:
       self.matcher = SourceEntryMatcher()
+    else:
+      self.matcher = NullMatcher()
     self.refresh()
 
   def refresh(self):
