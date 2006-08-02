@@ -1,1 +1,1 @@
-../SoftwareProperties/aptsources.py
+../UpdateManager/Common/aptsources.py

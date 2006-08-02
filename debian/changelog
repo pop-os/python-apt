@@ -1,3 +1,29 @@
+update-manager (0.44.1) edgy; urgency=low
+
+  * make UpdateManager check for new distribution releases by
+    default again
+  * fix dist-upgrade fetching when run as non-root. 
+  * sort the package list by the origin (UpdateManagerEdgy spec)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 Aug 2006 13:00:42 +0200
+
+update-manager (0.44) edgy; urgency=low
+
+  * new SoftwareProperties GUI (thanks to Sebastian Heinlein)
+  * support easy Popcon pariticipation
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 28 Jul 2006 01:06:16 +0200
+
+update-manager (0.43) edgy; urgency=low
+
+  * fixes in the changelog reading code
+  * speedup in the cache clear code
+  * runs as user by default now
+  * uses dbus to implement singleton behaviour
+  * updated the software-properties code to know about edgy
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  4 Jul 2006 11:16:31 +0200
+
 update-manager (0.42.2ubuntu22) dapper; urgency=low
 
   * UpdateManager/UpdateManager.py:
