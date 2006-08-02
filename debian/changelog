@@ -2,10 +2,10 @@ update-manager (0.44.1) edgy; urgency=low
 
   * make UpdateManager check for new distribution releases by
     default again
-  * fix dist-upgrade fetching when run as root. 
+  * fix dist-upgrade fetching when run as non-root. 
   * sort the package list by the origin (UpdateManagerEdgy spec)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 Aug 2006 13:00:42 +0200
 
 update-manager (0.44) edgy; urgency=low
 
