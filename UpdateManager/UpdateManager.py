@@ -200,19 +200,31 @@ class MyCache(apt.Cache):
             lock.release()
 
 class UpdateList:
-  ORIGIN_MAPPING = { ("edgy-security","Ubuntu"): _("Important security "
-                                                   "updates of Ubuntu"),
-                     ("edgy-updates","Ubuntu"): _("Recommended updates "
-                                                  "of Ubuntu"),
-                     ("edgy-backports","Ubuntu"): _("Backports of Ubuntu"),
-                     ("edgy","Ubuntu"): _("Updates of Ubuntu")
-                   }
+  class UpdateOrigin:
+    def __init__(self, desc, importance):
+      self.packages = []
+      self.importance = importance
+      self.description = desc
 
   def __init__(self, parent_window):
     # a map of packages under their origin
+    pipe = os.popen("lsb_release -c -s")
+    dist = pipe.read().strip()
+    del pipe
+
+    templates = [("%s-security" % dist,"Ubuntu", _("Important security updates "
+                                              "of Ubuntu"), 0),
+                 ("%s-updates" % dist,"Ubuntu", _("Recommended updates of "
+                                                  "Ubuntu"), 1),
+                 ("%s-backports" % dist,"Ubuntu", _("Backports of Ubuntu"), 2),
+                 (dist,"Ubuntu", _("Updates of Ubuntu"), 3)]
+
     self.pkgs = {}
+    self.matcher = {}
     self.num_updates = 0
     self.parent_window = parent_window
+    for (origin, archive, desc, importance) in templates:
+        self.matcher[(origin, archive)] = self.UpdateOrigin(desc, importance)
 
   def update(self, cache):
     held_back = []
@@ -229,11 +241,11 @@ class UpdateList:
     for aorigin in pkg.candidateOrigin:
       archive = aorigin.archive
       origin = aorigin.origin
-      if self.ORIGIN_MAPPING.has_key((archive,origin)) and aorigin.trusted:
-        originstr = self.ORIGIN_MAPPING[(archive,origin)]
-        if not self.pkgs.has_key(originstr):
-          self.pkgs[originstr] = []
-        self.pkgs[originstr].append(pkg)
+      if self.matcher.has_key((archive,origin)) and aorigin.trusted:
+        origin_node = self.matcher[(archive,origin)]
+        if not self.pkgs.has_key(origin_node):
+          self.pkgs[origin_node] = []
+        self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
       elif pkg.isUpgradable:
           held_back.append(pkg.name)
@@ -700,8 +712,11 @@ class UpdateManager(SimpleGladeApp):
     self.list.update(self.cache)
     if self.list.num_updates > 0:
       i=0
-      for origin in self.list.pkgs.keys():
-        self.store.append([False,'<b><big>%s</big></b>' % origin, origin, None])
+      origin_list = self.list.pkgs.keys()
+      origin_list.sort(lambda x,y: cmp(x.importance,y.importance))
+      for origin in origin_list:
+        self.store.append([False,'<b><big>%s</big></b>' % origin.description,
+                           origin.description, None])
         for pkg in self.list.pkgs[origin]:
           name = xml.sax.saxutils.escape(pkg.name)
           summary = xml.sax.saxutils.escape(pkg.summary)
