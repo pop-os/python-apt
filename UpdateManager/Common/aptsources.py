@@ -204,10 +204,17 @@ class SourceEntry:
     return line
     
 # the SourceList file as a class
+class NullMatcher(object):
+  def match(self, s):
+    return True
+
 class SourcesList:
-  def __init__(self):
+  def __init__(self, withMatcher=True):
     self.list = []      # of Type SourceEntries
-    self.matcher = SourceEntryMatcher()
+    if withMatcher:
+      self.matcher = SourceEntryMatcher()
+    else:
+      self.matcher = NullMatcher()
     self.refresh()
 
   def refresh(self):
@@ -563,7 +570,10 @@ class Distribution:
         country_code = locale[a+1:z].lower()
         self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
                               country_code
-        self.country = self.countries[country_code]
+        if self.countries.has_key(country_code):
+            self.country = self.countries[country_code]
+        else:
+            self.country = None
 
     # other used servers
     for medium in self.used_media:

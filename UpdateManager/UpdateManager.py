@@ -69,8 +69,7 @@ from MetaRelease import Dist, MetaRelease
 # - kill "all_changes" and move the changes into the "Update" class
 
 # list constants
-(LIST_INSTALL, LIST_CONTENTS, LIST_NAME, LIST_SHORTDESC,
- LIST_VERSION, LIST_LONG_DESCR, LIST_PKG) = range(7)
+(LIST_INSTALL, LIST_CONTENTS, LIST_NAME, LIST_PKG) = range(4)
 
 # actions for "invoke_manager"
 (INSTALL, UPDATE) = range(2)
@@ -201,23 +200,44 @@ class MyCache(apt.Cache):
             lock.release()
 
 class UpdateList:
+  ORIGIN_MAPPING = { ("edgy-security","Ubuntu"): _("Ubuntu security updates"),
+		     ("edgy-updates","Ubuntu"): _("Ubuntu important updates"),
+		     ("edgy-backports","Ubuntu"): _("Ubuntu backports"),
+		     ("edgy","Ubuntu"): _("Ubuntu updates")
+		   }
+	
   def __init__(self, parent_window):
-    self.pkgs = []
+    # a map of packages under their origin
+    self.pkgs = {}
     self.num_updates = 0
     self.parent_window = parent_window
 
   def update(self, cache):
     held_back = []
     broken = []
+
+    # do the upgrade
     cache.saveDistUpgrade()
+
+    # sort by origin
     for pkg in cache:
       if pkg.markedUpgrade or pkg.markedInstall:
-        self.pkgs.append(pkg)
+        originstr = _("Unknown")
+	for aorigin in pkg.candidateOrigin:
+	  archive = aorigin.archive
+	  origin = aorigin.origin
+	  if self.ORIGIN_MAPPING.has_key((archive,origin)) and aorigin.trusted:
+	    originstr = self.ORIGIN_MAPPING[(archive,origin)]
+        if not self.pkgs.has_key(originstr):
+	  self.pkgs[originstr] = []
+        self.pkgs[originstr].append(pkg)
         self.num_updates = self.num_updates + 1
       elif pkg.isUpgradable:
-        #print "MarkedKeep: %s " % pkg.name
           held_back.append(pkg.name)
-    self.pkgs.sort(lambda x,y: cmp(x.name,y.name))
+    for l in self.pkgs.keys():
+      self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
+
+    # check if we have held-back something
     if cache._depcache.KeepCount > 0:
       #print "WARNING, keeping packages"
       msg = ("<big><b>%s</b></big>\n\n%s" % \
@@ -295,8 +315,7 @@ class UpdateManager(SimpleGladeApp):
     self.button_close.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
-    self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, str, str, str,
-                               gobject.TYPE_PYOBJECT)
+    self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, gobject.TYPE_PYOBJECT)
     self.treeview_update.set_model(self.store)
     self.treeview_update.set_headers_clickable(True);
 
@@ -307,20 +326,23 @@ class UpdateManager(SimpleGladeApp):
     cr.set_property("activatable", True)
     cr.set_property("xpad", 10)
     cr.connect("toggled", self.toggled)
-    self.cb = gtk.TreeViewColumn("Install", cr, active=LIST_INSTALL)
-    c0 = gtk.TreeViewColumn("Name", tr, markup=LIST_CONTENTS)
-    c0.set_resizable(True)
+
+    column_install = gtk.TreeViewColumn("Install", cr)
+    column_install.set_cell_data_func (cr, self.install_column_view_func)
+    column = gtk.TreeViewColumn("Name", tr, markup=LIST_CONTENTS)
+    column.set_cell_data_func (tr, self.package_column_view_func)
+    column.set_resizable(True)
     major,minor,patch = gtk.pygtk_version
     if (major >= 2) and (minor >= 5):
-      self.cb.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-      self.cb.set_fixed_width(30)
-      c0.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-      c0.set_fixed_width(100)
+      column_install.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+      column_install.set_fixed_width(30)
+      column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+      column.set_fixed_width(100)
       #self.treeview_update.set_fixed_height_mode(True)
 
-    self.treeview_update.append_column(self.cb)
-    self.cb.set_visible(True)
-    self.treeview_update.append_column(c0)
+    self.treeview_update.append_column(column_install)
+    column_install.set_visible(True)
+    self.treeview_update.append_column(column)
     self.treeview_update.set_search_column(LIST_NAME)	
 
 
@@ -356,6 +378,24 @@ class UpdateManager(SimpleGladeApp):
     self.restore_state()
     self.window_main.show()
 
+  def header_column_func(self, cell_layot, renderer, model, iter):
+    pkg = model.get_value(iter, LIST_PKG)
+    if pkg == None:
+      renderer.set_property("cell-background","yellow")
+    else:
+      renderer.set_property("cell-background", None)
+      
+  def install_column_view_func(self, cell_layout, renderer, model, iter):
+    self.header_column_func(cell_layout, renderer, model, iter)
+    pkg = model.get_value(iter, LIST_PKG)
+    to_install = model.get_value(iter, LIST_INSTALL)
+    renderer.set_property("active", to_install)
+    # hide it if we are only a header line
+    renderer.set_property("visible", pkg != None)
+      
+  def package_column_view_func(self, cell_layout, renderer, model, iter):
+    self.header_column_func(cell_layout, renderer, model, iter)
+      
   def setupDbus(self):
     """ this sets up a dbus listener if none is installed alread """
     # check if there is another g-a-i already and if not setup one
@@ -397,24 +437,17 @@ class UpdateManager(SimpleGladeApp):
       return
     
     for line in lines:
-    
       end_iter = changes_buffer.get_end_iter()
-      
-      version_match = re.match(r'^%s \((.*)\)(.*)$' % re.escape(srcpkg), line)
+      version_match = re.match(r'^%s \((.*)\)(.*)\;.*$' % re.escape(srcpkg), line)
       #bullet_match = re.match("^.*[\*-]", line)
       author_match = re.match("^.*--.*<.*@.*>.*$", line)
       if version_match:
         version = version_match.group(1)
+	upload_archive = version_match.group(2).strip()
         version_text = _("Version %s: \n") % version
         changes_buffer.insert_with_tags_by_name(end_iter, version_text, "versiontag")
-      # mvo: disabled for now as it does not catch multi line entries
-      #      (see ubuntu #7034 for rational)
-      #elif bullet_match and not author_match:
-      #  bullet_text = "    " + line + "\n"
-      #  changes_buffer.insert(end_iter, bullet_text)
       elif (author_match):
         pass
-        #chanages_buffer.insert(end_iter, "\n")
       else:
         changes_buffer.insert(end_iter, line+"\n")
         
@@ -429,7 +462,10 @@ class UpdateManager(SimpleGladeApp):
     iter = model.get_iter(path)
 
     # set descr
-    long_desc = model.get_value(iter, LIST_LONG_DESCR)
+    pkg = model.get_value(iter, LIST_PKG)
+    if pkg == None:
+      return
+    long_desc = pkg.description
     if long_desc == None:
       return
     # Skip the first line - it's a duplicate of the summary
@@ -526,7 +562,7 @@ class UpdateManager(SimpleGladeApp):
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
-          self.treeview_update.set_cursor(0)
+          self.treeview_update.set_cursor(1)
       self.label_header.set_markup(text_header)
       self.label_downsize.set_markup(text_download)
 
@@ -657,17 +693,16 @@ class UpdateManager(SimpleGladeApp):
     self.list.update(self.cache)
     if self.list.num_updates > 0:
       i=0
-      for pkg in self.list.pkgs:
-
-        name = xml.sax.saxutils.escape(pkg.name)
-        summary = xml.sax.saxutils.escape(pkg.summary)
-        contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
-        contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
-
-        iter = self.store.append([True, contents, pkg.name, pkg.summary,
-                                  pkg.candidateVersion, pkg.description, pkg])
-        self.add_update(pkg)
-        i = i + 1
+      for origin in self.list.pkgs.keys():
+        self.store.append([False, '<span weight="bold" size="large">%s</span>' % origin, origin, None])
+        for pkg in self.list.pkgs[origin]:
+	  name = xml.sax.saxutils.escape(pkg.name)
+	  summary = xml.sax.saxutils.escape(pkg.summary)
+	  contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
+	  contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
+	  iter = self.store.append([True, contents, pkg.name, pkg])
+	  self.add_update(pkg)
+	  i = i + 1
 
     self.update_count()
     # use the normal cursor
@@ -695,23 +730,6 @@ class UpdateManager(SimpleGladeApp):
       fetcher.run()
       
   def new_dist_available(self, meta_release, upgradable_to):
-    #print "new_dist_available: %s" % upgradable_to.name
-    # check if the user already knowns about this dist
-    #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
-    #if name == seen:
-    #  return
-    
-    #msg = "<big><b>%s</b></big>\n\n%s" % (_("There is a new release of Ubuntu available!"), _("A new release with the codename '%s' is available. Please see http://www.ubuntulinux.org/ for upgrade instructions.") % name)
-    #dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_INFO,
-    #                           gtk.BUTTONS_CLOSE, "")
-    #dialog.set_markup(msg)
-    #check = gtk.CheckButton(_("Never show this message again"))
-    #check.show()
-    #dialog.vbox.pack_start(check)
-    #dialog.run()
-    #if check.get_active():
-    #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
-    #dialog.destroy()
     self.frame_new_release.show()
     self.label_new_release.set_markup(_("<b>New distribution release '%s' is available</b>") % upgradable_to.version)
     self.new_dist = upgradable_to

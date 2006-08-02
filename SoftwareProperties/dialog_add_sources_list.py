@@ -5,11 +5,13 @@ import gtk.glade
 import gobject
 import os
 from optparse import OptionParser
-from aptsources import SourcesList, SourceEntryMatcher
 from gettext import gettext as _
 import gettext
 import urllib
 from utils import *
+
+from UpdateManager.Common.aptsources import SourcesList, SourceEntryMatcher
+
 
 class AddSourcesList:
     def __init__(self, parent, sourceslist, source_renderer,

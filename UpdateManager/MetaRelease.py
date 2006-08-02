@@ -60,8 +60,15 @@ class MetaRelease(gobject.GObject):
 
     def __init__(self, useDevelopmentRelase=False):
         gobject.GObject.__init__(self)
+        # check what uri to use
         if useDevelopmentRelase:
             self.METARELEASE_URI = self.METARELEASE_URI_UNSTABLE
+        # check if we can access the METARELEASE_FILE
+        if not os.access(self.METARELEASE_FILE, os.F_OK|os.W_OK|os.R_OK):
+            path = os.path.expanduser("~/.update-manager/")
+            if not os.path.exists(path):
+                os.mkdir(path)
+            self.METARELEASE_FILE = os.path.join(path,"meta-release")
         self.metarelease_information = None
         self.downloading = True
         # we start the download thread here and we have a timeout
@@ -168,6 +175,3 @@ class MetaRelease(gobject.GObject):
             if os.path.exists(self.METARELEASE_FILE):
                 f=open(self.METARELEASE_FILE,"r")
 
-# register in the gobject system, needed for older versions of pygtk,
-# never ones do this automatically
-gobject.type_register(MetaRelease)

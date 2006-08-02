@@ -52,7 +52,7 @@
       <applyto>/apps/update-manager/check_dist_upgrades</applyto>
       <owner>update-manager</owner>
       <type>bool</type>
-      <default>False</default>
+      <default>True</default>
 		
       <locale name="C">
         <short>Check for new distribution releases</short>
