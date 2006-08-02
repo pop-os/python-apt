@@ -105,15 +105,13 @@ class DistUpgradeFetcher(object):
         return True
 
     def gpgauthenticate(self, file, signature,
-                        keyring='/etc/apt/trusted.gpg',
-                        trustdb='/etc/apt/trustdb.gpg'):
+                        keyring='/etc/apt/trusted.gpg'):
         """ authenticated a file against a given signature, if no keyring
             is given use the apt default keyring
         """
         gpg = GnuPGInterface.GnuPG()
         gpg.options.extra_args = ['--no-options',
                                   '--no-default-keyring',
-                                  '--trustdb-name',trustdb,
                                   '--keyring', keyring]
         proc = gpg.run(['--verify', signature, file],
                        create_fhs=['status','logger','stderr'])

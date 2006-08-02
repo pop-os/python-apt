@@ -1,3 +1,11 @@
+update-manager (0.44.1) edgy; urgency=low
+
+  * make UpdateManager check for new distribution releases by
+    default again
+  * fix dist-upgrade fetching when run as root. 
+
+ --
+
 update-manager (0.44) edgy; urgency=low
 
   * new SoftwareProperties GUI (thanks to Sebastian Heinlein)
