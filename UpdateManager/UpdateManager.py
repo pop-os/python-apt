@@ -65,6 +65,8 @@ import GtkProgress
 
 from MetaRelease import Dist, MetaRelease
 
+#import pdb
+
 # FIXME:
 # - kill "all_changes" and move the changes into the "Update" class
 
@@ -212,12 +214,12 @@ class UpdateList:
     dist = pipe.read().strip()
     del pipe
 
-    templates = [("%s-security" % dist,"Ubuntu", _("Important security updates "
-                                              "of Ubuntu"), 0),
-                 ("%s-updates" % dist,"Ubuntu", _("Recommended updates of "
-                                                  "Ubuntu"), 1),
-                 ("%s-backports" % dist,"Ubuntu", _("Backports of Ubuntu"), 2),
-                 (dist,"Ubuntu", _("Updates of Ubuntu"), 3)]
+    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates"
+                                                    " of Ubuntu"), 10),
+                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
+                                                   "Ubuntu"), 9),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 8),
+                 (dist, "Ubuntu", _("Updates of Ubuntu"), 7)]
 
     self.pkgs = {}
     self.matcher = {}
@@ -225,6 +227,7 @@ class UpdateList:
     self.parent_window = parent_window
     for (origin, archive, desc, importance) in templates:
         self.matcher[(origin, archive)] = self.UpdateOrigin(desc, importance)
+    self.unknown_origin = self.UpdateOrigin(_("Other updates"), -1)
 
   def update(self, cache):
     held_back = []
@@ -238,11 +241,13 @@ class UpdateList:
       if pkg.markedUpgrade or pkg.markedInstall:
         # TRANSLATORS: updates from an 'unknown' origin
         originstr = _("Other updates")
-    for aorigin in pkg.candidateOrigin:
-      archive = aorigin.archive
-      origin = aorigin.origin
-      if self.matcher.has_key((archive,origin)) and aorigin.trusted:
-        origin_node = self.matcher[(archive,origin)]
+        for aorigin in pkg.candidateOrigin:
+          archive = aorigin.archive
+          origin = aorigin.origin
+        if self.matcher.has_key((archive,origin)) and aorigin.trusted:
+          origin_node = self.matcher[(archive,origin)]
+        else:
+          origin_node = self.unknown_origin
         if not self.pkgs.has_key(origin_node):
           self.pkgs[origin_node] = []
         self.pkgs[origin_node].append(pkg)
@@ -575,8 +580,8 @@ class UpdateManager(SimpleGladeApp):
           text_header = "<big><b>" + \
                         gettext.ngettext("You can install %s update",
                                          "You can install %s updates", 
-                                         len(self.store)) % \
-                                        len(self.store) + "</b></big>"
+                                         self.list.num_updates) % \
+                                        self.list.num_updates + "</b></big>"
           text_download = _("Download size: %s") % apt_pkg.SizeToStr(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
@@ -725,9 +730,9 @@ class UpdateManager(SimpleGladeApp):
                                   (pkg.installedVersion,
                                    pkg.candidateVersion,
                                    apt.SizeToStr(pkg.packageSize)) + "</small>"
-      iter = self.store.append([True, contents, pkg.name, pkg])
-      self.add_update(pkg)
-      i = i + 1
+          iter = self.store.append([True, contents, pkg.name, pkg])
+          self.add_update(pkg)
+          i = i + 1
 
     self.update_count()
     # use the normal cursor
