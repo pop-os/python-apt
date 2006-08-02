@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.41.1\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-07-31 21:12+0200\n"
+"POT-Creation-Date: 2006-08-01 00:06+0200\n"
 "PO-Revision-Date: 2006-05-31 12:00+0000\n"
 "Last-Translator: PCMan <pcman.tw@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@linux.org.tw>\n"
@@ -588,8 +588,8 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>開始升級？</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
+#, fuzzy
+msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 msgstr "<span weight=\"bold\" size=\"x-large\">升級至 Ubuntu  6.06 LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8

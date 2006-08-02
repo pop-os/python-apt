@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-07-31 21:12+0200\n"
+"POT-Creation-Date: 2006-08-01 00:06+0200\n"
 "PO-Revision-Date: 2006-04-28 23:31+0000\n"
 "Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-transa-pa@redhat.com>\n"
@@ -559,8 +559,7 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
+msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8

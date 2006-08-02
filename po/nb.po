@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-07-31 21:12+0200\n"
+"POT-Creation-Date: 2006-08-01 00:06+0200\n"
 "PO-Revision-Date: 2006-05-29 13:06+0000\n"
 "Last-Translator: Hans Petter Birkeland <hanspb@bluezone.no>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -629,8 +629,8 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Vil du starte oppgraderingen?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
+#, fuzzy
+msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 msgstr ""
 "<span weight=\"bold\" size=\"x-large\">Oppgraderer til Ubuntu 6.06 LTS</span>"
 

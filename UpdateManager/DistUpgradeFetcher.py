@@ -190,7 +190,10 @@ class DistUpgradeFetcher(object):
 
     def runDistUpgrader(self):
         #print "runing: %s" % script
-        os.execv(self.script,[])
+        if os.getuid() != 0:
+            os.execv("/usr/bin/gksu",["gksu",self.script])
+        else:
+            os.execv(self.script,[self.script])
 
     def cleanup(self):
       # cleanup

@@ -695,23 +695,6 @@ class UpdateManager(SimpleGladeApp):
       fetcher.run()
       
   def new_dist_available(self, meta_release, upgradable_to):
-    #print "new_dist_available: %s" % upgradable_to.name
-    # check if the user already knowns about this dist
-    #seen = self.gconfclient.get_string("/apps/update-manager/seen_dist")
-    #if name == seen:
-    #  return
-    
-    #msg = "<big><b>%s</b></big>\n\n%s" % (_("There is a new release of Ubuntu available!"), _("A new release with the codename '%s' is available. Please see http://www.ubuntulinux.org/ for upgrade instructions.") % name)
-    #dialog = gtk.MessageDialog(self.window_main, 0, gtk.MESSAGE_INFO,
-    #                           gtk.BUTTONS_CLOSE, "")
-    #dialog.set_markup(msg)
-    #check = gtk.CheckButton(_("Never show this message again"))
-    #check.show()
-    #dialog.vbox.pack_start(check)
-    #dialog.run()
-    #if check.get_active():
-    #  self.gconfclient.set_string("/apps/update-manager/seen_dist",name)
-    #dialog.destroy()
     self.frame_new_release.show()
     self.label_new_release.set_markup(_("<b>New distribution release '%s' is available</b>") % upgradable_to.version)
     self.new_dist = upgradable_to

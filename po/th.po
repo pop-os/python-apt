@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-07-31 21:12+0200\n"
+"POT-Creation-Date: 2006-08-01 00:06+0200\n"
 "PO-Revision-Date: 2006-05-24 16:44+0000\n"
 "Last-Translator: Roys Hengwatanakul <roysheng@msn.com>\n"
 "Language-Team: Thai <th@li.org>\n"
@@ -599,8 +599,8 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>เริ่มการปรับปรุงหรือไม่?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-msgid ""
-"<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.06 LTS</span>"
+#, fuzzy
+msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 msgstr "<span weight=\"bold\" size=\"x-large\">กำลังปรับปรุงอูบันตู  6.06 LTS</span>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
