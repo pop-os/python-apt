@@ -56,9 +56,9 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
   # Check for root permissions
   if os.geteuid() != 0:
-    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, 
+    dialog = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_CLOSE, 
                                _("You need to be root to run this program") )
-    dialog.set_default_response(gtk.RESPONSE_OK)
+    dialog.set_default_response(gtk.RESPONSE_CLOSE)
     dialog.run()
     dialog.destroy()
     sys.exit(1)
