@@ -201,7 +201,8 @@ class MyCache(apt.Cache):
 
 class UpdateList:
   ORIGIN_MAPPING = { ("edgy-security","Ubuntu"): _("Ubuntu security updates"),
-		     ("edgy-updates","Ubuntu"): _("Ubuntu important updates updates"),
+		     ("edgy-updates","Ubuntu"): _("Ubuntu important updates"),
+		     ("edgy-backports","Ubuntu"): _("Ubuntu backports"),
 		     ("edgy","Ubuntu"): _("Ubuntu updates")
 		   }
 	
@@ -321,7 +322,7 @@ class UpdateManager(SimpleGladeApp):
     tr = gtk.CellRendererText()
     tr.set_property("xpad", 10)
     tr.set_property("ypad", 10)
-    self.cr = cr = gtk.CellRendererToggle()
+    cr = gtk.CellRendererToggle()
     cr.set_property("activatable", True)
     cr.set_property("xpad", 10)
     cr.connect("toggled", self.toggled)
@@ -380,16 +381,17 @@ class UpdateManager(SimpleGladeApp):
   def header_column_func(self, cell_layot, renderer, model, iter):
     pkg = model.get_value(iter, LIST_PKG)
     if pkg == None:
-      renderer.set_property("cell-background","green")
+      renderer.set_property("cell-background","yellow")
     else:
       renderer.set_property("cell-background", None)
       
   def install_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
     pkg = model.get_value(iter, LIST_PKG)
-    if self.cr == renderer:
-      renderer.set_property("visible", pkg != None)
-      
+    to_install = model.get_value(iter, LIST_INSTALL)
+    renderer.set_property("active", to_install)
+    # hide it if we are only a header line
+    renderer.set_property("visible", pkg != None)
       
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
@@ -435,24 +437,17 @@ class UpdateManager(SimpleGladeApp):
       return
     
     for line in lines:
-    
       end_iter = changes_buffer.get_end_iter()
-      
-      version_match = re.match(r'^%s \((.*)\)(.*)$' % re.escape(srcpkg), line)
+      version_match = re.match(r'^%s \((.*)\)(.*)\;.*$' % re.escape(srcpkg), line)
       #bullet_match = re.match("^.*[\*-]", line)
       author_match = re.match("^.*--.*<.*@.*>.*$", line)
       if version_match:
         version = version_match.group(1)
+	upload_archive = version_match.group(2).strip()
         version_text = _("Version %s: \n") % version
         changes_buffer.insert_with_tags_by_name(end_iter, version_text, "versiontag")
-      # mvo: disabled for now as it does not catch multi line entries
-      #      (see ubuntu #7034 for rational)
-      #elif bullet_match and not author_match:
-      #  bullet_text = "    " + line + "\n"
-      #  changes_buffer.insert(end_iter, bullet_text)
       elif (author_match):
         pass
-        #chanages_buffer.insert(end_iter, "\n")
       else:
         changes_buffer.insert(end_iter, line+"\n")
         
