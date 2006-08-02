@@ -726,10 +726,16 @@ class UpdateManager(SimpleGladeApp):
           name = xml.sax.saxutils.escape(pkg.name)
           summary = xml.sax.saxutils.escape(pkg.summary)
           contents = "<b>%s</b>\n<small>%s\n" % (name, summary)
-          contents = contents + _("From version %s to %s  (Size: %s)") % \
-                                  (pkg.installedVersion,
-                                   pkg.candidateVersion,
-                                   apt.SizeToStr(pkg.packageSize)) + "</small>"
+          if pkg.installedVersion != None:
+              contents += _("From version %s to %s") % \
+                           (pkg.installedVersion,
+                            pkg.candidateVersion)
+          else:
+              contents += _("Version %s") % pkg.candidateVersion
+          #TRANSLATORS: the b stands for Bytes
+          contents += " " + _("(Size: %sb)") % apt.SizeToStr(pkg.packageSize)
+          contents += "</small>"
+
           iter = self.store.append([True, contents, pkg.name, pkg])
           self.add_update(pkg)
           i = i + 1
