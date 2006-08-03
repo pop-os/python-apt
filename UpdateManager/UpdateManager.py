@@ -29,9 +29,9 @@ import gtk
 import gtk.gdk
 import gtk.glade
 try:
-	import gconf
+    import gconf
 except:
-	import fakegconf as gconf
+    import fakegconf as gconf
 import gobject
 import apt
 import apt_pkg
@@ -64,6 +64,8 @@ from DistUpgradeFetcher import DistUpgradeFetcher
 import GtkProgress
 
 from MetaRelease import Dist, MetaRelease
+
+#import pdb
 
 # FIXME:
 # - kill "all_changes" and move the changes into the "Update" class
@@ -200,17 +202,32 @@ class MyCache(apt.Cache):
             lock.release()
 
 class UpdateList:
-  ORIGIN_MAPPING = { ("edgy-security","Ubuntu"): _("Ubuntu security updates"),
-		     ("edgy-updates","Ubuntu"): _("Ubuntu important updates"),
-		     ("edgy-backports","Ubuntu"): _("Ubuntu backports"),
-		     ("edgy","Ubuntu"): _("Ubuntu updates")
-		   }
-	
+  class UpdateOrigin:
+    def __init__(self, desc, importance):
+      self.packages = []
+      self.importance = importance
+      self.description = desc
+
   def __init__(self, parent_window):
     # a map of packages under their origin
+    pipe = os.popen("lsb_release -c -s")
+    dist = pipe.read().strip()
+    del pipe
+
+    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates"
+                                                    " of Ubuntu"), 10),
+                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
+                                                   "Ubuntu"), 9),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 8),
+                 (dist, "Ubuntu", _("Updates of Ubuntu"), 7)]
+
     self.pkgs = {}
+    self.matcher = {}
     self.num_updates = 0
     self.parent_window = parent_window
+    for (origin, archive, desc, importance) in templates:
+        self.matcher[(origin, archive)] = self.UpdateOrigin(desc, importance)
+    self.unknown_origin = self.UpdateOrigin(_("Other updates"), -1)
 
   def update(self, cache):
     held_back = []
@@ -222,15 +239,18 @@ class UpdateList:
     # sort by origin
     for pkg in cache:
       if pkg.markedUpgrade or pkg.markedInstall:
-        originstr = _("Unknown")
-	for aorigin in pkg.candidateOrigin:
-	  archive = aorigin.archive
-	  origin = aorigin.origin
-	  if self.ORIGIN_MAPPING.has_key((archive,origin)) and aorigin.trusted:
-	    originstr = self.ORIGIN_MAPPING[(archive,origin)]
-        if not self.pkgs.has_key(originstr):
-	  self.pkgs[originstr] = []
-        self.pkgs[originstr].append(pkg)
+        # TRANSLATORS: updates from an 'unknown' origin
+        originstr = _("Other updates")
+        for aorigin in pkg.candidateOrigin:
+          archive = aorigin.archive
+          origin = aorigin.origin
+        if self.matcher.has_key((archive,origin)) and aorigin.trusted:
+          origin_node = self.matcher[(archive,origin)]
+        else:
+          origin_node = self.unknown_origin
+        if not self.pkgs.has_key(origin_node):
+          self.pkgs[origin_node] = []
+        self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
       elif pkg.isUpgradable:
           held_back.append(pkg.name)
@@ -320,11 +340,11 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.set_headers_clickable(True);
 
     tr = gtk.CellRendererText()
-    tr.set_property("xpad", 10)
-    tr.set_property("ypad", 10)
+    tr.set_property("xpad", 6)
+    tr.set_property("ypad", 6)
     cr = gtk.CellRendererToggle()
     cr.set_property("activatable", True)
-    cr.set_property("xpad", 10)
+    cr.set_property("xpad", 6)
     cr.connect("toggled", self.toggled)
 
     column_install = gtk.TreeViewColumn("Install", cr)
@@ -378,13 +398,13 @@ class UpdateManager(SimpleGladeApp):
     self.restore_state()
     self.window_main.show()
 
-  def header_column_func(self, cell_layot, renderer, model, iter):
+  def header_column_func(self, cell_layout, renderer, model, iter):
     pkg = model.get_value(iter, LIST_PKG)
     if pkg == None:
-      renderer.set_property("cell-background","yellow")
+      renderer.set_property("sensitive", False)
     else:
-      renderer.set_property("cell-background", None)
-      
+      renderer.set_property("sensitive", True)
+
   def install_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
     pkg = model.get_value(iter, LIST_PKG)
@@ -463,11 +483,15 @@ class UpdateManager(SimpleGladeApp):
 
     # set descr
     pkg = model.get_value(iter, LIST_PKG)
-    if pkg == None:
+    if pkg == None or pkg.description == None:
+      changes_buffer = self.textview_changes.get_buffer()
+      changes_buffer.set_text("")
+      desc_buffer = self.textview_descr.get_buffer()
+      desc_buffer.set_text("")
+      self.notebook_details.set_sensitive(False)
       return
     long_desc = pkg.description
-    if long_desc == None:
-      return
+    self.notebook_details.set_sensitive(True)
     # Skip the first line - it's a duplicate of the summary
     i = long_desc.find("\n")
     long_desc = long_desc[i+1:]
@@ -483,7 +507,7 @@ class UpdateManager(SimpleGladeApp):
     long_desc = p.sub("\n", long_desc)
 
     desc_buffer = self.textview_descr.get_buffer()
-    desc_buffer.set_text(utf8(long_desc))
+    desc_buffer.set_text(long_desc)
 
     # now do the changelog
     name = model.get_value(iter, LIST_NAME)
@@ -524,7 +548,8 @@ class UpdateManager(SimpleGladeApp):
     if name in self.packages:
       self.packages.remove(name)
       self.dl_size -= pkg.packageSize
-      self.label_downsize.set_markup(_("Download size: %s" % \
+      # TRANSLATORS: b stands for Bytes
+      self.label_downsize.set_markup(_("Download size: %sb" % \
                                      apt_pkg.SizeToStr(self.dl_size)))
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
@@ -556,8 +581,8 @@ class UpdateManager(SimpleGladeApp):
           text_header = "<big><b>" + \
                         gettext.ngettext("You can install %s update",
                                          "You can install %s updates", 
-                                         len(self.store)) % \
-                                        len(self.store) + "</b></big>"
+                                         self.list.num_updates) % \
+                                        self.list.num_updates + "</b></big>"
           text_download = _("Download size: %s") % apt_pkg.SizeToStr(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
@@ -693,16 +718,29 @@ class UpdateManager(SimpleGladeApp):
     self.list.update(self.cache)
     if self.list.num_updates > 0:
       i=0
-      for origin in self.list.pkgs.keys():
-        self.store.append([False, '<span weight="bold" size="large">%s</span>' % origin, origin, None])
+      origin_list = self.list.pkgs.keys()
+      origin_list.sort(lambda x,y: cmp(x.importance,y.importance))
+      origin_list.reverse()
+      for origin in origin_list:
+        self.store.append([False,'<b><big>%s</big></b>' % origin.description,
+                           origin.description, None])
         for pkg in self.list.pkgs[origin]:
-	  name = xml.sax.saxutils.escape(pkg.name)
-	  summary = xml.sax.saxutils.escape(pkg.summary)
-	  contents = "<big><b>%s</b></big>\n<small>%s\n\n" % (name, summary)
-	  contents = contents + _("New version: %s   (Size: %s)") % (pkg.candidateVersion,apt.SizeToStr(pkg.packageSize)) + "</small>"
-	  iter = self.store.append([True, contents, pkg.name, pkg])
-	  self.add_update(pkg)
-	  i = i + 1
+          name = xml.sax.saxutils.escape(pkg.name)
+          summary = xml.sax.saxutils.escape(pkg.summary)
+          contents = "<b>%s</b>\n<small>%s\n" % (name, summary)
+          if pkg.installedVersion != None:
+              contents += _("From version %s to %s") % \
+                           (pkg.installedVersion,
+                            pkg.candidateVersion)
+          else:
+              contents += _("Version %s") % pkg.candidateVersion
+          #TRANSLATORS: the b stands for Bytes
+          contents += " " + _("(Size: %sb)") % apt.SizeToStr(pkg.packageSize)
+          contents += "</small>"
+
+          iter = self.store.append([True, contents, pkg.name, pkg])
+          self.add_update(pkg)
+          i = i + 1
 
     self.update_count()
     # use the normal cursor

@@ -56,7 +56,7 @@ class DistInfo:
         self.suites = []
 
         if not dist:
-            pipe = os.popen("lsb_release -i | cut -d : -f 2-")
+            pipe = os.popen("lsb_release -i -s")
             dist = pipe.read().strip()
             pipe.close()
             del pipe
