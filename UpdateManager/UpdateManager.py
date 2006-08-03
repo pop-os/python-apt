@@ -720,6 +720,7 @@ class UpdateManager(SimpleGladeApp):
       i=0
       origin_list = self.list.pkgs.keys()
       origin_list.sort(lambda x,y: cmp(x.importance,y.importance))
+      origin_list.reverse()
       for origin in origin_list:
         self.store.append([False,'<b><big>%s</big></b>' % origin.description,
                            origin.description, None])
