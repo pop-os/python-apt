@@ -507,7 +507,7 @@ class UpdateManager(SimpleGladeApp):
     long_desc = p.sub("\n", long_desc)
 
     desc_buffer = self.textview_descr.get_buffer()
-    desc_buffer.set_text(utf8(long_desc))
+    desc_buffer.set_text(long_desc)
 
     # now do the changelog
     name = model.get_value(iter, LIST_NAME)
