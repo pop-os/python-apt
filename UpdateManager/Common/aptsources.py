@@ -452,7 +452,7 @@ class Distribution:
     # get the LSB information
     lsb_info = []
     for lsb_option in ["-i", "-c", "-d", "-r"]:
-        pipe = os.popen("lsb_release %s | cut -d : -f 2-" % lsb_option)
+        pipe = os.popen("lsb_release %s -s" % lsb_option)
         lsb_info.append(pipe.read().strip())
         del pipe
     (self.id, self.codename, self.description, self.release) = lsb_info
