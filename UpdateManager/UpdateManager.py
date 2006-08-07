@@ -363,7 +363,8 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.append_column(column_install)
     column_install.set_visible(True)
     self.treeview_update.append_column(column)
-    self.treeview_update.set_search_column(LIST_NAME)	
+    self.treeview_update.set_search_column(LIST_NAME)
+    self.treeview_update.connect("button-press-event", self.show_context_menu)
 
 
     # proxy stuff
@@ -542,6 +543,51 @@ class UpdateManager(SimpleGladeApp):
     if self.cache.all_changes.has_key(name):
       changes = self.cache.all_changes[name]
       self.set_changes_buffer(changes_buffer, changes[0], name, changes[1])
+
+  def show_context_menu(self, widget, event):
+    """
+    Show a context menu if a right click was performed on an update entry
+    """
+    if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
+        menu = gtk.Menu()
+        item_select_none = gtk.MenuItem(_("Select _None"))
+        item_select_none.connect("activate", self.select_none_updgrades)
+        menu.add(item_select_none)
+        if self.list.num_updates == 0 or len(self.packages) == 0:
+            item_select_none.set_property("sensitive", False)
+        item_select_all = gtk.MenuItem(_("Select _All"))
+        item_select_all.connect("activate", self.select_all_updgrades)
+        menu.add(item_select_all)
+        if self.list.num_updates == len(self.packages) or\
+           self.list.num_updates == 0:
+            item_select_all.set_property("sensitive", False)
+        menu.popup(None, None, None, 0, event.time)
+        menu.show_all()
+        return True
+
+  def select_all_updgrades(self, widget):
+    """
+    Select all updates
+    """
+    iter = self.store.get_iter_first()
+    while iter != None:
+        pkg = self.store.get_value(iter, LIST_PKG)
+        if pkg != None:
+            self.store.set_value(iter, LIST_INSTALL, True)
+            self.add_update(pkg)
+        iter = self.store.iter_next(iter)
+
+  def select_none_updgrades(self, widget):
+    """
+    Select none updates
+    """
+    iter = self.store.get_iter_first()
+    while iter != None:
+        pkg = self.store.get_value(iter, LIST_PKG)
+        if pkg != None:
+            self.store.set_value(iter, LIST_INSTALL, False)
+            self.remove_update(pkg)
+        iter = self.store.iter_next(iter)
 
   def remove_update(self, pkg):
     name = pkg.name

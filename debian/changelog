@@ -1,3 +1,9 @@
+update-manager (0.44.3) edgy; urgency=low
+
+  * added select all/unselect all (thanks to Sebastian Heinlein)
+
+ --
+
 update-manager (0.44.2) edgy; urgency=low
 
   * wording fixes
