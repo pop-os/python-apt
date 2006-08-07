@@ -720,11 +720,10 @@ class SoftwareProperties(SimpleGladeApp):
         self.source_store.append([not source.disabled, contents,
                                   source, False, True])
 
-    if len(self.source_store) < 1:
+    (path_x, path_y) = self.treeview_sources.get_cursor()
+    if len(self.source_store) < 1 or path_x <0:
         self.button_remove.set_sensitive(False)
         self.button_edit.set_sensitive(False)
-    else:
-        self.treeview_sources.set_cursor(0)
     self.distro.get_sources(self.sourceslist)
     self.distro_to_widgets()
     
