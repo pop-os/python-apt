@@ -607,7 +607,6 @@ class UpdateManager(SimpleGladeApp):
       apt_pkg.PkgSystemUnLock()
     except SystemError:
       pass
-#    cmd = ["gksu","--",
     cmd = ["gksu", "--desktop", "/usr/share/applications/synaptic.desktop", 
            "--", "/usr/sbin/synaptic", "--hide-main-window",  
            "--non-interactive", "--parent-window-id", "%s" % (id) ]

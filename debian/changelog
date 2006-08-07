@@ -1,3 +1,10 @@
+update-manager (0.44.2) edgy; urgency=low
+
+  * wording fixes
+  * fix update counting bug 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  3 Aug 2006 17:52:09 +0200
+
 update-manager (0.44.1) edgy; urgency=low
 
   * make UpdateManager check for new distribution releases by
