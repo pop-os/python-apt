@@ -1,3 +1,10 @@
+update-manager (0.44.3) edgy; urgency=low
+
+  * help/C/update-manager-C.omf:
+    - fix url (thanks to daniel holbach, lp: #45548)
+
+ --
+
 update-manager (0.44.2) edgy; urgency=low
 
   * added select all/unselect all (thanks to Sebastian Heinlein)
