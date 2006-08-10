@@ -43,6 +43,7 @@ import os
 import os.path
 import urllib2
 import re
+import locale
 import tempfile
 import pango
 import subprocess
@@ -589,14 +590,31 @@ class UpdateManager(SimpleGladeApp):
             self.remove_update(pkg)
         iter = self.store.iter_next(iter)
 
+  def humanize_size(self, bytes):
+      """
+      Convert a given size in bytes to a nicer better readable unit
+      """
+      if bytes == 0:
+          # TRANSLATORS: download size is 0
+          return _("None")
+      elif bytes < 1024:
+          # TRANSLATORS: download size of very small updates
+          return _("1 KB")
+      elif bytes < 1024 * 1024:
+          # TRANSLATORS: download size of small updates, e.g. "250 KB"
+          return locale.format(_("%.0f KB"), bytes/1024)
+      else:
+          # TRANSLATORS: download size of updates, e.g. "2.3 MB"
+          return locale.format(_("%.1f MB"), bytes / 1024 / 1024)
+
   def remove_update(self, pkg):
     name = pkg.name
     if name in self.packages:
       self.packages.remove(name)
       self.dl_size -= pkg.packageSize
       # TRANSLATORS: b stands for Bytes
-      self.label_downsize.set_markup(_("Download size: %sb" % \
-                                     apt_pkg.SizeToStr(self.dl_size)))
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     self.humanize_size(self.dl_size)))
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
 
@@ -606,7 +624,7 @@ class UpdateManager(SimpleGladeApp):
       self.packages.append(name)
       self.dl_size += pkg.packageSize
       self.label_downsize.set_markup(_("Download size: %s" % \
-                                     apt_pkg.SizeToStr(self.dl_size)))
+                                     self.humanize_size(self.dl_size)))
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
 
@@ -629,7 +647,7 @@ class UpdateManager(SimpleGladeApp):
                                          "You can install %s updates", 
                                          self.list.num_updates) % \
                                         self.list.num_updates + "</b></big>"
-          text_download = _("Download size: %s") % apt_pkg.SizeToStr(self.dl_size)
+          text_download = _("Download size: %s") % self.humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
@@ -781,7 +799,7 @@ class UpdateManager(SimpleGladeApp):
           else:
               contents += _("Version %s") % pkg.candidateVersion
           #TRANSLATORS: the b stands for Bytes
-          contents += " " + _("(Size: %sb)") % apt.SizeToStr(pkg.packageSize)
+          contents += " " + _("(Size: %s)") % self.humanize_size(pkg.packageSize)
           contents += "</small>"
 
           iter = self.store.append([True, contents, pkg.name, pkg])
