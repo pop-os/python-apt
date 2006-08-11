@@ -730,9 +730,9 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
 
-  def toggled(self, renderer, path_string):
+  def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
-    iter = self.store.get_iter_from_string(path_string)
+    iter = self.store.get_iter(path)
     if self.store.get_value(iter, LIST_INSTALL):
       self.store.set_value(iter, LIST_INSTALL, False)
       self.remove_update(self.store.get_value(iter, LIST_PKG))
@@ -740,6 +740,12 @@ class UpdateManager(SimpleGladeApp):
       self.store.set_value(iter, LIST_INSTALL, True)
       self.add_update(self.store.get_value(iter, LIST_PKG))
 
+  def on_treeview_update_row_activated(self, treeview, path, column, *args):
+      """
+      If an update row was activated (by pressing space), toggle the 
+      install check box
+      """
+      self.toggled(None, path)
 
   def exit(self):
     """ exit the application, save the state """
