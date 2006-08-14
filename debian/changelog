@@ -1,3 +1,9 @@
+python-apt (0.6.19ubuntu2) edgy; urgency=low
+
+  * tightened build-deps on latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  3 Aug 2006 17:02:30 +0200
+
 python-apt (0.6.19ubuntu1) edgy; urgency=low
 
   [ Michael Vogt ]
