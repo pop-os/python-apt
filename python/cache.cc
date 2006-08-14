@@ -443,6 +443,69 @@ PyTypeObject PackageType =
    0,                                   // tp_hash
 };
 									/*}}}*/
+// Description Class							/*{{{*/
+// ---------------------------------------------------------------------
+static PyObject *DescriptionAttr(PyObject *Self,char *Name)
+{
+   pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::DescIterator>(Self);
+   
+   if (strcmp("LanguageCode",Name) == 0)
+      return PyString_FromString(Desc.LanguageCode());
+   else if (strcmp("md5",Name) == 0)
+      return Safe_FromString(Desc.md5());
+   else if (strcmp("FileList",Name) == 0)
+   {
+      /* The second value in the tuple is the index of the VF item. If the
+         user wants to request a lookup then that number will be used. 
+         Maybe later it can become an object. */	 
+      PyObject *List = PyList_New(0);
+      for (pkgCache::DescFileIterator I = Desc.FileList(); I.end() == false; I++)
+      {
+	 PyObject *DescFile;
+	 PyObject *Obj;
+	 DescFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
+	 Obj = Py_BuildValue("Nl",DescFile,I.Index());
+	 PyList_Append(List,Obj);
+	 Py_DECREF(Obj);
+      }      
+      return List;
+   }
+   PyErr_SetString(PyExc_AttributeError,Name);
+   return 0;
+}
+
+static PyObject *DescriptionRepr(PyObject *Self)
+{
+   pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
+   
+   char S[300];
+   snprintf(S,sizeof(S),
+	    "<pkgCache::Description object: language_code:'%s' md5:'%s' ",
+	    Desc.LanguageCode(), Desc.md5());
+   return PyString_FromString(S);
+}
+
+PyTypeObject DescriptionType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgCache::DescIterator",             // tp_name
+   sizeof(CppOwnedPyObject<pkgCache::DescIterator>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppOwnedDealloc<pkgCache::DescIterator>,          // tp_dealloc
+   0,                                   // tp_print
+   DescriptionAttr,                         // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   DescriptionRepr,                         // tp_repr
+   0,                                   // tp_as_number
+   0,		                        // tp_as_sequence
+   0,			                // tp_as_mapping
+   0,                                   // tp_hash
+};
+									/*}}}*/
 // Version Class							/*{{{*/
 // ---------------------------------------------------------------------
 
@@ -571,6 +634,11 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
       return PyString_FromString(Ver.PriorityType());
    else if (strcmp("Downloadable", Name) == 0)
       return Py_BuildValue("b", Ver.Downloadable());
+   else if (strcmp("TranslatedDescription", Name) == 0) {
+      return CppOwnedPyObject_NEW<pkgCache::DescIterator>(Owner,
+							  &DescriptionType,
+							  Ver.TranslatedDescription());
+   }
 #if 0 // FIXME: enable once pkgSourceList is stored somewhere
    else if (strcmp("IsTrusted", Name) == 0)
    {
@@ -625,6 +693,7 @@ PyTypeObject VersionType =
 };
    
 									/*}}}*/
+   
 // PackageFile Class							/*{{{*/
 // ---------------------------------------------------------------------
 static PyObject *PackageFileAttr(PyObject *Self,char *Name)

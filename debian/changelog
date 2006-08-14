@@ -1,3 +1,9 @@
+python-apt (0.6.19ubuntu3) edgy; urgency=low
+
+  * merged ddtp support
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 14 Aug 2006 16:25:51 +0200
+
 python-apt (0.6.19ubuntu2) edgy; urgency=low
 
   * tightened build-deps on latest apt
