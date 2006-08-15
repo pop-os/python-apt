@@ -233,6 +233,7 @@
 			<atkproperty name="AtkObject::accessible_name" translatable="yes">updates</atkproperty>
 		      </accessibility>
 		      <signal name="cursor_changed" handler="on_treeview_update_cursor_changed" last_modification_time="Tue, 29 Nov 2005 17:19:48 GMT"/>
+		      <signal name="row_activated" handler="on_treeview_update_row_activated" last_modification_time="Fri, 11 Aug 2006 14:28:59 GMT"/>
 		    </widget>
 		  </child>
 		</widget>

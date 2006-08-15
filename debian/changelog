@@ -2,8 +2,13 @@ update-manager (0.44.3) edgy; urgency=low
 
   * help/C/update-manager-C.omf:
     - fix url (thanks to daniel holbach, lp: #45548)
+  * show the units better
+  * don't jump around on row activation 
+    (thanks to Sebastian Heinlein)
+  * send "inhibit sleep" to power-manager while applying 
+    updates  (lp #40697)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 15 Aug 2006 18:06:53 +0200
 
 update-manager (0.44.2) edgy; urgency=low
 
