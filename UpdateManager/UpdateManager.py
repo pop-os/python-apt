@@ -740,15 +740,14 @@ class UpdateManager(SimpleGladeApp):
     """Send a dbus signal to gnome-power-manager to not suspend
     the system"""
     try:
-      import dbus
       bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
       devobj = bus.get_object('org.gnome.PowerManager', 
                               '/org/gnome/PowerManager')
       dev = dbus.Interface(devobj, "org.gnome.PowerManager")
       cookie = dev.Inhibit('UpdateManager', 'Updating system')
       return (dev, cookie)
-    except:
-      print "could not send the dbus InhibitInactiveSleep signal"
+    except Exception, e:
+      print "could not send the dbus Inhibit signal: %s" % e
       return (False, False)
 
   def allow_sleep(self, dev, cookie):
@@ -759,12 +758,15 @@ class UpdateManager(SimpleGladeApp):
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
     iter = self.store.get_iter(path)
+    pkg = self.store.get_value(iter, LIST_PKG)
+    if pkg is None:
+        return
     if self.store.get_value(iter, LIST_INSTALL):
       self.store.set_value(iter, LIST_INSTALL, False)
-      self.remove_update(self.store.get_value(iter, LIST_PKG))
+      self.remove_update(pkg)
     else:
       self.store.set_value(iter, LIST_INSTALL, True)
-      self.add_update(self.store.get_value(iter, LIST_PKG))
+      self.add_update(pkg)
 
   def on_treeview_update_row_activated(self, treeview, path, column, *args):
       """
