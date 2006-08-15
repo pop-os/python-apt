@@ -209,10 +209,11 @@ class NullMatcher(object):
     return True
 
 class SourcesList:
-  def __init__(self, withMatcher=True):
+  def __init__(self, withMatcher=True,
+               matcherPath="/usr/share/update-manager/channels/"):
     self.list = []      # of Type SourceEntries
     if withMatcher:
-      self.matcher = SourceEntryMatcher()
+      self.matcher = SourceEntryMatcher(matcherPath)
     else:
       self.matcher = NullMatcher()
     self.refresh()
@@ -378,6 +379,7 @@ class SourceCompTemplate:
     self.on_by_default = on_by_default
 
 class SourceEntryTemplates:
+  
   def __init__(self,datadir):
     _ = gettext.gettext
     self.templates = []
@@ -411,10 +413,10 @@ class SourceEntryMatcher:
       self.comps = l_comps
       self.comps_descriptions = l_comps_descr
 
-  def __init__(self):
+  def __init__(self, matcherPath):
     self.templates = []
     # Get the human readable channel and comp names from the channel .infos
-    spec_files = glob.glob("/usr/share/update-manager/channels/*.info")
+    spec_files = glob.glob("%s/*.info" % matcherPath)
     for f in spec_files:
         f = os.path.basename(f)
         i = f.find(".info")
@@ -440,9 +442,7 @@ class SourceEntryMatcher:
 
 class Distribution:
   def __init__(self):
-    """"
-    Container for distribution specific informations
-    """
+    """ Container for distribution specific informations """
     # LSB information
     self.id = ""
     self.codename = ""

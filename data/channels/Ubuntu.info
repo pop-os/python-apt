@@ -1,0 +1,264 @@
+ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
+
+Suite: edgy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 6.10 'Edgy Eft'
+Component: main
+Enabled: 1
+CompDescription: Officially supported
+CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
+Component: universe
+Enabled: 0
+CompDescription: Community maintained (universe)
+CompDescriptionLong: OpenSource software that is maintained by the community (universe)
+Component: restricted
+Enabled: 1
+CompDescription: Non-free drivers
+CompDescriptionLong: Proprietary drivers for devices (restricted) 
+Component: multiverse
+Enabled: 0
+CompDescription: Restricted software (Multiverse)
+CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
+
+Suite: edgy
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*6.10
+Description: Cdrom with Ubuntu 6.10 'Edgy Eft'
+Available: False
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+
+Suite: edgy-security
+ParentSuite: edgy
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+Description: Important security updates
+
+Suite: edgy-updates
+ParentSuite: edgy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Recommended updates
+
+Suite: edgy-backports
+ParentSuite: edgy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Backported updates
+
+Suite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 6.06 LTS 'Dapper Drake'
+Component: main
+Enabled: 1
+CompDescription: Officially supported
+CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
+Component: universe
+Enabled: 0
+CompDescription: Community maintained (universe)
+CompDescriptionLong: OpenSource software that is maintained by the community (universe)
+Component: restricted
+Enabled: 1
+CompDescription: Non-free drivers
+CompDescriptionLong: Proprietary drivers for devices (restricted) 
+Component: multiverse
+Enabled: 0
+CompDescription: Restricted software (Multiverse)
+CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
+
+Suite: dapper
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*6.06
+Description: Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'
+Available: False
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+
+Suite: dapper-security
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+Description: Important security updates
+
+Suite: dapper-updates
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Recommended updates
+
+Suite: dapper-backports
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Backported updates
+
+Suite: breezy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.10 'Breezy Badger'
+Component: main
+Enabled: 1
+CompDescription: Officially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+CompDescription: Non-free (Multiverse)
+
+Suite: breezy
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*5.10
+Description: Cdrom with Ubuntu 5.10 'Breezy Badger'
+Available: False
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+
+Suite: breezy-security
+ParentSuite: breezy
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+Description: Ubuntu 5.10 Security Updates
+
+Suite: breezy-updates
+ParentSuite: breezy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.10 Updates
+
+Suite: breezy-backports
+ParentSuite: breezy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.10 Backports
+
+Suite: hoary
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.04 'Hoary Hedgehog'
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+CompDescription: Non-free (Multiverse)
+
+Suite: hoary
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*5.04
+Description: Cdrom with Ubuntu 5.04 'Hoary Hedgehog'
+Available: False
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+
+Suite: hoary-security
+ParentSuite: hoary
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+Description: Ubuntu 5.04 Security Updates
+
+Suite: hoary-updates
+ParentSuite: hoary
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.04 Updates
+
+Suite: hoary-backports
+ParentSuite: hoary
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 5.04 Backports
+
+Suite: warty
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 4.10 'Warty Warthog'
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+Component: universe
+Enabled: 0
+CompDescription: Community maintained (Universe)
+Component: multiverse
+Enabled: 0
+CompDescription: Non-free (Multiverse)
+
+Suite: warty
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*4.10
+Description: Cdrom with Ubuntu 4.10 'Warty Warthog'
+Available: False
+Component: main
+Enabled: 1
+CompDescription: Oficially supported
+Component: restricted
+Enabled: 1
+CompDescription: Restricted copyright
+
+Suite: warty-security
+ParentSuite: warty
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+Description: Ubuntu 4.10 Security Updates
+
+Suite: warty-updates
+ParentSuite: warty
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 4.10 Updates
+
+Suite: warty-backports
+ParentSuite: warty
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+Description: Ubuntu 4.10 Backports

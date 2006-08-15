@@ -32,7 +32,7 @@ import re
 import statvfs
 from DistUpgradeConfigParser import DistUpgradeConfig
 
-from aptsources import SourcesList, SourceEntry, is_mirror
+from aptsources import SourcesList, SourceEntry, Distribution, is_mirror
 from gettext import gettext as _
 import gettext
 from DistUpgradeCache import MyCache
@@ -72,6 +72,11 @@ class DistUpgradeControler(object):
 
     def rewriteSourcesList(self, mirror_check=True):
         logging.debug("rewriteSourcesList()")
+
+        # enable main (we always need this!)
+        distro = Distribution()
+        distro.get_sources(self.sources)
+        distro.enable_component(self.sources, "main")
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange
@@ -143,7 +148,7 @@ class DistUpgradeControler(object):
 
     def updateSourcesList(self):
         logging.debug("updateSourcesList()")
-        self.sources = SourcesList(withMatcher=False)
+        self.sources = SourcesList(matcherPath=".")
         if not self.rewriteSourcesList(mirror_check=True):
             logging.error("No valid mirror found")
             res = self._view.askYesNoQuestion(_("No valid mirror found"),

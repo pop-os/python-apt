@@ -5,10 +5,10 @@ INFO_FILES := $(patsubst %.info.in,%.info,$(wildcard *.info.in))
 
 all: $(INFO_FILES)
 
-%.info: %.info.in ../po/$(DOMAIN).pot
+%.info: %.info.in 
 	sed 's/^_//g' < $< > $@
 	intltool-extract --type=gettext/rfc822deb $<
 	#intltool-merge -d ../po $< $@
 
 clean:
-	rm -f $(INFO_FILES) $(wildcard *.h)
+	rm -f $(wildcard *.h)
