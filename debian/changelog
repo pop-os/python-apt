@@ -1,3 +1,18 @@
+update-manager (0.44.3) edgy; urgency=low
+
+  * help/C/update-manager-C.omf:
+    - fix url (thanks to daniel holbach, lp: #45548)
+
+ --
+
+update-manager (0.44.2) edgy; urgency=low
+
+  * added select all/unselect all (thanks to Sebastian Heinlein)
+  * wording fixes
+  * fix update counting bug 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  3 Aug 2006 17:52:09 +0200
+
 update-manager (0.44.1) edgy; urgency=low
 
   * make UpdateManager check for new distribution releases by
