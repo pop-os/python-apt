@@ -395,7 +395,8 @@ class DistUpgradeControler(object):
                        open(demotions_file).readlines()))
         installed_demotions = filter(lambda pkg: pkg.isInstalled and pkg.name in demotions, self.cache)
         if len(installed_demotions) > 0:
-            demoted = [pkg.name for pkg in installed_demotions]
+            demoted = [pkg.name for pkg in installed_demotions]	
+	    demoted.sort()
             logging.debug("demoted: '%s'" % " ".join(demoted))
             self._view.information(_("Some software no longer officially "
                                      "supported"),
