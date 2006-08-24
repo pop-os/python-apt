@@ -712,6 +712,9 @@ class UpdateManager(SimpleGladeApp):
     # don't display apt-listchanges, we already showed the changelog
     os.environ["APT_LISTCHANGES_FRONTEND"]="none"
 
+    # Do not suspend during the update process
+    (dev, cookie) = self.inhibit_sleep()
+
     # set window to insensitive
     self.window_main.set_sensitive(False)
     self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
@@ -726,18 +729,44 @@ class UpdateManager(SimpleGladeApp):
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
+
+    # Allow suspend after synaptic is finished
+    if cookie != False:
+        self.allow_sleep(dev, cookie)
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
+
+  def inhibit_sleep(self):
+    """Send a dbus signal to gnome-power-manager to not suspend
+    the system"""
+    try:
+      bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+      devobj = bus.get_object('org.gnome.PowerManager', 
+                              '/org/gnome/PowerManager')
+      dev = dbus.Interface(devobj, "org.gnome.PowerManager")
+      cookie = dev.Inhibit('UpdateManager', 'Updating system')
+      return (dev, cookie)
+    except Exception, e:
+      print "could not send the dbus Inhibit signal: %s" % e
+      return (False, False)
+
+  def allow_sleep(self, dev, cookie):
+    """Send a dbus signal to gnome-power-manager to allow a suspending
+    the system"""
+    dev.UnInhibit(cookie)
 
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
     iter = self.store.get_iter(path)
+    pkg = self.store.get_value(iter, LIST_PKG)
+    if pkg is None:
+        return
     if self.store.get_value(iter, LIST_INSTALL):
       self.store.set_value(iter, LIST_INSTALL, False)
-      self.remove_update(self.store.get_value(iter, LIST_PKG))
+      self.remove_update(pkg)
     else:
       self.store.set_value(iter, LIST_INSTALL, True)
-      self.add_update(self.store.get_value(iter, LIST_PKG))
+      self.add_update(pkg)
 
   def on_treeview_update_row_activated(self, treeview, path, column, *args):
       """
