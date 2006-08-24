@@ -1,3 +1,12 @@
+update-manager (0.44.4) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - don't bomb when searching for the mirror (lp: #57015)
+  * UpdateManager/UpdateManager.py:
+    - added "%s-proposed" to the list of known origins
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 24 Aug 2006 13:00:23 +0200
+
 update-manager (0.44.3) edgy; urgency=low
 
   * help/C/update-manager-C.omf:
