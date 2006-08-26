@@ -43,6 +43,7 @@ import os
 import os.path
 import urllib2
 import re
+import locale
 import tempfile
 import pango
 import subprocess
@@ -218,8 +219,9 @@ class UpdateList:
                                                     " of Ubuntu"), 10),
                  ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
                                                    "Ubuntu"), 9),
-                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 8),
-                 (dist, "Ubuntu", _("Updates of Ubuntu"), 7)]
+                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates for Ubuntu"), 8),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 7),
+                 (dist, "Ubuntu", _("Updates of Ubuntu"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
@@ -589,14 +591,31 @@ class UpdateManager(SimpleGladeApp):
             self.remove_update(pkg)
         iter = self.store.iter_next(iter)
 
+  def humanize_size(self, bytes):
+      """
+      Convert a given size in bytes to a nicer better readable unit
+      """
+      if bytes == 0:
+          # TRANSLATORS: download size is 0
+          return _("None")
+      elif bytes < 1024:
+          # TRANSLATORS: download size of very small updates
+          return _("1 KB")
+      elif bytes < 1024 * 1024:
+          # TRANSLATORS: download size of small updates, e.g. "250 KB"
+          return locale.format(_("%.0f KB"), bytes/1024)
+      else:
+          # TRANSLATORS: download size of updates, e.g. "2.3 MB"
+          return locale.format(_("%.1f MB"), bytes / 1024 / 1024)
+
   def remove_update(self, pkg):
     name = pkg.name
     if name in self.packages:
       self.packages.remove(name)
       self.dl_size -= pkg.packageSize
       # TRANSLATORS: b stands for Bytes
-      self.label_downsize.set_markup(_("Download size: %sb" % \
-                                     apt_pkg.SizeToStr(self.dl_size)))
+      self.label_downsize.set_markup(_("Download size: %s" % \
+                                     self.humanize_size(self.dl_size)))
       if len(self.packages) == 0:
         self.button_install.set_sensitive(False)
 
@@ -606,7 +625,7 @@ class UpdateManager(SimpleGladeApp):
       self.packages.append(name)
       self.dl_size += pkg.packageSize
       self.label_downsize.set_markup(_("Download size: %s" % \
-                                     apt_pkg.SizeToStr(self.dl_size)))
+                                     self.humanize_size(self.dl_size)))
       if len(self.packages) > 0:
         self.button_install.set_sensitive(True)
 
@@ -629,7 +648,7 @@ class UpdateManager(SimpleGladeApp):
                                          "You can install %s updates", 
                                          self.list.num_updates) % \
                                         self.list.num_updates + "</b></big>"
-          text_download = _("Download size: %s") % apt_pkg.SizeToStr(self.dl_size)
+          text_download = _("Download size: %s") % self.humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
@@ -694,6 +713,9 @@ class UpdateManager(SimpleGladeApp):
     # don't display apt-listchanges, we already showed the changelog
     os.environ["APT_LISTCHANGES_FRONTEND"]="none"
 
+    # Do not suspend during the update process
+    (dev, cookie) = self.inhibit_sleep()
+
     # set window to insensitive
     self.window_main.set_sensitive(False)
     self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
@@ -708,19 +730,51 @@ class UpdateManager(SimpleGladeApp):
     while gtk.events_pending():
       gtk.main_iteration()
     self.fillstore()
+
+    # Allow suspend after synaptic is finished
+    if cookie != False:
+        self.allow_sleep(dev, cookie)
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
 
-  def toggled(self, renderer, path_string):
+  def inhibit_sleep(self):
+    """Send a dbus signal to gnome-power-manager to not suspend
+    the system"""
+    try:
+      bus = dbus.Bus(dbus.Bus.TYPE_SESSION)
+      devobj = bus.get_object('org.gnome.PowerManager', 
+                              '/org/gnome/PowerManager')
+      dev = dbus.Interface(devobj, "org.gnome.PowerManager")
+      cookie = dev.Inhibit('UpdateManager', 'Updating system')
+      return (dev, cookie)
+    except Exception, e:
+      print "could not send the dbus Inhibit signal: %s" % e
+      return (False, False)
+
+  def allow_sleep(self, dev, cookie):
+    """Send a dbus signal to gnome-power-manager to allow a suspending
+    the system"""
+    dev.UnInhibit(cookie)
+
+  def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
-    iter = self.store.get_iter_from_string(path_string)
+    iter = self.store.get_iter(path)
+    pkg = self.store.get_value(iter, LIST_PKG)
+    if pkg is None:
+        return
     if self.store.get_value(iter, LIST_INSTALL):
       self.store.set_value(iter, LIST_INSTALL, False)
-      self.remove_update(self.store.get_value(iter, LIST_PKG))
+      self.remove_update(pkg)
     else:
       self.store.set_value(iter, LIST_INSTALL, True)
-      self.add_update(self.store.get_value(iter, LIST_PKG))
+      self.add_update(pkg)
 
+  def on_treeview_update_row_activated(self, treeview, path, column, *args):
+      """
+      If an update row was activated (by pressing space), toggle the 
+      install check box
+      """
+      self.toggled(None, path)
 
   def exit(self):
     """ exit the application, save the state """
@@ -780,7 +834,7 @@ class UpdateManager(SimpleGladeApp):
           else:
               contents += _("Version %s") % pkg.candidateVersion
           #TRANSLATORS: the b stands for Bytes
-          contents += " " + _("(Size: %sb)") % apt.SizeToStr(pkg.packageSize)
+          contents += " " + _("(Size: %s)") % self.humanize_size(pkg.packageSize)
           contents += "</small>"
 
           iter = self.store.append([True, contents, pkg.name, pkg])

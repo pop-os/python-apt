@@ -305,11 +305,12 @@ class SoftwareProperties(SimpleGladeApp):
         for server in self.distro.used_servers:
             if not re.match(server, self.distro.main_server) and \
                not re.match(server, self.distro.nearest_server):
-                #FIXME: an ubuntu hack
-                i = server.find("http://")
+                # FIXME: use regexp here instead of this
+                country = ""
+                i = server.find("://")
                 l = server.find(".archive.ubuntu.com")
                 if i != -1 and l != -1:
-                    country = server[i+7:l]
+                  country = server[i+len("://"):l]
                 if self.distro.countries.has_key(country):
                     # TRANSLATORS: %s is a country
                     server_store.append([_("Server for %s") % \
