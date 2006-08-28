@@ -219,8 +219,9 @@ class UpdateList:
                                                     " of Ubuntu"), 10),
                  ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
                                                    "Ubuntu"), 9),
-                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 8),
-                 (dist, "Ubuntu", _("Updates of Ubuntu"), 7)]
+                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates for Ubuntu"), 8),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 7),
+                 (dist, "Ubuntu", _("Updates of Ubuntu"), 6)]
 
     self.pkgs = {}
     self.matcher = {}

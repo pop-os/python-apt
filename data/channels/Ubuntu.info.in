@@ -48,6 +48,13 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Recommended updates
 
+Suite: edgy-proposed
+ParentSuite: edgy
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+_Description: Proposed updates
+
 Suite: edgy-backports
 ParentSuite: edgy
 RepositoryType: deb
@@ -102,6 +109,13 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Recommended updates
+
+Suite: dapper-proposed
+ParentSuite: dapper
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu/
+_Description: Proposed updates
 
 Suite: dapper-backports
 ParentSuite: dapper
