@@ -337,8 +337,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       logging.error("not handled expection:\n%s" % "\n".join(lines))
       self.error(_("A fatal error occured"),
                  _("Please report this as a bug and include the "
-                   "files /var/log/dist-upgrade.log and "
-                   "/var/log/dist-upgrade-apt.log "
+                   "files /var/log/dist-upgrade/main.log and "
+                   "/var/log/dist-upgrade/apt.log "
                    "in your report. The upgrade aborts now.\n"
                    "Your original sources.list was saved in "
                    "/etc/apt/sources.list.distUpgrade."),
@@ -355,7 +355,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self._term.connect("contents-changed", self._term_content_changed)
         self._terminal_lines = []
         try:
-          self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+          self._terminal_log = open("/var/log/dist-upgrade/term.log","w")
         except IOError:
           # if something goes wrong (permission denied etc), use stdout
           self._terminal_log = sys.stdout

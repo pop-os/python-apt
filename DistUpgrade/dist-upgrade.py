@@ -8,8 +8,10 @@ import sys
 
 if __name__ == "__main__":
 
+    if not os.path.exists("/var/log/dist-upgrade"):
+        os.path.mkdir("/var/log/dist-upgrade")
     logging.basicConfig(level=logging.DEBUG,
-                        filename="/var/log/dist-upgrade.log",
+                        filename="/var/log/dist-upgrade/main.log",
                         format='%(asctime)s %(levelname)s %(message)s',
                         filemode='w')
 

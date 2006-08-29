@@ -1,6 +1,6 @@
 # DistUpgradeControler.py 
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #  
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 # 
@@ -37,9 +37,20 @@ from gettext import gettext as _
 import gettext
 from DistUpgradeCache import MyCache
 
+
+class DistUpgradePolicy(object):
+    """ this is a abstract polciy object that allows to implement different upgrade
+        types (e.g. one for full net upgrades, one for only CDROM upgrades
+    """
+    def __init__(self):
+        pass
+
+
             
 
 class DistUpgradeControler(object):
+    """ this is the controler that does most of the work """
+    
     def __init__(self, distUpgradeView):
         gettext.bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
         gettext.textdomain("update-manager")
@@ -61,7 +72,7 @@ class DistUpgradeControler(object):
 
         # turn on debuging in the cache
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open("/var/log/dist-upgrade-apt.log",
+        fd = os.open("/var/log/dist-upgrade/apt.log",
                      os.O_RDWR|os.O_CREAT|os.O_TRUNC)
         os.dup2(fd,1)
         os.dup2(fd,2)
