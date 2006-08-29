@@ -159,8 +159,10 @@ class MyCache(apt.Cache):
             # FIXME: change the text to something more useful
             view.error(_("Could not calculate the upgrade"),
                        _("A unresolvable problem occured while "
-                         "calculating the upgrade. Please report "
-                         "this as a bug. "))
+                         "calculating the upgrade.\n\n"
+                         "Please report this bug against the 'update-manager' "
+                         "package and include the files in /var/log/dist-upgrade/ "
+                         "in the bugreport."))
             logging.error("Dist-upgrade failed: '%s'", e)
             return False
 

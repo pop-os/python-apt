@@ -65,7 +65,7 @@ class AptCdrom(object):
         apt_pkg.Config.Set("APT::CDROM::NoMount","true")
         cdrom = apt_pkg.GetCdrom()
         # FIXME: add cdrom progress here for the view
-        progress = self._view.getCdromProgress()
+        progress = self.view.getCdromProgress()
         try:
             res = cdrom.Add(progress)
         except SystemError, e:
@@ -73,7 +73,7 @@ class AptCdrom(object):
             self.view.error(_("Failed to add the CD"),
                              _("There was a error adding the CD, the "
                                "upgrade will abort. Please report this as "
-                               "a bugIf this is a valid Ubuntu CD.\n\n"
+                               "a bug if this is a valid Ubuntu CD.\n\n"
                                "The error message was:\n'%s'" % e))
             return False
         logging.debug("AptCdrom.add() returned: %s" % res)
@@ -419,8 +419,11 @@ class DistUpgradeControler(object):
                 self._view.getTerminal().call(["dpkg","--configure","-a"])
                 self._view.error(_("Could not install the upgrades"),
                                  _("The upgrade aborts now. Your system "
-                                   "can be in an unusable state. A recovery "
-                                   "was run (dpkg --configure -a)."),
+                                   "could be in an unusable state. A recovery "
+                                   "was run (dpkg --configure -a).\n\n"
+                                   "Please report this bug against the 'update-manager' "
+                                   "package and include the files in /var/log/dist-upgrade/ "
+                                   "in the bugreport."),
                                  "%s" % e)
                 return False
             except IOError, e:
@@ -572,7 +575,9 @@ class DistUpgradeControler(object):
                                    "updated the essential package '%s' can "
                                    "not be found anymore.\n"
                                    "This indicates a serious error, please "
-                                   "report this as a bug.") % pkg)
+                                   "report this bug against the 'update-manager' "
+                                   "package and include the files in /var/log/dist-upgrade/ "
+                                   "in the bugreport.") % pkg)
                 self.abort()
 
         # calc the dist-upgrade and see if the removals are ok/expected

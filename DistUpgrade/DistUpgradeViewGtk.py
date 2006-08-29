@@ -73,11 +73,12 @@ class GtkCdromProgressAdapter(apt.progress.CdromProgress):
         if text:
           self.status.set_text(text)
         self.progress.set_fraction(step/float(self.totalSteps))
+        while gtk.events_pending():
+          gtk.main_iteration()
     def askCdromName(self):
         return (False, "")
     def changeCdrom(self):
         return False
-
 
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
@@ -197,7 +198,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         #self.expander_terminal.set_expanded(True)
         self.parent.dialog_error.set_transient_for(self.parent.window_main)
         summary = _("Could not install '%s'" % pkg)
-        msg = _("The upgrade aborts now. Please report this bug.")
+        msg = _("The upgrade aborts now. Please report this bug against the 'update-manager' "
+                "package and include the files in /var/log/dist-upgrade/ in the bugreport.")
         markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
         self.parent.dialog_error.realize()
         self.parent.dialog_error.window.set_functions(gtk.gdk.FUNC_MOVE)
