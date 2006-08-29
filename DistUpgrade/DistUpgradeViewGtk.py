@@ -37,7 +37,7 @@ import apt_pkg
 import os
 
 from apt.progress import InstallProgress
-from DistUpgradeView import DistUpgradeView, FuzzyTimeToStr
+from DistUpgradeView import DistUpgradeView, FuzzyTimeToStr, estimatedDownloadTime
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 import gettext
@@ -476,6 +476,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         if downloadSize > 0:
             msg += _("You have to download a total of %s." %\
                      apt_pkg.SizeToStr(downloadSize))
+            msg += estimatedDownloadTime(downloadSize) 
 
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) > 100:
             msg += "\n\n%s" % _("The upgrade can take several hours and "\

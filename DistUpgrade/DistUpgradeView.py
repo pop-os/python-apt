@@ -29,6 +29,15 @@ def FuzzyTimeToStr(sec):
     return _("%li minutes") % (sec/60)
   return _("%li seconds") % sec
 
+def estimatedDownloadTime(self, size):
+    """ get the estimated download time """
+    requiredDownload = self.requiredDownload
+    timeModem = requiredDownload/(56*1024/8)  # 56 kbit 
+    timeDSL = requiredDownload/(1024*1024/8)  # 1Mbit = 1024 kbit
+    s= _("The download will approximately take %s with a 56k modem and %s with "
+         "a 1Mbit DSL connection" % FuzzyTimeToStr(timeModem), FuzzyTimeToStr(timeDSL))
+    return s
+
 
 class DumbTerminal(object):
     def call(self, cmd):
