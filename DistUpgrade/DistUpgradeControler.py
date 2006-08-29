@@ -37,21 +37,43 @@ from gettext import gettext as _
 import gettext
 from DistUpgradeCache import MyCache
 
+class AptCdrom(object):
+    def __init__(self, view, path):
+        self.view = view
+        self.cdrompath = path
+        
+    def restoreBackup(self, backup_ext):
+        " restore the backup copy of the cdroms.list file (*not* sources.list)! "
+        cdromstate = apt_pkg.Config.Find("Dir::State::cdroms")
+        if os.path.exists(os.path.join(cdromstate,backup_ext)):
+            shutil.copy(os.path.join(cdromstate,backup_ext),cdromstate)
+        # mvo: we don't have to care about restoring the sources.list here because
+        #      aptsources will do this for us anyway
+        
+    def add(self, backup_ext=None):
+        " add a cdrom to apts database "
+        logging.debug("AptCdrom.add() called with '%s'", self.cdrompath)
+        # do backup (if needed) of the cdroms.list file
+        if backup_ext:
+            cdromstate = apt_pkg.Config.Find("Dir::State::cdroms")
+            shutl.copy(cdromstate, os.path.join(cdromstate,backup_ext))
+        # do the actual work
+        apt_pkg.Config.Set("Acquire::cdrom::mount",self.cdrompath);
+        cdrom = apt_pkg.GetCdrom()
+        # FIXME: add cdrom progress here for the view
+        progress = CdromProgress()
+        res = cdrom.Add(progress)
+        logging.debug("AptCdrom.add() returned: %s" % res)
+        return res
 
-class DistUpgradePolicy(object):
-    """ this is a abstract polciy object that allows to implement different upgrade
-        types (e.g. one for full net upgrades, one for only CDROM upgrades
-    """
-    def __init__(self):
-        pass
-
-
-            
+    def __nonzero__(self):
+        """ helper to use this as 'if cdrom:' """
+        return self.cdrompath is not None
 
 class DistUpgradeControler(object):
     """ this is the controler that does most of the work """
     
-    def __init__(self, distUpgradeView):
+    def __init__(self, distUpgradeView, cdromPath=None):
         gettext.bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
         gettext.textdomain("update-manager")
 
@@ -59,6 +81,11 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
+        # specific for the CDROM based upgrade
+        self.aptcdrom = AptCdrom(distUpgradeView, cdromPath)
+        self.useNetwork = True
+        
+        # the configuration 
         self.config = DistUpgradeConfig()
         self.sources_backup_ext = "."+self.config.get("Files","BackupExt")
         
@@ -80,6 +107,24 @@ class DistUpgradeControler(object):
     def openCache(self):
         self.cache = MyCache(self._view.getOpCacheProgress())
 
+    def prepare(self):
+        """ initial cache opening, sanity checking, network checking """
+        self.openCache()
+        if not self.cache.sanityCheck(self._view):
+            return False
+        # FIXME: we may try to find out a bit more about the network connection here and ask more
+        #        inteligent questions
+        if self.aptcdrom:
+            res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
+                                              _("The upgrade can use the network to check "
+                                                "the latest updates and to fetch packages that are not on the "
+                                                "current CD.\n"
+                                                "If you have inexpensive network access you should answer "
+                                                "'Yes' here. If networking is expensive for you choose 'No'.")
+                                              )
+            self.useNetwork = res
+            logging.debug("useNetwork: '%s' (selected by user)" % res)
+            return True
 
     def rewriteSourcesList(self, mirror_check=True):
         logging.debug("rewriteSourcesList()")
@@ -244,7 +289,7 @@ class DistUpgradeControler(object):
         logging.debug("Install: %s" % " ".join(inst))
         logging.debug("Upgrade: %s" % " ".join(up))
 
-    def doPreUpdate(self):
+    def doPreUpgrade(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
         self.obsolete_pkgs = self.cache._getObsoletesPkgs()
@@ -253,6 +298,9 @@ class DistUpgradeControler(object):
         logging.debug("Obsolete: %s" % " ".join(self.obsolete_pkgs))
 
     def doUpdate(self):
+        if not self.useNetwork:
+            logging.debug("doUpdate() will not use the network because self.useNetwork==false")
+            return True
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
         # FIXME: retry here too? just like the DoDistUpgrade?
@@ -456,6 +504,7 @@ class DistUpgradeControler(object):
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
+        self.aptcdrom.restoreBackup(self.sources_backup_ext)
         # generate a new cache
         self._view.updateStatus(_("Restoring original system state"))
         self.openCache()
@@ -468,16 +517,19 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
 
-        self.openCache()
-        if not self.cache.sanityCheck(self._view):
+        if not self.prepare():
             abort(1)
 
+        # add cdrom (if we have one)
+        if self.aptcdrom:
+            self.aptcdrom.add(self.sources_backup_ext)
+    
         # run a "apt-get update" now
         if not self.doUpdate():
             sys.exit(1)
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
-        self.doPreUpdate()
+        self.doPreUpgrade()
 
         # update sources.list
         self._view.setStep(2)
