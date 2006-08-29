@@ -474,7 +474,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             msg +=" "
 
         if downloadSize > 0:
-            msg += _("You have to download a total of %s." %\
+            msg += _("You have to download a total of %s. " %\
                      apt_pkg.SizeToStr(downloadSize))
             msg += estimatedDownloadTime(downloadSize) 
 
