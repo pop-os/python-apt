@@ -8,6 +8,7 @@ import re
 import logging
 from gettext import gettext as _
 from DistUpgradeConfigParser import DistUpgradeConfig
+from DistUpgradeView import FuzzyTimeToStr
 
 class MyCache(apt.Cache):
     # init
@@ -34,6 +35,15 @@ class MyCache(apt.Cache):
         fetcher = apt_pkg.GetAcquire()
         pm.GetArchives(fetcher, self._list, self._records)
         return fetcher.FetchNeeded
+    @property
+    def estimatedDownloadTime(self):
+        """ get the estimated download time """
+        requiredDownload = self.requiredDownload
+        timeModem = requiredDownload/(56*1024/8)  # 56 kbit 
+        timeDSL = requiredDownload/(1024*1024/8)  # 1Mbit = 1024 kbit
+        s= _("The download will approximately take %s with a 56k modem and %s with "
+             "a 1Mbit DSL connection" % FuzzyTimeToStr(timeModem), FuzzyTimeToStr(timeDSL))
+        return s
     @property
     def additionalRequiredSpace(self):
         """ get the size of the additonal required space on the fs """

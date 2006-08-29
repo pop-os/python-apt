@@ -19,6 +19,17 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+def FuzzyTimeToStr(sec):
+  " return the time a bit fuzzy (no seconds if time > 60 secs "
+  if sec > 60*60*24:
+    return _("%li days %li hours %li minutes") % (sec/60/60/24, (sec/60/60) % 24, (sec/60) % 60)
+  if sec > 60*60:
+    return _("%li hours %li minutes") % (sec/60/60, (sec/60) % 60)
+  if sec > 60:
+    return _("%li minutes") % (sec/60)
+  return _("%li seconds") % sec
+
+
 class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "

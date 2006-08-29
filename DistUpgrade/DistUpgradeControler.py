@@ -132,7 +132,7 @@ class DistUpgradeControler(object):
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
                                                 "current CD.\n"
-                                                "If you have inexpensive network access you should answer "
+                                                "If you have fast or inexpensive network access you should answer "
                                                 "'Yes' here. If networking is expensive for you choose 'No'.")
                                               )
             self.useNetwork = res

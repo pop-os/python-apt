@@ -37,7 +37,7 @@ import apt_pkg
 import os
 
 from apt.progress import InstallProgress
-from DistUpgradeView import DistUpgradeView
+from DistUpgradeView import DistUpgradeView, FuzzyTimeToStr
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 import gettext
@@ -45,19 +45,6 @@ from gettext import gettext as _
 
 def utf8(str):
   return unicode(str, 'latin1').encode('utf-8')
-
-def FuzzyTimeToStr(sec):
-  " return the time a bit fuzzy (no seconds if time > 60 secs "
-  if sec > 60*60*24:
-    return _("About %li days %li hours %li minutes remaining") % (sec/60/60/24,
-                                                                  (sec/60/60) % 24,
-                                                                  (sec/60) % 60)
-  if sec > 60*60:
-    return _("About %li hours %li minutes remaining") % (sec/60/60,
-                                          (sec/60) % 60)
-  if sec > 60:
-    return _("About %li minutes remaining") % (sec/60)
-  return _("About %li seconds remaining") % sec
 
 
 class GtkCdromProgressAdapter(apt.progress.CdromProgress):
@@ -140,7 +127,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
 
         if self.currentCPS > 0:
             self.status.set_text(_("Fetching file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
-            self.progress.set_text(FuzzyTimeToStr(self.eta))
+            self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(self.eta))
         else:
             self.status.set_text(_("Fetching file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
@@ -262,7 +249,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           eta = (100.0 - self.percent) * time_per_percent
           # only show if we have some sensible data
           if eta > 61.0 and eta < (60*60*24*2):
-            self.progress.set_text(FuzzyTimeToStr(eta))
+            self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(eta))
           else:
             self.progress.set_text(" ")
 
