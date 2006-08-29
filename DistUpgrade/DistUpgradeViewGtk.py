@@ -472,14 +472,14 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                                     "%s packages are going to be upgraded.",
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
-
         if downloadSize > 0:
-            msg += _("You have to download a total of %s. " %\
+            msg += _("\n\nYou have to download a total of %s. " %\
                      apt_pkg.SizeToStr(downloadSize))
-            msg += estimatedDownloadTime(downloadSize) 
+            msg += estimatedDownloadTime(downloadSize)
+            msg += "."
 
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) > 100:
-            msg += "\n\n%s" % _("The upgrade can take several hours and "\
+            msg += "\n\n%s" % _("Fetching and installing the upgrade can take several hours and "\
                                 "cannot be canceled at any time later.")
 
         msg += "\n\n<b>%s</b>" % _("To prevent data loss close all open "\
