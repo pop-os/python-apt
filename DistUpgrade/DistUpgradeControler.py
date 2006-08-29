@@ -30,6 +30,7 @@ import subprocess
 import logging
 import re
 import statvfs
+import shutil
 from DistUpgradeConfigParser import DistUpgradeConfig
 
 from aptsources import SourcesList, SourceEntry, Distribution, is_mirror
@@ -44,9 +45,10 @@ class AptCdrom(object):
         
     def restoreBackup(self, backup_ext):
         " restore the backup copy of the cdroms.list file (*not* sources.list)! "
-        cdromstate = apt_pkg.Config.Find("Dir::State::cdroms")
-        if os.path.exists(os.path.join(cdromstate,backup_ext)):
-            shutil.copy(os.path.join(cdromstate,backup_ext),cdromstate)
+        cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
+                                  apt_pkg.Config.Find("Dir::State::cdroms"))
+        if os.path.exists(cdromstate+backup_ext):
+            shutil.copy(cdromstate+backup_ext, cdromstate)
         # mvo: we don't have to care about restoring the sources.list here because
         #      aptsources will do this for us anyway
         
@@ -55,13 +57,14 @@ class AptCdrom(object):
         logging.debug("AptCdrom.add() called with '%s'", self.cdrompath)
         # do backup (if needed) of the cdroms.list file
         if backup_ext:
-            cdromstate = apt_pkg.Config.Find("Dir::State::cdroms")
-            shutl.copy(cdromstate, os.path.join(cdromstate,backup_ext))
+            cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
+                                      apt_pkg.Config.Find("Dir::State::cdroms"))
+            shutil.copy(cdromstate, cdromstate+backup_ext)
         # do the actual work
         apt_pkg.Config.Set("Acquire::cdrom::mount",self.cdrompath);
         cdrom = apt_pkg.GetCdrom()
         # FIXME: add cdrom progress here for the view
-        progress = CdromProgress()
+        progress = apt.progress.CdromProgress()
         res = cdrom.Add(progress)
         logging.debug("AptCdrom.add() returned: %s" % res)
         return res
