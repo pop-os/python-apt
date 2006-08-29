@@ -1,6 +1,6 @@
 # DistUpgradeViewGtk.py 
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #  
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 # 
@@ -60,6 +60,25 @@ def FuzzyTimeToStr(sec):
   return _("About %li seconds remaining") % sec
 
 
+class GtkCdromProgressAdapter(apt.progress.CdromProgress):
+    """ Report the cdrom add progress
+        Subclass this class to implement cdrom add progress reporting
+    """
+    def __init__(self, parent):
+        self.status = parent.label_status
+        self.progress = parent.progressbar_cache
+        self.parent = parent
+    def update(self, text, step):
+        """ update is called regularly so that the gui can be redrawn """
+        if text:
+          self.status.set_text(text)
+        self.progress.set_fraction(step/float(self.totalSteps))
+    def askCdromName(self):
+        return (False, "")
+    def changeCdrom(self):
+        return False
+
+
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
       self.progressbar = progressbar
@@ -108,7 +127,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.status.show()
     def stop(self):
         self.progress.set_text(" ")
-        self.status.set_text(_("Download is complete"))
+        self.status.set_text(_("Fetching is complete"))
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
@@ -119,10 +138,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             currentItem = self.totalItems
 
         if self.currentCPS > 0:
-            self.status.set_text(_("Downloading file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
+            self.status.set_text(_("Fetching file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
             self.progress.set_text(FuzzyTimeToStr(self.eta))
         else:
-            self.status.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Fetching file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
@@ -310,6 +329,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = GtkFetchProgressAdapter(self)
+        self._cdromProgress = GtkCdromProgressAdapter(self)
         self._installProgress = GtkInstallProgressAdapter(self)
         # details dialog
         self.details_list = gtk.ListStore(gobject.TYPE_STRING)
@@ -382,6 +402,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return self._installProgress
     def getOpCacheProgress(self):
         return self._opCacheProgress
+    def getCdromProgress(self):
+        return self._cdromProgress
     def updateStatus(self, msg):
         self.label_status.set_text("%s" % msg)
     def setStep(self, step):

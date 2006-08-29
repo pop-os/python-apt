@@ -38,23 +38,6 @@ from gettext import gettext as _
 import gettext
 from DistUpgradeCache import MyCache
 
-class MyCdromProgress(apt.progress.CdromProgress):
-    """ Report the cdrom add progress
-        Subclass this class to implement cdrom add progress reporting
-    """
-    def __init__(self):
-        pass
-    def update(self, text, step):
-        """ update is called regularly so that the gui can be redrawn """
-        print "update()",text, step
-        pass
-    def askCdromName(self):
-        print "askCdromName"
-        return "lala"
-    def changeCdrom(self):
-        print "changeCdrom"
-        
-    
 class AptCdrom(object):
     def __init__(self, view, path):
         self.view = view
@@ -82,7 +65,7 @@ class AptCdrom(object):
         apt_pkg.Config.Set("APT::CDROM::NoMount","true")
         cdrom = apt_pkg.GetCdrom()
         # FIXME: add cdrom progress here for the view
-        progress = MyCdromProgress()
+        progress = self._view.getCdromProgress()
         try:
             res = cdrom.Add(progress)
         except SystemError, e:
