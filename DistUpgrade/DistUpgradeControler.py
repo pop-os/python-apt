@@ -65,7 +65,16 @@ class AptCdrom(object):
         cdrom = apt_pkg.GetCdrom()
         # FIXME: add cdrom progress here for the view
         progress = apt.progress.CdromProgress()
-        res = cdrom.Add(progress)
+        try:
+            res = cdrom.Add(progress)
+        except SystemError, e:
+            logging.error("can't add cdrom: %s" % e)
+            self.view.error(_("Failed to add the CD"),
+                             _("There was a error adding the CD, the "
+                               "upgrade will abort. Please report this as "
+                               "a bugIf this is a valid Ubuntu CD.\n\n"
+                               "The error message was:\n'%s'" % e))
+            return False
         logging.debug("AptCdrom.add() returned: %s" % res)
         return res
 
@@ -524,8 +533,9 @@ class DistUpgradeControler(object):
             self.abort(1)
 
         # add cdrom (if we have one)
-        if self.aptcdrom:
-            self.aptcdrom.add(self.sources_backup_ext)
+        if (self.aptcdrom and
+            not self.aptcdrom.add(self.sources_backup_ext)):
+            sys.exit(1)
     
         # run a "apt-get update" now
         if not self.doUpdate():

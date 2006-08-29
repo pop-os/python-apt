@@ -32,8 +32,8 @@ import os.path
 
 #import pdb
 
-from UpdateManager.Common.DistInfo import DistInfo
-
+#from UpdateManager.Common.DistInfo import DistInfo
+from DistInfo import DistInfo
 
 # some global helpers
 def is_mirror(master_uri, compare_uri):
