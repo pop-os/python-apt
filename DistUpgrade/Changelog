@@ -2,6 +2,8 @@
 	- always enable the "main" component to make sure it is available
 	- add download estimate
 	- add --cdrom switch to make cdrom based dist-upgrades possible
+	- better error reporting
+	- moved the logging into the /var/log/dist-upgrade/ dir
 2006-08-18: 
 	- sort the demoted software list
 2006-07-31:
