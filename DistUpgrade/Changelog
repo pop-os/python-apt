@@ -1,3 +1,5 @@
+2006-08-29:
+	- always enable the "main" component to make sure it is available
 2006-08-18: 
 	- sort the demoted software list
 2006-07-31:
