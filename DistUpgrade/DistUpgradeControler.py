@@ -550,11 +550,6 @@ class DistUpgradeControler(object):
         if not self.prepare():
             self.abort(1)
 
-        # add cdrom (if we have one)
-        if (self.aptcdrom and
-            not self.aptcdrom.add(self.sources_backup_ext)):
-            sys.exit(1)
-    
         # run a "apt-get update" now
         if not self.doUpdate():
             sys.exit(1)
@@ -567,6 +562,12 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Updating repository information"))
         if not self.updateSourcesList():
             self.abort()
+
+        # add cdrom (if we have one)
+        if (self.aptcdrom and
+            not self.aptcdrom.add(self.sources_backup_ext)):
+            sys.exit(1)
+
         # then update the package index files
         if not self.doUpdate():
             self.abort()
