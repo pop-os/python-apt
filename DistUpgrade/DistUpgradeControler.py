@@ -127,7 +127,7 @@ class DistUpgradeControler(object):
                                               )
             self.useNetwork = res
             logging.debug("useNetwork: '%s' (selected by user)" % res)
-            return True
+        return True
 
     def rewriteSourcesList(self, mirror_check=True):
         logging.debug("rewriteSourcesList()")
@@ -225,7 +225,7 @@ class DistUpgradeControler(object):
                                ) % (self.fromDist, self.toDist))
             if res:
                 # re-init the sources and try again
-                self.sources = SourcesList()
+                self.sources = SourcesList(matcherPath=".")
                 if not self.rewriteSourcesList(mirror_check=False):
                     #hm, still nothing useful ...
                     prim = _("Generate default sources?")
@@ -521,7 +521,7 @@ class DistUpgradeControler(object):
         self._view.setStep(1)
 
         if not self.prepare():
-            abort(1)
+            self.abort(1)
 
         # add cdrom (if we have one)
         if self.aptcdrom:
