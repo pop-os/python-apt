@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# "cdromupgrade" is a shell script wrapper around the dist-upgrader
+# to make it possible to put it onto the top-level dir of a CD and
+# run it from there
+# 
+
+cddirname=${0%\/*}
+cd $cddirname/upgrade
+$cddirname/upgrade/dist-upgrade.py --cdrom $cddirname

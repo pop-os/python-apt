@@ -6,7 +6,7 @@
 	- moved the logging into the /var/log/dist-upgrade/ dir
 	- change the obsoletes calculation when run without network and
           consider demotions as obsoletes then (because we can't really
-	  use the "downloadable" hint without network)
+	  use the "pkg.downloadable" hint without network)
 2006-08-18: 
 	- sort the demoted software list
 2006-07-31:

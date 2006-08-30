@@ -1,34 +1,22 @@
-MUSTFIX:
---------
+CDROM:
+-----
+ * release notes display in CDROM mode
+ * if run from CDROM and we have network -> do a self update
+ * support dapper-commercial in sources.list rewriting
+ * after "no-network" dist-upgrade it is most likely that the system
+   is only half-upgraded and update-manager will not be able to do
+   the full upgrade. update-manager needs to be changed to support
+   full dist-upgrades (possible by just calling the dist-upgrader
+   in a special mode)
 
-* debconf gnome dosn't work (can't connect to the session)
-  [ should be fixed with the bugfix on gksu ]
-* display a message that all applications should be closed for the 
-  dist-upgrade (and that strange things like a crashing panel can
-  happen)
-  [done in current dialog]
-* sources.list edit needs to add valid sources if all other sources
-  are commented out
-  (or for sources that can't be identified and rewrite ask the user
-   what to do by just s/breezy/dapper/g?)
-  [Done]
-* inform about commented out sources
-  [Done]
-* fix "no activity for 120s warning" being repeated every sec in the logs
-  [Done]
+Misc:
+-----
 
 * [fabbio]: we probably don't want to remove stuff that moved from main
   to universe (if the user has only main enabled this is considered 
   obsolete). It would also be nice inform about packages that went from
   main->universe. We could ship a list of demotions.
-* [kamion]: we could use debconf-frontend=dialog and then detect the ansi
-            seqence that clear the screen and open the terminal then 
-            -> trouble: vte does not give me the raw codes but only the
-                        text (as \n\n\n\n\n... for cls)
-* add "add cdrom" to the "Do upgrade?" screen? And recalc the download 
-  size again then :) ?
 * set bigger timeout than 120s?
-* make the sources.list rewrite even more robust (see launchpad #41023)
 
 breezy->dapper
 --------------
@@ -44,13 +32,8 @@ hoary->breezy
 
 general
 -------
-- CDROM upgrades !!!
-
-- whitelist removal (pattern? e.g. c102 -> c2a etc)?
-
-- check authentication and don't upgrade anything that is not
-  authenticated (maybe just comment unauthenticated stuff out?)
-
+- whitelist removal (pattern? e.g. c102 -> c2a etc) and not
+  display it?
 
 Robustness:
 -----------
