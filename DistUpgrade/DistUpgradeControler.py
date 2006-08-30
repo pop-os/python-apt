@@ -113,7 +113,7 @@ class DistUpgradeControler(object):
         # turn on debuging in the cache
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         fd = os.open("/var/log/dist-upgrade/apt.log",
-                     os.O_RDWR|os.O_CREAT|os.O_TRUNC)
+                     os.O_RDWR|os.O_CREAT|os.O_TRUNC, 0644)
         os.dup2(fd,1)
         os.dup2(fd,2)
 

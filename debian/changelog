@@ -1,3 +1,9 @@
+update-manager (0.44.5) edgy; urgency=low
+
+  * install the DistUpgrade package too
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 30 Aug 2006 11:32:24 +0200
+
 update-manager (0.44.4) edgy; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:

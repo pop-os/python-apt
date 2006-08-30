@@ -58,7 +58,8 @@ setup(name='update-manager',
       packages=[
                 'SoftwareProperties',
                 'UpdateManager',
-                'UpdateManager.Common'
+                'UpdateManager.Common',
+                'DistUpgrade'
                 ],
       scripts=[
                'software-properties',

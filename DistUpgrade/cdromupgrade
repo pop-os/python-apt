@@ -4,7 +4,16 @@
 # to make it possible to put it onto the top-level dir of a CD and
 # run it from there
 # 
+# Not that useful unfortunately when the CD is mounted "noexec",
+# but useful for the notification-daemon that will just run it
+# and be done with it
+#
+# WARNING: make sure to call it with a absolute path!
+#          (e.g. /cdrom/cdromugprade)
+
+UPGRADER_DIR=dists/stable/dist-upgrader/binary-all/
 
 cddirname=${0%\/*}
-cd $cddirname/upgrade
-$cddirname/upgrade/dist-upgrade.py --cdrom $cddirname
+fullpath=$cddirname/$UPGRADER_DIR
+cd $fullpath
+gksu -- python $fullpath/edgy --cdrom $cddirname

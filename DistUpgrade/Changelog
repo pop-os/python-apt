@@ -1,12 +1,15 @@
+2006-08-30:
+	- fixes to the cdromupgrade wrapper
 2006-08-29:
 	- always enable the "main" component to make sure it is available
-	- add download estimate
+	- add download estimated time
 	- add --cdrom switch to make cdrom based dist-upgrades possible
 	- better error reporting
 	- moved the logging into the /var/log/dist-upgrade/ dir
 	- change the obsoletes calculation when run without network and
           consider demotions as obsoletes then (because we can't really
 	  use the "pkg.downloadable" hint without network)
+	- uploaded
 2006-08-18: 
 	- sort the demoted software list
 2006-07-31:
