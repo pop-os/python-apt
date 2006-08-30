@@ -487,7 +487,16 @@ class DistUpgradeControler(object):
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
-        remove_candidates = now_obsolete - self.obsolete_pkgs
+        if self.useNetwork:
+            # we can only do the obsoletes calculation here if we use a
+            # network. otherwise after rewriting the sources.list everything
+            # that is not on the CD becomes obsolete (not-downloadable)
+            remove_candidates = now_obsolete - self.obsolete_pkgs
+        else:
+            # initial remove candidates when no network is used should
+            # be the demotions to make sure we don't leave potential
+            # unsupported software
+            remove_candidates = set(installed_demotions)
         remove_candidates |= set(self.forced_obsoletes)
         logging.debug("remove_candidates: '%s'" % remove_candidates)
         logging.debug("Start checking for obsolete pkgs")
