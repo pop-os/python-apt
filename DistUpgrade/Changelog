@@ -1,3 +1,7 @@
+2006-09-01:
+	- make the cdromupgrade wrapper work with the compressed version
+          of the upgrader as put onto the CD
+	- uploaded
 2006-08-30:
 	- fixes to the cdromupgrade wrapper
 2006-08-29:
