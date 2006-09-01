@@ -1,6 +1,8 @@
 update-manager (0.44.5) edgy; urgency=low
 
   * install the DistUpgrade package too
+  * data/channels/Ubuntu.info.in:
+    - warty is no longer officially supported 
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 30 Aug 2006 11:32:24 +0200
 
