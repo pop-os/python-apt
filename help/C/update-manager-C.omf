@@ -9,7 +9,7 @@
   <description> This document explains how to use the Update Manager. </description>
   <type>manual </type>
   <format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/>
-  <identifier url=""/>
+  <identifier url="file:/usr/share/omf/update-manager/update-manager-C.omf"/>
   <language code="C"/>
   <relation seriesid="e7ae3bcc-8ce0-11d9-8fa9-d1fb3a9076bb"/>
   <rights type="GNU FDL" license.version="1.1" license="http://www.gnu.org/licenses/fdl.html"
