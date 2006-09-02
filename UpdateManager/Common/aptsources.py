@@ -537,12 +537,15 @@ class Distribution:
                 self.source_code_sources.append(source)
             elif source.type.endswith("-src") and source.disabled == True:
                 self.disabled_sources.append(source)
-        if source.template in self.source_template.children:
-            #print "yeah! child found: %s" % source.template.name
-            if source.type == "deb":
+        if source.invalid == False and\
+           source.template in self.source_template.children:
+            if source.disabled == False and source.type == "deb":
                 self.child_sources.append(source)
-            elif source.type == "deb-src":
+            elif source.disabled == False and source.type == "deb-src":
                 self.source_code_sources.append(source)
+            else:
+                self.disabled_sources.append(source)
+
     self.download_comps = set(comps)
     self.cdrom_comps = set(cdrom_comps)
     enabled_comps.extend(comps)
