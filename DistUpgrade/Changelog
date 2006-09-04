@@ -1,3 +1,8 @@
+2006-09-04:
+	- set Debug::pkgDepCache::AutoInstall as debug option too
+	- be more robust against failure from the locales
+2006-09-03:
+	- fix in the cdromupgrade script path detection
 2006-09-01:
 	- make the cdromupgrade wrapper work with the compressed version
           of the upgrader as put onto the CD

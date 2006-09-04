@@ -12,7 +12,7 @@
 #          (e.g. /cdrom/cdromugprade)
 
 CODENAME=edgy
-UPGRADER_DIR=dists/stable/dist-upgrader/binary-all/
+UPGRADER_DIR=dists/stable/main/dist-upgrader/binary-all/
 
 cddirname=${0%\/*}
 fullpath=$cddirname/$UPGRADER_DIR

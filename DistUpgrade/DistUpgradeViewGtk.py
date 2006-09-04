@@ -305,8 +305,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
     def __init__(self):
         # FIXME: i18n must be somewhere relative do this dir
-        bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
-        gettext.textdomain("update-manager")
+        try:
+          bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
+          gettext.textdomain("update-manager")
+        except Exception, e:
+          logging.warning("Error setting locales (%s)" % e)
         
         icons = gtk.icon_theme_get_default()
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))

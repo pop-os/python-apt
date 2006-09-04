@@ -19,6 +19,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from gettext import gettext as _
+
 def FuzzyTimeToStr(sec):
   " return the time a bit fuzzy (no seconds if time > 60 secs "
   if sec > 60*60*24:
