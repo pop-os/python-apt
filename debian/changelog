@@ -1,3 +1,10 @@
+update-manager (0.44.6) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - fix inconsistency in the new software-sources dialog
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  4 Sep 2006 22:49:43 +0200
+
 update-manager (0.44.5) edgy; urgency=low
 
   * install the DistUpgrade package too
