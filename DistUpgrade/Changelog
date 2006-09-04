@@ -1,6 +1,7 @@
 2006-09-04:
 	- set Debug::pkgDepCache::AutoInstall as debug option too
 	- be more robust against failure from the locales
+	- remove libgl1-mesa (no longer needed on edgy)
 2006-09-03:
 	- fix in the cdromupgrade script path detection
 2006-09-01:
