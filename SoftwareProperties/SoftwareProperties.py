@@ -377,6 +377,42 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.treeview_cdroms.set_sensitive(True)
 
+    if self.options.debug == True or self.options.massive_debug == True:
+        print "ENABLED COMPS: %s" % self.distro.enabled_comps
+        print "INTERNET COMPS: %s" % self.distro.download_comps
+        print "MAIN SOURCES"
+        for source in self.distro.main_sources:
+            self.print_source_entry(source)
+        print "CHILD SOURCES"
+        for source in self.distro.child_sources:
+            self.print_source_entry(source)
+        print "CDROM SOURCES"
+        for source in self.distro.cdrom_sources:
+            self.print_source_entry(source)
+        print "SOURCE CODE SOURCES"
+        for source in self.distro.source_code_sources:
+            self.print_source_entry(source)
+        print "DISABLED SOURCES"
+        for source in self.distro.disabled_sources:
+            self.print_source_entry(source)
+        print "ISV"
+        for source in self.sourceslist_visible:
+            self.print_source_entry(source)
+
+  def print_source_entry(self, source):
+    """Print the data of a source entry to the command line"""
+    print source.dist
+    for (label, value) in [("URI:", source.uri),
+                           ("Comps:", source.comps),
+                           ("Enabled:", not source.disabled),
+                           ("Valid:", not source.invalid)]:
+        print " %s %s" % (label, value)
+    if source.template:
+        for (label, value) in [("MatchURI:", source.template.match_uri),
+                               ("BaseURI:", source.template.base_uri)]:
+            print " %s %s" % (label, value)
+    print "\n"
+
   def on_combobox_server_changed(self, combobox):
     """
     Replace the servers used by the main and update sources with
@@ -629,7 +665,8 @@ class SoftwareProperties(SimpleGladeApp):
   
   def modified_sourceslist(self):
     """The sources list was changed and now needs to be saved and reloaded"""
-    self.massive_debug_output()
+    if self.options.massive_debug == True:
+        self.massive_debug_output()
     self.modified = True
     self.button_revert.set_sensitive(True)
     self.save_sourceslist()

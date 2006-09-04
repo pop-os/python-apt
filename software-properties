@@ -45,6 +45,13 @@ if __name__ == "__main__":
  
   # Begin parsing of options
   parser = OptionParser()
+  parser.add_option ("-d", "--debug", action="store_true",
+                     dest="debug", default=False,
+                     help="Print some debug information to the command line")
+  parser.add_option ("-m", "--massive-debug", action="store_true",
+                     dest="massive_debug", default=False,
+                     help="Print a lot of debug information to the "
+                          "command line")
   parser.add_option ("-n", "--no-update", action="store_true",
                      dest="no_update", default=False,
                      help="No update on repository change (usefull if called "\
