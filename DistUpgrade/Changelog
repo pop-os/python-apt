@@ -1,3 +1,5 @@
+2006-09-05:
+	- added "RemoveEssentialOk" option and put "sysvinit" into it
 2006-09-04:
 	- set Debug::pkgDepCache::AutoInstall as debug option too
 	- be more robust against failure from the locales
