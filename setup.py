@@ -71,7 +71,7 @@ setup(name='update-manager',
                    glob.glob("DistUpgrade/*.glade")
                   ),
                   ('share/update-manager/',
-                   glob.glob("DistUpgrade/*.cfg")
+                   glob.glob("DistUpgrade/*.cfg")+
                    glob.glob("DistUpgrade/*.cfg")
                   ),
                   ('share/doc/update-manager',

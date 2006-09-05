@@ -2,6 +2,9 @@ update-manager (0.44.6) edgy; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:
     - fix inconsistency in the new software-sources dialog
+  * integrate DistUpgrade code into UpdateManager to make sure
+    that after e.g. a CDROM upgrade the rest of the system can still
+    be fully upgraded over the net
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  4 Sep 2006 22:49:43 +0200
 
