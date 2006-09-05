@@ -90,6 +90,14 @@ class SourceEntry:
     self.template = None
     self.children = []
 
+  def __eq__(self, other):
+    return (self.disabled == other.disabled and
+            self.type == other.type and
+            self.uri == other.uri and
+            self.dist == other.dist and
+            self.comps == other.comps)
+
+
   # works mostely like split but takes [] into account
   def mysplit(self, line):
     line = string.strip(line)
