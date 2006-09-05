@@ -30,6 +30,8 @@ PostUpgrade{Install,Remove,Purge}:
 ForcedObsoletes: 
   Obsolete packages that the user is asked about after the upgrade (marking 
   happens *after* the cache.commit())
+RemoveEssentialOk:
+  Those packages are ok to remove even though they are essential
 
 [$meta-pkg]
 KeyDependencies:
