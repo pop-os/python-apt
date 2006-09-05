@@ -78,9 +78,12 @@ if __name__ == "__main__":
     controler.doPreUpgrade()
     if controler.askDistUpgrade():
       view.setStep(STEP_FETCH_INSTALL)
-      controler.doDistUpgrade()
+      if not controler.doDistUpgrade():
+        sys.exit(1)
       view.setStep(STEP_CLEANUP)
       controler.doPostUpgrade()
+      view.information(_("Upgrade complete"),
+                       _("The upgrade was completed."))
   else:
     app = UpdateManager(data_dir)
     app.main(options)
