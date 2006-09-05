@@ -21,7 +21,7 @@ if __name__ == "__main__":
                         format='%(asctime)s %(levelname)s %(message)s',
                         filemode='w')
 
-    config = DistUpgradeConfig()
+    config = DistUpgradeConfig(".")
     requested_view= config.get("View","View")
     try:
         view_modul = __import__(requested_view)

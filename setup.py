@@ -72,6 +72,7 @@ setup(name='update-manager',
                   ),
                   ('share/update-manager/',
                    glob.glob("DistUpgrade/*.cfg")
+                   glob.glob("DistUpgrade/*.cfg")
                   ),
                   ('share/doc/update-manager',
                      glob.glob("data/channels/README.channels")

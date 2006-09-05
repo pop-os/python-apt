@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-08-30 11:31+0200\n"
+"POT-Creation-Date: 2006-09-05 13:07+0200\n"
 "PO-Revision-Date: 2006-05-24 20:54+0000\n"
 "Last-Translator: Ante Karamatić <ivoks@ubuntu.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
@@ -81,47 +81,47 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:544
-#: ../SoftwareProperties/SoftwareProperties.py:561
+#: ../SoftwareProperties/SoftwareProperties.py:580
+#: ../SoftwareProperties/SoftwareProperties.py:597
 #, fuzzy
 msgid "Software Channel"
 msgstr "Nadogradnje programa"
 
-#: ../SoftwareProperties/SoftwareProperties.py:552
-#: ../SoftwareProperties/SoftwareProperties.py:569
+#: ../SoftwareProperties/SoftwareProperties.py:588
+#: ../SoftwareProperties/SoftwareProperties.py:605
 msgid "Active"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:653
+#: ../SoftwareProperties/SoftwareProperties.py:690
 msgid "(Source Code)"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:659
+#: ../SoftwareProperties/SoftwareProperties.py:696
 msgid "Source Code"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:908
+#: ../SoftwareProperties/SoftwareProperties.py:945
 msgid "Import key"
 msgstr "Unos ključa"
 
-#: ../SoftwareProperties/SoftwareProperties.py:918
+#: ../SoftwareProperties/SoftwareProperties.py:955
 msgid "Error importing selected file"
 msgstr "Greška prilikom uvoženja odabrane datoteke"
 
-#: ../SoftwareProperties/SoftwareProperties.py:919
+#: ../SoftwareProperties/SoftwareProperties.py:956
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "Odabrana datoteka možda nije GPG ključ ili je možda oštećena."
 
-#: ../SoftwareProperties/SoftwareProperties.py:931
+#: ../SoftwareProperties/SoftwareProperties.py:968
 msgid "Error removing the key"
 msgstr "Greška prilikom brisanja ključa"
 
-#: ../SoftwareProperties/SoftwareProperties.py:932
+#: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Ključ koji ste odabrali se ne može obrisati. Molimo prijavite ovu grešku."
 
-#: ../SoftwareProperties/SoftwareProperties.py:978
+#: ../SoftwareProperties/SoftwareProperties.py:1015
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -132,19 +132,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1035
+#: ../SoftwareProperties/SoftwareProperties.py:1072
 msgid "Please enter a name for the disc"
 msgstr "Upišite ime za disk"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1051
+#: ../SoftwareProperties/SoftwareProperties.py:1088
 msgid "Please insert a disc in the drive:"
 msgstr "Ubacite CD u uređaj:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:89
 msgid "Broken packages"
 msgstr "Pokvareni paketi"
 
-#: ../DistUpgrade/DistUpgradeCache.py:94
+#: ../DistUpgrade/DistUpgradeCache.py:90
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -152,20 +152,20 @@ msgstr ""
 "Vaš sistem sadrži pokvarene pakete koji nisu mogli biti popravljeni sa ovim "
 "programom. Popravite ih koristeći synaptic ili apt-get prije nastavljanja."
 
-#: ../DistUpgrade/DistUpgradeCache.py:151
+#: ../DistUpgrade/DistUpgradeCache.py:147
 msgid "Can't upgrade required meta-packages"
 msgstr "Ne mogu nadograditi potrebne meta-pakete"
 
-#: ../DistUpgrade/DistUpgradeCache.py:158
+#: ../DistUpgrade/DistUpgradeCache.py:154
 msgid "A essential package would have to be removed"
 msgstr "Bitan paket bi morao biti uklonjen"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:161
+#: ../DistUpgrade/DistUpgradeCache.py:157
 msgid "Could not calculate the upgrade"
 msgstr "Nisam mogao riješiti nadogradnju"
 
-#: ../DistUpgrade/DistUpgradeCache.py:162
+#: ../DistUpgrade/DistUpgradeCache.py:158
 #, fuzzy
 msgid ""
 "A unresolvable problem occured while calculating the upgrade.\n"
@@ -177,11 +177,11 @@ msgstr ""
 "prijavite ovo kao grešku. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:187
+#: ../DistUpgrade/DistUpgradeCache.py:183
 msgid "Error authenticating some packages"
 msgstr "Greška prilikom identificiranja nekih paketa"
 
-#: ../DistUpgrade/DistUpgradeCache.py:188
+#: ../DistUpgrade/DistUpgradeCache.py:184
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -191,12 +191,12 @@ msgstr ""
 "problem sa mrežom i trebali biste kasnije pokušati ponovo. Pogledajte popis "
 "neidentificiranih paketa."
 
-#: ../DistUpgrade/DistUpgradeCache.py:251
+#: ../DistUpgrade/DistUpgradeCache.py:249
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Ne mogu instalirati '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:252
+#: ../DistUpgrade/DistUpgradeCache.py:250
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -205,11 +205,11 @@ msgstr ""
 "grešku. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:259
+#: ../DistUpgrade/DistUpgradeCache.py:257
 msgid "Can't guess meta-package"
 msgstr "Nisam mogao odrediti meta-paket"
 
-#: ../DistUpgrade/DistUpgradeCache.py:260
+#: ../DistUpgrade/DistUpgradeCache.py:258
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -237,15 +237,15 @@ msgid ""
 "'%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:94
+#: ../DistUpgrade/DistUpgradeControler.py:104
 msgid "Reading cache"
 msgstr "Čitam spremnik"
 
-#: ../DistUpgrade/DistUpgradeControler.py:131
+#: ../DistUpgrade/DistUpgradeControler.py:143
 msgid "Fetch data from the network for the upgrade?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:132
+#: ../DistUpgrade/DistUpgradeControler.py:144
 msgid ""
 "The upgrade can use the network to check the latest updates and to fetch "
 "packages that are not on the current CD.\n"
@@ -253,11 +253,11 @@ msgid ""
 "If networking is expensive for you choose 'No'."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:223
+#: ../DistUpgrade/DistUpgradeControler.py:235
 msgid "No valid mirror found"
 msgstr "Nisam našao ispravan zrcalni poslužitelj"
 
-#: ../DistUpgrade/DistUpgradeControler.py:224
+#: ../DistUpgrade/DistUpgradeControler.py:236
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -277,11 +277,11 @@ msgstr ""
 "Ako odaberete 'ne' nadogradnja će se prekinuti."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:241
+#: ../DistUpgrade/DistUpgradeControler.py:253
 msgid "Generate default sources?"
 msgstr "Kreirati uobičajene izvore?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:242
+#: ../DistUpgrade/DistUpgradeControler.py:254
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -294,11 +294,11 @@ msgstr ""
 "Treba li dodati uobičajene unose za '%s' ? Ako odaberete 'Ne' nadogradnja će "
 "prekinuti."
 
-#: ../DistUpgrade/DistUpgradeControler.py:276
+#: ../DistUpgrade/DistUpgradeControler.py:288
 msgid "Repository information invalid"
 msgstr "Podaci repozitorija neispravni"
 
-#: ../DistUpgrade/DistUpgradeControler.py:277
+#: ../DistUpgrade/DistUpgradeControler.py:289
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -306,11 +306,11 @@ msgstr ""
 "Nadogradnja podataka repozitorija je rezultirala neispravnom datotekom. "
 "Molim, prijavite ovo kao bug."
 
-#: ../DistUpgrade/DistUpgradeControler.py:283
+#: ../DistUpgrade/DistUpgradeControler.py:295
 msgid "Third party sources disabled"
 msgstr "Izvori trećih strana su isključeni"
 
-#: ../DistUpgrade/DistUpgradeControler.py:284
+#: ../DistUpgrade/DistUpgradeControler.py:296
 msgid ""
 "Some third party entries in your souces.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -320,11 +320,11 @@ msgstr ""
 "ih uključiti nakon nadogradnje sa 'software-properties' alatom ili sa "
 "synapticom."
 
-#: ../DistUpgrade/DistUpgradeControler.py:333
+#: ../DistUpgrade/DistUpgradeControler.py:345
 msgid "Error during update"
 msgstr "Greška prilikom nadogradnje"
 
-#: ../DistUpgrade/DistUpgradeControler.py:334
+#: ../DistUpgrade/DistUpgradeControler.py:346
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -332,11 +332,11 @@ msgstr ""
 "Pojavio se problem prilikom nadogradnje. Obično se radi o mrežnom problemu, "
 "pa vas molim da provjerite vašu mrežu i pokušate ponovo."
 
-#: ../DistUpgrade/DistUpgradeControler.py:343
+#: ../DistUpgrade/DistUpgradeControler.py:355
 msgid "Not enough free disk space"
 msgstr "Nema dovoljno praznog mjesta na disku"
 
-#: ../DistUpgrade/DistUpgradeControler.py:344
+#: ../DistUpgrade/DistUpgradeControler.py:356
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -348,15 +348,15 @@ msgstr ""
 "koristeći 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:403
+#: ../DistUpgrade/DistUpgradeControler.py:415
 msgid "Do you want to start the upgrade?"
 msgstr "Želite li pokrenuti nadogradnju?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:420
+#: ../DistUpgrade/DistUpgradeControler.py:432
 msgid "Could not install the upgrades"
 msgstr "Nisam mogao instalirati nadogradnje"
 
-#: ../DistUpgrade/DistUpgradeControler.py:421
+#: ../DistUpgrade/DistUpgradeControler.py:433
 #, fuzzy
 msgid ""
 "The upgrade aborts now. Your system could be in an unusable state. A "
@@ -368,11 +368,11 @@ msgstr ""
 "Nadogradnja se prekida. Vaš sistem bi mogao biti u neupotrebljivom stanju. "
 "Obnavljanje je pokrenuto (dpkg --configure -a)."
 
-#: ../DistUpgrade/DistUpgradeControler.py:439
+#: ../DistUpgrade/DistUpgradeControler.py:451
 msgid "Could not download the upgrades"
 msgstr "Nisam mogao preuzeti nadogradnje"
 
-#: ../DistUpgrade/DistUpgradeControler.py:440
+#: ../DistUpgrade/DistUpgradeControler.py:452
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -380,11 +380,11 @@ msgstr ""
 "Nadogradnja se prekida. Molim provjerite vašu internet vezu ili "
 "instalacijski medij i pokušajte ponovo. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:476
+#: ../DistUpgrade/DistUpgradeControler.py:488
 msgid "Some software no longer officially supported"
 msgstr "Neki paketi više nisu službeno podržani"
 
-#: ../DistUpgrade/DistUpgradeControler.py:478
+#: ../DistUpgrade/DistUpgradeControler.py:490
 msgid ""
 "These installed packages are no longer officially supported, and are now "
 "only community-supported ('universe').\n"
@@ -398,23 +398,23 @@ msgstr ""
 "Ako nemate omogućen 'universe' repozitorij, ovi paketi biti će predloženi za "
 "uklanjanje. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:512
+#: ../DistUpgrade/DistUpgradeControler.py:524
 msgid "Remove obsolete packages?"
 msgstr "Ukloniti zastarjele pakete?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:513
+#: ../DistUpgrade/DistUpgradeControler.py:525
 msgid "_Skip This Step"
 msgstr "_Preskoči ovaj korak"
 
-#: ../DistUpgrade/DistUpgradeControler.py:513
+#: ../DistUpgrade/DistUpgradeControler.py:525
 msgid "_Remove"
 msgstr "_Ukloni"
 
-#: ../DistUpgrade/DistUpgradeControler.py:523
+#: ../DistUpgrade/DistUpgradeControler.py:535
 msgid "Error during commit"
 msgstr "Greška prilikom čina"
 
-#: ../DistUpgrade/DistUpgradeControler.py:524
+#: ../DistUpgrade/DistUpgradeControler.py:536
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -423,26 +423,26 @@ msgstr ""
 "više informacija. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:534
+#: ../DistUpgrade/DistUpgradeControler.py:546
 msgid "Restoring original system state"
 msgstr "Vraćam u početno stanje"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:542
-#: ../DistUpgrade/DistUpgradeControler.py:571
+#: ../DistUpgrade/DistUpgradeControler.py:554
+#: ../DistUpgrade/DistUpgradeControler.py:583
 msgid "Checking package manager"
 msgstr "Provjeravam upravitelja paketima"
 
-#: ../DistUpgrade/DistUpgradeControler.py:557
+#: ../DistUpgrade/DistUpgradeControler.py:569
 msgid "Updating repository information"
 msgstr "Nadograđujem podatke repozitorija"
 
-#: ../DistUpgrade/DistUpgradeControler.py:582
+#: ../DistUpgrade/DistUpgradeControler.py:594
 msgid "Invalid package information"
 msgstr "Neispravni podaci paketa"
 
-#: ../DistUpgrade/DistUpgradeControler.py:583
+#: ../DistUpgrade/DistUpgradeControler.py:595
 #, fuzzy, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -455,19 +455,19 @@ msgstr ""
 "naći.\n"
 "Ovo upućuje na ozbiljnu grešku, molim prijavite ovo kao bug."
 
-#: ../DistUpgrade/DistUpgradeControler.py:595
+#: ../DistUpgrade/DistUpgradeControler.py:607
 msgid "Asking for confirmation"
 msgstr "Pitam za potvrdu"
 
-#: ../DistUpgrade/DistUpgradeControler.py:599
+#: ../DistUpgrade/DistUpgradeControler.py:611
 msgid "Upgrading"
 msgstr "Nadograđujem"
 
-#: ../DistUpgrade/DistUpgradeControler.py:606
+#: ../DistUpgrade/DistUpgradeControler.py:618
 msgid "Searching for obsolete software"
 msgstr "Tražim zastarjele programe"
 
-#: ../DistUpgrade/DistUpgradeControler.py:611
+#: ../DistUpgrade/DistUpgradeControler.py:623
 msgid "System upgrade is complete."
 msgstr "Nadogradnja sustava je završena."
 
@@ -530,11 +530,11 @@ msgstr ""
 msgid "The 'diff' command was not found"
 msgstr "Nisam našao naredbu 'diff'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:347
+#: ../DistUpgrade/DistUpgradeViewGtk.py:357
 msgid "A fatal error occured"
 msgstr "Pojavila se ozbiljna greška"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:348
+#: ../DistUpgrade/DistUpgradeViewGtk.py:358
 #, fuzzy
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade/main."
@@ -550,7 +550,7 @@ msgstr ""
 
 #. FIXME: make those two seperate lines to make it clear
 #. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:460
+#: ../DistUpgrade/DistUpgradeViewGtk.py:475
 #, python-format
 msgid "%s package is going to be removed."
 msgid_plural "%s packages are going to be removed."
@@ -558,7 +558,7 @@ msgstr[0] "%s paket će biti uklonjen."
 msgstr[1] "%s paketa će biti uklonjena."
 msgstr[2] "%s paketa će biti uklonjeno."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:465
+#: ../DistUpgrade/DistUpgradeViewGtk.py:480
 #, python-format
 msgid "%s new package is going to be installed."
 msgid_plural "%s new packages are going to be installed."
@@ -566,7 +566,7 @@ msgstr[0] "%s novi paket će biti instaliran."
 msgstr[1] "%s nova paketa će biti instalirana."
 msgstr[2] "%s novih paketa će biti instalirano."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:471
+#: ../DistUpgrade/DistUpgradeViewGtk.py:486
 #, python-format
 msgid "%s package is going to be upgraded."
 msgid_plural "%s packages are going to be upgraded."
@@ -574,7 +574,7 @@ msgstr[0] "%s paket će biti nadograđen."
 msgstr[1] "%s paketa će biti nadograđena."
 msgstr[2] "%s paketa će biti nadograđeno."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:476
+#: ../DistUpgrade/DistUpgradeViewGtk.py:491
 #, fuzzy, python-format
 msgid ""
 "\n"
@@ -582,7 +582,7 @@ msgid ""
 "You have to download a total of %s. "
 msgstr "Morate preuzeti ukupno %s."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:482
+#: ../DistUpgrade/DistUpgradeViewGtk.py:497
 #, fuzzy
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
@@ -591,68 +591,68 @@ msgstr ""
 "Nadogradnja može potrajati nekoliko sati i ne može biti prekinuta niti u "
 "jednom trenutku."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:485
+#: ../DistUpgrade/DistUpgradeViewGtk.py:500
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Da spriječite gubitak podataka zatvorite sve programe i datoteke."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:491
+#: ../DistUpgrade/DistUpgradeViewGtk.py:506
 msgid "Could not find any upgrades"
 msgstr "Nisam mogao naći niti jednu nadogradnju"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:492
+#: ../DistUpgrade/DistUpgradeViewGtk.py:507
 msgid "Your system has already been upgraded."
 msgstr "Vaš sustav je već nadograđen."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:507
+#: ../DistUpgrade/DistUpgradeViewGtk.py:522
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Ukloni %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:509
+#: ../DistUpgrade/DistUpgradeViewGtk.py:524
 #, python-format
 msgid "Install %s"
 msgstr "Instaliraj %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:511
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 #, python-format
 msgid "Upgrade %s"
 msgstr "Nadogradi %s"
 
-#: ../DistUpgrade/DistUpgradeView.py:25
+#: ../DistUpgrade/DistUpgradeView.py:27
 #, fuzzy, python-format
 msgid "%li days %li hours %li minutes"
 msgstr "Otprilike je ostalo %li dana %li say i %li minuta"
 
-#: ../DistUpgrade/DistUpgradeView.py:27
+#: ../DistUpgrade/DistUpgradeView.py:29
 #, fuzzy, python-format
 msgid "%li hours %li minutes"
 msgstr "Otprilike je ostalo %li sati i %li minuta"
 
-#: ../DistUpgrade/DistUpgradeView.py:29
+#: ../DistUpgrade/DistUpgradeView.py:31
 #, python-format
 msgid "%li minutes"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeView.py:30
+#: ../DistUpgrade/DistUpgradeView.py:32
 #, python-format
 msgid "%li seconds"
 msgstr ""
 
 #. 56 kbit
 #. 1Mbit = 1024 kbit
-#: ../DistUpgrade/DistUpgradeView.py:36
+#: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
 "This download will take about %s with a 56k modem and about %s with a 1Mbit "
 "DSL connection"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeView.py:94
+#: ../DistUpgrade/DistUpgradeView.py:105
 msgid "Reboot required"
 msgstr "Potrebno je ponovno pokretanje računala"
 
-#: ../DistUpgrade/DistUpgradeView.py:95
+#: ../DistUpgrade/DistUpgradeView.py:106
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
@@ -894,77 +894,71 @@ msgstr "Nadogradi na zadnju verziju Ubuntua"
 msgid "Other updates"
 msgstr "_Instaliraj nadogradnje"
 
-#. print "WARNING, keeping packages"
 #: ../UpdateManager/UpdateManager.py:266
 msgid "Cannot install all available updates"
 msgstr "Ne mogu instalirati sve dostupne nadogradnje"
 
 #: ../UpdateManager/UpdateManager.py:267
 msgid ""
-"Some updates require the removal of further software. Use the function "
-"\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
-"get dist-upgrade\" in a terminal to update your system completely."
+"Some of the updates require more extensive changesthan expected.\n"
+"\n"
+"This usually mean that your system is not fully upgraded or that you run a "
+"development release of the distribution.\n"
+"\n"
+"Would you like to perform a full distribution upgrade now?"
 msgstr ""
-"Neke nadogradnje zahtijevaju uklanjanje pojedinih programa. Upotrijebite "
-"opciju \"Označi sve nadogradnje\" upravitelja paketima \"Synaptic\" ili "
-"upišite \"sudo apt-get dist-upgrade\" u terminalu za potpunu nadogradnju "
-"vašeg sistema."
 
-#: ../UpdateManager/UpdateManager.py:277
-msgid "The following updates will be skipped:"
-msgstr "Slijedeći paketi će biti preskočeni:"
-
-#: ../UpdateManager/UpdateManager.py:470
+#: ../UpdateManager/UpdateManager.py:461
 #, python-format
 msgid "Version %s: \n"
 msgstr "Verzija %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:531
+#: ../UpdateManager/UpdateManager.py:522
 msgid "Downloading the list of changes..."
 msgstr "Preuzimam popis promjena..."
 
-#: ../UpdateManager/UpdateManager.py:555
+#: ../UpdateManager/UpdateManager.py:546
 msgid "Select _None"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:560
+#: ../UpdateManager/UpdateManager.py:551
 msgid "Select _All"
 msgstr ""
 
 #. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:591
 msgid "None"
 msgstr ""
 
 #. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:603
+#: ../UpdateManager/UpdateManager.py:594
 msgid "1 KB"
 msgstr ""
 
 #. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:606
+#: ../UpdateManager/UpdateManager.py:597
 #, python-format
 msgid "%.0f KB"
 msgstr ""
 
 #. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:609
+#: ../UpdateManager/UpdateManager.py:600
 #, python-format
 msgid "%.1f MB"
 msgstr ""
 
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:617 ../UpdateManager/UpdateManager.py:627
-#: ../UpdateManager/UpdateManager.py:651
+#: ../UpdateManager/UpdateManager.py:608 ../UpdateManager/UpdateManager.py:618
+#: ../UpdateManager/UpdateManager.py:642
 #, python-format
 msgid "Download size: %s"
 msgstr "Veličina preuzimanja: %s"
 
-#: ../UpdateManager/UpdateManager.py:636
+#: ../UpdateManager/UpdateManager.py:627
 msgid "Your system is up-to-date"
 msgstr "Vaš sustav sadrži posljednje nadogradnje"
 
-#: ../UpdateManager/UpdateManager.py:647
+#: ../UpdateManager/UpdateManager.py:638
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
@@ -972,35 +966,35 @@ msgstr[0] "Možete instalirati %s nadogradnju"
 msgstr[1] "Možete instalirati %s nadogradnje"
 msgstr[2] "Možete instalirati %s nadogradnji"
 
-#: ../UpdateManager/UpdateManager.py:680
+#: ../UpdateManager/UpdateManager.py:671
 msgid "Please wait, this can take some time."
 msgstr "Molim pričekajte, ovo može potrajati."
 
-#: ../UpdateManager/UpdateManager.py:682
+#: ../UpdateManager/UpdateManager.py:673
 msgid "Update is complete"
 msgstr "Nadogradnja je gotova"
 
-#: ../UpdateManager/UpdateManager.py:831
+#: ../UpdateManager/UpdateManager.py:822
 #, fuzzy, python-format
 msgid "From version %s to %s"
 msgstr "Nova verzija: %s (Veličina: %s)"
 
-#: ../UpdateManager/UpdateManager.py:835
+#: ../UpdateManager/UpdateManager.py:826
 #, fuzzy, python-format
 msgid "Version %s"
 msgstr "Verzija %s: \n"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:837
+#: ../UpdateManager/UpdateManager.py:828
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:851
+#: ../UpdateManager/UpdateManager.py:842
 msgid "Your distribution is not supported anymore"
 msgstr "Vaša distibucija više nije podržana"
 
-#: ../UpdateManager/UpdateManager.py:852
+#: ../UpdateManager/UpdateManager.py:843
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -1010,17 +1004,17 @@ msgstr ""
 "na noviju verziju Ubuntu Linuxa. Pogledajte na http://www.ubuntu.com za više "
 "detalja o nadogradnji."
 
-#: ../UpdateManager/UpdateManager.py:871
+#: ../UpdateManager/UpdateManager.py:862
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:906
+#: ../UpdateManager/UpdateManager.py:897
 msgid "Software index is broken"
 msgstr "Popis programa je oštećen"
 
-#: ../UpdateManager/UpdateManager.py:907
+#: ../UpdateManager/UpdateManager.py:898
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1504,6 +1498,12 @@ msgstr "Ubuntu 5.10 'Breezy Badger'"
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:203
+#, fuzzy
+msgid "Oficially supported"
+msgstr "Službeno podržani"
+
 #. Description
 #: ../data/channels/Ubuntu.info.in:213
 #, fuzzy
@@ -1546,8 +1546,8 @@ msgstr ""
 #. CompDescription
 #: ../data/channels/Ubuntu.info.in:254
 #, fuzzy
-msgid "Oficially supported"
-msgstr "Službeno podržani"
+msgid "No longer oficially supported"
+msgstr "Neki paketi više nisu službeno podržani"
 
 #. CompDescription
 #: ../data/channels/Ubuntu.info.in:257
@@ -1617,6 +1617,19 @@ msgstr "DFSG-kompatibilni programi sa neslobodnim ovisnostima"
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-nekompatibilni programi"
+
+#~ msgid ""
+#~ "Some updates require the removal of further software. Use the function "
+#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
+#~ "apt-get dist-upgrade\" in a terminal to update your system completely."
+#~ msgstr ""
+#~ "Neke nadogradnje zahtijevaju uklanjanje pojedinih programa. Upotrijebite "
+#~ "opciju \"Označi sve nadogradnje\" upravitelja paketima \"Synaptic\" ili "
+#~ "upišite \"sudo apt-get dist-upgrade\" u terminalu za potpunu nadogradnju "
+#~ "vašeg sistema."
+
+#~ msgid "The following updates will be skipped:"
+#~ msgstr "Slijedeći paketi će biti preskočeni:"
 
 #~ msgid "About %li seconds remaining"
 #~ msgstr "Otprilike je ostalo %li sekundi"

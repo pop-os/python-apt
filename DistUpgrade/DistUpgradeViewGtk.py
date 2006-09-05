@@ -303,17 +303,24 @@ class DistUpgradeVteTerminal(object):
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
-    def __init__(self):
+    def __init__(self, datadir=None):
+        if not datadir:
+          localedir=os.path.join(os.getcwd(),"mo")
+          gladedir=os.getcwd()
+        else:
+          localedir="/usr/share/locale/update-manager"
+          gladedir=os.path.join(datadir, "glade")
+
         # FIXME: i18n must be somewhere relative do this dir
         try:
-          bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
+          bindtextdomain("update-manager", localedir)
           gettext.textdomain("update-manager")
         except Exception, e:
           logging.warning("Error setting locales (%s)" % e)
         
         icons = gtk.icon_theme_get_default()
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
-        SimpleGladeApp.__init__(self, "DistUpgrade.glade",
+        SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
         # we dont use this currently
         #self.window_main.set_keep_above(True)
@@ -398,6 +405,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return self._cdromProgress
     def updateStatus(self, msg):
         self.label_status.set_text("%s" % msg)
+    def hideStep(self, step):
+        image = getattr(self,"image_step%i" % step)
+        label = getattr(self,"label_step%i" % step)
+        image.hide()
+        label.hide()
     def setStep(self, step):
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU

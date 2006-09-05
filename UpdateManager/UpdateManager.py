@@ -261,37 +261,30 @@ class UpdateList:
 
     # check if we have held-back something
     if cache._depcache.KeepCount > 0:
-      #print "WARNING, keeping packages"
+      keepcount =  cache._depcache.KeepCount
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
-             _("Some updates require the removal of further software. "
-               "Use the function \"Mark All Upgrades\" of the package manager "
-	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
-	       "terminal to update your system completely.")))
-      dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_INFO,
-                                 gtk.BUTTONS_CLOSE,"")
-      dialog.set_default_response(gtk.RESPONSE_OK)
+             _("Some of the updates require more extensive changes "
+               "than expected.\n\n"
+               "This usually means that you have enabled unoffical "
+               "repositories, that it is not "
+               "fully upgraded from the last distribution release or "
+               "that you run a development release "
+               "of the distribution.\n\n"
+               "Would you like to perform a full distribution upgrade "
+               "now?")))
+      dialog = gtk.MessageDialog(self.parent_window, 0,
+                                 gtk.MESSAGE_QUESTION,
+                                 gtk.BUTTONS_YES_NO,"")
+      dialog.set_default_response(gtk.RESPONSE_NO)
       dialog.set_markup(msg)
       dialog.set_title("")
       dialog.vbox.set_spacing(6)
-      label = gtk.Label(_("The following updates will be skipped:"))
-      label.set_alignment(0.0,0.5)
-      dialog.set_border_width(6)
-      label.show()
-      dialog.vbox.pack_start(label)
-      scroll = gtk.ScrolledWindow()
-      scroll.set_size_request(-1,200)
-      scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-      text = gtk.TextView()
-      text.set_editable(False)
-      text.set_cursor_visible(False)
-      buf = text.get_buffer()
-      held_back.sort()
-      buf.set_text("\n".join(held_back))
-      scroll.add(text)
-      dialog.vbox.pack_start(scroll)
-      scroll.show_all()
-      dialog.run()
+      res = dialog.run()
+      if res == gtk.RESPONSE_YES:
+          os.execl("/usr/bin/gksu",
+                   "/usr/bin/gksu",
+                   "/usr/bin/update-manager --dist-upgrade")
       dialog.destroy()
 
 

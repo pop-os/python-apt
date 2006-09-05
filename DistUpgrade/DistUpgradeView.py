@@ -44,7 +44,13 @@ class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
         subprocess.call(cmd)
-        
+
+
+(STEP_PREPARE,
+ STEP_MODIFY_SOURCES,
+ STEP_FETCH_INSTALL,
+ STEP_CLEANUP,
+ STEP_REBOOT) = range(1,6)
 
 class DistUpgradeView(object):
     " abstraction for the upgrade view "
@@ -74,6 +80,9 @@ class DistUpgradeView(object):
         4. Post upgrade stuff
         5. Complete
         """
+        pass
+    def hideStep(self, step):
+        " hide a certain step from the GUI "
         pass
     def confirmChanges(self, summary, changes, downloadSize, actions=None):
         """ display the list of changed packages (apt.Package) and

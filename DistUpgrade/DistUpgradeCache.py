@@ -12,20 +12,16 @@ from DistUpgradeView import FuzzyTimeToStr
 
 class MyCache(apt.Cache):
     # init
-    def __init__(self, progress=None):
+    def __init__(self, config, progress=None):
         apt.Cache.__init__(self, progress)
         self.to_install = []
         self.to_remove = []
 
-        self.config = DistUpgradeConfig()
+        self.config = config
         self.metapkgs = self.config.getlist("Distro","MetaPkgs")
 
         # a list of regexp that are not allowed to be removed
-        self.removal_blacklist = []
-        for line in open("removal_blacklist.txt").readlines():
-            line = line.strip()
-            if not line == "" or line.startswith("#"):
-                self.removal_blacklist.append(line)
+        self.removal_blacklist = config.getListFromFile("Distro","RemovalBlacklistFile")
 
     # properties
     @property
