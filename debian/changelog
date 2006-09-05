@@ -6,7 +6,7 @@ update-manager (0.44.6) edgy; urgency=low
     that after e.g. a CDROM upgrade the rest of the system can still
     be fully upgraded over the net
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  4 Sep 2006 22:49:43 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  5 Sep 2006 13:30:22 +0200
 
 update-manager (0.44.5) edgy; urgency=low
 

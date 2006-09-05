@@ -74,7 +74,8 @@ if __name__ == "__main__":
     view.hideStep(STEP_MODIFY_SOURCES)
     view.hideStep(STEP_REBOOT)
     controler = DistUpgradeControler(view, datadir=data_dir)
-    controler.openCache()
+    controler.prepare()
+    controler.doPreUpgrade()
     if controler.askDistUpgrade():
       view.setStep(STEP_FETCH_INSTALL)
       controler.doDistUpgrade()
