@@ -635,12 +635,15 @@ class Distribution:
 
   def enable_component(self, sourceslist, comp):
     """
-    Disable a component in all main, child and source code sources
+    Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
 
     sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
+    # FIXME: we can't just unconditionally add stuff to each line,
+    #        otherwise we need up with multiple components for the
+    #        same repository (see tests/test_aptsources.py for details)
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
