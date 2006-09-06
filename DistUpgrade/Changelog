@@ -1,3 +1,5 @@
+2006-09-06:
+	- increased the "free-space-savety-buffer" to 100MB
 2006-09-05:
 	- added "RemoveEssentialOk" option and put "sysvinit" into it
 2006-09-04:

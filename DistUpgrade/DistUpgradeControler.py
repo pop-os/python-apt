@@ -388,7 +388,7 @@ class DistUpgradeControler(object):
             free = st_usr[statvfs.F_BAVAIL]*st_usr[statvfs.F_FRSIZE]
             logging.debug("/usr on different fs than %s, free: %s" % (archivedir, free))
 
-        safety_buffer = 1024*1024*75 # 75 Mb
+        safety_buffer = 1024*1024*100 # 100 Mb
         logging.debug("using safety buffer: %s" % safety_buffer)
         if (self.cache.additionalRequiredSpace+safety_buffer) > free:
             free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace+safety_buffer-free)

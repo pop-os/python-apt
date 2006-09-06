@@ -1,3 +1,11 @@
+update-manager (0.44.7) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - be more accurate about dependencies when the user selects only
+      a supset of the packages
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  6 Sep 2006 12:29:05 +0200
+
 update-manager (0.44.6) edgy; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:
