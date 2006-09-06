@@ -252,6 +252,18 @@ class SourcesList:
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
+    # check if we have this source already in the sources.list
+    for source in self.list:
+      if source.disabled == False and source.invalid == False and \
+         source.type == type and uri == source.uri and \
+         source.dist == dist:
+        for new_comp in comps:
+          if new_comp in source.comps:
+            # we have this component already, delete it from the new_comps
+            # list
+            del comps[comps.index(new_comp)]
+            if len(comps) == 0:
+              return source
     for source in self.list:
       # if there is a repo with the same (type, uri, dist) just add the
       # components

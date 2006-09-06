@@ -44,8 +44,7 @@ class TestAptSources(unittest.TestCase):
                     "edgy",
                     ["restricted"])
         self.assertTrue(sources.list == before.list)
-        # test to add something new: universe
-        before = copy.deepcopy(sources)
+        # test to add something new: multiverse
         sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["multiverse"])
@@ -75,6 +74,7 @@ class TestAptSources(unittest.TestCase):
                         found_universe += 1
                     if c == "something":
                         found_something += 1
+        #print "\n".join([s.str() for s in sources])
         self.assertEqual(found_something, 1)
         self.assertEqual(found_universe, 1)
 
