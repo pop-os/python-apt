@@ -72,7 +72,7 @@ from MetaRelease import Dist, MetaRelease
 # - kill "all_changes" and move the changes into the "Update" class
 
 # list constants
-(LIST_INSTALL, LIST_CONTENTS, LIST_NAME, LIST_PKG) = range(4)
+(LIST_CONTENTS, LIST_NAME, LIST_PKG) = range(3)
 
 # actions for "invoke_manager"
 (INSTALL, UPDATE) = range(2)
@@ -96,13 +96,23 @@ class MyCache(apt.Cache):
         if os.path.exists(SYNAPTIC_PINFILE):
             self._depcache.ReadPinFile(SYNAPTIC_PINFILE)
         self._depcache.Init()
-    def clean(self):
+    def clear(self):
         self._initDepCache()
+    @property
+    def requiredDownload(self):
+        """ get the size of the packages that are required to download """
+        pm = apt_pkg.GetPackageManager(self._depcache)
+        fetcher = apt_pkg.GetAcquire()
+        pm.GetArchives(fetcher, self._list, self._records)
+        return fetcher.FetchNeeded
+    @property
+    def installCount(self):
+        return self._depcache.InstCount
     def saveDistUpgrade(self):
         """ this functions mimics a upgrade but will never remove anything """
         self._depcache.Upgrade(True)
         if self._depcache.DelCount > 0:
-            self.clean()
+            self.clear()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
 
@@ -261,37 +271,30 @@ class UpdateList:
 
     # check if we have held-back something
     if cache._depcache.KeepCount > 0:
-      #print "WARNING, keeping packages"
+      keepcount =  cache._depcache.KeepCount
       msg = ("<big><b>%s</b></big>\n\n%s" % \
             (_("Cannot install all available updates"),
-             _("Some updates require the removal of further software. "
-               "Use the function \"Mark All Upgrades\" of the package manager "
-	       "\"Synaptic\" or run \"sudo apt-get dist-upgrade\" in a "
-	       "terminal to update your system completely.")))
-      dialog = gtk.MessageDialog(self.parent_window, 0, gtk.MESSAGE_INFO,
-                                 gtk.BUTTONS_CLOSE,"")
-      dialog.set_default_response(gtk.RESPONSE_OK)
+             _("Some of the updates require more extensive changes "
+               "than expected.\n\n"
+               "This usually means that you have enabled unoffical "
+               "repositories, that it is not "
+               "fully upgraded from the last distribution release or "
+               "that you run a development release "
+               "of the distribution.\n\n"
+               "Would you like to perform a full distribution upgrade "
+               "now?")))
+      dialog = gtk.MessageDialog(self.parent_window, 0,
+                                 gtk.MESSAGE_QUESTION,
+                                 gtk.BUTTONS_YES_NO,"")
+      dialog.set_default_response(gtk.RESPONSE_NO)
       dialog.set_markup(msg)
       dialog.set_title("")
       dialog.vbox.set_spacing(6)
-      label = gtk.Label(_("The following updates will be skipped:"))
-      label.set_alignment(0.0,0.5)
-      dialog.set_border_width(6)
-      label.show()
-      dialog.vbox.pack_start(label)
-      scroll = gtk.ScrolledWindow()
-      scroll.set_size_request(-1,200)
-      scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-      text = gtk.TextView()
-      text.set_editable(False)
-      text.set_cursor_visible(False)
-      buf = text.get_buffer()
-      held_back.sort()
-      buf.set_text("\n".join(held_back))
-      scroll.add(text)
-      dialog.vbox.pack_start(scroll)
-      scroll.show_all()
-      dialog.run()
+      res = dialog.run()
+      if res == gtk.RESPONSE_YES:
+          os.execl("/usr/bin/gksu",
+                   "/usr/bin/gksu",
+                   "/usr/bin/update-manager --dist-upgrade")
       dialog.destroy()
 
 
@@ -322,7 +325,6 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.grab_focus()
     self.button_close.grab_focus()
 
-    self.packages = []
     self.dl_size = 0
 
     # create text view
@@ -337,7 +339,7 @@ class UpdateManager(SimpleGladeApp):
     self.button_close.connect("clicked", lambda w: self.exit())
 
     # the treeview (move into it's own code!)
-    self.store = gtk.ListStore(gobject.TYPE_BOOLEAN, str, str, gobject.TYPE_PYOBJECT)
+    self.store = gtk.ListStore(str, str, gobject.TYPE_PYOBJECT)
     self.treeview_update.set_model(self.store)
     self.treeview_update.set_headers_clickable(True);
 
@@ -411,10 +413,12 @@ class UpdateManager(SimpleGladeApp):
   def install_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
     pkg = model.get_value(iter, LIST_PKG)
-    to_install = model.get_value(iter, LIST_INSTALL)
-    renderer.set_property("active", to_install)
     # hide it if we are only a header line
     renderer.set_property("visible", pkg != None)
+    if pkg is None:
+        return
+    to_install = pkg.markedInstall or pkg.markedUpgrade
+    renderer.set_property("active", to_install)
       
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
@@ -555,14 +559,12 @@ class UpdateManager(SimpleGladeApp):
         item_select_none = gtk.MenuItem(_("Select _None"))
         item_select_none.connect("activate", self.select_none_updgrades)
         menu.add(item_select_none)
-        if self.list.num_updates == 0 or len(self.packages) == 0:
+        num_updates = self.cache.installCount
+        if num_updates == 0:
             item_select_none.set_property("sensitive", False)
         item_select_all = gtk.MenuItem(_("Select _All"))
         item_select_all.connect("activate", self.select_all_updgrades)
         menu.add(item_select_all)
-        if self.list.num_updates == len(self.packages) or\
-           self.list.num_updates == 0:
-            item_select_all.set_property("sensitive", False)
         menu.popup(None, None, None, 0, event.time)
         menu.show_all()
         return True
@@ -571,25 +573,19 @@ class UpdateManager(SimpleGladeApp):
     """
     Select all updates
     """
-    iter = self.store.get_iter_first()
-    while iter != None:
-        pkg = self.store.get_value(iter, LIST_PKG)
-        if pkg != None:
-            self.store.set_value(iter, LIST_INSTALL, True)
-            self.add_update(pkg)
-        iter = self.store.iter_next(iter)
+    self.setBusy(True)
+    self.cache.saveDistUpgrade()
+    self.treeview_update.queue_draw()
+    self.setBusy(False)
 
   def select_none_updgrades(self, widget):
     """
     Select none updates
     """
-    iter = self.store.get_iter_first()
-    while iter != None:
-        pkg = self.store.get_value(iter, LIST_PKG)
-        if pkg != None:
-            self.store.set_value(iter, LIST_INSTALL, False)
-            self.remove_update(pkg)
-        iter = self.store.iter_next(iter)
+    self.setBusy(True)
+    self.cache.clear()
+    self.treeview_update.queue_draw()
+    self.setBusy(False)
 
   def humanize_size(self, bytes):
       """
@@ -608,31 +604,31 @@ class UpdateManager(SimpleGladeApp):
           # TRANSLATORS: download size of updates, e.g. "2.3 MB"
           return locale.format(_("%.1f MB"), bytes / 1024 / 1024)
 
-  def remove_update(self, pkg):
-    name = pkg.name
-    if name in self.packages:
-      self.packages.remove(name)
-      self.dl_size -= pkg.packageSize
+  def setBusy(self, flag):
+      """ Show a watch cursor if the app is busy for more than 0.3 sec.
+      Furthermore provide a loop to handle user interface events """
+      if self.window_main.window is None:
+          return
+      if flag == True:
+          self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+      else:
+          self.window_main.window.set_cursor(None)
+      while gtk.events_pending():
+          gtk.main_iteration()
+
+  def refresh_updates_count(self):
+      self.button_install.set_sensitive(self.cache.installCount)
+      self.dl_size = self.cache.requiredDownload
       # TRANSLATORS: b stands for Bytes
       self.label_downsize.set_markup(_("Download size: %s" % \
-                                     self.humanize_size(self.dl_size)))
-      if len(self.packages) == 0:
-        self.button_install.set_sensitive(False)
-
-  def add_update(self, pkg):
-    name = pkg.name
-    if name not in self.packages:
-      self.packages.append(name)
-      self.dl_size += pkg.packageSize
-      self.label_downsize.set_markup(_("Download size: %s" % \
-                                     self.humanize_size(self.dl_size)))
-      if len(self.packages) > 0:
-        self.button_install.set_sensitive(True)
-
+                                       self.humanize_size(self.dl_size)))
+      
   def update_count(self):
       """activate or disable widgets and show dialog texts correspoding to
          the number of available updates"""
-      if self.list.num_updates == 0:
+      self.refresh_updates_count()
+      num_updates = self.cache.installCount
+      if num_updates == 0:
           text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
           text_download = ""
           self.notebook_details.set_sensitive(False)
@@ -646,8 +642,8 @@ class UpdateManager(SimpleGladeApp):
           text_header = "<big><b>" + \
                         gettext.ngettext("You can install %s update",
                                          "You can install %s updates", 
-                                         self.list.num_updates) % \
-                                        self.list.num_updates + "</b></big>"
+                                         num_updates) % \
+                                         num_updates + "</b></big>"
           text_download = _("Download size: %s") % self.humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
@@ -681,8 +677,9 @@ class UpdateManager(SimpleGladeApp):
       cmd.append("--finish-str")
       cmd.append("%s" %  _("Update is complete"))
       f = tempfile.NamedTemporaryFile()
-      for s in self.packages:
-        f.write("%s\tinstall\n" % s)
+      for pkg in self.cache:
+          if pkg.markedInstall or pkg.markedUpgrade:
+              f.write("%s\tinstall\n" % pkg.name)
       cmd.append("--set-selections-file")
       cmd.append("%s" % f.name)
       f.flush()
@@ -758,16 +755,20 @@ class UpdateManager(SimpleGladeApp):
 
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
+    self.setBusy(True)
     iter = self.store.get_iter(path)
     pkg = self.store.get_value(iter, LIST_PKG)
-    if pkg is None:
-        return
-    if self.store.get_value(iter, LIST_INSTALL):
-      self.store.set_value(iter, LIST_INSTALL, False)
-      self.remove_update(pkg)
+    # update the cache
+    if pkg.markedInstall or pkg.markedUpgrade:
+        pkg.markKeep()
+        if self.cache._depcache.BrokenCount:
+            Fix = apt_pkg.GetPkgProblemResolver(self.cache._depcache)
+            Fix.ResolveByKeep()
     else:
-      self.store.set_value(iter, LIST_INSTALL, True)
-      self.add_update(pkg)
+        pkg.markInstall()
+    self.treeview_update.queue_draw()
+    self.refresh_updates_count()
+    self.setBusy(False)
 
   def on_treeview_update_row_activated(self, treeview, path, column, *args):
       """
@@ -804,10 +805,9 @@ class UpdateManager(SimpleGladeApp):
 
   def fillstore(self):
     # use the watch cursor
-    self.window_main.window.set_cursor(gtk.gdk.Cursor(gtk.gdk.WATCH))
+    self.setBusy(True)
 
     # clean most objects
-    self.packages = []
     self.dl_size = 0
     self.store.clear()
     self.initCache()
@@ -816,12 +816,11 @@ class UpdateManager(SimpleGladeApp):
     # fill them again
     self.list.update(self.cache)
     if self.list.num_updates > 0:
-      i=0
       origin_list = self.list.pkgs.keys()
       origin_list.sort(lambda x,y: cmp(x.importance,y.importance))
       origin_list.reverse()
       for origin in origin_list:
-        self.store.append([False,'<b><big>%s</big></b>' % origin.description,
+        self.store.append(['<b><big>%s</big></b>' % origin.description,
                            origin.description, None])
         for pkg in self.list.pkgs[origin]:
           name = xml.sax.saxutils.escape(pkg.name)
@@ -837,13 +836,9 @@ class UpdateManager(SimpleGladeApp):
           contents += " " + _("(Size: %s)") % self.humanize_size(pkg.packageSize)
           contents += "</small>"
 
-          iter = self.store.append([True, contents, pkg.name, pkg])
-          self.add_update(pkg)
-          i = i + 1
-
+          self.store.append([contents, pkg.name, pkg])
     self.update_count()
-    # use the normal cursor
-    self.window_main.window.set_cursor(None)
+    self.setBusy(False)
     return False
 
   def dist_no_longer_supported(self, meta_release):

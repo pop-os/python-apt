@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# "cdromupgrade" is a shell script wrapper around the dist-upgrader
+# to make it possible to put it onto the top-level dir of a CD and
+# run it from there
+# 
+# Not that useful unfortunately when the CD is mounted "noexec",
+# but useful for the notification-daemon that will just run it
+# and be done with it
+#
+# WARNING: make sure to call it with a absolute path!
+#          (e.g. /cdrom/cdromugprade)
+
+CODENAME=edgy
+UPGRADER_DIR=dists/stable/main/dist-upgrader/binary-all/
+
+cddirname=${0%\/*}
+fullpath=$cddirname/$UPGRADER_DIR
+
+# extrace the tar to a TMPDIR and run it from there
+if [ ! -f $fullpath/$CODENAME.tar.gz ]; then
+    echo "Could not find the upgrade application archive, exiting"
+    exit 1
+fi
+
+TMPDIR=$(mktemp -d distupgrade.XXXXXX)
+cd $TMPDIR
+tar xzf $fullpath/$CODENAME.tar.gz
+if [ ! -x $TMPDIR/$CODENAME ];
+    echo "Could not find the upgrade application in the archive, exiting"
+    exit 1
+fi
+gksu -- $TMPDIR/$CODENAME --cdrom $cddirname

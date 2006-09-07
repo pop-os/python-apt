@@ -32,8 +32,8 @@ import os.path
 
 #import pdb
 
-from UpdateManager.Common.DistInfo import DistInfo
-
+#from UpdateManager.Common.DistInfo import DistInfo
+from DistInfo import DistInfo
 
 # some global helpers
 def is_mirror(master_uri, compare_uri):
@@ -89,6 +89,14 @@ class SourceEntry:
     self.parse(line)
     self.template = None
     self.children = []
+
+  def __eq__(self, other):
+    return (self.disabled == other.disabled and
+            self.type == other.type and
+            self.uri == other.uri and
+            self.dist == other.dist and
+            self.comps == other.comps)
+
 
   # works mostely like split but takes [] into account
   def mysplit(self, line):
@@ -244,6 +252,18 @@ class SourcesList:
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
+    # check if we have this source already in the sources.list
+    for source in self.list:
+      if source.disabled == False and source.invalid == False and \
+         source.type == type and uri == source.uri and \
+         source.dist == dist:
+        for new_comp in comps:
+          if new_comp in source.comps:
+            # we have this component already, delete it from the new_comps
+            # list
+            del comps[comps.index(new_comp)]
+            if len(comps) == 0:
+              return source
     for source in self.list:
       # if there is a repo with the same (type, uri, dist) just add the
       # components
@@ -537,12 +557,15 @@ class Distribution:
                 self.source_code_sources.append(source)
             elif source.type.endswith("-src") and source.disabled == True:
                 self.disabled_sources.append(source)
-        if source.template in self.source_template.children:
-            #print "yeah! child found: %s" % source.template.name
-            if source.type == "deb":
+        if source.invalid == False and\
+           source.template in self.source_template.children:
+            if source.disabled == False and source.type == "deb":
                 self.child_sources.append(source)
-            elif source.type == "deb-src":
+            elif source.disabled == False and source.type == "deb-src":
                 self.source_code_sources.append(source)
+            else:
+                self.disabled_sources.append(source)
+
     self.download_comps = set(comps)
     self.cdrom_comps = set(cdrom_comps)
     enabled_comps.extend(comps)
@@ -612,12 +635,15 @@ class Distribution:
 
   def enable_component(self, sourceslist, comp):
     """
-    Disable a component in all main, child and source code sources
+    Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
 
     sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
+    # FIXME: we can't just unconditionally add stuff to each line,
+    #        otherwise we need up with multiple components for the
+    #        same repository (see tests/test_aptsources.py for details)
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)

@@ -1,3 +1,29 @@
+update-manager (0.44.7) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - be more accurate about dependencies when the user selects only
+      a supset of the packages
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  6 Sep 2006 12:29:05 +0200
+
+update-manager (0.44.6) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - fix inconsistency in the new software-sources dialog
+  * integrate DistUpgrade code into UpdateManager to make sure
+    that after e.g. a CDROM upgrade the rest of the system can still
+    be fully upgraded over the net
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  5 Sep 2006 13:30:22 +0200
+
+update-manager (0.44.5) edgy; urgency=low
+
+  * install the DistUpgrade package too
+  * data/channels/Ubuntu.info.in:
+    - warty is no longer officially supported 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 30 Aug 2006 11:32:24 +0200
+
 update-manager (0.44.4) edgy; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:

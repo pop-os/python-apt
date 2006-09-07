@@ -1,3 +1,18 @@
+General
+-------
+
+The dist-upgrader is designed to make upgrades for ubuntu (or similar
+distributions) easy and painless. It supports both network mode and
+cdrom upgrades. The cdromupgrade will ask if it should use the network
+or not. There is a wrapper script "cdromugprade" (that assumes the
+file of the upgrade life in
+CDROM_ROOT/dists/stable/dist-upgrader/binary-all/) that can be put
+onto the CD and it will support upgrades directly from the CD.
+
+
+Configuration
+-------------
+
 The DistUpgrade.cfg format is based on the python ConfigParser.
 
 It supports the following sections:
@@ -15,6 +30,8 @@ PostUpgrade{Install,Remove,Purge}:
 ForcedObsoletes: 
   Obsolete packages that the user is asked about after the upgrade (marking 
   happens *after* the cache.commit())
+RemoveEssentialOk:
+  Those packages are ok to remove even though they are essential
 
 [$meta-pkg]
 KeyDependencies:

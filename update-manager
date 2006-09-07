@@ -55,10 +55,35 @@ if __name__ == "__main__":
                      dest="devel_release", default=False,
                      help="Check if upgrading to the latest devel release "
                           "is possible")
+  parser.add_option ("--dist-upgrade","--dist-ugprade", action="store_true",
+                     dest="dist_upgrade", default=False,
+                     help="Try to run a dist-upgrade")
 
   (options, args) = parser.parse_args()
 
   data_dir="/usr/share/update-manager/"
   #data_dir="/tmp/xxx/share/update-manager/"
-  app = UpdateManager(data_dir)
-  app.main(options)
+
+  if options.dist_upgrade == True:
+    from DistUpgrade.DistUpgradeView import STEP_PREPARE, STEP_MODIFY_SOURCES, STEP_FETCH_INSTALL, STEP_CLEANUP, STEP_REBOOT
+    from DistUpgrade.DistUpgradeViewGtk import DistUpgradeViewGtk
+    from DistUpgrade.DistUpgradeControler import DistUpgradeControler
+    # FIXME: we *really* want to different view here
+    view = DistUpgradeViewGtk(data_dir)
+    view.setStep(STEP_PREPARE)
+    view.hideStep(STEP_MODIFY_SOURCES)
+    view.hideStep(STEP_REBOOT)
+    controler = DistUpgradeControler(view, datadir=data_dir)
+    controler.prepare()
+    controler.doPreUpgrade()
+    if controler.askDistUpgrade():
+      view.setStep(STEP_FETCH_INSTALL)
+      if not controler.doDistUpgrade():
+        sys.exit(1)
+      view.setStep(STEP_CLEANUP)
+      controler.doPostUpgrade()
+      view.information(_("Upgrade complete"),
+                       _("The upgrade was completed."))
+  else:
+    app = UpdateManager(data_dir)
+    app.main(options)
