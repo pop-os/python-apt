@@ -241,7 +241,12 @@ class SoftwareProperties(SimpleGladeApp):
     for checkbutton in self.vbox_dist_comps.get_children():
          self.vbox_dist_comps.remove(checkbutton)
     for comp in self.distro.source_template.components.keys():
-        checkbox = gtk.CheckButton(label=self.distro.source_template.components[comp][2])
+        # TRANSLATORS: Label for the components in the Internet section
+        #              first %s is the description of the component
+        #              second %s is the code name of the comp, eg main, universe
+        label = _("%s (%s)") % (self.distro.source_template.components[comp][2],
+                                comp)
+        checkbox = gtk.CheckButton(label)
         # check if the comp is enabled
         # FIXME: use inconsistence if there are main sources with not all comps
         if comp in self.distro.download_comps:
