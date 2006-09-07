@@ -621,10 +621,27 @@ class Distribution:
     sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
+    def add_component_only_once(source, workpile):
+        """
+        Check if we already added the component to the repository, since
+        a repository could be splitted into different apt lines. If not
+        add the component
+        """
+        if not (workpile.has_key(source.uri) and\
+                source.dist in workpile[source.uri]):
+            if comp not in source.comps:
+                source.comps.append(comp)
+                if workpile.has_key(source.uri):
+                       workpile[source.uri].append(source.dist)
+                else:
+                       workpile[source.uri] = [source.dist]
+
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
     sources.extend(self.source_code_sources)
+    # store repos to which the new component has been added
+    workpile = {}
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
@@ -632,11 +649,13 @@ class Distribution:
     else:
         # add the comp to all main, child and source code sources
         for source in sources:
-            if comp not in source.comps:
-                source.comps.append(comp)
+             add_component_only_once(source, workpile)
+
     if self.get_source_code == True:
         for source in self.source_code_sources:
-            if comp not in source.comps: source.comps.append(comp)
+            if comp not in source.comps: 
+                add_component_only_once(source, workpile)
+
 
   def disable_component(self, sourceslist, comp):
     """
