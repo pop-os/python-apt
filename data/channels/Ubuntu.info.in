@@ -8,19 +8,19 @@ _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
-_CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
+_CompDescriptionLong: By Canonical supported Open Source software
 Component: universe
 Enabled: 0
-_CompDescription: Community maintained (universe)
-_CompDescriptionLong: OpenSource software that is maintained by the community (universe)
+_CompDescription: Community maintained
+_CompDescriptionLong: Community maintained Open Source software
 Component: restricted
 Enabled: 1
 _CompDescription: Non-free drivers
-_CompDescriptionLong: Proprietary drivers for devices (restricted) 
+_CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
 Enabled: 0
-_CompDescription: Restricted software (Multiverse)
-_CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
+_CompDescription: Restricted software
+_CompDescriptionLong: By copyright or legal issues restricted software
 
 Suite: edgy
 MatchName: .*
@@ -70,19 +70,19 @@ _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 Enabled: 1
 _CompDescription: Officially supported
-_CompDescriptionLong: OpenSource software that is officially supported by Canonical Ltd. (main)
+_CompDescriptionLong: By Canonical supported Open Source software
 Component: universe
 Enabled: 0
 _CompDescription: Community maintained (universe)
-_CompDescriptionLong: OpenSource software that is maintained by the community (universe)
+_CompDescriptionLong: Community maintained Open Source software
 Component: restricted
 Enabled: 1
 _CompDescription: Non-free drivers
-_CompDescriptionLong: Proprietary drivers for devices (restricted) 
+_CompDescriptionLong: Proprietary drivers for devices 
 Component: multiverse
 Enabled: 0
 _CompDescription: Restricted software (Multiverse)
-_CompDescriptionLong: Software that is restricted by copyright or legal issues (multiverse)
+_CompDescriptionLong: By copyright or legal issues restricted software
 
 Suite: dapper
 MatchName: .*

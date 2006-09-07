@@ -92,7 +92,7 @@ class TestAptSources(unittest.TestCase):
                     if c == comp:
                         found += 1
         print "".join([s.str() for s in sources])
-        assertEqual(found, 1)
+        self.assertEqual(found, 1)
         
 
 if __name__ == "__main__":
