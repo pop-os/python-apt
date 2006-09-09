@@ -79,6 +79,7 @@ class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir=None, options=None, parent=None, file=None):
     gtk.window_set_default_icon_name("software-properties")
+    self.popconfile = "/etc/popularity-contest.conf"
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -222,6 +223,22 @@ class SoftwareProperties(SimpleGladeApp):
                                         gtk.gdk.ACTION_COPY)
     self.treeview_sources.connect("drag_data_received",\
                                   self.on_sources_drag_data_received)
+
+    # popcon
+    if os.path.exists(self.popconfile):
+      # read it
+      lines = open(self.popconfile).read().split("\n")
+      active = False
+      for line in lines:
+        try:
+          (key,value) = line.split("=")
+          if key == "PARTICIPATE":
+            if value.strip('"').lower() == "yes":
+              active = True
+        except ValueError:
+          continue
+      self.checkbutton_popcon.set_active(active)
+    
 
     # call the add sources.list dialog if we got a file from the cli
     if self.file != None:
@@ -505,14 +522,13 @@ class SoftwareProperties(SimpleGladeApp):
 
   def on_checkbutton_popcon_toggled(self, widget):
     """ The user clicked on the popcon paritipcation button """
-    popcon = "/etc/popularity-contest.conf"
     if widget.get_active():
       new_value = "yes"
     else:
       new_value = "no"
-    if os.path.exists(popcon):
+    if os.path.exists(self.popconfile):
       # read it
-      lines = open(popcon).read().split("\n")
+      lines = open(self.popconfile).read().split("\n")
       for line in lines:
         try:
           (key,value) = line.split("=")
@@ -521,7 +537,7 @@ class SoftwareProperties(SimpleGladeApp):
         except ValueError:
           continue
       # write it
-      open(popcon,"w").write("\n".join(lines))
+      open(self.popconfile,"w").write("\n".join(lines))
 
 
   def open_file(self, file):

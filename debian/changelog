@@ -1,3 +1,10 @@
+update-manager (0.44.9) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - bugfix in the popcon enable code (lp: #59540)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat,  9 Sep 2006 02:13:40 +0200
+
 update-manager (0.44.8) edgy; urgency=low
 
   * fix missing /var/log/dist-upgrade
