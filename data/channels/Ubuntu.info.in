@@ -233,7 +233,7 @@ MatchURI: archive.ubuntu.com/ubuntu/
 _Description: Ubuntu 4.10 'Warty Warthog'
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: No longer oficially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright
@@ -251,7 +251,7 @@ _Description: Cdrom with Ubuntu 4.10 'Warty Warthog'
 Available: False
 Component: main
 Enabled: 1
-_CompDescription: Oficially supported
+_CompDescription: No longer oficially supported
 Component: restricted
 Enabled: 1
 _CompDescription: Restricted copyright

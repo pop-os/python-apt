@@ -19,11 +19,38 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from gettext import gettext as _
+
+def FuzzyTimeToStr(sec):
+  " return the time a bit fuzzy (no seconds if time > 60 secs "
+  if sec > 60*60*24:
+    return _("%li days %li hours %li minutes") % (sec/60/60/24, (sec/60/60) % 24, (sec/60) % 60)
+  if sec > 60*60:
+    return _("%li hours %li minutes") % (sec/60/60, (sec/60) % 60)
+  if sec > 60:
+    return _("%li minutes") % (sec/60)
+  return _("%li seconds") % sec
+
+def estimatedDownloadTime(requiredDownload):
+    """ get the estimated download time """
+    timeModem = requiredDownload/(56*1024/8)  # 56 kbit 
+    timeDSL = requiredDownload/(1024*1024/8)  # 1Mbit = 1024 kbit
+    s= _("This download will take about %s with a 56k modem and about %s with "
+         "a 1Mbit DSL connection" % (FuzzyTimeToStr(timeModem), FuzzyTimeToStr(timeDSL)))
+    return s
+
+
 class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
         subprocess.call(cmd)
-        
+
+
+(STEP_PREPARE,
+ STEP_MODIFY_SOURCES,
+ STEP_FETCH_INSTALL,
+ STEP_CLEANUP,
+ STEP_REBOOT) = range(1,6)
 
 class DistUpgradeView(object):
     " abstraction for the upgrade view "
@@ -53,6 +80,9 @@ class DistUpgradeView(object):
         4. Post upgrade stuff
         5. Complete
         """
+        pass
+    def hideStep(self, step):
+        " hide a certain step from the GUI "
         pass
     def confirmChanges(self, summary, changes, downloadSize, actions=None):
         """ display the list of changed packages (apt.Package) and

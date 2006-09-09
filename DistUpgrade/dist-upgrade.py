@@ -5,15 +5,23 @@ from DistUpgradeConfigParser import DistUpgradeConfig
 import logging
 import os
 import sys
+from optparse import OptionParser
 
 if __name__ == "__main__":
 
+    parser = OptionParser()
+    parser.add_option("-c", "--cdrom", dest="cdromPath", default=None,
+                      help="Use the given path to search for a cdrom with upgradable packages")
+    (options, args) = parser.parse_args()
+
+    if not os.path.exists("/var/log/dist-upgrade"):
+        os.mkdir("/var/log/dist-upgrade")
     logging.basicConfig(level=logging.DEBUG,
-                        filename="/var/log/dist-upgrade.log",
+                        filename="/var/log/dist-upgrade/main.log",
                         format='%(asctime)s %(levelname)s %(message)s',
                         filemode='w')
 
-    config = DistUpgradeConfig()
+    config = DistUpgradeConfig(".")
     requested_view= config.get("View","View")
     try:
         view_modul = __import__(requested_view)
@@ -23,7 +31,7 @@ if __name__ == "__main__":
         logging.error("can't import view '%s'" % requested_view)
         print "can't find %s" % requested_view
         sys.exit(1)
-    app = DistUpgradeControler(view)
+    app = DistUpgradeControler(view, cdromPath=options.cdromPath)
 
     app.run()
 

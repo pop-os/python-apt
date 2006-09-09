@@ -1,6 +1,6 @@
 # DistUpgradeControler.py 
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #  
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 # 
@@ -30,6 +30,7 @@ import subprocess
 import logging
 import re
 import statvfs
+import shutil
 from DistUpgradeConfigParser import DistUpgradeConfig
 
 from aptsources import SourcesList, SourceEntry, Distribution, is_mirror
@@ -37,18 +38,78 @@ from gettext import gettext as _
 import gettext
 from DistUpgradeCache import MyCache
 
-            
+class AptCdrom(object):
+    def __init__(self, view, path):
+        self.view = view
+        self.cdrompath = path
+        
+    def restoreBackup(self, backup_ext):
+        " restore the backup copy of the cdroms.list file (*not* sources.list)! "
+        cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
+                                  apt_pkg.Config.Find("Dir::State::cdroms"))
+        if os.path.exists(cdromstate+backup_ext):
+            shutil.copy(cdromstate+backup_ext, cdromstate)
+        # mvo: we don't have to care about restoring the sources.list here because
+        #      aptsources will do this for us anyway
+        
+    def add(self, backup_ext=None):
+        " add a cdrom to apts database "
+        logging.debug("AptCdrom.add() called with '%s'", self.cdrompath)
+        # do backup (if needed) of the cdroms.list file
+        if backup_ext:
+            cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
+                                      apt_pkg.Config.Find("Dir::State::cdroms"))
+            shutil.copy(cdromstate, cdromstate+backup_ext)
+        # do the actual work
+        apt_pkg.Config.Set("Acquire::cdrom::mount",self.cdrompath)
+        apt_pkg.Config.Set("APT::CDROM::NoMount","true")
+        cdrom = apt_pkg.GetCdrom()
+        # FIXME: add cdrom progress here for the view
+        progress = self.view.getCdromProgress()
+        try:
+            res = cdrom.Add(progress)
+        except SystemError, e:
+            logging.error("can't add cdrom: %s" % e)
+            self.view.error(_("Failed to add the CD"),
+                             _("There was a error adding the CD, the "
+                               "upgrade will abort. Please report this as "
+                               "a bug if this is a valid Ubuntu CD.\n\n"
+                               "The error message was:\n'%s'" % e))
+            return False
+        logging.debug("AptCdrom.add() returned: %s" % res)
+        return res
+
+    def __nonzero__(self):
+        """ helper to use this as 'if cdrom:' """
+        return self.cdrompath is not None
 
 class DistUpgradeControler(object):
-    def __init__(self, distUpgradeView):
-        gettext.bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
+    """ this is the controler that does most of the work """
+    
+    def __init__(self, distUpgradeView, cdromPath=None, datadir=None):
+        # setup the pathes
+        localedir = "/usr/share/locale/update-manager/"
+        if datadir == None:
+            datadir = os.getcwd()
+            localedir = os.path.join(datadir,"mo")
+            gladedir = datadir
+        self.datadir = datadir
+
+        # init gettext
+        gettext.bindtextdomain("update-manager",localedir)
         gettext.textdomain("update-manager")
 
+        # setup the view
         self._view = distUpgradeView
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        self.config = DistUpgradeConfig()
+        # specific for the CDROM based upgrade
+        self.aptcdrom = AptCdrom(distUpgradeView, cdromPath)
+        self.useNetwork = True
+        
+        # the configuration
+        self.config = DistUpgradeConfig(datadir)
         self.sources_backup_ext = "."+self.config.get("Files","BackupExt")
         
         # some constants here
@@ -61,14 +122,34 @@ class DistUpgradeControler(object):
 
         # turn on debuging in the cache
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
-        fd = os.open("/var/log/dist-upgrade-apt.log",
-                     os.O_RDWR|os.O_CREAT|os.O_TRUNC)
+        apt_pkg.Config.Set("Debug::pkgDepCache::AutoInstall","true")
+        # FIXME: make this "append"?
+        fd = os.open("/var/log/dist-upgrade/apt.log",
+                     os.O_RDWR|os.O_CREAT|os.O_TRUNC, 0644)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
     def openCache(self):
-        self.cache = MyCache(self._view.getOpCacheProgress())
+        self.cache = MyCache(self.config, self._view.getOpCacheProgress())
 
+    def prepare(self):
+        """ initial cache opening, sanity checking, network checking """
+        self.openCache()
+        if not self.cache.sanityCheck(self._view):
+            return False
+        # FIXME: we may try to find out a bit more about the network connection here and ask more
+        #        inteligent questions
+        if self.aptcdrom:
+            res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
+                                              _("The upgrade can use the network to check "
+                                                "the latest updates and to fetch packages that are not on the "
+                                                "current CD.\n"
+                                                "If you have fast or inexpensive network access you should answer "
+                                                "'Yes' here. If networking is expensive for you choose 'No'.")
+                                              )
+            self.useNetwork = res
+            logging.debug("useNetwork: '%s' (selected by user)" % res)
+        return True
 
     def rewriteSourcesList(self, mirror_check=True):
         logging.debug("rewriteSourcesList()")
@@ -166,7 +247,7 @@ class DistUpgradeControler(object):
                                ) % (self.fromDist, self.toDist))
             if res:
                 # re-init the sources and try again
-                self.sources = SourcesList()
+                self.sources = SourcesList(matcherPath=".")
                 if not self.rewriteSourcesList(mirror_check=False):
                     #hm, still nothing useful ...
                     prim = _("Generate default sources?")
@@ -233,7 +314,7 @@ class DistUpgradeControler(object):
         logging.debug("Install: %s" % " ".join(inst))
         logging.debug("Upgrade: %s" % " ".join(up))
 
-    def doPreUpdate(self):
+    def doPreUpgrade(self):
         # FIXME: check out what packages are downloadable etc to
         # compare the list after the update again
         self.obsolete_pkgs = self.cache._getObsoletesPkgs()
@@ -242,6 +323,9 @@ class DistUpgradeControler(object):
         logging.debug("Obsolete: %s" % " ".join(self.obsolete_pkgs))
 
     def doUpdate(self):
+        if not self.useNetwork:
+            logging.debug("doUpdate() will not use the network because self.useNetwork==false")
+            return True
         self.cache._list.ReadMainList()
         progress = self._view.getFetchProgress()
         # FIXME: retry here too? just like the DoDistUpgrade?
@@ -304,7 +388,7 @@ class DistUpgradeControler(object):
             free = st_usr[statvfs.F_BAVAIL]*st_usr[statvfs.F_FRSIZE]
             logging.debug("/usr on different fs than %s, free: %s" % (archivedir, free))
 
-        safety_buffer = 1024*1024*75 # 75 Mb
+        safety_buffer = 1024*1024*100 # 100 Mb
         logging.debug("using safety buffer: %s" % safety_buffer)
         if (self.cache.additionalRequiredSpace+safety_buffer) > free:
             free_at_least = apt_pkg.SizeToStr(self.cache.additionalRequiredSpace+safety_buffer-free)
@@ -347,8 +431,11 @@ class DistUpgradeControler(object):
                 self._view.getTerminal().call(["dpkg","--configure","-a"])
                 self._view.error(_("Could not install the upgrades"),
                                  _("The upgrade aborts now. Your system "
-                                   "can be in an unusable state. A recovery "
-                                   "was run (dpkg --configure -a)."),
+                                   "could be in an unusable state. A recovery "
+                                   "was run (dpkg --configure -a).\n\n"
+                                   "Please report this bug against the 'update-manager' "
+                                   "package and include the files in /var/log/dist-upgrade/ "
+                                   "in the bugreport."),
                                  "%s" % e)
                 return False
             except IOError, e:
@@ -412,7 +499,16 @@ class DistUpgradeControler(object):
         # mark packages that are now obsolete (and where not obsolete
         # before) to be deleted. make sure to not delete any foreign
         # (that is, not from ubuntu) packages
-        remove_candidates = now_obsolete - self.obsolete_pkgs
+        if self.useNetwork:
+            # we can only do the obsoletes calculation here if we use a
+            # network. otherwise after rewriting the sources.list everything
+            # that is not on the CD becomes obsolete (not-downloadable)
+            remove_candidates = now_obsolete - self.obsolete_pkgs
+        else:
+            # initial remove candidates when no network is used should
+            # be the demotions to make sure we don't leave potential
+            # unsupported software
+            remove_candidates = set(installed_demotions)
         remove_candidates |= set(self.forced_obsoletes)
         logging.debug("remove_candidates: '%s'" % remove_candidates)
         logging.debug("Start checking for obsolete pkgs")
@@ -445,6 +541,7 @@ class DistUpgradeControler(object):
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
         self.sources.restoreBackup(self.sources_backup_ext)
+        self.aptcdrom.restoreBackup(self.sources_backup_ext)
         # generate a new cache
         self._view.updateStatus(_("Restoring original system state"))
         self.openCache()
@@ -457,22 +554,27 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
 
-        self.openCache()
-        if not self.cache.sanityCheck(self._view):
-            abort(1)
+        if not self.prepare():
+            self.abort(1)
 
         # run a "apt-get update" now
         if not self.doUpdate():
             sys.exit(1)
 
         # do pre-upgrade stuff (calc list of obsolete pkgs etc)
-        self.doPreUpdate()
+        self.doPreUpgrade()
 
         # update sources.list
         self._view.setStep(2)
         self._view.updateStatus(_("Updating repository information"))
         if not self.updateSourcesList():
             self.abort()
+
+        # add cdrom (if we have one)
+        if (self.aptcdrom and
+            not self.aptcdrom.add(self.sources_backup_ext)):
+            sys.exit(1)
+
         # then update the package index files
         if not self.doUpdate():
             self.abort()
@@ -494,7 +596,9 @@ class DistUpgradeControler(object):
                                    "updated the essential package '%s' can "
                                    "not be found anymore.\n"
                                    "This indicates a serious error, please "
-                                   "report this as a bug.") % pkg)
+                                   "report this bug against the 'update-manager' "
+                                   "package and include the files in /var/log/dist-upgrade/ "
+                                   "in the bugreport.") % pkg)
                 self.abort()
 
         # calc the dist-upgrade and see if the removals are ok/expected

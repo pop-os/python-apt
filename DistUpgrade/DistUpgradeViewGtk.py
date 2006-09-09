@@ -1,6 +1,6 @@
 # DistUpgradeViewGtk.py 
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #  
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 # 
@@ -37,7 +37,7 @@ import apt_pkg
 import os
 
 from apt.progress import InstallProgress
-from DistUpgradeView import DistUpgradeView
+from DistUpgradeView import DistUpgradeView, FuzzyTimeToStr, estimatedDownloadTime
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp, bindtextdomain
 
 import gettext
@@ -46,19 +46,26 @@ from gettext import gettext as _
 def utf8(str):
   return unicode(str, 'latin1').encode('utf-8')
 
-def FuzzyTimeToStr(sec):
-  " return the time a bit fuzzy (no seconds if time > 60 secs "
-  if sec > 60*60*24:
-    return _("About %li days %li hours %li minutes remaining") % (sec/60/60/24,
-                                                                  (sec/60/60) % 24,
-                                                                  (sec/60) % 60)
-  if sec > 60*60:
-    return _("About %li hours %li minutes remaining") % (sec/60/60,
-                                          (sec/60) % 60)
-  if sec > 60:
-    return _("About %li minutes remaining") % (sec/60)
-  return _("About %li seconds remaining") % sec
 
+class GtkCdromProgressAdapter(apt.progress.CdromProgress):
+    """ Report the cdrom add progress
+        Subclass this class to implement cdrom add progress reporting
+    """
+    def __init__(self, parent):
+        self.status = parent.label_status
+        self.progress = parent.progressbar_cache
+        self.parent = parent
+    def update(self, text, step):
+        """ update is called regularly so that the gui can be redrawn """
+        if text:
+          self.status.set_text(text)
+        self.progress.set_fraction(step/float(self.totalSteps))
+        while gtk.events_pending():
+          gtk.main_iteration()
+    def askCdromName(self):
+        return (False, "")
+    def changeCdrom(self):
+        return False
 
 class GtkOpProgress(apt.progress.OpProgress):
   def __init__(self, progressbar):
@@ -108,7 +115,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.status.show()
     def stop(self):
         self.progress.set_text(" ")
-        self.status.set_text(_("Download is complete"))
+        self.status.set_text(_("Fetching is complete"))
     def pulse(self):
         # FIXME: move the status_str and progress_str into python-apt
         # (python-apt need i18n first for this)
@@ -119,10 +126,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             currentItem = self.totalItems
 
         if self.currentCPS > 0:
-            self.status.set_text(_("Downloading file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
-            self.progress.set_text(FuzzyTimeToStr(self.eta))
+            self.status.set_text(_("Fetching file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
+            self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(self.eta))
         else:
-            self.status.set_text(_("Downloading file %li of %li" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Fetching file %li of %li" % (currentItem, self.totalItems)))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
@@ -178,7 +185,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         #self.expander_terminal.set_expanded(True)
         self.parent.dialog_error.set_transient_for(self.parent.window_main)
         summary = _("Could not install '%s'" % pkg)
-        msg = _("The upgrade aborts now. Please report this bug.")
+        msg = _("The upgrade aborts now. Please report this bug against the 'update-manager' "
+                "package and include the files in /var/log/dist-upgrade/ in the bugreport.")
         markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
         self.parent.dialog_error.realize()
         self.parent.dialog_error.window.set_functions(gtk.gdk.FUNC_MOVE)
@@ -241,7 +249,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           eta = (100.0 - self.percent) * time_per_percent
           # only show if we have some sensible data
           if eta > 61.0 and eta < (60*60*24*2):
-            self.progress.set_text(FuzzyTimeToStr(eta))
+            self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(eta))
           else:
             self.progress.set_text(" ")
 
@@ -295,14 +303,24 @@ class DistUpgradeVteTerminal(object):
 
 class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
     " gtk frontend of the distUpgrade tool "
-    def __init__(self):
+    def __init__(self, datadir=None):
+        if not datadir:
+          localedir=os.path.join(os.getcwd(),"mo")
+          gladedir=os.getcwd()
+        else:
+          localedir="/usr/share/locale/update-manager"
+          gladedir=os.path.join(datadir, "glade")
+
         # FIXME: i18n must be somewhere relative do this dir
-        bindtextdomain("update-manager",os.path.join(os.getcwd(),"mo"))
-        gettext.textdomain("update-manager")
+        try:
+          bindtextdomain("update-manager", localedir)
+          gettext.textdomain("update-manager")
+        except Exception, e:
+          logging.warning("Error setting locales (%s)" % e)
         
         icons = gtk.icon_theme_get_default()
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
-        SimpleGladeApp.__init__(self, "DistUpgrade.glade",
+        SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
         # we dont use this currently
         #self.window_main.set_keep_above(True)
@@ -310,6 +328,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
         self._fetchProgress = GtkFetchProgressAdapter(self)
+        self._cdromProgress = GtkCdromProgressAdapter(self)
         self._installProgress = GtkInstallProgressAdapter(self)
         # details dialog
         self.details_list = gtk.ListStore(gobject.TYPE_STRING)
@@ -337,8 +356,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       logging.error("not handled expection:\n%s" % "\n".join(lines))
       self.error(_("A fatal error occured"),
                  _("Please report this as a bug and include the "
-                   "files /var/log/dist-upgrade.log and "
-                   "/var/log/dist-upgrade-apt.log "
+                   "files /var/log/dist-upgrade/main.log and "
+                   "/var/log/dist-upgrade/apt.log "
                    "in your report. The upgrade aborts now.\n"
                    "Your original sources.list was saved in "
                    "/etc/apt/sources.list.distUpgrade."),
@@ -355,7 +374,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         self._term.connect("contents-changed", self._term_content_changed)
         self._terminal_lines = []
         try:
-          self._terminal_log = open("/var/log/dist-upgrade-term.log","w")
+          self._terminal_log = open("/var/log/dist-upgrade/term.log","w")
         except IOError:
           # if something goes wrong (permission denied etc), use stdout
           self._terminal_log = sys.stdout
@@ -382,8 +401,15 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         return self._installProgress
     def getOpCacheProgress(self):
         return self._opCacheProgress
+    def getCdromProgress(self):
+        return self._cdromProgress
     def updateStatus(self, msg):
         self.label_status.set_text("%s" % msg)
+    def hideStep(self, step):
+        image = getattr(self,"image_step%i" % step)
+        label = getattr(self,"label_step%i" % step)
+        image.hide()
+        label.hide()
     def setStep(self, step):
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
@@ -461,13 +487,14 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                                     "%s packages are going to be upgraded.",
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
-
         if downloadSize > 0:
-            msg += _("You have to download a total of %s." %\
+            msg += _("\n\nYou have to download a total of %s. " %\
                      apt_pkg.SizeToStr(downloadSize))
+            msg += estimatedDownloadTime(downloadSize)
+            msg += "."
 
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) > 100:
-            msg += "\n\n%s" % _("The upgrade can take several hours and "\
+            msg += "\n\n%s" % _("Fetching and installing the upgrade can take several hours and "\
                                 "cannot be canceled at any time later.")
 
         msg += "\n\n<b>%s</b>" % _("To prevent data loss close all open "\

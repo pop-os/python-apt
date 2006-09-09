@@ -1,3 +1,42 @@
+update-manager (0.44.9) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - bugfix in the popcon enable code (lp: #59540)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat,  9 Sep 2006 02:13:40 +0200
+
+update-manager (0.44.8) edgy; urgency=low
+
+  * fix missing /var/log/dist-upgrade
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  8 Sep 2006 20:33:04 +0200
+
+update-manager (0.44.7) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - be more accurate about dependencies when the user selects only
+      a supset of the packages
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  6 Sep 2006 12:29:05 +0200
+
+update-manager (0.44.6) edgy; urgency=low
+
+  * SoftwareProperties/SoftwareProperties.py:
+    - fix inconsistency in the new software-sources dialog
+  * integrate DistUpgrade code into UpdateManager to make sure
+    that after e.g. a CDROM upgrade the rest of the system can still
+    be fully upgraded over the net
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  5 Sep 2006 13:30:22 +0200
+
+update-manager (0.44.5) edgy; urgency=low
+
+  * install the DistUpgrade package too
+  * data/channels/Ubuntu.info.in:
+    - warty is no longer officially supported 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 30 Aug 2006 11:32:24 +0200
+
 update-manager (0.44.4) edgy; urgency=low
 
   * SoftwareProperties/SoftwareProperties.py:
