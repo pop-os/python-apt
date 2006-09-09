@@ -83,17 +83,36 @@ class TestAptSources(unittest.TestCase):
         distro.get_sources(sources)
         comp = "restricted"
         distro.enable_component(sources, comp)
-        found = 0
+        found = {}
         for entry in sources:
             if (entry.type == "deb" and
                 entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy"):
+                "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        found += 1
-        print "".join([s.str() for s in sources])
-        self.assertEqual(found, 1)
-        
+                        if not found.has_key(entry.dist):
+                            found[entry.dist] = 0
+                        found[entry.dist] += 1
+        #print "".join([s.str() for s in sources])
+        for key in found:
+            self.assertEqual(found[key], 1)
+
+        # add a not-already available component
+        comp = "multiverse"
+        distro.enable_component(sources, comp)
+        found = {}
+        for entry in sources:
+            if (entry.type == "deb" and
+                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                "edgy" in entry.dist):
+                for c in entry.comps:
+                    if c == comp:
+                        if not found.has_key(entry.dist):
+                            found[entry.dist] = 0
+                        found[entry.dist] += 1
+        #print "".join([s.str() for s in sources])
+        for key in found:
+            self.assertEqual(found[key], 1)
 
 if __name__ == "__main__":
     unittest.main()
