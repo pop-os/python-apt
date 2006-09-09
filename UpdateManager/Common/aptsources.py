@@ -1,10 +1,12 @@
 # aptsource.py.in - parse sources.list
 #  
-#  Copyright (c) 2004,2005 Canonical
+#  Copyright (c) 2004-2006 Canonical
 #                2004 Michiel Sikkes
+#                2006 Sebastian Heinlein
 #  
 #  Author: Michiel Sikkes <michiel@eyesopened.nl>
 #          Michael Vogt <mvo@debian.org>
+#          Sebastian Heinlein
 # 
 #  This program is free software; you can redistribute it and/or 
 #  modify it under the terms of the GNU General Public License as 
@@ -29,11 +31,12 @@ import glob
 import shutil
 import time
 import os.path
+import sys
 
 #import pdb
 
-from UpdateManager.Common.DistInfo import DistInfo
-
+#from UpdateManager.Common.DistInfo import DistInfo
+from DistInfo import DistInfo
 
 # some global helpers
 def is_mirror(master_uri, compare_uri):
@@ -89,6 +92,14 @@ class SourceEntry:
     self.parse(line)
     self.template = None
     self.children = []
+
+  def __eq__(self, other):
+    return (self.disabled == other.disabled and
+            self.type == other.type and
+            self.uri == other.uri and
+            self.dist == other.dist and
+            self.comps == other.comps)
+
 
   # works mostely like split but takes [] into account
   def mysplit(self, line):
@@ -244,6 +255,18 @@ class SourcesList:
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
+    # check if we have this source already in the sources.list
+    for source in self.list:
+      if source.disabled == False and source.invalid == False and \
+         source.type == type and uri == source.uri and \
+         source.dist == dist:
+        for new_comp in comps:
+          if new_comp in source.comps:
+            # we have this component already, delete it from the new_comps
+            # list
+            del comps[comps.index(new_comp)]
+            if len(comps) == 0:
+              return source
     for source in self.list:
       # if there is a repo with the same (type, uri, dist) just add the
       # components
@@ -537,12 +560,15 @@ class Distribution:
                 self.source_code_sources.append(source)
             elif source.type.endswith("-src") and source.disabled == True:
                 self.disabled_sources.append(source)
-        if source.template in self.source_template.children:
-            #print "yeah! child found: %s" % source.template.name
-            if source.type == "deb":
+        if source.invalid == False and\
+           source.template in self.source_template.children:
+            if source.disabled == False and source.type == "deb":
                 self.child_sources.append(source)
-            elif source.type == "deb-src":
+            elif source.disabled == False and source.type == "deb-src":
                 self.source_code_sources.append(source)
+            else:
+                self.disabled_sources.append(source)
+
     self.download_comps = set(comps)
     self.cdrom_comps = set(cdrom_comps)
     enabled_comps.extend(comps)
@@ -612,16 +638,33 @@ class Distribution:
 
   def enable_component(self, sourceslist, comp):
     """
-    Disable a component in all main, child and source code sources
+    Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
 
     sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
+    def add_component_only_once(source, workpile):
+        """
+        Check if we already added the component to the repository, since
+        a repository could be splitted into different apt lines. If not
+        add the component
+        """
+        if not (workpile.has_key(source.uri) and\
+                source.dist in workpile[source.uri]):
+            if comp not in source.comps:
+                source.comps.append(comp)
+                if workpile.has_key(source.uri):
+                       workpile[source.uri].append(source.dist)
+                else:
+                       workpile[source.uri] = [source.dist]
+
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
     sources.extend(self.source_code_sources)
+    # store repos to which the new component has been added
+    workpile = {}
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
@@ -629,11 +672,13 @@ class Distribution:
     else:
         # add the comp to all main, child and source code sources
         for source in sources:
-            if comp not in source.comps:
-                source.comps.append(comp)
+             add_component_only_once(source, workpile)
+
     if self.get_source_code == True:
         for source in self.source_code_sources:
-            if comp not in source.comps: source.comps.append(comp)
+            if comp not in source.comps: 
+                add_component_only_once(source, workpile)
+
 
   def disable_component(self, sourceslist, comp):
     """

@@ -8,23 +8,20 @@ import re
 import logging
 from gettext import gettext as _
 from DistUpgradeConfigParser import DistUpgradeConfig
+from DistUpgradeView import FuzzyTimeToStr
 
 class MyCache(apt.Cache):
     # init
-    def __init__(self, progress=None):
+    def __init__(self, config, progress=None):
         apt.Cache.__init__(self, progress)
         self.to_install = []
         self.to_remove = []
 
-        self.config = DistUpgradeConfig()
+        self.config = config
         self.metapkgs = self.config.getlist("Distro","MetaPkgs")
 
         # a list of regexp that are not allowed to be removed
-        self.removal_blacklist = []
-        for line in open("removal_blacklist.txt").readlines():
-            line = line.strip()
-            if not line == "" or line.startswith("#"):
-                self.removal_blacklist.append(line)
+        self.removal_blacklist = config.getListFromFile("Distro","RemovalBlacklistFile")
 
     # properties
     @property
@@ -159,8 +156,10 @@ class MyCache(apt.Cache):
             # FIXME: change the text to something more useful
             view.error(_("Could not calculate the upgrade"),
                        _("A unresolvable problem occured while "
-                         "calculating the upgrade. Please report "
-                         "this as a bug. "))
+                         "calculating the upgrade.\n\n"
+                         "Please report this bug against the 'update-manager' "
+                         "package and include the files in /var/log/dist-upgrade/ "
+                         "in the bugreport."))
             logging.error("Dist-upgrade failed: '%s'", e)
             return False
 
@@ -194,11 +193,13 @@ class MyCache(apt.Cache):
         """ this function tests if the current changes don't violate
             our constrains (blacklisted removals etc)
         """
+        removeEssentialOk = self.config.getlist("Distro","RemoveEssentialOk")
         for pkg in self.getChanges():
             if pkg.markedDelete and self._inRemovalBlacklist(pkg.name):
                 logging.debug("The package '%s' is marked for removal but it's in the removal blacklist", pkg.name)
                 return False
-            if pkg.markedDelete and pkg._pkg.Essential == True:
+            if pkg.markedDelete and (pkg._pkg.Essential == True and
+                                     not pkg.name in removeEssentialOk):
                 logging.debug("The package '%s' is marked for removal but it's a ESSENTIAL package", pkg.name)
                 return False
         return True

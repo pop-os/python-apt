@@ -79,6 +79,7 @@ class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir=None, options=None, parent=None, file=None):
     gtk.window_set_default_icon_name("software-properties")
+    self.popconfile = "/etc/popularity-contest.conf"
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -223,6 +224,22 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview_sources.connect("drag_data_received",\
                                   self.on_sources_drag_data_received)
 
+    # popcon
+    if os.path.exists(self.popconfile):
+      # read it
+      lines = open(self.popconfile).read().split("\n")
+      active = False
+      for line in lines:
+        try:
+          (key,value) = line.split("=")
+          if key == "PARTICIPATE":
+            if value.strip('"').lower() == "yes":
+              active = True
+        except ValueError:
+          continue
+      self.checkbutton_popcon.set_active(active)
+    
+
     # call the add sources.list dialog if we got a file from the cli
     if self.file != None:
         self.open_file(file)
@@ -241,7 +258,12 @@ class SoftwareProperties(SimpleGladeApp):
     for checkbutton in self.vbox_dist_comps.get_children():
          self.vbox_dist_comps.remove(checkbutton)
     for comp in self.distro.source_template.components.keys():
-        checkbox = gtk.CheckButton(label=self.distro.source_template.components[comp][2])
+        # TRANSLATORS: Label for the components in the Internet section
+        #              first %s is the description of the component
+        #              second %s is the code name of the comp, eg main, universe
+        label = _("%s (%s)") % (self.distro.source_template.components[comp][2],
+                                comp)
+        checkbox = gtk.CheckButton(label)
         # check if the comp is enabled
         # FIXME: use inconsistence if there are main sources with not all comps
         if comp in self.distro.download_comps:
@@ -377,6 +399,42 @@ class SoftwareProperties(SimpleGladeApp):
     else:
         self.treeview_cdroms.set_sensitive(True)
 
+    if self.options.debug == True or self.options.massive_debug == True:
+        print "ENABLED COMPS: %s" % self.distro.enabled_comps
+        print "INTERNET COMPS: %s" % self.distro.download_comps
+        print "MAIN SOURCES"
+        for source in self.distro.main_sources:
+            self.print_source_entry(source)
+        print "CHILD SOURCES"
+        for source in self.distro.child_sources:
+            self.print_source_entry(source)
+        print "CDROM SOURCES"
+        for source in self.distro.cdrom_sources:
+            self.print_source_entry(source)
+        print "SOURCE CODE SOURCES"
+        for source in self.distro.source_code_sources:
+            self.print_source_entry(source)
+        print "DISABLED SOURCES"
+        for source in self.distro.disabled_sources:
+            self.print_source_entry(source)
+        print "ISV"
+        for source in self.sourceslist_visible:
+            self.print_source_entry(source)
+
+  def print_source_entry(self, source):
+    """Print the data of a source entry to the command line"""
+    print source.dist
+    for (label, value) in [("URI:", source.uri),
+                           ("Comps:", source.comps),
+                           ("Enabled:", not source.disabled),
+                           ("Valid:", not source.invalid)]:
+        print " %s %s" % (label, value)
+    if source.template:
+        for (label, value) in [("MatchURI:", source.template.match_uri),
+                               ("BaseURI:", source.template.base_uri)]:
+            print " %s %s" % (label, value)
+    print "\n"
+
   def on_combobox_server_changed(self, combobox):
     """
     Replace the servers used by the main and update sources with
@@ -464,14 +522,13 @@ class SoftwareProperties(SimpleGladeApp):
 
   def on_checkbutton_popcon_toggled(self, widget):
     """ The user clicked on the popcon paritipcation button """
-    popcon = "/etc/popularity-contest.conf"
     if widget.get_active():
       new_value = "yes"
     else:
       new_value = "no"
-    if os.path.exists(popcon):
+    if os.path.exists(self.popconfile):
       # read it
-      lines = open(popcon).read().split("\n")
+      lines = open(self.popconfile).read().split("\n")
       for line in lines:
         try:
           (key,value) = line.split("=")
@@ -480,7 +537,7 @@ class SoftwareProperties(SimpleGladeApp):
         except ValueError:
           continue
       # write it
-      open(popcon,"w").write("\n".join(lines))
+      open(self.popconfile,"w").write("\n".join(lines))
 
 
   def open_file(self, file):
@@ -629,7 +686,8 @@ class SoftwareProperties(SimpleGladeApp):
   
   def modified_sourceslist(self):
     """The sources list was changed and now needs to be saved and reloaded"""
-    self.massive_debug_output()
+    if self.options.massive_debug == True:
+        self.massive_debug_output()
     self.modified = True
     self.button_revert.set_sensitive(True)
     self.save_sourceslist()

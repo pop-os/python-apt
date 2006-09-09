@@ -58,7 +58,8 @@ setup(name='update-manager',
       packages=[
                 'SoftwareProperties',
                 'UpdateManager',
-                'UpdateManager.Common'
+                'UpdateManager.Common',
+                'DistUpgrade'
                 ],
       scripts=[
                'software-properties',
@@ -66,7 +67,12 @@ setup(name='update-manager',
                ],
       data_files=[
                   ('share/update-manager/glade',
-                     glob.glob("data/glade/*.glade")
+                   glob.glob("data/glade/*.glade")+
+                   glob.glob("DistUpgrade/*.glade")
+                  ),
+                  ('share/update-manager/',
+                   glob.glob("DistUpgrade/*.cfg")+
+                   glob.glob("DistUpgrade/*.cfg")
                   ),
                   ('share/doc/update-manager',
                      glob.glob("data/channels/README.channels")
@@ -84,6 +90,5 @@ setup(name='update-manager',
                   ('share/mime/packages',
                    ["build/apt.xml"]
                   )
-
                   ] + I18NFILES + HELPFILES + ICONS,
       )
