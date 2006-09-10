@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-05 13:07+0200\n"
+"POT-Creation-Date: 2006-09-10 01:15+0200\n"
 "PO-Revision-Date: 2006-05-29 21:18+0000\n"
 "Last-Translator: Jordi Irazuzta <irazuzta@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -16,115 +16,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Daily"
 msgstr "Diàriament"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
+#: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Every two days"
 msgstr "Cada dos dies"
 
-#: ../SoftwareProperties/SoftwareProperties.py:137
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Weekly"
 msgstr "Setmanalment"
 
-#: ../SoftwareProperties/SoftwareProperties.py:138
+#: ../SoftwareProperties/SoftwareProperties.py:139
 msgid "Every two weeks"
 msgstr "Cada dues setmanes"
 
-#: ../SoftwareProperties/SoftwareProperties.py:143
+#: ../SoftwareProperties/SoftwareProperties.py:144
 #, python-format
 msgid "Every %s days"
 msgstr "Cada %s dies"
 
-#: ../SoftwareProperties/SoftwareProperties.py:166
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After one week"
 msgstr "Després d'una setmana"
 
-#: ../SoftwareProperties/SoftwareProperties.py:167
+#: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After two weeks"
 msgstr "Després de dues setmanes"
 
-#: ../SoftwareProperties/SoftwareProperties.py:168
+#: ../SoftwareProperties/SoftwareProperties.py:169
 msgid "After one month"
 msgstr "Després d'un mes"
 
-#: ../SoftwareProperties/SoftwareProperties.py:173
+#: ../SoftwareProperties/SoftwareProperties.py:174
 #, python-format
 msgid "After %s days"
 msgstr "Després de %s dies"
 
 #. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-#: ../SoftwareProperties/SoftwareProperties.py:235
+#: ../SoftwareProperties/SoftwareProperties.py:252
 #, fuzzy, python-format
 msgid "%s updates"
 msgstr "_Instal·la les actualitzacions"
 
-#: ../SoftwareProperties/SoftwareProperties.py:294
+#. TRANSLATORS: Label for the components in the Internet section
+#. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
+#: ../SoftwareProperties/SoftwareProperties.py:264
+#, python-format
+msgid "%s (%s)"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:316
 msgid "Main server"
 msgstr ""
 
 #. TRANSLATORS: %s is a country
-#: ../SoftwareProperties/SoftwareProperties.py:298
-#: ../SoftwareProperties/SoftwareProperties.py:316
+#: ../SoftwareProperties/SoftwareProperties.py:320
+#: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
 msgid "Server for %s"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:302
+#: ../SoftwareProperties/SoftwareProperties.py:324
 msgid "Nearest server"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:323
+#: ../SoftwareProperties/SoftwareProperties.py:345
 msgid "Custom servers"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:580
-#: ../SoftwareProperties/SoftwareProperties.py:597
+#: ../SoftwareProperties/SoftwareProperties.py:601
+#: ../SoftwareProperties/SoftwareProperties.py:618
 #, fuzzy
 msgid "Software Channel"
 msgstr "Actualitzacions de programari"
 
-#: ../SoftwareProperties/SoftwareProperties.py:588
-#: ../SoftwareProperties/SoftwareProperties.py:605
+#: ../SoftwareProperties/SoftwareProperties.py:609
+#: ../SoftwareProperties/SoftwareProperties.py:626
 msgid "Active"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:690
+#: ../SoftwareProperties/SoftwareProperties.py:711
 #, fuzzy
 msgid "(Source Code)"
 msgstr "Font"
 
-#: ../SoftwareProperties/SoftwareProperties.py:696
+#: ../SoftwareProperties/SoftwareProperties.py:717
 #, fuzzy
 msgid "Source Code"
 msgstr "Font"
 
-#: ../SoftwareProperties/SoftwareProperties.py:945
+#: ../SoftwareProperties/SoftwareProperties.py:966
 msgid "Import key"
 msgstr "Importa un clau"
 
-#: ../SoftwareProperties/SoftwareProperties.py:955
+#: ../SoftwareProperties/SoftwareProperties.py:976
 msgid "Error importing selected file"
 msgstr "S'ha produït un error en importar el fitxer seleccionat"
 
-#: ../SoftwareProperties/SoftwareProperties.py:956
+#: ../SoftwareProperties/SoftwareProperties.py:977
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "El fitxer que heu seleccionat no correspon a una clau GPG o pot estar "
 "corromput."
 
-#: ../SoftwareProperties/SoftwareProperties.py:968
+#: ../SoftwareProperties/SoftwareProperties.py:989
 msgid "Error removing the key"
 msgstr "S'ha produït un error en esborrar la clau"
 
-#: ../SoftwareProperties/SoftwareProperties.py:969
+#: ../SoftwareProperties/SoftwareProperties.py:990
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "La clau que heu seleccionat no es pot esborrar. Notifiqueu-ho com a error de "
 "programació."
 
-#: ../SoftwareProperties/SoftwareProperties.py:1015
+#: ../SoftwareProperties/SoftwareProperties.py:1036
 #, python-format
 msgid ""
 "<big><b>Error scaning the CD</b></big>\n"
@@ -135,11 +143,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1072
+#: ../SoftwareProperties/SoftwareProperties.py:1093
 msgid "Please enter a name for the disc"
 msgstr "Introduïu un nom per al disc"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1088
+#: ../SoftwareProperties/SoftwareProperties.py:1109
 msgid "Please insert a disc in the drive:"
 msgstr "Inseriu un disc a la unitat:"
 
@@ -821,16 +829,16 @@ msgstr "S'està descarregant el fitxer %li de %li amb %s/s"
 msgid "Downloading file %li of %li with unknown speed"
 msgstr "S'està descarregant el fitxer %li de %li a una velocitat desconeguda"
 
-#: ../UpdateManager/UpdateManager.py:187
+#: ../UpdateManager/UpdateManager.py:197
 #, fuzzy
 msgid "The list of changes is not available"
 msgstr "La llista de canvis encara no està disponible. Proveu-ho després."
 
-#: ../UpdateManager/UpdateManager.py:193
+#: ../UpdateManager/UpdateManager.py:203
 msgid "The list of changes is not available yet. Please try again later."
 msgstr "La llista de canvis encara no està disponible. Proveu-ho després."
 
-#: ../UpdateManager/UpdateManager.py:198
+#: ../UpdateManager/UpdateManager.py:208
 msgid ""
 "Failed to download the list of changes. Please check your Internet "
 "connection."
@@ -838,134 +846,134 @@ msgstr ""
 "S'ha produït un error en descarregar els canvis. Comproveu si teniu connexió "
 "a Internet."
 
-#: ../UpdateManager/UpdateManager.py:218
+#: ../UpdateManager/UpdateManager.py:228
 #, fuzzy
 msgid "Important security updates of Ubuntu"
 msgstr "Debian Stable Security Updates"
 
-#: ../UpdateManager/UpdateManager.py:220
+#: ../UpdateManager/UpdateManager.py:230
 msgid "Recommended updates of Ubuntu"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:222
+#: ../UpdateManager/UpdateManager.py:232
 msgid "Proposed updates for Ubuntu"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:223
+#: ../UpdateManager/UpdateManager.py:233
 msgid "Backports of Ubuntu"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:224
+#: ../UpdateManager/UpdateManager.py:234
 #, fuzzy
 msgid "Updates of Ubuntu"
 msgstr "Actualitza a la darrera versió d'Ubuntu"
 
 #. TRANSLATORS: updates from an 'unknown' origin
-#: ../UpdateManager/UpdateManager.py:232 ../UpdateManager/UpdateManager.py:245
+#: ../UpdateManager/UpdateManager.py:242 ../UpdateManager/UpdateManager.py:255
 #, fuzzy
 msgid "Other updates"
 msgstr "_Instal·la les actualitzacions"
 
-#: ../UpdateManager/UpdateManager.py:266
+#: ../UpdateManager/UpdateManager.py:276
 msgid "Cannot install all available updates"
 msgstr "No es poden instal·lar les actualitzacions disponibles"
 
-#: ../UpdateManager/UpdateManager.py:267
+#: ../UpdateManager/UpdateManager.py:277
 msgid ""
-"Some of the updates require more extensive changesthan expected.\n"
+"Some of the updates require more extensive changes than expected.\n"
 "\n"
-"This usually mean that your system is not fully upgraded or that you run a "
+"This usually means that you have enabled unoffical repositories, that it is "
+"not fully upgraded from the last distribution release or that you run a "
 "development release of the distribution.\n"
 "\n"
 "Would you like to perform a full distribution upgrade now?"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:461
+#: ../UpdateManager/UpdateManager.py:474
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versió %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:522
+#: ../UpdateManager/UpdateManager.py:535
 msgid "Downloading the list of changes..."
 msgstr "S'està descarregant la llista de canvis..."
 
-#: ../UpdateManager/UpdateManager.py:546
+#: ../UpdateManager/UpdateManager.py:559
 msgid "Select _None"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:551
+#: ../UpdateManager/UpdateManager.py:565
 msgid "Select _All"
 msgstr ""
 
 #. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:591
+#: ../UpdateManager/UpdateManager.py:596
 msgid "None"
 msgstr ""
 
 #. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:594
+#: ../UpdateManager/UpdateManager.py:599
 msgid "1 KB"
 msgstr ""
 
 #. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:597
+#: ../UpdateManager/UpdateManager.py:602
 #, python-format
 msgid "%.0f KB"
 msgstr ""
 
 #. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:600
+#: ../UpdateManager/UpdateManager.py:605
 #, python-format
 msgid "%.1f MB"
 msgstr ""
 
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:608 ../UpdateManager/UpdateManager.py:618
-#: ../UpdateManager/UpdateManager.py:642
+#: ../UpdateManager/UpdateManager.py:623 ../UpdateManager/UpdateManager.py:647
 #, python-format
 msgid "Download size: %s"
 msgstr "Mida de la descàrrega: %s"
 
-#: ../UpdateManager/UpdateManager.py:627
+#: ../UpdateManager/UpdateManager.py:632
 msgid "Your system is up-to-date"
 msgstr "El vostre sistema està actualitzat"
 
-#: ../UpdateManager/UpdateManager.py:638
+#: ../UpdateManager/UpdateManager.py:643
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Podeu instal·lar %s actualització"
 msgstr[1] "Podeu instal·lar %s actualitzacions"
 
-#: ../UpdateManager/UpdateManager.py:671
+#: ../UpdateManager/UpdateManager.py:676
 msgid "Please wait, this can take some time."
 msgstr "Espereu, això pot tardar una estona."
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:678
 msgid "Update is complete"
 msgstr "S'ha completat l'actualització"
 
-#: ../UpdateManager/UpdateManager.py:822
+#: ../UpdateManager/UpdateManager.py:830
 #, fuzzy, python-format
 msgid "From version %s to %s"
 msgstr "Versió nova: %s (Mida: %s)"
 
-#: ../UpdateManager/UpdateManager.py:826
+#: ../UpdateManager/UpdateManager.py:834
 #, fuzzy, python-format
 msgid "Version %s"
 msgstr "Versió %s: \n"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:836
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:842
+#: ../UpdateManager/UpdateManager.py:846
 msgid "Your distribution is not supported anymore"
 msgstr "La vostra distribució ja no es mantindrà més"
 
-#: ../UpdateManager/UpdateManager.py:843
+#: ../UpdateManager/UpdateManager.py:847
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -975,17 +983,17 @@ msgstr ""
 "sistema a la darrera versió d'Ubuntu. Vegeu http://www.ubuntu.com per a més "
 "informació."
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:866
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Ja disposeu de la nova distribució '%s'</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:901
 msgid "Software index is broken"
 msgstr "L'índex de programari s'ha trencat"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1343,201 +1351,219 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:7
+#: ../data/channels/Ubuntu.info.in:8
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Actualitzacions d'Ubuntu 5.10"
 
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:15
+#, fuzzy
+msgid "Community maintained"
+msgstr "Paquets mantinguts per la comunitat (Universe)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:20
+msgid "Proprietary drivers for devices"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:23
+#, fuzzy
+msgid "Restricted software"
+msgstr "Programari de la comunitat"
+
 #. Description
-#: ../data/channels/Ubuntu.info.in:28
+#: ../data/channels/Ubuntu.info.in:29
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "CD amb Ubuntu 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:69
+#: ../data/channels/Ubuntu.info.in:71
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:73
-msgid ""
-"OpenSource software that is officially supported by Canonical Ltd. (main)"
+#: ../data/channels/Ubuntu.info.in:75
+msgid "By Canonical supported Open Source software"
 msgstr ""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:76
+#: ../data/channels/Ubuntu.info.in:78
 #, fuzzy
 msgid "Community maintained (universe)"
 msgstr "Paquets mantinguts per la comunitat (Universe)"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:77
-msgid "OpenSource software that is maintained by the community (universe)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:79
+#, fuzzy
+msgid "Community maintained Open Source software"
+msgstr "Paquets mantinguts per la comunitat (Universe)"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:80
+#: ../data/channels/Ubuntu.info.in:82
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "Paquets sense llicència lliure (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:81
-msgid "Proprietary drivers for devices (restricted) "
+#: ../data/channels/Ubuntu.info.in:83
+msgid "Proprietary drivers for devices "
 msgstr ""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:84
+#: ../data/channels/Ubuntu.info.in:86
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "Paquets sense llicència lliure (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:85
-msgid "Software that is restricted by copyright or legal issues (multiverse)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:87
+#, fuzzy
+msgid "By copyright or legal issues restricted software"
+msgstr "Programari amb restriccions d'exportació als EUA"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:90
+#: ../data/channels/Ubuntu.info.in:92
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:104
+#: ../data/channels/Ubuntu.info.in:106
 #, fuzzy
 msgid "Important security updates"
 msgstr "Debian Stable Security Updates"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:111
+#: ../data/channels/Ubuntu.info.in:113
 msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:118
+#: ../data/channels/Ubuntu.info.in:120
 #, fuzzy
 msgid "Proposed updates"
 msgstr "_Instal·la les actualitzacions"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:125
+#: ../data/channels/Ubuntu.info.in:127
 msgid "Backported updates"
 msgstr ""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:131
+#: ../data/channels/Ubuntu.info.in:134
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:134 ../data/channels/Debian.info.in:51
+#: ../data/channels/Ubuntu.info.in:137 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Paquets mantinguts oficialment (Main)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:148
+#: ../data/channels/Ubuntu.info.in:151
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD amb Ubuntu 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:162
+#: ../data/channels/Ubuntu.info.in:165
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Actualitzacions de seguretat d'Ubuntu 5.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:169
+#: ../data/channels/Ubuntu.info.in:172
 msgid "Ubuntu 5.10 Updates"
 msgstr "Actualitzacions d'Ubuntu 5.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:176
+#: ../data/channels/Ubuntu.info.in:179
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:182
+#: ../data/channels/Ubuntu.info.in:186
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD amb Ubuntu 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:199
+#: ../data/channels/Ubuntu.info.in:203
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD amb Ubuntu 5.04 \"Hoary Hedgehog\""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:203
+#: ../data/channels/Ubuntu.info.in:207
 #, fuzzy
 msgid "Oficially supported"
 msgstr "Paquets mantinguts oficialment (Main)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:213
+#: ../data/channels/Ubuntu.info.in:217
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Actualitzacions de seguretat d'Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:220
+#: ../data/channels/Ubuntu.info.in:224
 msgid "Ubuntu 5.04 Updates"
 msgstr "Actualitzacions d'Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:227
+#: ../data/channels/Ubuntu.info.in:231
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:233
+#: ../data/channels/Ubuntu.info.in:237
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD amb Ubuntu 4.10 \"Warty Warthog\""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:242
+#: ../data/channels/Ubuntu.info.in:246
 msgid "Community maintained (Universe)"
 msgstr "Paquets mantinguts per la comunitat (Universe)"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:245
+#: ../data/channels/Ubuntu.info.in:249
 msgid "Non-free (Multiverse)"
 msgstr "Paquets sense llicència lliure (Multiverse)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:250
+#: ../data/channels/Ubuntu.info.in:254
 #, fuzzy
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD amb Ubuntu 4.10 \"Warty Warthog\""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:254
+#: ../data/channels/Ubuntu.info.in:258
 #, fuzzy
 msgid "No longer oficially supported"
 msgstr "Algun programari ja no es mantindrà oficialment"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:257
+#: ../data/channels/Ubuntu.info.in:261
 msgid "Restricted copyright"
 msgstr "Paquets amb restriccions per copyright (Restricted)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:264
+#: ../data/channels/Ubuntu.info.in:268
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Actualitzacions de seguretat d'Ubuntu 4.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:271
+#: ../data/channels/Ubuntu.info.in:275
 msgid "Ubuntu 4.10 Updates"
 msgstr "Actualitzacions d'Ubuntu 4.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:278
+#: ../data/channels/Ubuntu.info.in:282
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Actualitzacions d'Ubuntu 6.06 LTS"
@@ -1850,14 +1876,8 @@ msgstr "Programari no compatible DFSG"
 #~ msgid "Binary"
 #~ msgstr "Binari"
 
-#~ msgid "Contributed software"
-#~ msgstr "Programari de la comunitat"
-
 #~ msgid "Non-free software"
 #~ msgstr "Programari sense llicència lliure"
-
-#~ msgid "US export restricted software"
-#~ msgstr "Programari amb restriccions d'exportació als EUA"
 
 #~ msgid "Debian 3.0 \"Woody\""
 #~ msgstr "Debian 3.0 \"Woody\""

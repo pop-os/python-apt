@@ -87,7 +87,8 @@ class SourceEntry:
       file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
     self.file = file               # the file that the entry is located in
     self.parse(line)
-    self.template = None           
+    # FIXME: this name is really misleading and already overloaded
+    self.template = None           # type DistInfo.Suite
     self.children = []
 
   def __eq__(self, other):         
@@ -457,12 +458,17 @@ class SourceEntryMatcher:
     _ = gettext.gettext
     found = False
     for template in self.templates:
-      #print "'%s'" %source.uri
-      if re.search(template.match_uri, source.uri) and \
-         re.match(template.match_name, source.dist):
+      if (re.search(template.match_uri, source.uri) and 
+          re.match(template.match_name, source.dist)):
         found = True
         source.template = template
         break
+      for mirror in template.valid_mirrors:
+        if (is_mirror(mirror,source.uri) and 
+            re.match(template.match_name, source.dist)):
+          found = True
+          source.template = template
+          break
     return found
 
 class Distribution:
@@ -717,3 +723,6 @@ if __name__ == "__main__":
   
   print is_mirror("http://archive.ubuntu.com/ubuntu",
                   "http://de.archive.ubuntu.com/ubuntu/")
+  print is_mirror("http://archive.ubuntu.com/ubuntu/",
+                  "http://de.archive.ubuntu.com/ubuntu")
+

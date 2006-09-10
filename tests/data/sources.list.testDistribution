@@ -6,4 +6,6 @@ deb http://de.archive.ubuntu.com/ubuntu/ edgy-updates restricted
 deb http://de.archive.ubuntu.com/ubuntu/ edgy-security main
 deb http://de.archive.ubuntu.com/ubuntu/ edgy-security multiverse
 deb http://ftp.debian.org/debian sid main
-deb http://de.archive.ubuntu.com/ubuntu/ breezy main
+deb ftp://ubuntu.cs.utah.edu/pub/ubuntu/ubuntu/ breezy main
+deb ftp://ubuntu.cs.utah.edu/pub/ubuntu/ubuntu/ breezy-backports main
+deb http://archive.ubuntu.com/ubuntu/ hoary main

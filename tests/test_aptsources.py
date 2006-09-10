@@ -81,6 +81,15 @@ class TestAptSources(unittest.TestCase):
         sources = aptsources.SourcesList()
         distro = aptsources.Distribution()
         distro.get_sources(sources)
+        # test if all suits of the current distro were detected correctly
+        dist_templates = set()
+        for s in sources:
+            if s.template:
+                dist_templates.add(s.template.name)
+        #print dist_templates
+        for d in ["edgy","edgy-security","edgy-updates","hoary","breezy", "breezy-backports"]:
+            self.assertTrue(d in dist_templates)
+        # test enable 
         comp = "restricted"
         distro.enable_component(sources, comp)
         found = {}
@@ -103,8 +112,8 @@ class TestAptSources(unittest.TestCase):
         found = {}
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                "edgy" in entry.dist):
+                entry.template and
+                entry.template.name == "edgy"):
                 for c in entry.comps:
                     if c == comp:
                         if not found.has_key(entry.dist):
