@@ -241,14 +241,14 @@ class UpdateList:
     self.unknown_origin = self.UpdateOrigin(_("Other updates"), -1)
 
   def update(self, cache):
-    held_back = []
+    self.held_back = []
 
     # do the upgrade
     cache.saveDistUpgrade()
 
     # sort by origin
     for pkg in cache:
-      if pkg.markedUpgrade or pkg.markedInstall:
+      if pkg.markedUpgrade or pkg.markedInstall or pkg.isUpgradable:
         # TRANSLATORS: updates from an 'unknown' origin
         originstr = _("Other updates")
         for aorigin in pkg.candidateOrigin:
@@ -262,8 +262,8 @@ class UpdateList:
           self.pkgs[origin_node] = []
         self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
-      elif pkg.isUpgradable:
-          held_back.append(pkg.name)
+      if pkg.isUpgradable:
+          self.held_back.append(pkg.name)
     for l in self.pkgs.keys():
       self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
     self.keepcount = cache._depcache.KeepCount
@@ -390,6 +390,8 @@ class UpdateManager(SimpleGladeApp):
         return
     to_install = pkg.markedInstall or pkg.markedUpgrade
     renderer.set_property("active", to_install)
+    if pkg.name in self.list.held_back:
+        renderer.set_property("activatable", False)
       
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
@@ -704,6 +706,8 @@ class UpdateManager(SimpleGladeApp):
         self.allow_sleep(dev, cookie)
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
+
+    self.check_all_updates_installable()
 
   def inhibit_sleep(self):
     """Send a dbus signal to gnome-power-manager to not suspend
