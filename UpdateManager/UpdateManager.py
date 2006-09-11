@@ -641,7 +641,7 @@ class UpdateManager(SimpleGladeApp):
       apt_pkg.PkgSystemUnLock()
     except SystemError:
       pass
-    cmd = ["gksu", "--desktop", "/usr/share/applications/synaptic.desktop", 
+    cmd = ["gksu", "--desktop", "/usr/share/applications/update-manager.desktop", 
            "--", "/usr/sbin/synaptic", "--hide-main-window",  
            "--non-interactive", "--parent-window-id", "%s" % (id) ]
     if action == INSTALL:
@@ -914,8 +914,9 @@ class UpdateManager(SimpleGladeApp):
       self.dialog_dist_upgrade.hide()
       if res == gtk.RESPONSE_YES:
           os.execl("/usr/bin/gksu",
-                   "/usr/bin/gksu",
-                   "/usr/bin/update-manager --dist-upgrade")
+                   "/usr/bin/gksu", "--desktop",
+                   "/usr/share/applications/update-manager.desktop",
+                   "--", "/usr/bin/update-manager", "--dist-upgrade")
 
   def main(self, options):
     gconfclient = gconf.client_get_default() 
