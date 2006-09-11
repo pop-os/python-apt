@@ -219,7 +219,7 @@ class UpdateList:
       self.importance = importance
       self.description = desc
 
-  def __init__(self, parent_window):
+  def __init__(self):
     # a map of packages under their origin
     pipe = os.popen("lsb_release -c -s")
     dist = pipe.read().strip()
@@ -236,14 +236,12 @@ class UpdateList:
     self.pkgs = {}
     self.matcher = {}
     self.num_updates = 0
-    self.parent_window = parent_window
     for (origin, archive, desc, importance) in templates:
         self.matcher[(origin, archive)] = self.UpdateOrigin(desc, importance)
     self.unknown_origin = self.UpdateOrigin(_("Other updates"), -1)
 
   def update(self, cache):
     held_back = []
-    broken = []
 
     # do the upgrade
     cache.saveDistUpgrade()
@@ -268,34 +266,7 @@ class UpdateList:
           held_back.append(pkg.name)
     for l in self.pkgs.keys():
       self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
-
-    # check if we have held-back something
-    if cache._depcache.KeepCount > 0:
-      keepcount =  cache._depcache.KeepCount
-      msg = ("<big><b>%s</b></big>\n\n%s" % \
-            (_("Cannot install all available updates"),
-             _("Some of the updates require more extensive changes "
-               "than expected.\n\n"
-               "This usually means that you have enabled unoffical "
-               "repositories, that it is not "
-               "fully upgraded from the last distribution release or "
-               "that you run a development release "
-               "of the distribution.\n\n"
-               "Would you like to perform a full distribution upgrade "
-               "now?")))
-      dialog = gtk.MessageDialog(self.parent_window, 0,
-                                 gtk.MESSAGE_QUESTION,
-                                 gtk.BUTTONS_YES_NO,"")
-      dialog.set_default_response(gtk.RESPONSE_NO)
-      dialog.set_markup(msg)
-      dialog.set_title("")
-      dialog.vbox.set_spacing(6)
-      res = dialog.run()
-      if res == gtk.RESPONSE_YES:
-          os.execl("/usr/bin/gksu",
-                   "/usr/bin/gksu",
-                   "/usr/bin/update-manager --dist-upgrade")
-      dialog.destroy()
+    self.keepcount = cache._depcache.KeepCount
 
 
 class UpdateManagerDbusControler(dbus.service.Object):
@@ -811,7 +782,7 @@ class UpdateManager(SimpleGladeApp):
     self.dl_size = 0
     self.store.clear()
     self.initCache()
-    self.list = UpdateList(self.window_main)
+    self.list = UpdateList()
 
     # fill them again
     self.list.update(self.cache)
@@ -929,6 +900,16 @@ class UpdateManager(SimpleGladeApp):
           if res == gtk.RESPONSE_YES:
               self.on_button_reload_clicked(None)
 
+  def check_all_updates_installable(self):
+    """ Check if all available updates can be installed and suggest
+        to run a distribution upgrade if not """
+    if self.list.keepcount > 0:
+      self.dialog_dist_upgrade.set_transient_for(self.window_main)
+      res = self.dialog_dist_upgrade.run()
+      if res == gtk.RESPONSE_YES:
+          os.execl("/usr/bin/gksu",
+                   "/usr/bin/gksu",
+                   "/usr/bin/update-manager --dist-upgrade")
 
   def main(self, options):
     gconfclient = gconf.client_get_default() 
@@ -945,5 +926,6 @@ class UpdateManager(SimpleGladeApp):
       gtk.main_iteration()
 
     self.fillstore()
+    self.check_all_updates_installable()
     self.check_auto_update()
     gtk.main()
