@@ -417,11 +417,16 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         if step > 1:
             image = getattr(self,"image_step%i" % (step-1))
             label = getattr(self,"label_step%i" % (step-1))
-            image.set_from_stock(gtk.STOCK_APPLY, size)
+            arrow = getattr(self,"arrow_step%i" % (step-1))
             label.set_property("attributes",attrlist)
+            image.set_from_stock(gtk.STOCK_YES, size)
+            image.show()
+            arrow.hide()
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
-        image.set_from_stock(gtk.STOCK_YES, size)
+        arrow = getattr(self,"arrow_step%i" % step)
+        arrow.show()
+        image.hide()
         attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
         # we can't make it bold here without layout changes in the view :(
         #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
