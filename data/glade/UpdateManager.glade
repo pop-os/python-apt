@@ -1373,7 +1373,7 @@ Your system does not check for updates automatically. You can configure this beh
       <child>
 	<widget class="GtkLabel" id="label22">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Examining your system&lt;/b&gt;&lt;/big&gt;
+	  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Starting update manager&lt;/b&gt;&lt;/big&gt;
 
 Software updates correct errors, eliminate security vulnerabilities and provide new features.</property>
 	  <property name="use_underline">False</property>
@@ -1431,7 +1431,7 @@ Software updates correct errors, eliminate security vulnerabilities and provide 
 	      <property name="yalign">0.5</property>
 	      <property name="xpad">0</property>
 	      <property name="ypad">0</property>
-	      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+	      <property name="ellipsize">PANGO_ELLIPSIZE_END</property>
 	      <property name="width_chars">-1</property>
 	      <property name="single_line_mode">False</property>
 	      <property name="angle">0</property>
