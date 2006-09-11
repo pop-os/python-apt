@@ -72,6 +72,9 @@ class DistUpgradeView(object):
             on the current view
         """
         pass
+    def abort():
+        """ provide a visual feedback that the upgrade was aborted """
+        pass
     def setStep(self, step):
         """ we have 5 steps current for a upgrade:
         1. Analyzing the system
