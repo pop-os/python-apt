@@ -248,7 +248,7 @@ class UpdateList:
 
     # sort by origin
     for pkg in cache:
-      if pkg.markedUpgrade or pkg.markedInstall or pkg.isUpgradable:
+      if pkg.isUpgradable:
         # TRANSLATORS: updates from an 'unknown' origin
         originstr = _("Other updates")
         for aorigin in pkg.candidateOrigin:
@@ -262,7 +262,7 @@ class UpdateList:
           self.pkgs[origin_node] = []
         self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
-      if pkg.isUpgradable:
+      if pkg.isUpgradable and not (pkg.markedUpgrade or pkg.markedInstall):
           self.held_back.append(pkg.name)
     for l in self.pkgs.keys():
       self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
@@ -392,7 +392,9 @@ class UpdateManager(SimpleGladeApp):
     renderer.set_property("active", to_install)
     if pkg.name in self.list.held_back:
         renderer.set_property("activatable", False)
-      
+    else: 
+        renderer.set_property("activatable", True)
+
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
       
