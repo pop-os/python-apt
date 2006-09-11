@@ -72,28 +72,27 @@ def uniq(s):
   """ simple and efficient way to return uniq list """
   return list(set(s))
 
-
-
-# actual source.list entries
 class SourceEntry:
-
+  """ single sources.list entry """
   def __init__(self, line,file=None):
-    self.invalid = False
-    self.disabled = False
-    self.type = ""
-    self.uri = ""
-    self.dist = ""
-    self.comps = []
-    self.comment = ""
-    self.line = line
-    if file == None:
+    self.invalid = False            # is the source entry valid
+    self.disabled = False           # is it disabled ('#' in front)
+    self.type = ""                  # what type (deb, deb-src)
+    self.uri = ""                   # base-uri
+    self.dist = ""                  # distribution (dapper, edgy, etc)
+    self.comps = []                 # list of available componetns (may empty)
+    self.comment = ""               # (optional) comment
+    self.line = line                # the original sources.list line
+    if file == None:                
       file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
-    self.file = file
+    self.file = file               # the file that the entry is located in
     self.parse(line)
-    self.template = None
+    # FIXME: this name is really misleading and already overloaded
+    self.template = None           # type DistInfo.Suite
     self.children = []
 
-  def __eq__(self, other):
+  def __eq__(self, other):         
+    """ equal operator for two sources.list entries """
     return (self.disabled == other.disabled and
             self.type == other.type and
             self.uri == other.uri and
@@ -101,8 +100,9 @@ class SourceEntry:
             self.comps == other.comps)
 
 
-  # works mostely like split but takes [] into account
   def mysplit(self, line):
+    """ a split() implementation that understands the sources.list
+        format better and takes [] into account (for e.g. cdroms) """
     line = string.strip(line)
     pieces = []
     tmp = ""
@@ -129,9 +129,9 @@ class SourceEntry:
       pieces.append(tmp)
     return pieces
 
-
-  # parse a given source line and split it into the fields we need
   def parse(self,line):
+    """ parse a given sources.list (textual) line and break it up
+        into the field we have """
     line  = string.strip(self.line)
     #print line
     # check if the source is enabled/disabled
@@ -177,11 +177,8 @@ class SourceEntry:
     else:
       self.comps = []
 
-    #print self.__dict__
-
-
-  # set enabled/disabled
   def set_enabled(self, new_value):
+    """ set a line to enabled or disabled """
     self.disabled = not new_value
     # enable, remove all "#" from the start of the line
     if new_value == True:
@@ -214,15 +211,17 @@ class SourceEntry:
     line += "\n"
     return line
     
-# the SourceList file as a class
 class NullMatcher(object):
+  """ a Matcher that does nothing """
   def match(self, s):
     return True
 
 class SourcesList:
-  def __init__(self, withMatcher=True,
+  """ represents the full sources.list + sources.list.d file """
+  def __init__(self,
+               withMatcher=True,
                matcherPath="/usr/share/update-manager/channels/"):
-    self.list = []      # of Type SourceEntries
+    self.list = []          # the actual SourceEntries Type 
     if withMatcher:
       self.matcher = SourceEntryMatcher(matcherPath)
     else:
@@ -230,6 +229,7 @@ class SourcesList:
     self.refresh()
 
   def refresh(self):
+    """ update the list of known entries """
     self.list = []
     # read sources.list
     dir = apt_pkg.Config.FindDir("Dir::Etc")
@@ -245,6 +245,8 @@ class SourcesList:
             self.matcher.match(source)
 
   def __iter__(self):
+    """ simple iterator to go over self.list, returns SourceEntry
+        types """
     for entry in self.list:
       yield entry
     raise StopIteration
@@ -298,6 +300,7 @@ class SourcesList:
     return new_entry
 
   def remove(self, source_entry):
+    """ remove the specified entry from the sources.list """
     self.list.remove(source_entry)
 
   def restoreBackup(self, backup_ext):
@@ -455,12 +458,17 @@ class SourceEntryMatcher:
     _ = gettext.gettext
     found = False
     for template in self.templates:
-      #print "'%s'" %source.uri
-      if re.search(template.match_uri, source.uri) and \
-         re.match(template.match_name, source.dist):
+      if (re.search(template.match_uri, source.uri) and 
+          re.match(template.match_name, source.dist)):
         found = True
         source.template = template
         break
+      for mirror in template.valid_mirrors:
+        if (is_mirror(mirror,source.uri) and 
+            re.match(template.match_name, source.dist)):
+          found = True
+          source.template = template
+          break
     return found
 
 class Distribution:
@@ -568,7 +576,6 @@ class Distribution:
                 self.source_code_sources.append(source)
             else:
                 self.disabled_sources.append(source)
-
     self.download_comps = set(comps)
     self.cdrom_comps = set(cdrom_comps)
     enabled_comps.extend(comps)
@@ -644,27 +651,28 @@ class Distribution:
     sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
-    def add_component_only_once(source, workpile):
+    def add_component_only_once(source, comps_per_dist):
         """
         Check if we already added the component to the repository, since
         a repository could be splitted into different apt lines. If not
         add the component
         """
-        if not (workpile.has_key(source.uri) and\
-                source.dist in workpile[source.uri]):
-            if comp not in source.comps:
-                source.comps.append(comp)
-                if workpile.has_key(source.uri):
-                       workpile[source.uri].append(source.dist)
-                else:
-                       workpile[source.uri] = [source.dist]
+        if comp in comps_per_dist[source.dist]:
+          return
+        source.comps.append(comp)
+        comps_per_dist[source.dist].add(comp)
 
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
     sources.extend(self.source_code_sources)
-    # store repos to which the new component has been added
-    workpile = {}
+    # store what comps are enabled already per distro (where distro is
+    # e.g. "dapper", "dapper-updates")
+    comps_per_dist = {}
+    for s in sources:
+      if not comps_per_dist.has_key(s.dist):
+        comps_per_dist[s.dist] = set()
+      map(comps_per_dist[s.dist].add, s.comps)
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
@@ -672,12 +680,12 @@ class Distribution:
     else:
         # add the comp to all main, child and source code sources
         for source in sources:
-             add_component_only_once(source, workpile)
+             add_component_only_once(source, comps_per_dist)
 
     if self.get_source_code == True:
         for source in self.source_code_sources:
             if comp not in source.comps: 
-                add_component_only_once(source, workpile)
+                add_component_only_once(source, comps_per_dist)
 
 
   def disable_component(self, sourceslist, comp):
@@ -715,3 +723,6 @@ if __name__ == "__main__":
   
   print is_mirror("http://archive.ubuntu.com/ubuntu",
                   "http://de.archive.ubuntu.com/ubuntu/")
+  print is_mirror("http://archive.ubuntu.com/ubuntu/",
+                  "http://de.archive.ubuntu.com/ubuntu")
+
