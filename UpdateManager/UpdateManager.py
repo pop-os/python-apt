@@ -248,11 +248,14 @@ class UpdateList:
 
     # sort by origin
     for pkg in cache:
-      if pkg.markedUpgrade or pkg.markedInstall or pkg.isUpgradable:
+      if pkg.isUpgradable:
         if pkg.candidateOrigin == None:
             # can happen for e.g. loged packages
+            # FIXME: do something more sensible here (but what?)
             print "WARNING: upgradable but no canidateOrigin?!?: ", pkg.name
             continue
+        # TRANSLATORS: updates from an 'unknown' origin
+        originstr = _("Other updates")
         for aorigin in pkg.candidateOrigin:
           archive = aorigin.archive
           origin = aorigin.origin
@@ -264,7 +267,7 @@ class UpdateList:
           self.pkgs[origin_node] = []
         self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
-      if pkg.isUpgradable:
+      if pkg.isUpgradable and not (pkg.markedUpgrade or pkg.markedInstall):
           self.held_back.append(pkg.name)
     for l in self.pkgs.keys():
       self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
@@ -394,7 +397,9 @@ class UpdateManager(SimpleGladeApp):
     renderer.set_property("active", to_install)
     if pkg.name in self.list.held_back:
         renderer.set_property("activatable", False)
-      
+    else: 
+        renderer.set_property("activatable", True)
+
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
       
@@ -732,9 +737,13 @@ class UpdateManager(SimpleGladeApp):
 
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
-    self.setBusy(True)
     iter = self.store.get_iter(path)
     pkg = self.store.get_value(iter, LIST_PKG)
+    # make sure that we don't allow to toggle deactivated updates
+    # this is needed for the call by the row activation callback
+    if pkg.name in self.list.held_back:
+        return False
+    self.setBusy(True)
     # update the cache
     if pkg.markedInstall or pkg.markedUpgrade:
         pkg.markKeep()

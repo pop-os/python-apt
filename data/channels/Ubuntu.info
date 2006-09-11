@@ -40,6 +40,7 @@ ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Important security updates
 
 Suite: edgy-updates
@@ -47,6 +48,7 @@ ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Recommended updates
 
 Suite: edgy-proposed
@@ -54,6 +56,7 @@ ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Proposed updates
 
 Suite: edgy-backports
@@ -61,6 +64,7 @@ ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Backported updates
 
 Suite: dapper
@@ -103,6 +107,7 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Important security updates
 
 Suite: dapper-updates
@@ -110,6 +115,7 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Recommended updates
 
 Suite: dapper-proposed
@@ -117,6 +123,7 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Proposed updates
 
 Suite: dapper-backports
@@ -124,6 +131,7 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Backported updates
 
 Suite: breezy
@@ -162,6 +170,7 @@ ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.10 Security Updates
 
 Suite: breezy-updates
@@ -169,6 +178,7 @@ ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.10 Updates
 
 Suite: breezy-backports
@@ -176,6 +186,7 @@ ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.10 Backports
 
 Suite: hoary
@@ -214,6 +225,7 @@ ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.04 Security Updates
 
 Suite: hoary-updates
@@ -221,6 +233,7 @@ ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.04 Updates
 
 Suite: hoary-backports
@@ -228,6 +241,7 @@ ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 Description: Ubuntu 5.04 Backports
 
 Suite: warty
