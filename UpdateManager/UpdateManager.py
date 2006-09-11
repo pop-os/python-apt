@@ -732,9 +732,13 @@ class UpdateManager(SimpleGladeApp):
 
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
-    self.setBusy(True)
     iter = self.store.get_iter(path)
     pkg = self.store.get_value(iter, LIST_PKG)
+    # make sure that we don't allow to toggle deactivated updates
+    # this is needed for the call by the row activation callback
+    if pkg.name in self.list.held_back:
+        return False
+    self.setBusy(True)
     # update the cache
     if pkg.markedInstall or pkg.markedUpgrade:
         pkg.markKeep()
