@@ -4,8 +4,10 @@ update-manager (0.44.10) edgy; urgency=low
     - fix add_component() to avoid duplicated components
     - added MirrorsFile key to DistInfo code to have a better idea
       about the available mirrors
+  * debian/control:
+    - updated dbus dependencies (lp: #59862)
   
- -- Michael Vogt <michael.vogt@ubuntu.com>  Sun, 10 Sep 2006 00:01:29 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 11 Sep 2006 09:38:21 +0200
 
 update-manager (0.44.9) edgy; urgency=low
 
