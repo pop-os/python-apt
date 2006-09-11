@@ -485,15 +485,15 @@ class DistUpgradeControler(object):
             demoted = [pkg.name for pkg in installed_demotions]	
 	    demoted.sort()
             logging.debug("demoted: '%s'" % " ".join(demoted))
-            self._view.information(_("Some software no longer officially "
-                                     "supported"),
-                                   _("These installed packages are "
-                                     "no longer officially supported, "
-                                     "and are now only "
-                                     "community-supported ('universe').\n\n"
-                                     "If you don't have 'universe' enabled "
+            self._view.information(_("Support for some applications ended"),
+                                   _("Canonical Ltd. no longer provides "
+                                     "support for the following software "
+                                     "packages. You can still get support "
+                                     "from the community.\n\n"
+                                     "If you havn't enabled community "
+                                     "maintained software (universe), "
                                      "these packages will be suggested for "
-                                     "removal in the next step. "),
+                                     "removal in the next step."),
                                    "\n".join(demoted))
        
         # mark packages that are now obsolete (and where not obsolete
@@ -544,6 +544,7 @@ class DistUpgradeControler(object):
         self.aptcdrom.restoreBackup(self.sources_backup_ext)
         # generate a new cache
         self._view.updateStatus(_("Restoring original system state"))
+        self._view.abort()
         self.openCache()
         sys.exit(1)
 

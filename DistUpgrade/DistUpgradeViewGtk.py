@@ -199,13 +199,10 @@ class GtkInstallProgressAdapter(InstallProgress):
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         #self.expander.set_expanded(True)
-        prim = _("Replace configuration file\n'%s'?" % current)
-        sec = ("The configuration file %s was modified (by "
-               "you or by a script). An updated version is shipped "
-               "in this package. If you want to keep your current "
-               "version say 'Keep'. Do you want to replace the "
-               "current file and install the new package "
-               "maintainers version? " % current)
+        prim = _("Replace the customized configuration file\n'%s'?") % current
+        sec = _("You will loose all customizations, that have been made by "
+                "yourself or by a script, if you replace the file by its "
+                "latest version.")
         markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
         self.parent.label_conffile.set_markup(markup)
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
@@ -410,7 +407,16 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label = getattr(self,"label_step%i" % step)
         image.hide()
         label.hide()
+    def abort(self):
+        size = gtk.ICON_SIZE_MENU
+        step = self.step
+        image = getattr(self,"image_step%i" % step)
+        arrow = getattr(self,"arrow_step%i" % step)
+        image.set_from_stock(gtk.STOCK_NO, size)
+        image.show()
+        arrow.hide()
     def setStep(self, step):
+        self.step = step
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
@@ -422,14 +428,13 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             image.set_from_stock(gtk.STOCK_YES, size)
             image.show()
             arrow.hide()
+        # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
         arrow = getattr(self,"arrow_step%i" % step)
         arrow.show()
         image.hide()
         attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
-        # we can't make it bold here without layout changes in the view :(
-        #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
@@ -508,8 +513,9 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # Show an error if no actions are planned
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) < 1:
             # FIXME: this should go into DistUpgradeController
-            summary = _("Could not find any upgrades")
-            msg = _("Your system has already been upgraded.")
+            summary = _("Your system is up-to-date")
+            msg = _("There are no upgrades available for your system. "
+                    "The upgrade will now be canceled.")
             self.error(summary, msg)
             return False
 
