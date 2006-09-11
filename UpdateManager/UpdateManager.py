@@ -699,6 +699,7 @@ class UpdateManager(SimpleGladeApp):
       time.sleep(0.05)
     while gtk.events_pending():
       gtk.main_iteration()
+    self.label_cache_progress_title.set_label("<b><big>%s</big></b>" % _("Checking for updates"))
     self.fillstore()
 
     # Allow suspend after synaptic is finished
@@ -707,7 +708,6 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
 
-    self.check_all_updates_installable()
 
   def inhibit_sleep(self):
     """Send a dbus signal to gnome-power-manager to not suspend
@@ -784,8 +784,8 @@ class UpdateManager(SimpleGladeApp):
 
     # clean most objects
     self.dl_size = 0
-    self.store.clear()
     self.initCache()
+    self.store.clear()
     self.list = UpdateList()
 
     # fill them again
@@ -814,6 +814,7 @@ class UpdateManager(SimpleGladeApp):
           self.store.append([contents, pkg.name, pkg])
     self.update_count()
     self.setBusy(False)
+    self.check_all_updates_installable()
     return False
 
   def dist_no_longer_supported(self, meta_release):
@@ -910,6 +911,7 @@ class UpdateManager(SimpleGladeApp):
     if self.list.keepcount > 0:
       self.dialog_dist_upgrade.set_transient_for(self.window_main)
       res = self.dialog_dist_upgrade.run()
+      self.dialog_dist_upgrade.hide()
       if res == gtk.RESPONSE_YES:
           os.execl("/usr/bin/gksu",
                    "/usr/bin/gksu",
@@ -930,6 +932,5 @@ class UpdateManager(SimpleGladeApp):
       gtk.main_iteration()
 
     self.fillstore()
-    self.check_all_updates_installable()
     self.check_auto_update()
     gtk.main()
