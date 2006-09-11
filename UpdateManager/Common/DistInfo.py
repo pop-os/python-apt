@@ -24,6 +24,7 @@ import os
 import gettext
 from os import getenv
 import ConfigParser
+import string
 
 _ = gettext.gettext
 
@@ -38,6 +39,7 @@ class Suite:
         self.components = {}
         self.children = []
         self.match_uri = None
+        self.valid_mirrors = []
         self.distribution = None
         self.available = True
 
@@ -107,6 +109,12 @@ class DistInfo:
                 suite.match_uri = value
             elif field == 'MatchURI':
                 suite.match_uri = value
+            elif field == 'MirrorsFile':
+                suite.valid_mirrors = filter(lambda s:
+                                              ((s != "") and
+                                               (not s.startswith("#"))),
+                                             map(string.strip,
+                                                 open(value)))
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
@@ -133,13 +141,14 @@ class DistInfo:
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "../../channels")
+    d = DistInfo ("Ubuntu", "../../data/channels")
     print d.changelogs_uri
     for suite in d.suites:
         print "\nSuite: %s" % suite.name
         print "Desc: %s" % suite.description
         print "BaseURI: %s" % suite.base_uri
         print "MatchURI: %s" % suite.match_uri
+        print "Mirrors: %s" % suite.valid_mirrors
         for component in suite.components:
             print "  %s - %s - %s - %s" % (component, 
                                        suite.components[component][0],

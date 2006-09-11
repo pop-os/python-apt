@@ -1,14 +1,11 @@
-# comment 1
 deb http://de.archive.ubuntu.com/ubuntu/ edgy main
-# comment 2
 deb http://de.archive.ubuntu.com/ubuntu/ edgy restricted
-# comment 3
 deb http://de.archive.ubuntu.com/ubuntu/ edgy universe
-# comment 4
 deb http://de.archive.ubuntu.com/ubuntu/ edgy-updates universe multiverse
-# comment 5
+deb http://de.archive.ubuntu.com/ubuntu/ edgy-updates restricted
 deb http://de.archive.ubuntu.com/ubuntu/ edgy-security main
-# comment 6
+deb http://de.archive.ubuntu.com/ubuntu/ edgy-security multiverse
 deb http://ftp.debian.org/debian sid main
-# comment 7
-deb http://de.archive.ubuntu.com/ubuntu/ breezy main
+deb ftp://ubuntu.cs.utah.edu/pub/ubuntu/ubuntu/ breezy main
+deb ftp://ubuntu.cs.utah.edu/pub/ubuntu/ubuntu/ breezy-backports main
+deb http://archive.ubuntu.com/ubuntu/ hoary main

@@ -81,19 +81,47 @@ class TestAptSources(unittest.TestCase):
         sources = aptsources.SourcesList()
         distro = aptsources.Distribution()
         distro.get_sources(sources)
+        # test if all suits of the current distro were detected correctly
+        dist_templates = set()
+        for s in sources:
+            if s.template:
+                dist_templates.add(s.template.name)
+        #print dist_templates
+        for d in ["edgy","edgy-security","edgy-updates","hoary","breezy", "breezy-backports"]:
+            self.assertTrue(d in dist_templates)
+        # test enable 
         comp = "restricted"
         distro.enable_component(sources, comp)
-        found = 0
+        found = {}
         for entry in sources:
             if (entry.type == "deb" and
                 entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy"):
+                "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        found += 1
-        print "".join([s.str() for s in sources])
-        self.assertEqual(found, 1)
-        
+                        if not found.has_key(entry.dist):
+                            found[entry.dist] = 0
+                        found[entry.dist] += 1
+        #print "".join([s.str() for s in sources])
+        for key in found:
+            self.assertEqual(found[key], 1)
+
+        # add a not-already available component
+        comp = "multiverse"
+        distro.enable_component(sources, comp)
+        found = {}
+        for entry in sources:
+            if (entry.type == "deb" and
+                entry.template and
+                entry.template.name == "edgy"):
+                for c in entry.comps:
+                    if c == comp:
+                        if not found.has_key(entry.dist):
+                            found[entry.dist] = 0
+                        found[entry.dist] += 1
+        #print "".join([s.str() for s in sources])
+        for key in found:
+            self.assertEqual(found[key], 1)
 
 if __name__ == "__main__":
     unittest.main()

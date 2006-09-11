@@ -3,7 +3,8 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 Suite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 Enabled: 1
@@ -38,34 +39,39 @@ Suite: edgy-security
 ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Important security updates
 
 Suite: edgy-updates
 ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Recommended updates
 
 Suite: edgy-proposed
 ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Proposed updates
 
 Suite: edgy-backports
 ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Backported updates
 
 Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 Enabled: 1
@@ -100,34 +106,39 @@ Suite: dapper-security
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Important security updates
 
 Suite: dapper-updates
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Recommended updates
 
 Suite: dapper-proposed
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Proposed updates
 
 Suite: dapper-backports
 ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Backported updates
 
 Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 Enabled: 1
@@ -158,27 +169,31 @@ Suite: breezy-security
 ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.10 Security Updates
 
 Suite: breezy-updates
 ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.10 Updates
 
 Suite: breezy-backports
 ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.10 Backports
 
 Suite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
 Enabled: 1
@@ -209,27 +224,30 @@ Suite: hoary-security
 ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.04 Security Updates
 
 Suite: hoary-updates
 ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.04 Updates
 
 Suite: hoary-backports
 ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.04 Backports
 
 Suite: warty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
 _Description: Ubuntu 4.10 'Warty Warthog'
 Component: main
 Enabled: 1
@@ -260,19 +278,19 @@ Suite: warty-security
 ParentSuite: warty
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/|security.ubuntu.com
+MatchURI: archive.ubuntu.comubuntu/|security.ubuntu.com
 _Description: Ubuntu 4.10 Security Updates
 
 Suite: warty-updates
 ParentSuite: warty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
 _Description: Ubuntu 4.10 Updates
 
 Suite: warty-backports
 ParentSuite: warty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
 _Description: Ubuntu 4.10 Backports

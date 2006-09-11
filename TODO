@@ -1,3 +1,11 @@
+UpdateManager.Common.aptsources.py:
+- make the distro detection in sources.list more clever by using the
+  origin informaton to avoid adding full uris to (unofficial/internal)
+  mirrors 
+- make it possible to inherit the mirrros from a ParentSuite (for
+  the childs)
+
+Misc:
 - have a common error dialog readymade and rib out all those 
   GtkMessageDialogs
 - add download size to treeview
