@@ -100,6 +100,13 @@ class DistInfo:
                 for nanny in self.suites:
                     if nanny.name == value:
                         nanny.children.append(suite)
+                        # reuse some properties of the parent suite
+                        if suite.match_uri == None:
+                            suite.match_uri = nanny.match_uri
+                        if suite.valid_mirrors == None:
+                            suite.valid_mirrors = nanny.valid_mirrors
+                        if suite.base_uri == None:
+                            suite.base_uri = nanny.base_uri
             elif field == 'Available':
                 suite.available = value
             elif field == 'RepositoryType':
