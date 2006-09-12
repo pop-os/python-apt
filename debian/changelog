@@ -1,3 +1,10 @@
+python-apt (0.6.20) unstable; urgency=low
+
+  * python/pkgmanager.cc:
+    - fix typo (closes: #382853)
+
+ --
+
 python-apt (0.6.19) unstable; urgency=low
 
   [ Michael Vogt ]
