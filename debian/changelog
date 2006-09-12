@@ -7,6 +7,10 @@ python-apt (0.6.20) unstable; urgency=low
   * apt/progress.py:
     - use os._exit() in the child (lp: #53298)
     - use select() when checking for statusfd (lp: #53282)
+  * acknoledge NMU (closes: #378048, #373512)
+  * python/apt_pkgmodule.cc:
+    - fix missing docstring (closes: #368907), 
+      Thanks to Josh Triplett
 
  --
 

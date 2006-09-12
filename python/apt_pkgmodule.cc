@@ -440,7 +440,7 @@ static PyMethodDef methods[] =
    {"GetPkgAcqFile",(PyCFunction)GetPkgAcqFile,METH_KEYWORDS|METH_VARARGS,"GetPkgAcquireFile() -> pkgAcquireFile"},
 
    // PkgManager
-   {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager() -> PackageManager"},
+   {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager(DepCache) -> PackageManager"},
 
    {}
 };
