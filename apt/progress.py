@@ -19,7 +19,12 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import sys, apt_pkg, os, fcntl, string, re
+import sys
+import os
+import re
+import fcntl
+import string
+import apt_pkg
 
 class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
@@ -199,7 +204,7 @@ class InstallProgress(DumbInstallProgress):
         if pid == 0:
             # child
             res = pm.DoInstall(self.writefd)
-            sys.exit(res)
+            os._exit(res)
         self.child_pid = pid
         res = self.waitChild()
         return res

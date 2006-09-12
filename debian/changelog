@@ -2,6 +2,10 @@ python-apt (0.6.20) unstable; urgency=low
 
   * python/pkgmanager.cc:
     - fix typo (closes: #382853)
+  * debian/control:
+    - tightend dependency (closes: #383478)
+  * apt/progress.py:
+    - use os._exit() in the child (lp: #53298)
 
  --
 
