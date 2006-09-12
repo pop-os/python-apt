@@ -3,8 +3,12 @@ update-manager (0.44.11) edgy; urgency=low
   * UpdateManager/UpdateManager.py:
     - fix error in get_changelog (lp: #59940).
       Thanks to Denis Washington
+    - bugfix in the ListStore
+    - use the update-manager desktop file when runing synaptic
+      as the backend to get a consistent UI
+    - UI improvements (thanks to Sebastian Heinlein!)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 12 Sep 2006 15:43:16 +0200
 
 update-manager (0.44.10) edgy; urgency=low
 
