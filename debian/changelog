@@ -1,3 +1,11 @@
+update-manager (0.44.11) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - fix error in get_changelog (lp: #59940).
+      Thanks to Denis Washington
+
+ --
+
 update-manager (0.44.10) edgy; urgency=low
 
   * aptsources.py:

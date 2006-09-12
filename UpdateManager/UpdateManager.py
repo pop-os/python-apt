@@ -120,7 +120,7 @@ class MyCache(apt.Cache):
         # don't touch the gui in this function, it needs to be thread-safe
         pkg = self[name]
 
-    # get the src package name
+        # get the src package name
         srcpkg = pkg.sourcePackageName
 
         # assume "main" section 
@@ -146,6 +146,9 @@ class MyCache(apt.Cache):
                 #print "srcver: %s" % srcver
                 section = srcrecords.Section
                 #print "srcsect: %s" % section
+            else:
+                # fail into the error handler
+                raise SystemError
         except SystemError, e:
             srcver = binver
 
