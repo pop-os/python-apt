@@ -319,6 +319,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
+        self.last_step = 0 # keep a record of the latest step
         # we dont use this currently
         #self.window_main.set_keep_above(True)
         self.window_main.realize()
@@ -409,25 +410,26 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label.hide()
     def abort(self):
         size = gtk.ICON_SIZE_MENU
-        step = self.step
-        image = getattr(self,"image_step%i" % step)
-        arrow = getattr(self,"arrow_step%i" % step)
-        image.set_from_stock(gtk.STOCK_NO, size)
-        image.show()
-        arrow.hide()
+        step = self.last_step
+        if step > 0:
+            image = getattr(self,"image_step%i" % step)
+            arrow = getattr(self,"arrow_step%i" % step)
+            image.set_from_stock(gtk.STOCK_CANCEL, size)
+            image.show()
+            arrow.hide()
     def setStep(self, step):
-        self.step = step
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
-        if step > 1:
-            image = getattr(self,"image_step%i" % (step-1))
-            label = getattr(self,"label_step%i" % (step-1))
-            arrow = getattr(self,"arrow_step%i" % (step-1))
+        if self.last_step:
+            image = getattr(self,"image_step%i" % self.last_step)
+            label = getattr(self,"label_step%i" % self.last_step)
+            arrow = getattr(self,"arrow_step%i" % self.last_step)
             label.set_property("attributes",attrlist)
-            image.set_from_stock(gtk.STOCK_YES, size)
+            image.set_from_stock(gtk.STOCK_APPLY, size)
             image.show()
             arrow.hide()
+        self.last_step = step
         # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)

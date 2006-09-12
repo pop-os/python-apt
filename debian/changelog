@@ -8,7 +8,7 @@ update-manager (0.44.11) edgy; urgency=low
       as the backend to get a consistent UI
     - UI improvements (thanks to Sebastian Heinlein!)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 12 Sep 2006 15:43:16 +0200
+ -- 
 
 update-manager (0.44.10) edgy; urgency=low
 

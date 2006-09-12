@@ -539,13 +539,13 @@ class UpdateManager(SimpleGladeApp):
     """
     if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
         menu = gtk.Menu()
-        item_select_none = gtk.MenuItem(_("Select _None"))
+        item_select_none = gtk.MenuItem(_("_Uncheck All"))
         item_select_none.connect("activate", self.select_none_updgrades)
         menu.add(item_select_none)
         num_updates = self.cache.installCount
         if num_updates == 0:
             item_select_none.set_property("sensitive", False)
-        item_select_all = gtk.MenuItem(_("Select _All"))
+        item_select_all = gtk.MenuItem(_("_Check All"))
         item_select_all.connect("activate", self.select_all_updgrades)
         menu.add(item_select_all)
         menu.popup(None, None, None, 0, event.time)

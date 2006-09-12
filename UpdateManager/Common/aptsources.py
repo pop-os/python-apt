@@ -87,7 +87,6 @@ class SourceEntry:
       file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
     self.file = file               # the file that the entry is located in
     self.parse(line)
-    # FIXME: this name is really misleading and already overloaded
     self.template = None           # type DistInfo.Suite
     self.children = []
 
@@ -372,56 +371,6 @@ class SourcesList:
     #print self.used_child_templates
     #print self.parents
     return (parents, used_child_templates)
-
-# templates for the add dialog
-class SourceEntryTemplate(SourceEntry):
-  def __init__(self,a_type,uri,dist,description,comps):
-    self.comps_descriptions = []
-    self.type = a_type
-    self.uri = uri
-    self.dist = dist
-    self.description = description
-    self.comps = comps
-
-  def matches(self,source_entry):
-    """ check if a given source_entry matches this one """
-    if (self.type != source_entry.type):
-      return False
-    if (self.dist != source_entry.dist):
-      return False
-    if not is_mirror(self.uri,source_entry.uri):
-      return False
-    for e_comp in source_entry.comps:
-      for t_comp in self.comps:
-        if e_comp == t_comp.name: break
-      else:
-        return False
-    return True
-
-class SourceCompTemplate:
-  def __init__(self, name, description, on_by_default):
-    self.name = name
-    self.description = description
-    self.on_by_default = on_by_default
-
-class SourceEntryTemplates:
-  
-  def __init__(self,datadir):
-    _ = gettext.gettext
-    self.templates = []
-
-    dinfo = DistInfo (base_dir=datadir+"channels/")
-
-    for suite in dinfo.suites:
-      comps = []
-      for comp in suite.components:
-        comps.append(SourceCompTemplate(comp.name, _(comp.description),
-                                        comp.enabled))
-      self.templates.append (SourceEntryTemplate(suite.repository_type,
-                                                 suite.base_uri,
-                                                 suite.name,
-                                                 suite.description,
-                                                 comps))
 
 # matcher class to make a source entry look nice
 # lots of predefined matchers to make it i18n/gettext friendly
