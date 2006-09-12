@@ -6,7 +6,7 @@
 <widget class="GtkWindow" id="window_main">
   <property name="border_width">6</property>
   <property name="visible">True</property>
-  <property name="title">System Upgrade</property>
+  <property name="title">Distribution Upgrade</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
