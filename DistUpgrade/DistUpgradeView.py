@@ -43,6 +43,7 @@ def estimatedDownloadTime(requiredDownload):
 class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
+        import subprocess
         subprocess.call(cmd)
 
 
