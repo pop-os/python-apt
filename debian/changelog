@@ -7,8 +7,9 @@ update-manager (0.44.11) edgy; urgency=low
     - use the update-manager desktop file when runing synaptic
       as the backend to get a consistent UI
     - UI improvements (thanks to Sebastian Heinlein!)
+    - remove branding
 
- -- 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 12 Sep 2006 20:37:55 +0200
 
 update-manager (0.44.10) edgy; urgency=low
 

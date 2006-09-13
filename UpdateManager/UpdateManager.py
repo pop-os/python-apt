@@ -228,13 +228,12 @@ class UpdateList:
     dist = pipe.read().strip()
     del pipe
 
-    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates"
-                                                    " of Ubuntu"), 10),
-                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
-                                                   "Ubuntu"), 9),
-                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates for Ubuntu"), 8),
-                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 7),
-                 (dist, "Ubuntu", _("Updates of Ubuntu"), 6)]
+    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates")
+                                                    , 10),
+                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates"), 9),
+                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates"), 8),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports"), 7),
+                 (dist, "Ubuntu", _("Normal updates"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
