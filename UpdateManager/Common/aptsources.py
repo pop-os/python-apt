@@ -396,7 +396,7 @@ class SourceEntryMatcher:
         f = os.path.basename(f)
         i = f.find(".info")
         f = f[0:i]
-        dist = DistInfo(f)
+        dist = DistInfo(f,base_dir=matcherPath)
         for suite in dist.suites:
             if suite.match_uri != None:
                 self.templates.append(suite)

@@ -116,11 +116,14 @@ class DistInfo:
             elif field == 'MatchURI':
                 suite.match_uri = value
             elif field == 'MirrorsFile':
-                suite.valid_mirrors = filter(lambda s:
-                                              ((s != "") and
-                                               (not s.startswith("#"))),
-                                             map(string.strip,
-                                                 open(value)))
+                if os.path.exists(value):
+                    suite.valid_mirrors = filter(lambda s:
+                                                 ((s != "") and
+                                                  (not s.startswith("#"))),
+                                                 map(string.strip,
+                                                     open(value)))
+                else:
+                    print "WARNING: can't read '%s'" % value
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
