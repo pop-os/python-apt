@@ -31,6 +31,10 @@
 #include <string>
 #include <new>
 
+#if PYTHON_API_VERSION < 1013
+typedef int Py_ssize_t;
+#endif
+
 template <class T> struct CppPyObject : public PyObject
 {
    // We are only using CppPyObject and friends as dumb structs only, ie the
