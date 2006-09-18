@@ -293,7 +293,7 @@ class DistUpgradeControler(object):
 
         if self.sources_disabled:
             self._view.information(_("Third party sources disabled"),
-                             _("Some third party entries in your souces.list "
+                             _("Some third party entries in your sources.list "
                                "were disabled. You can re-enable them "
                                "after the upgrade with the "
                                "'software-properties' tool or with synaptic."

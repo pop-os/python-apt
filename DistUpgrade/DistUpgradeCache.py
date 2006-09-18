@@ -155,7 +155,7 @@ class MyCache(apt.Cache):
         except SystemError, e:
             # FIXME: change the text to something more useful
             view.error(_("Could not calculate the upgrade"),
-                       _("A unresolvable problem occured while "
+                       _("A unresolvable problem occurred while "
                          "calculating the upgrade.\n\n"
                          "Please report this bug against the 'update-manager' "
                          "package and include the files in /var/log/dist-upgrade/ "
@@ -259,7 +259,7 @@ class MyCache(apt.Cache):
                          "ubuntu-desktop, kubuntu-desktop or "
                          "edubuntu-desktop package and it was not "
                          "possible to detect which version of "
-                        "ubuntu you are runing.\n "
+                        "ubuntu you are running.\n "
                          "Please install one of the packages "
                          "above first using synaptic or "
                          "apt-get before proceeding."))
