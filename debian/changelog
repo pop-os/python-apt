@@ -1,4 +1,4 @@
-python-apt (0.6.19ubuntu4) edgy; urgency=low
+python-apt (0.6.19ubuntu5) edgy; urgency=low
 
   * python/pkgmanager.cc:
     - fix typo (closes: #382853)
@@ -15,6 +15,12 @@ python-apt (0.6.19ubuntu4) edgy; urgency=low
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 18:28:19 +0200
 
+python-apt (0.6.19ubuntu4) edgy; urgency=low
+
+  * Rebuild to add support for python2.5.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri,  8 Sep 2006 13:32:47 +0000
+  
 python-apt (0.6.19ubuntu3) edgy; urgency=low
 
   * merged ddtp support
