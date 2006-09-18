@@ -11,6 +11,7 @@ python-apt (0.6.20) unstable; urgency=low
   * python/apt_pkgmodule.cc:
     - fix missing docstring (closes: #368907), 
       Thanks to Josh Triplett
+  * make it build against python2.5
 
  --
 

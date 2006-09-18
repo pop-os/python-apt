@@ -132,7 +132,7 @@ static PyObject *TagSecMap(PyObject *Self,PyObject *Arg)
 }
 
 // len() operation
-static int TagSecLength(PyObject *Self)
+static Py_ssize_t TagSecLength(PyObject *Self)
 {
    pkgTagSection &Sec = GetCpp<pkgTagSection>(Self);
    return Sec.Count();
