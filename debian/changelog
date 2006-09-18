@@ -1,7 +1,7 @@
 update-manager (0.44.12) edgy; urgency=low
 
   * DistUpgrade/DistUpgradeViewGtk.py:
-    - use '%d' instead of '%s' where appropriate
+    - use '%d' instead of '%s' where appropriate (lp: #60239)
   * fixed lots of typos (lp: #60633)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 16:37:52 +0200
