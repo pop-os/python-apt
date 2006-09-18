@@ -19,7 +19,14 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import sys, apt_pkg, os, fcntl, string, re
+import sys
+import os
+import re
+import fcntl
+import string
+from errno import *
+import select
+import apt_pkg
 
 class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
@@ -139,6 +146,7 @@ class InstallProgress(DumbInstallProgress):
      """
     def __init__(self):
         DumbInstallProgress.__init__(self)
+        self.selectTimeout = 0.1
         (read, write) = os.pipe()
         self.writefd=write
         self.statusfd = os.fdopen(read, "r")
@@ -162,7 +170,7 @@ class InstallProgress(DumbInstallProgress):
 	                    self.read += os.read(self.statusfd.fileno(),1)
                 except OSError, (errno,errstr):
                     # resource temporarly unavailable is ignored
-                    if errno != 11:
+                    if errno != EAGAIN and errnor != EWOULDBLOCK:
                         print errstr
                 if self.read.endswith("\n"):
                     s = self.read
@@ -184,22 +192,22 @@ class InstallProgress(DumbInstallProgress):
                         self.percent = float(percent)
                         self.status = string.strip(status_str)
                     self.read = ""
-                    
     def fork(self):
         return os.fork()
     def waitChild(self):
         while True:
+            select.select([self.statusfd],[],[], self.selectTimeout)
+            self.updateInterface()
             (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
             if pid == self.child_pid:
                 break
-            self.updateInterface()
         return os.WEXITSTATUS(res)
     def run(self, pm):
         pid = self.fork()
         if pid == 0:
             # child
             res = pm.DoInstall(self.writefd)
-            sys.exit(res)
+            os._exit(res)
         self.child_pid = pid
         res = self.waitChild()
         return res

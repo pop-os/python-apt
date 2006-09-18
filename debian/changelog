@@ -1,3 +1,19 @@
+python-apt (0.6.19ubuntu4) edgy; urgency=low
+
+  * python/pkgmanager.cc:
+    - fix typo (closes: #382853)
+  * debian/control:
+    - tightend dependency (closes: #383478)
+  * apt/progress.py:
+    - use os._exit() in the child (lp: #53298)
+    - use select() when checking for statusfd (lp: #53282)
+  * acknoledge NMU (closes: #378048, #373512)
+  * python/apt_pkgmodule.cc:
+    - fix missing docstring (closes: #368907), 
+      Thanks to Josh Triplett
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 18:28:19 +0200
+
 python-apt (0.6.19ubuntu3) edgy; urgency=low
 
   * merged ddtp support
