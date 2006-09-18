@@ -287,12 +287,12 @@ PyTypeObject PkgCacheFileType =
 									/*}}}*/
 // Package List Class							/*{{{*/
 // ---------------------------------------------------------------------
-static int PkgListLen(PyObject *Self)
+static Py_ssize_t PkgListLen(PyObject *Self)
 {
    return GetCpp<PkgListStruct>(Self).Iter.Cache()->HeaderP->PackageCount;
 }
 
-static PyObject *PkgListItem(PyObject *iSelf,int Index)
+static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
 {
    PkgListStruct &Self = GetCpp<PkgListStruct>(iSelf);
    if (Index < 0 || (unsigned)Index >= Self.Iter.Cache()->HeaderP->PackageCount)
@@ -884,12 +884,12 @@ PyTypeObject DependencyType =
 									/*}}}*/
 // Reverse Dependency List Class					/*{{{*/
 // ---------------------------------------------------------------------
-static int RDepListLen(PyObject *Self)
+static Py_ssize_t RDepListLen(PyObject *Self)
 {
    return GetCpp<RDepListStruct>(Self).Len;
 }
 
-static PyObject *RDepListItem(PyObject *iSelf,int Index)
+static PyObject *RDepListItem(PyObject *iSelf,Py_ssize_t Index)
 {
    RDepListStruct &Self = GetCpp<RDepListStruct>(iSelf);
    if (Index < 0 || (unsigned)Index >= Self.Len)

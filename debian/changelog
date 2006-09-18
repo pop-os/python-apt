@@ -11,6 +11,7 @@ python-apt (0.6.19ubuntu4) edgy; urgency=low
   * python/apt_pkgmodule.cc:
     - fix missing docstring (closes: #368907), 
       Thanks to Josh Triplett
+  * make it build against python2.5
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 18:28:19 +0200
 
