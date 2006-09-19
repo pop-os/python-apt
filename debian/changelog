@@ -1,3 +1,12 @@
+update-manager (0.44.13) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - make sure that src_ver is always initialized (thanks to
+      Simira for reporting)
+    - filter python-apt future warning (especially for seb128)
+
+ --
+
 update-manager (0.44.12) edgy; urgency=low
 
   * DistUpgrade/DistUpgradeViewGtk.py:

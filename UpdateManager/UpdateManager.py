@@ -33,8 +33,11 @@ try:
 except:
     import fakegconf as gconf
 import gobject
+from warnings import warn
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
 import apt_pkg
+
 import gettext
 import copy
 import string
@@ -130,6 +133,7 @@ class MyCache(apt.Cache):
 
         # get the source version, start with the binaries version
         binver = pkg.candidateVersion
+        srcver = pkg.candidateVersion
         #print "bin: %s" % binver
         try:
             # try to get the source version of the pkg, this differs
