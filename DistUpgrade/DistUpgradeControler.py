@@ -31,6 +31,7 @@ import logging
 import re
 import statvfs
 import shutil
+import glob
 from DistUpgradeConfigParser import DistUpgradeConfig
 
 from aptsources import SourcesList, SourceEntry, Distribution, is_mirror
@@ -270,6 +271,11 @@ class DistUpgradeControler(object):
                                      self.toDist+"-security", comps)
             else:
                 self.abort()
+
+        # add the backports URI (if we have it)
+        line = self.config.get("Backports","DebLine")
+        if line and (not SourceEntry(line) in self.sources.list):
+            self.sources.list.append(SourceEntry(line))
         
         # write (well, backup first ;) !
         self.sources.backup(self.sources_backup_ext)
@@ -548,6 +554,42 @@ class DistUpgradeControler(object):
         self.openCache()
         sys.exit(1)
 
+    def getRequiredBackports(self):
+        " download the backports specified in DistUpgrade.cfg "
+        # save cachedir and setup new one
+        cachedir = apt_pkg.Config.Find("Dir::Cache::archives")
+        backportsdir = os.path.join(os.getcwd(),"backports")
+        if not os.path.exists(backportsdir):
+            os.mkdir(backportsdir)
+        if not os.path.exists(os.path.join(backportsdir,"partial")):
+            os.mkdir(os.path.join(backportsdir,"partial"))
+        apt_pkg.Config.Set("Dir::Cache::archives",backportsdir)
+
+        # mark the backports for upgrade and get them
+        pm = apt_pkg.GetPackageManager(self.cache._depcache)
+        fetcher = apt_pkg.GetAcquire(self._view.getFetchProgress())
+
+        # FIXME: add a version line to the cfg file to make sure
+        #        we get the right version file!
+        for pkgname in self.config.getlist("Backports","Packages"):
+            self.cache[pkgname].markInstall()
+        pm.GetArchives(fetcher,self.cache._list,self.cache._records)
+
+        # reset the cache dir
+        apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
+
+        self.setupRequiredBackports(backportsdir)
+
+    def setupRequiredBackports(self, backportsdir):
+        " setup the required backports in a evil way "
+        backportsdir = os.path.normpath(backportsdir)
+        # unpack it
+        for deb in glob.glob(backportsdir+"*.deb"):
+            os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
+        # setup some pathes to make sure the new stuff is used
+        os.putenv("LD_LIBRARY_PATH",os.path.join(backportsdir,"/usr/lib"))
+        os.putenv("PYTHONPATH",os.path.join(backportsdir,"/usr/lib/python2.4/"))
+        os.putenv("PATH","%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH")))
     
     # this is the core
     def edgyUpgrade(self):
@@ -601,6 +643,9 @@ class DistUpgradeControler(object):
                                    "package and include the files in /var/log/dist-upgrade/ "
                                    "in the bugreport.") % pkg)
                 self.abort()
+
+        # get backported packages (if needed)
+        self.getRequiredBackports()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade
