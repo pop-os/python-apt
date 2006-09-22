@@ -555,7 +555,7 @@ class DistUpgradeControler(object):
         " download the backports specified in DistUpgrade.cfg "
         # add the backports sources.list fragment
         shutil.copy(self.config.get("Backports","SourcesList"),
-                    apt_pkg.FindDir("Dir::Etc::sourceparts"))
+                    apt_pkg.Config.FindDir("Dir::Etc::sourceparts"))
         # run update
         self.doUpdate()
         # save cachedir and setup new one
@@ -606,7 +606,7 @@ class DistUpgradeControler(object):
             return False
 
         # reset the cache dir
-        os.unlink(apt_pkg.FindDir("Dir::Etc::sourceparts")+"/backport-source.list")
+        os.unlink(apt_pkg.Config.FindDir("Dir::Etc::sourceparts")+"/backport-source.list")
         apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
         os.chdir(cwd)
         return self.setupRequiredBackports(backportsdir)
@@ -619,12 +619,12 @@ class DistUpgradeControler(object):
             ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
             # FIXME: do error checking
         # setup some pathes to make sure the new stuff is used
-        os.putenv("LD_LIBRARY_PATH",os.path.join(backportsdir,"/usr/lib"))
-        os.putenv("PYTHONPATH",os.path.join(backportsdir,"/usr/lib/python2.4/"))
-        os.putenv("PATH","%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH")))
+        os.environ["LD_LIBRARY_PATH"] = os.path.join(backportsdir,"/usr/lib")
+        os.environ["PYTHONPATH"] = os.path.join(backportsdir,"/usr/lib/python2.4/")
+        os.environ["PATH"] = "%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH"))
 
         # now exec self again
-        os.execv(sys.argv[0],[sys.argv[0],"--have-backports"])
+        os.execve(sys.argv[0],[sys.argv[0],"--have-backports"], os.environ)
     
     # this is the core
     def edgyUpgrade(self):
