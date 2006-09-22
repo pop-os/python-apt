@@ -591,8 +591,7 @@ class DistUpgradeControler(object):
             f, index = ver.FileList.pop(0)
             pkg._records.Lookup((f,index))
             path = apt_pkg.ParseSection(pkg._records.Record)["Filename"]
-            cand = pkg._depcache.GetCandidateVer(pkg._pkg)
-            for (packagefile,i) in cand.FileList:
+            for (packagefile,i) in ver.FileList:
 		indexfile = self.cache._list.FindIndex(packagefile)
 		if indexfile:
                     match = re.match(r"<.*ArchiveURI='(.*)'>$",
@@ -615,7 +614,7 @@ class DistUpgradeControler(object):
         " setup the required backports in a evil way "
         backportsdir = os.path.normpath(backportsdir)
         # unpack it
-        for deb in glob.glob(backportsdir+"*.deb"):
+        for deb in glob.glob(backportsdir+"/*.deb"):
             ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
             # FIXME: do error checking
         # setup some pathes to make sure the new stuff is used
@@ -624,7 +623,7 @@ class DistUpgradeControler(object):
         os.putenv("PATH","%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH")))
 
         # now exec self again
-        os.execl(sys.argv[0],["--haveBackports"])
+        os.execv(sys.argv[0],[sys.argv[0],"--haveBackports"])
     
     # this is the core
     def edgyUpgrade(self):
