@@ -274,11 +274,6 @@ class DistUpgradeControler(object):
             else:
                 self.abort()
 
-        # add the backports URI (if we have it)
-        line = self.config.get("Backports","DebLine")
-        if line and (not SourceEntry(line) in self.sources.list):
-            self.sources.list.append(SourceEntry(line))
-        
         # write (well, backup first ;) !
         self.sources.backup(self.sources_backup_ext)
         self.sources.save()
@@ -558,6 +553,11 @@ class DistUpgradeControler(object):
 
     def getRequiredBackports(self):
         " download the backports specified in DistUpgrade.cfg "
+        # add the backports sources.list fragment
+        shutil.copy(self.config.get("Backports","SourcesList"),
+                    apt_pkg.FindDir("Dir::Etc::sourceparts"))
+        # run update
+        self.doUpdate()
         # save cachedir and setup new one
         cachedir = apt_pkg.Config.Find("Dir::Cache::archives")
         cwd = os.getcwd()
@@ -606,6 +606,7 @@ class DistUpgradeControler(object):
             return False
 
         # reset the cache dir
+        os.unlink(apt_pkg.FindDir("Dir::Etc::sourceparts")+"/backport-source.list")
         apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
         os.chdir(cwd)
         return self.setupRequiredBackports(backportsdir)
@@ -623,64 +624,64 @@ class DistUpgradeControler(object):
         os.putenv("PATH","%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH")))
 
         # now exec self again
-        os.execv(sys.argv[0],[sys.argv[0],"--haveBackports"])
+        os.execv(sys.argv[0],[sys.argv[0],"--have-backports"])
     
     # this is the core
     def edgyUpgrade(self):
+        # sanity check (check for ubuntu-desktop, brokenCache etc)
+        self._view.updateStatus(_("Checking package manager"))
+        self._view.setStep(1)
+        
+        if not self.prepare():
+            self.abort(1)
+
         if not self.options.haveBackports:
-            # sanity check (check for ubuntu-desktop, brokenCache etc)
-            self._view.updateStatus(_("Checking package manager"))
-            self._view.setStep(1)
-            
-            if not self.prepare():
-                self.abort(1)
-
-            # run a "apt-get update" now
-            if not self.doUpdate():
-                sys.exit(1)
-
-            # do pre-upgrade stuff (calc list of obsolete pkgs etc)
-            self.doPreUpgrade()
-
-            # update sources.list
-            self._view.setStep(2)
-            self._view.updateStatus(_("Updating repository information"))
-            if not self.updateSourcesList():
-                self.abort()
-
-            # add cdrom (if we have one)
-            if (self.aptcdrom and
-                not self.aptcdrom.add(self.sources_backup_ext)):
-                sys.exit(1)
-
-            # then update the package index files
-            if not self.doUpdate():
-                self.abort()
-
-            # then open the cache (again)
-            self._view.updateStatus(_("Checking package manager"))
-            self.openCache()
-            # now check if we still have some key packages after the update
-            # if not something went seriously wrong
-            for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
-                if not self.cache.has_key(pkg):
-                    # FIXME: we could offer to add default source entries here,
-                    #        but we need to be careful to not duplicate them
-                    #        (i.e. the error here could be something else than
-                    #        missing sources entires but network errors etc)
-                    logging.error("No '%s' after sources.list rewrite+update")
-                    self._view.error(_("Invalid package information"),
-                                     _("After your package information was "
-                                       "updated the essential package '%s' can "
-                                       "not be found anymore.\n"
-                                                                "This indicates a serious error, please "
-                                       "report this bug against the 'update-manager' "
-                                       "package and include the files in /var/log/dist-upgrade/ "
-                                       "in the bugreport.") % pkg)
-                    self.abort()
-
             # get backported packages (if needed)
             self.getRequiredBackports()
+
+        # run a "apt-get update" now
+        if not self.doUpdate():
+            sys.exit(1)
+
+        # do pre-upgrade stuff (calc list of obsolete pkgs etc)
+        self.doPreUpgrade()
+
+        # update sources.list
+        self._view.setStep(2)
+        self._view.updateStatus(_("Updating repository information"))
+        if not self.updateSourcesList():
+            self.abort()
+
+        # add cdrom (if we have one)
+        if (self.aptcdrom and
+            not self.aptcdrom.add(self.sources_backup_ext)):
+            sys.exit(1)
+
+        # then update the package index files
+        if not self.doUpdate():
+            self.abort()
+
+        # then open the cache (again)
+        self._view.updateStatus(_("Checking package manager"))
+        self.openCache()
+        # now check if we still have some key packages after the update
+        # if not something went seriously wrong
+        for pkg in self.config.getlist("Distro","BaseMetaPkgs"):
+            if not self.cache.has_key(pkg):
+                # FIXME: we could offer to add default source entries here,
+                #        but we need to be careful to not duplicate them
+                #        (i.e. the error here could be something else than
+                #        missing sources entires but network errors etc)
+                logging.error("No '%s' after sources.list rewrite+update")
+                self._view.error(_("Invalid package information"),
+                                 _("After your package information was "
+                                   "updated the essential package '%s' can "
+                                   "not be found anymore.\n"
+                                   "This indicates a serious error, please "
+                                   "report this bug against the 'update-manager' "
+                                   "package and include the files in /var/log/dist-upgrade/ "
+                                   "in the bugreport.") % pkg)
+                self.abort()
 
         # calc the dist-upgrade and see if the removals are ok/expected
         # do the dist-upgrade

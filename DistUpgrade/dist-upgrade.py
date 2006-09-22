@@ -13,7 +13,7 @@ if __name__ == "__main__":
     parser.add_option("-c", "--cdrom", dest="cdromPath", default=None,
                       help="Use the given path to search for a cdrom with upgradable packages")
     parser.add_option("-b", "--have-backports", dest="haveBackports",
-                      default=False)
+                      action="store_true",default=False)
     (options, args) = parser.parse_args()
 
     if not os.path.exists("/var/log/dist-upgrade"):
