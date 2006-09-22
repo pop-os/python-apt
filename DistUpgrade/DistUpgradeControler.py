@@ -107,10 +107,7 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        try:
-            self.useNetwork = getattr(self.options,"withNetwork")
-        except AttributeError:
-            pass
+        self.useNetwork = getattr(self.options,"withNetwork",True)
         self.aptcdrom = AptCdrom(distUpgradeView, options.cdromPath)
         
         # the configuration
@@ -143,7 +140,7 @@ class DistUpgradeControler(object):
             return False
         # FIXME: we may try to find out a bit more about the network
         # connection here and ask more  inteligent questions
-        if self.aptcdrom and not hasattr(self,"useNetwork"):
+        if self.aptcdrom and not hasattr(self.options, "witheNetwork"):
             res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
