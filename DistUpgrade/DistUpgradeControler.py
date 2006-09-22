@@ -557,15 +557,17 @@ class DistUpgradeControler(object):
                     apt_pkg.Config.FindDir("Dir::Etc::sourceparts"))
         # run update
         self.doUpdate()
+        self.openCache()
+        
         # save cachedir and setup new one
         cachedir = apt_pkg.Config.Find("Dir::Cache::archives")
         cwd = os.getcwd()
         backportsdir = os.path.join(os.getcwd(),"backports")
-        os.chdir(backportsdir)
         if not os.path.exists(backportsdir):
             os.mkdir(backportsdir)
         if not os.path.exists(os.path.join(backportsdir,"partial")):
             os.mkdir(os.path.join(backportsdir,"partial"))
+        os.chdir(backportsdir)
         apt_pkg.Config.Set("Dir::Cache::archives",backportsdir)
 
         # mark the backports for upgrade and get them
@@ -623,7 +625,7 @@ class DistUpgradeControler(object):
                                         os.getenv("PATH"))
 
         # now exec self again
-        os.execve(sys.argv[0],[sys.argv[0],"--have-backports"], os.environ)
+        os.execve(sys.argv[0],sys.argv+["--have-backports"], os.environ)
     
     # this is the core
     def edgyUpgrade(self):

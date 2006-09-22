@@ -9,9 +9,6 @@ from optparse import OptionParser
 
 if __name__ == "__main__":
 
-    # debug
-    print os.environ
-
     parser = OptionParser()
     parser.add_option("-c", "--cdrom", dest="cdromPath", default=None,
                       help="Use the given path to search for a cdrom with upgradable packages")

@@ -67,10 +67,12 @@ class MyCache(apt.Cache):
             if pkg.markedDelete:
                 self.to_remove.append(pkg.name)
 
+    def clear(self):
+        self.depcache.Init()
+
     def restore_snapshot(self):
         """ restore a snapshot """
-        for pkg in self:
-            pkg.markKeep()
+        self.clear()
         for name in self.to_remove:
             pkg = self[name]
             pkg.markDelete()
