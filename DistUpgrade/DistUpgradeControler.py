@@ -420,6 +420,9 @@ class DistUpgradeControler(object):
         return res
 
     def doDistUpgrade(self):
+        if self.options.haveBackports:
+            backportsdir = os.getcwd()+"/backports"
+            apt_pkg.Config.Set("Dir::Bin::dpkg",backportsdir+"/usr/bin/dpkg");
         currentRetry = 0
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress(self.cache)
