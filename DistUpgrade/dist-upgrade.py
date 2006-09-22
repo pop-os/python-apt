@@ -12,7 +12,9 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option("-c", "--cdrom", dest="cdromPath", default=None,
                       help="Use the given path to search for a cdrom with upgradable packages")
-    parser.add_option("-b", "--have-backports", dest="haveBackports",
+    parser.add_option("--with-network", dest="withNetwork",action="store_true")
+    parser.add_option("--without-network", dest="withNetwork",action="store_false")
+    parser.add_option("--have-backports", dest="haveBackports",
                       action="store_true",default=False)
     (options, args) = parser.parse_args()
 

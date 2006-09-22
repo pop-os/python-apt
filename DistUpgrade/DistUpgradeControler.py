@@ -107,8 +107,10 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        # specific for the CDROM based upgrade
-        self.useNetwork = True
+        try:
+            self.useNetwork = getattr(self.options,"withNetwork")
+        except AttributeError:
+            pass
         self.aptcdrom = AptCdrom(distUpgradeView, options.cdromPath)
         
         # the configuration
@@ -139,9 +141,9 @@ class DistUpgradeControler(object):
         self.openCache()
         if not self.cache.sanityCheck(self._view):
             return False
-        # FIXME: we may try to find out a bit more about the network connection here and ask more
-        #        inteligent questions
-        if self.aptcdrom:
+        # FIXME: we may try to find out a bit more about the network
+        # connection here and ask more  inteligent questions
+        if self.aptcdrom and not hasattr(self,"useNetwork"):
             res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
@@ -628,7 +630,12 @@ class DistUpgradeControler(object):
                                         os.getenv("PATH"))
 
         # now exec self again
-        os.execve(sys.argv[0],sys.argv+["--have-backports"], os.environ)
+        args = sys.argv+["--have-backports"]
+        if self.useNetwork:
+            args.append("--with-network")
+        else:
+            args.append("--without-network")
+        os.execve(sys.argv[0],args, os.environ)
     
     # this is the core
     def edgyUpgrade(self):
