@@ -107,7 +107,10 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        self.useNetwork = getattr(self.options,"withNetwork",True)
+        if self.options.withNetwork == None:
+            self.useNetwork = True
+        else:
+            self.useNetwork = self.options.withNetwork
         self.aptcdrom = AptCdrom(distUpgradeView, options.cdromPath)
         
         # the configuration
@@ -140,7 +143,7 @@ class DistUpgradeControler(object):
             return False
         # FIXME: we may try to find out a bit more about the network
         # connection here and ask more  inteligent questions
-        if self.aptcdrom and not hasattr(self.options, "witheNetwork"):
+        if self.aptcdrom and self.options.withNetwork == None:
             res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
@@ -602,6 +605,7 @@ class DistUpgradeControler(object):
                     if match:
                         uri = match.group(1) + path
                         apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
+                                              size=ver.Size,
                                               descr=_("Fetching backport of '%s'" % pkgname))
         res = fetcher.Run()
         if res != fetcher.ResultContinue:
