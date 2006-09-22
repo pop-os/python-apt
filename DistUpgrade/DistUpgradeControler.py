@@ -558,7 +558,9 @@ class DistUpgradeControler(object):
         " download the backports specified in DistUpgrade.cfg "
         # save cachedir and setup new one
         cachedir = apt_pkg.Config.Find("Dir::Cache::archives")
+        cwd = os.getcwd()
         backportsdir = os.path.join(os.getcwd(),"backports")
+        os.chdir(backportsdir)
         if not os.path.exists(backportsdir):
             os.mkdir(backportsdir)
         if not os.path.exists(os.path.join(backportsdir,"partial")):
@@ -568,16 +570,33 @@ class DistUpgradeControler(object):
         # mark the backports for upgrade and get them
         fetcher = apt_pkg.GetAcquire(self._view.getFetchProgress())
         # FIXME: add a version line to the cfg file to make sure
-        #        we get the right version file!
+        #        we get the right version file! and add sanity checking
+        #        that we don't get (accidently) the edgy version
         for pkgname in self.config.getlist("Backports","Packages"):
             pkg = self.cache[pkgname]
-            pkg._lookupRecord(True)
+            # look for the right version (backport)
+            for ver in pkg._pkg.VersionList:
+                print ver.VerStr
+                if self.config.get("Backports","VersionIdent") in ver.VerStr:
+                    break
+            else:
+                # FIXME: be more clever here (exception)
+                print "No backport found!?!"
+                return False
+            if ver.FileList == None:
+                print "No FileList for: %s " % self._pkg.Name()
+                return False
+            f, index = ver.FileList.pop(0)
+            pkg._records.Lookup((f,index))
             path = apt_pkg.ParseSection(pkg._records.Record)["Filename"]
             cand = pkg._depcache.GetCandidateVer(pkg._pkg)
             for (packagefile,i) in cand.FileList:
 		indexfile = self.cache._list.FindIndex(packagefile)
 		if indexfile:
-			uri = indexfile.ArchiveURI(path)
+                    match = re.match(r"<.*ArchiveURI='(.*)'>$",
+                                    str(indexfile))
+                    if match:
+                        uri = match.group(1) + path
                         apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
                                               descr=_("Fetching backport of '%s'" % pkgname))
         res = fetcher.Run()
@@ -587,6 +606,7 @@ class DistUpgradeControler(object):
 
         # reset the cache dir
         apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
+        os.chdir(cwd)
         return self.setupRequiredBackports(backportsdir)
 
     def setupRequiredBackports(self, backportsdir):
