@@ -126,9 +126,8 @@ class DistUpgradeControler(object):
         # turn on debuging in the cache
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         apt_pkg.Config.Set("Debug::pkgDepCache::AutoInstall","true")
-        # FIXME: make this "append"?
         fd = os.open("/var/log/dist-upgrade/apt.log",
-                     os.O_RDWR|os.O_CREAT|os.O_TRUNC, 0644)
+                     os.O_RDWR|os.O_CREAT|os.O_APPEND, 0644)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
@@ -583,7 +582,7 @@ class DistUpgradeControler(object):
                     break
             else:
                 # FIXME: be more clever here (exception)
-                print "No backport found!?!"
+                raise Exception, "No backport found!?!"
                 return False
             if ver.FileList == None:
                 print "No FileList for: %s " % self._pkg.Name()
@@ -613,15 +612,15 @@ class DistUpgradeControler(object):
 
     def setupRequiredBackports(self, backportsdir):
         " setup the required backports in a evil way "
-        backportsdir = os.path.normpath(backportsdir)
         # unpack it
         for deb in glob.glob(backportsdir+"/*.deb"):
             ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
             # FIXME: do error checking
         # setup some pathes to make sure the new stuff is used
-        os.environ["LD_LIBRARY_PATH"] = os.path.join(backportsdir,"/usr/lib")
-        os.environ["PYTHONPATH"] = os.path.join(backportsdir,"/usr/lib/python2.4/")
-        os.environ["PATH"] = "%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH"))
+        os.environ["LD_LIBRARY_PATH"] = backportsdir+"/usr/lib"
+        os.environ["PYTHONPATH"] = backportsdir+"/usr/lib/python2.4/site-packages/"
+        os.environ["PATH"] = "%s:%s" % (backportsdir+"/usr/bin",
+                                        os.getenv("PATH"))
 
         # now exec self again
         os.execve(sys.argv[0],[sys.argv[0],"--have-backports"], os.environ)
@@ -635,7 +634,7 @@ class DistUpgradeControler(object):
         if not self.prepare():
             self.abort(1)
 
-        if not self.options.haveBackports:
+        if self.options.haveBackports == False:
             # get backported packages (if needed)
             self.getRequiredBackports()
 
