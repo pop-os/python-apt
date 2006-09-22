@@ -566,30 +566,41 @@ class DistUpgradeControler(object):
         apt_pkg.Config.Set("Dir::Cache::archives",backportsdir)
 
         # mark the backports for upgrade and get them
-        pm = apt_pkg.GetPackageManager(self.cache._depcache)
         fetcher = apt_pkg.GetAcquire(self._view.getFetchProgress())
-
         # FIXME: add a version line to the cfg file to make sure
         #        we get the right version file!
         for pkgname in self.config.getlist("Backports","Packages"):
-            self.cache[pkgname].markInstall()
-        pm.GetArchives(fetcher,self.cache._list,self.cache._records)
+            pkg = self.cache[pkgname]
+            pkg._lookupRecord(True)
+            path = apt_pkg.ParseSection(pkg._records.Record)["Filename"]
+            cand = pkg._depcache.GetCandidateVer(pkg._pkg)
+            for (packagefile,i) in cand.FileList:
+		indexfile = self.cache._list.FindIndex(packagefile)
+		if indexfile:
+			uri = indexfile.ArchiveURI(path)
+                        apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
+                                              descr=_("Fetching backport of '%s'" % pkgname))
+        res = fetcher.Run()
+        if res != fetcher.ResultContinue:
+            # ick! error ...
+            return False
 
         # reset the cache dir
         apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
-
-        self.setupRequiredBackports(backportsdir)
+        return self.setupRequiredBackports(backportsdir)
 
     def setupRequiredBackports(self, backportsdir):
         " setup the required backports in a evil way "
         backportsdir = os.path.normpath(backportsdir)
         # unpack it
         for deb in glob.glob(backportsdir+"*.deb"):
-            os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
+            ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
+            # FIXME: do error checking
         # setup some pathes to make sure the new stuff is used
         os.putenv("LD_LIBRARY_PATH",os.path.join(backportsdir,"/usr/lib"))
         os.putenv("PYTHONPATH",os.path.join(backportsdir,"/usr/lib/python2.4/"))
         os.putenv("PATH","%s:%s" % (os.path.join(backportsdir,"/usr/bin"),os.getenv("PATH")))
+        return True
     
     # this is the core
     def edgyUpgrade(self):
