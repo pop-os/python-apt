@@ -12,6 +12,8 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option("-c", "--cdrom", dest="cdromPath", default=None,
                       help="Use the given path to search for a cdrom with upgradable packages")
+    parser.add_option("-b", "--have-backports", dest="haveBackports",
+                      default=False)
     (options, args) = parser.parse_args()
 
     if not os.path.exists("/var/log/dist-upgrade"):
@@ -31,7 +33,7 @@ if __name__ == "__main__":
         logging.error("can't import view '%s'" % requested_view)
         print "can't find %s" % requested_view
         sys.exit(1)
-    app = DistUpgradeControler(view, cdromPath=options.cdromPath)
+    app = DistUpgradeControler(view, options)
 
     app.run()
 
