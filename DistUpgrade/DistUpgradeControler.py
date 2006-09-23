@@ -651,7 +651,7 @@ class DistUpgradeControler(object):
         if not self.prepare():
             self.abort(1)
 
-        if selfoptions and self.options.haveBackports == False:
+        if self.options and self.options.haveBackports == False:
             # get backported packages (if needed)
             self.getRequiredBackports()
 
