@@ -68,7 +68,7 @@ class MyCache(apt.Cache):
                 self.to_remove.append(pkg.name)
 
     def clear(self):
-        self.depcache.Init()
+        self._depcache.Init()
 
     def restore_snapshot(self):
         """ restore a snapshot """
@@ -318,3 +318,8 @@ class MyCache(apt.Cache):
                 if foreign:
                     foreign_pkgs.add(pkg.name)
         return foreign_pkgs
+
+if __name__ == "__main__":
+	import DistUpgradeConfigParser
+	c = MyCache(DistUpgradeConfigParser.DistUpgradeConfig("."))
+	c.clear()

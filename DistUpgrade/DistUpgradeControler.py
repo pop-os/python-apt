@@ -107,11 +107,15 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        if self.options.withNetwork == None:
+        if not self.options or self.options.withNetwork == None:
             self.useNetwork = True
         else:
             self.useNetwork = self.options.withNetwork
-        self.aptcdrom = AptCdrom(distUpgradeView, options.cdromPath)
+        if options:
+            cdrompath = options.cdromPath
+        else:
+            cdrompath = None
+        self.aptcdrom = AptCdrom(distUpgradeView, cdrompath)
         
         # the configuration
         self.config = DistUpgradeConfig(datadir)
@@ -143,7 +147,7 @@ class DistUpgradeControler(object):
             return False
         # FIXME: we may try to find out a bit more about the network
         # connection here and ask more  inteligent questions
-        if self.aptcdrom and self.options.withNetwork == None:
+        if self.aptcdrom and self.options and self.options.withNetwork == None:
             res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
@@ -422,7 +426,7 @@ class DistUpgradeControler(object):
         return res
 
     def doDistUpgrade(self):
-        if self.options.haveBackports:
+        if self.options and self.options.haveBackports:
             backportsdir = os.getcwd()+"/backports"
             apt_pkg.Config.Set("Dir::Bin::dpkg",backportsdir+"/usr/bin/dpkg");
         currentRetry = 0
@@ -647,7 +651,7 @@ class DistUpgradeControler(object):
         if not self.prepare():
             self.abort(1)
 
-        if self.options.haveBackports == False:
+        if selfoptions and self.options.haveBackports == False:
             # get backported packages (if needed)
             self.getRequiredBackports()
 
