@@ -5,7 +5,7 @@ update-manager (0.44.13) edgy; urgency=low
       Simira for reporting)
     - filter python-apt future warning (especially for seb128)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 23 Sep 2006 00:53:06 +0200
 
 update-manager (0.44.12) edgy; urgency=low
 
