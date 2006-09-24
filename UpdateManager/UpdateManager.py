@@ -507,8 +507,11 @@ class UpdateManager(SimpleGladeApp):
         lock = thread.allocate_lock()
         lock.acquire()
         t=thread.start_new_thread(self.cache.get_changelog,(name,lock))
-        changes_buffer.set_text(_("Downloading the list of changes..."))
-        button = self.button_cancel_dl_changelog
+        changes_buffer.set_text("%s\n" % _("Downloading list of changes..."))
+        iter = changes_buffer.get_iter_at_line(1)
+        anchor = changes_buffer.create_child_anchor(iter)
+        button = gtk.Button(stock="gtk-cancel")
+        self.textview_changes.add_child_at_anchor(button, anchor)
         button.show()
         id = button.connect("clicked",
                             lambda w,lock: lock.release(), lock)
