@@ -551,8 +551,10 @@ class DistUpgradeControler(object):
             
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
-        self.sources.restoreBackup(self.sources_backup_ext)
-        self.aptcdrom.restoreBackup(self.sources_backup_ext)
+        if hasattr(self, sources):
+            self.sources.restoreBackup(self.sources_backup_ext)
+        if hasattr(self, aptcdrom):
+            self.aptcdrom.restoreBackup(self.sources_backup_ext)
         # generate a new cache
         self._view.updateStatus(_("Restoring original system state"))
         self._view.abort()

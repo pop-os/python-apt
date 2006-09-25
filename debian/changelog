@@ -1,3 +1,12 @@
+update-manager (0.44.14) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - put the cancel button inside the text-area to avoid flickering
+  * DistUprade/DistUpgradeControler.py:
+    - check for self.sources, self.aptcdrom before using it (lp: #61852)
+
+ --
+
 update-manager (0.44.13) edgy; urgency=low
 
   * UpdateManager/UpdateManager.py:
