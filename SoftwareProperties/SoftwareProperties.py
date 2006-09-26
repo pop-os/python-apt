@@ -1033,7 +1033,7 @@ class SoftwareProperties(SimpleGladeApp):
                                  type=gtk.MESSAGE_ERROR,
                                  buttons=gtk.BUTTONS_OK,
                                  message_format=None)
-      dialog.set_markup(_("<big><b>Error scaning the CD</b></big>\n\n%s"%msg))
+      dialog.set_markup(_("<big><b>Error scanning the CD</b></big>\n\n%s"%msg))
       res = dialog.run()
       dialog.destroy()
       return

@@ -25,7 +25,7 @@ BaseURI: cdrom:\[Ubuntu.*6.10
 _Description: Cdrom with Ubuntu 6.10 'Edgy Eft'
 Available: False
 Component: main
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 
@@ -76,7 +76,7 @@ BaseURI: cdrom:\[Ubuntu.*6.06
 _Description: Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'
 Available: False
 Component: main
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 
@@ -123,7 +123,7 @@ BaseURI: cdrom:\[Ubuntu.*5.10
 _Description: Cdrom with Ubuntu 5.10 'Breezy Badger'
 Available: False
 Component: main
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 
@@ -151,7 +151,7 @@ MatchURI: archive.ubuntu.com/ubuntu
 MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 Component: universe
@@ -165,7 +165,7 @@ BaseURI: cdrom:\[Ubuntu.*5.04
 _Description: Cdrom with Ubuntu 5.04 'Hoary Hedgehog'
 Available: False
 Component: main
-_CompDescription: Oficially supported
+_CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 
@@ -192,7 +192,7 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 _Description: Ubuntu 4.10 'Warty Warthog'
 Component: main
-_CompDescription: No longer oficially supported
+_CompDescription: No longer officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 Component: universe
@@ -206,7 +206,7 @@ BaseURI: cdrom:\[Ubuntu.*4.10
 _Description: Cdrom with Ubuntu 4.10 'Warty Warthog'
 Available: False
 Component: main
-_CompDescription: No longer oficially supported
+_CompDescription: No longer officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 

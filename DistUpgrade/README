@@ -47,3 +47,10 @@ ForcedObsoletes:
 [Sources] - how to rewrite the sources.list
 
 [Network] - network specific options
+
+[Backports] - use specific packages for dist-upgrade 
+Packages= List of what packages to look for
+VersionIdent=Version identification. needs to be uniq, dist-upgrader will
+             fetch the version that contains this string
+SourcesList=a sources.list fragment that will be placed into 
+            /etc/apt/sources.list.d and that contains the backported pkgs

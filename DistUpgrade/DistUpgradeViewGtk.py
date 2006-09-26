@@ -484,19 +484,19 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         if pkgs_remove > 0:
             # FIXME: make those two seperate lines to make it clear
             #        that the "%" applies to the result of ngettext
-            msg += gettext.ngettext("%s package is going to be removed.",
-                                    "%s packages are going to be removed.",
+            msg += gettext.ngettext("%d package is going to be removed.",
+                                    "%d packages are going to be removed.",
                                     pkgs_remove) % pkgs_remove
             msg += " "
         if pkgs_inst > 0:
-            msg += gettext.ngettext("%s new package is going to be "
+            msg += gettext.ngettext("%d new package is going to be "
                                     "installed.",
-                                    "%s new packages are going to be "
+                                    "%d new packages are going to be "
                                     "installed.",pkgs_inst) % pkgs_inst
             msg += " "
         if pkgs_upgrade > 0:
-            msg += gettext.ngettext("%s package is going to be upgraded.",
-                                    "%s packages are going to be upgraded.",
+            msg += gettext.ngettext("%d package is going to be upgraded.",
+                                    "%d packages are going to be upgraded.",
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
         if downloadSize > 0:

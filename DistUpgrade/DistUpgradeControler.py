@@ -31,6 +31,7 @@ import logging
 import re
 import statvfs
 import shutil
+import glob
 from DistUpgradeConfigParser import DistUpgradeConfig
 
 from aptsources import SourcesList, SourceEntry, Distribution, is_mirror
@@ -86,7 +87,7 @@ class AptCdrom(object):
 class DistUpgradeControler(object):
     """ this is the controler that does most of the work """
     
-    def __init__(self, distUpgradeView, cdromPath=None, datadir=None):
+    def __init__(self, distUpgradeView, options=None, datadir=None):
         # setup the pathes
         localedir = "/usr/share/locale/update-manager/"
         if datadir == None:
@@ -94,6 +95,8 @@ class DistUpgradeControler(object):
             localedir = os.path.join(datadir,"mo")
             gladedir = datadir
         self.datadir = datadir
+
+        self.options = options
 
         # init gettext
         gettext.bindtextdomain("update-manager",localedir)
@@ -104,9 +107,15 @@ class DistUpgradeControler(object):
         self._view.updateStatus(_("Reading cache"))
         self.cache = None
 
-        # specific for the CDROM based upgrade
-        self.aptcdrom = AptCdrom(distUpgradeView, cdromPath)
-        self.useNetwork = True
+        if not self.options or self.options.withNetwork == None:
+            self.useNetwork = True
+        else:
+            self.useNetwork = self.options.withNetwork
+        if options:
+            cdrompath = options.cdromPath
+        else:
+            cdrompath = None
+        self.aptcdrom = AptCdrom(distUpgradeView, cdrompath)
         
         # the configuration
         self.config = DistUpgradeConfig(datadir)
@@ -123,9 +132,8 @@ class DistUpgradeControler(object):
         # turn on debuging in the cache
         apt_pkg.Config.Set("Debug::pkgProblemResolver","true")
         apt_pkg.Config.Set("Debug::pkgDepCache::AutoInstall","true")
-        # FIXME: make this "append"?
         fd = os.open("/var/log/dist-upgrade/apt.log",
-                     os.O_RDWR|os.O_CREAT|os.O_TRUNC, 0644)
+                     os.O_RDWR|os.O_CREAT|os.O_APPEND, 0644)
         os.dup2(fd,1)
         os.dup2(fd,2)
 
@@ -137,9 +145,9 @@ class DistUpgradeControler(object):
         self.openCache()
         if not self.cache.sanityCheck(self._view):
             return False
-        # FIXME: we may try to find out a bit more about the network connection here and ask more
-        #        inteligent questions
-        if self.aptcdrom:
+        # FIXME: we may try to find out a bit more about the network
+        # connection here and ask more  inteligent questions
+        if self.aptcdrom and self.options and self.options.withNetwork == None:
             res = self._view.askYesNoQuestion(_("Fetch data from the network for the upgrade?"),
                                               _("The upgrade can use the network to check "
                                                 "the latest updates and to fetch packages that are not on the "
@@ -270,7 +278,7 @@ class DistUpgradeControler(object):
                                      self.toDist+"-security", comps)
             else:
                 self.abort()
-        
+
         # write (well, backup first ;) !
         self.sources.backup(self.sources_backup_ext)
         self.sources.save()
@@ -293,7 +301,7 @@ class DistUpgradeControler(object):
 
         if self.sources_disabled:
             self._view.information(_("Third party sources disabled"),
-                             _("Some third party entries in your souces.list "
+                             _("Some third party entries in your sources.list "
                                "were disabled. You can re-enable them "
                                "after the upgrade with the "
                                "'software-properties' tool or with synaptic."
@@ -418,6 +426,9 @@ class DistUpgradeControler(object):
         return res
 
     def doDistUpgrade(self):
+        if self.options and self.options.haveBackports:
+            backportsdir = os.getcwd()+"/backports"
+            apt_pkg.Config.Set("Dir::Bin::dpkg",backportsdir+"/usr/bin/dpkg");
         currentRetry = 0
         fprogress = self._view.getFetchProgress()
         iprogress = self._view.getInstallProgress(self.cache)
@@ -540,23 +551,111 @@ class DistUpgradeControler(object):
             
     def abort(self):
         """ abort the upgrade, cleanup (as much as possible) """
-        self.sources.restoreBackup(self.sources_backup_ext)
-        self.aptcdrom.restoreBackup(self.sources_backup_ext)
+        if hasattr(self, sources):
+            self.sources.restoreBackup(self.sources_backup_ext)
+        if hasattr(self, aptcdrom):
+            self.aptcdrom.restoreBackup(self.sources_backup_ext)
         # generate a new cache
         self._view.updateStatus(_("Restoring original system state"))
         self._view.abort()
         self.openCache()
         sys.exit(1)
 
+    def getRequiredBackports(self):
+        " download the backports specified in DistUpgrade.cfg "
+        # add the backports sources.list fragment
+        shutil.copy(self.config.get("Backports","SourcesList"),
+                    apt_pkg.Config.FindDir("Dir::Etc::sourceparts"))
+        # run update
+        self.doUpdate()
+        self.openCache()
+        
+        # save cachedir and setup new one
+        cachedir = apt_pkg.Config.Find("Dir::Cache::archives")
+        cwd = os.getcwd()
+        backportsdir = os.path.join(os.getcwd(),"backports")
+        if not os.path.exists(backportsdir):
+            os.mkdir(backportsdir)
+        if not os.path.exists(os.path.join(backportsdir,"partial")):
+            os.mkdir(os.path.join(backportsdir,"partial"))
+        os.chdir(backportsdir)
+        apt_pkg.Config.Set("Dir::Cache::archives",backportsdir)
+
+        # mark the backports for upgrade and get them
+        fetcher = apt_pkg.GetAcquire(self._view.getFetchProgress())
+        # FIXME: add a version line to the cfg file to make sure
+        #        we get the right version file! and add sanity checking
+        #        that we don't get (accidently) the edgy version
+        for pkgname in self.config.getlist("Backports","Packages"):
+            pkg = self.cache[pkgname]
+            # look for the right version (backport)
+            for ver in pkg._pkg.VersionList:
+                print ver.VerStr
+                if self.config.get("Backports","VersionIdent") in ver.VerStr:
+                    break
+            else:
+                # FIXME: be more clever here (exception)
+                raise Exception, "No backport found!?!"
+                return False
+            if ver.FileList == None:
+                print "No FileList for: %s " % self._pkg.Name()
+                return False
+            f, index = ver.FileList.pop(0)
+            pkg._records.Lookup((f,index))
+            path = apt_pkg.ParseSection(pkg._records.Record)["Filename"]
+            for (packagefile,i) in ver.FileList:
+		indexfile = self.cache._list.FindIndex(packagefile)
+		if indexfile:
+                    match = re.match(r"<.*ArchiveURI='(.*)'>$",
+                                    str(indexfile))
+                    if match:
+                        uri = match.group(1) + path
+                        apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
+                                              size=ver.Size,
+                                              descr=_("Fetching backport of '%s'" % pkgname))
+        res = fetcher.Run()
+        if res != fetcher.ResultContinue:
+            # ick! error ...
+            return False
+
+        # reset the cache dir
+        os.unlink(apt_pkg.Config.FindDir("Dir::Etc::sourceparts")+"/backport-source.list")
+        apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
+        os.chdir(cwd)
+        return self.setupRequiredBackports(backportsdir)
+
+    def setupRequiredBackports(self, backportsdir):
+        " setup the required backports in a evil way "
+        # unpack it
+        for deb in glob.glob(backportsdir+"/*.deb"):
+            ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
+            # FIXME: do error checking
+        # setup some pathes to make sure the new stuff is used
+        os.environ["LD_LIBRARY_PATH"] = backportsdir+"/usr/lib"
+        os.environ["PYTHONPATH"] = backportsdir+"/usr/lib/python2.4/site-packages/"
+        os.environ["PATH"] = "%s:%s" % (backportsdir+"/usr/bin",
+                                        os.getenv("PATH"))
+
+        # now exec self again
+        args = sys.argv+["--have-backports"]
+        if self.useNetwork:
+            args.append("--with-network")
+        else:
+            args.append("--without-network")
+        os.execve(sys.argv[0],args, os.environ)
     
     # this is the core
     def edgyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
         self._view.updateStatus(_("Checking package manager"))
         self._view.setStep(1)
-
+        
         if not self.prepare():
             self.abort(1)
+
+        if self.options and self.options.haveBackports == False:
+            # get backported packages (if needed)
+            self.getRequiredBackports()
 
         # run a "apt-get update" now
         if not self.doUpdate():

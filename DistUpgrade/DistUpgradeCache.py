@@ -1,6 +1,7 @@
 
 import warnings
 warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
 import apt_pkg
 import os
@@ -66,10 +67,12 @@ class MyCache(apt.Cache):
             if pkg.markedDelete:
                 self.to_remove.append(pkg.name)
 
+    def clear(self):
+        self._depcache.Init()
+
     def restore_snapshot(self):
         """ restore a snapshot """
-        for pkg in self:
-            pkg.markKeep()
+        self.clear()
         for name in self.to_remove:
             pkg = self[name]
             pkg.markDelete()
@@ -155,7 +158,7 @@ class MyCache(apt.Cache):
         except SystemError, e:
             # FIXME: change the text to something more useful
             view.error(_("Could not calculate the upgrade"),
-                       _("A unresolvable problem occured while "
+                       _("A unresolvable problem occurred while "
                          "calculating the upgrade.\n\n"
                          "Please report this bug against the 'update-manager' "
                          "package and include the files in /var/log/dist-upgrade/ "
@@ -259,7 +262,7 @@ class MyCache(apt.Cache):
                          "ubuntu-desktop, kubuntu-desktop or "
                          "edubuntu-desktop package and it was not "
                          "possible to detect which version of "
-                        "ubuntu you are runing.\n "
+                        "ubuntu you are running.\n "
                          "Please install one of the packages "
                          "above first using synaptic or "
                          "apt-get before proceeding."))
@@ -315,3 +318,8 @@ class MyCache(apt.Cache):
                 if foreign:
                     foreign_pkgs.add(pkg.name)
         return foreign_pkgs
+
+if __name__ == "__main__":
+	import DistUpgradeConfigParser
+	c = MyCache(DistUpgradeConfigParser.DistUpgradeConfig("."))
+	c.clear()

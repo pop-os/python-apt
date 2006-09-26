@@ -33,8 +33,11 @@ try:
 except:
     import fakegconf as gconf
 import gobject
+import warnings
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
 import apt_pkg
+
 import gettext
 import copy
 import string
@@ -120,7 +123,7 @@ class MyCache(apt.Cache):
         # don't touch the gui in this function, it needs to be thread-safe
         pkg = self[name]
 
-    # get the src package name
+        # get the src package name
         srcpkg = pkg.sourcePackageName
 
         # assume "main" section 
@@ -130,6 +133,7 @@ class MyCache(apt.Cache):
 
         # get the source version, start with the binaries version
         binver = pkg.candidateVersion
+        srcver = pkg.candidateVersion
         #print "bin: %s" % binver
         try:
             # try to get the source version of the pkg, this differs
@@ -146,6 +150,9 @@ class MyCache(apt.Cache):
                 #print "srcver: %s" % srcver
                 section = srcrecords.Section
                 #print "srcsect: %s" % section
+            else:
+                # fail into the error handler
+                raise SystemError
         except SystemError, e:
             srcver = binver
 
@@ -225,13 +232,12 @@ class UpdateList:
     dist = pipe.read().strip()
     del pipe
 
-    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates"
-                                                    " of Ubuntu"), 10),
-                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
-                                                   "Ubuntu"), 9),
-                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates for Ubuntu"), 8),
-                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 7),
-                 (dist, "Ubuntu", _("Updates of Ubuntu"), 6)]
+    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates")
+                                                    , 10),
+                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates"), 9),
+                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates"), 8),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports"), 7),
+                 (dist, "Ubuntu", _("Normal updates"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
@@ -249,6 +255,11 @@ class UpdateList:
     # sort by origin
     for pkg in cache:
       if pkg.isUpgradable:
+        if pkg.candidateOrigin == None:
+            # can happen for e.g. loged packages
+            # FIXME: do something more sensible here (but what?)
+            print "WARNING: upgradable but no canidateOrigin?!?: ", pkg.name
+            continue
         # TRANSLATORS: updates from an 'unknown' origin
         originstr = _("Other updates")
         for aorigin in pkg.candidateOrigin:
