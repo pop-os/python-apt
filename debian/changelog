@@ -1,3 +1,42 @@
+update-manager (0.44.14) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - put the cancel button inside the text-area to avoid flickering
+  * DistUprade/DistUpgradeControler.py:
+    - check for self.sources, self.aptcdrom before using it (lp: #61852)
+
+ --
+
+update-manager (0.44.13) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - make sure that src_ver is always initialized (thanks to
+      Simira for reporting)
+    - filter python-apt future warning (especially for seb128)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 23 Sep 2006 00:53:06 +0200
+
+update-manager (0.44.12) edgy; urgency=low
+
+  * DistUpgrade/DistUpgradeViewGtk.py:
+    - use '%d' instead of '%s' where appropriate (lp: #60239)
+  * fixed lots of typos (lp: #60633)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 16:37:52 +0200
+
+update-manager (0.44.11) edgy; urgency=low
+
+  * UpdateManager/UpdateManager.py:
+    - fix error in get_changelog (lp: #59940).
+      Thanks to Denis Washington
+    - bugfix in the ListStore
+    - use the update-manager desktop file when runing synaptic
+      as the backend to get a consistent UI
+    - UI improvements (thanks to Sebastian Heinlein!)
+    - remove branding
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 12 Sep 2006 20:37:55 +0200
+
 update-manager (0.44.10) edgy; urgency=low
 
   * aptsources.py:

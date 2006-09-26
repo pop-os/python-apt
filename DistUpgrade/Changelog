@@ -1,3 +1,7 @@
+2006-09-23:
+	- support fetching backports of selected packages first and
+	  use them for the upgrade (needed to support Breaks)
+	- fetch/use apt/dpkg/python-apt backports for the upgrade
 2006-09-06:
 	- increased the "free-space-savety-buffer" to 100MB
 2006-09-05:

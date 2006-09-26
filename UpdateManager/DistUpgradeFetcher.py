@@ -219,7 +219,7 @@ class DistUpgradeFetcher(object):
         if not self.verifyDistUprader():
             error(self.window_main,
                   _("Verfication failed"),
-                  _("Verfing the upgrade failed.  There may be a problem "
+                  _("Verifying the upgrade failed.  There may be a problem "
                     "with the network or with the server. "))
             self.cleanup()
             return

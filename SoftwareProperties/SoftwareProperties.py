@@ -261,7 +261,7 @@ class SoftwareProperties(SimpleGladeApp):
         # TRANSLATORS: Label for the components in the Internet section
         #              first %s is the description of the component
         #              second %s is the code name of the comp, eg main, universe
-        label = _("%s (%s)") % (self.distro.source_template.components[comp][2],
+        label = _("%s (%s)") % (self.distro.source_template.components[comp][1],
                                 comp)
         checkbox = gtk.CheckButton(label)
         # check if the comp is enabled
@@ -721,7 +721,7 @@ class SoftwareProperties(SimpleGladeApp):
             for comp in source.comps:
                 if source.template.components.has_key(comp):
                     print source.template.components[comp]
-                    (desc, enabled, desc_long) = source.template.components[comp]
+                    (desc, desc_long) = source.template.components[comp]
                     contents += "\n%s" % desc
                 else:
                     contents += "\n%s" % comp
@@ -1033,7 +1033,7 @@ class SoftwareProperties(SimpleGladeApp):
                                  type=gtk.MESSAGE_ERROR,
                                  buttons=gtk.BUTTONS_OK,
                                  message_format=None)
-      dialog.set_markup(_("<big><b>Error scaning the CD</b></big>\n\n%s"%msg))
+      dialog.set_markup(_("<big><b>Error scanning the CD</b></big>\n\n%s"%msg))
       res = dialog.run()
       dialog.destroy()
       return

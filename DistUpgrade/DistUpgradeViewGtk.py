@@ -199,13 +199,10 @@ class GtkInstallProgressAdapter(InstallProgress):
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         #self.expander.set_expanded(True)
-        prim = _("Replace configuration file\n'%s'?" % current)
-        sec = ("The configuration file %s was modified (by "
-               "you or by a script). An updated version is shipped "
-               "in this package. If you want to keep your current "
-               "version say 'Keep'. Do you want to replace the "
-               "current file and install the new package "
-               "maintainers version? " % current)
+        prim = _("Replace the customized configuration file\n'%s'?") % current
+        sec = _("You will loose all customizations, that have been made by "
+                "yourself or by a script, if you replace the file by its "
+                "latest version.")
         markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
         self.parent.label_conffile.set_markup(markup)
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
@@ -322,6 +319,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
+        self.last_step = 0 # keep a record of the latest step
         # we dont use this currently
         #self.window_main.set_keep_above(True)
         self.window_main.realize()
@@ -410,21 +408,35 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label = getattr(self,"label_step%i" % step)
         image.hide()
         label.hide()
+    def abort(self):
+        size = gtk.ICON_SIZE_MENU
+        step = self.last_step
+        if step > 0:
+            image = getattr(self,"image_step%i" % step)
+            arrow = getattr(self,"arrow_step%i" % step)
+            image.set_from_stock(gtk.STOCK_CANCEL, size)
+            image.show()
+            arrow.hide()
     def setStep(self, step):
         # first update the "last" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
-        if step > 1:
-            image = getattr(self,"image_step%i" % (step-1))
-            label = getattr(self,"label_step%i" % (step-1))
-            image.set_from_stock(gtk.STOCK_APPLY, size)
+        if self.last_step:
+            image = getattr(self,"image_step%i" % self.last_step)
+            label = getattr(self,"label_step%i" % self.last_step)
+            arrow = getattr(self,"arrow_step%i" % self.last_step)
             label.set_property("attributes",attrlist)
+            image.set_from_stock(gtk.STOCK_APPLY, size)
+            image.show()
+            arrow.hide()
+        self.last_step = step
+        # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
-        image.set_from_stock(gtk.STOCK_YES, size)
+        arrow = getattr(self,"arrow_step%i" % step)
+        arrow.show()
+        image.hide()
         attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
-        # we can't make it bold here without layout changes in the view :(
-        #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
@@ -472,19 +484,19 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         if pkgs_remove > 0:
             # FIXME: make those two seperate lines to make it clear
             #        that the "%" applies to the result of ngettext
-            msg += gettext.ngettext("%s package is going to be removed.",
-                                    "%s packages are going to be removed.",
+            msg += gettext.ngettext("%d package is going to be removed.",
+                                    "%d packages are going to be removed.",
                                     pkgs_remove) % pkgs_remove
             msg += " "
         if pkgs_inst > 0:
-            msg += gettext.ngettext("%s new package is going to be "
+            msg += gettext.ngettext("%d new package is going to be "
                                     "installed.",
-                                    "%s new packages are going to be "
+                                    "%d new packages are going to be "
                                     "installed.",pkgs_inst) % pkgs_inst
             msg += " "
         if pkgs_upgrade > 0:
-            msg += gettext.ngettext("%s package is going to be upgraded.",
-                                    "%s packages are going to be upgraded.",
+            msg += gettext.ngettext("%d package is going to be upgraded.",
+                                    "%d packages are going to be upgraded.",
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
         if downloadSize > 0:
@@ -503,8 +515,9 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # Show an error if no actions are planned
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) < 1:
             # FIXME: this should go into DistUpgradeController
-            summary = _("Could not find any upgrades")
-            msg = _("Your system has already been upgraded.")
+            summary = _("Your system is up-to-date")
+            msg = _("There are no upgrades available for your system. "
+                    "The upgrade will now be canceled.")
             self.error(summary, msg)
             return False
 

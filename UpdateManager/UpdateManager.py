@@ -33,8 +33,11 @@ try:
 except:
     import fakegconf as gconf
 import gobject
+import warnings
+warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
 import apt_pkg
+
 import gettext
 import copy
 import string
@@ -120,7 +123,7 @@ class MyCache(apt.Cache):
         # don't touch the gui in this function, it needs to be thread-safe
         pkg = self[name]
 
-    # get the src package name
+        # get the src package name
         srcpkg = pkg.sourcePackageName
 
         # assume "main" section 
@@ -130,6 +133,7 @@ class MyCache(apt.Cache):
 
         # get the source version, start with the binaries version
         binver = pkg.candidateVersion
+        srcver = pkg.candidateVersion
         #print "bin: %s" % binver
         try:
             # try to get the source version of the pkg, this differs
@@ -146,6 +150,9 @@ class MyCache(apt.Cache):
                 #print "srcver: %s" % srcver
                 section = srcrecords.Section
                 #print "srcsect: %s" % section
+            else:
+                # fail into the error handler
+                raise SystemError
         except SystemError, e:
             srcver = binver
 
@@ -219,38 +226,40 @@ class UpdateList:
       self.importance = importance
       self.description = desc
 
-  def __init__(self, parent_window):
+  def __init__(self):
     # a map of packages under their origin
     pipe = os.popen("lsb_release -c -s")
     dist = pipe.read().strip()
     del pipe
 
-    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates"
-                                                    " of Ubuntu"), 10),
-                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates of "
-                                                   "Ubuntu"), 9),
-                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates for Ubuntu"), 8),
-                 ("%s-backports" % dist, "Ubuntu", _("Backports of Ubuntu"), 7),
-                 (dist, "Ubuntu", _("Updates of Ubuntu"), 6)]
+    templates = [("%s-security" % dist, "Ubuntu", _("Important security updates")
+                                                    , 10),
+                 ("%s-updates" % dist, "Ubuntu", _("Recommended updates"), 9),
+                 ("%s-proposed" % dist, "Ubuntu", _("Proposed updates"), 8),
+                 ("%s-backports" % dist, "Ubuntu", _("Backports"), 7),
+                 (dist, "Ubuntu", _("Normal updates"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
     self.num_updates = 0
-    self.parent_window = parent_window
     for (origin, archive, desc, importance) in templates:
         self.matcher[(origin, archive)] = self.UpdateOrigin(desc, importance)
     self.unknown_origin = self.UpdateOrigin(_("Other updates"), -1)
 
   def update(self, cache):
-    held_back = []
-    broken = []
+    self.held_back = []
 
     # do the upgrade
     cache.saveDistUpgrade()
 
     # sort by origin
     for pkg in cache:
-      if pkg.markedUpgrade or pkg.markedInstall:
+      if pkg.isUpgradable:
+        if pkg.candidateOrigin == None:
+            # can happen for e.g. loged packages
+            # FIXME: do something more sensible here (but what?)
+            print "WARNING: upgradable but no canidateOrigin?!?: ", pkg.name
+            continue
         # TRANSLATORS: updates from an 'unknown' origin
         originstr = _("Other updates")
         for aorigin in pkg.candidateOrigin:
@@ -264,38 +273,11 @@ class UpdateList:
           self.pkgs[origin_node] = []
         self.pkgs[origin_node].append(pkg)
         self.num_updates = self.num_updates + 1
-      elif pkg.isUpgradable:
-          held_back.append(pkg.name)
+      if pkg.isUpgradable and not (pkg.markedUpgrade or pkg.markedInstall):
+          self.held_back.append(pkg.name)
     for l in self.pkgs.keys():
       self.pkgs[l].sort(lambda x,y: cmp(x.name,y.name))
-
-    # check if we have held-back something
-    if cache._depcache.KeepCount > 0:
-      keepcount =  cache._depcache.KeepCount
-      msg = ("<big><b>%s</b></big>\n\n%s" % \
-            (_("Cannot install all available updates"),
-             _("Some of the updates require more extensive changes "
-               "than expected.\n\n"
-               "This usually means that you have enabled unoffical "
-               "repositories, that it is not "
-               "fully upgraded from the last distribution release or "
-               "that you run a development release "
-               "of the distribution.\n\n"
-               "Would you like to perform a full distribution upgrade "
-               "now?")))
-      dialog = gtk.MessageDialog(self.parent_window, 0,
-                                 gtk.MESSAGE_QUESTION,
-                                 gtk.BUTTONS_YES_NO,"")
-      dialog.set_default_response(gtk.RESPONSE_NO)
-      dialog.set_markup(msg)
-      dialog.set_title("")
-      dialog.vbox.set_spacing(6)
-      res = dialog.run()
-      if res == gtk.RESPONSE_YES:
-          os.execl("/usr/bin/gksu",
-                   "/usr/bin/gksu",
-                   "/usr/bin/update-manager --dist-upgrade")
-      dialog.destroy()
+    self.keepcount = cache._depcache.KeepCount
 
 
 class UpdateManagerDbusControler(dbus.service.Object):
@@ -419,7 +401,11 @@ class UpdateManager(SimpleGladeApp):
         return
     to_install = pkg.markedInstall or pkg.markedUpgrade
     renderer.set_property("active", to_install)
-      
+    if pkg.name in self.list.held_back:
+        renderer.set_property("activatable", False)
+    else: 
+        renderer.set_property("activatable", True)
+
   def package_column_view_func(self, cell_layout, renderer, model, iter):
     self.header_column_func(cell_layout, renderer, model, iter)
       
@@ -532,8 +518,11 @@ class UpdateManager(SimpleGladeApp):
         lock = thread.allocate_lock()
         lock.acquire()
         t=thread.start_new_thread(self.cache.get_changelog,(name,lock))
-        changes_buffer.set_text(_("Downloading the list of changes..."))
-        button = self.button_cancel_dl_changelog
+        changes_buffer.set_text("%s\n" % _("Downloading list of changes..."))
+        iter = changes_buffer.get_iter_at_line(1)
+        anchor = changes_buffer.create_child_anchor(iter)
+        button = gtk.Button(stock="gtk-cancel")
+        self.textview_changes.add_child_at_anchor(button, anchor)
         button.show()
         id = button.connect("clicked",
                             lambda w,lock: lock.release(), lock)
@@ -556,13 +545,13 @@ class UpdateManager(SimpleGladeApp):
     """
     if event.type == gtk.gdk.BUTTON_PRESS and event.button == 3:
         menu = gtk.Menu()
-        item_select_none = gtk.MenuItem(_("Select _None"))
+        item_select_none = gtk.MenuItem(_("_Uncheck All"))
         item_select_none.connect("activate", self.select_none_updgrades)
         menu.add(item_select_none)
         num_updates = self.cache.installCount
         if num_updates == 0:
             item_select_none.set_property("sensitive", False)
-        item_select_all = gtk.MenuItem(_("Select _All"))
+        item_select_all = gtk.MenuItem(_("_Check All"))
         item_select_all.connect("activate", self.select_all_updgrades)
         menu.add(item_select_all)
         menu.popup(None, None, None, 0, event.time)
@@ -668,7 +657,7 @@ class UpdateManager(SimpleGladeApp):
       apt_pkg.PkgSystemUnLock()
     except SystemError:
       pass
-    cmd = ["gksu", "--desktop", "/usr/share/applications/synaptic.desktop", 
+    cmd = ["gksu", "--desktop", "/usr/share/applications/update-manager.desktop", 
            "--", "/usr/sbin/synaptic", "--hide-main-window",  
            "--non-interactive", "--parent-window-id", "%s" % (id) ]
     if action == INSTALL:
@@ -726,6 +715,7 @@ class UpdateManager(SimpleGladeApp):
       time.sleep(0.05)
     while gtk.events_pending():
       gtk.main_iteration()
+    self.label_cache_progress_title.set_label("<b><big>%s</big></b>" % _("Checking for updates"))
     self.fillstore()
 
     # Allow suspend after synaptic is finished
@@ -733,6 +723,7 @@ class UpdateManager(SimpleGladeApp):
         self.allow_sleep(dev, cookie)
     self.window_main.set_sensitive(True)
     self.window_main.window.set_cursor(None)
+
 
   def inhibit_sleep(self):
     """Send a dbus signal to gnome-power-manager to not suspend
@@ -755,9 +746,13 @@ class UpdateManager(SimpleGladeApp):
 
   def toggled(self, renderer, path):
     """ a toggle button in the listview was toggled """
-    self.setBusy(True)
     iter = self.store.get_iter(path)
     pkg = self.store.get_value(iter, LIST_PKG)
+    # make sure that we don't allow to toggle deactivated updates
+    # this is needed for the call by the row activation callback
+    if pkg.name in self.list.held_back:
+        return False
+    self.setBusy(True)
     # update the cache
     if pkg.markedInstall or pkg.markedUpgrade:
         pkg.markKeep()
@@ -809,9 +804,9 @@ class UpdateManager(SimpleGladeApp):
 
     # clean most objects
     self.dl_size = 0
-    self.store.clear()
     self.initCache()
-    self.list = UpdateList(self.window_main)
+    self.store.clear()
+    self.list = UpdateList()
 
     # fill them again
     self.list.update(self.cache)
@@ -839,6 +834,7 @@ class UpdateManager(SimpleGladeApp):
           self.store.append([contents, pkg.name, pkg])
     self.update_count()
     self.setBusy(False)
+    self.check_all_updates_installable()
     return False
 
   def dist_no_longer_supported(self, meta_release):
@@ -929,6 +925,18 @@ class UpdateManager(SimpleGladeApp):
           if res == gtk.RESPONSE_YES:
               self.on_button_reload_clicked(None)
 
+  def check_all_updates_installable(self):
+    """ Check if all available updates can be installed and suggest
+        to run a distribution upgrade if not """
+    if self.list.keepcount > 0:
+      self.dialog_dist_upgrade.set_transient_for(self.window_main)
+      res = self.dialog_dist_upgrade.run()
+      self.dialog_dist_upgrade.hide()
+      if res == gtk.RESPONSE_YES:
+          os.execl("/usr/bin/gksu",
+                   "/usr/bin/gksu", "--desktop",
+                   "/usr/share/applications/update-manager.desktop",
+                   "--", "/usr/bin/update-manager", "--dist-upgrade")
 
   def main(self, options):
     gconfclient = gconf.client_get_default() 

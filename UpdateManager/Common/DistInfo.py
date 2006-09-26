@@ -48,7 +48,6 @@ class Component:
         self.name = ""
         self.description = ""
         self.description_long = ""
-        self.enabled = None
 
 class DistInfo:
     def __init__(self,
@@ -85,7 +84,7 @@ class DistInfo:
                 if suite:
                     if component:
                         suite.components["%s" % component.name] = \
-                            (component.description, component.enabled,
+                            (component.description,
                              component.description_long)
                         component = None
                     self.suites.append (suite)
@@ -100,6 +99,13 @@ class DistInfo:
                 for nanny in self.suites:
                     if nanny.name == value:
                         nanny.children.append(suite)
+                        # reuse some properties of the parent suite
+                        if suite.match_uri == None:
+                            suite.match_uri = nanny.match_uri
+                        if suite.valid_mirrors == None:
+                            suite.valid_mirrors = nanny.valid_mirrors
+                        if suite.base_uri == None:
+                            suite.base_uri = nanny.base_uri
             elif field == 'Available':
                 suite.available = value
             elif field == 'RepositoryType':
@@ -110,22 +116,23 @@ class DistInfo:
             elif field == 'MatchURI':
                 suite.match_uri = value
             elif field == 'MirrorsFile':
-                suite.valid_mirrors = filter(lambda s:
-                                              ((s != "") and
-                                               (not s.startswith("#"))),
-                                             map(string.strip,
-                                                 open(value)))
+                if os.path.exists(value):
+                    suite.valid_mirrors = filter(lambda s:
+                                                 ((s != "") and
+                                                  (not s.startswith("#"))),
+                                                 map(string.strip,
+                                                     open(value)))
+                else:
+                    print "WARNING: can't read '%s'" % value
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
                 if component:
                     suite.components["%s" % component.name] = \
-                        (component.description, component.enabled,
+                        (component.description,
                          component.description_long)
                 component = Component ()
                 component.name = value
-            elif field == 'Enabled':
-                component.enabled = bool(int(value))
             elif field == 'CompDescription':
                 component.description = _(value)
             elif field == 'CompDescriptionLong':
@@ -133,7 +140,7 @@ class DistInfo:
         if suite:
             if component:
                 suite.components["%s" % component.name] = \
-                    (component.description, component.enabled,
+                    (component.description,
                      component.description_long)
                 component = None
             self.suites.append (suite)
@@ -152,7 +159,6 @@ if __name__ == "__main__":
         for component in suite.components:
             print "  %s - %s - %s - %s" % (component, 
                                        suite.components[component][0],
-                                       suite.components[component][1],
-                                       suite.components[component][2])
+                                       suite.components[component][1])
         for child in suite.children:
             print "  %s" % child.description

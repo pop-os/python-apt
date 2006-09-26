@@ -37,11 +37,10 @@ Description:     description of the suite. the translation is done through
 Component:       a component/section of the suite (ignored if ParentSuite is
                  set)
 
-Enabled:         activate the component by default (ignored if ParentSuite is 
-                 set)
-
 CompDescription: humand readable description of the component/section
                  (ignored if ParentSuite is set). the translation is done
 		 through gettext at runtime
+
+ValidMirros:     A file that contains a list of mirrors
 
 

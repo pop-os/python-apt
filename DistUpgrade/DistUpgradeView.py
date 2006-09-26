@@ -43,6 +43,7 @@ def estimatedDownloadTime(requiredDownload):
 class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
+        import subprocess
         subprocess.call(cmd)
 
 
@@ -71,6 +72,9 @@ class DistUpgradeView(object):
         """ update the current status of the distUpgrade based
             on the current view
         """
+        pass
+    def abort():
+        """ provide a visual feedback that the upgrade was aborted """
         pass
     def setStep(self, step):
         """ we have 5 steps current for a upgrade:
