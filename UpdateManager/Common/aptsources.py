@@ -619,6 +619,8 @@ class Distribution:
     # e.g. "dapper", "dapper-updates")
     comps_per_dist = {}
     for s in sources:
+      if s.type != "deb":
+        continue
       if not comps_per_dist.has_key(s.dist):
         comps_per_dist[s.dist] = set()
       map(comps_per_dist[s.dist].add, s.comps)
@@ -631,10 +633,18 @@ class Distribution:
         for source in sources:
              add_component_only_once(source, comps_per_dist)
 
+    # now do the same for source dists
     if self.get_source_code == True:
-        for source in self.source_code_sources:
-            if comp not in source.comps: 
-                add_component_only_once(source, comps_per_dist)
+      comps_per_dist = {}
+      for s in sources:
+        if s.type != "deb-src":
+          continue
+        if not comps_per_dist.has_key(s.dist):
+          comps_per_dist[s.dist] = set()
+          map(comps_per_dist[s.dist].add, s.comps)
+      for source in self.source_code_sources:
+        if comp not in source.comps: 
+          add_component_only_once(source, comps_per_dist)
 
 
   def disable_component(self, sourceslist, comp):
