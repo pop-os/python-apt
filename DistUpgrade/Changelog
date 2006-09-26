@@ -2,6 +2,7 @@
 	- comment out the getRequiredBackport code because we will
 	  not use Breaks for the dapper->edgy upgrade yet 
           (see #54234 for the rationale)
+	- bugfixes
 2006-09-23:
 	- support fetching backports of selected packages first and
 	  use them for the upgrade (needed to support Breaks)
