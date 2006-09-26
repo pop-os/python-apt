@@ -622,14 +622,14 @@ class DistUpgradeControler(object):
         os.unlink(apt_pkg.Config.FindDir("Dir::Etc::sourceparts")+"/backport-source.list")
         apt_pkg.Config.Set("Dir::Cache::archives",cachedir)
         os.chdir(cwd)
-        return self.setupRequiredBackports(backportsdir)
-
-    def setupRequiredBackports(self, backportsdir):
-        " setup the required backports in a evil way "
         # unpack it
         for deb in glob.glob(backportsdir+"/*.deb"):
             ret = os.system("dpkg-deb -x %s %s" % (deb, backportsdir))
             # FIXME: do error checking
+        return self.setupRequiredBackports(backportsdir)
+
+    def setupRequiredBackports(self, backportsdir):
+        " setup the required backports in a evil way "
         # setup some pathes to make sure the new stuff is used
         os.environ["LD_LIBRARY_PATH"] = backportsdir+"/usr/lib"
         os.environ["PYTHONPATH"] = backportsdir+"/usr/lib/python2.4/site-packages/"
@@ -653,9 +653,11 @@ class DistUpgradeControler(object):
         if not self.prepare():
             self.abort(1)
 
-        if self.options and self.options.haveBackports == False:
-            # get backported packages (if needed)
-            self.getRequiredBackports()
+        # mvo: commented out for now, see #54234, this needs to be
+        #      refactored to use a arch=any tarball
+        #if self.options and self.options.haveBackports == False:
+        #    # get backported packages (if needed)
+        #    self.getRequiredBackports()
 
         # run a "apt-get update" now
         if not self.doUpdate():
