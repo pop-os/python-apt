@@ -4,6 +4,8 @@
           (see #54234 for the rationale)
 	- updated demotions.cfg for dapper->edgy
 	- special case the packages affected by the Breaks changes
+	- make sure that no translations get lost during the upgrade
+	  (thanks to mdz for pointing this out)
 	- bugfixes
 2006-09-23:
 	- support fetching backports of selected packages first and
