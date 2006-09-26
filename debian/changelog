@@ -5,7 +5,7 @@ update-manager (0.44.14) edgy; urgency=low
   * DistUprade/DistUpgradeControler.py:
     - check for self.sources, self.aptcdrom before using it (lp: #61852)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 26 Sep 2006 23:17:27 +0200
 
 update-manager (0.44.13) edgy; urgency=low
 

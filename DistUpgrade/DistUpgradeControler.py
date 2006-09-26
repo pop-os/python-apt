@@ -165,7 +165,12 @@ class DistUpgradeControler(object):
         # enable main (we always need this!)
         distro = Distribution()
         distro.get_sources(self.sources)
+        # we need both main + restricted for a real upgrade
+        # restricted is required for the kernel upgrade (otherwise
+        # it will just keep the kernel because linux-$arch depends on
+        # linux-restricted-modules from restricted)
         distro.enable_component(self.sources, "main")
+        distro.enable_component(self.sources, "restricted")
 
         # this must map, i.e. second in "from" must be the second in "to"
         # (but they can be different, so in theory we could exchange

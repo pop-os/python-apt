@@ -636,7 +636,7 @@ class Distribution:
     # now do the same for source dists
     if self.get_source_code == True:
       comps_per_dist = {}
-      for s in sources:
+      for s in self.source_code_sources:
         if s.type != "deb-src":
           continue
         if not comps_per_dist.has_key(s.dist):
