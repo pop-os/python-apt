@@ -601,7 +601,7 @@ class UpdateManager(SimpleGladeApp):
       self.refresh_updates_count()
       num_updates = self.cache.installCount
       if num_updates == 0:
-          text_header= "<big><b>%s</b></big"  %_("Your system is up-to-date")
+          text_header= "<big><b>%s</b></big>"  %_("Your system is up-to-date")
           text_download = ""
           self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
@@ -611,7 +611,7 @@ class UpdateManager(SimpleGladeApp):
           self.textview_changes.get_buffer().set_text("")
           self.textview_descr.get_buffer().set_text("")
       else:
-          text_header = "<b><big>%s</b></big>" % \
+          text_header = "<big><b>%s</b></big>" % \
                         (gettext.ngettext("You can install %s update",
                                           "You can install %s updates", 
                                           num_updates) % \
