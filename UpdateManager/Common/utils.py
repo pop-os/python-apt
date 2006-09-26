@@ -1,5 +1,6 @@
 import gtk
 from gettext import gettext as _
+import locale
 
 def str_to_bool(str):
   if str == "0" or str.upper() == "FALSE":

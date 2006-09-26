@@ -237,7 +237,7 @@ class UpdateList:
                  ("%s-updates" % dist, "Ubuntu", _("Recommended updates"), 9),
                  ("%s-proposed" % dist, "Ubuntu", _("Proposed updates"), 8),
                  ("%s-backports" % dist, "Ubuntu", _("Backports"), 7),
-                 (dist, "Ubuntu", _("Normal updates"), 6)]
+                 (dist, "Ubuntu", _("Distribution updates"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
@@ -803,16 +803,16 @@ class UpdateManager(SimpleGladeApp):
         for pkg in self.list.pkgs[origin]:
           name = xml.sax.saxutils.escape(pkg.name)
           summary = xml.sax.saxutils.escape(pkg.summary)
-          contents = "<b>%s</b>\n<small>%s\n" % (name, summary)
+          contents = "<b>%s</b>\n<small>%s</small>" % (name, summary)
           if pkg.installedVersion != None:
-              contents += _("From version %s to %s") % \
-                           (pkg.installedVersion,
-                            pkg.candidateVersion)
+              version =  _("From version %(old_version)s to %(new_version)s") %\
+                         {"old_version" : pkg.installedVersion,
+                          "new_version" : pkg.candidateVersion}
           else:
-              contents += _("Version %s") % pkg.candidateVersion
+              version = _("Version %s") % pkg.candidateVersion
           #TRANSLATORS: the b stands for Bytes
-          contents += " " + _("(Size: %s)") % humanize_size(pkg.packageSize)
-          contents += "</small>"
+          size = _("(Size: %s)") % humanize_size(pkg.packageSize)
+          contents = "%s\n<small>%s %s</small>" % (contents, version, size)
 
           self.store.append([contents, pkg.name, pkg])
     self.update_count()
