@@ -592,8 +592,8 @@ class UpdateManager(SimpleGladeApp):
       self.button_install.set_sensitive(self.cache.installCount)
       self.dl_size = self.cache.requiredDownload
       # TRANSLATORS: b stands for Bytes
-      self.label_downsize.set_markup(_("Download size: %s" % \
-                                       humanize_size(self.dl_size)))
+      self.label_downsize.set_markup(_("Download size: %s") % \
+                                       humanize_size(self.dl_size))
       
   def update_count(self):
       """activate or disable widgets and show dialog texts correspoding to
@@ -601,7 +601,7 @@ class UpdateManager(SimpleGladeApp):
       self.refresh_updates_count()
       num_updates = self.cache.installCount
       if num_updates == 0:
-          text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
+          text_header= "<big><b>%s</b></big"  %_("Your system is up-to-date")
           text_download = ""
           self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
@@ -611,11 +611,11 @@ class UpdateManager(SimpleGladeApp):
           self.textview_changes.get_buffer().set_text("")
           self.textview_descr.get_buffer().set_text("")
       else:
-          text_header = "<big><b>" + \
-                        gettext.ngettext("You can install %s update",
-                                         "You can install %s updates", 
-                                         num_updates) % \
-                                         num_updates + "</b></big>"
+          text_header = "<b><big>%s</b></big>" % \
+                        (gettext.ngettext("You can install %s update",
+                                          "You can install %s updates", 
+                                          num_updates) % \
+                                          num_updates)
           text_download = _("Download size: %s") % humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)

@@ -1,4 +1,5 @@
 import gtk
+from gettext import gettext as _
 
 def str_to_bool(str):
   if str == "0" or str.upper() == "FALSE":
@@ -22,7 +23,7 @@ def error(parent, summary, message):
   d.destroy()
   return
 
-def humanize_size(self, bytes):
+def humanize_size(bytes):
     """
     Convert a given size in bytes to a nicer better readable unit
     """
