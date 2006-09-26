@@ -576,23 +576,6 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.queue_draw()
     self.setBusy(False)
 
-  def humanize_size(self, bytes):
-      """
-      Convert a given size in bytes to a nicer better readable unit
-      """
-      if bytes == 0:
-          # TRANSLATORS: download size is 0
-          return _("None")
-      elif bytes < 1024:
-          # TRANSLATORS: download size of very small updates
-          return _("1 KB")
-      elif bytes < 1024 * 1024:
-          # TRANSLATORS: download size of small updates, e.g. "250 KB"
-          return locale.format(_("%.0f KB"), bytes/1024)
-      else:
-          # TRANSLATORS: download size of updates, e.g. "2.3 MB"
-          return locale.format(_("%.1f MB"), bytes / 1024 / 1024)
-
   def setBusy(self, flag):
       """ Show a watch cursor if the app is busy for more than 0.3 sec.
       Furthermore provide a loop to handle user interface events """
@@ -610,7 +593,7 @@ class UpdateManager(SimpleGladeApp):
       self.dl_size = self.cache.requiredDownload
       # TRANSLATORS: b stands for Bytes
       self.label_downsize.set_markup(_("Download size: %s" % \
-                                       self.humanize_size(self.dl_size)))
+                                       humanize_size(self.dl_size)))
       
   def update_count(self):
       """activate or disable widgets and show dialog texts correspoding to
@@ -633,7 +616,7 @@ class UpdateManager(SimpleGladeApp):
                                          "You can install %s updates", 
                                          num_updates) % \
                                          num_updates + "</b></big>"
-          text_download = _("Download size: %s") % self.humanize_size(self.dl_size)
+          text_download = _("Download size: %s") % humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
@@ -828,7 +811,7 @@ class UpdateManager(SimpleGladeApp):
           else:
               contents += _("Version %s") % pkg.candidateVersion
           #TRANSLATORS: the b stands for Bytes
-          contents += " " + _("(Size: %s)") % self.humanize_size(pkg.packageSize)
+          contents += " " + _("(Size: %s)") % humanize_size(pkg.packageSize)
           contents += "</small>"
 
           self.store.append([contents, pkg.name, pkg])
