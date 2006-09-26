@@ -133,7 +133,7 @@ class MyCache(apt.Cache):
         for section in self.config.getlist("Distro","KeepInstalledSection"):
             for pkg in self:
                 if pkg.markedDelete and pkg.section == section:
-                    keepInstalled(self, pkgname, "Distro KeepInstalledSection rule: %s" % section)
+                    keepInstalled(self, pkg.name, "Distro KeepInstalledSection rule: %s" % section)
         # the the per-metapkg rules
         for key in self.metapkgs:
             if self.has_key(key) and (self[key].isInstalled or
@@ -141,7 +141,7 @@ class MyCache(apt.Cache):
                 for section in self.config.getlist(key,"KeepInstalledSection"):
                     for pkg in self:
                         if pkg.markedDelete and pkg.section == section:
-                            keepInstalled(self, pkgname, "%s KeepInstalledSection rule: %s" % (key, section))
+                            keepInstalled(self, pkg.name, "%s KeepInstalledSection rule: %s" % (key, section))
         
 
     def postUpgradeRule(self):
