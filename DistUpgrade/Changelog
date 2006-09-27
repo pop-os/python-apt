@@ -1,3 +1,5 @@
+2006-09-27:
+	- embarrassing bug cdromupgrade.sh
 2006-09-26:
 	- comment out the getRequiredBackport code because we will
 	  not use Breaks for the dapper->edgy upgrade yet 

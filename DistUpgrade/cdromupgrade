@@ -26,7 +26,7 @@ fi
 TMPDIR=$(mktemp -d distupgrade.XXXXXX)
 cd $TMPDIR
 tar xzf $fullpath/$CODENAME.tar.gz
-if [ ! -x $TMPDIR/$CODENAME ];
+if [ ! -x $TMPDIR/$CODENAME ]; then
     echo "Could not find the upgrade application in the archive, exiting"
     exit 1
 fi
