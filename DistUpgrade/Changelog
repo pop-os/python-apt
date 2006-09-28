@@ -1,3 +1,5 @@
+2006-09-28:
+	- bugfix in the cdromupgrade script
 2006-09-27:
 	- uploaded a version that only reverts the backport fetching
 	  but no other changes compared to 2006-09-23

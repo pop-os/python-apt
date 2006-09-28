@@ -23,7 +23,7 @@ if [ ! -f $fullpath/$CODENAME.tar.gz ]; then
     exit 1
 fi
 
-TMPDIR=$(mktemp -d distupgrade.XXXXXX)
+TMPDIR=$(mktemp -d)
 cd $TMPDIR
 tar xzf $fullpath/$CODENAME.tar.gz
 if [ ! -x $TMPDIR/$CODENAME ]; then
