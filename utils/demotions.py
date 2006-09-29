@@ -43,11 +43,11 @@ if __name__ == "__main__":
   except OSError:
     pass
 
-  breezy = Dist("breezy")
-  dapper = Dist("dapper")
+  old = Dist("dapper")
+  new = Dist("edgy")
   
   # go over the dists to find main pkgs
-  for dist in [breezy, dapper]:
+  for dist in [old, new]:
     
     for comp in ["main", "restricted", "universe", "multiverse"]:
       line = "deb http://archive.ubuntu.com/ubuntu %s %s\n" % (dist.name,comp)
@@ -64,11 +64,11 @@ if __name__ == "__main__":
         map(lambda pkg: dist.pkgs_in_comp[comp].add(pkg.name), cache)
 
   # check what is no longer in main
-  no_longer_main = breezy.pkgs_in_comp["main"] - dapper.pkgs_in_comp["main"]
-  no_longer_main |= breezy.pkgs_in_comp["restricted"] - dapper.pkgs_in_comp["restricted"]
+  no_longer_main = old.pkgs_in_comp["main"] - new.pkgs_in_comp["main"]
+  no_longer_main |= old.pkgs_in_comp["restricted"] - new.pkgs_in_comp["restricted"]
 
   # check what moved to universe and what was removed (or renamed)
-  in_universe = lambda pkg: pkg in dapper.pkgs_in_comp["universe"] or pkg in dapper.pkgs_in_comp["multiverse"]
+  in_universe = lambda pkg: pkg in new.pkgs_in_comp["universe"] or pkg in new.pkgs_in_comp["multiverse"]
 
   # debug
   #not_in_universe = lambda pkg: not in_universe(pkg)
@@ -82,5 +82,5 @@ if __name__ == "__main__":
   print "writing the demotion info to '%s'" % outfile
   # write it out
   out = open(outfile,"w")
-  out.write("# demoted packages in dapper\n")
+  out.write("# demoted packages\n")
   out.write("\n".join(demoted))

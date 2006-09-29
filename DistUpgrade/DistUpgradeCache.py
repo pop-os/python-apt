@@ -111,6 +111,39 @@ class MyCache(apt.Cache):
         if self.has_key(pkg):
             self._depcache.MarkDelete(self[pkg]._pkg,True)
 
+    def keepInstalledRule(self):
+        """ run after the dist-upgrade to ensure that certain
+            packages are kept installed """
+        def keepInstalled(self, pkgname, reason):
+            if (self.has_key(pkgname)
+                and self[pkgname].isInstalled
+                and self[pkgname].markedDelete):
+                self.markInstall(pkgname, reason)
+                
+        # first the global list
+        for pkgname in self.config.getlist("Distro","KeepInstalledPkgs"):
+            keepInstalled(self, pkgname, "Distro KeepInstalledPkgs rule")
+        # the the per-metapkg rules
+        for key in self.metapkgs:
+            if self.has_key(key) and (self[key].isInstalled or
+                                      self[key].markedInstall):
+                for pkgname in self.config.getlist(key,"KeepInstalledPkgs"):
+                    keepInstalled(self, pkgname, "%s KeepInstalledPkgs rule" % key)
+        # now the keepInstalledSection code
+        for section in self.config.getlist("Distro","KeepInstalledSection"):
+            for pkg in self:
+                if pkg.markedDelete and pkg.section == section:
+                    keepInstalled(self, pkg.name, "Distro KeepInstalledSection rule: %s" % section)
+        # the the per-metapkg rules
+        for key in self.metapkgs:
+            if self.has_key(key) and (self[key].isInstalled or
+                                      self[key].markedInstall):
+                for section in self.config.getlist(key,"KeepInstalledSection"):
+                    for pkg in self:
+                        if pkg.markedDelete and pkg.section == section:
+                            keepInstalled(self, pkg.name, "%s KeepInstalledSection rule: %s" % (key, section))
+        
+
     def postUpgradeRule(self):
         " run after the upgrade was done in the cache "
         for (rule, action) in [("Install", self.markInstall),
@@ -148,6 +181,9 @@ class MyCache(apt.Cache):
             # then see if meta-pkgs are missing
             if not self._installMetaPkgs(view):
                 raise SystemError, _("Can't upgrade required meta-packages")
+
+            # see if our KeepInstalled rules are honored
+            self.keepInstalledRule()
 
             # and if we have some special rules
             self.postUpgradeRule()

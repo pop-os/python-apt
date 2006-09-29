@@ -1,3 +1,11 @@
+update-manager (0.44.15) edgy; urgency=low
+
+  * data/glade/SoftwareProperties.glade:
+    - fix missing "translatable" property (lp: #62681)
+  * missing i18n added (lp: 62519)
+
+ --
+
 update-manager (0.44.14) edgy; urgency=low
 
   * UpdateManager/UpdateManager.py:
@@ -5,7 +13,7 @@ update-manager (0.44.14) edgy; urgency=low
   * DistUprade/DistUpgradeControler.py:
     - check for self.sources, self.aptcdrom before using it (lp: #61852)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 26 Sep 2006 23:17:27 +0200
 
 update-manager (0.44.13) edgy; urgency=low
 
