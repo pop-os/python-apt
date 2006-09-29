@@ -1,26 +1,18 @@
-update-manager (0.44.15) edgy; urgency=low
-
-  * data/glade/SoftwareProperties.glade:
-    - fix missing "translatable" property (lp: #62681)
-  * missing i18n added (lp: 62519)
-
- --
-
-update-manager (0.44.14) edgy; urgency=low
-
-  * UpdateManager/UpdateManager.py:
-    - put the cancel button inside the text-area to avoid flickering
-  * DistUprade/DistUpgradeControler.py:
-    - check for self.sources, self.aptcdrom before using it (lp: #61852)
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 26 Sep 2006 23:17:27 +0200
-
 update-manager (0.44.13) edgy; urgency=low
 
+  * fix missing i18n declarations (lp: #62519)
+  * data/glade/SoftwareProperties.glade:
+    - fix missing "translatable" property (lp: #62681)
+  * DistUpgrade:
+    - deal better with the python transition and the hpijs 
+      upgrade (lp: #62948)
   * UpdateManager/UpdateManager.py:
+    - put the cancel button inside the text-area to avoid flickering
     - make sure that src_ver is always initialized (thanks to
       Simira for reporting)
     - filter python-apt future warning (especially for seb128)
+  * DistUprade/DistUpgradeControler.py:
+    - check for self.sources, self.aptcdrom before using it (lp: #61852)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 23 Sep 2006 00:53:06 +0200
 
