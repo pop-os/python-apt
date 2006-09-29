@@ -644,7 +644,7 @@ class DistUpgradeControler(object):
         else:
             args.append("--without-network")
         os.execve(sys.argv[0],args, os.environ)
-    
+
     # this is the core
     def edgyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
