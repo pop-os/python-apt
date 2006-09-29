@@ -179,6 +179,15 @@ class MyCache(apt.Cache):
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
                         logging.debug("Failed to apply python2.4->python install: %s (%s)" % (newpkg, e))
+        # deal with $§$/&$ hpijs
+        if (self.has_key("hpijs") and self["hpijs"].isInstalled and
+            not self["hpijs"].markedUpgrade):
+            try:
+                self.markInstall("hpijs","hpijs quirk upgrade rule")
+            except SystemError, e:
+                logging.debug("Failed to apply hpijs install (%s)" % e)
+            
+        
                                   
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
