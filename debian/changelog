@@ -2,6 +2,7 @@ update-manager (0.44.15) edgy; urgency=low
 
   * data/glade/SoftwareProperties.glade:
     - fix missing "translatable" property (lp: #62681)
+  * missing i18n added (lp: 62519)
 
  --
 
