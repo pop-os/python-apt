@@ -179,7 +179,7 @@ class MyCache(apt.Cache):
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
                         logging.debug("Failed to apply python2.4->python install: %s (%s)" % (newpkg, e))
-        # deal with $§$/&$ hpijs
+        # deal with *gar*gar* hpijs
         if (self.has_key("hpijs") and self["hpijs"].isInstalled and
             not self["hpijs"].markedUpgrade):
             try:
