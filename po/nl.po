@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-27 11:08+0200\n"
+"POT-Creation-Date: 2006-09-29 17:00+0200\n"
 "PO-Revision-Date: 2006-05-24 01:32+0000\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Nederlands <vertaling@vrijschrift.org>\n"
@@ -87,50 +87,50 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:601
-#: ../SoftwareProperties/SoftwareProperties.py:618
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
 #, fuzzy
 msgid "Software Channel"
 msgstr "Software-updates"
 
-#: ../SoftwareProperties/SoftwareProperties.py:609
-#: ../SoftwareProperties/SoftwareProperties.py:626
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:711
+#: ../SoftwareProperties/SoftwareProperties.py:714
 msgid "(Source Code)"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:717
+#: ../SoftwareProperties/SoftwareProperties.py:720
 msgid "Source Code"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:966
+#: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "Import key"
 msgstr "Sleutel importeren"
 
-#: ../SoftwareProperties/SoftwareProperties.py:976
+#: ../SoftwareProperties/SoftwareProperties.py:979
 msgid "Error importing selected file"
 msgstr "Fout bij het importeren van het geselecteerde bestand."
 
-#: ../SoftwareProperties/SoftwareProperties.py:977
+#: ../SoftwareProperties/SoftwareProperties.py:980
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Het geselecteerde bestand is misschien geen GPG-sleutel, of het kan "
 "beschadigd zijn."
 
-#: ../SoftwareProperties/SoftwareProperties.py:989
+#: ../SoftwareProperties/SoftwareProperties.py:992
 msgid "Error removing the key"
 msgstr "Fout bij het verwijderen van de sleutel"
 
-#: ../SoftwareProperties/SoftwareProperties.py:990
+#: ../SoftwareProperties/SoftwareProperties.py:993
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "De door u geselecteerde sleutel kon niet verwijderd worden. Gelieve dit als "
 "fout te melden."
 
-#: ../SoftwareProperties/SoftwareProperties.py:1036
+#: ../SoftwareProperties/SoftwareProperties.py:1039
 #, fuzzy, python-format
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
@@ -141,11 +141,11 @@ msgstr ""
 "↵\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1093
+#: ../SoftwareProperties/SoftwareProperties.py:1096
 msgid "Please enter a name for the disc"
 msgstr "Geef het cd-schijfje een naam"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1109
+#: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
 msgstr "Plaats een schijf in de speler:"
 
@@ -408,7 +408,7 @@ msgid ""
 "Canonical Ltd. no longer provides support for the following software "
 "packages. You can still get support from the community.\n"
 "\n"
-"If you havn't enabled community maintained software (universe), these "
+"If you have not enabled community maintained software (universe), these "
 "packages will be suggested for removal in the next step."
 msgstr ""
 "Deze geïnstalleerde pakketten worden niet meer officieel ondersteund, maar "
@@ -626,7 +626,7 @@ msgstr ""
 
 #. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:604
 msgid "Your system is up-to-date"
 msgstr "Uw systeem is up-to-date"
 
@@ -866,15 +866,15 @@ msgstr ""
 "De echtheidscontrole van de upgrade is mislukt. Er is mogelijk een probleem "
 "met het netwerk of de server. "
 
-#: ../UpdateManager/GtkProgress.py:107
-#, python-format
-msgid "Downloading file %li of %li with %s/s"
+#: ../UpdateManager/GtkProgress.py:108
+#, fuzzy, python-format
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr "Downloaden van bestand %li uit %li met %s/s"
 
-#: ../UpdateManager/GtkProgress.py:111
-#, python-format
-msgid "Downloading file %li of %li with unknown speed"
-msgstr "Downloaden van bestand %li uit %li, snelheid onbekend"
+#: ../UpdateManager/GtkProgress.py:113
+#, fuzzy, python-format
+msgid "Downloading file %(current)li of %(total)li"
+msgstr "Downloaden van bestand %li uit %li met %s/s"
 
 #: ../UpdateManager/UpdateManager.py:204
 #, fuzzy
@@ -920,8 +920,8 @@ msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:240
 #, fuzzy
-msgid "Normal updates"
-msgstr "Up_dates installeren"
+msgid "Distribution updates"
+msgstr "_Upgrade hervatten"
 
 #. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:247 ../UpdateManager/UpdateManager.py:264
@@ -948,75 +948,53 @@ msgstr ""
 msgid "_Check All"
 msgstr "_Controleren"
 
-#. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:585
-msgid "None"
-msgstr ""
-
-#. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:588
-msgid "1 KB"
-msgstr ""
-
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:591
-#, python-format
-msgid "%.0f KB"
-msgstr ""
-
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:594
-#, python-format
-msgid "%.1f MB"
-msgstr ""
-
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:612 ../UpdateManager/UpdateManager.py:636
+#: ../UpdateManager/UpdateManager.py:595 ../UpdateManager/UpdateManager.py:619
 #, python-format
 msgid "Download size: %s"
 msgstr "Downloadgrootte: %s"
 
-#: ../UpdateManager/UpdateManager.py:632
+#: ../UpdateManager/UpdateManager.py:615
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "U kunt %s update installeren"
 msgstr[1] "U kunt %s updates installeren"
 
-#: ../UpdateManager/UpdateManager.py:665
+#: ../UpdateManager/UpdateManager.py:648
 msgid "Please wait, this can take some time."
 msgstr "Een ogenblik geduld, dit kan even duren."
 
-#: ../UpdateManager/UpdateManager.py:667
+#: ../UpdateManager/UpdateManager.py:650
 msgid "Update is complete"
 msgstr "De update is voltooid"
 
-#: ../UpdateManager/UpdateManager.py:718
+#: ../UpdateManager/UpdateManager.py:701
 #, fuzzy
 msgid "Checking for updates"
 msgstr "Up_dates installeren"
 
-#: ../UpdateManager/UpdateManager.py:825
+#: ../UpdateManager/UpdateManager.py:808
 #, fuzzy, python-format
-msgid "From version %s to %s"
+msgid "From version %(old_version)s to %(new_version)s"
 msgstr "Nieuwe versie: %s (Grootte: %s)"
 
-#: ../UpdateManager/UpdateManager.py:829
+#: ../UpdateManager/UpdateManager.py:812
 #, fuzzy, python-format
 msgid "Version %s"
 msgstr "Versie %s: \n"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:831
+#: ../UpdateManager/UpdateManager.py:814
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:842
+#: ../UpdateManager/UpdateManager.py:825
 msgid "Your distribution is not supported anymore"
 msgstr "Uw distributie wordt niet langer ondersteund"
 
-#: ../UpdateManager/UpdateManager.py:843
+#: ../UpdateManager/UpdateManager.py:826
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -1026,17 +1004,17 @@ msgstr ""
 "upgrade uit naar een nieuwere versie van Ubuntu Linux. Zie http://www.ubuntu."
 "com voor meer informatie over upgraden."
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:845
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:880
 msgid "Software index is broken"
 msgstr "Software-index is beschadigd"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:881
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1045,6 +1023,28 @@ msgstr ""
 "Het is nu niet mogelijk om software te installeren of te verwijderen. "
 "Gebruik het pakkettenbeheerprogramma \"Synaptic\" of gebruik \"sudo apt-get "
 "install -f\" in een terminalvenster om eerst dit probleem te verhelpen."
+
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr ""
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr ""
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
+msgstr ""
 
 #: ../data/glade/UpdateManager.glade.h:1
 #, fuzzy
@@ -1188,27 +1188,32 @@ msgid ""
 msgstr ""
 
 #: ../data/glade/SoftwareProperties.glade.h:9
+#, fuzzy
+msgid "Add Cdrom"
+msgstr "_CD-rom toevoegen"
+
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "Authentication"
 msgstr "Echtheidscontrole"
 
-#: ../data/glade/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:11
 msgid "D_elete downloaded software files:"
 msgstr "Gedownloade softwarebestanden _verwijderen:"
 
-#: ../data/glade/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:12
 #, fuzzy
 msgid "Download from:"
 msgstr "Downloaden is voltooid"
 
-#: ../data/glade/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Import the public key from a trusted software provider"
 msgstr "Importeer de publieke sleutel van een vertrouwde softwareleverancier"
 
-#: ../data/glade/SoftwareProperties.glade.h:13
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid "Internet Updates"
 msgstr "Internet-updates"
 
-#: ../data/glade/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
@@ -1216,50 +1221,50 @@ msgstr ""
 "Alleen veiligheidsupdates van de officiële Ubuntu servers zullen automatisch "
 "geïnstalleerd worden"
 
-#: ../data/glade/SoftwareProperties.glade.h:15
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore _Defaults"
 msgstr "_Standaarden herstellen"
 
-#: ../data/glade/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:17
 msgid "Restore the default keys of your distribution"
 msgstr "Herstel de standaard sleutels van uw distributie"
 
-#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:18
 #: ../data/software-properties.desktop.in.h:2
 #, fuzzy
 msgid "Software Sources"
 msgstr "Software-eigenschappen"
 
-#: ../data/glade/SoftwareProperties.glade.h:18
+#: ../data/glade/SoftwareProperties.glade.h:19
 msgid "Source code"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:19
+#: ../data/glade/SoftwareProperties.glade.h:20
 msgid "Statistics"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:20
+#: ../data/glade/SoftwareProperties.glade.h:21
 msgid "Submit statistical information"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:21
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "Third Party"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:22
+#: ../data/glade/SoftwareProperties.glade.h:23
 msgid "_Check for updates automatically:"
 msgstr "_Automatisch controleren op aanwezigheid van updates:"
 
-#: ../data/glade/SoftwareProperties.glade.h:23
+#: ../data/glade/SoftwareProperties.glade.h:24
 #, fuzzy
 msgid "_Download updates automatically, but do not install them"
 msgstr "Up_dates wel in de achtergrond downloaden, maar niet installeren"
 
-#: ../data/glade/SoftwareProperties.glade.h:24
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Import Key File"
 msgstr "Sleutel i_mporteren"
 
-#: ../data/glade/SoftwareProperties.glade.h:25
+#: ../data/glade/SoftwareProperties.glade.h:26
 msgid "_Install security updates without confirmation"
 msgstr "_Veiligheids-updates zonder te vragen installeren"
 
@@ -1650,6 +1655,13 @@ msgstr "Software compatibel met DFSG, maar met niet-vrije afhankelijkheden"
 msgid "Non-DFSG-compatible Software"
 msgstr "Software niet compatibel met DFSG"
 
+#~ msgid "Downloading file %li of %li with unknown speed"
+#~ msgstr "Downloaden van bestand %li uit %li, snelheid onbekend"
+
+#, fuzzy
+#~ msgid "Normal updates"
+#~ msgstr "Up_dates installeren"
+
 #~ msgid "Cancel _Download"
 #~ msgstr "Download _annuleren"
 
@@ -1740,9 +1752,6 @@ msgstr "Software niet compatibel met DFSG"
 
 #~ msgid "<b>Keys</b>"
 #~ msgstr "<b>Sleutels</b>"
-
-#~ msgid "Add _Cdrom"
-#~ msgstr "_CD-rom toevoegen"
 
 #~ msgid "Installation Media"
 #~ msgstr "Installatiemedium"

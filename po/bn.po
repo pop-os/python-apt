@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-27 11:08+0200\n"
+"POT-Creation-Date: 2006-09-29 17:00+0200\n"
 "PO-Revision-Date: 2006-05-26 12:09+0000\n"
 "Last-Translator: Khandakar Mujahidul Islam <suzan@bengalinux.org>\n"
 "Language-Team: Bengali <bn@li.org>\n"
@@ -88,46 +88,46 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:601
-#: ../SoftwareProperties/SoftwareProperties.py:618
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
 #, fuzzy
 msgid "Software Channel"
 msgstr "সফ্টওয়্যার আপডেট"
 
-#: ../SoftwareProperties/SoftwareProperties.py:609
-#: ../SoftwareProperties/SoftwareProperties.py:626
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:711
+#: ../SoftwareProperties/SoftwareProperties.py:714
 msgid "(Source Code)"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:717
+#: ../SoftwareProperties/SoftwareProperties.py:720
 msgid "Source Code"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:966
+#: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "Import key"
 msgstr "কী ইম্পোর্ট"
 
-#: ../SoftwareProperties/SoftwareProperties.py:976
+#: ../SoftwareProperties/SoftwareProperties.py:979
 msgid "Error importing selected file"
 msgstr "নির্বাচিত ফাইলটি ইম্পোর্ট করতে সমস্যা হয়েছে"
 
-#: ../SoftwareProperties/SoftwareProperties.py:977
+#: ../SoftwareProperties/SoftwareProperties.py:980
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr "বেছে নেয়া ফাইলটি মনে হয় কোন GPG কী ফাইল নয় অথবা এটি নষ্ট।"
 
-#: ../SoftwareProperties/SoftwareProperties.py:989
+#: ../SoftwareProperties/SoftwareProperties.py:992
 msgid "Error removing the key"
 msgstr "কী সরাতে সমস্যা হয়েছে"
 
-#: ../SoftwareProperties/SoftwareProperties.py:990
+#: ../SoftwareProperties/SoftwareProperties.py:993
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:1036
+#: ../SoftwareProperties/SoftwareProperties.py:1039
 #, fuzzy, python-format
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
@@ -138,11 +138,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1093
+#: ../SoftwareProperties/SoftwareProperties.py:1096
 msgid "Please enter a name for the disc"
 msgstr "ডিস্কের জন্য একটি নাম দিন"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1109
+#: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
 msgstr "অনুগ্রহ করে ড্রাইভে একটি ডিস্ক দিন:"
 
@@ -368,7 +368,7 @@ msgid ""
 "Canonical Ltd. no longer provides support for the following software "
 "packages. You can still get support from the community.\n"
 "\n"
-"If you havn't enabled community maintained software (universe), these "
+"If you have not enabled community maintained software (universe), these "
 "packages will be suggested for removal in the next step."
 msgstr ""
 
@@ -566,7 +566,7 @@ msgstr "তথ্য হারাতে না চাইলে সকল অ্�
 
 #. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:604
 msgid "Your system is up-to-date"
 msgstr "আপনার সিস্টেম আপ-টু-ডেট"
 
@@ -794,14 +794,14 @@ msgid ""
 "or with the server. "
 msgstr ""
 
-#: ../UpdateManager/GtkProgress.py:107
+#: ../UpdateManager/GtkProgress.py:108
 #, python-format
-msgid "Downloading file %li of %li with %s/s"
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../UpdateManager/GtkProgress.py:111
+#: ../UpdateManager/GtkProgress.py:113
 #, python-format
-msgid "Downloading file %li of %li with unknown speed"
+msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:204
@@ -844,8 +844,8 @@ msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:240
 #, fuzzy
-msgid "Normal updates"
-msgstr "আপডেট ইন্সটল করো (_I)"
+msgid "Distribution updates"
+msgstr "পুনরায় আপগ্রেড শুরু (_R)"
 
 #. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:247 ../UpdateManager/UpdateManager.py:264
@@ -872,96 +872,96 @@ msgstr ""
 msgid "_Check All"
 msgstr "পরীক্ষা করো (_C)"
 
-#. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:585
-msgid "None"
-msgstr ""
-
-#. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:588
-msgid "1 KB"
-msgstr ""
-
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:591
-#, python-format
-msgid "%.0f KB"
-msgstr ""
-
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:594
-#, python-format
-msgid "%.1f MB"
-msgstr ""
-
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:612 ../UpdateManager/UpdateManager.py:636
+#: ../UpdateManager/UpdateManager.py:595 ../UpdateManager/UpdateManager.py:619
 #, python-format
 msgid "Download size: %s"
 msgstr "ডাউনলোড এর আকার: %s"
 
-#: ../UpdateManager/UpdateManager.py:632
+#: ../UpdateManager/UpdateManager.py:615
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "আপনি %s আপডেট ইনস্টল করতে পারেন"
 msgstr[1] "আপনি %s আপডেট ইনস্টল করতে পারেন"
 
-#: ../UpdateManager/UpdateManager.py:665
+#: ../UpdateManager/UpdateManager.py:648
 msgid "Please wait, this can take some time."
 msgstr "অনুগ্রহ করে অপেক্ষা করুন, এটি কিছুটা সময় নিতে পারে।"
 
-#: ../UpdateManager/UpdateManager.py:667
+#: ../UpdateManager/UpdateManager.py:650
 msgid "Update is complete"
 msgstr "আপডেট সম্পন্ন"
 
-#: ../UpdateManager/UpdateManager.py:718
+#: ../UpdateManager/UpdateManager.py:701
 #, fuzzy
 msgid "Checking for updates"
 msgstr "আপডেট ইন্সটল করো (_I)"
 
-#: ../UpdateManager/UpdateManager.py:825
+#: ../UpdateManager/UpdateManager.py:808
 #, fuzzy, python-format
-msgid "From version %s to %s"
+msgid "From version %(old_version)s to %(new_version)s"
 msgstr "নতুন ভার্সন: %s (আকার: %s)"
 
-#: ../UpdateManager/UpdateManager.py:829
+#: ../UpdateManager/UpdateManager.py:812
 #, fuzzy, python-format
 msgid "Version %s"
 msgstr "ভার্সন %s: \n"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:831
+#: ../UpdateManager/UpdateManager.py:814
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:842
+#: ../UpdateManager/UpdateManager.py:825
 msgid "Your distribution is not supported anymore"
 msgstr "আপনার ডিস্ট্রিবিউশনটি আর সমর্থিত নয়"
 
-#: ../UpdateManager/UpdateManager.py:843
+#: ../UpdateManager/UpdateManager.py:826
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:845
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:880
 msgid "Software index is broken"
 msgstr "সফ্টওয়্যার ইন্ডেক্সটি নস্ট"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:881
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
+msgstr ""
+
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr ""
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr ""
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
 msgstr ""
 
 #: ../data/glade/UpdateManager.glade.h:1
@@ -1099,76 +1099,81 @@ msgid ""
 msgstr ""
 
 #: ../data/glade/SoftwareProperties.glade.h:9
+#, fuzzy
+msgid "Add Cdrom"
+msgstr "সিডিরম যোগ (_C)"
+
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "Authentication"
 msgstr "প্রমাণীকরন"
 
-#: ../data/glade/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:11
 msgid "D_elete downloaded software files:"
 msgstr "ডাউনলোড করা সফ্টওয়্যার ফাইল মুছো (_e):"
 
-#: ../data/glade/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:12
 #, fuzzy
 msgid "Download from:"
 msgstr "ডাউনলোড সম্পন্ন"
 
-#: ../data/glade/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Import the public key from a trusted software provider"
 msgstr "বিশ্বস্ত সফ্টওয়্যার প্রদানকারীর থেকে পাবলিক কী ইমপোর্ট করো"
 
-#: ../data/glade/SoftwareProperties.glade.h:13
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid "Internet Updates"
 msgstr "ইন্টারনেট আপডেট"
 
-#: ../data/glade/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:15
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore _Defaults"
 msgstr "ডিফল্ট পুনঃস্হাপন (_D)"
 
-#: ../data/glade/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:17
 msgid "Restore the default keys of your distribution"
 msgstr "আপনার ডিস্ট্রিবিউশনের ডিফল্ট কী পুনঃস্হাপন করুন"
 
-#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:18
 #: ../data/software-properties.desktop.in.h:2
 #, fuzzy
 msgid "Software Sources"
 msgstr "সফ্টওয়্যার বৈশিষ্ট্য"
 
-#: ../data/glade/SoftwareProperties.glade.h:18
+#: ../data/glade/SoftwareProperties.glade.h:19
 msgid "Source code"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:19
+#: ../data/glade/SoftwareProperties.glade.h:20
 msgid "Statistics"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:20
+#: ../data/glade/SoftwareProperties.glade.h:21
 msgid "Submit statistical information"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:21
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "Third Party"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:22
+#: ../data/glade/SoftwareProperties.glade.h:23
 msgid "_Check for updates automatically:"
 msgstr "স্বয়ংক্রিয় ভাবে আপডেট পরীক্ষা করো (_C):"
 
-#: ../data/glade/SoftwareProperties.glade.h:23
+#: ../data/glade/SoftwareProperties.glade.h:24
 #, fuzzy
 msgid "_Download updates automatically, but do not install them"
 msgstr "আড়ালে আপডেট ডাউনলোড করো, কিন্তু তাদেরকে ইন্সটল করো না (_D)"
 
-#: ../data/glade/SoftwareProperties.glade.h:24
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Import Key File"
 msgstr "কী ফাইল ইম্পোর্ট(_ই)"
 
-#: ../data/glade/SoftwareProperties.glade.h:25
+#: ../data/glade/SoftwareProperties.glade.h:26
 msgid "_Install security updates without confirmation"
 msgstr "নিরাপত্তা জনিত আপডেট গুলো অনুমদন ছাড়াই ইন্সটল করো (_I)"
 
@@ -1534,6 +1539,10 @@ msgstr ""
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Normal updates"
+#~ msgstr "আপডেট ইন্সটল করো (_I)"
+
 #~ msgid "Cancel _Download"
 #~ msgstr "ডাউনলোড বাতিল (_D)"
 
@@ -1603,9 +1612,6 @@ msgstr ""
 
 #~ msgid "<b>Keys</b>"
 #~ msgstr "<b>কী</b>"
-
-#~ msgid "Add _Cdrom"
-#~ msgstr "সিডিরম যোগ (_C)"
 
 #~ msgid "Installation Media"
 #~ msgstr "ইন্সটলেশন মাধ্যম"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.42.4\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-27 11:08+0200\n"
+"POT-Creation-Date: 2006-09-29 17:00+0200\n"
 "PO-Revision-Date: 2006-05-24 07:06+0000\n"
 "Last-Translator: Ikuya Awashiro <ikuya@fruitsbasket.info>\n"
 "Language-Team: Ubuntu Japanese Team <ubuntu-ja-users@freeml.com>\n"
@@ -89,49 +89,49 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:601
-#: ../SoftwareProperties/SoftwareProperties.py:618
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
 #, fuzzy
 msgid "Software Channel"
 msgstr "ソフトウェアのアップデート"
 
-#: ../SoftwareProperties/SoftwareProperties.py:609
-#: ../SoftwareProperties/SoftwareProperties.py:626
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
 msgstr ""
 
-#: ../SoftwareProperties/SoftwareProperties.py:711
+#: ../SoftwareProperties/SoftwareProperties.py:714
 #, fuzzy
 msgid "(Source Code)"
 msgstr "ソース"
 
-#: ../SoftwareProperties/SoftwareProperties.py:717
+#: ../SoftwareProperties/SoftwareProperties.py:720
 #, fuzzy
 msgid "Source Code"
 msgstr "ソース"
 
-#: ../SoftwareProperties/SoftwareProperties.py:966
+#: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "Import key"
 msgstr "鍵のインポート"
 
-#: ../SoftwareProperties/SoftwareProperties.py:976
+#: ../SoftwareProperties/SoftwareProperties.py:979
 msgid "Error importing selected file"
 msgstr "選択したファイルのインポートエラー"
 
-#: ../SoftwareProperties/SoftwareProperties.py:977
+#: ../SoftwareProperties/SoftwareProperties.py:980
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "選択したファイルはGPG鍵ファイルではないか、壊れている可能性があります。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:989
+#: ../SoftwareProperties/SoftwareProperties.py:992
 msgid "Error removing the key"
 msgstr "鍵削除のエラー"
 
-#: ../SoftwareProperties/SoftwareProperties.py:990
+#: ../SoftwareProperties/SoftwareProperties.py:993
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "選択した鍵を削除できませんでした。バグとして報告してください。"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1036
+#: ../SoftwareProperties/SoftwareProperties.py:1039
 #, fuzzy, python-format
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
@@ -142,11 +142,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1093
+#: ../SoftwareProperties/SoftwareProperties.py:1096
 msgid "Please enter a name for the disc"
 msgstr "ディスク名を入力してください"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1109
+#: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
 msgstr "ディスクをドライブに挿入してください:"
 
@@ -399,7 +399,7 @@ msgid ""
 "Canonical Ltd. no longer provides support for the following software "
 "packages. You can still get support from the community.\n"
 "\n"
-"If you havn't enabled community maintained software (universe), these "
+"If you have not enabled community maintained software (universe), these "
 "packages will be suggested for removal in the next step."
 msgstr ""
 "インストールされているこれらのパッケージは、もう公式にサポートされておらず、"
@@ -610,7 +610,7 @@ msgstr ""
 
 #. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:621
+#: ../UpdateManager/UpdateManager.py:604
 msgid "Your system is up-to-date"
 msgstr "システムは最新の状態です!"
 
@@ -847,15 +847,15 @@ msgstr ""
 "アップグレードの認証に失敗しました。おそらくネットワークまたはサーバの問題で"
 "す。 "
 
-#: ../UpdateManager/GtkProgress.py:107
-#, python-format
-msgid "Downloading file %li of %li with %s/s"
+#: ../UpdateManager/GtkProgress.py:108
+#, fuzzy, python-format
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr "ダウンロード中: %li のうち %li 速度 %s/秒"
 
-#: ../UpdateManager/GtkProgress.py:111
-#, python-format
-msgid "Downloading file %li of %li with unknown speed"
-msgstr "ダウンロード中: 速度不明で %li のうち %li"
+#: ../UpdateManager/GtkProgress.py:113
+#, fuzzy, python-format
+msgid "Downloading file %(current)li of %(total)li"
+msgstr "ダウンロード中: %li のうち %li 速度 %s/秒"
 
 #: ../UpdateManager/UpdateManager.py:204
 #, fuzzy
@@ -897,8 +897,8 @@ msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:240
 #, fuzzy
-msgid "Normal updates"
-msgstr "アップデートをインストール中"
+msgid "Distribution updates"
+msgstr "アップグレードを再開する(_R)"
 
 #. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:247 ../UpdateManager/UpdateManager.py:264
@@ -925,74 +925,52 @@ msgstr ""
 msgid "_Check All"
 msgstr "チェック(_C)"
 
-#. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:585
-msgid "None"
-msgstr ""
-
-#. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:588
-msgid "1 KB"
-msgstr ""
-
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:591
-#, python-format
-msgid "%.0f KB"
-msgstr ""
-
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:594
-#, python-format
-msgid "%.1f MB"
-msgstr ""
-
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:612 ../UpdateManager/UpdateManager.py:636
+#: ../UpdateManager/UpdateManager.py:595 ../UpdateManager/UpdateManager.py:619
 #, python-format
 msgid "Download size: %s"
 msgstr "ダウンロードサイズ: %s"
 
-#: ../UpdateManager/UpdateManager.py:632
+#: ../UpdateManager/UpdateManager.py:615
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "%s 個のアップデートがインストールされます"
 
-#: ../UpdateManager/UpdateManager.py:665
+#: ../UpdateManager/UpdateManager.py:648
 msgid "Please wait, this can take some time."
 msgstr "しばらくお待ちください。少々時間がかかります。"
 
-#: ../UpdateManager/UpdateManager.py:667
+#: ../UpdateManager/UpdateManager.py:650
 msgid "Update is complete"
 msgstr "アップデートが完了しました"
 
-#: ../UpdateManager/UpdateManager.py:718
+#: ../UpdateManager/UpdateManager.py:701
 #, fuzzy
 msgid "Checking for updates"
 msgstr "インストールできるアップデートをチェック"
 
-#: ../UpdateManager/UpdateManager.py:825
+#: ../UpdateManager/UpdateManager.py:808
 #, fuzzy, python-format
-msgid "From version %s to %s"
+msgid "From version %(old_version)s to %(new_version)s"
 msgstr "新しいバージョン: %s (サイズ: %s)"
 
-#: ../UpdateManager/UpdateManager.py:829
+#: ../UpdateManager/UpdateManager.py:812
 #, fuzzy, python-format
 msgid "Version %s"
 msgstr "バージョン %s: \n"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:831
+#: ../UpdateManager/UpdateManager.py:814
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:842
+#: ../UpdateManager/UpdateManager.py:825
 msgid "Your distribution is not supported anymore"
 msgstr "このディストリビューションはすでにサポート対象外です"
 
-#: ../UpdateManager/UpdateManager.py:843
+#: ../UpdateManager/UpdateManager.py:826
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -1002,17 +980,17 @@ msgstr ""
 "Ubuntu Linux にアップグレードしてください。\r\n"
 "アップグレードに関する詳細な情報は http://www.ubuntu.com をご覧ください。"
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:845
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:880
 msgid "Software index is broken"
 msgstr "ソフトウェアのインデックスが壊れています"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:881
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1021,6 +999,28 @@ msgstr ""
 "何らかのソフトウェアがインストールないし削除できません。 \"Synaptic\" パッ"
 "ケージマネージャを使用するか、 まずこの問題を解決するために \"sudo apt-get "
 "install -f\" コマンドをターミナルで実行してください。"
+
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr ""
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr ""
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
+msgstr ""
 
 #: ../data/glade/UpdateManager.glade.h:1
 #, fuzzy
@@ -1165,27 +1165,32 @@ msgid ""
 msgstr ""
 
 #: ../data/glade/SoftwareProperties.glade.h:9
+#, fuzzy
+msgid "Add Cdrom"
+msgstr "CD-ROM の追加(_C)"
+
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "Authentication"
 msgstr "認証"
 
-#: ../data/glade/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:11
 msgid "D_elete downloaded software files:"
 msgstr "ダウンロードしたファイルを削除(_E):"
 
-#: ../data/glade/SoftwareProperties.glade.h:11
+#: ../data/glade/SoftwareProperties.glade.h:12
 #, fuzzy
 msgid "Download from:"
 msgstr "ダウンロードが完了しました"
 
-#: ../data/glade/SoftwareProperties.glade.h:12
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Import the public key from a trusted software provider"
 msgstr "信頼したソフトウェア供給者の公開鍵をインポートする"
 
-#: ../data/glade/SoftwareProperties.glade.h:13
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid "Internet Updates"
 msgstr "インターネットアップデート"
 
-#: ../data/glade/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
@@ -1193,51 +1198,51 @@ msgstr ""
 "公式な Ubuntu サーバからのセキュリティアップデートだけ自動的にインストールさ"
 "れます。"
 
-#: ../data/glade/SoftwareProperties.glade.h:15
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore _Defaults"
 msgstr "デフォルトに戻す(_D)"
 
-#: ../data/glade/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:17
 msgid "Restore the default keys of your distribution"
 msgstr "ディストリビューション標準の鍵を元に戻す"
 
-#: ../data/glade/SoftwareProperties.glade.h:17
+#: ../data/glade/SoftwareProperties.glade.h:18
 #: ../data/software-properties.desktop.in.h:2
 #, fuzzy
 msgid "Software Sources"
 msgstr "ソフトウェアのプロパティ"
 
-#: ../data/glade/SoftwareProperties.glade.h:18
+#: ../data/glade/SoftwareProperties.glade.h:19
 #, fuzzy
 msgid "Source code"
 msgstr "ソース"
 
-#: ../data/glade/SoftwareProperties.glade.h:19
+#: ../data/glade/SoftwareProperties.glade.h:20
 msgid "Statistics"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:20
+#: ../data/glade/SoftwareProperties.glade.h:21
 msgid "Submit statistical information"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:21
+#: ../data/glade/SoftwareProperties.glade.h:22
 msgid "Third Party"
 msgstr ""
 
-#: ../data/glade/SoftwareProperties.glade.h:22
+#: ../data/glade/SoftwareProperties.glade.h:23
 msgid "_Check for updates automatically:"
 msgstr "アップデートを自動的にチェックする(_C):"
 
-#: ../data/glade/SoftwareProperties.glade.h:23
+#: ../data/glade/SoftwareProperties.glade.h:24
 #, fuzzy
 msgid "_Download updates automatically, but do not install them"
 msgstr "アップデートを自動的にダウンロード、ただしインストールはしない(_D)"
 
-#: ../data/glade/SoftwareProperties.glade.h:24
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Import Key File"
 msgstr "鍵ファイルのインポート(_I)"
 
-#: ../data/glade/SoftwareProperties.glade.h:25
+#: ../data/glade/SoftwareProperties.glade.h:26
 msgid "_Install security updates without confirmation"
 msgstr "確認せずにセキュリティアップデートをインストール(_I)"
 
@@ -1627,6 +1632,13 @@ msgstr "非フリーな依存関係のあるDFSG適合ソフトウェア"
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSGに適合しないソフトウェア"
 
+#~ msgid "Downloading file %li of %li with unknown speed"
+#~ msgstr "ダウンロード中: 速度不明で %li のうち %li"
+
+#, fuzzy
+#~ msgid "Normal updates"
+#~ msgstr "アップデートをインストール中"
+
 #~ msgid "Cancel _Download"
 #~ msgstr "ダウンロードをキャンセル(_D)"
 
@@ -1717,9 +1729,6 @@ msgstr "DFSGに適合しないソフトウェア"
 
 #~ msgid "<b>Keys</b>"
 #~ msgstr "<b>鍵</b>"
-
-#~ msgid "Add _Cdrom"
-#~ msgstr "CD-ROM の追加(_C)"
 
 #~ msgid "Installation Media"
 #~ msgstr "インストールメディア"
