@@ -25,6 +25,7 @@ import gtk
 import apt
 import apt_pkg
 from gettext import gettext as _
+from Common.utils import *
 
 # intervals of the start up progress
 # 3x caching and menu creation
@@ -104,12 +105,14 @@ class GtkFetchProgress(apt.progress.FetchProgress):
         if currentItem > self.totalItems:
           currentItem = self.totalItems
         if self.currentCPS > 0:
-            statusText = (_("Downloading file %li of %li with %s/s"
-                          % (currentItem, self.totalItems,
-                             apt_pkg.SizeToStr(self.currentCPS))))
+            statusText = (_("Downloading file %(current)li of %(total)li with "
+                            "%(speed)s/s") % {"current" : currentItem,
+                                              "total" : self.totalItems,
+                                              "speed" : humanize_size(self.currentCPS)})
         else:
-            statusText = (_("Downloading file %li of %li with unknown "
-                          "speed") % (currentItem, self.totalItems))
+            statusText = (_("Downloading file %(current)li of %(total)li") % \
+                          {"current" : currentItem,
+                           "total" : self.totalItems })
             self.progress.set_fraction(self.percent/100.0)
         self.status.set_markup("<i>%s</i>" % statusText)
         # TRANSLATORS: show the remaining time in a progress bar:

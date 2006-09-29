@@ -237,7 +237,7 @@ class UpdateList:
                  ("%s-updates" % dist, "Ubuntu", _("Recommended updates"), 9),
                  ("%s-proposed" % dist, "Ubuntu", _("Proposed updates"), 8),
                  ("%s-backports" % dist, "Ubuntu", _("Backports"), 7),
-                 (dist, "Ubuntu", _("Normal updates"), 6)]
+                 (dist, "Ubuntu", _("Distribution updates"), 6)]
 
     self.pkgs = {}
     self.matcher = {}
@@ -576,23 +576,6 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.queue_draw()
     self.setBusy(False)
 
-  def humanize_size(self, bytes):
-      """
-      Convert a given size in bytes to a nicer better readable unit
-      """
-      if bytes == 0:
-          # TRANSLATORS: download size is 0
-          return _("None")
-      elif bytes < 1024:
-          # TRANSLATORS: download size of very small updates
-          return _("1 KB")
-      elif bytes < 1024 * 1024:
-          # TRANSLATORS: download size of small updates, e.g. "250 KB"
-          return locale.format(_("%.0f KB"), bytes/1024)
-      else:
-          # TRANSLATORS: download size of updates, e.g. "2.3 MB"
-          return locale.format(_("%.1f MB"), bytes / 1024 / 1024)
-
   def setBusy(self, flag):
       """ Show a watch cursor if the app is busy for more than 0.3 sec.
       Furthermore provide a loop to handle user interface events """
@@ -609,8 +592,8 @@ class UpdateManager(SimpleGladeApp):
       self.button_install.set_sensitive(self.cache.installCount)
       self.dl_size = self.cache.requiredDownload
       # TRANSLATORS: b stands for Bytes
-      self.label_downsize.set_markup(_("Download size: %s" % \
-                                       self.humanize_size(self.dl_size)))
+      self.label_downsize.set_markup(_("Download size: %s") % \
+                                       humanize_size(self.dl_size))
       
   def update_count(self):
       """activate or disable widgets and show dialog texts correspoding to
@@ -618,7 +601,7 @@ class UpdateManager(SimpleGladeApp):
       self.refresh_updates_count()
       num_updates = self.cache.installCount
       if num_updates == 0:
-          text_header= "<big><b>"+_("Your system is up-to-date")+"</b></big>"
+          text_header= "<big><b>%s</b></big>"  %_("Your system is up-to-date")
           text_download = ""
           self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)
@@ -628,12 +611,12 @@ class UpdateManager(SimpleGladeApp):
           self.textview_changes.get_buffer().set_text("")
           self.textview_descr.get_buffer().set_text("")
       else:
-          text_header = "<big><b>" + \
-                        gettext.ngettext("You can install %s update",
-                                         "You can install %s updates", 
-                                         num_updates) % \
-                                         num_updates + "</b></big>"
-          text_download = _("Download size: %s") % self.humanize_size(self.dl_size)
+          text_header = "<big><b>%s</b></big>" % \
+                        (gettext.ngettext("You can install %s update",
+                                          "You can install %s updates", 
+                                          num_updates) % \
+                                          num_updates)
+          text_download = _("Download size: %s") % humanize_size(self.dl_size)
           self.notebook_details.set_sensitive(True)
           self.treeview_update.set_sensitive(True)
           self.button_install.grab_default()
@@ -820,16 +803,16 @@ class UpdateManager(SimpleGladeApp):
         for pkg in self.list.pkgs[origin]:
           name = xml.sax.saxutils.escape(pkg.name)
           summary = xml.sax.saxutils.escape(pkg.summary)
-          contents = "<b>%s</b>\n<small>%s\n" % (name, summary)
+          contents = "<b>%s</b>\n<small>%s</small>" % (name, summary)
           if pkg.installedVersion != None:
-              contents += _("From version %s to %s") % \
-                           (pkg.installedVersion,
-                            pkg.candidateVersion)
+              version =  _("From version %(old_version)s to %(new_version)s") %\
+                         {"old_version" : pkg.installedVersion,
+                          "new_version" : pkg.candidateVersion}
           else:
-              contents += _("Version %s") % pkg.candidateVersion
+              version = _("Version %s") % pkg.candidateVersion
           #TRANSLATORS: the b stands for Bytes
-          contents += " " + _("(Size: %s)") % self.humanize_size(pkg.packageSize)
-          contents += "</small>"
+          size = _("(Size: %s)") % humanize_size(pkg.packageSize)
+          contents = "%s\n<small>%s %s</small>" % (contents, version, size)
 
           self.store.append([contents, pkg.name, pkg])
     self.update_count()

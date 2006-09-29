@@ -1,4 +1,6 @@
 import gtk
+from gettext import gettext as _
+import locale
 
 def str_to_bool(str):
   if str == "0" or str.upper() == "FALSE":
@@ -21,3 +23,20 @@ def error(parent, summary, message):
   res = d.run()
   d.destroy()
   return
+
+def humanize_size(bytes):
+    """
+    Convert a given size in bytes to a nicer better readable unit
+    """
+    if bytes == 0:
+        # TRANSLATORS: download size is 0
+        return _("None")
+    elif bytes < 1024:
+        # TRANSLATORS: download size of very small updates
+        return _("1 KB")
+    elif bytes < 1024 * 1024:
+        # TRANSLATORS: download size of small updates, e.g. "250 KB"
+        return locale.format(_("%.0f KB"), bytes/1024)
+    else:
+        # TRANSLATORS: download size of updates, e.g. "2.3 MB"
+        return locale.format(_("%.1f MB"), bytes / 1024 / 1024)

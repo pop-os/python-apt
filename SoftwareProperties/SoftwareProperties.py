@@ -482,6 +482,9 @@ class SoftwareProperties(SimpleGladeApp):
         for source in self.distro.child_sources:
             if source.template == template:
                 self.sourceslist.remove(source)
+        for source in self.distro.source_code_sources:
+            if source.template == template:
+                self.sourceslist.remove(source)
     else:
         self.distro.add_source(self.sourceslist,
                                      uri=template.base_uri,

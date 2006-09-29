@@ -32,6 +32,12 @@ ForcedObsoletes:
   happens *after* the cache.commit())
 RemoveEssentialOk:
   Those packages are ok to remove even though they are essential
+KeepInstalledPkgs:
+  If the package was installed before, it should still be installed
+  after the upgrade
+KeepInstalledSection:
+  Packages from this section that were installed should always be
+  installed afterwards as well (useful for eg translations)
 
 [$meta-pkg]
 KeyDependencies:
