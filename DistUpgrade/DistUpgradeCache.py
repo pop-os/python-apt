@@ -167,18 +167,18 @@ class MyCache(apt.Cache):
     def edgyQuirks(self):
         """ this function works around quirks in the dapper->edgy upgrade """
         logging.debug("running edgyQuirks handler")
+        # deal with the python2.4-$foo -> python-$foo transition
         for pkg in self:
-            if (pkg.name.startswith("python2.4") and
+            if (pkg.name.startswith("python2.4-") and
                 pkg.isInstalled and
                 not pkg.markedUpgrade):
-                newpkg = "python-"+pkg.name[len("python2.4"):-1]
-                if (self.has_key(newpkg) and
-                    not self[newpkg].markedInstall):
+                basepkg = "python-"+pkg.name[len("python2.4-"):]
+                if (self.has_key(basepkg) and not self[basepkg].markedInstall):
                     try:
-                        self.markInstall(pkg.name,
+                        self.markInstall(basepkg,
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
-                        logging.debug("Failed to install: %s (%s)" % (newpkg, e))
+                        logging.debug("Failed to apply python2.4->python install: %s (%s)" % (newpkg, e))
                                   
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
