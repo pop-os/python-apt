@@ -1,3 +1,5 @@
+2006-09-29:
+	- typo fix (thanks to Jane Silber) (lp: #62946)
 2006-09-28:
 	- bugfix in the cdromupgrade script
 2006-09-27:

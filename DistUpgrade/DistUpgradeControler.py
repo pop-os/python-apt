@@ -502,7 +502,7 @@ class DistUpgradeControler(object):
                                      "support for the following software "
                                      "packages. You can still get support "
                                      "from the community.\n\n"
-                                     "If you havn't enabled community "
+                                     "If you have not enabled community "
                                      "maintained software (universe), "
                                      "these packages will be suggested for "
                                      "removal in the next step."),
