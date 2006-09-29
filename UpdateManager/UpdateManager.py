@@ -208,12 +208,12 @@ class MyCache(apt.Cache):
         except urllib2.HTTPError:
             if lock.locked():
                 self.all_changes[name] = [_("The list of changes is not "
-                                            "available yet. Please try again "
+                                            "available yet.\nPlease try again "
                                             "later."), srcpkg]
         except IOError:
             if lock.locked():
                 self.all_changes[name] = [_("Failed to download the list "
-                                            "of changes. Please "
+                                            "of changes. \nPlease "
                                             "check your Internet "
                                             "connection."), srcpkg]
         if lock.locked():
