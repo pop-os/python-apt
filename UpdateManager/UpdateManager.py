@@ -601,7 +601,7 @@ class UpdateManager(SimpleGladeApp):
       self.refresh_updates_count()
       num_updates = self.cache.installCount
       if num_updates == 0:
-          text_header= "<big><b>%s</b></big>"  %_("Your system is up-to-date")
+          text_header= "<big><b>%s</b></big>"  % _("Your system is up-to-date")
           text_download = ""
           self.notebook_details.set_sensitive(False)
           self.treeview_update.set_sensitive(False)

@@ -36,8 +36,6 @@ from gettext import gettext as _
 from optparse import OptionParser
 
 if __name__ == "__main__":
-  _ = gettext.gettext
-
   APP="update-manager"
   DIR="/usr/share/locale"
 
