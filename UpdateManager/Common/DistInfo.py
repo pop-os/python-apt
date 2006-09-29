@@ -26,7 +26,7 @@ from os import getenv
 import ConfigParser
 import string
 
-_ = gettext.gettext
+from gettext import gettext as _
 
 class Suite:
     def __init__(self):
