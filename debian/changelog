@@ -1,3 +1,10 @@
+update-manager (0.44.15) edgy; urgency=low
+
+  * data/glade/SoftwareProperties.glade:
+    - fix missing "translatable" property (lp: #62681)
+
+ --
+
 update-manager (0.44.14) edgy; urgency=low
 
   * UpdateManager/UpdateManager.py:
