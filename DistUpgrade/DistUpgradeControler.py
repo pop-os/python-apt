@@ -75,7 +75,7 @@ class AptCdrom(object):
                              _("There was a error adding the CD, the "
                                "upgrade will abort. Please report this as "
                                "a bug if this is a valid Ubuntu CD.\n\n"
-                               "The error message was:\n'%s'" % e))
+                               "The error message was:\n'%s'") % e)
             return False
         logging.debug("AptCdrom.add() returned: %s" % res)
         return res
@@ -613,7 +613,7 @@ class DistUpgradeControler(object):
                         uri = match.group(1) + path
                         apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
                                               size=ver.Size,
-                                              descr=_("Fetching backport of '%s'" % pkgname))
+                                              descr=_("Fetching backport of '%s'") % pkgname)
         res = fetcher.Run()
         if res != fetcher.ResultContinue:
             # ick! error ...
