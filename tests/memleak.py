@@ -10,11 +10,15 @@ import sys
 cache = apt.Cache()
 
 # memleak
-#for i in range(100):
-#	cache.open(None)
-#	print cache["apt"].name
-#	time.sleep(1)
-#	gc.collect()
+for i in range(100):
+	cache.open(None)
+	print cache["apt"].name
+	time.sleep(1)
+	gc.collect()
+	f = open("%s" % i,"w")
+	for obj in gc.get_objects():
+		f.write("%s\n" % str(obj))
+	f.close()
 
 # memleak	
 #for i in range(100):
