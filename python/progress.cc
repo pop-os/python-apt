@@ -18,8 +18,10 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 				      PyObject *arglist,
 				      PyObject **res)
 {
-   if(callbackInst == 0)
+   if(callbackInst == 0) {
+      Py_XDECREF(arglist);
       return false;
+   }
 
    PyObject *method = PyObject_GetAttrString(callbackInst,(char*) method_name);
    if(method == NULL) {
@@ -49,22 +51,24 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 
 
 // OpProgress interface 
-// FIXME: add "string Op, string SubOp" as attribute to the callbackInst
 void PyOpProgress::Update() 
 {
-
    PyObject *o;
    o = Py_BuildValue("s", Op.c_str());
    PyObject_SetAttrString(callbackInst, "op", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("s", SubOp.c_str());
    PyObject_SetAttrString(callbackInst, "subOp", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("b", MajorChange);
    PyObject_SetAttrString(callbackInst, "majorChange", o);
+   Py_XDECREF(o);
 
    // Build up the argument list... 
    PyObject *arglist = Py_BuildValue("(f)", Percent);
    if(CheckChange(0.05))
       RunSimpleCallback("update", arglist);
+   Py_XDECREF(arglist);
 };
 
 void PyOpProgress::Done()
