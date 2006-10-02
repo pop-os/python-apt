@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.41.1\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-29 17:00+0200\n"
+"POT-Creation-Date: 2006-10-02 14:45+0200\n"
 "PO-Revision-Date: 2006-05-23 19:45+0000\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -144,30 +144,30 @@ msgstr ""
 msgid "Please insert a disc in the drive:"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:92
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:207
 msgid "Can't upgrade required meta-packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:193
+#: ../DistUpgrade/DistUpgradeCache.py:217
 msgid "A essential package would have to be removed"
 msgstr ""
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:196
+#: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:197
+#: ../DistUpgrade/DistUpgradeCache.py:221
 #, fuzzy
 msgid ""
 "A unresolvable problem occurred while calculating the upgrade.\n"
@@ -177,23 +177,23 @@ msgid ""
 msgstr "你選定的密碼匙無法移除，請匯報問題。 "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:222
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:223
+#: ../DistUpgrade/DistUpgradeCache.py:247
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:288
+#: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
 msgid "Can't install '%s'"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:289
+#: ../DistUpgrade/DistUpgradeCache.py:313
 #, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
@@ -201,11 +201,11 @@ msgid ""
 msgstr "你選定的密碼匙無法移除，請匯報問題。 "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:296
+#: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:297
+#: ../DistUpgrade/DistUpgradeCache.py:321
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -679,24 +679,36 @@ msgid "Terminal"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
-msgid "_Keep"
+msgid "_Cancel Upgrade"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
+msgid "_Keep"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:19
 #, fuzzy
 msgid "_Replace"
 msgstr "重新載入"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:18
+#: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Report Bug"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Restart Now"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgrade.glade.h:20
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+msgid "_Start Upgrade"
 msgstr ""
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68

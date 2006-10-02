@@ -1,3 +1,9 @@
+update-manager (0.44.14) edgy; urgency=low
+
+  * fix some incorrect i18n markings (lp: #62681)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Oct 2006 14:41:52 +0200
+
 update-manager (0.44.13) edgy; urgency=low
 
   * fix missing i18n declarations (lp: #62519)

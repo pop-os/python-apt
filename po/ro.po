@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-29 17:00+0200\n"
+"POT-Creation-Date: 2006-10-02 14:45+0200\n"
 "PO-Revision-Date: 2006-05-24 17:39+0000\n"
 "Last-Translator: Sami POTIRCA <spotirca@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -153,12 +153,12 @@ msgstr "Introduceţi un nume pentru disc"
 msgid "Please insert a disc in the drive:"
 msgstr "Introduceţi un disc în unitate:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:92
+#: ../DistUpgrade/DistUpgradeCache.py:91
 #, fuzzy
 msgid "Broken packages"
 msgstr "Pachete deteriorate"
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:92
 #, fuzzy
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
@@ -168,20 +168,20 @@ msgstr ""
 "program. Înainte de a continua vă rugăm să le remediaţi utilizând synaptic "
 "sau apt-get."
 
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:207
 msgid "Can't upgrade required meta-packages"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:193
+#: ../DistUpgrade/DistUpgradeCache.py:217
 msgid "A essential package would have to be removed"
 msgstr ""
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:196
+#: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:197
+#: ../DistUpgrade/DistUpgradeCache.py:221
 msgid ""
 "A unresolvable problem occurred while calculating the upgrade.\n"
 "\n"
@@ -190,24 +190,24 @@ msgid ""
 msgstr ""
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:222
+#: ../DistUpgrade/DistUpgradeCache.py:246
 #, fuzzy
 msgid "Error authenticating some packages"
 msgstr "Eroare la autentificarea unor pachete."
 
-#: ../DistUpgrade/DistUpgradeCache.py:223
+#: ../DistUpgrade/DistUpgradeCache.py:247
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:288
+#: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Nu pot instala '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:289
+#: ../DistUpgrade/DistUpgradeCache.py:313
 #, fuzzy
 msgid ""
 "It was impossible to install a required package. Please report this as a "
@@ -217,11 +217,11 @@ msgstr ""
 "(eroare). "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:296
+#: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeCache.py:297
+#: ../DistUpgrade/DistUpgradeCache.py:321
 #, fuzzy
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
@@ -696,23 +696,37 @@ msgid "Terminal"
 msgstr "Terminal"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
-msgid "_Keep"
-msgstr ""
+#, fuzzy
+msgid "_Cancel Upgrade"
+msgstr "_Continuă Actualizarea"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:17
-msgid "_Replace"
+msgid "_Continue"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:18
-msgid "_Report Bug"
+msgid "_Keep"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
-msgid "_Restart Now"
+msgid "_Replace"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgrade.glade.h:20
+msgid "_Report Bug"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:21
+msgid "_Restart Now"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
+msgstr "_Continuă Actualizarea"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+#, fuzzy
+msgid "_Start Upgrade"
 msgstr "_Continuă Actualizarea"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68

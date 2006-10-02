@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-29 17:00+0200\n"
+"POT-Creation-Date: 2006-10-02 14:45+0200\n"
 "PO-Revision-Date: 2006-05-28 20:07+0000\n"
 "Last-Translator: Mantas Kriaučiūnas <mantas@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -147,11 +147,11 @@ msgstr "Įveskite disko pavadinimą"
 msgid "Please insert a disc in the drive:"
 msgstr "Įdėkite diską į įrenginį:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:92
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
 msgstr "Sugadinti paketai"
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -160,20 +160,20 @@ msgstr ""
 "programa. Prieš tęsdami pirmiausia sutaisykite juos naudodamiesi „synaptic“ "
 "arba „apt-get“."
 
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:207
 msgid "Can't upgrade required meta-packages"
 msgstr "Negalima atnaujinti reikiamų metapaketų"
 
-#: ../DistUpgrade/DistUpgradeCache.py:193
+#: ../DistUpgrade/DistUpgradeCache.py:217
 msgid "A essential package would have to be removed"
 msgstr "Turėtų būti pašalintas esminis paketas"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:196
+#: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "Nepavyko paskaičiuoti atnaujinimo"
 
-#: ../DistUpgrade/DistUpgradeCache.py:197
+#: ../DistUpgrade/DistUpgradeCache.py:221
 #, fuzzy
 msgid ""
 "A unresolvable problem occurred while calculating the upgrade.\n"
@@ -185,11 +185,11 @@ msgstr ""
 "tai kaip klaidą. "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:222
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "Klaida autentikuojant keletą paketų"
 
-#: ../DistUpgrade/DistUpgradeCache.py:223
+#: ../DistUpgrade/DistUpgradeCache.py:247
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -198,12 +198,12 @@ msgstr ""
 "Nepavyko patvirtinti kelių paketų autentiškumo. Tai gali būti laikina tinklo "
 "problema. Galite bandyti vėliau. Žemiau yra nepatvirtintų paketų sąrašas."
 
-#: ../DistUpgrade/DistUpgradeCache.py:288
+#: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Negalima įdiegti „%s“"
 
-#: ../DistUpgrade/DistUpgradeCache.py:289
+#: ../DistUpgrade/DistUpgradeCache.py:313
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -211,12 +211,12 @@ msgstr ""
 "Buvo neįmanoma įdiegti reikalingo paketo. Praneškite apie tai, kaip klaidą. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:296
+#: ../DistUpgrade/DistUpgradeCache.py:320
 #, fuzzy
 msgid "Can't guess meta-package"
 msgstr "Negalima nuspėti meta paketo"
 
-#: ../DistUpgrade/DistUpgradeCache.py:297
+#: ../DistUpgrade/DistUpgradeCache.py:321
 #, fuzzy
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
@@ -741,23 +741,37 @@ msgid "Terminal"
 msgstr "Terminalas"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
+#, fuzzy
+msgid "_Cancel Upgrade"
+msgstr "_Tęsti atnaujinimą"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
 msgid "_Keep"
 msgstr "_Palikti"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:17
+#: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Replace"
 msgstr "Pa_keisti"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:18
+#: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Report Bug"
 msgstr "_Pranešti apie klaidą"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Restart Now"
 msgstr "_Perkrauti dabar"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:20
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
+msgstr "_Tęsti atnaujinimą"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+#, fuzzy
+msgid "_Start Upgrade"
 msgstr "_Tęsti atnaujinimą"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager 0.42.4\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-29 17:00+0200\n"
+"POT-Creation-Date: 2006-10-02 14:45+0200\n"
 "PO-Revision-Date: 2006-05-24 07:06+0000\n"
 "Last-Translator: Ikuya Awashiro <ikuya@fruitsbasket.info>\n"
 "Language-Team: Ubuntu Japanese Team <ubuntu-ja-users@freeml.com>\n"
@@ -150,11 +150,11 @@ msgstr "ディスク名を入力してください"
 msgid "Please insert a disc in the drive:"
 msgstr "ディスクをドライブに挿入してください:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:92
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
 msgstr "壊れたパッケージ"
 
-#: ../DistUpgrade/DistUpgradeCache.py:93
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -162,20 +162,20 @@ msgstr ""
 "システムにはこのソフトウェアでは修復できない壊れたパッケージが含まれていま"
 "す。 Synaptic や apt-get を使って最初に修正してください。"
 
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:207
 msgid "Can't upgrade required meta-packages"
 msgstr "要求されたメタパッケージがアップグレードできません"
 
-#: ../DistUpgrade/DistUpgradeCache.py:193
+#: ../DistUpgrade/DistUpgradeCache.py:217
 msgid "A essential package would have to be removed"
 msgstr "必須パッケージが削除されます"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:196
+#: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "アップグレードが算定できません"
 
-#: ../DistUpgrade/DistUpgradeCache.py:197
+#: ../DistUpgrade/DistUpgradeCache.py:221
 #, fuzzy
 msgid ""
 "A unresolvable problem occurred while calculating the upgrade.\n"
@@ -185,11 +185,11 @@ msgid ""
 msgstr "算定中に解決できない問題がおきました。バグとして報告してください。 "
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:222
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "いくつかのパッケージが認証されませんでした"
 
-#: ../DistUpgrade/DistUpgradeCache.py:223
+#: ../DistUpgrade/DistUpgradeCache.py:247
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -199,12 +199,12 @@ msgstr ""
 "クの問題でしょう。あとで再び試してみてください。下に認証できなかったパッケー"
 "ジが表示されます。"
 
-#: ../DistUpgrade/DistUpgradeCache.py:288
+#: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
 msgid "Can't install '%s'"
 msgstr "'%s' がインストールできません"
 
-#: ../DistUpgrade/DistUpgradeCache.py:289
+#: ../DistUpgrade/DistUpgradeCache.py:313
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -212,11 +212,11 @@ msgstr ""
 "要求されたパッケージのインストールができません。バグとして報告してください。 "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:296
+#: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr "メタパッケージを推測できません"
 
-#: ../DistUpgrade/DistUpgradeCache.py:297
+#: ../DistUpgrade/DistUpgradeCache.py:321
 #, fuzzy
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
@@ -741,23 +741,37 @@ msgid "Terminal"
 msgstr "端末"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
+#, fuzzy
+msgid "_Cancel Upgrade"
+msgstr "アップグレードを再開する(_R)"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
 msgid "_Keep"
 msgstr "そのまま(_K)"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:17
+#: ../DistUpgrade/DistUpgrade.glade.h:19
 msgid "_Replace"
 msgstr "置き換える(_R)"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:18
+#: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Report Bug"
 msgstr "バグを報告する(_R)"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Restart Now"
 msgstr "すぐに再起動(_R)"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:20
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
+msgstr "アップグレードを再開する(_R)"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+#, fuzzy
+msgid "_Start Upgrade"
 msgstr "アップグレードを再開する(_R)"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68
