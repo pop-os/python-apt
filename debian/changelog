@@ -1,6 +1,7 @@
 update-manager (0.44.15) edgy; urgency=low
 
   * added missing python-vte dependency (lp: #63609)
+  * added missing gksu dependency (lp: #63572)
 
  --
 
