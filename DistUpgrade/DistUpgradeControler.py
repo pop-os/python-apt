@@ -142,7 +142,11 @@ class DistUpgradeControler(object):
 
     def prepare(self):
         """ initial cache opening, sanity checking, network checking """
-        self.openCache()
+        try:
+            self.openCache()
+        except SystemError, e:
+            logging.error("openCache() failed: '%s'" % e)
+            return False
         if not self.cache.sanityCheck(self._view):
             return False
         # FIXME: we may try to find out a bit more about the network
@@ -652,7 +656,14 @@ class DistUpgradeControler(object):
         self._view.setStep(1)
         
         if not self.prepare():
-            self.abort(1)
+            self._view.error(_("Preparing the upgrade failed"),
+                             _("Preparing the system for the upgrade "
+                               "failed. Please report this as a bug "
+                               "against the 'update-manager' "
+                               "package and include the files in "
+                               "/var/log/dist-upgrade/ "
+                               "in the bugreport." ))
+            sys.exit(1)
 
         # mvo: commented out for now, see #54234, this needs to be
         #      refactored to use a arch=any tarball
