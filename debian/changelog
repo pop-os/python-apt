@@ -1,3 +1,9 @@
+update-manager (0.44.15) edgy; urgency=low
+
+  * added missing python-vte dependency (lp: #63609)
+
+ --
+
 update-manager (0.44.14) edgy; urgency=low
 
   * fix some incorrect i18n markings (lp: #62681)
