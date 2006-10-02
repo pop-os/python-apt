@@ -200,9 +200,8 @@ class GtkInstallProgressAdapter(InstallProgress):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         #self.expander.set_expanded(True)
         prim = _("Replace the customized configuration file\n'%s'?") % current
-        sec = _("You will loose all customizations, that have been made by "
-                "yourself or by a script, if you replace the file by its "
-                "latest version.")
+        sec = _("You will lose any local changes to this file "
+                "if you replace this file with the latest version.")
         markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
         self.parent.label_conffile.set_markup(markup)
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
