@@ -11,7 +11,7 @@ update-manager (0.44.15) edgy; urgency=low
   * fix plural forms for ro, pl (lp: #46421)
   * properly escape comments before displaying them (lp: #63475)
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  4 Oct 2006 21:10:40 +0200
 
 update-manager (0.44.14) edgy; urgency=low
 
