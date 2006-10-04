@@ -113,7 +113,7 @@ template <class T>
 void CppDealloc(PyObject *Obj)
 {
    GetCpp<T>(Obj).~T();
-   PyMem_DEL(Obj);
+   PyObject_DEL(Obj);
 }
 
 template <class T>
@@ -123,7 +123,7 @@ void CppOwnedDealloc(PyObject *iObj)
    Obj->Object.~T();
    if (Obj->Owner != 0)
       Py_DECREF(Obj->Owner);
-   PyMem_DEL(Obj);
+   PyObject_DEL(Obj);
 }
 
 inline PyObject *CppPyString(std::string Str)

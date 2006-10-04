@@ -490,7 +490,7 @@ PyTypeObject ConfigurationPtrType =
    sizeof(CppPyObject<Configuration *>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   (destructor)PyMem_Free,              // tp_dealloc
+   (destructor)PyObject_Free,              // tp_dealloc
    0,                                   // tp_print
    CnfGetAttr,                          // tp_getattr
    0,                                   // tp_setattr

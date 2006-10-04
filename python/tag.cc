@@ -68,7 +68,7 @@ void TagFileFree(PyObject *Obj)
    Self->Object.~pkgTagFile();
    Self->Fd.~FileFd();
    Py_DECREF(Self->File);
-   PyMem_DEL(Obj);
+   PyObject_DEL(Obj);
 }
 									/*}}}*/
 

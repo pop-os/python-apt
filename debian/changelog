@@ -1,3 +1,12 @@
+python-apt (0.6.19ubuntu7) edgy; urgency=low
+
+  * python/generic.h:
+    - fix incorrect use of PyMem_DEL(), use PyObject_DEL()
+      instead. This fixes a nasty segfault with python2.5
+      (lp: 63226)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  4 Oct 2006 16:45:53 +0200
+
 python-apt (0.6.19ubuntu6) edgy; urgency=low
 
   * python/progress.cc:
