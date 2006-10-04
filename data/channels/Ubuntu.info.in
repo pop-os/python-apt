@@ -8,7 +8,7 @@ MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: By Canonical supported Open Source software
+_CompDescriptionLong: Canonical supported Open Source software
 Component: universe
 _CompDescription: Community maintained
 _CompDescriptionLong: Community maintained Open Source software
@@ -17,7 +17,7 @@ _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
 _CompDescription: Restricted software
-_CompDescriptionLong: By copyright or legal issues restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: edgy
 MatchName: .*
@@ -59,7 +59,7 @@ MirrorsFile: /usr/share/update-manager/mirrors.cfg
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: By Canonical supported Open Source software
+_CompDescriptionLong: Canonical supported Open Source software
 Component: universe
 _CompDescription: Community maintained (universe)
 _CompDescriptionLong: Community maintained Open Source software
@@ -68,7 +68,7 @@ _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices 
 Component: multiverse
 _CompDescription: Restricted software (Multiverse)
-_CompDescriptionLong: By copyright or legal issues restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: dapper
 MatchName: .*
