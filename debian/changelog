@@ -1,3 +1,12 @@
+python-apt (0.6.21) unstable; urgency=low
+
+  * python/generic.h:
+    - fix incorrect use of PyMem_DEL(), use pyObject_DEL()
+      instead. This fixes a nasty segfault with python2.5
+      (lp: 63226)
+
+ --
+
 python-apt (0.6.20) unstable; urgency=low
 
   * python/pkgmanager.cc:
