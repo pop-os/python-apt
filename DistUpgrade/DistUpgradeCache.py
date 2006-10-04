@@ -307,8 +307,8 @@ class MyCache(apt.Cache):
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
                     try:
                         self[key].markInstall()
-                    except SystemError:
-                        logging.error("failed to mark '%s' for install" % key)
+                    except SystemError, e:
+                        logging.error("failed to mark '%s' for install (%s)" % (key,e))
                         view.error(_("Can't install '%s'" % key),
                                    _("It was impossible to install a "
                                      "required package. Please report "
@@ -340,13 +340,18 @@ class MyCache(apt.Cache):
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
         self.create_snapshot()
-        self[pkgname].markDelete()
-        for pkg in self.getChanges():
-            if pkg.name not in remove_candidates or \
-                   pkg.name in foreign_pkgs or \
-                   self._inRemovalBlacklist(pkg.name):
-                self.restore_snapshot()
-                return False
+        try:
+            self[pkgname].markDelete()
+            for pkg in self.getChanges():
+                if pkg.name not in remove_candidates or \
+                       pkg.name in foreign_pkgs or \
+                       self._inRemovalBlacklist(pkg.name):
+                    self.restore_snapshot()
+                    return False
+        except SystemError,e:
+            loggging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
+            self.restore_snapshot()
+            return False
         return True
     
     def _getObsoletesPkgs(self):
