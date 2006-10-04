@@ -114,10 +114,12 @@ class MyCache(apt.Cache):
     def saveDistUpgrade(self):
         """ this functions mimics a upgrade but will never remove anything """
         self._depcache.Upgrade(True)
+        wouldDelete = self._depcache.DelCount
         if self._depcache.DelCount > 0:
             self.clear()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
+        return wouldDelete
 
     def get_changelog(self, name, lock):
         # don't touch the gui in this function, it needs to be thread-safe
@@ -250,7 +252,7 @@ class UpdateList:
     self.held_back = []
 
     # do the upgrade
-    cache.saveDistUpgrade()
+    self.distUpgradeWouldDelete = cache.saveDistUpgrade()
 
     # sort by origin
     for pkg in cache:
@@ -911,7 +913,7 @@ class UpdateManager(SimpleGladeApp):
   def check_all_updates_installable(self):
     """ Check if all available updates can be installed and suggest
         to run a distribution upgrade if not """
-    if self.list.keepcount > 0:
+    if self.list.distUpgradeWouldDelete > 0:
       self.dialog_dist_upgrade.set_transient_for(self.window_main)
       res = self.dialog_dist_upgrade.run()
       self.dialog_dist_upgrade.hide()

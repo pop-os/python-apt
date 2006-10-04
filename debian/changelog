@@ -4,6 +4,7 @@ update-manager (0.44.15) edgy; urgency=low
   * added missing gksu dependency (lp: #63572)
   * don't remove xchat automatically anymore on upgrade (leftover
     from breezy->dapper) (lp: #63881)
+  * do not come up with bogus dist-upgrade suggestions
 
  --
 
