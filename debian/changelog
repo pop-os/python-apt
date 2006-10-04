@@ -5,6 +5,7 @@ update-manager (0.44.15) edgy; urgency=low
   * don't remove xchat automatically anymore on upgrade (leftover
     from breezy->dapper) (lp: #63881)
   * do not come up with bogus dist-upgrade suggestions
+  * fix bad english grammar (lp: #63761)
 
  --
 
