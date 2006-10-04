@@ -8,6 +8,8 @@ update-manager (0.44.15) edgy; urgency=low
   * fix bad english grammar (lp: #63761)
   * fix in the edgyUpdates quirks handler (lp: #63723)
   * catch error from _tryMarkObsoleteForRemoval() (lp: #63617)
+  * fix plural forms for ro, pl (lp: #46421)
+  * properly escape comments before displaying them (lp: #63475)
 
  --
 
