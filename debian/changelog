@@ -6,6 +6,7 @@ update-manager (0.44.15) edgy; urgency=low
     from breezy->dapper) (lp: #63881)
   * do not come up with bogus dist-upgrade suggestions
   * fix bad english grammar (lp: #63761)
+  * fix in the edgyUpdates quirks handler (lp: #63723)
 
  --
 

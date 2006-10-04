@@ -177,7 +177,7 @@ class MyCache(apt.Cache):
                         self.markInstall(basepkg,
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
-                        logging.debug("Failed to apply python2.4->python install: %s (%s)" % (newpkg, e))
+                        logging.debug("Failed to apply python2.4->python install: %s (%s)" % (basepkg, e))
         # deal with *gar*gar* hpijs
         if (self.has_key("hpijs") and self["hpijs"].isInstalled and
             not self["hpijs"].markedUpgrade):
