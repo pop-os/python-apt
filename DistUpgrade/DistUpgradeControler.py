@@ -372,6 +372,18 @@ class DistUpgradeControler(object):
                     "packages of former installations using "
                     "'sudo apt-get clean'.")
 
+        # gather/log some staticts
+        mnt_map = {}
+        for d in ["/","/usr","/var","/boot"]:
+            st = os.statvfs(d)
+            free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
+            if st in mnt_map:
+                logging.debug("Dir %s mounted on %s" % (d,mnt_map[st]))
+            else:
+                logging.debug("Free space on %s: %s" % (d,free))
+                mnt_map[st] = d
+        del mnt_map
+
         # first check for /var (or where the archives are downloaded too)
         archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
         st_archivedir = os.statvfs(archivedir)
