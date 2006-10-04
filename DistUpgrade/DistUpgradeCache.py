@@ -348,7 +348,7 @@ class MyCache(apt.Cache):
                        self._inRemovalBlacklist(pkg.name):
                     self.restore_snapshot()
                     return False
-        except SystemError,e:
+        except (SystemError,KeyError),e:
             loggging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
             self.restore_snapshot()
             return False
