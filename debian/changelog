@@ -1,6 +1,6 @@
 update-manager (0.44.16) edgy; urgency=low
 
-  * fix proxy use in user-mode
+  * fix proxy usage when runing in non-root mode (lp: #40626)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 Oct 2006 15:17:37 +0200
 

@@ -44,13 +44,13 @@ import string
 import sys
 import os
 import os.path
-import urllib2
 import re
 import locale
 import tempfile
 import pango
 import subprocess
 import pwd
+import urllib2
 import time
 import thread
 import xml.sax.saxutils
@@ -355,26 +355,6 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.connect("button-press-event", self.show_context_menu)
 
 
-    # proxy stuff
-    # FIXME: move this into it's own function
-    SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
-    if os.path.exists(SYNAPTIC_CONF_FILE):
-      cnf = apt_pkg.newConfiguration()
-      apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
-      use_proxy = cnf.FindB("Synaptic::useProxy", False)
-      if use_proxy:
-        proxy_host = cnf.Find("Synaptic::httpProxy")
-        proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
-        if proxy_host and proxy_port:
-	  # FIXME: set the proxy for libapt here as well (e.g. for the
-	  #        DistUpgradeFetcher
-          proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
-          opener = urllib2.build_opener(proxy_support)
-          urllib2.install_opener(opener)
-	  # install a proxy environment too
-	  if not os.environ.has_key("http_proxy"):
-		  os.putenv("http_proxy",
-			    "http://%s:%s/" % (proxy_host, proxy_port))
 
     # setup the help viewer and disable the help button if there
     # is no viewer available
@@ -390,9 +370,24 @@ class UpdateManager(SimpleGladeApp):
     self.window_main.show()
 
   def init_proxy(self):
+      # proxy settings, first check for http_proxy environment (always wins),
+      # then look into synaptics conffile, then into gconf 
       if os.getenv("http_proxy"):
           return
-      if self.gconfclient.get_bool("/system/http_proxy/use_http_proxy"):
+      SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
+      proxy = None
+      if os.path.exists(SYNAPTIC_CONF_FILE):
+          cnf = apt_pkg.newConfiguration()
+          apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
+          use_proxy = cnf.FindB("Synaptic::useProxy", False)
+          if use_proxy:
+              proxy_host = cnf.Find("Synaptic::httpProxy")
+              proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
+              if proxy_host and proxy_port:
+                  # FIXME: set the proxy for libapt here as well (e.g. for the
+                  #        DistUpgradeFetcher
+                  proxy = "http://%s:%s/" % (proxy_host, proxy_port)
+      elif self.gconfclient.get_bool("/system/http_proxy/use_http_proxy"):
           host = self.gconfclient.get_string("/system/http_proxy/host")
           port = self.gconfclient.get_int("/system/http_proxy/port")
           use_auth = self.gconfclient.get_bool("/system/http_proxy/use_authentication")
@@ -402,6 +397,10 @@ class UpdateManager(SimpleGladeApp):
               proxy = "http://%s:%s@%s:%s/" % (auth_user,auth_pass,host, port)
           else:
               proxy = "http://%s:%s/" % (host, port)
+      if proxy:
+          proxy_support = urllib2.ProxyHandler({"http":proxy})
+          opener = urllib2.build_opener(proxy_support)
+          urllib2.install_opener(opener)
           os.putenv("http_proxy",proxy)
 
   def header_column_func(self, cell_layout, renderer, model, iter):
