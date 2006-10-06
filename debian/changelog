@@ -1,3 +1,9 @@
+update-manager (0.44.16) edgy; urgency=low
+
+  * fix proxy use in user-mode
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 Oct 2006 15:17:37 +0200
+
 update-manager (0.44.15) edgy; urgency=low
 
   * added missing python-vte dependency (lp: #63609)

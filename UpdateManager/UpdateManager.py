@@ -383,9 +383,26 @@ class UpdateManager(SimpleGladeApp):
         self.button_help.set_sensitive(False)
 
     self.gconfclient = gconf.client_get_default()
+    self.init_proxy()
+
     # restore state
     self.restore_state()
     self.window_main.show()
+
+  def init_proxy(self):
+      if os.getenv("http_proxy"):
+          return
+      if self.gconfclient.get_bool("/system/http_proxy/use_http_proxy"):
+          host = self.gconfclient.get_string("/system/http_proxy/host")
+          port = self.gconfclient.get_int("/system/http_proxy/port")
+          use_auth = self.gconfclient.get_bool("/system/http_proxy/use_authentication")
+          if use_auth:
+              auth_user = self.gconfclient.get_string("/system/http_proxy/authentication_user")
+              auth_pw = self.gconfclient.get_string("/system/http_proxy/authentication_password")
+              proxy = "http://%s:%s@%s:%s/" % (auth_user,auth_pass,host, port)
+          else:
+              proxy = "http://%s:%s/" % (host, port)
+          os.putenv("http_proxy",proxy)
 
   def header_column_func(self, cell_layout, renderer, model, iter):
     pkg = model.get_value(iter, LIST_PKG)
@@ -836,7 +853,7 @@ class UpdateManager(SimpleGladeApp):
     dialog.set_markup(msg)
     dialog.run()
     dialog.destroy()
-    
+
   def on_button_dist_upgrade_clicked(self, button):
       #print "on_button_dist_upgrade_clicked"
       fetcher = DistUpgradeFetcher(self, self.new_dist)
