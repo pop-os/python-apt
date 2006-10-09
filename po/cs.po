@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-04 20:51+0000\n"
+"POT-Creation-Date: 2006-10-06 23:18+0200\n"
 "PO-Revision-Date: 2006-10-05 20:41+0000\n"
 "Last-Translator: Tomáš Hála <tomas@monty.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Daily"
@@ -56,6 +56,7 @@ msgstr "Po měsíci"
 msgid "After %s days"
 msgstr "Po %s dnech"
 
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
 #, python-format
 msgid "%s updates"
@@ -63,6 +64,7 @@ msgstr "%s aktualizace"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -72,6 +74,7 @@ msgstr "%s (%s)"
 msgid "Main server"
 msgstr "Hlavní server"
 
+#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -122,12 +125,11 @@ msgid "Error removing the key"
 msgstr "Chyba při odstraňování klíče"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "Vybraný klíč nemohl být odstraněn. Prosím oznamte to jako chybu."
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
 "\n"
@@ -166,6 +168,7 @@ msgstr "Nemohu aktualizovat požadované meta-balíky"
 msgid "A essential package would have to be removed"
 msgstr "Základní balík by musel být odstraněn"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "Nemohu vypočítat aktualizaci"
@@ -184,6 +187,7 @@ msgstr ""
 "Prosím oznamte tuto chybu jako problém balíčku 'update-manager' a přiložte "
 "soubory v adresáři /var/log/dist-upgrade/ k vašemu chybovému hlášení."
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "Chyba při ověření některých balíků"
@@ -210,6 +214,7 @@ msgid ""
 msgstr ""
 "Nebylo možné nainstalovat požadovaný balík. Prosím oznamte to jako chybu. "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr "Nemohu odhadnout meta-balík"
@@ -292,6 +297,7 @@ msgstr ""
 "všechny položky '%s' aktualizovány na '%s'.\n"
 "Zvolíte-li 'Ne', aktualizace bude zrušena."
 
+#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Generate default sources?"
 msgstr "Vytvořit standardní zdroje?"
@@ -363,6 +369,7 @@ msgstr ""
 "Vyprázdněte váš koš a odstraňte dočasné balíčky z dřívějších instalací "
 "pomocí 'sudo apt-get clean'."
 
+#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr "Chcete spustit aktualizaci?"
@@ -441,6 +448,7 @@ msgstr ""
 "Během čištění nastal nějaký problém. Pro více informací si prosím "
 "prohléhněte níže uvedenou zprávu. "
 
+#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
 msgstr "Obnovuje se původní stav systému"
@@ -451,6 +459,7 @@ msgid "Fetching backport of '%s'"
 msgstr "Stahuji backport '%s'"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 msgid "Checking package manager"
@@ -491,8 +500,8 @@ msgstr ""
 "Poté co byly aktualizovány informaco o balíčcích, nebyl nalezen nezbytný "
 "balík '%s'.\n"
 "Toto ukazuje na závažný problém, prosím nahlašte toto jako chybu balíku "
-"'update-manager' a přiložte k hlášení o chybě soubory v adresáři "
-"/var/log/dist-upgrade/."
+"'update-manager' a přiložte k hlášení o chybě soubory v adresáři /var/log/"
+"dist-upgrade/."
 
 #: ../DistUpgrade/DistUpgradeControler.py:733
 msgid "Asking for confirmation"
@@ -510,6 +519,7 @@ msgstr "Vyhledáván zastaralý software"
 msgid "System upgrade is complete."
 msgstr "Upgrade systému je dokončen."
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -521,23 +531,24 @@ msgid "Fetching is complete"
 msgstr "Aktualizace je dokončena"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:129
-#, fuzzy
+#, fuzzy, python-format
 msgid "Fetching file %li of %li at %s/s"
 msgstr "Stahuji soubor %li z %li  rychlostí %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
 #: ../DistUpgrade/DistUpgradeViewGtk.py:249
-#, fuzzy
+#, fuzzy, python-format
 msgid "About %s remaining"
 msgstr "Zhruba %li minut zbývá"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:132
-#, fuzzy
+#, fuzzy, python-format
 msgid "Fetching file %li of %li"
 msgstr "Stahuji soubor %li z %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "Provádím změny"
@@ -553,11 +564,12 @@ msgid ""
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 "Aktualizace se přerušila. Nahlašte prosím tuto chybu jako chybu balíku "
-"'update-manager'  a přiložte k chybovému hlášení soubory z adresáře "
-"/var/log/dist-upgrade/."
+"'update-manager'  a přiložte k chybovému hlášení soubory z adresáře /var/log/"
+"dist-upgrade/."
 
+#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:202
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "Replace the customized configuration file\n"
 "'%s'?"
@@ -582,19 +594,20 @@ msgstr "Nastala fatální chyba"
 #: ../DistUpgrade/DistUpgradeViewGtk.py:356
 #, fuzzy
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-"
-"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
-"upgrade aborts now.\n"
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 "Prosím oznamte toto jako chybu a do zprávy připojte soubory /var/log/dist-"
 "upgrade.log a /var/log/dist-upgrade-apt.log. Přechod na novou verzi bbude "
-"nyní předčasně ukončen. Váš původní sources.list byl uložen do "
-"/etc/apt/sources.list.distUpgrade."
+"nyní předčasně ukončen. Váš původní sources.list byl uložen do /etc/apt/"
+"sources.list.distUpgrade."
 
 #. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
 #: ../DistUpgrade/DistUpgradeViewGtk.py:487
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d package is going to be removed."
 msgid_plural "%d packages are going to be removed."
 msgstr[0] "%s balík bude odstraněn."
@@ -602,7 +615,7 @@ msgstr[1] "%s balíky budou odstraněny."
 msgstr[2] "%s balíků bude odstraněno."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:492
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d new package is going to be installed."
 msgid_plural "%d new packages are going to be installed."
 msgstr[0] "%s nový balík bude nainstalován."
@@ -610,7 +623,7 @@ msgstr[1] "%s nové balíky budou nainstalovány."
 msgstr[2] "%s nových balíků bude nainstalováno."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:498
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d package is going to be upgraded."
 msgid_plural "%d packages are going to be upgraded."
 msgstr[0] "%s balík bude nahrazen vyšší verzí."
@@ -618,7 +631,7 @@ msgstr[1] "%s balíky budou nahrazeny vyšší verzí."
 msgstr[2] "%s balíky bude nahrazeno vyšší verzí."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:503
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "\n"
 "\n"
@@ -639,8 +652,9 @@ msgstr "Upgrade může trvat několik hodin a nesmí být později přerušen."
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Pro zamezení ztráty dat, uzavřete všechny aplikace a dokumenty."
 
+#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:606
+#: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr "Váš systém je aktuální"
 
@@ -668,12 +682,12 @@ msgid "Upgrade %s"
 msgstr "Aktualizovat %s"
 
 #: ../DistUpgrade/DistUpgradeView.py:27
-#, fuzzy
+#, fuzzy, python-format
 msgid "%li days %li hours %li minutes"
 msgstr "Zhruba %li hodin %li minut zbývá"
 
 #: ../DistUpgrade/DistUpgradeView.py:29
-#, fuzzy
+#, fuzzy, python-format
 msgid "%li hours %li minutes"
 msgstr "Zbývá zhruba %li hodin %li minut"
 
@@ -688,6 +702,7 @@ msgid "%li seconds"
 msgstr "%li sekund"
 
 #. 56 kbit
+#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -709,6 +724,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -821,6 +837,7 @@ msgstr "Nelze stáhnout poznámky k vydání."
 msgid "Please check your internet connection."
 msgstr "Prosím zkontrolujte své internetové připojení."
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "Nemohu spustit aktualizační nástroj"
@@ -896,12 +913,12 @@ msgstr ""
 "Autentizace aktualizace selhala. Může být problém se sítí nebo serverem. "
 
 #: ../UpdateManager/GtkProgress.py:108
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr "Stahuji %li. soubor z %li rychlostí %s/s"
 
 #: ../UpdateManager/GtkProgress.py:113
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr "Stahuji %li. soubor z %li rychlostí %s/s"
 
@@ -924,14 +941,17 @@ msgid ""
 msgstr ""
 "Selhalo stažení seznamu změn. Prosím zkontrolujte své internetové připojení."
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 msgid "Important security updates"
 msgstr "Důležité bezpečnostní aktualizace"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr "Doporučené aktualizace"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 #, fuzzy
 msgid "Proposed updates"
@@ -947,35 +967,37 @@ msgstr "Ubuntu 5.10 Backports"
 msgid "Distribution updates"
 msgstr "_Pokračovat v upgradu"
 
+#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 msgid "Other updates"
 msgstr "Ostatní aktualizace"
 
-#: ../UpdateManager/UpdateManager.py:462
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
 msgstr "Verze %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:523
+#: ../UpdateManager/UpdateManager.py:539
 #, fuzzy
 msgid "Downloading list of changes..."
 msgstr "Stahuji seznam změn ..."
 
-#: ../UpdateManager/UpdateManager.py:550
+#: ../UpdateManager/UpdateManager.py:566
 msgid "_Uncheck All"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:556
+#: ../UpdateManager/UpdateManager.py:572
 #, fuzzy
 msgid "_Check All"
 msgstr "_Zkontrolovat"
 
-#: ../UpdateManager/UpdateManager.py:597 ../UpdateManager/UpdateManager.py:621
+#. TRANSLATORS: b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
 msgstr "Stahovaná velikost: %s"
 
-#: ../UpdateManager/UpdateManager.py:617
+#: ../UpdateManager/UpdateManager.py:633
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
@@ -983,39 +1005,40 @@ msgstr[0] "Můžete instalovat %s aktualizaci"
 msgstr[1] "Můžete instalovat %s aktualizace"
 msgstr[2] "Můžete instalovat %s aktualizací"
 
-#: ../UpdateManager/UpdateManager.py:650
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
 msgstr "Prosím čekejte, může to nějakou dobu trvat."
 
-#: ../UpdateManager/UpdateManager.py:652
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr "Aktualizace je dokončena"
 
-#: ../UpdateManager/UpdateManager.py:703
+#: ../UpdateManager/UpdateManager.py:719
 #, fuzzy
 msgid "Checking for updates"
 msgstr "Zkontrolovat dostupné aktualizace"
 
-#: ../UpdateManager/UpdateManager.py:810
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:826
+#, fuzzy, python-format
 msgid "From version %(old_version)s to %(new_version)s"
 msgstr "Nová verze: %s (Velikost: %s)"
 
-#: ../UpdateManager/UpdateManager.py:814
+#: ../UpdateManager/UpdateManager.py:830
 #, python-format
 msgid "Version %s"
 msgstr "Verze %s"
 
-#: ../UpdateManager/UpdateManager.py:816
+#. TRANSLATORS: the b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
 msgstr "(Velikost: %s)"
 
-#: ../UpdateManager/UpdateManager.py:827
+#: ../UpdateManager/UpdateManager.py:843
 msgid "Your distribution is not supported anymore"
 msgstr "Vaše distribude už není podporovaná"
 
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -1025,16 +1048,17 @@ msgstr ""
 "Přejděte na další verzi Ubuntu Linuxu. Pro více informací o přechodu na "
 "vyšší verzi se podívejte na http://www.ubuntu.com."
 
-#: ../UpdateManager/UpdateManager.py:847
+#: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Nové vydání distribuce '%s' je k dispozici</b>"
 
-#: ../UpdateManager/UpdateManager.py:882
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:898
 msgid "Software index is broken"
 msgstr "Seznam softwaru je poškozen"
 
-#: ../UpdateManager/UpdateManager.py:883
+#: ../UpdateManager/UpdateManager.py:899
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1044,19 +1068,23 @@ msgstr ""
 "správce balíčků \"Synaptic\" nebo nejdříve spusťe v terminálu \"sudo apt-get "
 "install -f\" pro opravu tohoto problému."
 
+#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr ""
 
+#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr "1 KB"
 
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr "%.0f KB"
 
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1331,8 +1359,8 @@ msgid ""
 "The APT line includes the type, location and components of a repository, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Zadejte úplný řádek pro cestu APT kanálu, který chcete "
-"přidat</b></big>\n"
+"<big><b>Zadejte úplný řádek pro cestu APT kanálu, který chcete přidat</b></"
+"big>\n"
 "\n"
 "Řádek pro APT obsahuje typ, umístění a součásti kanálu, např. <i>\"deb "
 "http://ftp.debian.org sarge main\"</i>."
@@ -1422,197 +1450,240 @@ msgstr "Velikost okna"
 msgid "Configure the sources for installable software and updates"
 msgstr "Konfigurovat zdroje pro instalovatelný software a aktualizace"
 
+#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:8
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 6.10 'Edgy Eft'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 #, fuzzy
 msgid "Community maintained"
 msgstr "Udržováno komunitou (Universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 #, fuzzy
 msgid "Restricted software"
 msgstr "Nesvobodný (Multiverse)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "Cdrom s Ubuntu 6.10 'Edgy Eft'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:59
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 #, fuzzy
 msgid "Canonical supported Open Source software"
 msgstr "Udržováno komunitou (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
 msgstr "Udržováno komunitou (universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 #, fuzzy
 msgid "Community maintained Open Source software"
 msgstr "Udržováno komunitou (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 msgid "Non-free drivers"
 msgstr "Nesvobodné ovladače"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 msgid "Restricted software (Multiverse)"
 msgstr "Omezený software (Multiverse)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Cdrom s Ubuntu 6.06 LTS 'Dapper Drake'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:123
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Cdrom s Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 Bezpečnostní Aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 Aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Backports"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:152
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Cdrom s Ubuntu 5.04 'Hoary Hedgehog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Oficiálně podporováno"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:177
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.04 Bezpečnostní aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:182
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.04 Aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:187
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.04 Backports"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:193
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 4.10 'Warty Warthog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "Udržováno komunitou (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "Nesvobodný (Multiverse)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "Cdrom s Ubuntu 4.10 'Warty Warthog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "Oficiálně podporované"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "Omezeno copyrightem"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 4.10 Bezpečnostní aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:223
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 4.10 Aktualizace"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:228
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 4.10 Backports"
 
+#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" Bezpoečnostní Aktualizace"
 
+#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (unstable)"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatibilní software s Non-free závislostmi"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Žádný DFSG kompatibilní  Software"
 
-#, python-format
 #~ msgid "Downloading file %li of %li with unknown speed"
 #~ msgstr "Stahuji %li. soubor z %li neznámou rychlostí"
 
@@ -1651,8 +1722,8 @@ msgstr "Žádný DFSG kompatibilní  Software"
 #~ msgstr ""
 #~ "<big><b>Prozkoumává se systém</b></big>\n"
 #~ "\n"
-#~ "Aktualizace softwaru opravují chyby, eliminují bezpečnostní zranitelnosti a "
-#~ "poskytují nové funkce."
+#~ "Aktualizace softwaru opravují chyby, eliminují bezpečnostní zranitelnosti "
+#~ "a poskytují nové funkce."
 
 #~ msgid "Oficially supported"
 #~ msgstr "Oficiálně podporované"
@@ -1660,7 +1731,6 @@ msgstr "Žádný DFSG kompatibilní  Software"
 #~ msgid "The following updates will be skipped:"
 #~ msgstr "Následující aktualizace budou přeskočeny:"
 
-#, python-format
 #~ msgid "About %li seconds remaining"
 #~ msgstr "Zhruba %li sekund zbývá"
 
@@ -1737,11 +1807,11 @@ msgstr "Žádný DFSG kompatibilní  Software"
 #~ msgstr "Ubuntu 6.06 LTS backporty"
 
 #~ msgid ""
-#~ "While scaning your repository information no valid entry for the upgrade was "
-#~ "found.\n"
+#~ "While scaning your repository information no valid entry for the upgrade "
+#~ "was found.\n"
 #~ msgstr ""
-#~ "Během prozkoumávání vašich zdrojů nebyla nalezený žádná platná položka pro "
-#~ "upgrade.\n"
+#~ "Během prozkoumávání vašich zdrojů nebyla nalezený žádná platná položka "
+#~ "pro upgrade.\n"
 
 #~ msgid "<b>Sections</b>"
 #~ msgstr "<b>Sekce</b>"

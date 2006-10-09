@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-04 20:51+0000\n"
+"POT-Creation-Date: 2006-10-06 23:18+0200\n"
 "PO-Revision-Date: 2006-10-05 20:36+0000\n"
 "Last-Translator: catinsnow <catinsnow@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -54,6 +54,7 @@ msgstr "一月后"
 msgid "After %s days"
 msgstr "%s天后"
 
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
 #, python-format
 msgid "%s updates"
@@ -61,6 +62,7 @@ msgstr "%s 更新"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -70,6 +72,7 @@ msgstr "%s (%s)"
 msgid "Main server"
 msgstr "主服务器"
 
+#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -119,8 +122,7 @@ msgid "Error removing the key"
 msgstr "删除密钥时候出错"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr "你所选择的密钥不能被删除。请汇报这个bug"
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
@@ -150,7 +152,9 @@ msgstr "破损的软件包"
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
-msgstr "你的系统包含有破损的软件包而不能通过此软件修复。 在你继续前请先用新立得或者apt-get修复它们。"
+msgstr ""
+"你的系统包含有破损的软件包而不能通过此软件修复。 在你继续前请先用新立得或者"
+"apt-get修复它们。"
 
 #: ../DistUpgrade/DistUpgradeCache.py:207
 msgid "Can't upgrade required meta-packages"
@@ -160,6 +164,7 @@ msgstr "不能升级要求的元包"
 msgid "A essential package would have to be removed"
 msgstr "一个必要的软件包会被删除"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "无法计算升级"
@@ -173,8 +178,10 @@ msgid ""
 msgstr ""
 "在计算升级时遇到一个无法解决的问题。\n"
 "\n"
-"请汇报这个有关 'update-manager' 的错误，并且将 /var/log/dist-upgrade/ 中的文件包含在错误报告中。"
+"请汇报这个有关 'update-manager' 的错误，并且将 /var/log/dist-upgrade/ 中的文"
+"件包含在错误报告中。"
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "在认证一些软件包时出错"
@@ -184,7 +191,9 @@ msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
-msgstr "无法认证一些软件包。这可能是暂时的网络问题。你可以在稍后再试。以下是未认证软件包的列表。"
+msgstr ""
+"无法认证一些软件包。这可能是暂时的网络问题。你可以在稍后再试。以下是未认证软"
+"件包的列表。"
 
 #: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
@@ -197,6 +206,7 @@ msgid ""
 "bug. "
 msgstr "无法安装要求的软件包。请汇报这个bug。 "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr "无法猜出元包"
@@ -209,8 +219,8 @@ msgid ""
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
-"你的系统没有一个ubuntu-desktop,kubuntu-desktop或eubuntu-"
-"desktop软件包所以无法确定你运行的ubuntu的版本。\n"
+"你的系统没有一个ubuntu-desktop,kubuntu-desktop或eubuntu-desktop软件包所以无法"
+"确定你运行的ubuntu的版本。\n"
 " 请先用新立得或apt-get安装以上所举软件包中的一个。"
 
 #: ../DistUpgrade/DistUpgradeControler.py:74
@@ -264,10 +274,12 @@ msgid ""
 "here it will update all '%s' to '%s' entries.\n"
 "If you select 'no' the update will cancel."
 msgstr ""
-"扫描你的源列表时没有找到用于升级的镜像的条目.可能是因为你运行在一个内部的镜像或镜像信息过时了.\n"
+"扫描你的源列表时没有找到用于升级的镜像的条目.可能是因为你运行在一个内部的镜像"
+"或镜像信息过时了.\n"
 "一定要重写您的'sources.list'吗?如果选'Yes'将会更新所有'%s'到'%s'条目.\n"
 "如果选'no'更新将被取消."
 
+#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Generate default sources?"
 msgstr "生成默认的源?"
@@ -303,7 +315,9 @@ msgid ""
 "Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
-msgstr "sources.list中的一些第三方源被禁用。你可以在升级后用\"软件属性\"工具或新立得包管理器来重新启用它们."
+msgstr ""
+"sources.list中的一些第三方源被禁用。你可以在升级后用\"软件属性\"工具或新立得"
+"包管理器来重新启用它们."
 
 #: ../DistUpgrade/DistUpgradeControler.py:358
 msgid "Error during update"
@@ -326,8 +340,10 @@ msgid ""
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
-"升级已被取消。请清理出至少%s的空间在%s磁盘上。清空你的回收站并通过'sudo apt-get clean'命令来删除之前安装的临时软件包。"
+"升级已被取消。请清理出至少%s的空间在%s磁盘上。清空你的回收站并通过'sudo apt-"
+"get clean'命令来删除之前安装的临时软件包。"
 
+#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr "你要开始升级么？"
@@ -344,9 +360,11 @@ msgid ""
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
-"升级现在取消。你的系统可能处于不稳定状态。恢复操作可运行(dpkg --configure -a)。\n"
+"升级现在取消。你的系统可能处于不稳定状态。恢复操作可运行(dpkg --configure -"
+"a)。\n"
 "\n"
-"请报告本'update-manger'包的bug，并在报告中包含/var/log/disg-upgrade/中的文件。"
+"请报告本'update-manger'包的bug，并在报告中包含/var/log/disg-upgrade/中的文"
+"件。"
 
 #: ../DistUpgrade/DistUpgradeControler.py:479
 msgid "Could not download the upgrades"
@@ -397,6 +415,7 @@ msgid ""
 "more information. "
 msgstr "在清理时发生问题。更多信息请查看以下消息。 "
 
+#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
 msgstr "正在恢复原始系统状态"
@@ -407,6 +426,7 @@ msgid "Fetching backport of '%s'"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 msgid "Checking package manager"
@@ -444,7 +464,8 @@ msgid ""
 msgstr ""
 "包信息被更新后核心包'%s'没有找到。\n"
 "\n"
-"这表示严重的错误,请报告这个'update-manager'包的bug，并在报告中包含/var/log/dist-upgrade/中的文件。"
+"这表示严重的错误,请报告这个'update-manager'包的bug，并在报告中包含/var/log/"
+"dist-upgrade/中的文件。"
 
 #: ../DistUpgrade/DistUpgradeControler.py:733
 msgid "Asking for confirmation"
@@ -462,6 +483,7 @@ msgstr "寻找陈旧的软件包"
 msgid "System upgrade is complete."
 msgstr "系统更新完毕"
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -489,6 +511,7 @@ msgstr "下载第 %li 个文件(共 %li 个文件)"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "正在应用更新"
@@ -502,8 +525,11 @@ msgstr "无法安装'%s'"
 msgid ""
 "The upgrade aborts now. Please report this bug against the 'update-manager' "
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
-msgstr "升级中止。请报告本'update-manager'包的bug,度在报告中包含/var/log/dist-upgrade/中的文件。"
+msgstr ""
+"升级中止。请报告本'update-manager'包的bug,度在报告中包含/var/log/dist-"
+"upgrade/中的文件。"
 
+#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:202
 #, python-format
 msgid ""
@@ -530,15 +556,17 @@ msgstr "出现致命错误"
 #: ../DistUpgrade/DistUpgradeViewGtk.py:356
 #, fuzzy
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-"
-"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
-"upgrade aborts now.\n"
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
-"请报告这个bug并在你的报告中包括文件~/dist-upgrade.log和~/dist-upgrade-apt.log。升级现在取消。\n"
+"请报告这个bug并在你的报告中包括文件~/dist-upgrade.log和~/dist-upgrade-apt."
+"log。升级现在取消。\n"
 "你原始的sources.list已保存在/etc/apt/sources.list.distUpgrade."
 
 #. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
 #: ../DistUpgrade/DistUpgradeViewGtk.py:487
 #, python-format
 msgid "%d package is going to be removed."
@@ -578,8 +606,9 @@ msgstr "下载及升级会持续几个小时，且不可取消。"
 msgid "To prevent data loss close all open applications and documents."
 msgstr "关闭所有打开的程序和文档以防止数据丢失。"
 
+#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:606
+#: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr "您的系统已为最新"
 
@@ -625,6 +654,7 @@ msgid "%li seconds"
 msgstr "%li 秒"
 
 #. 56 kbit
+#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -644,6 +674,7 @@ msgstr "升级已经完成并需要重启。你要现在重启么？"
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -754,6 +785,7 @@ msgstr "无法下载发行说明"
 msgid "Please check your internet connection."
 msgstr "请检查你的互联网连接。"
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "不能运行升级工具"
@@ -819,12 +851,12 @@ msgid ""
 msgstr "认证升级信息失败。可能是网络或服务器的问题。 "
 
 #: ../UpdateManager/GtkProgress.py:108
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr "正在下载文件 %li/%li 速度是 %s/s"
 
 #: ../UpdateManager/GtkProgress.py:113
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr "正在下载文件 %li/%li 速度是 %s/s"
 
@@ -846,14 +878,17 @@ msgid ""
 "Please check your Internet connection."
 msgstr "无法下载更新列表。请检查您的网络连接。"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 msgid "Important security updates"
 msgstr "重要安全更新"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr "建议更新"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 msgid "Proposed updates"
 msgstr "建议更新"
@@ -867,109 +902,119 @@ msgstr "Backports"
 msgid "Distribution updates"
 msgstr "继续升级(_R)"
 
+#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 msgid "Other updates"
 msgstr "其它更新"
 
-#: ../UpdateManager/UpdateManager.py:462
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
 msgstr "版本 %s： \n"
 
-#: ../UpdateManager/UpdateManager.py:523
+#: ../UpdateManager/UpdateManager.py:539
 #, fuzzy
 msgid "Downloading list of changes..."
 msgstr "正在下载更新列表..."
 
-#: ../UpdateManager/UpdateManager.py:550
+#: ../UpdateManager/UpdateManager.py:566
 msgid "_Uncheck All"
 msgstr "取消全部(_U)"
 
-#: ../UpdateManager/UpdateManager.py:556
+#: ../UpdateManager/UpdateManager.py:572
 msgid "_Check All"
 msgstr "选中全部(_C)"
 
-#: ../UpdateManager/UpdateManager.py:597 ../UpdateManager/UpdateManager.py:621
+#. TRANSLATORS: b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
 msgstr "下载文件大小：%s"
 
-#: ../UpdateManager/UpdateManager.py:617
+#: ../UpdateManager/UpdateManager.py:633
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "你可以安装 %s 个更新"
 
-#: ../UpdateManager/UpdateManager.py:650
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
 msgstr "请稍等，这需要花一些时间。"
 
-#: ../UpdateManager/UpdateManager.py:652
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr "更新完成"
 
-#: ../UpdateManager/UpdateManager.py:703
+#: ../UpdateManager/UpdateManager.py:719
 msgid "Checking for updates"
 msgstr "检查更新"
 
-#: ../UpdateManager/UpdateManager.py:810
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:826
+#, fuzzy, python-format
 msgid "From version %(old_version)s to %(new_version)s"
 msgstr "新版本：%s(大小：%s)"
 
-#: ../UpdateManager/UpdateManager.py:814
+#: ../UpdateManager/UpdateManager.py:830
 #, python-format
 msgid "Version %s"
 msgstr "版本 %s"
 
-#: ../UpdateManager/UpdateManager.py:816
+#. TRANSLATORS: the b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
 msgstr "(大小:%s)"
 
-#: ../UpdateManager/UpdateManager.py:827
+#: ../UpdateManager/UpdateManager.py:843
 msgid "Your distribution is not supported anymore"
 msgstr "您的发行版不再被支持"
 
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
-"你将不再获得未来的安全修订或重要更新。升级到更高版本的 Ubuntu Linux。请参见\n"
+"你将不再获得未来的安全修订或重要更新。升级到更高版本的 Ubuntu Linux。请参见"
+"\r\n"
 "http://www.ubuntu.com 来获取更多有关升级的信息。"
 
-#: ../UpdateManager/UpdateManager.py:847
+#: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>新发行版 '%s' 可用</b>"
 
-#: ../UpdateManager/UpdateManager.py:882
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:898
 msgid "Software index is broken"
 msgstr "软件索引已被破坏"
 
-#: ../UpdateManager/UpdateManager.py:883
+#: ../UpdateManager/UpdateManager.py:899
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
-"无法安装或删除任何软件。请使用包管理软件\"synaptic\"或在终端运行\"sudo apt-get install -f\"来修正这个问题。"
+"无法安装或删除任何软件。请使用包管理软件\"synaptic\"或在终端运行\"sudo apt-"
+"get install -f\"来修正这个问题。"
 
+#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr "无"
 
+#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr "1 KB"
 
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr "%.0f KB"
 
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -985,7 +1030,8 @@ msgid ""
 msgstr ""
 "<b><big>你必须手动检测升级</big></b>\n"
 "\n"
-"你的系统未自动检测升级。你可以通过编辑\"系统\" -> \"管理\" -> \"软件性能\"改变."
+"你的系统未自动检测升级。你可以通过编辑\"系统\" -> \"管理\" -> \"软件性能\"改"
+"变."
 
 #: ../data/glade/UpdateManager.glade.h:4
 msgid "<big><b>Keep your system up-to-date</b></big>"
@@ -1106,7 +1152,8 @@ msgid ""
 "The results are used to improve the support for popular applications and to "
 "rank applications in the search results.</i>"
 msgstr ""
-"<i>为了提高Ubuntu的用户体验，请参加流行对比。这样，你安装了哪些软件及使用频度每周会被匿名发送给Unbuntu。\n"
+"<i>为了提高Ubuntu的用户体验，请参加流行对比。这样，你安装了哪些软件及使用频度"
+"每周会被匿名发送给Unbuntu。\n"
 "\n"
 "其结果用于流行软件支持及应用软件搜索排名。"
 
@@ -1231,7 +1278,8 @@ msgid ""
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 "<big><b>输入你想增加的完整的频道 APT 命令行</b></big>\n"
-"APT 命令行包含频道的类型，位置和部分，例如：<i>\"deb http://ftp.debian.org sarge main\"</i>。"
+"APT 命令行包含频道的类型，位置和部分，例如：<i>\"deb http://ftp.debian.org "
+"sarge main\"</i>。"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
 msgid "APT line:"
@@ -1285,7 +1333,9 @@ msgid ""
 "If automatic checking for updates is disabled, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
-msgstr "如果自动检查更新被禁用，你将不得不手动重载频道列表。本选项允许隐藏此种情况下要出现的提醒语。"
+msgstr ""
+"如果自动检查更新被禁用，你将不得不手动重载频道列表。本选项允许隐藏此种情况下"
+"要出现的提醒语。"
 
 #: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
@@ -1314,188 +1364,232 @@ msgstr "窗口大小"
 msgid "Configure the sources for installable software and updates"
 msgstr "设定可安装和升级的源"
 
+#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:8
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 6.10 'Edgy Eft'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 #, fuzzy
 msgid "Community maintained"
 msgstr "社区维护(Universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr "设备的专有驱动"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 msgid "Restricted software"
 msgstr "受限软件"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 6.10 'Edgy Eft' 光盘"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:59
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 #, fuzzy
 msgid "Canonical supported Open Source software"
 msgstr "社区维护(Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
 msgstr "社区维护(universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 msgid "Community maintained Open Source software"
 msgstr "社区维护开源软件"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 msgid "Non-free drivers"
 msgstr "非自由驱动"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr "设备的属性驱动 "
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 msgid "Restricted software (Multiverse)"
 msgstr "受限软件(Multiverse)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 LTS 'Dapper Drake' 光盘"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr "Backported 更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:123
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger' 光盘"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 安全更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 移植"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:152
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 'Hoary Hedgehog'光盘"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "官方支持"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:177
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.04 安全更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:182
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.10 更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:187
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.04 Backports"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:193
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 4.10 'Warty Warthog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "社区维护"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "非自由"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 4.10 'Warty Warthog'光盘"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 msgid "No longer officially supported"
 msgstr "官方不再支持"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "版权限制"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 4.10 安全更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:223
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 4.10 更新"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:228
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 4.10 Backports"
 
+#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" 安全更新"
 
+#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (测试)"
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (非稳定)"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "带有非自由依赖关系的DFSG兼容软件"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "非DFSG兼容软件"
@@ -1503,7 +1597,6 @@ msgstr "非DFSG兼容软件"
 #~ msgid "By copyright or legal issues restricted software"
 #~ msgstr "受到版权或法律问题限制的软件"
 
-#, python-format
 #~ msgid "Downloading file %li of %li with unknown speed"
 #~ msgstr "正在下载文件 %li/%li 速度未知"
 
@@ -1525,7 +1618,8 @@ msgstr "非DFSG兼容软件"
 #, fuzzy
 #~ msgid ""
 #~ "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
-#~ msgstr "<span weight=\"bold\" size=\"x-large\">正在升级到 Ubuntu 6.06 LTS</span>"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"x-large\">正在升级到 Ubuntu 6.06 LTS</span>"
 
 #, fuzzy
 #~ msgid "Important security updates of Ubuntu"
@@ -1553,16 +1647,15 @@ msgstr "非DFSG兼容软件"
 
 #~ msgid ""
 #~ "Some updates require the removal of further software. Use the function "
-#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
-#~ "get dist-upgrade\" in a terminal to update your system completely."
+#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
+#~ "apt-get dist-upgrade\" in a terminal to update your system completely."
 #~ msgstr ""
-#~ "一些更新包要求删除更多的软件。用包管理器 “Synaptic” 的“标出所有更新”功能并运行 “sudo apt-get dist-"
-#~ "upgrade”来彻底更你新的系统。"
+#~ "一些更新包要求删除更多的软件。用包管理器 “Synaptic” 的“标出所有更新”功能并"
+#~ "运行 “sudo apt-get dist-upgrade”来彻底更你新的系统。"
 
 #~ msgid "The following updates will be skipped:"
 #~ msgstr "将跳过以下的升级包"
 
-#, python-format
 #~ msgid "About %li seconds remaining"
 #~ msgstr "大约还要%li秒"
 
@@ -1635,8 +1728,8 @@ msgstr "非DFSG兼容软件"
 #~ msgstr "Ubuntu 6.06 LTS 后备支持"
 
 #~ msgid ""
-#~ "While scaning your repository information no valid entry for the upgrade was "
-#~ "found.\n"
+#~ "While scaning your repository information no valid entry for the upgrade "
+#~ "was found.\n"
 #~ msgstr "在检查你的源的信息时未能找到有效的升级记录\n"
 
 #~ msgid "Repositories changed"

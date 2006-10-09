@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-04 20:51+0000\n"
+"POT-Creation-Date: 2006-10-06 23:18+0200\n"
 "PO-Revision-Date: 2006-10-05 20:40+0000\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Nederlands <vertaling@vrijschrift.org>\n"
@@ -54,13 +54,15 @@ msgstr "Na één maand"
 msgid "After %s days"
 msgstr "Na %s dagen"
 
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
-#, fuzzy
+#, fuzzy, python-format
 msgid "%s updates"
 msgstr "%s updates"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -70,6 +72,7 @@ msgstr "%s (%s)"
 msgid "Main server"
 msgstr "Hoofdserver"
 
+#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -124,14 +127,13 @@ msgid "Error removing the key"
 msgstr "Fout bij het verwijderen van de sleutel"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "De door u geselecteerde sleutel kon niet verwijderd worden. Gelieve dit als "
 "fout te melden."
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
 "\n"
@@ -170,6 +172,7 @@ msgstr "Kan de vereiste meta-pakketten niet upgraden"
 msgid "A essential package would have to be removed"
 msgstr "Een essentieel pakket zou verwijderd worden"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "Kan de vereisten voor de upgrade niet berekenen"
@@ -185,6 +188,7 @@ msgstr ""
 "Tijdens het berekenen van de upgrade ontstond er een onoplosbaar probleem. "
 "Gelieve dit als fout te rapporteren."
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "Fout bij het bepalen van de echtheid van sommige pakketten"
@@ -213,6 +217,7 @@ msgstr ""
 "Het was niet mogelijk om een vereist pakket te installeren. Gelieve dit als "
 "fout te rapporteren. "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr "Kan het meta-pakket niet raden"
@@ -239,7 +244,7 @@ msgid "Failed to add the CD"
 msgstr "Ophalen is mislukt"
 
 #: ../DistUpgrade/DistUpgradeControler.py:75
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "There was a error adding the CD, the upgrade will abort. Please report this "
 "as a bug if this is a valid Ubuntu CD.\n"
@@ -293,6 +298,7 @@ msgstr ""
 "zal overal '%s' worden vervangen door '%s'.\n"
 "Wanneer u 'Nee' kiest, zal de update worden geannuleerd."
 
+#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Generate default sources?"
 msgstr "De standaard bronnenlijst genereren?"
@@ -365,6 +371,7 @@ msgstr ""
 "vrijgemaakt. Leeg uw prullenbak en verwijder de tijdelijke pakketten van "
 "vorige installaties via 'sudo apt-get clean'."
 
+#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr "Wilt u beginnen met de upgrade?"
@@ -441,6 +448,7 @@ msgstr ""
 "Tijdens het opruimen deed zich een probleem voor. Zie onderstaand bericht "
 "voor meer informatie. "
 
+#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
 msgstr "De oorspronkelijke toestand wordt hersteld"
@@ -451,6 +459,7 @@ msgid "Fetching backport of '%s'"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 msgid "Checking package manager"
@@ -480,7 +489,7 @@ msgid "Invalid package information"
 msgstr "Ongeldige pakketinformatie"
 
 #: ../DistUpgrade/DistUpgradeControler.py:721
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
 "not be found anymore.\n"
@@ -508,6 +517,7 @@ msgstr "Zoeken naar overbodige software"
 msgid "System upgrade is complete."
 msgstr "Systeemupgrade is voltooid."
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -519,23 +529,24 @@ msgid "Fetching is complete"
 msgstr "De update is voltooid"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:129
-#, fuzzy
+#, fuzzy, python-format
 msgid "Fetching file %li of %li at %s/s"
 msgstr "Downloaden van bestand %li uit %li met %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
 #: ../DistUpgrade/DistUpgradeViewGtk.py:249
-#, fuzzy
+#, fuzzy, python-format
 msgid "About %s remaining"
 msgstr "Ongeveer %li minuten resterend"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:132
-#, fuzzy
+#, fuzzy, python-format
 msgid "Fetching file %li of %li"
 msgstr "Downloaden van bestand %li uit %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "Wijzigingen worden doorgevoerd"
@@ -551,8 +562,9 @@ msgid ""
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 
+#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:202
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "Replace the customized configuration file\n"
 "'%s'?"
@@ -577,41 +589,42 @@ msgstr "Er is een ernstige fout ontstaan"
 #: ../DistUpgrade/DistUpgradeViewGtk.py:356
 #, fuzzy
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-"
-"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
-"upgrade aborts now.\n"
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
-"Rapporteer dit als fout en voeg de bestanden /var/log/dist-upgrade.log en "
-"/var/log/dist-upgrade-apt.log  bij in uw foutrapport. De upgrade zal nu "
+"Rapporteer dit als fout en voeg de bestanden /var/log/dist-upgrade.log en /"
+"var/log/dist-upgrade-apt.log  bij in uw foutrapport. De upgrade zal nu "
 "worden afgebroken.\n"
-"Uw oorspronkelijke sources.list is opgeslagen in "
-"/etc/apt/sources.list.distUpgrade."
+"Uw oorspronkelijke sources.list is opgeslagen in /etc/apt/sources.list."
+"distUpgrade."
 
 #. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
 #: ../DistUpgrade/DistUpgradeViewGtk.py:487
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d package is going to be removed."
 msgid_plural "%d packages are going to be removed."
 msgstr[0] "Er zal %s pakket verwijderd worden."
 msgstr[1] "Er zullen %s pakketten verwijderd worden."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:492
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d new package is going to be installed."
 msgid_plural "%d new packages are going to be installed."
 msgstr[0] "Er zal %s nieuw pakket geïnstalleerd worden."
 msgstr[1] "Er zullen %s nieuwe pakketten geïnstalleerd worden."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:498
-#, fuzzy
+#, fuzzy, python-format
 msgid "%d package is going to be upgraded."
 msgid_plural "%d packages are going to be upgraded."
 msgstr[0] "%s pakket zal een upgrade krijgen"
 msgstr[1] "%s pakketten zullen een upgrade krijgen."
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:503
-#, fuzzy
+#, fuzzy, python-format
 msgid ""
 "\n"
 "\n"
@@ -636,8 +649,9 @@ msgstr ""
 "Sluit alle openstaande toepassingen en documenten om dataverlies te "
 "voorkomen."
 
+#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:606
+#: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr "Uw systeem is up-to-date"
 
@@ -663,12 +677,12 @@ msgid "Upgrade %s"
 msgstr "%s upgraden"
 
 #: ../DistUpgrade/DistUpgradeView.py:27
-#, fuzzy
+#, fuzzy, python-format
 msgid "%li days %li hours %li minutes"
 msgstr "Ongeveer %li dagen %li uur en %li minuten resterend"
 
 #: ../DistUpgrade/DistUpgradeView.py:29
-#, fuzzy
+#, fuzzy, python-format
 msgid "%li hours %li minutes"
 msgstr "Ongeveer %li uur en %li minuten resterend"
 
@@ -683,6 +697,7 @@ msgid "%li seconds"
 msgstr ""
 
 #. 56 kbit
+#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -703,6 +718,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -815,6 +831,7 @@ msgstr "Kon de versie-informatie niet downloaden"
 msgid "Please check your internet connection."
 msgstr "Controleer uw internetverbinding."
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "Kon het upgrade-programma niet uitvoeren"
@@ -889,12 +906,12 @@ msgstr ""
 "met het netwerk of de server. "
 
 #: ../UpdateManager/GtkProgress.py:108
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr "Downloaden van bestand %li uit %li met %s/s"
 
 #: ../UpdateManager/GtkProgress.py:113
-#, fuzzy
+#, fuzzy, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr "Downloaden van bestand %li uit %li met %s/s"
 
@@ -923,15 +940,18 @@ msgstr ""
 "Kon de lijst met wijzigingen niet downloaden. Controleer uw "
 "internetverbinding."
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 #, fuzzy
 msgid "Important security updates"
 msgstr "Ubuntu 5.10 veiligheidsupdates"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr "Aanbevolen updates"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 #, fuzzy
 msgid "Proposed updates"
@@ -947,95 +967,99 @@ msgstr "Ubuntu 5.10 backports"
 msgid "Distribution updates"
 msgstr "_Upgrade hervatten"
 
+#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 #, fuzzy
 msgid "Other updates"
 msgstr "Up_dates installeren"
 
-#: ../UpdateManager/UpdateManager.py:462
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
 msgstr "Versie %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:523
+#: ../UpdateManager/UpdateManager.py:539
 #, fuzzy
 msgid "Downloading list of changes..."
 msgstr "Het overzicht van de wijzigingen wordt gedownload..."
 
-#: ../UpdateManager/UpdateManager.py:550
+#: ../UpdateManager/UpdateManager.py:566
 #, fuzzy
 msgid "_Uncheck All"
 msgstr "Alles deselecteren"
 
-#: ../UpdateManager/UpdateManager.py:556
+#: ../UpdateManager/UpdateManager.py:572
 #, fuzzy
 msgid "_Check All"
 msgstr "_Controleren"
 
-#: ../UpdateManager/UpdateManager.py:597 ../UpdateManager/UpdateManager.py:621
+#. TRANSLATORS: b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
 msgstr "Downloadgrootte: %s"
 
-#: ../UpdateManager/UpdateManager.py:617
+#: ../UpdateManager/UpdateManager.py:633
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "U kunt %s update installeren"
 msgstr[1] "U kunt %s updates installeren"
 
-#: ../UpdateManager/UpdateManager.py:650
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
 msgstr "Een ogenblik geduld, dit kan even duren."
 
-#: ../UpdateManager/UpdateManager.py:652
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr "De update is voltooid"
 
-#: ../UpdateManager/UpdateManager.py:703
+#: ../UpdateManager/UpdateManager.py:719
 #, fuzzy
 msgid "Checking for updates"
 msgstr "Up_dates installeren"
 
-#: ../UpdateManager/UpdateManager.py:810
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:826
+#, fuzzy, python-format
 msgid "From version %(old_version)s to %(new_version)s"
 msgstr "Nieuwe versie: %s (Grootte: %s)"
 
-#: ../UpdateManager/UpdateManager.py:814
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:830
+#, fuzzy, python-format
 msgid "Version %s"
 msgstr "Versie %s:"
 
-#: ../UpdateManager/UpdateManager.py:816
-#, fuzzy
+#. TRANSLATORS: the b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:832
+#, fuzzy, python-format
 msgid "(Size: %s)"
 msgstr "(Grootte: %s)"
 
-#: ../UpdateManager/UpdateManager.py:827
+#: ../UpdateManager/UpdateManager.py:843
 msgid "Your distribution is not supported anymore"
 msgstr "Uw distributie wordt niet langer ondersteund"
 
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 "U zult niet langer veiligheidsupdates of kritieke updates krijgen.  Voer een "
-"upgrade uit naar een nieuwere versie van Ubuntu Linux. Zie "
-"http://www.ubuntu.com voor meer informatie over upgraden."
+"upgrade uit naar een nieuwere versie van Ubuntu Linux. Zie http://www.ubuntu."
+"com voor meer informatie over upgraden."
 
-#: ../UpdateManager/UpdateManager.py:847
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:863
+#, fuzzy, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>De nieuwe Ubuntu-versie '%s' is beschikbaar</b>"
 
-#: ../UpdateManager/UpdateManager.py:882
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:898
 msgid "Software index is broken"
 msgstr "Software-index is beschadigd"
 
-#: ../UpdateManager/UpdateManager.py:883
+#: ../UpdateManager/UpdateManager.py:899
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1045,19 +1069,23 @@ msgstr ""
 "Gebruik het pakkettenbeheerprogramma \"Synaptic\" of gebruik \"sudo apt-get "
 "install -f\" in een terminalvenster om eerst dit probleem te verhelpen."
 
+#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr ""
 
+#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr "1 KB"
 
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr "%.0f KB"
 
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1332,8 +1360,8 @@ msgid ""
 "The APT line includes the type, location and components of a repository, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Voer de volledige APT-regel in van het kanaal dat u wilt "
-"toevoegen</b></big>\n"
+"<big><b>Voer de volledige APT-regel in van het kanaal dat u wilt toevoegen</"
+"b></big>\n"
 "\n"
 "De APT-regel bevat het type, de locatie en de componenten van een kanaal, "
 "bijvoorbeeld: <i>\"deb http://ftp.debian.org sarge main\"</i>."
@@ -1428,214 +1456,257 @@ msgstr "De venstergrootte"
 msgid "Configure the sources for installable software and updates"
 msgstr "Software-kanalen en internet-updates configureren"
 
+#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:8
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 5.10 updates"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 #, fuzzy
 msgid "Community maintained"
 msgstr "Door de gemeenschap beheerd (Universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 #, fuzzy
 msgid "Proprietary drivers for devices"
 msgstr "Proprietaire drivers voor apparaten"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 #, fuzzy
 msgid "Restricted software"
 msgstr "Niet-vrij (Multiverse)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "Cd-rom met Ubuntu 6.10 'Edgy Eft'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:59
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 #, fuzzy
 msgid "Canonical supported Open Source software"
 msgstr "Door de gemeenschap beheerd (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 #, fuzzy
 msgid "Community maintained (universe)"
 msgstr "Door de gemeenschap beheerd (Universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 #, fuzzy
 msgid "Community maintained Open Source software"
 msgstr "Door de gemeenschap beheerd (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "Niet-vrij (Multiverse)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 #, fuzzy
 msgid "Proprietary drivers for devices "
 msgstr "Proprietaire drivers voor apparaten "
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "Niet-vrij (Multiverse)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:76
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:123
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 veiligheidsupdates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 updates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 backports"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:152
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:165
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Cd-rom met Ubuntu 5.04 'Hoary Hedgehog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Officieel ondersteund"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:177
 #, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.10 veiligheidsupdates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:182
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.10 updates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:187
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.10 backports"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:193
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "Door de gemeenschap beheerd (Universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "Niet-vrij (Multiverse)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:206
 #, fuzzy
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "Cd-rom met Ubuntu 4.10 'Warty Warthog'"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "Bepaalde software wordt niet meer officieel ondersteund"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "Beperkte auteursrechten"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:218
 #, fuzzy
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 5.10 veiligheidsupdates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:223
 #, fuzzy
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 5.10 updates"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:228
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 5.10 backports"
 
+#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" veiligheidsupdates"
 
+#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (onstabiel)"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "Software compatibel met DFSG, maar met niet-vrije afhankelijkheden"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Software niet compatibel met DFSG"
 
-#, python-format
 #~ msgid "Downloading file %li of %li with unknown speed"
 #~ msgstr "Downloaden van bestand %li uit %li, snelheid onbekend"
 
@@ -1659,8 +1730,8 @@ msgstr "Software niet compatibel met DFSG"
 #~ msgid ""
 #~ "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"x-large\">Bezig met upgraden naar Ubuntu 6.06 "
-#~ "LTS</span>"
+#~ "<span weight=\"bold\" size=\"x-large\">Bezig met upgraden naar Ubuntu "
+#~ "6.06 LTS</span>"
 
 #, fuzzy
 #~ msgid "Important security updates of Ubuntu"
@@ -1681,8 +1752,8 @@ msgstr "Software niet compatibel met DFSG"
 #~ msgstr ""
 #~ "<big><b>Uw system wordt gecontroleerd</b></big>\n"
 #~ "\n"
-#~ "Software-updates repareren fouten, verhelpen veiligheidsproblemen en leveren "
-#~ "nieuwe mogelijkheden."
+#~ "Software-updates repareren fouten, verhelpen veiligheidsproblemen en "
+#~ "leveren nieuwe mogelijkheden."
 
 #, fuzzy
 #~ msgid "Oficially supported"
@@ -1690,18 +1761,18 @@ msgstr "Software niet compatibel met DFSG"
 
 #~ msgid ""
 #~ "Some updates require the removal of further software. Use the function "
-#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
-#~ "get dist-upgrade\" in a terminal to update your system completely."
+#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
+#~ "apt-get dist-upgrade\" in a terminal to update your system completely."
 #~ msgstr ""
 #~ "Enkele updates vereisen dat andere softwarepaketten verwijderd worden. "
-#~ "Gebruik de functie \"Pakketten bijwerken\" van het pakkettenbeheerprogramma "
-#~ "\"Synaptic\" of gebruik: \"sudo apt-get dist-upgrade\" in een "
-#~ "terminalvenster om uw systeem compleet bij te werken met de laatste updates."
+#~ "Gebruik de functie \"Pakketten bijwerken\" van het "
+#~ "pakkettenbeheerprogramma \"Synaptic\" of gebruik: \"sudo apt-get dist-"
+#~ "upgrade\" in een terminalvenster om uw systeem compleet bij te werken met "
+#~ "de laatste updates."
 
 #~ msgid "The following updates will be skipped:"
 #~ msgstr "De volgende updates worden overgeslagen:"
 
-#, python-format
 #~ msgid "About %li seconds remaining"
 #~ msgstr "Ongeveer %li seconden resterend"
 
@@ -1765,7 +1836,7 @@ msgstr "Software niet compatibel met DFSG"
 
 #~ msgid "Ubuntu 6.06 LTS"
 #~ msgstr ""
-#~ "Ubuntu 6.06 LTS\n"
+#~ "Ubuntu 6.06 LTS\r\n"
 #~ "Ubuntu 6.06 updates"
 
 #~ msgid "Ubuntu 6.06 LTS Security Updates"

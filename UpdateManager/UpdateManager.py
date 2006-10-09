@@ -891,7 +891,11 @@ class UpdateManager(SimpleGladeApp):
                                              self.progressbar_cache,
                                              self.label_cache,
                                              self.window_main)
-        self.cache = MyCache(progress)
+        if hasattr(self, "cache"):
+            self.cache.open(progress)
+            self.cache._initDepCache()
+        else:
+            self.cache = MyCache(progress)
     except AssertionError:
         # we assert a clean cache
         msg=("<big><b>%s</b></big>\n\n%s"% \

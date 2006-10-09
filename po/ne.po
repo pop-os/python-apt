@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-04 20:51+0000\n"
+"POT-Creation-Date: 2006-10-06 23:18+0200\n"
 "PO-Revision-Date: 2006-10-05 20:40+0000\n"
 "Last-Translator: Jaydeep Bhusal <zaydeep@hotmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -57,13 +57,15 @@ msgstr ""
 msgid "After %s days"
 msgstr ""
 
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
-#, fuzzy
+#, fuzzy, python-format
 msgid "%s updates"
 msgstr "स्तरवृद्धिहरु स्थापना गर्दै"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -73,6 +75,7 @@ msgstr ""
 msgid "Main server"
 msgstr ""
 
+#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -125,11 +128,8 @@ msgid "Error removing the key"
 msgstr "कुञ्जि हटाउँदा त्रुटि"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
-msgstr ""
-"तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-"दिनुहोस"
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
 #, python-format
@@ -165,6 +165,7 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr ""
@@ -176,10 +177,9 @@ msgid ""
 "\n"
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
-msgstr ""
-"तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-"दिनुहोस"
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr ""
@@ -201,10 +201,9 @@ msgstr ""
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr ""
-"तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-"दिनुहोस "
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr ""
@@ -264,6 +263,7 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
+#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Generate default sources?"
 msgstr ""
@@ -321,6 +321,7 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
+#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr ""
@@ -383,6 +384,7 @@ msgid ""
 "more information. "
 msgstr ""
 
+#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
 msgstr ""
@@ -393,6 +395,7 @@ msgid "Fetching backport of '%s'"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 #, fuzzy
@@ -410,9 +413,7 @@ msgid ""
 "Preparing the system for the upgrade failed. Please report this as a bug "
 "against the 'update-manager' package and include the files in /var/log/dist-"
 "upgrade/ in the bugreport."
-msgstr ""
-"तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-"दिनुहोस"
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
 #: ../DistUpgrade/DistUpgradeControler.py:695
 msgid "Updating repository information"
@@ -449,6 +450,7 @@ msgstr ""
 msgid "System upgrade is complete."
 msgstr ""
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -476,6 +478,7 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 #, fuzzy
 msgid "Applying changes"
@@ -492,6 +495,7 @@ msgid ""
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 
+#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:202
 #, python-format
 msgid ""
@@ -515,13 +519,14 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:356
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-"
-"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
-"upgrade aborts now.\n"
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 
 #. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
 #: ../DistUpgrade/DistUpgradeViewGtk.py:487
 #, python-format
 msgid "%d package is going to be removed."
@@ -561,8 +566,9 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
+#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:518
-#: ../UpdateManager/UpdateManager.py:606
+#: ../UpdateManager/UpdateManager.py:622
 #, fuzzy
 msgid "Your system is up-to-date"
 msgstr "तपाइं को प्रणालि अप-टु-डेट छ!"
@@ -609,6 +615,7 @@ msgid "%li seconds"
 msgstr ""
 
 #. 56 kbit
+#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -628,6 +635,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -735,6 +743,7 @@ msgstr ""
 msgid "Please check your internet connection."
 msgstr ""
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr ""
@@ -743,9 +752,7 @@ msgstr ""
 #, fuzzy
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
-msgstr ""
-"तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-"दिनुहोस"
+msgstr "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:171
 #, fuzzy
@@ -830,18 +837,20 @@ msgstr "युबन्टुको एउटा नयाँ विमोचन
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
-msgstr ""
-"परिवर्तनहरु डाउनलोड गर्न असफल. यदि सक्रिय इन्टरनेट जडान छ भने जाँच्नुहोस"
+msgstr "परिवर्तनहरु डाउनलोड गर्न असफल. यदि सक्रिय इन्टरनेट जडान छ भने जाँच्नुहोस"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 #, fuzzy
 msgid "Important security updates"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr ""
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 #, fuzzy
 msgid "Proposed updates"
@@ -857,110 +866,118 @@ msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 msgid "Distribution updates"
 msgstr "स्तरवृद्धिहरु स्थापना गर्दै"
 
+#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 #, fuzzy
 msgid "Other updates"
 msgstr "स्तरवृद्धिहरु स्थापना गर्दै"
 
-#: ../UpdateManager/UpdateManager.py:462
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
 msgstr "संस्करण %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:523
+#: ../UpdateManager/UpdateManager.py:539
 #, fuzzy
 msgid "Downloading list of changes..."
 msgstr "परिवर्तनहरु डाउनलोड गर्दै"
 
-#: ../UpdateManager/UpdateManager.py:550
+#: ../UpdateManager/UpdateManager.py:566
 msgid "_Uncheck All"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:556
+#: ../UpdateManager/UpdateManager.py:572
 msgid "_Check All"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:597 ../UpdateManager/UpdateManager.py:621
-#, fuzzy
+#. TRANSLATORS: b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
+#, fuzzy, python-format
 msgid "Download size: %s"
 msgstr "परिवर्तनहरु डाउनलोड गर्दै"
 
-#: ../UpdateManager/UpdateManager.py:617
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:633
+#, fuzzy, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "स्तरवृद्धिहरु स्थापना गर्दै"
 msgstr[1] "स्तरवृद्धिहरु स्थापना गर्दै"
 
-#: ../UpdateManager/UpdateManager.py:650
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:652
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:703
+#: ../UpdateManager/UpdateManager.py:719
 #, fuzzy
 msgid "Checking for updates"
 msgstr "स्तरवृद्धिहरु स्थापना गर्दै"
 
-#: ../UpdateManager/UpdateManager.py:810
+#: ../UpdateManager/UpdateManager.py:826
 #, python-format
 msgid "From version %(old_version)s to %(new_version)s"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:814
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:830
+#, fuzzy, python-format
 msgid "Version %s"
 msgstr "संस्करण %s:"
 
-#: ../UpdateManager/UpdateManager.py:816
+#. TRANSLATORS: the b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:827
+#: ../UpdateManager/UpdateManager.py:843
 #, fuzzy
 msgid "Your distribution is not supported anymore"
 msgstr "तपाईंको वितरण समर्थित छैन"
 
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:847
+#: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:882
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:898
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:883
+#: ../UpdateManager/UpdateManager.py:899
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
 
+#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr ""
 
+#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr ""
 
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr ""
 
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1221,12 +1238,11 @@ msgid ""
 "The APT line includes the type, location and components of a repository, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>तपाईंले थप्न चाहेको कोषको पुर्ण एपिटि हरफ प्रविष्ट "
-"गर्नुहोस</b></big>\n"
+"<big><b>तपाईंले थप्न चाहेको कोषको पुर्ण एपिटि हरफ प्रविष्ट गर्नुहोस</b></big>\n"
 "\n"
-"एपिटि हरफमा कोषको प्रकार, स्थान र सामग्री समाहित हुन्छ, उदाहरण को लागि "
-"<i>\"deb http://ftp.debian.org sarge main\"</i>. तपाईंले मिसिलिकरण मा वाक्य "
-"संरचनाको एउटा विस्तृत विवरण पाउन सक्नुहुन्छ"
+"एपिटि हरफमा कोषको प्रकार, स्थान र सामग्री समाहित हुन्छ, उदाहरण को लागि <i>\"deb "
+"http://ftp.debian.org sarge main\"</i>. तपाईंले मिसिलिकरण मा वाक्य संरचनाको एउटा "
+"विस्तृत विवरण पाउन सक्नुहुन्छ"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
 msgid "APT line:"
@@ -1310,211 +1326,256 @@ msgstr ""
 msgid "Configure the sources for installable software and updates"
 msgstr ""
 
+#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:8
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 #, fuzzy
 msgid "Community maintained"
 msgstr "समुदाय सम्हालिएको (ब्रह्माण्ड)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 #, fuzzy
 msgid "Restricted software"
 msgstr "योगदान गरिएको सफ्टवेयर"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:59
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 #, fuzzy
 msgid "Canonical supported Open Source software"
 msgstr "समुदाय सम्हालिएको (ब्रह्माण्ड)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 #, fuzzy
 msgid "Community maintained (universe)"
 msgstr "समुदाय सम्हालिएको (ब्रह्माण्ड)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 #, fuzzy
 msgid "Community maintained Open Source software"
 msgstr "समुदाय सम्हालिएको (ब्रह्माण्ड)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "नन-फ्री (बहुभर्स)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "नन-फ्री (बहुभर्स)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:76
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr ""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:110
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:123
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:135
 #, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:140
 #, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:145
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:152
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:165
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 #, fuzzy
 msgid "Officially supported"
 msgstr "कार्यालय बाट समर्थित"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:177
 #, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:182
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:187
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:193
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "युबन्टु ५.०४ सुरक्षा अद्यावधिकहरु"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "समुदाय सम्हालिएको (ब्रह्माण्ड)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "नन-फ्री (बहुभर्स)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "कार्यालय बाट समर्थित"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "निषेधित प्रतिलिपि अधिकार"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "युबन्टु ४.१० सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:223
 #, fuzzy
 msgid "Ubuntu 4.10 Updates"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:228
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "युबन्टु ५.०४ अद्यावधिकहरु"
 
+#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
+#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr ""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
+#. Description
 #: ../data/channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "डेबियन अचल सुरक्षा अद्यावधिकहरु"
 
+#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
+#. Description
 #: ../data/channels/Debian.info.in:48
 #, fuzzy
 msgid "Debian \"Sid\" (unstable)"
 msgstr "डेबियन अचल सुरक्षा अद्यावधिकहरु"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
@@ -1546,8 +1607,7 @@ msgstr ""
 #, fuzzy
 #~ msgid "The upgrade aborts now. Please report this bug."
 #~ msgstr ""
-#~ "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा "
-#~ "दिनुहोस"
+#~ "तपाईंले चयन गरेको कुञ्जि हटाउन सकिएन. कृपया यसको प्रतिवेदन त्रुटिको रुपमा दिनुहोस"
 
 #, fuzzy
 #~ msgid "Hide details"
@@ -1603,11 +1663,11 @@ msgstr ""
 #~ "You need to reload the package list from the servers for your changes to "
 #~ "take effect. Do you want to do this now?"
 #~ msgstr ""
-#~ "कोष जानकारी संग परिवर्तनहरु छन. %s मा तपाईंको स्रोतहरु को सुची को ब्याकअप "
-#~ "प्रति भण्डारण गरिएको छ. बचत गर्नुहोस. \n"
+#~ "कोष जानकारी संग परिवर्तनहरु छन. %s मा तपाईंको स्रोतहरु को सुची को ब्याकअप प्रति "
+#~ "भण्डारण गरिएको छ. बचत गर्नुहोस. \n"
 #~ "\n"
-#~ "तपाईको परिवर्तनहरुले प्रभाव लिनको लागि तपाईंले सर्भरहरु बाट प्याकेज सुची  "
-#~ "फेरि लोड गर्नुपर्दछ. के तपाईं यो अहिले गर्न चाहनुहुन्छ?"
+#~ "तपाईको परिवर्तनहरुले प्रभाव लिनको लागि तपाईंले सर्भरहरु बाट प्याकेज सुची  फेरि लोड "
+#~ "गर्नुपर्दछ. के तपाईं यो अहिले गर्न चाहनुहुन्छ?"
 
 #, fuzzy
 #~ msgid "<b>Sections</b>"
@@ -1661,18 +1721,16 @@ msgstr ""
 #~ msgstr ""
 #~ "<big><b>प्रमाणीकरण कुञ्जिहरु</b></big>\n"
 #~ "\n"
-#~ "तपाईंले यो संवाद भित्र प्रमाणीकरण कुञ्जिहरु थप्न र हटाउन सक्नुहुन्छ. तपाईंले "
-#~ "डाउनलोड गरेको सफ्टवेयर को विश्वसनियता रुजु जाँच गर्नको लागि एउटा कुञ्जिले "
-#~ "संभव पार्दछ"
+#~ "तपाईंले यो संवाद भित्र प्रमाणीकरण कुञ्जिहरु थप्न र हटाउन सक्नुहुन्छ. तपाईंले डाउनलोड "
+#~ "गरेको सफ्टवेयर को विश्वसनियता रुजु जाँच गर्नको लागि एउटा कुञ्जिले संभव पार्दछ"
 
 #, fuzzy
 #~ msgid ""
-#~ "Add a new key file to the trusted keyring. Make sure that you received the "
-#~ "key over a secure channel and that you trust the owner. "
+#~ "Add a new key file to the trusted keyring. Make sure that you received "
+#~ "the key over a secure channel and that you trust the owner. "
 #~ msgstr ""
-#~ "विश्वास गरिएको कुञ्जिरिंग मा एउटा नयाँ कुञ्जि फाइल थप्नुहोस. विश्वस्त "
-#~ "हुनुहोस कि तपाईंले एउटा सुरक्षित माध्यम माथि कुञ्जि प्राप्त गर्नुभयो र तपाईं "
-#~ "मालिकलाइ विश्वास गर्नुहुन्छ. "
+#~ "विश्वास गरिएको कुञ्जिरिंग मा एउटा नयाँ कुञ्जि फाइल थप्नुहोस. विश्वस्त हुनुहोस कि तपाईंले "
+#~ "एउटा सुरक्षित माध्यम माथि कुञ्जि प्राप्त गर्नुभयो र तपाईं मालिकलाइ विश्वास गर्नुहुन्छ. "
 
 #, fuzzy
 #~ msgid "Add repository..."
@@ -1701,11 +1759,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "Restore the default keys shipped with the distribution. This will not change "
-#~ "user installed keys."
+#~ "Restore the default keys shipped with the distribution. This will not "
+#~ "change user installed keys."
 #~ msgstr ""
-#~ "वितरण संग शिप गरिएको पुर्वनिर्धारित कुञ्जिहरु पुर्वावस्थामा ल्याउनुहोस. यसले "
-#~ "प्रयोगकर्ता स्थापना गरिएको कुञ्जिहरु परिवर्तन गर्दैन"
+#~ "वितरण संग शिप गरिएको पुर्वनिर्धारित कुञ्जिहरु पुर्वावस्थामा ल्याउनुहोस. यसले प्रयोगकर्ता "
+#~ "स्थापना गरिएको कुञ्जिहरु परिवर्तन गर्दैन"
 
 #~ msgid "Set _maximum size for the package cache"
 #~ msgstr "प्याकेज क्यासको लागि अधिकतम आकार सेट गर्नुहोस"
@@ -1732,13 +1790,13 @@ msgstr ""
 #~ msgid ""
 #~ "<big><b>Available Updates</b></big>\n"
 #~ "\n"
-#~ "The following packages are found to be upgradable. You can upgrade them by "
-#~ "using the Install button."
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
 #~ msgstr ""
 #~ "<big><b>उपलब्ध अद्यावधिकहरु</b></big>\n"
 #~ "\n"
-#~ "निम्न प्याकेजहरु स्तरवृद्धि गर्न योग्य पाइयो. तपाईंले तिनिहरु लाइ स्थापना "
-#~ "बटन प्रयोग गरेर स्तरवृद्धि गर्न सक्नुहुन्छ"
+#~ "निम्न प्याकेजहरु स्तरवृद्धि गर्न योग्य पाइयो. तपाईंले तिनिहरु लाइ स्थापना बटन प्रयोग "
+#~ "गरेर स्तरवृद्धि गर्न सक्नुहुन्छ"
 
 #~ msgid "Cancel downloading the changelog"
 #~ msgstr "परिवर्तनलग को डाउनलोड रद्द गर्नुहोस"
@@ -1785,11 +1843,11 @@ msgstr ""
 #~ msgstr "स्तरवृद्धिहरु लागु हुँदैछन"
 
 #~ msgid ""
-#~ "You can run only one package management application at the same time. Please "
-#~ "close this other application first."
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
 #~ msgstr ""
-#~ "तपाईंले उहि समयमा केवल एउटा प्याकेज व्यवस्थापन अनुप्रयोग चलाउन "
-#~ "सक्नुहुन्छ.कृपया पहिला यो अन्य अनुप्रयोग बन्द गर्नुहोस"
+#~ "तपाईंले उहि समयमा केवल एउटा प्याकेज व्यवस्थापन अनुप्रयोग चलाउन सक्नुहुन्छ.कृपया पहिला "
+#~ "यो अन्य अनुप्रयोग बन्द गर्नुहोस"
 
 #~ msgid "Updating package list..."
 #~ msgstr "प्याकेज सुची स्तरवृद्धि गर्दै"
@@ -1803,20 +1861,19 @@ msgstr ""
 
 #~ msgid ""
 #~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
-#~ "running will no longer get security fixes or other critical updates. Please "
-#~ "see http://www.ubuntulinux.org for upgrade information."
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
 #~ msgstr ""
-#~ "कृपया युबन्टु लिनक्स को नयाँ संस्करण मा स्तरवृद्धि गर्नुहोस. तपाईंले "
-#~ "चलाइरहेको संस्करण ले सुरक्षा स्थिरहरु वा अन्य सूक्ष्म स्तरवृद्धिहरु प्राप्त "
-#~ "गर्नेछैन. कृपया स्तरवृद्धि जानकारी को लागि http://www.ubuntulinux.org "
-#~ "हेर्नुहोस"
+#~ "कृपया युबन्टु लिनक्स को नयाँ संस्करण मा स्तरवृद्धि गर्नुहोस. तपाईंले चलाइरहेको संस्करण ले "
+#~ "सुरक्षा स्थिरहरु वा अन्य सूक्ष्म स्तरवृद्धिहरु प्राप्त गर्नेछैन. कृपया स्तरवृद्धि जानकारी को "
+#~ "लागि http://www.ubuntulinux.org हेर्नुहोस"
 
 #~ msgid ""
-#~ "A new release with the codename '%s' is available. Please see "
-#~ "http://www.ubuntulinux.org/ for upgrade instructions."
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
 #~ msgstr ""
-#~ "एउटा नयाँ संकेतनाम '%s' भएको विमोचन उपलब्ध छ.  कृपया स्तरवृद्धि निर्देशन को "
-#~ "लागि://www.ubuntulinux.org/ हेर्नुहोस."
+#~ "एउटा नयाँ संकेतनाम '%s' भएको विमोचन उपलब्ध छ.  कृपया स्तरवृद्धि निर्देशन को लागि://"
+#~ "www.ubuntulinux.org/ हेर्नुहोस."
 
 #~ msgid "Never show this message again"
 #~ msgstr "यो संदेश फेरि कहिले पनि नदेखाउनुहोस"
@@ -1837,8 +1894,8 @@ msgstr ""
 #~ "This means that some dependencies of the installed packages are not "
 #~ "satisfied. Please use \"Synaptic\" or \"apt-get\" to fix the situation."
 #~ msgstr ""
-#~ "यसको मतलब स्थापना गरिएका प्याकेजहरु को केहि निर्भरताहरु सन्तुष्ट छैनन. कृपया "
-#~ "स्थिति ठीक गर्नको लागि \"साइनाप्टिक\" अथवा \"एपिटि-गेट\" प्रयोग गर्नुहोस"
+#~ "यसको मतलब स्थापना गरिएका प्याकेजहरु को केहि निर्भरताहरु सन्तुष्ट छैनन. कृपया स्थिति "
+#~ "ठीक गर्नको लागि \"साइनाप्टिक\" अथवा \"एपिटि-गेट\" प्रयोग गर्नुहोस"
 
 #~ msgid "It is not possible to upgrade all packages."
 #~ msgstr "सबै प्याकेजहरु स्तरवृद्धि गर्न संभव छैन"
@@ -1846,12 +1903,12 @@ msgstr ""
 #~ msgid ""
 #~ "This means that besides the actual upgrade of the packages some further "
 #~ "action (such as installing or removing packages) is required. Please use "
-#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the situation."
+#~ "Synaptic \"Smart Upgrade\" or \"apt-get dist-upgrade\" to fix the "
+#~ "situation."
 #~ msgstr ""
-#~ "यसको मतलब प्याकेजहरु को उचित स्तरवृद्धि बाहेक केहि अधिक कार्य (जस्तै "
-#~ "प्याकेजहरुको स्थापन र विस्थापन) आवश्यक छ. कृपया स्थिति ठीक गर्नको लागि "
-#~ "साइनाप्टिक \"स्मार्ट स्तरवृद्धि\" अथवा \"एपिटि-गेट डिस्ट-स्तरवृद्धि\" प्रयोग "
-#~ "गर्नुहोस"
+#~ "यसको मतलब प्याकेजहरु को उचित स्तरवृद्धि बाहेक केहि अधिक कार्य (जस्तै प्याकेजहरुको स्थापन "
+#~ "र विस्थापन) आवश्यक छ. कृपया स्थिति ठीक गर्नको लागि साइनाप्टिक \"स्मार्ट स्तरवृद्धि\" "
+#~ "अथवा \"एपिटि-गेट डिस्ट-स्तरवृद्धि\" प्रयोग गर्नुहोस"
 
 #~ msgid "Initializing and getting list of updates..."
 #~ msgstr "अद्यावधिकहरुको इनिसियलाइज गर्दै र सुची प्राप्त गर्दै"
