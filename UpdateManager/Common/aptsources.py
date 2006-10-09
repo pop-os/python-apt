@@ -606,8 +606,15 @@ class Distribution:
         a repository could be splitted into different apt lines. If not
         add the component
         """
+        # if we don't that distro, just reutnr (can happen for e.g.
+        # dapper-update only in deb-src
+        if not comps_per_dist.has_key(source.dist):
+          return
+        # if we have seen this component already for this distro,
+        # return (nothing to do
         if comp in comps_per_dist[source.dist]:
           return
+        # add it
         source.comps.append(comp)
         comps_per_dist[source.dist].add(comp)
 

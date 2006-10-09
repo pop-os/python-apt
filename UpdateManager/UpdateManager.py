@@ -44,13 +44,13 @@ import string
 import sys
 import os
 import os.path
-import urllib2
 import re
 import locale
 import tempfile
 import pango
 import subprocess
 import pwd
+import urllib2
 import time
 import thread
 import xml.sax.saxutils
@@ -114,10 +114,12 @@ class MyCache(apt.Cache):
     def saveDistUpgrade(self):
         """ this functions mimics a upgrade but will never remove anything """
         self._depcache.Upgrade(True)
+        wouldDelete = self._depcache.DelCount
         if self._depcache.DelCount > 0:
             self.clear()
         assert self._depcache.BrokenCount == 0 and self._depcache.DelCount == 0
         self._depcache.Upgrade()
+        return wouldDelete
 
     def get_changelog(self, name, lock):
         # don't touch the gui in this function, it needs to be thread-safe
@@ -250,7 +252,7 @@ class UpdateList:
     self.held_back = []
 
     # do the upgrade
-    cache.saveDistUpgrade()
+    self.distUpgradeWouldDelete = cache.saveDistUpgrade()
 
     # sort by origin
     for pkg in cache:
@@ -353,26 +355,6 @@ class UpdateManager(SimpleGladeApp):
     self.treeview_update.connect("button-press-event", self.show_context_menu)
 
 
-    # proxy stuff
-    # FIXME: move this into it's own function
-    SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
-    if os.path.exists(SYNAPTIC_CONF_FILE):
-      cnf = apt_pkg.newConfiguration()
-      apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
-      use_proxy = cnf.FindB("Synaptic::useProxy", False)
-      if use_proxy:
-        proxy_host = cnf.Find("Synaptic::httpProxy")
-        proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
-        if proxy_host and proxy_port:
-	  # FIXME: set the proxy for libapt here as well (e.g. for the
-	  #        DistUpgradeFetcher
-          proxy_support = urllib2.ProxyHandler({"http":"http://%s:%s" % (proxy_host, proxy_port)})
-          opener = urllib2.build_opener(proxy_support)
-          urllib2.install_opener(opener)
-	  # install a proxy environment too
-	  if not os.environ.has_key("http_proxy"):
-		  os.putenv("http_proxy",
-			    "http://%s:%s/" % (proxy_host, proxy_port))
 
     # setup the help viewer and disable the help button if there
     # is no viewer available
@@ -381,9 +363,45 @@ class UpdateManager(SimpleGladeApp):
         self.button_help.set_sensitive(False)
 
     self.gconfclient = gconf.client_get_default()
+    self.init_proxy()
+
     # restore state
     self.restore_state()
     self.window_main.show()
+
+  def init_proxy(self):
+      # proxy settings, first check for http_proxy environment (always wins),
+      # then look into synaptics conffile, then into gconf 
+      if os.getenv("http_proxy"):
+          return
+      SYNAPTIC_CONF_FILE = "%s/.synaptic/synaptic.conf" % pwd.getpwuid(0)[5]
+      proxy = None
+      if os.path.exists(SYNAPTIC_CONF_FILE):
+          cnf = apt_pkg.newConfiguration()
+          apt_pkg.ReadConfigFile(cnf, SYNAPTIC_CONF_FILE)
+          use_proxy = cnf.FindB("Synaptic::useProxy", False)
+          if use_proxy:
+              proxy_host = cnf.Find("Synaptic::httpProxy")
+              proxy_port = str(cnf.FindI("Synaptic::httpProxyPort"))
+              if proxy_host and proxy_port:
+                  # FIXME: set the proxy for libapt here as well (e.g. for the
+                  #        DistUpgradeFetcher
+                  proxy = "http://%s:%s/" % (proxy_host, proxy_port)
+      elif self.gconfclient.get_bool("/system/http_proxy/use_http_proxy"):
+          host = self.gconfclient.get_string("/system/http_proxy/host")
+          port = self.gconfclient.get_int("/system/http_proxy/port")
+          use_auth = self.gconfclient.get_bool("/system/http_proxy/use_authentication")
+          if use_auth:
+              auth_user = self.gconfclient.get_string("/system/http_proxy/authentication_user")
+              auth_pw = self.gconfclient.get_string("/system/http_proxy/authentication_password")
+              proxy = "http://%s:%s@%s:%s/" % (auth_user,auth_pass,host, port)
+          else:
+              proxy = "http://%s:%s/" % (host, port)
+      if proxy:
+          proxy_support = urllib2.ProxyHandler({"http":proxy})
+          opener = urllib2.build_opener(proxy_support)
+          urllib2.install_opener(opener)
+          os.putenv("http_proxy",proxy)
 
   def header_column_func(self, cell_layout, renderer, model, iter):
     pkg = model.get_value(iter, LIST_PKG)
@@ -834,7 +852,7 @@ class UpdateManager(SimpleGladeApp):
     dialog.set_markup(msg)
     dialog.run()
     dialog.destroy()
-    
+
   def on_button_dist_upgrade_clicked(self, button):
       #print "on_button_dist_upgrade_clicked"
       fetcher = DistUpgradeFetcher(self, self.new_dist)
@@ -873,7 +891,11 @@ class UpdateManager(SimpleGladeApp):
                                              self.progressbar_cache,
                                              self.label_cache,
                                              self.window_main)
-        self.cache = MyCache(progress)
+        if hasattr(self, "cache"):
+            self.cache.open(progress)
+            self.cache._initDepCache()
+        else:
+            self.cache = MyCache(progress)
     except AssertionError:
         # we assert a clean cache
         msg=("<big><b>%s</b></big>\n\n%s"% \
@@ -911,7 +933,7 @@ class UpdateManager(SimpleGladeApp):
   def check_all_updates_installable(self):
     """ Check if all available updates can be installed and suggest
         to run a distribution upgrade if not """
-    if self.list.keepcount > 0:
+    if self.list.distUpgradeWouldDelete > 0:
       self.dialog_dist_upgrade.set_transient_for(self.window_main)
       res = self.dialog_dist_upgrade.run()
       self.dialog_dist_upgrade.hide()

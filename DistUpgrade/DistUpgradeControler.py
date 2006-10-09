@@ -75,7 +75,7 @@ class AptCdrom(object):
                              _("There was a error adding the CD, the "
                                "upgrade will abort. Please report this as "
                                "a bug if this is a valid Ubuntu CD.\n\n"
-                               "The error message was:\n'%s'" % e))
+                               "The error message was:\n'%s'") % e)
             return False
         logging.debug("AptCdrom.add() returned: %s" % res)
         return res
@@ -142,7 +142,11 @@ class DistUpgradeControler(object):
 
     def prepare(self):
         """ initial cache opening, sanity checking, network checking """
-        self.openCache()
+        try:
+            self.openCache()
+        except SystemError, e:
+            logging.error("openCache() failed: '%s'" % e)
+            return False
         if not self.cache.sanityCheck(self._view):
             return False
         # FIXME: we may try to find out a bit more about the network
@@ -367,6 +371,18 @@ class DistUpgradeControler(object):
                     "Empty your trash and remove temporary "
                     "packages of former installations using "
                     "'sudo apt-get clean'.")
+
+        # gather/log some staticts
+        mnt_map = {}
+        for d in ["/","/usr","/var","/boot"]:
+            st = os.statvfs(d)
+            free = st[statvfs.F_BAVAIL]*st[statvfs.F_FRSIZE]
+            if st in mnt_map:
+                logging.debug("Dir %s mounted on %s" % (d,mnt_map[st]))
+            else:
+                logging.debug("Free space on %s: %s" % (d,free))
+                mnt_map[st] = d
+        del mnt_map
 
         # first check for /var (or where the archives are downloaded too)
         archivedir = apt_pkg.Config.FindDir("Dir::Cache::archives")
@@ -613,7 +629,7 @@ class DistUpgradeControler(object):
                         uri = match.group(1) + path
                         apt_pkg.GetPkgAcqFile(fetcher, uri=uri,
                                               size=ver.Size,
-                                              descr=_("Fetching backport of '%s'" % pkgname))
+                                              descr=_("Fetching backport of '%s'") % pkgname)
         res = fetcher.Run()
         if res != fetcher.ResultContinue:
             # ick! error ...
@@ -644,7 +660,7 @@ class DistUpgradeControler(object):
         else:
             args.append("--without-network")
         os.execve(sys.argv[0],args, os.environ)
-    
+
     # this is the core
     def edgyUpgrade(self):
         # sanity check (check for ubuntu-desktop, brokenCache etc)
@@ -652,7 +668,14 @@ class DistUpgradeControler(object):
         self._view.setStep(1)
         
         if not self.prepare():
-            self.abort(1)
+            self._view.error(_("Preparing the upgrade failed"),
+                             _("Preparing the system for the upgrade "
+                               "failed. Please report this as a bug "
+                               "against the 'update-manager' "
+                               "package and include the files in "
+                               "/var/log/dist-upgrade/ "
+                               "in the bugreport." ))
+            sys.exit(1)
 
         # mvo: commented out for now, see #54234, this needs to be
         #      refactored to use a arch=any tarball
