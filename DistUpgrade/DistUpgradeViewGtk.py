@@ -97,7 +97,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.parent = parent
     def mediaChange(self, medium, drive):
       #print "mediaChange %s %s" % (medium, drive)
-      msg = _("Please insert '%s' into the drive '%s'" % (medium,drive))
+      msg = _("Please insert '%s' into the drive '%s'") % (medium,drive)
       dialog = gtk.MessageDialog(parent=self.parent.window_main,
                                  flags=gtk.DIALOG_MODAL,
                                  type=gtk.MESSAGE_QUESTION,
@@ -126,10 +126,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             currentItem = self.totalItems
 
         if self.currentCPS > 0:
-            self.status.set_text(_("Fetching file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
+            self.status.set_text(_("Fetching file %li of %li at %s/s") % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS)))
             self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(self.eta))
         else:
-            self.status.set_text(_("Fetching file %li of %li" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Fetching file %li of %li") % (currentItem, self.totalItems))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
@@ -184,7 +184,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         #self.expander_terminal.set_expanded(True)
         self.parent.dialog_error.set_transient_for(self.parent.window_main)
-        summary = _("Could not install '%s'" % pkg)
+        summary = _("Could not install '%s'") % pkg
         msg = _("The upgrade aborts now. Please report this bug against the 'update-manager' "
                 "package and include the files in /var/log/dist-upgrade/ in the bugreport.")
         markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
@@ -200,9 +200,9 @@ class GtkInstallProgressAdapter(InstallProgress):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
         #self.expander.set_expanded(True)
         prim = _("Replace the customized configuration file\n'%s'?") % current
-        sec = _("You will loose all customizations, that have been made by "
-                "yourself or by a script, if you replace the file by its "
-                "latest version.")
+        sec = _("You will lose any changes you have made to this "
+                "configuration file if you choose to replace it with "
+                "a newer version.")
         markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
         self.parent.label_conffile.set_markup(markup)
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
@@ -500,8 +500,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
         if downloadSize > 0:
-            msg += _("\n\nYou have to download a total of %s. " %\
-                     apt_pkg.SizeToStr(downloadSize))
+            msg += _("\n\nYou have to download a total of %s. ") %\
+                     apt_pkg.SizeToStr(downloadSize)
             msg += estimatedDownloadTime(downloadSize)
             msg += "."
 
@@ -532,11 +532,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # fill in the details
         self.details_list.clear()
         for rm in self.toRemove:
-            self.details_list.append([_("<b>Remove %s</b>" % rm)])
+            self.details_list.append([_("<b>Remove %s</b>") % rm])
         for inst in self.toInstall:
-            self.details_list.append([_("Install %s" % inst)])
+            self.details_list.append([_("Install %s") % inst])
         for up in self.toUpgrade:
-            self.details_list.append([_("Upgrade %s" % up)])
+            self.details_list.append([_("Upgrade %s") % up])
         self.treeview_details.scroll_to_cell((0,))
         self.dialog_changes.set_transient_for(self.window_main)
         self.dialog_changes.realize()

@@ -35,8 +35,8 @@ def estimatedDownloadTime(requiredDownload):
     """ get the estimated download time """
     timeModem = requiredDownload/(56*1024/8)  # 56 kbit 
     timeDSL = requiredDownload/(1024*1024/8)  # 1Mbit = 1024 kbit
-    s= _("This download will take about %s with a 56k modem and about %s with "
-         "a 1Mbit DSL connection" % (FuzzyTimeToStr(timeModem), FuzzyTimeToStr(timeDSL)))
+    s= _("This download will take about %s with a 1Mbit DSL connection "
+         "and about %s with a 56k modem" % (FuzzyTimeToStr(timeDSL),FuzzyTimeToStr(timeModem)))
     return s
 
 

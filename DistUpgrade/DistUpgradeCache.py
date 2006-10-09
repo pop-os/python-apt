@@ -1,7 +1,6 @@
 
 import warnings
 warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
-warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt
 import apt_pkg
 import os
@@ -164,6 +163,31 @@ class MyCache(apt.Cache):
         if func is not None:
             func()
 
+    def edgyQuirks(self):
+        """ this function works around quirks in the dapper->edgy upgrade """
+        logging.debug("running edgyQuirks handler")
+        # deal with the python2.4-$foo -> python-$foo transition
+        for pkg in self:
+            if (pkg.name.startswith("python2.4-") and
+                pkg.isInstalled and
+                not pkg.markedUpgrade):
+                basepkg = "python-"+pkg.name[len("python2.4-"):]
+                if (self.has_key(basepkg) and not self[basepkg].markedInstall):
+                    try:
+                        self.markInstall(basepkg,
+                                         "python2.4->python upgrade rule")
+                    except SystemError, e:
+                        logging.debug("Failed to apply python2.4->python install: %s (%s)" % (basepkg, e))
+        # deal with *gar*gar* hpijs
+        if (self.has_key("hpijs") and self["hpijs"].isInstalled and
+            not self["hpijs"].markedUpgrade):
+            try:
+                self.markInstall("hpijs","hpijs quirk upgrade rule")
+            except SystemError, e:
+                logging.debug("Failed to apply hpijs install (%s)" % e)
+            
+        
+                                  
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
         logging.debug("running dapperQuirks handler")
@@ -283,8 +307,8 @@ class MyCache(apt.Cache):
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
                     try:
                         self[key].markInstall()
-                    except SystemError:
-                        logging.error("failed to mark '%s' for install" % key)
+                    except SystemError, e:
+                        logging.error("failed to mark '%s' for install (%s)" % (key,e))
                         view.error(_("Can't install '%s'" % key),
                                    _("It was impossible to install a "
                                      "required package. Please report "
@@ -316,13 +340,18 @@ class MyCache(apt.Cache):
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
         self.create_snapshot()
-        self[pkgname].markDelete()
-        for pkg in self.getChanges():
-            if pkg.name not in remove_candidates or \
-                   pkg.name in foreign_pkgs or \
-                   self._inRemovalBlacklist(pkg.name):
-                self.restore_snapshot()
-                return False
+        try:
+            self[pkgname].markDelete()
+            for pkg in self.getChanges():
+                if pkg.name not in remove_candidates or \
+                       pkg.name in foreign_pkgs or \
+                       self._inRemovalBlacklist(pkg.name):
+                    self.restore_snapshot()
+                    return False
+        except (SystemError,KeyError),e:
+            loggging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
+            self.restore_snapshot()
+            return False
         return True
     
     def _getObsoletesPkgs(self):
