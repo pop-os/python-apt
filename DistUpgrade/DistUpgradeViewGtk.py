@@ -198,6 +198,7 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
+        start = time.time()
         #self.expander.set_expanded(True)
         prim = _("Replace the customized configuration file\n'%s'?") % current
         sec = _("You will lose any changes you have made to this "
@@ -216,6 +217,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.parent.textview_conffile.get_buffer().set_text(_("The 'diff' command was not found"))
         res = self.parent.dialog_conffile.run()
         self.parent.dialog_conffile.hide()
+        self.time_ui += time.time() - start
         # if replace, send this to the terminal
         if res == gtk.RESPONSE_YES:
           self.term.feed_child("y\n")
@@ -242,9 +244,11 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.last_activity = time.time()
           self.activity_timeout_reported = False
           delta = self.last_activity - self.start_time
+          # time wasted in conffile questions (or other ui activity)
+          delta -= self.time_ui
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
-          # only show if we have some sensible data
+          # only show if we have some sensible data (60sec < eta < 2days)
           if eta > 61.0 and eta < (60*60*24*2):
             self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(eta))
           else:
@@ -588,11 +592,11 @@ if __name__ == "__main__":
   fp = GtkFetchProgressAdapter(view)
   ip = GtkInstallProgressAdapter(view)
 
-
   cache = apt.Cache()
   for pkg in sys.argv[1:]:
     cache[pkg].markInstall()
   cache.commit(fp,ip)
+  sys.exit(0)
   
   #sys.exit(0)
   ip.conffile("TODO","TODO~")

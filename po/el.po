@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-10-05 20:37+0000\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
@@ -161,7 +161,7 @@ msgstr ""
 "διορθωθούν με αυτό το λογισμικό. Παρακαλώ διορθώστε τα μέσω synaptic ή apt-"
 "get για να συνεχίσετε."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Αδυναμία αναβάθμισης απαιτούμενων μετα-πακέτων"
 
@@ -1050,11 +1050,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Είναι διαθέσιμη νέα έκδοση διανομής '%s'</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "Ο κατάλογος λογισμικού είναι κατεστραμμένος"
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

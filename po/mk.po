@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-10-05 20:39+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -161,7 +161,7 @@ msgstr ""
 "Вашиот систем содржи оштетени пакети кои не може да се поправат со овој "
 "софтвер. Ве молам поправете ги со Синаптик или apt-get пред да продолжите."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Не може да се надградат потребните мета пакети"
 
@@ -1012,11 +1012,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Новото издание на дистрибуцијата, '%s', е достапно</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "Индексот на софтвер е расипан"
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

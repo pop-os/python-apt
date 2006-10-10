@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-10-06 03:32+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -160,7 +160,7 @@ msgstr ""
 "programmet. Reparera dem först med synaptic eller apt-get innan du "
 "fortsätter."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Kan inte uppdatera de obligatoriska meta-paketen"
 
@@ -1039,11 +1039,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Ny distributionsutgåva \"%s\" finns tillgänglig</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "Programindexet är trasigt"
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

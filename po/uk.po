@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uk(5)\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-08-20 22:36+0000\n"
 "Last-Translator: Vadim Abramchuck <abram@email.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -155,7 +155,7 @@ msgstr ""
 "Ваша система містить пошкоджені пакунки, котрі не можуть бути виправлені "
 "цією програмою. Скористайтесь перш програмами synaptic чи apt-get."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Не можливо поновити необхідні meta-пакунки"
 
@@ -956,11 +956,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

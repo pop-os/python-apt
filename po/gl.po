@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-09-25 21:24+0000\n"
 "Last-Translator: Xosé <ubuntu@galizaweb.net>\n"
 "Language-Team: galician\n"
@@ -164,7 +164,7 @@ msgstr ""
 "software. Por favor, arránxeos primeiro usando Synaptic ou apt-get antes de "
 "continuar."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Non se puideron actualizar os meta-paquetes necesarios"
 
@@ -1027,11 +1027,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Está dispoñible a nova versión '%s' da distribución</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "O índice de software está danado"
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-10-05 20:41+0000\n"
 "Last-Translator: Jordi Irazuzta <irazuzta@gmail.com>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
@@ -163,7 +163,7 @@ msgstr ""
 "El vostre sistema conté paquets trencats que no es poden arreglar amb "
 "aquesta aplicació. Utilitzeu el Synaptic o apt-get abans de continuar."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 #, fuzzy
 msgid "Can't upgrade required meta-packages"
 msgstr "No s'han pogut actualitzar els metapaquets sol·licitats"
@@ -1010,11 +1010,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Ja disposeu de la nova distribució '%s'</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "L'índex de programari s'ha trencat"
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "

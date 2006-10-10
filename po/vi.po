@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager Gnome HEAD\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
+"POT-Creation-Date: 2006-10-10 18:58+0200\n"
 "PO-Revision-Date: 2006-10-05 20:45+0000\n"
 "Last-Translator: Tran The Trung <tttrung@hotmail.com>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -156,7 +156,7 @@ msgstr ""
 "Hệ thống của bạn chứa các gói tin bị lỗi và không thể sửa được bằng phần mềm "
 "này. Hãy sửa chúng dùng các gói synaptic hoặc apt-get trước khi tiếp tục."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
 msgstr "Không thể nâng cấp các gói gốc được yêu cầu"
 
@@ -950,11 +950,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr ""
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
