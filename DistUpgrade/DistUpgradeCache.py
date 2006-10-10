@@ -202,15 +202,15 @@ class MyCache(apt.Cache):
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
 
-            # then see if meta-pkgs are missing
-            if not self._installMetaPkgs(view):
-                raise SystemError, _("Can't upgrade required meta-packages")
-
             # see if our KeepInstalled rules are honored
             self.keepInstalledRule()
 
             # and if we have some special rules
             self.postUpgradeRule()
+
+            # then see if meta-pkgs are missing
+            if not self._installMetaPkgs(view):
+                raise SystemError, _("Can't upgrade required meta-packages")
 
             # see if it all makes sense
             if not self._verifyChanges():

@@ -2,7 +2,7 @@ update-manager (0.44.17) edgy; urgency=low
 
   * memory leak fixed (lp: #43096)
 
- -- 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  9 Oct 2006 15:24:40 +0200
 
 update-manager (0.44.16) edgy; urgency=low
 
