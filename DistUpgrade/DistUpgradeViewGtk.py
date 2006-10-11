@@ -327,6 +327,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # we dont use this currently
         #self.window_main.set_keep_above(True)
         self.icontheme = gtk.icon_theme_get_default()
+        # we keep a reference pngloader around so that its in memory
+        # -> this avoid the issue that during the dapper->edgy upgrade
+        #    the loaders move from /usr/lib/gtk/2.4.0/loaders to 2.10.0
+        self.pngloader = gtk.gdk.PixbufLoader("png")
+        
         self.window_main.realize()
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)

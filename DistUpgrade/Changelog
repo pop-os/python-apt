@@ -1,3 +1,10 @@
+2006-10-11:
+	- keep pixbuf loader reference around so that we
+          have one after the upgrade when the old 
+          /usr/lib/gtk-2.0/loader/2.4.0/ loader is gone.
+          This fixes the problem of missing stock-icons
+	  after the upgrade. Also revalidate the theme
+  	  in each step.
 2006-10-10:
 	- fix time calculation
 	- fix kubuntu upgrade case
