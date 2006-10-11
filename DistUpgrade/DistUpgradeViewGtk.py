@@ -323,9 +323,10 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
-        self.last_step = 0 # keep a record of the latest step
+        self.prev_step = 0 # keep a record of the latest step
         # we dont use this currently
         #self.window_main.set_keep_above(True)
+        self.icontheme = gtk.icon_theme_get_default()
         self.window_main.realize()
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
@@ -414,7 +415,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label.hide()
     def abort(self):
         size = gtk.ICON_SIZE_MENU
-        step = self.last_step
+        step = self.prev_step
         if step > 0:
             image = getattr(self,"image_step%i" % step)
             arrow = getattr(self,"arrow_step%i" % step)
@@ -422,18 +423,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             image.show()
             arrow.hide()
     def setStep(self, step):
-        # first update the "last" step as completed
+        if self.icontheme.rescan_if_needed():
+          logging.debug("icon theme changed, re-reading")
+        # first update the "previous" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
-        if self.last_step:
-            image = getattr(self,"image_step%i" % self.last_step)
-            label = getattr(self,"label_step%i" % self.last_step)
-            arrow = getattr(self,"arrow_step%i" % self.last_step)
+        if self.prev_step:
+            image = getattr(self,"image_step%i" % self.prev_step)
+            label = getattr(self,"label_step%i" % self.prev_step)
+            arrow = getattr(self,"arrow_step%i" % self.prev_step)
             label.set_property("attributes",attrlist)
             image.set_from_stock(gtk.STOCK_APPLY, size)
             image.show()
             arrow.hide()
-        self.last_step = step
+        self.prev_step = step
         # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
