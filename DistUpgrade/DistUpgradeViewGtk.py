@@ -458,6 +458,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       self.dialog_information.window.set_functions(gtk.gdk.FUNC_MOVE)
       self.dialog_information.run()
       self.dialog_information.hide()
+      while gtk.events_pending():
+        gtk.main_iteration()
 
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)

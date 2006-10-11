@@ -1,3 +1,11 @@
+update-manager (0.45) edgy; urgency=low
+
+  * debian/control:
+    - added dependency on python-gconf
+    - removed recommends on python-gnome2
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 11 Oct 2006 18:32:17 +0200
+
 update-manager (0.44.17) edgy; urgency=low
 
   * memory leak fixed (lp: #43096)
