@@ -1,3 +1,16 @@
+python-apt (0.6.19ubuntu9) edgy; urgency=low
+
+  * Reupload to restore dependency on python-central.
+  * debian/rules: Remove dh_python call.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 12 Oct 2006 14:26:46 +0200
+
+python-apt (0.6.19ubuntu8) edgy; urgency=low
+
+  * support pkgDepCache::ActionGroup()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 Oct 2006 18:03:46 +0200
+
 python-apt (0.6.19ubuntu7) edgy; urgency=low
 
   * python/generic.h:
