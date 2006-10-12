@@ -349,7 +349,7 @@ class MyCache(apt.Cache):
                     self.restore_snapshot()
                     return False
         except (SystemError,KeyError),e:
-            loggging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
+            logging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
             self.restore_snapshot()
             return False
         return True
