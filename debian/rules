@@ -49,12 +49,11 @@ binary-arch: build
 	for PY in $(PYTHON); do \
 		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/python-apt/usr; \
 	done
-	
+
 	dh_installdocs
 	dh_installchangelogs
 	dh_installexamples
 	dh_pycentral
-	dh_python
 	dh_strip
 	dh_compress
 	dh_fixperms
