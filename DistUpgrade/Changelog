@@ -1,3 +1,5 @@
+2006-10-12:
+	- check if cdrom.lst actually exists before copying it
 2006-10-11:
 	- keep pixbuf loader reference around so that we
           have one after the upgrade when the old 

@@ -60,7 +60,8 @@ class AptCdrom(object):
         if backup_ext:
             cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
                                       apt_pkg.Config.Find("Dir::State::cdroms"))
-            shutil.copy(cdromstate, cdromstate+backup_ext)
+            if os.path.exists(cdromstate):
+                shutil.copy(cdromstate, cdromstate+backup_ext)
         # do the actual work
         apt_pkg.Config.Set("Acquire::cdrom::mount",self.cdrompath)
         apt_pkg.Config.Set("APT::CDROM::NoMount","true")
