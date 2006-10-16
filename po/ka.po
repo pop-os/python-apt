@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-10 18:58+0200\n"
-"PO-Revision-Date: 2006-10-05 20:39+0000\n"
+"POT-Creation-Date: 2006-10-11 22:33+0000\n"
+"PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Vladimer Sichinava <alinux@siena.linux.it>\n"
 "Language-Team: Georgian <geognome@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Daily"
-msgstr "ყოველ დღიურად"
+msgstr "ყოველდღიურად"
 
 #: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Every two days"
@@ -29,7 +29,7 @@ msgstr "ყოველ 2 დღეში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Weekly"
-msgstr "კვირეული"
+msgstr "ყოველკვირეულად"
 
 #: ../SoftwareProperties/SoftwareProperties.py:139
 msgid "Every two weeks"
@@ -42,7 +42,7 @@ msgstr "ყოველ %s დღეში"
 
 #: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After one week"
-msgstr "ერთ კვირაში"
+msgstr "ერთი კვირის შემდგომ"
 
 #: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After two weeks"
@@ -57,38 +57,35 @@ msgstr "ერთი თვის შემდგომ"
 msgid "After %s days"
 msgstr "%s დღის შემდეგ"
 
-#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
-#, fuzzy, python-format
+#, python-format
 msgid "%s updates"
-msgstr "განახლებების _დაყენება"
+msgstr "%s განახლება"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
-#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../SoftwareProperties/SoftwareProperties.py:316
 msgid "Main server"
-msgstr ""
+msgstr "მთავარი სერვერი"
 
-#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
 msgid "Server for %s"
-msgstr ""
+msgstr "%s სერვერი"
 
 #: ../SoftwareProperties/SoftwareProperties.py:324
 msgid "Nearest server"
-msgstr ""
+msgstr "უახლოესი სერვერი"
 
 #: ../SoftwareProperties/SoftwareProperties.py:345
 msgid "Custom servers"
-msgstr ""
+msgstr "საკუთარი სერვერები"
 
 #: ../SoftwareProperties/SoftwareProperties.py:604
 #: ../SoftwareProperties/SoftwareProperties.py:621
@@ -99,15 +96,15 @@ msgstr "პროგრამული განახლებები"
 #: ../SoftwareProperties/SoftwareProperties.py:612
 #: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
-msgstr ""
+msgstr "აქტიური"
 
 #: ../SoftwareProperties/SoftwareProperties.py:714
 msgid "(Source Code)"
-msgstr ""
+msgstr "(საწყისი კოდი)"
 
 #: ../SoftwareProperties/SoftwareProperties.py:720
 msgid "Source Code"
-msgstr ""
+msgstr "საწყისი კოდი"
 
 #: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "Import key"
@@ -128,12 +125,13 @@ msgid "Error removing the key"
 msgstr "გასღების წაშლა ვერ მოხერხდა"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
-"ამორჩეული გასაღების წაშლა ვე რმოხერხდა. გთხოვთ აცნობოთ ეს როგორც ხარვეზი."
+"ამორჩეული გასაღების წაშლა ვერ მოხერხდა. გთხოვთ აცნობოთ ეს როგორც ხარვეზი."
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
 "\n"
@@ -149,35 +147,34 @@ msgstr "შეიყვანეთ დისკის სახელი"
 
 #: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
-msgstr "მოათავსეთ დისკი დისკწამყვანში:"
+msgstr "მოათავსეთ დისკი დისკამძრავში:"
 
 #: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
-msgstr "გაფუჭებული პაკეტები"
+msgstr "დაზიანებული პაკეტები"
 
 #: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
-"თქვენს სისტემაში არის დაფუჭებული პაკეტები, რომელთა გამართვა ვერ ხერხდება ამ "
-"პროგრამით. ჯერ გამართეთ გაფუჭებული პაკეტები synaptic ან apt-get პროგრამით და "
-"შემდეგ გააგრძელეთ."
+"თქვენს სისტემაში არის დაზიანებული პაკეტები, რომელთა გამართვა ვერ ხერხდება ამ "
+"პროგრამით. ჯერ გამართეთ დაზიანებული პაკეტები synaptic ან apt-get პროგრამით "
+"და შემდეგ გააგრძელეთ."
 
 #: ../DistUpgrade/DistUpgradeCache.py:213
 msgid "Can't upgrade required meta-packages"
-msgstr "საჭჳრო მეტა-პაკეტების განახლება ვერ მოხერხდა"
+msgstr "საჭირო მეტა-პაკეტების განახლება ვერ მოხერხდა"
 
 #: ../DistUpgrade/DistUpgradeCache.py:217
 #, fuzzy
 msgid "A essential package would have to be removed"
-msgstr "A არსებითი -სკენ"
+msgstr "ამით საჭირო პაკეტი წაიშლება"
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 #, fuzzy
 msgid "Could not calculate the upgrade"
-msgstr "არა"
+msgstr "სისტემა ვერ მომზადდა განახლებისათვის"
 
 #: ../DistUpgrade/DistUpgradeCache.py:221
 #, fuzzy
@@ -187,9 +184,10 @@ msgid ""
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
-"მოხდა დაუდგენელი შეცდომა განახლების დათვლისას. შეატყობინეთ ეს როგორხ ხარვეზი."
+"მოხდა დაუდგენელი შეცდომა განახლებისათვის მზადებისას. შეატყობინეთ ეს ხარვეზი "
+"'update-manager' პაკეტის საშუალებით, შეტყობინებას დაურთეთ ფაილები "
+"/var/log/dist-upgrade/-დან."
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "ზოგიერთი პაკეტის ავთენთიფიკაციის შეცდომა"
@@ -200,9 +198,8 @@ msgid ""
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
-"ვერ ხერხვდება ზოგიერთი პაკეტის ავთენთიფიკაცია. ეს შეიძლება იყოს კავშირის "
-"ბრაკი. იქნებ მოგვიანბით კიდევ ერთხელ სცადოთ. ქვევით იხილეთ არა-"
-"ავთენთიფიცერული პაკეტების სია."
+"ვერ ხერხდება ზოგიერთი პაკეტის ავთენთიფიკაცია. ეს შეიძლება იყოს კავშირის "
+"ბრაკი. სცადეთ მოგვიანებით. ქვევით იხილეთ არა-ავთენთიფიცერული პაკეტების სია."
 
 #: ../DistUpgrade/DistUpgradeCache.py:312
 #, python-format
@@ -213,12 +210,12 @@ msgstr "'%s' ვერ დაყენდა"
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
-msgstr "საჭირო პაკეტის დაყენება ვერ მოხერხდა. შეატყობინეთ ეს როგორხ ხარვეზი. "
+msgstr ""
+"საჭირო პაკეტის დაყენება ვერ მოხერხდა. შეატყობინეთ ეს როგორც ხარვეზი. "
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
-msgstr "მეტა-პაკეტი ვერ გამოვიცანით"
+msgstr "მეტა-პაკეტი ვერ შეირჩა"
 
 #: ../DistUpgrade/DistUpgradeCache.py:321
 #, fuzzy
@@ -229,13 +226,15 @@ msgid ""
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
-"არა შეიცავს a ან და არა -სკენ ვერსია ის\n"
-" ის ან."
+"თქვენს სისტემაში არ არის ubuntu-desktop, kubuntu-desktop ან edubuntu-desktop "
+"პაკეტებიდან არცერთი, რის გამოც უბუნტუს ვერსიის დადგენა ვერ ხერხდება.\n"
+"სანამ გააგრძელებდეთ, დააყენეთ რომელიმე მათგანი synaptic ან apt-get-ის "
+"გამოყენებით."
 
 #: ../DistUpgrade/DistUpgradeControler.py:74
 #, fuzzy
 msgid "Failed to add the CD"
-msgstr "ვერ განხორციელდა -სკენ"
+msgstr "ვერ განხორციელდა CD-ს დამატება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:75
 #, python-format
@@ -249,11 +248,11 @@ msgstr ""
 
 #: ../DistUpgrade/DistUpgradeControler.py:107
 msgid "Reading cache"
-msgstr "მიმდინარეობს ქეშის წაკითხვა"
+msgstr "ქეშის კითხვა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:155
 msgid "Fetch data from the network for the upgrade?"
-msgstr ""
+msgstr "ნივიღოთ ქსელიდან მონაცემები განახლების შესახებ?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:156
 msgid ""
@@ -262,10 +261,14 @@ msgid ""
 "If you have fast or inexpensive network access you should answer 'Yes' here. "
 "If networking is expensive for you choose 'No'."
 msgstr ""
+"განახლების პროგრამას შეუძლია მიიღოს ქსელიდან განახლებები და პაკეტები, "
+"რომლებიც არ არის ამ CD-ზე.\n"
+"დაეთანხმეთ განახლების მიღებას, ან უარი თქვით, თუ თქვენი ქსელი ძალიან ნელია "
+"ან ძვირი."
 
 #: ../DistUpgrade/DistUpgradeControler.py:248
 msgid "No valid mirror found"
-msgstr "არავითარი გამოსადეგი სერვერის ანარეკლი"
+msgstr "არ მოინახა შესაბამისი სარკე"
 
 #: ../DistUpgrade/DistUpgradeControler.py:249
 #, python-format
@@ -278,12 +281,18 @@ msgid ""
 "here it will update all '%s' to '%s' entries.\n"
 "If you select 'no' the update will cancel."
 msgstr ""
+"რეპოზიტორიის შესახებ ინფორმაციაში არ არის მითითებული სარკე სისტემის "
+"განახლებისათვის. შესაძლოა თქვენ შიდა სარკეს იყენებდეთ, ან ინფორმაცია სარკის "
+"შესახებ მოძველებულია.\n"
+"\n"
+"თუ თქვენ მაინც გინდათ 'sources.list' ფაილის განახლება, დასტურის შემთხვევაში "
+"ყველა ჩანაწერი %s'-დან '%s'-მდე განახლდება.\n"
+"უარის შემთხვევაში განახლება არ მოხდება."
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 #, fuzzy
 msgid "Generate default sources?"
-msgstr "გენერაცია ნაგულისხმევი?"
+msgstr "გავუშვათ ნაგულისხმევი წყაროების გენერაცია?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:267
 #, python-format
@@ -293,10 +302,15 @@ msgid ""
 "Should default entries for '%s' be added? If you select 'No' the update will "
 "cancel."
 msgstr ""
+"თქვენს  'sources.list'-ში არ აღმოჩნდა არც ერთი სათანადო ჩანაწერი '%s'-"
+"სთვის.\n"
+"\n"
+"დავამატოთ ნაგულისხმევი ჩანაწერები '%s'-სთვის? უარის შემთხვევაში განახლება არ "
+"მოხდება."
 
 #: ../DistUpgrade/DistUpgradeControler.py:301
 msgid "Repository information invalid"
-msgstr "რეპოზიტორიების ინფორმაცია არასწორეა"
+msgstr "რეპოზიტორიების ინფორმაცია არასწორია"
 
 #: ../DistUpgrade/DistUpgradeControler.py:302
 msgid ""
@@ -309,7 +323,7 @@ msgstr ""
 #: ../DistUpgrade/DistUpgradeControler.py:308
 #, fuzzy
 msgid "Third party sources disabled"
-msgstr "გამორთული"
+msgstr "მესამე მხარის წყაროები გამორთულია"
 
 #: ../DistUpgrade/DistUpgradeControler.py:309
 #, fuzzy
@@ -317,7 +331,9 @@ msgid ""
 "Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
-msgstr "-ში სია გამორთული თქვენ პარამეტრები ან."
+msgstr ""
+"მესამე მხარის ზოგი წყარო sources.list-ში გამორთულია. განახლების შემდეგ "
+"შეგეძლებათ მათი ჩართვა 'software-properties' ან synaptic-ის საშუალებით."
 
 #: ../DistUpgrade/DistUpgradeControler.py:358
 msgid "Error during update"
@@ -328,8 +344,8 @@ msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
-"განახლებისას მოხდა შეცდომა. ეს როგროც წესი არის კავშირის პრობლემა, შეამოწმეთ "
-"თქვენი კავშირი და ცადეთ კიდევ ერთხელ."
+"განახლებისას მოხდა შეცდომა. როგორც წესი ეს არის კავშირის პრობლემა, შეამოწმეთ "
+"თქვენი კავშირი და სცადეთ კიდევ ერთხელ."
 
 #: ../DistUpgrade/DistUpgradeControler.py:368
 msgid "Not enough free disk space"
@@ -342,8 +358,10 @@ msgid ""
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
+"განახლება შეწყვეტილია. გაათავისუფლეთ არანაკლებ %s ზომის ადგილი %s დისკზე. "
+"გამოიყენეთ 'sudo apt-get clean' სანაგვიდან ფაილებისა და წინა ინსტალაციის "
+"დროებითი პაკეტების წასაშლელად."
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr "გნებავთ განახლების დაწყება?"
@@ -351,7 +369,7 @@ msgstr "გნებავთ განახლების დაწყებ�
 #: ../DistUpgrade/DistUpgradeControler.py:460
 #, fuzzy
 msgid "Could not install the upgrades"
-msgstr "არა"
+msgstr "განახლებების დაყენება ვერ ხერხდება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:461
 #, fuzzy
@@ -361,23 +379,29 @@ msgid ""
 "\n"
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
-msgstr "ახლა -ში A a."
+msgstr ""
+"განახლება შეწყვეტილია. სისტემამ, შესაძლოა, დაკარგა მუშაობის უნარი. "
+"გაშვებულია აღდგენის პროცესი (dpkg --configure -a).\n"
+"\n"
+"შეატყობინეთ ხარვეზის შესახებ 'update-manager' პაკეთის საშუალებით, "
+"შეტყობინებაში ჩართეთ ფაილები var/log/dist-upgrade/-დან."
 
 #: ../DistUpgrade/DistUpgradeControler.py:479
 #, fuzzy
 msgid "Could not download the upgrades"
-msgstr "არა"
+msgstr "განახლებების ჩამოტვირთვა ვერ ხერხდება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:480
 #, fuzzy
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
-msgstr "ახლა ან და "
+msgstr ""
+"განახლება შეწყვეტილია. შეამოწმეთ ხელახლა ქსელი და საინსტალაციო დისკი. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:516
 msgid "Support for some applications ended"
-msgstr ""
+msgstr "ზოგ პროგრამას მხარდაჭერა აღარა აქვს"
 
 #: ../DistUpgrade/DistUpgradeControler.py:517
 #, fuzzy
@@ -387,15 +411,19 @@ msgid ""
 "\n"
 "If you have not enabled community maintained software (universe), these "
 "packages will be suggested for removal in the next step."
-msgstr "არა და ახლა n t ჩართული -თვის -ში ნაბიჯი"
+msgstr ""
+"ამ პაკეტებს Canonical Ltd.-ს ნაცვლად საზოგადოება უჭერს მხარს.\n"
+"\n"
+"თუ თქვენ არა გაქვთ საზოგადოების უზრუნველყოფა (universe), მაშინ შემდეგ ეტაპზე "
+"შემოთავაზებული იქნება ამ პაკეტების წაშლა."
 
 #: ../DistUpgrade/DistUpgradeControler.py:552
 msgid "Remove obsolete packages?"
-msgstr "წავშალო მოძველებული პაკეტები?"
+msgstr "წავშალოთ მოძველებული პაკეტები?"
 
 #: ../DistUpgrade/DistUpgradeControler.py:553
 msgid "_Skip This Step"
-msgstr "ნაბიჯის გა_მოტოვება"
+msgstr "ეტაპის გა_მოტოვება"
 
 #: ../DistUpgrade/DistUpgradeControler.py:553
 msgid "_Remove"
@@ -404,27 +432,25 @@ msgstr "_წაშლა"
 #: ../DistUpgrade/DistUpgradeControler.py:563
 #, fuzzy
 msgid "Error during commit"
-msgstr "შეცდომა"
+msgstr "შეცდომა გადაცემისას"
 
 #: ../DistUpgrade/DistUpgradeControler.py:564
 #, fuzzy
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
-msgstr "-თვის ინფორმაცია "
+msgstr "შეცდომა გასუფთავებისას. დაწვრილებით იხილეთ ქვემოთ. "
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
-msgstr ""
+msgstr "სისტემის საწყისი მდგომარეობის აღდგენა"
 
 #: ../DistUpgrade/DistUpgradeControler.py:632
 #, python-format
 msgid "Fetching backport of '%s'"
-msgstr ""
+msgstr "%s'-ის მიღება backport-იდან"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 msgid "Checking package manager"
@@ -481,7 +507,6 @@ msgstr "ვეძებ -თვის"
 msgid "System upgrade is complete."
 msgstr "სისტემა ტოლია სრული."
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -498,7 +523,7 @@ msgid "Fetching file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
-#: ../DistUpgrade/DistUpgradeViewGtk.py:249
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
 #, python-format
 msgid "About %s remaining"
 msgstr ""
@@ -510,7 +535,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "ცვლილებების დამტკიცება"
@@ -526,60 +550,58 @@ msgid ""
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 
-#. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:202
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
 "Replace the customized configuration file\n"
 "'%s'?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
 msgid ""
 "You will lose any changes you have made to this configuration file if you "
 "choose to replace it with a newer version."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
 #, fuzzy
 msgid "The 'diff' command was not found"
 msgstr "არა"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
+#: ../DistUpgrade/DistUpgradeViewGtk.py:365
 #, fuzzy
 msgid "A fatal error occured"
 msgstr "A შეცდომა"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:356
+#: ../DistUpgrade/DistUpgradeViewGtk.py:366
 #, fuzzy
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-upgrade/main."
-"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
-"now.\n"
+"Please report this as a bug and include the files /var/log/dist-"
+"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
+"upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr "a და შემცველობა და -ში ახლა თავდაპირველი სია -ში სია."
 
 #. FIXME: make those two seperate lines to make it clear
-#. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:487
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeViewGtk.py:501
+#, fuzzy
 msgid "%d package is going to be removed."
 msgid_plural "%d packages are going to be removed."
 msgstr[0] "A არსებითი -სკენ"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:492
+#: ../DistUpgrade/DistUpgradeViewGtk.py:506
 #, python-format
 msgid "%d new package is going to be installed."
 msgid_plural "%d new packages are going to be installed."
 msgstr[0] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:512
 #, python-format
 msgid "%d package is going to be upgraded."
 msgid_plural "%d packages are going to be upgraded."
 msgstr[0] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:503
+#: ../DistUpgrade/DistUpgradeViewGtk.py:517
 #, python-format
 msgid ""
 "\n"
@@ -587,41 +609,40 @@ msgid ""
 "You have to download a total of %s. "
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:509
+#: ../DistUpgrade/DistUpgradeViewGtk.py:523
 #, fuzzy
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
 "canceled at any time later."
 msgstr "საათი და ნებისმიერი დრო."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:512
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 #, fuzzy
 msgid "To prevent data loss close all open applications and documents."
 msgstr "ვის დახურვა ყველა გახსნა და დოკუმენტები."
 
-#. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:518
+#: ../DistUpgrade/DistUpgradeViewGtk.py:532
 #: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr "თქვენი სისტემა განახლებულია"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:519
+#: ../DistUpgrade/DistUpgradeViewGtk.py:533
 msgid ""
 "There are no upgrades available for your system. The upgrade will now be "
 "canceled."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../DistUpgrade/DistUpgradeViewGtk.py:549
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b> ამოშლა %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:537
+#: ../DistUpgrade/DistUpgradeViewGtk.py:551
 #, python-format
 msgid "Install %s"
 msgstr "დაყენება %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:539
+#: ../DistUpgrade/DistUpgradeViewGtk.py:553
 #, python-format
 msgid "Upgrade %s"
 msgstr "ჩასაყენებელი განახლება %s"
@@ -647,7 +668,6 @@ msgid "%li seconds"
 msgstr ""
 
 #. 56 kbit
-#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -668,7 +688,6 @@ msgstr "ტოლია დასრულდა და a ტოლია -ს�
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -746,6 +765,7 @@ msgid "_Keep"
 msgstr "_დატოვე"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
 msgid "_Replace"
 msgstr "_ჩაანაცვლე"
 
@@ -782,7 +802,6 @@ msgstr "შეუძლებელია ვერსიის შენიშ�
 msgid "Please check your internet connection."
 msgstr "გთხოვთ შეამოწმოთ თქვენი ინტერნეტ კავშირი."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "ვერ ვრთავ განახლების ჩადგმის ხელსაწყოს"
@@ -887,18 +906,15 @@ msgid ""
 "Please check your Internet connection."
 msgstr "ვერ განხორციელდა -სკენ სია ის ინტერნეტი."
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 #, fuzzy
 msgid "Important security updates"
 msgstr "Ubuntu 5.10 უსაფრთხოების განახლება"
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr ""
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 #, fuzzy
 msgid "Proposed updates"
@@ -914,7 +930,6 @@ msgstr "Ubuntu 5.10 დამატებითი პროგრამებ�
 msgid "Distribution updates"
 msgstr "განახლება _გაგრძელება"
 
-#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 #, fuzzy
 msgid "Other updates"
@@ -939,7 +954,6 @@ msgstr ""
 msgid "_Check All"
 msgstr "შ_ემოწმება"
 
-#. TRANSLATORS: b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
@@ -965,16 +979,15 @@ msgid "Checking for updates"
 msgstr "განახლებების _დაყენება"
 
 #: ../UpdateManager/UpdateManager.py:826
-#, fuzzy, python-format
+#, fuzzy
 msgid "From version %(old_version)s to %(new_version)s"
 msgstr "ახალი ვერსია: %s   (ზომა: %s)"
 
 #: ../UpdateManager/UpdateManager.py:830
-#, fuzzy, python-format
+#, fuzzy
 msgid "Version %s"
 msgstr "ვერსია %s:"
 
-#. TRANSLATORS: the b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
@@ -999,7 +1012,6 @@ msgstr ""
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
-#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "პროგრამების სიის ინდექსი დაზიანებულია"
@@ -1013,23 +1025,19 @@ msgid ""
 msgstr ""
 "ტოლია -სკენ ან წაშლა ნებისმიერი Synaptic ან sudo -ში a ტერმინალი -სკენ."
 
-#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr ""
 
-#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr ""
 
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr ""
 
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1141,10 +1149,15 @@ msgstr "განახლებების _დაყენება"
 
 #: ../data/glade/UpdateManager.glade.h:25
 #, fuzzy
+msgid "_Upgrade"
+msgstr "ჩასაყენებელი განახლება %s"
+
+#: ../data/glade/UpdateManager.glade.h:26
+#, fuzzy
 msgid "changes"
 msgstr "ცვლილებები"
 
-#: ../data/glade/UpdateManager.glade.h:26
+#: ../data/glade/UpdateManager.glade.h:27
 msgid "updates"
 msgstr ""
 
@@ -1396,248 +1409,203 @@ msgstr "ფანჯარა ზომა"
 msgid "Configure the sources for installable software and updates"
 msgstr "კონფიგურირება და"
 
-#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
-#, fuzzy, no-c-format
+#, fuzzy
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/ s s s s s"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:8
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 5.10 განახლებები"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 msgid "Community maintained"
 msgstr ""
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 #, fuzzy
 msgid "Restricted software"
 msgstr "არათავისუფალი (Multiverse)"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:59
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 msgid "Canonical supported Open Source software"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
 msgstr ""
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 msgid "Community maintained Open Source software"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "არათავისუფალი (Multiverse)"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "არათავისუფალი (Multiverse)"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:76
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 'Dapper Drake'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:123
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 უსაფრთხოების განახლება"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 განახლებები"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 დამატებითი პროგრამები"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:152
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:177
 #, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.10 უსაფრთხოების განახლება"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:182
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.10 განახლებები"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:187
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.10 დამატებითი პროგრამები"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:193
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "არათავისუფალი (Multiverse)"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "არა"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 #, fuzzy
 msgid "Restricted copyright"
 msgstr "შეზღუდული"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:218
 #, fuzzy
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 5.10 უსაფრთხოების განახლება"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:223
 #, fuzzy
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 5.10 განახლებები"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:228
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 5.10 დამატებითი პროგრამები"
 
-#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
-#, fuzzy, no-c-format
+#, fuzzy
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/ s s s s s"
 
-#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr ""
 
-#. Description
 #: ../data/channels/Debian.info.in:20
 #, fuzzy
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "უსაფრთხოება"
 
-#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr ""
 
-#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr ""
 
-#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Debian.info.in:54
 #, fuzzy
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "პროგრამა თავისუფალი დამოკიდებულებანი"
 
-#. CompDescription
 #: ../data/channels/Debian.info.in:57
 #, fuzzy
 msgid "Non-DFSG-compatible Software"
@@ -1690,8 +1658,8 @@ msgstr "პროგრამა"
 #, fuzzy
 #~ msgid ""
 #~ "Some updates require the removal of further software. Use the function "
-#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
-#~ "apt-get dist-upgrade\" in a terminal to update your system completely."
+#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
+#~ "get dist-upgrade\" in a terminal to update your system completely."
 #~ msgstr ""
 #~ "ის გამოყენება მონიშვნა ყველა ის Synaptic ან sudo -ში a ტერმინალი -სკენ "
 #~ "განახლება."

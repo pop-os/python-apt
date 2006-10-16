@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-10 18:58+0200\n"
-"PO-Revision-Date: 2006-09-30 00:43+0000\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannick.marchegay@lokanova."
-"com>\n"
+"POT-Creation-Date: 2006-10-11 22:33+0000\n"
+"PO-Revision-Date: 2006-10-16 04:16+0000\n"
+"Last-Translator: Yannig MARCHEGAY (Kokoyaya) "
+"<yannick.marchegay@lokanova.com>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +56,6 @@ msgstr "Un mes aprèp"
 msgid "After %s days"
 msgstr "%s jorns aprèp"
 
-#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
 #, python-format
 msgid "%s updates"
@@ -64,7 +63,6 @@ msgstr "%s mesas a jorn"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
-#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -74,7 +72,6 @@ msgstr "%s (%s)"
 msgid "Main server"
 msgstr "Servidor principal"
 
-#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -126,12 +123,13 @@ msgid "Error removing the key"
 msgstr "Error al moment de suprimir la clau"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid "The key you selected could not be removed. Please report this as a bug."
+msgid ""
+"The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Avem pas poscut suprimir la clau qu'avètz seleccionada. Raportatz l'anomalia."
 
 #: ../SoftwareProperties/SoftwareProperties.py:1039
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "<big><b>Error scanning the CD</b></big>\n"
 "\n"
@@ -167,7 +165,6 @@ msgstr ""
 msgid "A essential package would have to be removed"
 msgstr ""
 
-#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "Impossible calcular la mesa a jorn"
@@ -180,7 +177,6 @@ msgid ""
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 
-#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr ""
@@ -203,7 +199,6 @@ msgid ""
 "bug. "
 msgstr ""
 
-#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr ""
@@ -263,7 +258,6 @@ msgid ""
 "If you select 'no' the update will cancel."
 msgstr ""
 
-#. hm, still nothing useful ...
 #: ../DistUpgrade/DistUpgradeControler.py:266
 msgid "Generate default sources?"
 msgstr ""
@@ -320,7 +314,6 @@ msgid ""
 "apt-get clean'."
 msgstr ""
 
-#. ask the user if he wants to do the changes
 #: ../DistUpgrade/DistUpgradeControler.py:440
 msgid "Do you want to start the upgrade?"
 msgstr "Volètz començar la mesa a jorn ?"
@@ -383,7 +376,6 @@ msgid ""
 "more information. "
 msgstr ""
 
-#. generate a new cache
 #: ../DistUpgrade/DistUpgradeControler.py:576
 msgid "Restoring original system state"
 msgstr ""
@@ -394,7 +386,6 @@ msgid "Fetching backport of '%s'"
 msgstr ""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#. then open the cache (again)
 #: ../DistUpgrade/DistUpgradeControler.py:667
 #: ../DistUpgrade/DistUpgradeControler.py:709
 msgid "Checking package manager"
@@ -445,7 +436,6 @@ msgstr "Recèrca de logicials obsolets"
 msgid "System upgrade is complete."
 msgstr "La mesa a jorn del sistèma es acabada."
 
-#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -461,7 +451,7 @@ msgid "Fetching file %li of %li at %s/s"
 msgstr ""
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
-#: ../DistUpgrade/DistUpgradeViewGtk.py:249
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
 #, python-format
 msgid "About %s remaining"
 msgstr "Environ %s restantas"
@@ -473,7 +463,6 @@ msgstr ""
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
-#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "Aplicacion dels cambis"
@@ -489,61 +478,59 @@ msgid ""
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 
-#. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:202
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
 "Replace the customized configuration file\n"
 "'%s'?"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
 msgid ""
 "You will lose any changes you have made to this configuration file if you "
 "choose to replace it with a newer version."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
 msgid "The 'diff' command was not found"
 msgstr "Impossible de trobar la comanda 'diff'"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
+#: ../DistUpgrade/DistUpgradeViewGtk.py:365
 msgid "A fatal error occured"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:356
+#: ../DistUpgrade/DistUpgradeViewGtk.py:366
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-upgrade/main."
-"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
-"now.\n"
+"Please report this as a bug and include the files /var/log/dist-"
+"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
+"upgrade aborts now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 
 #. FIXME: make those two seperate lines to make it clear
-#. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:487
+#: ../DistUpgrade/DistUpgradeViewGtk.py:501
 #, python-format
 msgid "%d package is going to be removed."
 msgid_plural "%d packages are going to be removed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:492
+#: ../DistUpgrade/DistUpgradeViewGtk.py:506
 #, python-format
 msgid "%d new package is going to be installed."
 msgid_plural "%d new packages are going to be installed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:512
 #, python-format
 msgid "%d package is going to be upgraded."
 msgid_plural "%d packages are going to be upgraded."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:503
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeViewGtk.py:517
+#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -553,39 +540,38 @@ msgstr ""
 "\n"
 "Debètz telecargar un total de %s. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:509
+#: ../DistUpgrade/DistUpgradeViewGtk.py:523
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
 "canceled at any time later."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:512
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 
-#. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:518
+#: ../DistUpgrade/DistUpgradeViewGtk.py:532
 #: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:519
+#: ../DistUpgrade/DistUpgradeViewGtk.py:533
 msgid ""
 "There are no upgrades available for your system. The upgrade will now be "
 "canceled."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../DistUpgrade/DistUpgradeViewGtk.py:549
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Suprimir %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:537
+#: ../DistUpgrade/DistUpgradeViewGtk.py:551
 #, python-format
 msgid "Install %s"
 msgstr "Installar %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:539
+#: ../DistUpgrade/DistUpgradeViewGtk.py:553
 #, python-format
 msgid "Upgrade %s"
 msgstr "Metre a jorn %s"
@@ -611,7 +597,6 @@ msgid "%li seconds"
 msgstr "%li segondas"
 
 #. 56 kbit
-#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
@@ -631,7 +616,6 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
-#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -703,6 +687,7 @@ msgid "_Keep"
 msgstr "_Conservar"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
 msgid "_Replace"
 msgstr "_Remplaçar"
 
@@ -738,7 +723,6 @@ msgstr "Impossible de telecargar las informacions de version"
 msgid "Please check your internet connection."
 msgstr "Verificatz vòstra connexion internet."
 
-#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "Impossible aviar l'esplech de mesa a jorn"
@@ -828,17 +812,14 @@ msgid ""
 "Please check your Internet connection."
 msgstr ""
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 msgid "Important security updates"
 msgstr ""
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr ""
 
-#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 msgid "Proposed updates"
 msgstr ""
@@ -853,7 +834,6 @@ msgstr "Ubuntu 5.10 'Breezy Badger'"
 msgid "Distribution updates"
 msgstr "<b>Mesas a jorn per internet</b>"
 
-#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 #, fuzzy
 msgid "Other updates"
@@ -877,7 +857,6 @@ msgstr ""
 msgid "_Check All"
 msgstr "_Verificar"
 
-#. TRANSLATORS: b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
@@ -909,11 +888,10 @@ msgid "From version %(old_version)s to %(new_version)s"
 msgstr ""
 
 #: ../UpdateManager/UpdateManager.py:830
-#, fuzzy, python-format
+#, fuzzy
 msgid "Version %s"
 msgstr "Version %s :"
 
-#. TRANSLATORS: the b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
@@ -935,7 +913,6 @@ msgstr ""
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr ""
 
-#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr ""
@@ -947,23 +924,19 @@ msgid ""
 "this issue at first."
 msgstr ""
 
-#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr ""
 
-#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr ""
 
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr ""
 
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1069,10 +1042,15 @@ msgstr "_Installar las mesas a jorn"
 
 #: ../data/glade/UpdateManager.glade.h:25
 #, fuzzy
+msgid "_Upgrade"
+msgstr "_Metre a jorn"
+
+#: ../data/glade/UpdateManager.glade.h:26
+#, fuzzy
 msgid "changes"
 msgstr "Cambis"
 
-#: ../data/glade/UpdateManager.glade.h:26
+#: ../data/glade/UpdateManager.glade.h:27
 msgid "updates"
 msgstr "mesas a jorn"
 
@@ -1298,244 +1276,200 @@ msgstr "La talha de la fenèstra"
 msgid "Configure the sources for installable software and updates"
 msgstr ""
 
-#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr ""
+"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:8
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 msgid "Community maintained"
 msgstr ""
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 #, fuzzy
 msgid "Restricted software"
 msgstr "Pas liure (multiverse)"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "CD-ROM que conten Ubuntu 6.10 'Edgy Eft'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:59
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 msgid "Canonical supported Open Source software"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
 msgstr ""
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 msgid "Community maintained Open Source software"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "Pas liure (multiverse)"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "Pas liure (multiverse)"
 
-#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "CD-ROM que conten Ubuntu 6.06 LTS 'Dapper Drake'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:123
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:135
 #, fuzzy
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:140
 #, fuzzy
 msgid "Ubuntu 5.10 Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:145
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:152
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD-ROM que conten Ubuntu 5.04 'Hoary Hedgehog'"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:177
 #, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:182
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:187
 msgid "Ubuntu 5.04 Backports"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:193
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "Pas liure (multiverse)"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 msgid "No longer officially supported"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr ""
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:218
 #, fuzzy
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:223
 #, fuzzy
 msgid "Ubuntu 4.10 Updates"
 msgstr "Mesas a jorn per Ubuntu 6.06 LTS"
 
-#. Description
 #: ../data/channels/Ubuntu.info.in:228
 msgid "Ubuntu 4.10 Backports"
 msgstr ""
 
-#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
-#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
-#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
-#. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Mesas a jorn de securitat per Debian 3.1 \"Sarge\""
 
-#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (en tèst)"
 
-#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
-#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (instable)"
 
-#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
-#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr ""
