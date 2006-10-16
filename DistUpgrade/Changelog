@@ -1,3 +1,7 @@
+2006-10-16:
+	- backup cdroms.list only if actually available
+	- remove leftover references to ubuntu-base and
+	  use ubuntu-minimal and ubuntu-standard instead
 2006-10-13:
 	- log held-back as well
 2006-10-12:
