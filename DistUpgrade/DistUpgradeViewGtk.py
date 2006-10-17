@@ -270,7 +270,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         try:
           InstallProgress.updateInterface(self)
         except ValueError, e:
-          logging.error("got ValueError from InstallPrgoress.updateInterface. Line was '%s' (%s)" % (self.read, e)
+          logging.error("got ValueError from InstallPrgoress.updateInterface. Line was '%s' (%s)" % (self.read, e))
         # check if we haven't started yet with packages, pulse then
         if self.start_time == 0.0:
           self.progress.pulse()
