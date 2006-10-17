@@ -1,3 +1,6 @@
+2006-10-17:
+	- ensure bzr and xserver-xorg-input-* is properly upgraded
+	- don't fail if dpkg sents unexpected status lines (lp: #66013)
 2006-10-16:
 	- remove leftover references to ubuntu-base and
 	  use ubuntu-minimal and ubuntu-standard instead
