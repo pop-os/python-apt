@@ -188,7 +188,7 @@ class MyCache(apt.Cache):
                     logging.debug("Failed to apply %s fixup: %s (%s)" % (pkg.name, e))
             
         # deal with held-backs that are unneeded
-        for pkgname in ["hpijs", "bzr"]:
+        for pkgname in ["hpijs", "bzr", "tomboy"]:
             if (self.has_key(pkgname) and self[pkgname].isInstalled and
                 not self[pkgname].markedUpgrade):
                 try:
