@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-11 22:33+0000\n"
+"POT-Creation-Date: 2006-10-16 20:32+0200\n"
 "PO-Revision-Date: 2006-10-16 15:55+0000\n"
 "Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
 "Language-Team: Danish <da@li.org>\n"
@@ -55,6 +55,7 @@ msgstr "Efter en måned"
 msgid "After %s days"
 msgstr "Efter %s dage"
 
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
 #: ../SoftwareProperties/SoftwareProperties.py:252
 #, python-format
 msgid "%s updates"
@@ -62,6 +63,7 @@ msgstr "%s opdateringer"
 
 #. TRANSLATORS: Label for the components in the Internet section
 #. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
 #: ../SoftwareProperties/SoftwareProperties.py:264
 #, python-format
 msgid "%s (%s)"
@@ -71,6 +73,7 @@ msgstr "%s (%s)"
 msgid "Main server"
 msgstr "Hovedserver"
 
+#. TRANSLATORS: %s is a country
 #: ../SoftwareProperties/SoftwareProperties.py:320
 #: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
@@ -120,8 +123,7 @@ msgid "Error removing the key"
 msgstr "Fejl ved fjernelse af nøgle"
 
 #: ../SoftwareProperties/SoftwareProperties.py:993
-msgid ""
-"The key you selected could not be removed. Please report this as a bug."
+msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
 "Den valgte nøgle kunne ikke fjernes. Rapportér venligst dette som en fejl."
 
@@ -164,6 +166,7 @@ msgstr "Kan ikke opgradere de krævede metapakker"
 msgid "A essential package would have to be removed"
 msgstr "Det ville være nødvendigt at fjerne en vital pakke"
 
+#. FIXME: change the text to something more useful
 #: ../DistUpgrade/DistUpgradeCache.py:220
 msgid "Could not calculate the upgrade"
 msgstr "Kunne ikke beregne opgraderingen"
@@ -180,6 +183,7 @@ msgstr ""
 "Rapportér venligst denne fejl mod \"update-manager\"-pakken og inkludér "
 "filerne i /var/log/dist-upgrade/ i fejlrapporten."
 
+#. FIXME: maybe ask a question here? instead of failing?
 #: ../DistUpgrade/DistUpgradeCache.py:246
 msgid "Error authenticating some packages"
 msgstr "Fejl ved godkendelse af nogle pakker"
@@ -207,6 +211,7 @@ msgstr ""
 "Det var umuligt at installere en påkrævet pakke. Rapportér venligst dette "
 "som en fejl. "
 
+#. FIXME: provide a list
 #: ../DistUpgrade/DistUpgradeCache.py:320
 msgid "Can't guess meta-package"
 msgstr "Kan ikke gætte metapakke"
@@ -226,11 +231,11 @@ msgstr ""
 "Installér venligst en af pakkerne nævnt herover ved hjælp af synaptic eller "
 "apt-get, før du fortsætter."
 
-#: ../DistUpgrade/DistUpgradeControler.py:74
+#: ../DistUpgrade/DistUpgradeControler.py:75
 msgid "Failed to add the CD"
 msgstr "Kunne ikke tilføje cd"
 
-#: ../DistUpgrade/DistUpgradeControler.py:75
+#: ../DistUpgrade/DistUpgradeControler.py:76
 #, python-format
 msgid ""
 "There was a error adding the CD, the upgrade will abort. Please report this "
@@ -245,15 +250,15 @@ msgstr ""
 "Fejlmeddelelsen var:\n"
 "\"%s\""
 
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#: ../DistUpgrade/DistUpgradeControler.py:108
 msgid "Reading cache"
 msgstr "Læser mellemlager"
 
-#: ../DistUpgrade/DistUpgradeControler.py:155
+#: ../DistUpgrade/DistUpgradeControler.py:156
 msgid "Fetch data from the network for the upgrade?"
 msgstr "Hent data fra netværket til opgraderingen?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:156
+#: ../DistUpgrade/DistUpgradeControler.py:157
 msgid ""
 "The upgrade can use the network to check the latest updates and to fetch "
 "packages that are not on the current CD.\n"
@@ -266,11 +271,11 @@ msgstr ""
 "Hvis du har en hurtig eller billig netværksforbindelse, bør du svare \"Ja\" "
 "her. Hvis forbindelsen er dyr i anvendelse, bør du svare \"Nej\"."
 
-#: ../DistUpgrade/DistUpgradeControler.py:248
+#: ../DistUpgrade/DistUpgradeControler.py:249
 msgid "No valid mirror found"
 msgstr "Intet gyldigt spejl fundet"
 
-#: ../DistUpgrade/DistUpgradeControler.py:249
+#: ../DistUpgrade/DistUpgradeControler.py:250
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -289,11 +294,12 @@ msgstr ""
 "her, vil alle linjer \"%s\" blive erstattet af \"%s\".\n"
 "Hvis du vælger \"Nej\", vil opdateringen blive annulleret."
 
-#: ../DistUpgrade/DistUpgradeControler.py:266
+#. hm, still nothing useful ...
+#: ../DistUpgrade/DistUpgradeControler.py:267
 msgid "Generate default sources?"
 msgstr "Generér standardkilder?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:267
+#: ../DistUpgrade/DistUpgradeControler.py:268
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -307,11 +313,11 @@ msgstr ""
 "Skal standardlinjer for \"%s\" tilføjes? Hvis du vælger \"Nej\", vil "
 "opdateringen blive annulleret."
 
-#: ../DistUpgrade/DistUpgradeControler.py:301
+#: ../DistUpgrade/DistUpgradeControler.py:302
 msgid "Repository information invalid"
 msgstr "Arkivinformation ugyldig"
 
-#: ../DistUpgrade/DistUpgradeControler.py:302
+#: ../DistUpgrade/DistUpgradeControler.py:303
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -319,11 +325,11 @@ msgstr ""
 "Opgradering af arkivet resulterede i en ødelagt fil. Rapportér venligst "
 "dette som en fejl."
 
-#: ../DistUpgrade/DistUpgradeControler.py:308
+#: ../DistUpgrade/DistUpgradeControler.py:309
 msgid "Third party sources disabled"
 msgstr "Tredjepartskilder er deaktiveret"
 
-#: ../DistUpgrade/DistUpgradeControler.py:309
+#: ../DistUpgrade/DistUpgradeControler.py:310
 msgid ""
 "Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -333,11 +339,11 @@ msgstr ""
 "genaktivere dem efter opgraderingen med \"software-properties\"-værktøjet "
 "eller med synaptic."
 
-#: ../DistUpgrade/DistUpgradeControler.py:358
+#: ../DistUpgrade/DistUpgradeControler.py:363
 msgid "Error during update"
 msgstr "Fejl under opdatering"
 
-#: ../DistUpgrade/DistUpgradeControler.py:359
+#: ../DistUpgrade/DistUpgradeControler.py:364
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -345,11 +351,11 @@ msgstr ""
 "En fejl opstod under opdateringen. Dette skyldes som regel et "
 "netværksproblem, tjek venligst din netværksforbindelse og prøv igen."
 
-#: ../DistUpgrade/DistUpgradeControler.py:368
+#: ../DistUpgrade/DistUpgradeControler.py:373
 msgid "Not enough free disk space"
 msgstr "Ikke tilstrækkeligt ledig diskplads"
 
-#: ../DistUpgrade/DistUpgradeControler.py:369
+#: ../DistUpgrade/DistUpgradeControler.py:374
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -360,15 +366,16 @@ msgstr ""
 "papirkurv og fjern midlertidige pakker fra tidligere installationer ved at "
 "køre 'sudo apt-get clean'."
 
-#: ../DistUpgrade/DistUpgradeControler.py:440
+#. ask the user if he wants to do the changes
+#: ../DistUpgrade/DistUpgradeControler.py:445
 msgid "Do you want to start the upgrade?"
 msgstr "Vil du starte opgraderingen?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:460
+#: ../DistUpgrade/DistUpgradeControler.py:465
 msgid "Could not install the upgrades"
 msgstr "Kunne ikke installere opgraderingerne"
 
-#: ../DistUpgrade/DistUpgradeControler.py:461
+#: ../DistUpgrade/DistUpgradeControler.py:466
 msgid ""
 "The upgrade aborts now. Your system could be in an unusable state. A "
 "recovery was run (dpkg --configure -a).\n"
@@ -382,11 +389,11 @@ msgstr ""
 "Rapportér venligst denne fejl mod \"update-manager\"-pakken og inkludér "
 "filerne i /var/log/dist-upgrade/ i fejlrapporten."
 
-#: ../DistUpgrade/DistUpgradeControler.py:479
+#: ../DistUpgrade/DistUpgradeControler.py:484
 msgid "Could not download the upgrades"
 msgstr "Kunne ikke hente opgraderingerne"
 
-#: ../DistUpgrade/DistUpgradeControler.py:480
+#: ../DistUpgrade/DistUpgradeControler.py:485
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -394,11 +401,11 @@ msgstr ""
 "Opgraderingen afbrydes nu. Tjek venligst din internetforbindelse eller dit "
 "installationsmedie og prøv igen. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:516
+#: ../DistUpgrade/DistUpgradeControler.py:521
 msgid "Support for some applications ended"
 msgstr "Support stoppede for nogle programmer"
 
-#: ../DistUpgrade/DistUpgradeControler.py:517
+#: ../DistUpgrade/DistUpgradeControler.py:522
 msgid ""
 "Canonical Ltd. no longer provides support for the following software "
 "packages. You can still get support from the community.\n"
@@ -412,23 +419,23 @@ msgstr ""
 "Hvis du ikke har slået software vedligeholdt af fællesskabet (universe) til, "
 "vil disse pakker blive foreslået fjernet i det næste trin."
 
-#: ../DistUpgrade/DistUpgradeControler.py:552
+#: ../DistUpgrade/DistUpgradeControler.py:557
 msgid "Remove obsolete packages?"
 msgstr "Fjern forældede pakker?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:553
+#: ../DistUpgrade/DistUpgradeControler.py:558
 msgid "_Skip This Step"
 msgstr "_Spring dette trin over"
 
-#: ../DistUpgrade/DistUpgradeControler.py:553
+#: ../DistUpgrade/DistUpgradeControler.py:558
 msgid "_Remove"
 msgstr "_Fjern"
 
-#: ../DistUpgrade/DistUpgradeControler.py:563
+#: ../DistUpgrade/DistUpgradeControler.py:568
 msgid "Error during commit"
 msgstr "Fejl under gennemførelse"
 
-#: ../DistUpgrade/DistUpgradeControler.py:564
+#: ../DistUpgrade/DistUpgradeControler.py:569
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -436,26 +443,28 @@ msgstr ""
 "Et problem opstod under oprydningen. Se venligst længere nede for mere "
 "information. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:576
+#. generate a new cache
+#: ../DistUpgrade/DistUpgradeControler.py:581
 msgid "Restoring original system state"
 msgstr "Genskaber oprindelig systemtilstand"
 
-#: ../DistUpgrade/DistUpgradeControler.py:632
+#: ../DistUpgrade/DistUpgradeControler.py:637
 #, python-format
 msgid "Fetching backport of '%s'"
 msgstr "Henter tilbageportering af \"%s\""
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
-#: ../DistUpgrade/DistUpgradeControler.py:667
-#: ../DistUpgrade/DistUpgradeControler.py:709
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:672
+#: ../DistUpgrade/DistUpgradeControler.py:714
 msgid "Checking package manager"
 msgstr "Undersøger pakkehåndtering"
 
-#: ../DistUpgrade/DistUpgradeControler.py:671
+#: ../DistUpgrade/DistUpgradeControler.py:676
 msgid "Preparing the upgrade failed"
 msgstr "Klargøring af opgraderingen fejlede"
 
-#: ../DistUpgrade/DistUpgradeControler.py:672
+#: ../DistUpgrade/DistUpgradeControler.py:677
 msgid ""
 "Preparing the system for the upgrade failed. Please report this as a bug "
 "against the 'update-manager' package and include the files in /var/log/dist-"
@@ -465,15 +474,15 @@ msgstr ""
 "fejl mod \"update-manager\"-pakken og inkludér filerne i /var/log/dist-"
 "upgrade/ i fejlrapporten."
 
-#: ../DistUpgrade/DistUpgradeControler.py:695
+#: ../DistUpgrade/DistUpgradeControler.py:700
 msgid "Updating repository information"
 msgstr "Opdaterer arkivinformation"
 
-#: ../DistUpgrade/DistUpgradeControler.py:720
+#: ../DistUpgrade/DistUpgradeControler.py:725
 msgid "Invalid package information"
 msgstr "Ugyldig pakkeinformation"
 
-#: ../DistUpgrade/DistUpgradeControler.py:721
+#: ../DistUpgrade/DistUpgradeControler.py:726
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -488,22 +497,23 @@ msgstr ""
 "manager\"-pakken og inkludér filerne i /var/log/dist-upgrade/ i "
 "fejlrapporten."
 
-#: ../DistUpgrade/DistUpgradeControler.py:733
+#: ../DistUpgrade/DistUpgradeControler.py:738
 msgid "Asking for confirmation"
 msgstr "Anmoder om bekræftelse"
 
-#: ../DistUpgrade/DistUpgradeControler.py:737
+#: ../DistUpgrade/DistUpgradeControler.py:742
 msgid "Upgrading"
 msgstr "Opgraderer"
 
-#: ../DistUpgrade/DistUpgradeControler.py:744
+#: ../DistUpgrade/DistUpgradeControler.py:749
 msgid "Searching for obsolete software"
 msgstr "Søger efter forældet software"
 
-#: ../DistUpgrade/DistUpgradeControler.py:749
+#: ../DistUpgrade/DistUpgradeControler.py:754
 msgid "System upgrade is complete."
 msgstr "Systemopgradering er fuldført"
 
+#. print "mediaChange %s %s" % (medium, drive)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
@@ -531,6 +541,7 @@ msgstr "Henter fil %li af %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
 #: ../DistUpgrade/DistUpgradeViewGtk.py:163
 msgid "Applying changes"
 msgstr "Anvender ændringer"
@@ -545,10 +556,10 @@ msgid ""
 "The upgrade aborts now. Please report this bug against the 'update-manager' "
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
-"Opgraderingen afbrydes nu. Rapportér venligst denne fejl mod \"update-"
-"manager\"-pakken og inkludér filerne i /var/log/dist-upgrade/ i "
-"fejlrapporten."
+"Opgraderingen afbrydes nu. Rapportér venligst denne fejl mod \"update-manager"
+"\"-pakken og inkludér filerne i /var/log/dist-upgrade/ i fejlrapporten."
 
+#. self.expander.set_expanded(True)
 #: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
@@ -576,9 +587,9 @@ msgstr "Der opstod en alvorlig fejl"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:366
 msgid ""
-"Please report this as a bug and include the files /var/log/dist-"
-"upgrade/main.log and /var/log/dist-upgrade/apt.log in your report. The "
-"upgrade aborts now.\n"
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 "Rapportér venligst dette som en fejl og inkludér filerne /var/log/dist-"
@@ -587,6 +598,7 @@ msgstr ""
 "Din oprindelige sources.list blev gemt i /etc/apt/sources.list.distUpgrade."
 
 #. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
 #: ../DistUpgrade/DistUpgradeViewGtk.py:501
 #, python-format
 msgid "%d package is going to be removed."
@@ -631,6 +643,7 @@ msgstr ""
 msgid "To prevent data loss close all open applications and documents."
 msgstr "Luk alle åbne programmer og dokumenter for at undgå tab af data."
 
+#. FIXME: this should go into DistUpgradeController
 #: ../DistUpgrade/DistUpgradeViewGtk.py:532
 #: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
@@ -680,14 +693,15 @@ msgid "%li seconds"
 msgstr "%li sekunder"
 
 #. 56 kbit
+#. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
 "This download will take about %s with a 1Mbit DSL connection and about %s "
 "with a 56k modem"
 msgstr ""
-"Denne hentning vil tage omkring %s med en 1 Mbit DSL-forbindelse og omkring "
-"%s med et 56k modem"
+"Denne hentning vil tage omkring %s med en 1 Mbit DSL-forbindelse og omkring %"
+"s med et 56k modem"
 
 #: ../DistUpgrade/DistUpgradeView.py:109
 msgid "Reboot required"
@@ -703,6 +717,7 @@ msgstr ""
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
 #. view.setStep(i+1)
+#. app.openCache()
 #: ../DistUpgrade/DistUpgrade.glade.h:1
 #: ../data/glade/SoftwareProperties.glade.h:1
 msgid "    "
@@ -813,6 +828,7 @@ msgstr "Kunne ikke hente udgivelsesnoterne"
 msgid "Please check your internet connection."
 msgstr "Undersøg venligst din internetforbindelse"
 
+#. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
 msgstr "Kunne ikke køre opgraderingsværktøjet"
@@ -916,14 +932,17 @@ msgstr ""
 "Fejl ved hentning af ændringslisten.\n"
 "Undersøg venligst din internetforbindelse."
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
 msgid "Important security updates"
 msgstr "Vigtige sikkerhedsopdateringer"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
 msgid "Recommended updates"
 msgstr "Anbefalede opdateringer"
 
+#. Description
 #: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
 msgid "Proposed updates"
 msgstr "Foreslåede opdateringer"
@@ -936,6 +955,7 @@ msgstr "Tilbageporteringer"
 msgid "Distribution updates"
 msgstr "Distributionsopdateringer"
 
+#. TRANSLATORS: updates from an 'unknown' origin
 #: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 msgid "Other updates"
 msgstr "Andre opdateringer"
@@ -957,6 +977,7 @@ msgstr "_Fjern alle afkrydsninger"
 msgid "_Check All"
 msgstr "_Afkryds alle"
 
+#. TRANSLATORS: b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
@@ -991,6 +1012,7 @@ msgstr "Fra version %(old_version)s til %(new_version)s"
 msgid "Version %s"
 msgstr "Version %s"
 
+#. TRANSLATORS: the b stands for Bytes
 #: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
@@ -1007,14 +1029,15 @@ msgid ""
 "information on upgrading."
 msgstr ""
 "Du vil ikke modtage yderligere sikkerhedrettelser eller kritiske "
-"opdateringer. Opgradér til en senere version af Ubuntu Linux. Se "
-"http://www.ubuntu.com (engelsk) for mere information om opgradering."
+"opdateringer. Opgradér til en senere version af Ubuntu Linux. Se http://www."
+"ubuntu.com (engelsk) for mere information om opgradering."
 
 #: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Ny distributionsudgivelse \"%s\" er tilgængelig</b>"
 
+#. we assert a clean cache
 #: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "Softwareindekset er ødelagt"
@@ -1026,22 +1049,26 @@ msgid ""
 "this issue at first."
 msgstr ""
 "Det er ikke muligt at installere eller fjerne software. Brug venligst "
-"pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo apt-get install -"
-"f\" i en terminal for at fikse dette problem først."
+"pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo apt-get install -f"
+"\" i en terminal for at fikse dette problem først."
 
+#. TRANSLATORS: download size is 0
 #: ../UpdateManager/Common/utils.py:33
 msgid "None"
 msgstr "Intet"
 
+#. TRANSLATORS: download size of very small updates
 #: ../UpdateManager/Common/utils.py:36
 msgid "1 KB"
 msgstr "1 KB"
 
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
 #: ../UpdateManager/Common/utils.py:39
 #, python-format
 msgid "%.0f KB"
 msgstr "%.0f KB"
 
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
 #: ../UpdateManager/Common/utils.py:42
 #, python-format
 msgid "%.1f MB"
@@ -1067,8 +1094,8 @@ msgstr "<big><b>Hold dit system opdateret</b></big>"
 #: ../data/glade/UpdateManager.glade.h:5
 msgid "<big><b>Not all updates can be installed</b></big>"
 msgstr ""
-"<big><b>Ikke alle opdateringer kan installeres</b></big>\n"
-"\n"
+"<big><b>Ikke alle opdateringer kan installeres</b></big>\r\n"
+"\r\n"
 "%s"
 
 #: ../data/glade/UpdateManager.glade.h:6
@@ -1411,190 +1438,233 @@ msgstr "Vinduesstørrelsen"
 msgid "Configure the sources for installable software and updates"
 msgstr "Konfigurér kilderne for installérbar software og opdateringer"
 
+#. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
-"http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:8
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 6.10 \"Edgy Eft\""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:13
 msgid "Community maintained"
 msgstr "Vedligeholdt af fællesskabet"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:17
 msgid "Proprietary drivers for devices"
 msgstr "Proprietære drivere til enheder"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:19
 msgid "Restricted software"
 msgstr "Ikke-frit software"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "Cd-rom med Ubuntu 6.10 \"Edgy Eft\""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:59
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 LTS \"Dapper Drake\""
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:62
 msgid "Canonical supported Open Source software"
 msgstr "Fri software understøttet af Canonical"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
 msgstr "Vedligeholdt af fællesskabet (universe)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:65
 msgid "Community maintained Open Source software"
 msgstr "Fri software vedligeholdt af fællesskabet"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:67
 msgid "Non-free drivers"
 msgstr "Proprietære drivere"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:68
 msgid "Proprietary drivers for devices "
 msgstr "Proprietære drivere til enheder "
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:70
 msgid "Restricted software (Multiverse)"
 msgstr "Ikke-frit software (multiverse)"
 
+#. CompDescriptionLong
 #: ../data/channels/Ubuntu.info.in:71
 msgid "Software restricted by copyright or legal issues"
 msgstr "Software begrænset af ophavsret eller legale problemer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Cd-rom med Ubuntu 6.06 LTS \"Dapper Drake\""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
 msgstr "Tilbageporterede opdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 \"Breezy Badger\""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:123
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Cd-rom med Ubuntu 5.10 \"Breezy Badger\""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 sikkerhedsopdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 opdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 tilbageporteringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:152
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Cd-rom med Ubuntu 5.04 \"Hoary Hedgehog\""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
 msgstr "Understøttet officielt"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:177
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.04 sikkerhedsopdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:182
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.04 opdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:187
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.04 tilbageporteringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:193
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 4.10 \"Warty Warthog\""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "Vedligeholdt af fællesskabet (universe)"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "Ikke-frit (multiverse)"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "Cd-rom med Ubuntu 4.10 \"Warty Warthog\""
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:209
 msgid "No longer officially supported"
 msgstr "Ikke længere officielt supporteret"
 
+#. CompDescription
 #: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "Begrænset ophavsret"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 4.10 sikkerhedsopdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:223
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 4.10 opdateringer"
 
+#. Description
 #: ../data/channels/Ubuntu.info.in:228
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 4.10 tilbageporteringer"
 
+#. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
+#. Description
 #: ../data/channels/Debian.info.in:6
 msgid "Debian 3.1 \"Sarge\""
 msgstr "Debian 3.1 \"Sarge\""
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:19
 msgid "http://security.debian.org/"
 msgstr "http://security.debian.org/"
 
+#. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
 msgstr "Debian 3.1 \"Sarge\" sikkerhedsopdateringer"
 
+#. Description
 #: ../data/channels/Debian.info.in:34
 msgid "Debian \"Etch\" (testing)"
 msgstr "Debian \"Etch\" (testing)"
 
+#. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
 msgstr "http://http.us.debian.org/debian/"
 
+#. Description
 #: ../data/channels/Debian.info.in:48
 msgid "Debian \"Sid\" (unstable)"
 msgstr "Debian \"Sid\" (unstable)"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-kompatibel software med ikke-frie afhængigheder"
 
+#. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel software"
 
-#, python-format
 #~ msgid "Downloading file %li of %li with unknown speed"
 #~ msgstr "Henter fil %li af %li med ukendt hastighed"
 
@@ -1617,7 +1687,8 @@ msgstr "Ikke-DFSG-kompatibel software"
 #~ msgid ""
 #~ "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
 #~ msgstr ""
-#~ "<span weight=\"bold\" size=\"x-large\">Opgraderer til Ubuntu 6.06 LTS</span>"
+#~ "<span weight=\"bold\" size=\"x-large\">Opgraderer til Ubuntu 6.06 LTS</"
+#~ "span>"
 
 #, fuzzy
 #~ msgid "Important security updates of Ubuntu"
@@ -1636,17 +1707,17 @@ msgstr "Ikke-DFSG-kompatibel software"
 
 #~ msgid ""
 #~ "Some updates require the removal of further software. Use the function "
-#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo apt-"
-#~ "get dist-upgrade\" in a terminal to update your system completely."
+#~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
+#~ "apt-get dist-upgrade\" in a terminal to update your system completely."
 #~ msgstr ""
-#~ "Nogle opdateringer kræver yderligere software. Brug funktionen \"Vælg alle "
-#~ "opgraderinger\" i pakkehåndteringsprogrammet \"Synaptic\" eller kør \"sudo "
-#~ "apt-get dist-upgrade\" i en terminal for at opdatere dit system fuldstændigt."
+#~ "Nogle opdateringer kræver yderligere software. Brug funktionen \"Vælg "
+#~ "alle opgraderinger\" i pakkehåndteringsprogrammet \"Synaptic\" eller kør "
+#~ "\"sudo apt-get dist-upgrade\" i en terminal for at opdatere dit system "
+#~ "fuldstændigt."
 
 #~ msgid "The following updates will be skipped:"
 #~ msgstr "Følgende opdateringer vil blive sprunget over:"
 
-#, python-format
 #~ msgid "About %li seconds remaining"
 #~ msgstr "Tid tilbage(ca.): %li sekunder"
 

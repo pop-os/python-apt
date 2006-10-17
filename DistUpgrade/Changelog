@@ -1,5 +1,4 @@
 2006-10-16:
-	- backup cdroms.list only if actually available
 	- remove leftover references to ubuntu-base and
 	  use ubuntu-minimal and ubuntu-standard instead
 	- updated translations from rosetta
