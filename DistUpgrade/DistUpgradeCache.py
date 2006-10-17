@@ -166,8 +166,8 @@ class MyCache(apt.Cache):
     def edgyQuirks(self):
         """ this function works around quirks in the dapper->edgy upgrade """
         logging.debug("running edgyQuirks handler")
-        # deal with the python2.4-$foo -> python-$foo transition
         for pkg in self:
+            # deal with the python2.4-$foo -> python-$foo transition
             if (pkg.name.startswith("python2.4-") and
                 pkg.isInstalled and
                 not pkg.markedUpgrade):
@@ -178,14 +178,23 @@ class MyCache(apt.Cache):
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
                         logging.debug("Failed to apply python2.4->python install: %s (%s)" % (basepkg, e))
-        # deal with *gar*gar* hpijs
-        if (self.has_key("hpijs") and self["hpijs"].isInstalled and
-            not self["hpijs"].markedUpgrade):
-            try:
-                self.markInstall("hpijs","hpijs quirk upgrade rule")
-            except SystemError, e:
-                logging.debug("Failed to apply hpijs install (%s)" % e)
+            # xserver-xorg-input-$foo gives us trouble during the upgrade too
+            if (pkg.name.startswith("xserver-xorg-input-") and
+                pkg.isInstalled and
+                not pkg.markedUpgrade):
+                try:
+                    self.markInstall(pkg.name, "xserver-xorg-input fixup rule")
+                except SystemError, e:
+                    logging.debug("Failed to apply %s fixup: %s (%s)" % (pkg.name, e))
             
+        # deal with held-backs that are unneeded
+        for pkgname in ["hpijs", "bzr"]:
+            if (self.has_key(pkgname) and self[pkgname].isInstalled and
+                not self[pkgname].markedUpgrade):
+                try:
+                    self.markInstall(pkgname,"%s quirk upgrade rule" % pkgname)
+                except SystemError, e:
+                    logging.debug("Failed to apply %s install (%s)" % (pkgname,e))
         
                                   
     def dapperQuirks(self):
