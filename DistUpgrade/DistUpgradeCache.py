@@ -185,7 +185,7 @@ class MyCache(apt.Cache):
                 try:
                     self.markInstall(pkg.name, "xserver-xorg-input fixup rule")
                 except SystemError, e:
-                    logging.debug("Failed to apply %s fixup: %s (%s)" % (pkg.name, e))
+                    logging.debug("Failed to apply fixup: %s (%s)" % (pkg.name, e))
             
         # deal with held-backs that are unneeded
         for pkgname in ["hpijs", "bzr", "tomboy"]:
