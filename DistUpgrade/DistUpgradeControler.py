@@ -202,7 +202,7 @@ class DistUpgradeControler(object):
             
             # we disable breezy cdrom sources to make sure that demoted
             # packages are removed
-            if entry.uri.startswith("cdrom:") and entry.dist == "breezy":
+            if entry.uri.startswith("cdrom:") and entry.dist == self.toDist:
                 entry.disabled = True
                 continue
             # ignore cdrom sources otherwise
