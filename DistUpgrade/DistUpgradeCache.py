@@ -195,7 +195,23 @@ class MyCache(apt.Cache):
                     self.markInstall(pkgname,"%s quirk upgrade rule" % pkgname)
                 except SystemError, e:
                     logging.debug("Failed to apply %s install (%s)" % (pkgname,e))
-        
+        # libgl1-mesa-dri from xgl.compiz.info (and friends) breaks the
+	# upgrade, work around this here by downgrading the package
+        if self.has_key("libgl1-mesa-dri"):
+            pkg = self["libgl1-mesa-dri"]
+            # the version from the compiz repo has a "6.5.1+cvs20060824" ver
+            if (pkg.candidateVersion == pkg.installedVersion and
+                "+cvs2006" in pkg.candidateVersion):
+                for ver in pkg._pkg.VersionList:
+                    # the "officual" edgy version has "6.5.1~20060817-0ubuntu3"
+                    if "~2006" in ver.VerStr:
+			# ensure that it is from a trusted repo
+			for (VerFileIter, index) in ver.FileList:
+				indexfile = self._list.FindIndex(VerFileIter)
+				if indexfile and indexfile.IsTrusted:
+					logging.info("Forcing downgrade of libgl1-mesa-dri for xgl.compz.info installs")
+		                        self._depcache.SetCandidateVer(pkg._pkg, ver)
+					break
                                   
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
@@ -239,6 +255,15 @@ class MyCache(apt.Cache):
         untrusted = []
         for pkg in self.getChanges():
             if pkg.markedDelete:
+                continue
+            # special case because of a bug in pkg.candidateOrigin
+            if pkg.markedDowngrade:
+                for ver in pkg._pkg.VersionList:
+                    # version is lower than installed one
+                    if apt_pkg.VersionCompare(ver.VerStr, pkg.installedVersion) < 0:
+                        for (verFileIter,index) in ver.FileList:
+                            if not origin.trusted:
+                                untrusted.append(pkg.name)
                 continue
             origins = pkg.candidateOrigin
             trusted = False

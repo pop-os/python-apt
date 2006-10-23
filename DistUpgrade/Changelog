@@ -1,5 +1,8 @@
 2006-10-21:
 	- fix incorrect arguments in fixup logging (lp: #67311)
+	- more error logging
+	- fix upgrade problems for people with unofficial compiz 
+	  repositories (lp: #58424)
 2006-10-17:
 	- ensure bzr, tomboy and xserver-xorg-input-* are properly 
           upgraded
