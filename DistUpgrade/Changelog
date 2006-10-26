@@ -1,3 +1,6 @@
+2006-10-26:
+	- make sure that xserver-xorg-video-all get installed if
+	  xserver-xorg-driver-all was installed before (lp: #58424)
 2006-10-21:
 	- comment out old cdrom sources
 	- demotions updated

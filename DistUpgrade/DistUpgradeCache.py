@@ -212,6 +212,17 @@ class MyCache(apt.Cache):
 					logging.info("Forcing downgrade of libgl1-mesa-dri for xgl.compz.info installs")
 		                        self._depcache.SetCandidateVer(pkg._pkg, ver)
 					break
+                                    
+        # deal with general if $foo is installed, install $bar
+        for (fr, to) in [("xserver-xorg-driver-all","xserver-xorg-video-all")]:
+            if self.has_key(fr) and self.has_key(to):
+                if self[fr].isInstalled and not self[to].markedInstall:
+                    try:
+                        self.markInstall(to,"%s->%s quirk upgrade rule" % (fr, to))
+                    except SystemError, e:
+                        logging.debug("Failed to apply %s->%s install (%s)" % (fr, to, e))
+                    
+                    
                                   
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
