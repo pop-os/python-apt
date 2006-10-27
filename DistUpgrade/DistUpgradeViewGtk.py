@@ -97,7 +97,7 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
         self.parent = parent
     def mediaChange(self, medium, drive):
       #print "mediaChange %s %s" % (medium, drive)
-      msg = _("Please insert '%s' into the drive '%s'" % (medium,drive))
+      msg = _("Please insert '%s' into the drive '%s'") % (medium,drive)
       dialog = gtk.MessageDialog(parent=self.parent.window_main,
                                  flags=gtk.DIALOG_MODAL,
                                  type=gtk.MESSAGE_QUESTION,
@@ -126,10 +126,10 @@ class GtkFetchProgressAdapter(apt.progress.FetchProgress):
             currentItem = self.totalItems
 
         if self.currentCPS > 0:
-            self.status.set_text(_("Fetching file %li of %li at %s/s" % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS))))
+            self.status.set_text(_("Fetching file %li of %li at %s/s") % (currentItem, self.totalItems, apt_pkg.SizeToStr(self.currentCPS)))
             self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(self.eta))
         else:
-            self.status.set_text(_("Fetching file %li of %li" % (currentItem, self.totalItems)))
+            self.status.set_text(_("Fetching file %li of %li") % (currentItem, self.totalItems))
             self.progress.set_text("  ")
 
         while gtk.events_pending():
@@ -184,7 +184,7 @@ class GtkInstallProgressAdapter(InstallProgress):
         logging.error("got an error from dpkg for pkg: '%s': '%s'" % (pkg, errormsg))
         #self.expander_terminal.set_expanded(True)
         self.parent.dialog_error.set_transient_for(self.parent.window_main)
-        summary = _("Could not install '%s'" % pkg)
+        summary = _("Could not install '%s'") % pkg
         msg = _("The upgrade aborts now. Please report this bug against the 'update-manager' "
                 "package and include the files in /var/log/dist-upgrade/ in the bugreport.")
         markup="<big><b>%s</b></big>\n\n%s" % (summary, msg)
@@ -198,14 +198,12 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
+        start = time.time()
         #self.expander.set_expanded(True)
-        prim = _("Replace configuration file\n'%s'?" % current)
-        sec = ("The configuration file %s was modified (by "
-               "you or by a script). An updated version is shipped "
-               "in this package. If you want to keep your current "
-               "version say 'Keep'. Do you want to replace the "
-               "current file and install the new package "
-               "maintainers version? " % current)
+        prim = _("Replace the customized configuration file\n'%s'?") % current
+        sec = _("You will lose any changes you have made to this "
+                "configuration file if you choose to replace it with "
+                "a newer version.")
         markup = "<span weight=\"bold\" size=\"larger\">%s </span> \n\n%s" % (prim, sec)
         self.parent.label_conffile.set_markup(markup)
         self.parent.dialog_conffile.set_transient_for(self.parent.window_main)
@@ -219,6 +217,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.parent.textview_conffile.get_buffer().set_text(_("The 'diff' command was not found"))
         res = self.parent.dialog_conffile.run()
         self.parent.dialog_conffile.hide()
+        self.time_ui += time.time() - start
         # if replace, send this to the terminal
         if res == gtk.RESPONSE_YES:
           self.term.feed_child("y\n")
@@ -245,9 +244,11 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.last_activity = time.time()
           self.activity_timeout_reported = False
           delta = self.last_activity - self.start_time
+          # time wasted in conffile questions (or other ui activity)
+          delta -= self.time_ui
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
-          # only show if we have some sensible data
+          # only show if we have some sensible data (60sec < eta < 2days)
           if eta > 61.0 and eta < (60*60*24*2):
             self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(eta))
           else:
@@ -266,7 +267,10 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text("")
     
     def updateInterface(self):
-        InstallProgress.updateInterface(self)
+        try:
+          InstallProgress.updateInterface(self)
+        except ValueError, e:
+          logging.error("got ValueError from InstallPrgoress.updateInterface. Line was '%s' (%s)" % (self.read, e))
         # check if we haven't started yet with packages, pulse then
         if self.start_time == 0.0:
           self.progress.pulse()
@@ -322,8 +326,15 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
+        self.prev_step = 0 # keep a record of the latest step
         # we dont use this currently
         #self.window_main.set_keep_above(True)
+        self.icontheme = gtk.icon_theme_get_default()
+        # we keep a reference pngloader around so that its in memory
+        # -> this avoid the issue that during the dapper->edgy upgrade
+        #    the loaders move from /usr/lib/gtk/2.4.0/loaders to 2.10.0
+        self.pngloader = gtk.gdk.PixbufLoader("png")
+        
         self.window_main.realize()
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
@@ -410,21 +421,37 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label = getattr(self,"label_step%i" % step)
         image.hide()
         label.hide()
+    def abort(self):
+        size = gtk.ICON_SIZE_MENU
+        step = self.prev_step
+        if step > 0:
+            image = getattr(self,"image_step%i" % step)
+            arrow = getattr(self,"arrow_step%i" % step)
+            image.set_from_stock(gtk.STOCK_CANCEL, size)
+            image.show()
+            arrow.hide()
     def setStep(self, step):
-        # first update the "last" step as completed
+        if self.icontheme.rescan_if_needed():
+          logging.debug("icon theme changed, re-reading")
+        # first update the "previous" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
-        if step > 1:
-            image = getattr(self,"image_step%i" % (step-1))
-            label = getattr(self,"label_step%i" % (step-1))
-            image.set_from_stock(gtk.STOCK_APPLY, size)
+        if self.prev_step:
+            image = getattr(self,"image_step%i" % self.prev_step)
+            label = getattr(self,"label_step%i" % self.prev_step)
+            arrow = getattr(self,"arrow_step%i" % self.prev_step)
             label.set_property("attributes",attrlist)
+            image.set_from_stock(gtk.STOCK_APPLY, size)
+            image.show()
+            arrow.hide()
+        self.prev_step = step
+        # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
-        image.set_from_stock(gtk.STOCK_YES, size)
+        arrow = getattr(self,"arrow_step%i" % step)
+        arrow.show()
+        image.hide()
         attr = pango.AttrWeight(pango.WEIGHT_BOLD, 0, -1)
-        # we can't make it bold here without layout changes in the view :(
-        #attr = pango.AttrStyle(pango.STYLE_ITALIC, 0, -1)
         attrlist.insert(attr)
         label.set_property("attributes",attrlist)
 
@@ -442,6 +469,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       self.dialog_information.window.set_functions(gtk.gdk.FUNC_MOVE)
       self.dialog_information.run()
       self.dialog_information.hide()
+      while gtk.events_pending():
+        gtk.main_iteration()
 
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
@@ -472,24 +501,24 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         if pkgs_remove > 0:
             # FIXME: make those two seperate lines to make it clear
             #        that the "%" applies to the result of ngettext
-            msg += gettext.ngettext("%s package is going to be removed.",
-                                    "%s packages are going to be removed.",
+            msg += gettext.ngettext("%d package is going to be removed.",
+                                    "%d packages are going to be removed.",
                                     pkgs_remove) % pkgs_remove
             msg += " "
         if pkgs_inst > 0:
-            msg += gettext.ngettext("%s new package is going to be "
+            msg += gettext.ngettext("%d new package is going to be "
                                     "installed.",
-                                    "%s new packages are going to be "
+                                    "%d new packages are going to be "
                                     "installed.",pkgs_inst) % pkgs_inst
             msg += " "
         if pkgs_upgrade > 0:
-            msg += gettext.ngettext("%s package is going to be upgraded.",
-                                    "%s packages are going to be upgraded.",
+            msg += gettext.ngettext("%d package is going to be upgraded.",
+                                    "%d packages are going to be upgraded.",
                                     pkgs_upgrade) % pkgs_upgrade
             msg +=" "
         if downloadSize > 0:
-            msg += _("\n\nYou have to download a total of %s. " %\
-                     apt_pkg.SizeToStr(downloadSize))
+            msg += _("\n\nYou have to download a total of %s. ") %\
+                     apt_pkg.SizeToStr(downloadSize)
             msg += estimatedDownloadTime(downloadSize)
             msg += "."
 
@@ -503,8 +532,9 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # Show an error if no actions are planned
         if (pkgs_upgrade + pkgs_inst + pkgs_remove) < 1:
             # FIXME: this should go into DistUpgradeController
-            summary = _("Could not find any upgrades")
-            msg = _("Your system has already been upgraded.")
+            summary = _("Your system is up-to-date")
+            msg = _("There are no upgrades available for your system. "
+                    "The upgrade will now be canceled.")
             self.error(summary, msg)
             return False
 
@@ -519,11 +549,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         # fill in the details
         self.details_list.clear()
         for rm in self.toRemove:
-            self.details_list.append([_("<b>Remove %s</b>" % rm)])
+            self.details_list.append([_("<b>Remove %s</b>") % rm])
         for inst in self.toInstall:
-            self.details_list.append([_("Install %s" % inst)])
+            self.details_list.append([_("Install %s") % inst])
         for up in self.toUpgrade:
-            self.details_list.append([_("Upgrade %s" % up)])
+            self.details_list.append([_("Upgrade %s") % up])
         self.treeview_details.scroll_to_cell((0,))
         self.dialog_changes.set_transient_for(self.window_main)
         self.dialog_changes.realize()
@@ -575,11 +605,11 @@ if __name__ == "__main__":
   fp = GtkFetchProgressAdapter(view)
   ip = GtkInstallProgressAdapter(view)
 
-
   cache = apt.Cache()
   for pkg in sys.argv[1:]:
     cache[pkg].markInstall()
   cache.commit(fp,ip)
+  sys.exit(0)
   
   #sys.exit(0)
   ip.conffile("TODO","TODO~")

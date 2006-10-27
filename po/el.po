@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-05 13:07+0200\n"
-"PO-Revision-Date: 2006-05-25 15:39+0000\n"
+"POT-Creation-Date: 2006-10-23 14:26+0200\n"
+"PO-Revision-Date: 2006-10-16 04:13+0000\n"
 "Last-Translator: Kostas Papadimas <pkst@gmx.net>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
@@ -16,135 +16,143 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Daily"
 msgstr "Ημερησίως"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
+#: ../SoftwareProperties/SoftwareProperties.py:137
 msgid "Every two days"
 msgstr "Κάθε δύο ημέρες"
 
-#: ../SoftwareProperties/SoftwareProperties.py:137
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Weekly"
 msgstr "Εβδομαδιαίως"
 
-#: ../SoftwareProperties/SoftwareProperties.py:138
+#: ../SoftwareProperties/SoftwareProperties.py:139
 msgid "Every two weeks"
 msgstr "Κάθε δύο εβδομάδες"
 
-#: ../SoftwareProperties/SoftwareProperties.py:143
+#: ../SoftwareProperties/SoftwareProperties.py:144
 #, python-format
 msgid "Every %s days"
 msgstr "Κάθε %s ημέρες"
 
-#: ../SoftwareProperties/SoftwareProperties.py:166
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After one week"
 msgstr "Μετά από μια εβδομάδα"
 
-#: ../SoftwareProperties/SoftwareProperties.py:167
+#: ../SoftwareProperties/SoftwareProperties.py:168
 msgid "After two weeks"
 msgstr "Μετά από δύο εβδομάδες"
 
-#: ../SoftwareProperties/SoftwareProperties.py:168
+#: ../SoftwareProperties/SoftwareProperties.py:169
 msgid "After one month"
 msgstr "Μετά από ένα μήνα"
 
-#: ../SoftwareProperties/SoftwareProperties.py:173
+#: ../SoftwareProperties/SoftwareProperties.py:174
 #, python-format
 msgid "After %s days"
 msgstr "Μετά από %s ημέρες"
 
 #. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-#: ../SoftwareProperties/SoftwareProperties.py:235
-#, fuzzy, python-format
+#: ../SoftwareProperties/SoftwareProperties.py:252
+#, python-format
 msgid "%s updates"
-msgstr "Εγκατάσταση ενημερώσεων"
+msgstr "%s ενημερώσεις"
 
-#: ../SoftwareProperties/SoftwareProperties.py:294
+#. TRANSLATORS: Label for the components in the Internet section
+#. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
+#: ../SoftwareProperties/SoftwareProperties.py:264
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../SoftwareProperties/SoftwareProperties.py:316
 msgid "Main server"
-msgstr ""
+msgstr "Κύριος εξυπηρετητής"
 
 #. TRANSLATORS: %s is a country
-#: ../SoftwareProperties/SoftwareProperties.py:298
-#: ../SoftwareProperties/SoftwareProperties.py:316
+#: ../SoftwareProperties/SoftwareProperties.py:320
+#: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
 msgid "Server for %s"
-msgstr ""
+msgstr "Εξυπηρετητής για %s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:302
+#: ../SoftwareProperties/SoftwareProperties.py:324
 msgid "Nearest server"
-msgstr ""
+msgstr "Κοντινότερος εξυπηρετητής"
 
-#: ../SoftwareProperties/SoftwareProperties.py:323
+#: ../SoftwareProperties/SoftwareProperties.py:345
 msgid "Custom servers"
-msgstr ""
+msgstr "Προσαρμοσμένοι εξυπηρετητές"
 
-#: ../SoftwareProperties/SoftwareProperties.py:580
-#: ../SoftwareProperties/SoftwareProperties.py:597
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
 msgid "Software Channel"
 msgstr "Κανάλι λογισμικού"
 
-#: ../SoftwareProperties/SoftwareProperties.py:588
-#: ../SoftwareProperties/SoftwareProperties.py:605
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
 msgstr "Ενεργό"
 
-#: ../SoftwareProperties/SoftwareProperties.py:690
+#: ../SoftwareProperties/SoftwareProperties.py:714
 msgid "(Source Code)"
-msgstr ""
+msgstr "(Πηγαίος κώδικας)"
 
-#: ../SoftwareProperties/SoftwareProperties.py:696
+#: ../SoftwareProperties/SoftwareProperties.py:720
 msgid "Source Code"
-msgstr ""
+msgstr "Πηγαίος κώδικας"
 
-#: ../SoftwareProperties/SoftwareProperties.py:945
+#: ../SoftwareProperties/SoftwareProperties.py:969
 msgid "Import key"
 msgstr "Εισαγωγή κλειδιού"
 
-#: ../SoftwareProperties/SoftwareProperties.py:955
+#: ../SoftwareProperties/SoftwareProperties.py:979
 msgid "Error importing selected file"
 msgstr "Σφάλμα εισαγωγής επιλεγμένου αρχείου"
 
-#: ../SoftwareProperties/SoftwareProperties.py:956
+#: ../SoftwareProperties/SoftwareProperties.py:980
 msgid "The selected file may not be a GPG key file or it might be corrupt."
 msgstr ""
 "Το επιλεγμένο αρχείο μπορεί να μην είναι ένα αρχείο κλειδιού GPG ή μπορεί να "
-"είναι κατεστραμμένο."
+"είναι κατεστραμμένο"
 
-#: ../SoftwareProperties/SoftwareProperties.py:968
+#: ../SoftwareProperties/SoftwareProperties.py:992
 msgid "Error removing the key"
-msgstr "Σφάλμα απομάκρυνσης του κλειδιού"
+msgstr "Σφάλμα απομάκρυνσης κλειδιού"
 
-#: ../SoftwareProperties/SoftwareProperties.py:969
+#: ../SoftwareProperties/SoftwareProperties.py:993
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
-"Το επιλεγμένο κλειδί δεν μπορεί να απομακρυνθεί. Παρακαλώ αναφέρετε το ως "
-"σφάλμα."
+"Το κλειδί που επιλέξατε δεν μπορεί να απομακρυνθεί. Παρακαλώ αναφέρετε αυτό "
+"ως σφάλμα."
 
-#: ../SoftwareProperties/SoftwareProperties.py:1015
+#: ../SoftwareProperties/SoftwareProperties.py:1039
 #, python-format
 msgid ""
-"<big><b>Error scaning the CD</b></big>\n"
+"<big><b>Error scanning the CD</b></big>\n"
 "\n"
 "%s"
 msgstr ""
-"<big><b>Σφάλμα ελέγχου του CD</b></big>\n"
+"<big><b>Σφάλμα σάρωσης του CD</b></big>\n"
 "\n"
 "%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1072
+#: ../SoftwareProperties/SoftwareProperties.py:1096
 msgid "Please enter a name for the disc"
 msgstr "Παρακαλώ εισάγετε ένα όνομα για το δίσκο"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1088
+#: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
 msgstr "Παρακαλώ εισάγετε ένα δίσκο στον οδηγό:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:89
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
 msgstr "Κατεστραμμένα πακέτα"
 
-#: ../DistUpgrade/DistUpgradeCache.py:90
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
@@ -153,36 +161,37 @@ msgstr ""
 "διορθωθούν με αυτό το λογισμικό. Παρακαλώ διορθώστε τα μέσω synaptic ή apt-"
 "get για να συνεχίσετε."
 
-#: ../DistUpgrade/DistUpgradeCache.py:147
+#: ../DistUpgrade/DistUpgradeCache.py:238
 msgid "Can't upgrade required meta-packages"
 msgstr "Αδυναμία αναβάθμισης απαιτούμενων μετα-πακέτων"
 
-#: ../DistUpgrade/DistUpgradeCache.py:154
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid "A essential package would have to be removed"
 msgstr "Ένα απαραίτητο πακέτα θα πρέπει να απομακρυνθεί"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:157
+#: ../DistUpgrade/DistUpgradeCache.py:245
 msgid "Could not calculate the upgrade"
 msgstr "Αδυναμία υπολογισμού της αναβάθμισης"
 
-#: ../DistUpgrade/DistUpgradeCache.py:158
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid ""
-"A unresolvable problem occured while calculating the upgrade.\n"
+"A unresolvable problem occurred while calculating the upgrade.\n"
 "\n"
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
-"Συνέβηκε ένα ανεπίλυτο πρόβλημα κατά τον υπολογισμό της αναβάθμισης. "
-"Παρακαλώ αναφέρετε το ως σφάλμα. "
+"Συνέβηκε ένα ανεπίλυτο πρόβλημα κατά τον υπολογισμό της αναβάθμισης.\n"
+"\n"
+"Παρακαλώ αναφέρετε το ως σφάλμα στο πακέτο 'update-manager' και επισυνάψτε "
+"στην αναφορά σφάλματος τα αρχεία στο /var/log/dist-upgrade/."
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:280
 msgid "Error authenticating some packages"
 msgstr "Σφάλμα πιστοποίησης κάποιων πακέτων"
 
-#: ../DistUpgrade/DistUpgradeCache.py:184
+#: ../DistUpgrade/DistUpgradeCache.py:281
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -192,12 +201,12 @@ msgstr ""
 "σε ένα πρόβλημα δικτύου. Προσπαθήστε αργότερα. Δείτε παρακάτω τη λίστα των "
 "μη πιστοποιημένων πακέτων."
 
-#: ../DistUpgrade/DistUpgradeCache.py:249
+#: ../DistUpgrade/DistUpgradeCache.py:346
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Αδυναμία εγκατάστασης '%s'"
 
-#: ../DistUpgrade/DistUpgradeCache.py:250
+#: ../DistUpgrade/DistUpgradeCache.py:347
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
@@ -206,30 +215,30 @@ msgstr ""
 "ως σφάλμα. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:257
+#: ../DistUpgrade/DistUpgradeCache.py:354
 msgid "Can't guess meta-package"
 msgstr "Αδυναμία εύρεσης μετα-πακέτου"
 
-#: ../DistUpgrade/DistUpgradeCache.py:258
+#: ../DistUpgrade/DistUpgradeCache.py:355
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
-"you are runing.\n"
+"you are running.\n"
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
 "Το σύστημα σας δεν περιέχει κάποιο από τα πακέτα ubuntu-desktop, kubuntu-"
 "desktop or edubuntu-desktop, και έτσι δεν είναι δυνατός ο εντοπισμός της "
-"έκδοσης του Ubuntu σας..\n"
-"Εγκαταστήστε ένα από αυτά τα πακέτα πρώτα μέσω synaptic ή apt-get πριν να "
+"έκδοσης του Ubuntu σας.\n"
+"\n"
+" Εγκαταστήστε ένα από αυτά τα πακέτα πρώτα μέσω synaptic ή apt-get πριν να "
 "συνεχίσετε."
 
-#: ../DistUpgrade/DistUpgradeControler.py:73
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeControler.py:75
 msgid "Failed to add the CD"
-msgstr "Αποτυχία λήψης"
+msgstr "Αποτυχία προσθήκης του CD"
 
-#: ../DistUpgrade/DistUpgradeControler.py:74
+#: ../DistUpgrade/DistUpgradeControler.py:76
 #, python-format
 msgid ""
 "There was a error adding the CD, the upgrade will abort. Please report this "
@@ -238,28 +247,37 @@ msgid ""
 "The error message was:\n"
 "'%s'"
 msgstr ""
+"Υπήρξε σφάλμα κατά την προσθήκη του CD και η αναβάθμιση θα τερματιστεί. "
+"Παρακαλώ αναφέρετε το ως σφάλμα αν αυτό είναι ένα έγκυρο Ubuntu CD.\n"
+"\n"
+"Το μήνυμα σφάλματος ήταν:\n"
+"'%s'"
 
-#: ../DistUpgrade/DistUpgradeControler.py:104
+#: ../DistUpgrade/DistUpgradeControler.py:108
 msgid "Reading cache"
 msgstr "Ανάγνωση λανθάνουσας μνήμης"
 
-#: ../DistUpgrade/DistUpgradeControler.py:143
+#: ../DistUpgrade/DistUpgradeControler.py:156
 msgid "Fetch data from the network for the upgrade?"
-msgstr ""
+msgstr "Να γίνει λήψη δεδομένων από το δίκτυο για την αναβάθμιση;"
 
-#: ../DistUpgrade/DistUpgradeControler.py:144
+#: ../DistUpgrade/DistUpgradeControler.py:157
 msgid ""
 "The upgrade can use the network to check the latest updates and to fetch "
 "packages that are not on the current CD.\n"
 "If you have fast or inexpensive network access you should answer 'Yes' here. "
 "If networking is expensive for you choose 'No'."
 msgstr ""
+"Η αναβάθμιση μπορεί να χρησιμοποιεί το δίκτυο για να ελέγχει για τις πιο "
+"πρόσφατες ενημερώσεις, και για να λαμβάνει πακέτα που δεν είναι στο CD.\n"
+"Αν διαθέτετε μια γρήγορη ή φθηνή πρόσβαση στο δίκτυο  απαντήστε 'Ναι' εδώ. "
+"Αν η πρόσβαση είναι ακριβή πατήστε 'Όχι'"
 
-#: ../DistUpgrade/DistUpgradeControler.py:235
+#: ../DistUpgrade/DistUpgradeControler.py:249
 msgid "No valid mirror found"
 msgstr "Δεν βρέθηκε έγκυρη εναλλακτική τοποθεσία αρχείων"
 
-#: ../DistUpgrade/DistUpgradeControler.py:236
+#: ../DistUpgrade/DistUpgradeControler.py:250
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -280,11 +298,11 @@ msgstr ""
 " Αν επιλέξετε 'Όχι' η ενημέρωση θα ακυρωθεί."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:267
 msgid "Generate default sources?"
 msgstr "Δημιουργία προεπιλεγμένων πηγών;"
 
-#: ../DistUpgrade/DistUpgradeControler.py:254
+#: ../DistUpgrade/DistUpgradeControler.py:268
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -298,11 +316,11 @@ msgstr ""
 "Να προστεθούν οι προεπιλεγμένες καταχωρίσεις για το '%s'; Αν απαντήσετε "
 "'Όχι' η ενημέρωση θα ακυρωθεί."
 
-#: ../DistUpgrade/DistUpgradeControler.py:288
+#: ../DistUpgrade/DistUpgradeControler.py:302
 msgid "Repository information invalid"
 msgstr "Μη έγκυρες πληροφορίες repository"
 
-#: ../DistUpgrade/DistUpgradeControler.py:289
+#: ../DistUpgrade/DistUpgradeControler.py:303
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -310,13 +328,14 @@ msgstr ""
 "Η αναβάθμιση των πληροφοριών repository είχε σαν αποτέλεσμα ένα άκυρο "
 "αρχείο. Παρακαλώ αναφέρετε το ως σφάλμα."
 
-#: ../DistUpgrade/DistUpgradeControler.py:295
+#: ../DistUpgrade/DistUpgradeControler.py:309
 msgid "Third party sources disabled"
 msgstr "Απενεργοποιήθηκαν πηγές τρίτων"
 
-#: ../DistUpgrade/DistUpgradeControler.py:296
+#: ../DistUpgrade/DistUpgradeControler.py:310
+#, fuzzy
 msgid ""
-"Some third party entries in your souces.list were disabled. You can re-"
+"Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
@@ -324,11 +343,11 @@ msgstr ""
 "Μπορείτε να τις ενεργοποιήσετε μετά την αναβάθμιση με το εργαλείο 'software-"
 "properties' ή με το synaptic."
 
-#: ../DistUpgrade/DistUpgradeControler.py:345
+#: ../DistUpgrade/DistUpgradeControler.py:364
 msgid "Error during update"
 msgstr "Σφάλμα κατά την ενημέρωση"
 
-#: ../DistUpgrade/DistUpgradeControler.py:346
+#: ../DistUpgrade/DistUpgradeControler.py:365
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -336,11 +355,11 @@ msgstr ""
 "Δημιουργήθηκε ένα πρόβλημα κατά την αναβάθμιση. Αυτό συνήθως σημαίνει "
 "πρόβλημα δικτύου. Ελέγξτε τη σύνδεση δικτύου σας και προσπαθήστε ξανά."
 
-#: ../DistUpgrade/DistUpgradeControler.py:355
+#: ../DistUpgrade/DistUpgradeControler.py:374
 msgid "Not enough free disk space"
 msgstr "Δεν υπάρχει αρκετός χώρος στο δίσκο"
 
-#: ../DistUpgrade/DistUpgradeControler.py:356
+#: ../DistUpgrade/DistUpgradeControler.py:375
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -352,16 +371,15 @@ msgstr ""
 "προηγούμενων εγκαταστάσεων με  την εντολή 'sudo apt-get clean'."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Do you want to start the upgrade?"
 msgstr "Θέλετε να ξεκινήσετε την αναβάθμιση;"
 
-#: ../DistUpgrade/DistUpgradeControler.py:432
+#: ../DistUpgrade/DistUpgradeControler.py:468
 msgid "Could not install the upgrades"
 msgstr "Αδυναμία εγκατάστασης των αναβαθμίσεων"
 
-#: ../DistUpgrade/DistUpgradeControler.py:433
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeControler.py:469
 msgid ""
 "The upgrade aborts now. Your system could be in an unusable state. A "
 "recovery was run (dpkg --configure -a).\n"
@@ -370,13 +388,17 @@ msgid ""
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
 "Η αναβάθμιση τώρα θα τερματιστεί. Το σύστημα σας μπορεί να γίνει ασταθές. "
-"Εκτελείται μια διεργασία ανάκτησης (dpkg --configure -a)."
+"Εκτελείται μια διεργασία ανάκτησης (dpkg --configure -a).\n"
+"\n"
+"Παρακαλώ αναφέρετε το ως σφάλμα στο πακέτο 'update-manager' και "
+"συμπεριλάβετε και τα αρχεία του /var/log/dist-upgrade/ στην αναφορά "
+"σφάλματος."
 
-#: ../DistUpgrade/DistUpgradeControler.py:451
+#: ../DistUpgrade/DistUpgradeControler.py:487
 msgid "Could not download the upgrades"
 msgstr "Αδυναμία λήψης των αναβαθμίσεων"
 
-#: ../DistUpgrade/DistUpgradeControler.py:452
+#: ../DistUpgrade/DistUpgradeControler.py:488
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -384,41 +406,41 @@ msgstr ""
 "Η αναβάθμιση τώρα θα τερματιστεί. Παρακαλώ ελέγξτε τη σύνδεση σας στο "
 "διαδίκτυο ή το μέσο εγκατάστασης και προσπαθήστε ξανά. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:488
-msgid "Some software no longer officially supported"
-msgstr "Μερικά πακέτα λογισμικού δεν υποστηρίζονται πια επίσημα"
+#: ../DistUpgrade/DistUpgradeControler.py:524
+msgid "Support for some applications ended"
+msgstr "Η υποστήριξη για ορισμένες εφαρμογές τερματίστηκε"
 
-#: ../DistUpgrade/DistUpgradeControler.py:490
+#: ../DistUpgrade/DistUpgradeControler.py:525
 msgid ""
-"These installed packages are no longer officially supported, and are now "
-"only community-supported ('universe').\n"
+"Canonical Ltd. no longer provides support for the following software "
+"packages. You can still get support from the community.\n"
 "\n"
-"If you don't have 'universe' enabled these packages will be suggested for "
-"removal in the next step. "
+"If you have not enabled community maintained software (universe), these "
+"packages will be suggested for removal in the next step."
 msgstr ""
-"Αυτά τα εγκατεστημένα πακέτα δεν υποστηρίζονται πια επίσημα, και τώρα "
-"ανήκουν στο community-supported ('universe').\n"
+"Αυτά τα εγκατεστημένα πακέτα δεν υποστηρίζονται πια επίσημα από την "
+"Canonical Ltd, αλλά μπορείτε να λάβετε υποστήριξη από τη κοινότητα.\n"
 "\n"
 "Αν δεν έχετε ενεργοποιημένο το 'universe' , θα γίνει πρόταση για απομάκρυνση "
-"αυτών των πακέτων στο επόμενο βήμα. "
+"αυτών των πακέτων στο επόμενο βήμα."
 
-#: ../DistUpgrade/DistUpgradeControler.py:524
+#: ../DistUpgrade/DistUpgradeControler.py:560
 msgid "Remove obsolete packages?"
 msgstr "Αφαίρεση παρωχημένων πακέτων;"
 
-#: ../DistUpgrade/DistUpgradeControler.py:525
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Skip This Step"
 msgstr "Παράκα_μψη αυτου του βήματος"
 
-#: ../DistUpgrade/DistUpgradeControler.py:525
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Remove"
 msgstr "_Απομάκρυνση"
 
-#: ../DistUpgrade/DistUpgradeControler.py:535
+#: ../DistUpgrade/DistUpgradeControler.py:572
 msgid "Error during commit"
 msgstr "Σφάλμα κατά την υποβολή"
 
-#: ../DistUpgrade/DistUpgradeControler.py:536
+#: ../DistUpgrade/DistUpgradeControler.py:573
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -427,27 +449,46 @@ msgstr ""
 "παρακάτω μήνυμα για περισσότερες πληροφορίες. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:546
+#: ../DistUpgrade/DistUpgradeControler.py:585
 msgid "Restoring original system state"
 msgstr "Γίνεται επαναφορά αρχικής κατάστασης συστήματος"
 
+#: ../DistUpgrade/DistUpgradeControler.py:641
+#, python-format
+msgid "Fetching backport of '%s'"
+msgstr "Λήψη backport του '%s'"
+
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:554
-#: ../DistUpgrade/DistUpgradeControler.py:583
+#: ../DistUpgrade/DistUpgradeControler.py:676
+#: ../DistUpgrade/DistUpgradeControler.py:719
 msgid "Checking package manager"
 msgstr "Έλεγχος διαχειριστή πακέτων"
 
-#: ../DistUpgrade/DistUpgradeControler.py:569
+#: ../DistUpgrade/DistUpgradeControler.py:681
+msgid "Preparing the upgrade failed"
+msgstr "Απέτυχε η προετοιμασία της αναβάθμισης"
+
+#: ../DistUpgrade/DistUpgradeControler.py:682
+msgid ""
+"Preparing the system for the upgrade failed. Please report this as a bug "
+"against the 'update-manager' package and include the files in /var/log/dist-"
+"upgrade/ in the bugreport."
+msgstr ""
+"Συνέβηκε ένα ανεπίλυτο πρόβλημα κατά τον υπολογισμό της αναβάθμισης. "
+"Παρακαλώ αναφέρετε το ως σφάλμα στο πακέτο 'update-manager'  και επισυνάψτε "
+"στην αναφορά τα αρχεία του /var/log/dist-upgrade/."
+
+#: ../DistUpgrade/DistUpgradeControler.py:705
 msgid "Updating repository information"
 msgstr "Ενημέρωση πληροφοριών repository"
 
-#: ../DistUpgrade/DistUpgradeControler.py:594
+#: ../DistUpgrade/DistUpgradeControler.py:730
 msgid "Invalid package information"
 msgstr "Μη έγκυρες πληροφορίες πακέτου"
 
-#: ../DistUpgrade/DistUpgradeControler.py:595
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeControler.py:731
+#, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
 "not be found anymore.\n"
@@ -457,21 +498,23 @@ msgid ""
 msgstr ""
 "Μετά την ενημέρωση των πληροφοριών πακέτων, δεν μπορεί να βρεθεί το "
 "απαραίτητο πακέτο '%s'.\n"
-" Αυτό σημαίνει ότι πρόκειται για σημαντικό σφάλμα, παρακαλώ αναφέρετε το."
+"Παρακαλώ αναφέρετε το ως σφάλμα στο πακέτο 'update-manager' και "
+"συμπεριλάβετε και τα αρχεία του /var/log/dist-upgrade/ στην αναφορά "
+"σφάλματος."
 
-#: ../DistUpgrade/DistUpgradeControler.py:607
+#: ../DistUpgrade/DistUpgradeControler.py:743
 msgid "Asking for confirmation"
 msgstr "Ερώτηση για επιβεβαίωση"
 
-#: ../DistUpgrade/DistUpgradeControler.py:611
+#: ../DistUpgrade/DistUpgradeControler.py:747
 msgid "Upgrading"
 msgstr "Γίνεται αναβάθμιση"
 
-#: ../DistUpgrade/DistUpgradeControler.py:618
+#: ../DistUpgrade/DistUpgradeControler.py:754
 msgid "Searching for obsolete software"
 msgstr "Γίνεται αναζήτηση για παρωχημένο λογισμικό"
 
-#: ../DistUpgrade/DistUpgradeControler.py:623
+#: ../DistUpgrade/DistUpgradeControler.py:759
 msgid "System upgrade is complete."
 msgstr "Η αναβάθμιση συστήματος ολοκληρώθηκε."
 
@@ -482,9 +525,8 @@ msgid "Please insert '%s' into the drive '%s'"
 msgstr "Παρακαλώ εισάγετε τον δίσκο '%s' στον οδηγό '%s'"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:118
-#, fuzzy
 msgid "Fetching is complete"
-msgstr "Η ενημέρωση ολοκληρώθηκε"
+msgstr "Η λήψη ολοκληρώθηκε"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:129
 #, fuzzy, python-format
@@ -492,10 +534,10 @@ msgid "Fetching file %li of %li at %s/s"
 msgstr "Λήψη αρχείου %li από %li με %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
-#: ../DistUpgrade/DistUpgradeViewGtk.py:252
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
+#, python-format
 msgid "About %s remaining"
-msgstr "Απομένουν περίπου %li λεπτά"
+msgstr "Απομένουν περίπου %s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:132
 #, fuzzy, python-format
@@ -519,27 +561,37 @@ msgid ""
 "The upgrade aborts now. Please report this bug against the 'update-manager' "
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
+"Η αναβάθμιση τώρα θα τερματιστεί. Παρακαλώ αναφέρετε το ως σφάλμα στο πακέτο "
+"'update-manager' και συμπεριλάβετε και τα αρχεία του /var/log/dist-upgrade/ "
+"στην αναφορά σφάλματος."
 
 #. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:202
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
-"Replace configuration file\n"
+"Replace the customized configuration file\n"
 "'%s'?"
 msgstr ""
-"Αντικατάσταση αρχείου ρύθμισης\n"
+"Αντικατάσταση προσαρμοσμένου αρχείου ρύθμισης\n"
 "'%s';"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:219
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
+msgid ""
+"You will lose any changes you have made to this configuration file if you "
+"choose to replace it with a newer version."
+msgstr ""
+"Οι αλλαγές που έχετε κάνει σε αυτό το αρχείο ρυθμίσεων θα χαθούν αν "
+"επιλέξετε να το αντικαταστήσετε με μια νεότερη έκδοση."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
 msgid "The 'diff' command was not found"
 msgstr "Η εντολή 'diff' δεν βρέθηκε"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:357
+#: ../DistUpgrade/DistUpgradeViewGtk.py:368
 msgid "A fatal error occured"
 msgstr "Προέκυψε μοιραίο σφάλμα"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:358
-#, fuzzy
+#: ../DistUpgrade/DistUpgradeViewGtk.py:369
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade/main."
 "log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
@@ -547,43 +599,46 @@ msgid ""
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
 "Παρακαλώ αναφέρετε το ως σφάλμα και επισυνάψτε τα αρχεία /var/log/dist-"
-"upgrade.log και /var/log/dist-upgrade-apt.log στην αναφορά σας. Η αναβάθμιση "
-"τώρα θα\n"
-"\"τερματιστεί. Το αρχικό αρχείο sources.list αποθηκεύτηκε στο /etc/apt/"
-"sources.list.distUpgrade."
+"upgrade/main.log και /var/log/dist-upgrade/apt.log στην αναφορά σας. Η "
+"αναβάθμιση τώρα θα τερματιστεί. \n"
+"Το αρχικό αρχείο sources.list αποθηκεύτηκε στο /etc/apt/sources.list."
+"distUpgrade."
 
 #. FIXME: make those two seperate lines to make it clear
 #. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:475
+#: ../DistUpgrade/DistUpgradeViewGtk.py:504
 #, python-format
-msgid "%s package is going to be removed."
-msgid_plural "%s packages are going to be removed."
-msgstr[0] "%s πακέτο πρόκειται να απομακρυνθεί."
-msgstr[1] "%s πακέτα πρόκειται να απομακρυνθούν."
+msgid "%d package is going to be removed."
+msgid_plural "%d packages are going to be removed."
+msgstr[0] "%d πακέτο πρόκειται να απομακρυνθεί."
+msgstr[1] "%d πακέτα πρόκειται να απομακρυνθούν."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:480
+#: ../DistUpgrade/DistUpgradeViewGtk.py:509
 #, python-format
-msgid "%s new package is going to be installed."
-msgid_plural "%s new packages are going to be installed."
-msgstr[0] "%s νέο πακέτο πρόκειται να εγκατασταθεί."
-msgstr[1] "%s νέο πακέτα πρόκειται να εγκατασταθούν."
+msgid "%d new package is going to be installed."
+msgid_plural "%d new packages are going to be installed."
+msgstr[0] "%d νέο πακέτο πρόκειται να εγκατασταθεί."
+msgstr[1] "%d νέα πακέτα πρόκειται να εγκατασταθούν."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:486
+#: ../DistUpgrade/DistUpgradeViewGtk.py:515
 #, python-format
-msgid "%s package is going to be upgraded."
-msgid_plural "%s packages are going to be upgraded."
-msgstr[0] "%s πακέτο πρόκειται να αναβαθμιστεί."
-msgstr[1] "%s πακέτα πρόκειται να αναβαθμιστούν."
+msgid "%d package is going to be upgraded."
+msgid_plural "%d packages are going to be upgraded."
+msgstr[0] "%d πακέτο πρόκειται να αναβαθμιστεί."
+msgstr[1] "%d πακέτα πρόκειται να αναβαθμιστούν."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:491
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeViewGtk.py:520
+#, python-format
 msgid ""
 "\n"
 "\n"
 "You have to download a total of %s. "
-msgstr "Θα πρέπει να μεταφορτώσετε συνολικά %s."
+msgstr ""
+"\n"
+"\n"
+"Θα πρέπει να κάνετε συνολική λήψη %s. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:497
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 #, fuzzy
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
@@ -592,70 +647,77 @@ msgstr ""
 "Η αναβάθμιση μπορεί να διαρκέσει αρκετές ώρες και δεν είναι δυνατή η ακύρωση "
 "της αργότερα."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:500
+#: ../DistUpgrade/DistUpgradeViewGtk.py:529
 msgid "To prevent data loss close all open applications and documents."
 msgstr ""
 "Για να αποφύγετε απώλεια δεδομένων, κλείστε όλες τις ανοικτές εφαρμογές και "
 "έγγραφα."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:506
-msgid "Could not find any upgrades"
-msgstr "Δεν βρέθηκαν αναβαθμίσεις"
+#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../UpdateManager/UpdateManager.py:622
+msgid "Your system is up-to-date"
+msgstr "Το σύστημα σας είναι ενημερωμένο"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:507
-msgid "Your system has already been upgraded."
-msgstr "Το σύστημα σας έχει ήδη αναβαθμιστεί."
+#: ../DistUpgrade/DistUpgradeViewGtk.py:536
+msgid ""
+"There are no upgrades available for your system. The upgrade will now be "
+"canceled."
+msgstr ""
+"Δεν υπάρχουν διαθέσιμες αναβαθμίσεις για το σύστημα σας. Η αναβάθμιση θα "
+"ακυρωθεί."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:522
+#: ../DistUpgrade/DistUpgradeViewGtk.py:552
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>Απομάκρυνση %s</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:524
+#: ../DistUpgrade/DistUpgradeViewGtk.py:554
 #, python-format
 msgid "Install %s"
 msgstr "Εγκατάσταση %s"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:526
+#: ../DistUpgrade/DistUpgradeViewGtk.py:556
 #, python-format
 msgid "Upgrade %s"
 msgstr "Αναβάθμιση %s"
 
 #: ../DistUpgrade/DistUpgradeView.py:27
-#, fuzzy, python-format
+#, python-format
 msgid "%li days %li hours %li minutes"
-msgstr "Απομένουν περίπου %li ημέρες %li ώρες και %li λεπτά"
+msgstr "Απομένουν περίπου %li μέρες %li ώρες και %li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeView.py:29
-#, fuzzy, python-format
+#, python-format
 msgid "%li hours %li minutes"
-msgstr "Απομένουν περίπου %li ώρες και %li λεπτά"
+msgstr "%li ώρες και %li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeView.py:31
 #, python-format
 msgid "%li minutes"
-msgstr ""
+msgstr "%li λεπτά"
 
 #: ../DistUpgrade/DistUpgradeView.py:32
 #, python-format
 msgid "%li seconds"
-msgstr ""
+msgstr "%li δευτερόλεπτα"
 
 #. 56 kbit
 #. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
-"This download will take about %s with a 56k modem and about %s with a 1Mbit "
-"DSL connection"
+"This download will take about %s with a 1Mbit DSL connection and about %s "
+"with a 56k modem"
 msgstr ""
+"Η λήψη θα διαρκέσει περίπου %s με σύνδεση 1Mbit DSL και περίπου %s με ένα "
+"56K μόντεμ."
 
-#: ../DistUpgrade/DistUpgradeView.py:105
+#: ../DistUpgrade/DistUpgradeView.py:111
 msgid "Reboot required"
 msgstr "Απαιτείται επανεκκίνηση"
 
-#: ../DistUpgrade/DistUpgradeView.py:106
+#: ../DistUpgrade/DistUpgradeView.py:112
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
@@ -693,10 +755,8 @@ msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Έναρξη της αναβάθμισης;</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-#, fuzzy
-msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
-msgstr ""
-"<span weight=\"bold\" size=\"x-large\">Αναβάθμιση σε Ubuntu 6.06 LTS</span>"
+msgid "<b><big>Upgrading Ubuntu to version 6.10</big></b>"
+msgstr "<b><big>Γίνεται αναβάθμιση του Ubuntu στην έκδοση 6.10</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -732,24 +792,37 @@ msgid "Terminal"
 msgstr "Τερματικό"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
+msgid "_Cancel Upgrade"
+msgstr "Α_κύρωση αναβάθμισης"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr "_Συνέχεια"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
 msgid "_Keep"
 msgstr "_Διατήρηση"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:17
+#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
 msgid "_Replace"
 msgstr "Αντικατά_σταση"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:18
+#: ../DistUpgrade/DistUpgrade.glade.h:20
 msgid "_Report Bug"
 msgstr "Ανα_φορά σφάλματος"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../DistUpgrade/DistUpgrade.glade.h:21
 msgid "_Restart Now"
 msgstr "Επανε_κκίνηση τώρα"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:20
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
 msgstr "_Συνέχεια αναβάθμισης"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+msgid "_Start Upgrade"
+msgstr "Έναρ_ξη αναβάθμισης"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68
 msgid "Could not find the release notes"
@@ -820,9 +893,10 @@ msgid "Verfication failed"
 msgstr "Αποτυχία επαλήθευσης"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:222
+#, fuzzy
 msgid ""
-"Verfing the upgrade failed.  There may be a problem with the network or with "
-"the server. "
+"Verifying the upgrade failed.  There may be a problem with the network or "
+"with the server. "
 msgstr ""
 "Η επαλήθευση της αναβάθμισης απέτυχε. Πιθανόν να υπάρχει πρόβλημα δικτύου ή "
 "εξυπηρετητή. "
@@ -839,163 +913,128 @@ msgstr ""
 "Η πιστοποίηση της αναβάθμισης απέτυχε. Πιθανόν να υπάρχει πρόβλημα δικτύου ή "
 "εξυπηρετητή. "
 
-#: ../UpdateManager/GtkProgress.py:107
+#: ../UpdateManager/GtkProgress.py:108
 #, python-format
-msgid "Downloading file %li of %li with %s/s"
-msgstr "Λήψη αρχείου %li από %li με %s/s"
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
+msgstr "Λήψη αρχείου %(current)li από %(total)li με %(speed)s/s"
 
-#: ../UpdateManager/GtkProgress.py:111
+#: ../UpdateManager/GtkProgress.py:113
 #, python-format
-msgid "Downloading file %li of %li with unknown speed"
-msgstr "Λήψη αρχείου %li από %li με άγνωστη ταχύτητα"
+msgid "Downloading file %(current)li of %(total)li"
+msgstr "Λήψη αρχείου %(current)li από %(total)li"
 
-#: ../UpdateManager/UpdateManager.py:187
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:206
 msgid "The list of changes is not available"
-msgstr ""
-"Η λίστα των αλλαγών δεν είναι ακόμα διαθέσιμη. Προσπαθήστε ξανά αργότερα."
+msgstr "Η λίστα των αλλαγών δεν είναι ακόμα διαθέσιμη."
 
-#: ../UpdateManager/UpdateManager.py:193
-msgid "The list of changes is not available yet. Please try again later."
-msgstr ""
-"Η λίστα των αλλαγών δεν είναι ακόμα διαθέσιμη. Προσπαθήστε ξανά αργότερα."
-
-#: ../UpdateManager/UpdateManager.py:198
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
-"Failed to download the list of changes. Please check your Internet "
-"connection."
+"The list of changes is not available yet.\n"
+"Please try again later."
 msgstr ""
-"Αποτυχία λήψης της λίστας των αλλαγών. Παρακαλώ ελέγξτε τη σύνδεση σας στο "
-"διαδίκτυο."
+"Η λίστα των αλλαγών δεν είναι ακόμα διαθέσιμη.\n"
+"Προσπαθήστε ξανά αργότερα."
 
-#: ../UpdateManager/UpdateManager.py:218
-#, fuzzy
-msgid "Important security updates of Ubuntu"
-msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
-
-#: ../UpdateManager/UpdateManager.py:220
-msgid "Recommended updates of Ubuntu"
+#: ../UpdateManager/UpdateManager.py:217
+msgid ""
+"Failed to download the list of changes. \n"
+"Please check your Internet connection."
 msgstr ""
+"Αποτυχία λήψης της λίστας των αλλαγών.\n"
+"Παρακαλώ ελέγξτε τη σύνδεση σας στο διαδίκτυο."
 
-#: ../UpdateManager/UpdateManager.py:222
-msgid "Proposed updates for Ubuntu"
-msgstr ""
+#. Description
+#: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
+msgid "Important security updates"
+msgstr "Σημαντικές ενημερώσεις ασφαλείας"
 
-#: ../UpdateManager/UpdateManager.py:223
-msgid "Backports of Ubuntu"
-msgstr ""
+#. Description
+#: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
+msgid "Recommended updates"
+msgstr "Συνιστώμενες ενημερώσεις"
 
-#: ../UpdateManager/UpdateManager.py:224
-#, fuzzy
-msgid "Updates of Ubuntu"
-msgstr "Αναβάθμιση στη τελευταία έκδοση του Ubuntu"
+#. Description
+#: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
+msgid "Proposed updates"
+msgstr "Προτεινόμενες ενημερώσεις"
+
+#: ../UpdateManager/UpdateManager.py:241
+msgid "Backports"
+msgstr "Backports"
+
+#: ../UpdateManager/UpdateManager.py:242
+msgid "Distribution updates"
+msgstr "Αναβαθμίσεις διανομής"
 
 #. TRANSLATORS: updates from an 'unknown' origin
-#: ../UpdateManager/UpdateManager.py:232 ../UpdateManager/UpdateManager.py:245
-#, fuzzy
+#: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 msgid "Other updates"
-msgstr "Εγκατάσταση ενημερώσεων"
+msgstr "Άλλες ενημερώσεις"
 
-#: ../UpdateManager/UpdateManager.py:266
-msgid "Cannot install all available updates"
-msgstr "Αδυναμία εγκατάστασης όλων των διαθέσιμων ενημερώσεων"
-
-#: ../UpdateManager/UpdateManager.py:267
-msgid ""
-"Some of the updates require more extensive changesthan expected.\n"
-"\n"
-"This usually mean that your system is not fully upgraded or that you run a "
-"development release of the distribution.\n"
-"\n"
-"Would you like to perform a full distribution upgrade now?"
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:461
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
-msgstr "Έκδοση%s: \n"
+msgstr "Έκδοση %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:522
-msgid "Downloading the list of changes..."
+#: ../UpdateManager/UpdateManager.py:539
+#, fuzzy
+msgid "Downloading list of changes..."
 msgstr "Λήψη της λίστας των αλλαγών..."
 
-#: ../UpdateManager/UpdateManager.py:546
-msgid "Select _None"
-msgstr ""
+#: ../UpdateManager/UpdateManager.py:566
+msgid "_Uncheck All"
+msgstr "Α_ποεπιλογή όλων"
 
-#: ../UpdateManager/UpdateManager.py:551
-msgid "Select _All"
-msgstr ""
-
-#. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:591
-msgid "None"
-msgstr ""
-
-#. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:594
-msgid "1 KB"
-msgstr ""
-
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:597
-#, python-format
-msgid "%.0f KB"
-msgstr ""
-
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:600
-#, python-format
-msgid "%.1f MB"
-msgstr ""
+#: ../UpdateManager/UpdateManager.py:572
+msgid "_Check All"
+msgstr "Έλε_γχος όλων"
 
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:608 ../UpdateManager/UpdateManager.py:618
-#: ../UpdateManager/UpdateManager.py:642
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
 msgstr "Μέγεθος λήψης: %s"
 
-#: ../UpdateManager/UpdateManager.py:627
-msgid "Your system is up-to-date"
-msgstr "Το σύστημα σας είναι ενημερωμένο"
-
-#: ../UpdateManager/UpdateManager.py:638
+#: ../UpdateManager/UpdateManager.py:633
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Μπορείτε να εγκαταστήσετε %s ενημέρωση"
 msgstr[1] "Μπορείτε να εγκαταστήσετε %s ενημερώσεις"
 
-#: ../UpdateManager/UpdateManager.py:671
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
 msgstr "Παρακαλώ περιμένετε, αυτό μπορεί να διαρκέσει λίγο χρόνο."
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr "Η ενημέρωση ολοκληρώθηκε"
 
-#: ../UpdateManager/UpdateManager.py:822
-#, fuzzy, python-format
-msgid "From version %s to %s"
-msgstr "Νέα έκδοση: %s (Μέγεθος: %s)"
+#: ../UpdateManager/UpdateManager.py:719
+msgid "Checking for updates"
+msgstr "Έλεγχος για ενημερώσεις"
 
 #: ../UpdateManager/UpdateManager.py:826
-#, fuzzy, python-format
+#, python-format
+msgid "From version %(old_version)s to %(new_version)s"
+msgstr "Από έκδοση: %(old_version)s σε %(new_version)s"
+
+#: ../UpdateManager/UpdateManager.py:830
+#, python-format
 msgid "Version %s"
-msgstr "Έκδοση%s: \n"
+msgstr "Έκδοση %s"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
-msgstr ""
+msgstr "(Μέγεθος: %s)"
 
-#: ../UpdateManager/UpdateManager.py:842
+#: ../UpdateManager/UpdateManager.py:843
 msgid "Your distribution is not supported anymore"
 msgstr "Η διανομή σας δεν υποστηρίζεται πια"
 
-#: ../UpdateManager/UpdateManager.py:843
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
@@ -1006,17 +1045,17 @@ msgstr ""
 "Ubuntu Linux. Δείτε το http://www.ubuntu.com για περισσότερες πληροφορίες "
 "για την αναβάθμιση."
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>Είναι διαθέσιμη νέα έκδοση διανομής '%s'</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "Ο κατάλογος λογισμικού είναι κατεστραμμένος"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1026,72 +1065,99 @@ msgstr ""
 "το διαχειριστή πακέτων \"Synaptic\" η εκτελέστε την εντολή \"sudo apt-get "
 "install -f\" σε ένα τερματικό για να διορθώσετε το πρόβλημα πρώτα."
 
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr "Καμία"
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr "1 KB"
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr "%.0f KB"
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
+msgstr "%.1f MB"
+
 #: ../data/glade/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
 "Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+"behavior in <i>Software Sources</i> on the <i>Internet Updates</i> tab."
 msgstr ""
 "<b><big>Θα πρέπει να κάνετε έλεγχο για ενημερώσεις χειροκίνητα</big></b>\n"
 "\n"
 "Το σύστημα σας δεν υποστηρίζει αυτόματο έλεγχο ενημερώσεων. Μπορείτε να "
-"ρυθμίσετε αυτή τη συμπεριφορά μέσω του μενού \"Σύστημα\" -> \"Διαχείριση "
-"συστήματος\" -> \"Ιδιότητες λογισμικού\"."
+"ρυθμίσετε αυτή τη συμπεριφορά μέσω του μενού <i>Πηγές λογισμικού</i> και "
+"στην καρτέλα <i>Ενημερώσεις διαδικτύου</i>."
 
 #: ../data/glade/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Examining your system</b></big>\n"
-"\n"
-"Software updates correct errors, eliminate security vulnerabilities and "
-"provide new features."
-msgstr ""
-"<big><b>Γίνεται ανάλυση του συστήματος σας</b></big>\n"
-"\n"
-"Οι ενημερώσεις λογισμικού μπορούν να διορθώνουν σφάλματα, κενά ασφαλείας και "
-"να παρέχουν νέες λειτουργίες."
-
-#: ../data/glade/UpdateManager.glade.h:7
 msgid "<big><b>Keep your system up-to-date</b></big>"
 msgstr "<big><b>Διατηρήστε το σύστημα σας ενημερωμένο</b></big>"
 
-#: ../data/glade/UpdateManager.glade.h:8
-msgid "Cancel _Download"
-msgstr "Ακύρωση _λήψης αρχείων"
+#: ../data/glade/UpdateManager.glade.h:5
+msgid "<big><b>Not all updates can be installed</b></big>"
+msgstr "<big><b>Δεν είναι δυνατή η εγκατάσταση όλων των ενημερώσεων</b></big>"
 
-#: ../data/glade/UpdateManager.glade.h:9
+#: ../data/glade/UpdateManager.glade.h:6
+msgid "<big><b>Starting update manager</b></big>"
+msgstr "<big><b>Εκκίνηση του update manager</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:7
 msgid "Changes"
 msgstr "Αλλαγές"
 
-#: ../data/glade/UpdateManager.glade.h:10
+#: ../data/glade/UpdateManager.glade.h:8
 msgid "Changes and description of the update"
-msgstr ""
+msgstr "Αλλαγές και περιγραφή της ενημέρωσης"
 
-#: ../data/glade/UpdateManager.glade.h:11
+#: ../data/glade/UpdateManager.glade.h:9
 msgid "Chec_k"
 msgstr "Ελε_γχος"
 
-#: ../data/glade/UpdateManager.glade.h:12
+#: ../data/glade/UpdateManager.glade.h:10
 msgid "Check the software channels for new updates"
 msgstr "Έλεγχος των καναλιών λογισμικού για ενημερώσεις"
 
-#: ../data/glade/UpdateManager.glade.h:13
+#: ../data/glade/UpdateManager.glade.h:11
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../data/glade/UpdateManager.glade.h:14
+#: ../data/glade/UpdateManager.glade.h:12
 msgid "Release Notes"
 msgstr "Σημειώσεις έκδοσης"
 
-#: ../data/glade/UpdateManager.glade.h:15
+#: ../data/glade/UpdateManager.glade.h:13
+msgid ""
+"Run a distribution upgrade, to install as many updates as possible. \n"
+"\n"
+"This can be caused by an uncompleted upgrade, unofficial software packages "
+"or by running a development version."
+msgstr ""
+"Εκτελέστε μια αναβάθμιση διανομής για να εγκαταστήσετε όσες το δυνατόν "
+"περισσότερες ενημερώσεις.\n"
+"\n"
+"Αυτό μπορεί οφείλεται σε μη ολοκληρωμένη αναβάθμιση, σε ανεπίσημα πακέτα "
+"λογισμικού ή αν χρησιμοποιείτε μια έκδοση υπό ανάπτυξη."
+
+#: ../data/glade/UpdateManager.glade.h:16
 msgid "Show progress of single files"
 msgstr "Εμφάνιση προόδου μοναδικών αρχείων"
 
-#: ../data/glade/UpdateManager.glade.h:16
+#: ../data/glade/UpdateManager.glade.h:17
 msgid "Software Updates"
 msgstr "Αναβαθμίσεις λογισμικού"
 
-#: ../data/glade/UpdateManager.glade.h:17
+#: ../data/glade/UpdateManager.glade.h:18
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
@@ -1099,52 +1165,58 @@ msgstr ""
 "Οι ενημερώσεις λογισμικού μπορούν να διορθώνουν σφάλματα, κενά ασφαλείας και "
 "να παρέχουν νέες λειτουργίες."
 
-#: ../data/glade/UpdateManager.glade.h:18
+#: ../data/glade/UpdateManager.glade.h:19
 msgid "U_pgrade"
 msgstr "Ανα_βάθμιση"
 
-#: ../data/glade/UpdateManager.glade.h:19
+#: ../data/glade/UpdateManager.glade.h:20
 msgid "Upgrade to the latest version of Ubuntu"
 msgstr "Αναβάθμιση στη τελευταία έκδοση του Ubuntu"
 
-#: ../data/glade/UpdateManager.glade.h:20
+#: ../data/glade/UpdateManager.glade.h:21
 msgid "_Check"
 msgstr "Έλε_γχος"
 
-#: ../data/glade/UpdateManager.glade.h:21
+#: ../data/glade/UpdateManager.glade.h:22
+msgid "_Distribution Upgrade"
+msgstr "Αναβάθμιση _διανομής"
+
+#: ../data/glade/UpdateManager.glade.h:23
 msgid "_Hide this information in the future"
 msgstr "Απόκρυ_ψη αυτής της πληροφορίας στο μέλλον"
 
-#: ../data/glade/UpdateManager.glade.h:22
+#: ../data/glade/UpdateManager.glade.h:24
 msgid "_Install Updates"
 msgstr "Ε_γκατάσταση ενημερώσεων"
 
-#: ../data/glade/UpdateManager.glade.h:23
+#: ../data/glade/UpdateManager.glade.h:25
 #, fuzzy
-msgid "changes"
-msgstr "Αλλαγές"
+msgid "_Upgrade"
+msgstr "Ανα_βάθμιση"
 
-#: ../data/glade/UpdateManager.glade.h:24
+#: ../data/glade/UpdateManager.glade.h:26
+msgid "changes"
+msgstr "αλλαγές"
+
+#: ../data/glade/UpdateManager.glade.h:27
 msgid "updates"
-msgstr ""
+msgstr "ενημερώσεις"
 
 #: ../data/glade/SoftwareProperties.glade.h:2
-#, fuzzy
 msgid "<b>Automatic updates</b>"
-msgstr "<b>Αναβαθμίσεις διαδικτύου</b>"
+msgstr "<b>Αυτόματες ενημερώσεις</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:3
 msgid "<b>CDROM/DVD</b>"
-msgstr ""
+msgstr "<b>CDROM/DVD</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:4
 msgid "<b>Internet updates</b>"
 msgstr "<b>Αναβαθμίσεις διαδικτύου</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:5
-#, fuzzy
 msgid "<b>Internet</b>"
-msgstr "<b>Αναβαθμίσεις διαδικτύου</b>"
+msgstr "<b>Διαδίκτυο</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:6
 msgid ""
@@ -1156,29 +1228,40 @@ msgid ""
 "The results are used to improve the support for popular applications and to "
 "rank applications in the search results.</i>"
 msgstr ""
+"<i>Για την βελτίωση της χρήσης του Ubuntu, σας παρακαλούμε να πάρετε μέρος "
+"στο διαγωνισμό για τις πιο δημοφιλείς εφαρμογές. Αν θέλετε, μια λίστα των "
+"εγκατεστημένων σας εφαρμογών θα στέλνεται ανώνυμα στο Ubuntu σε εβδομαδιαία "
+"βάση.\n"
+"\n"
+"Τα αποτελέσματα θα χρησιμοποιούνται για την βελτίωση της υποστήριξης για τις "
+"πιο δημοφιλείς εφαρμογές, και για την κατάταξη των εφαρμογών στα "
+"αποτελέσματα αναζήτησης.</i>"
 
 #: ../data/glade/SoftwareProperties.glade.h:9
+msgid "Add Cdrom"
+msgstr "Προσθήκη Cdrom"
+
+#: ../data/glade/SoftwareProperties.glade.h:10
 msgid "Authentication"
 msgstr "Πιστοποίηση"
 
-#: ../data/glade/SoftwareProperties.glade.h:10
+#: ../data/glade/SoftwareProperties.glade.h:11
 msgid "D_elete downloaded software files:"
 msgstr "Δια_γραφή αρχείων ληφθέντων πακέτων"
 
-#: ../data/glade/SoftwareProperties.glade.h:11
-#, fuzzy
-msgid "Download from:"
-msgstr "Η λήψη ολοκληρώθηκε"
-
 #: ../data/glade/SoftwareProperties.glade.h:12
+msgid "Download from:"
+msgstr "Λήψη από:"
+
+#: ../data/glade/SoftwareProperties.glade.h:13
 msgid "Import the public key from a trusted software provider"
 msgstr "Εισαγωγή του δημόσιου κλειδιού από έναν έμπιστο πάροχο λογισμικού"
 
-#: ../data/glade/SoftwareProperties.glade.h:13
+#: ../data/glade/SoftwareProperties.glade.h:14
 msgid "Internet Updates"
 msgstr "Αναβαθμίσεις διαδικτύου"
 
-#: ../data/glade/SoftwareProperties.glade.h:14
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
@@ -1186,63 +1269,62 @@ msgstr ""
 "Μόνο οι ενημερώσεις ασφαλείας που προέρχονται από τους επίσημους "
 "εξυπηρετητές του Ubuntu  θα εγκαθίστανται αυτόματα."
 
-#: ../data/glade/SoftwareProperties.glade.h:15
+#: ../data/glade/SoftwareProperties.glade.h:16
 msgid "Restore _Defaults"
 msgstr "Επαναφορά π_ροεπιλογών"
 
-#: ../data/glade/SoftwareProperties.glade.h:16
+#: ../data/glade/SoftwareProperties.glade.h:17
 msgid "Restore the default keys of your distribution"
 msgstr "Επαναφορά των προεπιλεγμένων κλειδιών της διανομής σας"
 
-#: ../data/glade/SoftwareProperties.glade.h:17
-#: ../data/software-properties.desktop.in.h:2
-#, fuzzy
-msgid "Software Sources"
-msgstr "Ιδιότητες λογισμικού"
-
 #: ../data/glade/SoftwareProperties.glade.h:18
-msgid "Source code"
-msgstr ""
+#: ../data/software-properties.desktop.in.h:2
+msgid "Software Sources"
+msgstr "Πηγές λογισμικού"
 
 #: ../data/glade/SoftwareProperties.glade.h:19
-msgid "Statistics"
-msgstr ""
+msgid "Source code"
+msgstr "Πηγαίος κώδικας"
 
 #: ../data/glade/SoftwareProperties.glade.h:20
-msgid "Submit statistical information"
-msgstr ""
+msgid "Statistics"
+msgstr "Στατιστικά"
 
 #: ../data/glade/SoftwareProperties.glade.h:21
-msgid "Third Party"
-msgstr ""
+msgid "Submit statistical information"
+msgstr "Υποβολή στατιστικών πληροφοριών"
 
 #: ../data/glade/SoftwareProperties.glade.h:22
+msgid "Third Party"
+msgstr "Τρίτων"
+
+#: ../data/glade/SoftwareProperties.glade.h:23
 msgid "_Check for updates automatically:"
 msgstr "Αυτόματος έλεγ_χος για ενημερώσεις κάθε:"
 
-#: ../data/glade/SoftwareProperties.glade.h:23
-#, fuzzy
-msgid "_Download updates automatically, but do not install them"
-msgstr "Λή_ψη ενημερώσεων στο παρασκήνιο χωρίς να εγκατασταθούν"
-
 #: ../data/glade/SoftwareProperties.glade.h:24
+msgid "_Download updates automatically, but do not install them"
+msgstr "Αυτόματη λή_ψη ενημερώσεων χωρίς να εγκατασταθούν"
+
+#: ../data/glade/SoftwareProperties.glade.h:25
 msgid "_Import Key File"
 msgstr "Ε_ισαγωγή αρχείου κλειδιού"
 
-#: ../data/glade/SoftwareProperties.glade.h:25
+#: ../data/glade/SoftwareProperties.glade.h:26
 msgid "_Install security updates without confirmation"
 msgstr "Ε_γκατάσταση ενημερώσεων ασφαλείας χωρίς επιβεβαίωση"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
 msgid ""
-"<b><big>The channel information is out-of-date</big></b>\n"
+"<b><big>The information about available software is out-of-date</big></b>\n"
 "\n"
-"You have to reload the channel information to install software and updates "
-"from newly added or changed channels. \n"
+"To install software and updates from newly added or changed sources, you "
+"have to reload the information about available software.\n"
 "\n"
 "You need a working internet connection to continue."
 msgstr ""
-"<b><big>Οι πληροφορίες καναλιού δεν είναι  ενημερωμένες</big></b>\n"
+"<b><big>Οι πληροφορίες για το διαθέσιμο λογισμικό δεν είναι  ενημερωμένες</"
+"big></b>\n"
 "\n"
 "Θα πρέπει να ανανεώσετε τις πληροφορίες καναλιού για να εγκαταστήσετε "
 "λογισμικό και ενημερώσεις από τα τα νέα κανάλια που προσθέσατε ή "
@@ -1271,15 +1353,14 @@ msgid "<b>URI:</b>"
 msgstr "<b>URI:</b>"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
-#, fuzzy
 msgid ""
-"<big><b>Enter the complete APT line of the source that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the repository that you want to add "
+"as source</b></big>\n"
 "\n"
-"The APT line includes the type, location and components of a source, for "
+"The APT line includes the type, location and components of a repository, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
-"<big><b>Εισάγετε την πλήρη γραμμή  APT του καναλιού που θέλετε να "
+"<big><b>Εισάγετε την πλήρη γραμμή  APT του repository που θέλετε να "
 "προσθέσετε</b></big>\n"
 "\n"
 "Η γραμμή APT περιέχει τον τύπο, τοποθεσία και το περιεχόμενο ενός καναλιού, "
@@ -1299,7 +1380,7 @@ msgstr ""
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
 msgid "Edit Source"
-msgstr ""
+msgstr "Επεξεργασία πηγής"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
 msgid "Scanning CD-ROM"
@@ -1307,7 +1388,7 @@ msgstr "Σάρωση CD-ROM"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
 msgid "_Add Source"
-msgstr ""
+msgstr "Προσ_θήκη πηγής"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
 msgid "_Reload"
@@ -1319,7 +1400,7 @@ msgstr "Προβολή και εγκατάσταση διαθέσιμων ενη
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr "Διαχείριση αναβαθμίσεων"
+msgstr "Διαχείριση ενημερώσεων"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
@@ -1334,8 +1415,9 @@ msgid "Check for new distribution releases"
 msgstr "Έλεγχος για νέες εκδόσεις της διανομής"
 
 #: ../data/update-manager.schemas.in.h:3
+#, fuzzy
 msgid ""
-"If automatic checking for updates is disabeld, you have to reload the "
+"If automatic checking for updates is disabled, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
 msgstr ""
@@ -1355,8 +1437,9 @@ msgid "Stores the size of the update-manager dialog"
 msgstr "Αποθηκεύει το μέγεθος του διαλόγου του update-manager"
 
 #: ../data/update-manager.schemas.in.h:7
+#, fuzzy
 msgid ""
-"Stores the state of the expander that contains the list of changs and the "
+"Stores the state of the expander that contains the list of changes and the "
 "description"
 msgstr ""
 "Αποθηκεύει τη κατάσταση του expander που περιέχει τη λίστα των αλλαγών και "
@@ -1367,9 +1450,8 @@ msgid "The window size"
 msgstr "Το μέγεθος του παραθύρου"
 
 #: ../data/software-properties.desktop.in.h:1
-#, fuzzy
 msgid "Configure the sources for installable software and updates"
-msgstr "Ρύθμιση των καναλιών λογισμικού για ενημερώσεις"
+msgstr "Ρύθμιση των πηγών για λογισμικό και ενημερώσεις"
 
 #. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
@@ -1378,203 +1460,180 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:7
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:8
 msgid "Ubuntu 6.10 'Edgy Eft'"
-msgstr "Αναβαθμίσεις  Ubuntu 5.10"
+msgstr "Ubuntu 6.10 'Edgy Eft'"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:13
+msgid "Community maintained"
+msgstr "Community maintained"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:17
+msgid "Proprietary drivers for devices"
+msgstr "Οδηγοί με κλειστό κώδικα για συσκευές"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:19
+msgid "Restricted software"
+msgstr "Λογισμικό με περιορισμούς"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:28
+#: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
+msgstr "Cdrom με το Ubuntu 6.10 'Edgy Eft"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:69
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:59
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Ubuntu 6.06 TLS 'Dapper Drake'"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:73
-msgid ""
-"OpenSource software that is officially supported by Canonical Ltd. (main)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:62
+msgid "Canonical supported Open Source software"
+msgstr "Λογισμικό ανοικτού κώδικα υποστηριζόμενο από την Canonical"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:76
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
-msgstr "Community maintained (Universe)"
+msgstr "Υποστηριζόμενα από την κοινότητα (Universe)"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:77
-msgid "OpenSource software that is maintained by the community (universe)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:65
+msgid "Community maintained Open Source software"
+msgstr "Community maintained Open Source software"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:80
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:67
 msgid "Non-free drivers"
-msgstr "Όχι-ελεύθερα (Multiverse)"
+msgstr "Όχι-ελεύθεροι οδηγοί"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:81
-msgid "Proprietary drivers for devices (restricted) "
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:68
+msgid "Proprietary drivers for devices "
+msgstr "Οδηγοί με κλειστό κώδικα για συσκευές "
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:84
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:70
 msgid "Restricted software (Multiverse)"
-msgstr "Όχι-ελεύθερα (Multiverse)"
+msgstr "Όχι-ελεύθερο (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:85
-msgid "Software that is restricted by copyright or legal issues (multiverse)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:71
+msgid "Software restricted by copyright or legal issues"
+msgstr "Λογισμικό με περιορισμούς από πνευματικά δικαιώματα και νόμους"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:90
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Cdrom με Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:104
-#, fuzzy
-msgid "Important security updates"
-msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:111
-msgid "Recommended updates"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:118
-#, fuzzy
-msgid "Proposed updates"
-msgstr "Εγκατάσταση ενημερώσεων"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:125
+#: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
-msgstr ""
+msgstr "Backported ενημερώσεις"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:131
+#: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
-#. CompDescription
-#: ../data/channels/Ubuntu.info.in:134 ../data/channels/Debian.info.in:51
-msgid "Officially supported"
-msgstr "Με επίσημη υποστήριξη"
-
 #. Description
-#: ../data/channels/Ubuntu.info.in:148
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:123
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "Cdrom με Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:162
+#: ../data/channels/Ubuntu.info.in:135
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:169
+#: ../data/channels/Ubuntu.info.in:140
 msgid "Ubuntu 5.10 Updates"
 msgstr "Αναβαθμίσεις  Ubuntu 5.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:176
+#: ../data/channels/Ubuntu.info.in:145
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Backports"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:182
+#: ../data/channels/Ubuntu.info.in:152
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:199
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:165
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Cdrom με Ubuntu 5.04 \"Hoary Hedgehog\""
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:203
-msgid "Oficially supported"
-msgstr "Oficially supported"
+#: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
+msgid "Officially supported"
+msgstr "Officially supported"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:213
+#: ../data/channels/Ubuntu.info.in:177
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:220
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:182
 msgid "Ubuntu 5.04 Updates"
-msgstr "Αναβαθμίσεις  Ubuntu 5.10"
+msgstr "Ενημερώσεις Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:227
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:187
 msgid "Ubuntu 5.04 Backports"
-msgstr "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.04 Backports"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:233
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:193
 msgid "Ubuntu 4.10 'Warty Warthog'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:242
+#: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
 msgstr "Community maintained (Universe)"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:245
+#: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
 msgstr "Όχι-ελεύθερα (Multiverse)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:250
+#: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Cdrom με το Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:254
-#, fuzzy
-msgid "No longer oficially supported"
-msgstr "Μερικά πακέτα λογισμικού δεν υποστηρίζονται πια επίσημα"
+#: ../data/channels/Ubuntu.info.in:209
+msgid "No longer officially supported"
+msgstr "Δεν υποστηρίζονται πια επίσημα"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:257
+#: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
 msgstr "Περιορισμένα πνευματικά δικαιώματα"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:264
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
-msgstr "Αναβαθμίσεις ασφαλείας Ubuntu 5.10"
+msgstr "Ενημερώσεις ασφαλείας Ubuntu 4.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:271
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:223
 msgid "Ubuntu 4.10 Updates"
-msgstr "Αναβαθμίσεις  Ubuntu 5.10"
+msgstr "Ενημερώσεις Ubuntu 4.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:278
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:228
 msgid "Ubuntu 4.10 Backports"
-msgstr "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 4.10 Backports"
 
 #. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
@@ -1622,6 +1681,52 @@ msgstr "Λογισμικό συμβατό με DFSG με μη Ελεύθερες
 msgid "Non-DFSG-compatible Software"
 msgstr "Λογισμικό μη συμβατό με DFSG"
 
+#~ msgid "Downloading file %li of %li with unknown speed"
+#~ msgstr "Λήψη αρχείου %li από %li με άγνωστη ταχύτητα"
+
+#~ msgid "Normal updates"
+#~ msgstr "Κανονικές ενημερώσεις"
+
+#~ msgid "Cancel _Download"
+#~ msgstr "Ακύρωση _λήψης αρχείων"
+
+#~ msgid "Some software no longer officially supported"
+#~ msgstr "Μερικά πακέτα λογισμικού δεν υποστηρίζονται πια επίσημα"
+
+#~ msgid "Could not find any upgrades"
+#~ msgstr "Δεν βρέθηκαν αναβαθμίσεις"
+
+#~ msgid "Your system has already been upgraded."
+#~ msgstr "Το σύστημα σας έχει ήδη αναβαθμιστεί."
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"x-large\">Αναβάθμιση σε Ubuntu 6.10</span>"
+
+#~ msgid "Important security updates of Ubuntu"
+#~ msgstr "Σημαντικές αναβαθμίσεις ασφαλείας του Ubuntu"
+
+#~ msgid "Updates of Ubuntu"
+#~ msgstr "Ενημερώσεις του Ubuntu"
+
+#~ msgid "Cannot install all available updates"
+#~ msgstr "Αδυναμία εγκατάστασης όλων των διαθέσιμων ενημερώσεων"
+
+#~ msgid ""
+#~ "<big><b>Examining your system</b></big>\n"
+#~ "\n"
+#~ "Software updates correct errors, eliminate security vulnerabilities and "
+#~ "provide new features."
+#~ msgstr ""
+#~ "<big><b>Γίνεται ανάλυση του συστήματος σας</b></big>\n"
+#~ "\n"
+#~ "Οι ενημερώσεις λογισμικού μπορούν να διορθώνουν σφάλματα, κενά ασφαλείας "
+#~ "και να παρέχουν νέες λειτουργίες."
+
+#~ msgid "Oficially supported"
+#~ msgstr "Oficially supported"
+
 #~ msgid ""
 #~ "Some updates require the removal of further software. Use the function "
 #~ "\"Mark All Upgrades\" of the package manager \"Synaptic\" or run \"sudo "
@@ -1668,9 +1773,6 @@ msgstr "Λογισμικό μη συμβατό με DFSG"
 #~ msgid "<b>Keys</b>"
 #~ msgstr "<b>Κλειδιά</b>"
 
-#~ msgid "Add _Cdrom"
-#~ msgstr "Προσθήκη _Cdrom"
-
 #~ msgid "Installation Media"
 #~ msgstr "Μέσα εγκατάστασης"
 
@@ -1684,7 +1786,7 @@ msgstr "Λογισμικό μη συμβατό με DFSG"
 #~ msgstr "<b>Κανάλι</b>"
 
 #~ msgid "<b>Components</b>"
-#~ msgstr "<b>Στοιχεία</b>"
+#~ msgstr "<b>Συστατικά</b>"
 
 #~ msgid "Add Channel"
 #~ msgstr "Προσθήκη Καναλιού"
@@ -1692,9 +1794,10 @@ msgstr "Λογισμικό μη συμβατό με DFSG"
 #~ msgid "Edit Channel"
 #~ msgstr "Επεξεργασία καναλιού"
 
-#, fuzzy
 #~ msgid "_Add Channel"
-#~ msgstr "Προσ_θήκη καναλιού"
+#~ msgid_plural "_Add Channels"
+#~ msgstr[0] "Προσ_θήκη καναλιού"
+#~ msgstr[1] "Προσ_θήκη καναλιών"
 
 #~ msgid "_Custom"
 #~ msgstr "_Προσαρμοσμένο"
@@ -1729,9 +1832,6 @@ msgstr "Λογισμικό μη συμβατό με DFSG"
 
 #~ msgid "<b>Sections</b>"
 #~ msgstr "<b>Ενότητες</b>"
-
-#~ msgid "Check for available updates"
-#~ msgstr "Έλεγχος για διαθέσιμες ενημερώσεις"
 
 #~ msgid "<b>Sections:</b>"
 #~ msgstr "<b>Ενότητες:</b>"

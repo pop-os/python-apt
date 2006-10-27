@@ -35,14 +35,15 @@ def estimatedDownloadTime(requiredDownload):
     """ get the estimated download time """
     timeModem = requiredDownload/(56*1024/8)  # 56 kbit 
     timeDSL = requiredDownload/(1024*1024/8)  # 1Mbit = 1024 kbit
-    s= _("This download will take about %s with a 56k modem and about %s with "
-         "a 1Mbit DSL connection" % (FuzzyTimeToStr(timeModem), FuzzyTimeToStr(timeDSL)))
+    s= _("This download will take about %s with a 1Mbit DSL connection "
+         "and about %s with a 56k modem" % (FuzzyTimeToStr(timeDSL),FuzzyTimeToStr(timeModem)))
     return s
 
 
 class DumbTerminal(object):
     def call(self, cmd):
         " expects a command in the subprocess style (as a list) "
+        import subprocess
         subprocess.call(cmd)
 
 
@@ -72,6 +73,9 @@ class DistUpgradeView(object):
             on the current view
         """
         pass
+    def abort():
+        """ provide a visual feedback that the upgrade was aborted """
+        pass
     def setStep(self, step):
         """ we have 5 steps current for a upgrade:
         1. Analyzing the system
@@ -91,12 +95,14 @@ class DistUpgradeView(object):
         self.toInstall = []
         self.toUpgrade = []
         self.toRemove = []
+        self.toDowngrade = []
         for pkg in changes:
             if pkg.markedInstall: self.toInstall.append(pkg.name)
             elif pkg.markedUpgrade: self.toUpgrade.append(pkg.name)
             elif pkg.markedDelete: self.toRemove.append(pkg.name)
-        # no downgrades, re-installs 
-        assert(len(self.toInstall)+len(self.toUpgrade)+len(self.toRemove) == len(changes))
+            elif pkg.markedDowngrade: self.toDowngrade.append(pkg.name)
+        # no re-installs 
+        assert(len(self.toInstall)+len(self.toUpgrade)+len(self.toRemove)+len(self.toDowngrade) == len(changes))
     def askYesNoQuestion(self, summary, msg):
         " ask a Yes/No question and return True on 'Yes' "
         pass

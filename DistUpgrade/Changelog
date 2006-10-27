@@ -1,3 +1,64 @@
+2006-10-26:
+	- make sure that xserver-xorg-video-all get installed if
+	  xserver-xorg-driver-all was installed before (lp: #58424)
+2006-10-21:
+	- comment out old cdrom sources
+	- demotions updated
+2006-10-21:
+	- fix incorrect arguments in fixup logging (lp: #67311)
+	- more error logging
+	- fix upgrade problems for people with unofficial compiz 
+	  repositories (lp: #58424)
+	- rosetta i18n updates
+	- uploaded
+2006-10-17:
+	- ensure bzr, tomboy and xserver-xorg-input-* are properly 
+          upgraded
+	- don't fail if dpkg sents unexpected status lines (lp: #66013)
+2006-10-16:
+	- remove leftover references to ubuntu-base and
+	  use ubuntu-minimal and ubuntu-standard instead
+	- updated translations from rosetta
+2006-10-13:
+	- log held-back as well
+2006-10-12:
+	- check if cdrom.lst actually exists before copying it
+2006-10-11:
+	- keep pixbuf loader reference around so that we
+          have one after the upgrade when the old 
+          /usr/lib/gtk-2.0/loader/2.4.0/ loader is gone.
+          This fixes the problem of missing stock-icons
+	  after the upgrade. Also revalidate the theme
+  	  in each step.
+2006-10-10:
+	- fix time calculation
+	- fix kubuntu upgrade case
+2006-10-06:
+	- fix source.list rewrite corner case bug (#64159)
+2006-10-04:
+	- improve the space checking/logging
+2006-09-29:
+	- typo fix (thanks to Jane Silber) (lp: #62946)
+2006-09-28:
+	- bugfix in the cdromupgrade script
+2006-09-27:
+	- uploaded a version that only reverts the backport fetching
+	  but no other changes compared to 2006-09-23
+2006-09-27:
+	- embarrassing bug cdromupgrade.sh
+2006-09-26:
+	- comment out the getRequiredBackport code because we will
+	  not use Breaks for the dapper->edgy upgrade yet 
+          (see #54234 for the rationale)
+	- updated demotions.cfg for dapper->edgy
+	- special case the packages affected by the Breaks changes
+	- make sure that no translations get lost during the upgrade
+	  (thanks to mdz for pointing this out)
+	- bugfixes
+2006-09-23:
+	- support fetching backports of selected packages first and
+	  use them for the upgrade (needed to support Breaks)
+	- fetch/use apt/dpkg/python-apt backports for the upgrade
 2006-09-06:
 	- increased the "free-space-savety-buffer" to 100MB
 2006-09-05:

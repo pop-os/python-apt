@@ -32,6 +32,12 @@ ForcedObsoletes:
   happens *after* the cache.commit())
 RemoveEssentialOk:
   Those packages are ok to remove even though they are essential
+KeepInstalledPkgs:
+  If the package was installed before, it should still be installed
+  after the upgrade
+KeepInstalledSection:
+  Packages from this section that were installed should always be
+  installed afterwards as well (useful for eg translations)
 
 [$meta-pkg]
 KeyDependencies:
@@ -47,3 +53,10 @@ ForcedObsoletes:
 [Sources] - how to rewrite the sources.list
 
 [Network] - network specific options
+
+[Backports] - use specific packages for dist-upgrade 
+Packages= List of what packages to look for
+VersionIdent=Version identification. needs to be uniq, dist-upgrader will
+             fetch the version that contains this string
+SourcesList=a sources.list fragment that will be placed into 
+            /etc/apt/sources.list.d and that contains the backported pkgs

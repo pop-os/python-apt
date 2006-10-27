@@ -33,8 +33,7 @@ from gettext import gettext as _
 import os
 import string
 import re
-
-#sys.path.append("@prefix/share/update-manager/python")
+from xml.sax.saxutils import escape
 
 from UpdateManager.Common.SimpleGladeApp import SimpleGladeApp
 from UpdateManager.Common.HelpViewer import HelpViewer
@@ -45,6 +44,7 @@ import dialog_cache_outdated
 import dialog_add_sources_list
 from dialog_apt_key import apt_key
 from utils import *
+
 
 (LIST_MARKUP, LIST_ENABLED, LIST_ENTRY_OBJ) = range(3)
 
@@ -79,6 +79,7 @@ class SoftwareProperties(SimpleGladeApp):
 
   def __init__(self, datadir=None, options=None, parent=None, file=None):
     gtk.window_set_default_icon_name("software-properties")
+    self.popconfile = "/etc/popularity-contest.conf"
 
     # FIXME: some saner way is needed here
     if datadir == None:
@@ -223,6 +224,22 @@ class SoftwareProperties(SimpleGladeApp):
     self.treeview_sources.connect("drag_data_received",\
                                   self.on_sources_drag_data_received)
 
+    # popcon
+    if os.path.exists(self.popconfile):
+      # read it
+      lines = open(self.popconfile).read().split("\n")
+      active = False
+      for line in lines:
+        try:
+          (key,value) = line.split("=")
+          if key == "PARTICIPATE":
+            if value.strip('"').lower() == "yes":
+              active = True
+        except ValueError:
+          continue
+      self.checkbutton_popcon.set_active(active)
+    
+
     # call the add sources.list dialog if we got a file from the cli
     if self.file != None:
         self.open_file(file)
@@ -244,7 +261,7 @@ class SoftwareProperties(SimpleGladeApp):
         # TRANSLATORS: Label for the components in the Internet section
         #              first %s is the description of the component
         #              second %s is the code name of the comp, eg main, universe
-        label = _("%s (%s)") % (self.distro.source_template.components[comp][2],
+        label = _("%s (%s)") % (self.distro.source_template.components[comp][1],
                                 comp)
         checkbox = gtk.CheckButton(label)
         # check if the comp is enabled
@@ -465,6 +482,9 @@ class SoftwareProperties(SimpleGladeApp):
         for source in self.distro.child_sources:
             if source.template == template:
                 self.sourceslist.remove(source)
+        for source in self.distro.source_code_sources:
+            if source.template == template:
+                self.sourceslist.remove(source)
     else:
         self.distro.add_source(self.sourceslist,
                                      uri=template.base_uri,
@@ -505,14 +525,13 @@ class SoftwareProperties(SimpleGladeApp):
 
   def on_checkbutton_popcon_toggled(self, widget):
     """ The user clicked on the popcon paritipcation button """
-    popcon = "/etc/popularity-contest.conf"
     if widget.get_active():
       new_value = "yes"
     else:
       new_value = "no"
-    if os.path.exists(popcon):
+    if os.path.exists(self.popconfile):
       # read it
-      lines = open(popcon).read().split("\n")
+      lines = open(self.popconfile).read().split("\n")
       for line in lines:
         try:
           (key,value) = line.split("=")
@@ -521,7 +540,7 @@ class SoftwareProperties(SimpleGladeApp):
         except ValueError:
           continue
       # write it
-      open(popcon,"w").write("\n".join(lines))
+      open(self.popconfile,"w").write("\n".join(lines))
 
 
   def open_file(self, file):
@@ -682,7 +701,7 @@ class SoftwareProperties(SimpleGladeApp):
 
     if source.template == None:
         if source.comment:
-            contents = "<b>%s</b>" % source.comment
+            contents = "<b>%s</b>" % escape(source.comment)
             # Only show the components if there are more than one
             if len(source.comps) > 1:
                 for c in source.comps:
@@ -705,7 +724,7 @@ class SoftwareProperties(SimpleGladeApp):
             for comp in source.comps:
                 if source.template.components.has_key(comp):
                     print source.template.components[comp]
-                    (desc, enabled, desc_long) = source.template.components[comp]
+                    (desc, desc_long) = source.template.components[comp]
                     contents += "\n%s" % desc
                 else:
                     contents += "\n%s" % comp
@@ -1017,7 +1036,7 @@ class SoftwareProperties(SimpleGladeApp):
                                  type=gtk.MESSAGE_ERROR,
                                  buttons=gtk.BUTTONS_OK,
                                  message_format=None)
-      dialog.set_markup(_("<big><b>Error scaning the CD</b></big>\n\n%s"%msg))
+      dialog.set_markup(_("<big><b>Error scanning the CD</b></big>\n\n%s"%msg))
       res = dialog.run()
       dialog.destroy()
       return

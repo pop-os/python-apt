@@ -11,7 +11,7 @@
       <locale name="C">
         <short>Remind to reload the channel list</short>
         <long>
-	  If automatic checking for updates is disabeld, you have
+	  If automatic checking for updates is disabled, you have
 	  to reload the channel list manually. This option allows
 	  to hide the reminder shown in this case.
         </long>
@@ -28,7 +28,7 @@
         <short>Show details of an update</short>
         <long>
 	    Stores the state of the expander that contains the
-	    list of changs and the description 
+	    list of changes and the description 
         </long>
       </locale>
     </schema>

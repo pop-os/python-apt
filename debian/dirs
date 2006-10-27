@@ -1,2 +1,3 @@
 var/lib/update-manager
+var/log/dist-upgrade
 usr/bin

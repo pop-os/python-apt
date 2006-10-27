@@ -36,8 +36,6 @@ from gettext import gettext as _
 from optparse import OptionParser
 
 if __name__ == "__main__":
-  _ = gettext.gettext
-
   APP="update-manager"
   DIR="/usr/share/locale"
 
@@ -50,14 +48,14 @@ if __name__ == "__main__":
   parser = OptionParser()
   parser.add_option ("-c", "--check-dist-upgrades", action="store_true",
                      dest="check_dist_upgrades", default=False,
-                     help="Check if a new distribution release is available")
+                     help=_("Check if a new distribution release is available"))
   parser.add_option ("-d", "--devel-release", action="store_true",
                      dest="devel_release", default=False,
-                     help="Check if upgrading to the latest devel release "
-                          "is possible")
+                     help=_("Check if upgrading to the latest devel release "
+                          "is possible"))
   parser.add_option ("--dist-upgrade","--dist-ugprade", action="store_true",
                      dest="dist_upgrade", default=False,
-                     help="Try to run a dist-upgrade")
+                     help=_("Try to run a dist-upgrade"))
 
   (options, args) = parser.parse_args()
 

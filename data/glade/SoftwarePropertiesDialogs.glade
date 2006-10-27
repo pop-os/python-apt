@@ -164,9 +164,9 @@
 		<widget class="GtkLabel" id="label33">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Enter the complete APT line of the source that you want to add&lt;/b&gt;&lt;/big&gt;
+		  <property name="label" translatable="yes">&lt;big&gt;&lt;b&gt;Enter the complete APT line of the repository that you want to add as source&lt;/b&gt;&lt;/big&gt;
 
-The APT line includes the type, location and components of a source, for example &lt;i&gt;&quot;deb http://ftp.debian.org sarge main&quot;&lt;/i&gt;.</property>
+The APT line includes the type, location and components of a repository, for example &lt;i&gt;&quot;deb http://ftp.debian.org sarge main&quot;&lt;/i&gt;.</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -859,9 +859,9 @@ Source</property>
 	    <widget class="GtkLabel" id="label70">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;&lt;big&gt;The channel information is out-of-date&lt;/big&gt;&lt;/b&gt;
+	      <property name="label" translatable="yes">&lt;b&gt;&lt;big&gt;The information about available software is out-of-date&lt;/big&gt;&lt;/b&gt;
 
-You have to reload the channel information to install software and updates from newly added or changed channels. 
+To install software and updates from newly added or changed sources, you have to reload the information about available software.
 
 You need a working internet connection to continue.</property>
 	      <property name="use_underline">False</property>
@@ -928,7 +928,7 @@ You need a working internet connection to continue.</property>
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">_Replace</property>
+	      <property name="label" translatable="yes">_Replace</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>

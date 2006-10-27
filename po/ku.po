@@ -8,205 +8,236 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-09-05 13:07+0200\n"
-"PO-Revision-Date: 2006-05-23 19:43+0000\n"
-"Last-Translator: Erdal Ronahi <erdal.ronahi@gmail.com>\n"
+"POT-Creation-Date: 2006-10-23 14:26+0200\n"
+"PO-Revision-Date: 2006-10-17 09:50+0000\n"
+"Last-Translator: rizoye-xerzi <rizoxerzi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 
-#: ../SoftwareProperties/SoftwareProperties.py:135
+#: ../SoftwareProperties/SoftwareProperties.py:136
 msgid "Daily"
 msgstr "Rojane"
 
-#: ../SoftwareProperties/SoftwareProperties.py:136
-msgid "Every two days"
-msgstr "Her du roj"
-
 #: ../SoftwareProperties/SoftwareProperties.py:137
+msgid "Every two days"
+msgstr "Her du rojan"
+
+#: ../SoftwareProperties/SoftwareProperties.py:138
 msgid "Weekly"
 msgstr "Heftane"
 
-#: ../SoftwareProperties/SoftwareProperties.py:138
+#: ../SoftwareProperties/SoftwareProperties.py:139
 msgid "Every two weeks"
-msgstr "Her du hefte"
+msgstr "Her du hefteyan"
 
-#: ../SoftwareProperties/SoftwareProperties.py:143
+#: ../SoftwareProperties/SoftwareProperties.py:144
 #, python-format
 msgid "Every %s days"
-msgstr "Her %s roj"
+msgstr "Her %s rojan"
 
-#: ../SoftwareProperties/SoftwareProperties.py:166
+#: ../SoftwareProperties/SoftwareProperties.py:167
 msgid "After one week"
 msgstr "Piştî hefteyekê"
 
-#: ../SoftwareProperties/SoftwareProperties.py:167
-msgid "After two weeks"
-msgstr "Piştî du hefte"
-
 #: ../SoftwareProperties/SoftwareProperties.py:168
+msgid "After two weeks"
+msgstr "Piştî du hefteyan"
+
+#: ../SoftwareProperties/SoftwareProperties.py:169
 msgid "After one month"
 msgstr "Piştî mehekê"
 
-#: ../SoftwareProperties/SoftwareProperties.py:173
+#: ../SoftwareProperties/SoftwareProperties.py:174
 #, python-format
 msgid "After %s days"
 msgstr "Piştî %s roj"
 
 #. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
-#: ../SoftwareProperties/SoftwareProperties.py:235
+#: ../SoftwareProperties/SoftwareProperties.py:252
 #, python-format
 msgid "%s updates"
-msgstr ""
+msgstr "%s rojanekirin"
 
-#: ../SoftwareProperties/SoftwareProperties.py:294
+#. TRANSLATORS: Label for the components in the Internet section
+#. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
+#: ../SoftwareProperties/SoftwareProperties.py:264
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../SoftwareProperties/SoftwareProperties.py:316
 msgid "Main server"
-msgstr ""
+msgstr "Pêşkêşkera Mak"
 
 #. TRANSLATORS: %s is a country
-#: ../SoftwareProperties/SoftwareProperties.py:298
-#: ../SoftwareProperties/SoftwareProperties.py:316
+#: ../SoftwareProperties/SoftwareProperties.py:320
+#: ../SoftwareProperties/SoftwareProperties.py:338
 #, python-format
 msgid "Server for %s"
-msgstr ""
+msgstr "Pêşkêşkera %s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:302
+#: ../SoftwareProperties/SoftwareProperties.py:324
 msgid "Nearest server"
-msgstr ""
+msgstr "Pêşkêşkera herî nêzîk"
 
-#: ../SoftwareProperties/SoftwareProperties.py:323
+#: ../SoftwareProperties/SoftwareProperties.py:345
 msgid "Custom servers"
-msgstr ""
+msgstr "Pêşkêşkera taybet"
 
-#: ../SoftwareProperties/SoftwareProperties.py:580
-#: ../SoftwareProperties/SoftwareProperties.py:597
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
 msgid "Software Channel"
-msgstr ""
+msgstr "Qanala Nivîsbariyê"
 
-#: ../SoftwareProperties/SoftwareProperties.py:588
-#: ../SoftwareProperties/SoftwareProperties.py:605
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
 msgid "Active"
-msgstr ""
+msgstr "Çalak"
 
-#: ../SoftwareProperties/SoftwareProperties.py:690
+#: ../SoftwareProperties/SoftwareProperties.py:714
 msgid "(Source Code)"
-msgstr ""
+msgstr "(Koda Çavkanî)"
 
-#: ../SoftwareProperties/SoftwareProperties.py:696
+#: ../SoftwareProperties/SoftwareProperties.py:720
 msgid "Source Code"
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:945
-msgid "Import key"
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:955
-msgid "Error importing selected file"
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:956
-msgid "The selected file may not be a GPG key file or it might be corrupt."
-msgstr ""
-
-#: ../SoftwareProperties/SoftwareProperties.py:968
-msgid "Error removing the key"
-msgstr ""
+msgstr "Koda Çavkaniyê"
 
 #: ../SoftwareProperties/SoftwareProperties.py:969
+msgid "Import key"
+msgstr "Mifteyê veguhezîne"
+
+#: ../SoftwareProperties/SoftwareProperties.py:979
+msgid "Error importing selected file"
+msgstr "Di dema veguheztina dosyeya hilbijartî de çewtî"
+
+#: ../SoftwareProperties/SoftwareProperties.py:980
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr ""
+"Dosyeya hilbijartî dibe ku ne dosyeya mifteyan ya GPG be an jî dibe ku "
+"xerabe be."
+
+#: ../SoftwareProperties/SoftwareProperties.py:992
+msgid "Error removing the key"
+msgstr "Di dema rakirina mifteyan de çewtî"
+
+#: ../SoftwareProperties/SoftwareProperties.py:993
 msgid "The key you selected could not be removed. Please report this as a bug."
 msgstr ""
+"Mifteya ku te hilbijart nehate rakirin. Ji kerema xwe re vê weke çewtiyekê "
+"ragihîne."
 
-#: ../SoftwareProperties/SoftwareProperties.py:1015
+#: ../SoftwareProperties/SoftwareProperties.py:1039
 #, python-format
 msgid ""
-"<big><b>Error scaning the CD</b></big>\n"
+"<big><b>Error scanning the CD</b></big>\n"
 "\n"
 "%s"
 msgstr ""
+"<big><b>Di venihêrina CDyê de çewtî</b></big>\n"
+"\n"
+"%s"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1072
+#: ../SoftwareProperties/SoftwareProperties.py:1096
 msgid "Please enter a name for the disc"
-msgstr ""
+msgstr "Ji kerema xwe navê ji bo diskê binivîse"
 
-#: ../SoftwareProperties/SoftwareProperties.py:1088
+#: ../SoftwareProperties/SoftwareProperties.py:1112
 msgid "Please insert a disc in the drive:"
-msgstr ""
+msgstr "Ji kerema xwe re dîskekê têxe ajokar:"
 
-#: ../DistUpgrade/DistUpgradeCache.py:89
+#: ../DistUpgrade/DistUpgradeCache.py:91
 msgid "Broken packages"
 msgstr "Paketên şikestî"
 
-#: ../DistUpgrade/DistUpgradeCache.py:90
+#: ../DistUpgrade/DistUpgradeCache.py:92
 msgid ""
 "Your system contains broken packages that couldn't be fixed with this "
 "software. Please fix them first using synaptic or apt-get before proceeding."
 msgstr ""
+"Pergala te tevî vê nivîsbariyê hin pakêtên xerabe yên ku nayên sererastkirin "
+"dihewîne. Berî ku tu berdewam bikî ji kerema xwe van bernameyan bi synaptic "
+"an jî i apt-get sererast bikî."
 
-#: ../DistUpgrade/DistUpgradeCache.py:147
+#: ../DistUpgrade/DistUpgradeCache.py:238
 msgid "Can't upgrade required meta-packages"
-msgstr ""
+msgstr "Pakêtên agahiyan yên pêwist nayên rojanekirin."
 
-#: ../DistUpgrade/DistUpgradeCache.py:154
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid "A essential package would have to be removed"
-msgstr ""
+msgstr "Dê pêwiste be ku pakêta bingehîn were jêbirin"
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:157
+#: ../DistUpgrade/DistUpgradeCache.py:245
 msgid "Could not calculate the upgrade"
-msgstr ""
+msgstr "Rojanekirin nikaribû were hesabkirin"
 
-#: ../DistUpgrade/DistUpgradeCache.py:158
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid ""
-"A unresolvable problem occured while calculating the upgrade.\n"
+"A unresolvable problem occurred while calculating the upgrade.\n"
 "\n"
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
+"Dema bilindkirin hesab dikir çewtiyeke ku nayê veçirandin derkete holê.\n"
+"\n"
+"Ji kerema xwe re vê çewtiyê bo 'update-manager' ragihîne, pelgehên ku li /"
+"var/log/dist-upgrade/ de ye jî li rapora çewtiyan zêde bike."
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:183
+#: ../DistUpgrade/DistUpgradeCache.py:280
 msgid "Error authenticating some packages"
-msgstr ""
+msgstr "Di piştrastkirina çend paketan de çewtî derket"
 
-#: ../DistUpgrade/DistUpgradeCache.py:184
+#: ../DistUpgrade/DistUpgradeCache.py:281
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
 "unauthenticated packages."
 msgstr ""
+"Hin pakêt nehatin piştrastkirin. Dibe ku ev pirsgirêkeke derbasdar ya torê "
+"be. Ji bo lîsteya pakêtên ku nehatine piştrastkirin li jêr binihêre."
 
-#: ../DistUpgrade/DistUpgradeCache.py:249
+#: ../DistUpgrade/DistUpgradeCache.py:346
 #, python-format
 msgid "Can't install '%s'"
 msgstr "Nikarî '%s' saz bike"
 
-#: ../DistUpgrade/DistUpgradeCache.py:250
+#: ../DistUpgrade/DistUpgradeCache.py:347
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr ""
+"Pakêta pêwist nehate barkirin. Ji kerema xwe re vê yekê weke çewtiyekê "
+"ragihîne. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:257
+#: ../DistUpgrade/DistUpgradeCache.py:354
 msgid "Can't guess meta-package"
-msgstr ""
+msgstr "Pakêta-meta nehate kifşkirin"
 
-#: ../DistUpgrade/DistUpgradeCache.py:258
+#: ../DistUpgrade/DistUpgradeCache.py:355
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
-"you are runing.\n"
+"you are running.\n"
 " Please install one of the packages above first using synaptic or apt-get "
 "before proceeding."
 msgstr ""
+"Pergala te tu pakêtên sermaseya-ubuntu, sermaseya-kubuntu yan jî sermaseya-"
+"kubuntu nahundirîne û nehate tespîtkirin ku tu kîjan guhertoya ubuntuyê "
+"bikar tîne.\n"
+"Ji kerema xwe re berî ku tu berdewam bikî, bi synaptic yan jî bi apt-getê "
+"pakêtên ku li jor in yekê saz bike."
 
-#: ../DistUpgrade/DistUpgradeControler.py:73
+#: ../DistUpgrade/DistUpgradeControler.py:75
 msgid "Failed to add the CD"
-msgstr ""
+msgstr "Dema têxistina CDyê de çewtî"
 
-#: ../DistUpgrade/DistUpgradeControler.py:74
+#: ../DistUpgrade/DistUpgradeControler.py:76
 #, python-format
 msgid ""
 "There was a error adding the CD, the upgrade will abort. Please report this "
@@ -215,28 +246,37 @@ msgid ""
 "The error message was:\n"
 "'%s'"
 msgstr ""
+"Dema CD lê dihate zêdekirin, bilindkirin disekine. Heke tu CDyeke rast ya "
+"Ubuntuyê bikar tîne vê çewtiyê ragihîne.\n"
+"\n"
+"Peyama çewtiyê:\n"
+"'%s'"
 
-#: ../DistUpgrade/DistUpgradeControler.py:104
+#: ../DistUpgrade/DistUpgradeControler.py:108
 msgid "Reading cache"
-msgstr ""
+msgstr "veşartok tê xwendin"
 
-#: ../DistUpgrade/DistUpgradeControler.py:143
+#: ../DistUpgrade/DistUpgradeControler.py:156
 msgid "Fetch data from the network for the upgrade?"
-msgstr ""
+msgstr "Ji bo bilindkirinê bila dane ji toreyê were daxistin?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:144
+#: ../DistUpgrade/DistUpgradeControler.py:157
 msgid ""
 "The upgrade can use the network to check the latest updates and to fetch "
 "packages that are not on the current CD.\n"
 "If you have fast or inexpensive network access you should answer 'Yes' here. "
 "If networking is expensive for you choose 'No'."
 msgstr ""
+"Tu dikarî bi xêra tora bilindkirinê rojanekirinên herî dawî kontrol bike û "
+"pakêtên ku di CDyê de tuneye daxe.\n"
+"Heke gihiştina te ya torê ne lez be yan jî ne biha be divê tu pêl 'Ere' "
+"bike. Yan jî pêl 'Na' bike."
 
-#: ../DistUpgrade/DistUpgradeControler.py:235
+#: ../DistUpgrade/DistUpgradeControler.py:249
 msgid "No valid mirror found"
-msgstr ""
+msgstr "Şewqdereke derbasdar nehate dîtin."
 
-#: ../DistUpgrade/DistUpgradeControler.py:236
+#: ../DistUpgrade/DistUpgradeControler.py:250
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -247,13 +287,21 @@ msgid ""
 "here it will update all '%s' to '%s' entries.\n"
 "If you select 'no' the update will cancel."
 msgstr ""
+"Dema çav li agahiyên we yên depoyê dihate gerîn bo rojanekirinê ketana "
+"şewqderê nehate dîtin. Dibe ku sedema wê ev be; yan te şewqdereke hundurîn "
+"bikar aniye an jî agahiyên şewqderê ne rojane ye.\n"
+"\n"
+"Tu dixwazî dosyeya xwe ya 'sources.list' ji nû ve çêbike?\n"
+"Heke tu li vir 'Erê' hilbijêrî hemû ketanên 'ji %s' heta '%s' wê bêne "
+"rojanekirin.\n"
+"Heke tu bibêjî 'Na' wê rojanekirin betal bibe."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:253
+#: ../DistUpgrade/DistUpgradeControler.py:267
 msgid "Generate default sources?"
-msgstr ""
+msgstr "Bile çavkaniyên rawêjî pêk bên?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:254
+#: ../DistUpgrade/DistUpgradeControler.py:268
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -261,60 +309,75 @@ msgid ""
 "Should default entries for '%s' be added? If you select 'No' the update will "
 "cancel."
 msgstr ""
+"Piştî ku çav li 'sources.list' gerand ji bo '%s' tu têketineke derbasdar "
+"nedît.\n"
+"\n"
+"Ji bo '%s' bila têketinên heyî lê zêde bibe? Heke tu bibêjî 'Na'  dê "
+"rojanekirin were betalkirin."
 
-#: ../DistUpgrade/DistUpgradeControler.py:288
+#: ../DistUpgrade/DistUpgradeControler.py:302
 msgid "Repository information invalid"
-msgstr ""
+msgstr "Agahiya depoyê ne derbasdar e"
 
-#: ../DistUpgrade/DistUpgradeControler.py:289
+#: ../DistUpgrade/DistUpgradeControler.py:303
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
 msgstr ""
+"Karê rojanekirina agahiya depoyê, dosyeye nederbasdar çêkir. Ji kerema xwe "
+"re vê çewtiyê ragihîne."
 
-#: ../DistUpgrade/DistUpgradeControler.py:295
+#: ../DistUpgrade/DistUpgradeControler.py:309
 msgid "Third party sources disabled"
-msgstr ""
+msgstr "Ji çavkaniyên partiyên sêyemîn têkilî hate birîn."
 
-#: ../DistUpgrade/DistUpgradeControler.py:296
+#: ../DistUpgrade/DistUpgradeControler.py:310
 msgid ""
-"Some third party entries in your souces.list were disabled. You can re-"
+"Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
 "synaptic."
 msgstr ""
+"Ketanên aligirên sêyemîn yên di pelê sources.listê de ne bandora wan hate "
+"rakirin. Piştî bilindkirinê tu dikarî van ketanan bi 'software-properties' "
+"yan jî bi synapticê dîsa çalak bike."
 
-#: ../DistUpgrade/DistUpgradeControler.py:345
+#: ../DistUpgrade/DistUpgradeControler.py:364
 msgid "Error during update"
-msgstr ""
+msgstr "Di rojanekirinê de çewtî derket"
 
-#: ../DistUpgrade/DistUpgradeControler.py:346
+#: ../DistUpgrade/DistUpgradeControler.py:365
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
 msgstr ""
+"Di dema rojanekirinê de çewtiyek derket. Ev çewtî piranî pirsgirêka torê ye, "
+"ji kerema xwe re girêdana xwe ya torê kontrol bike û ji nû ve biceribîne."
 
-#: ../DistUpgrade/DistUpgradeControler.py:355
+#: ../DistUpgrade/DistUpgradeControler.py:374
 msgid "Not enough free disk space"
-msgstr ""
+msgstr "Cihê vala yê diskê têr nake"
 
-#: ../DistUpgrade/DistUpgradeControler.py:356
+#: ../DistUpgrade/DistUpgradeControler.py:375
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
 "your trash and remove temporary packages of former installations using 'sudo "
 "apt-get clean'."
 msgstr ""
+"Bilindkirin diqede. Ji kerema xwe re di %s de herî kêm %s qada dîskê vala "
+"bike. Çopa xwe vala bikin û xêra 'sudo apt-get clean' pakêtên derbasdar yên "
+"sazkirinên berê rake."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:415
+#: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Do you want to start the upgrade?"
-msgstr ""
+msgstr "Tu dixwazî dest bi bilindkirinê bikî?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:432
+#: ../DistUpgrade/DistUpgradeControler.py:468
 msgid "Could not install the upgrades"
-msgstr ""
+msgstr "Sazkirina hemû bilindkirinan biserneket"
 
-#: ../DistUpgrade/DistUpgradeControler.py:433
+#: ../DistUpgrade/DistUpgradeControler.py:469
 msgid ""
 "The upgrade aborts now. Your system could be in an unusable state. A "
 "recovery was run (dpkg --configure -a).\n"
@@ -322,73 +385,107 @@ msgid ""
 "Please report this bug against the 'update-manager' package and include the "
 "files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
+"Bêyî bilindkirin niha tê betalkirin. Dibe ku pergala te di rewşeke dudilî de "
+"be. Karekî xelaskirinê pêk hat. (dpkg --configure -a).\n"
+"\n"
+"Ji kerema xwe re bo pakêta 'update-manager' vê çewtiyê ragihîne. Dosyeyên ku "
+"li /var/log/dist-upgrade/ de ye jî li peyama çewtiyê zêde bike."
 
-#: ../DistUpgrade/DistUpgradeControler.py:451
+#: ../DistUpgrade/DistUpgradeControler.py:487
 msgid "Could not download the upgrades"
-msgstr ""
+msgstr "Daxistina bilindkirinan serneket"
 
-#: ../DistUpgrade/DistUpgradeControler.py:452
+#: ../DistUpgrade/DistUpgradeControler.py:488
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
 msgstr ""
-
-#: ../DistUpgrade/DistUpgradeControler.py:488
-msgid "Some software no longer officially supported"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgradeControler.py:490
-msgid ""
-"These installed packages are no longer officially supported, and are now "
-"only community-supported ('universe').\n"
-"\n"
-"If you don't have 'universe' enabled these packages will be suggested for "
-"removal in the next step. "
-msgstr ""
+"Rojanekirin niha tê betalkirin. Ji kerema xwe girêdana înternetê an medyaya "
+"sazkirinê kontrol bike û ji nû ve biceribîne. "
 
 #: ../DistUpgrade/DistUpgradeControler.py:524
+msgid "Support for some applications ended"
+msgstr "Ji bo hin sepanan piştrastkirin qediya"
+
+#: ../DistUpgrade/DistUpgradeControler.py:525
+#, fuzzy
+msgid ""
+"Canonical Ltd. no longer provides support for the following software "
+"packages. You can still get support from the community.\n"
+"\n"
+"If you have not enabled community maintained software (universe), these "
+"packages will be suggested for removal in the next step."
+msgstr ""
+"Canonical Ltd. êdî nema xizmetan ji van pakêtên nermalav re pêşkêş dike. Tu "
+"hê jî dikarî sûdê ji komeleyê bigire.\n"
+"\n"
+"heke destûra te ji bo nivîsbariyê tunebe, Di gava duyemîn de ev pakêt dê ji "
+"bo jêbirinê werin tercîhkirin."
+
+#: ../DistUpgrade/DistUpgradeControler.py:560
 msgid "Remove obsolete packages?"
-msgstr ""
+msgstr "Bila pakêtên ku nayên bikaranîn were rakirin?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:525
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Skip This Step"
-msgstr ""
+msgstr "Vê gavê derbas bike"
 
-#: ../DistUpgrade/DistUpgradeControler.py:525
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Remove"
 msgstr "_Jê bibe"
 
-#: ../DistUpgrade/DistUpgradeControler.py:535
+#: ../DistUpgrade/DistUpgradeControler.py:572
 msgid "Error during commit"
-msgstr ""
+msgstr "çewtî di dema xebitandinê de"
 
-#: ../DistUpgrade/DistUpgradeControler.py:536
+#: ../DistUpgrade/DistUpgradeControler.py:573
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
 msgstr ""
+"Di dema paqijkirinê de hin pirsgirêk derketin. Ji bo agahiyan ji kerema xwe "
+"re li peyama jêr binihêre. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:546
+#: ../DistUpgrade/DistUpgradeControler.py:585
 msgid "Restoring original system state"
-msgstr ""
+msgstr "Vedigere rewşa pergala orjînal"
+
+#: ../DistUpgrade/DistUpgradeControler.py:641
+#, fuzzy, python-format
+msgid "Fetching backport of '%s'"
+msgstr "backport a  '%s' vedigerîne"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:554
-#: ../DistUpgrade/DistUpgradeControler.py:583
+#: ../DistUpgrade/DistUpgradeControler.py:676
+#: ../DistUpgrade/DistUpgradeControler.py:719
 msgid "Checking package manager"
-msgstr ""
+msgstr "Bireveberiya paketan tê kontrol kirin"
 
-#: ../DistUpgrade/DistUpgradeControler.py:569
+#: ../DistUpgrade/DistUpgradeControler.py:681
+msgid "Preparing the upgrade failed"
+msgstr "Amadekrinên nûjenkirinê biserneket"
+
+#: ../DistUpgrade/DistUpgradeControler.py:682
+#, fuzzy
+msgid ""
+"Preparing the system for the upgrade failed. Please report this as a bug "
+"against the 'update-manager' package and include the files in /var/log/dist-"
+"upgrade/ in the bugreport."
+msgstr ""
+"Pergalê ji bo têkçûneke mezin amade dike. Ji kerema xwe re bike rapor li "
+"dijî pakêta rojanekirina gerînende 'update-manager'"
+
+#: ../DistUpgrade/DistUpgradeControler.py:705
 msgid "Updating repository information"
-msgstr ""
+msgstr "Agahiyên depoyê tê rojanekirin"
 
-#: ../DistUpgrade/DistUpgradeControler.py:594
+#: ../DistUpgrade/DistUpgradeControler.py:730
 msgid "Invalid package information"
-msgstr ""
+msgstr "Agahiya paketê nederbasdar e"
 
-#: ../DistUpgrade/DistUpgradeControler.py:595
+#: ../DistUpgrade/DistUpgradeControler.py:731
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -397,20 +494,25 @@ msgid ""
 "manager' package and include the files in /var/log/dist-upgrade/ in the "
 "bugreport."
 msgstr ""
+"Piştî ku agahiyê te yên pakêtê hate rojanekirin, yek ji wan pakêtên girîng '%"
+"s' êdî nayê dîtin.\n"
+"Dibe ku ev çewtiyeke girîng e, ji kerema xwe re bo pakêta 'update-manager' "
+"vê çewtiyê ragihîne. Dosyeyên ku li /var/log/dist-upgrade/ de ye jî li "
+"peyama çewtiyê zêde bike."
 
-#: ../DistUpgrade/DistUpgradeControler.py:607
+#: ../DistUpgrade/DistUpgradeControler.py:743
 msgid "Asking for confirmation"
-msgstr ""
+msgstr "Pirsa piştrastkirinê"
 
-#: ../DistUpgrade/DistUpgradeControler.py:611
+#: ../DistUpgrade/DistUpgradeControler.py:747
 msgid "Upgrading"
 msgstr "Tê bilindkirin"
 
-#: ../DistUpgrade/DistUpgradeControler.py:618
+#: ../DistUpgrade/DistUpgradeControler.py:754
 msgid "Searching for obsolete software"
-msgstr ""
+msgstr "Li nivîsbariya kevin tê gerandin"
 
-#: ../DistUpgrade/DistUpgradeControler.py:623
+#: ../DistUpgrade/DistUpgradeControler.py:759
 msgid "System upgrade is complete."
 msgstr "Bilindkirina sîstemê temam bû."
 
@@ -418,28 +520,27 @@ msgstr "Bilindkirina sîstemê temam bû."
 #: ../DistUpgrade/DistUpgradeViewGtk.py:100
 #, python-format
 msgid "Please insert '%s' into the drive '%s'"
-msgstr ""
+msgstr "Ji kerema xwe '%s' bixe nav ajokera '%s'"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:118
-#, fuzzy
 msgid "Fetching is complete"
 msgstr "Rojanekirin temam bû"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:129
 #, python-format
 msgid "Fetching file %li of %li at %s/s"
-msgstr ""
+msgstr "Dosyan dadixe %li daxistin ji %li di %s/s de"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
-#: ../DistUpgrade/DistUpgradeViewGtk.py:252
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
 #, python-format
 msgid "About %s remaining"
-msgstr ""
+msgstr "Nêzîka %s ma"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:132
 #, python-format
 msgid "Fetching file %li of %li"
-msgstr ""
+msgstr "Dosyan dadixe %li daxistin ji %li"
 
 #. FIXME: add support for the timeout
 #. of the terminal (to display something useful then)
@@ -451,99 +552,127 @@ msgstr "Guherandin tê bi kar anîn"
 #: ../DistUpgrade/DistUpgradeViewGtk.py:187
 #, python-format
 msgid "Could not install '%s'"
-msgstr ""
+msgstr "Nikaribû '%s' saz bike"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:188
 msgid ""
 "The upgrade aborts now. Please report this bug against the 'update-manager' "
 "package and include the files in /var/log/dist-upgrade/ in the bugreport."
 msgstr ""
+"Bilindkirin tê betalkirin. Ji kerema xwe re bo pakêta 'update-manager' vê "
+"çewtiyê ragihîne. Dosyeyên ku li /var/log/dist-upgrade/ de ye jî li peyama "
+"xwe ya çewtiyê zêde bike."
 
 #. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:202
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
-"Replace configuration file\n"
+"Replace the customized configuration file\n"
 "'%s'?"
 msgstr ""
+"Pelgeha veavakirinan ya hatiye taybetkirin ya\n"
+"'%s' bila were guherandin?"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:219
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
+msgid ""
+"You will lose any changes you have made to this configuration file if you "
+"choose to replace it with a newer version."
+msgstr ""
+"Heke tu vê guhertoyê bi yeke nû biguherînî tu yê hemû guhertinên xwe yên di "
+"pelê mîhengkirinê de winda bikî."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
 msgid "The 'diff' command was not found"
-msgstr ""
+msgstr "Fermana 'diff' nehatiye dîtin"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:357
+#: ../DistUpgrade/DistUpgradeViewGtk.py:368
 msgid "A fatal error occured"
-msgstr ""
+msgstr "Çewtiyeke giran derket"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:358
+#: ../DistUpgrade/DistUpgradeViewGtk.py:369
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade/main."
 "log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
 "now.\n"
 "Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
 msgstr ""
+"Ji kerema xwe re vê çewtiyê ragihîne.Dosyeyên ku li /var/log/dist-upgrade/ "
+"de ye jî li peyama xwe ya çewtiyê zêde bike. Bilindkirin niha tê "
+"betalkirin.\n"
+"Dosyeya te ya sources.list ya orjînal wekî /etc/apt/sources.list.distUpgrade "
+"hate tomarkirin."
 
 #. FIXME: make those two seperate lines to make it clear
 #. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:475
+#: ../DistUpgrade/DistUpgradeViewGtk.py:504
 #, python-format
-msgid "%s package is going to be removed."
-msgid_plural "%s packages are going to be removed."
-msgstr[0] "%s paket dê were rakirin."
-msgstr[1] "%s paket dê werin rakirin."
+msgid "%d package is going to be removed."
+msgid_plural "%d packages are going to be removed."
+msgstr[0] "%d pakêt dê were rakirin."
+msgstr[1] "%d pakêt dê werine rakirin."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:480
+#: ../DistUpgrade/DistUpgradeViewGtk.py:509
 #, python-format
-msgid "%s new package is going to be installed."
-msgid_plural "%s new packages are going to be installed."
-msgstr[0] "%s paket dê were sazkirin"
-msgstr[1] "%s paket dê werin sazkirin"
+msgid "%d new package is going to be installed."
+msgid_plural "%d new packages are going to be installed."
+msgstr[0] "Dê %d pakêtên nû were sazkirin."
+msgstr[1] "Dê %d pakêtên nû werine sazkirin."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:486
+#: ../DistUpgrade/DistUpgradeViewGtk.py:515
 #, python-format
-msgid "%s package is going to be upgraded."
-msgid_plural "%s packages are going to be upgraded."
-msgstr[0] "%s paket dê were bilindkirin."
-msgstr[1] "%s paket dê werin bilindkirin."
+msgid "%d package is going to be upgraded."
+msgid_plural "%d packages are going to be upgraded."
+msgstr[0] "Dê %d pakêt were bilindkirin"
+msgstr[1] "Dê %d pakêt werine bilindkirin"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:491
-#, fuzzy, python-format
+#: ../DistUpgrade/DistUpgradeViewGtk.py:520
+#, python-format
 msgid ""
 "\n"
 "\n"
 "You have to download a total of %s. "
-msgstr "Pêwîst e tu bi tevahî %s daxî."
+msgstr ""
+"\n"
+"\n"
+"Pêwîst e tu %s bi tevahî daxî. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:497
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
 "canceled at any time later."
 msgstr ""
+"Daxistin û sazkirina bilindkirinê dibe ku bi saetan bidome û dû re jî tu "
+"nikare betal bike."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:500
+#: ../DistUpgrade/DistUpgradeViewGtk.py:529
 msgid "To prevent data loss close all open applications and documents."
-msgstr ""
+msgstr "Ji bo ku dane winda nebin hemû sepan û pelgeyên ku vekirî ne bigire."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:506
-msgid "Could not find any upgrades"
+#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../UpdateManager/UpdateManager.py:622
+msgid "Your system is up-to-date"
+msgstr "Sîstema te rojane ye"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:536
+msgid ""
+"There are no upgrades available for your system. The upgrade will now be "
+"canceled."
 msgstr ""
+"Ji bo pergala te bilindkirin tuneye. Karê bilindkirinê wê a niha were "
+"betalkirin."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:507
-msgid "Your system has already been upgraded."
-msgstr "Sîstema xwe berê hat bilindkirin."
-
-#: ../DistUpgrade/DistUpgradeViewGtk.py:522
+#: ../DistUpgrade/DistUpgradeViewGtk.py:552
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>%s rake</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:524
+#: ../DistUpgrade/DistUpgradeViewGtk.py:554
 #, python-format
 msgid "Install %s"
 msgstr "%s saz bike"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:526
+#: ../DistUpgrade/DistUpgradeViewGtk.py:556
 #, python-format
 msgid "Upgrade %s"
 msgstr "%s bilind bike"
@@ -551,40 +680,43 @@ msgstr "%s bilind bike"
 #: ../DistUpgrade/DistUpgradeView.py:27
 #, python-format
 msgid "%li days %li hours %li minutes"
-msgstr ""
+msgstr "%li roj %li saet %li xulek"
 
 #: ../DistUpgrade/DistUpgradeView.py:29
 #, python-format
 msgid "%li hours %li minutes"
-msgstr ""
+msgstr "%li saet %li xulek"
 
 #: ../DistUpgrade/DistUpgradeView.py:31
 #, python-format
 msgid "%li minutes"
-msgstr ""
+msgstr "%li xulek"
 
 #: ../DistUpgrade/DistUpgradeView.py:32
 #, python-format
 msgid "%li seconds"
-msgstr ""
+msgstr "%li çirke"
 
 #. 56 kbit
 #. 1Mbit = 1024 kbit
 #: ../DistUpgrade/DistUpgradeView.py:38
 #, python-format
 msgid ""
-"This download will take about %s with a 56k modem and about %s with a 1Mbit "
-"DSL connection"
+"This download will take about %s with a 1Mbit DSL connection and about %s "
+"with a 56k modem"
 msgstr ""
+"Ev daxistin dê derdora %s bidomîne bi têkiliya 1Mbit DSL û derdora %s bi  "
+"56k modem."
 
-#: ../DistUpgrade/DistUpgradeView.py:105
+#: ../DistUpgrade/DistUpgradeView.py:111
 msgid "Reboot required"
-msgstr ""
+msgstr "Destpêkirina nû pêwîst e"
 
-#: ../DistUpgrade/DistUpgradeView.py:106
+#: ../DistUpgrade/DistUpgradeView.py:112
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr ""
+"Bilindkirin bi dawî bû û destpêkirina nû pêwîst e. Tu dixwazî niha bikî?"
 
 #. testcode to see if the bullets look nice in the dialog
 #. for i in range(4):
@@ -602,18 +734,23 @@ msgid ""
 "The system could be in an unusable state if you cancel the upgrade. You are "
 "strongly adviced to resume the upgrade."
 msgstr ""
+"<b><big>Bilindkirina çalak bila were betal kirin?</big></b>\n"
+"\n"
+"Dibe ku pergal neyê bikaranîn. Pêşniyar ew e ku bilindkirin were dewamkirin."
 
 #: ../DistUpgrade/DistUpgrade.glade.h:5
 msgid "<b><big>Restart the system to complete the upgrade</big></b>"
 msgstr ""
+"<b><big>Ji bo bidawîanîna bilindkirinê pergalê ji nû ve bide destpêkirin</"
+"big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:6
 msgid "<b><big>Start the upgrade?</big></b>"
 msgstr "<b><big>Dest bi bilindkirinê were kirin?</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:7
-msgid "<span weight=\"bold\" size=\"x-large\">Upgrading to Ubuntu 6.10</span>"
-msgstr ""
+msgid "<b><big>Upgrading Ubuntu to version 6.10</big></b>"
+msgstr "<b><big>Ubuntu li guhertoya 6.10 tê bilindkirin</big></b>"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:8
 msgid "Cleaning up"
@@ -625,408 +762,445 @@ msgstr "Hûragahî"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:10
 msgid "Difference between the files"
-msgstr ""
+msgstr "Cudahiyên navbera dosiyan"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:11
 msgid "Fetching and installing the upgrades"
-msgstr ""
+msgstr "Bilindkirin nehatne sazkirin"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:12
 msgid "Modifying the software channels"
-msgstr ""
+msgstr "Kanalên nivîsbariyê tên guherandin"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:13
 msgid "Preparing the upgrade"
-msgstr ""
+msgstr "Bilinkirin amade dibe"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:14
 msgid "Restarting the system"
-msgstr ""
+msgstr "Pergal tê nûdestpêkirin"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:15
 msgid "Terminal"
 msgstr "Termînal"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:16
+msgid "_Cancel Upgrade"
+msgstr "_Ji nûjenkirinê derkeve"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr "_Bidomîne"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
 msgid "_Keep"
 msgstr "Bi_parêze"
 
-#: ../DistUpgrade/DistUpgrade.glade.h:17
-msgid "_Replace"
-msgstr ""
-
-#: ../DistUpgrade/DistUpgrade.glade.h:18
-msgid "_Report Bug"
-msgstr ""
-
 #: ../DistUpgrade/DistUpgrade.glade.h:19
-msgid "_Restart Now"
-msgstr ""
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
+msgid "_Replace"
+msgstr "Bide _ser"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:20
+msgid "_Report Bug"
+msgstr "_çewtiyeke sepanê"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:21
+msgid "_Restart Now"
+msgstr "Niha _ji nû ve bide destpêkirin"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:22
 msgid "_Resume Upgrade"
-msgstr ""
+msgstr "Bilindkirinan _Bidomînî"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+msgid "_Start Upgrade"
+msgstr "_Destpêkirina nûjenkirinê"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:68
 msgid "Could not find the release notes"
-msgstr ""
+msgstr "nîşeyên derxistinan nayên dîtin"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:69
 msgid "The server may be overloaded. "
-msgstr ""
+msgstr "Dibe ku barê pêşkêşkerê pir zêde be "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:79
 msgid "Could not download the release notes"
-msgstr ""
+msgstr "Nîşeyên weşanê nehate daxistin"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:80
 msgid "Please check your internet connection."
-msgstr ""
+msgstr "Ji kerema xwe girêdana înternetê kontrol bike."
 
 #. no script file found in extracted tarbal
 #: ../UpdateManager/DistUpgradeFetcher.py:149
 msgid "Could not run the upgrade tool"
-msgstr ""
+msgstr "Amûra bilindkirinê nikaribû bimeşîne"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:150
 msgid ""
 "This is most likely a bug in the upgrade tool. Please report it as a bug"
 msgstr ""
+"Qey ev çewtiyeke amûra bilindkirinê ye. Ji kerema xwe çewtiyê rapor bike"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:171
 msgid "Downloading the upgrade tool"
-msgstr ""
+msgstr "Amûra bilindkirinê tê daxistin"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:173
 msgid "The upgrade tool will guide you through the upgrade process."
-msgstr ""
+msgstr "Amûra bilindkirinê te ber bi pêvajoya bilindkirinê dibe."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:180
 msgid "Upgrade tool signature"
-msgstr ""
+msgstr "Destnîşana amûra bilindkirinê"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:183
 msgid "Upgrade tool"
-msgstr ""
+msgstr "Amûra bilindkirinê"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:208
 msgid "Failed to fetch"
-msgstr ""
+msgstr "Anîn biserneket"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:209
 msgid "Fetching the upgrade failed. There may be a network problem. "
-msgstr ""
+msgstr "Anîna bilindkirinê biserneket. Dibe ku pirsgirêkeke torê hebe. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:214
 msgid "Failed to extract"
-msgstr ""
+msgstr "Derxistin biserneket"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:215
 msgid ""
 "Extracting the upgrade failed. There may be a problem with the network or "
 "with the server. "
 msgstr ""
+"Derxistina bilindkirinê biserneket. Dibe ku pirsgirekeke tor an pêşkêşkarê "
+"hebe. "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:221
 msgid "Verfication failed"
-msgstr ""
+msgstr "Piştrastkirin biserneket."
 
 #: ../UpdateManager/DistUpgradeFetcher.py:222
 msgid ""
-"Verfing the upgrade failed.  There may be a problem with the network or with "
-"the server. "
+"Verifying the upgrade failed.  There may be a problem with the network or "
+"with the server. "
 msgstr ""
+"Di dema erêkirina bilindkirinê de çewtî. Dibe ku yan di torê de yan jî di "
+"pêşkêşkerê de pirsgirêk hebe "
 
 #: ../UpdateManager/DistUpgradeFetcher.py:228
 msgid "Authentication failed"
-msgstr ""
+msgstr "Naskirin lê nehat"
 
 #: ../UpdateManager/DistUpgradeFetcher.py:229
 msgid ""
 "Authenticating the upgrade failed. There may be a problem with the network "
 "or with the server. "
 msgstr ""
+"Naskirina bilindkirnê lê nehat. Dibe ku pirsgirekeke tor an pêşkêşkarê hebe. "
 
-#: ../UpdateManager/GtkProgress.py:107
+#: ../UpdateManager/GtkProgress.py:108
 #, python-format
-msgid "Downloading file %li of %li with %s/s"
-msgstr ""
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
+msgstr "Pelgeha %(current)li ji %(total)li bi %(speed)s/ç tê daxistin"
 
-#: ../UpdateManager/GtkProgress.py:111
+#: ../UpdateManager/GtkProgress.py:113
 #, python-format
-msgid "Downloading file %li of %li with unknown speed"
-msgstr ""
+msgid "Downloading file %(current)li of %(total)li"
+msgstr "Pelgeha %(current)li ji %(total)li"
 
-#: ../UpdateManager/UpdateManager.py:187
+#: ../UpdateManager/UpdateManager.py:206
 msgid "The list of changes is not available"
-msgstr ""
+msgstr "Lîsteya guherînan ne gihiştbar e"
 
-#: ../UpdateManager/UpdateManager.py:193
-msgid "The list of changes is not available yet. Please try again later."
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:198
+#: ../UpdateManager/UpdateManager.py:212
 msgid ""
-"Failed to download the list of changes. Please check your Internet "
-"connection."
+"The list of changes is not available yet.\n"
+"Please try again later."
 msgstr ""
+"Lîsteya guhertinan hîna jî ne derbasbare.\n"
+"ji kerema xwe re piştre cardin biceribîne."
 
-#: ../UpdateManager/UpdateManager.py:218
-msgid "Important security updates of Ubuntu"
+#: ../UpdateManager/UpdateManager.py:217
+msgid ""
+"Failed to download the list of changes. \n"
+"Please check your Internet connection."
 msgstr ""
+"Daxistina lîsteya guhertinan biserneket.\n"
+"Ji kerema xwe re girêdana internetê kontrol bike."
 
-#: ../UpdateManager/UpdateManager.py:220
-msgid "Recommended updates of Ubuntu"
-msgstr ""
+#. Description
+#: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
+msgid "Important security updates"
+msgstr "Rojanekirinên ewlekariyê yên girîng"
 
-#: ../UpdateManager/UpdateManager.py:222
-msgid "Proposed updates for Ubuntu"
-msgstr ""
+#. Description
+#: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
+msgid "Recommended updates"
+msgstr "Rojanekirinên têne pêşniyarkirin"
 
-#: ../UpdateManager/UpdateManager.py:223
-msgid "Backports of Ubuntu"
-msgstr ""
+#. Description
+#: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
+msgid "Proposed updates"
+msgstr "Rojanekirinên hatine pêşniyarkirin"
 
-#: ../UpdateManager/UpdateManager.py:224
-#, fuzzy
-msgid "Updates of Ubuntu"
-msgstr "Ubuntu tê bilindkirin"
+#: ../UpdateManager/UpdateManager.py:241
+msgid "Backports"
+msgstr "Nivîsbariyên bi paş de şandî"
+
+#: ../UpdateManager/UpdateManager.py:242
+msgid "Distribution updates"
+msgstr "Rojanekirinên dîstrîbusiyonê"
 
 #. TRANSLATORS: updates from an 'unknown' origin
-#: ../UpdateManager/UpdateManager.py:232 ../UpdateManager/UpdateManager.py:245
+#: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
 msgid "Other updates"
-msgstr ""
+msgstr "Rojanekirinên din"
 
-#: ../UpdateManager/UpdateManager.py:266
-msgid "Cannot install all available updates"
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:267
-msgid ""
-"Some of the updates require more extensive changesthan expected.\n"
-"\n"
-"This usually mean that your system is not fully upgraded or that you run a "
-"development release of the distribution.\n"
-"\n"
-"Would you like to perform a full distribution upgrade now?"
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:461
+#: ../UpdateManager/UpdateManager.py:478
 #, python-format
 msgid "Version %s: \n"
-msgstr "Guhertoya %s: \n"
+msgstr "Guherto %s: \n"
 
-#: ../UpdateManager/UpdateManager.py:522
-msgid "Downloading the list of changes..."
-msgstr ""
+#: ../UpdateManager/UpdateManager.py:539
+msgid "Downloading list of changes..."
+msgstr "Lîsteya guhartinan tê daxistin..."
 
-#: ../UpdateManager/UpdateManager.py:546
-msgid "Select _None"
-msgstr ""
+#: ../UpdateManager/UpdateManager.py:566
+msgid "_Uncheck All"
+msgstr "Yekê Jî _Hilnebijêre"
 
-#: ../UpdateManager/UpdateManager.py:551
-msgid "Select _All"
-msgstr ""
-
-#. TRANSLATORS: download size is 0
-#: ../UpdateManager/UpdateManager.py:591
-msgid "None"
-msgstr ""
-
-#. TRANSLATORS: download size of very small updates
-#: ../UpdateManager/UpdateManager.py:594
-msgid "1 KB"
-msgstr ""
-
-#. TRANSLATORS: download size of small updates, e.g. "250 KB"
-#: ../UpdateManager/UpdateManager.py:597
-#, python-format
-msgid "%.0f KB"
-msgstr ""
-
-#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
-#: ../UpdateManager/UpdateManager.py:600
-#, python-format
-msgid "%.1f MB"
-msgstr ""
+#: ../UpdateManager/UpdateManager.py:572
+msgid "_Check All"
+msgstr "Hemûyan _Hilbijêrî"
 
 #. TRANSLATORS: b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:608 ../UpdateManager/UpdateManager.py:618
-#: ../UpdateManager/UpdateManager.py:642
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
 #, python-format
 msgid "Download size: %s"
 msgstr "Mezinahiya daxistinê: %s"
 
-#: ../UpdateManager/UpdateManager.py:627
-msgid "Your system is up-to-date"
-msgstr "Sîstema te rojane ye"
-
-#: ../UpdateManager/UpdateManager.py:638
+#: ../UpdateManager/UpdateManager.py:633
 #, python-format
 msgid "You can install %s update"
 msgid_plural "You can install %s updates"
 msgstr[0] "Tu dikarî %s rojanekirinê saz bikî"
 msgstr[1] "Tu dikarî %s rojanekirinan saz bikî"
 
-#: ../UpdateManager/UpdateManager.py:671
+#: ../UpdateManager/UpdateManager.py:666
 msgid "Please wait, this can take some time."
-msgstr ""
+msgstr "Divê raweste, dibe ku ev hinekî demdijêj be."
 
-#: ../UpdateManager/UpdateManager.py:673
+#: ../UpdateManager/UpdateManager.py:668
 msgid "Update is complete"
 msgstr "Rojanekirin temam bû"
 
-#: ../UpdateManager/UpdateManager.py:822
-#, fuzzy, python-format
-msgid "From version %s to %s"
-msgstr "Guhertoya nû: %s (Mezinahî: %s)"
+#: ../UpdateManager/UpdateManager.py:719
+msgid "Checking for updates"
+msgstr "Rojanekirin têne venihartin."
 
 #: ../UpdateManager/UpdateManager.py:826
 #, fuzzy, python-format
+msgid "From version %(old_version)s to %(new_version)s"
+msgstr "Guhertoya nû: %s (Mezinahî: %s)"
+
+#: ../UpdateManager/UpdateManager.py:830
+#, python-format
 msgid "Version %s"
-msgstr "Guhertoya %s: \n"
+msgstr "Guherto %s:"
 
 #. TRANSLATORS: the b stands for Bytes
-#: ../UpdateManager/UpdateManager.py:828
+#: ../UpdateManager/UpdateManager.py:832
 #, python-format
 msgid "(Size: %s)"
-msgstr ""
-
-#: ../UpdateManager/UpdateManager.py:842
-msgid "Your distribution is not supported anymore"
-msgstr ""
+msgstr "(Mezinahî:%s)"
 
 #: ../UpdateManager/UpdateManager.py:843
+msgid "Your distribution is not supported anymore"
+msgstr "Belavkariya ku tu êdî bikar tîne nayê destekirin"
+
+#: ../UpdateManager/UpdateManager.py:844
 msgid ""
 "You will not get any further security fixes or critical updates. Upgrade to "
 "a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
 "information on upgrading."
 msgstr ""
+"Ji vir û pê ve tu yê êdî sererastkirinên ewlehiyê û rojanekirinên krîtîk "
+"nestîne. Pergala xwe ya xebatê bilindî guhertoya Ubuntu Linuxê bike. Ji bo "
+"agahiyên berfireh malpera http://www.ubuntu.com ziyaret bike."
 
-#: ../UpdateManager/UpdateManager.py:862
+#: ../UpdateManager/UpdateManager.py:863
 #, python-format
 msgid "<b>New distribution release '%s' is available</b>"
-msgstr ""
+msgstr "<b>Weşana belavkariya nû dikare bigihêje '%s'</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:897
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
-msgstr ""
+msgstr "Pêrista nivîsbariyê xera bûye"
 
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
 "this issue at first."
 msgstr ""
+"Sazkirin an jî rakirina nivîsbariyê qet ne gengaz e. Ji kerema xwe berî her "
+"tiştî vê pirsgirêkê bi gerînendeyê pakêtan ya \"Synaptic\" and jî bi fermana "
+"\"sudo apt-get install -f\" re di termînalê de çareser bike."
+
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr "Ne yek jî"
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr "1 KB"
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr "%.0f KB"
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
+msgstr "%.1f MB"
 
 #: ../data/glade/UpdateManager.glade.h:1
 msgid ""
 "<b><big>You must check for updates manually</big></b>\n"
 "\n"
 "Your system does not check for updates automatically. You can configure this "
-"behavior in \"System\" -> \"Administration\" -> \"Software Properties\"."
+"behavior in <i>Software Sources</i> on the <i>Internet Updates</i> tab."
 msgstr ""
+"<b><big>Divê tu bi destan rojane bikî</big></b>\n"
+"Pergala ta rê nade rojanekirina jixweber. Tu dikarî vê tevgerê mîheng bikî  "
+"<i>Software Sources</i> di tabloya <i>rojanekirina internetê</i>de."
 
 #: ../data/glade/UpdateManager.glade.h:4
-msgid ""
-"<big><b>Examining your system</b></big>\n"
-"\n"
-"Software updates correct errors, eliminate security vulnerabilities and "
-"provide new features."
-msgstr ""
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr "<big><b>Pergala xwe rojane hilîne</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:5
+msgid "<big><b>Not all updates can be installed</b></big>"
+msgstr "<big><b>Di lênihertina CDyê de çewtî</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:6
+msgid "<big><b>Starting update manager</b></big>"
+msgstr "<big><b>Rêveberê rojanekirinê tê destpêkirin</b></big>"
 
 #: ../data/glade/UpdateManager.glade.h:7
-msgid "<big><b>Keep your system up-to-date</b></big>"
-msgstr ""
-
-#: ../data/glade/UpdateManager.glade.h:8
-msgid "Cancel _Download"
-msgstr "Daxistinê _betal bike"
-
-#: ../data/glade/UpdateManager.glade.h:9
 msgid "Changes"
 msgstr "Guhartin"
 
-#: ../data/glade/UpdateManager.glade.h:10
+#: ../data/glade/UpdateManager.glade.h:8
 msgid "Changes and description of the update"
-msgstr ""
+msgstr "Daxuyaniya guherîn û rojanekirinan"
+
+#: ../data/glade/UpdateManager.glade.h:9
+msgid "Chec_k"
+msgstr "_Kontrol bike"
+
+#: ../data/glade/UpdateManager.glade.h:10
+msgid "Check the software channels for new updates"
+msgstr "Ji bo rojanekirinên nû qanalên nivîsbariyê kontrol bike"
 
 #: ../data/glade/UpdateManager.glade.h:11
-msgid "Chec_k"
-msgstr ""
-
-#: ../data/glade/UpdateManager.glade.h:12
-msgid "Check the software channels for new updates"
-msgstr ""
-
-#: ../data/glade/UpdateManager.glade.h:13
 msgid "Description"
 msgstr "Daxuyanî"
 
-#: ../data/glade/UpdateManager.glade.h:14
+#: ../data/glade/UpdateManager.glade.h:12
 msgid "Release Notes"
-msgstr ""
+msgstr "Nîşeyên Weşanê"
 
-#: ../data/glade/UpdateManager.glade.h:15
-msgid "Show progress of single files"
+#: ../data/glade/UpdateManager.glade.h:13
+msgid ""
+"Run a distribution upgrade, to install as many updates as possible. \n"
+"\n"
+"This can be caused by an uncompleted upgrade, unofficial software packages "
+"or by running a development version."
 msgstr ""
+"Ji bo hemû rojanekirinên gengaz in bilindkirina belavkariyê pêk bîne.\n"
+"\n"
+"Dibe ku ev ji ber bilindkirina nehatiye temamkirin, pakêtên nermalavên ne "
+"fermî yan jî ji ber ku guhertoya pêşvebirinê hatiye bikaranîn pêk hatibe."
 
 #: ../data/glade/UpdateManager.glade.h:16
-msgid "Software Updates"
-msgstr ""
+msgid "Show progress of single files"
+msgstr "Pêşketina dosiyan yek bi yek nîşan bide"
 
 #: ../data/glade/UpdateManager.glade.h:17
+msgid "Software Updates"
+msgstr "Rojanekirinên Nivîsbariyê"
+
+#: ../data/glade/UpdateManager.glade.h:18
 msgid ""
 "Software updates correct errors, eliminate security vulnerabilities and "
 "provide new features."
 msgstr ""
-
-#: ../data/glade/UpdateManager.glade.h:18
-msgid "U_pgrade"
-msgstr ""
+"Rojanekirinên nivîsbariyê çewtiyan serrast dikin, valahiyên ewlêkariyê "
+"dadigirin û funksiyonên nû tînin."
 
 #: ../data/glade/UpdateManager.glade.h:19
-msgid "Upgrade to the latest version of Ubuntu"
-msgstr ""
+msgid "U_pgrade"
+msgstr "_Bilindkirin"
 
 #: ../data/glade/UpdateManager.glade.h:20
-msgid "_Check"
-msgstr ""
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr "Ber bi guhertoya dawî ya Ubuntu bilind bike"
 
 #: ../data/glade/UpdateManager.glade.h:21
-msgid "_Hide this information in the future"
-msgstr ""
+msgid "_Check"
+msgstr "_Kontrol bike"
 
 #: ../data/glade/UpdateManager.glade.h:22
-msgid "_Install Updates"
-msgstr ""
+msgid "_Distribution Upgrade"
+msgstr "Bilindkirina _Belavkirinê"
 
 #: ../data/glade/UpdateManager.glade.h:23
-#, fuzzy
-msgid "changes"
-msgstr "Guhartin"
+msgid "_Hide this information in the future"
+msgstr "Di pêşerojê de vê agahiyê _veşêre"
 
 #: ../data/glade/UpdateManager.glade.h:24
+msgid "_Install Updates"
+msgstr "Rojanekirinan _Saz bike"
+
+#: ../data/glade/UpdateManager.glade.h:25
+msgid "_Upgrade"
+msgstr "_Bilindkirin"
+
+#: ../data/glade/UpdateManager.glade.h:26
+msgid "changes"
+msgstr "guhertin"
+
+#: ../data/glade/UpdateManager.glade.h:27
 msgid "updates"
-msgstr ""
+msgstr "rojanekirin"
 
 #: ../data/glade/SoftwareProperties.glade.h:2
 msgid "<b>Automatic updates</b>"
-msgstr ""
+msgstr "<b>Rojanekirina bixweber</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:3
 msgid "<b>CDROM/DVD</b>"
-msgstr ""
+msgstr "<b>CDROM/DVD</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:4
 msgid "<b>Internet updates</b>"
-msgstr ""
+msgstr "<b>Rojanekirinên înternetê</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:5
-#, fuzzy
 msgid "<b>Internet</b>"
-msgstr "<b>Kanal</b>"
+msgstr "<b>Înternet</b>"
 
 #: ../data/glade/SoftwareProperties.glade.h:6
 msgid ""
@@ -1038,89 +1212,107 @@ msgid ""
 "The results are used to improve the support for popular applications and to "
 "rank applications in the search results.</i>"
 msgstr ""
+"<i>Ji bo pêşvebirina azmûna Ubuntuyê ya bikarhêneran ji kerema xwe re tev li "
+"pêşbirka populertiyê bibe. Heke tu beşdar bibe, wê nivîsbariyên ku tê de tu "
+"agahiyên şexsî tê de tuneye û bikaranîna van tiştan wê bi hefteyî ji projeya "
+"Ubuntuyê re were ragihandin.\n"
+"\n"
+"Encam wê ji bo pêşvebirina desteka ku ji bo sepanan û ji bo diyarkirina "
+"rêzkirina lêgerînan were bikaranîn.<i>"
 
 #: ../data/glade/SoftwareProperties.glade.h:9
-msgid "Authentication"
-msgstr ""
+msgid "Add Cdrom"
+msgstr "Cdrom lê zêde bike"
 
 #: ../data/glade/SoftwareProperties.glade.h:10
-msgid "D_elete downloaded software files:"
-msgstr ""
+msgid "Authentication"
+msgstr "Erêkirina Nasnameyê"
 
 #: ../data/glade/SoftwareProperties.glade.h:11
-#, fuzzy
-msgid "Download from:"
-msgstr "Daxistin hatiye temam kirin"
+msgid "D_elete downloaded software files:"
+msgstr "Dosiyên nivîsbariyê yên daxistî _jê bibe:"
 
 #: ../data/glade/SoftwareProperties.glade.h:12
-msgid "Import the public key from a trusted software provider"
-msgstr ""
+msgid "Download from:"
+msgstr "Daxistin ji:"
 
 #: ../data/glade/SoftwareProperties.glade.h:13
-msgid "Internet Updates"
-msgstr ""
+msgid "Import the public key from a trusted software provider"
+msgstr "Ji peydakereke ku tu pê ewle yî, mifteyeke vekirî veguhezîne hundir"
 
 #: ../data/glade/SoftwareProperties.glade.h:14
+msgid "Internet Updates"
+msgstr "Rojanekirinên Înternetê"
+
+#: ../data/glade/SoftwareProperties.glade.h:15
 msgid ""
 "Only security updates from the official Ubuntu servers will be installed "
 "automatically"
 msgstr ""
-
-#: ../data/glade/SoftwareProperties.glade.h:15
-msgid "Restore _Defaults"
-msgstr ""
+"Rojanekirinên ewlehiyê tenê wê ji aliyê pêşkêşkerên fermî yên Ubuntuyê ve "
+"bixweber were sazkirin."
 
 #: ../data/glade/SoftwareProperties.glade.h:16
-msgid "Restore the default keys of your distribution"
-msgstr ""
+msgid "Restore _Defaults"
+msgstr "Vegerîne ser Nirxên _Destpêke"
 
 #: ../data/glade/SoftwareProperties.glade.h:17
-#: ../data/software-properties.desktop.in.h:2
-#, fuzzy
-msgid "Software Sources"
-msgstr "Taybetmendiyên Nivîsbariyê"
+msgid "Restore the default keys of your distribution"
+msgstr "Mifteyên peşdanasînî yên belavkariya te paş de vedigerîne"
 
 #: ../data/glade/SoftwareProperties.glade.h:18
-msgid "Source code"
-msgstr ""
+#: ../data/software-properties.desktop.in.h:2
+msgid "Software Sources"
+msgstr "Çavkaniyên Nivîsbariyê"
 
 #: ../data/glade/SoftwareProperties.glade.h:19
-msgid "Statistics"
-msgstr ""
+msgid "Source code"
+msgstr "Koda çavkanî"
 
 #: ../data/glade/SoftwareProperties.glade.h:20
-msgid "Submit statistical information"
-msgstr ""
+msgid "Statistics"
+msgstr "Îstatîstîk"
 
 #: ../data/glade/SoftwareProperties.glade.h:21
-msgid "Third Party"
-msgstr ""
+msgid "Submit statistical information"
+msgstr "Agahiyên Îstatîskî Ragihîne"
 
 #: ../data/glade/SoftwareProperties.glade.h:22
-msgid "_Check for updates automatically:"
-msgstr ""
+msgid "Third Party"
+msgstr "Aliyê Sêyemîn"
 
 #: ../data/glade/SoftwareProperties.glade.h:23
-msgid "_Download updates automatically, but do not install them"
-msgstr ""
+msgid "_Check for updates automatically:"
+msgstr "Xwebixwe li rojanekirinan bi_gerîne:"
 
 #: ../data/glade/SoftwareProperties.glade.h:24
-msgid "_Import Key File"
-msgstr ""
+msgid "_Download updates automatically, but do not install them"
+msgstr "Rojanekirinan bixweber _daxe lê saz neke"
 
 #: ../data/glade/SoftwareProperties.glade.h:25
+msgid "_Import Key File"
+msgstr "Dosyeya mifteyan _veguhezîne hundir"
+
+#: ../data/glade/SoftwareProperties.glade.h:26
 msgid "_Install security updates without confirmation"
-msgstr ""
+msgstr "Bêpesendkirin rojaneyên ewlehiyê _saz bike"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
 msgid ""
-"<b><big>The channel information is out-of-date</big></b>\n"
+"<b><big>The information about available software is out-of-date</big></b>\n"
 "\n"
-"You have to reload the channel information to install software and updates "
-"from newly added or changed channels. \n"
+"To install software and updates from newly added or changed sources, you "
+"have to reload the information about available software.\n"
 "\n"
 "You need a working internet connection to continue."
 msgstr ""
+"<b><big>Agahiyên nivîsbariyê yên mevcûd ne rojane ye</big></b>\n"
+"\n"
+"Ji bo ku tu karibî ji çavkaniyên ku nû lê hatine barkirin yan jî yên "
+"guherîne nivîsbarî û rojanekirinan bar bike divê tu agahiyên nivîsbariyê "
+"dîsa bar bike.\n"
+"\n"
+"Ji bo domandinê girêdaneke înternetê ya dixebite pêwist e."
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:6
 msgid "<b>Comment:</b>"
@@ -1128,11 +1320,11 @@ msgstr "<b>Şîrove:</b>"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:7
 msgid "<b>Components:</b>"
-msgstr ""
+msgstr "<b>Parçe:</b>"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:8
 msgid "<b>Distribution:</b>"
-msgstr ""
+msgstr "<b>Belavkirin:</b>"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:9
 msgid "<b>Type:</b>"
@@ -1144,10 +1336,10 @@ msgstr "<b>URI:</b>"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
 msgid ""
-"<big><b>Enter the complete APT line of the source that you want to add</b></"
-"big>\n"
+"<big><b>Enter the complete APT line of the repository that you want to add "
+"as source</b></big>\n"
 "\n"
-"The APT line includes the type, location and components of a source, for "
+"The APT line includes the type, location and components of a repository, for "
 "example <i>\"deb http://ftp.debian.org sarge main\"</i>."
 msgstr ""
 
@@ -1160,277 +1352,268 @@ msgid ""
 "Binary\n"
 "Source"
 msgstr ""
+"Dubendî (Binary)\n"
+"Çavkanî (Source)"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
 msgid "Edit Source"
-msgstr ""
+msgstr "Sererastkirina Çavkaniyê"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
 msgid "Scanning CD-ROM"
-msgstr ""
+msgstr "Li CD-ROM tê gerîn"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
 msgid "_Add Source"
-msgstr ""
+msgstr "Çavkaniyekê _Têxê"
 
 #: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
 msgid "_Reload"
-msgstr ""
+msgstr "_Rojane bike"
 
 #: ../data/update-manager.desktop.in.h:1
 msgid "Show and install available updates"
-msgstr ""
+msgstr "Rojanekirinên amade nîşan bide û saz bike"
 
 #: ../data/update-manager.desktop.in.h:2
 msgid "Update Manager"
-msgstr "Gerînendeyê Rojanekirinan"
+msgstr "Rêveberiya Rojanekirinê"
 
 #: ../data/update-manager.schemas.in.h:1
 msgid ""
 "Check automatically if a new version of the current distribution is "
 "available and offer to upgrade (if possible)."
 msgstr ""
+"Bixweber kontrol bike bê ka guhertoya nû ya belavkariya mevcûd heye yan na  "
+"û (heke pêkan be) bê ka bilindkirinan pêşkeş dike yan na."
 
 #: ../data/update-manager.schemas.in.h:2
 msgid "Check for new distribution releases"
-msgstr ""
+msgstr "Li derketina belavkirina nû bigerîne"
 
 #: ../data/update-manager.schemas.in.h:3
 msgid ""
-"If automatic checking for updates is disabeld, you have to reload the "
+"If automatic checking for updates is disabled, you have to reload the "
 "channel list manually. This option allows to hide the reminder shown in this "
 "case."
 msgstr ""
+"Heke rojanekirinên jixweber ne çalak be, pêwiste tu qenalê lîsteyê bi destan "
+"daxî. Ev vebijark xuyakirina bibîrxistker vedişêre."
 
 #: ../data/update-manager.schemas.in.h:4
 msgid "Remind to reload the channel list"
-msgstr ""
+msgstr "Ji nû ve barkirina lîsteya kanalan bi bîr bixe"
 
 #: ../data/update-manager.schemas.in.h:5
 msgid "Show details of an update"
-msgstr ""
+msgstr "Hûragahiyên rojanekirinekê nîşan bide"
 
 #: ../data/update-manager.schemas.in.h:6
 msgid "Stores the size of the update-manager dialog"
-msgstr ""
+msgstr "Mezinahiya paceya rêveberê rojanekirinan hiltîne."
 
 #: ../data/update-manager.schemas.in.h:7
 msgid ""
-"Stores the state of the expander that contains the list of changs and the "
+"Stores the state of the expander that contains the list of changes and the "
 "description"
 msgstr ""
+"Rewşa pêşdebirên ku di wan de lîsteya guhertinan û şîrove hene , ambar dike"
 
 #: ../data/update-manager.schemas.in.h:8
 msgid "The window size"
-msgstr ""
+msgstr "Mezinahiyê paceyê"
 
 #: ../data/software-properties.desktop.in.h:1
 msgid "Configure the sources for installable software and updates"
-msgstr ""
+msgstr "Ji bo nivîsbarî û rojanekirinên têne sazkirin çavkaniyan veava bike"
 
 #. ChangelogURI
 #: ../data/channels/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:7
+#: ../data/channels/Ubuntu.info.in:8
 msgid "Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
+msgstr "Ubuntu 6.10 'Edgy Eft'"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:13
+msgid "Community maintained"
+msgstr "Yên ji aliyê komekê ber çav hatiye derbaskirin"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:17
+msgid "Proprietary drivers for devices"
+msgstr "Ji bo cîhazan ajokerên ku çavkaniyên wan girtî ne"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:19
+msgid "Restricted software"
+msgstr "Nivîsbariya bi sînor"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:28
+#: ../data/channels/Ubuntu.info.in:25
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
+msgstr "Cdroma Ubuntu 6.10 'Edgy Eft'"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:69
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:59
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:73
-msgid ""
-"OpenSource software that is officially supported by Canonical Ltd. (main)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:62
+msgid "Canonical supported Open Source software"
+msgstr "Çavkaniya xwezayî ya li gorî bingeha nermalavê"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:76
+#: ../data/channels/Ubuntu.info.in:64
 msgid "Community maintained (universe)"
-msgstr ""
+msgstr "Yên ji aliyê koman lê hatine nihêrtin"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:77
-msgid "OpenSource software that is maintained by the community (universe)"
+#: ../data/channels/Ubuntu.info.in:65
+msgid "Community maintained Open Source software"
 msgstr ""
+"Nivîsbariyên Kodên Çavkaniyên Azad yên ji aliyê koman lê hatine nihêrtin"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:80
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:67
 msgid "Non-free drivers"
-msgstr "Neazad (Multiverse)"
+msgstr "Ajokerên ne azad"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:81
-msgid "Proprietary drivers for devices (restricted) "
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:68
+msgid "Proprietary drivers for devices "
+msgstr "Ji bo cîhazan ajokarên xwedî-bawername "
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:84
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:70
 msgid "Restricted software (Multiverse)"
-msgstr "Neazad (Multiverse)"
+msgstr "Nivîsbariya bi sînor"
 
 #. CompDescriptionLong
-#: ../data/channels/Ubuntu.info.in:85
-msgid "Software that is restricted by copyright or legal issues (multiverse)"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:71
+msgid "Software restricted by copyright or legal issues"
+msgstr "Nivîsbariya bi mafên weşan û belavkirinê sînor kirî"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:90
+#: ../data/channels/Ubuntu.info.in:76
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr ""
+msgstr "Cdroma Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:104
-msgid "Important security updates"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:111
-msgid "Recommended updates"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:118
-msgid "Proposed updates"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:125
+#: ../data/channels/Ubuntu.info.in:103
 msgid "Backported updates"
-msgstr ""
+msgstr "Rojanekirinên paş de hatine kişandin"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:131
+#: ../data/channels/Ubuntu.info.in:110
 msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
+msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:123
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "Cdroma Ubuntu 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:135
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Rojanekirinên Ewlekariyê yên Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:140
+msgid "Ubuntu 5.10 Updates"
+msgstr "Rojanekirina Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:145
+msgid "Ubuntu 5.10 Backports"
+msgstr "Rojanekirinên Paş de Hatine Kişandin yên Ubuntu 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:152
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:165
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Cdroma Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:134 ../data/channels/Debian.info.in:51
+#: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
 msgid "Officially supported"
-msgstr "Bi piştgirtiya fermî"
+msgstr "Bi piştgiriya fermî"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:148
-msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:162
-#, fuzzy
-msgid "Ubuntu 5.10 Security Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:169
-#, fuzzy
-msgid "Ubuntu 5.10 Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:176
-msgid "Ubuntu 5.10 Backports"
-msgstr ""
+#: ../data/channels/Ubuntu.info.in:177
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "Rojanekirinên Ewlekariyên yên Ubuntu 5.04"
 
 #. Description
 #: ../data/channels/Ubuntu.info.in:182
-msgid "Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:199
-msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
-
-#. CompDescription
-#: ../data/channels/Ubuntu.info.in:203
-#, fuzzy
-msgid "Oficially supported"
-msgstr "Bi piştgirtiya fermî"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:213
-#, fuzzy
-msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
-
-#. Description
-#: ../data/channels/Ubuntu.info.in:220
-#, fuzzy
 msgid "Ubuntu 5.04 Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Rojanekirinên Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:227
+#: ../data/channels/Ubuntu.info.in:187
 msgid "Ubuntu 5.04 Backports"
-msgstr ""
+msgstr "Rojanekirinên Paş de Hatine Kişandin yên Ubuntu 5.04"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:233
+#: ../data/channels/Ubuntu.info.in:193
 msgid "Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:242
+#: ../data/channels/Ubuntu.info.in:199
 msgid "Community maintained (Universe)"
-msgstr ""
+msgstr "Yên ji aliyê koman ve lê tê nihêrîn (Universe)"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:245
+#: ../data/channels/Ubuntu.info.in:201
 msgid "Non-free (Multiverse)"
-msgstr "Neazad (Multiverse)"
+msgstr "Ne-azad (Multiverse)"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:250
+#: ../data/channels/Ubuntu.info.in:206
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Cdroma Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:254
-#, fuzzy
-msgid "No longer oficially supported"
-msgstr "Bi piştgirtiya fermî"
+#: ../data/channels/Ubuntu.info.in:209
+msgid "No longer officially supported"
+msgstr "Êdi bi awayekî fermî nayê destekkirin"
 
 #. CompDescription
-#: ../data/channels/Ubuntu.info.in:257
+#: ../data/channels/Ubuntu.info.in:211
 msgid "Restricted copyright"
-msgstr ""
+msgstr "Mafê kopîkrinê yê sînorkirî"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:264
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:218
 msgid "Ubuntu 4.10 Security Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Rojanekirinên Ubuntu 4.10 yên Ewlekarî"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:271
-#, fuzzy
+#: ../data/channels/Ubuntu.info.in:223
 msgid "Ubuntu 4.10 Updates"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Rojanekirinên Ubuntu 4.10"
 
 #. Description
-#: ../data/channels/Ubuntu.info.in:278
+#: ../data/channels/Ubuntu.info.in:228
 msgid "Ubuntu 4.10 Backports"
-msgstr ""
+msgstr "Ubuntu 4.10 nivîsbariyên bi paş de kişandî (Backports)"
 
 #. ChangelogURI
 #: ../data/channels/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/channels/Debian.info.in:6
@@ -1445,7 +1628,7 @@ msgstr "http://security.debian.org/"
 #. Description
 #: ../data/channels/Debian.info.in:20
 msgid "Debian 3.1 \"Sarge\" Security Updates"
-msgstr ""
+msgstr "Debian 3.1 \"Sarge\" Rojanekirinên Ewlekariyê"
 
 #. Description
 #: ../data/channels/Debian.info.in:34
@@ -1455,7 +1638,7 @@ msgstr "Debian \"Etch\" (testing)"
 #. BaseURI
 #: ../data/channels/Debian.info.in:47
 msgid "http://http.us.debian.org/debian/"
-msgstr ""
+msgstr "http://http.us.debian.org/debian/"
 
 #. Description
 #: ../data/channels/Debian.info.in:48
@@ -1465,12 +1648,25 @@ msgstr "Debian \"Sid\" (unstable)"
 #. CompDescription
 #: ../data/channels/Debian.info.in:54
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
+msgstr "DFSG-nivîsbariya hevgirtî ya ne azad"
 
 #. CompDescription
 #: ../data/channels/Debian.info.in:57
 msgid "Non-DFSG-compatible Software"
-msgstr ""
+msgstr "nivîsbariya hevgirtî ya ne li gorî -DFSG"
+
+#~ msgid "Cancel _Download"
+#~ msgstr "Daxistinê _betal bike"
+
+#~ msgid "Your system has already been upgraded."
+#~ msgstr "Sîstema xwe berê hat bilindkirin."
+
+#~ msgid "Updates of Ubuntu"
+#~ msgstr "Rojanekirinên Ubuntu"
+
+#, fuzzy
+#~ msgid "Oficially supported"
+#~ msgstr "Bi piştgirtiya fermî"
 
 #~ msgid "Download is complete"
 #~ msgstr "Daxistin hatiye temam kirin"

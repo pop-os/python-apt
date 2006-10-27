@@ -12,6 +12,7 @@ UpdateManager/fakegconf.py
 UpdateManager/ReleaseNotesViewer.py
 UpdateManager/GtkProgress.py
 UpdateManager/UpdateManager.py
+UpdateManager/Common/utils.py
 data/mime/apt.xml.in
 data/glade/UpdateManager.glade
 data/glade/SoftwareProperties.glade

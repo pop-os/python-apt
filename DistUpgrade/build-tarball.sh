@@ -3,7 +3,10 @@
 DIST=edgy
 
 # cleanup
-rm -f *~ *.bak *.pyc *.moved '#'*
+echo "Cleaning up"
+rm -f *~ *.bak *.pyc *.moved '#'* *.rej *.orig
+sudo rm -rf backports/ profile/ result/ tarball/ *.deb
+
 
 # update po
 (cd ../po; make update-po)

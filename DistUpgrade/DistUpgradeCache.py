@@ -66,10 +66,12 @@ class MyCache(apt.Cache):
             if pkg.markedDelete:
                 self.to_remove.append(pkg.name)
 
+    def clear(self):
+        self._depcache.Init()
+
     def restore_snapshot(self):
         """ restore a snapshot """
-        for pkg in self:
-            pkg.markKeep()
+        self.clear()
         for name in self.to_remove:
             pkg = self[name]
             pkg.markDelete()
@@ -108,6 +110,39 @@ class MyCache(apt.Cache):
         if self.has_key(pkg):
             self._depcache.MarkDelete(self[pkg]._pkg,True)
 
+    def keepInstalledRule(self):
+        """ run after the dist-upgrade to ensure that certain
+            packages are kept installed """
+        def keepInstalled(self, pkgname, reason):
+            if (self.has_key(pkgname)
+                and self[pkgname].isInstalled
+                and self[pkgname].markedDelete):
+                self.markInstall(pkgname, reason)
+                
+        # first the global list
+        for pkgname in self.config.getlist("Distro","KeepInstalledPkgs"):
+            keepInstalled(self, pkgname, "Distro KeepInstalledPkgs rule")
+        # the the per-metapkg rules
+        for key in self.metapkgs:
+            if self.has_key(key) and (self[key].isInstalled or
+                                      self[key].markedInstall):
+                for pkgname in self.config.getlist(key,"KeepInstalledPkgs"):
+                    keepInstalled(self, pkgname, "%s KeepInstalledPkgs rule" % key)
+        # now the keepInstalledSection code
+        for section in self.config.getlist("Distro","KeepInstalledSection"):
+            for pkg in self:
+                if pkg.markedDelete and pkg.section == section:
+                    keepInstalled(self, pkg.name, "Distro KeepInstalledSection rule: %s" % section)
+        # the the per-metapkg rules
+        for key in self.metapkgs:
+            if self.has_key(key) and (self[key].isInstalled or
+                                      self[key].markedInstall):
+                for section in self.config.getlist(key,"KeepInstalledSection"):
+                    for pkg in self:
+                        if pkg.markedDelete and pkg.section == section:
+                            keepInstalled(self, pkg.name, "%s KeepInstalledSection rule: %s" % (key, section))
+        
+
     def postUpgradeRule(self):
         " run after the upgrade was done in the cache "
         for (rule, action) in [("Install", self.markInstall),
@@ -128,6 +163,67 @@ class MyCache(apt.Cache):
         if func is not None:
             func()
 
+    def edgyQuirks(self):
+        """ this function works around quirks in the dapper->edgy upgrade """
+        logging.debug("running edgyQuirks handler")
+        for pkg in self:
+            # deal with the python2.4-$foo -> python-$foo transition
+            if (pkg.name.startswith("python2.4-") and
+                pkg.isInstalled and
+                not pkg.markedUpgrade):
+                basepkg = "python-"+pkg.name[len("python2.4-"):]
+                if (self.has_key(basepkg) and not self[basepkg].markedInstall):
+                    try:
+                        self.markInstall(basepkg,
+                                         "python2.4->python upgrade rule")
+                    except SystemError, e:
+                        logging.debug("Failed to apply python2.4->python install: %s (%s)" % (basepkg, e))
+            # xserver-xorg-input-$foo gives us trouble during the upgrade too
+            if (pkg.name.startswith("xserver-xorg-input-") and
+                pkg.isInstalled and
+                not pkg.markedUpgrade):
+                try:
+                    self.markInstall(pkg.name, "xserver-xorg-input fixup rule")
+                except SystemError, e:
+                    logging.debug("Failed to apply fixup: %s (%s)" % (pkg.name, e))
+            
+        # deal with held-backs that are unneeded
+        for pkgname in ["hpijs", "bzr", "tomboy"]:
+            if (self.has_key(pkgname) and self[pkgname].isInstalled and
+                not self[pkgname].markedUpgrade):
+                try:
+                    self.markInstall(pkgname,"%s quirk upgrade rule" % pkgname)
+                except SystemError, e:
+                    logging.debug("Failed to apply %s install (%s)" % (pkgname,e))
+        # libgl1-mesa-dri from xgl.compiz.info (and friends) breaks the
+	# upgrade, work around this here by downgrading the package
+        if self.has_key("libgl1-mesa-dri"):
+            pkg = self["libgl1-mesa-dri"]
+            # the version from the compiz repo has a "6.5.1+cvs20060824" ver
+            if (pkg.candidateVersion == pkg.installedVersion and
+                "+cvs2006" in pkg.candidateVersion):
+                for ver in pkg._pkg.VersionList:
+                    # the "officual" edgy version has "6.5.1~20060817-0ubuntu3"
+                    if "~2006" in ver.VerStr:
+			# ensure that it is from a trusted repo
+			for (VerFileIter, index) in ver.FileList:
+				indexfile = self._list.FindIndex(VerFileIter)
+				if indexfile and indexfile.IsTrusted:
+					logging.info("Forcing downgrade of libgl1-mesa-dri for xgl.compz.info installs")
+		                        self._depcache.SetCandidateVer(pkg._pkg, ver)
+					break
+                                    
+        # deal with general if $foo is installed, install $bar
+        for (fr, to) in [("xserver-xorg-driver-all","xserver-xorg-video-all")]:
+            if self.has_key(fr) and self.has_key(to):
+                if self[fr].isInstalled and not self[to].markedInstall:
+                    try:
+                        self.markInstall(to,"%s->%s quirk upgrade rule" % (fr, to))
+                    except SystemError, e:
+                        logging.debug("Failed to apply %s->%s install (%s)" % (fr, to, e))
+                    
+                    
+                                  
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
         logging.debug("running dapperQuirks handler")
@@ -142,12 +238,15 @@ class MyCache(apt.Cache):
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
 
-            # then see if meta-pkgs are missing
-            if not self._installMetaPkgs(view):
-                raise SystemError, _("Can't upgrade required meta-packages")
+            # see if our KeepInstalled rules are honored
+            self.keepInstalledRule()
 
             # and if we have some special rules
             self.postUpgradeRule()
+
+            # then see if meta-pkgs are missing
+            if not self._installMetaPkgs(view):
+                raise SystemError, _("Can't upgrade required meta-packages")
 
             # see if it all makes sense
             if not self._verifyChanges():
@@ -155,7 +254,7 @@ class MyCache(apt.Cache):
         except SystemError, e:
             # FIXME: change the text to something more useful
             view.error(_("Could not calculate the upgrade"),
-                       _("A unresolvable problem occured while "
+                       _("A unresolvable problem occurred while "
                          "calculating the upgrade.\n\n"
                          "Please report this bug against the 'update-manager' "
                          "package and include the files in /var/log/dist-upgrade/ "
@@ -167,6 +266,15 @@ class MyCache(apt.Cache):
         untrusted = []
         for pkg in self.getChanges():
             if pkg.markedDelete:
+                continue
+            # special case because of a bug in pkg.candidateOrigin
+            if pkg.markedDowngrade:
+                for ver in pkg._pkg.VersionList:
+                    # version is lower than installed one
+                    if apt_pkg.VersionCompare(ver.VerStr, pkg.installedVersion) < 0:
+                        for (verFileIter,index) in ver.FileList:
+                            if not origin.trusted:
+                                untrusted.append(pkg.name)
                 continue
             origins = pkg.candidateOrigin
             trusted = False
@@ -244,8 +352,8 @@ class MyCache(apt.Cache):
                     logging.debug("guessing '%s' as missing meta-pkg" % key)
                     try:
                         self[key].markInstall()
-                    except SystemError:
-                        logging.error("failed to mark '%s' for install" % key)
+                    except SystemError, e:
+                        logging.error("failed to mark '%s' for install (%s)" % (key,e))
                         view.error(_("Can't install '%s'" % key),
                                    _("It was impossible to install a "
                                      "required package. Please report "
@@ -259,7 +367,7 @@ class MyCache(apt.Cache):
                          "ubuntu-desktop, kubuntu-desktop or "
                          "edubuntu-desktop package and it was not "
                          "possible to detect which version of "
-                        "ubuntu you are runing.\n "
+                        "ubuntu you are running.\n "
                          "Please install one of the packages "
                          "above first using synaptic or "
                          "apt-get before proceeding."))
@@ -277,13 +385,18 @@ class MyCache(apt.Cache):
         # if it dosn't remove other packages depending on it
         # that are not obsolete as well
         self.create_snapshot()
-        self[pkgname].markDelete()
-        for pkg in self.getChanges():
-            if pkg.name not in remove_candidates or \
-                   pkg.name in foreign_pkgs or \
-                   self._inRemovalBlacklist(pkg.name):
-                self.restore_snapshot()
-                return False
+        try:
+            self[pkgname].markDelete()
+            for pkg in self.getChanges():
+                if pkg.name not in remove_candidates or \
+                       pkg.name in foreign_pkgs or \
+                       self._inRemovalBlacklist(pkg.name):
+                    self.restore_snapshot()
+                    return False
+        except (SystemError,KeyError),e:
+            logging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
+            self.restore_snapshot()
+            return False
         return True
     
     def _getObsoletesPkgs(self):
@@ -315,3 +428,8 @@ class MyCache(apt.Cache):
                 if foreign:
                     foreign_pkgs.add(pkg.name)
         return foreign_pkgs
+
+if __name__ == "__main__":
+	import DistUpgradeConfigParser
+	c = MyCache(DistUpgradeConfigParser.DistUpgradeConfig("."))
+	c.clear()
