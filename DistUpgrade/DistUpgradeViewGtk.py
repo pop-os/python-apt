@@ -323,7 +323,11 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
           logging.warning("Error setting locales (%s)" % e)
         
         icons = gtk.icon_theme_get_default()
-        gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
+        try:
+          gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
+        except gobject.GError, e:
+          logging.debug("error setting default icon, ignoring (%s)" % e)
+          pass
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
         self.prev_step = 0 # keep a record of the latest step
