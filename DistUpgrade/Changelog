@@ -1,5 +1,8 @@
 2006-10-28:
 	- catch errors when load_icon() does not work
+2006-10-27:
+	- reset self.read so that we do not loop endlessly when dpkg
+	  sends unexpected data (lp: #68553)
 2006-10-26:
 	- make sure that xserver-xorg-video-all get installed if
 	  xserver-xorg-driver-all was installed before (lp: #58424)
