@@ -1,3 +1,9 @@
+python-apt (0.6.19ubuntu9.1) edgy-updates; urgency=low
+
+  * protect against not-parsable strings send from dpkg (lp: 68553)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Oct 2006 10:41:44 +0200
+
 python-apt (0.6.19ubuntu9) edgy; urgency=low
 
   * Reupload to restore dependency on python-central.
