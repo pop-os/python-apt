@@ -4,6 +4,8 @@ python-apt (0.6.19exp1) experimental; urgency=low
   * doc/examples/print_uris.py:
     - added a example to show how the indexfile.ArchiveURI() can be used
       with binary packages
+  * python/apt_pkgmodule.cc:
+    - export sha256 generation
 
   [ Otavio Salvador ]
   * apt/cache.py:
@@ -13,7 +15,7 @@ python-apt (0.6.19exp1) experimental; urgency=low
   * python/depcache.cc:
     - "IsGarbage()" method added (to support auto-mark)
 
- -- Michael Vogt <mvo@debian.org>  Wed, 26 Jul 2006 17:30:08 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed, 26 Jul 2006 18:57:23 +0200
 
 python-apt (0.6.18-0.2) unstable; urgency=low
 
