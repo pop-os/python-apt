@@ -175,7 +175,12 @@ class InstallProgress(DumbInstallProgress):
                 if self.read.endswith("\n"):
                     s = self.read
                     #print s
-                    (status, pkg, percent, status_str) = string.split(s, ":")
+                    try:
+                        (status, pkg, percent, status_str) = string.split(s, ":",3)
+                    except ValueError, e:
+                        # silently ignore lines that can't be parsed
+                        self.read = ""
+                        return
                     #print "percent: %s %s" % (pkg, float(percent)/100.0)
                     if status == "pmerror":
                         self.error(pkg,status_str)
