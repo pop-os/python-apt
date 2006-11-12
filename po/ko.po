@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
-"POT-Creation-Date: 2006-10-06 23:18+0200\n"
-"PO-Revision-Date: 2006-10-06 11:33+0000\n"
+"POT-Creation-Date: 2006-10-23 14:26+0200\n"
+"PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Eungkyu Song <eungkyu@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -156,20 +156,20 @@ msgstr ""
 "이 소프트웨어로 고칠 수 없는 망가진 패키지가 있습니다. 진행하기 전에 먼저 시"
 "냅틱이나 apt-get을 사용하여 복구하십시오."
 
-#: ../DistUpgrade/DistUpgradeCache.py:207
+#: ../DistUpgrade/DistUpgradeCache.py:238
 msgid "Can't upgrade required meta-packages"
 msgstr "요청한 메타 패키지를 업그레이드 할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeCache.py:217
+#: ../DistUpgrade/DistUpgradeCache.py:242
 msgid "A essential package would have to be removed"
 msgstr "필수적인 패키지를 제거해야만 합니다."
 
 #. FIXME: change the text to something more useful
-#: ../DistUpgrade/DistUpgradeCache.py:220
+#: ../DistUpgrade/DistUpgradeCache.py:245
 msgid "Could not calculate the upgrade"
 msgstr "업그레이드에 필요한 의존성을 계산할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:221
+#: ../DistUpgrade/DistUpgradeCache.py:246
 msgid ""
 "A unresolvable problem occurred while calculating the upgrade.\n"
 "\n"
@@ -183,11 +183,11 @@ msgstr ""
 "log/dist-upgrade/에 있는 파일을 포함하여 주십시오."
 
 #. FIXME: maybe ask a question here? instead of failing?
-#: ../DistUpgrade/DistUpgradeCache.py:246
+#: ../DistUpgrade/DistUpgradeCache.py:280
 msgid "Error authenticating some packages"
 msgstr "패키지 인증 오류"
 
-#: ../DistUpgrade/DistUpgradeCache.py:247
+#: ../DistUpgrade/DistUpgradeCache.py:281
 msgid ""
 "It was not possible to authenticate some packages. This may be a transient "
 "network problem. You may want to try again later. See below for a list of "
@@ -196,23 +196,23 @@ msgstr ""
 "인증할 수 없는 패키지가 있습니다. 일시적인 네트워크 문제일 수 있으니 이 경우"
 "라면 나중에 다시 시도하십시오. 인증되지 않은 패키지의 목록은 다음과 같습니다."
 
-#: ../DistUpgrade/DistUpgradeCache.py:312
+#: ../DistUpgrade/DistUpgradeCache.py:346
 #, python-format
 msgid "Can't install '%s'"
 msgstr "'%s'을(를) 설치할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeCache.py:313
+#: ../DistUpgrade/DistUpgradeCache.py:347
 msgid ""
 "It was impossible to install a required package. Please report this as a "
 "bug. "
 msgstr "요청한 패키지를 설치할 수 없습니다. 버그를 보고하여 주십시오. "
 
 #. FIXME: provide a list
-#: ../DistUpgrade/DistUpgradeCache.py:320
+#: ../DistUpgrade/DistUpgradeCache.py:354
 msgid "Can't guess meta-package"
 msgstr "메타 패키지를 추측할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeCache.py:321
+#: ../DistUpgrade/DistUpgradeCache.py:355
 msgid ""
 "Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
 "desktop package and it was not possible to detect which version of ubuntu "
@@ -225,11 +225,11 @@ msgstr ""
 " 위의 패키지 중 하나를 시냅틱이나 apt-get을 이용해서 먼저 설치하시기 바랍니"
 "다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:74
+#: ../DistUpgrade/DistUpgradeControler.py:75
 msgid "Failed to add the CD"
 msgstr "CD 추가하기 실패"
 
-#: ../DistUpgrade/DistUpgradeControler.py:75
+#: ../DistUpgrade/DistUpgradeControler.py:76
 #, python-format
 msgid ""
 "There was a error adding the CD, the upgrade will abort. Please report this "
@@ -244,15 +244,15 @@ msgstr ""
 "오류 메시지:\n"
 "'%s'"
 
-#: ../DistUpgrade/DistUpgradeControler.py:107
+#: ../DistUpgrade/DistUpgradeControler.py:108
 msgid "Reading cache"
 msgstr "캐시를 읽고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:155
+#: ../DistUpgrade/DistUpgradeControler.py:156
 msgid "Fetch data from the network for the upgrade?"
 msgstr "업그레이드할 때 네트워크에서 자료를 받을까요?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:156
+#: ../DistUpgrade/DistUpgradeControler.py:157
 msgid ""
 "The upgrade can use the network to check the latest updates and to fetch "
 "packages that are not on the current CD.\n"
@@ -264,11 +264,11 @@ msgstr ""
 "빠르고 값싼 네트워크를 이용하고 있다면 '예'를 선택하는 것이 좋습니다. 네트워"
 "크를 이용하는 것이 값싸지 않다면 '아니오'를 선택하십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:248
+#: ../DistUpgrade/DistUpgradeControler.py:249
 msgid "No valid mirror found"
 msgstr "적합한 미러 서버를 찾지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:249
+#: ../DistUpgrade/DistUpgradeControler.py:250
 #, python-format
 msgid ""
 "While scaning your repository information no mirror entry for the upgrade "
@@ -288,11 +288,11 @@ msgstr ""
 "'아니오'를 선택하면 업데이트가 취소됩니다."
 
 #. hm, still nothing useful ...
-#: ../DistUpgrade/DistUpgradeControler.py:266
+#: ../DistUpgrade/DistUpgradeControler.py:267
 msgid "Generate default sources?"
 msgstr "기본 설정된 소스 목록을 만듭니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:267
+#: ../DistUpgrade/DistUpgradeControler.py:268
 #, python-format
 msgid ""
 "After scanning your 'sources.list' no valid entry for '%s' was found.\n"
@@ -305,11 +305,11 @@ msgstr ""
 "'%s'에 대한 기본 항목을 추가하시겠습니까? '아니오'를 선택하면 업데이트가 취소"
 "됩니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:301
+#: ../DistUpgrade/DistUpgradeControler.py:302
 msgid "Repository information invalid"
 msgstr "저장소 정보가 올바르지 않습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:302
+#: ../DistUpgrade/DistUpgradeControler.py:303
 msgid ""
 "Upgrading the repository information resulted in a invalid file. Please "
 "report this as a bug."
@@ -317,11 +317,11 @@ msgstr ""
 "저장소 정보를 업그레이드했는데 잘못된 파일이 만들어졌습니다. 버그를 보고하여 "
 "주십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:308
+#: ../DistUpgrade/DistUpgradeControler.py:309
 msgid "Third party sources disabled"
 msgstr "써드 파티 소스는 이용할 수 없습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:309
+#: ../DistUpgrade/DistUpgradeControler.py:310
 msgid ""
 "Some third party entries in your sources.list were disabled. You can re-"
 "enable them after the upgrade with the 'software-properties' tool or with "
@@ -331,11 +331,11 @@ msgstr ""
 "properties' 도구나 시냅틱으로 업그레이드 한 후에 다시 사용가능하게 할 수 있습"
 "니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:358
+#: ../DistUpgrade/DistUpgradeControler.py:364
 msgid "Error during update"
 msgstr "업데이트 중 오류"
 
-#: ../DistUpgrade/DistUpgradeControler.py:359
+#: ../DistUpgrade/DistUpgradeControler.py:365
 msgid ""
 "A problem occured during the update. This is usually some sort of network "
 "problem, please check your network connection and retry."
@@ -343,11 +343,11 @@ msgstr ""
 "업데이트를 하는 동안에 문제가 발생했습니다. 보통 네트워크 문제인 경우가 많습"
 "니다. 네트워크의 연결 상태를 확인하시고 다시 시도하십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:368
+#: ../DistUpgrade/DistUpgradeControler.py:374
 msgid "Not enough free disk space"
 msgstr "디스크 여유 공간이 충분하지 않습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:369
+#: ../DistUpgrade/DistUpgradeControler.py:375
 #, python-format
 msgid ""
 "The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
@@ -359,15 +359,15 @@ msgstr ""
 "에 사용했던 임시 패키지들을 삭제하시기 바랍니다."
 
 #. ask the user if he wants to do the changes
-#: ../DistUpgrade/DistUpgradeControler.py:440
+#: ../DistUpgrade/DistUpgradeControler.py:447
 msgid "Do you want to start the upgrade?"
 msgstr "업그레이드를 시작하시겠습니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:460
+#: ../DistUpgrade/DistUpgradeControler.py:468
 msgid "Could not install the upgrades"
 msgstr "업그레이드를 설치하지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:461
+#: ../DistUpgrade/DistUpgradeControler.py:469
 msgid ""
 "The upgrade aborts now. Your system could be in an unusable state. A "
 "recovery was run (dpkg --configure -a).\n"
@@ -381,11 +381,11 @@ msgstr ""
 "'update-manager' 패키지의 버그를 보고하여 주십시오. 그리고 버그 보고에 /var/"
 "log/dist-upgrade/에 있는 파일을 포함하여 주십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:479
+#: ../DistUpgrade/DistUpgradeControler.py:487
 msgid "Could not download the upgrades"
 msgstr "업그레이를 다운로드 할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:480
+#: ../DistUpgrade/DistUpgradeControler.py:488
 msgid ""
 "The upgrade aborts now. Please check your internet connection or "
 "installation media and try again. "
@@ -393,11 +393,11 @@ msgstr ""
 "업그레이드가 중단되었습니다. 인터넷 연결과 설치 미디어를 확인하시고 다시 시도"
 "하십시오. "
 
-#: ../DistUpgrade/DistUpgradeControler.py:516
+#: ../DistUpgrade/DistUpgradeControler.py:524
 msgid "Support for some applications ended"
 msgstr "일부 프로그램의 지원이 종료되었습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:517
+#: ../DistUpgrade/DistUpgradeControler.py:525
 msgid ""
 "Canonical Ltd. no longer provides support for the following software "
 "packages. You can still get support from the community.\n"
@@ -411,23 +411,23 @@ msgstr ""
 "커뮤니티 관리 소프트웨어를 (universe) 활성화하지 않았다면, 다음 단계에서 이 "
 "패키지들을 삭제하도록 제안할 것입니다."
 
-#: ../DistUpgrade/DistUpgradeControler.py:552
+#: ../DistUpgrade/DistUpgradeControler.py:560
 msgid "Remove obsolete packages?"
 msgstr "구식 패키지를 삭제하시겠습니까?"
 
-#: ../DistUpgrade/DistUpgradeControler.py:553
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Skip This Step"
 msgstr "이 단계 건너뛰기(_S)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:553
+#: ../DistUpgrade/DistUpgradeControler.py:561
 msgid "_Remove"
 msgstr "제거(_R)"
 
-#: ../DistUpgrade/DistUpgradeControler.py:563
+#: ../DistUpgrade/DistUpgradeControler.py:572
 msgid "Error during commit"
 msgstr "커밋 도중 오류 발생"
 
-#: ../DistUpgrade/DistUpgradeControler.py:564
+#: ../DistUpgrade/DistUpgradeControler.py:573
 msgid ""
 "Some problem occured during the clean-up. Please see the below message for "
 "more information. "
@@ -436,42 +436,42 @@ msgstr ""
 "할 수 있습니다. "
 
 #. generate a new cache
-#: ../DistUpgrade/DistUpgradeControler.py:576
+#: ../DistUpgrade/DistUpgradeControler.py:585
 msgid "Restoring original system state"
 msgstr "시스템을 원래의 상태로 복구하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:632
+#: ../DistUpgrade/DistUpgradeControler.py:641
 #, python-format
 msgid "Fetching backport of '%s'"
 msgstr "'%s'의 백포트를 받고 있습니다"
 
 #. sanity check (check for ubuntu-desktop, brokenCache etc)
 #. then open the cache (again)
-#: ../DistUpgrade/DistUpgradeControler.py:667
-#: ../DistUpgrade/DistUpgradeControler.py:709
+#: ../DistUpgrade/DistUpgradeControler.py:676
+#: ../DistUpgrade/DistUpgradeControler.py:719
 msgid "Checking package manager"
 msgstr "패키지 관리자를 확인하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:671
+#: ../DistUpgrade/DistUpgradeControler.py:681
 msgid "Preparing the upgrade failed"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:672
+#: ../DistUpgrade/DistUpgradeControler.py:682
 msgid ""
 "Preparing the system for the upgrade failed. Please report this as a bug "
 "against the 'update-manager' package and include the files in /var/log/dist-"
 "upgrade/ in the bugreport."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeControler.py:695
+#: ../DistUpgrade/DistUpgradeControler.py:705
 msgid "Updating repository information"
 msgstr "저장소 정보를 업데이트하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:720
+#: ../DistUpgrade/DistUpgradeControler.py:730
 msgid "Invalid package information"
 msgstr "잘못된 패키지 정보"
 
-#: ../DistUpgrade/DistUpgradeControler.py:721
+#: ../DistUpgrade/DistUpgradeControler.py:731
 #, python-format
 msgid ""
 "After your package information was updated the essential package '%s' can "
@@ -484,19 +484,19 @@ msgstr ""
 "심각한 오류입니다. 'update-manager' 패키지의 버그를 보고하여 주십시오. 그리"
 "고 버그 보고에 /var/log/dist-upgrade/에 있는 파일을 포함하여 주십시오."
 
-#: ../DistUpgrade/DistUpgradeControler.py:733
+#: ../DistUpgrade/DistUpgradeControler.py:743
 msgid "Asking for confirmation"
 msgstr "확인을 요청하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:737
+#: ../DistUpgrade/DistUpgradeControler.py:747
 msgid "Upgrading"
 msgstr "업그레이드하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:744
+#: ../DistUpgrade/DistUpgradeControler.py:754
 msgid "Searching for obsolete software"
 msgstr "구식 소프트웨어를 검색하고 있습니다"
 
-#: ../DistUpgrade/DistUpgradeControler.py:749
+#: ../DistUpgrade/DistUpgradeControler.py:759
 msgid "System upgrade is complete."
 msgstr "완전히 시스템을 업그레이드하였습니다."
 
@@ -516,7 +516,7 @@ msgid "Fetching file %li of %li at %s/s"
 msgstr "내려받는 중, %li의 %li 파일, 속도 %s/s"
 
 #: ../DistUpgrade/DistUpgradeViewGtk.py:130
-#: ../DistUpgrade/DistUpgradeViewGtk.py:249
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
 #, python-format
 msgid "About %s remaining"
 msgstr "%s분 정도 남음"
@@ -548,7 +548,7 @@ msgstr ""
 "오."
 
 #. self.expander.set_expanded(True)
-#: ../DistUpgrade/DistUpgradeViewGtk.py:202
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
 #, python-format
 msgid ""
 "Replace the customized configuration file\n"
@@ -557,21 +557,21 @@ msgstr ""
 "바뀐 설정 파일 '%s'을(를)\n"
 "교체하시겠습니까?"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
 msgid ""
 "You will lose any changes you have made to this configuration file if you "
 "choose to replace it with a newer version."
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:216
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
 msgid "The 'diff' command was not found"
 msgstr "'diff' 명령어를 찾지 못했습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:355
+#: ../DistUpgrade/DistUpgradeViewGtk.py:368
 msgid "A fatal error occured"
 msgstr "심각한 오류 발생"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:356
+#: ../DistUpgrade/DistUpgradeViewGtk.py:369
 msgid ""
 "Please report this as a bug and include the files /var/log/dist-upgrade/main."
 "log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
@@ -585,25 +585,25 @@ msgstr ""
 
 #. FIXME: make those two seperate lines to make it clear
 #. that the "%" applies to the result of ngettext
-#: ../DistUpgrade/DistUpgradeViewGtk.py:487
+#: ../DistUpgrade/DistUpgradeViewGtk.py:504
 #, python-format
 msgid "%d package is going to be removed."
 msgid_plural "%d packages are going to be removed."
 msgstr[0] "패키지 %d개를 삭제할 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:492
+#: ../DistUpgrade/DistUpgradeViewGtk.py:509
 #, python-format
 msgid "%d new package is going to be installed."
 msgid_plural "%d new packages are going to be installed."
 msgstr[0] "새로운 패키지 %d개를 설치할 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:498
+#: ../DistUpgrade/DistUpgradeViewGtk.py:515
 #, python-format
 msgid "%d package is going to be upgraded."
 msgid_plural "%d packages are going to be upgraded."
 msgstr[0] "패키지 %d개를 업그레이드할 것입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:503
+#: ../DistUpgrade/DistUpgradeViewGtk.py:520
 #, python-format
 msgid ""
 "\n"
@@ -614,7 +614,7 @@ msgstr ""
 "\n"
 "총 %s개의 패키지를 다운로드해야 합니다. "
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:509
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
 msgid ""
 "Fetching and installing the upgrade can take several hours and cannot be "
 "canceled at any time later."
@@ -622,33 +622,33 @@ msgstr ""
 "업그레이드를 받아 설치하는 것은 여러 시간이 걸릴 수 있으며, 이후 어떤 경우에"
 "도 취소할 수 없습니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:512
+#: ../DistUpgrade/DistUpgradeViewGtk.py:529
 msgid "To prevent data loss close all open applications and documents."
 msgstr "데이터 손실을 막으려면 열려있는 모든 프로그램과 문서를 닫으십시오."
 
 #. FIXME: this should go into DistUpgradeController
-#: ../DistUpgrade/DistUpgradeViewGtk.py:518
+#: ../DistUpgrade/DistUpgradeViewGtk.py:535
 #: ../UpdateManager/UpdateManager.py:622
 msgid "Your system is up-to-date"
 msgstr "시스템이 최신의 상태입니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:519
+#: ../DistUpgrade/DistUpgradeViewGtk.py:536
 msgid ""
 "There are no upgrades available for your system. The upgrade will now be "
 "canceled."
 msgstr "시스템에 업그레이드할 것이 없습니다. 업그레이드를 취소합니다."
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../DistUpgrade/DistUpgradeViewGtk.py:552
 #, python-format
 msgid "<b>Remove %s</b>"
 msgstr "<b>%s 제거</b>"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:537
+#: ../DistUpgrade/DistUpgradeViewGtk.py:554
 #, python-format
 msgid "Install %s"
 msgstr "%s 설치"
 
-#: ../DistUpgrade/DistUpgradeViewGtk.py:539
+#: ../DistUpgrade/DistUpgradeViewGtk.py:556
 #, python-format
 msgid "Upgrade %s"
 msgstr "%s 업그레이드"
@@ -682,11 +682,11 @@ msgid ""
 "with a 56k modem"
 msgstr ""
 
-#: ../DistUpgrade/DistUpgradeView.py:109
+#: ../DistUpgrade/DistUpgradeView.py:111
 msgid "Reboot required"
 msgstr "다시 시작해야 합니다"
 
-#: ../DistUpgrade/DistUpgradeView.py:110
+#: ../DistUpgrade/DistUpgradeView.py:112
 msgid ""
 "The upgrade is finished and a reboot is required. Do you want to do this now?"
 msgstr "업그레이드가 끝났으며 다시 시작해야 합니다. 지금 하시겠습니까?"
@@ -769,6 +769,7 @@ msgid "_Keep"
 msgstr "유지(_K)"
 
 #: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
 msgid "_Replace"
 msgstr "바꾸기(_R)"
 
@@ -1006,11 +1007,11 @@ msgid "<b>New distribution release '%s' is available</b>"
 msgstr "<b>새 배포판 '%s'을(를) 설치할 수 있습니다</b>"
 
 #. we assert a clean cache
-#: ../UpdateManager/UpdateManager.py:898
+#: ../UpdateManager/UpdateManager.py:902
 msgid "Software index is broken"
 msgstr "소프트웨어 목록이 망가졌습니다."
 
-#: ../UpdateManager/UpdateManager.py:899
+#: ../UpdateManager/UpdateManager.py:903
 msgid ""
 "It is impossible to install or remove any software. Please use the package "
 "manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
@@ -1142,10 +1143,15 @@ msgid "_Install Updates"
 msgstr "업데이트 설치(_I)"
 
 #: ../data/glade/UpdateManager.glade.h:25
+#, fuzzy
+msgid "_Upgrade"
+msgstr "업그레이드(_p)"
+
+#: ../data/glade/UpdateManager.glade.h:26
 msgid "changes"
 msgstr "변경 사항"
 
-#: ../data/glade/UpdateManager.glade.h:26
+#: ../data/glade/UpdateManager.glade.h:27
 msgid "updates"
 msgstr "업데이트"
 

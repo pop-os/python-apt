@@ -166,8 +166,8 @@ class MyCache(apt.Cache):
     def edgyQuirks(self):
         """ this function works around quirks in the dapper->edgy upgrade """
         logging.debug("running edgyQuirks handler")
-        # deal with the python2.4-$foo -> python-$foo transition
         for pkg in self:
+            # deal with the python2.4-$foo -> python-$foo transition
             if (pkg.name.startswith("python2.4-") and
                 pkg.isInstalled and
                 not pkg.markedUpgrade):
@@ -178,15 +178,51 @@ class MyCache(apt.Cache):
                                          "python2.4->python upgrade rule")
                     except SystemError, e:
                         logging.debug("Failed to apply python2.4->python install: %s (%s)" % (basepkg, e))
-        # deal with *gar*gar* hpijs
-        if (self.has_key("hpijs") and self["hpijs"].isInstalled and
-            not self["hpijs"].markedUpgrade):
-            try:
-                self.markInstall("hpijs","hpijs quirk upgrade rule")
-            except SystemError, e:
-                logging.debug("Failed to apply hpijs install (%s)" % e)
+            # xserver-xorg-input-$foo gives us trouble during the upgrade too
+            if (pkg.name.startswith("xserver-xorg-input-") and
+                pkg.isInstalled and
+                not pkg.markedUpgrade):
+                try:
+                    self.markInstall(pkg.name, "xserver-xorg-input fixup rule")
+                except SystemError, e:
+                    logging.debug("Failed to apply fixup: %s (%s)" % (pkg.name, e))
             
-        
+        # deal with held-backs that are unneeded
+        for pkgname in ["hpijs", "bzr", "tomboy"]:
+            if (self.has_key(pkgname) and self[pkgname].isInstalled and
+                not self[pkgname].markedUpgrade):
+                try:
+                    self.markInstall(pkgname,"%s quirk upgrade rule" % pkgname)
+                except SystemError, e:
+                    logging.debug("Failed to apply %s install (%s)" % (pkgname,e))
+        # libgl1-mesa-dri from xgl.compiz.info (and friends) breaks the
+	# upgrade, work around this here by downgrading the package
+        if self.has_key("libgl1-mesa-dri"):
+            pkg = self["libgl1-mesa-dri"]
+            # the version from the compiz repo has a "6.5.1+cvs20060824" ver
+            if (pkg.candidateVersion == pkg.installedVersion and
+                "+cvs2006" in pkg.candidateVersion):
+                for ver in pkg._pkg.VersionList:
+                    # the "officual" edgy version has "6.5.1~20060817-0ubuntu3"
+                    if "~2006" in ver.VerStr:
+			# ensure that it is from a trusted repo
+			for (VerFileIter, index) in ver.FileList:
+				indexfile = self._list.FindIndex(VerFileIter)
+				if indexfile and indexfile.IsTrusted:
+					logging.info("Forcing downgrade of libgl1-mesa-dri for xgl.compz.info installs")
+		                        self._depcache.SetCandidateVer(pkg._pkg, ver)
+					break
+                                    
+        # deal with general if $foo is installed, install $bar
+        for (fr, to) in [("xserver-xorg-driver-all","xserver-xorg-video-all")]:
+            if self.has_key(fr) and self.has_key(to):
+                if self[fr].isInstalled and not self[to].markedInstall:
+                    try:
+                        self.markInstall(to,"%s->%s quirk upgrade rule" % (fr, to))
+                    except SystemError, e:
+                        logging.debug("Failed to apply %s->%s install (%s)" % (fr, to, e))
+                    
+                    
                                   
     def dapperQuirks(self):
         """ this function works around quirks in the breezy->dapper upgrade """
@@ -202,15 +238,15 @@ class MyCache(apt.Cache):
             # upgrade (and make sure this way that the cache is ok)
             self.upgrade(True)
 
-            # then see if meta-pkgs are missing
-            if not self._installMetaPkgs(view):
-                raise SystemError, _("Can't upgrade required meta-packages")
-
             # see if our KeepInstalled rules are honored
             self.keepInstalledRule()
 
             # and if we have some special rules
             self.postUpgradeRule()
+
+            # then see if meta-pkgs are missing
+            if not self._installMetaPkgs(view):
+                raise SystemError, _("Can't upgrade required meta-packages")
 
             # see if it all makes sense
             if not self._verifyChanges():
@@ -230,6 +266,15 @@ class MyCache(apt.Cache):
         untrusted = []
         for pkg in self.getChanges():
             if pkg.markedDelete:
+                continue
+            # special case because of a bug in pkg.candidateOrigin
+            if pkg.markedDowngrade:
+                for ver in pkg._pkg.VersionList:
+                    # version is lower than installed one
+                    if apt_pkg.VersionCompare(ver.VerStr, pkg.installedVersion) < 0:
+                        for (verFileIter,index) in ver.FileList:
+                            if not origin.trusted:
+                                untrusted.append(pkg.name)
                 continue
             origins = pkg.candidateOrigin
             trusted = False
@@ -349,7 +394,7 @@ class MyCache(apt.Cache):
                     self.restore_snapshot()
                     return False
         except (SystemError,KeyError),e:
-            loggging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
+            logging.warning("_tryMarkObsoleteForRemoval failed for '%s' (%s)" % (pkgname,e))
             self.restore_snapshot()
             return False
         return True
