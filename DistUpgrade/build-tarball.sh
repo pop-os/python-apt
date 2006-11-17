@@ -4,7 +4,7 @@ DIST=edgy
 
 # cleanup
 echo "Cleaning up"
-rm -f *~ *.bak *.pyc *.moved '#'*
+rm -f *~ *.bak *.pyc *.moved '#'* *.rej *.orig
 sudo rm -rf backports/ profile/ result/ tarball/ *.deb
 
 

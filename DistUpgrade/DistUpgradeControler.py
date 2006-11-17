@@ -60,7 +60,8 @@ class AptCdrom(object):
         if backup_ext:
             cdromstate = os.path.join(apt_pkg.Config.FindDir("Dir::State"),
                                       apt_pkg.Config.Find("Dir::State::cdroms"))
-            shutil.copy(cdromstate, cdromstate+backup_ext)
+            if os.path.exists(cdromstate):
+                shutil.copy(cdromstate, cdromstate+backup_ext)
         # do the actual work
         apt_pkg.Config.Set("Acquire::cdrom::mount",self.cdrompath)
         apt_pkg.Config.Set("APT::CDROM::NoMount","true")
@@ -201,7 +202,7 @@ class DistUpgradeControler(object):
             
             # we disable breezy cdrom sources to make sure that demoted
             # packages are removed
-            if entry.uri.startswith("cdrom:") and entry.dist == "breezy":
+            if entry.uri.startswith("cdrom:") and entry.dist == self.fromDist:
                 entry.disabled = True
                 continue
             # ignore cdrom sources otherwise
@@ -319,13 +320,17 @@ class DistUpgradeControler(object):
         inst = []
         up = []
         rm = []
+        held = []
         for pkg in self.cache:
             if pkg.markedInstall: inst.append(pkg.name)
             elif pkg.markedUpgrade: up.append(pkg.name)
             elif pkg.markedDelete: rm.append(pkg.name)
+            elif (pkg.isInstalled and pkg.isUpgradable): held.append(pkg.name)
+        logging.debug("Held-back: %s" % " ".join(held))
         logging.debug("Remove: %s" % " ".join(rm))
         logging.debug("Install: %s" % " ".join(inst))
         logging.debug("Upgrade: %s" % " ".join(up))
+        
 
     def doPreUpgrade(self):
         # FIXME: check out what packages are downloadable etc to
@@ -354,7 +359,8 @@ class DistUpgradeControler(object):
                 continue
             # no exception, so all was fine, we are done
             return True
-                
+
+        logging.error("doUpdate() failed complettely")
         self._view.error(_("Error during update"),
                          _("A problem occured during the update. "
                            "This is usually some sort of network "
@@ -392,6 +398,7 @@ class DistUpgradeControler(object):
         logging.debug("free on %s: %s " % (archivedir, free))
         if self.cache.requiredDownload > free:
             free_at_least = apt_pkg.SizeToStr(self.cache.requiredDownload-free)
+            logging.error("not enough free space (missing %s)" % free_at_least)
             self._view.error(err_sum, err_long % (free_at_least,archivedir))
             return False
         
@@ -456,6 +463,7 @@ class DistUpgradeControler(object):
                 res = self.cache.commit(fprogress,iprogress)
             except SystemError, e:
                 # installing the packages failed, can't be retried
+                logging.error("SystemError from cache.commit(): %s" % e)
                 self._view.getTerminal().call(["dpkg","--configure","-a"])
                 self._view.error(_("Could not install the upgrades"),
                                  _("The upgrade aborts now. Your system "
@@ -475,7 +483,7 @@ class DistUpgradeControler(object):
             return True
         
         # maximum fetch-retries reached without a successful commit
-        logging.debug("giving up on fetching after maximum retries")
+        logging.error("giving up on fetching after maximum retries")
         self._view.error(_("Could not download the upgrades"),
                          _("The upgrade aborts now. Please check your "\
                            "internet connection or "\
@@ -560,6 +568,7 @@ class DistUpgradeControler(object):
             try:
                 res = self.cache.commit(fprogress,iprogress)
             except (SystemError, IOError), e:
+                logging.error("cache.commit() in doPostUpgrade() failed: %s" % e)
                 self._view.error(_("Error during commit"),
                                  _("Some problem occured during the clean-up. "
                                    "Please see the below message for more "
@@ -668,6 +677,7 @@ class DistUpgradeControler(object):
         self._view.setStep(1)
         
         if not self.prepare():
+            logging.error("self.prepared() failed")
             self._view.error(_("Preparing the upgrade failed"),
                              _("Preparing the system for the upgrade "
                                "failed. Please report this as a bug "

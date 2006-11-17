@@ -198,6 +198,7 @@ class GtkInstallProgressAdapter(InstallProgress):
 
     def conffile(self, current, new):
         logging.debug("got a conffile-prompt from dpkg for file: '%s'" % current)
+        start = time.time()
         #self.expander.set_expanded(True)
         prim = _("Replace the customized configuration file\n'%s'?") % current
         sec = _("You will lose any changes you have made to this "
@@ -216,6 +217,7 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.parent.textview_conffile.get_buffer().set_text(_("The 'diff' command was not found"))
         res = self.parent.dialog_conffile.run()
         self.parent.dialog_conffile.hide()
+        self.time_ui += time.time() - start
         # if replace, send this to the terminal
         if res == gtk.RESPONSE_YES:
           self.term.feed_child("y\n")
@@ -242,9 +244,11 @@ class GtkInstallProgressAdapter(InstallProgress):
           self.last_activity = time.time()
           self.activity_timeout_reported = False
           delta = self.last_activity - self.start_time
+          # time wasted in conffile questions (or other ui activity)
+          delta -= self.time_ui
           time_per_percent = (float(delta)/percent)
           eta = (100.0 - self.percent) * time_per_percent
-          # only show if we have some sensible data
+          # only show if we have some sensible data (60sec < eta < 2days)
           if eta > 61.0 and eta < (60*60*24*2):
             self.progress.set_text(_("About %s remaining") % FuzzyTimeToStr(eta))
           else:
@@ -263,7 +267,12 @@ class GtkInstallProgressAdapter(InstallProgress):
         self.label_status.set_text("")
     
     def updateInterface(self):
-        InstallProgress.updateInterface(self)
+        try:
+          InstallProgress.updateInterface(self)
+        except ValueError, e:
+          logging.error("got ValueError from InstallPrgoress.updateInterface. Line was '%s' (%s)" % (self.read, e))
+          # reset self.read so that it can continue reading and does not loop
+	  self.read = ""
         # check if we haven't started yet with packages, pulse then
         if self.start_time == 0.0:
           self.progress.pulse()
@@ -316,12 +325,22 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
           logging.warning("Error setting locales (%s)" % e)
         
         icons = gtk.icon_theme_get_default()
-        gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
+        try:
+          gtk.window_set_default_icon(icons.load_icon("update-manager", 32, 0))
+        except gobject.GError, e:
+          logging.debug("error setting default icon, ignoring (%s)" % e)
+          pass
         SimpleGladeApp.__init__(self, gladedir+"/DistUpgrade.glade",
                                 None, domain="update-manager")
-        self.last_step = 0 # keep a record of the latest step
+        self.prev_step = 0 # keep a record of the latest step
         # we dont use this currently
         #self.window_main.set_keep_above(True)
+        self.icontheme = gtk.icon_theme_get_default()
+        # we keep a reference pngloader around so that its in memory
+        # -> this avoid the issue that during the dapper->edgy upgrade
+        #    the loaders move from /usr/lib/gtk/2.4.0/loaders to 2.10.0
+        self.pngloader = gtk.gdk.PixbufLoader("png")
+        
         self.window_main.realize()
         self.window_main.window.set_functions(gtk.gdk.FUNC_MOVE)
         self._opCacheProgress = GtkOpProgress(self.progressbar_cache)
@@ -410,7 +429,7 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
         label.hide()
     def abort(self):
         size = gtk.ICON_SIZE_MENU
-        step = self.last_step
+        step = self.prev_step
         if step > 0:
             image = getattr(self,"image_step%i" % step)
             arrow = getattr(self,"arrow_step%i" % step)
@@ -418,18 +437,20 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
             image.show()
             arrow.hide()
     def setStep(self, step):
-        # first update the "last" step as completed
+        if self.icontheme.rescan_if_needed():
+          logging.debug("icon theme changed, re-reading")
+        # first update the "previous" step as completed
         size = gtk.ICON_SIZE_MENU
         attrlist=pango.AttrList()
-        if self.last_step:
-            image = getattr(self,"image_step%i" % self.last_step)
-            label = getattr(self,"label_step%i" % self.last_step)
-            arrow = getattr(self,"arrow_step%i" % self.last_step)
+        if self.prev_step:
+            image = getattr(self,"image_step%i" % self.prev_step)
+            label = getattr(self,"label_step%i" % self.prev_step)
+            arrow = getattr(self,"arrow_step%i" % self.prev_step)
             label.set_property("attributes",attrlist)
             image.set_from_stock(gtk.STOCK_APPLY, size)
             image.show()
             arrow.hide()
-        self.last_step = step
+        self.prev_step = step
         # show the an arrow for the current step and make the label bold
         image = getattr(self,"image_step%i" % step)
         label = getattr(self,"label_step%i" % step)
@@ -454,6 +475,8 @@ class DistUpgradeViewGtk(DistUpgradeView,SimpleGladeApp):
       self.dialog_information.window.set_functions(gtk.gdk.FUNC_MOVE)
       self.dialog_information.run()
       self.dialog_information.hide()
+      while gtk.events_pending():
+        gtk.main_iteration()
 
     def error(self, summary, msg, extended_msg=None):
         self.dialog_error.set_transient_for(self.window_main)
@@ -588,11 +611,11 @@ if __name__ == "__main__":
   fp = GtkFetchProgressAdapter(view)
   ip = GtkInstallProgressAdapter(view)
 
-
   cache = apt.Cache()
   for pkg in sys.argv[1:]:
     cache[pkg].markInstall()
   cache.commit(fp,ip)
+  sys.exit(0)
   
   #sys.exit(0)
   ip.conffile("TODO","TODO~")
