@@ -317,8 +317,8 @@ class SoftwareProperties(SimpleGladeApp):
                         self.distro.main_server])
     if self.distro.country != None:
         # TRANSLATORS: %s is a country
-        server_store.append([_("Server for %s") % gettext.dgettext("iso-3166",
-                             self.distro.country).rstrip(),
+        server_store.append([_("Server for %s") % gettext.dgettext("iso_3166",
+                             self.distro.country.rstrip()).rstrip(),
                              self.distro.nearest_server])
     else:
         server_store.append([_("Nearest server"),

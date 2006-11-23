@@ -122,6 +122,6 @@ class AddSourcesList:
 
 class SingleSourcesList(SourcesList):
     def __init__(self, file):
-        self.matcher = SourceEntryMatcher()
+        self.matcher = SourceEntryMatcher("/usr/share/update-manager/channels/")
         self.list = []
         self.load(file)
