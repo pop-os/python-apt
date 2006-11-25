@@ -7,7 +7,7 @@ setup(
     name = 'python-aptsources',
     version = '0.0.1',
     description = 'Abstratcion of the sources.list',
-    packages = ['aptsources'],
+    packages = ['AptSources'],
     data_files = [('share/python-aptsources/templates',
                   glob.glob('build/templates/*.info'))],
     license = 'GNU GPL',

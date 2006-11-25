@@ -1,0 +1,1954 @@
+# translation of update-manager.HEAD.po to Hebrew
+# This file is distributed under the same license as the PACKAGE package.
+# Yuval Tanny, 2005.
+# Yuval Tanny, 2005.
+# Yuval Tanny, 2005.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Yuval Tanny, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: update-manager.HEAD\n"
+"Report-Msgid-Bugs-To: sebastian.heinlein@web.de\n"
+"POT-Creation-Date: 2006-10-23 14:26+0200\n"
+"PO-Revision-Date: 2006-10-16 08:48+0000\n"
+"Last-Translator: Yaniv Abir <yanivabir@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: ../SoftwareProperties/SoftwareProperties.py:136
+msgid "Daily"
+msgstr "מידי יום"
+
+#: ../SoftwareProperties/SoftwareProperties.py:137
+msgid "Every two days"
+msgstr "כל יומיים"
+
+#: ../SoftwareProperties/SoftwareProperties.py:138
+msgid "Weekly"
+msgstr "כל שבוע"
+
+#: ../SoftwareProperties/SoftwareProperties.py:139
+msgid "Every two weeks"
+msgstr "כל שבועים"
+
+#: ../SoftwareProperties/SoftwareProperties.py:144
+#, python-format
+msgid "Every %s days"
+msgstr "כל %s ימים"
+
+#: ../SoftwareProperties/SoftwareProperties.py:167
+msgid "After one week"
+msgstr "אחרי שבוע"
+
+#: ../SoftwareProperties/SoftwareProperties.py:168
+msgid "After two weeks"
+msgstr "אחרי שבועים"
+
+#: ../SoftwareProperties/SoftwareProperties.py:169
+msgid "After one month"
+msgstr "אחרי חודש"
+
+#: ../SoftwareProperties/SoftwareProperties.py:174
+#, python-format
+msgid "After %s days"
+msgstr "אחרי %s ימים"
+
+#. TRANS: %s stands for the distribution name e.g. Debian or Ubuntu
+#: ../SoftwareProperties/SoftwareProperties.py:252
+#, fuzzy, python-format
+msgid "%s updates"
+msgstr "מתקין עדכונים..."
+
+#. TRANSLATORS: Label for the components in the Internet section
+#. first %s is the description of the component
+#. second %s is the code name of the comp, eg main, universe
+#: ../SoftwareProperties/SoftwareProperties.py:264
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../SoftwareProperties/SoftwareProperties.py:316
+msgid "Main server"
+msgstr "שרת ראשי"
+
+#. TRANSLATORS: %s is a country
+#: ../SoftwareProperties/SoftwareProperties.py:320
+#: ../SoftwareProperties/SoftwareProperties.py:338
+#, python-format
+msgid "Server for %s"
+msgstr "השרת ב%s"
+
+#: ../SoftwareProperties/SoftwareProperties.py:324
+msgid "Nearest server"
+msgstr "השרת הקרוב ביותר"
+
+#: ../SoftwareProperties/SoftwareProperties.py:345
+msgid "Custom servers"
+msgstr ""
+
+#: ../SoftwareProperties/SoftwareProperties.py:604
+#: ../SoftwareProperties/SoftwareProperties.py:621
+#, fuzzy
+msgid "Software Channel"
+msgstr "עדכוני תוכנה"
+
+#: ../SoftwareProperties/SoftwareProperties.py:612
+#: ../SoftwareProperties/SoftwareProperties.py:629
+msgid "Active"
+msgstr "פעיל"
+
+#: ../SoftwareProperties/SoftwareProperties.py:714
+msgid "(Source Code)"
+msgstr "(קוד מקור)"
+
+#: ../SoftwareProperties/SoftwareProperties.py:720
+msgid "Source Code"
+msgstr "קוד מקור"
+
+#: ../SoftwareProperties/SoftwareProperties.py:969
+msgid "Import key"
+msgstr "יבוא מפתח"
+
+#: ../SoftwareProperties/SoftwareProperties.py:979
+msgid "Error importing selected file"
+msgstr "שגיאה בייבוא קובץ נבחר"
+
+#: ../SoftwareProperties/SoftwareProperties.py:980
+msgid "The selected file may not be a GPG key file or it might be corrupt."
+msgstr "הקובץ הנבחר הוא לא מפתח GPG או שהוא לא תקין."
+
+#: ../SoftwareProperties/SoftwareProperties.py:992
+msgid "Error removing the key"
+msgstr "שגיאה בהסרת המפתח"
+
+#: ../SoftwareProperties/SoftwareProperties.py:993
+msgid "The key you selected could not be removed. Please report this as a bug."
+msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג."
+
+#: ../SoftwareProperties/SoftwareProperties.py:1039
+#, python-format
+msgid ""
+"<big><b>Error scanning the CD</b></big>\n"
+"\n"
+"%s"
+msgstr ""
+"<big><b>שגיאה בסריקת התקליטור</b></big>\n"
+"\n"
+"%s"
+
+#: ../SoftwareProperties/SoftwareProperties.py:1096
+msgid "Please enter a name for the disc"
+msgstr "אנא הזן שם לדיסק"
+
+#: ../SoftwareProperties/SoftwareProperties.py:1112
+msgid "Please insert a disc in the drive:"
+msgstr "אנא הכניסו תקליטור לכונן:"
+
+#: ../DistUpgrade/DistUpgradeCache.py:91
+msgid "Broken packages"
+msgstr "חבילות פגומות"
+
+#: ../DistUpgrade/DistUpgradeCache.py:92
+msgid ""
+"Your system contains broken packages that couldn't be fixed with this "
+"software. Please fix them first using synaptic or apt-get before proceeding."
+msgstr ""
+"במערכת שלך נמצאות חבילות פגומות שתוכנה זו לא יכולה לתקן. אנא תקן אותן "
+"באמצעות synaptic או apt-get לפני שתמשיך."
+
+#: ../DistUpgrade/DistUpgradeCache.py:238
+msgid "Can't upgrade required meta-packages"
+msgstr "לא ניתן לשדרג את חבילות העל הנדרשות"
+
+#: ../DistUpgrade/DistUpgradeCache.py:242
+msgid "A essential package would have to be removed"
+msgstr "חבילה חיונית תוסר בלית ברירה"
+
+#. FIXME: change the text to something more useful
+#: ../DistUpgrade/DistUpgradeCache.py:245
+msgid "Could not calculate the upgrade"
+msgstr "לא ניתן לחשב את השדרוג"
+
+#: ../DistUpgrade/DistUpgradeCache.py:246
+#, fuzzy
+msgid ""
+"A unresolvable problem occurred while calculating the upgrade.\n"
+"\n"
+"Please report this bug against the 'update-manager' package and include the "
+"files in /var/log/dist-upgrade/ in the bugreport."
+msgstr ""
+"לאחר שהמידע על החבילות עודכן החבילה ההכרחית \"%s\" לא נמצא.\n"
+"כנראה שחלה שגיאה חמורה, אנא דווחו על הדבר כבאג."
+
+#. FIXME: maybe ask a question here? instead of failing?
+#: ../DistUpgrade/DistUpgradeCache.py:280
+msgid "Error authenticating some packages"
+msgstr "שגיאה באימות חלק מן החבילות"
+
+#: ../DistUpgrade/DistUpgradeCache.py:281
+msgid ""
+"It was not possible to authenticate some packages. This may be a transient "
+"network problem. You may want to try again later. See below for a list of "
+"unauthenticated packages."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeCache.py:346
+#, python-format
+msgid "Can't install '%s'"
+msgstr "לא ניתן להתקין את \"%s\""
+
+#: ../DistUpgrade/DistUpgradeCache.py:347
+msgid ""
+"It was impossible to install a required package. Please report this as a "
+"bug. "
+msgstr "לא ניתן להתקין חבילה הכרחית. אנא דווחו על זה כבאג. "
+
+#. FIXME: provide a list
+#: ../DistUpgrade/DistUpgradeCache.py:354
+msgid "Can't guess meta-package"
+msgstr "לא ניתן לקבוע חבילת על"
+
+#: ../DistUpgrade/DistUpgradeCache.py:355
+msgid ""
+"Your system does not contain a ubuntu-desktop, kubuntu-desktop or edubuntu-"
+"desktop package and it was not possible to detect which version of ubuntu "
+"you are running.\n"
+" Please install one of the packages above first using synaptic or apt-get "
+"before proceeding."
+msgstr ""
+"אף אחת החבילות ubuntu-desktop, kubuntu-desktop או edubuntu-desktop אינה "
+"מותקנת במערכת שלך, לכן לא ניתן לזהות באיזו גירסה של אובונטו נעשה שימוש.\n"
+" אנא התקן אחת מהחבילות הנ\"ל בעזרת Synaptic או apt-get לפני שתמשיך."
+
+#: ../DistUpgrade/DistUpgradeControler.py:75
+msgid "Failed to add the CD"
+msgstr "הוספת התקליטור נכשלה"
+
+#: ../DistUpgrade/DistUpgradeControler.py:76
+#, python-format
+msgid ""
+"There was a error adding the CD, the upgrade will abort. Please report this "
+"as a bug if this is a valid Ubuntu CD.\n"
+"\n"
+"The error message was:\n"
+"'%s'"
+msgstr ""
+"אירעה שגיאה בהוספת התקליטור, לכן השדרוג בוטל. אנא דווחו על כך כבאג אם מדובר "
+"בתקליטור אובונטו תקני.\n"
+"\n"
+"הודעת השגיאה הייתה:\n"
+"\"%s\""
+
+#: ../DistUpgrade/DistUpgradeControler.py:108
+msgid "Reading cache"
+msgstr "קורא מטמון"
+
+#: ../DistUpgrade/DistUpgradeControler.py:156
+msgid "Fetch data from the network for the upgrade?"
+msgstr "להוריד מידע מהאינטרנט לצורך השדרוג?"
+
+#: ../DistUpgrade/DistUpgradeControler.py:157
+msgid ""
+"The upgrade can use the network to check the latest updates and to fetch "
+"packages that are not on the current CD.\n"
+"If you have fast or inexpensive network access you should answer 'Yes' here. "
+"If networking is expensive for you choose 'No'."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:249
+msgid "No valid mirror found"
+msgstr "לא נמצא אתר מראה תקני"
+
+#: ../DistUpgrade/DistUpgradeControler.py:250
+#, python-format
+msgid ""
+"While scaning your repository information no mirror entry for the upgrade "
+"was found.This cam happen if you run a internal mirror or if the mirror "
+"information is out of date.\n"
+"\n"
+"Do you want to rewrite your 'sources.list' file anyway? If you choose 'Yes' "
+"here it will update all '%s' to '%s' entries.\n"
+"If you select 'no' the update will cancel."
+msgstr ""
+"בעת סריקת מידע מאגרי התוכנה שלך לא נמצאה הפנייה לשרת מראה לצורך השדרוג. שרת "
+"מראה מקומי או הפניה לשרת שפג תוקפה עשויים להיות הסיבה לכך.\n"
+"\n"
+"האם ברצונך לעדכון את רשימת המקורות (sources.list) בכל מקרה? אישור יגרום "
+"לעדכון כל ההפניות \"%s\" ל-\"%s\".\n"
+"\n"
+"בחירה ב\"לא\" תבטל את העדכון."
+
+#. hm, still nothing useful ...
+#: ../DistUpgrade/DistUpgradeControler.py:267
+msgid "Generate default sources?"
+msgstr "לייצר מקורות ברירת מחדל?"
+
+#: ../DistUpgrade/DistUpgradeControler.py:268
+#, python-format
+msgid ""
+"After scanning your 'sources.list' no valid entry for '%s' was found.\n"
+"\n"
+"Should default entries for '%s' be added? If you select 'No' the update will "
+"cancel."
+msgstr ""
+"לאחר סריקת רשימת המקורות שלך (sources.list) לא נמצא רישום מתאים ל\"%s\".\n"
+"\n"
+"האם לקבוע את ברירת המחדל כרישום ל\"%s\"? בחירה ב\"לא\" תבטל את העדכון."
+
+#: ../DistUpgrade/DistUpgradeControler.py:302
+msgid "Repository information invalid"
+msgstr "מידע מאגרים לא תקין"
+
+#: ../DistUpgrade/DistUpgradeControler.py:303
+msgid ""
+"Upgrading the repository information resulted in a invalid file. Please "
+"report this as a bug."
+msgstr "עדכון מידע המאגרים יצר קובץ לא תקין. אנא דווחו על כך כבאג."
+
+#: ../DistUpgrade/DistUpgradeControler.py:309
+msgid "Third party sources disabled"
+msgstr "מקורות של ספקי צד שלישי בוטלו"
+
+#: ../DistUpgrade/DistUpgradeControler.py:310
+msgid ""
+"Some third party entries in your sources.list were disabled. You can re-"
+"enable them after the upgrade with the 'software-properties' tool or with "
+"synaptic."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:364
+msgid "Error during update"
+msgstr "שגיאה במהלך העדכון"
+
+#: ../DistUpgrade/DistUpgradeControler.py:365
+msgid ""
+"A problem occured during the update. This is usually some sort of network "
+"problem, please check your network connection and retry."
+msgstr ""
+"הייתה בעיה בתהליך העידכון. בדרך כלל זוהי בעיית רשת, אנא בדקו את חיבור הרשת "
+"שלכם ונסו שנית."
+
+#: ../DistUpgrade/DistUpgradeControler.py:374
+msgid "Not enough free disk space"
+msgstr "אין מספיק שטח בדיסק הקשיח"
+
+#: ../DistUpgrade/DistUpgradeControler.py:375
+#, python-format
+msgid ""
+"The upgrade aborts now. Please free at least %s of disk space on %s. Empty "
+"your trash and remove temporary packages of former installations using 'sudo "
+"apt-get clean'."
+msgstr ""
+"השדרגו יתבטל כעת. יש לפנות לפחות %s מהשטח ב-%s. רוקנו את הזבל והסירו חבילות "
+"זמניות מהתקנות קודמות על ידי שימוש בפקודה \"sudo apt-get clean\"."
+
+#. ask the user if he wants to do the changes
+#: ../DistUpgrade/DistUpgradeControler.py:447
+msgid "Do you want to start the upgrade?"
+msgstr "האם ברצונך להתחיל את השדרוג?"
+
+#: ../DistUpgrade/DistUpgradeControler.py:468
+msgid "Could not install the upgrades"
+msgstr "לא ניתן להתקין את השדרוג"
+
+#: ../DistUpgrade/DistUpgradeControler.py:469
+msgid ""
+"The upgrade aborts now. Your system could be in an unusable state. A "
+"recovery was run (dpkg --configure -a).\n"
+"\n"
+"Please report this bug against the 'update-manager' package and include the "
+"files in /var/log/dist-upgrade/ in the bugreport."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:487
+msgid "Could not download the upgrades"
+msgstr "לא ניתן להוריד את השדרוג"
+
+#: ../DistUpgrade/DistUpgradeControler.py:488
+msgid ""
+"The upgrade aborts now. Please check your internet connection or "
+"installation media and try again. "
+msgstr ""
+"השדרוג בוטל. אנא בדקו את החיבור לאינטרנט או את מדיית ההתקנה ונסו שנית. "
+
+#: ../DistUpgrade/DistUpgradeControler.py:524
+msgid "Support for some applications ended"
+msgstr "המיכה בכמה תוכנות הסתיימה"
+
+#: ../DistUpgrade/DistUpgradeControler.py:525
+msgid ""
+"Canonical Ltd. no longer provides support for the following software "
+"packages. You can still get support from the community.\n"
+"\n"
+"If you have not enabled community maintained software (universe), these "
+"packages will be suggested for removal in the next step."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:560
+msgid "Remove obsolete packages?"
+msgstr "להסיר חבילות שאינן בתוקף?"
+
+#: ../DistUpgrade/DistUpgradeControler.py:561
+msgid "_Skip This Step"
+msgstr "_דלג על השלב"
+
+#: ../DistUpgrade/DistUpgradeControler.py:561
+msgid "_Remove"
+msgstr "_הסר"
+
+#: ../DistUpgrade/DistUpgradeControler.py:572
+msgid "Error during commit"
+msgstr "שגיאה בעת ביצוע"
+
+#: ../DistUpgrade/DistUpgradeControler.py:573
+msgid ""
+"Some problem occured during the clean-up. Please see the below message for "
+"more information. "
+msgstr "מספר בעיות נתגלו במהלך הניקוי. אנא הסתכל בהודעות מטה למידע נוסף. "
+
+#. generate a new cache
+#: ../DistUpgrade/DistUpgradeControler.py:585
+msgid "Restoring original system state"
+msgstr "מחזיר את המערכת למצבה המקורי"
+
+#: ../DistUpgrade/DistUpgradeControler.py:641
+#, python-format
+msgid "Fetching backport of '%s'"
+msgstr ""
+
+#. sanity check (check for ubuntu-desktop, brokenCache etc)
+#. then open the cache (again)
+#: ../DistUpgrade/DistUpgradeControler.py:676
+#: ../DistUpgrade/DistUpgradeControler.py:719
+msgid "Checking package manager"
+msgstr "בודק את מנהל החבילות"
+
+#: ../DistUpgrade/DistUpgradeControler.py:681
+msgid "Preparing the upgrade failed"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:682
+msgid ""
+"Preparing the system for the upgrade failed. Please report this as a bug "
+"against the 'update-manager' package and include the files in /var/log/dist-"
+"upgrade/ in the bugreport."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:705
+msgid "Updating repository information"
+msgstr "מעדכן מידע מאגרים"
+
+#: ../DistUpgrade/DistUpgradeControler.py:730
+msgid "Invalid package information"
+msgstr "מידע חבילה לא תקין"
+
+#: ../DistUpgrade/DistUpgradeControler.py:731
+#, fuzzy, python-format
+msgid ""
+"After your package information was updated the essential package '%s' can "
+"not be found anymore.\n"
+"This indicates a serious error, please report this bug against the 'update-"
+"manager' package and include the files in /var/log/dist-upgrade/ in the "
+"bugreport."
+msgstr ""
+"לאחר שהמידע על החבילות עודכן החבילה ההכרחית \"%s\" לא נמצא.\n"
+"כנראה שחלה שגיאה חמורה, אנא דווחו על הדבר כבאג."
+
+#: ../DistUpgrade/DistUpgradeControler.py:743
+msgid "Asking for confirmation"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:747
+msgid "Upgrading"
+msgstr "משדרג"
+
+#: ../DistUpgrade/DistUpgradeControler.py:754
+msgid "Searching for obsolete software"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeControler.py:759
+msgid "System upgrade is complete."
+msgstr "שדרוג המערכת הושלם."
+
+#. print "mediaChange %s %s" % (medium, drive)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:100
+#, python-format
+msgid "Please insert '%s' into the drive '%s'"
+msgstr "אנא הכניסו את \"%s\" לכונן \"%s\"."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:118
+msgid "Fetching is complete"
+msgstr "ההורדה הושלמה"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:129
+#, python-format
+msgid "Fetching file %li of %li at %s/s"
+msgstr "מוריד קובץ %li מתוך %li ב-%s לשנייה."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:130
+#: ../DistUpgrade/DistUpgradeViewGtk.py:253
+#, python-format
+msgid "About %s remaining"
+msgstr "נותרו כ-%s."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:132
+#, python-format
+msgid "Fetching file %li of %li"
+msgstr "מוריד קובץ %li מתוך %li"
+
+#. FIXME: add support for the timeout
+#. of the terminal (to display something useful then)
+#. -> longer term, move this code into python-apt
+#: ../DistUpgrade/DistUpgradeViewGtk.py:163
+msgid "Applying changes"
+msgstr "מחיל שינויים"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:187
+#, python-format
+msgid "Could not install '%s'"
+msgstr "לא ניתן להתקין את \"%s\""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:188
+msgid ""
+"The upgrade aborts now. Please report this bug against the 'update-manager' "
+"package and include the files in /var/log/dist-upgrade/ in the bugreport."
+msgstr ""
+
+#. self.expander.set_expanded(True)
+#: ../DistUpgrade/DistUpgradeViewGtk.py:203
+#, python-format
+msgid ""
+"Replace the customized configuration file\n"
+"'%s'?"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:204
+msgid ""
+"You will lose any changes you have made to this configuration file if you "
+"choose to replace it with a newer version."
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:217
+msgid "The 'diff' command was not found"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:368
+msgid "A fatal error occured"
+msgstr "ארעה שגיאה חמורה"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:369
+msgid ""
+"Please report this as a bug and include the files /var/log/dist-upgrade/main."
+"log and /var/log/dist-upgrade/apt.log in your report. The upgrade aborts "
+"now.\n"
+"Your original sources.list was saved in /etc/apt/sources.list.distUpgrade."
+msgstr ""
+
+#. FIXME: make those two seperate lines to make it clear
+#. that the "%" applies to the result of ngettext
+#: ../DistUpgrade/DistUpgradeViewGtk.py:504
+#, python-format
+msgid "%d package is going to be removed."
+msgid_plural "%d packages are going to be removed."
+msgstr[0] "חבילה %d תוסר."
+msgstr[1] "%d חבילות יוסרו."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:509
+#, python-format
+msgid "%d new package is going to be installed."
+msgid_plural "%d new packages are going to be installed."
+msgstr[0] "חבילה חדשה %d תותקן."
+msgstr[1] "%d חבילות חדשות יותקנו."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:515
+#, python-format
+msgid "%d package is going to be upgraded."
+msgid_plural "%d packages are going to be upgraded."
+msgstr[0] "%d חבילות חדשות ישודרגו."
+msgstr[1] "%d חבילות ישודרגו."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:520
+#, python-format
+msgid ""
+"\n"
+"\n"
+"You have to download a total of %s. "
+msgstr ""
+"\n"
+"\n"
+"יש להוריד %s בסה\"כ. "
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:526
+msgid ""
+"Fetching and installing the upgrade can take several hours and cannot be "
+"canceled at any time later."
+msgstr ""
+"הורדת והתקנת השדרוג עשויה לארוך מספר שעות. לא ניתן לבטל את התהליך בשלב מאוחר "
+"יותר."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:529
+msgid "To prevent data loss close all open applications and documents."
+msgstr "כדי למנוע אובדן מידע אנא סגרו על תוכנית או מסמך פתוחים."
+
+#. FIXME: this should go into DistUpgradeController
+#: ../DistUpgrade/DistUpgradeViewGtk.py:535
+#: ../UpdateManager/UpdateManager.py:622
+msgid "Your system is up-to-date"
+msgstr "המערכת שלך מעודכנת"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:536
+msgid ""
+"There are no upgrades available for your system. The upgrade will now be "
+"canceled."
+msgstr "אין שדרוגים זמינים למערכת שלך. השדרוג יתבטל כעת."
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:552
+#, python-format
+msgid "<b>Remove %s</b>"
+msgstr "<b>הסר %s </b>"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:554
+#, python-format
+msgid "Install %s"
+msgstr "התקן %s"
+
+#: ../DistUpgrade/DistUpgradeViewGtk.py:556
+#, python-format
+msgid "Upgrade %s"
+msgstr "שדרג %s"
+
+#: ../DistUpgrade/DistUpgradeView.py:27
+#, python-format
+msgid "%li days %li hours %li minutes"
+msgstr "%li ימים, %li שעות ו-%li דקות"
+
+#: ../DistUpgrade/DistUpgradeView.py:29
+#, python-format
+msgid "%li hours %li minutes"
+msgstr "%li שעות ו-%li דקות"
+
+#: ../DistUpgrade/DistUpgradeView.py:31
+#, python-format
+msgid "%li minutes"
+msgstr "%li דקות"
+
+#: ../DistUpgrade/DistUpgradeView.py:32
+#, python-format
+msgid "%li seconds"
+msgstr "%liשניות"
+
+#. 56 kbit
+#. 1Mbit = 1024 kbit
+#: ../DistUpgrade/DistUpgradeView.py:38
+#, python-format
+msgid ""
+"This download will take about %s with a 1Mbit DSL connection and about %s "
+"with a 56k modem"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgradeView.py:111
+msgid "Reboot required"
+msgstr "נדרשת הפעלה מחדש"
+
+#: ../DistUpgrade/DistUpgradeView.py:112
+msgid ""
+"The upgrade is finished and a reboot is required. Do you want to do this now?"
+msgstr "השדרוג הסתיים ונדרשת הפעלה מחדש. האם ברצונך לעשות זאת כעת?"
+
+#. testcode to see if the bullets look nice in the dialog
+#. for i in range(4):
+#. view.setStep(i+1)
+#. app.openCache()
+#: ../DistUpgrade/DistUpgrade.glade.h:1
+#: ../data/glade/SoftwareProperties.glade.h:1
+msgid "    "
+msgstr "    "
+
+#: ../DistUpgrade/DistUpgrade.glade.h:2
+msgid ""
+"<b><big>Cancel the running upgrade?</big></b>\n"
+"\n"
+"The system could be in an unusable state if you cancel the upgrade. You are "
+"strongly adviced to resume the upgrade."
+msgstr ""
+"<b><big>לבטל את השדרוג המתבצע?</big></b>\n"
+"\n"
+"המערכת עלולה להיות בלתי שמישה אם תבטלו את השדרוג. מומלץ ביותר להמשיך את מהלך "
+"השדרוג."
+
+#: ../DistUpgrade/DistUpgrade.glade.h:5
+msgid "<b><big>Restart the system to complete the upgrade</big></b>"
+msgstr "<b><big>להפעיל מחדש את המערכת כדי להשלים את השדרוג?</big></b>"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:6
+msgid "<b><big>Start the upgrade?</big></b>"
+msgstr "<b><big>להתחיל את השדרוג?</big></b>"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:7
+msgid "<b><big>Upgrading Ubuntu to version 6.10</big></b>"
+msgstr "<b><big>משדרג את אובונטו לגרסה 6.10</big></b>"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:8
+msgid "Cleaning up"
+msgstr "מסדר ומנקה"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:9
+msgid "Details"
+msgstr "פרטים"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:10
+msgid "Difference between the files"
+msgstr "ההבדל בין הרבצים"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:11
+msgid "Fetching and installing the upgrades"
+msgstr "מוריד ומתקין את השדרוג"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:12
+msgid "Modifying the software channels"
+msgstr ""
+
+#: ../DistUpgrade/DistUpgrade.glade.h:13
+msgid "Preparing the upgrade"
+msgstr "מכין את השדרוג"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:14
+msgid "Restarting the system"
+msgstr "מאתחל את המערכת"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:15
+msgid "Terminal"
+msgstr "מסוף"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:16
+msgid "_Cancel Upgrade"
+msgstr "_בטל שידרוג"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:17
+msgid "_Continue"
+msgstr "_המשך"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:18
+msgid "_Keep"
+msgstr "_שמור"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:19
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:21
+msgid "_Replace"
+msgstr "_החלף"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:20
+msgid "_Report Bug"
+msgstr "_דווח על באג"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:21
+msgid "_Restart Now"
+msgstr "_אתחל עכשיו"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:22
+msgid "_Resume Upgrade"
+msgstr "_המשך בשידרוג"
+
+#: ../DistUpgrade/DistUpgrade.glade.h:23
+msgid "_Start Upgrade"
+msgstr "_התחל שידרוג"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:68
+msgid "Could not find the release notes"
+msgstr "לא ניתן למצוא הערות שיחרור גירסה"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:69
+msgid "The server may be overloaded. "
+msgstr "השרת עלול להיות עמוס מדי. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:79
+msgid "Could not download the release notes"
+msgstr "לא ניתן להוריד הערות שחרור גירסה."
+
+#: ../UpdateManager/DistUpgradeFetcher.py:80
+msgid "Please check your internet connection."
+msgstr "אנא בדקו את החיבור לאינטרנט."
+
+#. no script file found in extracted tarbal
+#: ../UpdateManager/DistUpgradeFetcher.py:149
+msgid "Could not run the upgrade tool"
+msgstr "לא ניתן להריץ את כלי השדרוג"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:150
+msgid ""
+"This is most likely a bug in the upgrade tool. Please report it as a bug"
+msgstr "זהו כנראה באג בכלי השדרוג. אנא דווחו על זה כבאג."
+
+#: ../UpdateManager/DistUpgradeFetcher.py:171
+msgid "Downloading the upgrade tool"
+msgstr "מוריד את כלי השדרוג"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:173
+msgid "The upgrade tool will guide you through the upgrade process."
+msgstr "כלי השדרוג ינחה אותך בתהליך השדרוג."
+
+#: ../UpdateManager/DistUpgradeFetcher.py:180
+msgid "Upgrade tool signature"
+msgstr ""
+
+#: ../UpdateManager/DistUpgradeFetcher.py:183
+msgid "Upgrade tool"
+msgstr "כלי שדרוג"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:208
+msgid "Failed to fetch"
+msgstr "ההורדה נכשלה"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:209
+msgid "Fetching the upgrade failed. There may be a network problem. "
+msgstr "הורדת השדרוג נכשלה. עלולה להיות בעיית רשת. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:214
+msgid "Failed to extract"
+msgstr "החילוץ נכשל"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:215
+msgid ""
+"Extracting the upgrade failed. There may be a problem with the network or "
+"with the server. "
+msgstr "חילוץ השדרוג נכשל. עלולה להיות בעיה עם הרשת או השרת. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:221
+msgid "Verfication failed"
+msgstr "האימות נכשל"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:222
+msgid ""
+"Verifying the upgrade failed.  There may be a problem with the network or "
+"with the server. "
+msgstr "אימות השדרוג נכשל. עלולה להיות בעיה עם הרשת או עם השרת. "
+
+#: ../UpdateManager/DistUpgradeFetcher.py:228
+msgid "Authentication failed"
+msgstr "האימות נכשל"
+
+#: ../UpdateManager/DistUpgradeFetcher.py:229
+msgid ""
+"Authenticating the upgrade failed. There may be a problem with the network "
+"or with the server. "
+msgstr "אימות השדרוג נכשל. עלולה להיות בעיה עם הרשת או עם השרת. "
+
+#: ../UpdateManager/GtkProgress.py:108
+#, python-format
+msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
+msgstr ""
+
+#: ../UpdateManager/GtkProgress.py:113
+#, python-format
+msgid "Downloading file %(current)li of %(total)li"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:206
+msgid "The list of changes is not available"
+msgstr "רשימת השינויים אינה זמינה"
+
+#: ../UpdateManager/UpdateManager.py:212
+msgid ""
+"The list of changes is not available yet.\n"
+"Please try again later."
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:217
+msgid ""
+"Failed to download the list of changes. \n"
+"Please check your Internet connection."
+msgstr ""
+
+#. Description
+#: ../UpdateManager/UpdateManager.py:237 ../data/channels/Ubuntu.info.in:88
+msgid "Important security updates"
+msgstr "עדכוני אבטחה חשובים"
+
+#. Description
+#: ../UpdateManager/UpdateManager.py:239 ../data/channels/Ubuntu.info.in:93
+msgid "Recommended updates"
+msgstr "עדכונים מומלצים"
+
+#. Description
+#: ../UpdateManager/UpdateManager.py:240 ../data/channels/Ubuntu.info.in:98
+msgid "Proposed updates"
+msgstr "עדכונים מוצעים"
+
+#: ../UpdateManager/UpdateManager.py:241
+msgid "Backports"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:242
+msgid "Distribution updates"
+msgstr ""
+
+#. TRANSLATORS: updates from an 'unknown' origin
+#: ../UpdateManager/UpdateManager.py:249 ../UpdateManager/UpdateManager.py:266
+msgid "Other updates"
+msgstr "עדכונים אחרים"
+
+#: ../UpdateManager/UpdateManager.py:478
+#, python-format
+msgid "Version %s: \n"
+msgstr "גרסה %s: \n"
+
+#: ../UpdateManager/UpdateManager.py:539
+msgid "Downloading list of changes..."
+msgstr "מוריד רשימת שינויים..."
+
+#: ../UpdateManager/UpdateManager.py:566
+msgid "_Uncheck All"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:572
+msgid "_Check All"
+msgstr ""
+
+#. TRANSLATORS: b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:613 ../UpdateManager/UpdateManager.py:637
+#, python-format
+msgid "Download size: %s"
+msgstr "גודל ההורדה: %s"
+
+#: ../UpdateManager/UpdateManager.py:633
+#, python-format
+msgid "You can install %s update"
+msgid_plural "You can install %s updates"
+msgstr[0] "ניתן להתקין עדכון %s"
+msgstr[1] "ניתן להתקין %s עדכונים"
+
+#: ../UpdateManager/UpdateManager.py:666
+msgid "Please wait, this can take some time."
+msgstr "אנא חכו, התהליך עשוי לארוך זמן מה."
+
+#: ../UpdateManager/UpdateManager.py:668
+msgid "Update is complete"
+msgstr "העדכון הושלם"
+
+#: ../UpdateManager/UpdateManager.py:719
+msgid "Checking for updates"
+msgstr "מחפש עדכונים"
+
+#: ../UpdateManager/UpdateManager.py:826
+#, python-format
+msgid "From version %(old_version)s to %(new_version)s"
+msgstr ""
+
+#: ../UpdateManager/UpdateManager.py:830
+#, python-format
+msgid "Version %s"
+msgstr "גרסה %s"
+
+#. TRANSLATORS: the b stands for Bytes
+#: ../UpdateManager/UpdateManager.py:832
+#, python-format
+msgid "(Size: %s)"
+msgstr "(גודל: %s)"
+
+#: ../UpdateManager/UpdateManager.py:843
+msgid "Your distribution is not supported anymore"
+msgstr "גרסת ההפצה שלך אינה נתמכת יותר"
+
+#: ../UpdateManager/UpdateManager.py:844
+msgid ""
+"You will not get any further security fixes or critical updates. Upgrade to "
+"a later version of Ubuntu Linux. See http://www.ubuntu.com for more "
+"information on upgrading."
+msgstr ""
+"המערכת שלכם לא תקבל עדכוני אבטחה יותר. אנא שדרגו אותו לגירסה מאוחרת יותר של "
+"אובונטו לינוקס. ראו http://www.ubuntu.com למידע נוסף על שידרוג המערכת."
+
+#: ../UpdateManager/UpdateManager.py:863
+#, python-format
+msgid "<b>New distribution release '%s' is available</b>"
+msgstr "<b>גירסה חדשה של ההפצה, \"%s\", זמינה</b>"
+
+#. we assert a clean cache
+#: ../UpdateManager/UpdateManager.py:902
+msgid "Software index is broken"
+msgstr "אינדקס התוכנות פגום"
+
+#: ../UpdateManager/UpdateManager.py:903
+msgid ""
+"It is impossible to install or remove any software. Please use the package "
+"manager \"Synaptic\" or run \"sudo apt-get install -f\" in a terminal to fix "
+"this issue at first."
+msgstr ""
+"אי אפשר להתקין או להסיר אף תוכנה. יש להשתמש במנהל החבילות \"Synaptic\" או "
+"להפעיל את הפקודה \"sudo apt-get install -f\" במסוף כדי לתקן בעיה זו."
+
+#. TRANSLATORS: download size is 0
+#: ../UpdateManager/Common/utils.py:33
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: download size of very small updates
+#: ../UpdateManager/Common/utils.py:36
+msgid "1 KB"
+msgstr ""
+
+#. TRANSLATORS: download size of small updates, e.g. "250 KB"
+#: ../UpdateManager/Common/utils.py:39
+#, python-format
+msgid "%.0f KB"
+msgstr ""
+
+#. TRANSLATORS: download size of updates, e.g. "2.3 MB"
+#: ../UpdateManager/Common/utils.py:42
+#, python-format
+msgid "%.1f MB"
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:1
+msgid ""
+"<b><big>You must check for updates manually</big></b>\n"
+"\n"
+"Your system does not check for updates automatically. You can configure this "
+"behavior in <i>Software Sources</i> on the <i>Internet Updates</i> tab."
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:4
+msgid "<big><b>Keep your system up-to-date</b></big>"
+msgstr "<big><b>שמרו על המערכת מעודכנת</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:5
+msgid "<big><b>Not all updates can be installed</b></big>"
+msgstr "<big><b>לא ניתן להתקין את כל העדכונים</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:6
+msgid "<big><b>Starting update manager</b></big>"
+msgstr "<big><b>פותח את מנהל העדכונים</b></big>"
+
+#: ../data/glade/UpdateManager.glade.h:7
+msgid "Changes"
+msgstr "שינויים"
+
+#: ../data/glade/UpdateManager.glade.h:8
+msgid "Changes and description of the update"
+msgstr "שינויים ותיאור העדכון"
+
+#: ../data/glade/UpdateManager.glade.h:9
+msgid "Chec_k"
+msgstr "_בדוק"
+
+#: ../data/glade/UpdateManager.glade.h:10
+msgid "Check the software channels for new updates"
+msgstr "בדיקת המצאות עדכונים במאגרי התוכנה"
+
+#: ../data/glade/UpdateManager.glade.h:11
+msgid "Description"
+msgstr "תיאור"
+
+#: ../data/glade/UpdateManager.glade.h:12
+msgid "Release Notes"
+msgstr "הערות שחרור גירסה"
+
+#: ../data/glade/UpdateManager.glade.h:13
+msgid ""
+"Run a distribution upgrade, to install as many updates as possible. \n"
+"\n"
+"This can be caused by an uncompleted upgrade, unofficial software packages "
+"or by running a development version."
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:16
+msgid "Show progress of single files"
+msgstr "הראה התקדמות כל קובץ"
+
+#: ../data/glade/UpdateManager.glade.h:17
+msgid "Software Updates"
+msgstr "עדכוני תוכנה"
+
+#: ../data/glade/UpdateManager.glade.h:18
+msgid ""
+"Software updates correct errors, eliminate security vulnerabilities and "
+"provide new features."
+msgstr "עדכוני תוכנה מתקנים שגיאות ופרצות אבטחה ומוסיפים תכונות חדשות."
+
+#: ../data/glade/UpdateManager.glade.h:19
+msgid "U_pgrade"
+msgstr "_שדרג"
+
+#: ../data/glade/UpdateManager.glade.h:20
+msgid "Upgrade to the latest version of Ubuntu"
+msgstr "שדרוג המערכת לגירסה החדשה של אובונטו."
+
+#: ../data/glade/UpdateManager.glade.h:21
+msgid "_Check"
+msgstr "_בדוק"
+
+#: ../data/glade/UpdateManager.glade.h:22
+#, fuzzy
+msgid "_Distribution Upgrade"
+msgstr "_המשך בשידרוג"
+
+#: ../data/glade/UpdateManager.glade.h:23
+msgid "_Hide this information in the future"
+msgstr "_הסתר מידע זה בעתיד"
+
+#: ../data/glade/UpdateManager.glade.h:24
+msgid "_Install Updates"
+msgstr "_התקן עדכונים"
+
+#: ../data/glade/UpdateManager.glade.h:25
+msgid "_Upgrade"
+msgstr ""
+
+#: ../data/glade/UpdateManager.glade.h:26
+msgid "changes"
+msgstr "שינויים"
+
+#: ../data/glade/UpdateManager.glade.h:27
+msgid "updates"
+msgstr "עדכונים"
+
+#: ../data/glade/SoftwareProperties.glade.h:2
+msgid "<b>Automatic updates</b>"
+msgstr "<b>עדכונים אוטומטיים</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:3
+msgid "<b>CDROM/DVD</b>"
+msgstr "<b>תקליטור/DVD</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:4
+msgid "<b>Internet updates</b>"
+msgstr "<b>עדכוני אינטרנט</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:5
+msgid "<b>Internet</b>"
+msgstr "<b>אינטרנט</b>"
+
+#: ../data/glade/SoftwareProperties.glade.h:6
+msgid ""
+"<i>To improve the user experience of Ubuntu please take part in the "
+"popularity contest. If you do so the list of installed software and how "
+"often it was used will be collected and sent anonymously to the Ubuntu "
+"project  on a weekly basis.\n"
+"\n"
+"The results are used to improve the support for popular applications and to "
+"rank applications in the search results.</i>"
+msgstr ""
+"<i> כדי לשפר את החוויה למשתמש באובונטו, אנא קחו חלק בתחרות הפופולריות. אם "
+"תעשו כן רשימת התוכנות המותקנות ותכיפות השימוש בהן תשלח אנונימית לפרוייקט "
+"אובונטו מיד שבוע.\n"
+"\n"
+"בתוצאות נעשה שימוש כדי לשפר את התמיכה בתוכנות פופולריות, ולדרג את היישומים "
+"בתוצאות החיפוש.</i>"
+
+#: ../data/glade/SoftwareProperties.glade.h:9
+msgid "Add Cdrom"
+msgstr "הוסף תקליטור"
+
+#: ../data/glade/SoftwareProperties.glade.h:10
+msgid "Authentication"
+msgstr "אימות"
+
+#: ../data/glade/SoftwareProperties.glade.h:11
+msgid "D_elete downloaded software files:"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:12
+msgid "Download from:"
+msgstr "הורד מ:"
+
+#: ../data/glade/SoftwareProperties.glade.h:13
+#, fuzzy
+msgid "Import the public key from a trusted software provider"
+msgstr "הסר את המפתח הנבחר מרשימת המפתחות שאתה בוטח בהם."
+
+#: ../data/glade/SoftwareProperties.glade.h:14
+msgid "Internet Updates"
+msgstr "עדכוני אינטרנט"
+
+#: ../data/glade/SoftwareProperties.glade.h:15
+msgid ""
+"Only security updates from the official Ubuntu servers will be installed "
+"automatically"
+msgstr "רק עדכוני אבטחה משרתי אובונטו הרשמיים יותקנו באופן אוטומטי."
+
+#: ../data/glade/SoftwareProperties.glade.h:16
+msgid "Restore _Defaults"
+msgstr "שחזר _ברירת מחדל"
+
+#: ../data/glade/SoftwareProperties.glade.h:17
+#, fuzzy
+msgid "Restore the default keys of your distribution"
+msgstr "שחזר מפתחות ברירת מחדל"
+
+#: ../data/glade/SoftwareProperties.glade.h:18
+#: ../data/software-properties.desktop.in.h:2
+msgid "Software Sources"
+msgstr "מקורות תוכנה"
+
+#: ../data/glade/SoftwareProperties.glade.h:19
+msgid "Source code"
+msgstr "קוד מקור"
+
+#: ../data/glade/SoftwareProperties.glade.h:20
+msgid "Statistics"
+msgstr "סטטיסטיקה"
+
+#: ../data/glade/SoftwareProperties.glade.h:21
+msgid "Submit statistical information"
+msgstr "שלח מידע סטטיסטי"
+
+#: ../data/glade/SoftwareProperties.glade.h:22
+msgid "Third Party"
+msgstr "צד שלישי"
+
+#: ../data/glade/SoftwareProperties.glade.h:23
+msgid "_Check for updates automatically:"
+msgstr "_חפש עדכונים אוטומטית:"
+
+#: ../data/glade/SoftwareProperties.glade.h:24
+msgid "_Download updates automatically, but do not install them"
+msgstr "_הורד עדכונים באופן אוטומטי, אך אל תתקין אותם"
+
+#: ../data/glade/SoftwareProperties.glade.h:25
+msgid "_Import Key File"
+msgstr ""
+
+#: ../data/glade/SoftwareProperties.glade.h:26
+msgid "_Install security updates without confirmation"
+msgstr "_התקן עדכוני אבטחה ללא הודעה"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:1
+msgid ""
+"<b><big>The information about available software is out-of-date</big></b>\n"
+"\n"
+"To install software and updates from newly added or changed sources, you "
+"have to reload the information about available software.\n"
+"\n"
+"You need a working internet connection to continue."
+msgstr ""
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:6
+msgid "<b>Comment:</b>"
+msgstr "<b>הערות:</b>"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:7
+#, fuzzy
+msgid "<b>Components:</b>"
+msgstr "<b>רכיבים</b>"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:8
+msgid "<b>Distribution:</b>"
+msgstr "<b>הפצה:</b>"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:9
+msgid "<b>Type:</b>"
+msgstr "<b>סוג:</b>"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:10
+msgid "<b>URI:</b>"
+msgstr "<b>כתובת:</b>"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:11
+#, fuzzy
+msgid ""
+"<big><b>Enter the complete APT line of the repository that you want to add "
+"as source</b></big>\n"
+"\n"
+"The APT line includes the type, location and components of a repository, for "
+"example <i>\"deb http://ftp.debian.org sarge main\"</i>."
+msgstr ""
+"<big><b>הכנס את שורת APT השלמה של המאגר שברצונך להוסיף</b></big>\n"
+"\n"
+"שורת APT מכילה סוג, מיקום ותוכן של המאגר. לדוגמה: <i>\"deb http://ftp.debian."
+"org sarge main\"</i>\n"
+"אפשר למצוא הסבר מפורט על זה בתיעוד."
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:14
+msgid "APT line:"
+msgstr "APT שורת:"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:15
+msgid ""
+"Binary\n"
+"Source"
+msgstr ""
+"מקור\n"
+"בינארי"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:17
+#, fuzzy
+msgid "Edit Source"
+msgstr "מקור"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:18
+msgid "Scanning CD-ROM"
+msgstr "סורק תקליטור"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:19
+#, fuzzy
+msgid "_Add Source"
+msgstr "מקור"
+
+#: ../data/glade/SoftwarePropertiesDialogs.glade.h:20
+#, fuzzy
+msgid "_Reload"
+msgstr "טען מחדש"
+
+#: ../data/update-manager.desktop.in.h:1
+msgid "Show and install available updates"
+msgstr "הצג והתקן העדכונים הזמינים"
+
+#: ../data/update-manager.desktop.in.h:2
+msgid "Update Manager"
+msgstr "מנהל עדכונים"
+
+#: ../data/update-manager.schemas.in.h:1
+msgid ""
+"Check automatically if a new version of the current distribution is "
+"available and offer to upgrade (if possible)."
+msgstr "בדוק אוטומטית אם גירסה חדשה של הפצה זו זמינה, והצע לשדרג (אם ניתן)."
+
+#: ../data/update-manager.schemas.in.h:2
+msgid "Check for new distribution releases"
+msgstr "חפש גירסאות חדשות להפצה"
+
+#: ../data/update-manager.schemas.in.h:3
+msgid ""
+"If automatic checking for updates is disabled, you have to reload the "
+"channel list manually. This option allows to hide the reminder shown in this "
+"case."
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:4
+msgid "Remind to reload the channel list"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:5
+msgid "Show details of an update"
+msgstr "הצג פרטי עדכונים"
+
+#: ../data/update-manager.schemas.in.h:6
+msgid "Stores the size of the update-manager dialog"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:7
+msgid ""
+"Stores the state of the expander that contains the list of changes and the "
+"description"
+msgstr ""
+
+#: ../data/update-manager.schemas.in.h:8
+msgid "The window size"
+msgstr "גודל החלון"
+
+#: ../data/software-properties.desktop.in.h:1
+msgid "Configure the sources for installable software and updates"
+msgstr "הגדרת מקורות התוכנות להתקנה והעדכונים"
+
+#. ChangelogURI
+#: ../data/channels/Ubuntu.info.in.h:4
+#, no-c-format
+msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:8
+msgid "Ubuntu 6.10 'Edgy Eft'"
+msgstr "אובונטו 6.10 \"Edgy Eft\""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:13
+msgid "Community maintained"
+msgstr "מתוחזק ע\"י הקהילה"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:17
+msgid "Proprietary drivers for devices"
+msgstr "דרייברים קניינים להתקנים"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:19
+msgid "Restricted software"
+msgstr "תוכנה בעלת הגבלות"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:25
+msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
+msgstr "תקליטור אובונטו 6.10 \"Edgy Eft\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:59
+msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "אובונטו 6.06 LTS \"DapperDrake\""
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:62
+msgid "Canonical supported Open Source software"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:64
+msgid "Community maintained (universe)"
+msgstr "מתוחזק ע\"י הקהילה (Universe("
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:65
+msgid "Community maintained Open Source software"
+msgstr "תוכנות קוד פתוח המתוחזקות ע\"י הקהילה"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:67
+msgid "Non-free drivers"
+msgstr "דרייברים לא חופשיים"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:68
+msgid "Proprietary drivers for devices "
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:70
+msgid "Restricted software (Multiverse)"
+msgstr "תוכנה בעלת הגבלות (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/channels/Ubuntu.info.in:71
+msgid "Software restricted by copyright or legal issues"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:76
+msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "תקליטור אובונטו 6.06 LTS \"Dapper Drake\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:103
+msgid "Backported updates"
+msgstr ""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:110
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "אובונטו 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:123
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "תקליטור אובונטו 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:135
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "עדכוני אבטחה - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:140
+msgid "Ubuntu 5.10 Updates"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:145
+#, fuzzy
+msgid "Ubuntu 5.10 Backports"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:152
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "אובונטו 5.04 \"Hoary Hedgehog\""
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:165
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "תקליטור אובונטו 5.04 \"Hoary Hedgehog\""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:168 ../data/channels/Debian.info.in:51
+msgid "Officially supported"
+msgstr "נתמך רשמית"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:177
+msgid "Ubuntu 5.04 Security Updates"
+msgstr "עדכוני אבטחה - אובונטו 5.04"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:182
+msgid "Ubuntu 5.04 Updates"
+msgstr "עדכונים - אובונטו 5.04"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:187
+#, fuzzy
+msgid "Ubuntu 5.04 Backports"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:193
+msgid "Ubuntu 4.10 'Warty Warthog'"
+msgstr "אובונטו 4.10 \"Warty Warthog\""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:199
+msgid "Community maintained (Universe)"
+msgstr "מתוחזק ע\"י קהילה (Universe("
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:201
+msgid "Non-free (Multiverse)"
+msgstr "לא-חופשי (Multiverse("
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:206
+msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
+msgstr "תקליטור אובונטו 4.10 \"Warty Warthog\""
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:209
+msgid "No longer officially supported"
+msgstr "אינה נתמכת רשמית יותר"
+
+#. CompDescription
+#: ../data/channels/Ubuntu.info.in:211
+msgid "Restricted copyright"
+msgstr "זכויות יוצרים מגבילות"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:218
+msgid "Ubuntu 4.10 Security Updates"
+msgstr "עדכוני אבטחה - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:223
+msgid "Ubuntu 4.10 Updates"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. Description
+#: ../data/channels/Ubuntu.info.in:228
+#, fuzzy
+msgid "Ubuntu 4.10 Backports"
+msgstr "עדכונים - אובונטו 5.10"
+
+#. ChangelogURI
+#: ../data/channels/Debian.info.in.h:4
+#, no-c-format
+msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
+
+#. Description
+#: ../data/channels/Debian.info.in:6
+msgid "Debian 3.1 \"Sarge\""
+msgstr "דביאן 3.1 \"סארג'\""
+
+#. BaseURI
+#: ../data/channels/Debian.info.in:19
+msgid "http://security.debian.org/"
+msgstr "http://security.debian.org/"
+
+#. Description
+#: ../data/channels/Debian.info.in:20
+#, fuzzy
+msgid "Debian 3.1 \"Sarge\" Security Updates"
+msgstr "עדכוני אבטחה - דביאן יציב"
+
+#. Description
+#: ../data/channels/Debian.info.in:34
+#, fuzzy
+msgid "Debian \"Etch\" (testing)"
+msgstr "דביאן בדיקה"
+
+#. BaseURI
+#: ../data/channels/Debian.info.in:47
+msgid "http://http.us.debian.org/debian/"
+msgstr "http://http.us.debian.org/debian/"
+
+#. Description
+#: ../data/channels/Debian.info.in:48
+#, fuzzy
+msgid "Debian \"Sid\" (unstable)"
+msgstr "דביאן לא ארה\"ב (לא יציב)"
+
+#. CompDescription
+#: ../data/channels/Debian.info.in:54
+msgid "DFSG-compatible Software with Non-Free Dependencies"
+msgstr ""
+
+#. CompDescription
+#: ../data/channels/Debian.info.in:57
+msgid "Non-DFSG-compatible Software"
+msgstr ""
+
+#~ msgid ""
+#~ "This download will take about %s with a 56k modem and about %s with a "
+#~ "1Mbit DSL connection"
+#~ msgstr "ההורדה תיקח בערך %s עם מודם 56k ובערך %s עם חיבור DSL במהירות 1Mbit"
+
+#~ msgid "The list of changes is not available yet. Please try again later."
+#~ msgstr "רשימת השינויים לא זמינה עדיין. נסו שנית מאוחר יותר."
+
+#~ msgid ""
+#~ "Failed to download the list of changes. Please check your Internet "
+#~ "connection."
+#~ msgstr "נכשל בהורדת רשימת השינויים. אנא בדוק אם החיבור לאינטרנט עובד."
+
+#~ msgid "By Canonical supported Open Source software"
+#~ msgstr "תוכנות קוד פתוח הנתמכות ע\"י Canonical"
+
+#~ msgid "By copyright or legal issues restricted software"
+#~ msgstr "תוכונות המוגבלות ע\"י זכויות יוצרים או בעיות משפטיות"
+
+#~ msgid ""
+#~ "Canonical Ltd. no longer provides support for the following software "
+#~ "packages. You can still get support from the community.\n"
+#~ "\n"
+#~ "If you havn't enabled community maintained software (universe), these "
+#~ "packages will be suggested for removal in the next step."
+#~ msgstr ""
+#~ "Canonical Ltd. לא תומכת יותר בחבילות התוכנה הבאות. עדיין ניתן לקבל תמיכה "
+#~ "מהקהילה.\n"
+#~ "\n"
+#~ "אם אל אפשרת התקנת תוכנות המתחוזקות ע\"י הקהילה (universe), החבילות האלה "
+#~ "יסומנו להסרה בצעד הבא."
+
+#~ msgid "Downloading file %li of %li with %s/s"
+#~ msgstr "מוריד קובץ %li מתוך %li ב-%s לשנייה"
+
+#~ msgid "Downloading file %li of %li with unknown speed"
+#~ msgstr "מוריד קובץ %li מתוך %li במהירות לא ידועה"
+
+#~ msgid "Normal updates"
+#~ msgstr "עדכונים רגילים"
+
+#~ msgid "Downloading the list of changes..."
+#~ msgstr "מוריד את רשימת השינויים..."
+
+#~ msgid ""
+#~ "<b><big>You must check for updates manually</big></b>\n"
+#~ "\n"
+#~ "Your system does not check for updates automatically. You can configure "
+#~ "this behavior in \"System\" -> \"Administration\" -> \"Software Properties"
+#~ "\"."
+#~ msgstr ""
+#~ "<b><big>יש לחפש עדכונים ידניתg></b>\n"
+#~ "\n"
+#~ "המערכת שלך לא מחפשת עדכונים באופן אוטומטי. ניתן לשנות הגדרות אלו ב\"מערכת"
+#~ "\"-> \"ניהול\" -> \"אפשרויות תוכנה\"."
+
+#~ msgid "Cancel _Download"
+#~ msgstr "בטל _הורדה"
+
+#~ msgid "Could not find any upgrades"
+#~ msgstr "לא ניתן למצוא שדרוג זמין"
+
+#~ msgid "Your system has already been upgraded."
+#~ msgstr "המערכת כבר שודרגה."
+
+#, fuzzy
+#~ msgid "Important security updates of Ubuntu"
+#~ msgstr "עדכוני אבטחה - אובונטו 5.10"
+
+#, fuzzy
+#~ msgid "Updates of Ubuntu"
+#~ msgstr "משדרג את אובונטו"
+
+#~ msgid "Cannot install all available updates"
+#~ msgstr "לא ניתן להתקין את כל העדכונים הזמינים"
+
+#, fuzzy
+#~ msgid "Oficially supported"
+#~ msgstr "נתמך רשמית"
+
+#~ msgid "About %li seconds remaining"
+#~ msgstr "נותרו %li שניות."
+
+#~ msgid "Download is complete"
+#~ msgstr "ההורדה הושלמה"
+
+#, fuzzy
+#~ msgid "The upgrade aborts now. Please report this bug."
+#~ msgstr "לא ניתן להסיר את המפתח שבחרת. אנא דווח על זה כבאג."
+
+#, fuzzy
+#~ msgid "Hide details"
+#~ msgstr "<b>פרטים</b>"
+
+#, fuzzy
+#~ msgid "<b>Channels</b>"
+#~ msgstr "<b>מפתחות</b>"
+
+#~ msgid "<b>Keys</b>"
+#~ msgstr "<b>מפתחות</b>"
+
+#~ msgid "Installation Media"
+#~ msgstr "דיסק התקנה"
+
+#~ msgid "Software Preferences"
+#~ msgstr "העדפות תוכנה"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#, fuzzy
+#~ msgid "<b>Channel</b>"
+#~ msgstr "<b>מפתחות</b>"
+
+#, fuzzy
+#~ msgid "<b>Components</b>"
+#~ msgstr "<b>רכיבים</b>"
+
+#~ msgid "_Custom"
+#~ msgstr "_התאם אישית"
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 LTS"
+#~ msgstr "עדכונים - אובונטו 5.10"
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 LTS Security Updates"
+#~ msgstr "עדכוני אבטחה - אובונטו 5.04"
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 LTS Updates"
+#~ msgstr "עדכונים - אובונטו 5.10"
+
+#, fuzzy
+#~ msgid "Ubuntu 6.06 LTS Backports"
+#~ msgstr "עדכונים - אובונטו 5.10"
+
+#, fuzzy
+#~ msgid "<b>Sections</b>"
+#~ msgstr "<b>מחלקה:</b>"
+
+#~ msgid "<b>Sections:</b>"
+#~ msgstr "<b>מחלקה:</b>"
+
+#, fuzzy
+#~ msgid "Reload the latest information about updates"
+#~ msgstr "טען מחדש את המידע על החבילה מהשרת"
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Downloading changes</span>\n"
+#~ "\n"
+#~ "Need to get the changes from the central server"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">הורדת שינויים</span>\n"
+#~ "\n"
+#~ "צריך להוריד את השינויים מהשרת המרכזי"
+
+#~ msgid "Show available updates and choose which to install"
+#~ msgstr "הראה עדכונים זמינים ובחר את מה להתקין"
+
+#, fuzzy
+#~ msgid "Error fetching the packages"
+#~ msgstr "שגיאה בהסרת המפתח"
+
+#~ msgid "Edit software sources and settings"
+#~ msgstr "ערוך מקורות תוכנה והגדרות"
+
+#~ msgid "<b>Sources</b>"
+#~ msgstr "<b>מקורות</b>"
+
+#~ msgid "day(s)"
+#~ msgstr "ימים"
+
+#~ msgid "<b>Repository</b>"
+#~ msgstr "<b>מאגר</b>"
+
+#~ msgid "<b>Temporary files</b>"
+#~ msgstr "<b>קבצים זמניים</b>"
+
+#~ msgid "<b>User Interface</b>"
+#~ msgstr "<b>ממשק משתמש</b>"
+
+#~ msgid ""
+#~ "<big><b>Authentication keys</b></big>\n"
+#~ "\n"
+#~ "You can add and remove authentication keys in this dialog. A key makes it "
+#~ "possible to verify the integrity of the software you download."
+#~ msgstr ""
+#~ "<big><b>מפתחות אימות</b></big>\n"
+#~ "\n"
+#~ "ניתן להוסיף ולהסיר מפתחות אימות בעזרת תיבת דו-שיח זו. מפתח מאפשר לוודא את "
+#~ "תקינות התוכנה שאתה מוריד."
+
+#~ msgid ""
+#~ "Add a new key file to the trusted keyring. Make sure that you received "
+#~ "the key over a secure channel and that you trust the owner. "
+#~ msgstr ""
+#~ "הוסף קובץ מפתח חדש לרשימת המפתחות שאתה בוטח בהם. אנא וודא שאתה שקיבלת את "
+#~ "המפתח בדרך מאובטחת ושאתה בוטח בבעלים. "
+
+#~ msgid "Add repository..."
+#~ msgstr "הוסף מאגר..."
+
+#~ msgid "Automatically check for software _updates."
+#~ msgstr "_בדוק עדכוני תוכנה באופן אוטומטי."
+
+#~ msgid "Automatically clean _temporary packages files"
+#~ msgstr "_נקה קבצים זמניים של חבלות באופן אוטומטי."
+
+#~ msgid "Clean interval in days: "
+#~ msgstr "משך זמן בימים בין הניקיונות: "
+
+#~ msgid "Delete _old packages in the package cache"
+#~ msgstr "_מחק חבילות ישנות שנמצאות במטמון החבילות"
+
+#~ msgid "Edit Repository..."
+#~ msgstr "ערוך מאגר..."
+
+#~ msgid "Maximum age in days:"
+#~ msgstr "גיל מקסימלי בימים:"
+
+#~ msgid "Maximum size in MB:"
+#~ msgstr "גודל מקסימלי במגה-בתים:"
+
+#~ msgid ""
+#~ "Restore the default keys shipped with the distribution. This will not "
+#~ "change user installed keys."
+#~ msgstr ""
+#~ "שחזר את מפתחות ברירת המחדל שבאו עם ההפצה. זה לא ישנה את המפתחות המותקנים."
+
+#~ msgid "Set _maximum size for the package cache"
+#~ msgstr "_קבע גודל מקסימלי למטמון חבילות"
+
+#~ msgid "Settings"
+#~ msgstr "הגדרות"
+
+#~ msgid "Show detailed package versions"
+#~ msgstr "הראה פירוט גרסאות חבילה"
+
+#~ msgid "Show disabled software sources"
+#~ msgstr "הראה פירוט מקורות תוכנה"
+
+#~ msgid "Update interval in days: "
+#~ msgstr "משך זמן בימים בין העדכונים: "
+
+#~ msgid "_Add Repository"
+#~ msgstr "_הוסף מאגר"
+
+#~ msgid "_Download upgradable packages"
+#~ msgstr "_הורד חבילות שניתנות לעדכון"
+
+#~ msgid "<b>Status:</b>"
+#~ msgstr "<b>מצב:</b>"
+
+#~ msgid ""
+#~ "<big><b>Available Updates</b></big>\n"
+#~ "\n"
+#~ "The following packages are found to be upgradable. You can upgrade them "
+#~ "by using the Install button."
+#~ msgstr ""
+#~ "<big><b>עדכונים זמינים</b></big>\n"
+#~ "\n"
+#~ "נמצא שניתן לשדרג את החבילות הבאות. אפשר לשדרג אותן בעזרת בלחצן ההתקנה."
+
+#~ msgid "Cancel downloading the changelog"
+#~ msgstr "בטל הורדת דו\"ח השינויים"
+
+#, fuzzy
+#~ msgid "Debian sarge"
+#~ msgstr "דביאן 3.1 \"סארג'\""
+
+#, fuzzy
+#~ msgid "Debian etch"
+#~ msgstr "דביאן בדיקה"
+
+#, fuzzy
+#~ msgid "Debian sid"
+#~ msgstr "דביאן בדיקה"
+
+#, fuzzy
+#~ msgid "Oficial Distribution"
+#~ msgstr "<b>הפצה:</b>"
+
+#~ msgid "You need to be root to run this program"
+#~ msgstr "אתה צריך להיות root בשביל להריץ את תוכנה זו"
+
+#~ msgid "Binary"
+#~ msgstr "בינארי"
+
+#~ msgid "Non-free software"
+#~ msgstr "תוכנה לא-חופשית"
+
+#~ msgid "Debian 3.0 \"Woody\""
+#~ msgstr "דביאן 3.0 \"וודי\""
+
+#~ msgid "Debian Stable"
+#~ msgstr "דביאן יציב"
+
+#~ msgid "Debian Unstable \"Sid\""
+#~ msgstr "דביאן לא יציב \"סיד\""
+
+#~ msgid "Debian Non-US (Stable)"
+#~ msgstr "דביאן לא ארה\"ב (יציב)"
+
+#~ msgid "Debian Non-US (Testing)"
+#~ msgstr "דביאן לא ארה\"ב (בדיקה)"
+
+#~ msgid "Choose a key-file"
+#~ msgstr "בחר בקובץ מפתח"
+
+#~ msgid "There is one package available for updating."
+#~ msgstr "אפשר לעדכן חבילה אחת."
+
+#~ msgid "There are %s packages available for updating."
+#~ msgstr "אפשר לעדכן %s חבילות"
+
+#~ msgid "There are no updated packages"
+#~ msgstr "אין חבילות מעודכנות"
+
+#~ msgid "You did not select any of the %s updated package"
+#~ msgid_plural "You did not select any of the %s updated packages"
+#~ msgstr[0] "לא בחרת בחבילה המעודכנת"
+#~ msgstr[1] "לא בחרת אף אחת מ%s החבילות המעודכנות."
+
+#~ msgid "You have selected %s updated package, size %s"
+#~ msgid_plural "You have selected all %s updated packages, total size %s"
+#~ msgstr[0] "בחרת חבילה מעודכנת אחת, בגודל של %s"
+#~ msgstr[1] "בחרת את כל %s החבילות המעודכנות, בגודל כולל של %s"
+
+#~ msgid "You have selected %s out of %s updated package, size %s"
+#~ msgid_plural ""
+#~ "You have selected %s out of %s updated packages, total size %s"
+#~ msgstr[0] "בחרת %s מתוך חבילה מעודכנת אחת, בגודל של %s"
+#~ msgstr[1] "בחרת %s מתוך %s חבילות מעודכנות, בגודל כולל של %s"
+
+#~ msgid "The updates are being applied."
+#~ msgstr "העדכונים מתבצעים כרגע."
+
+#~ msgid ""
+#~ "You can run only one package management application at the same time. "
+#~ "Please close this other application first."
+#~ msgstr ""
+#~ "אפשר להריץ רק מנהל חבילות אחד באותו זמן. אנא סגור מנהלי חבילות אחרים קודם."
+
+#~ msgid "Updating package list..."
+#~ msgstr "מעדכן רשימת חבילות..."
+
+#~ msgid "There are no updates available."
+#~ msgstr "אין עדכונים זמינים."
+
+#~ msgid "New version:"
+#~ msgstr "גרסה חדשה:"
+
+#~ msgid ""
+#~ "Please upgrade to a newer version of Ubuntu Linux. The version you are "
+#~ "running will no longer get security fixes or other critical updates. "
+#~ "Please see http://www.ubuntulinux.org for upgrade information."
+#~ msgstr ""
+#~ "אנא עדכן לגרסת אובונטו לינוקס חדשה. הגרסה שאתה משתמש בה כבר לא מקבלת "
+#~ "עדכוני אבטחה או עדכונים קריטיים אחרים. אנא ראה http://www.ubuntulinux.org "
+#~ "בשביל מידע אודות שדרוג."
+
+#~ msgid ""
+#~ "A new release with the codename '%s' is available. Please see http://www."
+#~ "ubuntulinux.org/ for upgrade instructions."
+#~ msgstr ""
+#~ "הפצה חדשה עם שם קוד '%s' זמינה. אנא ראה http://www.ubuntulinux.org/ בשביל "
+#~ "הוראות שדרוג."
+
+#~ msgid "Never show this message again"
+#~ msgstr "אל תראה את הודעה זו שוב."
+
+#~ msgid "Changes not found, the server may not be updated yet."
+#~ msgstr "שינויים לא נמצאו, השרת אולי לא מעודכן עדיין."
