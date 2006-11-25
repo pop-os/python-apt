@@ -12,4 +12,6 @@ setup(
                   glob.glob('build/templates/*.info'))],
     license = 'GNU GPL',
     platforms = 'posix',
+    cmdclass = { "build" : build_plus,
+                 "build_l10n" :  build_l10n }
 )
