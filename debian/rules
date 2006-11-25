@@ -1,103 +1,10 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
+  
+DEB_AUTO_CLEANUP_RCS            := yes
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+DEB_PYTHON_SYSTEM=pycentral
 
-PKG=update-manager
-DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
-DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
+# Add here any variable or target overrides you need
 
-
-build: build-stamp
-
-build-stamp:  
-	dh_testdir
-
-	# Add here commands to compile the package.
-	./setup.py build 
-	#/usr/bin/docbook-to-man debian/update-manager.sgml > update-manager.1
-
-	# intltool for rosetta
-	(cd po; /usr/bin/intltool-update -p --verbose || true)
-
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp 
-
-	# Add here commands to clean up after the build process.
-	-$(MAKE) distclean
-	rm -rf po/mo
-	find . -name "*.pyc" -exec rm -f {} \;
-ifneq "$(wildcard /usr/share/misc/config.sub)" ""
-	cp -f /usr/share/misc/config.sub config.sub
-endif
-ifneq "$(wildcard /usr/share/misc/config.guess)" ""
-	cp -f /usr/share/misc/config.guess config.guess
-endif
-
-
-	dh_clean 
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs
-
-	# Add here commands to install the package into debian/update-manager.
-	./setup.py install --prefix=$(CURDIR)/debian/$(PKG)/usr
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs ChangeLog
-	dh_installdocs
-	dh_scrollkeeper
-	dh_installmime
-	dh_desktop
-	dh_iconcache
-	dh_gconf
-	dh_installexamples
-#	dh_install
-#	dh_installmenu
-#	dh_installdebconf	
-#	dh_installlogrotate
-#	dh_installemacsen
-#	dh_installpam
-#	dh_installmime
-#	dh_installinit
-#	dh_installcron
-#	dh_installinfo
-	dh_installman
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-#	dh_perl
-	dh_python
-#	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-arch-build:
-	rm -rf debian/arch-build
-	mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
-	tar -c --exclude=arch-build --no-recursion -f - `bzr inventory` | (cd debian/arch-build/$(PKG)-$(DEBVER);tar xf -)
-	(cd debian/arch-build/$(PKG)-$(DEBVER) && $(DEB_BUILD_PROG))
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install arch-build
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk

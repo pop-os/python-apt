@@ -1,2 +1,0 @@
-# sources.list fragment for backported apt/dpkg/python-apt
-deb http://people.ubuntu.com/~mvo/backports/dapper /

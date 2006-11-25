@@ -1,13 +1,16 @@
-Source: update-manager
-Section: gnome
+Source: python-aptsources
+Section: unknown
 Priority: optional
-Maintainer: Michael Vogt <michael.vogt@ubuntu.com>
-Build-Depends-Indep: debhelper (>= 4.0.0), libxml-parser-perl, scrollkeeper, intltool, python-dev
-Standards-Version: 3.6.2
+XS-Python-Version: all
+Maintainer: Sebastian Heinlein <glatzor@ubuntu.com>
+Build-Depends: cdbs, debhelper (>= 5.0.37.2), python-central (>= 0.5) 
+Standards-Version: 3.7.2
 
-Package: update-manager
+Package: python-aptsources
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python, python-glade2, python-apt (>= 0.6.16.2), synaptic (>= 0.57.8), lsb-release,  python-gnupginterface, unattended-upgrades, gksu, iso-codes, python-dbus, python-vte, gksu, python-gconf
-Description: GNOME application that manages apt updates
- This is the GNOME apt update manager. It checks for updates and lets the user
- choose which to install.
+XB-Python-Version: ${python:Versions}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Description: abstraction of the sources.list for use in python applications
+ This package provides python modules that help to administrate the
+ sources.list by providing an abstraction of it.
+ .
