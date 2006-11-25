@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-
 from distutils.core import setup
 import glob, os, commands, sys
+from DistUtilsExtra.distutils_extra import build_extra, build_l10n
 
 setup(
     name = 'python-aptsources',
@@ -12,6 +12,6 @@ setup(
                   glob.glob('build/templates/*.info'))],
     license = 'GNU GPL',
     platforms = 'posix',
-    cmdclass = { "build" : build_plus,
+    cmdclass = { "build" : build_extra,
                  "build_l10n" :  build_l10n }
 )
