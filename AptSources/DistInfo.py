@@ -102,7 +102,7 @@ class DistInfo:
                         # reuse some properties of the parent suite
                         if suite.match_uri == None:
                             suite.match_uri = nanny.match_uri
-                        if suite.valid_mirrors == None:
+                        if suite.valid_mirrors == []:
                             suite.valid_mirrors = nanny.valid_mirrors
                         if suite.base_uri == None:
                             suite.base_uri = nanny.base_uri
@@ -148,7 +148,7 @@ class DistInfo:
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "../../data/templates")
+    d = DistInfo ("Ubuntu", "/usr/share/python-aptsources/templates")
     print d.changelogs_uri
     for suite in d.suites:
         print "\nSuite: %s" % suite.name
@@ -157,7 +157,7 @@ if __name__ == "__main__":
         print "MatchURI: %s" % suite.match_uri
         print "Mirrors: %s" % suite.valid_mirrors
         for component in suite.components:
-            print "  %s - %s - %s - %s" % (component, 
+            print "  %s - %s - %s" % (component, 
                                        suite.components[component][0],
                                        suite.components[component][1])
         for child in suite.children:
