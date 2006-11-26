@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-#  get_mirrors.py
+#  get_ubuntu_mirrors.py
 #
 #  Download the latest list with available mirrors from the Ubuntu
 #  wiki and extract the hosts from the raw page
@@ -33,7 +33,7 @@ import sys
 # the list of official Ubuntu servers
 mirrors = []
 # path to the local mirror list
-list_path = "../data/templates/mirrors.list"
+list_path = "../data/templates/Ubuntu.mirrors"
 
 req = urllib2.Request("https://wiki.ubuntu.com/Archive?action=raw")
 
