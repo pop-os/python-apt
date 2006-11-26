@@ -673,6 +673,17 @@ class Distribution:
             if len(source.comps) < 1: 
                sourceslist.remove(source)
 
+  def change_server(self, uri):
+    ''' Change the server of all distro specific sources to
+        a given host '''
+    sources = []
+    sources.extend(self.main_sources)
+    sources.extend(self.child_sources)
+    sources.extend(self.source_code_sources)
+    for source in sources:
+        # FIXME: ugly
+        if not "security.ubuntu.com" in source.uri:
+            source.uri = uri
 
 # some simple tests
 if __name__ == "__main__":
