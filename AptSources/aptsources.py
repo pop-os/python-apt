@@ -219,7 +219,7 @@ class SourcesList:
   """ represents the full sources.list + sources.list.d file """
   def __init__(self,
                withMatcher=True,
-               matcherPath="/usr/share/update-manager/channels/"):
+               matcherPath="/usr/share/python-aptsources/templates/"):
     self.list = []          # the actual SourceEntries Type 
     if withMatcher:
       self.matcher = SourceEntryMatcher(matcherPath)

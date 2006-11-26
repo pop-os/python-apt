@@ -52,7 +52,7 @@ class Component:
 class DistInfo:
     def __init__(self,
                  dist = None,
-                 base_dir = "/usr/share/update-manager/channels"):
+                 base_dir = "/usr/share/python-aptsources/templates"):
         self.metarelease_uri = ''
         self.suites = []
 
@@ -148,7 +148,7 @@ class DistInfo:
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "../../data/channels")
+    d = DistInfo ("Ubuntu", "../../data/templates")
     print d.changelogs_uri
     for suite in d.suites:
         print "\nSuite: %s" % suite.name
