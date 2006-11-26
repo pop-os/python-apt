@@ -3,6 +3,7 @@ from distutils.core import setup
 import glob, os, commands, sys
 from DistUtilsExtra.distutils_extra import build_extra, build_l10n
 
+# Replace the leading _ that is used in the templates for translation
 templates = []
 if not os.path.exists("build/data/templates/"):
     os.makedirs("build/data/templates")
@@ -21,7 +22,9 @@ setup(
     description = 'Abstratcion of the sources.list',
     packages = ['AptSources'],
     data_files = [('share/python-aptsources/templates',
-                  glob.glob('build/data/templates/*.info'))],
+                  glob.glob('build/data/templates/*.info')),
+                  ('share/python-aptsources/templates',
+                  glob.glob('data/templates/*.mirrors'))],
     license = 'GNU GPL',
     platforms = 'posix',
     cmdclass = { "build" : build_extra,
