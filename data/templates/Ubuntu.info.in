@@ -1,10 +1,61 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: feisty
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+_Description: Ubuntu 7.04 'Feisty Fawn'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical supported Open Source software
+Component: universe
+_CompDescription: Community maintained
+_CompDescriptionLong: Community maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: feisty
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*7.04
+_Description: Cdrom with Ubuntu 7.04 'Feisty Fawn'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: feisty-security
+ParentSuite: feisty
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: feisty-updates
+ParentSuite: feisty
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: feisty-proposed
+ParentSuite: feisty
+RepositoryType: deb
+_Description: Proposed updates
+
+Suite: feisty-backports
+ParentSuite: feisty
+RepositoryType: deb
+_Description: Backported updates
+
 Suite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/update-manager/mirrors.cfg
+MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
@@ -55,7 +106,7 @@ Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/update-manager/mirrors.cfg
+MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
@@ -106,7 +157,7 @@ Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/update-manager/mirrors.cfg
+MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 _CompDescription: Officially supported
@@ -148,7 +199,7 @@ Suite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/update-manager/mirrors.cfg
+MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
 _CompDescription: Officially supported

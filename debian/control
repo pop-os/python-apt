@@ -9,7 +9,7 @@ Standards-Version: 3.7.2
 Package: python-aptsources
 Architecture: all
 XB-Python-Version: ${python:Versions}
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, lsb-release, python-apt
 Description: abstraction of the sources.list for use in python applications
  This package provides python modules that help to administrate the
  sources.list by providing an abstraction of it.
