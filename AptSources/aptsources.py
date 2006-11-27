@@ -543,6 +543,7 @@ class Distribution:
 
     # try to guess the nearest mirror from the locale
     # FIXME: for debian we need something different
+    self.country = None
     if self.id == "Ubuntu":
         locale = os.getenv("LANG", default="en.UK")
         a = locale.find("_")
@@ -554,8 +555,6 @@ class Distribution:
                               country_code
         if self.countries.has_key(country_code):
             self.country = self.countries[country_code]
-        else:
-            self.country = None
 
     # other used servers
     for medium in self.used_media:
