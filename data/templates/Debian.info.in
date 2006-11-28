@@ -11,6 +11,11 @@ _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
 
+Suite: etch-proposed-updates
+RepositoryType: deb
+ParentSuite: etch
+_Description: Proposed updates
+
 Suite: etch/updates
 RepositoryType: deb
 ParentSuite: etch
@@ -27,6 +32,11 @@ _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
 
+Suite: sarge-proposed-updates
+RepositoryType: deb
+ParentSuite: sarge
+_Description: Proposed updates
+
 Suite: sarge/updates
 RepositoryType: deb
 ParentSuite: sarge
@@ -42,27 +52,6 @@ Component: contrib
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
-
-Suite: stable/updates
-RepositoryType: deb
-ParentSuite: stable
-_Description: Security updates
-
-Suite: testing
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-_Description: Debian Testing
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: testing/updates
-RepositoryType: deb
-ParentSuite: testing
-_Description: Security updates
 
 Suite: sid
 RepositoryType: deb
