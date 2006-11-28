@@ -32,10 +32,8 @@ import sys
 
 # the list of official Ubuntu servers
 mirrors = []
-mirrors_nonUS = []
 # path to the local mirror list
 list_path = "../data/templates/Debian.mirrors"
-list_path_non_US = "../data/templates/Debian-nonUS.mirrors"
 
 req = urllib2.Request("http://www.debian.org/mirror/mirrors_full")
 match = re.compile("^.*>([A-Za-z0-9-.\/_]+)<\/a>.*\n$")
@@ -55,10 +53,6 @@ try:
             add_sites(line, "http", sites, mirrors)
         elif line.startswith('Packages over FTP'):
             add_sites(line, "ftp", sites, mirrors)
-        elif line.startswith('Non-US packages over HTTP'):
-            add_sites(line, "http", sites, mirrors_nonUS)
-        elif line.startswith('Non-US packages over FTP'):
-            add_sites(line, "ftp", sites, mirrors_nonUS)
     uri.close()
 except:
     print "Failed to download or to extract the mirrors list!"
@@ -70,12 +64,3 @@ for mirror in mirrors:
     list.write("%s\n" % mirror)
 list.close()
 print "Done."
-
-print "Writing local non-US mirrors list: %s" % list_path
-list = open(list_path_non_US, "w")
-for mirror in mirrors_nonUS:
-    list.write("%s\n" % mirror)
-list.close()
-print "Done."
-
-
