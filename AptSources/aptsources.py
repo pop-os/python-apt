@@ -501,8 +501,6 @@ class Distribution:
                 self.disabled_sources.append(source)
         if source.invalid == False and\
            source.template in self.source_template.children:
-            import pdb
-            pdb.set_trace()
             if source.disabled == False and source.type == "deb":
                 self.child_sources.append(source)
             elif source.disabled == False and source.type == "deb-src":
@@ -589,17 +587,20 @@ class Distribution:
     sources = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
-    sources.extend(self.source_code_sources)
     # store what comps are enabled already per distro (where distro is
     # e.g. "dapper", "dapper-updates")
     comps_per_dist = {}
     comps_per_sdist = {}
     for s in sources:
-      if s.type == "deb" and comps_per_dist.has_key(s.dist):
+      if s.type == "deb": 
+        if not comps_per_dist.has_key(s.dist):
+          comps_per_dist[s.dist] = set()
         map(comps_per_dist[s.dist].add, s.comps)
-      elif s.type == "deb-src" and comps_per_dist.has_key(s.dist):
+      elif s.type == "deb-src":
+        if not comps_per_sdist.has_key(s.dist):
+          comps_per_dist[s.dist] = set()
         map(comps_per_sdist[s.dist].add, s.comps)
-      
+
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
@@ -608,8 +609,17 @@ class Distribution:
         # add the comp to all main, child and source code sources
         for source in sources:
              add_component_only_once(source, comps_per_dist)
+
+    # check if there is a main source code source at all
+    if len(self.source_code_sources) < 1:
+        # create a new main source
+        self.add_source(type="deb-src", comps=["%s"%comp])
+    else:
+        # add the comp to all main, child and source code sources
+        for source in self.source_code_sources:
              add_component_only_once(source, comps_per_sdist)
 
+    
     # now do the same for source dists
     if self.get_source_code == True:
       comps_per_dist = {}
