@@ -306,7 +306,8 @@ class SourcesList:
     " restore sources.list files based on the backup extension "
     dir = apt_pkg.Config.FindDir("Dir::Etc")
     file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
-    if os.path.exists(dir+file+backup_ext):
+    if os.path.exists(dir+file+backup_ext) and \
+       os.path.exists(dir+file):
       shutil.copy(dir+file+backup_ext,dir+file)
     # now sources.list.d
     partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
@@ -321,7 +322,7 @@ class SourcesList:
     if backup_ext == None:
       backup_ext = time.strftime("%y%m%d.%H%M")
     for source in self.list:
-      if not source.file in already_backuped:
+      if not source.file in already_backuped and os.path.exists(source.file):
         shutil.copy(source.file,"%s%s" % (source.file,backup_ext))
     return backup_ext
 
@@ -421,40 +422,21 @@ class SourceEntryMatcher:
     return found
 
 class Distribution:
-  def __init__(self):
+  def __init__(self, id, codename, description, release):
     """ Container for distribution specific informations """
     # LSB information
-    self.id = ""
-    self.codename = ""
-    self.description = ""
-    self.release = ""
+    self.id = id
+    self.codename = codename
+    self.description = description
+    self.release = release
 
-    # get the LSB information
-    lsb_info = []
-    for lsb_option in ["-i", "-c", "-d", "-r"]:
-        pipe = os.popen("lsb_release %s -s" % lsb_option)
-        lsb_info.append(pipe.read().strip())
-        del pipe
-    (self.id, self.codename, self.description, self.release) = lsb_info
-
-    # get a list of country codes and real names
-    self.countries = {}
-    try:
-        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
-        lines = f.readlines()
-        for line in lines:
-            parts = line.split("\t")
-            self.countries[parts[0].lower()] = parts[1]
-    except:
-        print "could not open file '%s'" % file
-    else:
-        f.close()
-
-  def get_sources(self, sources_list):
+  def get_sources(self, sourceslist):
     """
     Find the corresponding template, main and child sources 
     for the distribution 
     """
+
+    self.sourceslist = sourceslist
     # corresponding sources
     self.source_template = None
     self.child_sources = []
@@ -475,7 +457,7 @@ class Distribution:
     self.used_servers = []
 
     # find the distro template
-    for template in sources_list.matcher.templates:
+    for template in self.sourceslist.matcher.templates:
         if template.name == self.codename and\
            template.distribution == self.id:
             #print "yeah! found a template for %s" % self.description
@@ -493,7 +475,7 @@ class Distribution:
     cdrom_comps = []
     enabled_comps = []
     source_code = []
-    for source in sources_list.list:
+    for source in self.sourceslist.list:
         if source.invalid == False and\
            source.dist == self.codename and\
            source.template and\
@@ -519,6 +501,8 @@ class Distribution:
                 self.disabled_sources.append(source)
         if source.invalid == False and\
            source.template in self.source_template.children:
+            import pdb
+            pdb.set_trace()
             if source.disabled == False and source.type == "deb":
                 self.child_sources.append(source)
             elif source.disabled == False and source.type == "deb-src":
@@ -541,21 +525,6 @@ class Distribution:
     # the main server is stored in the template
     self.main_server = self.source_template.base_uri
 
-    # try to guess the nearest mirror from the locale
-    # FIXME: for debian we need something different
-    self.country = None
-    if self.id == "Ubuntu":
-        locale = os.getenv("LANG", default="en.UK")
-        a = locale.find("_")
-        z = locale.find(".")
-        if z == -1:
-            z = len(locale)
-        country_code = locale[a+1:z].lower()
-        self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
-                              country_code
-        if self.countries.has_key(country_code):
-            self.country = self.countries[country_code]
-
     # other used servers
     for medium in self.used_media:
         if not medium.startswith("cdrom:"):
@@ -567,7 +536,7 @@ class Distribution:
     else:
         self.default_server = self.main_sources[0].uri
 
-  def add_source(self, sources_list, type=None, 
+  def add_source(self, type=None, 
                  uri=None, dist=None, comps=None, comment=""):
     """
     Add distribution specific sources
@@ -583,15 +552,15 @@ class Distribution:
         type = "deb"
     if comment == "":
         comment == "Added by software-properties"
-    new_source = sources_list.add(type, uri, dist, comps, comment)
+    new_source = self.sourceslist.add(type, uri, dist, comps, comment)
     # if source code is enabled add a deb-src line after the new
     # source
     if self.get_source_code == True and not type.endswith("-src"):
-        sources_list.add("%s-src" % type, uri, dist, comps, comment, 
-                         file=new_source.file,
-                         pos=sources_list.list.index(new_source)+1)
+        self.sourceslist.add("%s-src" % type, uri, dist, comps, comment, 
+                             file=new_source.file,
+                             pos=self.sourceslist.list.index(new_source)+1)
 
-  def enable_component(self, sourceslist, comp):
+  def enable_component(self, comp):
     """
     Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
@@ -633,7 +602,7 @@ class Distribution:
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
-        self.add_source(sourceslist, comps=["%s"%comp])
+        self.add_source(comps=["%s"%comp])
     else:
         # add the comp to all main, child and source code sources
         for source in sources:
@@ -653,7 +622,7 @@ class Distribution:
           add_component_only_once(source, comps_per_dist)
 
 
-  def disable_component(self, sourceslist, comp):
+  def disable_component(self, comp):
     """
     Disable a component in all main, child and source code sources
     (excluding cdrom based sources)
@@ -670,7 +639,7 @@ class Distribution:
         if comp in source.comps: 
             source.comps.remove(comp)
             if len(source.comps) < 1: 
-               sourceslist.remove(source)
+               self.sourceslist.remove(source)
 
   def change_server(self, uri):
     ''' Change the server of all distro specific sources to
@@ -683,6 +652,58 @@ class Distribution:
         # FIXME: ugly
         if not "security.ubuntu.com" in source.uri:
             source.uri = uri
+
+class DebianDistribution(Distribution):
+    ''' Class to support specific Debian features '''
+    pass
+
+class UbuntuDistribution(Distribution):
+  ''' Class to support specific Ubuntu features '''
+  def get_mirrors(self):
+    Distribution.get_mirrors(self)
+    # get a list of country codes and real names
+    self.countries = {}
+    try:
+        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
+        lines = f.readlines()
+        for line in lines:
+            parts = line.split("\t")
+            self.countries[parts[0].lower()] = parts[1]
+    except:
+        print "could not open file '%s'" % file
+    else:
+        f.close()
+
+    # try to guess the nearest mirror from the locale
+    self.country = None
+    locale = os.getenv("LANG", default="en.UK")
+    a = locale.find("_")
+    z = locale.find(".")
+    if z == -1:
+        z = len(locale)
+    country_code = locale[a+1:z].lower()
+    self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
+                          country_code
+    if self.countries.has_key(country_code):
+        self.country = self.countries[country_code]
+
+def get_distro():
+    ''' Check the currently used distribution and return the corresponding
+        distriubtion class that supports distro specific features. '''
+    lsb_info = []
+    for lsb_option in ["-i", "-c", "-d", "-r"]:
+        pipe = os.popen("lsb_release %s -s" % lsb_option)
+        lsb_info.append(pipe.read().strip())
+        del pipe
+    (id, codename, description, release) = lsb_info
+    if id == "Ubuntu":
+        return UbuntuDistribution(id, codename, description, 
+                                  release)
+    elif id == "Debian":
+        return UbuntuDistribution(id, codename, description, 
+                                  release)
+    else:
+        return Distribution(id, codename, description, relase)
 
 # some simple tests
 if __name__ == "__main__":
