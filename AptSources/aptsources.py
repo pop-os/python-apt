@@ -593,12 +593,13 @@ class Distribution:
     # store what comps are enabled already per distro (where distro is
     # e.g. "dapper", "dapper-updates")
     comps_per_dist = {}
+    comps_per_sdist = {}
     for s in sources:
-      if s.type != "deb":
-        continue
-      if not comps_per_dist.has_key(s.dist):
-        comps_per_dist[s.dist] = set()
-      map(comps_per_dist[s.dist].add, s.comps)
+      if s.type == "deb" and comps_per_dist.has_key(s.dist):
+        map(comps_per_dist[s.dist].add, s.comps)
+      elif s.type == "deb-src" and comps_per_dist.has_key(s.dist):
+        map(comps_per_sdist[s.dist].add, s.comps)
+      
     # check if there is a main source at all
     if len(self.main_sources) < 1:
         # create a new main source
@@ -607,6 +608,7 @@ class Distribution:
         # add the comp to all main, child and source code sources
         for source in sources:
              add_component_only_once(source, comps_per_dist)
+             add_component_only_once(source, comps_per_sdist)
 
     # now do the same for source dists
     if self.get_source_code == True:
