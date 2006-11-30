@@ -160,7 +160,7 @@ class SourceEntry:
     # Type, deb or deb-src
     self.type = string.strip(pieces[0])
     # Sanity check
-    if self.type not in ("deb", "deb-src"):
+    if self.type not in ("deb", "deb-src", "rpm", "rpm-src"):
       self.invalid = True
       return
     # URI
@@ -430,6 +430,9 @@ class Distribution:
     self.description = description
     self.release = release
 
+    self.binary_type = "deb"
+    self.source_type = "deb-src"
+
   def get_sources(self, sourceslist):
     """
     Find the corresponding template, main and child sources 
@@ -489,21 +492,23 @@ class Distribution:
             elif source.uri.startswith("cdrom:") and \
                  source.disabled == True:
                 self.cdrom_sources.append(source)
-            elif source.type == "deb" and source.disabled == False:
+            elif source.type == self.binary_type  and \
+                 source.disabled == False:
                 self.main_sources.append(source)
                 comps.extend(source.comps)
                 media.append(source.uri)
-            elif source.type == "deb" and source.disabled == True:
+            elif source.type == self.binary_type and \
+                 source.disabled == True:
                 self.disabled_sources.append(source)
-            elif source.type.endswith("-src") and source.disabled == False:
+            elif source.type == self.source_type and source.disabled == False:
                 self.source_code_sources.append(source)
-            elif source.type.endswith("-src") and source.disabled == True:
+            elif source.type == self.source_type and source.disabled == True:
                 self.disabled_sources.append(source)
         if source.invalid == False and\
            source.template in self.source_template.children:
-            if source.disabled == False and source.type == "deb":
+            if source.disabled == False and source.type == self.binary_type:
                 self.child_sources.append(source)
-            elif source.disabled == False and source.type == "deb-src":
+            elif source.disabled == False and source.type == self.source_type:
                 self.source_code_sources.append(source)
             else:
                 self.disabled_sources.append(source)
@@ -547,9 +552,7 @@ class Distribution:
     if comps == None:
         comps = list(self.enabled_comps)
     if type == None:
-        type = "deb"
-    if comment == "":
-        comment == "Added by software-properties"
+        type = self.binary_type
     new_source = self.sourceslist.add(type, uri, dist, comps, comment)
     # if source code is enabled add a deb-src line after the new
     # source
@@ -592,13 +595,14 @@ class Distribution:
     comps_per_dist = {}
     comps_per_sdist = {}
     for s in sources:
-      if s.type == "deb": 
+      if s.type == self.binary_type: 
         if not comps_per_dist.has_key(s.dist):
           comps_per_dist[s.dist] = set()
         map(comps_per_dist[s.dist].add, s.comps)
-      elif s.type == "deb-src":
+    for s in self.source_code_sources:
+      if s.type == self.source_type:
         if not comps_per_sdist.has_key(s.dist):
-          comps_per_dist[s.dist] = set()
+          comps_per_sdist[s.dist] = set()
         map(comps_per_sdist[s.dist].add, s.comps)
 
     # check if there is a main source at all
@@ -611,28 +615,14 @@ class Distribution:
              add_component_only_once(source, comps_per_dist)
 
     # check if there is a main source code source at all
-    if len(self.source_code_sources) < 1:
-        # create a new main source
-        self.add_source(type="deb-src", comps=["%s"%comp])
-    else:
-        # add the comp to all main, child and source code sources
-        for source in self.source_code_sources:
-             add_component_only_once(source, comps_per_sdist)
-
-    
-    # now do the same for source dists
     if self.get_source_code == True:
-      comps_per_dist = {}
-      for s in self.source_code_sources:
-        if s.type != "deb-src":
-          continue
-        if not comps_per_dist.has_key(s.dist):
-          comps_per_dist[s.dist] = set()
-          map(comps_per_dist[s.dist].add, s.comps)
-      for source in self.source_code_sources:
-        if comp not in source.comps: 
-          add_component_only_once(source, comps_per_dist)
-
+        if len(self.source_code_sources) < 1:
+            # create a new main source
+            self.add_source(type=self.source_type, comps=["%s"%comp])
+        else:
+            # add the comp to all main, child and source code sources
+            for source in self.source_code_sources:
+                add_component_only_once(source, comps_per_sdist)
 
   def disable_component(self, comp):
     """
