@@ -461,7 +461,7 @@ class Distribution:
 
     # find the distro template
     for template in self.sourceslist.matcher.templates:
-        if template.name == self.codename and\
+        if self.is_codename(template.name) and\
            template.distribution == self.id:
             #print "yeah! found a template for %s" % self.description
             #print template.description, template.base_uri, template.components
@@ -480,9 +480,9 @@ class Distribution:
     source_code = []
     for source in self.sourceslist.list:
         if source.invalid == False and\
-           source.dist == self.codename and\
+           self.is_codename(source.dist) and\
            source.template and\
-           source.template.name == self.codename:
+           self.is_codename(source.template.name):
             #print "yeah! found a distro repo:  %s" % source.line
             # cdroms need do be handled differently
             if source.uri.startswith("cdrom:") and \
@@ -655,9 +655,23 @@ class Distribution:
         if not "security.ubuntu.com" in source.uri:
             source.uri = uri
 
+  def is_codename(self, name):
+    ''' Compare a given name with the release codename. '''
+    if name == self.codename:
+        return True
+    else:
+        return False
+
 class DebianDistribution(Distribution):
-    ''' Class to support specific Debian features '''
-    pass
+  ''' Class to support specific Debian features '''
+
+  def is_codename(self, name):
+    ''' Compare a given name with the release codename and check if
+        if it can be used as a synonym for a development releases '''
+    if name == self.codename or self.release in ("testing", "unstable"):
+        return True
+    else:
+        return False
 
 class UbuntuDistribution(Distribution):
   ''' Class to support specific Ubuntu features '''
