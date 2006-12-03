@@ -32,7 +32,7 @@ import shutil
 import time
 import os.path
 import sys
-
+from gettext import gettext as _
 #import pdb
 
 #from UpdateManager.Common.DistInfo import DistInfo
@@ -141,7 +141,7 @@ class SourceEntry:
       self.disabled = True
       pieces = string.split(line[1:])
       # if it looks not like a disabled deb line return 
-      if not (pieces[0] == "deb" or pieces[0] == "deb-src"):
+      if not pieces[0] in ("rpm", "rpm-src", "deb", "deb-src"):
         self.invalid = True
         return
       else:
@@ -556,8 +556,8 @@ class Distribution:
     new_source = self.sourceslist.add(type, uri, dist, comps, comment)
     # if source code is enabled add a deb-src line after the new
     # source
-    if self.get_source_code == True and not type.endswith("-src"):
-        self.sourceslist.add("%s-src" % type, uri, dist, comps, comment, 
+    if self.get_source_code == True and tpye == self.binary_type:
+        self.sourceslist.add(self.source_type, uri, dist, comps, comment,
                              file=new_source.file,
                              pos=self.sourceslist.list.index(new_source)+1)
 
@@ -647,13 +647,20 @@ class Distribution:
     ''' Change the server of all distro specific sources to
         a given host '''
     sources = []
+    seen = []
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
     sources.extend(self.source_code_sources)
     for source in sources:
-        # FIXME: ugly
-        if not "security.ubuntu.com" in source.uri:
-            source.uri = uri
+        # Avoid creating duplicate entries
+        source.uri = uri
+        for comp in source.comps:
+            if [source.uri, source.dist, comp] in seen:
+                source.comps.remove(comp)
+            else:
+                seen.append([source.uri, source.dist, comp])
+        if len(source.comps) < 1:
+            self.sourceslist.remove(source)
 
   def is_codename(self, name):
     ''' Compare a given name with the release codename. '''
@@ -661,6 +668,42 @@ class Distribution:
         return True
     else:
         return False
+        
+  def get_server_list(self):
+    ''' Return a list of used and suggested servers '''
+ 
+    # Store all available servers:
+    # Name, URI, active
+    mirrors = []
+    
+    mirrors.append([_("Main server"), self.main_server, 
+                    len(self.used_servers) == 1 and
+                    self.used_servers[0] == self.main_server])
+
+    if len(self.used_servers) == 1 and not re.match(self.used_servers[0],
+                                                    self.main_server):
+        # Only one server is used
+        server = self.used_servers[0]
+        mirrors.append([server, server, True])            
+    elif len(self.used_servers) > 1:
+        # More than one server is used. Since we don't handle this case
+        # in the user interface we set "custom servers" to true and 
+        # append a list of all used servers 
+        mirrors.append([_("Custom servers"), None, True])
+        for server in self.used_servers:
+            if not [server, server, False] in mirrors:
+                mirrors.append([server, server, False])
+
+    return mirrors
+
+    if len(self.used_servers) == 1 and not is_single_server(self.main_server):
+        mirrors.append(["%s" % self.used_servers[0],
+                        self.used_servers[0], True])
+    elif len(self.used_servers) > 1 or not is_single_server(self.main_server):
+        mirrors.append([_("Custom servers"), None, True])
+                     
+    return mirrors
+
 
 class DebianDistribution(Distribution):
   ''' Class to support specific Debian features '''
@@ -702,6 +745,58 @@ class UbuntuDistribution(Distribution):
                           country_code
     if self.countries.has_key(country_code):
         self.country = self.countries[country_code]
+
+  def get_server_list(self):
+    ''' Return a list of used and suggested servers '''
+ 
+    def get_mirror_name(server):
+        ''' Try to get a human readable name for the main mirror of a country'''
+        i = server.find("://")
+        l = server.find(".archive.ubuntu.com")
+        if i != -1 and l != -1:
+            country = server[i+len("://"):l]
+        if self.countries.has_key(country):
+            # TRANSLATORS: %s is a country
+            return _("Server for %s") % \
+                   gettext.dgettext("iso-3166",
+                                    self.countries[country].rstrip()).rstrip()
+        else:
+            return("%s" % server)
+    
+    # Store all available servers:
+    # Name, URI, active
+    mirrors = []
+    if len(self.used_servers) == 1 and self.used_servers[0] == self.main_server:
+        mirrors.append([_("Main server"), self.main_server, True]) 
+        mirrors.append([get_mirror_name(self.nearest_server), 
+                       self.nearest_server, False])
+    elif len(self.used_servers) == 1 and not re.match(self.used_servers[0],
+                                                      self.main_server):
+        mirrors.append([_("Main server"), self.main_server, False]) 
+        # Only one server is used
+        server = self.used_servers[0]
+
+        # Append the nearest server if it's not already used            
+        if not re.match(server, self.nearest_server):
+            mirrors.append([get_mirror_name(self.nearest_server), 
+                           self.nearest_server, False])
+        mirrors.append([get_mirror_name(server), server, True])
+
+    elif len(self.used_servers) > 1:
+        # More than one server is used. Since we don't handle this case
+        # in the user interface we set "custom servers" to true and 
+        # append a list of all used servers 
+        mirrors.append([_("Main server"), self.main_server, False])
+        mirrors.append([get_mirror_name(self.nearest_server), 
+                                        self.nearest_server, False])
+        mirrors.append([_("Custom servers"), None, True])
+        for server in self.used_servers:
+            if re.match(server, self.nearest_server):
+                continue
+            elif not [get_mirror_name(server), server, False] in mirrors:
+                mirrors.append([get_mirror_name(server), server, False])
+
+    return mirrors
 
 def get_distro():
     ''' Check the currently used distribution and return the corresponding
