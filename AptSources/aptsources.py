@@ -811,7 +811,7 @@ def get_distro():
         return UbuntuDistribution(id, codename, description, 
                                   release)
     elif id == "Debian":
-        return UbuntuDistribution(id, codename, description, 
+        return DebianDistribution(id, codename, description, 
                                   release)
     else:
         return Distribution(id, codename, description, relase)
