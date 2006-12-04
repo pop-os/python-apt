@@ -46,48 +46,10 @@ RepositoryType: deb
 ParentSuite: sarge
 _Description: Security updates
 
-Suite: stable
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
-_Description: Debian current stable release
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: testing
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
-_Description: Debian 'Sid' (unstable)
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
 Suite: sid
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
-_Description: Debian 'Sid' (unstable)
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: unstable
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
 MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
 _Description: Debian 'Sid' (unstable)
 Component: main
