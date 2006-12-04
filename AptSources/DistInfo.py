@@ -43,6 +43,17 @@ class Suite:
         self.distribution = None
         self.available = True
 
+    def get_comp_desc(self, comp, short=False):
+        ''' Return a human readable description of a component '''
+        if self.components.has_key(comp):
+            if self.components[comp][1] == "" or short == True:
+                return self.components[comp][0]
+            elif self.components[comp][1] != "":
+                return self.components[comp][1]
+            else:
+                return "Unnamed component"
+        return None
+
 class Component:
     def __init__(self):
         self.name = ""
