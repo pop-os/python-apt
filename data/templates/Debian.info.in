@@ -64,7 +64,7 @@ RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
-_Description: Debian 'Sid' (unstable)
+_Description: Debian testing
 Component: main
 _CompDescription: Officially supported
 Component: contrib
