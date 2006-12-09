@@ -751,6 +751,7 @@ class UbuntuDistribution(Distribution):
  
     def get_mirror_name(server):
         ''' Try to get a human readable name for the main mirror of a country'''
+        country = None
         i = server.find("://")
         l = server.find(".archive.ubuntu.com")
         if i != -1 and l != -1:
