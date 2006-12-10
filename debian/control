@@ -1,9 +1,9 @@
 Source: python-aptsources
-Section: unknown
+Section: python
 Priority: optional
 XS-Python-Version: all
 Maintainer: Sebastian Heinlein <glatzor@ubuntu.com>
-Build-Depends: cdbs, debhelper (>= 5.0.37.2), python-central (>= 0.5), python-distutils-extra
+Build-Depends: cdbs, debhelper (>= 5.0.37.2), python-central (>= 0.5), python-distutils-extra, python-all-dev
 Standards-Version: 3.7.2
 
 Package: python-aptsources

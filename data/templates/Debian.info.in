@@ -1,57 +1,98 @@
 _ChangelogURI: http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
-Suite: sarge
+Suite: etch
 RepositoryType: deb
-_BaseURI: http://http.us.debian.org/debian/
-_Description: Debian 3.1 "Sarge"
+BaseURI: http://http.us.debian.org/debian/
+MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian 4.0 'Etch' 
 Component: main
-Enabled: 1
 _CompDescription: Officially supported
 Component: contrib
-Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
-Enabled: 0
 _CompDescription: Non-DFSG-compatible Software
+
+Suite: etch-proposed-updates
+RepositoryType: deb
+ParentSuite: etch
+_Description: Proposed updates
+
+Suite: etch/updates
+RepositoryType: deb
+ParentSuite: etch
+_Description: Security updates
+
+Suite: sarge
+RepositoryType: deb
+BaseURI: http://http.us.debian.org/debian/
+MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian 3.1 'Sarge'
+Component: main
+_CompDescription: Officially supported
+Component: contrib
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: sarge-proposed-updates
+RepositoryType: deb
+ParentSuite: sarge
+_Description: Proposed updates
 
 Suite: sarge/updates
 RepositoryType: deb
-_BaseURI: http://security.debian.org/
-_Description: Debian 3.1 "Sarge" Security Updates
+ParentSuite: sarge
+_Description: Security updates
+
+Suite: stable
+RepositoryType: deb
+BaseURI: http://http.us.debian.org/debian/
+MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian current stable release
 Component: main
-Enabled: 1
 _CompDescription: Officially supported
 Component: contrib
-Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
-Enabled: 0
 _CompDescription: Non-DFSG-compatible Software
 
-Suite: etch
+Suite: testing
 RepositoryType: deb
-_BaseURI: http://http.us.debian.org/debian/
-_Description: Debian "Etch" (testing)
+BaseURI: http://http.us.debian.org/debian/
+MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian testing
 Component: main
-Enabled: 1
 _CompDescription: Officially supported
 Component: contrib
-Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
-Enabled: 0
 _CompDescription: Non-DFSG-compatible Software
 
 Suite: sid
 RepositoryType: deb
-_BaseURI: http://http.us.debian.org/debian/
-_Description: Debian "Sid" (unstable)
+BaseURI: http://http.us.debian.org/debian/
+MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian 'Sid' (unstable)
 Component: main
-Enabled: 1
 _CompDescription: Officially supported
 Component: contrib
-Enabled: 0
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
-Enabled: 0
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: unstable
+RepositoryType: deb
+BaseURI: http://http.us.debian.org/debian/
+MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+_Description: Debian 'Sid' (unstable)
+Component: main
+_CompDescription: Officially supported
+Component: contrib
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
 _CompDescription: Non-DFSG-compatible Software
