@@ -671,7 +671,6 @@ class Distribution:
         
   def get_server_list(self):
     ''' Return a list of used and suggested servers '''
- 
     # Store all available servers:
     # Name, URI, active
     mirrors = []
@@ -767,7 +766,9 @@ class UbuntuDistribution(Distribution):
     # Store all available servers:
     # Name, URI, active
     mirrors = []
-    if len(self.used_servers) == 1 and self.used_servers[0] == self.main_server:
+    if len(self.used_servers) < 1 or \
+       (len(self.used_servers) == 1 and \
+        self.used_servers[0] == self.main_server):
         mirrors.append([_("Main server"), self.main_server, True]) 
         mirrors.append([get_mirror_name(self.nearest_server), 
                        self.nearest_server, False])
