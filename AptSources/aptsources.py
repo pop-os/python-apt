@@ -648,6 +648,7 @@ class Distribution:
         a given host '''
     sources = []
     seen = []
+    self.default_server = uri
     sources.extend(self.main_sources)
     sources.extend(self.child_sources)
     sources.extend(self.source_code_sources)
