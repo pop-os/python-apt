@@ -1,4 +1,4 @@
-python-apt (0.6.20) UNRELEASED; urgency=low
+python-apt (0.6.20) unstable; urgency=low
 
   * python/generic.h:
     - fix incorrect use of PyMem_DEL(), use pyObject_DEL()
