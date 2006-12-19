@@ -1,4 +1,4 @@
-python-apt (0.6.21) UNRELEASED; urgency=low
+python-apt (0.6.20) unstable; urgency=low
 
   * python/generic.h:
     - fix incorrect use of PyMem_DEL(), use pyObject_DEL()
@@ -9,11 +9,6 @@ python-apt (0.6.21) UNRELEASED; urgency=low
   * debian/rules: Remove dh_python call.
   * apt/progress.cc:
     - protect against not-parsable strings send from dpkg (lp: 68553)
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 19 Dec 2006 11:34:59 +0100
-
-python-apt (0.6.20) unstable; urgency=low
-
   * python/pkgmanager.cc:
     - fix typo (closes: #382853)
   * debian/control:
@@ -29,7 +24,7 @@ python-apt (0.6.20) unstable; urgency=low
   * python/progress.cc:
     - fix memleak (lp: #43096)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Oct 2006 17:29:49 +0200
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Dec 2006 13:32:11 +0100
 
 python-apt (0.6.19) unstable; urgency=low
 
