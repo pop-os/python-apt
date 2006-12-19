@@ -1,3 +1,36 @@
+python-apt (0.6.21) UNRELEASED; urgency=low
+
+  * python/generic.h:
+    - fix incorrect use of PyMem_DEL(), use pyObject_DEL()
+      instead. This fixes a nasty segfault with python2.5
+      (lp: 63226)
+  * python/pkgrecords.cc:
+    - export SHA1Hash() as well
+  * debian/rules: Remove dh_python call.
+  * apt/progress.cc:
+    - protect against not-parsable strings send from dpkg (lp: 68553)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 19 Dec 2006 11:34:59 +0100
+
+python-apt (0.6.20) unstable; urgency=low
+
+  * python/pkgmanager.cc:
+    - fix typo (closes: #382853)
+  * debian/control:
+    - tightend dependency (closes: #383478)
+  * apt/progress.py:
+    - use os._exit() in the child (lp: #53298)
+    - use select() when checking for statusfd (lp: #53282)
+  * acknoledge NMU (closes: #378048, #373512)
+  * python/apt_pkgmodule.cc:
+    - fix missing docstring (closes: #368907), 
+      Thanks to Josh Triplett
+  * make it build against python2.5
+  * python/progress.cc:
+    - fix memleak (lp: #43096)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Oct 2006 17:29:49 +0200
+
 python-apt (0.6.19) unstable; urgency=low
 
   [ Michael Vogt ]

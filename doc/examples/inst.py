@@ -29,10 +29,7 @@ cache = apt.Cache(apt.progress.OpTextProgress())
 fprogress = apt.progress.TextFetchProgress()
 iprogress = TextInstallProgress()
 
-pkg = cache["test-package"]
-pkg.markUpgrade()
-cache.commit(fprogress,iprogress)
-sys.exit(1)
+pkg = cache["3dchess"]
 
 # install or remove, the importend thing is to keep us busy :)
 if pkg.isInstalled:
