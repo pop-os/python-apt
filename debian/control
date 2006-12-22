@@ -13,4 +13,3 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, lsb-release, pyt
 Description: abstraction of the sources.list for use in python applications
  This package provides python modules that help to administrate the
  sources.list by providing an abstraction of it.
- .
