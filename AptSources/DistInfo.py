@@ -36,29 +36,56 @@ class Suite:
         self.description = None
         self.base_uri = None
         self.type = None
-        self.components = {}
+        self.components = []
         self.children = []
         self.match_uri = None
-        self.valid_mirrors = []
+        self.mirrors = []
         self.distribution = None
         self.available = True
 
-    def get_comp_desc(self, comp, short=False):
-        ''' Return a human readable description of a component '''
-        if self.components.has_key(comp):
-            if self.components[comp][1] == "" or short == True:
-                return self.components[comp][0]
-            elif self.components[comp][1] != "":
-                return self.components[comp][1]
-            else:
-                return "Unnamed component"
-        return None
+    def has_component(self, comp):
+        ''' Check if the distribution provides the given component '''
+        return comp in map(lambda c: c.name, self.components)
 
 class Component:
-    def __init__(self):
-        self.name = ""
-        self.description = ""
-        self.description_long = ""
+    def __init__(self, name, desc=None, short_desc=None):
+        self.name = name
+        self.description = desc
+        self.short_description = short_desc
+    def get_description(self):
+        if self.description != None:
+            return self.description
+        elif self.short_description != None:
+            return self.short_description
+        else:
+            return None
+    def set_description(self, desc):
+        self.description = desc
+    def set_short_description(self, desc):
+        self.short_description = desc
+    def get_description(self):
+        return self.description
+    def get_short_description(self):
+        return self.short_description
+
+class Mirror:
+    ''' Storage for mirror related information '''
+    def __init__(self, hostname, proto="http", dir="/"):
+        self.hostname = hostname
+        self.repositories = []
+        self.add_repository(proto, dir)
+    def add_repository(self, proto, dir):
+        self.repositories.append(Repository(proto, dir))
+    def get_repositories_for_proto(self, proto):
+        return filter(lambda r: r.proto == proto, self.repositories)
+    def has_repository(self, proto, dir):
+        return len(filter(lambda r: (r.proto == proto) and dir in r.dir, 
+                          self.repositories)) > 0
+
+class Repository:
+    def __init__(self, proto, dir):
+        self.proto = proto
+        self.dir = dir
 
 class DistInfo:
     def __init__(self,
@@ -93,10 +120,8 @@ class DistInfo:
                 self.metarelease_uri = value
             elif field == 'Suite':
                 if suite:
-                    if component:
-                        suite.components["%s" % component.name] = \
-                            (component.description,
-                             component.description_long)
+                    if component and not suite.has_component(component.name):
+                        suite.components.append(component)
                         component = None
                     self.suites.append (suite)
                 suite = Suite ()
@@ -113,8 +138,8 @@ class DistInfo:
                         # reuse some properties of the parent suite
                         if suite.match_uri == None:
                             suite.match_uri = nanny.match_uri
-                        if suite.valid_mirrors == []:
-                            suite.valid_mirrors = nanny.valid_mirrors
+                        if suite.mirrors == []:
+                            suite.mirrors = nanny.mirrors
                         if suite.base_uri == None:
                             suite.base_uri = nanny.base_uri
             elif field == 'Available':
@@ -128,7 +153,7 @@ class DistInfo:
                 suite.match_uri = value
             elif field == 'MirrorsFile':
                 if os.path.exists(value):
-                    suite.valid_mirrors = filter(lambda s:
+                    suite.mirrors = filter(lambda s:
                                                  ((s != "") and
                                                   (not s.startswith("#"))),
                                                  map(string.strip,
@@ -138,16 +163,13 @@ class DistInfo:
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
-                if component:
-                    suite.components["%s" % component.name] = \
-                        (component.description,
-                         component.description_long)
-                component = Component ()
-                component.name = value
+                if component and not suite.has_component(component.name):
+                    suite.components.append(component)
+                component = Component(value)
             elif field == 'CompDescription':
-                component.description = _(value)
+                component.set_description(_(value))
             elif field == 'CompDescriptionLong':
-                component.description_long = _(value)
+                component.set_short_description(_(value))
         if suite:
             if component:
                 suite.components["%s" % component.name] = \
@@ -157,7 +179,6 @@ class DistInfo:
             self.suites.append (suite)
             suite = None
 
-
 if __name__ == "__main__":
     d = DistInfo ("Ubuntu", "/usr/share/python-aptsources/templates")
     print d.changelogs_uri
@@ -166,10 +187,10 @@ if __name__ == "__main__":
         print "Desc: %s" % suite.description
         print "BaseURI: %s" % suite.base_uri
         print "MatchURI: %s" % suite.match_uri
-        print "Mirrors: %s" % suite.valid_mirrors
-        for component in suite.components:
-            print "  %s - %s - %s" % (component, 
-                                       suite.components[component][0],
-                                       suite.components[component][1])
+        print "Mirrors: %s" % suite.mirrors
+        for comp in suite.components:
+            print " %s -%s -%s" % (comp.name, 
+                                   comp.description, 
+                                   comp.short_description)
         for child in suite.children:
             print "  %s" % child.description
