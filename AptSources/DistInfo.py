@@ -4,6 +4,7 @@
 #  Copyright (c) 2005 Gustavo Noronha Silva
 #  
 #  Author: Gustavo Noronha Silva <kov@debian.org>
+#          Sebastian Heinlein <glatzor@ubuntu.com>
 # 
 #  This program is free software; you can redistribute it and/or 
 #  modify it under the terms of the GNU General Public License as 
@@ -28,6 +29,7 @@ import string
 
 from gettext import gettext as _
 
+import re
 class Suite:
     def __init__(self):
         self.name = None
@@ -39,7 +41,7 @@ class Suite:
         self.components = []
         self.children = []
         self.match_uri = None
-        self.mirrors = []
+        self.mirror_set = {}
         self.distribution = None
         self.available = True
 
@@ -70,8 +72,8 @@ class Component:
 
 class Mirror:
     ''' Storage for mirror related information '''
-    def __init__(self, hostname, proto="http", dir="/"):
-        self.hostname = hostname
+    def __init__(self, data):
+        proto, self.hostname, dir  = data
         self.repositories = []
         self.add_repository(proto, dir)
     def add_repository(self, proto, dir):
@@ -81,11 +83,21 @@ class Mirror:
     def has_repository(self, proto, dir):
         return len(filter(lambda r: (r.proto == proto) and dir in r.dir, 
                           self.repositories)) > 0
+    def get_repo_urls(self):
+        print map(lambda r: r.get_url(self.hostname), self.repositories)
 
 class Repository:
     def __init__(self, proto, dir):
         self.proto = proto
         self.dir = dir
+    def get_info(self):
+        return self.proto, self.dir
+    def get_url(self, hostname):
+        return "%s://%s/%s" % (self.proto, hostname, self.dir)
+
+def split_url(url):
+    ''' split a given URL into the protocoll, the hostname and the dir part '''
+    return re.split(":*\/+", url, maxsplit=2)
 
 class DistInfo:
     def __init__(self,
@@ -101,6 +113,9 @@ class DistInfo:
             del pipe
 
         self.dist = dist
+
+
+        map_mirror_sets = {}
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
         dist_file = open (dist_fname)
@@ -138,8 +153,8 @@ class DistInfo:
                         # reuse some properties of the parent suite
                         if suite.match_uri == None:
                             suite.match_uri = nanny.match_uri
-                        if suite.mirrors == []:
-                            suite.mirrors = nanny.mirrors
+                        if suite.mirror_set == {}:
+                            suite.mirror_set = nanny.mirror_set
                         if suite.base_uri == None:
                             suite.base_uri = nanny.base_uri
             elif field == 'Available':
@@ -152,14 +167,20 @@ class DistInfo:
             elif field == 'MatchURI':
                 suite.match_uri = value
             elif field == 'MirrorsFile':
-                if os.path.exists(value):
-                    suite.mirrors = filter(lambda s:
-                                                 ((s != "") and
-                                                  (not s.startswith("#"))),
-                                                 map(string.strip,
-                                                     open(value)))
-                else:
-                    print "WARNING: can't read '%s'" % value
+                if not map_mirror_sets.has_key(value):
+                    mirror_set = {}
+                    try:
+                        mirrors = map(split_url,
+                                      filter(lambda s: s != "" and
+                                                       not s.startswith("#"),
+                                             map(string.strip, open(value))))
+                    except:
+                        print "ERROR: Failed to read mirror file"
+                        mirrors = []
+                    for m in map(Mirror, mirrors):
+                        mirror_set[m.hostname] = m
+                    map_mirror_sets[value] = mirror_set
+                suite.mirror_set = map_mirror_sets[value]
             elif field == 'Description':
                 suite.description = _(value)
             elif field == 'Component':
@@ -187,7 +208,8 @@ if __name__ == "__main__":
         print "Desc: %s" % suite.description
         print "BaseURI: %s" % suite.base_uri
         print "MatchURI: %s" % suite.match_uri
-        print "Mirrors: %s" % suite.mirrors
+        if suite.mirror_set != {}:
+            print "Mirrors: %s" % suite.mirror_set.keys()
         for comp in suite.components:
             print " %s -%s -%s" % (comp.name, 
                                    comp.description, 
