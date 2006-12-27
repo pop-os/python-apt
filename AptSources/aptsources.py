@@ -376,19 +376,6 @@ class SourcesList:
 # matcher class to make a source entry look nice
 # lots of predefined matchers to make it i18n/gettext friendly
 class SourceEntryMatcher:
-  class MatchType:
-    def __init__(self, a_type,a_descr):
-      self.type = a_type
-      self.description = a_descr
-  
-  class MatchDist:
-    def __init__(self,a_uri,a_dist, a_descr,l_comps, l_comps_descr):
-      self.uri = a_uri
-      self.dist = a_dist
-      self.description = a_descr
-      self.comps = l_comps
-      self.comps_descriptions = l_comps_descr
-
   def __init__(self, matcherPath):
     self.templates = []
     # Get the human readable channel and comp names from the channel .infos
@@ -413,12 +400,11 @@ class SourceEntryMatcher:
         found = True
         source.template = template
         break
-      for mirror in template.valid_mirrors:
-        if (is_mirror(mirror,source.uri) and 
-            re.match(template.match_name, source.dist)):
-          found = True
-          source.template = template
-          break
+      elif (template.is_mirror(source.uri) and 
+          re.match(template.match_name, source.dist)):
+        found = True
+        source.template = template
+        break
     return found
 
 class Distribution:

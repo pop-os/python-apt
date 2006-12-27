@@ -48,6 +48,14 @@ class Suite:
     def has_component(self, comp):
         ''' Check if the distribution provides the given component '''
         return comp in map(lambda c: c.name, self.components)
+    
+    def is_mirror(self, url):
+        ''' Check if a given url of a repository is a valid mirror '''
+        url_splitted = split_url(url)
+        if self.mirror_set.has_key(url_splitted[1]):
+            return True
+        else:
+            return False
 
 class Component:
     def __init__(self, name, desc=None, short_desc=None):
@@ -189,13 +197,11 @@ class DistInfo:
                 component = Component(value)
             elif field == 'CompDescription':
                 component.set_description(_(value))
-            elif field == 'CompDescriptionLong':
+            elif field == 'CompDescriptionShort':
                 component.set_short_description(_(value))
         if suite:
             if component:
-                suite.components["%s" % component.name] = \
-                    (component.description,
-                     component.description_long)
+                suite.components.append(component)
                 component = None
             self.suites.append (suite)
             suite = None
