@@ -819,27 +819,6 @@ def get_distro():
     else:
         return Distribution(id, codename, description, relase)
 
-class Mirror:
-  ''' Used to store information about a mirror '''
-  class Repository:
-    ''' A mirror can contain more than one repository and provide
-        access via different protocols. This information is stored 
-        in this class '''
-    def __init__(self, proto, dir)
-      ''' Initialize a new repository '''
-      self.proto = proto
-      self.dir = dir
-  def __init__(self, hostname, repository=None)
-    ''' Initialize a new mirror '''
-    self.hostname = hostname
-    proto, dir = repository
-    self.repositories = []
-    self.add_repository(proto, dir)
-  def add_repository(self, proto, dir):
-    ''' Add a new repository to the mirror '''
-    repo = Repository(proto, dir)
-    self.repositories.append(repo)
-
 # some simple tests
 if __name__ == "__main__":
   apt_pkg.InitConfig()
