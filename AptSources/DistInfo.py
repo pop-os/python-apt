@@ -98,7 +98,7 @@ class Mirror:
         return len(filter(lambda r: (r.proto == proto) and dir in r.dir, 
                           self.repositories)) > 0
     def get_repo_urls(self):
-        print map(lambda r: r.get_url(self.hostname), self.repositories)
+        return map(lambda r: r.get_url(self.hostname), self.repositories)
 
 class Repository:
     def __init__(self, proto, dir):
