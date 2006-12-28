@@ -52,8 +52,14 @@ class Suite:
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
         url_splitted = split_url(url)
-        if self.mirror_set.has_key(url_splitted[1]):
-            return True
+        hostname = url_splitted[1]
+        if self.mirror_set.has_key(hostname):
+            if len(url_splitted) < 3:
+                dir = None
+            else:
+                dir = url_splitted[2]
+            proto = url_splitted[0]
+            return self.mirror_set[hostname].has_repository(proto, dir)
         else:
             return False
 
@@ -185,8 +191,11 @@ class DistInfo:
                     except:
                         print "ERROR: Failed to read mirror file"
                         mirrors = []
-                    for m in map(Mirror, mirrors):
-                        mirror_set[m.hostname] = m
+                    for m in mirrors:
+                        if mirror_set.has_key(m[1]):
+                            mirror_set[m[1]].add_repository(m[0],m[2])
+                        else:
+                            mirror_set[m[1]] = Mirror(m)
                     map_mirror_sets[value] = mirror_set
                 suite.mirror_set = map_mirror_sets[value]
             elif field == 'Description':
