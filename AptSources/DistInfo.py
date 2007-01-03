@@ -67,22 +67,22 @@ class Component:
     def __init__(self, name, desc=None, short_desc=None):
         self.name = name
         self.description = desc
-        self.short_description = short_desc
+        self.description_long = short_desc
     def get_description(self):
-        if self.description != None:
+        if self.description_long != None:
+            return self.description_long
+        elif self.description != None:
             return self.description
-        elif self.short_description != None:
-            return self.short_description
         else:
             return None
     def set_description(self, desc):
         self.description = desc
-    def set_short_description(self, desc):
+    def set_description_long(self, desc):
         self.short_description = desc
     def get_description(self):
         return self.description
-    def get_short_description(self):
-        return self.short_description
+    def get_description_long(self):
+        return self.description_long
 
 class Mirror:
     ''' Storage for mirror related information '''
@@ -218,8 +218,8 @@ class DistInfo:
                 component = Component(value)
             elif field == 'CompDescription':
                 component.set_description(_(value))
-            elif field == 'CompDescriptionShort':
-                component.set_short_description(_(value))
+            elif field == 'CompDescriptionLong':
+                component.set_description_long(_(value))
         if suite:
             if component:
                 suite.components.append(component)
