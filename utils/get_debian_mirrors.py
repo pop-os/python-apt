@@ -37,16 +37,21 @@ list_path = "../data/templates/Debian.mirrors"
 
 req = urllib2.Request("http://www.debian.org/mirror/mirrors_full")
 match = re.compile("^.*>([A-Za-z0-9-.\/_]+)<\/a>.*\n$")
+match_location = re.compile('^<strong><a name="([A-Z]+)">.*')
 
 def add_sites(line, proto, sites, mirror_type):
     path = match.sub(r"\1", line)
     for site in sites:
-        mirror_type.append("%s://%s%s" % (proto, site.lstrip(), path))
+        mirror_type.append("%s://%s%s\n" % (proto, site.lstrip(), path))
 
 try:
     print "Downloading mirrors list from the Debian website..."
     uri=urllib2.urlopen(req)
     for line in uri.readlines():
+        if line.startswith('<strong><a name="'):
+            location = match_location.sub(r"\1", line)
+            if location:
+                mirrors.append("#LOC:%s" % location.lower())
         if line.startswith("Site:"):
             sites = line[6:-1].split(",")
         elif line.startswith('Packages over HTTP'):
@@ -61,6 +66,6 @@ except:
 print "Writing local mirrors list: %s" % list_path
 list = open(list_path, "w")
 for mirror in mirrors:
-    list.write("%s\n" % mirror)
+    list.write("%s" % mirror)
 list.close()
 print "Done."
