@@ -713,7 +713,7 @@ class UbuntuDistribution(Distribution):
         lines = f.readlines()
         for line in lines:
             parts = line.split("\t")
-            self.countries[parts[0].lower()] = parts[1]
+            self.countries[parts[0].lower()] = parts[1].strip()
     except:
         print "could not open file '%s'" % file
     else:
@@ -721,6 +721,7 @@ class UbuntuDistribution(Distribution):
 
     # try to guess the nearest mirror from the locale
     self.country = None
+    self.country_code = None
     locale = os.getenv("LANG", default="en.UK")
     a = locale.find("_")
     z = locale.find(".")
@@ -731,6 +732,7 @@ class UbuntuDistribution(Distribution):
                           country_code
     if self.countries.has_key(country_code):
         self.country = self.countries[country_code]
+        self.country_code = country_code
 
   def get_server_list(self):
     ''' Return a list of used and suggested servers '''

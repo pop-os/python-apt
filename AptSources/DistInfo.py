@@ -86,10 +86,11 @@ class Component:
 
 class Mirror:
     ''' Storage for mirror related information '''
-    def __init__(self, data):
-        proto, self.hostname, dir  = data
+    def __init__(self, proto, hostname, dir, location=None):
+        self.hostname = hostname
         self.repositories = []
         self.add_repository(proto, dir)
+        self.location = location
     def add_repository(self, proto, dir):
         self.repositories.append(Repository(proto, dir))
     def get_repositories_for_proto(self, proto):
@@ -99,6 +100,10 @@ class Mirror:
                           self.repositories)) > 0
     def get_repo_urls(self):
         return map(lambda r: r.get_url(self.hostname), self.repositories)
+    def get_location(self):
+        return self.location
+    def set_location(self, location):
+        self.location = location
 
 class Repository:
     def __init__(self, proto, dir):
@@ -119,6 +124,11 @@ class DistInfo:
                  base_dir = "/usr/share/python-aptsources/templates"):
         self.metarelease_uri = ''
         self.suites = []
+
+        location = None
+        match_loc = re.compile(r"^#LOC:(.+)$")
+        match_mirror_line = re.compile(r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://[A-Za-z/\.:\-_]+)$")
+        #match_mirror_line = re.compile(r".+")
 
         if not dist:
             pipe = os.popen("lsb_release -i -s")
@@ -184,18 +194,20 @@ class DistInfo:
                 if not map_mirror_sets.has_key(value):
                     mirror_set = {}
                     try:
-                        mirrors = map(split_url,
-                                      filter(lambda s: s != "" and
-                                                       not s.startswith("#"),
-                                             map(string.strip, open(value))))
+                        mirror_data = filter(match_mirror_line.match,
+                                             map(string.strip, open(value)))
                     except:
                         print "ERROR: Failed to read mirror file"
                         mirrors = []
-                    for m in mirrors:
-                        if mirror_set.has_key(m[1]):
-                            mirror_set[m[1]].add_repository(m[0],m[2])
+                    for line in mirror_data:
+                        if line.startswith("#LOC:"):
+                            location = match_loc.sub(r"\1", line)
+                            continue
+                        (proto, hostname, dir) = split_url(line)
+                        if mirror_set.has_key(hostname):
+                            mirror_set[hostname].add_repository(proto, dir)
                         else:
-                            mirror_set[m[1]] = Mirror(m)
+                            mirror_set[hostname] = Mirror(proto, hostname, dir, location)
                     map_mirror_sets[value] = mirror_set
                 suite.mirror_set = map_mirror_sets[value]
             elif field == 'Description':
