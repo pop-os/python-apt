@@ -116,7 +116,14 @@ class Repository:
 
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
-    return re.split(":*\/+", url, maxsplit=2)
+    url_splits = re.split(":*\/+", url, maxsplit=2)
+    length = len(url_splits)
+    if length == 3:
+        return url_splits
+    elif length == 2:
+        return [url_splits[0], url_splits[1], None]
+    else:
+        return [None, None, None]
 
 class DistInfo:
     def __init__(self,
