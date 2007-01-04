@@ -1,3 +1,9 @@
+python-aptsources (0.0.1+bzr20060401-0) feisty; urgency=low
+
+  * Development snapshot
+
+ -- Sebastian Heinlein <glatzor@ubuntu.com>  Thu,  4 Jan 2006 18:32:19 +0200
+
 python-aptsources (0.0.1) feisty; urgency=low
 
   * Initial Release.
