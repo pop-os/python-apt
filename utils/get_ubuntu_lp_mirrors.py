@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 #
-#  get_ubuntu_mirrors.py
+#  get_ubuntu_lp_mirrors.py
 #
-#  Download the latest list with available mirrors from the Ubuntu
-#  wiki and extract the hosts from the raw page
+#  Download the latest list with available Ubuntu mirrors from Launchpad.net
+#  and extract the hosts from the raw page
 #
 #  Copyright (c) 2006 Free Software Foundation Europe
 #
@@ -70,7 +70,7 @@ def find(split):
     urls = re.findall(r'<a href="(?![a-zA-Z:/_\-]+launchpad.+?">)(.+?)">',
                       split)
     if countries.has_key(country.group(1)):
-        lines.append("#LOC:%s" % countries[country.group(1)])
+        lines.append("#LOC:%s" % countries[country.group(1)].upper())
     else:
         lines.append("#LOC:%s" % country.group(1))
     map(lines.append, urls)

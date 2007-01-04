@@ -51,7 +51,7 @@ try:
         if line.startswith('<strong><a name="'):
             location = match_location.sub(r"\1", line)
             if location:
-                mirrors.append("#LOC:%s" % location.lower())
+                mirrors.append("#LOC:%s" % location)
         if line.startswith("Site:"):
             sites = line[6:-1].split(",")
         elif line.startswith('Packages over HTTP'):
