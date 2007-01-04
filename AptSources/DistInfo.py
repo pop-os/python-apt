@@ -51,14 +51,8 @@ class Suite:
     
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
-        url_splitted = split_url(url)
-        hostname = url_splitted[1]
+        proto, hostname, dir = split_url(url)
         if self.mirror_set.has_key(hostname):
-            if len(url_splitted) < 3:
-                dir = None
-            else:
-                dir = url_splitted[2]
-            proto = url_splitted[0]
             return self.mirror_set[hostname].has_repository(proto, dir)
         else:
             return False
@@ -116,14 +110,8 @@ class Repository:
 
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
-    url_splits = re.split(":*\/+", url, maxsplit=2)
-    length = len(url_splits)
-    if length == 3:
-        return url_splits
-    elif length == 2:
-        return [url_splits[0], url_splits[1], None]
-    else:
-        return [None, None, None]
+    return map(lambda a,b: a, re.split(":*\/+", url, maxsplit=2),
+                              [None, None, None])
 
 class DistInfo:
     def __init__(self,
