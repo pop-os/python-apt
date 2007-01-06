@@ -58,10 +58,10 @@ class Suite:
             return False
 
 class Component:
-    def __init__(self, name, desc=None, short_desc=None):
+    def __init__(self, name, desc=None, long_desc=None):
         self.name = name
         self.description = desc
-        self.description_long = short_desc
+        self.description_long = long_desc
     def get_description(self):
         if self.description_long != None:
             return self.description_long
@@ -72,7 +72,7 @@ class Component:
     def set_description(self, desc):
         self.description = desc
     def set_description_long(self, desc):
-        self.short_description = desc
+        self.description_long = desc
     def get_description(self):
         return self.description
     def get_description_long(self):
