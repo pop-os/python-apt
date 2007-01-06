@@ -8,10 +8,10 @@ MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical supported Open Source software
+_CompDescriptionLong: Canonical-supported Open Source software
 Component: universe
-_CompDescription: Community maintained
-_CompDescriptionLong: Community maintained Open Source software
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -59,10 +59,10 @@ MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical supported Open Source software
+_CompDescriptionLong: Canonical-supported Open Source software
 Component: universe
-_CompDescription: Community maintained
-_CompDescriptionLong: Community maintained Open Source software
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -110,10 +110,10 @@ MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical supported Open Source software
+_CompDescriptionLong: Canonical-supported Open Source software
 Component: universe
-_CompDescription: Community maintained (universe)
-_CompDescriptionLong: Community maintained Open Source software
+_CompDescription: Community-maintained (universe)
+_CompDescriptionLong: Community-maintained Open Source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices 
@@ -164,7 +164,7 @@ _CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 Component: universe
-_CompDescription: Community maintained (Universe)
+_CompDescription: Community-maintained (Universe)
 Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
@@ -206,7 +206,7 @@ _CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 Component: universe
-_CompDescription: Community maintained (Universe)
+_CompDescription: Community-maintained (Universe)
 Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
@@ -247,7 +247,7 @@ _CompDescription: No longer officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 Component: universe
-_CompDescription: Community maintained (Universe)
+_CompDescription: Community-maintained (Universe)
 Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
