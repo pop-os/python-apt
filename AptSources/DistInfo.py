@@ -73,8 +73,6 @@ class Component:
         self.description = desc
     def set_description_long(self, desc):
         self.description_long = desc
-    def get_description(self):
-        return self.description
     def get_description_long(self):
         return self.description_long
 
