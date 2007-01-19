@@ -36,7 +36,7 @@ from gettext import gettext as _
 #import pdb
 
 #from UpdateManager.Common.DistInfo import DistInfo
-from DistInfo import DistInfo
+from distinfo import DistInfo
 
 # some global helpers
 def is_mirror(master_uri, compare_uri):
@@ -385,9 +385,9 @@ class SourceEntryMatcher:
         i = f.find(".info")
         f = f[0:i]
         dist = DistInfo(f,base_dir=matcherPath)
-        for suite in dist.suites:
-            if suite.match_uri != None:
-                self.templates.append(suite)
+        for template in dist.templates:
+            if template.match_uri != None:
+                self.templates.append(template)
     return
 
   def match(self, source):

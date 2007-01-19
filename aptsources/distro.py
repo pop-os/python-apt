@@ -21,6 +21,14 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import string
+import gettext
+import re
+import os
+import sys
+from gettext import gettext as _
+
+
 class Distribution:
   def __init__(self, id, codename, description, release):
     """ Container for distribution specific informations """

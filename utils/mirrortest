@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import threading, Queue, time, re, os, tempfile
-import AptSources.aptsources as aptsources
+import aptsources.sourceslist
+import aptsources.distro
 from timeit import Timer
 import urllib
 import socket
@@ -87,8 +88,8 @@ class MirrorTest:
             print "%s: %s KByte/s" % (f[1].hostname, int(f[0]))
 
 if __name__ == "__main__":
-    distro = aptsources.get_distro()
-    distro.get_sources(aptsources.SourcesList())
+    distro = aptsources.distro.get_distro()
+    distro.get_sources(aptsources.sourceslist.SourcesList())
     pipe = os.popen("dpkg --print-architecture")
     arch = pipe.read().strip()
     test_file = "dists/%s/%s/binary-%s/Packages.gz" % \
