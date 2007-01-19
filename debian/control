@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.45), apt-utils, p
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
 Priority: optional
 Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
@@ -24,3 +24,6 @@ Description: Python interface to libapt-pkg
   - Access to the APT package information database
   - Parsing of Debian package control files, and other files with a
     similar structure
+ .
+ Furthermore it provides an abstraction of the sources.list configuration
+ on the repository and the distro level.
