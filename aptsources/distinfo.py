@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-# DistInfo.py - simple parser for a xml-based metainfo file
 #  
+#  distinfo.py - provide meta information for distro repositories
+#
 #  Copyright (c) 2005 Gustavo Noronha Silva
-#  
+#                2006-2007 Sebastian Heinlein
+#
 #  Author: Gustavo Noronha Silva <kov@debian.org>
 #          Sebastian Heinlein <glatzor@ubuntu.com>
 # 
@@ -30,7 +32,8 @@ import string
 from gettext import gettext as _
 
 import re
-class Suite:
+
+class Template:
     def __init__(self):
         self.name = None
         self.child = False
@@ -116,7 +119,7 @@ class DistInfo:
                  dist = None,
                  base_dir = "/usr/share/python-aptsources/templates"):
         self.metarelease_uri = ''
-        self.suites = []
+        self.templates = []
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
@@ -138,7 +141,7 @@ class DistInfo:
         dist_file = open (dist_fname)
         if not dist_file:
             return
-        suite = None
+        template = None
         component = None
         for line in dist_file:
             tokens = line.split (':', 1)
@@ -151,38 +154,38 @@ class DistInfo:
             elif field == 'MetaReleaseURI':
                 self.metarelease_uri = value
             elif field == 'Suite':
-                if suite:
-                    if component and not suite.has_component(component.name):
-                        suite.components.append(component)
+                if template:
+                    if component and not template.has_component(component.name):
+                        template.components.append(component)
                         component = None
-                    self.suites.append (suite)
-                suite = Suite ()
-                suite.name = value
-                suite.distribution = dist
-                suite.match_name = "^%s$" % value
+                    self.templates.append(template)
+                template = Template()
+                template.name = value
+                template.distribution = dist
+                template.match_name = "^%s$" % value
             elif field == 'MatchName':
-                suite.match_name = value
+                template.match_name = value
             elif field == 'ParentSuite':
-                suite.child = True
-                for nanny in self.suites:
+                template.child = True
+                for nanny in self.templates:
                     if nanny.name == value:
-                        nanny.children.append(suite)
-                        # reuse some properties of the parent suite
-                        if suite.match_uri == None:
-                            suite.match_uri = nanny.match_uri
-                        if suite.mirror_set == {}:
-                            suite.mirror_set = nanny.mirror_set
-                        if suite.base_uri == None:
-                            suite.base_uri = nanny.base_uri
+                        nanny.children.append(template)
+                        # reuse some properties of the parent template
+                        if template.match_uri == None:
+                            template.match_uri = nanny.match_uri
+                        if template.mirror_set == {}:
+                            template.mirror_set = nanny.mirror_set
+                        if template.base_uri == None:
+                            template.base_uri = nanny.base_uri
             elif field == 'Available':
-                suite.available = value
+                template.available = value
             elif field == 'RepositoryType':
-                suite.type = value
+                template.type = value
             elif field == 'BaseURI':
-                suite.base_uri = value
-                suite.match_uri = value
+                template.base_uri = value
+                template.match_uri = value
             elif field == 'MatchURI':
-                suite.match_uri = value
+                template.match_uri = value
             elif field == 'MirrorsFile':
                 if not map_mirror_sets.has_key(value):
                     mirror_set = {}
@@ -202,37 +205,37 @@ class DistInfo:
                         else:
                             mirror_set[hostname] = Mirror(proto, hostname, dir, location)
                     map_mirror_sets[value] = mirror_set
-                suite.mirror_set = map_mirror_sets[value]
+                template.mirror_set = map_mirror_sets[value]
             elif field == 'Description':
-                suite.description = _(value)
+                template.description = _(value)
             elif field == 'Component':
-                if component and not suite.has_component(component.name):
-                    suite.components.append(component)
+                if component and not template.has_component(component.name):
+                    template.components.append(component)
                 component = Component(value)
             elif field == 'CompDescription':
                 component.set_description(_(value))
             elif field == 'CompDescriptionLong':
                 component.set_description_long(_(value))
-        if suite:
+        if template:
             if component:
-                suite.components.append(component)
+                template.components.append(component)
                 component = None
-            self.suites.append (suite)
-            suite = None
+            self.templates.append(template)
+            template = None
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "/usr/share/python-aptsources/templates")
+    d = DistInfo ("Ubuntu", "/usr/share/python-apt/templates")
     print d.changelogs_uri
-    for suite in d.suites:
-        print "\nSuite: %s" % suite.name
-        print "Desc: %s" % suite.description
-        print "BaseURI: %s" % suite.base_uri
-        print "MatchURI: %s" % suite.match_uri
-        if suite.mirror_set != {}:
-            print "Mirrors: %s" % suite.mirror_set.keys()
-        for comp in suite.components:
+    for template in d.templates:
+        print "\nSuite: %s" % template.name
+        print "Desc: %s" % template.description
+        print "BaseURI: %s" % template.base_uri
+        print "MatchURI: %s" % template.match_uri
+        if template.mirror_set != {}:
+            print "Mirrors: %s" % template.mirror_set.keys()
+        for comp in template.components:
             print " %s -%s -%s" % (comp.name, 
                                    comp.description, 
-                                   comp.short_description)
-        for child in suite.children:
+                                   comp.description_long)
+        for child in template.children:
             print "  %s" % child.description
