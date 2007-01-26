@@ -1,76 +1,8 @@
 #!/usr/bin/make -f
-# Made with the aid of dh_make, by Craig Small
-# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
-# Some lines taken from debmake, by Cristoph Lameter.
 
-# This has to be exported to make some magic below work.
-export DH_OPTIONS
+DEB_AUTO_CLEANUP_RCS := yes
+DEB_PYTHON_SYSTEM=pycentral
 
-DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
-DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
-
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-
-PYTHON=$(shell pyversions -r debian/control)
-
-build: build-stamp
-build-stamp:
-	dh_testdir
-
-	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py build; \
-	done
-
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-
-	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py clean --all; \
-	done
-
-	dh_clean
-
-# Build architecture-independent files here.
-binary-indep: DH_OPTIONS=-i
-binary-indep: build
-
-# Build architecture-dependent files here.
-binary-arch: DH_OPTIONS=-a
-binary-arch: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	
-	for PY in $(PYTHON); do \
-		/usr/bin/$$PY setup.py install --prefix=`pwd`/debian/python-apt/usr; \
-	done
-
-	dh_installdocs
-	dh_installchangelogs
-	dh_installexamples
-	dh_pycentral
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-source diff:                                                                  
-	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
-
-arch-build:
-	rm -rf debian/arch-build
-	mkdir -p debian/arch-build/python-apt-$(DEBVER)
-	tar -c --exclude=arch-build --no-recursion -f - `bzr inventory` | (cd debian/arch-build/python-apt-$(DEBVER);tar xf -)
-	(cd debian/arch-build/python-apt-$(DEBVER); $(DEB_BUILD_PROG))
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary
+# Add here any variable or target overrides you need
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
