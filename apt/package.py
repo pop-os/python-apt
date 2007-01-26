@@ -300,12 +300,13 @@ class Package(object):
             Fix.InstallProtect()
             Fix.Resolve()
         self._pcache.cachePostChange()
-    def markInstall(self, autoFix=True, autoInst=True):
+    def markInstall(self, autoFix=True, autoInst=True, fromUser=True):
         """ mark a package for install. Run the resolver if autoFix is set,
             automatically install required dependencies if autoInst is set
+            record it as automatically installed when fromuser is set to false
         """
         self._pcache.cachePreChange()
-        self._depcache.MarkInstall(self._pkg, autoInst)
+        self._depcache.MarkInstall(self._pkg, autoInst, fromUser)
         # try to fix broken stuff
         if autoFix and self._depcache.BrokenCount > 0:
             fixer = apt_pkg.GetPkgProblemResolver(self._depcache)

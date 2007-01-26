@@ -346,11 +346,13 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
 
    PyObject *PackageObj;
    char autoInst=1;
-   if (PyArg_ParseTuple(Args,"O!|b",&PackageType,&PackageObj, &autoInst) == 0)
+   char fromUser=1;
+   if (PyArg_ParseTuple(Args,"O!|bb",&PackageType,&PackageObj, 
+			&autoInst, &fromUser) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   depcache->MarkInstall(Pkg, autoInst);
+   depcache->MarkInstall(Pkg, autoInst, 0, fromUser);
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
