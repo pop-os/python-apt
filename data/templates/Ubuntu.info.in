@@ -4,7 +4,7 @@ Suite: feisty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
 _CompDescription: Officially supported
@@ -55,7 +55,7 @@ Suite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
@@ -106,7 +106,7 @@ Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
@@ -157,7 +157,7 @@ Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 _CompDescription: Officially supported
@@ -199,7 +199,7 @@ Suite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-aptsources/templates/Ubuntu.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
 _CompDescription: Officially supported
