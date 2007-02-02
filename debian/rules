@@ -6,3 +6,14 @@ DEB_PYTHON_SYSTEM=pycentral
 # Add here any variable or target overrides you need
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
+
+PKG=gdebi
+DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
+DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
+
+arch-build::
+	rm -rf debian/arch-build
+	mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
+	tar -c --exclude=arch-build --no-recursion -f - `bzr inventory` | (cd debian/arch-build/$(PKG)-$(DEBVER);tar xf -)
+	(cd debian/arch-build/$(PKG)-$(DEBVER) && $(DEB_BUILD_PROG))
+
