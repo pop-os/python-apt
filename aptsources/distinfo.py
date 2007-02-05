@@ -193,8 +193,8 @@ class DistInfo:
                         mirror_data = filter(match_mirror_line.match,
                                              map(string.strip, open(value)))
                     except:
-                        print "ERROR: Failed to read mirror file"
-                        mirrors = []
+                        print "WARNING: Failed to read mirror file"
+                        mirror_data = []
                     for line in mirror_data:
                         if line.startswith("#LOC:"):
                             location = match_loc.sub(r"\1", line)
