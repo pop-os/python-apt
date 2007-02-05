@@ -219,7 +219,7 @@ class SourcesList:
   """ represents the full sources.list + sources.list.d file """
   def __init__(self,
                withMatcher=True,
-               matcherPath="/usr/share/python-aptsources/templates/"):
+               matcherPath="/usr/share/python-apt/templates/"):
     self.list = []          # the actual SourceEntries Type 
     if withMatcher:
       self.matcher = SourceEntryMatcher(matcherPath)
@@ -342,6 +342,15 @@ class SourcesList:
   def save(self):
     """ save the current sources """
     files = {}
+    # write an empty default config file if there aren't any sources
+    if len(self.list) == 0:
+      path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),
+                       apt_pkg.Config.Find("Dir::Etc::sourcelist"))
+      header = ("## See sources.list(5) for more information, especialy\n"
+                "# Remember that you can only use http, ftp or file URIs\n"
+                "# CDROMs are managed through the apt-cdrom tool.\n")
+      open(path,"w").write(header)
+      return
     for source in self.list:
       if not files.has_key(source.file):
         files[source.file]=open(source.file,"w")

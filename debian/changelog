@@ -1,3 +1,10 @@
+python-apt (0.6.20ubuntu3) feisty; urgency=low
+
+  * fixes in the new 'aptsources' module 
+    (thanks to Sebastian Heinlein)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  5 Feb 2007 10:29:55 +0100
+
 python-apt (0.6.20ubuntu2) feisty; urgency=low
 
   * python/depcache.cc:
