@@ -4,7 +4,7 @@ Suite: etch
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 4.0 'Etch' 
 Component: main
 _CompDescription: Officially supported
@@ -27,7 +27,7 @@ Suite: sarge
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 3.1 'Sarge'
 Component: main
 _CompDescription: Officially supported
@@ -50,7 +50,7 @@ Suite: stable
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian current stable release
 Component: main
 _CompDescription: Officially supported
@@ -63,7 +63,7 @@ Suite: testing
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian testing
 Component: main
 _CompDescription: Officially supported
@@ -76,7 +76,7 @@ Suite: sid
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 'Sid' (unstable)
 Component: main
 _CompDescription: Officially supported
@@ -88,7 +88,7 @@ _CompDescription: Non-DFSG-compatible Software
 Suite: unstable
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MirrorsFile: /usr/share/python-aptsources/templates/Debian.mirrors
+MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 'Sid' (unstable)
 Component: main
 _CompDescription: Officially supported

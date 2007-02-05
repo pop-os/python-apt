@@ -117,7 +117,7 @@ def split_url(url):
 class DistInfo:
     def __init__(self,
                  dist = None,
-                 base_dir = "/usr/share/python-aptsources/templates"):
+                 base_dir = "/usr/share/python-apt/templates"):
         self.metarelease_uri = ''
         self.templates = []
 
