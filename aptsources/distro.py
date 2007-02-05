@@ -244,7 +244,6 @@ class Distribution:
     if comp in self.cdrom_comps:
         sources = []
         sources.extend(self.main_sources)
-
     for source in sources:
         if comp in source.comps: 
             source.comps.remove(comp)
