@@ -2,6 +2,8 @@ python-apt (0.6.20ubuntu3) feisty; urgency=low
 
   * fixes in the new 'aptsources' module 
     (thanks to Sebastian Heinlein)
+  * apt/cdrom.py:
+    - better cdrom handling support
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  5 Feb 2007 10:29:55 +0100
 

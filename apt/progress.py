@@ -28,6 +28,8 @@ from errno import *
 import select
 import apt_pkg
 
+import apt
+
 class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
         Subclass this class to implement simple Operation progress reporting
