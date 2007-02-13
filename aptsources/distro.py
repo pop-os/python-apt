@@ -174,7 +174,6 @@ class Distribution:
     Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
 
-    sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
     def add_component_only_once(source, comps_per_dist):
@@ -427,3 +426,4 @@ def get_distro():
                                   release)
     else:
         return Distribution(id, codename, description, relase)
+

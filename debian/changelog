@@ -1,3 +1,15 @@
+python-apt (0.6.20ubuntu5) feisty; urgency=low
+
+  * be more robust in has_repository (LP#84897)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 13 Feb 2007 17:49:55 +0100
+
+python-apt (0.6.20ubuntu4) feisty; urgency=low
+
+  * rebuild against latest libapt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  6 Feb 2007 16:40:37 +0100
+
 python-apt (0.6.20ubuntu3) feisty; urgency=low
 
   * fixes in the new 'aptsources' module 

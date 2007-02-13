@@ -91,8 +91,12 @@ class Mirror:
     def get_repositories_for_proto(self, proto):
         return filter(lambda r: r.proto == proto, self.repositories)
     def has_repository(self, proto, dir):
-        return len(filter(lambda r: (r.proto == proto) and dir in r.dir, 
-                          self.repositories)) > 0
+        if dir is None:
+            return False
+        for r in self.repositories:
+            if r.proto == proto and dir in r.dir:
+                return True
+        return False
     def get_repo_urls(self):
         return map(lambda r: r.get_url(self.hostname), self.repositories)
     def get_location(self):
