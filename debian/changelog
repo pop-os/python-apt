@@ -1,3 +1,10 @@
+python-apt (0.6.20ubuntu6) feisty; urgency=low
+
+  * aptsources/distro.py:
+    - fix crash in add_source (LP#85806)
+
+ --
+
 python-apt (0.6.20ubuntu5) feisty; urgency=low
 
   * be more robust in has_repository (LP#84897)

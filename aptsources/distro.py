@@ -164,7 +164,7 @@ class Distribution:
     new_source = self.sourceslist.add(type, uri, dist, comps, comment)
     # if source code is enabled add a deb-src line after the new
     # source
-    if self.get_source_code == True and tpye == self.binary_type:
+    if self.get_source_code == True and type == self.binary_type:
         self.sourceslist.add(self.source_type, uri, dist, comps, comment,
                              file=new_source.file,
                              pos=self.sourceslist.list.index(new_source)+1)
