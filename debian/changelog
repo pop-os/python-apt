@@ -2,8 +2,11 @@ python-apt (0.6.20ubuntu6) feisty; urgency=low
 
   * aptsources/distro.py:
     - fix crash in add_source (LP#85806)
+  * apt/package.py:
+    - handle invalid unicode more gracefully (LP#86215)
+  * rebuild against latest apt
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 19 Feb 2007 16:34:52 +0100
 
 python-apt (0.6.20ubuntu5) feisty; urgency=low
 

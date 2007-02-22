@@ -53,9 +53,11 @@ PyObject *StrSizeToStr(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
       return 0;
    if (PyInt_Check(Obj))
-      return CppPyString(SizeToStr(PyInt_AS_LONG(Obj)));
+      return CppPyString(SizeToStr(PyInt_AsLong(Obj)));
+   if (PyLong_Check(Obj))
+      return CppPyString(SizeToStr(PyLong_AsLong(Obj)));
    if (PyFloat_Check(Obj))
-      return CppPyString(SizeToStr(PyFloat_AS_DOUBLE(Obj)));
+      return CppPyString(SizeToStr(PyFloat_AsDouble(Obj)));
    
    PyErr_SetString(PyExc_TypeError,"Only understand integers and floats");
    return 0;

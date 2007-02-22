@@ -166,7 +166,12 @@ class Package(object):
         desc_iter = ver.TranslatedDescription
         self._records.Lookup(desc_iter.FileList.pop(0))
         desc = ""
-        for line in string.split(unicode(self._records.LongDesc,"utf-8"),"\n"):
+        try:
+            s = unicode(self._records.LongDesc,"utf-8")
+        except UnicodeDecodeError,e:
+            s = _("Invalid unicode in description for '%s' (%s). "
+                  "Please report.") % (name,e)
+        for line in string.split(s,"\n"):
                 tmp = string.strip(line)
                 if tmp == ".":
                     desc += "\n"
