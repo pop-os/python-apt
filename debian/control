@@ -14,6 +14,7 @@ Priority: optional
 Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Provides: ${python:Provides}
+Suggests: python-apt-dbg
 XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
  The apt_pkg Python interface will provide full access to the internal 
@@ -27,3 +28,14 @@ Description: Python interface to libapt-pkg
  .
  The included 'aptsources' Python interface provides an abstraction of 
  the sources.list configuration on the repository and the distro level.
+
+Package: python-apt-dbg
+Priority: extra
+Architecture: any
+Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends}
+Description: Python interface to libapt-pkg (debug extension)
+ The apt_pkg Python interface will provide full access to the internal 
+ libapt-pkg structures allowing Python programs to easily perform a
+ variety of functions.
+ .
+ This package contains the extension built for the python debug interpreter.
