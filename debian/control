@@ -1,11 +1,12 @@
 Source: python-apt
 Section: python
 Priority: optional
-Maintainer: APT Development Team <deity@lists.debian.org>
+Maintainer: Michael Vogt <mvo@ubuntu.com>
+XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2
 XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.46.4ubuntu8), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5)
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.46.4ubuntu8), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5), python-all-dbg
 
 Package: python-apt
 Architecture: any

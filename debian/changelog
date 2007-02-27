@@ -1,3 +1,17 @@
+python-apt (0.6.20ubuntu9) feisty; urgency=low
+
+  * Re-add debian/python-apt.install (LP: #88134)
+    - This seems to have gone missing between 0.6.20ubuntu6 and 0.6.20ubuntu8
+    - This probably happened because it wasn't added to bzr
+
+ -- Matt Zimmerman <mdz@ubuntu.com>  Mon, 26 Feb 2007 14:04:15 -0800
+
+python-apt (0.6.20ubuntu8) feisty; urgency=low
+
+  * fix FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Feb 2007 18:41:37 +0100
+
 python-apt (0.6.20ubuntu7) feisty; urgency=low
 
   * aptsources/distro.py:
