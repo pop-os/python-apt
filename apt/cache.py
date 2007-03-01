@@ -33,11 +33,10 @@ class Cache(object):
 
     def __init__(self, progress=None, rootdir=None):
         self._callbacks = {}
-        self.open(progress)
-
         if rootdir:
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status", rootdir + "/var/lib/dpkg/status")
+        self.open(progress)
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
