@@ -7,6 +7,7 @@ Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2
 XS-Python-Version: all
 Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.46.4ubuntu8), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5), python-all-dbg
+XS-Vcs-Bzr: http://launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
 
 Package: python-apt
 Architecture: any

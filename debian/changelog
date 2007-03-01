@@ -1,3 +1,10 @@
+python-apt (0.6.20ubuntu10) feisty; urgency=low
+
+  * debian/control:
+    - added XS-Vcs-Bzr header to make finding the repo easier
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Mar 2007 14:36:33 +0100
+
 python-apt (0.6.20ubuntu9) feisty; urgency=low
 
   * Re-add debian/python-apt.install (LP: #88134)
