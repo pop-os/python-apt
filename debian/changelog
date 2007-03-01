@@ -47,6 +47,10 @@ python-apt (0.6.20ubuntu3) feisty; urgency=low
     (thanks to Sebastian Heinlein)
   * apt/cdrom.py:
     - better cdrom handling support
+  * python/string.cc:
+    - SizeToString supports PyLong too 
+  * apt/cache.py:
+    - fix rootdir
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  5 Feb 2007 10:29:55 +0100
 
