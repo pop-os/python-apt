@@ -2,7 +2,8 @@ python-apt (0.6.21) unstable; urgency=low
 
   * apt/cdrom.py:
     - better cdrom handling support
-  * python/string.cc:
+  * apt/package.py:
+    - added candidateDependencies, installedDependencies
     - SizeToString supports PyLong too 
   * apt/cache.py:
     - fix rootdir
