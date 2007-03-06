@@ -228,6 +228,19 @@ class Package(object):
         return self._records.LongDesc
     rawDescription = property(rawDescription)
         
+    def candidateRecord(self):
+        " return the full pkgrecord as string of the candidate version "
+        if not self._lookupRecord(True):
+            return None
+        return self._records.Record
+    candidateRecord = property(candidateRecord)
+
+    def installedRecord(self):
+        " return the full pkgrecord as string of the installed version "
+        if not self._lookupRecord(False):
+            return None
+        return self._records.Record
+    installedRecord = property(installedRecord)
 
     # depcache states
     def markedInstall(self):
@@ -403,7 +416,7 @@ if __name__ == "__main__":
     for dep in pkg.candidateDependencies:
         print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
     print "arch: %s" % pkg.architecture
-        
+    print "rec: ",pkg.candidateRecord
 
     # now test install/remove
     import apt
