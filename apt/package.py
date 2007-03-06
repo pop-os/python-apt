@@ -118,21 +118,30 @@ class Package(object):
                 depends_list.append(Dependency(base_deps))
         return depends_list
         
-    @property
     def candidateDependencies(self):
         """ return a list of candidate dependencies """
         candver = self._depcache.GetCandidateVer(self._pkg)
         if candver == None:
             return []
         return self._getDependencies(candver)
+    candidateDependencies = property(candidateDependencies)
     
-    @property
     def installedDependencies(self):
         """ return a list of installed dependencies """
         ver = self._pkg.CurrentVer
         if ver == None:
             return []
         return self._getDependencies(ver)
+    installedDependencies = property(installedDependencies)
+
+    def architecture(self):
+        if not self._lookupRecord():
+            return None
+        sec = apt_pkg.ParseSection(self._records.Record)
+        if sec.has_key("Architecture"):
+            return sec["Architecture"]
+        return None
+    architecture = property(architecture)
 
     def _downloadable(self, useCandidate=True):
         """ helper, return if the version is downloadable """
@@ -393,8 +402,8 @@ if __name__ == "__main__":
     print "Dependencies: %s" % pkg.installedDependencies
     for dep in pkg.candidateDependencies:
         print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
-
-
+    print "arch: %s" % pkg.architecture
+        
 
     # now test install/remove
     import apt

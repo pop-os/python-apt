@@ -5,6 +5,7 @@ python-apt (0.6.21) unstable; urgency=low
   * apt/package.py:
     - added candidateDependencies, installedDependencies
     - SizeToString supports PyLong too 
+    - support pkg.architecture
   * apt/cache.py:
     - fix rootdir
 
