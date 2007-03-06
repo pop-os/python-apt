@@ -1,3 +1,10 @@
+python-apt (0.6.20ubuntu10) feisty; urgency=low
+
+  * apt/packages.py:
+    - support candidateDependencies, installedDependencies
+
+ --
+
 python-apt (0.6.20ubuntu9) feisty; urgency=low
 
   * Re-add debian/python-apt.install (LP: #88134)
