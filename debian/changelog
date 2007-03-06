@@ -2,6 +2,7 @@ python-apt (0.6.20ubuntu11) feisty; urgency=low
 
   * apt/packages.py:
     - support candidateDependencies, installedDependencies
+    - support pkg.architecture
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  6 Mar 2007 12:39:35 +0100
 
