@@ -24,6 +24,17 @@ import sys
 import random
 import string
 
+class BaseDependency(object):
+    " a single dependency "
+    def __init__(self, name, rel, ver, pre):
+        self.name = name
+        self.relation = rel
+        self.version = ver
+        self.preDepend = pre
+
+class Dependency(object):
+    def __init__(self, alternatives):
+        self.or_dependencies = alternatives
 
 class Package(object):
     """ This class represents a package in the cache
@@ -93,6 +104,35 @@ class Package(object):
         else:
             return None
     candidateVersion = property(candidateVersion)
+
+    def _getDependencies(self, ver):
+        depends_list = []
+        depends = ver.DependsList
+        for t in ["PreDepends", "Depends"]:
+            if not depends.has_key(t):
+                continue
+            for depVerList in depends[t]:
+                base_deps = []
+                for depOr in depVerList:
+                    base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.TargetVer, depOr.CompType, (t == "PreDepends")))
+                depends_list.append(Dependency(base_deps))
+        return depends_list
+        
+    @property
+    def candidateDependencies(self):
+        """ return a list of candidate dependencies """
+        candver = self._depcache.GetCandidateVer(self._pkg)
+        if candver == None:
+            return []
+        return self._getDependencies(candver)
+    
+    @property
+    def installedDependencies(self):
+        """ return a list of installed dependencies """
+        ver = self._pkg.CurrentVer
+        if ver == None:
+            return []
+        return self._getDependencies(ver)
 
     def _downloadable(self, useCandidate=True):
         """ helper, return if the version is downloadable """
@@ -250,6 +290,8 @@ class Package(object):
     def installedSize(self):
         """ The size of the currently installed package """
         ver = self._pkg.CurrentVer
+        if ver is None:
+            return 0
         return ver.InstalledSize
     installedSize = property(installedSize)
 
@@ -360,6 +402,11 @@ if __name__ == "__main__":
     print "Description (unformated):\n%s" % pkg.rawDescription
     print "InstalledSize: %s " % pkg.installedSize
     print "PackageSize: %s " % pkg.packageSize
+    print "Dependencies: %s" % pkg.installedDependencies
+    for dep in pkg.candidateDependencies:
+        print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
+
+
 
     # now test install/remove
     import apt
