@@ -1,6 +1,6 @@
 
 import apt_pkg
-from apt.progress import CdromProgress
+from progress import CdromProgress
 
 class Cdrom(object):
     def __init__(self, progress=None, mountpoint=None, nomount=True):
@@ -12,7 +12,7 @@ class Cdrom(object):
         """
         self._cdrom = apt_pkg.GetCdrom()
         if progress is None:
-            self._progress = apt.progress.CdromProgress()
+            self._progress = CdromProgress()
         else:
             self._progress = progress
         # see if we have a alternative mountpoint

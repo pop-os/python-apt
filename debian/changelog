@@ -9,6 +9,8 @@ python-apt (0.6.21) unstable; urgency=low
     - support candidateRecord, installedRecord
   * apt/cache.py:
     - fix rootdir
+  * apt/cdrom.py:
+    - fix bug in cdrom mountpoint handling
 
  --
 
