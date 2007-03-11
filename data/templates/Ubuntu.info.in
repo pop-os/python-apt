@@ -44,12 +44,12 @@ _Description: Recommended updates
 Suite: feisty-proposed
 ParentSuite: feisty
 RepositoryType: deb
-_Description: Proposed updates
+_Description: Pre-released updates
 
 Suite: feisty-backports
 ParentSuite: feisty
 RepositoryType: deb
-_Description: Backported updates
+_Description: Unsupported updates
 
 Suite: edgy
 RepositoryType: deb
@@ -95,12 +95,12 @@ _Description: Recommended updates
 Suite: edgy-proposed
 ParentSuite: edgy
 RepositoryType: deb
-_Description: Proposed updates
+_Description: Pre-released updates
 
 Suite: edgy-backports
 ParentSuite: edgy
 RepositoryType: deb
-_Description: Backported updates
+_Description: Unsupported updates
 
 Suite: dapper
 RepositoryType: deb
@@ -146,12 +146,12 @@ _Description: Recommended updates
 Suite: dapper-proposed
 ParentSuite: dapper
 RepositoryType: deb
-_Description: Proposed updates
+_Description: Pre-released updates
 
 Suite: dapper-backports
 ParentSuite: dapper
 RepositoryType: deb
-_Description: Backported updates
+_Description: Unsupported updates
 
 Suite: breezy
 RepositoryType: deb
