@@ -244,7 +244,6 @@ class Distribution:
     if comp in self.cdrom_comps:
         sources = []
         sources.extend(self.main_sources)
-
     for source in sources:
         if comp in source.comps: 
             source.comps.remove(comp)
@@ -254,13 +253,7 @@ class Distribution:
   def change_server(self, uri):
     ''' Change the server of all distro specific sources to
         a given host '''
-    sources = []
-    seen = []
-    self.default_server = uri
-    sources.extend(self.main_sources)
-    sources.extend(self.child_sources)
-    sources.extend(self.source_code_sources)
-    for source in sources:
+    def change_server_of_source(source, uri, seen):
         # Avoid creating duplicate entries
         source.uri = uri
         for comp in source.comps:
@@ -270,6 +263,16 @@ class Distribution:
                 seen.append([source.uri, source.dist, comp])
         if len(source.comps) < 1:
             self.sourceslist.remove(source)
+    seen_binary = []
+    seen_source = []
+    self.default_server = uri
+    sources = []
+    sources.extend(self.main_sources)
+    sources.extend(self.child_sources)
+    for source in sources:
+        change_server_of_source(source, uri, seen_binary)
+    for source in self.source_code_sources:
+        change_server_of_source(source, uri, seen_source)
 
   def is_codename(self, name):
     ''' Compare a given name with the release codename. '''
@@ -277,13 +280,13 @@ class Distribution:
         return True
     else:
         return False
-        
+
   def get_server_list(self):
     ''' Return a list of used and suggested servers '''
     # Store all available servers:
     # Name, URI, active
     mirrors = []
-    
+
     mirrors.append([_("Main server"), self.main_server, 
                     len(self.used_servers) == 1 and
                     self.used_servers[0] == self.main_server])
