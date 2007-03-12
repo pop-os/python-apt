@@ -1,3 +1,9 @@
+python-apt (0.6.20ubuntu13) feisty; urgency=low
+
+  * fix in the duplicated source checking (thanks to Sebastian Heinlein)
+
+ --
+
 python-apt (0.6.20ubuntu12) feisty; urgency=low
 
   * apt/cdrom.py:
