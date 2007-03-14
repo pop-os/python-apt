@@ -1,8 +1,10 @@
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 
   * fix in the duplicated source checking (thanks to Sebastian Heinlein)
+  * python/depache.cc:
+    - properly support isAutoInstalled flag
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 14 Mar 2007 16:38:22 +0100
 
 python-apt (0.6.20ubuntu12) feisty; urgency=low
 
