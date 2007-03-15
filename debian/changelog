@@ -1,3 +1,10 @@
+python-apt (0.6.20ubuntu14) feisty; urgency=low
+
+  * aptsources/distro.py:
+    - fix typo (LP#84009)
+
+ --
+
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 
   * fix in the duplicated source checking (thanks to Sebastian Heinlein)
