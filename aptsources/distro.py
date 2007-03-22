@@ -26,7 +26,9 @@ import gettext
 import re
 import os
 import sys
-from gettext import gettext as _
+#from gettext import gettext as _
+import gettext
+def _(s): return gettext.dgettext("python-apt", s)
 
 
 class Distribution:

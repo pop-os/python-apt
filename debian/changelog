@@ -1,3 +1,9 @@
+python-apt (0.6.20ubuntu15) feisty; urgency=low
+
+  * use the correct gettext domain
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Mar 2007 15:55:54 +0100
+
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
   * aptsources/distro.py:
