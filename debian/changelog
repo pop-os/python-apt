@@ -3,8 +3,10 @@ python-apt (0.6.20ubuntu14) feisty; urgency=low
   * aptsources/distro.py:
     - fix typo (LP#84009)
   * fix gettext import (LP#92764)
+  * po/*.po:
+    - make update-po
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Mar 2007 15:40:37 +0100
 
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 

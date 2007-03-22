@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Breton translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-05-19 02:42+0000\n"
+"Last-Translator: Oublieuse <oublieuse@gmail.com>\n"
+"Language-Team: Breton <br@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +273,48 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Every %s days"
+#~ msgstr "Bep %s devezh"
+
+#~ msgid "After %s days"
+#~ msgstr "War-lerc'h %s devezh"
+
+#~ msgid "Import key"
+#~ msgstr "Emborzhiañ an alc'hwezh"
+
+#~ msgid "Error importing selected file"
+#~ msgstr "Fazi en ur emborzhiañ ar restr dibabet"
+
+#~ msgid "The selected file may not be a GPG key file or it might be corrupt."
+#~ msgstr ""
+#~ "Moarvat n'eo ket ur restr alc'hwezh GPG ar restr dibabet, pe neuze eo "
+#~ "gwastet."
+
+#~ msgid "Error removing the key"
+#~ msgstr "Fazi en ur zilemel an alc'hwezh"
+
+#~ msgid ""
+#~ "The key you selected could not be removed. Please report this as a bug."
+#~ msgstr ""
+#~ "N'eus ket tu da zilemel an alc'whezh ho peus dibabet. Kelaouit eo ur bug "
+#~ "marplij."
+
+#~ msgid "Please enter a name for the disc"
+#~ msgstr "Roit un anv evit ar bladenn marplij"
+
+#~ msgid "Please insert a disc in the drive:"
+#~ msgstr "Lakait ur bladenn e-barzh ul lenner marplij:"
+
+#~ msgid "Broken packages"
+#~ msgstr "Pakadoù torr"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#, fuzzy
+#~ msgid "_Import Key File"
+#~ msgstr "Emborzhiañ an alc'hwezh"
+
+#~ msgid "     "
+#~ msgstr "     "

@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Friulian translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-08-25 05:55+0000\n"
+"Last-Translator: Marco <marcuz@linux.it>\n"
+"Language-Team: Friulian <fur@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +273,36 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Daily"
+#~ msgstr "Ogni dì"
+
+#~ msgid "Every two days"
+#~ msgstr "Ogni dòi dîs"
+
+#~ msgid "Weekly"
+#~ msgstr "Ogni setemàne"
+
+#~ msgid "Every two weeks"
+#~ msgstr "Ogni dôs setemànis"
+
+#~ msgid "Every %s days"
+#~ msgstr "Ogni %s dîs"
+
+#~ msgid "After one week"
+#~ msgstr "Dòpo une setemàne"
+
+#~ msgid "After two weeks"
+#~ msgstr "Dòpo dôs setemànis"
+
+#~ msgid "After one month"
+#~ msgstr "Dopo un mèis"
+
+#~ msgid "After %s days"
+#~ msgstr "Dopo %s dîs"
+
+#~ msgid "Import key"
+#~ msgstr "Impuarte la clâf"
+
+#~ msgid "    "
+#~ msgstr "    "

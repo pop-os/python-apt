@@ -1,20 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Serbian translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-10-16 04:17+0000\n"
+"Last-Translator: Vladimir Samardzic <vladosam@hotmail.com>\n"
+"Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +274,131 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Daily"
+#~ msgstr "Svaki dan"
+
+#~ msgid "Every two days"
+#~ msgstr "Svaki drugi dan"
+
+#~ msgid "Weekly"
+#~ msgstr "Svake nedelje"
+
+#~ msgid "Every two weeks"
+#~ msgstr "Svake druge nedelje"
+
+#~ msgid "Every %s days"
+#~ msgstr "Svakih %s dana"
+
+#~ msgid "After one week"
+#~ msgstr "Posle jedne nedelje"
+
+#~ msgid "After two weeks"
+#~ msgstr "Posle dve nedelje"
+
+#~ msgid "After one month"
+#~ msgstr "Posle jednog meseca"
+
+#~ msgid "After %s days"
+#~ msgstr "Posle %s dana"
+
+#~ msgid "Import key"
+#~ msgstr "Importiranje kljuca"
+
+#, fuzzy
+#~ msgid "Error importing selected file"
+#~ msgstr "Грешка у учитавању изабранe datoteke"
+
+#, fuzzy
+#~ msgid "Error removing the key"
+#~ msgstr "Грешка у уклањању кључа"
+
+#, fuzzy
+#~ msgid ""
+#~ "The key you selected could not be removed. Please report this as a bug."
+#~ msgstr ""
+#~ "Кључ који сте изабрали није могуће уклонити. Молим вас пријавите ово као "
+#~ "грешку."
+
+#, fuzzy
+#~ msgid "Please enter a name for the disc"
+#~ msgstr "Молим вас унесите име диска"
+
+#, fuzzy
+#~ msgid "Please insert a disc in the drive:"
+#~ msgstr "Молим вас убаците диск у јединицу диска:"
+
+#, fuzzy
+#~ msgid "Broken packages"
+#~ msgstr "Оштећени пакети"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your system contains broken packages that couldn't be fixed with this "
+#~ "software. Please fix them first using synaptic or apt-get before "
+#~ "proceeding."
+#~ msgstr ""
+#~ "У вашем систему постоје оштећени пакети који не могу бити поправљени овим "
+#~ "софтвером. Молим вас прво њих поправите користећи synaptic или apt-get "
+#~ "прије него што наставите."
+
+#, fuzzy
+#~ msgid "Not enough free disk space"
+#~ msgstr "Нема довољно места на диску"
+
+#, fuzzy
+#~ msgid ""
+#~ "The upgrade aborts now. Please free at least %s of disk space on %s. "
+#~ "Empty your trash and remove temporary packages of former installations "
+#~ "using 'sudo apt-get clean'."
+#~ msgstr ""
+#~ "Надоградња је прекинута. Молим вас ослободите најмање %s простора на "
+#~ "диску %s. Испразните канту за отпаtке и уклоните привремене пакете "
+#~ "предходних инсталација користећи команду 'sudo apt-get clean'."
+
+#~ msgid "_Skip This Step"
+#~ msgstr "_Прескочи овај корак"
+
+#~ msgid "_Remove"
+#~ msgstr "_Уклони"
+
+#, fuzzy
+#~ msgid "System upgrade is complete."
+#~ msgstr "Унапређење система је завршено"
+
+#, fuzzy
+#~ msgid "The 'diff' command was not found"
+#~ msgstr "Команда 'diff' није нађена"
+
+#, fuzzy
+#~ msgid "To prevent data loss close all open applications and documents."
+#~ msgstr ""
+#~ "Да би спречили губитак података затворите све активне програме и "
+#~ "документа."
+
+#~ msgid "Install %s"
+#~ msgstr "Инсталирај %s"
+
+#~ msgid "Upgrade %s"
+#~ msgstr "Унапреди %s"
+
+#, fuzzy
+#~ msgid "Reboot required"
+#~ msgstr "Потребно је поново покретање система"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "Details"
+#~ msgstr "Детаљи"
+
+#, fuzzy
+#~ msgid "Difference between the files"
+#~ msgstr "Разлике између датотека"
+
+#~ msgid "Terminal"
+#~ msgstr "Терминал"
+
+#, fuzzy
+#~ msgid "_Upgrade"
+#~ msgstr "Унапреди %s"

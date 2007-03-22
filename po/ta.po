@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Tamil translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-10-16 04:06+0000\n"
+"Last-Translator: Raghavan <vijay.raghavan08@gmail.com>\n"
+"Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +273,82 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Daily"
+#~ msgstr "தினமும்"
+
+#~ msgid "Every two days"
+#~ msgstr "ஒவ்வோரு இரு நாட்கள்"
+
+#~ msgid "Weekly"
+#~ msgstr "வாரம் தோறும்"
+
+#~ msgid "Every two weeks"
+#~ msgstr "ஒவ்வோரு இரு வாரங்கள்"
+
+#~ msgid "Every %s days"
+#~ msgstr "ஒவ்வொரு %s நாட்கள்"
+
+#~ msgid "After one week"
+#~ msgstr "ஒரு வார்த்திற்க்கு பிறகு"
+
+#~ msgid "After two weeks"
+#~ msgstr "இரண்டு வாரத்திற்க்கு பிறகு"
+
+#~ msgid "After one month"
+#~ msgstr "ஒரு மாதத்திற்க்கு பின்"
+
+#~ msgid "After %s days"
+#~ msgstr "%s நாட்களுக்கு பிறகு"
+
+#~ msgid "Please insert a disc in the drive:"
+#~ msgstr "தெயவு செய்து இயக்கியினுள் வட்டை செலுத்தவும்:"
+
+#~ msgid "Can't install '%s'"
+#~ msgstr "'%s' நிறுவமுடியவில்லை"
+
+#, fuzzy
+#~ msgid "Error during update"
+#~ msgstr "புதுப்பிக்கும் பொழுது பிழை ஏற்பட்டுள்ளது"
+
+#, fuzzy
+#~ msgid "Not enough free disk space"
+#~ msgstr "வட்டுவில்் போதுமான காலி இடம் இல்லை"
+
+#, fuzzy
+#~ msgid "Asking for confirmation"
+#~ msgstr "உறுதிப்படுத்த கேட்கிறது"
+
+#~ msgid "Upgrading"
+#~ msgstr "மேம்படுத்துகிறது"
+
+#, fuzzy
+#~ msgid "System upgrade is complete."
+#~ msgstr "கணிணி மேம்பாடு முடிந்தது."
+
+#~ msgid "Could not install '%s'"
+#~ msgstr "'%s' நிறுவ முடியவில்லை"
+
+#, fuzzy
+#~ msgid "The 'diff' command was not found"
+#~ msgstr "'diff' என்ற கட்டளை இல்லை"
+
+#~ msgid "<b>Remove %s</b>"
+#~ msgstr "<b>%s நீக்கு</b>"
+
+#~ msgid "Install %s"
+#~ msgstr "%s நிறுவு"
+
+#~ msgid "Upgrade %s"
+#~ msgstr "%s மேம்படுத்து"
+
+#, fuzzy
+#~ msgid "Reboot required"
+#~ msgstr "மறு தொடக்கம் தேவைப்படுகிறது"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#, fuzzy
+#~ msgid "_Upgrade"
+#~ msgstr "%s மேம்படுத்து"

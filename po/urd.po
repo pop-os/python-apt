@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Urdu translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-05-07 01:53+0000\n"
+"Last-Translator: Hameed محمد حمید <hameeduddin517@yahoo.com>\n"
+"Language-Team: Urdu <urd@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +273,38 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Daily"
+#~ msgstr "روز"
+
+#~ msgid "Every two days"
+#~ msgstr "ھر دو دن"
+
+#~ msgid "Weekly"
+#~ msgstr "ھفتھ وار"
+
+#~ msgid "Every two weeks"
+#~ msgstr "ھر دو ھفتے"
+
+#~ msgid "Every %s days"
+#~ msgstr "ھر %s دن"
+
+#~ msgid "After one week"
+#~ msgstr "ایک ھفتھ"
+
+#~ msgid "After two weeks"
+#~ msgstr "دو ھفتھ باد"
+
+#~ msgid "After one month"
+#~ msgstr "ایک ماھ باد"
+
+#~ msgid "After %s days"
+#~ msgstr "بعد %s دن"
+
+#, fuzzy
+#~ msgid "Import key"
+#~ msgstr "امپورٹ کی"
+
+#, fuzzy
+#~ msgid "_Import Key File"
+#~ msgstr "امپورٹ کی"

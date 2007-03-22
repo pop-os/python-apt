@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Basque translation for update-manager
+# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
+# This file is distributed under the same license as the update-manager package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 15:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-10-09 15:49+0000\n"
+"Last-Translator: Xabi Ezpeleta <xezpeleta@mendikute.com>\n"
+"Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -272,3 +273,96 @@ msgstr ""
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr ""
+
+#~ msgid "Daily"
+#~ msgstr "Egunero"
+
+#, fuzzy
+#~ msgid "Every two days"
+#~ msgstr "Bi egunetan behin"
+
+#~ msgid "Weekly"
+#~ msgstr "Astero"
+
+#, fuzzy
+#~ msgid "Every two weeks"
+#~ msgstr "Bi astetan behin"
+
+#~ msgid "Every %s days"
+#~ msgstr "%s egunetan behin"
+
+#~ msgid "After one week"
+#~ msgstr "Aste bat eta gero"
+
+#~ msgid "After two weeks"
+#~ msgstr "Bi aste eta gero"
+
+#~ msgid "After one month"
+#~ msgstr "HIlabete bat eta gero"
+
+#~ msgid "After %s days"
+#~ msgstr "%s egun eta gero"
+
+#, fuzzy
+#~ msgid "Import key"
+#~ msgstr "Inportatu giltza"
+
+#, fuzzy
+#~ msgid "Error importing selected file"
+#~ msgstr "Errore bat suertatu da aukeratutako fitxategiak inportatzerakoan"
+
+#~ msgid "The selected file may not be a GPG key file or it might be corrupt."
+#~ msgstr ""
+#~ "Aukeratutako fitxategia ez da GPG giltza bat edo egoera txarrean dago."
+
+#, fuzzy
+#~ msgid "Error removing the key"
+#~ msgstr "Errorea giltza ezabatzerakoan"
+
+#, fuzzy
+#~ msgid ""
+#~ "The key you selected could not be removed. Please report this as a bug."
+#~ msgstr "Aukeratutako giltza ezin izan da ezabatu. Mesedez adierazi akatsa."
+
+#, fuzzy
+#~ msgid "Please enter a name for the disc"
+#~ msgstr "Sartu diskarentzako izena"
+
+#, fuzzy
+#~ msgid "Please insert a disc in the drive:"
+#~ msgstr "Ezarri diskoa irakurgailuan:"
+
+#, fuzzy
+#~ msgid "Broken packages"
+#~ msgstr "Hautistako paketeak"
+
+#, fuzzy
+#~ msgid ""
+#~ "Your system contains broken packages that couldn't be fixed with this "
+#~ "software. Please fix them first using synaptic or apt-get before "
+#~ "proceeding."
+#~ msgstr ""
+#~ "Zure sistemak hautsitako paketeak ditu eta ezin izan dira konpondu "
+#~ "aplikazio honekin. Konpon itzazu lehenbait lehen snaptic edo apt-get "
+#~ "erabiliz."
+
+#, fuzzy
+#~ msgid "Can't upgrade required meta-packages"
+#~ msgstr "Ezin izan dira berritu beharrezko meta-paketeak"
+
+#, fuzzy
+#~ msgid "A essential package would have to be removed"
+#~ msgstr "Ezinbesteko pakete bat ezabatu beharko da"
+
+#~ msgid "Can't install '%s'"
+#~ msgstr "Ezin da %s instalatu"
+
+#~ msgid ""
+#~ "It was impossible to install a required package. Please report this as a "
+#~ "bug. "
+#~ msgstr ""
+#~ "Ezin izan da beharrezko pakete bat instalatzea. Mesedez akats honen berri "
+#~ "eman. "
+
+#~ msgid "    "
+#~ msgstr "    "
