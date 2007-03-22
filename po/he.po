@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:08+0100\n"
+"POT-Creation-Date: 2007-03-22 15:16+0100\n"
 "PO-Revision-Date: 2006-10-16 08:48+0000\n"
 "Last-Translator: Yaniv Abir <yanivabir@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
@@ -123,14 +123,16 @@ msgid "Recommended updates"
 msgstr "עדכונים מומלצים"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149 ../data/templates/Debian.info.in:42
-msgid "Proposed updates"
+#: ../data/templates/Ubuntu.info.in:149
+#, fuzzy
+msgid "Pre-released updates"
 msgstr "עדכונים מוצעים"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:154
-msgid "Backported updates"
-msgstr ""
+#, fuzzy
+msgid "Unsupported updates"
+msgstr "עדכונים מוצעים"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:161
@@ -253,6 +255,11 @@ msgstr "דביאן בדיקה"
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "דביאן 3.1 \"סארג'\""
+
+#. Description
+#: ../data/templates/Debian.info.in:42
+msgid "Proposed updates"
+msgstr "עדכונים מוצעים"
 
 #. Description
 #: ../data/templates/Debian.info.in:47

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:08+0100\n"
+"POT-Creation-Date: 2007-03-22 15:16+0100\n"
 "PO-Revision-Date: 2006-10-16 04:13+0000\n"
 "Last-Translator: Sami POTIRCA <spotirca@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -122,13 +122,15 @@ msgid "Recommended updates"
 msgstr "Actualizări recomandate"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149 ../data/templates/Debian.info.in:42
-msgid "Proposed updates"
+#: ../data/templates/Ubuntu.info.in:149
+#, fuzzy
+msgid "Pre-released updates"
 msgstr "Pachete propuse"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:154
-msgid "Backported updates"
+#, fuzzy
+msgid "Unsupported updates"
 msgstr "Actualizări portate înapoi"
 
 #. Description
@@ -249,6 +251,11 @@ msgstr ""
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:42
+msgid "Proposed updates"
+msgstr "Pachete propuse"
 
 #. Description
 #: ../data/templates/Debian.info.in:47

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:08+0100\n"
+"POT-Creation-Date: 2007-03-22 15:16+0100\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -128,15 +128,16 @@ msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149 ../data/templates/Debian.info.in:42
+#: ../data/templates/Ubuntu.info.in:149
 #, fuzzy
-msgid "Proposed updates"
+msgid "Pre-released updates"
 msgstr "Инсталирам надградби..."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:154
-msgid "Backported updates"
-msgstr ""
+#, fuzzy
+msgid "Unsupported updates"
+msgstr "Инсталирам надградби..."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:161
@@ -265,6 +266,12 @@ msgstr ""
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:42
+#, fuzzy
+msgid "Proposed updates"
+msgstr "Инсталирам надградби..."
 
 #. Description
 #: ../data/templates/Debian.info.in:47

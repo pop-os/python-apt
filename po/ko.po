@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:08+0100\n"
+"POT-Creation-Date: 2007-03-22 15:16+0100\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Eungkyu Song <eungkyu@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -119,13 +119,15 @@ msgid "Recommended updates"
 msgstr "추천하는 업데이트"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149 ../data/templates/Debian.info.in:42
-msgid "Proposed updates"
+#: ../data/templates/Ubuntu.info.in:149
+#, fuzzy
+msgid "Pre-released updates"
 msgstr "제안하는 업데이트"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:154
-msgid "Backported updates"
+#, fuzzy
+msgid "Unsupported updates"
 msgstr "Backport 업데이트"
 
 #. Description
@@ -245,6 +247,11 @@ msgstr ""
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "데비안 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:42
+msgid "Proposed updates"
+msgstr "제안하는 업데이트"
 
 #. Description
 #: ../data/templates/Debian.info.in:47

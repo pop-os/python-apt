@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:08+0100\n"
+"POT-Creation-Date: 2007-03-22 15:16+0100\n"
 "PO-Revision-Date: 2006-10-16 04:16+0000\n"
 "Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
 "Language-Team: Punjabi <fedora-transa-pa@redhat.com>\n"
@@ -115,15 +115,16 @@ msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149 ../data/templates/Debian.info.in:42
+#: ../data/templates/Ubuntu.info.in:149
 #, fuzzy
-msgid "Proposed updates"
+msgid "Pre-released updates"
 msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:154
-msgid "Backported updates"
-msgstr ""
+#, fuzzy
+msgid "Unsupported updates"
+msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:161
@@ -240,6 +241,12 @@ msgstr ""
 #: ../data/templates/Debian.info.in:31
 msgid "Debian 3.1 'Sarge'"
 msgstr ""
+
+#. Description
+#: ../data/templates/Debian.info.in:42
+#, fuzzy
+msgid "Proposed updates"
+msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
 #. Description
 #: ../data/templates/Debian.info.in:47
