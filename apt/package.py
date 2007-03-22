@@ -24,6 +24,8 @@ import sys
 import random
 import string
 
+from gettext import gettext as _
+
 class BaseDependency(object):
     " a single dependency "
     def __init__(self, name, rel, ver, pre):
