@@ -91,8 +91,12 @@ class Mirror:
     def get_repositories_for_proto(self, proto):
         return filter(lambda r: r.proto == proto, self.repositories)
     def has_repository(self, proto, dir):
-        return len(filter(lambda r: (r.proto == proto) and dir in r.dir, 
-                          self.repositories)) > 0
+        if dir is None:
+            return False
+        for r in self.repositories:
+            if r.proto == proto and dir in r.dir:
+                return True
+        return False
     def get_repo_urls(self):
         return map(lambda r: r.get_url(self.hostname), self.repositories)
     def get_location(self):
@@ -193,8 +197,8 @@ class DistInfo:
                         mirror_data = filter(match_mirror_line.match,
                                              map(string.strip, open(value)))
                     except:
-                        print "ERROR: Failed to read mirror file"
-                        mirrors = []
+                        print "WARNING: Failed to read mirror file"
+                        mirror_data = []
                     for line in mirror_data:
                         if line.startswith("#LOC:"):
                             location = match_loc.sub(r"\1", line)

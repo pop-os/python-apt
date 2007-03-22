@@ -1,4 +1,3 @@
-
 import apt_pkg
 from progress import CdromProgress
 

@@ -164,7 +164,7 @@ class Distribution:
     new_source = self.sourceslist.add(type, uri, dist, comps, comment)
     # if source code is enabled add a deb-src line after the new
     # source
-    if self.get_source_code == True and tpye == self.binary_type:
+    if self.get_source_code == True and type == self.binary_type:
         self.sourceslist.add(self.source_type, uri, dist, comps, comment,
                              file=new_source.file,
                              pos=self.sourceslist.list.index(new_source)+1)
@@ -174,7 +174,6 @@ class Distribution:
     Enable a component in all main, child and source code sources
     (excluding cdrom based sources)
 
-    sourceslist:  an aptsource.sources_list
     comp:         the component that should be enabled
     """
     def add_component_only_once(source, comps_per_dist):
@@ -427,7 +426,7 @@ def get_distro():
         return UbuntuDistribution(id, codename, description, 
                                   release)
     elif id == "Debian":
-        return DebianDistribution(id, codename, description, 
-                                  release)
+        return DebianDistribution(id, codename, description, release)
     else:
-        return Distribution(id, codename, description, relase)
+        return Distribution(id, codename, description, release)
+
