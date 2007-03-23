@@ -32,8 +32,6 @@ import shutil
 import time
 import os.path
 import sys
-from gettext import gettext as _
-#import pdb
 
 #from UpdateManager.Common.DistInfo import DistInfo
 from distinfo import DistInfo

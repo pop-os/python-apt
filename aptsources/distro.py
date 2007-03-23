@@ -26,7 +26,9 @@ import gettext
 import re
 import os
 import sys
-from gettext import gettext as _
+
+import gettext
+def _(s): return gettext.dgettext("python-apt", s)
 
 
 class Distribution:
@@ -280,41 +282,6 @@ class Distribution:
     else:
         return False
 
-  def get_server_list(self):
-    ''' Return a list of used and suggested servers '''
-    # Store all available servers:
-    # Name, URI, active
-    mirrors = []
-
-    mirrors.append([_("Main server"), self.main_server, 
-                    len(self.used_servers) == 1 and
-                    self.used_servers[0] == self.main_server])
-
-    if len(self.used_servers) == 1 and not re.match(self.used_servers[0],
-                                                    self.main_server):
-        # Only one server is used
-        server = self.used_servers[0]
-        mirrors.append([server, server, True])            
-    elif len(self.used_servers) > 1:
-        # More than one server is used. Since we don't handle this case
-        # in the user interface we set "custom servers" to true and 
-        # append a list of all used servers 
-        mirrors.append([_("Custom servers"), None, True])
-        for server in self.used_servers:
-            if not [server, server, False] in mirrors:
-                mirrors.append([server, server, False])
-
-    return mirrors
-
-    if len(self.used_servers) == 1 and not is_single_server(self.main_server):
-        mirrors.append(["%s" % self.used_servers[0],
-                        self.used_servers[0], True])
-    elif len(self.used_servers) > 1 or not is_single_server(self.main_server):
-        mirrors.append([_("Custom servers"), None, True])
-                     
-    return mirrors
-
-
 class DebianDistribution(Distribution):
   ''' Class to support specific Debian features '''
 
@@ -381,7 +348,7 @@ class UbuntuDistribution(Distribution):
     mirrors = []
     if len(self.used_servers) < 1 or \
        (len(self.used_servers) == 1 and \
-        self.used_servers[0] == self.main_server):
+        self.used_servers[0].rstrip("/") == self.main_server.rstrip("/")):
         mirrors.append([_("Main server"), self.main_server, True]) 
         mirrors.append([get_mirror_name(self.nearest_server), 
                        self.nearest_server, False])
