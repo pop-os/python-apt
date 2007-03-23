@@ -349,8 +349,6 @@ class UbuntuDistribution(Distribution):
     # Store all available servers:
     # Name, URI, active
     mirrors = []
-    import pdb
-    pdb.set_trace()
     if len(self.used_servers) < 1 or \
        (len(self.used_servers) == 1 and \
         compare_mirrors(self.used_servers[0], self.main_server)):
