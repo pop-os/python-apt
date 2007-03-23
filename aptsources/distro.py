@@ -26,7 +26,7 @@ import gettext
 import re
 import os
 import sys
-#from gettext import gettext as _
+
 import gettext
 def _(s): return gettext.dgettext("python-apt", s)
 
@@ -282,41 +282,6 @@ class Distribution:
     else:
         return False
 
-  def get_server_list(self):
-    ''' Return a list of used and suggested servers '''
-    # Store all available servers:
-    # Name, URI, active
-    mirrors = []
-
-    mirrors.append([_("Main server"), self.main_server, 
-                    len(self.used_servers) == 1 and
-                    self.used_servers[0] == self.main_server])
-
-    if len(self.used_servers) == 1 and not re.match(self.used_servers[0],
-                                                    self.main_server):
-        # Only one server is used
-        server = self.used_servers[0]
-        mirrors.append([server, server, True])            
-    elif len(self.used_servers) > 1:
-        # More than one server is used. Since we don't handle this case
-        # in the user interface we set "custom servers" to true and 
-        # append a list of all used servers 
-        mirrors.append([_("Custom servers"), None, True])
-        for server in self.used_servers:
-            if not [server, server, False] in mirrors:
-                mirrors.append([server, server, False])
-
-    return mirrors
-
-    if len(self.used_servers) == 1 and not is_single_server(self.main_server):
-        mirrors.append(["%s" % self.used_servers[0],
-                        self.used_servers[0], True])
-    elif len(self.used_servers) > 1 or not is_single_server(self.main_server):
-        mirrors.append([_("Custom servers"), None, True])
-                     
-    return mirrors
-
-
 class DebianDistribution(Distribution):
   ''' Class to support specific Debian features '''
 
@@ -362,7 +327,10 @@ class UbuntuDistribution(Distribution):
 
   def get_server_list(self):
     ''' Return a list of used and suggested servers '''
- 
+    def compare_mirrors(mir1, mir2):
+        '''Helper function that handles comaprision of mirror urls
+           that could contain trailing slashes'''
+        return re.match(mir1.strip("/ "), mir2.rstrip("/ "))
     def get_mirror_name(server):
         ''' Try to get a human readable name for the main mirror of a country'''
         country = None
@@ -376,25 +344,25 @@ class UbuntuDistribution(Distribution):
                    gettext.dgettext("iso-3166",
                                     self.countries[country].rstrip()).rstrip()
         else:
-            return("%s" % server)
+            return("%s" % server.rstrip("/ "))
     
     # Store all available servers:
     # Name, URI, active
     mirrors = []
     if len(self.used_servers) < 1 or \
        (len(self.used_servers) == 1 and \
-        self.used_servers[0] == self.main_server):
+        compare_mirrors(self.used_servers[0], self.main_server)):
         mirrors.append([_("Main server"), self.main_server, True]) 
         mirrors.append([get_mirror_name(self.nearest_server), 
                        self.nearest_server, False])
-    elif len(self.used_servers) == 1 and not re.match(self.used_servers[0],
-                                                      self.main_server):
+    elif len(self.used_servers) == 1 and not \
+         compare_mirrors(self.used_servers[0], self.main_server):
         mirrors.append([_("Main server"), self.main_server, False]) 
         # Only one server is used
         server = self.used_servers[0]
 
         # Append the nearest server if it's not already used            
-        if not re.match(server, self.nearest_server):
+        if not compare_mirrors(server, self.nearest_server):
             mirrors.append([get_mirror_name(self.nearest_server), 
                            self.nearest_server, False])
         mirrors.append([get_mirror_name(server), server, True])
@@ -408,7 +376,8 @@ class UbuntuDistribution(Distribution):
                                         self.nearest_server, False])
         mirrors.append([_("Custom servers"), None, True])
         for server in self.used_servers:
-            if re.match(server, self.nearest_server):
+            if compare_mirrors(server, self.nearest_server) or\
+               compare_mirrors(server, self.main_server):
                 continue
             elif not [get_mirror_name(server), server, False] in mirrors:
                 mirrors.append([get_mirror_name(server), server, False])

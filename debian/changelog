@@ -1,8 +1,13 @@
 python-apt (0.6.20ubuntu15) feisty; urgency=low
 
+  [ Michael Vogt ]
   * use the correct gettext domain
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Mar 2007 15:55:54 +0100
+  [ Sebastian Heinlein ]
+  * remove an oboslete function
+  * fix the url comparision with trainling slashes - LP#95031
+
+ -- Sebastian Heinlein <sebi@sebi-laptop>  Fri, 23 Mar 2007 14:48:55 +0100
 
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
