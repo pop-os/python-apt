@@ -1,23 +1,16 @@
-python-apt (0.6.20ubuntu15) feisty; urgency=low
-
-  [ Michael Vogt ]
-  * use the correct gettext domain
-
-  [ Sebastian Heinlein ]
-  * remove an oboslete function
-  * fix the url comparision with trainling slashes - LP#95031
-
- -- Sebastian Heinlein <sebi@sebi-laptop>  Fri, 23 Mar 2007 14:48:55 +0100
-
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
+  [Michael Vogt]
   * aptsources/distro.py:
     - fix typo (LP#84009)
   * fix gettext import (LP#92764)
   * po/*.po:
     - make update-po
+  [ Sebastian Heinlein ]
+  * remove an oboslete function
+  * fix the url comparision with trainling slashes - LP#95031
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Mar 2007 15:40:37 +0100
+ --
 
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 
