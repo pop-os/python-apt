@@ -48,7 +48,7 @@ for line in lines:
     countries[parts[1].strip()] = parts[0].lower()
 
 req = urllib2.Request("https://launchpad.net/ubuntu/+archivemirrors")
-print "Downloading mirrors list from the Ubuntu wiki..."
+print "Downloading mirrors list from Launchpad..."
 try:
     uri=urllib2.urlopen(req)
     content = uri.read()
@@ -60,7 +60,8 @@ except:
 content = content.replace("\n", "")
 
 content_splits = re.split(r'<tr class="highlighted"',
-                          re.findall(r'<table class="listing">.+?</table>',
+                          re.findall(r'<table class="listing" '
+                                      'id="mirrors_list">.+?</table>',
                                      content)[0])
 lines=[]
 def find(split):
