@@ -68,13 +68,15 @@ def find(split):
     country = re.search(r"<strong>(.+?)</strong>", split)
     if not country:
         return
-    urls = re.findall(r'<a href="(?![a-zA-Z:/_\-]+launchpad.+?">)(.+?)">',
-                      split)
     if countries.has_key(country.group(1)):
         lines.append("#LOC:%s" % countries[country.group(1)].upper())
     else:
         lines.append("#LOC:%s" % country.group(1))
-    map(lines.append, urls)
+    # FIXME: currently the protocols are hardcoded: ftp http
+    urls = re.findall(r'<a href="(?![a-zA-Z:/_\-]+launchpad.+?">)'
+                       '(((http)|(ftp)).+?)">',
+                      split)
+    map(lambda u: lines.append(u[0]), urls)
 
 map(find, content_splits)
 
