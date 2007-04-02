@@ -1,4 +1,4 @@
-python-apt (0.6.20ubuntu15) unstable; urgency=low
+python-apt (0.6.20ubuntu15) feisty; urgency=low
 
   [ Sebastian Heinlein ]
   * Update the mirror lists from Launchpad
@@ -6,7 +6,7 @@ python-apt (0.6.20ubuntu15) unstable; urgency=low
   [Michael Vogt]
   * fix error in invalid unicode handler (LP#99753)
 
- -- Sebastian Heinlein <glatzor@ubuntu.com>  Mon, 02 Apr 2007 00:02:53 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Apr 2007 14:25:31 +0200
 
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
