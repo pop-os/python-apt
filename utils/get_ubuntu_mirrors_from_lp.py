@@ -48,7 +48,7 @@ for line in lines:
     countries[parts[1].strip()] = parts[0].lower()
 
 req = urllib2.Request("https://launchpad.net/ubuntu/+archivemirrors")
-print "Downloading mirrors list from the Ubuntu wiki..."
+print "Downloading mirrors list from Launchpad..."
 try:
     uri=urllib2.urlopen(req)
     content = uri.read()
@@ -60,20 +60,23 @@ except:
 content = content.replace("\n", "")
 
 content_splits = re.split(r'<tr class="highlighted"',
-                          re.findall(r'<table class="listing">.+?</table>',
+                          re.findall(r'<table class="listing" '
+                                      'id="mirrors_list">.+?</table>',
                                      content)[0])
 lines=[]
 def find(split):
     country = re.search(r"<strong>(.+?)</strong>", split)
     if not country:
         return
-    urls = re.findall(r'<a href="(?![a-zA-Z:/_\-]+launchpad.+?">)(.+?)">',
-                      split)
     if countries.has_key(country.group(1)):
         lines.append("#LOC:%s" % countries[country.group(1)].upper())
     else:
         lines.append("#LOC:%s" % country.group(1))
-    map(lines.append, urls)
+    # FIXME: currently the protocols are hardcoded: ftp http
+    urls = re.findall(r'<a href="(?![a-zA-Z:/_\-]+launchpad.+?">)'
+                       '(((http)|(ftp)).+?)">',
+                      split)
+    map(lambda u: lines.append(u[0]), urls)
 
 map(find, content_splits)
 

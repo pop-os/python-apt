@@ -1,3 +1,11 @@
+python-apt (0.6.20ubuntu15) unstable; urgency=low
+
+  [ Sebastian Heinlein ]
+  * Update the mirror lists from Launchpad
+  * Only include http and ftp servers - LP#99060
+
+ -- Sebastian Heinlein <glatzor@ubuntu.com>  Mon, 02 Apr 2007 00:02:53 +0200
+
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
   [Michael Vogt]
