@@ -20,7 +20,7 @@ python-apt (0.6.20ubuntu14) feisty; urgency=low
   * remove an oboslete function
   * fix the url comparision with trainling slashes - LP#95031
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Mar 2007 18:47:22 +0200
 
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 
