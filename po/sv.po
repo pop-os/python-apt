@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:16+0100\n"
+"POT-Creation-Date: 2007-04-07 10:08+0200\n"
 "PO-Revision-Date: 2006-10-16 05:06+0000\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -288,6 +288,24 @@ msgstr "DFSG-kompatibel programvara med icke-fria beroenden"
 msgid "Non-DFSG-compatible Software"
 msgstr "Icke-DFSG-kompatibel programvara"
 
+#. TRANSLATORS: %s is a country
+#: ../aptsources/distro.py:343
+#, python-format
+msgid "Server for %s"
+msgstr "Server för %s"
+
+#. More than one server is used. Since we don't handle this case
+#. in the user interface we set "custom servers" to true and
+#. append a list of all used servers
+#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
+#: ../aptsources/distro.py:374
+msgid "Main server"
+msgstr "Huvudserver"
+
+#: ../aptsources/distro.py:377
+msgid "Custom servers"
+msgstr "Anpassade servrar"
+
 #~ msgid "Daily"
 #~ msgstr "Dagligen"
 
@@ -321,17 +339,8 @@ msgstr "Icke-DFSG-kompatibel programvara"
 #~ msgid "%s (%s)"
 #~ msgstr "%s (%s)"
 
-#~ msgid "Main server"
-#~ msgstr "Huvudserver"
-
-#~ msgid "Server for %s"
-#~ msgstr "Server för %s"
-
 #~ msgid "Nearest server"
 #~ msgstr "Närmaste server"
-
-#~ msgid "Custom servers"
-#~ msgstr "Anpassade servrar"
 
 #~ msgid "Software Channel"
 #~ msgstr "Programvarukanal"

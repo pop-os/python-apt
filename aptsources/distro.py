@@ -341,7 +341,7 @@ class UbuntuDistribution(Distribution):
         if self.countries.has_key(country):
             # TRANSLATORS: %s is a country
             return _("Server for %s") % \
-                   gettext.dgettext("iso-3166",
+                   gettext.dgettext("iso_3166",
                                     self.countries[country].rstrip()).rstrip()
         else:
             return("%s" % server.rstrip("/ "))

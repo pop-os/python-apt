@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:16+0100\n"
+"POT-Creation-Date: 2007-04-07 10:08+0200\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -306,6 +306,24 @@ msgstr "DFSG-компатибилен софтвер со неслободни �
 #: ../data/templates/Debian.info.in:98
 msgid "Non-DFSG-compatible Software"
 msgstr "Не-DFSG-компатибилен софтвер"
+
+#. TRANSLATORS: %s is a country
+#: ../aptsources/distro.py:343
+#, python-format
+msgid "Server for %s"
+msgstr ""
+
+#. More than one server is used. Since we don't handle this case
+#. in the user interface we set "custom servers" to true and
+#. append a list of all used servers
+#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
+#: ../aptsources/distro.py:374
+msgid "Main server"
+msgstr ""
+
+#: ../aptsources/distro.py:377
+msgid "Custom servers"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Daily"

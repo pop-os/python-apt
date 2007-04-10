@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:16+0100\n"
+"POT-Creation-Date: 2007-04-07 10:08+0200\n"
 "PO-Revision-Date: 2006-10-19 00:43+0000\n"
 "Last-Translator: Felipe Gil Castiñeira <xil@det.uvigo.es>\n"
 "Language-Team: galician\n"
@@ -289,6 +289,24 @@ msgstr "Software compatible coa DFSG con dependencias non libres"
 msgid "Non-DFSG-compatible Software"
 msgstr "Software non compatible coa DFSG"
 
+#. TRANSLATORS: %s is a country
+#: ../aptsources/distro.py:343
+#, python-format
+msgid "Server for %s"
+msgstr "Servidor desde %s"
+
+#. More than one server is used. Since we don't handle this case
+#. in the user interface we set "custom servers" to true and
+#. append a list of all used servers
+#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
+#: ../aptsources/distro.py:374
+msgid "Main server"
+msgstr "Servidor principal"
+
+#: ../aptsources/distro.py:377
+msgid "Custom servers"
+msgstr "Servidores personalizados"
+
 #~ msgid "Daily"
 #~ msgstr "Unha vez ao día"
 
@@ -322,17 +340,8 @@ msgstr "Software non compatible coa DFSG"
 #~ msgid "%s (%s)"
 #~ msgstr "%s (%s)"
 
-#~ msgid "Main server"
-#~ msgstr "Servidor principal"
-
-#~ msgid "Server for %s"
-#~ msgstr "Servidor desde %s"
-
 #~ msgid "Nearest server"
 #~ msgstr "Servidor máis próximo"
-
-#~ msgid "Custom servers"
-#~ msgstr "Servidores personalizados"
 
 #~ msgid "Software Channel"
 #~ msgstr "Canle de Software"
