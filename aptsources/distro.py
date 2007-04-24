@@ -267,11 +267,13 @@ class Distribution:
     seen_binary = []
     seen_source = []
     self.default_server = uri
-    sources = []
-    sources.extend(self.main_sources)
-    sources.extend(self.child_sources)
-    for source in sources:
+    for source in self.main_sources:
         change_server_of_source(source, uri, seen_binary)
+    for source in self.child_sources:
+        # Do not change the forces server of a child source
+        if source.template.base_uri == None or \
+           source.template.base_uri != source.uri:
+            change_server_of_source(source, uri, seen_binary)
     for source in self.source_code_sources:
         change_server_of_source(source, uri, seen_source)
 

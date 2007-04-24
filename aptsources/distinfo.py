@@ -181,8 +181,6 @@ class DistInfo:
                             template.match_uri = nanny.match_uri
                         if template.mirror_set == {}:
                             template.mirror_set = nanny.mirror_set
-                        if template.base_uri == None:
-                            template.base_uri = nanny.base_uri
             elif field == 'Available':
                 template.available = value
             elif field == 'RepositoryType':
