@@ -223,7 +223,7 @@ class Package(object):
             s = unicode(self._records.LongDesc,"utf-8")
         except UnicodeDecodeError,e:
             s = _("Invalid unicode in description for '%s' (%s). "
-                  "Please report.") % (name,e)
+                  "Please report.") % (self.name,e)
         for line in string.split(s,"\n"):
                 tmp = string.strip(line)
                 if tmp == ".":

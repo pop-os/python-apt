@@ -2,16 +2,20 @@ python-apt (0.6.20ubuntu16) feisty; urgency=low
 
   * Fix the addition of of sources that are already enabled but not with
     all components - fix LP#98795
+  * Handle changes of forced servers of child repositories in a more
+    sane way - fix LP#85060
 
- -- Sebastian Heinlein <sebi@sebi-laptop>  Wed,  4 Apr 2007 11:31:33 +0200
+ -- Sebastian Heinlein <sebi@sebi-laptop>  Tue, 24 Apr 2007 19:44:00 +0200
 
-python-apt (0.6.20ubuntu15) unstable; urgency=low
+python-apt (0.6.20ubuntu15) feisty; urgency=low
 
   [ Sebastian Heinlein ]
   * Update the mirror lists from Launchpad
   * Only include http and ftp servers - LP#99060
+  [Michael Vogt]
+  * fix error in invalid unicode handler (LP#99753)
 
- -- Sebastian Heinlein <glatzor@ubuntu.com>  Mon, 02 Apr 2007 00:02:53 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Apr 2007 14:25:31 +0200
 
 python-apt (0.6.20ubuntu14) feisty; urgency=low
 
@@ -25,7 +29,7 @@ python-apt (0.6.20ubuntu14) feisty; urgency=low
   * remove an oboslete function
   * fix the url comparision with trainling slashes - LP#95031
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Mar 2007 18:47:22 +0200
 
 python-apt (0.6.20ubuntu13) feisty; urgency=low
 
