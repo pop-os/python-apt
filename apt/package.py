@@ -24,6 +24,17 @@ import sys
 import random
 import string
 
+class BaseDependency(object):
+    " a single dependency "
+    def __init__(self, name, rel, ver, pre):
+        self.name = name
+        self.relation = rel
+        self.version = ver
+        self.preDepend = pre
+
+class Dependency(object):
+    def __init__(self, alternatives):
+        self.or_dependencies = alternatives
 
 class Package(object):
     """ This class represents a package in the cache
@@ -94,6 +105,44 @@ class Package(object):
             return None
     candidateVersion = property(candidateVersion)
 
+    def _getDependencies(self, ver):
+        depends_list = []
+        depends = ver.DependsList
+        for t in ["PreDepends", "Depends"]:
+            if not depends.has_key(t):
+                continue
+            for depVerList in depends[t]:
+                base_deps = []
+                for depOr in depVerList:
+                    base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.TargetVer, depOr.CompType, (t == "PreDepends")))
+                depends_list.append(Dependency(base_deps))
+        return depends_list
+        
+    def candidateDependencies(self):
+        """ return a list of candidate dependencies """
+        candver = self._depcache.GetCandidateVer(self._pkg)
+        if candver == None:
+            return []
+        return self._getDependencies(candver)
+    candidateDependencies = property(candidateDependencies)
+    
+    def installedDependencies(self):
+        """ return a list of installed dependencies """
+        ver = self._pkg.CurrentVer
+        if ver == None:
+            return []
+        return self._getDependencies(ver)
+    installedDependencies = property(installedDependencies)
+
+    def architecture(self):
+        if not self._lookupRecord():
+            return None
+        sec = apt_pkg.ParseSection(self._records.Record)
+        if sec.has_key("Architecture"):
+            return sec["Architecture"]
+        return None
+    architecture = property(architecture)
+
     def _downloadable(self, useCandidate=True):
         """ helper, return if the version is downloadable """
         if useCandidate:
@@ -159,7 +208,11 @@ class Package(object):
         if not self._lookupRecord():
             return ""
         desc = ""
-        for line in string.split(self._records.LongDesc, "\n"):
+        try:
+            tmp = unicode(self._records.LongDesc)
+        except UnicodeDecodeError:
+            tmp = "Invalid unicode in description"
+        for line in string.split(tmp, "\n"):
                 tmp = string.strip(line)
                 if tmp == ".":
                     desc += "\n"
@@ -175,6 +228,19 @@ class Package(object):
         return self._records.LongDesc
     rawDescription = property(rawDescription)
         
+    def candidateRecord(self):
+        " return the full pkgrecord as string of the candidate version "
+        if not self._lookupRecord(True):
+            return None
+        return self._records.Record
+    candidateRecord = property(candidateRecord)
+
+    def installedRecord(self):
+        " return the full pkgrecord as string of the installed version "
+        if not self._lookupRecord(False):
+            return None
+        return self._records.Record
+    installedRecord = property(installedRecord)
 
     # depcache states
     def markedInstall(self):
@@ -238,6 +304,8 @@ class Package(object):
     def installedSize(self):
         """ The size of the currently installed package """
         ver = self._pkg.CurrentVer
+        if ver is None:
+            return 0
         return ver.InstalledSize
     installedSize = property(installedSize)
 
@@ -344,6 +412,11 @@ if __name__ == "__main__":
     print "Description (unformated):\n%s" % pkg.rawDescription
     print "InstalledSize: %s " % pkg.installedSize
     print "PackageSize: %s " % pkg.packageSize
+    print "Dependencies: %s" % pkg.installedDependencies
+    for dep in pkg.candidateDependencies:
+        print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
+    print "arch: %s" % pkg.architecture
+    print "rec: ",pkg.candidateRecord
 
     # now test install/remove
     import apt
