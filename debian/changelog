@@ -12,7 +12,7 @@ python-apt (0.6.21) unstable; urgency=low
   * apt/cdrom.py:
     - fix bug in cdrom mountpoint handling
 
- --
+ -- Michael Vogt <mvo@debian.org>  Tue, 24 Apr 2007 21:24:28 +0200
 
 python-apt (0.6.20) unstable; urgency=low
 
