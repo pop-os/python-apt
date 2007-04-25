@@ -1,4 +1,11 @@
-python-apt (0.6.20ubuntu15) feisty; urgency=low
+python-apt (0.6.20ubuntu16) feisty; urgency=low
+
+  * Fix the addition of of sources that are already enabled but not with
+    all components - fix LP#98795
+
+ -- Sebastian Heinlein <glatzor@ubuntu.com>  Wed,  4 Apr 2007 11:31:33 +0200
+
+python-apt (0.6.20ubuntu15) unstable; urgency=low
 
   [ Sebastian Heinlein ]
   * Update the mirror lists from Launchpad

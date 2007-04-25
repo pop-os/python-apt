@@ -248,12 +248,16 @@ class SourcesList:
       yield entry
     raise StopIteration
 
-  def add(self, type, uri, dist, comps, comment="", pos=-1, file=None):
+  def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None):
     """
     Add a new source to the sources.list.
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
+
+    # create a working copy of the component list so that
+    # we can modify it later
+    comps = orig_comps[:]
     # check if we have this source already in the sources.list
     for source in self.list:
       if source.disabled == False and source.invalid == False and \
