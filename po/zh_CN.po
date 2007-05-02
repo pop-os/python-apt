@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:16+0100\n"
+"POT-Creation-Date: 2007-04-07 10:08+0200\n"
 "PO-Revision-Date: 2006-10-16 04:00+0000\n"
 "Last-Translator: catinsnow <catinsnow@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -287,6 +287,24 @@ msgstr "带有非自由依赖关系的DFSG兼容软件"
 msgid "Non-DFSG-compatible Software"
 msgstr "非DFSG兼容软件"
 
+#. TRANSLATORS: %s is a country
+#: ../aptsources/distro.py:343
+#, python-format
+msgid "Server for %s"
+msgstr "%s 的服务器"
+
+#. More than one server is used. Since we don't handle this case
+#. in the user interface we set "custom servers" to true and
+#. append a list of all used servers
+#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
+#: ../aptsources/distro.py:374
+msgid "Main server"
+msgstr "主服务器"
+
+#: ../aptsources/distro.py:377
+msgid "Custom servers"
+msgstr "自定义服务器"
+
 #~ msgid "Daily"
 #~ msgstr "每天"
 
@@ -320,17 +338,8 @@ msgstr "非DFSG兼容软件"
 #~ msgid "%s (%s)"
 #~ msgstr "%s (%s)"
 
-#~ msgid "Main server"
-#~ msgstr "主服务器"
-
-#~ msgid "Server for %s"
-#~ msgstr "%s 的服务器"
-
 #~ msgid "Nearest server"
 #~ msgstr "最近服务器"
-
-#~ msgid "Custom servers"
-#~ msgstr "自定义服务器"
 
 #~ msgid "Software Channel"
 #~ msgstr "软件频道"

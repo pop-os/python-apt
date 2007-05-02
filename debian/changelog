@@ -1,10 +1,16 @@
 python-apt (0.6.21ubuntu1) gutsy; urgency=low
 
+  [Michael Vogt]
   * python/apt_pkgmodule.cc:
     - added pkgCache::State::PkgCurrentState enums
+  [Sebastian Heinlein]
+  * Fix the addition of of sources that are already enabled but not with
+    all components - fix LP#98795
+  * Handle changes of forced servers of child repositories in a more
+    sane way - fix LP#85060
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 May 2007 14:24:11 +0200
-  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 May 2007 14:27:54 +0200
+
 python-apt (0.6.21) unstable; urgency=low
 
   * apt/cdrom.py:

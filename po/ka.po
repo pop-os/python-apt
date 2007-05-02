@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-22 15:16+0100\n"
+"POT-Creation-Date: 2007-04-07 10:08+0200\n"
 "PO-Revision-Date: 2006-10-18 01:28+0000\n"
 "Last-Translator: Malkhaz Barkalaya <malxaz@gmail.com>\n"
 "Language-Team: Georgian <geognome@googlegroups.com>\n"
@@ -289,6 +289,24 @@ msgstr "არათავისუფალ პროგრამებზე �
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-არათავსებადი პროგრამები"
 
+#. TRANSLATORS: %s is a country
+#: ../aptsources/distro.py:343
+#, python-format
+msgid "Server for %s"
+msgstr "%s სერვერი"
+
+#. More than one server is used. Since we don't handle this case
+#. in the user interface we set "custom servers" to true and
+#. append a list of all used servers
+#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
+#: ../aptsources/distro.py:374
+msgid "Main server"
+msgstr "მთავარი სერვერი"
+
+#: ../aptsources/distro.py:377
+msgid "Custom servers"
+msgstr "საკუთარი სერვერები"
+
 #~ msgid "Daily"
 #~ msgstr "ყოველდღიურად"
 
@@ -322,17 +340,8 @@ msgstr "DFSG-არათავსებადი პროგრამები
 #~ msgid "%s (%s)"
 #~ msgstr "%s (%s)"
 
-#~ msgid "Main server"
-#~ msgstr "მთავარი სერვერი"
-
-#~ msgid "Server for %s"
-#~ msgstr "%s სერვერი"
-
 #~ msgid "Nearest server"
 #~ msgstr "უახლოესი სერვერი"
-
-#~ msgid "Custom servers"
-#~ msgstr "საკუთარი სერვერები"
 
 #~ msgid "Software Channel"
 #~ msgstr "პროგრამების მიღება წყაროებიდან"

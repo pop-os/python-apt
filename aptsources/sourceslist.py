@@ -254,7 +254,6 @@ class SourcesList:
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
-
     # create a working copy of the component list so that
     # we can modify it later
     comps = orig_comps[:]
