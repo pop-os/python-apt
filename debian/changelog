@@ -1,5 +1,7 @@
 python-apt (0.7.0) experimental; urgency=low
 
+  * support translated pacakge descriptions
+  * support automatic dependency information
   * python/apt_pkgmodule.cc:
     - added pkgCache::State::PkgCurrentState enums
 

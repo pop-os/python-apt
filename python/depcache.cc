@@ -346,11 +346,13 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
 
    PyObject *PackageObj;
    char autoInst=1;
-   if (PyArg_ParseTuple(Args,"O!|b",&PackageType,&PackageObj, &autoInst) == 0)
+   char fromUser=1;
+   if (PyArg_ParseTuple(Args,"O!|bb",&PackageType,&PackageObj, 
+			&autoInst, &fromUser) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   depcache->MarkInstall(Pkg, autoInst);
+   depcache->MarkInstall(Pkg, autoInst, 0, fromUser);
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
@@ -743,5 +745,75 @@ PyTypeObject PkgProblemResolverType =
    0,	                                // tp_as_mapping
    0,                                   // tp_hash
 };
+
+									/*}}}*/
+
+// pkgActionGroup Class						        /*{{{*/
+// ---------------------------------------------------------------------
+
+
+static PyObject *PkgActionGroupRelease(PyObject *Self,PyObject *Args)
+{  
+   pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+   ag->release();
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+static PyMethodDef PkgActionGroupMethods[] = 
+{
+   {"release", PkgActionGroupRelease, METH_VARARGS, "release()"},
+   {}
+};
+
+
+static PyObject *ActionGroupAttr(PyObject *Self,char *Name)
+{
+   pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
+   
+   return Py_FindMethod(PkgActionGroupMethods,Self,Name);
+}
+
+
+PyTypeObject PkgActionGroupType =
+{
+   PyObject_HEAD_INIT(&PyType_Type)
+   0,			                // ob_size
+   "pkgActionGroup",                       // tp_name
+   sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppOwnedDealloc<pkgDepCache::ActionGroup*>,        // tp_dealloc
+   0,                                   // tp_print
+   ActionGroupAttr,                           // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,	                                // tp_as_mapping
+   0,                                   // tp_hash
+};
+
+PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)
+{
+   PyObject *Owner;
+   if (PyArg_ParseTuple(Args,"O!",&PkgDepCacheType,&Owner) == 0)
+      return 0;
+
+   pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
+   pkgDepCache::ActionGroup *group = new pkgDepCache::ActionGroup(*depcache);
+   CppOwnedPyObject<pkgDepCache::ActionGroup*> *PkgActionGroupPyObj;
+   PkgActionGroupPyObj = CppOwnedPyObject_NEW<pkgDepCache::ActionGroup*>(Owner,
+						      &PkgActionGroupType,
+						      group);
+   HandleErrors(PkgActionGroupPyObj);
+
+   return PkgActionGroupPyObj;
+
+}
+
 
 									/*}}}*/

@@ -67,6 +67,7 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args);
 // pkgProblemResolver
 extern PyTypeObject PkgProblemResolverType;
 PyObject *GetPkgProblemResolver(PyObject *Self, PyObject *Args);
+PyObject *GetPkgActionGroup(PyObject *Self, PyObject *Args);
 
 // cdrom
 extern PyTypeObject PkgCdromType;
