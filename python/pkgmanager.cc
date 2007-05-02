@@ -68,7 +68,7 @@ static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgManagerMethods[] = 
 {
-   {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archvies into the fetcher"},
+   {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
    {"DoInstall",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
    {"FixMissing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
    {}

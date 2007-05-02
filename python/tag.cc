@@ -68,7 +68,7 @@ void TagFileFree(PyObject *Obj)
    Self->Object.~pkgTagFile();
    Self->Fd.~FileFd();
    Py_DECREF(Self->File);
-   PyMem_DEL(Obj);
+   PyObject_DEL(Obj);
 }
 									/*}}}*/
 
@@ -132,7 +132,7 @@ static PyObject *TagSecMap(PyObject *Self,PyObject *Arg)
 }
 
 // len() operation
-static int TagSecLength(PyObject *Self)
+static Py_ssize_t TagSecLength(PyObject *Self)
 {
    pkgTagSection &Sec = GetCpp<pkgTagSection>(Self);
    return Sec.Count();

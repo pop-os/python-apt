@@ -1,4 +1,55 @@
-python-apt (0.6.19exp1) experimental; urgency=low
+python-apt (0.7.0) experimental; urgency=low
+
+  * python/apt_pkgmodule.cc:
+    - added pkgCache::State::PkgCurrentState enums
+
+ -- Michael Vogt <mvo@debian.org>  Wed,  2 May 2007 18:41:53 +0200
+
+python-apt (0.6.21) unstable; urgency=low
+
+  * apt/cdrom.py:
+    - better cdrom handling support
+  * apt/package.py:
+    - added candidateDependencies, installedDependencies
+    - SizeToString supports PyLong too 
+    - support pkg.architecture
+    - support candidateRecord, installedRecord
+  * apt/cache.py:
+    - fix rootdir
+  * apt/cdrom.py:
+    - fix bug in cdrom mountpoint handling
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 24 Apr 2007 21:24:28 +0200
+
+python-apt (0.6.20) unstable; urgency=low
+
+  * python/generic.h:
+    - fix incorrect use of PyMem_DEL(), use pyObject_DEL()
+      instead. This fixes a nasty segfault with python2.5
+      (lp: 63226)
+  * python/pkgrecords.cc:
+    - export SHA1Hash() as well
+  * debian/rules: Remove dh_python call.
+  * apt/progress.cc:
+    - protect against not-parsable strings send from dpkg (lp: 68553)
+  * python/pkgmanager.cc:
+    - fix typo (closes: #382853)
+  * debian/control:
+    - tightend dependency (closes: #383478)
+  * apt/progress.py:
+    - use os._exit() in the child (lp: #53298)
+    - use select() when checking for statusfd (lp: #53282)
+  * acknoledge NMU (closes: #378048, #373512)
+  * python/apt_pkgmodule.cc:
+    - fix missing docstring (closes: #368907), 
+      Thanks to Josh Triplett
+  * make it build against python2.5
+  * python/progress.cc:
+    - fix memleak (lp: #43096)
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Dec 2006 13:32:11 +0100
+
+python-apt (0.6.19) unstable; urgency=low
 
   [ Michael Vogt ]
   * doc/examples/print_uris.py:

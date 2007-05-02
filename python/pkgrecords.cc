@@ -63,6 +63,8 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->FileName());
       else if (strcmp("MD5Hash",Name) == 0)
 	 return CppPyString(Struct.Last->MD5Hash());
+      else if (strcmp("SHA1Hash",Name) == 0)
+	 return CppPyString(Struct.Last->SHA1Hash());
       else if (strcmp("SourcePkg",Name) == 0)
 	 return CppPyString(Struct.Last->SourcePkg());
       else if (strcmp("Maintainer",Name) == 0)
