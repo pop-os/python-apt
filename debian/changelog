@@ -1,3 +1,26 @@
+python-apt (0.6.21ubuntu1) gutsy; urgency=low
+
+  * python/apt_pkgmodule.cc:
+    - added pkgCache::State::PkgCurrentState enums
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 May 2007 14:24:11 +0200
+  
+python-apt (0.6.21) unstable; urgency=low
+
+  * apt/cdrom.py:
+    - better cdrom handling support
+  * apt/package.py:
+    - added candidateDependencies, installedDependencies
+    - SizeToString supports PyLong too
+    - support pkg.architecture
+    - support candidateRecord, installedRecord
+  * apt/cache.py:
+    - fix rootdir
+  * apt/cdrom.py:
+    - fix bug in cdrom mountpoint handling
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 24 Apr 2007 21:24:28 +0200
+
 python-apt (0.6.20ubuntu16) feisty; urgency=low
 
   * Fix the addition of of sources that are already enabled but not with

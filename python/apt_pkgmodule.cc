@@ -503,6 +503,12 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"PriOptional",pkgCache::State::Optional);
    AddInt(Dict,"PriExtra",pkgCache::State::Extra);
 
+   AddInt(Dict,"CurStateNotInstalled",pkgCache::State::NotInstalled);
+   AddInt(Dict,"CurStateUnPacked",pkgCache::State::UnPacked);
+   AddInt(Dict,"CurStateHalfConfigured",pkgCache::State::HalfConfigured);
+   AddInt(Dict,"CurStateHalfInstalled",pkgCache::State::HalfInstalled);
+   AddInt(Dict,"CurStateConfigFiles",pkgCache::State::ConfigFiles);
+   AddInt(Dict,"CurStateInstalled",pkgCache::State::Installed);
 }
 									/*}}}*/
 									  
