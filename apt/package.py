@@ -200,6 +200,9 @@ class Package(object):
         """ Return the short description (one line summary) """
         if not self._lookupRecord():
             return ""
+        ver = self._depcache.GetCandidateVer(self._pkg)
+        desc_iter = ver.TranslatedDescription
+        self._records.Lookup(desc_iter.FileList.pop(0))
         return self._records.ShortDesc
     summary = property(summary)
 
@@ -207,6 +210,10 @@ class Package(object):
         """ Return the formated long description """
         if not self._lookupRecord():
             return ""
+        # get the translated description
+        ver = self._depcache.GetCandidateVer(self._pkg)
+        desc_iter = ver.TranslatedDescription
+        self._records.Lookup(desc_iter.FileList.pop(0))
         desc = ""
         try:
             tmp = unicode(self._records.LongDesc)
