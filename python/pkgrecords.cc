@@ -67,6 +67,8 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->SHA1Hash());
       else if (strcmp("SourcePkg",Name) == 0)
 	 return CppPyString(Struct.Last->SourcePkg());
+      else if (strcmp("SourceVer",Name) == 0)
+	 return CppPyString(Struct.Last->SourceVer());
       else if (strcmp("Maintainer",Name) == 0)
 	 return CppPyString(Struct.Last->Maintainer());
       else if (strcmp("ShortDesc",Name) == 0)
