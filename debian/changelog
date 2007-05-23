@@ -2,8 +2,10 @@ python-apt (0.6.22) unstable; urgency=low
 
   * python/apt_pkgmodule.cc:
     - added pkgCache::State::PkgCurrentState enums
+  * python/pkgrecords.cc:
+    - added SourceVer
 
- --
+ -- Michael Vogt <mvo@debian.org>  Wed, 23 May 2007 09:44:03 +0200
 
 python-apt (0.6.21) unstable; urgency=low
 
