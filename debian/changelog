@@ -2,6 +2,7 @@ python-apt (0.7.0) unstable; urgency=low
 
   * merged automaitc removal of unused dependencies
     branch
+  * merged translated package descriptions branch
   * update build-depends
 
  --
