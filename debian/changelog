@@ -5,7 +5,7 @@ python-apt (0.7.0) unstable; urgency=low
   * merged translated package descriptions branch
   * update build-depends
 
- --
+ -- Michael Vogt <mvo@debian.org>  Sun, 10 Jun 2007 20:13:38 +0200
 
 python-apt (0.6.22) unstable; urgency=low
 
