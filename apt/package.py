@@ -24,6 +24,10 @@ import sys
 import random
 import string
 
+#from gettext import gettext as _
+import gettext
+def _(s): return gettext.dgettext("python-apt", s)
+
 class BaseDependency(object):
     " a single dependency "
     def __init__(self, name, rel, ver, pre):
@@ -216,10 +220,11 @@ class Package(object):
         self._records.Lookup(desc_iter.FileList.pop(0))
         desc = ""
         try:
-            tmp = unicode(self._records.LongDesc)
-        except UnicodeDecodeError:
-            tmp = "Invalid unicode in description"
-        for line in string.split(tmp, "\n"):
+            s = unicode(self._records.LongDesc,"utf-8")
+        except UnicodeDecodeError,e:
+            s = _("Invalid unicode in description for '%s' (%s). "
+                  "Please report.") % (self.name,e)
+        for line in string.split(s,"\n"):
                 tmp = string.strip(line)
                 if tmp == ".":
                     desc += "\n"
@@ -352,10 +357,13 @@ class Package(object):
         self._pcache.cachePreChange()
         self._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
-    def markDelete(self, autoFix=True):
-        """ mark a package for delete. Run the resolver if autoFix is set """
+    def markDelete(self, autoFix=True, purge=False):
+        """ mark a package for delete. Run the resolver if autoFix is set.
+            Mark the package as purge (remove with configuration) if 'purge'
+            is set.
+            """
         self._pcache.cachePreChange()
-        self._depcache.MarkDelete(self._pkg)
+        self._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
         if autoFix and self._depcache.BrokenCount > 0:
             Fix = apt_pkg.GetPkgProblemResolver(self._depcache)
