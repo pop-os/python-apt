@@ -21,6 +21,8 @@ def main():
 			#print "no available version, cruft"
 			continue
 		version = depcache.GetCandidateVer(pkg)
+		if not version:
+			continue
 		file, index = version.FileList.pop(0)
 		if records.Lookup((file,index)):
 			#print records.FileName

@@ -1,3 +1,27 @@
+python-apt (0.7.2) unstable; urgency=low
+
+  * build against the new apt
+  * support for new "aptsources" pythn module
+    (thanks to Sebastian Heinlein) 
+  * merged support for translated package descriptions
+  * merged support for automatic removal of unused dependencies
+
+ -- Michael Vogt <mvo@debian.org>  Sun, 10 Jun 2007 20:13:38 +0200
+
+python-apt (0.7.1) experimental; urgency=low
+
+  * merged http://glatzor.de/bzr/python-apt/sebi:
+    - this means that the new aptsources modules is available
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 14 May 2007 13:33:42 +0200
+
+python-apt (0.7.0) experimental; urgency=low
+
+  * support translated pacakge descriptions
+  * support automatic dependency information
+
+ -- Michael Vogt <mvo@debian.org>  Wed,  2 May 2007 18:41:53 +0200
+
 python-apt (0.6.22) unstable; urgency=low
 
   * python/apt_pkgmodule.cc:
@@ -5,7 +29,7 @@ python-apt (0.6.22) unstable; urgency=low
   * python/pkgrecords.cc:
     - added SourceVer
 
- --
+ -- Michael Vogt <mvo@debian.org>  Wed, 23 May 2007 09:44:03 +0200
 
 python-apt (0.6.21) unstable; urgency=low
 
@@ -65,8 +89,10 @@ python-apt (0.6.19) unstable; urgency=low
     - fix commit doc string to also cite the open related callbacks
     - allow change of rootdir for APT database loading
     - add dh_installexamples in package building Closes: #376014
+  * python/depcache.cc:
+    - "IsGarbage()" method added (to support auto-mark)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 26 Jul 2006 18:51:56 +0200
+ -- Michael Vogt <mvo@debian.org>  Thu, 27 Jul 2006 00:42:20 +0200
 
 python-apt (0.6.18-0.2) unstable; urgency=low
 
