@@ -3,6 +3,8 @@ python-apt (0.6.21ubuntu1) gutsy; urgency=low
   [Michael Vogt]
   * python/apt_pkgmodule.cc:
     - added pkgCache::State::PkgCurrentState enums
+  * data/templates/Ubuntu.info.in:
+    - updated for gusty
   [Sebastian Heinlein]
   * Fix the addition of of sources that are already enabled but not with
     all components - fix LP#98795
