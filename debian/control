@@ -1,13 +1,13 @@
 Source: python-apt
 Section: python
 Priority: optional
-Maintainer: Michael Vogt <mvo@ubuntu.com>
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
-Standards-Version: 3.7.2
+Standards-Version: 3.7.2.2
 XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.6.46.4ubuntu8), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5), python-all-dbg
-XS-Vcs-Bzr: http://launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.0), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5), python-all-dbg
+XS-Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu/
 
 Package: python-apt
 Architecture: any
