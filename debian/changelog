@@ -1,3 +1,14 @@
+python-apt (0.7.3) unstable; urgency=low
+
+  * python/package.py:
+    - added Record class that can be accessed like a dictionary
+      and return it in candidateRecord and installedRecord
+      (thanks to Alexander Sack for discussing this with me)
+  * doc/examples/records.py:
+    - added example how to use the new Records class
+
+ --
+
 python-apt (0.7.2) unstable; urgency=low
 
   * build against the new apt
