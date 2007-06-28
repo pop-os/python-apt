@@ -9,6 +9,10 @@ python-apt (0.7.3) unstable; urgency=low
   * python/cache.py:
     - throw FetchCancelleException, FetchFailedException, 
       LockFailedException exceptions when something goes wrong
+  * aptsources/distro.py:
+    - generalized some code, bringing it into the Distribution
+      class, and wrote some missing methods for the DebianDistribution
+      one (thanks to Gustavo Noronha Silva)
 
  --
 

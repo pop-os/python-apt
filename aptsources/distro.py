@@ -131,7 +131,7 @@ class Distribution:
 
     self.get_mirrors()
   
-  def get_mirrors(self):
+  def get_mirrors(self, mirror_template=None):
     """
     Provide a set of mirrors where you can get the distribution from
     """
@@ -148,6 +148,97 @@ class Distribution:
         self.default_server = self.main_server
     else:
         self.default_server = self.main_sources[0].uri
+
+    # get a list of country codes and real names
+    self.countries = {}
+    try:
+        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
+        lines = f.readlines()
+        for line in lines:
+            parts = line.split("\t")
+            self.countries[parts[0].lower()] = parts[1].strip()
+    except:
+        print "could not open file '%s'" % file
+    else:
+        f.close()
+
+    # try to guess the nearest mirror from the locale
+    self.country = None
+    self.country_code = None
+    locale = os.getenv("LANG", default="en.UK")
+    a = locale.find("_")
+    z = locale.find(".")
+    if z == -1:
+        z = len(locale)
+    country_code = locale[a+1:z].lower()
+
+    if mirror_template:
+      self.nearest_server = mirror_template % country_code
+
+    if self.countries.has_key(country_code):
+        self.country = self.countries[country_code]
+        self.country_code = country_code
+
+  def _get_mirror_name(self, server):
+      ''' Try to get a human readable name for the main mirror of a country
+          Customize for different distributions '''
+      country = None
+      i = server.find("://")
+      l = server.find(".archive.ubuntu.com")
+      if i != -1 and l != -1:
+          country = server[i+len("://"):l]
+      if self.countries.has_key(country):
+          # TRANSLATORS: %s is a country
+          return _("Server for %s") % \
+                 gettext.dgettext("iso_3166",
+                                  self.countries[country].rstrip()).rstrip()
+      else:
+          return("%s" % server.rstrip("/ "))
+
+  def get_server_list(self):
+    ''' Return a list of used and suggested servers '''
+    def compare_mirrors(mir1, mir2):
+        '''Helper function that handles comaprision of mirror urls
+           that could contain trailing slashes'''
+        return re.match(mir1.strip("/ "), mir2.rstrip("/ "))
+    
+    # Store all available servers:
+    # Name, URI, active
+    mirrors = []
+    if len(self.used_servers) < 1 or \
+       (len(self.used_servers) == 1 and \
+        compare_mirrors(self.used_servers[0], self.main_server)):
+        mirrors.append([_("Main server"), self.main_server, True]) 
+        mirrors.append([self._get_mirror_name(self.nearest_server), 
+                       self.nearest_server, False])
+    elif len(self.used_servers) == 1 and not \
+         compare_mirrors(self.used_servers[0], self.main_server):
+        mirrors.append([_("Main server"), self.main_server, False]) 
+        # Only one server is used
+        server = self.used_servers[0]
+
+        # Append the nearest server if it's not already used            
+        if not compare_mirrors(server, self.nearest_server):
+            mirrors.append([self._get_mirror_name(self.nearest_server), 
+                           self.nearest_server, False])
+        mirrors.append([self._get_mirror_name(server), server, True])
+
+    elif len(self.used_servers) > 1:
+        # More than one server is used. Since we don't handle this case
+        # in the user interface we set "custom servers" to true and 
+        # append a list of all used servers 
+        mirrors.append([_("Main server"), self.main_server, False])
+        mirrors.append([self._get_mirror_name(self.nearest_server), 
+                                        self.nearest_server, False])
+        mirrors.append([_("Custom servers"), None, True])
+        for server in self.used_servers:
+            if compare_mirrors(server, self.nearest_server) or\
+               compare_mirrors(server, self.main_server):
+                continue
+            elif not [self._get_mirror_name(server), server, False] in mirrors:
+                mirrors.append([self._get_mirror_name(server), server, False])
+
+    return mirrors
 
   def add_source(self, type=None, 
                  uri=None, dist=None, comps=None, comment=""):
@@ -295,96 +386,31 @@ class DebianDistribution(Distribution):
     else:
         return False
 
+  def _get_mirror_name(self, server):
+      ''' Try to get a human readable name for the main mirror of a country
+          Debian specific '''
+      country = None
+      i = server.find("://ftp.")
+      l = server.find(".debian.org")
+      if i != -1 and l != -1:
+          country = server[i+len("://ftp."):l]
+      if self.countries.has_key(country):
+          # TRANSLATORS: %s is a country
+          return _("Server for %s") % \
+                 gettext.dgettext("iso_3166",
+                                  self.countries[country].rstrip()).rstrip()
+      else:
+          return("%s" % server.rstrip("/ "))
+
+  def get_mirrors(self):
+    Distribution.get_mirrors(self,
+                             mirror_template="http://ftp.%s.debian.org/debian/")
+
 class UbuntuDistribution(Distribution):
   ''' Class to support specific Ubuntu features '''
   def get_mirrors(self):
-    Distribution.get_mirrors(self)
-    # get a list of country codes and real names
-    self.countries = {}
-    try:
-        f = open("/usr/share/iso-codes/iso_3166.tab", "r")
-        lines = f.readlines()
-        for line in lines:
-            parts = line.split("\t")
-            self.countries[parts[0].lower()] = parts[1].strip()
-    except:
-        print "could not open file '%s'" % file
-    else:
-        f.close()
-
-    # try to guess the nearest mirror from the locale
-    self.country = None
-    self.country_code = None
-    locale = os.getenv("LANG", default="en.UK")
-    a = locale.find("_")
-    z = locale.find(".")
-    if z == -1:
-        z = len(locale)
-    country_code = locale[a+1:z].lower()
-    self.nearest_server = "http://%s.archive.ubuntu.com/ubuntu/" % \
-                          country_code
-    if self.countries.has_key(country_code):
-        self.country = self.countries[country_code]
-        self.country_code = country_code
-
-  def get_server_list(self):
-    ''' Return a list of used and suggested servers '''
-    def compare_mirrors(mir1, mir2):
-        '''Helper function that handles comaprision of mirror urls
-           that could contain trailing slashes'''
-        return re.match(mir1.strip("/ "), mir2.rstrip("/ "))
-    def get_mirror_name(server):
-        ''' Try to get a human readable name for the main mirror of a country'''
-        country = None
-        i = server.find("://")
-        l = server.find(".archive.ubuntu.com")
-        if i != -1 and l != -1:
-            country = server[i+len("://"):l]
-        if self.countries.has_key(country):
-            # TRANSLATORS: %s is a country
-            return _("Server for %s") % \
-                   gettext.dgettext("iso_3166",
-                                    self.countries[country].rstrip()).rstrip()
-        else:
-            return("%s" % server.rstrip("/ "))
-    
-    # Store all available servers:
-    # Name, URI, active
-    mirrors = []
-    if len(self.used_servers) < 1 or \
-       (len(self.used_servers) == 1 and \
-        compare_mirrors(self.used_servers[0], self.main_server)):
-        mirrors.append([_("Main server"), self.main_server, True]) 
-        mirrors.append([get_mirror_name(self.nearest_server), 
-                       self.nearest_server, False])
-    elif len(self.used_servers) == 1 and not \
-         compare_mirrors(self.used_servers[0], self.main_server):
-        mirrors.append([_("Main server"), self.main_server, False]) 
-        # Only one server is used
-        server = self.used_servers[0]
-
-        # Append the nearest server if it's not already used            
-        if not compare_mirrors(server, self.nearest_server):
-            mirrors.append([get_mirror_name(self.nearest_server), 
-                           self.nearest_server, False])
-        mirrors.append([get_mirror_name(server), server, True])
-
-    elif len(self.used_servers) > 1:
-        # More than one server is used. Since we don't handle this case
-        # in the user interface we set "custom servers" to true and 
-        # append a list of all used servers 
-        mirrors.append([_("Main server"), self.main_server, False])
-        mirrors.append([get_mirror_name(self.nearest_server), 
-                                        self.nearest_server, False])
-        mirrors.append([_("Custom servers"), None, True])
-        for server in self.used_servers:
-            if compare_mirrors(server, self.nearest_server) or\
-               compare_mirrors(server, self.main_server):
-                continue
-            elif not [get_mirror_name(server), server, False] in mirrors:
-                mirrors.append([get_mirror_name(server), server, False])
-
-    return mirrors
+    Distribution.get_mirrors(self,
+                             mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 def get_distro():
     ''' Check the currently used distribution and return the corresponding
