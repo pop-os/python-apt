@@ -7,7 +7,7 @@ python-apt (0.7.3) unstable; urgency=low
   * doc/examples/records.py:
     - added example how to use the new Records class
   * python/cache.py:
-    - throw FetchCanceltException, FetchFailedException, 
+    - throw FetchCancelleException, FetchFailedException, 
       LockFailedException exceptions when something goes wrong
 
  --

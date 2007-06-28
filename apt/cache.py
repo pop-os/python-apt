@@ -25,7 +25,7 @@ import apt.progress
 import os
 import sys
 
-class FetchCanceltException(IOError):
+class FetchCancelledException(IOError):
     " Exception that is thrown when the user cancels a fetch operation "
     pass
 class FetchFailedException(IOError):
@@ -141,7 +141,7 @@ class Cache(object):
 
         # we raise a exception if the download failed or it was cancelt
         if res == fetcher.ResultCancelled:
-            raise FetchCanceltException, errMsg
+            raise FetchCancelledException, errMsg
         elif failed:
             raise FetchFailedException, errMsg
         return res
