@@ -25,6 +25,16 @@ import apt.progress
 import os
 import sys
 
+class FetchCancelledException(IOError):
+    " Exception that is thrown when the user cancels a fetch operation "
+    pass
+class FetchFailedException(IOError):
+    " Exception that is thrown when fetching fails "
+    pass
+class LockFailedException(IOError):
+    " Exception that is thrown when locking fails "
+    pass
+
 class Cache(object):
     """ Dictionary-like package cache 
         This class has all the packages that are available in it's
@@ -129,9 +139,11 @@ class Cache(object):
             errMsg += "Failed to fetch %s %s\n" % (item.DescURI,item.ErrorText)
             failed = True
 
-        # we raise a exception if the download failed
-        if failed:
-            raise IOError, errMsg
+        # we raise a exception if the download failed or it was cancelt
+        if res == fetcher.ResultCancelled:
+            raise FetchCancelledException, errMsg
+        elif failed:
+            raise FetchFailedException, errMsg
         return res
 
     def _fetchArchives(self, fetcher, pm):
@@ -141,7 +153,7 @@ class Cache(object):
         lockfile = apt_pkg.Config.FindDir("Dir::Cache::Archives") + "lock"
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
-            raise IOError, "Failed to lock %s" % lockfile
+            raise LockFailedException, "Failed to lock %s" % lockfile
 
         try:
             # this may as well throw a SystemError exception
@@ -157,7 +169,7 @@ class Cache(object):
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
-            raise IOError, "Failed to lock %s" % lockfile
+            raise LockFailedException, "Failed to lock %s" % lockfile
 
         try:
             if fetchProgress == None:

@@ -1,3 +1,17 @@
+python-apt (0.7.2ubuntu2) gutsy; urgency=low
+
+  * python/package.py:
+    - added Record class that can be accessed like a dictionary
+      and return it in candidateRecord and installedRecord
+      (thanks to Alexander Sack for discussing this with me)
+  * doc/examples/records.py:
+    - added example how to use the new Records class
+  * python/cache.py:
+    - throw FetchCancelleException, FetchFailedException, 
+      LockFailedException exceptions when something goes wrong
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 28 Jun 2007 16:03:01 +0200
+
 python-apt (0.7.2ubuntu1) gutsy; urgency=low
 
   * merged from debian/unstable
