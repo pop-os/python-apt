@@ -13,8 +13,12 @@ python-apt (0.7.3) unstable; urgency=low
     - generalized some code, bringing it into the Distribution
       class, and wrote some missing methods for the DebianDistribution
       one (thanks to Gustavo Noronha Silva)
+  * debian/control:
+    - updated for python-distutils-extra (>= 1.9.0)
+  * debian/python-apt.install:
+    - fix i18n files
 
- --
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 02 Jul 2007 18:33:36 +0200
 
 python-apt (0.7.2) unstable; urgency=low
 
