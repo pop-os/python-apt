@@ -1,3 +1,9 @@
+python-apt (0.7.2ubuntu3) UNRELEASED; urgency=low
+
+  * Rebuild against libapt-pkg-libc6.6-6-4.4.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 09 Jul 2007 16:35:40 +0100
+
 python-apt (0.7.2ubuntu2) gutsy; urgency=low
 
   * python/package.py:
