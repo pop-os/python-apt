@@ -1,12 +1,12 @@
 python-apt (0.7.3) unstable; urgency=low
 
-  * python/package.py:
+  * apt/package.py:
     - added Record class that can be accessed like a dictionary
       and return it in candidateRecord and installedRecord
       (thanks to Alexander Sack for discussing this with me)
   * doc/examples/records.py:
     - added example how to use the new Records class
-  * python/cache.py:
+  * apt/cache.py:
     - throw FetchCancelleException, FetchFailedException, 
       LockFailedException exceptions when something goes wrong
   * aptsources/distro.py:
@@ -17,8 +17,10 @@ python-apt (0.7.3) unstable; urgency=low
     - updated for python-distutils-extra (>= 1.9.0)
   * debian/python-apt.install:
     - fix i18n files
+  * python/indexfile.cc:
+    - increase str buffer in PackageIndexFileRepr
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 02 Jul 2007 18:33:36 +0200
+ -- 
 
 python-apt (0.7.2) unstable; urgency=low
 
