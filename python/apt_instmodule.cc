@@ -102,15 +102,44 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_BuildValue("b",res));
 }
 									/*}}}*/
+// arFindMember - Find member in AR archive              		/*{{{*/
+// ---------------------------------------------------------------------
+static char *doc_arCheckMember =
+"arCheckMember(File, membername) -> Bool\n";
+static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
+{
+   char *Member = NULL;
+   bool res = false;
+   PyObject *File;
+   if (PyArg_ParseTuple(Args,"O!s",&PyFile_Type,&File,&Member) == 0)
+      return 0;
+   
+   // Open the file and associate the .deb
+   FileFd Fd(fileno(PyFile_AsFile(File)),false);
+   ARArchive AR(Fd);
+   if (_error->PendingError() == true)
+      return HandleErrors(Py_BuildValue("b",res));
+   
+   if(AR.FindMember(Member) != 0)
+      res = true;
+
+   return HandleErrors(Py_BuildValue("b",res));
+}
+									/*}}}*/
 
 // initapt_inst - Core Module Initialization				/*{{{*/
 // ---------------------------------------------------------------------
 /* */
 static PyMethodDef methods[] =
 {
-   // Stuff
+   // access to ar files
+   {"arCheckMember", arCheckMember, METH_VARARGS, doc_arCheckMember},
+
+   // access to deb files
    {"debExtractControl",debExtractControl,METH_VARARGS,doc_debExtractControl},
    {"debExtractArchive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
+
+   // access to tar streams
    {"tarExtract",tarExtract,METH_VARARGS,doc_tarExtract},
    {"debExtract",debExtract,METH_VARARGS,doc_debExtract},
 

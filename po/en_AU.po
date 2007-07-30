@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-07 10:08+0200\n"
+"POT-Creation-Date: 2007-07-30 22:28+0200\n"
 "PO-Revision-Date: 2006-10-16 04:01+0000\n"
 "Last-Translator: David Satchell <david@davidsatchell.net>\n"
 "Language-Team: English (Australia) <en_AU@li.org>\n"
@@ -288,7 +288,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr "Non-DFSG-compatible Software"
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:343
+#: ../aptsources/distro.py:192 ../aptsources/distro.py:399
 #, python-format
 msgid "Server for %s"
 msgstr "Server for %s"
@@ -296,12 +296,12 @@ msgstr "Server for %s"
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
-#: ../aptsources/distro.py:374
+#: ../aptsources/distro.py:211 ../aptsources/distro.py:216
+#: ../aptsources/distro.py:230
 msgid "Main server"
 msgstr "Main server"
 
-#: ../aptsources/distro.py:377
+#: ../aptsources/distro.py:233
 msgid "Custom servers"
 msgstr "Custom servers"
 

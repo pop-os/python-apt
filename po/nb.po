@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-04-07 10:08+0200\n"
+"POT-Creation-Date: 2007-07-30 22:28+0200\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Hans Petter Birkeland <hanspb@bluezone.no>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -310,7 +310,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr "Ikke-DFSG-kompatibel programvare"
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:343
+#: ../aptsources/distro.py:192 ../aptsources/distro.py:399
 #, fuzzy, python-format
 msgid "Server for %s"
 msgstr "Tjener for %s"
@@ -318,13 +318,13 @@ msgstr "Tjener for %s"
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:355 ../aptsources/distro.py:360
-#: ../aptsources/distro.py:374
+#: ../aptsources/distro.py:211 ../aptsources/distro.py:216
+#: ../aptsources/distro.py:230
 #, fuzzy
 msgid "Main server"
 msgstr "Hovedtjener"
 
-#: ../aptsources/distro.py:377
+#: ../aptsources/distro.py:233
 #, fuzzy
 msgid "Custom servers"
 msgstr "Egendefinerte tjenere"
