@@ -1,3 +1,19 @@
+python-apt (0.7.2ubuntu4) UNRELEASED; urgency=low
+
+  * aptsources/distro.py:
+   - generalized some code, bringing it into the Distribution
+     class, and wrote some missing methods for the DebianDistribution
+     one (thanks to Gustavo Noronha Silva)
+  * debian/control:
+   - updated for python-distutils-extra (>= 1.9.0)
+  * debian/python-apt.install:
+   - fix i18n files
+  * python/indexfile.cc:
+   - increase str buffer in PackageIndexFileRepr
+
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 18:23:59 +0200
+
 python-apt (0.7.2ubuntu3) gutsy; urgency=low
 
   * Rebuild against libapt-pkg-libc6.6-6-4.4.
@@ -6,13 +22,13 @@ python-apt (0.7.2ubuntu3) gutsy; urgency=low
 
 python-apt (0.7.2ubuntu2) gutsy; urgency=low
 
-  * python/package.py:
+  * apt/package.py:
     - added Record class that can be accessed like a dictionary
       and return it in candidateRecord and installedRecord
       (thanks to Alexander Sack for discussing this with me)
   * doc/examples/records.py:
     - added example how to use the new Records class
-  * python/cache.py:
+  * apt/cache.py:
     - throw FetchCancelleException, FetchFailedException, 
       LockFailedException exceptions when something goes wrong
 

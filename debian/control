@@ -6,7 +6,7 @@ XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2.2
 XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.0), apt-utils, python-all-dev, python-distutils-extra, cdbs, python-central (>= 0.5), python-all-dbg
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.0), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.5), python-all-dbg
 XS-Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu/
 
 Package: python-apt
