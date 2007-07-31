@@ -1,18 +1,38 @@
-python-apt (0.7.2ubuntu4) UNRELEASED; urgency=low
+python-apt (0.7.3ubuntu1) gutsy; urgency=low
 
+  * apt/debfile.py:
+    - added wrapper around apt_inst.debExtract()
+    - support dictionary like access
+  * python/apt_instmodule.cc:
+    - added arCheckMember()
+  * build with latest python-distutils-extra (thanks
+    to doko for notifiying about the problem)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Jul 2007 13:40:04 +0200
+
+python-apt (0.7.3) unstable; urgency=low
+
+  * apt/package.py:
+    - added Record class that can be accessed like a dictionary
+      and return it in candidateRecord and installedRecord
+      (thanks to Alexander Sack for discussing this with me)
+  * doc/examples/records.py:
+    - added example how to use the new Records class
+  * apt/cache.py:
+    - throw FetchCancelleException, FetchFailedException,
+      LockFailedException exceptions when something goes wrong
   * aptsources/distro.py:
-   - generalized some code, bringing it into the Distribution
-     class, and wrote some missing methods for the DebianDistribution
-     one (thanks to Gustavo Noronha Silva)
+    - generalized some code, bringing it into the Distribution
+      class, and wrote some missing methods for the DebianDistribution
+      one (thanks to Gustavo Noronha Silva)
   * debian/control:
-   - updated for python-distutils-extra (>= 1.9.0)
+    - updated for python-distutils-extra (>= 1.9.0)
   * debian/python-apt.install:
-   - fix i18n files
+    - fix i18n files
   * python/indexfile.cc:
-   - increase str buffer in PackageIndexFileRepr
+    - increase str buffer in PackageIndexFileRepr
 
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 18:23:59 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 27 Jul 2007 16:53:11 +0200
 
 python-apt (0.7.2ubuntu3) gutsy; urgency=low
 
@@ -22,13 +42,13 @@ python-apt (0.7.2ubuntu3) gutsy; urgency=low
 
 python-apt (0.7.2ubuntu2) gutsy; urgency=low
 
-  * apt/package.py:
+  * python/package.py:
     - added Record class that can be accessed like a dictionary
       and return it in candidateRecord and installedRecord
       (thanks to Alexander Sack for discussing this with me)
   * doc/examples/records.py:
     - added example how to use the new Records class
-  * apt/cache.py:
+  * python/cache.py:
     - throw FetchCancelleException, FetchFailedException, 
       LockFailedException exceptions when something goes wrong
 
