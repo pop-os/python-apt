@@ -483,8 +483,6 @@ extern "C" void initapt_pkg()
    // Version..
    AddStr(Dict,"Version",pkgVersion);
    AddStr(Dict,"LibVersion",pkgLibVersion);
-   AddStr(Dict,"CPU",pkgCPU);
-   AddStr(Dict,"OS",pkgOS);
    AddStr(Dict,"Date",__DATE__);
    AddStr(Dict,"Time",__TIME__);
 

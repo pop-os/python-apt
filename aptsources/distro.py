@@ -31,6 +31,9 @@ import gettext
 def _(s): return gettext.dgettext("python-apt", s)
 
 
+class NoDistroTemplateException(Exception):
+  pass
+
 class Distribution:
   def __init__(self, id, codename, description, release):
     """ Container for distribution specific informations """
@@ -78,9 +81,8 @@ class Distribution:
             self.source_template = template
             break
     if self.source_template == None:
-        print "Error: could not find a distribution template"
-        # FIXME: will go away - only for debugging issues
-        sys.exit(1)
+        raise (NoDistroTemplateException,
+               "Error: could not find a distribution template")
 
     # find main and child sources
     media = []

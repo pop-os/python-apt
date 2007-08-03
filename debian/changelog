@@ -5,8 +5,19 @@ python-apt (0.7.4) UNRELEASED; urgency=low
     - support dictionary like access 
   * python/apt_instmodule.cc:
     - added arCheckMember()
+  * aptsources/distro.py:
+    - throw NoDistroTemplateException if not distribution template
+      can be found
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
+
+python-apt (0.7.3.1) unstable; urgency=low
+
+  * NMU
+  * Fix version to not use CPU and OS since it's not available on APT
+    anymore (closes: #435653, #435674)
+
+ -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
 
 python-apt (0.7.3) unstable; urgency=low
 
