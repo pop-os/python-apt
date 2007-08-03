@@ -13,8 +13,19 @@ python-apt (0.7.3ubuntu1) gutsy; urgency=low
     - added arCheckMember()
   * build with latest python-distutils-extra (thanks
     to doko for notifiying about the problem)
+  * aptsources/distro.py:
+    - throw NoDistroTemplateException if not distribution template
+      can be found
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Jul 2007 13:40:04 +0200
+
+python-apt (0.7.3.1) unstable; urgency=low
+
+  * NMU
+  * Fix version to not use CPU and OS since it's not available on APT
+    anymore (closes: #435653, #435674)
+
+ -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
 
 python-apt (0.7.3) unstable; urgency=low
 
