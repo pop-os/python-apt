@@ -1,3 +1,9 @@
+python-apt (0.7.3ubuntu2) gutsy; urgency=low
+
+  * rebuild against latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 03 Aug 2007 14:16:41 +0200
+
 python-apt (0.7.3ubuntu1) gutsy; urgency=low
 
   * apt/debfile.py:
