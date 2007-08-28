@@ -56,7 +56,7 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
 {
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
    
-   char S[300];
+   char S[1024];
    snprintf(S,sizeof(S),"<pkIndexFile object: "
 			"Label:'%s' Describe='%s' Exists='%i' "
 	                "HasPackages='%i' Size='%i'  "

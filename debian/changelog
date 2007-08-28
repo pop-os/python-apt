@@ -1,3 +1,48 @@
+python-apt (0.7.4) UNRELEASED; urgency=low
+
+  * apt/debfile.py:
+    - added wrapper around apt_inst.debExtract()
+    - support dictionary like access 
+  * python/apt_instmodule.cc:
+    - added arCheckMember()
+  * aptsources/distro.py:
+    - throw NoDistroTemplateException if not distribution template
+      can be found
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
+
+python-apt (0.7.3.1) unstable; urgency=low
+
+  * NMU
+  * Fix version to not use CPU and OS since it's not available on APT
+    anymore (closes: #435653, #435674)
+
+ -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
+
+python-apt (0.7.3) unstable; urgency=low
+
+  * apt/package.py:
+    - added Record class that can be accessed like a dictionary
+      and return it in candidateRecord and installedRecord
+      (thanks to Alexander Sack for discussing this with me)
+  * doc/examples/records.py:
+    - added example how to use the new Records class
+  * apt/cache.py:
+    - throw FetchCancelleException, FetchFailedException, 
+      LockFailedException exceptions when something goes wrong
+  * aptsources/distro.py:
+    - generalized some code, bringing it into the Distribution
+      class, and wrote some missing methods for the DebianDistribution
+      one (thanks to Gustavo Noronha Silva)
+  * debian/control:
+    - updated for python-distutils-extra (>= 1.9.0)
+  * debian/python-apt.install:
+    - fix i18n files
+  * python/indexfile.cc:
+    - increase str buffer in PackageIndexFileRepr
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Jul 2007 16:57:28 +0200
+
 python-apt (0.7.2) unstable; urgency=low
 
   * build against the new apt

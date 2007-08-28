@@ -3,7 +3,7 @@
 
 from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
-from DistUtilsExtra.distutils_extra import build_extra, build_l10n
+from DistUtilsExtra.command import *
 import glob, os, string
 
 # The apt_pkg module
@@ -40,8 +40,8 @@ setup(name="python-apt",
                     glob.glob('build/data/templates/*.info')),
                     ('share/python-apt/templates',
                     glob.glob('data/templates/*.mirrors'))],
-      cmdclass = { "build" : build_extra,
-                   "build_l10n" :  build_l10n },
+      cmdclass = { "build" : build_extra.build_extra,
+                   "build_i18n" :  build_i18n.build_i18n },
       license = 'GNU GPL',
       platforms = 'posix'
       )

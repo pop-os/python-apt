@@ -40,6 +40,23 @@ class Dependency(object):
     def __init__(self, alternatives):
         self.or_dependencies = alternatives
 
+class Record(object):
+    """ represents a pkgRecord, can be accessed like a
+        dictionary and gives the original package record
+        if accessed as a string """
+    def __init__(self, s):
+        self._str = s
+        self._rec = apt_pkg.ParseSection(s)
+    def __str__(self):
+        return self._str
+    def __getitem__(self, key):
+        k = self._rec.get(key)
+        if k is None:
+            raise KeyError
+        return k
+    def has_key(self, key):
+        return self._rec.has_key(key)
+
 class Package(object):
     """ This class represents a package in the cache
     """
@@ -244,14 +261,14 @@ class Package(object):
         " return the full pkgrecord as string of the candidate version "
         if not self._lookupRecord(True):
             return None
-        return self._records.Record
+        return Record(self._records.Record)
     candidateRecord = property(candidateRecord)
 
     def installedRecord(self):
         " return the full pkgrecord as string of the installed version "
         if not self._lookupRecord(False):
             return None
-        return self._records.Record
+        return Record(self._records.Record)
     installedRecord = property(installedRecord)
 
     # depcache states

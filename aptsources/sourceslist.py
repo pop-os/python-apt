@@ -254,12 +254,9 @@ class SourcesList:
     The method will search for existing matching repos and will try to 
     reuse them as far as possible
     """
-
-    # create a working copy of the component list so that we can modify it later
-    # FIXME: perhaps could be done in a prittier way
-    comps = []
-    for c in orig_comps:
-        comps.append(c)
+    # create a working copy of the component list so that
+    # we can modify it later
+    comps = orig_comps[:]
     # check if we have this source already in the sources.list
     for source in self.list:
       if source.disabled == False and source.invalid == False and \
