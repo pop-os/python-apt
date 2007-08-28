@@ -8,6 +8,8 @@ python-apt (0.7.4) UNRELEASED; urgency=low
   * aptsources/distro.py:
     - throw NoDistroTemplateException if not distribution template
       can be found
+  * python/string.cc:
+    - fix overflow in SizeToStr()
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
 
