@@ -95,5 +95,8 @@ PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args);
 // pkgSourceList
 extern PyTypeObject PackageIndexFileType;
 
+// metaIndex
+extern PyTypeObject MetaIndexType;
+
 
 #endif

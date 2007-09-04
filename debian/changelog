@@ -10,6 +10,11 @@ python-apt (0.7.4) UNRELEASED; urgency=low
       can be found
   * python/string.cc:
     - fix overflow in SizeToStr()
+  * python/metaindex.cc:
+    - added support for the metaIndex objects
+  * python/sourceslist.cc:
+    - support new "List" attribute that returns the list of
+      metaIndex source entries
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
 

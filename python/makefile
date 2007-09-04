@@ -12,7 +12,7 @@ LIB_MAKES = apt-pkg/makefile
 APT_PKG_SRC = apt_pkgmodule.cc configuration.cc generic.cc tag.cc string.cc \
               cache.cc pkgrecords.cc pkgsrcrecords.cc sourcelist.cc \
 	      depcache.cc progress.cc cdrom.cc acquire.cc pkgmanager.cc \
-	      indexfile.cc
+	      indexfile.cc metaindex.cc
 SOURCE := $(APT_PKG_SRC)	      
 include $(PYTHON_H) progress.h
 

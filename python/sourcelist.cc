@@ -80,7 +80,21 @@ static PyMethodDef PkgSourceListMethods[] =
 
 static PyObject *PkgSourceListAttr(PyObject *Self,char *Name)
 {
-     return Py_FindMethod(PkgSourceListMethods,Self,Name);
+   pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
+
+   if (strcmp("List",Name) == 0)
+   {
+      PyObject *List = PyList_New(0);
+      for (vector<metaIndex *>::const_iterator I = list->begin(); 
+	   I != list->end(); I++)
+      {
+	 PyObject *Obj;
+	 Obj = CppPyObject_NEW<metaIndex*>(&MetaIndexType,*I);
+	 PyList_Append(List,Obj);
+      }      
+      return List;
+   }
+   return Py_FindMethod(PkgSourceListMethods,Self,Name);
 }
 PyTypeObject PkgSourceListType =
 {
