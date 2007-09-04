@@ -1,3 +1,23 @@
+python-apt (0.7.3.1ubuntu1) gutsy; urgency=low
+
+  * python/metaindex.cc:
+    - added support for the metaIndex objects
+  * python/sourceslist.cc:
+    - support new "List" attribute that returns the list of
+      metaIndex source entries
+  * python/string.cc:
+    - fix overflow in SizeToStr()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 04 Sep 2007 16:36:11 +0200
+
+python-apt (0.7.3.1) unstable; urgency=low
+
+  * NMU
+  * Fix version to not use CPU and OS since it's not available on APT
+    anymore (closes: #435653, #435674)
+
+ -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
+
 python-apt (0.7.3ubuntu2) gutsy; urgency=low
 
   * rebuild against latest apt
@@ -18,14 +38,6 @@ python-apt (0.7.3ubuntu1) gutsy; urgency=low
       can be found
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Jul 2007 13:40:04 +0200
-
-python-apt (0.7.3.1) unstable; urgency=low
-
-  * NMU
-  * Fix version to not use CPU and OS since it's not available on APT
-    anymore (closes: #435653, #435674)
-
- -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
 
 python-apt (0.7.3) unstable; urgency=low
 

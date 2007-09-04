@@ -55,7 +55,7 @@ PyObject *StrSizeToStr(PyObject *Self,PyObject *Args)
    if (PyInt_Check(Obj))
       return CppPyString(SizeToStr(PyInt_AsLong(Obj)));
    if (PyLong_Check(Obj))
-      return CppPyString(SizeToStr(PyLong_AsLong(Obj)));
+      return CppPyString(SizeToStr(PyLong_AsDouble(Obj)));
    if (PyFloat_Check(Obj))
       return CppPyString(SizeToStr(PyFloat_AsDouble(Obj)));
    
