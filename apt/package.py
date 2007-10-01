@@ -135,7 +135,7 @@ class Package(object):
             for depVerList in depends[t]:
                 base_deps = []
                 for depOr in depVerList:
-                    base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.TargetVer, depOr.CompType, (t == "PreDepends")))
+                    base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.CompType, depOr.TargetVer, (t == "PreDepends")))
                 depends_list.append(Dependency(base_deps))
         return depends_list
         

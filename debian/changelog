@@ -3,6 +3,8 @@ python-apt (0.7.4) UNRELEASED; urgency=low
   * apt/debfile.py:
     - added wrapper around apt_inst.debExtract()
     - support dictionary like access 
+  * apt/package.py:
+    - fix apt.package.Dependency.relation initialization
   * python/apt_instmodule.cc:
     - added arCheckMember()
   * aptsources/distro.py:
