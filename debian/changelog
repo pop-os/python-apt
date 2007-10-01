@@ -1,3 +1,10 @@
+python-apt (0.7.3.1ubuntu2) gutsy; urgency=low
+
+  * apt/package.py:
+    - fix apt.package.Dependency.relation initialization
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2007 20:08:47 +0200
+
 python-apt (0.7.3.1ubuntu1) gutsy; urgency=low
 
   * python/metaindex.cc:

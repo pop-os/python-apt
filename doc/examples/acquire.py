@@ -45,7 +45,7 @@ fetcher = apt_pkg.GetAcquire(progress)
 pm = apt_pkg.GetPackageManager(depcache)
 pm.GetArchives(fetcher,list,recs)
 print "%s (%s)" % (apt_pkg.SizeToStr(fetcher.FetchNeeded), fetcher.FetchNeeded)
-
+actiongroup = apt_pkg.GetPkgActionGroup(depcache)
 for pkg in cache.Packages:
     depcache.MarkKeep(pkg)
 
@@ -68,7 +68,6 @@ print pm
 print fetcher
 
 get_file(fetcher, "ftp://ftp.debian.org/debian/dists/README", "/tmp/lala")
-sys.exit(1)
 
 pm.GetArchives(fetcher,list,recs)
 
