@@ -1,3 +1,11 @@
+python-apt (0.7.3.1ubuntu4) gutsy; urgency=low
+
+  * depend on gutsy version pycentral, this ensures that we get a updated
+    dpkg with triggers support before pycentral uses dpkg-querry 
+    (LP: #152827)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Oct 2007 11:24:12 +0200
+
 python-apt (0.7.3.1ubuntu3) gutsy; urgency=low
 
   * data/templates/Ubuntu.mirrors:
