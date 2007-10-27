@@ -1,3 +1,9 @@
+python-apt (0.7.3.1ubuntu5) hardy; urgency=low
+
+  * add hardy to the ubuntu sources.list template
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 27 Oct 2007 15:03:18 -0400
+
 python-apt (0.7.3.1ubuntu4) gutsy; urgency=low
 
   * pre-depend on gutsy version pycentral, this ensures that we get a 
