@@ -1,3 +1,10 @@
+python-apt (0.7.3.1ubuntu6) hardy; urgency=low
+
+  * remove python-central pre-depends, this is no longer needed
+    during upgrades now that we have "PYCENTRAL_NO_DPKG_QUERY"
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 21 Nov 2007 20:33:42 +0100
+
 python-apt (0.7.3.1ubuntu5) hardy; urgency=low
 
   * add hardy to the ubuntu sources.list template

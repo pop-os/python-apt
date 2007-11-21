@@ -11,7 +11,6 @@ XS-Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu/
 
 Package: python-apt
 Architecture: any
-Pre-Depends: python-central (>= 0.5.15ubuntu2)
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
 Priority: optional
 Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
