@@ -65,10 +65,11 @@ void PyOpProgress::Update()
    Py_XDECREF(o);
 
    // Build up the argument list... 
-   PyObject *arglist = Py_BuildValue("(f)", Percent);
    if(CheckChange(0.05))
+   {
+      PyObject *arglist = Py_BuildValue("(f)", Percent);
       RunSimpleCallback("update", arglist);
-   Py_XDECREF(arglist);
+   }
 };
 
 void PyOpProgress::Done()
@@ -163,14 +164,19 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    PyObject *o;
    o = Py_BuildValue("f", CurrentCPS);
    PyObject_SetAttrString(callbackInst, "currentCPS", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("f", CurrentBytes);
    PyObject_SetAttrString(callbackInst, "currentBytes", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("i", CurrentItems);
    PyObject_SetAttrString(callbackInst, "currentItems", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("i", TotalItems);
    PyObject_SetAttrString(callbackInst, "totalItems", o);
+   Py_XDECREF(o);
    o = Py_BuildValue("f", TotalBytes);
    PyObject_SetAttrString(callbackInst, "totalBytes", o);
+   Py_XDECREF(o);
 
    PyObject *arglist = Py_BuildValue("()");
    PyObject *result;   
@@ -306,6 +312,7 @@ void PyCdromProgress::Update(string text, int current)
 
    PyObject *o = Py_BuildValue("i", totalSteps);
    PyObject_SetAttrString(callbackInst, "totalSteps", o);
+   Py_XDECREF(o);
 
    RunSimpleCallback("update", arglist);
 }
