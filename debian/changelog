@@ -17,6 +17,8 @@ python-apt (0.7.4) UNRELEASED; urgency=low
   * python/sourceslist.cc:
     - support new "List" attribute that returns the list of
       metaIndex source entries
+  * python/depcache.cc:
+    - be more threading friendly
   * python/progress.cc:
     - fix refcount problem in OpProgress
     - fix refcount problem in FetchProgress
