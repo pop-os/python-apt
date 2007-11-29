@@ -1,4 +1,4 @@
-python-apt (0.7.4) UNRELEASED; urgency=low
+python-apt (0.7.4) unstable; urgency=low
 
   * apt/debfile.py:
     - added wrapper around apt_inst.debExtract()
@@ -19,12 +19,15 @@ python-apt (0.7.4) UNRELEASED; urgency=low
       metaIndex source entries
   * python/depcache.cc:
     - be more threading friendly
+  * python/tag.cc
+    - support "None" as default in 
+      ParseSection(control).get(field, default), LP: #44470
   * python/progress.cc:
     - fix refcount problem in OpProgress
     - fix refcount problem in FetchProgress
     - fix refcount problem in CdromProgress
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Nov 2007 11:52:43 +0100
 
 python-apt (0.7.3.1) unstable; urgency=low
 
