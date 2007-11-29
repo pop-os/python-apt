@@ -26,8 +26,10 @@ python-apt (0.7.4) unstable; urgency=low
     - fix refcount problem in OpProgress
     - fix refcount problem in FetchProgress
     - fix refcount problem in CdromProgress
+  * apt/README.apt:
+    - fix typo (thanks to Thomas Schoepf, closes: #387787)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Nov 2007 11:52:43 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Nov 2007 12:17:17 +0100
 
 python-apt (0.7.3.1) unstable; urgency=low
 
