@@ -78,7 +78,7 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
    char *Default = 0;
-   if (PyArg_ParseTuple(Args,"s|s",&Name,&Default) == 0)
+   if (PyArg_ParseTuple(Args,"s|z",&Name,&Default) == 0)
       return 0;
    
    const char *Start;
@@ -86,10 +86,7 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
    if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
    {
       if (Default == 0)
-      {
-	 Py_INCREF(Py_None);
-	 return Py_None;
-      }
+	 Py_RETURN_NONE;
       return PyString_FromString(Default);
    }
    return PyString_FromStringAndSize(Start,Stop-Start);

@@ -1,15 +1,37 @@
-python-apt (0.7.4) UNRELEASED; urgency=low
+python-apt (0.7.4) unstable; urgency=low
 
   * apt/debfile.py:
     - added wrapper around apt_inst.debExtract()
     - support dictionary like access 
+  * apt/package.py:
+    - fix apt.package.Dependency.relation initialization
   * python/apt_instmodule.cc:
     - added arCheckMember()
   * aptsources/distro.py:
     - throw NoDistroTemplateException if not distribution template
       can be found
+  * python/string.cc:
+    - fix overflow in SizeToStr()
+  * python/metaindex.cc:
+    - added support for the metaIndex objects
+  * python/sourceslist.cc:
+    - support new "List" attribute that returns the list of
+      metaIndex source entries
+  * python/depcache.cc:
+    - be more threading friendly
+  * python/tag.cc
+    - support "None" as default in 
+      ParseSection(control).get(field, default), LP: #44470
+  * python/progress.cc:
+    - fix refcount problem in OpProgress
+    - fix refcount problem in FetchProgress
+    - fix refcount problem in CdromProgress
+  * apt/README.apt:
+    - fix typo (thanks to Thomas Schoepf, closes: #387787)
+  * po/fr.po:
+    - merge update, thanks to Christian Perrier (closes:  #435918)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jul 2007 22:33:59 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Nov 2007 12:17:17 +0100
 
 python-apt (0.7.3.1) unstable; urgency=low
 
