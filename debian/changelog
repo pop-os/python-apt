@@ -28,6 +28,8 @@ python-apt (0.7.4) unstable; urgency=low
     - fix refcount problem in CdromProgress
   * apt/README.apt:
     - fix typo (thanks to Thomas Schoepf, closes: #387787)
+  * po/fr.po:
+    - merge update, thanks to Christian Perrier (closes:  #435918)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Nov 2007 12:17:17 +0100
 
