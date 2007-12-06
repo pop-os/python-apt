@@ -528,7 +528,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
-   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Get candidate version"},
+   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Set candidate version"},
 
    // global cache operations
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
