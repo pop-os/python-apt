@@ -227,17 +227,19 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 {   
+   bool res;
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    char distUpgrade=0;
    if (PyArg_ParseTuple(Args,"|b",&distUpgrade) == 0)
       return 0;
 
-   bool res;
+   Py_BEGIN_ALLOW_THREADS
    if(distUpgrade)
       res = pkgDistUpgrade(*depcache);
    else
       res = pkgAllUpgrade(*depcache);
+   Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_BuildValue("b",res));   
@@ -245,12 +247,15 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgDepCacheMinimizeUpgrade(PyObject *Self,PyObject *Args)
 {   
+   bool res;
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   bool res = pkgMinimizeUpgrade(*depcache);
+   Py_BEGIN_ALLOW_THREADS
+   res = pkgMinimizeUpgrade(*depcache);
+   Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_BuildValue("b",res));   
@@ -351,8 +356,10 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
 			&autoInst, &fromUser) == 0)
       return 0;
 
+   Py_BEGIN_ALLOW_THREADS
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    depcache->MarkInstall(Pkg, autoInst, 0, fromUser);
+   Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);   
@@ -521,7 +528,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
    {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
-   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Get candidate version"},
+   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Set candidate version"},
 
    // global cache operations
    {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
@@ -652,23 +659,31 @@ PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgProblemResolverResolve(PyObject *Self,PyObject *Args)
 {   
+   bool res;
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
 
    char brokenFix=1;
    if (PyArg_ParseTuple(Args,"|b",&brokenFix) == 0)
       return 0;
 
-   bool res = fixer->Resolve(brokenFix);
+   Py_BEGIN_ALLOW_THREADS
+   res = fixer->Resolve(brokenFix);
+   Py_END_ALLOW_THREADS
 
    return HandleErrors(Py_BuildValue("b", res));
 }
 
 static PyObject *PkgProblemResolverResolveByKeep(PyObject *Self,PyObject *Args)
-{   
+{  
+   bool res;
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   bool res = fixer->ResolveByKeep();
+
+   Py_BEGIN_ALLOW_THREADS
+   res = fixer->ResolveByKeep();
+   Py_END_ALLOW_THREADS
+
    return HandleErrors(Py_BuildValue("b", res));
 }
 
