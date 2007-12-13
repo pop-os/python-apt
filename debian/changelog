@@ -1,7 +1,8 @@
 python-apt (0.7.4ubuntu1) hardy; urgency=low
 
-  * rebuild against latest apt, no other changes compared
-    to debain
+  * merged from debian/unstable, remaining changes:
+   - rebuild against latest apt
+   - maintainer field changed
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 13 Dec 2007 15:00:22 +0100
 

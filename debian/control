@@ -1,7 +1,8 @@
 Source: python-apt
 Section: python
 Priority: optional
-Maintainer: APT Development Team <deity@lists.debian.org>
+Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2.2
 XS-Python-Version: all
