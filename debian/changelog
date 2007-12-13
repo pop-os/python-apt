@@ -43,6 +43,53 @@ python-apt (0.7.4) unstable; urgency=low
 
  -- Michael Vogt <mvo@debian.org>  Thu, 06 Dec 2007 15:35:46 +0100
 
+python-apt (0.7.3.1ubuntu6) hardy; urgency=low
+
+  * remove python-central pre-depends, this is no longer needed
+    during upgrades now that we have "PYCENTRAL_NO_DPKG_QUERY"
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 21 Nov 2007 20:33:42 +0100
+
+python-apt (0.7.3.1ubuntu5) hardy; urgency=low
+
+  * add hardy to the ubuntu sources.list template
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 27 Oct 2007 15:03:18 -0400
+
+python-apt (0.7.3.1ubuntu4) gutsy; urgency=low
+
+  * pre-depend on gutsy version pycentral, this ensures that we get a 
+    updated dpkg with triggers support before pycentral uses  
+    /usr/bin/dpkg-querry (LP: #152827)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Oct 2007 11:24:12 +0200
+
+python-apt (0.7.3.1ubuntu3) gutsy; urgency=low
+
+  * data/templates/Ubuntu.mirrors:
+    - update the static mirror list from LP (LP: #126148)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 11 Oct 2007 00:13:00 +0200
+
+python-apt (0.7.3.1ubuntu2) gutsy; urgency=low
+
+  * apt/package.py:
+    - fix apt.package.Dependency.relation initialization
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2007 20:08:47 +0200
+
+python-apt (0.7.3.1ubuntu1) gutsy; urgency=low
+
+  * python/metaindex.cc:
+    - added support for the metaIndex objects
+  * python/sourceslist.cc:
+    - support new "List" attribute that returns the list of
+      metaIndex source entries
+  * python/string.cc:
+    - fix overflow in SizeToStr()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 04 Sep 2007 16:36:11 +0200
+
 python-apt (0.7.3.1) unstable; urgency=low
 
   * NMU
@@ -50,6 +97,27 @@ python-apt (0.7.3.1) unstable; urgency=low
     anymore (closes: #435653, #435674)
 
  -- Otavio Salvador <otavio@debian.org>  Thu, 02 Aug 2007 18:45:25 -0300
+
+python-apt (0.7.3ubuntu2) gutsy; urgency=low
+
+  * rebuild against latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 03 Aug 2007 14:16:41 +0200
+
+python-apt (0.7.3ubuntu1) gutsy; urgency=low
+
+  * apt/debfile.py:
+    - added wrapper around apt_inst.debExtract()
+    - support dictionary like access
+  * python/apt_instmodule.cc:
+    - added arCheckMember()
+  * build with latest python-distutils-extra (thanks
+    to doko for notifiying about the problem)
+  * aptsources/distro.py:
+    - throw NoDistroTemplateException if not distribution template
+      can be found
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Jul 2007 13:40:04 +0200
 
 python-apt (0.7.3) unstable; urgency=low
 
@@ -74,6 +142,35 @@ python-apt (0.7.3) unstable; urgency=low
     - increase str buffer in PackageIndexFileRepr
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Jul 2007 16:57:28 +0200
+
+python-apt (0.7.2ubuntu3) gutsy; urgency=low
+
+  * Rebuild against libapt-pkg-libc6.6-6-4.4.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 09 Jul 2007 16:36:46 +0100
+
+python-apt (0.7.2ubuntu2) gutsy; urgency=low
+
+  * python/package.py:
+    - added Record class that can be accessed like a dictionary
+      and return it in candidateRecord and installedRecord
+      (thanks to Alexander Sack for discussing this with me)
+  * doc/examples/records.py:
+    - added example how to use the new Records class
+  * python/cache.py:
+    - throw FetchCancelleException, FetchFailedException, 
+      LockFailedException exceptions when something goes wrong
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 28 Jun 2007 16:03:01 +0200
+
+python-apt (0.7.2ubuntu1) gutsy; urgency=low
+
+  * merged from debian/unstable
+  * Remaining changes:
+    - data/templates/Ubuntu.info: gutsy repository information
+    - set Maintainer field to ubuntu
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 14 Jun 2007 12:08:49 +0200
 
 python-apt (0.7.2) unstable; urgency=low
 
@@ -108,6 +205,21 @@ python-apt (0.6.22) unstable; urgency=low
 
  -- Michael Vogt <mvo@debian.org>  Wed, 23 May 2007 09:44:03 +0200
 
+python-apt (0.6.21ubuntu1) gutsy; urgency=low
+
+  [Michael Vogt]
+  * python/apt_pkgmodule.cc:
+    - added pkgCache::State::PkgCurrentState enums
+  * data/templates/Ubuntu.info.in:
+    - updated for gusty
+  [Sebastian Heinlein]
+  * Fix the addition of of sources that are already enabled but not with
+    all components - fix LP#98795
+  * Handle changes of forced servers of child repositories in a more
+    sane way - fix LP#85060
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  2 May 2007 14:27:54 +0200
+
 python-apt (0.6.21) unstable; urgency=low
 
   * apt/cdrom.py:
@@ -123,6 +235,145 @@ python-apt (0.6.21) unstable; urgency=low
     - fix bug in cdrom mountpoint handling
 
  -- Michael Vogt <mvo@debian.org>  Tue, 24 Apr 2007 21:24:28 +0200
+
+python-apt (0.6.20ubuntu16) feisty; urgency=low
+
+  * Fix the addition of of sources that are already enabled but not with
+    all components - fix LP#98795
+
+ -- Sebastian Heinlein <glatzor@ubuntu.com>  Wed,  4 Apr 2007 11:31:33 +0200
+
+python-apt (0.6.20ubuntu15) unstable; urgency=low
+
+  [ Sebastian Heinlein ]
+  * Update the mirror lists from Launchpad
+  * Only include http and ftp servers - LP#99060
+  [Michael Vogt]
+  * fix error in invalid unicode handler (LP#99753)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Apr 2007 14:25:31 +0200
+
+python-apt (0.6.20ubuntu14) feisty; urgency=low
+
+  [Michael Vogt]
+  * aptsources/distro.py:
+    - fix typo (LP#84009)
+  * fix gettext import (LP#92764)
+  * po/*.po:
+    - make update-po
+  [ Sebastian Heinlein ]
+  * remove an oboslete function
+  * fix the url comparision with trainling slashes - LP#95031
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Mar 2007 18:47:22 +0200
+
+python-apt (0.6.20ubuntu13) feisty; urgency=low
+
+  * fix in the duplicated source checking (thanks to Sebastian Heinlein)
+  * python/depache.cc:
+    - properly support isAutoInstalled flag
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 14 Mar 2007 16:38:22 +0100
+
+python-apt (0.6.20ubuntu12) feisty; urgency=low
+
+  * apt/cdrom.py:
+    - fix bug in cdrom __init__ code
+  * debian/rules:
+    - added "DH_PYCENTRAL=nomove"
+
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  7 Mar 2007 10:41:00 +0100
+
+python-apt (0.6.20ubuntu11) feisty; urgency=low
+
+  * apt/packages.py:
+    - support candidateDependencies, installedDependencies
+    - support pkg.architecture
+    - support candidateRecord, installedRecord
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  6 Mar 2007 16:22:49 +0100
+
+python-apt (0.6.20ubuntu10) feisty; urgency=low
+
+  * debian/control:
+    - added XS-Vcs-Bzr header to make finding the repo easier
+  * apt/cache.py:
+    - fix rootdir var
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  1 Mar 2007 14:36:33 +0100
+
+python-apt (0.6.20ubuntu9) feisty; urgency=low
+
+  * Re-add debian/python-apt.install (LP: #88134)
+    - This seems to have gone missing between 0.6.20ubuntu6 and 0.6.20ubuntu8
+    - This probably happened because it wasn't added to bzr
+
+ -- Matt Zimmerman <mdz@ubuntu.com>  Mon, 26 Feb 2007 14:04:15 -0800
+
+python-apt (0.6.20ubuntu8) feisty; urgency=low
+
+  * fix FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Feb 2007 18:41:37 +0100
+
+python-apt (0.6.20ubuntu7) feisty; urgency=low
+
+  * aptsources/distro.py:
+    - fix crash in add_source (LP#85806)
+  * apt/package.py:
+    - handle invalid unicode more gracefully (LP#86215)
+  * rebuild against latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Feb 2007 14:31:00 +0100
+
+python-apt (0.6.20ubuntu6) feisty; urgency=low
+
+  * Build the extension for the debug interpreter.
+  * Set Ubuntu maintainer address.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 17 Feb 2007 02:10:37 +0100
+
+python-apt (0.6.20ubuntu5) feisty; urgency=low
+
+  * be more robust in has_repository (LP#84897)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 13 Feb 2007 17:49:55 +0100
+
+python-apt (0.6.20ubuntu4) feisty; urgency=low
+
+  * rebuild against latest libapt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue,  6 Feb 2007 16:40:37 +0100
+
+python-apt (0.6.20ubuntu3) feisty; urgency=low
+
+  * fixes in the new 'aptsources' module 
+    (thanks to Sebastian Heinlein)
+  * apt/cdrom.py:
+    - better cdrom handling support
+  * python/string.cc:
+    - SizeToString supports PyLong too 
+  * apt/cache.py:
+    - fix rootdir
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  5 Feb 2007 10:29:55 +0100
+
+python-apt (0.6.20ubuntu2) feisty; urgency=low
+
+  * python/depcache.cc:
+    - MarkInstall() has new FromUser argument to support marking
+      packages as automatically installed
+  * merged the 'aptsources' module for sources.list handling 
+    (thanks to Sebastian Heinlein)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  2 Feb 2007 16:26:38 +0100
+
+python-apt (0.6.20ubuntu1) feisty; urgency=low
+
+  * merged from debian
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 19 Dec 2006 13:41:32 +0100
 
 python-apt (0.6.20) unstable; urgency=low
 
@@ -151,6 +402,94 @@ python-apt (0.6.20) unstable; urgency=low
     - fix memleak (lp: #43096)
 
  -- Michael Vogt <mvo@debian.org>  Tue, 19 Dec 2006 13:32:11 +0100
+
+python-apt (0.6.19ubuntu9.1) edgy-updates; urgency=low
+
+  * protect against not-parsable strings send from dpkg (lp: 68553)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Oct 2006 10:41:44 +0200
+
+python-apt (0.6.19ubuntu9) edgy; urgency=low
+
+  * Reupload to restore dependency on python-central.
+  * debian/rules: Remove dh_python call.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 12 Oct 2006 14:26:46 +0200
+
+python-apt (0.6.19ubuntu8) edgy; urgency=low
+
+  * support pkgDepCache::ActionGroup()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 Oct 2006 18:03:46 +0200
+
+python-apt (0.6.19ubuntu7) edgy; urgency=low
+
+  * python/generic.h:
+    - fix incorrect use of PyMem_DEL(), use PyObject_DEL()
+      instead. This fixes a nasty segfault with python2.5
+      (lp: 63226)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  4 Oct 2006 16:45:53 +0200
+
+python-apt (0.6.19ubuntu6) edgy; urgency=low
+
+  * python/progress.cc:
+    - fix memleak (lp: #43096)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  2 Oct 2006 18:33:44 +0200
+
+python-apt (0.6.19ubuntu5) edgy; urgency=low
+
+  * python/pkgmanager.cc:
+    - fix typo (closes: #382853)
+  * debian/control:
+    - tightend dependency (closes: #383478)
+  * apt/progress.py:
+    - use os._exit() in the child (lp: #53298)
+    - use select() when checking for statusfd (lp: #53282)
+  * acknoledge NMU (closes: #378048, #373512)
+  * python/apt_pkgmodule.cc:
+    - fix missing docstring (closes: #368907), 
+      Thanks to Josh Triplett
+  * make it build against python2.5
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Sep 2006 18:28:19 +0200
+
+python-apt (0.6.19ubuntu4) edgy; urgency=low
+
+  * Rebuild to add support for python2.5.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri,  8 Sep 2006 13:32:47 +0000
+  
+python-apt (0.6.19ubuntu3) edgy; urgency=low
+
+  * merged ddtp support
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 14 Aug 2006 16:25:51 +0200
+
+python-apt (0.6.19ubuntu2) edgy; urgency=low
+
+  * tightened build-deps on latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu,  3 Aug 2006 17:02:30 +0200
+
+python-apt (0.6.19ubuntu1) edgy; urgency=low
+
+  [ Michael Vogt ]
+  * doc/examples/print_uris.py:
+    - added a example to show how the indexfile.ArchiveURI() can be used
+      with binary packages
+  * python/apt_pkgmodule.cc:
+    - export sha256 generation
+  * added support for the pkgDepCache.IsGarbage() flag
+
+  [ Otavio Salvador ]
+  * apt/cache.py:
+    - fix commit doc string to also cite the open related callbacks
+    - allow change of rootdir for APT database loading
+    - add dh_installexamples in package building Closes: #376014
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 27 Jul 2006 15:00:55 +0200
 
 python-apt (0.6.19) unstable; urgency=low
 
@@ -221,6 +560,83 @@ python-apt (0.6.17) unstable; urgency=low
   
  -- Michael Vogt <mvo@debian.org>  Mon,  8 May 2006 22:34:58 +0200
 
+python-apt (0.6.16.2ubuntu9) edgy; urgency=low
+
+  * rebuild against the latest apt (with auto-mark support)
+  * the full merge needs a newer python-support 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  3 Jul 2006 21:33:40 +0200
+
+python-apt (0.6.16.2ubuntu8) dapper; urgency=low
+
+  * apt/package.py:
+    - fix return value in {candidate,installed}Downloadable
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 17 May 2006 19:28:44 +0200
+
+python-apt (0.6.16.2ubuntu7) dapper; urgency=low
+
+  * apt/package.py:
+    - check if _lookupRecord() succeeded when checking
+      maintainer or description (fixes invalid descriptions under 
+      rare circumstances in gnome-app-install)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 17 May 2006 18:12:58 +0200
+
+python-apt (0.6.16.2ubuntu6) dapper; urgency=low
+
+  * debian/control:
+    - Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
+      correct here. (closes: #308586).
+  * python/srcrecords.cc:
+    - don't run auto "Restart" before performing a Lookup (but require
+      explicit "Restart", fixes the docs/examples/sources.py example)
+    - fix the initalization (no need to pass a PkgCacheType to the records)
+  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  8 May 2006 16:40:14 +0200
+
+python-apt (0.6.16.2ubuntu5) dapper; urgency=low
+
+  * apt/cache.py: Release locks on failure (thanks to Colin Watson)
+    (closes: #35867)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 21 Mar 2006 15:09:14 +0100
+
+python-apt (0.6.16.2ubuntu4) dapper; urgency=low
+
+  * apt/package.py: 
+     - added Package.setDelete(purge) option
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon,  6 Mar 2006 18:59:33 +0000
+
+python-apt (0.6.16.2ubuntu3) dapper; urgency=low
+
+  * apt/package.py: undo some damager from pychecker
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed,  1 Mar 2006 15:34:23 +0100
+
+python-apt (0.6.16.2ubuntu2) dapper; urgency=low
+
+  * apt/progress.py: 
+    - initialize FetchProgress.eta with the correct type
+    - strip the staus str before passing it to InstallProgress.statusChanged()
+  * apt/cache.py:
+    - return useful values on Cache.update()
+  * fix FTBFS
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 14:07:06 +0100
+
+python-apt (0.6.16.2ubuntu1) dapper; urgency=low
+
+  * apt/progress.py: 
+    - added InstallProgress.statusChange(pkg, percent, status) 
+    - make DumbInstallProgress a new-style class 
+      (thanks to kamion for the suggestions)
+    - fix various pychecker warnings
+  * apt/cache.py, apt/package.py: fix various pychecker warnings
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Feb 2006 12:04:37 +0100
+
 python-apt (0.6.16.2) unstable; urgency=low
   
   * Non-maintainer upload.
@@ -239,6 +655,18 @@ python-apt (0.6.16.1) unstable; urgency=low
                      no longer locale specific but always english
 
  -- Michael Vogt <mvo@debian.org>  Wed, 22 Feb 2006 10:41:13 +0100
+
+python-apt (0.6.16ubuntu2) dapper; urgency=low
+
+  * Drop python2.3 package.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 14 Feb 2006 15:27:26 +0000
+
+python-apt (0.6.16ubuntu1) dapper; urgency=low
+
+  * memleak fixed when pkgCache objects are deallocated
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 12 Jan 2006 00:08:05 +0100
 
 python-apt (0.6.16) unstable; urgency=low
 
