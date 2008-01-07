@@ -20,6 +20,7 @@
 #include <apt-pkg/packagemanager.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/sourcelist.h>
+#include <apt-pkg/algorithms.h>
 
 #include <Python.h>
 #include "progress.h"
@@ -86,7 +87,7 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
    pkgSourceList *source = GetCpp<pkgSourceList*>(pySourcesList);
-   bool res = Cache->ListUpdate(progress, *source);
+   bool res = ListUpdate(progress, *source);
 
    PyObject *PyRes = Py_BuildValue("b", res);
    return HandleErrors(PyRes);
