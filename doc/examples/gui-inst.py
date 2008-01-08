@@ -48,6 +48,7 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 class TermInstallProgress(InstallProgress, gtk.Window):
     def __init__(self):
 	gtk.Window.__init__(self)
+        InstallProgress.__init__(self)
 	self.show()
         box = gtk.VBox()
         box.show()
@@ -58,62 +59,32 @@ class TermInstallProgress(InstallProgress, gtk.Window):
         self.reaper = vte.reaper_get()
         self.reaper.connect("child-exited",self.child_exited)
         self.finished = False
-
 	box.pack_start(self.term)
         self.progressbar = gtk.ProgressBar()
         self.progressbar.show()
         box.pack_start(self.progressbar)
-        
-        (read, write) = os.pipe()
-        self.writefd=write
-        self.status = os.fdopen(read, "r")
-        fcntl.fcntl(self.status.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
-        print "read-fd: %s" % self.status.fileno()
-        print "write-fd: %s" % self.writefd
-        self.read = ""
-
     def child_exited(self,term, pid, status):
         print "child_exited: %s %s %s %s" % (self,term,pid,status)
         self.apt_status = posix.WEXITSTATUS(status)
         self.finished = True
-
     def startUpdate(self):
         print "start"
         self.show()
-    def updateInterface(self):
-        if self.status != None:
-                try:
-                    self.read += os.read(self.status.fileno(),1)
-                except OSError, (errno,errstr):
-                    # resource temporarly unavailable is ignored
-                    if errno != 11: 
-                        print errstr
-                if self.read.endswith("\n"):
-                    s = self.read
-                    print s
-                    (status, pkg, percent, status_str) = string.split(s, ":")
-                    print "percent: %s %s" % (pkg, float(percent)/100.0)
-                    self.progressbar.set_fraction(float(percent)/100.0)
-                    self.progressbar.set_text(string.strip(status_str))
-                    self.read = ""
-        while gtk.events_pending():
-            gtk.main_iteration()
-        
-    def finishUpdate(self):
-	sys.stdin.readline()
-    def run(self, pm):
-        print "fork"
-        env = ["VTE_PTY_KEEP_FD=%s"%self.writefd]
-        print env
-	pid = self.term.forkpty(envv=env)
-        if pid == 0:
-            res = pm.DoInstall(self.writefd)
-            print res
-            sys.exit(res)
-        print "After fork: %s " % pid
+    def waitChild(self):
         while not self.finished:
             self.updateInterface()
+            while gtk.events_pending():
+                gtk.main_iteration()
+            time.sleep(0.001)
+        sys.stdin.readline()
         return self.apt_status
+    def statusChange(self, pkg, percent, status):
+        print "statusChange", pkg, percent
+        self.progressbar.set_fraction(float(percent)/100.0)
+        self.progressbar.set_text(string.strip(status))
+    def fork(self):
+        env = ["VTE_PTY_KEEP_FD=%s"%self.writefd]
+        return self.term.forkpty(envv=env)
 
 cache = apt.Cache()
 print "Available packages: %s " % cache._cache.PackageCount
