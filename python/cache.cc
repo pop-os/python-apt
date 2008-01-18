@@ -20,9 +20,12 @@
 #include <apt-pkg/packagemanager.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/sourcelist.h>
+#include <apt-pkg/algorithms.h>
 
 #include <Python.h>
 #include "progress.h"
+
+class pkgSourceList;
 
 									/*}}}*/
 struct PkgListStruct
@@ -76,53 +79,18 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
-   PyObject *pyOpProgressInst = 0;
    PyObject *pyFetchProgressInst = 0;
-   if (PyArg_ParseTuple(Args, "O|O", &pyFetchProgressInst,&pyOpProgressInst) == 0)
+   PyObject *pySourcesList = 0;
+   if (PyArg_ParseTuple(Args, "OO", &pyFetchProgressInst,&pySourcesList) == 0)
       return 0;
-
-   FileFd Lock;
-   if (_config->FindB("Debug::NoLocking", false) == false) {
-      Lock.Fd(GetLock(_config->FindDir("Dir::State::Lists") + "lock"));
-      if (_error->PendingError() == true)
-         return HandleErrors();
-   }
-
-   pkgSourceList List;
-   if(!List.ReadMainList()) {
-      Py_INCREF(Py_None);
-      return HandleErrors(Py_None);
-   }
 
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
+   pkgSourceList *source = GetCpp<pkgSourceList*>(pySourcesList);
+   bool res = ListUpdate(progress, *source);
 
-   pkgAcquire Fetcher(&progress);
-   if (!List.GetIndexes(&Fetcher))
-      return HandleErrors();
-   if (Fetcher.Run() == pkgAcquire::Failed) {
-      Py_INCREF(Py_None);
-      return HandleErrors(Py_None);
-   }
-   
-#if 0 // reopening the cache is the job of the python code now
-      // doing it here is wrong and broken
-   if(pyOpProgressInst != 0) {
-      PyOpProgress progress;
-      progress.setCallbackInst(pyOpProgressInst);
-      if (Cache->Open(progress,false) == false)
-	 return HandleErrors();
-   }  else {
-      OpTextProgress Prog;
-      if (Cache->Open(Prog,false) == false) {
-	 Py_INCREF(Py_None);
-	 return HandleErrors(Py_None);
-      }
-   }
-#endif
-
-   Py_INCREF(Py_None);
-   return HandleErrors(Py_None);
+   PyObject *PyRes = Py_BuildValue("b", res);
+   return HandleErrors(PyRes);
 }
 
 static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
