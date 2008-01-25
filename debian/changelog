@@ -1,9 +1,14 @@
+python-apt (0.7.4ubuntu3) hardy; urgency=low
+
+  * python/tar.cc:
+    - fix .lzma extraction (thanks to bigjools for reporting)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 25 Jan 2008 09:57:31 +0000
+
 python-apt (0.7.4ubuntu2) hardy; urgency=low
 
   * use the new apt ListUpdate() code
   * add example in doc/examples/update.py
-  * python/tar.cc:
-    - fix .lzma extraction (thanks to bigjools)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 04 Jan 2008 21:17:00 +0100
 
