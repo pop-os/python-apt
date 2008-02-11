@@ -77,6 +77,8 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->LongDesc());
       else if (strcmp("Name",Name) == 0)
 	 return CppPyString(Struct.Last->Name());
+      else if (strcmp("Homepage",Name) == 0)
+	 return CppPyString(Struct.Last->Homepage());
       else if (strcmp("Record", Name) == 0) 
       {
 	 const char *start, *stop;
