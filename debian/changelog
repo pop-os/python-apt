@@ -1,3 +1,10 @@
+python-apt (0.7.4ubuntu4) hardy; urgency=low
+
+  * python/pkgrecords.cc:
+    - export the Homepage field
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 11 Feb 2008 10:34:39 +0100
+
 python-apt (0.7.4ubuntu3) hardy; urgency=low
 
   * python/tar.cc:
