@@ -1,3 +1,16 @@
+python-apt (0.7.4ubuntu5) hardy; urgency=low
+
+  * python/sourcelist.cc:
+    - support GetIndexes() GetAll argument to implement
+      something like --print-uris
+  * python/apt_pkgmodule.cc:
+    - add InstState{Ok,ReInstReq,Hold,HoldReInstReq} constants
+  * apt/cache.py:
+    - add reqReinstallPkgs property that lists all packages in
+      ReInstReq or HoldReInstReq
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 18 Feb 2008 16:55:51 +0100
+
 python-apt (0.7.4ubuntu4) hardy; urgency=low
 
   * python/pkgrecords.cc:
