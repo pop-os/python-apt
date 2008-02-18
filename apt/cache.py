@@ -122,6 +122,17 @@ class Cache(object):
         self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
+    @property
+    def reqReinstallPkgs(self):
+        " return the packages not downloadable packages in reqreinst state "
+        reqreinst = set()
+        for pkg in self:
+            if (not pkg.candidateDownloadable and 
+                (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
+                 pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
+                reqreinst.add(pkg.name)
+        return reqreinst
+
     def _runFetcher(self, fetcher):
         # do the actual fetching
         res = fetcher.Run()
