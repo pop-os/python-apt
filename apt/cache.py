@@ -122,6 +122,17 @@ class Cache(object):
         self._depcache.Upgrade(distUpgrade)
         self.cachePostChange()
 
+    @property
+    def reqReinstallPkgs(self):
+        " return the packages not downloadable packages in reqreinst state "
+        reqreinst = set()
+        for pkg in self:
+            if (not pkg.candidateDownloadable and 
+                (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
+                 pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
+                reqreinst.add(pkg.name)
+        return reqreinst
+
     def _runFetcher(self, fetcher):
         # do the actual fetching
         res = fetcher.Run()
@@ -166,6 +177,7 @@ class Cache(object):
             os.close(lock)
 
     def update(self, fetchProgress=None):
+        " run the equivalent of apt-get update "
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
@@ -174,14 +186,7 @@ class Cache(object):
         try:
             if fetchProgress == None:
                 fetchProgress = apt.progress.FetchProgress()
-            fetcher = apt_pkg.GetAcquire(fetchProgress)
-            # this can throw a exception
-            self._list.GetIndexes(fetcher)
-            # now run the fetcher, throw exception if something fails to be
-            # fetched
-            if self._runFetcher(fetcher) == fetcher.ResultContinue:
-                return True
-            return False
+            return self._cache.Update(fetchProgress, self._list)
         finally:
             os.close(lock)
         

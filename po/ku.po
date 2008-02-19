@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 22:28+0200\n"
+"POT-Creation-Date: 2008-02-18 16:50+0100\n"
 "PO-Revision-Date: 2006-10-17 09:50+0000\n"
 "Last-Translator: rizoye-xerzi <rizoxerzi@gmail.com>\n"
 "Language-Team: Kurdish <ku@li.org>\n"
@@ -26,210 +26,234 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../data/templates/Ubuntu.info.in:8
 #, fuzzy
+msgid "Ubuntu 8.04 'Hardy Heron'"
+msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:25
+#, fuzzy
+msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
+msgstr "Cdroma Ubuntu 5.04 'Hoary Hedgehog'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:60
+#, fuzzy
+msgid "Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "Rojanekirinên Ewlekariyên yên Ubuntu 5.04"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:77
+#, fuzzy
+msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "Cdroma Ubuntu 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:112
+#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgstr "Rojanekirinên Ewlekariyên yên Ubuntu 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:25
+#: ../data/templates/Ubuntu.info.in:129
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgstr "Cdroma Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:59
+#: ../data/templates/Ubuntu.info.in:163
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 6.10 'Edgy Eft'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:64
+#: ../data/templates/Ubuntu.info.in:168
 #, fuzzy
 msgid "Community-maintained"
 msgstr "Yên ji aliyê komekê ber çav hatiye derbaskirin"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:68
+#: ../data/templates/Ubuntu.info.in:172
 msgid "Proprietary drivers for devices"
 msgstr "Ji bo cîhazan ajokerên ku çavkaniyên wan girtî ne"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:70
+#: ../data/templates/Ubuntu.info.in:174
 msgid "Restricted software"
 msgstr "Nivîsbariya bi sînor"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:76
+#: ../data/templates/Ubuntu.info.in:180
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "Cdroma Ubuntu 6.10 'Edgy Eft'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:110
+#: ../data/templates/Ubuntu.info.in:214
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:113
+#: ../data/templates/Ubuntu.info.in:217
 #, fuzzy
 msgid "Canonical-supported Open Source software"
 msgstr "Çavkaniya xwezayî ya li gorî bingeha nermalavê"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:115
+#: ../data/templates/Ubuntu.info.in:219
 #, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Yên ji aliyê koman lê hatine nihêrtin"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:116
+#: ../data/templates/Ubuntu.info.in:220
 #, fuzzy
 msgid "Community-maintained Open Source software"
 msgstr ""
 "Nivîsbariyên Kodên Çavkaniyên Azad yên ji aliyê koman lê hatine nihêrtin"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:118
+#: ../data/templates/Ubuntu.info.in:222
 msgid "Non-free drivers"
 msgstr "Ajokerên ne azad"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:119
+#: ../data/templates/Ubuntu.info.in:223
 msgid "Proprietary drivers for devices "
 msgstr "Ji bo cîhazan ajokarên xwedî-bawername "
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:121
+#: ../data/templates/Ubuntu.info.in:225
 msgid "Restricted software (Multiverse)"
 msgstr "Nivîsbariya bi sînor"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:122
+#: ../data/templates/Ubuntu.info.in:226
 msgid "Software restricted by copyright or legal issues"
 msgstr "Nivîsbariya bi mafên weşan û belavkirinê sînor kirî"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:127
+#: ../data/templates/Ubuntu.info.in:231
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Cdroma Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:139
+#: ../data/templates/Ubuntu.info.in:243
 msgid "Important security updates"
 msgstr "Rojanekirinên ewlekariyê yên girîng"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:144
+#: ../data/templates/Ubuntu.info.in:248
 msgid "Recommended updates"
 msgstr "Rojanekirinên têne pêşniyarkirin"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149
+#: ../data/templates/Ubuntu.info.in:253
 #, fuzzy
 msgid "Pre-released updates"
 msgstr "Rojanekirinên hatine pêşniyarkirin"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:154
+#: ../data/templates/Ubuntu.info.in:258
 #, fuzzy
 msgid "Unsupported updates"
 msgstr "Rojanekirinên paş de hatine kişandin"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:161
+#: ../data/templates/Ubuntu.info.in:265
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:174
+#: ../data/templates/Ubuntu.info.in:278
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "Cdroma Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:186
+#: ../data/templates/Ubuntu.info.in:290
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Rojanekirinên Ewlekariyê yên Ubuntu 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:191
+#: ../data/templates/Ubuntu.info.in:295
 msgid "Ubuntu 5.10 Updates"
 msgstr "Rojanekirina Ubuntu 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:196
+#: ../data/templates/Ubuntu.info.in:300
 msgid "Ubuntu 5.10 Backports"
 msgstr "Rojanekirinên Paş de Hatine Kişandin yên Ubuntu 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:203
+#: ../data/templates/Ubuntu.info.in:307
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:216
+#: ../data/templates/Ubuntu.info.in:320
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Cdroma Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:219 ../data/templates/Debian.info.in:94
+#: ../data/templates/Ubuntu.info.in:323 ../data/templates/Debian.info.in:94
 msgid "Officially supported"
 msgstr "Bi piştgiriya fermî"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:228
+#: ../data/templates/Ubuntu.info.in:332
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Rojanekirinên Ewlekariyên yên Ubuntu 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:233
+#: ../data/templates/Ubuntu.info.in:337
 msgid "Ubuntu 5.04 Updates"
 msgstr "Rojanekirinên Ubuntu 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:238
+#: ../data/templates/Ubuntu.info.in:342
 msgid "Ubuntu 5.04 Backports"
 msgstr "Rojanekirinên Paş de Hatine Kişandin yên Ubuntu 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:244
+#: ../data/templates/Ubuntu.info.in:348
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:250
+#: ../data/templates/Ubuntu.info.in:354
 #, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Yên ji aliyê koman ve lê tê nihêrîn (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:252
+#: ../data/templates/Ubuntu.info.in:356
 msgid "Non-free (Multiverse)"
 msgstr "Ne-azad (Multiverse)"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:257
+#: ../data/templates/Ubuntu.info.in:361
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "Cdroma Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:260
+#: ../data/templates/Ubuntu.info.in:364
 msgid "No longer officially supported"
 msgstr "Êdi bi awayekî fermî nayê destekkirin"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:262
+#: ../data/templates/Ubuntu.info.in:366
 msgid "Restricted copyright"
 msgstr "Mafê kopîkrinê yê sînorkirî"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:269
+#: ../data/templates/Ubuntu.info.in:373
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Rojanekirinên Ubuntu 4.10 yên Ewlekarî"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:274
+#: ../data/templates/Ubuntu.info.in:378
 msgid "Ubuntu 4.10 Updates"
 msgstr "Rojanekirinên Ubuntu 4.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:279
+#: ../data/templates/Ubuntu.info.in:383
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 4.10 nivîsbariyên bi paş de kişandî (Backports)"
 
@@ -289,7 +313,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr "nivîsbariya hevgirtî ya ne li gorî -DFSG"
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:192 ../aptsources/distro.py:399
+#: ../aptsources/distro.py:194 ../aptsources/distro.py:401
 #, python-format
 msgid "Server for %s"
 msgstr "Pêşkêşkera %s"
@@ -297,12 +321,12 @@ msgstr "Pêşkêşkera %s"
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:211 ../aptsources/distro.py:216
-#: ../aptsources/distro.py:230
+#: ../aptsources/distro.py:213 ../aptsources/distro.py:218
+#: ../aptsources/distro.py:232
 msgid "Main server"
 msgstr "Pêşkêşkera Mak"
 
-#: ../aptsources/distro.py:233
+#: ../aptsources/distro.py:235
 msgid "Custom servers"
 msgstr "Pêşkêşkera taybet"
 

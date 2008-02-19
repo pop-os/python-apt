@@ -194,6 +194,13 @@ class Package(object):
             return self._pkg.Name
     sourcePackageName = property(sourcePackageName)
 
+    def homepage(self):
+        """ Return the homepage field as string """
+        if not self._lookupRecord():
+            return None
+        return self._records.Homepage
+    homepage = property(homepage)
+
     def section(self):
         """ Return the section of the package"""
         return self._pkg.Section
@@ -449,6 +456,7 @@ if __name__ == "__main__":
     for dep in pkg.candidateDependencies:
         print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
     print "arch: %s" % pkg.architecture
+    print "homepage: %s" % pkg.homepage
     print "rec: ",pkg.candidateRecord
 
     # now test install/remove

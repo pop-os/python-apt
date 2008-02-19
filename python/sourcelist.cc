@@ -60,12 +60,12 @@ static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
 
    PyObject *pyFetcher;
-   
-   if (PyArg_ParseTuple(Args, "O!",&PkgAcquireType,&pyFetcher) == 0) 
+   char all = 0;
+   if (PyArg_ParseTuple(Args, "O!|b",&PkgAcquireType,&pyFetcher, &all) == 0) 
       return 0;
 
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyFetcher);
-   bool res = list->GetIndexes(fetcher);
+   bool res = list->GetIndexes(fetcher, all);
 
    return HandleErrors(Py_BuildValue("b",res));
 }
