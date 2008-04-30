@@ -167,7 +167,7 @@ class Distribution:
     # try to guess the nearest mirror from the locale
     self.country = None
     self.country_code = None
-    locale = os.getenv("LANG", default="en.UK")
+    locale = os.getenv("LANG", default="en_UK")
     a = locale.find("_")
     z = locale.find(".")
     if z == -1:
