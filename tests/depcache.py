@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.4
 #
 # Test for the DepCache code
-# 
+#
 
 import apt_pkg
 import sys

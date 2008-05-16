@@ -2,7 +2,7 @@
 #
 # Test for the PkgSrcRecords code
 # it segfaults for python-apt < 0.5.37
-# 
+#
 
 import apt_pkg
 import sys

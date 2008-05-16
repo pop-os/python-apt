@@ -20,7 +20,7 @@ for i in range(100):
 		f.write("%s\n" % str(obj))
 	f.close()
 
-# memleak	
+# memleak
 #for i in range(100):
 #	cache = apt.Cache()
 #	time.sleep(1)

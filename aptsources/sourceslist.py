@@ -1,28 +1,28 @@
 #  aptsource.py - Provide an abstraction of the sources.list
-#  
+#
 #  Copyright (c) 2004-2007 Canonical Ltd.
 #                2004 Michiel Sikkes
 #                2006-2007 Sebastian Heinlein
-#  
+#
 #  Author: Michiel Sikkes <michiel@eyesopened.nl>
 #          Michael Vogt <mvo@debian.org>
 #          Sebastian Heinlein <glatzor@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
- 
+
 import string
 import gettext
 import re
@@ -81,14 +81,14 @@ class SourceEntry:
     self.comps = []                 # list of available componetns (may empty)
     self.comment = ""               # (optional) comment
     self.line = line                # the original sources.list line
-    if file == None:                
+    if file == None:
       file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
     self.file = file               # the file that the entry is located in
     self.parse(line)
     self.template = None           # type DistInfo.Suite
     self.children = []
 
-  def __eq__(self, other):         
+  def __eq__(self, other):
     """ equal operator for two sources.list entries """
     return (self.disabled == other.disabled and
             self.type == other.type and
@@ -138,7 +138,7 @@ class SourceEntry:
     if line[0] == "#":
       self.disabled = True
       pieces = string.split(line[1:])
-      # if it looks not like a disabled deb line return 
+      # if it looks not like a disabled deb line return
       if not pieces[0] in ("rpm", "rpm-src", "deb", "deb-src"):
         self.invalid = True
         return
@@ -185,7 +185,7 @@ class SourceEntry:
         i += 1
       self.line = self.line[i:]
     else:
-      # disabled, add a "#" 
+      # disabled, add a "#"
       if string.strip(self.line)[0] != "#":
         self.line = "#" + self.line
 
@@ -207,7 +207,7 @@ class SourceEntry:
       line += " #"+self.comment
     line += "\n"
     return line
-    
+
 class NullMatcher(object):
   """ a Matcher that does nothing """
   def match(self, s):
@@ -218,7 +218,7 @@ class SourcesList:
   def __init__(self,
                withMatcher=True,
                matcherPath="/usr/share/python-apt/templates/"):
-    self.list = []          # the actual SourceEntries Type 
+    self.list = []          # the actual SourceEntries Type
     if withMatcher:
       self.matcher = SourceEntryMatcher(matcherPath)
     else:
@@ -251,7 +251,7 @@ class SourcesList:
   def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None):
     """
     Add a new source to the sources.list.
-    The method will search for existing matching repos and will try to 
+    The method will search for existing matching repos and will try to
     reuse them as far as possible
     """
     # create a working copy of the component list so that
@@ -367,7 +367,7 @@ class SourcesList:
       # try to avoid checking uninterressting sources
       if source.template == None:
         continue
-      # set up a dict with all used child templates and corresponding 
+      # set up a dict with all used child templates and corresponding
       # source entries
       if source.template.child == True:
           key = source.template
@@ -405,12 +405,12 @@ class SourceEntryMatcher:
     _ = gettext.gettext
     found = False
     for template in self.templates:
-      if (re.search(template.match_uri, source.uri) and 
+      if (re.search(template.match_uri, source.uri) and
           re.match(template.match_name, source.dist)):
         found = True
         source.template = template
         break
-      elif (template.is_mirror(source.uri) and 
+      elif (template.is_mirror(source.uri) and
           re.match(template.match_name, source.dist)):
         found = True
         source.template = template
@@ -430,7 +430,7 @@ if __name__ == "__main__":
   mirror = is_mirror("http://archive.ubuntu.com/ubuntu/",
                      "http://de.archive.ubuntu.com/ubuntu/")
   print "is_mirror(): %s" % mirror
-  
+
   print is_mirror("http://archive.ubuntu.com/ubuntu",
                   "http://de.archive.ubuntu.com/ubuntu/")
   print is_mirror("http://archive.ubuntu.com/ubuntu/",

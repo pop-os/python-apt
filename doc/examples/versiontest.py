@@ -10,7 +10,7 @@ if len(TestFile) != 1:
    print "Must have exactly 1 file name";
    sys.exit(0);
 
-# Go over the file.. 
+# Go over the file..
 List = open(TestFile[0],"r");
 CurLine = 0;
 while(1):
@@ -21,10 +21,10 @@ while(1):
    Line = string.strip(Line);
    if len(Line) == 0 or Line[0] == '#':
       continue;
-   
+
    Split = re.split("[ \n]",Line);
 
-   # Check forward   
+   # Check forward
    if apt_pkg.VersionCompare(Split[0],Split[1]) != int(Split[2]):
      print "Comparision failed on line %u. '%s' ? '%s' %i != %i"%(CurLine,
              Split[0],Split[1],apt_pkg.VersionCompare(Split[0],Split[1]),

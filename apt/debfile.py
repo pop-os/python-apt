@@ -27,7 +27,7 @@ class DebPackage(object):
 
     def __getitem__(self, key):
         return self._sections[key]
-        
+
     def filelist(self):
         """ return the list of files in the deb """
         files = []
@@ -49,10 +49,10 @@ class DebPackage(object):
 
 if __name__ == "__main__":
     import sys
-    
+
     d = DebPackage(sys.argv[1])
     print d["Section"]
     print d["Maintainer"]
     print "Files:"
     print "\n".join(d.filelist)
-    
+

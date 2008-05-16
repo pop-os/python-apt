@@ -4,7 +4,7 @@
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
-   
+
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
@@ -24,10 +24,10 @@ PyObject *HandleErrors(PyObject *Res)
       _error->Discard();
       return Res;
    }
-   
+
    if (Res != 0)
       Py_DECREF(Res);
-   
+
    string Err;
    int errcnt = 0;
    while (_error->empty() == false)
@@ -55,7 +55,7 @@ const char **ListToCharChar(PyObject *List,bool NullTerm)
    int Length = PySequence_Length(List);
    const char **Res = new const char *[Length + (NullTerm == true?1:0)];
    for (int I = 0; I != Length; I++)
-   { 
+   {
       PyObject *Itm = PySequence_GetItem(List,I);
       if (PyString_Check(Itm) == 0)
       {
@@ -80,12 +80,12 @@ PyObject *CharCharToList(const char **List,unsigned long Size)
       for (const char **I = List; *I != 0; I++)
 	 Size++;
    }
-   
+
    // Convert the whole configuration space into a list
    PyObject *PList = PyList_New(Size);
    for (unsigned long I = 0; I != Size; I++, List++)
       PyList_SetItem(PList,I,PyString_FromString(*List));
-   
+
    return PList;
 }
 									/*}}}*/

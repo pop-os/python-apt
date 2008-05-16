@@ -24,8 +24,8 @@ class MirrorTest:
                     host = mirror.hostname
                 except:
                     continue
-                print "Pinging (Worker %s) %s (%s) ..." % (self.id, 
-                                                           host, 
+                print "Pinging (Worker %s) %s (%s) ..." % (self.id,
+                                                           host,
                                                            MirrorTest.completed_pings)
                 commando = os.popen("ping -q -c 4 -W 2 -i 0.3 %s" % host,
                                     "r")

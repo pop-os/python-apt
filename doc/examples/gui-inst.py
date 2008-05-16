@@ -105,7 +105,7 @@ iprogress = TermInstallProgress()
 # show the interface
 while gtk.events_pending():
 	gtk.main_iteration()
-  
+
 
 pkg = cache["3dchess"]
 print "\n%s"%pkg.name

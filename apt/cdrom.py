@@ -44,4 +44,4 @@ class Cdrom(object):
             if not line.startswith("#") and cdid in line:
                 return True
         return False
-        
+

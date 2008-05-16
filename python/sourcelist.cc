@@ -17,18 +17,18 @@
 									/*}}}*/
 
 
-    
+
 // PkgsourceList Class							/*{{{*/
 // ---------------------------------------------------------------------
 
 static char *doc_PkgSourceListFindIndex = "xxx";
 static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
-{   
+{
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    PyObject *pyPkgFileIter;
    PyObject *pyPkgIndexFile;
 
-   if (PyArg_ParseTuple(Args, "O!", &PackageFileType,&pyPkgFileIter) == 0) 
+   if (PyArg_ParseTuple(Args, "O!", &PackageFileType,&pyPkgFileIter) == 0)
       return 0;
 
    pkgCache::PkgFileIterator &i = GetCpp<pkgCache::PkgFileIterator>(pyPkgFileIter);
@@ -40,7 +40,7 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
    }
 
    //&PackageIndexFileType,&pyPkgIndexFile)
-   
+
    Py_INCREF(Py_None);
    return Py_None;
 }
@@ -61,7 +61,7 @@ static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
 
    PyObject *pyFetcher;
    char all = 0;
-   if (PyArg_ParseTuple(Args, "O!|b",&PkgAcquireType,&pyFetcher, &all) == 0) 
+   if (PyArg_ParseTuple(Args, "O!|b",&PkgAcquireType,&pyFetcher, &all) == 0)
       return 0;
 
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyFetcher);
@@ -70,7 +70,7 @@ static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_BuildValue("b",res));
 }
 
-static PyMethodDef PkgSourceListMethods[] = 
+static PyMethodDef PkgSourceListMethods[] =
 {
    {"FindIndex",PkgSourceListFindIndex,METH_VARARGS,doc_PkgSourceListFindIndex},
    {"ReadMainList",PkgSourceListReadMainList,METH_VARARGS,doc_PkgSourceListReadMainList},
@@ -85,13 +85,13 @@ static PyObject *PkgSourceListAttr(PyObject *Self,char *Name)
    if (strcmp("List",Name) == 0)
    {
       PyObject *List = PyList_New(0);
-      for (vector<metaIndex *>::const_iterator I = list->begin(); 
+      for (vector<metaIndex *>::const_iterator I = list->begin();
 	   I != list->end(); I++)
       {
 	 PyObject *Obj;
 	 Obj = CppPyObject_NEW<metaIndex*>(&MetaIndexType,*I);
 	 PyList_Append(List,Obj);
-      }      
+      }
       return List;
    }
    return Py_FindMethod(PkgSourceListMethods,Self,Name);

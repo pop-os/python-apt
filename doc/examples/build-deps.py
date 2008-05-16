@@ -3,7 +3,7 @@
 
 import apt_pkg
 import sys
-import sets    # only needed for python2.3, python2.4 supports this naively 
+import sets    # only needed for python2.3, python2.4 supports this naively
 
 def get_source_pkg(pkg, records, depcache):
 	""" get the source package name of a given package """
@@ -67,6 +67,6 @@ for dep in depends["Depends"]: # FIXME: do we need to consider PreDepends?
 		#print "%s: %s " % (srcpkg_name, bd)
 		for b in bd:
 			all_build_depends.add(b[0])
-			
+
 
 print "\n".join(all_build_depends)

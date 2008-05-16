@@ -29,7 +29,7 @@ for template in glob.glob('data/templates/*.info.in'):
     source.close()
     build.close()
 
-setup(name="python-apt", 
+setup(name="python-apt",
       version="0.6.17",
       description="Python bindings for APT",
       author="APT Development Team",
