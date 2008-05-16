@@ -18,7 +18,7 @@ import apt_pkg, sys, posixpath
 # configuration object apt_pkg.Config which is used interally by apt-pkg
 # routines to control unusual situations. I recommend using the sytem global
 # whenever possible..
-Cnf = apt_pkg.newConfiguration();
+Cnf = apt_pkg.newConfiguration()
 
 print "Command line is", sys.argv
 
@@ -39,17 +39,17 @@ print "Quiet level selected is", Cnf.FindI("quiet", 0)
 
 # Do some stuff with it
 if Cnf.FindB("version", 0) == 1:
-    print "Version selected - 1.1";
+    print "Version selected - 1.1"
 
 if Cnf.FindB("help", 0) == 1:
     print apt_pkg.Package, apt_pkg.Version, "for", apt_pkg.Architecture, \
           "compiled on", apt_pkg.Date, apt_pkg.Time
-    print "Hi, I am the help text for this program";
-    sys.exit(0);
+    print "Hi, I am the help text for this program"
+    sys.exit(0)
 
-print "No help for you, try -h";
+print "No help for you, try -h"
 
 # Print the configuration space
-print "The Configuration space looks like:";
+print "The Configuration space looks like:"
 for I in Cnf.keys():
     print "%s \"%s\";" % (I, Cnf[I])

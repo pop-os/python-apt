@@ -297,7 +297,7 @@ class SourcesList:
         # there isn't any matching source, so create a new line and parse it
         line = "%s %s %s" % (type, uri, dist)
         for c in comps:
-            line = line + " " + c;
+            line = line + " " + c
         if comment != "":
             line = "%s #%s\n" % (line, comment)
         line = line + "\n"

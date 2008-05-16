@@ -9,12 +9,12 @@ import glob, os, string
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
             string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]))
-apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"]);
+apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
             string.split(parse_makefile("python/makefile")["APT_INST_SRC"]))
-apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"]);
+apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation
 templates = []

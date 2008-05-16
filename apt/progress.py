@@ -132,12 +132,12 @@ class TextFetchProgress(FetchProgress):
 
     def mediaChange(self, medium, drive):
         """ react to media change events """
-        res = True;
+        res = True
         print "Media change: please insert the disc labeled \
                '%s' in the drive '%s' and press enter" % (medium, drive)
         s = sys.stdin.readline()
         if(s == 'c' or s == 'C'):
-            res = false;
+            res = false
         return res
 
 
