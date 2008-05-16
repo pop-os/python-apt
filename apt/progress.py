@@ -95,9 +95,13 @@ class FetchProgress(object):
         """ called periodically (to update the gui), importend to
             return True to continue or False to cancel
         """
-        self.percent = ((self.currentBytes + self.currentItems)*100.0)/float(self.totalBytes+self.totalItems)
+        self.percent = (
+            ((self.currentBytes + self.currentItems) * 100.0)
+                / float(self.totalBytes+self.totalItems))
         if self.currentCPS > 0:
-            self.eta = (self.totalBytes-self.currentBytes)/float(self.currentCPS)
+            self.eta = (
+                (self.totalBytes - self.currentBytes)
+                    / float(self.currentCPS))
         return True
 
     def mediaChange(self, medium, drive):
@@ -193,38 +197,41 @@ class InstallProgress(DumbInstallProgress):
 
     def updateInterface(self):
         if self.statusfd != None:
+            try:
+                while not self.read.endswith("\n"):
+                    self.read += os.read(self.statusfd.fileno(), 1)
+            except OSError, (errno, errstr):
+                # resource temporarly unavailable is ignored
+                if errno != EAGAIN and errnor != EWOULDBLOCK:
+                    print errstr
+            if self.read.endswith("\n"):
+                s = self.read
+                #print s
                 try:
-                    while not self.read.endswith("\n"):
-                        self.read += os.read(self.statusfd.fileno(), 1)
-                except OSError, (errno, errstr):
-                    # resource temporarly unavailable is ignored
-                    if errno != EAGAIN and errnor != EWOULDBLOCK:
-                        print errstr
-                if self.read.endswith("\n"):
-                    s = self.read
-                    #print s
-                    try:
-                        (status, pkg, percent, status_str) = string.split(s, ":", 3)
-                    except ValueError, e:
-                        # silently ignore lines that can't be parsed
-                        self.read = ""
-                        return
-                    #print "percent: %s %s" % (pkg, float(percent)/100.0)
-                    if status == "pmerror":
-                        self.error(pkg, status_str)
-                    elif status == "pmconffile":
-                        # we get a string like this:
-                        # 'current-conffile' 'new-conffile' useredited distedited
-                        match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
-                        if match:
-                            self.conffile(match.group(1), match.group(2))
-                    elif status == "pmstatus":
-                        if float(percent) != self.percent or \
-                           status_str != self.status:
-                            self.statusChange(pkg, float(percent), status_str.strip())
-                        self.percent = float(percent)
-                        self.status = string.strip(status_str)
+                    (status, pkg, percent, status_str) = string.split(
+                        s, ":", 3)
+                except ValueError, e:
+                    # silently ignore lines that can't be parsed
                     self.read = ""
+                    return
+                #print "percent: %s %s" % (pkg, float(percent)/100.0)
+                if status == "pmerror":
+                    self.error(pkg, status_str)
+                elif status == "pmconffile":
+                    # we get a string like this:
+                    # 'current-conffile' 'new-conffile' useredited distedited
+                    match = re.compile(
+                        "\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
+                    if match:
+                        self.conffile(match.group(1), match.group(2))
+                elif status == "pmstatus":
+                    if float(percent) != self.percent or \
+                       status_str != self.status:
+                        self.statusChange(
+                            pkg, float(percent), status_str.strip())
+                    self.percent = float(percent)
+                    self.status = string.strip(status_str)
+                self.read = ""
 
     def fork(self):
         return os.fork()

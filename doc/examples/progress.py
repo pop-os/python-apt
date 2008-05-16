@@ -34,10 +34,13 @@ class TextFetchProgress(apt.FetchProgress):
         pass
 
     def updateStatus(self, uri, descr, shortDescr, status):
-        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (uri, descr, shortDescr, status)
+        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (
+            uri, descr, shortDescr, status)
 
     def pulse(self):
-        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (SizeToStr(self.currentCPS), SizeToStr(self.currentBytes), SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
+            SizeToStr(self.currentCPS), SizeToStr(self.currentBytes),
+            SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
         return True
 
     def mediaChange(self, medium, drive):

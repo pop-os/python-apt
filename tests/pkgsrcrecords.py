@@ -19,7 +19,9 @@ def main():
         if src.Lookup(x.Name):
             #print src.Package
             pass
-        print "\r%i/%i=%.3f%%    " % (i, cache.PackageCount, (float(i) / float(cache.PackageCount) * 100)),
+        print "\r%i/%i=%.3f%%    " % (
+            i, cache.PackageCount,
+            (float(i) / float(cache.PackageCount) * 100)),
 
 
 if __name__ == "__main__":

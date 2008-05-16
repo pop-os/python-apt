@@ -6,7 +6,8 @@
 #   config.py -no-h --no-help --help=no  ; Turn off help
 #   config.py -qqq -q=3            ; verbosity to 3
 #   config.py -c /etc/apt/apt.conf ; include that config file]
-#   config.py -o help=true         ; Turn on help by giving a config file string
+#   config.py -o help=true         ; Turn on help by giving a
+#                                  ; config file string
 #   config.py -no-h -- -help       ; Turn off help, specify the file '-help'
 # -c and -o are standard APT-program options.
 

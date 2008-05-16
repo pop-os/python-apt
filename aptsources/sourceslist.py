@@ -84,11 +84,13 @@ class SourceEntry:
         self.type = ""                  # what type (deb, deb-src)
         self.uri = ""                   # base-uri
         self.dist = ""                  # distribution (dapper, edgy, etc)
-        self.comps = []                 # list of available componetns (may empty)
+        self.comps = []                 # list of available componetns
+                                        # (may empty)
         self.comment = ""               # (optional) comment
         self.line = line                # the original sources.list line
         if file == None:
-            file = apt_pkg.Config.FindDir("Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
+            file = apt_pkg.Config.FindDir(
+                "Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
         self.file = file               # the file that the entry is located in
         self.parse(line)
         self.template = None           # type DistInfo.Suite
@@ -118,11 +120,13 @@ class SourceEntry:
             elif line[i] == "]":
                 p_found=False
                 tmp += line[i]
-            elif space_found and not line[i].isspace(): # we skip one or more space
+            elif space_found and not line[i].isspace():
+                # we skip one or more space
                 space_found = False
                 pieces.append(tmp)
                 tmp = line[i]
-            elif line[i].isspace() and not p_found:     # found a whitespace
+            elif line[i].isspace() and not p_found:
+                # found a whitespace
                 space_found = True
             else:
                 tmp += line[i]
@@ -273,8 +277,8 @@ class SourcesList:
                source.dist == dist:
                 for new_comp in comps:
                     if new_comp in source.comps:
-                        # we have this component already, delete it from the new_comps
-                        # list
+                        # we have this component already, delete it
+                        # from the new_comps list
                         del comps[comps.index(new_comp)]
                         if len(comps) == 0:
                             return source
@@ -332,7 +336,8 @@ class SourcesList:
         if backup_ext == None:
             backup_ext = time.strftime("%y%m%d.%H%M")
         for source in self.list:
-            if not source.file in already_backuped and os.path.exists(source.file):
+            if not source.file in already_backuped \
+                and os.path.exists(source.file):
                 shutil.copy(source.file, "%s%s" % (source.file, backup_ext))
         return backup_ext
 
@@ -356,9 +361,10 @@ class SourcesList:
         if len(self.list) == 0:
             path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),
                              apt_pkg.Config.Find("Dir::Etc::sourcelist"))
-            header = ("## See sources.list(5) for more information, especialy\n"
-                      "# Remember that you can only use http, ftp or file URIs\n"
-                      "# CDROMs are managed through the apt-cdrom tool.\n")
+            header = (
+                "## See sources.list(5) for more information, especialy\n"
+                "# Remember that you can only use http, ftp or file URIs\n"
+                "# CDROMs are managed through the apt-cdrom tool.\n")
             open(path, "w").write(header)
             return
         for source in self.list:

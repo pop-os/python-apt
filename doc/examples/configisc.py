@@ -32,10 +32,13 @@ if Cnf.has_key("Zone"):
     for I in Cnf.List("zone"):
         SubCnf = Cnf.SubTree(I)
         if SubCnf.Find("type") == "slave":
-            print "Masters for %s: %s" % (SubCnf.MyTag(), SubCnf.ValueList("masters"))
+            print "Masters for %s: %s" % (
+                SubCnf.MyTag(), SubCnf.ValueList("masters"))
 else:
     print "Tree definitions:"
     for I in Cnf.List("tree"):
         SubCnf = Cnf.SubTree(I)
-        # This could use Find which would eliminate the possibility of exceptions.
-        print "Subtree %s with sections '%s' and architectures '%s'" % (SubCnf.MyTag(), SubCnf["Sections"], SubCnf["Architectures"])
+        # This could use Find which would eliminate the possibility of
+        # exceptions.
+        print "Subtree %s with sections '%s' and architectures '%s'" % (
+            SubCnf.MyTag(), SubCnf["Sections"], SubCnf["Architectures"])

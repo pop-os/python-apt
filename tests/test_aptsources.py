@@ -79,7 +79,8 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(found_universe, 1)
 
     def testDistribution(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list.testDistribution")
+        apt_pkg.Config.Set(
+            "Dir::Etc::sourcelist", "data/sources.list.testDistribution")
         sources = aptsources.SourcesList()
         distro = aptsources.Distribution()
         distro.get_sources(sources)
@@ -89,7 +90,9 @@ class TestAptSources(unittest.TestCase):
             if s.template:
                 dist_templates.add(s.template.name)
         #print dist_templates
-        for d in ["edgy", "edgy-security", "edgy-updates", "hoary", "breezy", "breezy-backports"]:
+        for d in [
+            "edgy", "edgy-security", "edgy-updates",
+            "hoary", "breezy", "breezy-backports"]:
             self.assertTrue(d in dist_templates)
         # test enable
         comp = "restricted"

@@ -22,7 +22,9 @@ class DebPackage(object):
         " open given debfile "
         self.filename = filename
         if not arCheckMember(open(self.filename), "debian-binary"):
-            raise NoDebArchiveException, _("This is not a valid DEB archive, missing '%s' member" % "debian-binary")
+            raise NoDebArchiveException, _(
+                "This is not a valid DEB archive, missing '%s' member"
+                    % "debian-binary")
         control = apt_inst.debExtractControl(open(self.filename))
         self._sections = apt_pkg.ParseSection(control)
         self.pkgname = self._sections["Package"]
@@ -34,18 +36,22 @@ class DebPackage(object):
         """ return the list of files in the deb """
         files = []
 
-        def extract_cb(What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
-            #print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u"\
-            #      % (What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
+        def extract_cb(
+            What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
+            #print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u" % (
+            #    What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
             files.append(Name)
 
         for member in self._supported_data_members:
             if arCheckMember(open(self.filename), member):
                 try:
-                    apt_inst.debExtract(open(self.filename), extract_cb, member)
+                    apt_inst.debExtract(
+                        open(self.filename), extract_cb, member)
                     break
                 except SystemError, e:
-                    return [_("List of files for '%s'could not be read" % self.filename)]
+                    return [_(
+                        "List of files for '%s'could not be read"
+                            % self.filename)]
         return files
     filelist = property(filelist)
 

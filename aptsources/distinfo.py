@@ -154,7 +154,9 @@ class DistInfo:
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
-        match_mirror_line = re.compile(r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://[A-Za-z/\.:\-_]+)$")
+        match_mirror_line = re.compile(
+            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://"
+            r"[A-Za-z/\.:\-_]+)$")
         #match_mirror_line = re.compile(r".+")
 
         if not dist:
@@ -185,7 +187,8 @@ class DistInfo:
                 self.metarelease_uri = value
             elif field == 'Suite':
                 if template:
-                    if component and not template.has_component(component.name):
+                    if component \
+                        and not template.has_component(component.name):
                         template.components.append(component)
                         component = None
                     self.templates.append(template)
@@ -231,7 +234,8 @@ class DistInfo:
                         if mirror_set.has_key(hostname):
                             mirror_set[hostname].add_repository(proto, dir)
                         else:
-                            mirror_set[hostname] = Mirror(proto, hostname, dir, location)
+                            mirror_set[hostname] = Mirror(
+                                proto, hostname, dir, location)
                     map_mirror_sets[value] = mirror_set
                 template.mirror_set = map_mirror_sets[value]
             elif field == 'Description':

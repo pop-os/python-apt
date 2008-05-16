@@ -51,7 +51,8 @@ class Cache(object):
         self._callbacks = {}
         if rootdir:
             apt_pkg.Config.Set("Dir", rootdir)
-            apt_pkg.Config.Set("Dir::State::status", rootdir + "/var/lib/dpkg/status")
+            apt_pkg.Config.Set(
+                "Dir::State::status", rootdir + "/var/lib/dpkg/status")
         self.open(progress)
 
     def _runCallbacks(self, name):
@@ -153,7 +154,8 @@ class Cache(object):
             if item.StatIdle:
                 transient = True
                 continue
-            errMsg += "Failed to fetch %s %s\n" % (item.DescURI, item.ErrorText)
+            errMsg += "Failed to fetch %s %s\n" % (
+                item.DescURI, item.ErrorText)
             failed = True
 
         # we raise a exception if the download failed or it was cancelt

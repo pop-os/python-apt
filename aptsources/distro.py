@@ -82,7 +82,8 @@ class Distribution:
             if self.is_codename(template.name) and\
                 template.distribution == self.id:
                 #print "yeah! found a template for %s" % self.description
-                #print template.description, template.base_uri, template.components
+                #print template.description, template.base_uri, \
+                #    template.components
                 self.source_template = template
                 break
             if self.source_template == None:
@@ -117,15 +118,19 @@ class Distribution:
                     elif source.type == self.binary_type and \
                          source.disabled == True:
                         self.disabled_sources.append(source)
-                    elif source.type == self.source_type and source.disabled == False:
+                    elif source.type == self.source_type \
+                        and source.disabled == False:
                         self.source_code_sources.append(source)
-                    elif source.type == self.source_type and source.disabled == True:
+                    elif source.type == self.source_type \
+                        and source.disabled == True:
                         self.disabled_sources.append(source)
                 if source.invalid == False and\
                    source.template in self.source_template.children:
-                    if source.disabled == False and source.type == self.binary_type:
+                    if source.disabled == False \
+                        and source.type == self.binary_type:
                         self.child_sources.append(source)
-                    elif source.disabled == False and source.type == self.source_type:
+                    elif source.disabled == False \
+                        and source.type == self.source_type:
                         self.source_code_sources.append(source)
                     else:
                         self.disabled_sources.append(source)
@@ -240,11 +245,12 @@ class Distribution:
                                             self.nearest_server, False])
             mirrors.append([_("Custom servers"), None, True])
             for server in self.used_servers:
+                mirror_entry = [self._get_mirror_name(server), server, False]
                 if compare_mirrors(server, self.nearest_server) or\
                    compare_mirrors(server, self.main_server):
                     continue
-                elif not [self._get_mirror_name(server), server, False] in mirrors:
-                    mirrors.append([self._get_mirror_name(server), server, False])
+                elif not mirror_entry in mirrors:
+                    mirrors.append(mirror_entry)
 
         return mirrors
 
@@ -408,23 +414,22 @@ class DebianDistribution(Distribution):
             country = server[i+len("://ftp."):l]
         if self.countries.has_key(country):
             # TRANSLATORS: %s is a country
-            return _("Server for %s") % \
-                   gettext.dgettext("iso_3166",
-                                    self.countries[country].rstrip()).rstrip()
+            return _("Server for %s") % gettext.dgettext(
+                "iso_3166", self.countries[country].rstrip()).rstrip()
         else:
             return("%s" % server.rstrip("/ "))
 
     def get_mirrors(self):
-        Distribution.get_mirrors(self,
-                                 mirror_template="http://ftp.%s.debian.org/debian/")
+        Distribution.get_mirrors(
+            self, mirror_template="http://ftp.%s.debian.org/debian/")
 
 
 class UbuntuDistribution(Distribution):
     ''' Class to support specific Ubuntu features '''
 
     def get_mirrors(self):
-        Distribution.get_mirrors(self,
-                                 mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
+        Distribution.get_mirrors(
+            self, mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 
 def get_distro():

@@ -96,7 +96,8 @@ class Package(object):
 
         # check if we found a version
         if ver == None:
-            #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
+            #print "No version for: %s (Candidate: %s)" % (
+            #    self._pkg.Name, UseCandidate)
             return False
 
         if ver.FileList == None:
@@ -150,7 +151,10 @@ class Package(object):
             for depVerList in depends[t]:
                 base_deps = []
                 for depOr in depVerList:
-                    base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.CompType, depOr.TargetVer, (t == "PreDepends")))
+                    base_deps.append(
+                        BaseDependency(
+                            depOr.TargetPkg.Name, depOr.CompType,
+                            depOr.TargetVer, (t == "PreDepends")))
                 depends_list.append(Dependency(base_deps))
         return depends_list
 
@@ -441,7 +445,9 @@ class Package(object):
             self.markInstall()
         else:
             # FIXME: we may want to throw a exception here
-            sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg: '%s'\n" % self._pkg.Name)
+            sys.stderr.write(
+                "MarkUpgrade() called on a non-upgrable pkg: '%s'\n"
+                    % self._pkg.Name)
 
     def commit(self, fprogress, iprogress):
         """ commit the changes, need a FetchProgress and InstallProgress
@@ -478,7 +484,9 @@ if __name__ == "__main__":
     print "PackageSize: %s " % pkg.packageSize
     print "Dependencies: %s" % pkg.installedDependencies
     for dep in pkg.candidateDependencies:
-        print ",".join(["%s (%s) (%s) (%s)" % (o.name, o.version, o.relation, o.preDepend) for o in dep.or_dependencies])
+        print ",".join(
+            ["%s (%s) (%s) (%s)" % (o.name, o.version, o.relation, o.preDepend)
+                for o in dep.or_dependencies])
     print "arch: %s" % pkg.architecture
     print "homepage: %s" % pkg.homepage
     print "rec: ", pkg.candidateRecord

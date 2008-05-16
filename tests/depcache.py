@@ -31,7 +31,8 @@ def main():
                 if depcache.MarkedInstall(p):
                     depcache.MarkKeep(p)
             if depcache.InstCount != 0:
-                print "Error undoing the selection for %s (InstCount: %s)" % (x, depcache.InstCount)
+                print "Error undoing the selection for %s (InstCount: %s)" % (
+                    x, depcache.InstCount)
         print "\r%i/%i=%.3f%%    " % (i, all, (float(i) / float(all) * 100)),
 
     print
