@@ -4,7 +4,9 @@
 from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
 from DistUtilsExtra.command import *
-import glob, os, string
+import glob
+import os
+import string
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,

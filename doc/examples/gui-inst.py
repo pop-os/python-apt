@@ -4,7 +4,9 @@
 
 import apt
 import apt_pkg
-import sys, os, fcntl
+import sys
+import os
+import fcntl
 import copy
 import string
 import fcntl

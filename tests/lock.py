@@ -4,7 +4,8 @@
 #
 
 import apt_pkg
-import sys, os
+import sys
+import os
 
 
 if __name__ == "__main__":

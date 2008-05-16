@@ -2,7 +2,8 @@
 # example how to deal with the depcache
 
 import apt
-import sys, os
+import sys
+import os
 import copy
 import time
 

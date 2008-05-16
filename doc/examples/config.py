@@ -12,7 +12,9 @@
 
 # This shows how to use the system for configuration and option control.
 # The other varient is for ISC object config files. See configisc.py.
-import apt_pkg, sys, posixpath
+import apt_pkg
+import sys
+import posixpath
 
 # Create a new empty Configuration object - there is also the system global
 # configuration object apt_pkg.Config which is used interally by apt-pkg

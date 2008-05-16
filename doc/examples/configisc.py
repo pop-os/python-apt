@@ -8,7 +8,9 @@
 # doc/examples/ftp-archive.conf
 # or a bind8 config file..
 
-import apt_pkg, sys, posixpath
+import apt_pkg
+import sys
+import posixpath
 
 ConfigFile = apt_pkg.ParseCommandLine(apt_pkg.Config, [], sys.argv)
 

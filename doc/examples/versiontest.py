@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
 # This is a simple clone of tests/versiontest.cc
-import apt_pkg, sys, re, string
+import apt_pkg
+import sys
+import re
+import string
+
 apt_pkg.InitConfig()
 apt_pkg.InitSystem()
 
