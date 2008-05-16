@@ -28,9 +28,9 @@ for pkg in pkgs:
 	else:
 		main.add(cache[pkg].sourcePackageName)
 
-print "main:"		
+print "main:"
 print "\n".join(main)
 print
 
-print "universe:"		
+print "universe:"
 print "\n".join(universe)
