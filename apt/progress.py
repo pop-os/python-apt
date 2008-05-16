@@ -188,14 +188,14 @@ class InstallProgress(DumbInstallProgress):
         pass
 
     def statusChange(self, pkg, percent, status):
-	" called when the status changed "
-	pass
+        " called when the status changed "
+        pass
 
     def updateInterface(self):
         if self.statusfd != None:
                 try:
-		    while not self.read.endswith("\n"):
-	                    self.read += os.read(self.statusfd.fileno(),1)
+                    while not self.read.endswith("\n"):
+                        self.read += os.read(self.statusfd.fileno(),1)
                 except OSError, (errno,errstr):
                     # resource temporarly unavailable is ignored
                     if errno != EAGAIN and errnor != EWOULDBLOCK:

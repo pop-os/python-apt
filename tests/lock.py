@@ -21,7 +21,7 @@ if __name__ == "__main__":
             apt_pkg.PkgSystemLock()
         except SystemError, s:
             print "Can't get lock: (error text:\n%s)" % s
-	sys.exit(0)
+        sys.exit(0)
 
     apt_pkg.PkgSystemUnLock()
 
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         # child
         fd = apt_pkg.GetLock(lock,False)
         print "Lockfile fd (child): %s" % fd
-	sys.exit(0)
+        sys.exit(0)
 
     # try to get lock with error flag
     pid = os.fork()
@@ -43,4 +43,4 @@ if __name__ == "__main__":
         # child
         fd = apt_pkg.GetLock(lock,True)
         print "Lockfile fd (child): %s" % fd
-	sys.exit(0)
+        sys.exit(0)

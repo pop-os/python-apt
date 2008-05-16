@@ -41,8 +41,8 @@ class TextFetchProgress(apt.FetchProgress):
         return True
 
     def mediaChange(self, medium, drive):
-	print "Please insert medium %s in drive %s" % (medium, drive)
-	sys.stdin.readline()
+        print "Please insert medium %s in drive %s" % (medium, drive)
+        sys.stdin.readline()
         #return False
 
 

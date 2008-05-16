@@ -42,10 +42,10 @@ try:
     uri=urllib2.urlopen(req)
     p = re.compile('^.*((http|ftp):\/\/[A-Za-z0-9-.:\/_]+).*\n*$')
     for line in uri.readlines():
-         if r"[[Anchor(dvd-images)]]" in line:
-             break
-         if "http://" in line or "ftp://" in line:
-             mirrors.append(p.sub(r"\1", line))
+        if r"[[Anchor(dvd-images)]]" in line:
+            break
+        if "http://" in line or "ftp://" in line:
+            mirrors.append(p.sub(r"\1", line))
     uri.close()
 except:
     print "Failed to download or extract the mirrors list!"

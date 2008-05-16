@@ -13,8 +13,8 @@ import apt_pkg,sys,posixpath;
 ConfigFile = apt_pkg.ParseCommandLine(apt_pkg.Config,[],sys.argv);
 
 if len(ConfigFile) != 1:
-   print "Must have exactly 1 file name";
-   sys.exit(0);
+    print "Must have exactly 1 file name";
+    sys.exit(0);
 
 Cnf = apt_pkg.newConfiguration();
 apt_pkg.ReadConfigFileISC(Cnf,ConfigFile[0]);
@@ -26,14 +26,14 @@ apt_pkg.ReadConfigFileISC(Cnf,ConfigFile[0]);
 
 # bind8 config file..
 if Cnf.has_key("Zone"):
-   print "Zones: ",Cnf.SubTree("zone").List();
-   for I in Cnf.List("zone"):
-      SubCnf = Cnf.SubTree(I);
-      if SubCnf.Find("type") == "slave":
-         print "Masters for %s: %s"%(SubCnf.MyTag(),SubCnf.ValueList("masters"));
+    print "Zones: ",Cnf.SubTree("zone").List();
+    for I in Cnf.List("zone"):
+        SubCnf = Cnf.SubTree(I);
+        if SubCnf.Find("type") == "slave":
+            print "Masters for %s: %s"%(SubCnf.MyTag(),SubCnf.ValueList("masters"));
 else:
-   print "Tree definitions:";
-   for I in Cnf.List("tree"):
-      SubCnf = Cnf.SubTree(I);
-      # This could use Find which would eliminate the possibility of exceptions.
-      print "Subtree %s with sections '%s' and architectures '%s'"%(SubCnf.MyTag(),SubCnf["Sections"],SubCnf["Architectures"]);
+    print "Tree definitions:";
+    for I in Cnf.List("tree"):
+        SubCnf = Cnf.SubTree(I);
+        # This could use Find which would eliminate the possibility of exceptions.
+        print "Subtree %s with sections '%s' and architectures '%s'"%(SubCnf.MyTag(),SubCnf["Sections"],SubCnf["Architectures"]);
