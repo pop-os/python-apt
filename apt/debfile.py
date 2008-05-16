@@ -34,9 +34,9 @@ class DebPackage(object):
         """ return the list of files in the deb """
         files = []
 
-        def extract_cb(What,Name,Link,Mode,UID,GID,Size,MTime,Major,Minor):
+        def extract_cb(What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
             #print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u"\
-            #      % (What,Name,Link,Mode,UID,GID,Size, MTime, Major, Minor)
+            #      % (What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
             files.append(Name)
 
         for member in self._supported_data_members:

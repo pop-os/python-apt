@@ -108,7 +108,7 @@ class Distribution:
                     elif source.uri.startswith("cdrom:") and \
                          source.disabled == True:
                         self.cdrom_sources.append(source)
-                    elif source.type == self.binary_type  and \
+                    elif source.type == self.binary_type and \
                          source.disabled == False:
                         self.main_sources.append(source)
                         comps.extend(source.comps)

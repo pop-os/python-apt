@@ -12,7 +12,7 @@
 
 # This shows how to use the system for configuration and option control.
 # The other varient is for ISC object config files. See configisc.py.
-import apt_pkg,sys,posixpath;
+import apt_pkg, sys, posixpath
 
 # Create a new empty Configuration object - there is also the system global
 # configuration object apt_pkg.Config which is used interally by apt-pkg
@@ -20,30 +20,30 @@ import apt_pkg,sys,posixpath;
 # whenever possible..
 Cnf = apt_pkg.newConfiguration();
 
-print "Command line is",sys.argv
+print "Command line is", sys.argv
 
 # Load the default configuration file, InitConfig() does this better..
-Cnf.Set("config-file","/etc/apt/apt.conf");  # or Cnf["config-file"] = "..";
+Cnf.Set("config-file", "/etc/apt/apt.conf")  # or Cnf["config-file"] = ".."
 if posixpath.exists(Cnf.FindFile("config-file")):
-    apt_pkg.ReadConfigFile(Cnf,"/etc/apt/apt.conf");
+    apt_pkg.ReadConfigFile(Cnf, "/etc/apt/apt.conf")
 
 # Merge the command line arguments into the configuration space
-Arguments = [('h',"help","help"),
-             ('v',"version","version"),
-             ('q',"quiet","quiet","IntLevel"),
-             ('c',"config-file","","ConfigFile"),
-             ('o',"option","","ArbItem")]
-print "FileNames",apt_pkg.ParseCommandLine(Cnf,Arguments,sys.argv);
+Arguments = [('h', "help", "help"),
+             ('v', "version", "version"),
+             ('q', "quiet", "quiet", "IntLevel"),
+             ('c', "config-file", "", "ConfigFile"),
+             ('o', "option", "", "ArbItem")]
+print "FileNames", apt_pkg.ParseCommandLine(Cnf, Arguments, sys.argv)
 
-print "Quiet level selected is",Cnf.FindI("quiet",0);
+print "Quiet level selected is", Cnf.FindI("quiet", 0)
 
 # Do some stuff with it
-if Cnf.FindB("version",0) == 1:
+if Cnf.FindB("version", 0) == 1:
     print "Version selected - 1.1";
 
-if Cnf.FindB("help",0) == 1:
-    print apt_pkg.Package,apt_pkg.Version,"for",apt_pkg.Architecture, \
-          "compiled on",apt_pkg.Date,apt_pkg.Time;
+if Cnf.FindB("help", 0) == 1:
+    print apt_pkg.Package, apt_pkg.Version, "for", apt_pkg.Architecture, \
+          "compiled on", apt_pkg.Date, apt_pkg.Time
     print "Hi, I am the help text for this program";
     sys.exit(0);
 
@@ -52,4 +52,4 @@ print "No help for you, try -h";
 # Print the configuration space
 print "The Configuration space looks like:";
 for I in Cnf.keys():
-    print "%s \"%s\";"%(I,Cnf[I]);
+    print "%s \"%s\";" % (I, Cnf[I])

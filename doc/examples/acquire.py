@@ -20,7 +20,7 @@ def get_file(fetcher, uri, destFile):
         os.chdir(cwd)
         return False
     filename = os.path.basename(uri)
-    os.rename(dir+"/"+filename,destFile)
+    os.rename(dir+"/"+filename, destFile)
     # cleanup
     os.rmdir(dir)
     os.chdir(cwd)
@@ -44,7 +44,7 @@ depcache.Upgrade(True)
 progress = apt.progress.TextFetchProgress()
 fetcher = apt_pkg.GetAcquire(progress)
 pm = apt_pkg.GetPackageManager(depcache)
-pm.GetArchives(fetcher,list,recs)
+pm.GetArchives(fetcher, list, recs)
 print "%s (%s)" % (apt_pkg.SizeToStr(fetcher.FetchNeeded), fetcher.FetchNeeded)
 actiongroup = apt_pkg.GetPkgActionGroup(depcache)
 for pkg in cache.Packages:
@@ -55,7 +55,7 @@ try:
     os.mkdir("/tmp/pyapt-test/partial")
 except OSError:
     pass
-apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
+apt_pkg.Config.Set("Dir::Cache::archives", "/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
 depcache.MarkInstall(pkg)
@@ -70,7 +70,7 @@ print fetcher
 
 get_file(fetcher, "ftp://ftp.debian.org/debian/dists/README", "/tmp/lala")
 
-pm.GetArchives(fetcher,list,recs)
+pm.GetArchives(fetcher, list, recs)
 
 for item in fetcher.Items:
     print item

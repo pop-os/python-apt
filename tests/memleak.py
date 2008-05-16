@@ -15,7 +15,7 @@ for i in range(100):
     print cache["apt"].name
     time.sleep(1)
     gc.collect()
-    f = open("%s" % i,"w")
+    f = open("%s" % i, "w")
     for obj in gc.get_objects():
         f.write("%s\n" % str(obj))
     f.close()
@@ -37,7 +37,7 @@ for i in range(100):
     dict = {}
     for pkg in cache.Packages:
         if len(pkg.VersionList) > 0:
-            dict[pkg.Name] = apt.Package(cache,depcache,
+            dict[pkg.Name] = apt.Package(cache, depcache,
                                          records, list, None, pkg)
 
     print cache["apt"]

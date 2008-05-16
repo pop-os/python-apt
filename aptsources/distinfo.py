@@ -139,8 +139,8 @@ class Repository:
 
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
-    return map(lambda a,b: a, re.split(":*\/+", url, maxsplit=2),
-                              [None, None, None])
+    return map(lambda a, b: a, re.split(":*\/+", url, maxsplit=2),
+               [None, None, None])
 
 
 class DistInfo:
@@ -167,17 +167,17 @@ class DistInfo:
         map_mirror_sets = {}
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
-        dist_file = open (dist_fname)
+        dist_file = open(dist_fname)
         if not dist_file:
             return
         template = None
         component = None
         for line in dist_file:
-            tokens = line.split (':', 1)
-            if len (tokens) < 2:
+            tokens = line.split(':', 1)
+            if len(tokens) < 2:
                 continue
-            field = tokens[0].strip ()
-            value = tokens[1].strip ()
+            field = tokens[0].strip()
+            value = tokens[1].strip()
             if field == 'ChangelogURI':
                 self.changelogs_uri = _(value)
             elif field == 'MetaReleaseURI':
@@ -251,7 +251,7 @@ class DistInfo:
             template = None
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "/usr/share/python-apt/templates")
+    d = DistInfo("Ubuntu", "/usr/share/python-apt/templates")
     print d.changelogs_uri
     for template in d.templates:
         print "\nSuite: %s" % template.name

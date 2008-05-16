@@ -13,7 +13,7 @@ class TestAptSources(unittest.TestCase):
         unittest.TestCase.__init__(self, methodName)
         apt_pkg.init()
         apt_pkg.Config.Set("Dir::Etc", os.getcwd())
-        apt_pkg.Config.Set("Dir::Etc::sourceparts",".")
+        apt_pkg.Config.Set("Dir::Etc::sourceparts", ".")
 
     def testIsMirror(self):
         self.assertTrue(aptsources.is_mirror("http://archive.ubuntu.com",
@@ -22,7 +22,7 @@ class TestAptSources(unittest.TestCase):
                                               "http://ftp.debian.org"))
 
     def testSourcesListReading(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list")
         sources = aptsources.SourcesList()
         self.assertEqual(len(sources.list), 6)
         # test load
@@ -31,22 +31,22 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(len(sources.list), 6)
 
     def testSourcesListAdding(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list")
         sources = aptsources.SourcesList()
         # test to add something that is already there (main)
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["main"])
         self.assertTrue(sources.list == before.list)
         # test to add something that is already there (restricted)
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["restricted"])
         self.assertTrue(sources.list == before.list)
         # test to add something new: multiverse
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["multiverse"])
         found = False
@@ -60,7 +60,7 @@ class TestAptSources(unittest.TestCase):
         # test to add something new: multiverse *and*
         # something that is already there
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["universe", "something"])
         found_universe = 0
@@ -79,7 +79,7 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(found_universe, 1)
 
     def testDistribution(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list.testDistribution")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list.testDistribution")
         sources = aptsources.SourcesList()
         distro = aptsources.Distribution()
         distro.get_sources(sources)
@@ -89,7 +89,7 @@ class TestAptSources(unittest.TestCase):
             if s.template:
                 dist_templates.add(s.template.name)
         #print dist_templates
-        for d in ["edgy","edgy-security","edgy-updates","hoary","breezy", "breezy-backports"]:
+        for d in ["edgy", "edgy-security", "edgy-updates", "hoary", "breezy", "breezy-backports"]:
             self.assertTrue(d in dist_templates)
         # test enable
         comp = "restricted"

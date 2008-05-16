@@ -18,7 +18,7 @@ class Cdrom(object):
             self._progress = progress
         # see if we have a alternative mountpoint
         if mountpoint is not None:
-            apt_pkg.Config.Set("Acquire::cdrom::mount",mountpoint)
+            apt_pkg.Config.Set("Acquire::cdrom::mount", mountpoint)
         # do not mess with mount points by default
         if nomount is True:
             apt_pkg.Config.Set("APT::CDROM::NoMount", "true")

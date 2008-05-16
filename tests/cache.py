@@ -43,7 +43,7 @@ def main():
                             j = ver.DependsList
                             pass
 
-        print "\r%i/%i=%.3f%%    " % (i,all,(float(i)/float(all)*100)),
+        print "\r%i/%i=%.3f%%    " % (i, all, (float(i) / float(all) * 100)),
 
 
 if __name__ == "__main__":

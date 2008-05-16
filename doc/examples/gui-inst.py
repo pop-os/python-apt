@@ -32,7 +32,7 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
         self.label.show()
         self.vbox.pack_start(self.progress)
         self.vbox.pack_start(self.label)
-        self.resize(300,100)
+        self.resize(300, 100)
 
     def start(self):
         print "start"
@@ -64,15 +64,15 @@ class TermInstallProgress(InstallProgress, gtk.Window):
         self.term.show()
         # check for the child
         self.reaper = vte.reaper_get()
-        self.reaper.connect("child-exited",self.child_exited)
+        self.reaper.connect("child-exited", self.child_exited)
         self.finished = False
         box.pack_start(self.term)
         self.progressbar = gtk.ProgressBar()
         self.progressbar.show()
         box.pack_start(self.progressbar)
 
-    def child_exited(self,term, pid, status):
-        print "child_exited: %s %s %s %s" % (self,term,pid,status)
+    def child_exited(self, term, pid, status):
+        print "child_exited: %s %s %s %s" % (self, term, pid, status)
         self.apt_status = posix.WEXITSTATUS(status)
         self.finished = True
 

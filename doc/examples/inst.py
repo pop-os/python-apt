@@ -23,8 +23,8 @@ class TextInstallProgress(InstallProgress):
         sys.stdout.flush()
         self.last = self.percent
 
-    def conffile(self,current,new):
-        print "conffile prompt: %s %s" % (current,new)
+    def conffile(self, current, new):
+        print "conffile prompt: %s %s" % (current, new)
 
     def error(self, errorstr):
         print "got dpkg error: '%s'" % errorstr

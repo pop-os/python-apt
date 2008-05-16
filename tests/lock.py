@@ -26,14 +26,14 @@ if __name__ == "__main__":
     apt_pkg.PkgSystemUnLock()
 
     # low-level lock
-    fd = apt_pkg.GetLock(lock,True)
+    fd = apt_pkg.GetLock(lock, True)
     print "Lockfile fd: %s" % fd
 
     # try to get lock without error flag
     pid = os.fork()
     if pid == 0:
         # child
-        fd = apt_pkg.GetLock(lock,False)
+        fd = apt_pkg.GetLock(lock, False)
         print "Lockfile fd (child): %s" % fd
         sys.exit(0)
 
@@ -41,6 +41,6 @@ if __name__ == "__main__":
     pid = os.fork()
     if pid == 0:
         # child
-        fd = apt_pkg.GetLock(lock,True)
+        fd = apt_pkg.GetLock(lock, True)
         print "Lockfile fd (child): %s" % fd
         sys.exit(0)

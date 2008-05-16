@@ -49,7 +49,7 @@ def main():
                     depcache.MarkKeep(p)
             if depcache.InstCount != 0:
                 print "Error undoing the selection for %s" % x
-        print "\r%i/%i=%.3f%%    " % (i,all,(float(i)/float(all)*100)),
+        print "\r%i/%i=%.3f%%    " % (i, all, (float(i) / float(all) * 100)),
 
     print
     print "Trying Upgrade:"

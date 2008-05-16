@@ -78,7 +78,7 @@ def uniq(s):
 class SourceEntry:
     """ single sources.list entry """
 
-    def __init__(self, line,file=None):
+    def __init__(self, line, file=None):
         self.invalid = False            # is the source entry valid
         self.disabled = False           # is it disabled ('#' in front)
         self.type = ""                  # what type (deb, deb-src)
@@ -131,10 +131,10 @@ class SourceEntry:
             pieces.append(tmp)
         return pieces
 
-    def parse(self,line):
+    def parse(self, line):
         """ parse a given sources.list (textual) line and break it up
             into the field we have """
-        line  = string.strip(self.line)
+        line = string.strip(self.line)
         #print line
         # check if the source is enabled/disabled
         if line == "" or line == "#": # empty line
@@ -295,11 +295,11 @@ class SourcesList:
                 source.disabled = False
                 return source
         # there isn't any matching source, so create a new line and parse it
-        line = "%s %s %s" % (type,uri,dist)
+        line = "%s %s %s" % (type, uri, dist)
         for c in comps:
             line = line + " " + c;
         if comment != "":
-            line = "%s #%s\n" %(line,comment)
+            line = "%s #%s\n" % (line, comment)
         line = line + "\n"
         new_entry = SourceEntry(line)
         if file != None:
@@ -317,13 +317,13 @@ class SourcesList:
         dir = apt_pkg.Config.FindDir("Dir::Etc")
         file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
         if os.path.exists(dir+file+backup_ext) and \
-           os.path.exists(dir+file):
-            shutil.copy(dir+file+backup_ext,dir+file)
+            os.path.exists(dir+file):
+            shutil.copy(dir+file+backup_ext, dir+file)
         # now sources.list.d
         partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
         for file in glob.glob("%s/*.list" % partsdir):
             if os.path.exists(file+backup_ext):
-                shutil.copy(file+backup_ext,file)
+                shutil.copy(file+backup_ext, file)
 
     def backup(self, backup_ext=None):
         """ make a backup of the current source files, if no backup extension
@@ -333,16 +333,16 @@ class SourcesList:
             backup_ext = time.strftime("%y%m%d.%H%M")
         for source in self.list:
             if not source.file in already_backuped and os.path.exists(source.file):
-                shutil.copy(source.file,"%s%s" % (source.file,backup_ext))
+                shutil.copy(source.file, "%s%s" % (source.file, backup_ext))
         return backup_ext
 
-    def load(self,file):
+    def load(self, file):
         """ (re)load the current sources """
         try:
             f = open(file, "r")
             lines = f.readlines()
             for line in lines:
-                source = SourceEntry(line,file)
+                source = SourceEntry(line, file)
                 self.list.append(source)
         except:
             print "could not open file '%s'" % file
@@ -359,11 +359,11 @@ class SourcesList:
             header = ("## See sources.list(5) for more information, especialy\n"
                       "# Remember that you can only use http, ftp or file URIs\n"
                       "# CDROMs are managed through the apt-cdrom tool.\n")
-            open(path,"w").write(header)
+            open(path, "w").write(header)
             return
         for source in self.list:
             if not files.has_key(source.file):
-                files[source.file]=open(source.file,"w")
+                files[source.file] = open(source.file, "w")
             files[source.file].write(source.str())
         for f in files:
             files[f].close()
@@ -406,7 +406,7 @@ class SourceEntryMatcher:
             f = os.path.basename(f)
             i = f.find(".info")
             f = f[0:i]
-            dist = DistInfo(f,base_dir=matcherPath)
+            dist = DistInfo(f, base_dir=matcherPath)
             for template in dist.templates:
                 if template.match_uri != None:
                     self.templates.append(template)

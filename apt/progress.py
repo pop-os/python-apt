@@ -53,7 +53,7 @@ class OpTextProgress(OpProgress):
         OpProgress.__init__(self)
 
     def update(self, percent):
-        sys.stdout.write("\r%s: %.2i  " % (self.subOp,percent))
+        sys.stdout.write("\r%s: %.2i  " % (self.subOp, percent))
         sys.stdout.flush()
 
     def done(self):
@@ -71,11 +71,11 @@ class FetchProgress(object):
     dlFailed = 2
     dlHit = 3
     dlIgnored = 4
-    dlStatusStr = {dlDone : "Done",
-                   dlQueued : "Queued",
-                   dlFailed : "Failed",
-                   dlHit : "Hit",
-                   dlIgnored : "Ignored"}
+    dlStatusStr = {dlDone: "Done",
+                   dlQueued: "Queued",
+                   dlFailed: "Failed",
+                   dlHit: "Hit",
+                   dlIgnored: "Ignored"}
 
     def __init__(self):
         self.eta = 0.0
@@ -134,7 +134,7 @@ class TextFetchProgress(FetchProgress):
         """ react to media change events """
         res = True;
         print "Media change: please insert the disc labeled \
-               '%s' in the drive '%s' and press enter" % (medium,drive)
+               '%s' in the drive '%s' and press enter" % (medium, drive)
         s = sys.stdin.readline()
         if(s == 'c' or s == 'C'):
             res = false;
@@ -174,7 +174,7 @@ class InstallProgress(DumbInstallProgress):
         (read, write) = os.pipe()
         self.writefd=write
         self.statusfd = os.fdopen(read, "r")
-        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
+        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         self.read = ""
         self.percent = 0.0
         self.status = ""
@@ -183,7 +183,7 @@ class InstallProgress(DumbInstallProgress):
         " called when a error is detected during the install "
         pass
 
-    def conffile(self,current,new):
+    def conffile(self, current, new):
         " called when a conffile question from dpkg is detected "
         pass
 
@@ -195,8 +195,8 @@ class InstallProgress(DumbInstallProgress):
         if self.statusfd != None:
                 try:
                     while not self.read.endswith("\n"):
-                        self.read += os.read(self.statusfd.fileno(),1)
-                except OSError, (errno,errstr):
+                        self.read += os.read(self.statusfd.fileno(), 1)
+                except OSError, (errno, errstr):
                     # resource temporarly unavailable is ignored
                     if errno != EAGAIN and errnor != EWOULDBLOCK:
                         print errstr
@@ -204,14 +204,14 @@ class InstallProgress(DumbInstallProgress):
                     s = self.read
                     #print s
                     try:
-                        (status, pkg, percent, status_str) = string.split(s, ":",3)
+                        (status, pkg, percent, status_str) = string.split(s, ":", 3)
                     except ValueError, e:
                         # silently ignore lines that can't be parsed
                         self.read = ""
                         return
                     #print "percent: %s %s" % (pkg, float(percent)/100.0)
                     if status == "pmerror":
-                        self.error(pkg,status_str)
+                        self.error(pkg, status_str)
                     elif status == "pmconffile":
                         # we get a string like this:
                         # 'current-conffile' 'new-conffile' useredited distedited
@@ -231,9 +231,9 @@ class InstallProgress(DumbInstallProgress):
 
     def waitChild(self):
         while True:
-            select.select([self.statusfd],[],[], self.selectTimeout)
+            select.select([self.statusfd], [], [], self.selectTimeout)
             self.updateInterface()
-            (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
+            (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
             if pid == self.child_pid:
                 break
         return os.WEXITSTATUS(res)

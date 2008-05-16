@@ -153,7 +153,7 @@ class Cache(object):
             if item.StatIdle:
                 transient = True
                 continue
-            errMsg += "Failed to fetch %s %s\n" % (item.DescURI,item.ErrorText)
+            errMsg += "Failed to fetch %s %s\n" % (item.DescURI, item.ErrorText)
             failed = True
 
         # we raise a exception if the download failed or it was cancelt
@@ -371,7 +371,7 @@ if __name__ == "__main__":
     for d in ["/tmp/pytest", "/tmp/pytest/partial"]:
         if not os.path.exists(d):
             os.mkdir(d)
-    apt_pkg.Config.Set("Dir::Cache::Archives","/tmp/pytest")
+    apt_pkg.Config.Set("Dir::Cache::Archives", "/tmp/pytest")
     pm = apt_pkg.GetPackageManager(c._depcache)
     fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
     c._fetchArchives(fetcher, pm)

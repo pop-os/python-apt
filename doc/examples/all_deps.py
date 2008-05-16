@@ -26,9 +26,9 @@ pkg = c[pkgname]
 
 deps = set()
 
-deps = dependencies(c,pkg, deps, "Depends")
+deps = dependencies(c, pkg, deps, "Depends")
 print " ".join(deps)
 
 preDeps = set()
-preDeps = dependencies(c,pkg, preDeps, "PreDepends")
+preDeps = dependencies(c, pkg, preDeps, "PreDepends")
 print " ".join(preDeps)

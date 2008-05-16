@@ -102,7 +102,7 @@ class Package(object):
             print "No FileList for: %s " % self._pkg.Name()
             return False
         f, index = ver.FileList.pop(0)
-        self._records.Lookup((f,index))
+        self._records.Lookup((f, index))
         return True
 
 
@@ -259,11 +259,11 @@ class Package(object):
         self._records.Lookup(desc_iter.FileList.pop(0))
         desc = ""
         try:
-            s = unicode(self._records.LongDesc,"utf-8")
-        except UnicodeDecodeError,e:
+            s = unicode(self._records.LongDesc, "utf-8")
+        except UnicodeDecodeError, e:
             s = _("Invalid unicode in description for '%s' (%s). "
-                  "Please report.") % (self.name,e)
-        for line in string.split(s,"\n"):
+                  "Please report.") % (self.name, e)
+        for line in string.split(s, "\n"):
                 tmp = string.strip(line)
                 if tmp == ".":
                     desc += "\n"
@@ -380,7 +380,7 @@ class Package(object):
 
         def __repr__(self):
             return "component: '%s' archive: '%s' origin: '%s' label: '%s' " \
-                   "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
+                   "site '%s' isTrusted: '%s'" % (self.component, self.archive,
                                                   self.origin, self.label,
                                                   self.site, self.trusted)
 
@@ -389,7 +389,7 @@ class Package(object):
         if not ver:
             return None
         origins = []
-        for (verFileIter,index) in ver.FileList:
+        for (verFileIter, index) in ver.FileList:
             origins.append(self.Origin(self, verFileIter))
         return origins
     candidateOrigin = property(candidateOrigin)
@@ -440,7 +440,7 @@ class Package(object):
             self.markInstall()
         else:
             # FIXME: we may want to throw a exception here
-            sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg: '%s'\n"  %self._pkg.Name)
+            sys.stderr.write("MarkUpgrade() called on a non-upgrable pkg: '%s'\n" % self._pkg.Name)
 
     def commit(self, fprogress, iprogress):
         """ commit the changes, need a FetchProgress and InstallProgress
@@ -477,10 +477,10 @@ if __name__ == "__main__":
     print "PackageSize: %s " % pkg.packageSize
     print "Dependencies: %s" % pkg.installedDependencies
     for dep in pkg.candidateDependencies:
-        print ",".join(["%s (%s) (%s) (%s)" % (o.name,o.version,o.relation, o.preDepend) for o in dep.or_dependencies])
+        print ",".join(["%s (%s) (%s) (%s)" % (o.name, o.version, o.relation, o.preDepend) for o in dep.or_dependencies])
     print "arch: %s" % pkg.architecture
     print "homepage: %s" % pkg.homepage
-    print "rec: ",pkg.candidateRecord
+    print "rec: ", pkg.candidateRecord
 
     # now test install/remove
     import apt
@@ -491,7 +491,7 @@ if __name__ == "__main__":
         for name in cache.keys():
             pkg = cache[name]
             if pkg.isUpgradable:
-                if random.randint(0,1) == 1:
+                if random.randint(0, 1) == 1:
                     pkg.markInstall(i)
         print "Broken: %s " % cache._depcache.BrokenCount
         print "InstCount: %s " % cache._depcache.InstCount
@@ -502,7 +502,7 @@ if __name__ == "__main__":
         print "Randomly remove some packages with AutoFix: %s" % i
         cache = apt.Cache(progress)
         for name in cache.keys():
-            if random.randint(0,1) == 1:
+            if random.randint(0, 1) == 1:
                 try:
                     cache[name].markDelete(i)
                 except SystemError:
