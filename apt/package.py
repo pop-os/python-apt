@@ -26,40 +26,53 @@ import string
 
 #from gettext import gettext as _
 import gettext
+
+
 def _(s): return gettext.dgettext("python-apt", s)
+
 
 class BaseDependency(object):
     " a single dependency "
+
     def __init__(self, name, rel, ver, pre):
         self.name = name
         self.relation = rel
         self.version = ver
         self.preDepend = pre
 
+
 class Dependency(object):
+
     def __init__(self, alternatives):
         self.or_dependencies = alternatives
+
 
 class Record(object):
     """ represents a pkgRecord, can be accessed like a
         dictionary and gives the original package record
         if accessed as a string """
+
     def __init__(self, s):
         self._str = s
         self._rec = apt_pkg.ParseSection(s)
+
     def __str__(self):
         return self._str
+
     def __getitem__(self, key):
         k = self._rec.get(key)
         if k is None:
             raise KeyError
         return k
+
     def has_key(self, key):
         return self._rec.has_key(key)
+
 
 class Package(object):
     """ This class represents a package in the cache
     """
+
     def __init__(self, cache, depcache, records, sourcelist, pcache, pkgiter):
         """ Init the Package object """
         self._cache = cache             # low level cache
@@ -71,6 +84,7 @@ class Package(object):
         pass
 
     # helper
+
     def _lookupRecord(self, UseCandidate=True):
         """ internal helper that moves the Records to the right
             position, must be called before _records is accessed """
@@ -173,6 +187,7 @@ class Package(object):
         if ver == None:
             return False
         return ver.Downloadable
+
     def candidateDownloadable(self):
         " returns if the canidate is downloadable "
         return self._downloadable(useCandidate=True)
@@ -279,6 +294,7 @@ class Package(object):
     installedRecord = property(installedRecord)
 
     # depcache states
+
     def markedInstall(self):
         """ Package is marked for install """
         return self._depcache.MarkedInstall(self._pkg)
@@ -320,6 +336,7 @@ class Package(object):
     isUpgradable = property(isUpgradable)
 
     # size
+
     def packageSize(self):
         """ The size of the candidate deb package """
         ver = self._depcache.GetCandidateVer(self._pkg)
@@ -345,8 +362,9 @@ class Package(object):
         return ver.InstalledSize
     installedSize = property(installedSize)
 
-    # canidate origin
     class Origin:
+        """ Candidate origin """
+
         def __init__(self, pkg, VerFileIter):
             self.component = VerFileIter.Component
             self.archive = VerFileIter.Archive
@@ -359,6 +377,7 @@ class Package(object):
                 self.trusted = True
             else:
                 self.trusted = False
+
         def __repr__(self):
             return "component: '%s' archive: '%s' origin: '%s' label: '%s' " \
                    "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
@@ -376,11 +395,13 @@ class Package(object):
     candidateOrigin = property(candidateOrigin)
 
     # depcache actions
+
     def markKeep(self):
         """ mark a package for keep """
         self._pcache.cachePreChange()
         self._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
+
     def markDelete(self, autoFix=True, purge=False):
         """ mark a package for delete. Run the resolver if autoFix is set.
             Mark the package as purge (remove with configuration) if 'purge'
@@ -397,6 +418,7 @@ class Package(object):
             Fix.InstallProtect()
             Fix.Resolve()
         self._pcache.cachePostChange()
+
     def markInstall(self, autoFix=True, autoInst=True, fromUser=True):
         """ mark a package for install. Run the resolver if autoFix is set,
             automatically install required dependencies if autoInst is set
@@ -411,6 +433,7 @@ class Package(object):
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
         self._pcache.cachePostChange()
+
     def markUpgrade(self):
         """ mark a package for upgrade """
         if self.isUpgradable:

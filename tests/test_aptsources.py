@@ -6,7 +6,9 @@ import apt_pkg
 import os
 import copy
 
+
 class TestAptSources(unittest.TestCase):
+
     def __init__(self, methodName):
         unittest.TestCase.__init__(self, methodName)
         apt_pkg.init()
@@ -122,6 +124,7 @@ class TestAptSources(unittest.TestCase):
         #print "".join([s.str() for s in sources])
         for key in found:
             self.assertEqual(found[key], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,9 @@
 import apt_pkg
 from progress import CdromProgress
 
+
 class Cdrom(object):
+
     def __init__(self, progress=None, mountpoint=None, nomount=True):
         """ Support for apt-cdrom like features.
             Options:
@@ -22,15 +24,18 @@ class Cdrom(object):
             apt_pkg.Config.Set("APT::CDROM::NoMount", "true")
         else:
             apt_pkg.Config.Set("APT::CDROM::NoMount", "false")
+
     def add(self):
         " add cdrom to the sources.list "
         return self._cdrom.Add(self._progress)
+
     def ident(self):
         " identify the cdrom "
         (res, ident) = self._cdrom.Ident(self._progress)
         if res:
             return ident
         return None
+
     @property
     def inSourcesList(self):
         " check if the cdrom is already in the current sources.list "
@@ -44,4 +49,3 @@ class Cdrom(object):
             if not line.startswith("#") and cdid in line:
                 return True
         return False
-

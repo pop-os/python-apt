@@ -4,6 +4,7 @@ import os
 import sys
 import tempfile
 
+
 def get_file(fetcher, uri, destFile):
 	cwd = os.getcwd()
 	# create a temp dir
@@ -86,6 +87,3 @@ print "fetcher.Run() returned: %s" % res
 print "now runing pm.DoInstall()"
 res = pm.DoInstall(1)
 print "pm.DoInstall() returned: %s"% res
-
-
-

@@ -44,4 +44,3 @@ if __name__ == "__main__":
         fd = apt_pkg.GetLock(lock,True)
         print "Lockfile fd (child): %s" % fd
 	sys.exit(0)
-

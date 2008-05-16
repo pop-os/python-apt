@@ -28,14 +28,17 @@ import gettext
 from os import getenv
 import ConfigParser
 import string
+import re
 
 #from gettext import gettext as _
 import gettext
+
+
 def _(s): return gettext.dgettext("python-apt", s)
 
-import re
 
 class Template:
+
     def __init__(self):
         self.name = None
         self.child = False
@@ -62,11 +65,14 @@ class Template:
         else:
             return False
 
+
 class Component:
+
     def __init__(self, name, desc=None, long_desc=None):
         self.name = name
         self.description = desc
         self.description_long = long_desc
+
     def get_description(self):
         if self.description_long != None:
             return self.description_long
@@ -74,24 +80,32 @@ class Component:
             return self.description
         else:
             return None
+
     def set_description(self, desc):
         self.description = desc
+
     def set_description_long(self, desc):
         self.description_long = desc
+
     def get_description_long(self):
         return self.description_long
 
+
 class Mirror:
     ''' Storage for mirror related information '''
+
     def __init__(self, proto, hostname, dir, location=None):
         self.hostname = hostname
         self.repositories = []
         self.add_repository(proto, dir)
         self.location = location
+
     def add_repository(self, proto, dir):
         self.repositories.append(Repository(proto, dir))
+
     def get_repositories_for_proto(self, proto):
         return filter(lambda r: r.proto == proto, self.repositories)
+
     def has_repository(self, proto, dir):
         if dir is None:
             return False
@@ -99,28 +113,38 @@ class Mirror:
             if r.proto == proto and dir in r.dir:
                 return True
         return False
+
     def get_repo_urls(self):
         return map(lambda r: r.get_url(self.hostname), self.repositories)
+
     def get_location(self):
         return self.location
+
     def set_location(self, location):
         self.location = location
 
+
 class Repository:
+
     def __init__(self, proto, dir):
         self.proto = proto
         self.dir = dir
+
     def get_info(self):
         return self.proto, self.dir
+
     def get_url(self, hostname):
         return "%s://%s/%s" % (self.proto, hostname, self.dir)
+
 
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
     return map(lambda a,b: a, re.split(":*\/+", url, maxsplit=2),
                               [None, None, None])
 
+
 class DistInfo:
+
     def __init__(self,
                  dist = None,
                  base_dir = "/usr/share/python-apt/templates"):
@@ -139,7 +163,6 @@ class DistInfo:
             del pipe
 
         self.dist = dist
-
 
         map_mirror_sets = {}
 

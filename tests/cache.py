@@ -6,6 +6,7 @@
 import apt_pkg
 import sys
 
+
 def main():
 	apt_pkg.init()
 	cache = apt_pkg.GetCache()
@@ -43,6 +44,7 @@ def main():
 							pass
 
 		print "\r%i/%i=%.3f%%    " % (i,all,(float(i)/float(all)*100)),
+
 
 if __name__ == "__main__":
 	main()

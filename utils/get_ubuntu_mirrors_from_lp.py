@@ -64,6 +64,8 @@ content_splits = re.split(r'<tr class="highlighted"',
                                       'id="mirrors_list">.+?</table>',
                                      content)[0])
 lines=[]
+
+
 def find(split):
     country = re.search(r"<strong>(.+?)</strong>", split)
     if not country:
@@ -77,6 +79,7 @@ def find(split):
                        '(((http)|(ftp)).+?)">',
                       split)
     map(lambda u: lines.append(u[0]), urls)
+
 
 map(find, content_splits)
 

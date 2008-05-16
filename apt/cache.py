@@ -25,15 +25,21 @@ import apt.progress
 import os
 import sys
 
+
 class FetchCancelledException(IOError):
     " Exception that is thrown when the user cancels a fetch operation "
     pass
+
+
 class FetchFailedException(IOError):
     " Exception that is thrown when fetching fails "
     pass
+
+
 class LockFailedException(IOError):
     " Exception that is thrown when locking fails "
     pass
+
 
 class Cache(object):
     """ Dictionary-like package cache
@@ -227,6 +233,7 @@ class Cache(object):
         return (res == pm.ResultCompleted)
 
     # cache changes
+
     def cachePostChange(self):
         " called internally if the cache has changed, emit a signal then "
         self._runCallbacks("cache_post_change")
@@ -243,28 +250,36 @@ class Cache(object):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 
+
 # ----------------------------- experimental interface
+
+
 class Filter(object):
     """ Filter base class """
+
     def apply(self, pkg):
         """ Filter function, return True if the package matchs a
             filter criteria and False otherwise
         """
         return True
 
+
 class MarkedChangesFilter(Filter):
     """ Filter that returns all marked changes """
+
     def apply(self, pkg):
         if pkg.markedInstall or pkg.markedDelete or pkg.markedUpgrade:
             return True
         else:
             return False
 
+
 class FilteredCache(object):
     """ A package cache that is filtered.
 
         Can work on a existing cache or create a new one
     """
+
     def __init__(self, cache=None, progress=None):
         if cache == None:
             self.cache = Cache(progress)
@@ -274,6 +289,7 @@ class FilteredCache(object):
         self.cache.connect("cache_post_open", self.filterCachePostChange)
         self._filtered = {}
         self._filters = []
+
     def __len__(self):
         return len(self._filtered)
 
@@ -322,6 +338,7 @@ class FilteredCache(object):
 
 def cache_pre_changed():
     print "cache pre changed"
+
 
 def cache_post_changed():
     print "cache post changed"

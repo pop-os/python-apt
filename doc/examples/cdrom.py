@@ -22,11 +22,5 @@ print "ident result is: %s (%s) " % (res, ident)
 apt_pkg.Config.Set("APT::CDROM::Rename", "True")
 cdrom.Add(progress)
 
-
-
 print "Exiting"
 sys.exit(0)
-
-
-
-

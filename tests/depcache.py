@@ -6,6 +6,7 @@
 import apt_pkg
 import sys
 
+
 def main():
 	apt_pkg.init()
 	cache = apt_pkg.GetCache()

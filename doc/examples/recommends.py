@@ -5,12 +5,14 @@ apt_pkg.init()
 
 cache = apt_pkg.GetCache()
 
+
 class Wanted:
 
 	def __init__(self, name):
 		self.name = name
 		self.recommended = []
 		self.suggested = []
+
 
 wanted = {}
 
@@ -35,7 +37,3 @@ ks.sort()
 
 for want in ks:
 	print want, wanted[want].recommended, wanted[want].suggested
-
-
-
-

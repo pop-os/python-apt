@@ -7,6 +7,7 @@
 import apt_pkg
 import sys
 
+
 def main():
 	apt_pkg.init()
 	cache = apt_pkg.GetCache()
@@ -30,6 +31,7 @@ def main():
 			y = records.LongDesc
 			pass
 		print "\r%i/%i=%.3f%%    " % (i,cache.PackageCount, (float(i)/float(cache.PackageCount)*100)),
+
 
 if __name__ == "__main__":
 	main()

@@ -4,8 +4,10 @@ from apt_inst import arCheckMember
 
 from gettext import gettext as _
 
+
 class NoDebArchiveException(IOError):
     pass
+
 
 class DebPackage(object):
 
@@ -31,10 +33,12 @@ class DebPackage(object):
     def filelist(self):
         """ return the list of files in the deb """
         files = []
+
         def extract_cb(What,Name,Link,Mode,UID,GID,Size,MTime,Major,Minor):
             #print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u"\
             #      % (What,Name,Link,Mode,UID,GID,Size, MTime, Major, Minor)
             files.append(Name)
+
         for member in self._supported_data_members:
             if arCheckMember(open(self.filename), member):
                 try:
@@ -46,7 +50,6 @@ class DebPackage(object):
     filelist = property(filelist)
 
 
-
 if __name__ == "__main__":
     import sys
 
@@ -55,4 +58,3 @@ if __name__ == "__main__":
     print d["Maintainer"]
     print "Files:"
     print "\n".join(d.filelist)
-

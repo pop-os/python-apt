@@ -36,7 +36,10 @@ import sys
 #from UpdateManager.Common.DistInfo import DistInfo
 from distinfo import DistInfo
 
+
 # some global helpers
+
+
 def is_mirror(master_uri, compare_uri):
   """check if the given add_url is idential or a mirror of orig_uri
     e.g. master_uri = archive.ubuntu.com
@@ -66,12 +69,15 @@ def is_mirror(master_uri, compare_uri):
     return True
   return False
 
+
 def uniq(s):
   """ simple and efficient way to return uniq list """
   return list(set(s))
 
+
 class SourceEntry:
   """ single sources.list entry """
+
   def __init__(self, line,file=None):
     self.invalid = False            # is the source entry valid
     self.disabled = False           # is it disabled ('#' in front)
@@ -95,7 +101,6 @@ class SourceEntry:
             self.uri == other.uri and
             self.dist == other.dist and
             self.comps == other.comps)
-
 
   def mysplit(self, line):
     """ a split() implementation that understands the sources.list
@@ -208,13 +213,17 @@ class SourceEntry:
     line += "\n"
     return line
 
+
 class NullMatcher(object):
   """ a Matcher that does nothing """
+
   def match(self, s):
     return True
 
+
 class SourcesList:
   """ represents the full sources.list + sources.list.d file """
+
   def __init__(self,
                withMatcher=True,
                matcherPath="/usr/share/python-apt/templates/"):
@@ -383,9 +392,12 @@ class SourcesList:
     #print self.parents
     return (parents, used_child_templates)
 
-# matcher class to make a source entry look nice
-# lots of predefined matchers to make it i18n/gettext friendly
+
 class SourceEntryMatcher:
+  """ matcher class to make a source entry look nice
+      lots of predefined matchers to make it i18n/gettext friendly
+      """
+
   def __init__(self, matcherPath):
     self.templates = []
     # Get the human readable channel and comp names from the channel .infos
@@ -435,4 +447,3 @@ if __name__ == "__main__":
                   "http://de.archive.ubuntu.com/ubuntu/")
   print is_mirror("http://archive.ubuntu.com/ubuntu/",
                   "http://de.archive.ubuntu.com/ubuntu")
-

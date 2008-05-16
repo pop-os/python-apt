@@ -30,27 +30,34 @@ import apt_pkg
 
 import apt
 
+
 class OpProgress(object):
     """ Abstract class to implement reporting on cache opening
         Subclass this class to implement simple Operation progress reporting
     """
+
     def __init__(self):
         pass
+
     def update(self, percent):
         pass
+
     def done(self):
         pass
+
 
 class OpTextProgress(OpProgress):
     """ A simple text based cache open reporting class """
+
     def __init__(self):
         OpProgress.__init__(self)
+
     def update(self, percent):
         sys.stdout.write("\r%s: %.2i  " % (self.subOp,percent))
         sys.stdout.flush()
+
     def done(self):
         sys.stdout.write("\r%s: Done\n" % self.op)
-
 
 
 class FetchProgress(object):
@@ -92,17 +99,22 @@ class FetchProgress(object):
         if self.currentCPS > 0:
             self.eta = (self.totalBytes-self.currentBytes)/float(self.currentCPS)
         return True
+
     def mediaChange(self, medium, drive):
         pass
 
+
 class TextFetchProgress(FetchProgress):
     """ Ready to use progress object for terminal windows """
+
     def __init__(self):
         self.items = {}
+
     def updateStatus(self, uri, descr, shortDescr, status):
         if status != self.dlQueued:
             print "\r%s %s" % (self.dlStatusStr[status], descr)
         self.items[uri] = status
+
     def pulse(self):
         FetchProgress.pulse(self)
         if self.currentCPS > 0:
@@ -114,8 +126,10 @@ class TextFetchProgress(FetchProgress):
         print "\r%s" % (s),
         sys.stdout.flush()
         return True
+
     def stop(self):
         print "\rDone downloading            "
+
     def mediaChange(self, medium, drive):
         """ react to media change events """
         res = True;
@@ -126,26 +140,34 @@ class TextFetchProgress(FetchProgress):
             res = false;
         return res
 
+
 class DumbInstallProgress(object):
     """ Report the install progress
         Subclass this class to implement install progress reporting
     """
+
     def __init__(self):
         pass
+
     def startUpdate(self):
         pass
+
     def run(self, pm):
         return pm.DoInstall()
+
     def finishUpdate(self):
         pass
+
     def updateInterface(self):
         pass
+
 
 class InstallProgress(DumbInstallProgress):
     """ A InstallProgress that is pretty useful.
         It supports the attributes 'percent' 'status' and callbacks
         for the dpkg errors and conffiles and status changes
      """
+
     def __init__(self):
         DumbInstallProgress.__init__(self)
         self.selectTimeout = 0.1
@@ -156,15 +178,19 @@ class InstallProgress(DumbInstallProgress):
         self.read = ""
         self.percent = 0.0
         self.status = ""
+
     def error(self, pkg, errormsg):
         " called when a error is detected during the install "
         pass
+
     def conffile(self,current,new):
         " called when a conffile question from dpkg is detected "
         pass
+
     def statusChange(self, pkg, percent, status):
 	" called when the status changed "
 	pass
+
     def updateInterface(self):
         if self.statusfd != None:
                 try:
@@ -199,8 +225,10 @@ class InstallProgress(DumbInstallProgress):
                         self.percent = float(percent)
                         self.status = string.strip(status_str)
                     self.read = ""
+
     def fork(self):
         return os.fork()
+
     def waitChild(self):
         while True:
             select.select([self.statusfd],[],[], self.selectTimeout)
@@ -209,6 +237,7 @@ class InstallProgress(DumbInstallProgress):
             if pid == self.child_pid:
                 break
         return os.WEXITSTATUS(res)
+
     def run(self, pm):
         pid = self.fork()
         if pid == 0:
@@ -219,19 +248,25 @@ class InstallProgress(DumbInstallProgress):
         res = self.waitChild()
         return res
 
+
 class CdromProgress:
     """ Report the cdrom add progress
         Subclass this class to implement cdrom add progress reporting
     """
+
     def __init__(self):
         pass
+
     def update(self, text, step):
         """ update is called regularly so that the gui can be redrawn """
         pass
+
     def askCdromName(self):
         pass
+
     def changeCdrom(self):
         pass
+
 
 # module test code
 if __name__ == "__main__":

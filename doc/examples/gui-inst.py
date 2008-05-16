@@ -18,7 +18,9 @@ import posix
 
 from apt.progress import OpProgress, FetchProgress, InstallProgress
 
+
 class GuiFetchProgress(gtk.Window, FetchProgress):
+
     def __init__(self):
 	gtk.Window.__init__(self)
 	self.vbox = gtk.VBox()
@@ -31,12 +33,15 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 	self.vbox.pack_start(self.progress)
 	self.vbox.pack_start(self.label)
 	self.resize(300,100)
+
     def start(self):
         print "start"
 	self.progress.set_fraction(0.0)
         self.show()
+
     def stop(self):
 	self.hide()
+
     def pulse(self):
         FetchProgress.pulse(self)
         self.label.set_text("Speed: %s/s" % apt_pkg.SizeToStr(self.currentCPS))
@@ -45,7 +50,9 @@ class GuiFetchProgress(gtk.Window, FetchProgress):
 		gtk.main_iteration()
         return True
 
+
 class TermInstallProgress(InstallProgress, gtk.Window):
+
     def __init__(self):
 	gtk.Window.__init__(self)
         InstallProgress.__init__(self)
@@ -63,13 +70,16 @@ class TermInstallProgress(InstallProgress, gtk.Window):
         self.progressbar = gtk.ProgressBar()
         self.progressbar.show()
         box.pack_start(self.progressbar)
+
     def child_exited(self,term, pid, status):
         print "child_exited: %s %s %s %s" % (self,term,pid,status)
         self.apt_status = posix.WEXITSTATUS(status)
         self.finished = True
+
     def startUpdate(self):
         print "start"
         self.show()
+
     def waitChild(self):
         while not self.finished:
             self.updateInterface()
@@ -78,17 +88,19 @@ class TermInstallProgress(InstallProgress, gtk.Window):
             time.sleep(0.001)
         sys.stdin.readline()
         return self.apt_status
+
     def statusChange(self, pkg, percent, status):
         print "statusChange", pkg, percent
         self.progressbar.set_fraction(float(percent)/100.0)
         self.progressbar.set_text(string.strip(status))
+
     def fork(self):
         env = ["VTE_PTY_KEEP_FD=%s"%self.writefd]
         return self.term.forkpty(envv=env)
 
+
 cache = apt.Cache()
 print "Available packages: %s " % cache._cache.PackageCount
-
 
 # update the cache
 fprogress = GuiFetchProgress()
@@ -101,11 +113,9 @@ iprogress = TermInstallProgress()
 #depcache.ReadPinFile()
 #depcache.Init(progress)
 
-
 # show the interface
 while gtk.events_pending():
 	gtk.main_iteration()
-
 
 pkg = cache["3dchess"]
 print "\n%s"%pkg.name
@@ -119,6 +129,3 @@ cache.commit(fprogress, iprogress)
 
 print "Exiting"
 sys.exit(0)
-
-
-

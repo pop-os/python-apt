@@ -57,5 +57,3 @@ for mirror in mirrors:
     list.write("%s\n" % mirror)
 list.close()
 print "Done."
-
-

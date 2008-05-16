@@ -8,10 +8,13 @@ import time
 
 from apt.progress import InstallProgress
 
+
 class TextInstallProgress(InstallProgress):
+
 	def __init__(self):
 		apt.progress.InstallProgress.__init__(self)
 		self.last = 0.0
+
 	def updateInterface(self):
 		InstallProgress.updateInterface(self)
 		if self.last >= self.percent:
@@ -19,10 +22,13 @@ class TextInstallProgress(InstallProgress):
 		sys.stdout.write("\r[%s] %s\n" %(self.percent, self.status))
 		sys.stdout.flush()
 		self.last = self.percent
+
 	def conffile(self,current,new):
 		print "conffile prompt: %s %s" % (current,new)
+
 	def error(self, errorstr):
 		print "got dpkg error: '%s'" % errorstr
+
 
 cache = apt.Cache(apt.progress.OpTextProgress())
 
@@ -42,7 +48,3 @@ res = cache.commit(fprogress, iprogress)
 print res
 
 sys.exit(0)
-
-
-
-

@@ -22,4 +22,3 @@ records.Lookup((f,index))
 desc = records.LongDesc
 print len(desc)
 print desc
-

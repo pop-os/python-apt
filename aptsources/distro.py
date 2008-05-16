@@ -28,13 +28,17 @@ import os
 import sys
 
 import gettext
+
+
 def _(s): return gettext.dgettext("python-apt", s)
 
 
 class NoDistroTemplateException(Exception):
   pass
 
+
 class Distribution:
+
   def __init__(self, id, codename, description, release):
     """ Container for distribution specific informations """
     # LSB information
@@ -199,6 +203,7 @@ class Distribution:
 
   def get_server_list(self):
     ''' Return a list of used and suggested servers '''
+
     def compare_mirrors(mir1, mir2):
         '''Helper function that handles comaprision of mirror urls
            that could contain trailing slashes'''
@@ -271,6 +276,7 @@ class Distribution:
 
     comp:         the component that should be enabled
     """
+
     def add_component_only_once(source, comps_per_dist):
         """
         Check if we already added the component to the repository, since
@@ -347,6 +353,7 @@ class Distribution:
   def change_server(self, uri):
     ''' Change the server of all distro specific sources to
         a given host '''
+
     def change_server_of_source(source, uri, seen):
         # Avoid creating duplicate entries
         source.uri = uri
@@ -357,6 +364,7 @@ class Distribution:
                 seen.append([source.uri, source.dist, comp])
         if len(source.comps) < 1:
             self.sourceslist.remove(source)
+
     seen_binary = []
     seen_source = []
     self.default_server = uri
@@ -376,6 +384,7 @@ class Distribution:
         return True
     else:
         return False
+
 
 class DebianDistribution(Distribution):
   ''' Class to support specific Debian features '''
@@ -408,11 +417,14 @@ class DebianDistribution(Distribution):
     Distribution.get_mirrors(self,
                              mirror_template="http://ftp.%s.debian.org/debian/")
 
+
 class UbuntuDistribution(Distribution):
   ''' Class to support specific Ubuntu features '''
+
   def get_mirrors(self):
     Distribution.get_mirrors(self,
                              mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
+
 
 def get_distro():
     ''' Check the currently used distribution and return the corresponding
@@ -430,4 +442,3 @@ def get_distro():
         return DebianDistribution(id, codename, description, release)
     else:
         return Distribution(id, codename, description, release)
-
