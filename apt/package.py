@@ -28,7 +28,8 @@ import string
 import gettext
 
 
-def _(s): return gettext.dgettext("python-apt", s)
+def _(s):
+    return gettext.dgettext("python-apt", s)
 
 
 class BaseDependency(object):
