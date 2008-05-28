@@ -3,8 +3,11 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 Suite: intrepid
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
 Component: main
 _CompDescription: Officially supported
@@ -56,7 +59,10 @@ Suite: hardy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com
+MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
 _CompDescription: Officially supported
@@ -86,6 +92,8 @@ ParentSuite: hardy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu
 _Description: Important security updates
 
 Suite: hardy-updates
