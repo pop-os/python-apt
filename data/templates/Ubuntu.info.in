@@ -6,7 +6,8 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
 Component: main
 _CompDescription: Officially supported
@@ -60,7 +61,8 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
 _CompDescription: Officially supported
