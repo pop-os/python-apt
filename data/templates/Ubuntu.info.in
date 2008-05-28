@@ -3,6 +3,8 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 Suite: intrepid
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
+BaseURI-powerpc: http://ports.ubuntu.com/ubuntu/
+MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
@@ -56,6 +58,8 @@ Suite: hardy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-powerpc: http://ports.ubuntu.com/ubuntu/
+MatchURI-powerpc: ports.ubuntu.com
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
