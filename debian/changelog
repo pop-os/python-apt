@@ -2,6 +2,8 @@ python-apt (0.7.4ubuntu8) intrepid; urgency=low
 
   * data/templates/Ubuntu.info.in:
     - added ubuntu 'intrepid'
+  * debian/README.source: 
+    - added (basic) documentation how to build python-apt
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 05 May 2008 10:40:58 +0200
 
