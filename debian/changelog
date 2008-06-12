@@ -1,3 +1,28 @@
+python-apt (0.7.5ubuntu1) intrepid; urgency=low
+
+  * merged from debian-sid
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 12 Jun 2008 12:32:00 +0200
+
+python-apt (0.7.5) unstable; urgency=low
+
+  * use the new ListUpdate() code
+  * add example in doc/examples/update.py
+  * python/pkgrecords.cc:
+    - export the Homepage field
+  * python/tar.cc:
+    - fix .lzma extraction (thanks to bigjools)
+   * python/sourcelist.cc:
+     - support GetIndexes() GetAll argument to implement
+       something like --print-uris
+   * python/apt_pkgmodule.cc:
+     - add InstState{Ok,ReInstReq,Hold,HoldReInstReq} constants
+   * apt/cache.py:
+     - add reqReinstallPkgs property that lists all packages in
+       ReInstReq or HoldReInstReq
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Feb 2008 21:06:36 +0100
+
 python-apt (0.7.4ubuntu9) intrepid; urgency=low
 
   * aptsources/distinfo.py:
