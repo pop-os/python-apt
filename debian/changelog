@@ -1,3 +1,12 @@
+python-apt (0.7.5ubuntu2) intrepid; urgency=low
+
+  * apt/cache.py:
+    - add "memonly" option to apt.Cache() to force python-apt to
+      not touch the pkgcache.bin file (this works around a possible
+      race condition in the pkgcache.bin handling)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 13 Jun 2008 12:14:34 +0200
+
 python-apt (0.7.5ubuntu1) intrepid; urgency=low
 
   * merged from debian-sid
@@ -87,7 +96,7 @@ python-apt (0.7.4ubuntu2) hardy; urgency=low
   * use the new apt ListUpdate() code
   * add example in doc/examples/update.py
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 04 Jan 2008 21:17:00 +0100
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Feb 2008 21:06:36 +0100
 
 python-apt (0.7.4ubuntu1) hardy; urgency=low
 

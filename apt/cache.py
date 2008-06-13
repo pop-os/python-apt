@@ -41,8 +41,11 @@ class Cache(object):
         dictionary
     """
 
-    def __init__(self, progress=None, rootdir=None):
+    def __init__(self, progress=None, rootdir=None, memonly=False):
         self._callbacks = {}
+        if memonly:
+            # force apt to build its caches in memory
+            apt_pkg.Config.Set("Dir::Cache::pkgcache","")
         if rootdir:
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status", rootdir + "/var/lib/dpkg/status")
