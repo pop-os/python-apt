@@ -1,3 +1,12 @@
+python-apt (0.7.6) unstable; urgency=low
+
+  * apt/cache.py:
+    - add "memonly" option to apt.Cache() to force python-apt to
+      not touch the pkgcache.bin file (this works around a possible
+      race condition in the pkgcache.bin handling)
+
+ --
+
 python-apt (0.7.5) unstable; urgency=low
 
   * use the new ListUpdate() code
