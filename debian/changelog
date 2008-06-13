@@ -4,6 +4,13 @@ python-apt (0.7.6) unstable; urgency=low
     - add "memonly" option to apt.Cache() to force python-apt to
       not touch the pkgcache.bin file (this works around a possible
       race condition in the pkgcache.bin handling)
+  * data/templates/Ubuntu.info.in:
+    - added ubuntu 'intrepid'
+  * debian/README.source: 
+    - added (basic) documentation how to build python-apt
+  * aptsources/distinfo.py:
+    - support arch specific BaseURI, MatchURI and MirrosFile fields
+      in the distinfo template
 
  --
 
@@ -23,13 +30,6 @@ python-apt (0.7.5) unstable; urgency=low
   * apt/cache.py:
     - add reqReinstallPkgs property that lists all packages in
       ReInstReq or HoldReInstReq
-  * data/templates/Ubuntu.info.in:
-    - added ubuntu 'intrepid'
-  * debian/README.source: 
-    - added (basic) documentation how to build python-apt
-  * aptsources/distinfo.py:
-    - support arch specific BaseURI, MatchURI and MirrosFile fields
-      in the distinfo template
 
  -- Michael Vogt <mvo@debian.org>  Tue, 19 Feb 2008 21:06:36 +0100
 
