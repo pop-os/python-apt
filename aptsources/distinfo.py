@@ -28,6 +28,7 @@ import gettext
 from os import getenv
 import ConfigParser
 import string
+import apt_pkg
 
 #from gettext import gettext as _
 import gettext
@@ -126,6 +127,8 @@ class DistInfo:
                  base_dir = "/usr/share/python-apt/templates"):
         self.metarelease_uri = ''
         self.templates = []
+        apt_pkg.init()
+        self.arch = apt_pkg.Config.Find("APT::Architecture")
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
@@ -185,12 +188,16 @@ class DistInfo:
                 template.available = value
             elif field == 'RepositoryType':
                 template.type = value
-            elif field == 'BaseURI':
+            elif field == 'BaseURI' and not template.base_uri:
                 template.base_uri = value
+            elif field == 'BaseURI-%s' % self.arch:
+                template.base_uri = value
+            elif field == 'MatchURI' and not template.match_uri:
                 template.match_uri = value
-            elif field == 'MatchURI':
+            elif field == 'MatchURI-%s' % self.arch:
                 template.match_uri = value
-            elif field == 'MirrorsFile':
+            elif (field == 'MirrorsFile' or 
+                  field == 'MirrorsFile-%s' % self.arch):
                 if not map_mirror_sets.has_key(value):
                     mirror_set = {}
                     try:
