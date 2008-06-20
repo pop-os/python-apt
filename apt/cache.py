@@ -51,7 +51,7 @@ class Cache(object):
         self._callbacks = {}
         if memonly:
             # force apt to build its caches in memory
-            apt_pkg.Config.Set("Dir::Cache::pkgcache","")
+            apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
         if rootdir:
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set(

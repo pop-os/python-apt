@@ -222,7 +222,7 @@ class DistInfo:
                 template.match_uri = value
             elif field == 'MatchURI-%s' % self.arch:
                 template.match_uri = value
-            elif (field == 'MirrorsFile' or 
+            elif (field == 'MirrorsFile' or
                   field == 'MirrorsFile-%s' % self.arch):
                 if not map_mirror_sets.has_key(value):
                     mirror_set = {}
