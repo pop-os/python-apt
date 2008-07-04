@@ -1,3 +1,14 @@
+python-apt (0.7.6ubuntu2) intrepid; urgency=low
+
+  * python/apt_pkgmodule.cc:
+    - fix bug in hashsum calculation when the original string
+      contains \0 charackters (thanks to Celso Providelo and 
+      Ryan Hass for the test-case) LP: #243630
+  * tests/test_hashsums.py:
+    - add tests for the hashsum code
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 04 Jul 2008 19:53:28 +0200
+
 python-apt (0.7.6ubuntu1) intrepid; urgency=low
 
   * merged with debian, remaining changes:
