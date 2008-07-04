@@ -218,6 +218,7 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
       char *s;
       Py_ssize_t len;
       SHA1Summation Sum;
+      PyString_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }   
