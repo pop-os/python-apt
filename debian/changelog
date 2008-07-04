@@ -11,8 +11,10 @@ python-apt (0.7.6) unstable; urgency=low
   * aptsources/distinfo.py:
     - support arch specific BaseURI, MatchURI and MirrosFile fields
       in the distinfo template
+  * debian/control:
+    - move bzr branch to bzr.debian.org and update Vcs-Bzr
 
- --
+ -- Michael Vogt <mvo@debian.org>  Wed, 18 Jun 2008 14:46:43 +0200
 
 python-apt (0.7.5) unstable; urgency=low
 
