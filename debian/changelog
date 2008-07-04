@@ -1,3 +1,27 @@
+python-apt (0.7.6ubuntu1) intrepid; urgency=low
+
+  * merged with debian
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 04 Jul 2008 11:00:33 +0200
+
+python-apt (0.7.6) unstable; urgency=low
+
+  * apt/cache.py:
+    - add "memonly" option to apt.Cache() to force python-apt to
+      not touch the pkgcache.bin file (this works around a possible
+      race condition in the pkgcache.bin handling)
+  * data/templates/Ubuntu.info.in:
+    - added ubuntu 'intrepid'
+  * debian/README.source:
+    - added (basic) documentation how to build python-apt
+  * aptsources/distinfo.py:
+    - support arch specific BaseURI, MatchURI and MirrosFile fields
+      in the distinfo template
+  * debian/control:
+    - move bzr branch to bzr.debian.org and update Vcs-Bzr
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 18 Jun 2008 14:46:43 +0200
+
 python-apt (0.7.5ubuntu2) intrepid; urgency=low
 
   * apt/cache.py:
