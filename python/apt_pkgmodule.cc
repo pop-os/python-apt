@@ -175,8 +175,11 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
+      char *s;
+      Py_ssize_t len;
       MD5Summation Sum;
-      Sum.Add(PyString_AsString(Obj));
+      PyString_AsStringAndSize(Obj, &s, &len);
+      Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }   
    
@@ -212,8 +215,11 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
+      char *s;
+      Py_ssize_t len;
       SHA1Summation Sum;
-      Sum.Add(PyString_AsString(Obj));
+      PyString_AsStringAndSize(Obj, &s, &len);
+      Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }   
    
@@ -249,8 +255,11 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
+      char *s;
+      Py_ssize_t len;
       SHA256Summation Sum;
-      Sum.Add(PyString_AsString(Obj));
+      PyString_AsStringAndSize(Obj, &s, &len);
+      Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }   
    
