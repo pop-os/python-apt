@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 22:28+0200\n"
+"POT-Creation-Date: 2008-02-18 16:50+0100\n"
 "PO-Revision-Date: 2005-06-08 23:10+0200\n"
 "Last-Translator: Terance Edward Sola <terance@lyse.net>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
@@ -26,229 +26,253 @@ msgstr ""
 #. Description
 #: ../data/templates/Ubuntu.info.in:8
 #, fuzzy
+msgid "Ubuntu 8.04 'Hardy Heron'"
+msgstr "CD med Ubuntu 5.04 «Hoary Hedgedog»"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:25
+#, fuzzy
+msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
+msgstr "CD med Ubuntu 5.04 «Hoary Hedgedog»"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:60
+#, fuzzy
+msgid "Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "Ubuntu 5.10 Security Updates"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:77
+#, fuzzy
+msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "CD med Ubuntu 5.10 «Breezy Badger»"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:112
+#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgstr "Ubuntu 5.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:25
+#: ../data/templates/Ubuntu.info.in:129
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgstr "CD med Ubuntu 5.10 «Breezy Badger»"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:59
+#: ../data/templates/Ubuntu.info.in:163
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Ubuntu 5.10 Updates"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:64
+#: ../data/templates/Ubuntu.info.in:168
 #, fuzzy
 msgid "Community-maintained"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:68
+#: ../data/templates/Ubuntu.info.in:172
 msgid "Proprietary drivers for devices"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:70
+#: ../data/templates/Ubuntu.info.in:174
 #, fuzzy
 msgid "Restricted software"
 msgstr "Bidratt programvare"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:76
+#: ../data/templates/Ubuntu.info.in:180
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "CD med Ubuntu 4.10 «Warty Warthog»"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:110
+#: ../data/templates/Ubuntu.info.in:214
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 5.04 Updates"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:113
+#: ../data/templates/Ubuntu.info.in:217
 #, fuzzy
 msgid "Canonical-supported Open Source software"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:115
+#: ../data/templates/Ubuntu.info.in:219
 #, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:116
+#: ../data/templates/Ubuntu.info.in:220
 #, fuzzy
 msgid "Community-maintained Open Source software"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:118
+#: ../data/templates/Ubuntu.info.in:222
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "Non-free (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:119
+#: ../data/templates/Ubuntu.info.in:223
 msgid "Proprietary drivers for devices "
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:121
+#: ../data/templates/Ubuntu.info.in:225
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "Non-free (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:122
+#: ../data/templates/Ubuntu.info.in:226
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:127
+#: ../data/templates/Ubuntu.info.in:231
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Ubuntu 5.04 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:139
+#: ../data/templates/Ubuntu.info.in:243
 #, fuzzy
 msgid "Important security updates"
 msgstr "Ubuntu 5.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:144
+#: ../data/templates/Ubuntu.info.in:248
 msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:149
+#: ../data/templates/Ubuntu.info.in:253
 #, fuzzy
 msgid "Pre-released updates"
 msgstr "Installerer oppdateringer..."
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:154
+#: ../data/templates/Ubuntu.info.in:258
 #, fuzzy
 msgid "Unsupported updates"
 msgstr "Installerer oppdateringer..."
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:161
+#: ../data/templates/Ubuntu.info.in:265
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD med Ubuntu 5.10 «Breezy Badger»"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:174
+#: ../data/templates/Ubuntu.info.in:278
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD med Ubuntu 5.10 «Breezy Badger»"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:186
+#: ../data/templates/Ubuntu.info.in:290
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Ubuntu 5.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:191
+#: ../data/templates/Ubuntu.info.in:295
 msgid "Ubuntu 5.10 Updates"
 msgstr "Ubuntu 5.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:196
+#: ../data/templates/Ubuntu.info.in:300
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Ubuntu 5.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:203
+#: ../data/templates/Ubuntu.info.in:307
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD med Ubuntu 5.04 «Hoary Hedgedog»"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:216
+#: ../data/templates/Ubuntu.info.in:320
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD med Ubuntu 5.04 «Hoary Hedgedog»"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:219 ../data/templates/Debian.info.in:94
+#: ../data/templates/Ubuntu.info.in:323 ../data/templates/Debian.info.in:94
 #, fuzzy
 msgid "Officially supported"
 msgstr "Offisielt støttet"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:228
+#: ../data/templates/Ubuntu.info.in:332
 #, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Ubuntu 5.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:233
+#: ../data/templates/Ubuntu.info.in:337
 #, fuzzy
 msgid "Ubuntu 5.04 Updates"
 msgstr "Ubuntu 5.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:238
+#: ../data/templates/Ubuntu.info.in:342
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Ubuntu 5.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:244
+#: ../data/templates/Ubuntu.info.in:348
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD med Ubuntu 4.10 «Warty Warthog»"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:250
+#: ../data/templates/Ubuntu.info.in:354
 #, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Vedlikeholdt av miljøet (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:252
+#: ../data/templates/Ubuntu.info.in:356
 msgid "Non-free (Multiverse)"
 msgstr "Non-free (Multiverse)"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:257
+#: ../data/templates/Ubuntu.info.in:361
 #, fuzzy
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD med Ubuntu 4.10 «Warty Warthog»"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:260
+#: ../data/templates/Ubuntu.info.in:364
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "Offisielt støttet"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:262
+#: ../data/templates/Ubuntu.info.in:366
 msgid "Restricted copyright"
 msgstr "Begrenset opphavsrett"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:269
+#: ../data/templates/Ubuntu.info.in:373
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Ubuntu 4.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:274
+#: ../data/templates/Ubuntu.info.in:378
 msgid "Ubuntu 4.10 Updates"
 msgstr "Ubuntu 4.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:279
+#: ../data/templates/Ubuntu.info.in:383
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Ubuntu 5.10 Updates"
@@ -312,7 +336,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:192 ../aptsources/distro.py:399
+#: ../aptsources/distro.py:194 ../aptsources/distro.py:401
 #, python-format
 msgid "Server for %s"
 msgstr ""
@@ -320,12 +344,12 @@ msgstr ""
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:211 ../aptsources/distro.py:216
-#: ../aptsources/distro.py:230
+#: ../aptsources/distro.py:213 ../aptsources/distro.py:218
+#: ../aptsources/distro.py:232
 msgid "Main server"
 msgstr ""
 
-#: ../aptsources/distro.py:233
+#: ../aptsources/distro.py:235
 msgid "Custom servers"
 msgstr ""
 
@@ -994,5 +1018,5 @@ msgstr ""
 #~ "situation."
 #~ msgstr ""
 #~ "Dette betyr at ved siden av å oppgradere pakkene kreves det ekstra "
-#~ "handling (som å installere eller fjerne pakker). Bruk «Synaptic» eller "
-#~ "«apt-get dist-upgrade» for å løse problemet."
+#~ "handling (som å installere eller fjerne pakker). Bruk «Synaptic» eller «apt-"
+#~ "get dist-upgrade» for å løse problemet."
