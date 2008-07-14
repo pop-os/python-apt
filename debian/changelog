@@ -1,3 +1,10 @@
+python-apt (0.7.6ubuntu3) intrepid; urgency=low
+
+  * apt/package.py:
+    - add "isAutoRemovable()" method
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 14 Jul 2008 15:18:03 +0100
+
 python-apt (0.7.6ubuntu2) intrepid; urgency=low
 
   * python/apt_pkgmodule.cc:
