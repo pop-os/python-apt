@@ -11,6 +11,8 @@ python-apt (0.7.7) unstable; urgency=low
   * python/pkgsrcrecords.cc:
     - add "Record" attribute to the PkgSrcRecord to access the
       full source record
+  * debian/rules:
+    - remove the arch-build target, we have bzr-builddeb now
 
  -- Michael Vogt <mvo@debian.org>  Fri, 04 Jul 2008 19:53:28 +0200
 
