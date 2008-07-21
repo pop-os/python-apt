@@ -1,3 +1,13 @@
+python-apt (0.7.8) unstable; urgency=low
+
+  * data/templates/Debian.info.in:
+    - s/MatchUri/MatchURI/. Thanks, Gustavo Noronha Silva (closes: #487673)
+  * python/cache.cc:
+    - Throw an exception rather than segfaulting when GetCache() is called
+      before InitSystem() (closes: #369147)
+
+ -- Emanuele Rocca <ema@debian.org>  Mon, 21 Jul 2008 17:20:59 +0200
+
 python-apt (0.7.7) unstable; urgency=low
 
   * python/apt_pkgmodule.cc:
