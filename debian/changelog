@@ -5,6 +5,8 @@ python-apt (0.7.8) unstable; urgency=low
   * python/cache.cc:
     - Throw an exception rather than segfaulting when GetCache() is called
       before InitSystem() (closes: #369147)
+  * doc/examples/config.py:
+    - Fix config.py --help (closes: #257007)
 
  -- Emanuele Rocca <ema@debian.org>  Mon, 21 Jul 2008 17:20:59 +0200
 
