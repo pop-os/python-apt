@@ -1,3 +1,37 @@
+python-apt (0.7.7ubuntu1) intrepid; urgency=low
+
+  * merged from debian-sid
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 22 Jul 2008 15:58:37 +0200
+
+python-apt (0.7.7) unstable; urgency=low
+
+  [ Emanuele Rocca ]
+  * data/templates/Debian.info.in:
+    - s/MatchUri/MatchURI/. Thanks, Gustavo Noronha Silva (closes: #487673)
+  * python/cache.cc:
+    - Throw an exception rather than segfaulting when GetCache() is called
+      before InitSystem() (closes: #369147)
+  * doc/examples/config.py:
+    - Fix config.py --help (closes: #257007)
+
+  [ Michael Vogt ]
+  * python/apt_pkgmodule.cc:
+    - fix bug in hashsum calculation when the original string
+      contains \0 charackters (thanks to Celso Providelo and 
+      Ryan Hass for the test-case) LP: #243630
+  * tests/test_hashsums.py:
+    - add tests for the hashsum code
+  * apt/package.py:
+    - add "isAutoRemovable()" method
+  * python/pkgsrcrecords.cc:
+    - add "Record" attribute to the PkgSrcRecord to access the
+      full source record
+  * debian/rules:
+    - remove the arch-build target, we have bzr-builddeb now
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 22 Jul 2008 10:16:03 +0200
+
 python-apt (0.7.6ubuntu3) intrepid; urgency=low
 
   * apt/package.py:
