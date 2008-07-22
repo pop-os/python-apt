@@ -928,6 +928,11 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
       return 0;
 
+    if (_system == 0) {
+        PyErr_SetString(PyExc_ValueError,"_system not initialized");
+        return 0;
+    }
+
    pkgCacheFile *Cache = new pkgCacheFile();
 
    if(pyCallbackInst != 0) {

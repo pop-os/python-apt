@@ -89,6 +89,8 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->Maintainer());
       else if (strcmp("Section",Name) == 0)
 	 return CppPyString(Struct.Last->Section());
+      else if (strcmp("Record",Name) == 0)
+	 return CppPyString(Struct.Last->AsStr());
       else if (strcmp("Binaries",Name) == 0) {
          PyObject *List = PyList_New(0);
 

@@ -42,8 +42,7 @@ if Cnf.FindB("version",0) == 1:
    print "Version selected - 1.1";
 
 if Cnf.FindB("help",0) == 1:
-   print apt_pkg.Package,apt_pkg.Version,"for",apt_pkg.Architecture, \
-         "compiled on",apt_pkg.Date,apt_pkg.Time;
+   print "python-apt",apt_pkg.Version,"compiled on",apt_pkg.Date,apt_pkg.Time;
    print "Hi, I am the help text for this program";
    sys.exit(0);
 
