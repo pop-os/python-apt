@@ -35,7 +35,7 @@ mirrors = []
 # path to the local mirror list
 list_path = "../data/templates/Ubuntu.mirrors"
 
-req = urllib2.Request("https://wiki.ubuntu.com/Archive?action=raw")
+req = urllib2.Request("https://wiki.ubuntu.com/Mirrors?action=raw")
 
 try:
     print "Downloading mirrors list from the Ubuntu wiki..."
