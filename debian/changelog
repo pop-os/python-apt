@@ -1,7 +1,7 @@
 python-apt (0.7.7.1) unstable; urgency=low
 
   * data/templates/Debian.info.in:
-    - add 'lenny' template info
+    - add 'lenny' template info (closes: #476364)
   * aptsources/distinfo.py:
     - fix template matching for arch specific code (LP: #244093)
 
