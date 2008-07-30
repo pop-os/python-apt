@@ -599,7 +599,7 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
    else if (strcmp("Priority",Name) == 0)
       return Py_BuildValue("i",Ver->Priority);
    else if (strcmp("PriorityStr",Name) == 0)
-      return PyString_FromString(Ver.PriorityType());
+      return Safe_FromString(Ver.PriorityType());
    else if (strcmp("Downloadable", Name) == 0)
       return Py_BuildValue("b", Ver.Downloadable());
    else if (strcmp("TranslatedDescription", Name) == 0) {
