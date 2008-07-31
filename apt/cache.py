@@ -101,6 +101,9 @@ class Cache(object):
     def has_key(self, key):
         return self._dict.has_key(key)
 
+    def __contains__(self, key):
+        return key in self._dict
+
     def __len__(self):
         return len(self._dict)
 
