@@ -92,7 +92,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       FileFd Fd(fileno(PyFile_AsFile(File)),false);
       debDebFile Deb(Fd);
       if (_error->PendingError() == true) {
-	 if (cwd != NULL)
+	 if (Rootdir != NULL)
 	    chdir (cwd);
 	 return HandleErrors(Py_BuildValue("b",false));
       }
@@ -101,7 +101,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       pkgDirStream Extract;
       res = Deb.ExtractArchive(Extract);
 
-      if (cwd != NULL)
+      if (Rootdir != NULL)
 	 chdir (cwd);
       if (res == false)
 	 return HandleErrors(Py_BuildValue("b",res));
