@@ -1,3 +1,16 @@
+python-apt (0.7.7.1ubuntu2) intrepid; urgency=low
+
+  * python/cache.cc:
+    - fix GetCandidateVer() reporting incorrect versions after
+      SetCandidateVer() was used. Thanks to Julian Andres Klode for
+      the test-case (LP: #237372)
+  * python/apt_instmodule.cc:
+    - do not change working dir in debExtractArchive() (LP: #184093)
+  * apt/cache.py:
+    - support "in" in apt.Cache() (LP: #251587)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 05 Aug 2008 11:35:32 +0200
+
 python-apt (0.7.7.1ubuntu1) intrepid; urgency=low
 
   * python/cache.cc:
