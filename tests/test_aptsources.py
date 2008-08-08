@@ -104,7 +104,7 @@ class TestAptSources(unittest.TestCase):
                 "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        if not found.has_key(entry.dist):
+                        if entry.dist not in found:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
@@ -121,7 +121,7 @@ class TestAptSources(unittest.TestCase):
                 entry.template.name == "edgy"):
                 for c in entry.comps:
                     if c == comp:
-                        if not found.has_key(entry.dist):
+                        if entry.dist not in found:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])

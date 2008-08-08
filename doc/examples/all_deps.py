@@ -10,10 +10,10 @@ def dependencies(cache, pkg, deps, key="Depends"):
     if candver == None:
         return deps
     dependslist = candver.DependsList
-    if dependslist.has_key(key):
+    if key in dependslist:
         for depVerList in dependslist[key]:
             for dep in depVerList:
-                if cache.has_key(dep.TargetPkg.Name):
+                if TargetPkg.Name in cache:
                     if pkg.name != dep.TargetPkg.Name and \
                         not dep.TargetPkg.Name in deps:
                         deps.add(dep.TargetPkg.Name)

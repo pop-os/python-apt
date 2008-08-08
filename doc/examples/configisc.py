@@ -27,7 +27,7 @@ apt_pkg.ReadConfigFileISC(Cnf, ConfigFile[0])
 #   print "%s \"%s\";" % (I, Cnf[I])
 
 # bind8 config file..
-if Cnf.has_key("Zone"):
+if "Zone" in Cnf:
     print "Zones: ", Cnf.SubTree("zone").List()
     for I in Cnf.List("zone"):
         SubCnf = Cnf.SubTree(I)

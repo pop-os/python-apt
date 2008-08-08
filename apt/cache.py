@@ -60,7 +60,7 @@ class Cache(object):
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
-        if self._callbacks.has_key(name):
+        if name in self._callbacks:
             for callback in self._callbacks[name]:
                 callback()
 
@@ -105,8 +105,8 @@ class Cache(object):
             yield self._dict[pkgname]
         raise StopIteration
 
-    def has_key(self, key):
-        return self._dict.has_key(key)
+    def __contains__(self, key):
+        return (key in self._dict)
 
     def __len__(self):
         return len(self._dict)
@@ -251,7 +251,7 @@ class Cache(object):
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
             cache_{post,pre}_{changed,open} """
-        if not self._callbacks.has_key(name):
+        if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 
@@ -304,8 +304,8 @@ class FilteredCache(object):
     def keys(self):
         return self._filtered.keys()
 
-    def has_key(self, key):
-        return self._filtered.has_key(key)
+    def __contains__(self, key):
+        return (key in self._filtered)
 
     def _reapplyFilter(self):
         " internal helper to refilter "
@@ -335,7 +335,7 @@ class FilteredCache(object):
     def __getattr__(self, key):
         " we try to look exactly like a real cache "
         #print "getattr: %s " % key
-        if self.__dict__.has_key(key):
+        if key in self.__dict__:
             return self.__dict__[key]
         else:
             return getattr(self.cache, key)
@@ -356,7 +356,7 @@ if __name__ == "__main__":
     c = Cache(apt.progress.OpTextProgress())
     c.connect("cache_pre_change", cache_pre_changed)
     c.connect("cache_post_change", cache_post_changed)
-    print c.has_key("aptitude")
+    print ("aptitude" in c)
     p = c["aptitude"]
     print p.name
     print len(c)

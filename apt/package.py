@@ -66,8 +66,8 @@ class Record(object):
             raise KeyError
         return k
 
-    def has_key(self, key):
-        return self._rec.has_key(key)
+    def __contains__(self, key):
+        return (key in self._rec)
 
 
 class Package(object):
@@ -146,7 +146,7 @@ class Package(object):
         depends_list = []
         depends = ver.DependsList
         for t in ["PreDepends", "Depends"]:
-            if not depends.has_key(t):
+            if t not in depends:
                 continue
             for depVerList in depends[t]:
                 base_deps = []
@@ -178,9 +178,7 @@ class Package(object):
         if not self._lookupRecord():
             return None
         sec = apt_pkg.ParseSection(self._records.Record)
-        if sec.has_key("Architecture"):
-            return sec["Architecture"]
-        return None
+        return sec.get("Architecture", None)
     architecture = property(architecture)
 
     def _downloadable(self, useCandidate=True):
