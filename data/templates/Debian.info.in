@@ -3,7 +3,7 @@ _ChangelogURI: http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changel
 Suite: etch
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 4.0 'Etch'
 Component: main
@@ -26,7 +26,7 @@ _Description: Security updates
 Suite: sarge
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 3.1 'Sarge'
 Component: main
@@ -49,7 +49,7 @@ _Description: Security updates
 Suite: stable
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian current stable release
 Component: main
@@ -62,7 +62,7 @@ _CompDescription: Non-DFSG-compatible Software
 Suite: testing
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian testing
 Component: main
@@ -75,7 +75,7 @@ _CompDescription: Non-DFSG-compatible Software
 Suite: sid
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
-MatchUri: ftp[0-9]*\.[a-z]\.debian\.org
+MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
 _Description: Debian 'Sid' (unstable)
 Component: main

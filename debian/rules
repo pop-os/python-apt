@@ -15,13 +15,6 @@ PKG=python-apt
 DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
 DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
 
-arch-build::
-	rm -rf debian/arch-build
-	mkdir -p debian/arch-build/$(PKG)-$(DEBVER)
-	tar -c --exclude=arch-build --no-recursion -f - `bzr inventory` \
-	  | (cd debian/arch-build/$(PKG)-$(DEBVER);tar xf -)
-	(cd debian/arch-build/$(PKG)-$(DEBVER) && $(DEB_BUILD_PROG))
-
 build/python-apt-dbg::
 	set -e; \
 	for i in $(cdbs_python_build_versions); do \

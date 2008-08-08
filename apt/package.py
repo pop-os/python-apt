@@ -340,6 +340,12 @@ class Package(object):
         return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
     isUpgradable = property(isUpgradable)
 
+    def isAutoRemovable(self):
+        """ Package is installed as a dependency and is no longer required
+        """
+        return self.isInstalled and self._depcache.IsGarbage(self._pkg)
+    isAutoRemovable = property(isAutoRemovable)
+
     # size
 
     def packageSize(self):
