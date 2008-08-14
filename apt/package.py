@@ -19,10 +19,12 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import apt_pkg
 import sys
 import random
+import re
 import string
+
+import apt_pkg
 
 #from gettext import gettext as _
 import gettext
@@ -235,7 +237,9 @@ class Package(object):
     summary = property(summary)
 
     def description(self, format=True):
-        """ Return the formated long description """
+        """
+        Return the formated long description
+        """
         if not self._lookupRecord():
             return ""
         # get the translated description
@@ -248,12 +252,23 @@ class Package(object):
         except UnicodeDecodeError,e:
             s = _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.name,e)
-        for line in string.split(s,"\n"):
-                tmp = string.strip(line)
-                if tmp == ".":
-                    desc += "\n"
-                else:
-                    desc += tmp + "\n"
+        lines = string.split(s, "\n")
+        for i in range(len(lines)):
+            # Skip the first line, since its a duplication of the summary
+            if i == 0: continue
+            line = lines[i].strip()
+            # Replace all empty lines by line breaks
+            if line == ".":
+                desc += "\n"
+                continue
+            # Use dots for lists
+            p = re.compile(r'^(\s|\t)*(\*|0|-)',re.MULTILINE)
+            line = p.sub(ur'\n\u2022', line)
+            # Use line breaks only for abstracts
+            if desc == "" or desc[-1] == "\n":
+                desc += line
+            else:
+                desc += " " + line
         return desc
     description = property(description)
 
