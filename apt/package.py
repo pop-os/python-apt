@@ -374,7 +374,21 @@ class Package(object):
             return 0
         return ver.InstalledSize
     installedSize = property(installedSize)
-    
+
+    def installedFiles(self):
+        """ Return the list of files installed on the system by the package """
+        if not self.isInstalled:
+            return None
+        path = "/var/lib/dpkg/info/%s.list" % self.name
+        try:
+            list = open(path)
+            files = list.read().split("\n")
+            list.close()
+        except:
+            return None
+        return files
+    installedFiles = property(installedFiles)
+
     def getChangelog(self, uri=None, cancel_lock=None):
         """
         Download the changelog of the package and return it as unicode 
