@@ -204,7 +204,7 @@ class Cache(object):
             vp = self._cache[virtual]
             if len(vp.VersionList) != 0:
                 return providers
-        except IndexError:
+        except KeyError:
             return providers
         for pkg in self:
             v = self._depcache.GetCandidateVer(pkg._pkg)
