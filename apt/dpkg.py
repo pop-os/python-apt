@@ -28,7 +28,7 @@ import apt
 import sys
 import os
 from gettext import gettext as _
-from Cache import Cache
+from cache import Cache
 
 class DebPackage(object):
     debug = 0
@@ -62,9 +62,9 @@ class DebPackage(object):
 
             # check for virtual pkgs
             if not self._cache.has_key(depname):
-                if self._cache.isVirtualPkg(depname):
+                if self._cache.isVirtualPackage(depname):
                     self._dbg(3,"_isOrGroupSatisfied(): %s is virtual dep" % depname)
-                    for pkg in self._cache.getProvidersForVirtual(depname):
+                    for pkg in self._cache.getProvidingPackages(depname):
                         if pkg.isInstalled:
                             return True
                 continue
@@ -89,9 +89,9 @@ class DebPackage(object):
 
             # if we don't have it in the cache, it may be virtual
             if not self._cache.has_key(depname):
-                if not self._cache.isVirtualPkg(depname):
+                if not self._cache.isVirtualPackage(depname):
                     continue
-                providers = self._cache.getProvidersForVirtual(depname)
+                providers = self._cache.getProvidingPackages(depname)
                 # if a package just has a single virtual provider, we
                 # just pick that (just like apt)
                 if len(providers) != 1:
@@ -159,8 +159,8 @@ class DebPackage(object):
             if not self._cache.has_key(depname):
                 # FIXME: we have to check for virtual replaces here as 
                 #        well (to pass tests/gdebi-test8.deb)
-                if self._cache.isVirtualPkg(depname):
-                    for pkg in self._cache.getProvidersForVirtual(depname):
+                if self._cache.isVirtualPackage(depname):
+                    for pkg in self._cache.getProvidingPackages(depname):
                         self._dbg(3, "conflicts virtual check: %s" % pkg.name)
                         # P/C/R on virtal pkg, e.g. ftpd
                         if self.pkgName == pkg.name:
@@ -454,8 +454,8 @@ if __name__ == "__main__":
     cache = Cache()
 
     vp = "www-browser"
-    print "%s virtual: %s" % (vp,cache.isVirtualPkg(vp))
-    providers = cache.getProvidersForVirtual(vp)
+    print "%s virtual: %s" % (vp,cache.isVirtualPackage(vp))
+    providers = cache.getProvidingPackages(vp)
     print "Providers for %s :" % vp
     for pkg in providers:
         print " %s" % pkg.name
