@@ -232,6 +232,10 @@ class Cache(object):
             fetcher.Shutdown()
         return (res == pm.ResultCompleted)
 
+    def clear(self):
+         """ Unmark all changes """
+         self._depcache.Init()
+
     # cache changes
     def cachePostChange(self):
         " called internally if the cache has changed, emit a signal then "
