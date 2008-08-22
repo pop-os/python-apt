@@ -233,6 +233,89 @@ class CdromProgress:
     def changeCdrom(self):
         pass
 
+
+class DpkgInstallProgress(object):
+    def __init__(self, debfile, status, progress, term, expander):
+        self.debfile = debfile
+        self.status = status
+        self.progress = progress
+        self.term = term
+        self.term_expander = expander
+        self.time_last_update = time.time()
+        self.term_expander.set_expanded(False)
+    def commit(self):
+        def finish_dpkg(term, pid, status, lock):
+            " helper "
+            self.exitstatus = posix.WEXITSTATUS(status)
+            #print "dpkg finished %s %s" % (pid,status)
+            #print "exit status: %s" % self.exitstatus
+            #print "was signaled %s" % posix.WIFSIGNALED(status)
+            lock.release()
+
+        # get a lock
+        lock = thread.allocate_lock()
+        lock.acquire()
+
+        # ui
+        self.status.set_markup("<i>"+_("Installing '%s'...") % \
+                               os.path.basename(self.debfile)+"</i>")
+        self.progress.pulse()
+        self.progress.set_text("")
+
+        # prepare reading the pipe
+        (readfd, writefd) = os.pipe()
+        fcntl.fcntl(readfd, fcntl.F_SETFL,os.O_NONBLOCK)
+        #print "fds (%i,%i)" % (readfd,writefd)
+
+        # the command
+        cmd = "/usr/bin/dpkg"
+        argv = [cmd,"--status-fd", "%s"%writefd, "-i", self.debfile]
+        env = ["VTE_PTY_KEEP_FD=%s"% writefd,
+               "DEBIAN_FRONTEND=gnome",
+               "APT_LISTCHANGES_FRONTEND=gtk"]
+        #print cmd
+        #print argv
+        #print env
+        #print self.term
+
+        # prepare for the fork
+        reaper = vte.reaper_get()
+        signal_id = reaper.connect("child-exited", finish_dpkg, lock)
+        pid = self.term.fork_command(command=cmd, argv=argv, envv=env)
+        read = ""
+        while lock.locked():
+            while True:
+                try:
+                    read += os.read(readfd,1)
+                except OSError, (errno,errstr):
+                    # resource temporarly unavailable is ignored
+                    if errno != 11:
+                        print errstr
+                    break
+                self.time_last_update = time.time()
+                if read.endswith("\n"):
+                    statusl = string.split(read, ":")
+                    if len(statusl) < 3:
+                        print "got garbage from dpkg: '%s'" % read
+                        read = ""
+                        break
+                    status = statusl[2].strip()
+                    #print status
+                    if status == "error" or status == "conffile-prompt":
+                        self.term_expander.set_expanded(True)
+                    read = ""
+            self.progress.pulse()
+            while gtk.events_pending():
+                gtk.main_iteration()
+            time.sleep(0.2)
+            # if the terminal has not reacted for some time, do something
+            if (not self.term_expander.get_expanded() and 
+                (self.time_last_update + GDEBI_TERMINAL_TIMEOUT) < time.time()):
+              self.term_expander.set_expanded(True)
+        self.progress.set_fraction(1.0)
+        reaper.disconnect(signal_id)
+
+
 # module test code
 if __name__ == "__main__":
     import apt_pkg
