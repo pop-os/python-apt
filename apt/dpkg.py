@@ -29,6 +29,7 @@ import sys
 import os
 from gettext import gettext as _
 from cache import Cache
+from progress import DpkgInstallProgress
 
 class DebPackage(object):
     debug = 0
@@ -397,6 +398,13 @@ class DebPackage(object):
         if level <= self.debug:
             print >> sys.stderr, msg
 
+    def install(self, installProgress=None):
+        """ Install the package """
+        if installProgress == None:
+            res = os.system("/usr/sbin/dpkg -i %s" % self.file)
+        else:
+            res = installProgress.run(self.file)
+        return res
 
 class DscSrcPackage(DebPackage):
     def __init__(self, cache, file=None):
@@ -468,6 +476,10 @@ if __name__ == "__main__":
     print "missing deps: %s" % d.missingDeps
     print d.requiredChanges
 
+    print "Installing ..."
+    ret = d.install(DpkgInstallProgress())
+    print ret
+
     #s = DscSrcPackage(cache, "../tests/3ddesktop_0.2.9-6.dsc")
     #s.checkDep()
     #print "Missing deps: ",s.missingDeps
@@ -477,3 +489,4 @@ if __name__ == "__main__":
     d = "libc6 (>= 2.3.2), libaio (>= 0.3.96) | libaio1 (>= 0.3.96)"
     print s._satisfyDepends(apt_pkg.ParseDepends(d))
     
+
