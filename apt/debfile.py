@@ -203,33 +203,89 @@ class DebPackage(object):
         return len(self._installedConflicts) != 0
 
     def getConflicts(self):
+        """
+        Return list of package names conflicting with this package.
+
+        WARNING: This method will is deprecated. Please use the 
+        attribute DebPackage.depends instead.
+        """
+        warn.warning("Will is depricated. Please use the conflicts attribute")
+        return self.depends
+
+    def conflicts(self):
+        """
+        List of package names conflicting with this package
+        """
         conflicts = []
         key = "Conflicts"
         if self._sections.has_key(key):
             conflicts = apt_pkg.ParseDepends(self._sections[key])
         return conflicts
+    conflicts = property(conflicts)
 
     def getDepends(self):
+        """
+        Return list of package names on which this package depends on.
+
+        WARNING: This method will is deprecated. Please use the 
+        attribute DebPackage.depends instead.
+        """
+        warn.warning("Will is depricated. Please use the depends attribute")
+        return self.depends
+
+    def depends(self):
+        """
+        List of package names on which this package depends on
+        """
         depends = []
         # find depends
         for key in ["Depends","PreDepends"]:
             if self._sections.has_key(key):
                 depends.extend(apt_pkg.ParseDepends(self._sections[key]))
         return depends
+    depends = property(depends)
 
     def getProvides(self):
+        """
+        Return list of virtual packages which are provided by this package.
+
+        WARNING: This method will is deprecated. Please use the 
+        attribute DebPackage.provides instead.
+        """
+        warn.warning("Will is depricated. Please use the provides attribute")
+        self.provides
+
+    def provides(self):
+        """
+        List of virtual packages which are provided by this package
+        """
         provides = []
         key = "Provides"
         if self._sections.has_key(key):
             provides = apt_pkg.ParseDepends(self._sections[key])
         return provides
+    provides = property(provides)
 
     def getReplaces(self):
+        """
+        Return list of packages which are replaced by this package.
+
+        WARNING: This method will is deprecated. Please use the 
+        attribute DebPackage.replaces instead.
+        """
+        warn.warning("Will is depricated. Please use the replaces attribute")
+        self.replaces
+
+    def replaces(self):
+        """
+        List of packages which are replaced by this package
+        """
         replaces = []
         key = "Replaces"
         if self._sections.has_key(key):
             replaces = apt_pkg.ParseDepends(self._sections[key])
         return replaces
+    replaces = property(replaces)
 
     def replacesRealPkg(self, pkgname, oper, ver):
         """ 
@@ -366,7 +422,7 @@ class DebPackage(object):
         return self._needPkgs
     missingDeps = property(missingDeps)
 
-    def requiredChanges(self):
+    def requiredChanges(self, cache):
         """ gets the required changes to satisfy the depends.
             returns a tuple with (install, remove, unauthenticated)
         """
