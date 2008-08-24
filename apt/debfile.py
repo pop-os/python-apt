@@ -21,7 +21,6 @@
 #
 
 import warnings
-from warnings import warn
 warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt_inst, apt_pkg
 import apt
@@ -31,6 +30,12 @@ from gettext import gettext as _
 from cache import Cache
 from progress import DpkgInstallProgress
 
+# Constants for comparing the local package file with the version in the cache
+(VERSION_NONE,
+ VERSION_OUTDATED,
+ VERSION_SAME,
+ VERSION_NEWER) = range(4)
+ 
 class NoDebArchiveException(IOError):
     pass
 
@@ -209,7 +214,6 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.depends instead.
         """
-        warn.warning("Will is depricated. Please use the conflicts attribute")
         return self.depends
 
     def conflicts(self):
@@ -230,7 +234,6 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.depends instead.
         """
-        warn.warning("Will is depricated. Please use the depends attribute")
         return self.depends
 
     def depends(self):
@@ -252,8 +255,7 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.provides instead.
         """
-        warn.warning("Will is depricated. Please use the provides attribute")
-        self.provides
+        return self.provides
 
     def provides(self):
         """
@@ -273,8 +275,7 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.replaces instead.
         """
-        warn.warning("Will is depricated. Please use the replaces attribute")
-        self.replaces
+        return self.replaces
 
     def replaces(self):
         """
@@ -318,12 +319,7 @@ class DebPackage(object):
                 res = False
         return res
 
-    # some constants
-    (NO_VERSION,
-     VERSION_OUTDATED,
-     VERSION_SAME,
-     VERSION_IS_NEWER) = range(4)
-    
+   
     def compareToVersionInCache(self, useInstalled=True):
         """ checks if the pkg is already installed or availabe in the cache
             and if so in what version, returns if the version of the deb
@@ -342,12 +338,12 @@ class DebPackage(object):
                 cmp = apt_pkg.VersionCompare(cachever,debver)
                 self._dbg(1, "CompareVersion(debver,instver): %s" % cmp)
                 if cmp == 0:
-                    return self.VERSION_SAME
+                    return VERSION_SAME
                 elif cmp < 0:
-                    return self.VERSION_IS_NEWER
+                    return VERSION_NEWER
                 elif cmp > 0:
-                    return self.VERSION_OUTDATED
-        return self.NO_VERSION
+                    return VERSION_OUTDATED
+        return VERSION_NONE
 
     def checkDeb(self):
         self._dbg(3,"checkDepends")
@@ -361,7 +357,7 @@ class DebPackage(object):
 
         # check version
         res = self.compareToVersionInCache()
-        if res == self.VERSION_OUTDATED: # the deb is older than the installed
+        if res == VERSION_OUTDATED: # the deb is older than the installed
             self._failureString = _("A later version is already installed")
             return False
 
@@ -422,7 +418,7 @@ class DebPackage(object):
         return self._needPkgs
     missingDeps = property(missingDeps)
 
-    def requiredChanges(self, cache):
+    def requiredChanges(self):
         """ gets the required changes to satisfy the depends.
             returns a tuple with (install, remove, unauthenticated)
         """
@@ -455,7 +451,9 @@ class DebPackage(object):
         if installProgress == None:
             res = os.system("/usr/sbin/dpkg -i %s" % self.filename)
         else:
+            installProgress.startUpdate()
             res = installProgress.run(self.filename)
+            installProgress.finishUpdate()
         return res
 
 class DscSrcPackage(DebPackage):
