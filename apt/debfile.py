@@ -357,7 +357,7 @@ class DebPackage(object):
 
         # check version
         res = self.compareToVersionInCache()
-        if res == self.VERSION_OUTDATED: # the deb is older than the installed
+        if res == VERSION_OUTDATED: # the deb is older than the installed
             self._failureString = _("A later version is already installed")
             return False
 
