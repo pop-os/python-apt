@@ -30,6 +30,12 @@ from gettext import gettext as _
 from cache import Cache
 from progress import DpkgInstallProgress
 
+# Constants for comparing the local package file with the version in the cache
+(VERSION_NONE,
+ VERSION_OUTDATED,
+ VERSION_SAME,
+ VERSION_NEWER) = range(4)
+ 
 class NoDebArchiveException(IOError):
     pass
 
@@ -313,12 +319,7 @@ class DebPackage(object):
                 res = False
         return res
 
-    # some constants
-    (NO_VERSION,
-     VERSION_OUTDATED,
-     VERSION_SAME,
-     VERSION_IS_NEWER) = range(4)
-    
+   
     def compareToVersionInCache(self, useInstalled=True):
         """ checks if the pkg is already installed or availabe in the cache
             and if so in what version, returns if the version of the deb
@@ -337,12 +338,12 @@ class DebPackage(object):
                 cmp = apt_pkg.VersionCompare(cachever,debver)
                 self._dbg(1, "CompareVersion(debver,instver): %s" % cmp)
                 if cmp == 0:
-                    return self.VERSION_SAME
+                    return VERSION_SAME
                 elif cmp < 0:
-                    return self.VERSION_IS_NEWER
+                    return VERSION_NEWER
                 elif cmp > 0:
-                    return self.VERSION_OUTDATED
-        return self.NO_VERSION
+                    return VERSION_OUTDATED
+        return VERSION_NONE
 
     def checkDeb(self):
         self._dbg(3,"checkDepends")
