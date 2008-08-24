@@ -214,7 +214,7 @@ class InstallProgress(DumbInstallProgress):
         if pid == 0:
             # child
             res = pm.DoInstall(self.writefd)
-            os.exit(res)
+            os._exit(res)
         self.child_pid = pid
         res = self.waitChild()
         return res
@@ -249,7 +249,7 @@ class DpkgInstallProgress(InstallProgress):
             # child
             res = os.system("/usr/bin/dpkg --status-fd %s -i %s" % \
                             (self.writefd, self.debfile))
-            os.exit(res)
+            os._exit(os.WEXITSTATUS(res))
         self.child_pid = pid
         res = self.waitChild()
         return res
