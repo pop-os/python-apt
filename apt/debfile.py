@@ -21,7 +21,6 @@
 #
 
 import warnings
-from warnings import warn
 warnings.filterwarnings("ignore", "apt API not stable yet", FutureWarning)
 import apt_inst, apt_pkg
 import apt
@@ -209,7 +208,6 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.depends instead.
         """
-        warn.warning("Will is depricated. Please use the conflicts attribute")
         return self.depends
 
     def conflicts(self):
@@ -230,7 +228,6 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.depends instead.
         """
-        warn.warning("Will is depricated. Please use the depends attribute")
         return self.depends
 
     def depends(self):
@@ -252,8 +249,7 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.provides instead.
         """
-        warn.warning("Will is depricated. Please use the provides attribute")
-        self.provides
+        return self.provides
 
     def provides(self):
         """
@@ -273,8 +269,7 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.replaces instead.
         """
-        warn.warning("Will is depricated. Please use the replaces attribute")
-        self.replaces
+        return self.replaces
 
     def replaces(self):
         """
@@ -422,7 +417,7 @@ class DebPackage(object):
         return self._needPkgs
     missingDeps = property(missingDeps)
 
-    def requiredChanges(self, cache):
+    def requiredChanges(self):
         """ gets the required changes to satisfy the depends.
             returns a tuple with (install, remove, unauthenticated)
         """
@@ -455,7 +450,9 @@ class DebPackage(object):
         if installProgress == None:
             res = os.system("/usr/sbin/dpkg -i %s" % self.filename)
         else:
+            installProgress.startUpdate()
             res = installProgress.run(self.filename)
+            installProgress.finishUpdate()
         return res
 
 class DscSrcPackage(DebPackage):
