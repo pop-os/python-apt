@@ -185,8 +185,10 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    bool res = true;
    if(!PyArg_Parse(result, "b", &res)) 
    {
-      // mvo: this is harmless, we shouldn't print anything here
-      //std::cerr << "result could not be parsed" << std::endl;
+      // most of the time the user who subclasses the pulse() 
+      // method forgot to add a return {True,False} so we just
+      // assume he wants a True
+      return true;
    }
 
    // fetching can be canceld by returning false

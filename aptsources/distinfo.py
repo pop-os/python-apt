@@ -128,7 +128,6 @@ class DistInfo:
                  base_dir = "/usr/share/python-apt/templates"):
         self.metarelease_uri = ''
         self.templates = []
-        apt_pkg.init()
         self.arch = apt_pkg.Config.Find("APT::Architecture")
 
         location = None
