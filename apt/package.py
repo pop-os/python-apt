@@ -376,16 +376,19 @@ class Package(object):
     installedSize = property(installedSize)
 
     def installedFiles(self):
-        """ Return the list of files installed on the system by the package """
+        """
+        Return the list of unicode names of the files which have
+        been installed by this package
+        """
         if not self.isInstalled:
-            return None
+            return []
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
             list = open(path)
-            files = list.read().split("\n")
+            files = list.read().decode().split("\n")
             list.close()
         except:
-            return None
+            return []
         return files
     installedFiles = property(installedFiles)
 
