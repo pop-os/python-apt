@@ -380,8 +380,6 @@ class Package(object):
         Return the list of unicode names of the files which have
         been installed by this package
         """
-        if not self.isInstalled:
-            return []
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
             list = open(path)
