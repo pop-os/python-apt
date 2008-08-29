@@ -208,7 +208,7 @@ class InstallProgress(DumbInstallProgress):
             (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
             if pid == self.child_pid:
                 break
-        return os.WEXITSTATUS(res)
+        return res
     def run(self, pm):
         pid = self.fork()
         if pid == 0:
