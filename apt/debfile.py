@@ -211,7 +211,7 @@ class DebPackage(object):
         WARNING: This method will is deprecated. Please use the 
         attribute DebPackage.depends instead.
         """
-        return self.depends
+        return self.conflicts
 
     def conflicts(self):
         """
