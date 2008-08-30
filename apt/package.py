@@ -286,8 +286,7 @@ class Package(object):
                 else:
                     line = raw_line
             else:
-                pkglog.debug("invalid line %s in description for %s:\n%s" % \
-                             (i, self.name, self.rawDescription))
+                line = raw_line
             # Use dots for lists
             line = re.sub(r"^(\s*)(\*|0|o|-) ", ur"\1\u2022 ", line, 1)
             # Add current line to the description
