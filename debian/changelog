@@ -1,3 +1,9 @@
+python-apt (0.7.7.1ubuntu3) UNRELEASED; urgency=low
+
+  * Rebuild against current apt on hppa.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 01 Sep 2008 11:33:33 +0100
+
 python-apt (0.7.7.1ubuntu2) intrepid; urgency=low
 
   * python/cache.cc:
