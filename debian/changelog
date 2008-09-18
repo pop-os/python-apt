@@ -9,11 +9,13 @@ python-apt (0.7.8) UNRELEASED; urgency=low
     - do not change working dir in debExtractArchive() (LP: #184093)
   * apt/cache.py:
     - support "in" in apt.Cache() (LP: #251587)
+  * apt/package.py:
+    - do not return None in sourcePackageName (LP: #123062)
   * python/progress.cc:
     - when pulse() does not return a boolean assume "true"
       (thanks to Martin Pitt for telling me about the problem)
   * python/apt_pkgmodule.cc:
-    add "SelState{Unknown,Install,Hold,DeInstall,Purge}" constants
+    - add "SelState{Unknown,Install,Hold,DeInstall,Purge}" constants
   * aptsources/__init__.py, aptsources/distinfo.py:
     - run apt_pkg.init() when aptsources gets imported and not
       the distinfo function
