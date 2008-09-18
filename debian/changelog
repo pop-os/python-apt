@@ -1,5 +1,7 @@
 python-apt (0.7.7.1ubuntu4) intrepid; urgency=low
 
+  * apt/package.py:
+    - do not return None in sourcePackageName (LP: #123062)
   * python/progress.cc:
     - when pulse() does not return a boolean assume "true"
       (thanks to Martin Pitt for telling me about the problem)
