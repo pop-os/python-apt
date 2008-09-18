@@ -1,4 +1,4 @@
-python-apt (0.7.7.2) UNRELEASED; urgency=low
+python-apt (0.7.8) UNRELEASED; urgency=low
 
   * python/cache.cc:
     - fix crash if Ver.PriorityType() returns NULL 
