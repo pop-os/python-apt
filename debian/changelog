@@ -1,3 +1,15 @@
+python-apt (0.7.7.1ubuntu4) intrepid; urgency=low
+
+  * python/progress.cc:
+    - when pulse() does not return a boolean assume "true"
+      (thanks to Martin Pitt for telling me about the problem)
+  * aptsources/__init__.py, aptsources/distinfo.py:
+    - run apt_pkg.init() when aptsources gets imported and not
+      the distinfo function
+    - fix detection of cdrom sources and add test for it
+ 
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 18 Sep 2008 14:42:46 +0200
+
 python-apt (0.7.7.1ubuntu3) intrepid; urgency=low
 
   * Rebuild against current apt on hppa.
