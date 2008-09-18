@@ -83,6 +83,14 @@ class TestAptSources(unittest.TestCase):
 
     def testMatcher(self):
         apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list.testDistribution")
+        sources = aptsources.sourceslist.SourcesList()
+        distro = aptsources.distro.get_distro()
+        distro.get_sources(sources)
+        # test if all suits of the current distro were detected correctly
+        dist_templates = set()
+        for s in sources:
+            if not s.template:
+                self.fail("source entry '%s' has no matcher" % s)
 
     def testDistribution(self):
         apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list.testDistribution")

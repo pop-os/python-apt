@@ -25,6 +25,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: intrepid
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.10
+MatchURI: cdrom:\[Ubuntu.*8.10
 _Description: Cdrom with Ubuntu 8.10 'Intrepid Ibex'
 Available: False
 Component: main
@@ -80,6 +81,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: hardy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.04
+MatchURI: cdrom:\[Ubuntu.*8.04
 _Description: Cdrom with Ubuntu 8.04 'Hardy Heron'
 Available: False
 Component: main
@@ -134,6 +136,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: gutsy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.10
+MatchURI: cdrom:\[Ubuntu.*7.10
 _Description: Cdrom with Ubuntu 7.10 'Gutsy Gibbon'
 Available: False
 Component: main
@@ -186,6 +189,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: feisty
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.04
+MatchURI: cdrom:\[Ubuntu.*7.04
 _Description: Cdrom with Ubuntu 7.04 'Feisty Fawn'
 Available: False
 Component: main
@@ -237,6 +241,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: edgy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.10
+MatchURI: cdrom:\[Ubuntu.*6.10
 _Description: Cdrom with Ubuntu 6.10 'Edgy Eft'
 Available: False
 Component: main
@@ -288,6 +293,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: dapper
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.06
+MatchURI: cdrom:\[Ubuntu.*6.06
 _Description: Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'
 Available: False
 Component: main
@@ -335,6 +341,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: breezy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.10
+MatchURI: cdrom:\[Ubuntu.*5.10
 _Description: Cdrom with Ubuntu 5.10 'Breezy Badger'
 Available: False
 Component: main
@@ -377,6 +384,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: hoary
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.04
+MatchURI: cdrom:\[Ubuntu.*5.04
 _Description: Cdrom with Ubuntu 5.04 'Hoary Hedgehog'
 Available: False
 Component: main
@@ -418,6 +426,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: warty
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*4.10
+MatchURI: cdrom:\[Ubuntu.*4.10
 _Description: Cdrom with Ubuntu 4.10 'Warty Warthog'
 Available: False
 Component: main
