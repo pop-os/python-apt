@@ -197,7 +197,7 @@ static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   pkgCache::VerIterator I = GetCpp<pkgCache::VerIterator>(VersionObj);
+   pkgCache::VerIterator &I = GetCpp<pkgCache::VerIterator>(VersionObj);
    if(I.end()) {
       return HandleErrors(Py_BuildValue("b",false));
    }
@@ -215,7 +215,9 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
-   pkgCache::VerIterator I = depcache->GetCandidateVer(Pkg);
+   pkgDepCache::StateCache & State = (*depcache)[Pkg];
+   pkgCache::VerIterator I = State.CandidateVerIter(*depcache);
+
    if(I.end()) {
       Py_INCREF(Py_None);
       return Py_None;

@@ -517,6 +517,12 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"CurStateConfigFiles",pkgCache::State::ConfigFiles);
    AddInt(Dict,"CurStateInstalled",pkgCache::State::Installed);
 
+   AddInt(Dict,"SelStateUnknown",pkgCache::State::Unknown);
+   AddInt(Dict,"SelStateInstall",pkgCache::State::Install);
+   AddInt(Dict,"SelStateHold",pkgCache::State::Hold);
+   AddInt(Dict,"SelStateDeInstall",pkgCache::State::DeInstall);
+   AddInt(Dict,"SelStatePurge",pkgCache::State::Purge);
+
    AddInt(Dict,"InstStateOk",pkgCache::State::Ok);
    AddInt(Dict,"InstStateReInstReq",pkgCache::State::ReInstReq);
    AddInt(Dict,"InstStateHold",pkgCache::State::Hold);
