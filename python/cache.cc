@@ -936,14 +936,25 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
    pkgCacheFile *Cache = new pkgCacheFile();
 
    if(pyCallbackInst != 0) {
+      if (PyObject_HasAttrString(pyCallbackInst, "done") != 1) {
+        PyErr_SetString(PyExc_ValueError,
+                        "progress object must implement done()");
+        return 0;
+      }
+      if (PyObject_HasAttrString(pyCallbackInst, "update") != 1) {
+        PyErr_SetString(PyExc_ValueError,
+                        "progress object must implement update()");
+        return 0;
+      }
       PyOpProgress progress;
       progress.setCallbackInst(pyCallbackInst);
       if (Cache->Open(progress,false) == false)
-	 return HandleErrors();
-   }  else {
+         return HandleErrors();
+   }  
+   else {
       OpTextProgress Prog;
       if (Cache->Open(Prog,false) == false)
-	 return HandleErrors();
+	     return HandleErrors();
    }
 
    CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
