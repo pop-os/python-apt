@@ -1,3 +1,14 @@
+python-apt (0.7.8~ubuntu1) jaunty; urgency=low
+
+  * python/apt_pkgmodule.cc:
+    - add "SelState{Unknown,Install,Hold,DeInstall,Purge}" constants
+  * python/metaindex.cc
+    - fix crash when incorrect attribute is given
+  * data/templates/Ubuntu.info.in:
+    - updated
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 03 Nov 2008 11:46:54 +0100
+
 python-apt (0.7.7.1ubuntu4) intrepid; urgency=low
 
   * apt/package.py:
