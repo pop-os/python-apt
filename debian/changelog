@@ -1,3 +1,20 @@
+python-apt (0.7.7.1+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * data/templates/Debian.info.in: Set the BaseURI to security.debian.org for
+    lenny/updates, etch/updates and sarge/updates. (Closes: #503237)
+
+ -- Jonny Lamb <jonny@debian.org>  Fri, 24 Oct 2008 12:44:33 +0100
+
+python-apt (0.7.7.1) unstable; urgency=low
+
+  * data/templates/Debian.info.in:
+    - add 'lenny' template info (closes: #476364)
+  * aptsources/distinfo.py:
+    - fix template matching for arch specific code (LP: #244093)
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 25 Jul 2008 18:13:53 +0200
+
 python-apt (0.7.7) unstable; urgency=low
 
   [ Emanuele Rocca ]

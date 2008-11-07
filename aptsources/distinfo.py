@@ -40,6 +40,7 @@ class Template:
     def __init__(self):
         self.name = None
         self.child = False
+        self.parents = []          # ref to parent template(s)
         self.match_name = None
         self.description = None
         self.base_uri = None
@@ -163,11 +164,8 @@ class DistInfo:
             elif field == 'MetaReleaseURI':
                 self.metarelease_uri = value
             elif field == 'Suite':
-                if template:
-                    if component and not template.has_component(component.name):
-                        template.components.append(component)
-                        component = None
-                    self.templates.append(template)
+                self.finish_template(template, component)
+                component=None
                 template = Template()
                 template.name = value
                 template.distribution = dist
@@ -177,13 +175,10 @@ class DistInfo:
             elif field == 'ParentSuite':
                 template.child = True
                 for nanny in self.templates:
+                    # look for parent and add back ref to it
                     if nanny.name == value:
+                        template.parents.append(nanny)
                         nanny.children.append(template)
-                        # reuse some properties of the parent template
-                        if template.match_uri == None:
-                            template.match_uri = nanny.match_uri
-                        if template.mirror_set == {}:
-                            template.mirror_set = nanny.mirror_set
             elif field == 'Available':
                 template.available = value
             elif field == 'RepositoryType':
@@ -227,12 +222,30 @@ class DistInfo:
                 component.set_description(_(value))
             elif field == 'CompDescriptionLong':
                 component.set_description_long(_(value))
-        if template:
-            if component:
-                template.components.append(component)
-                component = None
-            self.templates.append(template)
-            template = None
+        self.finish_template(template, component)
+        template=None
+        component=None
+
+    def finish_template(self, template, component):
+        " finish the current tempalte "
+        if not template:
+            return
+        # reuse some properties of the parent template
+        if template.match_uri == None and template.child:
+            for t in template.parents:
+                if t.match_uri:
+                    template.match_uri = t.match_uri
+                    break
+        if template.mirror_set == {} and template.child:
+            for t in template.parents:
+                if t.match_uri:
+                    template.mirror_set = t.mirror_set
+                    break
+        if component and not template.has_component(component.name):
+            template.components.append(component)
+            component = None
+        self.templates.append(template)    
+
 
 if __name__ == "__main__":
     d = DistInfo ("Ubuntu", "/usr/share/python-apt/templates")
