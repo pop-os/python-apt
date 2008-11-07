@@ -5,24 +5,13 @@ import sys
 import tempfile
 
 def get_file(fetcher, uri, destFile):
-	cwd = os.getcwd()
-	# create a temp dir
-	dir = tempfile.mkdtemp()
-	os.chdir(dir)
 	# get the file
 	af = apt_pkg.GetPkgAcqFile(fetcher,
                            uri=uri,
-                           descr="sample descr")
+                           descr="sample descr", destFile=destFile)
 	res = fetcher.Run()
 	if res != fetcher.ResultContinue:
-		os.rmdir(dir)
-		os.chdir(cwd)
 		return False
-	filename = os.path.basename(uri)
-	os.rename(dir+"/"+filename,destFile)
-	# cleanup
-	os.rmdir(dir)
-	os.chdir(cwd)
 	return True
 
 apt_pkg.init()
