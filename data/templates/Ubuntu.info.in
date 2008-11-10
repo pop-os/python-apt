@@ -116,7 +116,7 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'

@@ -25,6 +25,11 @@ python-apt (0.7.8) UNRELEASED; urgency=low
     - fix crash when incorrect attribute is given
   * data/templates/Ubuntu.info.in:
     - updated
+  * aptsources/distro.py:
+    - add parameter to get_distro() to make unit testing easier
+  * tests/test_aptsources_ports.py:
+    - add test for arch specific handling (when sub arch is on
+      a different mirror than "main" arches)
 
   [ Julian Andres Klode ]
   * python/acquire.cc (GetPkgAcqFile): Support DestDir and DestFilename.

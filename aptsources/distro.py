@@ -414,15 +414,22 @@ class UbuntuDistribution(Distribution):
     Distribution.get_mirrors(self,
                              mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
-def get_distro():
-    ''' Check the currently used distribution and return the corresponding
-        distriubtion class that supports distro specific features. '''
-    lsb_info = []
-    for lsb_option in ["-i", "-c", "-d", "-r"]:
+def get_distro(id=None,codename=None,description=None,release=None):
+    """ 
+    Check the currently used distribution and return the corresponding
+    distriubtion class that supports distro specific features. 
+    
+    If no paramter are given the distro will be auto detected via
+    a call to lsb-release
+    """
+    # make testing easier
+    if not (id and codename and description and release):
+      lsb_info = []
+      for lsb_option in ["-i", "-c", "-d", "-r"]:
         pipe = os.popen("lsb_release %s -s" % lsb_option)
         lsb_info.append(pipe.read().strip())
         del pipe
-    (id, codename, description, release) = lsb_info
+      (id, codename, description, release) = lsb_info
     if id == "Ubuntu":
         return UbuntuDistribution(id, codename, description, 
                                   release)
