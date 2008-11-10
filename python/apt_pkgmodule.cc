@@ -447,7 +447,7 @@ static PyMethodDef methods[] =
 
    // Acquire
    {"GetAcquire",GetAcquire,METH_VARARGS,"GetAcquire() -> Acquire"},
-   {"GetPkgAcqFile",(PyCFunction)GetPkgAcqFile,METH_KEYWORDS|METH_VARARGS,"GetPkgAcquireFile() -> pkgAcquireFile"},
+   {"GetPkgAcqFile",(PyCFunction)GetPkgAcqFile,METH_KEYWORDS|METH_VARARGS, doc_GetPkgAcqFile},
 
    // PkgManager
    {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager(DepCache) -> PackageManager"},

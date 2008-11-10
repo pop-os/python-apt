@@ -242,6 +242,8 @@ PyTypeObject PkgAcquireFileType =
    0,                                   // tp_hash
 };
 
+char *doc_GetPkgAcqFile =
+"GetPkgAcqFile(pkgAquire, uri[, md5, size, descr, shortDescr, destDir, destFile]) -> PkgAcqFile\n";
 PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 {
    PyObject *pyfetcher;
@@ -250,11 +252,11 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
    uri = md5 = descr = shortDescr = destDir = destFile = "";
 
    char * kwlist[] = {"owner","uri", "md5", "size", "descr", "shortDescr",
-		      NULL};
+                      "destDir", "destFile", NULL};
 
-   if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|siss", kwlist,
+   if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
 				   &PkgAcquireType, &pyfetcher, &uri, &md5, 
-				   &size, &descr, &shortDescr) == 0) 
+				   &size, &descr, &shortDescr, &destDir, &destFile) == 0) 
       return 0;
 
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);
@@ -263,7 +265,9 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 				   md5,  // md5
 				   size,   // size
 				   descr, // descr
-				   shortDescr); // short-desc
+				   shortDescr,
+				   destDir,
+				   destFile); // short-desc
    CppPyObject<pkgAcqFile*> *AcqFileObj =   CppPyObject_NEW<pkgAcqFile*>(&PkgAcquireFileType);
    AcqFileObj->Object = af;
 

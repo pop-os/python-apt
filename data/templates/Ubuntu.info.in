@@ -3,9 +3,11 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 Suite: jaunty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 9.04 'Jaunty Jackalope'
@@ -38,6 +40,10 @@ ParentSuite: jaunty
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com/ubuntu
 _Description: Important security updates
 
 Suite: jaunty-updates
@@ -58,9 +64,11 @@ _Description: Unsupported updates
 Suite: intrepid
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
@@ -93,6 +101,10 @@ ParentSuite: intrepid
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com/ubuntu
 _Description: Important security updates
 
 Suite: intrepid-updates
@@ -116,7 +128,9 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'

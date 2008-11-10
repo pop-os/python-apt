@@ -1,3 +1,22 @@
+python-apt (0.7.8~ubuntu2) jaunty; urgency=low
+
+  [ Michael Vogt ]
+  * python/metaindex.cc
+    - fix crash when incorrect attribute is given
+  * data/templates/Ubuntu.info.in:
+    - updated to fix ports.ubuntu.com for powerpc and lpia
+      (LP: #220890)
+  * aptsources/distro.py:
+    - add parameter to get_distro() to make unit testing easier
+  * tests/test_aptsources_ports.py:
+    - add test for arch specific handling (when sub arch is on
+      a different mirror than "main" arches)
+
+  [ Julian Andres Klode ]
+  * python/acquire.cc (GetPkgAcqFile): Support DestDir and DestFilename.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 10 Nov 2008 11:35:03 +0100
+
 python-apt (0.7.8~ubuntu1) jaunty; urgency=low
 
   * python/apt_pkgmodule.cc:
