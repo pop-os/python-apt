@@ -1,8 +1,6 @@
 python-apt (0.7.8~ubuntu2) jaunty; urgency=low
 
   [ Michael Vogt ]
-  * python/metaindex.cc
-    - fix crash when incorrect attribute is given
   * data/templates/Ubuntu.info.in:
     - updated to fix ports.ubuntu.com for powerpc and lpia
       (LP: #220890)
