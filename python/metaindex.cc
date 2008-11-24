@@ -38,6 +38,9 @@ static PyObject *MetaIndexAttr(PyObject *Self,char *Name)
       }      
       return List;
    }
+
+   PyErr_SetString(PyExc_AttributeError,Name);
+   return 0;
 }
 
 static PyObject *MetaIndexRepr(PyObject *Self)

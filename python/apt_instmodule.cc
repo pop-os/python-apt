@@ -74,6 +74,7 @@ static char *doc_debExtractArchive =
 static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
 {
    char *Rootdir = NULL;
+   char cwd[512];
    PyObject *File;
    if (PyArg_ParseTuple(Args,"O!|s",&PyFile_Type,&File,&Rootdir) == 0)
       return 0;
@@ -83,21 +84,27 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
    {
       if(Rootdir != NULL) 
       {
+	 getcwd(cwd, sizeof(cwd));
 	 chdir(Rootdir);
       }
 
       // Open the file and associate the .deb
       FileFd Fd(fileno(PyFile_AsFile(File)),false);
       debDebFile Deb(Fd);
-      if (_error->PendingError() == true)
-	 return HandleErrors();
+      if (_error->PendingError() == true) {
+	 if (Rootdir != NULL)
+	    chdir (cwd);
+	 return HandleErrors(Py_BuildValue("b",false));
+      }
 
       // extracts relative to the current dir
       pkgDirStream Extract;
       res = Deb.ExtractArchive(Extract);
 
+      if (Rootdir != NULL)
+	 chdir (cwd);
       if (res == false)
-	 return HandleErrors();
+	 return HandleErrors(Py_BuildValue("b",res));
    }   
    return HandleErrors(Py_BuildValue("b",res));
 }

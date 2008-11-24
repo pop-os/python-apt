@@ -1,11 +1,74 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: jaunty
+RepositoryType: deb
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
+MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+_Description: Ubuntu 9.04 'Jaunty Jackalope'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported Open Source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: jaunty
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*9.04
+MatchURI: cdrom:\[Ubuntu.*9.04
+_Description: Cdrom with Ubuntu 9.04 'Jaunty Jackalope'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: jaunty-security
+ParentSuite: jaunty
+RepositoryType: deb
+BaseURI: http://security.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com/ubuntu
+_Description: Important security updates
+
+Suite: jaunty-updates
+ParentSuite: jaunty
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: jaunty-proposed
+ParentSuite: jaunty
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: jaunty-backports
+ParentSuite: jaunty
+RepositoryType: deb
+_Description: Unsupported updates
+
 Suite: intrepid
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
@@ -25,6 +88,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: intrepid
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.10
+MatchURI: cdrom:\[Ubuntu.*8.10
 _Description: Cdrom with Ubuntu 8.10 'Intrepid Ibex'
 Available: False
 Component: main
@@ -37,6 +101,10 @@ ParentSuite: intrepid
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com/ubuntu
 _Description: Important security updates
 
 Suite: intrepid-updates
@@ -60,7 +128,9 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com
+MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
+BaseURI-lpia: http://ports.ubuntu.com/
+MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
@@ -80,6 +150,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: hardy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.04
+MatchURI: cdrom:\[Ubuntu.*8.04
 _Description: Cdrom with Ubuntu 8.04 'Hardy Heron'
 Available: False
 Component: main
@@ -134,6 +205,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: gutsy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.10
+MatchURI: cdrom:\[Ubuntu.*7.10
 _Description: Cdrom with Ubuntu 7.10 'Gutsy Gibbon'
 Available: False
 Component: main
@@ -186,6 +258,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: feisty
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.04
+MatchURI: cdrom:\[Ubuntu.*7.04
 _Description: Cdrom with Ubuntu 7.04 'Feisty Fawn'
 Available: False
 Component: main
@@ -237,6 +310,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: edgy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.10
+MatchURI: cdrom:\[Ubuntu.*6.10
 _Description: Cdrom with Ubuntu 6.10 'Edgy Eft'
 Available: False
 Component: main
@@ -288,6 +362,7 @@ _CompDescriptionLong: Software restricted by copyright or legal issues
 Suite: dapper
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.06
+MatchURI: cdrom:\[Ubuntu.*6.06
 _Description: Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'
 Available: False
 Component: main
@@ -335,6 +410,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: breezy
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.10
+MatchURI: cdrom:\[Ubuntu.*5.10
 _Description: Cdrom with Ubuntu 5.10 'Breezy Badger'
 Available: False
 Component: main
@@ -377,6 +453,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: hoary
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.04
+MatchURI: cdrom:\[Ubuntu.*5.04
 _Description: Cdrom with Ubuntu 5.04 'Hoary Hedgehog'
 Available: False
 Component: main
@@ -418,6 +495,7 @@ _CompDescription: Non-free (Multiverse)
 Suite: warty
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*4.10
+MatchURI: cdrom:\[Ubuntu.*4.10
 _Description: Cdrom with Ubuntu 4.10 'Warty Warthog'
 Available: False
 Component: main

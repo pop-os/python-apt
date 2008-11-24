@@ -447,7 +447,7 @@ static PyMethodDef methods[] =
 
    // Acquire
    {"GetAcquire",GetAcquire,METH_VARARGS,"GetAcquire() -> Acquire"},
-   {"GetPkgAcqFile",(PyCFunction)GetPkgAcqFile,METH_KEYWORDS|METH_VARARGS,"GetPkgAcquireFile() -> pkgAcquireFile"},
+   {"GetPkgAcqFile",(PyCFunction)GetPkgAcqFile,METH_KEYWORDS|METH_VARARGS, doc_GetPkgAcqFile},
 
    // PkgManager
    {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager(DepCache) -> PackageManager"},
@@ -516,6 +516,12 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"CurStateHalfInstalled",pkgCache::State::HalfInstalled);
    AddInt(Dict,"CurStateConfigFiles",pkgCache::State::ConfigFiles);
    AddInt(Dict,"CurStateInstalled",pkgCache::State::Installed);
+
+   AddInt(Dict,"SelStateUnknown",pkgCache::State::Unknown);
+   AddInt(Dict,"SelStateInstall",pkgCache::State::Install);
+   AddInt(Dict,"SelStateHold",pkgCache::State::Hold);
+   AddInt(Dict,"SelStateDeInstall",pkgCache::State::DeInstall);
+   AddInt(Dict,"SelStatePurge",pkgCache::State::Purge);
 
    AddInt(Dict,"InstStateOk",pkgCache::State::Ok);
    AddInt(Dict,"InstStateReInstReq",pkgCache::State::ReInstReq);

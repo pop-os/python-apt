@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-18 15:22+0100\n"
+"POT-Creation-Date: 2008-08-15 09:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,7 +188,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:383 ../data/templates/Debian.info.in:94
+#: ../data/templates/Ubuntu.info.in:383 ../data/templates/Debian.info.in:117
 msgid "Officially supported"
 msgstr ""
 
@@ -260,46 +260,51 @@ msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 4.0 'Etch' "
+msgid "Debian 5.0 'Lenny' "
 msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:31
-msgid "Debian 3.1 'Sarge'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Debian.info.in:42
-msgid "Proposed updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Debian.info.in:47
-msgid "Security updates"
+msgid "Debian 4.0 'Etch' "
 msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:54
+msgid "Debian 3.1 'Sarge'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Debian.info.in:65
+msgid "Proposed updates"
+msgstr ""
+
+#. Description
+#: ../data/templates/Debian.info.in:70
+msgid "Security updates"
+msgstr ""
+
+#. Description
+#: ../data/templates/Debian.info.in:77
 msgid "Debian current stable release"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:67
+#: ../data/templates/Debian.info.in:90
 msgid "Debian testing"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:92
+#: ../data/templates/Debian.info.in:115
 msgid "Debian 'Sid' (unstable)"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:96
+#: ../data/templates/Debian.info.in:119
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:98
+#: ../data/templates/Debian.info.in:121
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 
