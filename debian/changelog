@@ -14,10 +14,10 @@ python-apt (0.7.9) UNRELEASED; urgency=low
     - new method "installedFiles()"
     - new method "getChangelog()"
   * apt/gtk/widgets.py:
-    - new widget GtkOpProgress
-    - new widget GtkFetchProgress
-    - new widget GtkInstallProgress
-    - new widget GtkDpkgInstallProgress
+    - new gobject GOpProgress
+    - new gobject GFetchProgress
+    - new gobject GInstallProgress
+    - new gobject GDpkgInstallProgress
     - new widget GtkAptProgress
   * doc/examples/gui-inst.py: 
     - updated to use the new widgets

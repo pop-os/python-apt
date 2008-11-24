@@ -38,7 +38,12 @@ import vte
 import apt
 import apt_pkg
 
-class GtkOpProgress(gobject.GObject, apt.progress.OpProgress):
+# FIXME: we should not use gtk.events_pending(): gtk.main_iteration()
+#        in the gobjects. instead we should use 
+#          g_main_context_pending/g_main_context_iteration 
+#        but that is not available yet in python-gobject
+ 
+class GOpProgress(gobject.GObject, apt.progress.OpProgress):
 
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
@@ -60,7 +65,7 @@ class GtkOpProgress(gobject.GObject, apt.progress.OpProgress):
     def done(self):
         self.emit("status-finished")
 
-class GtkInstallProgress(gobject.GObject, apt.progress.InstallProgress):
+class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
 
     # Seconds until a maintainer script will be regarded as hanging
     INSTALL_TIMEOUT = 5 * 60
@@ -127,20 +132,18 @@ class GtkInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         return self.apt_status
 
 
-class GtkDpkgInstallProgress(apt.progress.DpkgInstallProgress,GtkInstallProgress):
+class GDpkgInstallProgress(apt.progress.DpkgInstallProgress,GInstallProgress):
 
     def run(self, debfile):
         apt.progress.DpkgInstallProgress.run(self, debfile)
 
     def updateInterface(self):
         apt.progress.DpkgInstallProgress.updateInterface(self)
-        while gtk.events_pending():
-            gtk.main_iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
             self.emit("status-timeout")
 
 
-class GtkFetchProgress(gobject.GObject, apt.progress.FetchProgress):
+class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
 
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
@@ -234,16 +237,16 @@ class GtkAptProgress(gtk.VBox):
         self.pack_start(self._label, False)
         self.pack_start(self._expander, False)
         # Setup the internal progress handlers
-        self._progress_open = GtkOpProgress()
+        self._progress_open = GOpProgress()
         self._progress_open.connect("status-changed", self._on_status_changed)
         self._progress_open.connect("status-started", self._on_status_started)
         self._progress_open.connect("status-finished", self._on_status_finished)
-        self._progress_fetch = GtkFetchProgress()
+        self._progress_fetch = GFetchProgress()
         self._progress_fetch.connect("status-changed", self._on_status_changed)
         self._progress_fetch.connect("status-started", self._on_status_started)
         self._progress_fetch.connect("status-finished", 
                                      self._on_status_finished)
-        self._progress_install = GtkInstallProgress(self._terminal)
+        self._progress_install = GInstallProgress(self._terminal)
         self._progress_install.connect("status-changed",
                                        self._on_status_changed)
         self._progress_install.connect("status-started", 
@@ -256,7 +259,7 @@ class GtkAptProgress(gtk.VBox):
                                      self._on_status_timeout)
         self._progress_install.connect("status-conffile", 
                                      self._on_status_timeout)
-        self._progress_dpkg_install = GtkDpkgInstallProgress(self._terminal)
+        self._progress_dpkg_install = GDpkgInstallProgress(self._terminal)
         self._progress_dpkg_install.connect("status-changed",
                                        self._on_status_changed)
         self._progress_dpkg_install.connect("status-started", 
@@ -308,17 +311,27 @@ class GtkAptProgress(gtk.VBox):
 
     def _on_status_started(self, progress):
         self._on_status_changed(progress, _("Starting..."), 0)
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def _on_status_finished(self, progress):
         self._on_status_changed(progress, _("Complete"), 100)
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def _on_status_changed(self, progress, status, percent):
         self._label.set_text(status)
-        self._progressbar.pulse()
-        self._progressbar.set_fraction(percent/100.0)
+        if percent is None:
+            self._progressbar.pulse()
+        else:
+            self._progressbar.set_fraction(percent/100.0)
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def _on_status_timeout(self, progress):
         selt._expander.set_expanded(True)
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def cancel_download(self):
         """
@@ -333,25 +346,31 @@ class GtkAptProgress(gtk.VBox):
         """
         self._expander.show()
         self._terminal.show()
-        self._expander.set_expanded(True)
+        self._expander.set_expanded(expanded)
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def hide_terminal(self):
         """
         Hide the expander with the terminal widget
         """
         self._expander.hide()
+        while gtk.events_pending():
+            gtk.main_iteration()
 
     def show(self):
         gtk.HBox.show(self)
         self._label.show()
         self._progressbar.show()
+        while gtk.events_pending():
+            gtk.main_iteration()
 
 if __name__ == "__main__":
     import sys
     import debfile
 
     win = gtk.Window()
-    apt_progress = GtkAptProgress()
+    apt_progress = GAptProgress()
     win.set_title("GtkAptProgress Demo")
     win.add(apt_progress)
     apt_progress.show()
