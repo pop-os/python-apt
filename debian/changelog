@@ -1,3 +1,31 @@
+python-apt (0.7.9) UNRELEASED; urgency=low
+
+  Merged python-apt consolidation branch by Sebastian
+  Heinlein (many thanks):
+  * apt/cache.py:
+    - new method "isVirtualPackage()" 
+    - new method "getProvidingPackages()"
+  * apt/debfile.py:
+    - move a lot of the gdebi code into this file, this
+      provides interfaces for querrying and installing
+      .deb files and .dsc files
+  * apt/package.py:
+    - better description parsing 
+    - new method "installedFiles()"
+    - new method "getChangelog()"
+  * apt/gtk/widgets.py:
+    - new widget GtkOpProgress
+    - new widget GtkFetchProgress
+    - new widget GtkInstallProgress
+    - new widget GtkDpkgInstallProgress
+    - new widget GtkAptProgress
+  * doc/examples/gui-inst.py: 
+    - updated to use the new widgets
+  * debian/control:
+    - add suggests for python-gtk2 and python-vte
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Nov 2008 14:30:32 +0100
+
 python-apt (0.7.8) unstable; urgency=low
 
   [ Michael Vogt ]

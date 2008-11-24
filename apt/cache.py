@@ -182,6 +182,28 @@ class Cache(object):
         finally:
             os.close(lock)
 
+    def getProvidingPackages(self, virtual):
+        """
+        Return a list of packages which provide the virtual package of the
+        specified name
+        """
+        providers = []
+        try:
+            vp = self._cache[virtual]
+            if len(vp.VersionList) != 0:
+                return providers
+        except KeyError:
+            return providers
+        for pkg in self:
+            v = self._depcache.GetCandidateVer(pkg._pkg)
+            if v == None:
+                continue
+            for p in v.ProvidesList:
+                if virtual == p[0]:
+                    # we found a pkg that provides this virtual pkg
+                    providers.append(pkg)
+        return providers
+
     def update(self, fetchProgress=None):
         " run the equivalent of apt-get update "
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
@@ -231,6 +253,10 @@ class Cache(object):
             # reload the fetcher for media swaping
             fetcher.Shutdown()
         return (res == pm.ResultCompleted)
+
+    def clear(self):
+         """ Unmark all changes """
+         self._depcache.Init()
 
     # cache changes
     def cachePostChange(self):
