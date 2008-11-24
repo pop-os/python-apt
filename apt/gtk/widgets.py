@@ -31,6 +31,7 @@ import time
 import pygtk
 pygtk.require('2.0')
 import gtk
+import glib
 import gobject
 import pango
 import vte
@@ -38,11 +39,6 @@ import vte
 import apt
 import apt_pkg
 
-# FIXME: we should not use gtk.events_pending(): gtk.main_iteration()
-#        in the gobjects. instead we should use 
-#          g_main_context_pending/g_main_context_iteration 
-#        but that is not available yet in python-gobject
- 
 class GOpProgress(gobject.GObject, apt.progress.OpProgress):
 
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
@@ -56,11 +52,12 @@ class GOpProgress(gobject.GObject, apt.progress.OpProgress):
     def __init__(self):
         apt.progress.OpProgress.__init__(self)
         gobject.GObject.__init__(self)
+        self._context = glib.main_context_default()
 
     def update(self, percent):
         self.emit("status-changed", self.op, percent)
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while self._context.pending():
+            self._context.iteration()
 
     def done(self):
         self.emit("status-finished")
@@ -95,6 +92,7 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         self.env = ["VTE_PTY_KEEP_FD=%s"% self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=gtk"]
+        self._context = glib.main_context_default()
 
     def childExited(self, term, pid, status):
         self.apt_status = os.WEXITSTATUS(status)
@@ -118,8 +116,8 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
 
     def updateInterface(self):
         apt.progress.InstallProgress.updateInterface(self)
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while self._context.pending():
+            self._context.iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
             self.emit("status-timeout")
 
@@ -157,6 +155,7 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
         apt.progress.FetchProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._continue = True
+        self._context = glib.main_context_default()
 
     def start(self):
         self.emit("status-started")
@@ -183,8 +182,8 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
                       {"current" : currentItem,
                        "total" : self.totalItems })
         self.emit("status-changed", text, self.percent)
-        while gtk.events_pending():
-            gtk.main_iteration()
+        while self._context.pending():
+            self._context.iteration()
         return self._continue
 
 
