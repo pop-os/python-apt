@@ -129,6 +129,17 @@ class Cache(object):
         self.cachePostChange()
 
     @property
+    def requiredDownload(self):
+        """ get the size of the packages that are required to download """
+        pm = apt_pkg.GetPackageManager(self._depcache)
+        fetcher = apt_pkg.GetAcquire()
+        pm.GetArchives(fetcher, self._list, self._records)
+        return fetcher.FetchNeeded
+    @property
+    def additionalRequiredSpace(self):
+        """ get the size of the additional required space on the fs """
+        return self._depcache.UsrSize
+    @property
     def reqReinstallPkgs(self):
         " return the packages not downloadable packages in reqreinst state "
         reqreinst = set()

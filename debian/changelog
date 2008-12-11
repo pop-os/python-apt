@@ -5,6 +5,8 @@ python-apt (0.7.9) UNRELEASED; urgency=low
   * apt/cache.py:
     - new method "isVirtualPackage()" 
     - new method "getProvidingPackages()"
+    - new method "getRequiredDownload()"
+    - new method "additionalRequiredSpace()"
   * apt/debfile.py:
     - move a lot of the gdebi code into this file, this
       provides interfaces for querrying and installing
