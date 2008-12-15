@@ -4,7 +4,30 @@
 from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
 from DistUtilsExtra.command import *
-import glob, os, string
+import glob
+import os
+import os.path
+import pydoc
+import shutil
+import string
+import sys
+
+def build_docs(dir="html", modules=["apt","aptsources"]):
+    htmldir = os.path.join(os.getcwd(), dir)
+    for d in modules:
+        for (dirpath, dirnames, filenames) in os.walk(d):
+            pydoc.writedoc(dirpath.replace("/","."))
+            for file in filenames:
+                if not file.endswith(".py"):
+                    continue
+                if file in ["__init__.py"]:
+                    continue
+                pydoc.writedoc(dirpath.replace("/",".")+"."+file.split(".py")[0])
+    if not os.path.exists(htmldir):
+        os.mkdir(htmldir)
+    for f in glob.glob("*.html"):
+        shutil.move(f, htmldir)
+    return True
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
@@ -29,13 +52,17 @@ for template in glob.glob('data/templates/*.info.in'):
     source.close()
     build.close()
 
+# build doc
+if sys.argv[1] == "build":
+    build_docs()
+
 setup(name="python-apt", 
       version="0.6.17",
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
       ext_modules=[apt_pkg,apt_inst],
-      packages=['apt', 'aptsources'],
+      packages=['apt', 'apt.gtk', 'aptsources'],
       data_files = [('share/python-apt/templates',
                     glob.glob('build/data/templates/*.info')),
                     ('share/python-apt/templates',
