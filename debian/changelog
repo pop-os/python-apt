@@ -1,7 +1,7 @@
 python-apt (0.7.8ubuntu1) jaunty; urgency=low
 
-  Merged python-apt consolidation branch by Sebastian
-  Heinlein (many thanks):
+  * Merged python-apt consolidation branch by Sebastian
+    Heinlein (many thanks)
   * apt/cache.py:
     - new method "isVirtualPackage()" 
     - new method "getProvidingPackages()"
