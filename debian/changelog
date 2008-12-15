@@ -1,3 +1,36 @@
+python-apt (0.7.8ubuntu1) jaunty; urgency=low
+
+  Merged python-apt consolidation branch by Sebastian
+  Heinlein (many thanks):
+  * apt/cache.py:
+    - new method "isVirtualPackage()" 
+    - new method "getProvidingPackages()"
+    - new method "getRequiredDownload()"
+    - new method "additionalRequiredSpace()"
+  * apt/debfile.py:
+    - move a lot of the gdebi code into this file, this
+      provides interfaces for querrying and installing
+      .deb files and .dsc files
+  * apt/package.py:
+    - better description parsing 
+    - new method "installedFiles()"
+    - new method "getChangelog()"
+  * apt/gtk/widgets.py:
+    - new gobject GOpProgress
+    - new gobject GFetchProgress
+    - new gobject GInstallProgress
+    - new gobject GDpkgInstallProgress
+    - new widget GtkAptProgress
+  * doc/examples/gui-inst.py: 
+    - updated to use the new widgets
+  * debian/control:
+    - add suggests for python-gtk2 and python-vte
+  * setup.py:
+    - build html/ help of the apt and aptsources modules
+      into /usr/share/doc/python-apt/html
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Nov 2008 14:30:32 +0100
+
 python-apt (0.7.8) unstable; urgency=low
 
   [ Michael Vogt ]
@@ -36,6 +69,23 @@ python-apt (0.7.8) unstable; urgency=low
 
  -- Michael Vogt <mvo@debian.org>  Mon, 24 Nov 2008 10:24:30 +0200
 
+python-apt (0.7.8~ubuntu2) jaunty; urgency=low
+
+  [ Michael Vogt ]
+  * data/templates/Ubuntu.info.in:
+    - updated to fix ports.ubuntu.com for powerpc and lpia
+      (LP: #220890)
+  * aptsources/distro.py:
+    - add parameter to get_distro() to make unit testing easier
+  * tests/test_aptsources_ports.py:
+    - add test for arch specific handling (when sub arch is on
+      a different mirror than "main" arches)
+
+  [ Julian Andres Klode ]
+  * python/acquire.cc (GetPkgAcqFile): Support DestDir and DestFilename.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 10 Nov 2008 11:35:03 +0100
+  
 python-apt (0.7.8~ubuntu1) jaunty; urgency=low
 
   * python/apt_pkgmodule.cc:

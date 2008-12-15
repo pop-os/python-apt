@@ -17,7 +17,7 @@ Priority: optional
 Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Provides: ${python:Provides}
-Suggests: python-apt-dbg
+Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
  The apt_pkg Python interface will provide full access to the internal 
