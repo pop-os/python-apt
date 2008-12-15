@@ -244,13 +244,15 @@ class Package(object):
         return self._records.ShortDesc
     summary = property(summary)
 
-    def description(self, format=True):
+    def description(self, format=True, useDots=False):
         """
         Return the formated long description according to the Debian policy
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
         """
+        if not format:
+            return self.rawDescription
         if not self._lookupRecord():
             return ""
         # get the translated description
@@ -289,7 +291,8 @@ class Package(object):
             else:
                 line = raw_line
             # Use dots for lists
-            line = re.sub(r"^(\s*)(\*|0|o|-) ", ur"\1\u2022 ", line, 1)
+            if useDots:
+                line = re.sub(r"^(\s*)(\*|0|o|-) ", ur"\1\u2022 ", line, 1)
             # Add current line to the description
             desc += line
         return desc

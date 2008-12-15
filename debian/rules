@@ -21,6 +21,9 @@ build/python-apt-dbg::
 	  python$$i-dbg ./setup.py build; \
 	done
 
+build/python-apt::
+	pydoc -w
+
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg; \
