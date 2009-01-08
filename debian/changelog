@@ -15,6 +15,7 @@ python-apt (0.7.9) UNRELEASED; urgency=low
     - better description parsing 
     - new method "installedFiles()"
     - new method "getChangelog()"
+    - fix bug in candidateInstalledSize property
   * apt/gtk/widgets.py:
     - new gobject GOpProgress
     - new gobject GFetchProgress
