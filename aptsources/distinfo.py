@@ -132,7 +132,7 @@ class DistInfo:
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
-        match_mirror_line = re.compile(r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://[A-Za-z/\.:\-_]+)$")
+        match_mirror_line = re.compile(r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://[A-Za-z0-9/\.:\-_]+)$")
         #match_mirror_line = re.compile(r".+")
 
         if not dist:
