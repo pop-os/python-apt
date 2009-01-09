@@ -54,9 +54,9 @@ class GOpProgress(gobject.GObject, apt.progress.OpProgress):
 
     Signals:
 
-        status-changed(str: operation, int: percent)
-        status-started()  - Not Implemented yet
-        status-finished()
+        * status-changed(str: operation, int: percent)
+        * status-started()  - Not Implemented yet
+        * status-finished()
 
     """
 
@@ -85,12 +85,12 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
 
     Signals:
 
-        status-changed(str: status, int: percent)
-        status-started()
-        status-finished()
-        status-timeout()
-        status-error()
-        status-conffile()
+        * status-changed(str: status, int: percent)
+        * status-started()
+        * status-finished()
+        * status-timeout()
+        * status-error()
+        * status-conffile()
 
     """
     # Seconds until a maintainer script will be regarded as hanging
@@ -184,12 +184,12 @@ class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
 
     Signals:
 
-        status-changed(str: status, int: percent)
-        status-started()  - Not Implemented yet
-        status-finished()
-        status-timeout() - When the maintainer script hangs
-        status-error() - When an error happens
-        status-conffile() - On Conffile
+        * status-changed(str: status, int: percent)
+        * status-started()  - Not Implemented yet
+        * status-finished()
+        * status-timeout() - When the maintainer script hangs
+        * status-error() - When an error happens
+        * status-conffile() - On Conffile
     """
 
     def run(self, debfile):
@@ -210,9 +210,9 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
 
     Signals:
 
-        status-changed(str: description, int: percent)
-        status-started()
-        status-finished()
+        * status-changed(str: description, int: percent)
+        * status-started()
+        * status-finished()
     """
 
     __gsignals__ = {"status-changed": mksig((str, int)),
@@ -260,29 +260,6 @@ class GtkAptProgress(gtk.VBox):
 
     This widget provides a progress bar, a terminal and a status bar for
     showing the progress of package manipulation tasks.
-
-    A simple example code snippet to install/remove a package:
-
-    import pygtk
-    pygtk.require('2.0')
-    import gtk
-
-    import apt.widgets
-
-    win = gtk.Window()
-    progress = apt.widgets.GtkAptProgress()
-    win.set_title("GtkAptProgress Demo")
-    win.add(progress)
-    progress.show()
-    win.show()
-
-    cache = apt.cache.Cache(progress.open))
-    cache["xterm"].markDelete()
-    progress.show_terminal(expanded=True)
-    cache.commit(progress.fetch),
-                 progress.install)
-
-    gtk.main()
     """
 
     def __init__(self):
