@@ -25,8 +25,10 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - Remove the Conflicts on python2.3-apt, python2.4-apt, as
       they are only needed for oldstable (sarge)
     - Build-Depend on python-sphinx (>= 0.5)
+  * aptsources/distinfo.py:
+    - Allow @ in mirror urls (Closes: #478171)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 09 Jan 2009 18:11:30 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sat, 10 Jan 2009 00:26:57 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
