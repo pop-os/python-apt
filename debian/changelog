@@ -2,6 +2,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
 
   * apt/*.py:
     - Almost complete cleanup of the code
+    - Remove inconsistent use of tabs and spaces (Closes: #505443)
     - Improved documentation
   * apt/debfile.py:
     - Drop get*() methods, as they are deprecated and were
