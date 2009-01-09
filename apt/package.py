@@ -101,22 +101,18 @@ class Package(object):
         return True
 
 
-    # basic information (implemented as properties)
-
-    # FIXME once python2.3 is dropped we can use @property instead
-    # of name = property(name)
-
+    @property
     def name(self):
         """ Return the name of the package """
         return self._pkg.Name
-    name = property(name)
 
+    @property
     def id(self):
         """ Return a uniq ID for the pkg, can be used to store
             additional information about the pkg """
         return self._pkg.ID
-    id = property(id)
 
+    @property
     def installedVersion(self):
         """ Return the installed version as string """
         ver = self._pkg.CurrentVer
@@ -124,8 +120,8 @@ class Package(object):
             return ver.VerStr
         else:
             return None
-    installedVersion = property(installedVersion)
 
+    @property
     def candidateVersion(self):
         """ Return the candidate version as string """
         ver = self._depcache.GetCandidateVer(self._pkg)
@@ -133,7 +129,6 @@ class Package(object):
             return ver.VerStr
         else:
             return None
-    candidateVersion = property(candidateVersion)
 
     def _getDependencies(self, ver):
         depends_list = []
@@ -148,22 +143,23 @@ class Package(object):
                 depends_list.append(Dependency(base_deps))
         return depends_list
 
+    @property
     def candidateDependencies(self):
         """ return a list of candidate dependencies """
         candver = self._depcache.GetCandidateVer(self._pkg)
         if candver == None:
             return []
         return self._getDependencies(candver)
-    candidateDependencies = property(candidateDependencies)
 
+    @property
     def installedDependencies(self):
         """ return a list of installed dependencies """
         ver = self._pkg.CurrentVer
         if ver == None:
             return []
         return self._getDependencies(ver)
-    installedDependencies = property(installedDependencies)
 
+    @property
     def architecture(self):
         if not self._lookupRecord():
             return None
@@ -171,7 +167,6 @@ class Package(object):
         if sec.has_key("Architecture"):
             return sec["Architecture"]
         return None
-    architecture = property(architecture)
 
     def _downloadable(self, useCandidate=True):
         """ helper, return if the version is downloadable """
@@ -182,16 +177,18 @@ class Package(object):
         if ver == None:
             return False
         return ver.Downloadable
+
+    @property
     def candidateDownloadable(self):
         " returns if the canidate is downloadable "
         return self._downloadable(useCandidate=True)
-    candidateDownloadable = property(candidateDownloadable)
 
+    @property
     def installedDownloadable(self):
         " returns if the installed version is downloadable "
         return self._downloadable(useCandidate=False)
-    installedDownloadable = property(installedDownloadable)
 
+    @property
     def sourcePackageName(self):
         """ Return the source package name as string """
         if not self._lookupRecord():
@@ -202,20 +199,20 @@ class Package(object):
             return src
         else:
             return self._pkg.Name
-    sourcePackageName = property(sourcePackageName)
 
+    @property
     def homepage(self):
         """ Return the homepage field as string """
         if not self._lookupRecord():
             return None
         return self._records.Homepage
-    homepage = property(homepage)
 
+    @property
     def section(self):
         """ Return the section of the package"""
         return self._pkg.Section
-    section = property(section)
 
+    @property
     def priority(self):
         """ Return the priority (of the candidate version)"""
         ver = self._depcache.GetCandidateVer(self._pkg)
@@ -223,8 +220,8 @@ class Package(object):
             return ver.PriorityStr
         else:
             return None
-    priority = property(priority)
 
+    @property
     def installedPriority(self):
         """ Return the priority (of the installed version)"""
         ver = self._depcache.GetCandidateVer(self._pkg)
@@ -232,8 +229,8 @@ class Package(object):
             return ver.PriorityStr
         else:
             return None
-    installedPriority = property(installedPriority)
 
+    @property
     def summary(self):
         """ Return the short description (one line summary) """
         if not self._lookupRecord():
@@ -242,8 +239,8 @@ class Package(object):
         desc_iter = ver.TranslatedDescription
         self._records.Lookup(desc_iter.FileList.pop(0))
         return self._records.ShortDesc
-    summary = property(summary)
 
+    @property
     def description(self, format=True, useDots=False):
         """
         Return the formated long description according to the Debian policy
@@ -296,104 +293,105 @@ class Package(object):
             # Add current line to the description
             desc += line
         return desc
-    description = property(description)
 
+    @property
     def rawDescription(self):
         """ return the long description (raw)"""
         if not self._lookupRecord():
             return ""
         return self._records.LongDesc
-    rawDescription = property(rawDescription)
 
+    @property
     def candidateRecord(self):
         " return the full pkgrecord as string of the candidate version "
         if not self._lookupRecord(True):
             return None
         return Record(self._records.Record)
-    candidateRecord = property(candidateRecord)
 
+    @property
     def installedRecord(self):
         " return the full pkgrecord as string of the installed version "
         if not self._lookupRecord(False):
             return None
         return Record(self._records.Record)
-    installedRecord = property(installedRecord)
 
     # depcache states
+    @property
     def markedInstall(self):
         """ Package is marked for install """
         return self._depcache.MarkedInstall(self._pkg)
-    markedInstall = property(markedInstall)
 
+    @property
     def markedUpgrade(self):
         """ Package is marked for upgrade """
         return self._depcache.MarkedUpgrade(self._pkg)
-    markedUpgrade = property(markedUpgrade)
 
+    @property
     def markedDelete(self):
         """ Package is marked for delete """
         return self._depcache.MarkedDelete(self._pkg)
-    markedDelete = property(markedDelete)
 
+    @property
     def markedKeep(self):
         """ Package is marked for keep """
         return self._depcache.MarkedKeep(self._pkg)
-    markedKeep = property(markedKeep)
 
+    @property
     def markedDowngrade(self):
         """ Package is marked for downgrade """
         return self._depcache.MarkedDowngrade(self._pkg)
-    markedDowngrade = property(markedDowngrade)
 
+    @property
     def markedReinstall(self):
         """ Package is marked for reinstall """
         return self._depcache.MarkedReinstall(self._pkg)
-    markedReinstall = property(markedReinstall)
 
+    @property
     def isInstalled(self):
         """ Package is installed """
         return (self._pkg.CurrentVer != None)
-    isInstalled = property(isInstalled)
 
+    @property
     def isUpgradable(self):
         """ Package is upgradable """
         return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
-    isUpgradable = property(isUpgradable)
 
+    @property
     def isAutoRemovable(self):
         """
         Package is installed as a automatic dependency and is
         no longer required
         """
         return self.isInstalled and self._depcache.IsGarbage(self._pkg)
-    isAutoRemovable = property(isAutoRemovable)
+
 
     # size
+    @property
     def packageSize(self):
         """ The size of the candidate deb package """
         ver = self._depcache.GetCandidateVer(self._pkg)
         return ver.Size
-    packageSize = property(packageSize)
 
+    @property
     def installedPackageSize(self):
         """ The size of the installed deb package """
         ver = self._pkg.CurrentVer
         return ver.Size
-    installedPackageSize = property(installedPackageSize)
 
+    @property
     def candidateInstalledSize(self, UseCandidate=True):
         """ The size of the candidate installed package """
         ver = self._depcache.GetCandidateVer(self._pkg)
-    candidateInstalledSize = property(candidateInstalledSize)
 
+    @property
     def installedSize(self):
         """ The size of the currently installed package """
         ver = self._pkg.CurrentVer
         if ver is None:
             return 0
         return ver.InstalledSize
-    installedSize = property(installedSize)
 
+    @property
     def installedFiles(self):
         """
         Return the list of unicode names of the files which have
@@ -407,7 +405,6 @@ class Package(object):
         except:
             return []
         return files
-    installedFiles = property(installedFiles)
 
     def getChangelog(self, uri=None, cancel_lock=None):
         """
@@ -564,6 +561,7 @@ class Package(object):
                                                   self.origin, self.label,
                                                   self.site, self.trusted)
 
+    @property
     def candidateOrigin(self):
         ver = self._depcache.GetCandidateVer(self._pkg)
         if not ver:
@@ -572,7 +570,6 @@ class Package(object):
         for (verFileIter,index) in ver.FileList:
             origins.append(self.Origin(self, verFileIter))
         return origins
-    candidateOrigin = property(candidateOrigin)
 
     # depcache actions
     def markKeep(self):
@@ -580,6 +577,7 @@ class Package(object):
         self._pcache.cachePreChange()
         self._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
+
     def markDelete(self, autoFix=True, purge=False):
         """ mark a package for delete. Run the resolver if autoFix is set.
             Mark the package as purge (remove with configuration) if 'purge'
@@ -596,6 +594,7 @@ class Package(object):
             Fix.InstallProtect()
             Fix.Resolve()
         self._pcache.cachePostChange()
+
     def markInstall(self, autoFix=True, autoInst=True, fromUser=True):
         """ mark a package for install. Run the resolver if autoFix is set,
             automatically install required dependencies if autoInst is set
@@ -610,6 +609,7 @@ class Package(object):
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
         self._pcache.cachePostChange()
+
     def markUpgrade(self):
         """ mark a package for upgrade """
         if self.isUpgradable:

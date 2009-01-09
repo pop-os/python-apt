@@ -64,6 +64,7 @@ class DebPackage(object):
     def __getitem__(self, key):
         return self._sections[key]
 
+    @property
     def filelist(self):
         """ return the list of files in the deb """
         files = []
@@ -79,7 +80,6 @@ class DebPackage(object):
                 except SystemError, e:
                     return [_("List of files for '%s'could not be read" % self.filename)]
         return files
-    filelist = property(filelist)
 
     def _isOrGroupSatisfied(self, or_group):
         """ this function gets a 'or_group' and analyzes if
@@ -213,6 +213,7 @@ class DebPackage(object):
         """
         return self.conflicts
 
+    @property
     def conflicts(self):
         """
         List of package names conflicting with this package
@@ -222,7 +223,6 @@ class DebPackage(object):
         if self._sections.has_key(key):
             conflicts = apt_pkg.ParseDepends(self._sections[key])
         return conflicts
-    conflicts = property(conflicts)
 
     def getDepends(self):
         """
@@ -233,6 +233,7 @@ class DebPackage(object):
         """
         return self.depends
 
+    @property
     def depends(self):
         """
         List of package names on which this package depends on
@@ -243,7 +244,6 @@ class DebPackage(object):
             if self._sections.has_key(key):
                 depends.extend(apt_pkg.ParseDepends(self._sections[key]))
         return depends
-    depends = property(depends)
 
     def getProvides(self):
         """
@@ -254,6 +254,7 @@ class DebPackage(object):
         """
         return self.provides
 
+    @property
     def provides(self):
         """
         List of virtual packages which are provided by this package
@@ -263,7 +264,6 @@ class DebPackage(object):
         if self._sections.has_key(key):
             provides = apt_pkg.ParseDepends(self._sections[key])
         return provides
-    provides = property(provides)
 
     def getReplaces(self):
         """
@@ -274,6 +274,7 @@ class DebPackage(object):
         """
         return self.replaces
 
+    @property
     def replaces(self):
         """
         List of packages which are replaced by this package
@@ -283,7 +284,6 @@ class DebPackage(object):
         if self._sections.has_key(key):
             replaces = apt_pkg.ParseDepends(self._sections[key])
         return replaces
-    replaces = property(replaces)
 
     def replacesRealPkg(self, pkgname, oper, ver):
         """
@@ -408,13 +408,14 @@ class DebPackage(object):
                     return False
         return True
 
+    @property
     def missingDeps(self):
         self._dbg(1, "Installing: %s" % self._needPkgs)
         if self._needPkgs == None:
             self.checkDeb()
         return self._needPkgs
-    missingDeps = property(missingDeps)
 
+    @property
     def requiredChanges(self):
         """ gets the required changes to satisfy the depends.
             returns a tuple with (install, remove, unauthenticated)
@@ -435,7 +436,7 @@ class DebPackage(object):
             if pkg.markedDelete:
                 remove.append(pkg.name)
         return (install,remove, unauthenticated)
-    requiredChanges = property(requiredChanges)
+
 
     def _dbg(self, level, msg):
         """Write debugging output to sys.stderr.
