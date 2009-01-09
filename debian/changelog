@@ -26,9 +26,9 @@ python-apt (0.7.9~exp2) experimental; urgency=low
       they are only needed for oldstable (sarge)
     - Build-Depend on python-sphinx (>= 0.5)
   * aptsources/distinfo.py:
-    - Allow @ in mirror urls (Closes: #478171)
+    - Allow @ in mirror urls (Closes: #478171) (LP: #223097)
 
- -- Julian Andres Klode <jak@debian.org>  Sat, 10 Jan 2009 00:26:57 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sat, 10 Jan 2009 00:30:19 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
