@@ -27,7 +27,7 @@ recs = apt_pkg.GetPkgRecords(cache)
 list = apt_pkg.GetPkgSourceList()
 list.ReadMainList()
 
-# show the amount fetch needed for a dist-upgrade 
+# show the amount fetch needed for a dist-upgrade
 depcache.Upgrade(True)
 progress = apt.progress.TextFetchProgress()
 fetcher = apt_pkg.GetAcquire(progress)
@@ -67,7 +67,7 @@ for item in fetcher.Items:
     if item.Complete == False:
         print "No error, still nothing downloaded (%s)" % item.ErrorText
     print
-                                                         
+
 
 res = fetcher.Run()
 print "fetcher.Run() returned: %s" % res

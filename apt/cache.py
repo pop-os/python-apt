@@ -1,19 +1,19 @@
 # cache.py - apt cache abstraction
-#  
+#
 #  Copyright (c) 2005 Canonical
-#  
+#
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -36,7 +36,7 @@ class LockFailedException(IOError):
     pass
 
 class Cache(object):
-    """ Dictionary-like package cache 
+    """ Dictionary-like package cache
         This class has all the packages that are available in it's
         dictionary
     """
@@ -56,7 +56,7 @@ class Cache(object):
         if self._callbacks.has_key(name):
             for callback in self._callbacks[name]:
                 callback()
-        
+
     def open(self, progress):
         """ Open the package cache, after that it can be used like
             a dictionary
@@ -83,12 +83,12 @@ class Cache(object):
                 self._dict[pkg.Name] = Package(self._cache, self._depcache,
                                                self._records, self._list,
                                                self, pkg)
-                
+
             i += 1
         if progress != None:
             progress.done()
         self._runCallbacks("cache_post_open")
-        
+
     def __getitem__(self, key):
         """ look like a dictionary (get key) """
         return self._dict[key]
@@ -112,7 +112,7 @@ class Cache(object):
 
     def getChanges(self):
         """ Get the marked changes """
-        changes = [] 
+        changes = []
         for name in self._dict.keys():
             p = self._dict[name]
             if p.markedUpgrade or p.markedInstall or p.markedDelete or \
@@ -144,7 +144,7 @@ class Cache(object):
         " return the packages not downloadable packages in reqreinst state "
         reqreinst = set()
         for pkg in self:
-            if (not pkg.candidateDownloadable and 
+            if (not pkg.candidateDownloadable and
                 (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
                  pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
                 reqreinst.add(pkg.name)
@@ -153,7 +153,7 @@ class Cache(object):
     def _runFetcher(self, fetcher):
         # do the actual fetching
         res = fetcher.Run()
-        
+
         # now check the result (this is the code from apt-get.cc)
         failed = False
         transient = False
@@ -228,13 +228,13 @@ class Cache(object):
             return self._cache.Update(fetchProgress, self._list)
         finally:
             os.close(lock)
-        
+
     def installArchives(self, pm, installProgress):
         installProgress.startUpdate()
         res = installProgress.run(pm)
         installProgress.finishUpdate()
         return res
-    
+
     def commit(self, fetchProgress=None, installProgress=None):
         """ Apply the marked changes to the cache """
         # FIXME:
@@ -319,7 +319,7 @@ class FilteredCache(object):
         self._filters = []
     def __len__(self):
         return len(self._filtered)
-    
+
     def __getitem__(self, key):
         return self.cache._dict[key]
 
@@ -337,7 +337,7 @@ class FilteredCache(object):
                 if f.apply(self.cache._dict[pkg]):
                     self._filtered[pkg] = 1
                     break
-    
+
     def setFilter(self, filter):
         " set the current active filter "
         self._filters = []
@@ -361,7 +361,7 @@ class FilteredCache(object):
             return self.__dict__[key]
         else:
             return getattr(self.cache, key)
-            
+
 
 def cache_pre_changed():
     print "cache pre changed"
@@ -413,7 +413,7 @@ if __name__ == "__main__":
     for pkg in f.keys():
         #print c[pkg].name
         x = f[pkg].name
-    
+
     print len(f)
 
     print "Testing filtered cache (no argument)"
@@ -426,5 +426,5 @@ if __name__ == "__main__":
     for pkg in f.keys():
         #print c[pkg].name
         x = f[pkg].name
-    
+
     print len(f)

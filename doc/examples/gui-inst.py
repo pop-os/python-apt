@@ -23,7 +23,7 @@ if __name__ == "__main__":
     win.add(progress)
     progress.show()
     win.show()
- 
+
     cache = apt.cache.Cache(progress.open)
     if cache["2vcard"].isInstalled:
         cache["2vcard"].markDelete()

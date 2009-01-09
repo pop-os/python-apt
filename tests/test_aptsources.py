@@ -60,7 +60,7 @@ class TestAptSources(unittest.TestCase):
                 "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
-        # test to add something new: multiverse *and* 
+        # test to add something new: multiverse *and*
         # something that is already there
         before = copy.deepcopy(sources)
         sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
@@ -105,7 +105,7 @@ class TestAptSources(unittest.TestCase):
         #print dist_templates
         for d in ["hardy","hardy-security","hardy-updates","intrepid","hardy-backports"]:
             self.assertTrue(d in dist_templates)
-        # test enable 
+        # test enable
         comp = "restricted"
         distro.enable_component(comp)
         found = {}

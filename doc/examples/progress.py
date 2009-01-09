@@ -23,13 +23,13 @@ class TextProgress(apt.OpProgress):
 class TextFetchProgress(apt.FetchProgress):
     def __init__(self):
         pass
-    
+
     def start(self):
         pass
-    
+
     def stop(self):
         pass
-    
+
     def updateStatus(self, uri, descr, shortDescr, status):
         print "UpdateStatus: '%s' '%s' '%s' '%i'" % (uri,descr,shortDescr, status)
     def pulse(self):

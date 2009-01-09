@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.4
 #
 # Test for the DepCache code
-# 
+#
 
 import apt_pkg
 import sys
@@ -29,7 +29,7 @@ def main():
 				fixer.Protect(pkg)
 				# we first try to resolve the problem
 				# with the package that should be installed
-				# protected 
+				# protected
 				try:
 					fixer.Resolve(True)
 				except SystemError:

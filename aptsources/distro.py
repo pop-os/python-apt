@@ -2,20 +2,20 @@
 #
 #  Copyright (c) 2004-2007 Canonical Ltd.
 #                2006-2007 Sebastian Heinlein
-#  
+#
 #  Authors: Sebastian Heinlein <glatzor@ubuntu.com>
 #           Michael Vogt <mvo@debian.org>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -48,8 +48,8 @@ class Distribution:
 
   def get_sources(self, sourceslist):
     """
-    Find the corresponding template, main and child sources 
-    for the distribution 
+    Find the corresponding template, main and child sources
+    for the distribution
     """
 
     self.sourceslist = sourceslist
@@ -132,7 +132,7 @@ class Distribution:
     self.used_media = set(media)
 
     self.get_mirrors()
-  
+
   def get_mirrors(self, mirror_template=None):
     """
     Provide a set of mirrors where you can get the distribution from
@@ -203,34 +203,34 @@ class Distribution:
         '''Helper function that handles comaprision of mirror urls
            that could contain trailing slashes'''
         return re.match(mir1.strip("/ "), mir2.rstrip("/ "))
-    
+
     # Store all available servers:
     # Name, URI, active
     mirrors = []
     if len(self.used_servers) < 1 or \
        (len(self.used_servers) == 1 and \
         compare_mirrors(self.used_servers[0], self.main_server)):
-        mirrors.append([_("Main server"), self.main_server, True]) 
-        mirrors.append([self._get_mirror_name(self.nearest_server), 
+        mirrors.append([_("Main server"), self.main_server, True])
+        mirrors.append([self._get_mirror_name(self.nearest_server),
                        self.nearest_server, False])
     elif len(self.used_servers) == 1 and not \
          compare_mirrors(self.used_servers[0], self.main_server):
-        mirrors.append([_("Main server"), self.main_server, False]) 
+        mirrors.append([_("Main server"), self.main_server, False])
         # Only one server is used
         server = self.used_servers[0]
 
-        # Append the nearest server if it's not already used            
+        # Append the nearest server if it's not already used
         if not compare_mirrors(server, self.nearest_server):
-            mirrors.append([self._get_mirror_name(self.nearest_server), 
+            mirrors.append([self._get_mirror_name(self.nearest_server),
                            self.nearest_server, False])
         mirrors.append([self._get_mirror_name(server), server, True])
 
     elif len(self.used_servers) > 1:
         # More than one server is used. Since we don't handle this case
-        # in the user interface we set "custom servers" to true and 
-        # append a list of all used servers 
+        # in the user interface we set "custom servers" to true and
+        # append a list of all used servers
         mirrors.append([_("Main server"), self.main_server, False])
-        mirrors.append([self._get_mirror_name(self.nearest_server), 
+        mirrors.append([self._get_mirror_name(self.nearest_server),
                                         self.nearest_server, False])
         mirrors.append([_("Custom servers"), None, True])
         for server in self.used_servers:
@@ -242,7 +242,7 @@ class Distribution:
 
     return mirrors
 
-  def add_source(self, type=None, 
+  def add_source(self, type=None,
                  uri=None, dist=None, comps=None, comment=""):
     """
     Add distribution specific sources
@@ -297,7 +297,7 @@ class Distribution:
     comps_per_dist = {}
     comps_per_sdist = {}
     for s in sources:
-      if s.type == self.binary_type: 
+      if s.type == self.binary_type:
         if not comps_per_dist.has_key(s.dist):
           comps_per_dist[s.dist] = set()
         map(comps_per_dist[s.dist].add, s.comps)
@@ -339,9 +339,9 @@ class Distribution:
         sources = []
         sources.extend(self.main_sources)
     for source in sources:
-        if comp in source.comps: 
+        if comp in source.comps:
             source.comps.remove(comp)
-            if len(source.comps) < 1: 
+            if len(source.comps) < 1:
                self.sourceslist.remove(source)
 
   def change_server(self, uri):
@@ -415,10 +415,10 @@ class UbuntuDistribution(Distribution):
                              mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 def get_distro(id=None,codename=None,description=None,release=None):
-    """ 
+    """
     Check the currently used distribution and return the corresponding
-    distriubtion class that supports distro specific features. 
-    
+    distriubtion class that supports distro specific features.
+
     If no paramter are given the distro will be auto detected via
     a call to lsb-release
     """
@@ -431,7 +431,7 @@ def get_distro(id=None,codename=None,description=None,release=None):
         del pipe
       (id, codename, description, release) = lsb_info
     if id == "Ubuntu":
-        return UbuntuDistribution(id, codename, description, 
+        return UbuntuDistribution(id, codename, description,
                                   release)
     elif id == "Debian":
         return DebianDistribution(id, codename, description, release)

@@ -19,7 +19,7 @@ for package in cache.Packages:
 	if not current:
 		continue
 	depends = current.DependsList
-	for (key, attr) in (('Suggests', 'suggested'), 
+	for (key, attr) in (('Suggests', 'suggested'),
 	                    ('Recommends', 'recommended')):
 		list = depends.get(key, [])
 		for dependency in list:

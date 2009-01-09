@@ -1,19 +1,19 @@
 # Progress.py - progress reporting classes
-#  
+#
 #  Copyright (c) 2005 Canonical
-#  
+#
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -69,18 +69,18 @@ class FetchProgress(object):
                    dlFailed : "Failed",
                    dlHit : "Hit",
                    dlIgnored : "Ignored"}
-    
+
     def __init__(self):
         self.eta = 0.0
         self.percent = 0.0
         pass
-    
+
     def start(self):
         pass
-    
+
     def stop(self):
         pass
-    
+
     def updateStatus(self, uri, descr, shortDescr, status):
         pass
 
@@ -115,7 +115,7 @@ class TextFetchProgress(FetchProgress):
         sys.stdout.flush()
         return True
     def stop(self):
-        print "\rDone downloading            " 
+        print "\rDone downloading            "
     def mediaChange(self, medium, drive):
         """ react to media change events """
         res = True;
@@ -144,7 +144,7 @@ class DumbInstallProgress(object):
 class InstallProgress(DumbInstallProgress):
     """ A InstallProgress that is pretty useful.
         It supports the attributes 'percent' 'status' and callbacks
-        for the dpkg errors and conffiles and status changes 
+        for the dpkg errors and conffiles and status changes
      """
     def __init__(self):
         DumbInstallProgress.__init__(self)

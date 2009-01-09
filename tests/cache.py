@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.4
 #
 # Test for the pkgCache code
-# 
+#
 
 import apt_pkg
 import sys
@@ -26,7 +26,7 @@ def main():
 			c = ver.Arch
 			d = ver.DependsListStr
 			dl = ver.DependsList
-			# get all dependencies (a dict of string->list, 
+			# get all dependencies (a dict of string->list,
 			# e.g. "depends:" -> [ver1,ver2,..]
 			for dep in dl.keys():
 				# get the list of each dependency object

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.4
 #
 # Test for the pkgCache code
-# 
+#
 
 import apt_pkg
 import sys, os
@@ -9,7 +9,7 @@ import sys, os
 
 if __name__ == "__main__":
     lock = "/tmp/test.lck"
-    
+
     apt_pkg.init()
 
     # system-lock
@@ -44,4 +44,4 @@ if __name__ == "__main__":
         fd = apt_pkg.GetLock(lock,True)
         print "Lockfile fd (child): %s" % fd
 	sys.exit(0)
-    
+

@@ -32,7 +32,7 @@ from gettext import gettext as _
  VERSION_OUTDATED,
  VERSION_SAME,
  VERSION_NEWER) = range(4)
- 
+
 class NoDebArchiveException(IOError):
     pass
 
@@ -63,7 +63,7 @@ class DebPackage(object):
 
     def __getitem__(self, key):
         return self._sections[key]
-        
+
     def filelist(self):
         """ return the list of files in the deb """
         files = []
@@ -105,7 +105,7 @@ class DebPackage(object):
             if instver != None and apt_pkg.CheckDep(instver,oper,ver) == True:
                 return True
         return False
-            
+
 
     def _satisfyOrGroup(self, or_group):
         """ try to satisfy the or_group """
@@ -128,7 +128,7 @@ class DebPackage(object):
                 if len(providers) != 1:
                     continue
                 depname = providers[0].name
-                
+
             # now check if we can satisfy the deps with the candidate(s)
             # in the cache
             cand = self._cache[depname]
@@ -168,7 +168,7 @@ class DebPackage(object):
         #print "ver: %s" % ver
         #print "pkgver: %s " % pkgver
         #print "oper: %s " % oper
-        if (pkgver and apt_pkg.CheckDep(pkgver,oper,ver) and 
+        if (pkgver and apt_pkg.CheckDep(pkgver,oper,ver) and
             not self.replacesRealPkg(pkgname, oper, ver)):
             self._failureString += _("Conflicts with the installed package '%s'" % cand.name)
             return True
@@ -188,7 +188,7 @@ class DebPackage(object):
 
             # check conflicts with virtual pkgs
             if not self._cache.has_key(depname):
-                # FIXME: we have to check for virtual replaces here as 
+                # FIXME: we have to check for virtual replaces here as
                 #        well (to pass tests/gdebi-test8.deb)
                 if self._cache.isVirtualPackage(depname):
                     for pkg in self._cache.getProvidingPackages(depname):
@@ -208,7 +208,7 @@ class DebPackage(object):
         """
         Return list of package names conflicting with this package.
 
-        WARNING: This method will is deprecated. Please use the 
+        WARNING: This method will is deprecated. Please use the
         attribute DebPackage.depends instead.
         """
         return self.conflicts
@@ -228,7 +228,7 @@ class DebPackage(object):
         """
         Return list of package names on which this package depends on.
 
-        WARNING: This method will is deprecated. Please use the 
+        WARNING: This method will is deprecated. Please use the
         attribute DebPackage.depends instead.
         """
         return self.depends
@@ -249,7 +249,7 @@ class DebPackage(object):
         """
         Return list of virtual packages which are provided by this package.
 
-        WARNING: This method will is deprecated. Please use the 
+        WARNING: This method will is deprecated. Please use the
         attribute DebPackage.provides instead.
         """
         return self.provides
@@ -269,7 +269,7 @@ class DebPackage(object):
         """
         Return list of packages which are replaced by this package.
 
-        WARNING: This method will is deprecated. Please use the 
+        WARNING: This method will is deprecated. Please use the
         attribute DebPackage.replaces instead.
         """
         return self.replaces
@@ -286,9 +286,9 @@ class DebPackage(object):
     replaces = property(replaces)
 
     def replacesRealPkg(self, pkgname, oper, ver):
-        """ 
+        """
         return True if the deb packages replaces a real (not virtual)
-        packages named pkgname, oper, ver 
+        packages named pkgname, oper, ver
         """
         self._dbg(3, "replacesPkg() %s %s %s" % (pkgname,oper,ver))
         pkgver = None
@@ -299,7 +299,7 @@ class DebPackage(object):
             pkgver = cand.candidateVersion
         for or_group in self.getReplaces():
             for (name, ver, oper) in or_group:
-                if (name == pkgname and 
+                if (name == pkgname and
                     apt_pkg.CheckDep(pkgver,oper,ver)):
                     self._dbg(3, "we have a replaces in our package for the conflict against '%s'" % (pkgname))
                     return True
@@ -316,7 +316,7 @@ class DebPackage(object):
                 res = False
         return res
 
-   
+
     def compareToVersionInCache(self, useInstalled=True):
         """ checks if the pkg is already installed or availabe in the cache
             and if so in what version, returns if the version of the deb
@@ -485,14 +485,14 @@ class DscSrcPackage(DebPackage):
                 self.binaries = [pkg.strip() for pkg in line[len("Binary:"):].split(",")]
             if line.startswith("Version:"):
                 self._sections["Version"] = line[len("Version:"):].strip()
-            # we are at the end 
+            # we are at the end
             if line.startswith("-----BEGIN PGP SIGNATURE-"):
                 break
         s = _("Install Build-Dependencies for "
               "source package '%s' that builds %s\n"
               ) % (self.pkgName, " ".join(self.binaries))
         self._sections["Description"] = s
-        
+
     def checkDeb(self):
         if not self.checkConflicts():
             for pkgname in self._installedConflicts:
@@ -515,7 +515,7 @@ if __name__ == "__main__":
     print "Providers for %s :" % vp
     for pkg in providers:
         print " %s" % pkg.name
-    
+
     d = DebPackage(sys.argv[1], cache)
     print "Deb: %s" % d.pkgname
     if not d.checkDeb():

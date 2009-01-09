@@ -1,19 +1,19 @@
 # package.py - apt package abstraction
-#  
+#
 #  Copyright (c) 2005 Canonical
-#  
+#
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -92,7 +92,7 @@ class Package(object):
         if ver == None:
             #print "No version for: %s (Candidate: %s)" % (self._pkg.Name, UseCandidate)
             return False
-        
+
         if ver.FileList == None:
             print "No FileList for: %s " % self._pkg.Name()
             return False
@@ -147,7 +147,7 @@ class Package(object):
                     base_deps.append(BaseDependency(depOr.TargetPkg.Name, depOr.CompType, depOr.TargetVer, (t == "PreDepends")))
                 depends_list.append(Dependency(base_deps))
         return depends_list
-        
+
     def candidateDependencies(self):
         """ return a list of candidate dependencies """
         candver = self._depcache.GetCandidateVer(self._pkg)
@@ -155,7 +155,7 @@ class Package(object):
             return []
         return self._getDependencies(candver)
     candidateDependencies = property(candidateDependencies)
-    
+
     def installedDependencies(self):
         """ return a list of installed dependencies """
         ver = self._pkg.CurrentVer
@@ -304,7 +304,7 @@ class Package(object):
             return ""
         return self._records.LongDesc
     rawDescription = property(rawDescription)
-        
+
     def candidateRecord(self):
         " return the full pkgrecord as string of the candidate version "
         if not self._lookupRecord(True):
@@ -333,7 +333,7 @@ class Package(object):
     def markedDelete(self):
         """ Package is marked for delete """
         return self._depcache.MarkedDelete(self._pkg)
-    markedDelete = property(markedDelete) 
+    markedDelete = property(markedDelete)
 
     def markedKeep(self):
         """ Package is marked for keep """
@@ -356,12 +356,12 @@ class Package(object):
     isInstalled = property(isInstalled)
 
     def isUpgradable(self):
-        """ Package is upgradable """    
+        """ Package is upgradable """
         return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
     isUpgradable = property(isUpgradable)
 
     def isAutoRemovable(self):
-        """ 
+        """
         Package is installed as a automatic dependency and is
         no longer required
         """
@@ -411,7 +411,7 @@ class Package(object):
 
     def getChangelog(self, uri=None, cancel_lock=None):
         """
-        Download the changelog of the package and return it as unicode 
+        Download the changelog of the package and return it as unicode
         string
 
         uri: Is the uri to the changelog file. The following named variables
@@ -442,7 +442,7 @@ class Package(object):
         # get the src package name
         src_pkg = self.sourcePackageName
 
-        # assume "main" section 
+        # assume "main" section
         src_section = "main"
         # use the section of the candidate as a starting point
         section = self._depcache.GetCandidateVer(self._pkg).Section
@@ -454,7 +454,7 @@ class Package(object):
         try:
             # try to get the source version of the pkg, this differs
             # for some (e.g. libnspr4 on ubuntu)
-            # this feature only works if the correct deb-src are in the 
+            # this feature only works if the correct deb-src are in the
             # sources.list
             # otherwise we fall back to the binary version number
             src_records = apt_pkg.GetPkgSrcRecords()
@@ -563,7 +563,7 @@ class Package(object):
                    "site '%s' isTrusted: '%s'"%  (self.component, self.archive,
                                                   self.origin, self.label,
                                                   self.site, self.trusted)
-        
+
     def candidateOrigin(self):
         ver = self._depcache.GetCandidateVer(self._pkg)
         if not ver:
@@ -623,7 +623,7 @@ class Package(object):
             object as argument
         """
         self._depcache.Commit(fprogress, iprogress)
-        
+
 
 # self-test
 if __name__ == "__main__":

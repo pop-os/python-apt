@@ -8,8 +8,8 @@ Copyright (c) 2004,2005 Canonical Ltd.
 Authors: Michael Vogt <mvo@ubuntu.com>
          Sebastian Heinlein <glatzor@ubuntu.com>
 
-This program is free software; you can redistribute it and/or 
-modify it under the terms of the GNU General Public License as 
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
 published by the Free Software Foundation; either version 2 of the
 License, or (at your option) any later version.
 
@@ -17,7 +17,7 @@ his program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
- 
+
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -44,9 +44,9 @@ class GOpProgress(gobject.GObject, apt.progress.OpProgress):
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
                                       (gobject.TYPE_STRING, gobject.TYPE_INT)),
-                    "status-started":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-started":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE, ()),
-                    "status-finished":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-finished":(gobject.SIGNAL_RUN_FIRST,
                                        gobject.TYPE_NONE, ())}
 
     def __init__(self):
@@ -70,15 +70,15 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
                                       (gobject.TYPE_STRING, gobject.TYPE_INT)),
-                    "status-started":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-started":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE, ()),
-                    "status-timeout":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-timeout":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE, ()),
-                    "status-error":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-error":(gobject.SIGNAL_RUN_FIRST,
                                     gobject.TYPE_NONE, ()),
-                    "status-conffile":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-conffile":(gobject.SIGNAL_RUN_FIRST,
                                        gobject.TYPE_NONE, ()),
-                    "status-finished":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-finished":(gobject.SIGNAL_RUN_FIRST,
                                        gobject.TYPE_NONE, ())}
 
     def __init__(self, term):
@@ -146,9 +146,9 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
     __gsignals__ = {"status-changed":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
                                       (gobject.TYPE_STRING, gobject.TYPE_INT)),
-                    "status-started":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-started":(gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE, ()),
-                    "status-finished":(gobject.SIGNAL_RUN_FIRST, 
+                    "status-finished":(gobject.SIGNAL_RUN_FIRST,
                                        gobject.TYPE_NONE, ())}
 
     def __init__(self):
@@ -206,7 +206,7 @@ class GtkAptProgress(gtk.VBox):
     win.add(progress)
     progress.show()
     win.show()
- 
+
     cache = apt.cache.Cache(progress.open))
     cache["xterm"].markDelete()
     progress.show_terminal(expanded=True)
@@ -243,33 +243,33 @@ class GtkAptProgress(gtk.VBox):
         self._progress_fetch = GFetchProgress()
         self._progress_fetch.connect("status-changed", self._on_status_changed)
         self._progress_fetch.connect("status-started", self._on_status_started)
-        self._progress_fetch.connect("status-finished", 
+        self._progress_fetch.connect("status-finished",
                                      self._on_status_finished)
         self._progress_install = GInstallProgress(self._terminal)
         self._progress_install.connect("status-changed",
                                        self._on_status_changed)
-        self._progress_install.connect("status-started", 
+        self._progress_install.connect("status-started",
                                        self._on_status_started)
-        self._progress_install.connect("status-finished", 
+        self._progress_install.connect("status-finished",
                                      self._on_status_finished)
-        self._progress_install.connect("status-timeout", 
+        self._progress_install.connect("status-timeout",
                                      self._on_status_timeout)
-        self._progress_install.connect("status-error", 
+        self._progress_install.connect("status-error",
                                      self._on_status_timeout)
-        self._progress_install.connect("status-conffile", 
+        self._progress_install.connect("status-conffile",
                                      self._on_status_timeout)
         self._progress_dpkg_install = GDpkgInstallProgress(self._terminal)
         self._progress_dpkg_install.connect("status-changed",
                                        self._on_status_changed)
-        self._progress_dpkg_install.connect("status-started", 
+        self._progress_dpkg_install.connect("status-started",
                                        self._on_status_started)
-        self._progress_dpkg_install.connect("status-finished", 
+        self._progress_dpkg_install.connect("status-finished",
                                      self._on_status_finished)
-        self._progress_dpkg_install.connect("status-timeout", 
+        self._progress_dpkg_install.connect("status-timeout",
                                      self._on_status_timeout)
-        self._progress_dpkg_install.connect("status-error", 
+        self._progress_dpkg_install.connect("status-error",
                                      self._on_status_timeout)
-        self._progress_dpkg_install.connect("status-conffile", 
+        self._progress_dpkg_install.connect("status-conffile",
                                      self._on_status_timeout)
 
     def clear(self):
@@ -300,7 +300,7 @@ class GtkAptProgress(gtk.VBox):
         Return the install progress handler for dpkg
         """
         return self._dpkg_progress_install
-    
+
     @property
     def fetch(self):
         """
@@ -382,7 +382,7 @@ if __name__ == "__main__":
         pkg.markInstall()
     apt_progress.show_terminal(True)
     try:
-        cache.commit(apt_progress.get_fetch_progress(), 
+        cache.commit(apt_progress.get_fetch_progress(),
                      apt_progress.get_install_progress())
     except:
         pass

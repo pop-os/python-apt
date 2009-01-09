@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#  
+#
 #  distinfo.py - provide meta information for distro repositories
 #
 #  Copyright (c) 2005 Gustavo Noronha Silva
@@ -7,17 +7,17 @@
 #
 #  Author: Gustavo Noronha Silva <kov@debian.org>
 #          Sebastian Heinlein <glatzor@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
@@ -55,7 +55,7 @@ class Template:
     def has_component(self, comp):
         ''' Check if the distribution provides the given component '''
         return comp in map(lambda c: c.name, self.components)
-    
+
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
         proto, hostname, dir = split_url(url)
@@ -190,7 +190,7 @@ class DistInfo:
                 template.match_uri = value
             elif field == 'MatchURI-%s' % self.arch:
                 template.match_uri = value
-            elif (field == 'MirrorsFile' or 
+            elif (field == 'MirrorsFile' or
                   field == 'MirrorsFile-%s' % self.arch):
                 if not map_mirror_sets.has_key(value):
                     mirror_set = {}
@@ -243,7 +243,7 @@ class DistInfo:
         if component and not template.has_component(component.name):
             template.components.append(component)
             component = None
-        self.templates.append(template)    
+        self.templates.append(template)
 
 
 if __name__ == "__main__":
@@ -257,8 +257,8 @@ if __name__ == "__main__":
         if template.mirror_set != {}:
             print "Mirrors: %s" % template.mirror_set.keys()
         for comp in template.components:
-            print " %s -%s -%s" % (comp.name, 
-                                   comp.description, 
+            print " %s -%s -%s" % (comp.name,
+                                   comp.description,
                                    comp.description_long)
         for child in template.children:
             print "  %s" % child.description

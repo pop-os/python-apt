@@ -8,7 +8,7 @@ import os.path
 
 def Callback(What,Name,Link,Mode,UID,GID,Size,MTime,Major,Minor):
     """ callback for debExtract """
-    
+
     print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u"\
           % (What,Name,Link,Mode,UID,GID,Size, MTime, Major, Minor);
 
