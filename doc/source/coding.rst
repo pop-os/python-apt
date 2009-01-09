@@ -27,6 +27,13 @@ submit them.
     happens.
 
     VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
+    
+**jak:** http://bzr.debian.org/users/jak/python-apt/jak
+    This is Julian Andres Klode's (the documentation author's) branch. This
+    is the place where cleanup and documentation updates happen. It is based
+    off debian-sid or mvo.
+
+    VCS-Browser: http://bzr.debian.org/loggerhead/users/jak/python-apt/jak/changes
 
 **ubuntu:** ``lp:~ubuntu-core-dev/python-apt/ubuntu``
     This is the official Ubuntu development branch. The same notes apply as
