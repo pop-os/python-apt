@@ -13,7 +13,9 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - debian/rules: Build the documentation here
     - setup.py: Remove pydoc building and add new docs.
     - debian/examples: Include examples from documentation
-    - debian/python-apt.docs: Change html/ to doc/build/html.
+    - debian/python-apt.docs:
+      + Change html/ to build/doc/html.
+      + Add build/doc/text for the text-only documentation
   * setup.py:
     - Only create build/data when building, not all the time
     - Remove build/mo and build/data on clean -a
@@ -22,7 +24,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
       they are only needed for oldstable (sarge)
     - Build-Depend on python-sphinx (>= 0.5)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 09 Jan 2009 17:20:41 +0100
+ -- Julian Andres Klode <jak@debian.org>  Fri, 09 Jan 2009 18:11:30 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 

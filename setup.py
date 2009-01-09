@@ -10,7 +10,6 @@ import os.path
 import pydoc
 import shutil
 import string
-import subprocess
 import sys
 
 
@@ -39,10 +38,10 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
             build.write(line.lstrip("_"))
         source.close()
         build.close()
-    if subprocess.call(["make", "-C", "doc", "html"]) :
-        raise SystemError
+
+
 if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
-    for dirname in "doc/build", "build/data", "build/mo":
+    for dirname in "build/doc", "doc/build", "build/data", "build/mo":
         if os.path.exists(dirname):
             print "Removing", dirname
             shutil.rmtree(dirname)
@@ -65,3 +64,10 @@ setup(name="python-apt",
       license = 'GNU GPL',
       platforms = 'posix'
       )
+
+if len(sys.argv) > 1 and sys.argv[1] == "build":
+    import sphinx
+    sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
+                os.path.abspath("doc/source"), "build/doc/html"])
+    sphinx.main(["sphinx", "-b", "text", "-d", "build/doc/doctrees",
+                os.path.abspath("doc/source"), "build/doc/text"])

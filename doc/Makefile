@@ -26,6 +26,10 @@ help:
 clean:
 	-rm -rf build/*
 
+text:
+	mkdir -p build/text build/doctrees
+	$(SPHINXBUILD) -b text $(ALLSPHINXOPTS) build/text
+
 html:
 	mkdir -p build/html build/doctrees
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
