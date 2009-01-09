@@ -10,6 +10,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * apt/gtk/widgets.py:
     - Fix the code and document the signals
   * Introduce new documentation build with Sphinx
+    - Contains style Guide (Closes: #481562)
     - debian/rules: Build the documentation here
     - setup.py: Remove pydoc building and add new docs.
     - debian/examples: Include examples from documentation
