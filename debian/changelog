@@ -1,3 +1,29 @@
+python-apt (0.7.9~exp2) experimental; urgency=low
+
+  * apt/*.py:
+    - Almost complete cleanup of the code
+    - Improved documentation
+  * apt/debfile.py:
+    - Drop get*() methods, as they are deprecated and were
+      never in a stable release
+    - Make DscSrcPackage working
+  * apt/gtk/widgets.py:
+    - Fix the code and document the signals
+  * Introduce new documentation build with Sphinx
+    - debian/rules: Build the documentation here
+    - setup.py: Remove pydoc building and add new docs.
+    - debian/examples: Include examples from documentation
+    - debian/python-apt.docs: Change html/ to doc/build/html.
+  * setup.py:
+    - Only create build/data when building, not all the time
+    - Remove build/mo and build/data on clean -a
+  * debian/control:
+    - Remove the Conflicts on python2.3-apt, python2.4-apt, as
+      they are only needed for oldstable (sarge)
+    - Build-Depend on python-sphinx (>= 0.5)
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 09 Jan 2009 17:20:41 +0100
+
 python-apt (0.7.9~exp1) experimental; urgency=low
 
   * Merged python-apt consolidation branch by Sebastian

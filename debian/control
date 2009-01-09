@@ -5,15 +5,13 @@ Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2.2
 XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.10), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.5), python-all-dbg
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.10), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.5), python-all-dbg, python-sphinx (>= 0.5)
 Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 
 Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
 Priority: optional
-Replaces: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
-Conflicts: python2.3-apt (<< 0.6.18), python2.4-apt (<< 0.6.18)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}

@@ -10,24 +10,9 @@ import os.path
 import pydoc
 import shutil
 import string
+import subprocess
 import sys
 
-def build_docs(dir="html", modules=["apt","aptsources"]):
-    htmldir = os.path.join(os.getcwd(), dir)
-    for d in modules:
-        for (dirpath, dirnames, filenames) in os.walk(d):
-            pydoc.writedoc(dirpath.replace("/","."))
-            for file in filenames:
-                if not file.endswith(".py"):
-                    continue
-                if file in ["__init__.py"]:
-                    continue
-                pydoc.writedoc(dirpath.replace("/",".")+"."+file.split(".py")[0])
-    if not os.path.exists(htmldir):
-        os.mkdir(htmldir)
-    for f in glob.glob("*.html"):
-        shutil.move(f, htmldir)
-    return True
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
@@ -41,23 +26,31 @@ apt_inst = Extension("apt_inst", files, libraries=["apt-pkg","apt-inst"]);
 
 # Replace the leading _ that is used in the templates for translation
 templates = []
-if not os.path.exists("build/data/templates/"):
-    os.makedirs("build/data/templates")
-for template in glob.glob('data/templates/*.info.in'):
-    source = open(template, "r")
-    build = open(os.path.join("build", template[:-3]), "w")
-    lines = source.readlines()
-    for line in lines:
-        build.write(line.lstrip("_"))
-    source.close()
-    build.close()
 
 # build doc
-if sys.argv[1] == "build":
-    build_docs()
+if len(sys.argv) > 1 and sys.argv[1] == "build":
+    if not os.path.exists("build/data/templates/"):
+        os.makedirs("build/data/templates")
+    for template in glob.glob('data/templates/*.info.in'):
+        source = open(template, "r")
+        build = open(os.path.join("build", template[:-3]), "w")
+        lines = source.readlines()
+        for line in lines:
+            build.write(line.lstrip("_"))
+        source.close()
+        build.close()
+    if subprocess.call(["make", "-C", "doc", "html"]) :
+        raise SystemError
+if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
+    for dirname in "doc/build", "build/data", "build/mo":
+        if os.path.exists(dirname):
+            print "Removing", dirname
+            shutil.rmtree(dirname)
+        else:
+            print "Not removing", dirname, "because it does not exist"
 
 setup(name="python-apt",
-      version="0.6.17",
+      version="0.7.9",
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
