@@ -83,6 +83,20 @@ The Acquire interface
 
         Shut the fetcher down.
 
+    .. attribute:: Acquire.TotalNeeded
+
+        The total amount of bytes needed (including those of files which are
+        already present)
+
+    .. attribute:: Acquire.FetchNeeded
+
+        The total amount of bytes which need to be fetched.
+
+    .. attribute:: Acquire.PartialPresent
+
+        Whether some files have been acquired already. (???)
+
+
 .. function:: GetPkgAcqFile(aquire, uri[, md5, size, descr, shortDescr, destDir, destFile])
 
     The parameter ``acquire`` refers to an :class:`Acquire()` object as returned
@@ -184,6 +198,8 @@ Data
 .. data:: RewriteSourceOrder
 
 
+.. _CurStates:
+
 Package States
 ^^^^^^^^^^^^^^^
 .. data:: CurStateConfigFiles
@@ -206,6 +222,8 @@ Dependency types
 .. data:: DepReplaces
 .. data:: DepSuggests
 
+.. _InstStates:
+
 Installed states
 ^^^^^^^^^^^^^^^^^
 .. data:: InstStateHold
@@ -213,6 +231,7 @@ Installed states
 .. data:: InstStateOk
 .. data:: InstStateReInstReq
 
+.. _Priorities:
 
 Priorities
 ^^^^^^^^^^
@@ -222,7 +241,10 @@ Priorities
 .. data:: PriRequired
 .. data:: PriStandard
 
-Dselect states
+
+.. _SelStates:
+
+Select states
 ^^^^^^^^^^^^^^
 .. data:: SelStateDeInstall
 .. data:: SelStateHold

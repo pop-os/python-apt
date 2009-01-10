@@ -21,8 +21,10 @@ Binary packages
     If you specify ``cache`` it has to point to an :class:`apt.cache.Cache()`
     object.
 
-    All methods except for :meth:`open()` and the attribute :attr:`filelist` have been
-    introduced in version 0.7.9.
+    .. versionchanged:: 0.7.9
+        Introduce all new methods (everything except for :meth:`open()` and
+        :attr:`filelist`)
+
 
 Source packages
 ----------------
