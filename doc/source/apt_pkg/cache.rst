@@ -17,6 +17,181 @@ Classes in apt_pkg
 
         Shut the fetcher down.
 
+.. class:: PkgAcqFile
+
+    This class provides no methods or attributes
+
+.. class:: AcquireItem
+
+    .. attribute:: ID
+
+        The ID of the item.
+
+    .. attribute:: Complete
+
+        Is the item completely acquired?
+
+    .. attribute:: Local
+
+        Is the item a local file?
+
+    .. attribute:: IsTrusted
+
+        Can the file be trusted?
+
+    .. attribute:: FileSize
+
+        The size of the file, in bytes.
+
+    .. attribute:: ErrorText
+
+        The error message. For example, when a file does not exist on a http
+        server, this will contain a 404 error message.
+
+    .. attribute:: DestFile
+
+        The location the file is saved as.
+
+    .. attribute:: DescURI
+
+        The source location.
+
+    **Status**:
+
+    .. attribute:: Status
+
+        Integer, representing the status of the item.
+
+    .. attribute:: StatIdle
+
+        Constant for comparing :attr:`AcquireItem.Status`.
+
+    .. attribute:: StatFetching
+
+        Constant for comparing :attr:`AcquireItem.Status`
+
+    .. attribute:: StatDone
+
+        Constant for comparing :attr:`AcquireItem.Status`
+
+    .. attribute:: StatError
+
+        Constant for comparing :attr:`AcquireItem.Status`
+
+    .. attribute:: StatAuthError
+
+        Constant for comparing :attr:`AcquireItem.Status`
+
+ActionGroup --- brings eg. big speedup
+--------------------------------------
+
+.. class:: ActionGroup
+
+    Normally, apt checkes the package cache after every modification for
+    packages which are automatically installed but on which no package depends
+    anymore (it collects the package garbage).
+
+    Using ActionGroups you can turn this off and therefore make your code
+    much faster.
+
+    Initialize it using :func:`apt_pkg.GetPkgActionGroup`, eg:
+
+    .. code-block: python
+
+        apt_pkg.GetPkgActionGroup(depcache)
+
+    .. method:: release
+
+        Release the ActionGroup. This will reactive the collection of package
+        garbage.
+
+
+Configuration
+--------------
+
+.. class:: Configuration
+
+    The Configuration objects store the configuration of apt.
+
+    .. method:: Find(key[, default=''])
+
+        Return the value for the given key. This is the same as
+        :meth:`Configuration.get`.
+
+        If ``key`` does not exist, return ``default``.
+
+    .. method:: FindFile(key[, default=''])
+
+        Return the filename hold by the configuration at key. This formats the
+        filename correctly and supports the Dir:: stuff in the configuration.
+
+        If ``key`` does not exist, return ``default``.
+
+    .. method:: FindDir(key[, default='/'])
+
+        Return the absolute path to the directory specified in key. A trailing
+        slash is appended.
+
+        If ``key`` does not exist, return ``default``.
+
+    .. method:: FindI(key[, default=0])
+
+        Return the integer value stored at key.
+
+        If ``key`` does not exist, return ``default``.
+
+    .. method:: FindB(key[, default=0])
+
+        Return the boolean value stored at key. This returns an integer, but
+        it should be treated like True/False.
+
+        If ``key`` does not exist, return ``default``.
+
+    .. method:: Set(key, value)
+
+        Set the value of ``key`` to ``value``.
+
+    .. method:: Exists(key)
+
+        Check whether the given key exists in the configuration.
+
+    .. method:: SubTree(key)
+
+        Return a sub tree starting at key. The resulting object can be used
+        like this one.
+
+    .. method:: List([key])
+
+        List all items at ``key``. Normally, return the keys at the top level,
+        eg. APT, Dir, etc.
+
+        Use ``key`` to specify a key of which the childs will be returned.
+
+    .. method:: ValueList([key])
+
+        Same as :meth:`Configuration.List`, but this time for the values.
+
+    .. method:: MyTag()
+
+        Return the tag name of the current tree. Normally this is an empty
+        string, but for subtrees it is the key of the subtree.
+
+    .. method:: Clear(key)
+
+        Clear the configuration. Remove all values and keys at ``key``.
+
+    .. method:: keys([key])
+
+        Return all the keys, recursive. If ``key`` is specified, ... (FIXME)
+
+    .. method:: has_key(key)
+
+        Return whether the configuration contains the key ``key``.
+
+    .. method:: get(key[, default=''])
+
+        This behaves just like :meth:`dict.get` and :meth:`Configuration.Find`,
+        it returns the value of key or if it does not exist, ``default``.
 
 The cache
 ---------
