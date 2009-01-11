@@ -928,6 +928,8 @@ broken dependencies:
         Return the SHA256 hashsum of the package. This refers to the field
         'SHA256' in the raw record.
 
+        .. versionadded:: 0.7.9
+
     .. attribute:: SourcePkg
 
         Return the source package.
