@@ -368,7 +368,7 @@ class SourcesList:
             open(path, "w").write(header)
             return
         for source in self.list:
-            if not files.has_key(source.file):
+            if source.file not in files:
                 files[source.file] = open(source.file, "w")
             files[source.file].write(source.str())
         for f in files:
@@ -386,7 +386,7 @@ class SourcesList:
             # source entries
             if source.template.child == True:
                 key = source.template
-                if not used_child_templates.has_key(key):
+                if key not in used_child_templates:
                     used_child_templates[key] = []
                 temp = used_child_templates[key]
                 temp.append(source)

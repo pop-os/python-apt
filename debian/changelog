@@ -28,8 +28,9 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * aptsources/distinfo.py:
     - Allow @ in mirror urls (Closes: #478171) (LP: #223097)
   * Merge Ben Finney's whitespace changes (Closes: #481563)
+  * Merge Ben Finney's do not use has_key() (Closes: #481878)
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 19:25:55 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 19:46:12 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 

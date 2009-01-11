@@ -187,7 +187,7 @@ class Distribution:
         if mirror_template:
             self.nearest_server = mirror_template % country_code
 
-        if self.countries.has_key(country_code):
+        if country_code in self.countries:
             self.country = self.countries[country_code]
             self.country_code = country_code
 
@@ -199,7 +199,7 @@ class Distribution:
         l = server.find(".archive.ubuntu.com")
         if i != -1 and l != -1:
             country = server[i+len("://"):l]
-        if self.countries.has_key(country):
+        if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % \
                    gettext.dgettext("iso_3166",
@@ -292,7 +292,7 @@ class Distribution:
             """
             # if we don't that distro, just reutnr (can happen for e.g.
             # dapper-update only in deb-src
-            if not comps_per_dist.has_key(source.dist):
+            if source.dist not in comps_per_dist:
                 return
             # if we have seen this component already for this distro,
             # return (nothing to do
@@ -311,12 +311,12 @@ class Distribution:
             comps_per_sdist = {}
             for s in sources:
                 if s.type == self.binary_type:
-                    if not comps_per_dist.has_key(s.dist):
+                    if s.dist not in comps_per_dist:
                         comps_per_dist[s.dist] = set()
                     map(comps_per_dist[s.dist].add, s.comps)
             for s in self.source_code_sources:
                 if s.type == self.source_type:
-                    if not comps_per_sdist.has_key(s.dist):
+                    if s.dist not in comps_per_sdist:
                         comps_per_sdist[s.dist] = set()
                     map(comps_per_sdist[s.dist].add, s.comps)
 
@@ -412,7 +412,7 @@ class DebianDistribution(Distribution):
         l = server.find(".debian.org")
         if i != -1 and l != -1:
             country = server[i+len("://ftp."):l]
-        if self.countries.has_key(country):
+        if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % gettext.dgettext(
                 "iso_3166", self.countries[country].rstrip()).rstrip()

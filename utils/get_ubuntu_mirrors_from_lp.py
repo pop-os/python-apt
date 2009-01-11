@@ -70,7 +70,7 @@ def find(split):
     country = re.search(r"<strong>(.+?)</strong>", split)
     if not country:
         return
-    if countries.has_key(country.group(1)):
+    if country.group(1) in countries:
         lines.append("#LOC:%s" % countries[country.group(1)].upper())
     else:
         lines.append("#LOC:%s" % country.group(1))

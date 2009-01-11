@@ -105,10 +105,10 @@ class Cache(object):
         raise StopIteration
 
     def has_key(self, key):
-        return key in self._dict
+        return (key in self._dict)
 
     def __contains__(self, key):
-        return key in self._dict
+        return (key in self._dict)
 
     def __len__(self):
         return len(self._dict)
@@ -350,10 +350,10 @@ class FilteredCache(object):
         return self._filtered.keys()
 
     def has_key(self, key):
-        return key in self._filtered
+        return (key in self._filtered)
 
     def __contains__(self, key):
-        return key in self._filtered
+        return (key in self._filtered)
 
     def _reapplyFilter(self):
         " internal helper to refilter "
@@ -401,7 +401,7 @@ if __name__ == "__main__":
     c = Cache(apt.progress.OpTextProgress())
     c.connect("cache_pre_change", cache_pre_changed)
     c.connect("cache_post_change", cache_post_changed)
-    print "aptitude" in c
+    print ("aptitude" in c)
     p = c["aptitude"]
     print p.name
     print len(c)

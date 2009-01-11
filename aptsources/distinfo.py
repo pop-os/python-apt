@@ -62,7 +62,7 @@ class Template:
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
         proto, hostname, dir = split_url(url)
-        if self.mirror_set.has_key(hostname):
+        if hostname in self.mirror_set:
             return self.mirror_set[hostname].has_repository(proto, dir)
         else:
             return False
@@ -217,7 +217,7 @@ class DistInfo:
                 template.match_uri = value
             elif (field == 'MirrorsFile' or
                   field == 'MirrorsFile-%s' % self.arch):
-                if not map_mirror_sets.has_key(value):
+                if value not in map_mirror_sets:
                     mirror_set = {}
                     try:
                         mirror_data = filter(match_mirror_line.match,
@@ -230,7 +230,7 @@ class DistInfo:
                             location = match_loc.sub(r"\1", line)
                             continue
                         (proto, hostname, dir) = split_url(line)
-                        if mirror_set.has_key(hostname):
+                        if hostname in mirror_set:
                             mirror_set[hostname].add_repository(proto, dir)
                         else:
                             mirror_set[hostname] = Mirror(
