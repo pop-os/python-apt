@@ -7,14 +7,17 @@ The Cache class
 
 .. autoclass:: Cache
     :members:
+    :undoc-members:
+
+    .. describe:: cache[pkgname]
+
+        Return a :class:`Package()` for the package with the name *pkgname*.
 
 Example
 ^^^^^^^
 
 The following example shows how to load the cache, update it, and upgrade
-all the packages on the system.
-
-.. code-block:: python
+all the packages on the system::
 
     import apt
     import apt.progress
@@ -40,12 +43,18 @@ Working with Filters
 --------------------
 .. autoclass:: Filter
     :members:
+    :inherited-members:
+    :undoc-members:
 
 .. autoclass:: MarkedChangesFilter
     :members:
+    :inherited-members:
+    :undoc-members:
 
 .. autoclass:: FilteredCache
     :members:
+    :inherited-members:
+    :undoc-members:
 
 
 Example
@@ -65,6 +74,5 @@ packages whose state has been changed, eg. packages marked for installation::
 Exceptions
 ----------
 .. autoexception:: FetchCancelledException
-    :members:
 .. autoexception:: FetchFailedException
 .. autoexception:: LockFailedException

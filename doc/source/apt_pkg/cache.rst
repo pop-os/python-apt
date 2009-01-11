@@ -94,9 +94,7 @@ ActionGroup --- brings eg. big speedup
     Using ActionGroups you can turn this off and therefore make your code
     much faster.
 
-    Initialize it using :func:`apt_pkg.GetPkgActionGroup`, eg:
-
-    .. code-block: python
+    Initialize it using :func:`apt_pkg.GetPkgActionGroup`, eg::
 
         apt_pkg.GetPkgActionGroup(depcache)
 
@@ -115,66 +113,66 @@ Configuration
 
     .. describe:: conf[key]
 
-        Return the value of the option given key ``key``. If it does not
+        Return the value of the option given key *key*. If it does not
         exist, raise :exc:`KeyError`.
 
     .. describe:: conf[key] = value
 
-        Set the option at ``key`` to ``value``.
+        Set the option at *key* to *value*.
 
     .. method:: Find(key[, default=''])
 
-        Return the value for the given key. This is the same as
+        Return the value for the given key *key*. This is the same as
         :meth:`Configuration.get`.
 
-        If ``key`` does not exist, return ``default``.
+        If *key* does not exist, return *default*.
 
     .. method:: FindFile(key[, default=''])
 
-        Return the filename hold by the configuration at key. This formats the
+        Return the filename hold by the configuration at *key*. This formats the
         filename correctly and supports the Dir:: stuff in the configuration.
 
-        If ``key`` does not exist, return ``default``.
+        If *key* does not exist, return *default*.
 
     .. method:: FindDir(key[, default='/'])
 
-        Return the absolute path to the directory specified in key. A trailing
-        slash is appended.
+        Return the absolute path to the directory specified in *key*. A
+        trailing slash is appended.
 
-        If ``key`` does not exist, return ``default``.
+        If *key* does not exist, return *default*.
 
     .. method:: FindI(key[, default=0])
 
-        Return the integer value stored at key.
+        Return the integer value stored at *key*.
 
-        If ``key`` does not exist, return ``default``.
+        If *key* does not exist, return *default*.
 
     .. method:: FindB(key[, default=0])
 
-        Return the boolean value stored at key. This returns an integer, but
+        Return the boolean value stored at *key*. This returns an integer, but
         it should be treated like True/False.
 
-        If ``key`` does not exist, return ``default``.
+        If *key* does not exist, return *default*.
 
     .. method:: Set(key, value)
 
-        Set the value of ``key`` to ``value``.
+        Set the value of *key* to *value*.
 
     .. method:: Exists(key)
 
-        Check whether the given key exists in the configuration.
+        Check whether the key *key* exists in the configuration.
 
     .. method:: SubTree(key)
 
-        Return a sub tree starting at key. The resulting object can be used
+        Return a sub tree starting at *key*. The resulting object can be used
         like this one.
 
     .. method:: List([key])
 
-        List all items at ``key``. Normally, return the keys at the top level,
+        List all items at *key*. Normally, return the keys at the top level,
         eg. APT, Dir, etc.
 
-        Use ``key`` to specify a key of which the childs will be returned.
+        Use *key* to specify a key of which the childs will be returned.
 
     .. method:: ValueList([key])
 
@@ -187,20 +185,20 @@ Configuration
 
     .. method:: Clear(key)
 
-        Clear the configuration. Remove all values and keys at ``key``.
+        Clear the configuration. Remove all values and keys at *key*.
 
     .. method:: keys([key])
 
-        Return all the keys, recursive. If ``key`` is specified, ... (FIXME)
+        Return all the keys, recursive. If *key* is specified, ... (FIXME)
 
     .. method:: has_key(key)
 
-        Return whether the configuration contains the key ``key``.
+        Return whether the configuration contains the key *key*.
 
     .. method:: get(key[, default=''])
 
         This behaves just like :meth:`dict.get` and :meth:`Configuration.Find`,
-        it returns the value of key or if it does not exist, ``default``.
+        it returns the value of key or if it does not exist, *default*.
 
 
 The cache
@@ -220,17 +218,17 @@ The cache
 
     .. method:: Open([progress])
 
-        Open the package cache again. The parameter ``progress`` may be set to
+        Open the package cache again. The parameter *progress* may be set to
         an :class:`apt.progress.OpProgress()` object or `None`.
 
     .. method:: Update(progress, list)
 
         Update the package cache.
 
-        The parameter ``progress`` points to an :class:`apt.progress.FetchProgress()`
+        The parameter *progress* points to an :class:`apt.progress.FetchProgress()`
         object.
 
-        The parameter ``list`` refers to an object as returned by
+        The parameter *list* refers to an object as returned by
         :func:`apt_pkg.GetPkgSourceList`.
 
     .. attribute:: DependsCount
@@ -311,9 +309,7 @@ PackageFile
         Whether the file has no source from which it can be updated. In such a
         case, the value is 1; else 0. /var/lib/dpkg/status is 0 for example.
 
-        Example:
-
-        .. code-block:: python
+        Example::
 
             for pkgfile in cache.FileList:
                 if pkgfile.NotSource:
@@ -469,9 +465,7 @@ Version, as returned by eg. :meth:`pkgDepCache.GetCandidateVer`
         tuples like ('pkgname', 'version', 'relation') for each or-choice.
 
         An example return value for a package with a 'Depends: python (>= 2.4)'
-        would be:
-
-        .. code-block:: python
+        would be::
 
             {'Depends': [
                             [
@@ -480,9 +474,7 @@ Version, as returned by eg. :meth:`pkgDepCache.GetCandidateVer`
                         ]
             }
 
-        The same for a dependency on A (>= 1) | B (>= 2):
-
-        .. code-block:: python
+        The same for a dependency on A (>= 1) | B (>= 2)::
 
             {'Depends': [
                             [
@@ -640,10 +632,10 @@ The pkgDepCache wrapper
 
         Apply all the changes made.
 
-        The parameter ``fprogress`` has to be set to an instance of
+        The parameter *fprogress* has to be set to an instance of
         apt.progress.FetchProgress or one of its subclasses.
 
-        The parameter ``iprogress`` has to be set to an instance of
+        The parameter *iprogress* has to be set to an instance of
         apt.progress.InstallProgress or one of its subclasses.
 
     .. method:: FixBroken()
@@ -655,7 +647,7 @@ The pkgDepCache wrapper
         Return the candidate version of the package, ie. the version that
         would be installed normally.
 
-        The parameter ``pkg`` refers to an :class:`Package` object,
+        The parameter *pkg* refers to an :class:`Package` object,
         available using the :class:`pkgCache`.
 
         This method returns a :class:`Version` object.
@@ -663,8 +655,8 @@ The pkgDepCache wrapper
     .. method:: SetCandidateVer(pkg, version)
 
         The opposite of :meth:`pkgDepCache.GetCandidateVer`. Set the candidate
-        version of the :class:`Package` ``pkg`` to the :class:`Version`
-        ``version``.
+        version of the :class:`Package` *pkg* to the :class:`Version`
+        *version*.
 
 
     .. method:: Upgrade([distUpgrade=False])
@@ -673,7 +665,7 @@ The pkgDepCache wrapper
         packages for upgrade. You still need to call
         :meth:`pkgDepCache.Commit` for the changes to apply.
 
-        To perform a dist-upgrade, the optional parameter ``distUpgrade`` has
+        To perform a dist-upgrade, the optional parameter *distUpgrade* has
         to be set to True.
 
     .. method:: FixBroken()
@@ -694,30 +686,30 @@ The pkgDepCache wrapper
 
     .. method:: MarkKeep(pkg)
 
-        Mark the :class:`Package` ``pkg`` for keep.
+        Mark the :class:`Package` *pkg* for keep.
 
     .. method:: MarkDelete(pkg[, purge])
 
-        Mark the :class:`Package` ``pkg`` for delete. If ``purge`` is True,
+        Mark the :class:`Package` *pkg* for delete. If *purge* is True,
         the configuration files will be removed as well.
 
     .. method:: MarkInstall(pkg[, autoInst=True[, fromUser=True]])
 
-        Mark the :class:`Package` ``pkg`` for install.
+        Mark the :class:`Package` *pkg* for install.
 
-        If ``autoInst`` is True, the dependencies of the package will be
+        If *autoInst* is ``True``, the dependencies of the package will be
         installed as well. This is the default.
 
-        If ``fromUser`` is True, the package will be marked as manually
+        If *fromUser* is ``True``, the package will be marked as manually
         installed. This is the default.
 
     .. method:: SetReinstall(pkg)
 
-        Set if the :class:`Package` ``pkg`` should be reinstalled.
+        Set if the :class:`Package` *pkg* should be reinstalled.
 
     .. method:: IsUpgradable(pkg)
 
-        Return `1` if the package is upgradable.
+        Return ``1`` if the package is upgradable.
 
         The package can be upgraded by calling :meth:`pkgDepCache.MarkInstall`.
 
@@ -728,42 +720,42 @@ The pkgDepCache wrapper
 
     .. method:: IsInstBroken(pkg)
 
-        Return `1` if the package is broken on the current install. This takes
-        changes which have not been committed not into effect.
+        Return ``1`` if the package is broken on the current install. This
+        takes changes which have not been committed not into effect.
 
     .. method:: IsGarbage(pkg)
 
-        Return `1` if the package is garbage, ie. if it is automatically
+        Return ``1`` if the package is garbage, ie. if it is automatically
         installed and no longer referenced by other packages.
 
     .. method:: IsAutoInstalled(pkg)
 
-        Return `1`  if the package is automatically installed (eg. as the
+        Return ``1``  if the package is automatically installed (eg. as the
         dependency of another package).
 
     .. method:: MarkedInstall(pkg)
 
-        Return `1` if the package is marked for install.
+        Return ``1`` if the package is marked for install.
 
     .. method:: MarkedUpgrade(pkg)
 
-        Return `1` if the package is marked for upgrade.
+        Return ``1`` if the package is marked for upgrade.
 
     .. method:: MarkedDelete(pkg)
 
-        Return `1` if the package is marked for delete.
+        Return ``1`` if the package is marked for delete.
 
     .. method:: MarkedKeep(pkg)
 
-        Return `1` if the package is marked for keep.
+        Return ``1`` if the package is marked for keep.
 
     .. method:: MarkedReinstall(pkg)
 
-        Return `1` if the package should be installed.
+        Return ``1`` if the package should be installed.
 
     .. method:: MarkedDowngrade(pkg)
 
-        Return `1` if the package should be downgraded.
+        Return ``1`` if the package should be downgraded.
 
     .. attribute:: KeepCount
 
@@ -847,12 +839,12 @@ PkgManager
     .. method:: GetArchives(fetcher, list, records)
 
         Add all the selected packages to the :class:`Acquire()` object
-        ``fetcher``.
+        *fetcher*.
 
-        The parameter ``list`` refers to a :class:`pkgSourceList()` object, as
+        The parameter *list* refers to a :class:`pkgSourceList()` object, as
         returned by :func:`apt_pkg.GetPkgSourceList`.
 
-        The parameter ``records`` refers to a :class:`pkgRecords()` object, as
+        The parameter *records* refers to a :class:`pkgRecords()` object, as
         returned by :func:`apt_pkg.GetPkgRecords`.
 
     .. method:: DoInstall()
@@ -899,13 +891,11 @@ pkgRecords
 
         Change the actual package to the package given by the verfile_iter.
 
-        The parameter ``verfile_iter`` refers to a tuple consisting
+        The parameter *verfile_iter* refers to a tuple consisting
         of (:class:`PackageFile()`, int: index), as returned by various
         attributes, including :attr:`Version.FileList`.
 
-        Example (shortened):
-
-        .. code-block:: python
+        Example (shortened)::
 
             cand = depcache.GetCandidateVer(cache['python-apt'])
             records.Lookup(cand.FileList[0])
@@ -964,9 +954,7 @@ pkgRecords
         :func:`apt_pkg.ParseSection` to parse the record and access the field
         name.
 
-        Example:
-
-        .. code-block:: python
+        Example::
 
             section = apt_pkg.ParseSection(records.Record)
             print section['SHA256']
@@ -988,7 +976,7 @@ PkgSrcRecords
 
     .. method:: Lookup(pkgname)
 
-        Lookup the record for the package named ``pkgname``. To access all
+        Lookup the record for the package named *pkgname*. To access all
         available records, you need to call it multiple times.
 
         Imagine a package P with two versions X, Y. The first ``Lookup(P)``
@@ -1050,7 +1038,7 @@ PkgSrcRecords
         Return the list of Build dependencies, as
         ``str: package, str: version, int: op, int: type)``.
 
-        .. table:: Values of ``op``
+        .. table:: Values of *op*
 
             ===== =============================================
             Value      Meaning
@@ -1065,7 +1053,7 @@ PkgSrcRecords
             0x6   != (not equal)
             ===== =============================================
 
-        .. table:: Values of ``type``
+        .. table:: Values of *type*
 
             ===== ===================
             Value Meaning
@@ -1081,9 +1069,7 @@ PkgSrcRecords
 
             Build-Depends: A (>= 1) | B (>= 1), C
 
-        This results in:
-
-        .. code-block:: python
+        This results in::
 
             [('A', '1', 18, 0), # 18 = 16 + 2 = 0x10 + 0x2
              ('B', '1', 2, 0),
@@ -1108,7 +1094,7 @@ PkgSrcRecords
 
     .. method:: Protect(pkg)
 
-        Protect the :class:`Package()` object given by the parameter ``pkg``.
+        Protect the :class:`Package()` object given by the parameter *pkg*.
 
         .. todo::
 
@@ -1120,7 +1106,7 @@ PkgSrcRecords
 
     .. method:: Remove(pkg)
 
-        Remove the :class:`Package()` object given by the parameter ``pkg``.
+        Remove the :class:`Package()` object given by the parameter *pkg*.
 
         .. todo::
 
@@ -1128,7 +1114,7 @@ PkgSrcRecords
 
     .. method:: Clear(pkg)
 
-        Reset the :class:`Package()` ``pkg`` to the default state.
+        Reset the :class:`Package()` *pkg* to the default state.
 
         .. todo::
 
@@ -1164,7 +1150,7 @@ TagFile
 
     .. method:: Jump(offset)
 
-        Jump back/forward to ``offset``. Use ``Jump(0)`` to jump to the
+        Jump back/forward to *offset*. Use ``Jump(0)`` to jump to the
         beginning of the file again.
 
     .. attribute:: Section
@@ -1180,7 +1166,7 @@ TagSection
 
     .. describe:: section[key]
 
-        Return the value of the field at ``key``. If ``key`` is not available,
+        Return the value of the field at *key*. If *key* is not available,
         raise :exc:`KeyError`.
 
     .. method:: Bytes
@@ -1189,22 +1175,22 @@ TagSection
 
     .. method:: Find(key, default='')
 
-        Return the value of the field at the key ``key`` if available,
-        else return ``default``.
+        Return the value of the field at the key *key* if available,
+        else return *default*.
 
     .. method:: FindFlag(key)
 
-        Find a yes/no value for the key ``key``. An example for such a
+        Find a yes/no value for the key *key*. An example for such a
         field is 'Essential'.
 
     .. method:: get(key, default='')
 
-        Return the value of the field ``field`` if available, else return
-        ``default``.
+        Return the value of the field at the key *key* if available, else
+        return *default*.
 
     .. method:: has_key(key)
 
-        Check whether the field with named by ``key`` exists.
+        Check whether the field with named by *key* exists.
 
     .. method:: keys()
 

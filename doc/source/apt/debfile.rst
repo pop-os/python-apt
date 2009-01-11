@@ -18,7 +18,7 @@ Binary packages
     It provides methods and attributes to get a list of the files in the
     package, to install the package and much more.
 
-    If you specify ``cache`` it has to point to an :class:`apt.cache.Cache()`
+    If you specify *cache* it has to point to an :class:`apt.cache.Cache()`
     object.
 
     .. versionchanged:: 0.7.9
