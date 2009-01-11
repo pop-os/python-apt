@@ -16,7 +16,7 @@
 static PyObject *AcquireItemAttr(PyObject *Self,char *Name)
 {
    pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
-   
+
    if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",(*I)->ID);
    else if (strcmp("Status",Name) == 0)
@@ -56,7 +56,7 @@ static PyObject *AcquireItemAttr(PyObject *Self,char *Name)
 static PyObject *AcquireItemRepr(PyObject *Self)
 {
    pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
-   
+
    char S[300];
    snprintf(S,sizeof(S),"<pkgAcquire::ItemIterator object: "
 			"Status: %i Complete: %i Local: %i IsTrusted: %i "
@@ -91,11 +91,11 @@ PyTypeObject AcquireItemType =
 
 
 static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
-{   
+{
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
    int pulseInterval = 500000;
-   if (PyArg_ParseTuple(Args, "|i", &pulseInterval) == 0) 
+   if (PyArg_ParseTuple(Args, "|i", &pulseInterval) == 0)
       return 0;
 
    pkgAcquire::RunResult run = fetcher->Run(pulseInterval);
@@ -104,19 +104,19 @@ static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 }
 
 static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
-{   
+{
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
-   if (PyArg_ParseTuple(Args, "") == 0) 
+   if (PyArg_ParseTuple(Args, "") == 0)
       return 0;
 
    fetcher->Shutdown();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_None);   
+   return HandleErrors(Py_None);
 }
 
-static PyMethodDef PkgAcquireMethods[] = 
+static PyMethodDef PkgAcquireMethods[] =
 {
    {"Run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
    {"Shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
@@ -128,16 +128,16 @@ static PyObject *AcquireAttr(PyObject *Self,char *Name)
 {
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
 
-   if(strcmp("TotalNeeded",Name) == 0) 
+   if(strcmp("TotalNeeded",Name) == 0)
       return Py_BuildValue("d", fetcher->TotalNeeded());
-   if(strcmp("FetchNeeded",Name) == 0) 
+   if(strcmp("FetchNeeded",Name) == 0)
       return Py_BuildValue("d", fetcher->FetchNeeded());
-   if(strcmp("PartialPresent",Name) == 0) 
+   if(strcmp("PartialPresent",Name) == 0)
       return Py_BuildValue("d", fetcher->PartialPresent());
-   if(strcmp("Items",Name) == 0) 
+   if(strcmp("Items",Name) == 0)
    {
       PyObject *List = PyList_New(0);
-      for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin(); 
+      for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
 	   I != fetcher->ItemsEnd(); I++)
       {
 	 PyObject *Obj;
@@ -149,11 +149,11 @@ static PyObject *AcquireAttr(PyObject *Self,char *Name)
       return List;
    }
    // some constants
-   if(strcmp("ResultContinue",Name) == 0) 
+   if(strcmp("ResultContinue",Name) == 0)
       return Py_BuildValue("i", pkgAcquire::Continue);
-   if(strcmp("ResultFailed",Name) == 0) 
+   if(strcmp("ResultFailed",Name) == 0)
       return Py_BuildValue("i", pkgAcquire::Failed);
-   if(strcmp("ResultCancelled",Name) == 0) 
+   if(strcmp("ResultCancelled",Name) == 0)
       return Py_BuildValue("i", pkgAcquire::Cancelled);
 
    return Py_FindMethod(PkgAcquireMethods,Self,Name);
@@ -201,7 +201,7 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 
    CppPyObject<pkgAcquire*> *FetcherObj =
 	   CppPyObject_NEW<pkgAcquire*>(&PkgAcquireType, fetcher);
-   
+
    return FetcherObj;
 }
 
@@ -255,8 +255,8 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
                       "destDir", "destFile", NULL};
 
    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
-				   &PkgAcquireType, &pyfetcher, &uri, &md5, 
-				   &size, &descr, &shortDescr, &destDir, &destFile) == 0) 
+				   &PkgAcquireType, &pyfetcher, &uri, &md5,
+				   &size, &descr, &shortDescr, &destDir, &destFile) == 0)
       return 0;
 
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);

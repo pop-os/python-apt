@@ -32,7 +32,7 @@ struct PkgListStruct
 {
    pkgCache::PkgIterator Iter;
    unsigned long LastIndex;
-   
+
    PkgListStruct(pkgCache::PkgIterator const &I) : Iter(I), LastIndex(0) {}
    PkgListStruct() {abort();};  // G++ Bug..
 };
@@ -43,7 +43,7 @@ struct RDepListStruct
    pkgCache::DepIterator Start;
    unsigned long LastIndex;
    unsigned long Len;
-   
+
    RDepListStruct(pkgCache::DepIterator const &I) : Iter(I), Start(I),
                          LastIndex(0)
    {
@@ -68,14 +68,14 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
 			  Ver);
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
-   }      
+   }
    return List;
 }
 
 // Cache Class								/*{{{*/
 // ---------------------------------------------------------------------
 static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
-{   
+{
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
@@ -94,7 +94,7 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 }
 
 static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
-{   
+{
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
    Cache->Close();
@@ -104,7 +104,7 @@ static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 }
 
 static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
-{   
+{
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
@@ -134,7 +134,7 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 }
 
 
-static PyMethodDef PkgCacheMethods[] = 
+static PyMethodDef PkgCacheMethods[] =
 {
    {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
    {"Open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
@@ -145,7 +145,7 @@ static PyMethodDef PkgCacheMethods[] =
 static PyObject *CacheAttr(PyObject *Self,char *Name)
 {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   
+
    if (strcmp("Packages",Name) == 0)
       return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,Cache->PkgBegin());
    else if (strcmp("PackageCount",Name) == 0)
@@ -169,7 +169,7 @@ static PyObject *CacheAttr(PyObject *Self,char *Name)
 	 Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PackageFileType,I);
 	 PyList_Append(List,Obj);
 	 Py_DECREF(Obj);
-      }      
+      }
       return List;
    }
 
@@ -180,15 +180,15 @@ static PyObject *CacheAttr(PyObject *Self,char *Name)
 static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   
+
    if (PyString_Check(Arg) == 0)
    {
       PyErr_SetNone(PyExc_TypeError);
       return 0;
    }
-   
+
    // Search for the package
-   const char *Name = PyString_AsString(Arg);   
+   const char *Name = PyString_AsString(Arg);
    pkgCache::PkgIterator Pkg = Cache->FindPkg(Name);
    if (Pkg.end() == true)
    {
@@ -274,7 +274,7 @@ static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
       Self.LastIndex = 0;
       Self.Iter = Self.Iter.Cache()->PkgBegin();
    }
-   
+
    while ((unsigned)Index > Self.LastIndex)
    {
       Self.LastIndex++;
@@ -285,12 +285,12 @@ static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
 	 return 0;
       }
    }
-   
+
    return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(GetOwner<PkgListStruct>(iSelf),&PackageType,
 						      Self.Iter);
 }
 
-static PySequenceMethods PkgListSeq = 
+static PySequenceMethods PkgListSeq =
 {
    PkgListLen,
    0,                // concat
@@ -298,9 +298,9 @@ static PySequenceMethods PkgListSeq =
    PkgListItem,
    0,                // slice
    0,                // assign item
-   0                 // assign slice 
+   0                 // assign slice
 };
-   
+
 PyTypeObject PkgListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -320,7 +320,7 @@ PyTypeObject PkgListType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 									/*}}}*/
 // Package Class							/*{{{*/
 // ---------------------------------------------------------------------
@@ -328,7 +328,7 @@ static PyObject *PackageAttr(PyObject *Self,char *Name)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::PkgIterator>(Self);
-   
+
    if (strcmp("Name",Name) == 0)
       return PyString_FromString(Pkg.Name());
    else if (strcmp("VersionList",Name) == 0)
@@ -340,7 +340,7 @@ static PyObject *PackageAttr(PyObject *Self,char *Name)
 	 Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,I);
 	 PyList_Append(List,Obj);
 	 Py_DECREF(Obj);
-      }      
+      }
       return List;
    }
    else if (strcmp("CurrentVer",Name) == 0)
@@ -350,7 +350,7 @@ static PyObject *PackageAttr(PyObject *Self,char *Name)
 	 Py_INCREF(Py_None);
 	 return Py_None;
       }
-      
+
       return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
 							 Pkg.CurrentVer());
    }
@@ -375,7 +375,7 @@ static PyObject *PackageAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0);
    else if (strcmp("Important",Name) == 0)
       return Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0);
-   
+
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;
 }
@@ -383,7 +383,7 @@ static PyObject *PackageAttr(PyObject *Self,char *Name)
 static PyObject *PackageRepr(PyObject *Self)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
-   
+
    char S[300];
    snprintf(S,sizeof(S),"<pkgCache::Package object: Name:'%s' Section: '%s'"
 	                " ID:%u Flags:0x%lX>",
@@ -417,7 +417,7 @@ static PyObject *DescriptionAttr(PyObject *Self,char *Name)
 {
    pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DescIterator>(Self);
-   
+
    if (strcmp("LanguageCode",Name) == 0)
       return PyString_FromString(Desc.LanguageCode());
    else if (strcmp("md5",Name) == 0)
@@ -425,8 +425,8 @@ static PyObject *DescriptionAttr(PyObject *Self,char *Name)
    else if (strcmp("FileList",Name) == 0)
    {
       /* The second value in the tuple is the index of the VF item. If the
-         user wants to request a lookup then that number will be used. 
-         Maybe later it can become an object. */	 
+         user wants to request a lookup then that number will be used.
+         Maybe later it can become an object. */
       PyObject *List = PyList_New(0);
       for (pkgCache::DescFileIterator I = Desc.FileList(); I.end() == false; I++)
       {
@@ -436,7 +436,7 @@ static PyObject *DescriptionAttr(PyObject *Self,char *Name)
 	 Obj = Py_BuildValue("Nl",DescFile,I.Index());
 	 PyList_Append(List,Obj);
 	 Py_DECREF(Obj);
-      }      
+      }
       return List;
    }
    PyErr_SetString(PyExc_AttributeError,Name);
@@ -446,7 +446,7 @@ static PyObject *DescriptionAttr(PyObject *Self,char *Name)
 static PyObject *DescriptionRepr(PyObject *Self)
 {
    pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
-   
+
    char S[300];
    snprintf(S,sizeof(S),
 	    "<pkgCache::Description object: language_code:'%s' md5:'%s' ",
@@ -477,14 +477,14 @@ PyTypeObject DescriptionType =
 // Version Class							/*{{{*/
 // ---------------------------------------------------------------------
 
-/* This is the simple depends result, the elements are split like 
+/* This is the simple depends result, the elements are split like
    ParseDepends does */
 static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
 			     bool AsObj)
 {
    PyObject *Dict = PyDict_New();
    PyObject *LastDep = 0;
-   unsigned LastDepType = 0;      
+   unsigned LastDepType = 0;
    for (pkgCache::DepIterator D = Ver.DependsList(); D.end() == false;)
    {
       pkgCache::DepIterator Start;
@@ -498,7 +498,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
 	 // it sucks to have it here duplicated, but we get it
 	 // translated from libapt and that is certainly not what
 	 // we want in a programing interface
-	 const char *Types[] =  
+	 const char *Types[] =
 	 {
 	    "", "Depends","PreDepends","Suggests",
 	    "Recommends","Conflicts","Replaces",
@@ -512,10 +512,10 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
 	    LastDep = PyList_New(0);
 	    PyDict_SetItem(Dict,Dep,LastDep);
 	    Py_DECREF(LastDep);
-	 }	 
+	 }
 	 Py_DECREF(Dep);
       }
-      
+
       PyObject *OrGroup = PyList_New(0);
       while (1)
       {
@@ -535,19 +535,19 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
 				   Start.TargetPkg().Name(),
 				   Start.TargetVer(),
 				   Start.CompType());
-	 }	 
+	 }
 	 PyList_Append(OrGroup,Obj);
 	 Py_DECREF(Obj);
-	 
+
 	 if (Start == End)
 	    break;
 	 Start++;
       }
-      
+
       PyList_Append(LastDep,OrGroup);
       Py_DECREF(OrGroup);
-   }   
-   
+   }
+
    return Dict;
 }
 
@@ -555,7 +555,7 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
 {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
-   
+
    if (strcmp("VerStr",Name) == 0)
       return PyString_FromString(Ver.VerStr());
    else if (strcmp("Section",Name) == 0)
@@ -565,8 +565,8 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
    else if (strcmp("FileList",Name) == 0)
    {
       /* The second value in the tuple is the index of the VF item. If the
-         user wants to request a lookup then that number will be used. 
-         Maybe later it can become an object. */	 
+         user wants to request a lookup then that number will be used.
+         Maybe later it can become an object. */
       PyObject *List = PyList_New(0);
       for (pkgCache::VerFileIterator I = Ver.FileList(); I.end() == false; I++)
       {
@@ -576,7 +576,7 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
 	 Obj = Py_BuildValue("Nl",PkgFile,I.Index());
 	 PyList_Append(List,Obj);
 	 Py_DECREF(Obj);
-      }      
+      }
       return List;
    }
    else if (strcmp("DependsListStr",Name) == 0)
@@ -629,7 +629,7 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
 static PyObject *VersionRepr(PyObject *Self)
 {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
-   
+
    char S[300];
    snprintf(S,sizeof(S),"<pkgCache::Version object: Pkg:'%s' Ver:'%s' "
 	                "Section:'%s' Arch:'%s' Size:%lu ISize:%lu Hash:%u "
@@ -659,16 +659,16 @@ PyTypeObject VersionType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 									/*}}}*/
-   
+
 // PackageFile Class							/*{{{*/
 // ---------------------------------------------------------------------
 static PyObject *PackageFileAttr(PyObject *Self,char *Name)
 {
    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
 //   PyObject *Owner = GetOwner<pkgCache::PkgFileIterator>(Self);
-   
+
    if (strcmp("FileName",Name) == 0)
       return Safe_FromString(File.FileName());
    else if (strcmp("Archive",Name) == 0)
@@ -695,7 +695,7 @@ static PyObject *PackageFileAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotAutomatic) != 0);
    else if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",File->ID);
-   
+
    PyErr_SetString(PyExc_AttributeError,Name);
    return 0;
 }
@@ -703,7 +703,7 @@ static PyObject *PackageFileAttr(PyObject *Self,char *Name)
 static PyObject *PackageFileRepr(PyObject *Self)
 {
    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-   
+
    char S[300];
    snprintf(S,sizeof(S),"<pkgCache::PackageFile object: "
 			"File:'%s' a=%s,c=%s,v=%s,o=%s,l=%s "
@@ -734,7 +734,7 @@ PyTypeObject PackageFileType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 
 // depends class
 static PyObject *DependencyRepr(PyObject *Self)
@@ -754,7 +754,7 @@ static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
 
@@ -764,7 +764,7 @@ static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   
+
    return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,P);
 }
 
@@ -772,7 +772,7 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
 
@@ -789,7 +789,7 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
    return List;
 }
 
-static PyMethodDef DependencyMethods[] = 
+static PyMethodDef DependencyMethods[] =
 {
    {"SmartTargetPkg",DepSmartTargetPkg,METH_VARARGS,"Returns the natural Target or None"},
    {"AllTargets",DepAllTargets,METH_VARARGS,"Returns all possible Versions that match this dependency"},
@@ -798,18 +798,18 @@ static PyMethodDef DependencyMethods[] =
 
 // Dependency Class							/*{{{*/
 // ---------------------------------------------------------------------
-   
+
 static PyObject *DependencyAttr(PyObject *Self,char *Name)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-   
+
    if (strcmp("TargetVer",Name) == 0)
    {
       if (Dep->Version == 0)
 	 return PyString_FromString("");
       return PyString_FromString(Dep.TargetVer());
-   }   
+   }
    else if (strcmp("TargetPkg",Name) == 0)
       return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
 							 Dep.TargetPkg());
@@ -824,7 +824,7 @@ static PyObject *DependencyAttr(PyObject *Self,char *Name)
       return PyString_FromString(Dep.DepType());
    else if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",Dep->ID);
-   
+
    return Py_FindMethod(DependencyMethods,Self,Name);
 }
 
@@ -847,7 +847,7 @@ PyTypeObject DependencyType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 									/*}}}*/
 									/*}}}*/
 // Reverse Dependency List Class					/*{{{*/
@@ -865,13 +865,13 @@ static PyObject *RDepListItem(PyObject *iSelf,Py_ssize_t Index)
       PyErr_SetNone(PyExc_IndexError);
       return 0;
    }
-   
+
    if ((unsigned)Index < Self.LastIndex)
    {
       Self.LastIndex = 0;
       Self.Iter = Self.Start;
    }
-   
+
    while ((unsigned)Index > Self.LastIndex)
    {
       Self.LastIndex++;
@@ -882,12 +882,12 @@ static PyObject *RDepListItem(PyObject *iSelf,Py_ssize_t Index)
 	 return 0;
       }
    }
-   
+
    return CppOwnedPyObject_NEW<pkgCache::DepIterator>(GetOwner<RDepListStruct>(iSelf),
 						      &DependencyType,Self.Iter);
 }
 
-static PySequenceMethods RDepListSeq = 
+static PySequenceMethods RDepListSeq =
 {
    RDepListLen,
    0,                // concat
@@ -895,9 +895,9 @@ static PySequenceMethods RDepListSeq =
    RDepListItem,
    0,                // slice
    0,                // assign item
-   0                 // assign slice 
+   0                 // assign slice
 };
-   
+
 PyTypeObject RDepListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -917,7 +917,7 @@ PyTypeObject RDepListType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 									/*}}}*/
 
 
@@ -948,7 +948,7 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 
    CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
 	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PkgCacheFileType, Cache);
-   
+
    CppOwnedPyObject<pkgCache *> *CacheObj =
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,&PkgCacheType,
 					    (pkgCache *)(*Cache));

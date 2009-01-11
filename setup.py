@@ -16,12 +16,12 @@ import sys
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
             string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]))
-apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"]);
+apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
             string.split(parse_makefile("python/makefile")["APT_INST_SRC"]))
-apt_inst = Extension("apt_inst", files, libraries=["apt-pkg","apt-inst"]);
+apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation
 templates = []
@@ -53,17 +53,16 @@ setup(name="python-apt",
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
-      ext_modules=[apt_pkg,apt_inst],
+      ext_modules=[apt_pkg, apt_inst],
       packages=['apt', 'apt.gtk', 'aptsources'],
       data_files = [('share/python-apt/templates',
                     glob.glob('build/data/templates/*.info')),
                     ('share/python-apt/templates',
                     glob.glob('data/templates/*.mirrors'))],
-      cmdclass = { "build" : build_extra.build_extra,
-                   "build_i18n" :  build_i18n.build_i18n },
+      cmdclass = {"build": build_extra.build_extra,
+                  "build_i18n": build_i18n.build_i18n},
       license = 'GNU GPL',
-      platforms = 'posix'
-      )
+      platforms = 'posix')
 
 if len(sys.argv) > 1 and sys.argv[1] == "build":
     import sphinx

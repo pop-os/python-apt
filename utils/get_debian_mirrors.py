@@ -39,10 +39,12 @@ req = urllib2.Request("http://www.debian.org/mirror/mirrors_full")
 match = re.compile("^.*>([A-Za-z0-9-.\/_]+)<\/a>.*\n$")
 match_location = re.compile('^<strong><a name="([A-Z]+)">.*')
 
+
 def add_sites(line, proto, sites, mirror_type):
     path = match.sub(r"\1", line)
     for site in sites:
         mirror_type.append("%s://%s%s\n" % (proto, site.lstrip(), path))
+
 
 try:
     print "Downloading mirrors list from the Debian website..."

@@ -4,15 +4,15 @@ import os
 import sys
 import tempfile
 
+
 def get_file(fetcher, uri, destFile):
-	# get the file
-	af = apt_pkg.GetPkgAcqFile(fetcher,
-                           uri=uri,
-                           descr="sample descr", destFile=destFile)
-	res = fetcher.Run()
-	if res != fetcher.ResultContinue:
-		return False
-	return True
+    # get the file
+    af = apt_pkg.GetPkgAcqFile(fetcher, uri=uri, descr="sample descr",
+                               destFile=destFile)
+    res = fetcher.Run()
+    if res != fetcher.ResultContinue:
+        return False
+    return True
 
 apt_pkg.init()
 
@@ -32,7 +32,7 @@ depcache.Upgrade(True)
 progress = apt.progress.TextFetchProgress()
 fetcher = apt_pkg.GetAcquire(progress)
 pm = apt_pkg.GetPackageManager(depcache)
-pm.GetArchives(fetcher,list,recs)
+pm.GetArchives(fetcher, list, recs)
 print "%s (%s)" % (apt_pkg.SizeToStr(fetcher.FetchNeeded), fetcher.FetchNeeded)
 actiongroup = apt_pkg.GetPkgActionGroup(depcache)
 for pkg in cache.Packages:
@@ -43,7 +43,7 @@ try:
     os.mkdir("/tmp/pyapt-test/partial")
 except OSError:
     pass
-apt_pkg.Config.Set("Dir::Cache::archives","/tmp/pyapt-test")
+apt_pkg.Config.Set("Dir::Cache::archives", "/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
 depcache.MarkInstall(pkg)
@@ -58,7 +58,7 @@ print fetcher
 
 get_file(fetcher, "ftp://ftp.debian.org/debian/dists/README", "/tmp/lala")
 
-pm.GetArchives(fetcher,list,recs)
+pm.GetArchives(fetcher, list, recs)
 
 for item in fetcher.Items:
     print item
@@ -75,6 +75,3 @@ print "fetcher.Run() returned: %s" % res
 print "now runing pm.DoInstall()"
 res = pm.DoInstall(1)
 print "pm.DoInstall() returned: %s"% res
-
-
-

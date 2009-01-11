@@ -32,11 +32,14 @@ import apt_pkg
 
 #from gettext import gettext as _
 import gettext
-def _(s): return gettext.dgettext("python-apt", s)
 
-import re
+
+def _(s):
+    return gettext.dgettext("python-apt", s)
+
 
 class Template:
+
     def __init__(self):
         self.name = None
         self.child = False
@@ -64,11 +67,14 @@ class Template:
         else:
             return False
 
+
 class Component:
+
     def __init__(self, name, desc=None, long_desc=None):
         self.name = name
         self.description = desc
         self.description_long = long_desc
+
     def get_description(self):
         if self.description_long != None:
             return self.description_long
@@ -76,24 +82,32 @@ class Component:
             return self.description
         else:
             return None
+
     def set_description(self, desc):
         self.description = desc
+
     def set_description_long(self, desc):
         self.description_long = desc
+
     def get_description_long(self):
         return self.description_long
 
+
 class Mirror:
     ''' Storage for mirror related information '''
+
     def __init__(self, proto, hostname, dir, location=None):
         self.hostname = hostname
         self.repositories = []
         self.add_repository(proto, dir)
         self.location = location
+
     def add_repository(self, proto, dir):
         self.repositories.append(Repository(proto, dir))
+
     def get_repositories_for_proto(self, proto):
         return filter(lambda r: r.proto == proto, self.repositories)
+
     def has_repository(self, proto, dir):
         if dir is None:
             return False
@@ -101,28 +115,38 @@ class Mirror:
             if r.proto == proto and dir in r.dir:
                 return True
         return False
+
     def get_repo_urls(self):
         return map(lambda r: r.get_url(self.hostname), self.repositories)
+
     def get_location(self):
         return self.location
+
     def set_location(self, location):
         self.location = location
 
+
 class Repository:
+
     def __init__(self, proto, dir):
         self.proto = proto
         self.dir = dir
+
     def get_info(self):
         return self.proto, self.dir
+
     def get_url(self, hostname):
         return "%s://%s/%s" % (self.proto, hostname, self.dir)
 
+
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
-    return map(lambda a,b: a, re.split(":*\/+", url, maxsplit=2),
-                              [None, None, None])
+    return map(lambda a, b: a, re.split(":*\/+", url, maxsplit=2),
+               [None, None, None])
+
 
 class DistInfo:
+
     def __init__(self,
                  dist = None,
                  base_dir = "/usr/share/python-apt/templates"):
@@ -132,7 +156,9 @@ class DistInfo:
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
-        match_mirror_line = re.compile(r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://[A-Za-z0-9/\.:\-_@]+)$")
+        match_mirror_line = re.compile(
+            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://"
+            r"[A-Za-z0-9/\.:\-_@]+)$")
         #match_mirror_line = re.compile(r".+")
 
         if not dist:
@@ -143,21 +169,20 @@ class DistInfo:
 
         self.dist = dist
 
-
         map_mirror_sets = {}
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
-        dist_file = open (dist_fname)
+        dist_file = open(dist_fname)
         if not dist_file:
             return
         template = None
         component = None
         for line in dist_file:
-            tokens = line.split (':', 1)
-            if len (tokens) < 2:
+            tokens = line.split(':', 1)
+            if len(tokens) < 2:
                 continue
-            field = tokens[0].strip ()
-            value = tokens[1].strip ()
+            field = tokens[0].strip()
+            value = tokens[1].strip()
             if field == 'ChangelogURI':
                 self.changelogs_uri = _(value)
             elif field == 'MetaReleaseURI':
@@ -208,7 +233,8 @@ class DistInfo:
                         if mirror_set.has_key(hostname):
                             mirror_set[hostname].add_repository(proto, dir)
                         else:
-                            mirror_set[hostname] = Mirror(proto, hostname, dir, location)
+                            mirror_set[hostname] = Mirror(
+                                proto, hostname, dir, location)
                     map_mirror_sets[value] = mirror_set
                 template.mirror_set = map_mirror_sets[value]
             elif field == 'Description':
@@ -247,7 +273,7 @@ class DistInfo:
 
 
 if __name__ == "__main__":
-    d = DistInfo ("Ubuntu", "/usr/share/python-apt/templates")
+    d = DistInfo("Ubuntu", "/usr/share/python-apt/templates")
     print d.changelogs_uri
     for template in d.templates:
         print "\nSuite: %s" % template.name

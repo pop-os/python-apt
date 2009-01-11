@@ -29,13 +29,13 @@ static PyObject *MetaIndexAttr(PyObject *Self,char *Name)
    {
       PyObject *List = PyList_New(0);
       vector<pkgIndexFile *> *indexFiles = meta->GetIndexFiles();
-      for (vector<pkgIndexFile *>::const_iterator I = indexFiles->begin(); 
+      for (vector<pkgIndexFile *>::const_iterator I = indexFiles->begin();
 	   I != indexFiles->end(); I++)
       {
 	 PyObject *Obj;
 	 Obj = CppPyObject_NEW<pkgIndexFile*>(&PackageIndexFileType,*I);
 	 PyList_Append(List,Obj);
-      }      
+      }
       return List;
    }
 
@@ -46,7 +46,7 @@ static PyObject *MetaIndexAttr(PyObject *Self,char *Name)
 static PyObject *MetaIndexRepr(PyObject *Self)
 {
    metaIndex *meta = GetCpp<metaIndex*>(Self);
-   
+
    char S[1024];
    snprintf(S,sizeof(S),"<metaIndex object: "
 	                "Type='%s', URI:'%s' Dist='%s' IsTrusted='%i'>",
@@ -75,7 +75,7 @@ PyTypeObject MetaIndexType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 
 
 

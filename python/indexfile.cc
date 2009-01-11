@@ -16,7 +16,7 @@
 #include <Python.h>
 
 static PyObject *PackageIndexFileArchiveURI(PyObject *Self,PyObject *Args)
-{   
+{
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
    char *path;
 
@@ -26,7 +26,7 @@ static PyObject *PackageIndexFileArchiveURI(PyObject *Self,PyObject *Args)
    return HandleErrors(Safe_FromString(File->ArchiveURI(path).c_str()));
 }
 
-static PyMethodDef PackageIndexFileMethods[] = 
+static PyMethodDef PackageIndexFileMethods[] =
 {
    {"ArchiveURI",PackageIndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
    {}
@@ -48,20 +48,20 @@ static PyObject *PackageIndexFileAttr(PyObject *Self,char *Name)
       return Py_BuildValue("i",(File->Size()));
    else if (strcmp("IsTrusted",Name) == 0)
       return Py_BuildValue("i",(File->IsTrusted()));
-   
+
    return Py_FindMethod(PackageIndexFileMethods,Self,Name);
 }
 
 static PyObject *PackageIndexFileRepr(PyObject *Self)
 {
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
-   
+
    char S[1024];
    snprintf(S,sizeof(S),"<pkIndexFile object: "
 			"Label:'%s' Describe='%s' Exists='%i' "
 	                "HasPackages='%i' Size='%i'  "
  	                "IsTrusted='%i' ArchiveURI='%s'>",
-	    File->GetType()->Label,  File->Describe().c_str(), File->Exists(), 
+	    File->GetType()->Label,  File->Describe().c_str(), File->Exists(),
 	    File->HasPackages(), File->Size(),
             File->IsTrusted(), File->ArchiveURI("").c_str());
    return PyString_FromString(S);
@@ -86,7 +86,7 @@ PyTypeObject PackageIndexFileType =
    0,			                // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 
 
 

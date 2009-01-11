@@ -354,7 +354,7 @@ _CompDescription: Community-maintained (universe)
 _CompDescriptionLong: Community-maintained Open Source software
 Component: restricted
 _CompDescription: Non-free drivers
-_CompDescriptionLong: Proprietary drivers for devices 
+_CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
 _CompDescription: Restricted software (Multiverse)
 _CompDescriptionLong: Software restricted by copyright or legal issues

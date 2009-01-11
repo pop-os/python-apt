@@ -30,7 +30,5 @@ if __name__ == "__main__":
     else:
         cache["2vcard"].markInstall()
     progress.show_terminal(expanded=True)
-    cache.commit(progress.fetch,
-                 progress.install)
-
+    cache.commit(progress.fetch, progress.install)
     gtk.main()

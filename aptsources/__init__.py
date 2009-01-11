@@ -1,4 +1,3 @@
-
 import apt_pkg
 
 # init the package system

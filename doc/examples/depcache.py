@@ -84,7 +84,8 @@ print "UsrSize: %s " % apt_pkg.SizeToStr(depcache.UsrSize)
 print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
 
 for pkg in cache.Packages:
-    if pkg.CurrentVer != None and not depcache.MarkedInstall(pkg) and depcache.IsUpgradable(pkg):
+    if pkg.CurrentVer != None and not depcache.MarkedInstall(pkg) \
+        and depcache.IsUpgradable(pkg):
         print "Upgrade didn't upgrade (kept): %s" % pkg.Name
 
 

@@ -4,18 +4,18 @@
 /* ######################################################################
 
    Tag - Binding for the RFC 822 tag file parser
-   
+
    Upon reflection I have make the TagSection wrapper look like a map..
    The other option was to use a sequence (which nicely matches the internal
-   storage) but really makes no sense to a Python Programmer.. One 
-   specialized lookup is provided, the FindFlag lookup - as well as the 
+   storage) but really makes no sense to a Python Programmer.. One
+   specialized lookup is provided, the FindFlag lookup - as well as the
    usual set of duplicate things to match the C++ interface.
-   
-   The TagFile interface is also slightly different, it has a built in 
+
+   The TagFile interface is also slightly different, it has a built in
    internal TagSection object that is used. Do not hold onto a reference
    to a TagSection and let TagFile go out of scope! The underlying storage
    for the section will go away and it will seg.
-   
+
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
@@ -80,7 +80,7 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
    char *Default = 0;
    if (PyArg_ParseTuple(Args,"s|z",&Name,&Default) == 0)
       return 0;
-   
+
    const char *Start;
    const char *Stop;
    if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
@@ -98,7 +98,7 @@ static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
-   
+
    unsigned long Flag = 0;
    if (GetCpp<pkgTagSection>(Self).FindFlag(Name,Flag,1) == false)
    {
@@ -116,15 +116,15 @@ static PyObject *TagSecMap(PyObject *Self,PyObject *Arg)
       PyErr_SetNone(PyExc_TypeError);
       return 0;
    }
-   
+
    const char *Start;
    const char *Stop;
    if (GetCpp<pkgTagSection>(Self).Find(PyString_AsString(Arg),Start,Stop) == false)
-   {  
+   {
       PyErr_SetString(PyExc_KeyError,PyString_AsString(Arg));
       return 0;
    }
-   	 
+
    return PyString_FromStringAndSize(Start,Stop-Start);
 }
 
@@ -142,17 +142,17 @@ static PyObject *TagSecKeys(PyObject *Self,PyObject *Args)
    pkgTagSection &Tags = GetCpp<pkgTagSection>(Self);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    // Convert the whole configuration space into a list
    PyObject *List = PyList_New(0);
    for (unsigned int I = 0; I != Tags.Count(); I++)
-   {  
+   {
       const char *Start;
       const char *Stop;
       Tags.Get(Start,Stop,I);
       const char *End = Start;
       for (; End < Stop && *End != ':'; End++);
-      
+
       PyObject *Obj;
       PyList_Append(List,Obj = PyString_FromStringAndSize(Start,End-Start));
       Py_DECREF(Obj);
@@ -166,7 +166,7 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
-   
+
    const char *Start;
    const char *Stop;
    if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
@@ -179,7 +179,7 @@ static PyObject *TagSecBytes(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    return Py_BuildValue("i",GetCpp<pkgTagSection>(Self).size());
 }
 
@@ -197,11 +197,11 @@ static PyObject *TagFileStep(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Step(Obj.Section->Object) == false)
       return HandleErrors(Py_BuildValue("i",0));
-   
+
    return HandleErrors(Py_BuildValue("i",1));
 }
 
@@ -219,11 +219,11 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
    int Offset;
    if (PyArg_ParseTuple(Args,"i",&Offset) == 0)
       return 0;
-   
+
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Jump(Obj.Section->Object,Offset) == false)
       return HandleErrors(Py_BuildValue("i",0));
-   
+
    return HandleErrors(Py_BuildValue("i",1));
 }
 									/*}}}*/
@@ -235,23 +235,23 @@ PyObject *ParseSection(PyObject *self,PyObject *Args)
    char *Data;
    if (PyArg_ParseTuple(Args,"s",&Data) == 0)
       return 0;
-   
+
    // Create the object..
    TagSecData *New = PyObject_NEW(TagSecData,&TagSecType);
    new (&New->Object) pkgTagSection();
    New->Data = new char[strlen(Data)+2];
    snprintf(New->Data,strlen(Data)+2,"%s\n",Data);
-   
+
    if (New->Object.Scan(New->Data,strlen(New->Data)) == false)
    {
       cerr << New->Data << endl;
       Py_DECREF((PyObject *)New);
       PyErr_SetString(PyExc_ValueError,"Unable to parse section data");
       return 0;
-   }   
-   
+   }
+
    New->Object.Trim();
-   
+
    return New;
 }
 									/*}}}*/
@@ -264,26 +264,26 @@ PyObject *ParseTagFile(PyObject *self,PyObject *Args)
    PyObject *File;
    if (PyArg_ParseTuple(Args,"O!",&PyFile_Type,&File) == 0)
       return 0;
-   
+
    TagFileData *New = PyObject_NEW(TagFileData,&TagFileType);
    new (&New->Fd) FileFd(fileno(PyFile_AsFile(File)),false);
    New->File = File;
    Py_INCREF(New->File);
    new (&New->Object) pkgTagFile(&New->Fd);
-   
+
    // Create the section
    New->Section = PyObject_NEW(TagSecData,&TagSecType);
    new (&New->Section->Object) pkgTagSection();
    New->Section->Data = 0;
-   
+
    return HandleErrors(New);
 }
-									/*}}}*/								     
+									/*}}}*/
 // RewriteSection - Rewrite a section..					/*{{{*/
 // ---------------------------------------------------------------------
-/* An interesting future extension would be to add a user settable 
+/* An interesting future extension would be to add a user settable
    order list */
-char *doc_RewriteSection = 
+char *doc_RewriteSection =
 "RewriteSection(Section,Order,RewriteList) -> String\n"
 "\n"
 "The section rewriter allows a section to be taken in, have fields added,\n"
@@ -306,10 +306,10 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"O!O!O!",&TagSecType,&Section,
 			&PyList_Type,&Order,&PyList_Type,&Rewrite) == 0)
       return 0;
-   
+
    // Convert the order list
    const char **OrderList = ListToCharChar(Order,true);
-   
+
    // Convert the Rewrite list.
    TFRewriteData *List = new TFRewriteData[PySequence_Length(Rewrite)+1];
    memset(List,0,sizeof(*List)*(PySequence_Length(Rewrite)+1));
@@ -324,7 +324,7 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
 	 return 0;
       }
    }
-   
+
    /* This is a glibc extension.. If not running on glibc I'd just take
       this whole function out, it is probably infrequently used */
    char *bp = 0;
@@ -336,13 +336,13 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
    delete [] OrderList;
    delete [] List;
    fclose(F);
-   
+
    if (Res == false)
    {
       free(bp);
       return HandleErrors();
    }
-   
+
    // Return the string
    PyObject *ResObj = PyString_FromStringAndSize(bp,size);
    free(bp);
@@ -351,13 +351,13 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
 									/*}}}*/
 
 // Method table for the Tag Section object
-static PyMethodDef TagSecMethods[] = 
+static PyMethodDef TagSecMethods[] =
 {
    // Query
    {"Find",TagSecFind,METH_VARARGS,doc_Find},
    {"FindFlag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"Bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
-	 
+
    // Python Special
    {"keys",TagSecKeys,METH_VARARGS,doc_Keys},
    {"has_key",TagSecExists,METH_VARARGS,doc_Exists},
@@ -398,13 +398,13 @@ PyTypeObject TagSecType =
 };
 
 // Method table for the Tag File object
-static PyMethodDef TagFileMethods[] = 
+static PyMethodDef TagFileMethods[] =
 {
    // Query
    {"Step",TagFileStep,METH_VARARGS,doc_Step},
    {"Offset",TagFileOffset,METH_VARARGS,doc_Offset},
    {"Jump",TagFileJump,METH_VARARGS,doc_Jump},
-	 
+
    {}
 };
 
@@ -418,8 +418,8 @@ static PyObject *TagFileGetAttr(PyObject *Self,char *Name)
       PyObject *Obj = ((TagFileData *)Self)->Section;
       Py_INCREF(Obj);
       return Obj;
-   }   
-   
+   }
+
    return Py_FindMethod(TagFileMethods,Self,Name);
 }
 

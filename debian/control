@@ -16,7 +16,7 @@ Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
- The apt_pkg Python interface will provide full access to the internal 
+ The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
  variety of functions, such as:
  .
@@ -25,7 +25,7 @@ Description: Python interface to libapt-pkg
   - Parsing of Debian package control files, and other files with a
     similar structure
  .
- The included 'aptsources' Python interface provides an abstraction of 
+ The included 'aptsources' Python interface provides an abstraction of
  the sources.list configuration on the repository and the distro level.
 
 Package: python-apt-dbg
@@ -33,7 +33,7 @@ Priority: extra
 Architecture: any
 Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends}
 Description: Python interface to libapt-pkg (debug extension)
- The apt_pkg Python interface will provide full access to the internal 
+ The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
  variety of functions.
  .
