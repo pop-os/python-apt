@@ -30,8 +30,9 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * Merge Ben Finney's whitespace changes (Closes: #481563)
   * Merge Ben Finney's do not use has_key() (Closes: #481878)
   * Do not use deprecated form of raise statement (Closes: #494259)
+  * Add support for PkgRecords.SHA256Hash (Closes: #456113)
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 19:55:11 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 

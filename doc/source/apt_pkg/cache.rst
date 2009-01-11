@@ -923,6 +923,11 @@ broken dependencies:
         Return the SHA1 hashsum of the package. This refers to the field 'SHA1'
         in the raw record.
 
+    .. attribute:: SHA256Hash
+
+        Return the SHA256 hashsum of the package. This refers to the field
+        'SHA256' in the raw record.
+
     .. attribute:: SourcePkg
 
         Return the source package.
