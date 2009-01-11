@@ -113,6 +113,15 @@ Configuration
 
     The Configuration objects store the configuration of apt.
 
+    .. describe:: conf[key]
+
+        Return the value of the option given key ``key``. If it does not
+        exist, raise :exc:`KeyError`.
+
+    .. describe:: conf[key] = value
+
+        Set the option at ``key`` to ``value``.
+
     .. method:: Find(key[, default=''])
 
         Return the value for the given key. This is the same as
@@ -193,11 +202,17 @@ Configuration
         This behaves just like :meth:`dict.get` and :meth:`Configuration.Find`,
         it returns the value of key or if it does not exist, ``default``.
 
+
 The cache
 ---------
 .. class:: pkgCache
 
     The :class:`pkgCache` class prov
+
+    .. describe:: cache[pkgname]
+
+        Return the :class:`Package()` object for the package name given by
+        *pkgname*.
 
     .. method:: Close()
 
@@ -217,11 +232,6 @@ The cache
 
         The parameter ``list`` refers to an object as returned by
         :func:`apt_pkg.GetPkgSourceList`.
-
-    .. method:: __getitem__(item)
-
-        Return an :class:`Package` object for the package with the given
-        name.
 
     .. attribute:: DependsCount
 
@@ -243,7 +253,7 @@ The cache
 
         The total number of package versions available in the cache.
 
-    .. attribute::  PackageFileCount
+    .. attribute:: PackageFileCount
 
         The total number of Packages files available (the Packages files
         listing the packages). This is the same as the length of the list in
@@ -780,3 +790,422 @@ The pkgDepCache wrapper
 
         The size of the packages which are needed for the changes to be
         applied.
+
+
+MetaIndex
+---------
+
+.. todo::
+
+    Complete them
+
+.. class:: MetaIndex
+
+    .. attribute:: URI
+    .. attribute:: Dist
+    .. attribute:: IsTrusted
+    .. attribute:: IndexFiles
+
+
+PackageIndexFile
+----------------
+
+.. class:: PackageIndexFile
+
+    .. method:: ArchiveURI(path)
+
+        Return the full url to path in the archive.
+
+    .. attribute:: Label
+
+        Return the Label.
+
+    .. attribute:: Exists
+
+        Return whether the file exists.
+
+    .. attribute:: HasPackages
+
+        Return whether the file has packages.
+
+    .. attribute:: Size
+
+        Size of the file
+
+    .. attribute:: IsTrusted
+
+        Whether we can trust the file.
+
+
+PkgManager
+----------
+
+.. class:: PkgManager
+
+    Class, as returned by :func:`apt_pkg.GetPackageManager`.
+
+    .. method:: GetArchives(fetcher, list, records)
+
+        Add all the selected packages to the :class:`Acquire()` object
+        ``fetcher``.
+
+        The parameter ``list`` refers to a :class:`pkgSourceList()` object, as
+        returned by :func:`apt_pkg.GetPkgSourceList`.
+
+        The parameter ``records`` refers to a :class:`pkgRecords()` object, as
+        returned by :func:`apt_pkg.GetPkgRecords`.
+
+    .. method:: DoInstall()
+
+        Install the packages.
+
+    .. method:: FixMissing
+
+        Fix the installation if a package could not be downloaded.
+
+    .. attribute:: ResultCompleted
+
+        A constant for checking whether the the result is 'completed'.
+
+        Compare it against the return value of :meth:`PkgManager.GetArchives`
+        or :meth:`PkgManager.DoInstall`.
+
+    .. attribute:: ResultFailed
+
+        A constant for checking whether the the result is 'failed'.
+
+        Compare it against the return value of :meth:`PkgManager.GetArchives`
+        or :meth:`PkgManager.DoInstall`.
+
+    .. attribute:: ResultIncomplete
+
+        A constant for checking whether the the result is 'incomplete'.
+
+        Compare it against the return value of :meth:`PkgManager.GetArchives`
+        or :meth:`PkgManager.DoInstall`.
+
+pkgRecords
+-----------
+
+.. class:: PkgRecords
+
+    Provide access to the packages records. This provides very useful
+    attributes for fast (convient) access to some fields of the record.
+
+    See :func:`apt_pkg.GetPkgRecords` for initialization.
+
+
+    .. method:: Lookup(verfile_iter)
+
+        Change the actual package to the package given by the verfile_iter.
+
+        The parameter ``verfile_iter`` refers to a tuple consisting
+        of (:class:`PackageFile()`, int: index), as returned by various
+        attributes, including :attr:`Version.FileList`.
+
+        Example (shortened):
+
+        .. code-block:: python
+
+            cand = depcache.GetCandidateVer(cache['python-apt'])
+            records.Lookup(cand.FileList[0])
+            # Now you can access the record
+            print records.SourcePkg # == python-apt
+
+    .. attribute:: FileName
+
+        Return the field 'Filename' of the record. This is the path to the
+        package, relative to the base path of the archive.
+
+    .. attribute:: MD5Hash
+
+        Return the MD5 hashsum of the package This refers to the field
+        'MD5Sum' in the raw record.
+
+    .. attribute:: SHA1Hash
+
+        Return the SHA1 hashsum of the package. This refers to the field 'SHA1'
+        in the raw record.
+
+    .. attribute:: SourcePkg
+
+        Return the source package.
+
+    .. attribute:: SourceVer
+
+        Return the source version.
+
+    .. attribute:: Maintainer
+
+        Return the maintainer of the package.
+
+    .. attribute:: ShortDesc
+
+        Return the short description. This is the summary on the first line of
+        the 'Description' field.
+
+    .. attribute:: LongDesc
+
+        Return the long description. These are lines 2-END from the
+        'Description' field.
+
+    .. attribute:: Name
+
+        Return the name of the package. This is the 'Package' field.
+
+    .. attribute:: Homepage
+
+        Return the Homepage. This is the 'Homepage' field.
+
+    .. attribute:: Record
+
+        Return the whole record as a string. If you want to access fields of
+        the record not available as an attribute, you can use
+        :func:`apt_pkg.ParseSection` to parse the record and access the field
+        name.
+
+        Example:
+
+        .. code-block:: python
+
+            section = apt_pkg.ParseSection(records.Record)
+            print section['SHA256']
+
+PkgSrcRecords
+-------------
+
+.. class:: PkgSrcRecords
+
+    This represents the entries in the Sources files, ie. the dsc files of
+    the source packages.
+
+    .. note::
+
+        If the Lookup failed, because no package could be found, no error is
+        raised. Instead, the attributes listed below are simply not existing
+        anymore (same applies when no Lookup has been made, or when it has
+        been restarted).
+
+    .. method:: Lookup(pkgname)
+
+        Lookup the record for the package named ``pkgname``. To access all
+        available records, you need to call it multiple times.
+
+        Imagine a package P with two versions X, Y. The first ``Lookup(P)``
+        would set the record to version X and the second ``Lookup(P)`` to
+        version Y.
+
+    .. method:: Restart()
+
+        Restart the lookup.
+
+        Imagine a package P with two versions X, Y. The first ``Lookup(P)``
+        would set the record to version X and the second ``Lookup(P)`` to
+        version Y.
+
+        If you now call ``Restart()``, the internal position will be cleared.
+        Now you can call ``Lookup(P)`` again to move to X.
+
+    .. attribute:: Package
+
+        The name of the source package.
+
+    .. attribute:: Version
+
+        A string describing the version of the source package.
+
+    .. attribute:: Maintainer
+
+        A string describing the name of the maintainer.
+
+    .. attribute:: Section
+
+        A string describing the section.
+
+    .. attribute:: Record
+
+        The whole record, as a string. You can use :func:`apt_pkg.ParseSection`
+        if you need to parse it.
+
+        You need to parse the record if you want to access fields not available
+        via the attributes, eg. 'Standards-Version'
+
+    .. attribute:: Binaries
+
+        Return a list of strings describing the package names of the binaries
+        created by the source package. This matches the 'Binary' field in the
+        raw record.
+
+    .. attribute:: Index
+
+        The index in the Sources files.
+
+    .. attribute:: Files
+
+        The list of files. This returns a list of tuples with the contents
+        ``(str: md5, int: size, str: path, str:type)``.
+
+    .. attribute:: BuildDepends
+
+        Return the list of Build dependencies, as
+        ``str: package, str: version, int: op, int: type)``.
+
+        .. table:: Values of ``op``
+
+            ===== =============================================
+            Value      Meaning
+            ===== =============================================
+            0x0   No Operation (no versioned build dependency)
+            0x10  | (or) - this will be added to the other values
+            0x1   <= (less than or equal)
+            0x2   >= (greater than or equal)
+            0x3   << (less than)
+            0x4   >> (greater than)
+            0x5   == (equal)
+            0x6   != (not equal)
+            ===== =============================================
+
+        .. table:: Values of ``type``
+
+            ===== ===================
+            Value Meaning
+            ===== ===================
+            0     Build-Depends
+            1     Build-Depends-Indep
+            2     Build-Conflicts
+            3     Build-Conflicts-Indep
+            ===== ===================
+
+        **Example**: In the following content, we will imagine a
+        build-dependency::
+
+            Build-Depends: A (>= 1) | B (>= 1), C
+
+        This results in:
+
+        .. code-block:: python
+
+            [('A', '1', 18, 0), # 18 = 16 + 2 = 0x10 + 0x2
+             ('B', '1', 2, 0),
+             ('C', '', 0, 0)]
+
+        This is **not** the same as returned by
+        :func:`apt_pkg.ParseSrcDepends`.
+
+
+:class:`PkgSourceList`
+
+    .. todo::
+
+        Describe it.
+
+
+:class:`ProblemResolver` --- Resolve problems
+
+    The problem resolver helps when there are problems in the package
+    selection. An example is a package which conflicts with another, already
+    installed package.
+
+    .. method:: Protect(pkg)
+
+        Protect the :class:`Package()` object given by the parameter ``pkg``.
+
+        .. todo::
+
+            Really document it.
+
+    .. method:: InstallProtect()
+
+        Protect all installed packages from being removed.
+
+    .. method:: Remove(pkg)
+
+        Remove the :class:`Package()` object given by the parameter ``pkg``.
+
+        .. todo::
+
+            Really document it.
+
+    .. method:: Clear(pkg)
+
+        Reset the :class:`Package()` ``pkg`` to the default state.
+
+        .. todo::
+
+            Really document it.
+
+    .. method:: Resolve()
+
+        Try to resolve problems by installing and removing packages.
+
+    .. method:: ResolveByKeep()
+
+        Try to resolve problems only by using keep.
+
+
+TagFile
+-------
+
+.. class:: TagFile
+
+    An object which represents a typical debian control file. Can be used for
+    Packages, Sources, control, Release, etc.
+
+    Use :func:`apt_pkg.ParseTagFile` to parse a file.
+
+    .. method:: Step
+
+        Step forward to the next section. This simply returns ``1`` if OK, and
+        ``0`` if there is no section
+
+    .. method:: Offset
+
+        Return the current offset (in bytes) from the beginning of the file.
+
+    .. method:: Jump(offset)
+
+        Jump back/forward to ``offset``. Use ``Jump(0)`` to jump to the
+        beginning of the file again.
+
+    .. attribute:: Section
+
+        This is the current :class:`TagSection()` instance.
+
+TagSection
+----------
+
+.. class:: TagSection
+
+    Represent a single section of a debian control file.
+
+    .. describe:: section[key]
+
+        Return the value of the field at ``key``. If ``key`` is not available,
+        raise :exc:`KeyError`.
+
+    .. method:: Bytes
+
+        The number of bytes in the section.
+
+    .. method:: Find(key, default='')
+
+        Return the value of the field at the key ``key`` if available,
+        else return ``default``.
+
+    .. method:: FindFlag(key)
+
+        Find a yes/no value for the key ``key``. An example for such a
+        field is 'Essential'.
+
+    .. method:: get(key, default='')
+
+        Return the value of the field ``field`` if available, else return
+        ``default``.
+
+    .. method:: has_key(key)
+
+        Check whether the field with named by ``key`` exists.
+
+    .. method:: keys()
+
+        Return a list of keys in the section.
