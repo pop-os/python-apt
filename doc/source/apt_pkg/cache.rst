@@ -5,7 +5,8 @@ Classes in apt_pkg
 
     This should be split and cleaned up a bit.
 
-
+:class:`Acquire`
+----------------
 .. class:: Acquire
 
     .. method:: Run()
@@ -17,9 +18,14 @@ Classes in apt_pkg
 
         Shut the fetcher down.
 
+:class:`PkgAcqFile`
+-------------------
 .. class:: PkgAcqFile
 
     This class provides no methods or attributes
+
+:class:`AcquireItem`
+---------------------
 
 .. class:: AcquireItem
 
@@ -82,8 +88,8 @@ Classes in apt_pkg
 
         Constant for comparing :attr:`AcquireItem.Status`
 
-ActionGroup --- brings eg. big speedup
---------------------------------------
+:class:`ActionGroup`
+--------------------
 
 .. class:: ActionGroup
 
@@ -104,8 +110,8 @@ ActionGroup --- brings eg. big speedup
         garbage.
 
 
-Configuration
---------------
+:class:`Configuration`
+----------------------
 
 .. class:: Configuration
 
@@ -201,8 +207,8 @@ Configuration
         it returns the value of key or if it does not exist, *default*.
 
 
-The cache
----------
+:class:`pkgCache`
+-----------------
 .. class:: pkgCache
 
     The :class:`pkgCache` class prov
@@ -262,8 +268,8 @@ The cache
         A list of :class:`PackageFile` objects.
 
 
-PackageFile
-------------
+:class:`PackageFile`
+--------------------
 .. class:: PackageFile
 
     A :class:`PackageFile` represents a Packages file, eg.
@@ -337,8 +343,8 @@ Example
 .. literalinclude:: ../examples/cache-pkgfile.py
 
 
-A Package
----------
+:class:`Package`
+----------------
 
 .. class:: Package
 
@@ -429,8 +435,8 @@ Example:
 
 
 
-Version, as returned by eg. :meth:`pkgDepCache.GetCandidateVer`
----------------------------------------------------------------
+:class:`Version`
+----------------
 .. class:: Version
 
     The version object contains all information related to a specific package
@@ -540,8 +546,8 @@ Version, as returned by eg. :meth:`pkgDepCache.GetCandidateVer`
         Return a :class:`Description` object.
 
 
-The Dependency class
---------------------
+:class:`Dependency`
+-------------------
 .. class:: Dependency
 
     Represent a dependency from one package to another one.
@@ -601,8 +607,8 @@ broken dependencies:
 .. literalinclude:: ../examples/missing-deps.py
 
 
-The Description class
----------------------
+:class:`Description`
+--------------------
 .. class:: Description
 
     Represent the description of the package.
@@ -621,8 +627,8 @@ The Description class
 
 
 
-The pkgDepCache wrapper
------------------------
+:class:`pkgDepCache`
+--------------------
 .. class:: pkgDepCache
 
     The pkgDepCache object contains various methods to manipulate the cache,
@@ -784,8 +790,8 @@ The pkgDepCache wrapper
         applied.
 
 
-MetaIndex
----------
+:class:`MetaIndex`
+------------------
 
 .. todo::
 
@@ -799,8 +805,8 @@ MetaIndex
     .. attribute:: IndexFiles
 
 
-PackageIndexFile
-----------------
+:class:`PackageIndexFile`
+-------------------------
 
 .. class:: PackageIndexFile
 
@@ -829,8 +835,8 @@ PackageIndexFile
         Whether we can trust the file.
 
 
-PkgManager
-----------
+:class:`PkgManager`
+-------------------
 
 .. class:: PkgManager
 
@@ -841,7 +847,7 @@ PkgManager
         Add all the selected packages to the :class:`Acquire()` object
         *fetcher*.
 
-        The parameter *list* refers to a :class:`pkgSourceList()` object, as
+        The parameter *list* refers to a :class:`PkgSourceList()` object, as
         returned by :func:`apt_pkg.GetPkgSourceList`.
 
         The parameter *records* refers to a :class:`pkgRecords()` object, as
@@ -876,8 +882,8 @@ PkgManager
         Compare it against the return value of :meth:`PkgManager.GetArchives`
         or :meth:`PkgManager.DoInstall`.
 
-pkgRecords
------------
+:class:`pkgRecords`
+--------------------
 
 .. class:: PkgRecords
 
@@ -959,8 +965,8 @@ pkgRecords
             section = apt_pkg.ParseSection(records.Record)
             print section['SHA256']
 
-PkgSrcRecords
--------------
+:class:`PkgSrcRecords`
+----------------------
 
 .. class:: PkgSrcRecords
 
@@ -1036,7 +1042,7 @@ PkgSrcRecords
     .. attribute:: BuildDepends
 
         Return the list of Build dependencies, as
-        ``str: package, str: version, int: op, int: type)``.
+        ``(str: package, str: version, int: op, int: type)``.
 
         .. table:: Values of *op*
 
@@ -1080,13 +1086,30 @@ PkgSrcRecords
 
 
 :class:`PkgSourceList`
+-----------------------
 
-    .. todo::
+.. class:: PkgSourceList
 
-        Describe it.
+    This is for :file:`/etc/apt/sources.list`.
+
+    .. method:: FindIndex(pkgfile)
+
+        Return a :class:`PackageIndexFile` object for the :class:`PackageFile`
+        *pkgfile*.
+
+    .. method:: ReadMainList
+
+        Read the main list.
+
+    .. method:: GetIndexes(acq[, all])
+
+        Add the index files to the :class:`Acquire()` object *acq*. If *all* is
+        given and ``True``, all files are fetched.
 
 
-:class:`ProblemResolver` --- Resolve problems
+:class:`ProblemResolver`
+------------------------
+.. class:: ProblemResolver
 
     The problem resolver helps when there are problems in the package
     selection. An example is a package which conflicts with another, already
@@ -1129,8 +1152,8 @@ PkgSrcRecords
         Try to resolve problems only by using keep.
 
 
-TagFile
--------
+:class:`TagFile`
+----------------
 
 .. class:: TagFile
 
@@ -1157,8 +1180,8 @@ TagFile
 
         This is the current :class:`TagSection()` instance.
 
-TagSection
-----------
+:class:`TagSection`
+-------------------
 
 .. class:: TagSection
 
