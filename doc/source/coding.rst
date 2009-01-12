@@ -1,8 +1,7 @@
 Coding for python-apt
 ======================
 Let's say you need a new feature, you can develop it, and you want to get it
-included in python-apt. Then be sure to follow the following guidelines
-
+included in python-apt. Then be sure to follow the following guidelines.
 
 Available branches
 -------------------
@@ -27,7 +26,7 @@ submit them.
     happens.
 
     VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
-    
+
 **jak:** http://bzr.debian.org/users/jak/python-apt/jak
     This is Julian Andres Klode's (the documentation author's) branch. This
     is the place where cleanup and documentation updates happen. It is based
@@ -70,18 +69,28 @@ attributes, etc.
 
 Python Coding Style
 -------------------
-The coding style for the rest of the code is basically :PEP:`8`, with some exceptions:
+The coding style for all code written in python is :PEP:`8`. For modules added
+from version 0.7.9 on, there are no exceptions.
 
-The naming convention is mixedCase for functions, methods, attributes, and
-variables. This is considered bad and will be changed in future versions to
-lowercase_with_underscores, as stated in :PEP:`8`.
+Modules introduced prior to 0.7.9 use mixedCase names for methods, functions
+and variables. These names will be replaced by names conforming to :PEP:`8`
+in a future release of python-apt.
+
+Therefore, try to reduce the introduction of the mixedName code to the absolute
+minimum (sometimes you can also use shorter names).
+
+To prepare the port to Python 3.0, code should not use any functionality which
+is deprecated as of Python 2.6.
+
+The has_key() functionality may be used only on TagSection objects; as they
+provide no other way to do this. If someone is willing to adapt TagSection to
+support ``key in mapping`` and ``iter(mapping)``, this would be great.
 
 .. note::
 
     You can use the tool pep8.py from http://svn.browsershots.org/trunk/devtools/pep8/
     to validate your code. Please also run pylint, pychecker, and pyflakes and
-    fix all new errors they report (unresolved names, etc.).
-
+    fix all new **errors** they report (undefined names, etc.).
 
 Submitting your patch
 ---------------------
@@ -124,7 +133,9 @@ patch, you may need to *merge* the branch instead.
     If you plan to work on python-apt for a longer time, it may be a good
     idea to publish your branch somewhere. Alioth (http://alioth.debian.org)
     and Launchpad (https://launchpad.net) provide bzr hosting. You can also
-    use any webspace with ftp or sftp connection (for the upload).
+    use any webspace with ftp or sftp connection (for the upload). Then you do
+    not need to send *merge directives*, but you can point to your branch
+    instead.
 
 
 Documentation updates
@@ -154,3 +165,4 @@ package::
     user@pc:~/debian-sid$ bzr commit
     user@pc:~/debian-sid$ bzr send -o my-patch
     user@pc:~/debian-sid$ reportbug --severity=wishlist --tag=patch --attach=my-patch python-apt
+    user@pc:~/debian-sid$ # Add --list-cc=jak@debian.org if you change docs.
