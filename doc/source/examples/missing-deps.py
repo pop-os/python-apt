@@ -10,6 +10,7 @@ def fmt_dep(dep):
         ret += " (%s %s)" % (dep.CompType, dep.TargetVer)
     return ret
 
+
 def check_version(pkgver):
     """Check the version of the package"""
     missing = []

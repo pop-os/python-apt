@@ -23,18 +23,16 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import string
 import gettext
-import re
-import apt_pkg
 import glob
-import shutil
-import time
 import os.path
+import re
+import shutil
 import sys
+import time
 
-#from UpdateManager.Common.DistInfo import DistInfo
-from distinfo import DistInfo
+import apt_pkg
+from aptsources.distinfo import DistInfo
 
 
 # some global helpers
@@ -88,7 +86,7 @@ class SourceEntry:
                                         # (may empty)
         self.comment = ""               # (optional) comment
         self.line = line                # the original sources.list line
-        if file == None:
+        if file is None:
             file = apt_pkg.Config.FindDir(
                 "Dir::Etc")+apt_pkg.Config.Find("Dir::Etc::sourcelist")
         self.file = file               # the file that the entry is located in
@@ -107,7 +105,7 @@ class SourceEntry:
     def mysplit(self, line):
         """ a split() implementation that understands the sources.list
             format better and takes [] into account (for e.g. cdroms) """
-        line = string.strip(line)
+        line = line.strip()
         pieces = []
         tmp = ""
         # we are inside a [..] block
@@ -138,7 +136,7 @@ class SourceEntry:
     def parse(self, line):
         """ parse a given sources.list (textual) line and break it up
             into the field we have """
-        line = string.strip(self.line)
+        line = self.line.strip()
         #print line
         # check if the source is enabled/disabled
         if line == "" or line == "#": # empty line
@@ -146,7 +144,7 @@ class SourceEntry:
             return
         if line[0] == "#":
             self.disabled = True
-            pieces = string.split(line[1:])
+            pieces = line[1:].strip()
             # if it looks not like a disabled deb line return
             if not pieces[0] in ("rpm", "rpm-src", "deb", "deb-src"):
                 self.invalid = True
@@ -165,18 +163,18 @@ class SourceEntry:
             self.invalid = True
             return
         # Type, deb or deb-src
-        self.type = string.strip(pieces[0])
+        self.type = pieces[0].strip()
         # Sanity check
         if self.type not in ("deb", "deb-src", "rpm", "rpm-src"):
             self.invalid = True
             return
         # URI
-        self.uri = string.strip(pieces[1])
+        self.uri = pieces[1].strip()
         if len(self.uri) < 1:
             self.invalid = True
         # distro and components (optional)
         # Directory or distro
-        self.dist = string.strip(pieces[2])
+        self.dist = pieces[2].strip()
         if len(pieces) > 3:
             # List of components
             self.comps = pieces[3:]
@@ -187,15 +185,11 @@ class SourceEntry:
         """ set a line to enabled or disabled """
         self.disabled = not new_value
         # enable, remove all "#" from the start of the line
-        if new_value == True:
-            i=0
-            self.line = string.lstrip(self.line)
-            while self.line[i] == "#":
-                i += 1
-            self.line = self.line[i:]
+        if new_value:
+            self.line = self.line.lstrip().lstrip('#')
         else:
             # disabled, add a "#"
-            if string.strip(self.line)[0] != "#":
+            if self.line.strip()[0] != "#":
                 self.line = "#" + self.line
 
     def __str__(self):
@@ -251,7 +245,7 @@ class SourcesList:
             self.load(file)
         # check if the source item fits a predefined template
         for source in self.list:
-            if source.invalid == False:
+            if not source.invalid:
                 self.matcher.match(source)
 
     def __iter__(self):
@@ -272,7 +266,7 @@ class SourcesList:
         comps = orig_comps[:]
         # check if we have this source already in the sources.list
         for source in self.list:
-            if source.disabled == False and source.invalid == False and \
+            if not source.disabled and not source.invalid and \
                source.type == type and uri == source.uri and \
                source.dist == dist:
                 for new_comp in comps:
@@ -285,14 +279,14 @@ class SourcesList:
         for source in self.list:
             # if there is a repo with the same (type, uri, dist) just add the
             # components
-            if source.disabled == False and source.invalid == False and \
+            if not source.disabled and not source.invalid and \
                source.type == type and uri == source.uri and \
                source.dist == dist:
                 comps = uniq(source.comps + comps)
                 source.comps = comps
                 return source
             # if there is a corresponding repo which is disabled, enable it
-            elif source.disabled == True and source.invalid == False and \
+            elif source.disabled and not source.invalid and \
                  source.type == type and uri == source.uri and \
                  source.dist == dist and \
                  len(set(source.comps) & set(comps)) == len(comps):
@@ -306,7 +300,7 @@ class SourcesList:
             line = "%s #%s\n" % (line, comment)
         line = line + "\n"
         new_entry = SourceEntry(line)
-        if file != None:
+        if file is not None:
             new_entry.file = file
         self.matcher.match(new_entry)
         self.list.insert(pos, new_entry)
@@ -333,7 +327,7 @@ class SourcesList:
         """ make a backup of the current source files, if no backup extension
             is given, the current date/time is used (and returned) """
         already_backuped = set()
-        if backup_ext == None:
+        if backup_ext is None:
             backup_ext = time.strftime("%y%m%d.%H%M")
         for source in self.list:
             if not source.file in already_backuped \
@@ -380,11 +374,11 @@ class SourcesList:
         used_child_templates = {}
         for source in sources_list:
             # try to avoid checking uninterressting sources
-            if source.template == None:
+            if source.template is None:
                 continue
             # set up a dict with all used child templates and corresponding
             # source entries
-            if source.template.child == True:
+            if source.template.child:
                 key = source.template
                 if key not in used_child_templates:
                     used_child_templates[key] = []
@@ -414,7 +408,7 @@ class SourceEntryMatcher:
             f = f[0:i]
             dist = DistInfo(f, base_dir=matcherPath)
             for template in dist.templates:
-                if template.match_uri != None:
+                if template.match_uri is not None:
                     self.templates.append(template)
         return
 

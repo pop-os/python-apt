@@ -22,7 +22,7 @@ def main():
         x = pkg.Name
         # then get each version
         ver =depcache.GetCandidateVer(pkg)
-        if ver != None:
+        if ver is not None:
             depcache.MarkInstall(pkg)
             if depcache.InstCount == 0:
                 if depcache.IsUpgradable(pkg):

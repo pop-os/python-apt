@@ -27,11 +27,9 @@ import os
 import gettext
 from os import getenv
 import ConfigParser
-import string
-import apt_pkg
+import re
 
-#from gettext import gettext as _
-import gettext
+import apt_pkg
 
 
 def _(s):
@@ -76,9 +74,9 @@ class Component:
         self.description_long = long_desc
 
     def get_description(self):
-        if self.description_long != None:
+        if self.description_long is not None:
             return self.description_long
-        elif self.description != None:
+        elif self.description is not None:
             return self.description
         else:
             return None
@@ -221,8 +219,8 @@ class DistInfo:
                     mirror_set = {}
                     try:
                         mirror_data = filter(match_mirror_line.match,
-                                             map(string.strip, open(value)))
-                    except:
+                                             [x.strip() for x in open(value)])
+                    except Exception:
                         print "WARNING: Failed to read mirror file"
                         mirror_data = []
                     for line in mirror_data:
@@ -256,7 +254,7 @@ class DistInfo:
         if not template:
             return
         # reuse some properties of the parent template
-        if template.match_uri == None and template.child:
+        if template.match_uri is None and template.child:
             for t in template.parents:
                 if t.match_uri:
                     template.match_uri = t.match_uri

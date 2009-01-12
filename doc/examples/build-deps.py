@@ -3,7 +3,6 @@
 
 import apt_pkg
 import sys
-import sets    # only needed for python2.3, python2.4 supports this naively
 
 
 def get_source_pkg(pkg, records, depcache):
@@ -37,7 +36,7 @@ try:
 except KeyError:
     print "No package %s found" % sys.argv[1]
     sys.exit(1)
-all_build_depends = sets.Set()
+all_build_depends = set()
 
 # get the build depdends for the package itself
 srcpkg_name = get_source_pkg(base, records, depcache)

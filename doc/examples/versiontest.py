@@ -4,7 +4,6 @@
 import apt_pkg
 import sys
 import re
-import string
 
 apt_pkg.InitConfig()
 apt_pkg.InitSystem()
@@ -22,7 +21,7 @@ while(1):
     CurLine = CurLine + 1
     if Line == "":
         break
-    Line = string.strip(Line)
+    Line = Line.strip()
     if len(Line) == 0 or Line[0] == '#':
         continue
 

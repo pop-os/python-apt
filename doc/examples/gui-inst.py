@@ -1,19 +1,12 @@
 #!/usr/bin/python
 # example how to install in a custom terminal widget
 # see also gnome bug: #169201
-
-import apt
-import apt_pkg
-import sys, os, fcntl
-import copy
-import string
-import fcntl
-
 import pygtk
 pygtk.require('2.0')
 import gtk
 
 import apt.gtk.widgets
+
 
 if __name__ == "__main__":
 

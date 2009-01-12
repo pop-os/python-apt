@@ -1,8 +1,7 @@
-import apt
-from apt import SizeToStr
 import sys
 import time
-import string
+
+import apt
 
 
 class TextProgress(apt.OpProgress):
@@ -39,8 +38,8 @@ class TextFetchProgress(apt.FetchProgress):
 
     def pulse(self):
         print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
-            SizeToStr(self.currentCPS), SizeToStr(self.currentBytes),
-            SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+            apt.SizeToStr(self.currentCPS), SizeToStr(self.currentBytes),
+            apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
         return True
 
     def mediaChange(self, medium, drive):

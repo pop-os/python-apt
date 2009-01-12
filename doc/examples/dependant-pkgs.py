@@ -7,7 +7,7 @@ pkgs = set()
 cache = apt.Cache()
 for pkg in cache:
     candver = cache._depcache.GetCandidateVer(pkg._pkg)
-    if candver == None:
+    if candver is None:
         continue
     dependslist = candver.DependsList
     for dep in dependslist.keys():

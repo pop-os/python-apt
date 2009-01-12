@@ -21,7 +21,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import string
 import gettext
 import re
 import os
@@ -86,7 +85,7 @@ class Distribution:
                 #    template.components
                 self.source_template = template
                 break
-            if self.source_template == None:
+            if self.source_template is None:
                 raise NoDistroTemplateException("Error: could not find a "
                                                 "distribution template")
 
@@ -259,14 +258,14 @@ class Distribution:
         """
         Add distribution specific sources
         """
-        if uri == None:
+        if uri is None:
             # FIXME: Add support for the server selector
             uri = self.default_server
-        if dist == None:
+        if dist is None:
             dist = self.codename
-        if comps == None:
+        if comps is None:
             comps = list(self.enabled_comps)
-        if type == None:
+        if type is None:
             type = self.binary_type
         new_source = self.sourceslist.add(type, uri, dist, comps, comment)
         # if source code is enabled add a deb-src line after the new
@@ -379,7 +378,7 @@ class Distribution:
             change_server_of_source(source, uri, seen_binary)
         for source in self.child_sources:
             # Do not change the forces server of a child source
-            if source.template.base_uri == None or \
+            if source.template.base_uri is None or \
                source.template.base_uri != source.uri:
                 change_server_of_source(source, uri, seen_binary)
         for source in self.source_code_sources:

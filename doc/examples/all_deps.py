@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-
 import sys
+
 import apt
 
 
 def dependencies(cache, pkg, deps, key="Depends"):
     #print "pkg: %s (%s)" % (pkg.name, deps)
     candver = cache._depcache.GetCandidateVer(pkg._pkg)
-    if candver == None:
+    if candver is None:
         return deps
     dependslist = candver.DependsList
     if key in dependslist:

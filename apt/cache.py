@@ -76,12 +76,12 @@ class Cache(object):
         self._dict = {}
 
         # build the packages dict
-        if progress != None:
+        if progress is not None:
             progress.Op = "Building data structures"
         i=last=0
         size=len(self._cache.Packages)
         for pkg in self._cache.Packages:
-            if progress != None and last+100 < i:
+            if progress is not None and last+100 < i:
                 progress.update(i/float(size)*100)
                 last=i
             # drop stuff with no versions (cruft)
@@ -91,7 +91,7 @@ class Cache(object):
                                                self, pkg)
 
             i += 1
-        if progress != None:
+        if progress is not None:
             progress.done()
         self._runCallbacks("cache_post_open")
 
@@ -216,7 +216,7 @@ class Cache(object):
             return providers
         for pkg in self:
             v = self._depcache.GetCandidateVer(pkg._pkg)
-            if v == None:
+            if v is None:
                 continue
             for p in v.ProvidesList:
                 if virtual == p[0]:
@@ -232,7 +232,7 @@ class Cache(object):
             raise LockFailedException("Failed to lock %s" % lockfile)
 
         try:
-            if fetchProgress == None:
+            if fetchProgress is None:
                 fetchProgress = apt.progress.FetchProgress()
             return self._cache.Update(fetchProgress, self._list)
         finally:
@@ -253,9 +253,9 @@ class Cache(object):
         # Current a failed download will just display "error"
         # which is less than optimal!
 
-        if fetchProgress == None:
+        if fetchProgress is None:
             fetchProgress = apt.progress.FetchProgress()
-        if installProgress == None:
+        if installProgress is None:
             installProgress = apt.progress.InstallProgress()
 
         pm = apt_pkg.GetPackageManager(self._depcache)
@@ -327,7 +327,7 @@ class FilteredCache(object):
     """
 
     def __init__(self, cache=None, progress=None):
-        if cache == None:
+        if cache is None:
             self.cache = Cache(progress)
         else:
             self.cache = cache

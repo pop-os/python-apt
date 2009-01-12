@@ -3,24 +3,21 @@
 
 from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
-from DistUtilsExtra.command import *
+from DistUtilsExtra.command import build_extra, build_i18n
 import glob
 import os
-import os.path
-import pydoc
 import shutil
-import string
 import sys
 
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
-            string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]))
+            parse_makefile("python/makefile")["APT_PKG_SRC"].split())
 apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
-            string.split(parse_makefile("python/makefile")["APT_INST_SRC"]))
+            parse_makefile("python/makefile")["APT_INST_SRC"].split())
 apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation
