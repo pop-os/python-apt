@@ -45,11 +45,10 @@ class DebPackage(object):
 
     def __init__(self, filename=None, cache=None):
         self._cache = cache
-        self.file = filename
-        self._needPkgs = []
+        self._need_pkgs = []
         self._sections = {}
-        self._installedConflicts = set()
-        self._failureString = ""
+        self._installed_conflicts = set()
+        self._failure_string = ""
         if filename:
             self.open(filename)
 
@@ -86,7 +85,7 @@ class DebPackage(object):
                               self.filename)]
         return files
 
-    def _isOrGroupSatisfied(self, or_group):
+    def _is_or_group_satisfied(self, or_group):
         """Return True if at least one dependency of the or-group is satisfied.
 
         This method gets an 'or_group' and analyzes if at least one dependency
@@ -115,7 +114,7 @@ class DebPackage(object):
                 return True
         return False
 
-    def _satisfyOrGroup(self, or_group):
+    def _satisfy_or_group(self, or_group):
         """Try to satisfy the or_group."""
         for dep in or_group:
             depname, ver, oper = dep
@@ -142,7 +141,7 @@ class DebPackage(object):
 
             # check if we need to install it
             self._dbg(2, "Need to get: %s" % depname)
-            self._needPkgs.append(depname)
+            self._need_pkgs.append(depname)
             return True
 
         # if we reach this point, we failed
@@ -151,11 +150,11 @@ class DebPackage(object):
             or_str += dep[0]
             if dep != or_group[-1]:
                 or_str += "|"
-        self._failureString += _("Dependency is not satisfiable: %s\n" %
+        self._failure_string += _("Dependency is not satisfiable: %s\n" %
                                  or_str)
         return False
 
-    def _checkSinglePkgConflict(self, pkgname, ver, oper):
+    def _check_single_pkg_conflict(self, pkgname, ver, oper):
         """Return True if a pkg conflicts with a real installed/marked pkg."""
         # FIXME: deal with conflicts against its own provides
         #        (e.g. Provides: ftp-server, Conflicts: ftp-server)
@@ -174,15 +173,15 @@ class DebPackage(object):
         #print "pkgver: %s " % pkgver
         #print "oper: %s " % oper
         if (apt_pkg.CheckDep(pkgver, oper, ver) and not
-            self.replacesRealPkg(pkgname, oper, ver)):
-            self._failureString += _("Conflicts with the installed package "
+            self.replaces_real_pkg(pkgname, oper, ver)):
+            self._failure_string += _("Conflicts with the installed package "
                                      "'%s'" % pkg.name)
             return True
         return False
 
-    def _checkConflictsOrGroup(self, or_group):
+    def _check_conflicts_or_group(self, or_group):
         """Check the or-group for conflicts with installed pkgs."""
-        self._dbg(2, "_checkConflictsOrGroup(): %s " % (or_group))
+        self._dbg(2, "_check_conflicts_or_group(): %s " % (or_group))
 
         or_found = False
         virtual_pkg = None
@@ -203,12 +202,12 @@ class DebPackage(object):
                         if self.pkgname == pkg.name:
                             self._dbg(3, "conflict on self, ignoring")
                             continue
-                        if self._checkSinglePkgConflict(pkg.name, ver, oper):
-                            self._installedConflicts.add(pkg.name)
+                        if self._check_single_pkg_conflict(pkg.name, ver, oper):
+                            self._installed_conflicts.add(pkg.name)
                 continue
-            if self._checkSinglePkgConflict(depname, ver, oper):
-                self._installedConflicts.add(depname)
-        return bool(self._installedConflicts)
+            if self._check_single_pkg_conflict(depname, ver, oper):
+                self._installed_conflicts.add(depname)
+        return bool(self._installed_conflicts)
 
     @property
     def conflicts(self):
@@ -249,7 +248,7 @@ class DebPackage(object):
         except KeyError:
             return []
 
-    def replacesRealPkg(self, pkgname, oper, ver):
+    def replaces_real_pkg(self, pkgname, oper, ver):
         """Return True if a given non-virtual package is replaced.
 
         Return True if the deb packages replaces a real (not virtual)
@@ -271,7 +270,7 @@ class DebPackage(object):
                     return True
         return False
 
-    def checkConflicts(self):
+    def check_conflicts(self):
         """Check if there are conflicts with existing or selected packages.
 
         Check if the package conflicts with a existing or to be installed
@@ -279,13 +278,13 @@ class DebPackage(object):
         """
         res = True
         for or_group in self.conflicts:
-            if self._checkConflictsOrGroup(or_group):
+            if self._check_conflicts_or_group(or_group):
                 #print "Conflicts with a exisiting pkg!"
-                #self._failureString = "Conflicts with a exisiting pkg!"
+                #self._failure_string = "Conflicts with a exisiting pkg!"
                 res = False
         return res
 
-    def compareToVersionInCache(self, useInstalled=True):
+    def compare_to_version_in_cache(self, use_installed=True):
         """Compare the package to the version available in the cache.
 
         Checks if the package is already installed or availabe in the cache
@@ -297,7 +296,7 @@ class DebPackage(object):
         debver = self._sections["Version"]
         self._dbg(1, "debver: %s" % debver)
         if pkgname in self._cache:
-            if useInstalled:
+            if use_installed:
                 cachever = self._cache[pkgname].installedVersion
             else:
                 cachever = self._cache[pkgname].candidateVersion
@@ -312,7 +311,7 @@ class DebPackage(object):
                     return VERSION_OUTDATED
         return VERSION_NONE
 
-    def checkDeb(self):
+    def check(self):
         """Check if the package is installable."""
         self._dbg(3, "checkDepends")
 
@@ -320,45 +319,44 @@ class DebPackage(object):
         arch = self._sections["Architecture"]
         if  arch != "all" and arch != apt_pkg.Config.Find("APT::Architecture"):
             self._dbg(1, "ERROR: Wrong architecture dude!")
-            self._failureString = _("Wrong architecture '%s'" % arch)
+            self._failure_string = _("Wrong architecture '%s'" % arch)
             return False
 
         # check version
-        res = self.compareToVersionInCache()
-        if res == VERSION_OUTDATED: # the deb is older than the installed
-            self._failureString = _("A later version is already installed")
+        if self.compare_to_version_in_cache() == VERSION_OUTDATED:
+            # the deb is older than the installed
+            self._failure_string = _("A later version is already installed")
             return False
 
         # FIXME: this sort of error handling sux
-        self._failureString = ""
+        self._failure_string = ""
 
         # check conflicts
-        if not self.checkConflicts():
+        if not self.check_conflicts():
             return False
 
         # try to satisfy the dependencies
-        res = self._satisfyDepends(self.depends)
-        if not res:
+        if not self._satisfy_depends(self.depends):
             return False
 
         # check for conflicts again (this time with the packages that are
         # makeed for install)
-        if not self.checkConflicts():
+        if not self.check_conflicts():
             return False
 
         if self._cache._depcache.BrokenCount > 0:
-            self._failureString = _("Failed to satisfy all dependencies "
+            self._failure_string = _("Failed to satisfy all dependencies "
                                     "(broken cache)")
             # clean the cache again
             self._cache.clear()
             return False
         return True
 
-    def satisfyDependsStr(self, dependsstr):
+    def satisfy_depends_str(self, dependsstr):
         """Satisfy the dependencies in the given string."""
-        return self._satisfyDepends(apt_pkg.ParseDepends(dependsstr))
+        return self._satisfy_depends(apt_pkg.ParseDepends(dependsstr))
 
-    def _satisfyDepends(self, depends):
+    def _satisfy_depends(self, depends):
         """Satisfy the dependencies."""
         # turn off MarkAndSweep via a action group (if available)
         try:
@@ -368,30 +366,30 @@ class DebPackage(object):
         # check depends
         for or_group in depends:
             #print "or_group: %s" % or_group
-            #print "or_group satified: %s" % self._isOrGroupSatisfied(or_group)
-            if not self._isOrGroupSatisfied(or_group):
-                if not self._satisfyOrGroup(or_group):
+            #print "or_group satified: %s" % self._is_or_group_satisfied(or_group)
+            if not self._is_or_group_satisfied(or_group):
+                if not self._satisfy_or_group(or_group):
                     return False
         # now try it out in the cache
-            for pkg in self._needPkgs:
-                try:
-                    self._cache[pkg].markInstall(fromUser=False)
-                except SystemError, e:
-                    self._failureString = _("Cannot install '%s'" % pkg)
-                    self._cache.clear()
-                    return False
+        for pkg in self._need_pkgs:
+            try:
+                self._cache[pkg].markInstall(fromUser=False)
+            except SystemError, e:
+                self._failure_string = _("Cannot install '%s'" % pkg)
+                self._cache.clear()
+                return False
         return True
 
     @property
-    def missingDeps(self):
+    def missing_deps(self):
         """Return missing dependencies."""
-        self._dbg(1, "Installing: %s" % self._needPkgs)
-        if self._needPkgs is None:
-            self.checkDeb()
-        return self._needPkgs
+        self._dbg(1, "Installing: %s" % self._need_pkgs)
+        if self._need_pkgs is None:
+            self.check()
+        return self._need_pkgs
 
     @property
-    def requiredChanges(self):
+    def required_changes(self):
         """Get the changes required to satisfy the dependencies.
 
         Returns: a tuple with (install, remove, unauthenticated)
@@ -418,14 +416,20 @@ class DebPackage(object):
         if level <= self.debug:
             print >> sys.stderr, msg
 
-    def install(self, installProgress=None):
+    def install(self, install_progress=None):
         """Install the package."""
-        if installProgress is None:
+        if install_progress is None:
             return os.system("dpkg -i %s" % self.filename)
         else:
-            installProgress.startUpdate()
-            res = installProgress.run(self.filename)
-            installProgress.finishUpdate()
+            try:
+                install_progress.start_update()
+            except AttributeError:
+                install_progress.startUpdate()
+            res = install_progress.run(self.filename)
+            try:
+                install_progress.finish_update()
+            except AttributeError:
+                install_progress.finishUpdate()
             return res
 
 
@@ -475,6 +479,8 @@ class DscSrcPackage(DebPackage):
                 if sec.has_key('Version'):
                     self._sections['Version'] = sec['Version']
         finally:
+            del sec
+            del tagfile
             fobj.close()
 
         s = _("Install Build-Dependencies for "
@@ -482,16 +488,16 @@ class DscSrcPackage(DebPackage):
               " ".join(self.binaries))
         self._sections["Description"] = s
 
-    def checkDeb(self):
+    def check(self):
         """Check if the package is installable.."""
-        if not self.checkConflicts():
-            for pkgname in self._installedConflicts:
+        if not self.check_conflicts():
+            for pkgname in self._installed_conflicts:
                 if self._cache[pkgname]._pkg.Essential:
-                    raise Exception(_("A essential package would be removed"))
+                    raise Exception(_("An essential package would be removed"))
                 self._cache[pkgname].markDelete()
         # FIXME: a additional run of the checkConflicts()
         #        after _satisfyDepends() should probably be done
-        return self._satisfyDepends(self.depends)
+        return self._satisfy_depends(self.depends)
 
 
 def _test():
@@ -510,11 +516,11 @@ def _test():
 
     d = DebPackage(sys.argv[1], cache)
     print "Deb: %s" % d.pkgname
-    if not d.checkDeb():
+    if not d.check():
         print "can't be satified"
-        print d._failureString
-    print "missing deps: %s" % d.missingDeps
-    print d.requiredChanges
+        print d._failure_string
+    print "missing deps: %s" % d.missing_deps
+    print d.required_changes
 
     print "Installing ..."
     ret = d.install(DpkgInstallProgress())
@@ -527,7 +533,7 @@ def _test():
 
     s = DscSrcPackage(cache=cache)
     d = "libc6 (>= 2.3.2), libaio (>= 0.3.96) | libaio1 (>= 0.3.96)"
-    print s._satisfyDepends(apt_pkg.ParseDepends(d))
+    print s._satisfy_depends(apt_pkg.ParseDepends(d))
 
 if __name__ == "__main__":
     _test()
