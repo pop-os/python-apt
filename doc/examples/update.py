@@ -9,5 +9,5 @@ if __name__ == "__main__":
                        "touch /tmp/update-was-run")
     c = apt.Cache()
     res = c.update(apt.progress.TextFetchProgress())
-    print "res: ",res
+    print "res: ", res
     assert(os.path.exists("/tmp/update-about-to-run"))

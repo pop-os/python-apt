@@ -6,11 +6,11 @@ import apt_inst
 import sys
 import os.path
 
-def Callback(What,Name,Link,Mode,UID,GID,Size,MTime,Major,Minor):
+
+def Callback(What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
     """ callback for debExtract """
-    
-    print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u"\
-          % (What,Name,Link,Mode,UID,GID,Size, MTime, Major, Minor);
+    print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u" \
+          % (What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
 
 
 if __name__ == "__main__":
@@ -39,9 +39,11 @@ if __name__ == "__main__":
     print "extracting archive"
     dir = "/tmp/deb"
     os.mkdir(dir)
-    apt_inst.debExtractArchive(open(file),dir)
+    apt_inst.debExtractArchive(open(file), dir)
+
     def visit(arg, dirname, names):
         print "%s/" % dirname
         for file in names:
             print "\t%s" % file
+
     os.path.walk(dir, visit, None)

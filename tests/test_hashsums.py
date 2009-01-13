@@ -3,6 +3,7 @@
 import unittest
 import apt_pkg
 
+
 class testHashes(unittest.TestCase):
     " test the hashsum functions against strings and files "
 
@@ -45,7 +46,8 @@ class testHashes(unittest.TestCase):
     def testSHA256(self):
         # simple
         s = "foo"
-        s_hash = "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+        s_hash = \
+            "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
         res = apt_pkg.sha256sum(s)
         self.assert_(res == s_hash)
         # file
@@ -53,7 +55,8 @@ class testHashes(unittest.TestCase):
         self.assert_(res == s_hash)
         # with zero (\0) in the string
         s = "foo\0bar"
-        s_hash = "d6b681bfce7155d44721afb79c296ef4f0fa80a9dd6b43c5cf74dd0f64c85512"
+        s_hash = \
+            "d6b681bfce7155d44721afb79c296ef4f0fa80a9dd6b43c5cf74dd0f64c85512"
         res = apt_pkg.sha256sum(s)
         self.assert_(res == s_hash)
         # file

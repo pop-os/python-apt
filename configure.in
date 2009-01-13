@@ -21,7 +21,7 @@ EOF
      [AC_CHECK_LIB(python$ac_cv_ver_python,PyArg_ParseTuple,
         [AC_DEFINE(HAVE_PYTHONLIB) PYTHONLIB="-lpython$ac_cv_ver_python $ac_cv_libs_python"],[],$ac_cv_libs_python)])
    AC_SUBST(PYTHONLIB)
-   
+
    PYTHONVER=$ac_cv_ver_python
    PYTHONPREFIX=$ac_cv_prefix_python
    PYTHONEXECPREFIX=$ac_cv_execprefix_python

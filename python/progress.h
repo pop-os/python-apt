@@ -53,7 +53,7 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 
    virtual bool MediaChange(string Media, string Drive);
 
-   /* apt stuff */   
+   /* apt stuff */
    virtual void IMSHit(pkgAcquire::ItemDesc &Itm);
    virtual void Fetch(pkgAcquire::ItemDesc &Itm);
    virtual void Done(pkgAcquire::ItemDesc &Itm);
