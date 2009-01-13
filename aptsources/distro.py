@@ -221,8 +221,9 @@ class Distribution:
            (len(self.used_servers) == 1 and \
             compare_mirrors(self.used_servers[0], self.main_server)):
             mirrors.append([_("Main server"), self.main_server, True])
-            mirrors.append([self._get_mirror_name(self.nearest_server),
-                           self.nearest_server, False])
+            if self.nearest_server:
+                mirrors.append([self._get_mirror_name(self.nearest_server),
+                                self.nearest_server, False])
         elif len(self.used_servers) == 1 and not \
              compare_mirrors(self.used_servers[0], self.main_server):
             mirrors.append([_("Main server"), self.main_server, False])
@@ -230,23 +231,26 @@ class Distribution:
             server = self.used_servers[0]
 
             # Append the nearest server if it's not already used
-            if not compare_mirrors(server, self.nearest_server):
-                mirrors.append([self._get_mirror_name(self.nearest_server),
-                               self.nearest_server, False])
-            mirrors.append([self._get_mirror_name(server), server, True])
+            if self.nearest_server:
+                if not compare_mirrors(server, self.nearest_server):
+                    mirrors.append([self._get_mirror_name(self.nearest_server),
+                                    self.nearest_server, False])
+            if server:
+                mirrors.append([self._get_mirror_name(server), server, True])
 
         elif len(self.used_servers) > 1:
             # More than one server is used. Since we don't handle this case
             # in the user interface we set "custom servers" to true and
             # append a list of all used servers
             mirrors.append([_("Main server"), self.main_server, False])
-            mirrors.append([self._get_mirror_name(self.nearest_server),
-                                            self.nearest_server, False])
+            if self.nearest_server:
+                mirrors.append([self._get_mirror_name(self.nearest_server),
+                                self.nearest_server, False])
             mirrors.append([_("Custom servers"), None, True])
             for server in self.used_servers:
                 mirror_entry = [self._get_mirror_name(server), server, False]
-                if compare_mirrors(server, self.nearest_server) or\
-                   compare_mirrors(server, self.main_server):
+                if (compare_mirrors(server, self.nearest_server) or
+                    compare_mirrors(server, self.main_server)):
                     continue
                 elif not mirror_entry in mirrors:
                     mirrors.append(mirror_entry)

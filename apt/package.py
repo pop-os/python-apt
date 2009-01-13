@@ -480,6 +480,10 @@ class Package(object):
     def candidateInstalledSize(self, UseCandidate=True):
         """Return the size of the candidate installed package."""
         ver = self._depcache.GetCandidateVer(self._pkg)
+        if ver:
+            return ver.Size
+        else:
+            return None
 
     @property
     def installedSize(self):

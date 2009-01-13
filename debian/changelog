@@ -1,5 +1,6 @@
 python-apt (0.7.9~exp2) experimental; urgency=low
 
+  [ Julian Andres Klode ]
   * apt/*.py:
     - Almost complete cleanup of the code
     - Remove inconsistent use of tabs and spaces (Closes: #505443)
@@ -31,6 +32,15 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * Merge Ben Finney's do not use has_key() (Closes: #481878)
   * Do not use deprecated form of raise statement (Closes: #494259)
   * Add support for PkgRecords.SHA256Hash (Closes: #456113)
+  
+  [ Michael Vogt ]
+  * apt/package.py:
+    - fix bug in candidateInstalledSize property
+  * aptsources/distinfo.py:
+    - fix too restrictive mirror url check
+  * aptsources/distro.py:
+    - only add nearest_server and server to the mirrors if
+      they are defined
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
 
