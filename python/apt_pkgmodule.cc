@@ -5,7 +5,7 @@
 
    apt_pkgmodule - Top level for the python module. Create the internal
                    structures for the module in the interpriter.
-      
+
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
@@ -22,7 +22,7 @@
 #include <apt-pkg/sha256.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
-    
+
 #include <sys/stat.h>
 #include <unistd.h>
 #include <Python.h>
@@ -46,16 +46,16 @@ static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
    char *B;
    int LenA;
    int LenB;
-   
+
    if (PyArg_ParseTuple(Args,"s#s#",&A,&LenA,&B,&LenB) == 0)
       return 0;
-   
+
    if (_system == 0)
    {
       PyErr_SetString(PyExc_ValueError,"_system not initialized");
       return 0;
    }
-   
+
    return Py_BuildValue("i",_system->VS->DoCmpVersion(A,A+LenA,B,B+LenB));
 }
 
@@ -66,7 +66,7 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
    char *B;
    char *OpStr;
    unsigned int Op = 0;
-   
+
    if (PyArg_ParseTuple(Args,"sss",&A,&OpStr,&B) == 0)
       return 0;
    if (*debListParser::ConvertRelation(OpStr,Op) != 0)
@@ -80,7 +80,7 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
       PyErr_SetString(PyExc_ValueError,"_system not initialized");
       return 0;
    }
-   
+
    return Py_BuildValue("i",_system->VS->CheckDep(A,Op,B));
 //   return Py_BuildValue("i",pkgCheckDep(B,A,Op));
 }
@@ -94,7 +94,7 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
    return CppPyString(_system->VS->UpstreamVersion(Ver));
 }
 
-static char *doc_ParseDepends = 
+static char *doc_ParseDepends =
 "ParseDepends(s) -> list of tuples\n"
 "\n"
 "The resulting tuples are (Pkg,Ver,Operation). Each anded dependency is a\n"
@@ -107,11 +107,11 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    string Package;
    string Version;
    unsigned int Op;
-   
+
    const char *Start;
    const char *Stop;
    int Len;
-   
+
    if (PyArg_ParseTuple(Args,"s#",&Start,&Len) == 0)
       return 0;
    Stop = Start + Len;
@@ -121,7 +121,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    {
       if (Start == Stop)
 	 break;
-      
+
       Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
 					  ParseArchFlags);
       if (Start == 0)
@@ -130,10 +130,10 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	 Py_DECREF(List);
 	 return 0;
       }
-      
+
       if (LastRow == 0)
 	 LastRow = PyList_New(0);
-      
+
       if (Package.empty() == false)
       {
 	 PyObject *Obj;
@@ -142,7 +142,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 						pkgCache::CompTypeDeb(Op)));
 	 Py_DECREF(Obj);
       }
-      
+
       // Group ORd deps into a single row..
       if ((Op & pkgCache::Dep::Or) != pkgCache::Dep::Or)
       {
@@ -150,7 +150,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	    PyList_Append(List,LastRow);
 	 Py_DECREF(LastRow);
 	 LastRow = 0;
-      }      
+      }
    }
    return List;
 }
@@ -171,7 +171,7 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
    PyObject *Obj;
    if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
       return 0;
-   
+
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
@@ -181,8 +181,8 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
       PyString_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
-   }   
-   
+   }
+
    // Digest of a file
    if (PyFile_Check(Obj) != 0)
    {
@@ -195,10 +195,10 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
 	 PyErr_SetFromErrno(PyExc_SystemError);
 	 return 0;
       }
-      
+
       return CppPyString(Sum.Result().Value());
    }
-   
+
    PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
    return 0;
 }
@@ -211,7 +211,7 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
    PyObject *Obj;
    if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
       return 0;
-   
+
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
@@ -221,8 +221,8 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
       PyString_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
-   }   
-   
+   }
+
    // Digest of a file
    if (PyFile_Check(Obj) != 0)
    {
@@ -235,10 +235,10 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
 	 PyErr_SetFromErrno(PyExc_SystemError);
 	 return 0;
       }
-      
+
       return CppPyString(Sum.Result().Value());
    }
-   
+
    PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
    return 0;
 }
@@ -251,7 +251,7 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
    PyObject *Obj;
    if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
       return 0;
-   
+
    // Digest of a string.
    if (PyString_Check(Obj) != 0)
    {
@@ -261,8 +261,8 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
       PyString_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
-   }   
-   
+   }
+
    // Digest of a file
    if (PyFile_Check(Obj) != 0)
    {
@@ -275,27 +275,27 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
 	 PyErr_SetFromErrno(PyExc_SystemError);
 	 return 0;
       }
-      
+
       return CppPyString(Sum.Result().Value());
    }
-   
+
    PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
    return 0;
 }
 									/*}}}*/
 // init - 3 init functions						/*{{{*/
 // ---------------------------------------------------------------------
-static char *doc_Init = 
+static char *doc_Init =
 "init() -> None\n"
 "Legacy. Do InitConfig then parse the command line then do InitSystem\n";
 static PyObject *Init(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
-   pkgInitConfig(*_config);   
+
+   pkgInitConfig(*_config);
    pkgInitSystem(*_config,_system);
-   
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
@@ -307,9 +307,9 @@ static PyObject *InitConfig(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
-   pkgInitConfig(*_config);   
-   
+
+   pkgInitConfig(*_config);
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
@@ -321,9 +321,9 @@ static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    pkgInitSystem(*_config,_system);
-   
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
@@ -331,7 +331,7 @@ static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 
 // fileutils.cc: GetLock						/*{{{*/
 // ---------------------------------------------------------------------
-static char *doc_GetLock = 
+static char *doc_GetLock =
 "GetLock(string) -> int\n"
 "This will create an empty file of the given name and lock it. Once this"
 " is done all other calls to GetLock in any other process will fail with"
@@ -343,7 +343,7 @@ static PyObject *GetLock(PyObject *Self,PyObject *Args)
    char errors = false;
    if (PyArg_ParseTuple(Args,"s|b",&file,&errors) == 0)
       return 0;
-   
+
    int fd = GetLock(file, errors);
 
    return  HandleErrors(Py_BuildValue("i", fd));
@@ -356,9 +356,9 @@ static PyObject *PkgSystemLock(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    bool res = _system->Lock();
-   
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_BuildValue("b", res));
 }
@@ -370,9 +370,9 @@ static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    bool res = _system->UnLock();
-   
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_BuildValue("b", res));
 }
@@ -382,7 +382,7 @@ static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
 // initapt_pkg - Core Module Initialization				/*{{{*/
 // ---------------------------------------------------------------------
 /* */
-static PyMethodDef methods[] = 
+static PyMethodDef methods[] =
 {
    // Constructors
    {"newConfiguration",newConfiguration,METH_VARARGS,doc_newConfiguration},
@@ -404,16 +404,16 @@ static PyMethodDef methods[] =
    {"ReadConfigFile",LoadConfig,METH_VARARGS,doc_LoadConfig},
    {"ReadConfigFileISC",LoadConfigISC,METH_VARARGS,doc_LoadConfig},
    {"ParseCommandLine",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
-   
+
    // Versioning
    {"VersionCompare",VersionCompare,METH_VARARGS,doc_VersionCompare},
    {"CheckDep",CheckDep,METH_VARARGS,doc_CheckDep},
    {"UpstreamVersion",UpstreamVersion,METH_VARARGS,doc_UpstreamVersion},
- 
+
    // Depends
    {"ParseDepends",ParseDepends,METH_VARARGS,doc_ParseDepends},
    {"ParseSrcDepends",ParseSrcDepends,METH_VARARGS,doc_ParseDepends},
-   
+
    // Stuff
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
    {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
@@ -473,13 +473,13 @@ extern "C" void initapt_pkg()
 {
    PyObject *Module = Py_InitModule("apt_pkg",methods);
    PyObject *Dict = PyModule_GetDict(Module);
-   
+
    // Global variable linked to the global configuration class
    CppPyObject<Configuration *> *Config = CppPyObject_NEW<Configuration *>(&ConfigurationPtrType);
    Config->Object = _config;
    PyDict_SetItemString(Dict,"Config",Config);
    Py_DECREF(Config);
-   
+
    // Tag file constants
    PyObject *Obj;
    PyDict_SetItemString(Dict,"RewritePackageOrder",
@@ -488,7 +488,7 @@ extern "C" void initapt_pkg()
    PyDict_SetItemString(Dict,"RewriteSourceOrder",
 			Obj = CharCharToList(TFRewriteSourceOrder));
    Py_DECREF(Obj);
-   
+
    // Version..
    AddStr(Dict,"Version",pkgVersion);
    AddStr(Dict,"LibVersion",pkgLibVersion);
@@ -529,4 +529,4 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"InstStateHoldReInstReq",pkgCache::State::HoldReInstReq);
 }
 									/*}}}*/
-									  
+

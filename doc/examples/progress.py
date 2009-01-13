@@ -1,10 +1,11 @@
-import apt
-from apt import SizeToStr
 import sys
 import time
-import string
+
+import apt
+
 
 class TextProgress(apt.OpProgress):
+
     def __init__(self):
         self.last=0.0
 
@@ -21,37 +22,47 @@ class TextProgress(apt.OpProgress):
 
 
 class TextFetchProgress(apt.FetchProgress):
+
     def __init__(self):
         pass
-    
+
     def start(self):
         pass
-    
+
     def stop(self):
         pass
-    
+
     def updateStatus(self, uri, descr, shortDescr, status):
-        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (uri,descr,shortDescr, status)
+        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (
+            uri, descr, shortDescr, status)
+
     def pulse(self):
-        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (SizeToStr(self.currentCPS), SizeToStr(self.currentBytes), SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
+            apt.SizeToStr(self.currentCPS), SizeToStr(self.currentBytes),
+            apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
         return True
 
     def mediaChange(self, medium, drive):
-	print "Please insert medium %s in drive %s" % (medium, drive)
-	sys.stdin.readline()
+        print "Please insert medium %s in drive %s" % (medium, drive)
+        sys.stdin.readline()
         #return False
 
 
 class TextInstallProgress(apt.InstallProgress):
+
     def __init__(self):
         apt.InstallProgress.__init__(self)
         pass
+
     def startUpdate(self):
         print "StartUpdate"
+
     def finishUpdate(self):
         print "FinishUpdate"
+
     def statusChange(self, pkg, percent, status):
         print "[%s] %s: %s" % (percent, pkg, status)
+
     def updateInterface(self):
         apt.InstallProgress.updateInterface(self)
         # usefull to e.g. redraw a GUI
@@ -59,20 +70,25 @@ class TextInstallProgress(apt.InstallProgress):
 
 
 class TextCdromProgress(apt.CdromProgress):
+
     def __init__(self):
         pass
+
     # update is called regularly so that the gui can be redrawn
+
     def update(self, text, step):
         # check if we actually have some text to display
         if text != "":
             print "Update: %s %s" % (string.strip(text), step)
+
     def askCdromName(self):
         print "Please enter cd-name: ",
         cd_name = sys.stdin.readline()
         return (True, string.strip(cd_name))
+
     def changeCdrom(self):
         print "Please insert cdrom and press <ENTER>"
-        answer =  sys.stdin.readline()
+        answer = sys.stdin.readline()
         return True
 
 

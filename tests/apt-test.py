@@ -20,7 +20,7 @@ if __name__ == "__main__":
     cache = apt.Cache(progress)
     for name in cache.keys():
         import random
-        if random.randint(0,1) == 1:
+        if random.randint(0, 1) == 1:
             cache[name].markDelete()
     print "Broken: %s " % cache._depcache.BrokenCount
     print "DelCount: %s " % cache._depcache.DelCount

@@ -21,15 +21,6 @@ cache.Update(progress)
 print "Exiting"
 sys.exit(0)
 
-
-
-
-
-
-
-
-
-
 iter = cache["base-config"]
 print "example package iter: %s" % iter
 
@@ -44,7 +35,6 @@ print "\n\n Reinit"
 depcache.Init(progress)
 
 #sys.exit()
-
 
 # get a canidate version
 ver= depcache.GetCandidateVer(iter)
@@ -65,7 +55,6 @@ print "Marking %s for delete" % iter.Name
 depcache.MarkDelete(iter)
 print "DelCount: %s " % depcache.DelCount
 print "%s.MarkedDelete(): %s" % (iter.Name, depcache.MarkedDelete(iter))
-
 
 iter = cache["3dchess"]
 print "\nMarking '%s' for install" % iter.Name
@@ -97,9 +86,9 @@ print "UsrSize: %s " % apt_pkg.SizeToStr(depcache.UsrSize)
 print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
 
 for pkg in cache.Packages:
-    if pkg.CurrentVer != None and not depcache.MarkedInstall(pkg) and depcache.IsUpgradable(pkg):
+    if pkg.CurrentVer is not None and not depcache.MarkedInstall(pkg) \
+        and depcache.IsUpgradable(pkg):
         print "Upgrade didn't upgrade (kept): %s" % pkg.Name
-
 
 print "\nPerforming DistUpgrade"
 depcache.Upgrade(True)
@@ -112,7 +101,7 @@ print "DebSize: %s " % apt_pkg.SizeToStr(depcache.DebSize)
 # overview about what would happen
 for pkg in cache.Packages:
     if depcache.MarkedInstall(pkg):
-        if pkg.CurrentVer != None:
+        if pkg.CurrentVer is not None:
             print "Marked upgrade: %s " % pkg.Name
         else:
             print "Marked install: %s" % pkg.Name

@@ -1,31 +1,35 @@
 #!/usr/bin/env python
 
 import unittest
-import apt_pkg
 import os
 import copy
-
 import sys
+
 sys.path.insert(0, "../")
+import apt_pkg
 import aptsources
 import aptsources.sourceslist
 import aptsources.distro
 
+
 class TestAptSources(unittest.TestCase):
+
     def __init__(self, methodName):
         unittest.TestCase.__init__(self, methodName)
         apt_pkg.init()
         apt_pkg.Config.Set("Dir::Etc", os.getcwd())
-        apt_pkg.Config.Set("Dir::Etc::sourceparts","/xxx")
+        apt_pkg.Config.Set("Dir::Etc::sourceparts", "/xxx")
 
     def testIsMirror(self):
-        self.assertTrue(aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
-                                                         "http://de.archive.ubuntu.com"))
-        self.assertFalse(aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
-                                                          "http://ftp.debian.org"))
+        yes = aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
+                                               "http://de.archive.ubuntu.com")
+        no = aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
+                                              "http://ftp.debian.org")
+        self.assertTrue(yes)
+        self.assertFalse(no)
 
     def testSourcesListReading(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list")
         sources = aptsources.sourceslist.SourcesList()
         self.assertEqual(len(sources.list), 6)
         # test load
@@ -34,22 +38,22 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(len(sources.list), 6)
 
     def testSourcesListAdding(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list")
         sources = aptsources.sourceslist.SourcesList()
         # test to add something that is already there (main)
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["main"])
         self.assertTrue(sources.list == before.list)
         # test to add something that is already there (restricted)
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["restricted"])
         self.assertTrue(sources.list == before.list)
         # test to add something new: multiverse
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["multiverse"])
         found = False
@@ -60,10 +64,10 @@ class TestAptSources(unittest.TestCase):
                 "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
-        # test to add something new: multiverse *and* 
+        # test to add something new: multiverse *and*
         # something that is already there
         before = copy.deepcopy(sources)
-        sources.add("deb","http://de.archive.ubuntu.com/ubuntu/",
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
                     ["universe", "something"])
         found_universe = 0
@@ -82,7 +86,8 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(found_universe, 1)
 
     def testMatcher(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list.testDistribution")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list.test"
+                                                   "Distribution")
         sources = aptsources.sourceslist.SourcesList()
         distro = aptsources.distro.get_distro()
         distro.get_sources(sources)
@@ -93,7 +98,8 @@ class TestAptSources(unittest.TestCase):
                 self.fail("source entry '%s' has no matcher" % s)
 
     def testDistribution(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist","data/sources.list.testDistribution")
+        apt_pkg.Config.Set("Dir::Etc::sourcelist", "data/sources.list.test"
+                                                   "Distribution")
         sources = aptsources.sourceslist.SourcesList()
         distro = aptsources.distro.get_distro()
         distro.get_sources(sources)
@@ -103,9 +109,10 @@ class TestAptSources(unittest.TestCase):
             if s.template:
                 dist_templates.add(s.template.name)
         #print dist_templates
-        for d in ["hardy","hardy-security","hardy-updates","intrepid","hardy-backports"]:
+        for d in ("hardy", "hardy-security", "hardy-updates", "intrepid",
+                  "hardy-backports"):
             self.assertTrue(d in dist_templates)
-        # test enable 
+        # test enable
         comp = "restricted"
         distro.enable_component(comp)
         found = {}
@@ -115,7 +122,7 @@ class TestAptSources(unittest.TestCase):
                 "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        if not found.has_key(entry.dist):
+                        if not entry.dist in found:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
@@ -132,12 +139,13 @@ class TestAptSources(unittest.TestCase):
                 entry.template.name == "edgy"):
                 for c in entry.comps:
                     if c == comp:
-                        if not found.has_key(entry.dist):
+                        if not entry.dist in found.has_key:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
         for key in found:
             self.assertEqual(found[key], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

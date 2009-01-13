@@ -1,7 +1,53 @@
-python-apt (0.7.9) UNRELEASED; urgency=low
+python-apt (0.7.9~exp2) experimental; urgency=low
 
-  Merged python-apt consolidation branch by Sebastian
-  Heinlein (many thanks):
+  [ Julian Andres Klode ]
+  * apt/*.py:
+    - Almost complete cleanup of the code
+    - Remove inconsistent use of tabs and spaces (Closes: #505443)
+    - Improved documentation
+  * apt/debfile.py:
+    - Drop get*() methods, as they are deprecated and were
+      never in a stable release
+    - Make DscSrcPackage working
+  * apt/gtk/widgets.py:
+    - Fix the code and document the signals
+  * Introduce new documentation build with Sphinx
+    - Contains style Guide (Closes: #481562)
+    - debian/rules: Build the documentation here
+    - setup.py: Remove pydoc building and add new docs.
+    - debian/examples: Include examples from documentation
+    - debian/python-apt.docs:
+      + Change html/ to build/doc/html.
+      + Add build/doc/text for the text-only documentation
+  * setup.py:
+    - Only create build/data when building, not all the time
+    - Remove build/mo and build/data on clean -a
+  * debian/control:
+    - Remove the Conflicts on python2.3-apt, python2.4-apt, as
+      they are only needed for oldstable (sarge)
+    - Build-Depend on python-sphinx (>= 0.5)
+  * aptsources/distinfo.py:
+    - Allow @ in mirror urls (Closes: #478171) (LP: #223097)
+  * Merge Ben Finney's whitespace changes (Closes: #481563)
+  * Merge Ben Finney's do not use has_key() (Closes: #481878)
+  * Do not use deprecated form of raise statement (Closes: #494259)
+  * Add support for PkgRecords.SHA256Hash (Closes: #456113)
+  
+  [ Michael Vogt ]
+  * apt/package.py:
+    - fix bug in candidateInstalledSize property
+  * aptsources/distinfo.py:
+    - fix too restrictive mirror url check
+  * aptsources/distro.py:
+    - only add nearest_server and server to the mirrors if
+      they are defined
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
+
+python-apt (0.7.9~exp1) experimental; urgency=low
+
+  * Merged python-apt consolidation branch by Sebastian
+    Heinlein (many thanks)
   * apt/cache.py:
     - new method "isVirtualPackage()" 
     - new method "getProvidingPackages()"
@@ -15,7 +61,6 @@ python-apt (0.7.9) UNRELEASED; urgency=low
     - better description parsing 
     - new method "installedFiles()"
     - new method "getChangelog()"
-    - fix bug in candidateInstalledSize property
   * apt/gtk/widgets.py:
     - new gobject GOpProgress
     - new gobject GFetchProgress
@@ -29,13 +74,8 @@ python-apt (0.7.9) UNRELEASED; urgency=low
   * setup.py:
     - build html/ help of the apt and aptsources modules
       into /usr/share/doc/python-apt/html
-  * aptsources/distinfo.py:
-    - fix too restrictive mirror url check
-  * aptsources/distro.py:
-    - only add nearest_server and server to the mirrors if
-      they are defined
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Nov 2008 14:30:32 +0100
+ -- Michael Vogt <mvo@debian.org>  Mon, 15 Dec 2008 14:29:47 +0100
 
 python-apt (0.7.8) unstable; urgency=low
 
@@ -161,7 +201,7 @@ python-apt (0.7.4) unstable; urgency=low
 
   * apt/debfile.py:
     - added wrapper around apt_inst.debExtract()
-    - support dictionary like access 
+    - support dictionary like access
   * apt/package.py:
     - fix apt.package.Dependency.relation initialization
   * python/apt_instmodule.cc:
@@ -180,7 +220,7 @@ python-apt (0.7.4) unstable; urgency=low
   * python/depcache.cc:
     - be more threading friendly
   * python/tag.cc
-    - support "None" as default in 
+    - support "None" as default in
       ParseSection(control).get(field, default), LP: #44470
   * python/progress.cc:
     - fix refcount problem in OpProgress
@@ -212,7 +252,7 @@ python-apt (0.7.3) unstable; urgency=low
   * doc/examples/records.py:
     - added example how to use the new Records class
   * apt/cache.py:
-    - throw FetchCancelleException, FetchFailedException, 
+    - throw FetchCancelleException, FetchFailedException,
       LockFailedException exceptions when something goes wrong
   * aptsources/distro.py:
     - generalized some code, bringing it into the Distribution
@@ -231,7 +271,7 @@ python-apt (0.7.2) unstable; urgency=low
 
   * build against the new apt
   * support for new "aptsources" pythn module
-    (thanks to Sebastian Heinlein) 
+    (thanks to Sebastian Heinlein)
   * merged support for translated package descriptions
   * merged support for automatic removal of unused dependencies
 
@@ -266,7 +306,7 @@ python-apt (0.6.21) unstable; urgency=low
     - better cdrom handling support
   * apt/package.py:
     - added candidateDependencies, installedDependencies
-    - SizeToString supports PyLong too 
+    - SizeToString supports PyLong too
     - support pkg.architecture
     - support candidateRecord, installedRecord
   * apt/cache.py:
@@ -296,7 +336,7 @@ python-apt (0.6.20) unstable; urgency=low
     - use select() when checking for statusfd (lp: #53282)
   * acknoledge NMU (closes: #378048, #373512)
   * python/apt_pkgmodule.cc:
-    - fix missing docstring (closes: #368907), 
+    - fix missing docstring (closes: #368907),
       Thanks to Josh Triplett
   * make it build against python2.5
   * python/progress.cc:
@@ -348,40 +388,40 @@ python-apt (0.6.18) unstable; urgency=low
 
 python-apt (0.6.17) unstable; urgency=low
 
-  * apt/progress.py: 
+  * apt/progress.py:
     - initialize FetchProgress.eta with the correct type
     - strip the staus str before passing it to InstallProgress.statusChanged()
-    - added InstallProgress.statusChange(pkg, percent, status) 
-    - make DumbInstallProgress a new-style class 
+    - added InstallProgress.statusChange(pkg, percent, status)
+    - make DumbInstallProgress a new-style class
       (thanks to kamion for the suggestions)
     - fix various pychecker warnings
   * apt/cache.py:
     - return useful values on Cache.update()
     - Release locks on failure (thanks to Colin Watson)
     - fix various pychecker warnings
-  * apt/package.py: 
+  * apt/package.py:
     - fix various pychecker warnings
     - check if looupRecords succeeded
     - fix bug in the return statement of _downloadable()
   * python/srcrecords.cc:
     - add "Restart" method
-    - don't run auto "Restart" before performing a Lookup 
+    - don't run auto "Restart" before performing a Lookup
     - fix the initalization (no need to pass a PkgCacheType to the records)
     - added "Index" attribute
   * python/indexfile.cc:
     - added ArchiveURI() method
-  
+
  -- Michael Vogt <mvo@debian.org>  Mon,  8 May 2006 22:34:58 +0200
 
 python-apt (0.6.16.2) unstable; urgency=low
-  
+
   * Non-maintainer upload.
   * debian/control:
     + Replaces: python-apt (<< 0.6.11), instead of Conflicts which is not
       correct here. (closes: #308586).
 
  -- Pierre Habouzit <madcoder@debian.org>  Fri, 14 Apr 2006 19:30:51 +0200
-  
+
 python-apt (0.6.16.1) unstable; urgency=low
 
   * memleak fixed when pkgCache objects are deallocated
@@ -394,11 +434,11 @@ python-apt (0.6.16.1) unstable; urgency=low
 
 python-apt (0.6.16) unstable; urgency=low
 
-  * added GetPkgAcqFile to queue individual file downloads with the 
+  * added GetPkgAcqFile to queue individual file downloads with the
     system (dosn't make use of the improved pkgAcqFile yet)
   * added SourceList.GetIndexes()
   * rewrote apt.cache.update() to use the improved aquire interface
-  * apt/ API change: apt.Package.candidateOrigin returns a list of origins 
+  * apt/ API change: apt.Package.candidateOrigin returns a list of origins
     now instead of a single one
   * apt_pkg.Cdrom.Add() returns a boolean now, CdromProgress has totalSteps
   * added support for pkgIndexFile and added SourcesList.FindIndex()
@@ -425,8 +465,8 @@ python-apt (0.6.14) unstable; urgency=low
     (this is the job of the caller now)
   * python/srcrecords.cc:
     - support for "srcrecords.Files" added
-    - always run "Restart" before performing a Lookup 
-  * export locking via: GetLock(),PkgSystem{Lock,UnLock} 
+    - always run "Restart" before performing a Lookup
+  * export locking via: GetLock(),PkgSystem{Lock,UnLock}
   * apt/cache.py:
     - added  __iter__ to make "for pkg in apt.Cache:" stuff possible
 
@@ -444,9 +484,9 @@ python-apt (0.6.13) unstable; urgency=low
   * native apt/ python directory added that contains
     a more pythonic interface to apt_pkg
   * made the apt/ python code PEP08 conform
-  * python exceptions return the apt error message now 
+  * python exceptions return the apt error message now
     (thanks to Chris Halls for the patch)
-  
+
  -- Michael Vogt <mvo@debian.org>  Fri,  5 Aug 2005 10:30:31 +0200
 
 python-apt (0.6.12.2) unstable; urgency=low
@@ -459,7 +499,7 @@ python-apt (0.6.12.1) unstable; urgency=low
 
    * rebuild against the latest apt
 
- -- Michael Vogt <mvo@debian.org>  Tue, 28 Jun 2005 18:29:57 +0200 
+ -- Michael Vogt <mvo@debian.org>  Tue, 28 Jun 2005 18:29:57 +0200
 
 python-apt (0.6.12ubuntu1) breezy; urgency=low
 
@@ -471,17 +511,17 @@ python-apt (0.6.12ubuntu1) breezy; urgency=low
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 12 May 2005 11:34:05 +0200
 
 python-apt (0.6.12) breezy; urgency=low
-  
+
   * added a tests/ directory
   * added tests/pkgsrcrecords.py that will check if the pkgsrcrecords
     interface does not segfault
   * new native python "apt" interface that hides the details of apt_pkg
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri,  6 May 2005 10:11:52 +0200
-  
+
 python-apt (0.6.11) experimental; urgency=low
 
-  * fixed some reference count problems in the depcache and 
+  * fixed some reference count problems in the depcache and
     pkgsrcrecords code
   * DepCache.Init() is never called implicit now
   * merged with python-apt tree from Greek0@gmx.net--2005-main
@@ -557,7 +597,7 @@ python-apt (0.5.8) unstable; urgency=low
 
 python-apt (0.5.5.2) unstable; urgency=low
 
-  * Add myself to Uploaders so that bugs don't get tagged as NMU-fixed anymore 
+  * Add myself to Uploaders so that bugs don't get tagged as NMU-fixed anymore
   * Initial support for working with source packages (Closes: #199716)
 
  -- Matt Zimmerman <mdz@debian.org>  Tue, 22 Jul 2003 22:20:00 -0400
@@ -567,7 +607,7 @@ python-apt (0.5.5.1) unstable; urgency=low
   * DepIterator::GlobOr increments the iterator; don't increment it again.
     This caused every other dependency to be skipped (Closes: #195805)
   * Avoid a null pointer dereference when calling keys() on an empty
-    configuration (Closes: #149380) 
+    configuration (Closes: #149380)
 
  -- Matt Zimmerman <mdz@debian.org>  Mon,  2 Jun 2003 23:18:53 -0400
 
@@ -597,7 +637,7 @@ python-apt (0.5.4.4) unstable; urgency=low
     Closes: #157773
 
  -- Matt Zimmerman <mdz@debian.org>  Tue, 27 Aug 2002 19:22:10 -0400
-  
+
 python-apt (0.5.4.3) unstable; urgency=low
 
   * #include <new> in python/generic.h so that we can build on ia64, which

@@ -10,6 +10,7 @@ apt_pkg.init()
 sources = apt_pkg.GetPkgSrcRecords()
 sources.Restart()
 while sources.Lookup('hello'):
-	print sources.Package, sources.Version, sources.Maintainer, sources.Section, `sources.Binaries`
-	print sources.Files
-	print sources.Index.ArchiveURI(sources.Files[0][2])
+    print sources.Package, sources.Version, sources.Maintainer, \
+        sources.Section, `sources.Binaries`
+    print sources.Files
+    print sources.Index.ArchiveURI(sources.Files[0][2])

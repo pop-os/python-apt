@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-24 14:45+0100\n"
+"POT-Creation-Date: 2009-01-09 18:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,25 +336,25 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:173
+#: ../apt/gtk/widgets.py:243
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:179
+#: ../apt/gtk/widgets.py:249
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/gtk/widgets.py:220
+#: ../apt/gtk/widgets.py:269
 msgid "Details"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:310
+#: ../apt/gtk/widgets.py:351
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/gtk/widgets.py:313
+#: ../apt/gtk/widgets.py:357
 msgid "Complete"
 msgstr ""

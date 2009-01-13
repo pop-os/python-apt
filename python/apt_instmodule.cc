@@ -5,10 +5,10 @@
 
    apt_intmodule - Top level for the python module. Create the internal
                    structures for the module in the interpriter.
-      
+
    Note, this module shares state (particularly global config) with the
    apt_pkg module.
-   
+
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
@@ -17,7 +17,7 @@
 
 #include <apt-pkg/debfile.h>
 #include <apt-pkg/error.h>
-    
+
 #include <sys/stat.h>
 #include <unistd.h>
 #include <Python.h>
@@ -37,7 +37,7 @@ static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
    PyObject *File;
    if (PyArg_ParseTuple(Args,"O!|s",&PyFile_Type,&File,&Member) == 0)
       return 0;
-   
+
    // Subscope makes sure any clean up errors are properly handled.
    PyObject *Res = 0;
    {
@@ -46,13 +46,13 @@ static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
       debDebFile Deb(Fd);
       if (_error->PendingError() == true)
 	 return HandleErrors();
-      
+
       debDebFile::MemControlExtract Extract(Member);
       if (Extract.Read(Deb) == false)
 	 return HandleErrors();
-      
+
       // Build the return result
-      
+
       if (Extract.Control == 0)
       {
 	 Py_INCREF(Py_None);
@@ -61,7 +61,7 @@ static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
       else
 	 Res = PyString_FromStringAndSize(Extract.Control,Extract.Length+2);
    }
-   
+
    return HandleErrors(Res);
 }
 									/*}}}*/
@@ -78,11 +78,11 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
    PyObject *File;
    if (PyArg_ParseTuple(Args,"O!|s",&PyFile_Type,&File,&Rootdir) == 0)
       return 0;
-   
+
    // Subscope makes sure any clean up errors are properly handled.
    bool res = false;
    {
-      if(Rootdir != NULL) 
+      if(Rootdir != NULL)
       {
 	 getcwd(cwd, sizeof(cwd));
 	 chdir(Rootdir);
@@ -105,7 +105,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
 	 chdir (cwd);
       if (res == false)
 	 return HandleErrors(Py_BuildValue("b",res));
-   }   
+   }
    return HandleErrors(Py_BuildValue("b",res));
 }
 									/*}}}*/
@@ -120,13 +120,13 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
    PyObject *File;
    if (PyArg_ParseTuple(Args,"O!s",&PyFile_Type,&File,&Member) == 0)
       return 0;
-   
+
    // Open the file and associate the .deb
    FileFd Fd(fileno(PyFile_AsFile(File)),false);
    ARArchive AR(Fd);
    if (_error->PendingError() == true)
       return HandleErrors(Py_BuildValue("b",res));
-   
+
    if(AR.FindMember(Member) != 0)
       res = true;
 

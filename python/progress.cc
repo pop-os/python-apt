@@ -14,7 +14,7 @@
 
 
 // generic
-bool PyCallbackObj::RunSimpleCallback(const char* method_name, 
+bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 				      PyObject *arglist,
 				      PyObject **res)
 {
@@ -50,8 +50,8 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 }
 
 
-// OpProgress interface 
-void PyOpProgress::Update() 
+// OpProgress interface
+void PyOpProgress::Update()
 {
    PyObject *o;
    o = Py_BuildValue("s", Op.c_str());
@@ -64,7 +64,7 @@ void PyOpProgress::Update()
    PyObject_SetAttrString(callbackInst, "majorChange", o);
    Py_XDECREF(o);
 
-   // Build up the argument list... 
+   // Build up the argument list...
    if(CheckChange(0.05))
    {
       PyObject *arglist = Py_BuildValue("(f)", Percent);
@@ -128,7 +128,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
    // Ignore certain kinds of transient failures (bad code)
    if (Itm.Owner->Status == pkgAcquire::Item::StatIdle)
       return;
-      
+
    if (Itm.Owner->Status == pkgAcquire::Item::StatDone)
    {
       UpdateStatus(Itm, DLIgnored);
@@ -159,7 +159,7 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    //std::cout << "Pulse" << std::endl;
    if(callbackInst == 0)
       return false;
-   
+
    // set stats
    PyObject *o;
    o = Py_BuildValue("f", CurrentCPS);
@@ -179,11 +179,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    Py_XDECREF(o);
 
    PyObject *arglist = Py_BuildValue("()");
-   PyObject *result;   
+   PyObject *result;
    RunSimpleCallback("pulse", arglist, &result);
 
    bool res = true;
-   if(!PyArg_Parse(result, "b", &res)) 
+   if(!PyArg_Parse(result, "b", &res))
    {
       // most of the time the user who subclasses the pulse() 
       // method forgot to add a return {True,False} so we just
@@ -199,22 +199,22 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
 // install progress
 
-void PyInstallProgress::StartUpdate() 
+void PyInstallProgress::StartUpdate()
 {
    RunSimpleCallback("startUpdate");
 }
 
-void PyInstallProgress::UpdateInterface() 
+void PyInstallProgress::UpdateInterface()
 {
    RunSimpleCallback("updateInterface");
 }
- 
-void PyInstallProgress::FinishUpdate() 
+
+void PyInstallProgress::FinishUpdate()
 {
    RunSimpleCallback("finishUpdate");
 }
 
-pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm) 
+pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 {
    void *dummy;
    pkgPackageManager::OrderResult res;
@@ -233,7 +233,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       std::cerr << "custom fork found" << std::endl;
       PyObject *arglist = Py_BuildValue("()");
       PyObject *result = PyEval_CallObject(method, arglist);
-      Py_DECREF(arglist);       
+      Py_DECREF(arglist);
       if (result == NULL) {
 	 std::cerr << "fork method invalid" << std::endl;
 	 PyErr_Print();
@@ -248,7 +248,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       //std::cerr << "using build-in fork()" << std::endl;
       child_id = fork();
    }
-   
+
 
 #if 0 // FIXME: this needs to be merged into apt to support medium swaping
    if (child_id == 0) {
@@ -277,7 +277,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       //std::cerr << "custom waitChild found" << std::endl;
       PyObject *arglist = Py_BuildValue("(i)",child_id);
       PyObject *result = PyEval_CallObject(method, arglist);
-      Py_DECREF(arglist);       
+      Py_DECREF(arglist);
       if (result == NULL) {
 	 std::cerr << "waitChild method invalid" << std::endl;
 	 PyErr_Print();
@@ -291,7 +291,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       //std::cerr << "got child_res: " << res << std::endl;
    } else {
       //std::cerr << "using build-in waitpid()" << std::endl;
-      
+
       while (waitpid(child_id, &ret, WNOHANG) == 0)
 	 UpdateInterface();
 

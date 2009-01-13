@@ -2,7 +2,8 @@
 # example how to deal with the depcache
 
 import apt_pkg
-import sys, os
+import sys
+import os
 import copy
 
 from progress import CdromProgress
@@ -16,17 +17,11 @@ print cdrom
 
 progress = CdromProgress()
 
-(res,ident) = cdrom.Ident(progress)
+(res, ident) = cdrom.Ident(progress)
 print "ident result is: %s (%s) " % (res, ident)
 
 apt_pkg.Config.Set("APT::CDROM::Rename", "True")
 cdrom.Add(progress)
 
-
-
 print "Exiting"
 sys.exit(0)
-
-
-
-

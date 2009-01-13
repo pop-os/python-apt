@@ -19,7 +19,7 @@ struct PkgCdromStruct
 };
 
 static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
-{   
+{
    PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
 
    PyObject *pyCdromProgressInst = 0;
@@ -32,11 +32,11 @@ static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
 
    bool res = Struct.cdrom.Add(&progress);
 
-   return HandleErrors(Py_BuildValue("b", res));   
+   return HandleErrors(Py_BuildValue("b", res));
 }
 
 static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
-{   
+{
    PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
 
    PyObject *pyCdromProgressInst = 0;
@@ -52,11 +52,11 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 
    PyObject *result = Py_BuildValue("(bs)", res, ident.c_str());
 
-   return HandleErrors(result);   
+   return HandleErrors(result);
 }
 
 
-static PyMethodDef PkgCdromMethods[] = 
+static PyMethodDef PkgCdromMethods[] =
 {
    {"Add",PkgCdromAdd,METH_VARARGS,"Add a cdrom"},
    {"Ident",PkgCdromIdent,METH_VARARGS,"Ident a cdrom"},
@@ -100,7 +100,7 @@ PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 
    CppOwnedPyObject<pkgCdrom> *CdromObj =
 	   CppOwnedPyObject_NEW<pkgCdrom>(0,&PkgCdromType, *cdrom);
-   
+
    return CdromObj;
 }
 

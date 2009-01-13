@@ -12,10 +12,4 @@ WARNING !!! The API is not 100% stable yet !!!
 
 Style Guides:
 -------------
-
-Follow PEP08.
-
-Internal variables/methods are prefixed with a "_" (e.g. _foo).
-
-
-
+See ../doc/source/coding.rst

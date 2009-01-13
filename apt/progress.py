@@ -1,61 +1,82 @@
 # Progress.py - progress reporting classes
-#  
+#
 #  Copyright (c) 2005 Canonical
-#  
+#
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
-# 
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
+"""progress reporting classes.
 
-import sys
+This module provides classes for progress reporting. They can be used with
+e.g., for reporting progress on the cache opening process, the cache update
+progress, or the package install progress.
+"""
+
+import errno
+import fcntl
 import os
 import re
-import fcntl
-import string
-from errno import *
 import select
+import sys
+
 import apt_pkg
 
-import apt
+
+__all__ = ('CdromProgress', 'DpkgInstallProgress', 'DumbInstallProgress',
+          'FetchProgress', 'InstallProgress', 'OpProgress', 'OpTextProgress',
+          'TextFetchProgress')
+
 
 class OpProgress(object):
-    """ Abstract class to implement reporting on cache opening
-        Subclass this class to implement simple Operation progress reporting
+    """Abstract class to implement reporting on cache opening.
+
+    Subclass this class to implement simple Operation progress reporting.
     """
+
     def __init__(self):
-        pass
+        self.op = None
+        self.subOp = None
+
     def update(self, percent):
-        pass
+        """Called periodically to update the user interface."""
+
     def done(self):
-        pass
+        """Called once an operation has been completed."""
+
 
 class OpTextProgress(OpProgress):
-    """ A simple text based cache open reporting class """
+    """A simple text based cache open reporting class."""
+
     def __init__(self):
         OpProgress.__init__(self)
+
     def update(self, percent):
-        sys.stdout.write("\r%s: %.2i  " % (self.subOp,percent))
+        """Called periodically to update the user interface."""
+        sys.stdout.write("\r%s: %.2i  " % (self.subOp, percent))
         sys.stdout.flush()
+
     def done(self):
+        """Called once an operation has been completed."""
         sys.stdout.write("\r%s: Done\n" % self.op)
 
 
-
 class FetchProgress(object):
-    """ Report the download/fetching progress
-        Subclass this class to implement fetch progress reporting
+    """Report the download/fetching progress.
+
+    Subclass this class to implement fetch progress reporting
     """
 
     # download status constants
@@ -64,46 +85,71 @@ class FetchProgress(object):
     dlFailed = 2
     dlHit = 3
     dlIgnored = 4
-    dlStatusStr = {dlDone : "Done",
-                   dlQueued : "Queued",
-                   dlFailed : "Failed",
-                   dlHit : "Hit",
-                   dlIgnored : "Ignored"}
-    
+    dlStatusStr = {dlDone: "Done",
+                   dlQueued: "Queued",
+                   dlFailed: "Failed",
+                   dlHit: "Hit",
+                   dlIgnored: "Ignored"}
+
     def __init__(self):
         self.eta = 0.0
         self.percent = 0.0
-        pass
-    
+        # Make checking easier
+        self.currentBytes = 0
+        self.currentItems = 0
+        self.totalBytes = 0
+        self.totalItems = 0
+        self.currentCPS = 0
+
     def start(self):
-        pass
-    
+        """Called when the fetching starts."""
+
     def stop(self):
-        pass
-    
+        """Called when all files have been fetched."""
+
     def updateStatus(self, uri, descr, shortDescr, status):
-        pass
+        """Called when the status of an item changes.
+
+        This happens eg. when the downloads fails or is completed.
+        """
 
     def pulse(self):
-        """ called periodically (to update the gui), importend to
-            return True to continue or False to cancel
+        """Called periodically to update the user interface.
+
+        Return True to continue or False to cancel.
         """
-        self.percent = ((self.currentBytes + self.currentItems)*100.0)/float(self.totalBytes+self.totalItems)
+        self.percent = (((self.currentBytes + self.currentItems) * 100.0) /
+                        float(self.totalBytes + self.totalItems))
         if self.currentCPS > 0:
-            self.eta = (self.totalBytes-self.currentBytes)/float(self.currentCPS)
+            self.eta = ((self.totalBytes - self.currentBytes) /
+                        float(self.currentCPS))
         return True
+
     def mediaChange(self, medium, drive):
-        pass
+        """react to media change events."""
+
 
 class TextFetchProgress(FetchProgress):
     """ Ready to use progress object for terminal windows """
+
     def __init__(self):
+        FetchProgress.__init__(self)
         self.items = {}
+
     def updateStatus(self, uri, descr, shortDescr, status):
+        """Called when the status of an item changes.
+
+        This happens eg. when the downloads fails or is completed.
+        """
         if status != self.dlQueued:
             print "\r%s %s" % (self.dlStatusStr[status], descr)
         self.items[uri] = status
+
     def pulse(self):
+        """Called periodically to update the user interface.
+
+        Return True to continue or False to cancel.
+        """
         FetchProgress.pulse(self)
         if self.currentCPS > 0:
             s = "[%2.f%%] %sB/s %s" % (self.percent,
@@ -114,102 +160,121 @@ class TextFetchProgress(FetchProgress):
         print "\r%s" % (s),
         sys.stdout.flush()
         return True
+
     def stop(self):
-        print "\rDone downloading            " 
+        """Called when all files have been fetched."""
+        print "\rDone downloading            "
+
     def mediaChange(self, medium, drive):
-        """ react to media change events """
-        res = True;
-        print "Media change: please insert the disc labeled \
-               '%s' in the drive '%s' and press enter" % (medium,drive)
-        s = sys.stdin.readline()
-        if(s == 'c' or s == 'C'):
-            res = false;
-        return res
+        """react to media change events."""
+        print ("Media change: please insert the disc labeled "
+               "'%s' in the drive '%s' and press enter") % (medium, drive)
+
+        return raw_input() not in ('c', 'C')
+
 
 class DumbInstallProgress(object):
-    """ Report the install progress
-        Subclass this class to implement install progress reporting
+    """Report the install progress.
+
+    Subclass this class to implement install progress reporting.
     """
-    def __init__(self):
-        pass
+
     def startUpdate(self):
-        pass
+        """Start update."""
+
     def run(self, pm):
+        """Start installation."""
         return pm.DoInstall()
+
     def finishUpdate(self):
-        pass
+        """Called when update has finished."""
+
     def updateInterface(self):
-        pass
+        """Called periodically to update the user interface"""
+
 
 class InstallProgress(DumbInstallProgress):
-    """ A InstallProgress that is pretty useful.
-        It supports the attributes 'percent' 'status' and callbacks
-        for the dpkg errors and conffiles and status changes 
-     """
+    """An InstallProgress that is pretty useful.
+
+    It supports the attributes 'percent' 'status' and callbacks for the dpkg
+    errors and conffiles and status changes.
+    """
+
     def __init__(self):
         DumbInstallProgress.__init__(self)
         self.selectTimeout = 0.1
         (read, write) = os.pipe()
-        self.writefd=write
+        self.writefd = write
         self.statusfd = os.fdopen(read, "r")
-        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL,os.O_NONBLOCK)
+        fcntl.fcntl(self.statusfd.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         self.read = ""
         self.percent = 0.0
         self.status = ""
+
     def error(self, pkg, errormsg):
-        " called when a error is detected during the install "
-        pass
-    def conffile(self,current,new):
-        " called when a conffile question from dpkg is detected "
-        pass
+        """Called when a error is detected during the install."""
+
+    def conffile(self, current, new):
+        """Called when a conffile question from dpkg is detected."""
+
     def statusChange(self, pkg, percent, status):
-	" called when the status changed "
-	pass
+        """Called when the status changed."""
+
     def updateInterface(self):
-        if self.statusfd != None:
-                try:
-		    while not self.read.endswith("\n"):
-	                    self.read += os.read(self.statusfd.fileno(),1)
-                except OSError, (errno,errstr):
-                    # resource temporarly unavailable is ignored
-                    if errno != EAGAIN and errnor != EWOULDBLOCK:
-                        print errstr
-                if self.read.endswith("\n"):
-                    s = self.read
-                    #print s
-                    try:
-                        (status, pkg, percent, status_str) = string.split(s, ":",3)
-                    except ValueError, e:
-                        # silently ignore lines that can't be parsed
-                        self.read = ""
-                        return
-                    #print "percent: %s %s" % (pkg, float(percent)/100.0)
-                    if status == "pmerror":
-                        self.error(pkg,status_str)
-                    elif status == "pmconffile":
-                        # we get a string like this:
-                        # 'current-conffile' 'new-conffile' useredited distedited
-                        match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
-                        if match:
-                            self.conffile(match.group(1), match.group(2))
-                    elif status == "pmstatus":
-                        if float(percent) != self.percent or \
-                           status_str != self.status:
-                            self.statusChange(pkg, float(percent), status_str.strip())
-                        self.percent = float(percent)
-                        self.status = string.strip(status_str)
-                    self.read = ""
+        """Called periodically to update the interface."""
+        if self.statusfd is None:
+            return
+        try:
+            while not self.read.endswith("\n"):
+                self.read += os.read(self.statusfd.fileno(), 1)
+        except OSError, (errno_, errstr):
+            # resource temporarly unavailable is ignored
+            if errno_ != errno.EAGAIN and errno_ != errno.EWOULDBLOCK:
+                print errstr
+        if not self.read.endswith("\n"):
+            return
+
+        s = self.read
+        #print s
+        try:
+            (status, pkg, percent, status_str) = s.split(":", 3)
+        except ValueError:
+            # silently ignore lines that can't be parsed
+            self.read = ""
+            return
+        #print "percent: %s %s" % (pkg, float(percent)/100.0)
+        if status == "pmerror":
+            self.error(pkg, status_str)
+        elif status == "pmconffile":
+            # we get a string like this:
+            # 'current-conffile' 'new-conffile' useredited distedited
+            match = re.match("\s*\'(.*)\'\s*\'(.*)\'.*", status_str)
+            if match:
+                self.conffile(match.group(1), match.group(2))
+        elif status == "pmstatus":
+            if float(percent) != self.percent or status_str != self.status:
+                self.statusChange(pkg, float(percent),
+                                  status_str.strip())
+                self.percent = float(percent)
+                self.status = status_str.strip()
+        self.read = ""
+
     def fork(self):
+        """Fork."""
         return os.fork()
+
     def waitChild(self):
+        """Wait for child progress to exit."""
         while True:
-            select.select([self.statusfd],[],[], self.selectTimeout)
+            select.select([self.statusfd], [], [], self.selectTimeout)
             self.updateInterface()
-            (pid, res) = os.waitpid(self.child_pid,os.WNOHANG)
+            (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
             if pid == self.child_pid:
                 break
         return res
+
     def run(self, pm):
+        """Start installing."""
         pid = self.fork()
         if pid == 0:
             # child
@@ -219,29 +284,31 @@ class InstallProgress(DumbInstallProgress):
         res = self.waitChild()
         return os.WEXITSTATUS(res)
 
-class CdromProgress:
-    """ Report the cdrom add progress
-        Subclass this class to implement cdrom add progress reporting
+
+class CdromProgress(object):
+    """Report the cdrom add progress.
+
+    Subclass this class to implement cdrom add progress reporting.
     """
+
     def __init__(self):
         pass
+
     def update(self, text, step):
-        """ update is called regularly so that the gui can be redrawn """
-        pass
+        """Called periodically to update the user interface."""
+
     def askCdromName(self):
-        pass
+        """Called to ask for the name of the cdrom."""
+
     def changeCdrom(self):
-        pass
+        """Called to ask for the cdrom to be changed."""
 
 
 class DpkgInstallProgress(InstallProgress):
-    """
-    Progress handler for a local Debian package installation
-    """
+    """Progress handler for a local Debian package installation."""
+
     def run(self, debfile):
-        """
-        Start installing the given Debian package
-        """
+        """Start installing the given Debian package."""
         self.debfile = debfile
         self.debname = os.path.basename(debfile).split("_")[0]
         pid = self.fork()
@@ -255,46 +322,35 @@ class DpkgInstallProgress(InstallProgress):
         return res
 
     def updateInterface(self):
-        """
-        Process status messages from dpkg
-        """
-        if self.statusfd != None:
-            while True:
-                try:
-                    self.read += os.read(self.statusfd.fileno(),1)
-                except OSError, (errno,errstr):
-                    # resource temporarly unavailable is ignored
-                    if errno != 11:
-                        print errstr
-                    break
-                if self.read.endswith("\n"):
-                    statusl = string.split(self.read, ":")
-                    if len(statusl) < 3:
-                        print "got garbage from dpkg: '%s'" % read
-                        self.read = ""
-                        break
-                    status = statusl[2].strip()
-                    #print status
-                    if status == "error":
-                        self.error(self.debname, status)
-                    elif status == "conffile-prompt":
-                        # we get a string like this:
-                        # 'current-conffile' 'new-conffile' useredited distedited
-                        match = re.compile("\s*\'(.*)\'\s*\'(.*)\'.*").match(status_str)
-                        if match:
-                             self.conffile(match.group(1), match.group(2))
-                    else:
-                        self.status = status
-                    self.read = ""
+        """Process status messages from dpkg."""
+        if self.statusfd is None:
+            return
+        while True:
+            try:
+                self.read += os.read(self.statusfd.fileno(), 1)
+            except OSError, (errno_, errstr):
+                # resource temporarly unavailable is ignored
+                if errno_ != 11:
+                    print errstr
+                break
+            if not self.read.endswith("\n"):
+                continue
 
-# module test code
-if __name__ == "__main__":
-    import apt_pkg
-    apt_pkg.init()
-    progress = OpTextProgress()
-    cache = apt_pkg.GetCache(progress)
-    depcache = apt_pkg.GetDepCache(cache)
-    depcache.Init(progress)
-
-    fprogress = TextFetchProgress()
-    cache.Update(fprogress)
+            statusl = self.read.split(":")
+            if len(statusl) < 3:
+                print "got garbage from dpkg: '%s'" % self.read
+                self.read = ""
+                break
+            status = statusl[2].strip()
+            #print status
+            if status == "error":
+                self.error(self.debname, status)
+            elif status == "conffile-prompt":
+                # we get a string like this:
+                # 'current-conffile' 'new-conffile' useredited distedited
+                match = re.match("\s*\'(.*)\'\s*\'(.*)\'.*", statusl[3])
+                if match:
+                    self.conffile(match.group(1), match.group(2))
+            else:
+                self.status = status
+            self.read = ""
