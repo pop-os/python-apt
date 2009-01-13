@@ -27,8 +27,8 @@
 import feedparser
 import sys
 
-#d = feedparser.parse("https://launchpad.net/ubuntu/+archivemirrors-rss")
-d = feedparser.parse(open("+archivemirrors-rss"))
+d = feedparser.parse("https://launchpad.net/ubuntu/+archivemirrors-rss")
+#d = feedparser.parse(open("+archivemirrors-rss"))
 
 countries = {}
 
