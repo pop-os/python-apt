@@ -3,72 +3,67 @@
 
 from distutils.core import setup, Extension
 from distutils.sysconfig import parse_makefile
-from DistUtilsExtra.command import *
+from DistUtilsExtra.command import build_extra, build_i18n
 import glob
 import os
-import os.path
-import pydoc
 import shutil
-import string
 import sys
 
-def build_docs(dir="html", modules=["apt","aptsources"]):
-    htmldir = os.path.join(os.getcwd(), dir)
-    for d in modules:
-        for (dirpath, dirnames, filenames) in os.walk(d):
-            pydoc.writedoc(dirpath.replace("/","."))
-            for file in filenames:
-                if not file.endswith(".py"):
-                    continue
-                if file in ["__init__.py"]:
-                    continue
-                pydoc.writedoc(dirpath.replace("/",".")+"."+file.split(".py")[0])
-    if not os.path.exists(htmldir):
-        os.mkdir(htmldir)
-    for f in glob.glob("*.html"):
-        shutil.move(f, htmldir)
-    return True
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
-            string.split(parse_makefile("python/makefile")["APT_PKG_SRC"]))
-apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"]);
+            parse_makefile("python/makefile")["APT_PKG_SRC"].split())
+apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
-            string.split(parse_makefile("python/makefile")["APT_INST_SRC"]))
-apt_inst = Extension("apt_inst", files, libraries=["apt-pkg","apt-inst"]);
+            parse_makefile("python/makefile")["APT_INST_SRC"].split())
+apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation
 templates = []
-if not os.path.exists("build/data/templates/"):
-    os.makedirs("build/data/templates")
-for template in glob.glob('data/templates/*.info.in'):
-    source = open(template, "r")
-    build = open(os.path.join("build", template[:-3]), "w")
-    lines = source.readlines()
-    for line in lines:
-        build.write(line.lstrip("_"))
-    source.close()
-    build.close()
 
 # build doc
-if sys.argv[1] == "build":
-    build_docs()
+if len(sys.argv) > 1 and sys.argv[1] == "build":
+    if not os.path.exists("build/data/templates/"):
+        os.makedirs("build/data/templates")
+    for template in glob.glob('data/templates/*.info.in'):
+        source = open(template, "r")
+        build = open(os.path.join("build", template[:-3]), "w")
+        lines = source.readlines()
+        for line in lines:
+            build.write(line.lstrip("_"))
+        source.close()
+        build.close()
 
-setup(name="python-apt", 
-      version="0.6.17",
+
+if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
+    for dirname in "build/doc", "doc/build", "build/data", "build/mo":
+        if os.path.exists(dirname):
+            print "Removing", dirname
+            shutil.rmtree(dirname)
+        else:
+            print "Not removing", dirname, "because it does not exist"
+
+setup(name="python-apt",
+      version="0.7.9",
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
-      ext_modules=[apt_pkg,apt_inst],
+      ext_modules=[apt_pkg, apt_inst],
       packages=['apt', 'apt.gtk', 'aptsources'],
       data_files = [('share/python-apt/templates',
                     glob.glob('build/data/templates/*.info')),
                     ('share/python-apt/templates',
                     glob.glob('data/templates/*.mirrors'))],
-      cmdclass = { "build" : build_extra.build_extra,
-                   "build_i18n" :  build_i18n.build_i18n },
+      cmdclass = {"build": build_extra.build_extra,
+                  "build_i18n": build_i18n.build_i18n},
       license = 'GNU GPL',
-      platforms = 'posix'
-      )
+      platforms = 'posix')
+
+if len(sys.argv) > 1 and sys.argv[1] == "build":
+    import sphinx
+    sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
+                os.path.abspath("doc/source"), "build/doc/html"])
+    sphinx.main(["sphinx", "-b", "text", "-d", "build/doc/doctrees",
+                os.path.abspath("doc/source"), "build/doc/text"])

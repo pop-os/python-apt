@@ -1,6 +1,6 @@
 #!/usr/bin/python-dbg
 
-from pprint import pprint,pformat
+from pprint import pprint, pformat
 import apt
 import sys
 import gc

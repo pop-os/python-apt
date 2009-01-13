@@ -10,10 +10,10 @@
      ConfigurationPtr - A pointer to a configuration instance, used only
                         for the global instance (_config)
      ConfigurationSub - A subtree - has a reference to its owner.
-   
+
    The wrapping is mostly 1:1 with the C++ code, but there are additions to
-   wrap the linked tree walking into nice flat sequence walking.   
-   
+   wrap the linked tree walking into nice flat sequence walking.
+
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
@@ -113,7 +113,7 @@ static PyObject *CnfSet(PyObject *Self,PyObject *Args)
    char *Value = 0;
    if (PyArg_ParseTuple(Args,"ss",&Name,&Value) == 0)
       return 0;
-   
+
    GetSelf(Self).Set(Name,Value);
    Py_INCREF(Py_None);
    return Py_None;
@@ -134,9 +134,9 @@ static PyObject *CnfClear(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
-   
+
    GetSelf(Self).Clear(Name);
-   
+
    Py_INCREF(Py_None);
    return Py_None;
 }
@@ -170,7 +170,7 @@ static PyObject *CnfList(PyObject *Self,PyObject *Args)
    char *RootName = 0;
    if (PyArg_ParseTuple(Args,"|s",&RootName) == 0)
       return 0;
-   
+
    // Convert the whole configuration space into a list
    PyObject *List = PyList_New(0);
    const Configuration::Item *Top = GetSelf(Self).Tree(RootName);
@@ -180,10 +180,10 @@ static PyObject *CnfList(PyObject *Self,PyObject *Args)
    for (; Top != 0; Top = Top->Next)
    {
       PyObject *Obj;
-      PyList_Append(List,Obj = CppPyString(Top->FullTag(Root)));      
+      PyList_Append(List,Obj = CppPyString(Top->FullTag(Root)));
       Py_DECREF(Obj);
    }
-   
+
    return List;
 }
 
@@ -195,7 +195,7 @@ static PyObject *CnfValueList(PyObject *Self,PyObject *Args)
    char *RootName = 0;
    if (PyArg_ParseTuple(Args,"|s",&RootName) == 0)
       return 0;
-   
+
    // Convert the whole configuration space into a list
    PyObject *List = PyList_New(0);
    const Configuration::Item *Top = GetSelf(Self).Tree(RootName);
@@ -207,7 +207,7 @@ static PyObject *CnfValueList(PyObject *Self,PyObject *Args)
       PyList_Append(List,Obj = CppPyString(Top->Value));
       Py_DECREF(Obj);
    }
-   
+
    return List;
 }
 
@@ -216,7 +216,7 @@ static PyObject *CnfMyTag(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    const Configuration::Item *Top = GetSelf(Self).Tree(0);
    if (Top == 0)
       return Py_BuildValue("s","");
@@ -230,7 +230,7 @@ static PyObject *CnfKeys(PyObject *Self,PyObject *Args)
    char *RootName = 0;
    if (PyArg_ParseTuple(Args,"|s",&RootName) == 0)
       return 0;
-   
+
    // Convert the whole configuration space into a list
    PyObject *List = PyList_New(0);
    const Configuration::Item *Top = GetSelf(Self).Tree(RootName);
@@ -241,17 +241,17 @@ static PyObject *CnfKeys(PyObject *Self,PyObject *Args)
    if (Top != 0)
       Root = GetSelf(Self).Tree(0)->Parent;
    for (; Top != 0;)
-   {      
+   {
       PyObject *Obj;
       PyList_Append(List,Obj = CppPyString(Top->FullTag(Root)));
       Py_DECREF(Obj);
-      
+
       if (Top->Child != 0)
       {
 	 Top = Top->Child;
 	 continue;
       }
-      
+
       while (Top != 0 && Top->Next == 0 && Top != Root &&
 	     Top->Parent != Stop)
 	 Top = Top->Parent;
@@ -270,13 +270,13 @@ static PyObject *CnfMap(PyObject *Self,PyObject *Arg)
       PyErr_SetNone(PyExc_TypeError);
       return 0;
    }
-   
+
    if (GetSelf(Self).Exists(PyString_AsString(Arg)) == false)
-   {  
+   {
       PyErr_SetString(PyExc_KeyError,PyString_AsString(Arg));
       return 0;
    }
-   	 
+
    return CppPyString(GetSelf(Self).Find(PyString_AsString(Arg)));
 }
 
@@ -288,7 +288,7 @@ static int CnfMapSet(PyObject *Self,PyObject *Arg,PyObject *Val)
       PyErr_SetNone(PyExc_TypeError);
       return -1;
    }
-   
+
    GetSelf(Self).Set(PyString_AsString(Arg),PyString_AsString(Val));
    return 0;
 }
@@ -305,10 +305,10 @@ PyObject *LoadConfig(PyObject *Self,PyObject *Args)
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
    }
-   
+
    if (ReadConfigFile(GetSelf(Self),Name,false) == false)
      return HandleErrors();
-       
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
@@ -323,10 +323,10 @@ PyObject *LoadConfigISC(PyObject *Self,PyObject *Args)
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
    }
-   
+
    if (ReadConfigFile(GetSelf(Self),Name,true) == false)
       return HandleErrors();
-       
+
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
@@ -336,7 +336,7 @@ PyObject *LoadConfigISC(PyObject *Self,PyObject *Args)
 // ---------------------------------------------------------------------
 char *doc_ParseCommandLine =
 "ParseCommandLine(Configuration,ListOfOptions,List-argv) -> List\n"
-"\n"									   
+"\n"
 "This function is like getopt except it manipulates a configuration space.\n"
 "output is a list of non-option arguments (filenames, etc).\n"
 "ListOfOptions is a list of tuples of the form:\n"
@@ -355,13 +355,13 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
    }
-   
+
    // Convert the option list
    int Length = PySequence_Length(POList);
    CommandLine::Args *OList = new CommandLine::Args[Length+1];
    OList[Length].ShortOpt = 0;
    OList[Length].LongOpt = 0;
-   
+
    for (int I = 0; I != Length; I++)
    {
       char *Type = 0;
@@ -373,7 +373,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 	 return 0;
       }
       OList[I].Flags = 0;
-      
+
       // Convert the type over to flags..
       if (Type != 0)
       {
@@ -389,7 +389,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 	    OList[I].Flags = CommandLine::ConfigFile;
 	 else if (strcasecmp(Type,"ArbItem") == 0)
 	    OList[I].Flags = CommandLine::ArbItem;
-      }     
+      }
    }
 
    // Convert the argument list into a char **
@@ -399,7 +399,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
       delete [] OList;
       return 0;
    }
-   
+
    // Do the command line processing
    PyObject *List = 0;
    {
@@ -410,16 +410,16 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 	 delete [] OList;
 	 return HandleErrors();
       }
-      
+
       // Convert the file listing into a python sequence
       for (Length = 0; CmdL.FileList[Length] != 0; Length++);
-      List = PyList_New(Length);   
+      List = PyList_New(Length);
       for (int I = 0; CmdL.FileList[I] != 0; I++)
       {
 	 PyList_SetItem(List,I,PyString_FromString(CmdL.FileList[I]));
-      }      
+      }
    }
-   
+
    delete [] argv;
    delete [] OList;
    return HandleErrors(List);
@@ -427,7 +427,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 									/*}}}*/
 
 // Method table for the Configuration object
-static PyMethodDef CnfMethods[] = 
+static PyMethodDef CnfMethods[] =
 {
    // Query
    {"Find",CnfFind,METH_VARARGS,doc_Find},
@@ -444,7 +444,7 @@ static PyMethodDef CnfMethods[] =
    {"ValueList",CnfValueList,METH_VARARGS,doc_ValueList},
    {"MyTag",CnfMyTag,METH_VARARGS,doc_MyTag},
    {"Clear",CnfClear,METH_VARARGS,doc_Clear},
-   
+
    // Python Special
    {"keys",CnfKeys,METH_VARARGS,doc_Keys},
    {"has_key",CnfExists,METH_VARARGS,doc_Exists},
@@ -462,7 +462,7 @@ static PyObject *CnfGetAttr(PyObject *Self,char *Name)
 
 // Type for a Normal Configuration object
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
-PyTypeObject ConfigurationType = 
+PyTypeObject ConfigurationType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
@@ -481,8 +481,8 @@ PyTypeObject ConfigurationType =
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
 };
-   
-PyTypeObject ConfigurationPtrType = 
+
+PyTypeObject ConfigurationPtrType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    0,			                // ob_size
@@ -501,7 +501,7 @@ PyTypeObject ConfigurationPtrType =
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+
 PyTypeObject ConfigurationSubType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -521,4 +521,4 @@ PyTypeObject ConfigurationSubType =
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
 };
-   
+

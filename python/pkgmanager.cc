@@ -19,14 +19,14 @@
 
 
 static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
-{   
+{
    pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
    PyObject *fetcher, *list, *recs;
-   
+
    if (PyArg_ParseTuple(Args, "O!O!O!",
 			&PkgAcquireType,&fetcher,
 			&PkgSourceListType, &list,
-			&PkgRecordsType, &recs) == 0) 
+			&PkgRecordsType, &recs) == 0)
       return 0;
 
    pkgAcquire *s_fetcher = GetCpp<pkgAcquire*>(fetcher);
@@ -44,12 +44,12 @@ static PyObject *PkgManagerDoInstall(PyObject *Self,PyObject *Args)
    //PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
    pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
    int status_fd = -1;
-   
+
    if (PyArg_ParseTuple(Args, "|i", &status_fd) == 0)
       return 0;
 
    pkgPackageManager::OrderResult res = pm->DoInstall(status_fd);
-  
+
    return HandleErrors(Py_BuildValue("i",res));
 }
 
@@ -62,11 +62,11 @@ static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
       return 0;
 
    bool res = pm->FixMissing();
-   
+
    return HandleErrors(Py_BuildValue("b",res));
 }
 
-static PyMethodDef PkgManagerMethods[] = 
+static PyMethodDef PkgManagerMethods[] =
 {
    {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
    {"DoInstall",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
@@ -81,11 +81,11 @@ static PyObject *PkgManagerAttr(PyObject *Self,char *Name)
    pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
 
    // some constants
-   if(strcmp("ResultCompleted",Name) == 0) 
+   if(strcmp("ResultCompleted",Name) == 0)
       return Py_BuildValue("i", pkgPackageManager::Completed);
-   if(strcmp("ResultFailed",Name) == 0) 
+   if(strcmp("ResultFailed",Name) == 0)
       return Py_BuildValue("i", pkgPackageManager::Failed);
-   if(strcmp("ResultIncomplete",Name) == 0) 
+   if(strcmp("ResultIncomplete",Name) == 0)
       return Py_BuildValue("i", pkgPackageManager::Incomplete);
 
    return Py_FindMethod(PkgManagerMethods,Self,Name);
@@ -125,7 +125,7 @@ PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
 
    CppPyObject<pkgPackageManager*> *PkgManagerObj =
 	   CppPyObject_NEW<pkgPackageManager*>(&PkgManagerType,pm);
-   
+
    return PkgManagerObj;
 }
 

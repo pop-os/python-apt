@@ -4,7 +4,7 @@
 /* ######################################################################
 
    Prototypes for the module
-   
+
    ##################################################################### */
 									/*}}}*/
 #ifndef APT_PKGMODULE_H
@@ -49,7 +49,7 @@ PyObject *StrStringToBool(PyObject *self,PyObject *Args);
 PyObject *StrTimeRFC1123(PyObject *self,PyObject *Args);
 PyObject *StrStrToTime(PyObject *self,PyObject *Args);
 PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
-   
+
 // Cache Stuff
 extern PyTypeObject PkgCacheType;
 extern PyTypeObject PkgCacheFileType;

@@ -21,7 +21,7 @@ struct PkgSrcRecordsStruct
    pkgSourceList List;
    pkgSrcRecords *Records;
    pkgSrcRecords::Parser *Last;
-   
+
    PkgSrcRecordsStruct() : Last(0) {
       List.ReadMainList();
       Records = new pkgSrcRecords(List);
@@ -30,24 +30,24 @@ struct PkgSrcRecordsStruct
       delete Records;
    };
 };
-    
+
 // PkgSrcRecords Class							/*{{{*/
 // ---------------------------------------------------------------------
 
 static char *doc_PkgSrcRecordsLookup = "xxx";
 static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
-{   
+{
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
-   
+
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
-   
+
    Struct.Last = Struct.Records->Find(Name, false);
    if (Struct.Last == 0) {
       Struct.Records->Restart();
       Py_INCREF(Py_None);
-      return HandleErrors(Py_None);	
+      return HandleErrors(Py_None);
    }
 
    return Py_BuildValue("i", 1);
@@ -55,20 +55,20 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
 
 static char *doc_PkgSrcRecordsRestart = "Start Lookup from the begining";
 static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
-{   
+{
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
-   
+
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    Struct.Records->Restart();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_None);	
+   return HandleErrors(Py_None);
 }
 
-static PyMethodDef PkgSrcRecordsMethods[] = 
+static PyMethodDef PkgSrcRecordsMethods[] =
 {
    {"Lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"Restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
@@ -111,10 +111,10 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
 
 	 PyObject *v;
 	 for(unsigned int i=0;i<f.size();i++) {
-	    v = Py_BuildValue("(siss)", 
-			      f[i].MD5Hash.c_str(), 
-			      f[i].Size, 
-			      f[i].Path.c_str(), 
+	    v = Py_BuildValue("(siss)",
+			      f[i].MD5Hash.c_str(),
+			      f[i].Size,
+			      f[i].Path.c_str(),
 			      f[i].Type.c_str());
 	    PyList_Append(List, v);
 	    Py_DECREF(v);
@@ -129,7 +129,7 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
 
 	 PyObject *v;
 	 for(unsigned int i=0;i<bd.size();i++) {
-	    v = Py_BuildValue("(ssii)", bd[i].Package.c_str(), 
+	    v = Py_BuildValue("(ssii)", bd[i].Package.c_str(),
 			      bd[i].Version.c_str(), bd[i].Op, bd[i].Type);
 	    PyList_Append(List, v);
 	    Py_DECREF(v);
@@ -137,7 +137,7 @@ static PyObject *PkgSrcRecordsAttr(PyObject *Self,char *Name)
          return List;
       }
    }
-   
+
    return Py_FindMethod(PkgSrcRecordsMethods,Self,Name);
 }
 PyTypeObject PkgSrcRecordsType =
@@ -174,7 +174,7 @@ PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 #endif
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   
+
    return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PkgSrcRecordsType));
 }
 

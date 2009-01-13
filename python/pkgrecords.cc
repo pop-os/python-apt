@@ -16,20 +16,20 @@
 #include <Python.h>
 									/*}}}*/
 
-    
+
 // PkgRecords Class							/*{{{*/
 // ---------------------------------------------------------------------
 
 
 static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
-{   
+{
    PkgRecordsStruct &Struct = GetCpp<PkgRecordsStruct>(Self);
-   
+
    PyObject *PkgFObj;
    long int Index;
    if (PyArg_ParseTuple(Args,"(O!l)",&PackageFileType,&PkgFObj,&Index) == 0)
       return 0;
-   
+
    // Get the index and check to make sure it is reasonable
    pkgCache::PkgFileIterator &PkgF = GetCpp<pkgCache::PkgFileIterator>(PkgFObj);
    pkgCache *Cache = PkgF.Cache();
@@ -39,15 +39,15 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
       PyErr_SetNone(PyExc_IndexError);
       return 0;
    }
-   
+
    // Do the lookup
    Struct.Last = &Struct.Records.Lookup(pkgCache::VerFileIterator(*Cache,Cache->VerFileP+Index));
 
    // always return true (to make it consistent with the pkgsrcrecords object
    return Py_BuildValue("i", 1);
 }
-    
-static PyMethodDef PkgRecordsMethods[] = 
+
+static PyMethodDef PkgRecordsMethods[] =
 {
    {"Lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
    {}
@@ -65,6 +65,8 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->MD5Hash());
       else if (strcmp("SHA1Hash",Name) == 0)
 	 return CppPyString(Struct.Last->SHA1Hash());
+      else if (strcmp("SHA256Hash",Name) == 0)
+	 return CppPyString(Struct.Last->SHA256Hash());
       else if (strcmp("SourcePkg",Name) == 0)
 	 return CppPyString(Struct.Last->SourcePkg());
       else if (strcmp("SourceVer",Name) == 0)
@@ -79,14 +81,14 @@ static PyObject *PkgRecordsAttr(PyObject *Self,char *Name)
 	 return CppPyString(Struct.Last->Name());
       else if (strcmp("Homepage",Name) == 0)
 	 return CppPyString(Struct.Last->Homepage());
-      else if (strcmp("Record", Name) == 0) 
+      else if (strcmp("Record", Name) == 0)
       {
 	 const char *start, *stop;
 	 Struct.Last->GetRec(start, stop);
 	 return PyString_FromStringAndSize(start,stop-start);
       }
    }
-   
+
    return Py_FindMethod(PkgRecordsMethods,Self,Name);
 }
 PyTypeObject PkgRecordsType =

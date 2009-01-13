@@ -4,24 +4,24 @@
 /* ######################################################################
 
    generic - Some handy functions to make integration a tad simpler
- 
-   Python needs this little _HEAD tacked onto the front of the object.. 
+
+   Python needs this little _HEAD tacked onto the front of the object..
    This complicates the integration with C++. We use some templates to
    make that quite transparent to us. It would have been nice if Python
    internally used a page from the C++ ref counting book to hide its little
    header from the world, but it doesn't.
 
-   The CppPyObject has the target object and the Python header, this is 
-   needed to ensure proper alignment. 
+   The CppPyObject has the target object and the Python header, this is
+   needed to ensure proper alignment.
    GetCpp returns the C++ object from a PyObject.
    CppPyObject_NEW creates the Python object and then uses placement new
      to init the C++ class.. This is good for simple situations and as an
      example on how to do it in other more specific cases.
-   CppPyObject_Dealloc should be used in the Type as the destructor 
+   CppPyObject_Dealloc should be used in the Type as the destructor
      function.
    HandleErrors converts errors from the internal _error stack into Python
      exceptions and makes sure the _error stack is empty.
-   
+
    ##################################################################### */
 									/*}}}*/
 #ifndef GENERIC_H
@@ -38,7 +38,7 @@ typedef int Py_ssize_t;
 template <class T> struct CppPyObject : public PyObject
 {
    // We are only using CppPyObject and friends as dumb structs only, ie the
-   // c'tor is never called. 
+   // c'tor is never called.
    // However if T doesn't have a default c'tor C++ doesn't generate one for
    // CppPyObject (since it can't know how it should initialize Object).
    //
