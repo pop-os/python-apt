@@ -26,6 +26,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - Remove the Conflicts on python2.3-apt, python2.4-apt, as
       they are only needed for oldstable (sarge)
     - Build-Depend on python-sphinx (>= 0.5)
+    - Add Vcs-Browser
   * aptsources/distinfo.py:
     - Allow @ in mirror urls (Closes: #478171) (LP: #223097)
   * Merge Ben Finney's whitespace changes (Closes: #481563)
@@ -42,7 +43,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - only add nearest_server and server to the mirrors if
       they are defined
 
- -- Julian Andres Klode <jak@debian.org>  Wed, 14 Jan 2009 13:39:56 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 14 Jan 2009 14:48:20 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
