@@ -3,7 +3,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   [ Julian Andres Klode ]
   * apt/*.py:
     - Almost complete cleanup of the code
-    - Remove inconsistent use of tabs and spaces (Closes: #505443)
+    - Fix inconsistent use of tabs and spaces (Closes: #505443) (LP: #297207)
     - Improved documentation
   * apt/debfile.py:
     - Drop get*() methods, as they are deprecated and were
@@ -11,7 +11,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - Make DscSrcPackage working
   * apt/gtk/widgets.py:
     - Fix the code and document the signals
-  * Introduce new documentation build with Sphinx
+  * Introduce new documentation build with Sphinx (Closes: #204818)
     - Contains style Guide (Closes: #481562)
     - debian/rules: Build the documentation here
     - setup.py: Remove pydoc building and add new docs.
@@ -42,7 +42,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - only add nearest_server and server to the mirrors if
       they are defined
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 14 Jan 2009 13:39:56 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
