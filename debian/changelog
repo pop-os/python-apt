@@ -1,3 +1,10 @@
+python-apt (0.7.9~exp2ubuntu1) jaunty; urgency=low
+
+  * Merged from debian, lots of documentation updates
+    and other fixes (thanks to Julian Andres Klode)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 19 Jan 2009 11:15:54 +0100
+
 python-apt (0.7.9~exp2) experimental; urgency=low
 
   [ Julian Andres Klode ]
