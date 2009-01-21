@@ -1,3 +1,12 @@
+python-apt (0.7.9~exp3) experimental; urgency=low
+
+  * aptsources/distro.py:
+    - use iso_3166.xml instead of iso_3166.tab
+  * debian/control:
+    - add Recommends to iso-codes (for iso_3166.xml)
+
+ --
+
 python-apt (0.7.9~exp2) experimental; urgency=low
 
   [ Julian Andres Klode ]

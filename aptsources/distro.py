@@ -26,6 +26,7 @@ import re
 import os
 import sys
 
+from xml.etree.ElementTree import ElementTree
 import gettext
 
 
@@ -161,16 +162,20 @@ class Distribution:
 
         # get a list of country codes and real names
         self.countries = {}
-        try:
-            f = open("/usr/share/iso-codes/iso_3166.tab", "r")
-            lines = f.readlines()
-            for line in lines:
-                parts = line.split("\t")
-                self.countries[parts[0].lower()] = parts[1].strip()
-        except:
-            print "could not open file '%s'" % file
-        else:
-            f.close()
+        fname = "/usr/share/xml/iso-codes/iso_3166.xml"
+        if os.path.exists(fname):
+            et = ElementTree(file=fname)
+            it = et.getiterator('iso_3166_entry')
+            for elm in it:
+                if elm.attrib.has_key("common_name"):
+                    descr = elm.attrib["common_name"]
+                else:
+                    descr = elm.attrib["name"]
+                if elm.attrib.has_key("alpha_2_code"):
+                    code = elm.attrib["alpha_2_code"]
+                else:
+                    code = elm.attrib["alpha_3_code"]
+                self.countries[code.lower()] = gettext.dgettext('iso_3166',descr)
 
         # try to guess the nearest mirror from the locale
         self.country = None
@@ -199,9 +204,7 @@ class Distribution:
             country = server[i+len("://"):l]
         if country in self.countries:
             # TRANSLATORS: %s is a country
-            return _("Server for %s") % \
-                   gettext.dgettext("iso_3166",
-                                    self.countries[country].rstrip()).rstrip()
+            return _("Server for %s") % self.countries[country]
         else:
             return("%s" % server.rstrip("/ "))
 

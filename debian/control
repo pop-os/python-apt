@@ -11,6 +11,7 @@ Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
+Recommends: iso-codes
 Priority: optional
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
