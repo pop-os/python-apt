@@ -1,3 +1,12 @@
+python-apt (0.7.9~exp2ubuntu2) jaunty; urgency=low
+
+  * apt/__init__.py:
+    - remove the future warning 
+  * aptsources/distro.py:
+    - fix indent breakage (LP: #319714)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 21 Jan 2009 21:47:21 +0100
+
 python-apt (0.7.9~exp2ubuntu1) jaunty; urgency=low
 
   * Merged from debian, lots of documentation updates
