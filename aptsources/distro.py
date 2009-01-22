@@ -307,42 +307,42 @@ class Distribution:
             source.comps.append(comp)
             comps_per_dist[source.dist].add(comp)
 
-            sources = []
-            sources.extend(self.main_sources)
-            sources.extend(self.child_sources)
-            # store what comps are enabled already per distro (where distro is
-            # e.g. "dapper", "dapper-updates")
-            comps_per_dist = {}
-            comps_per_sdist = {}
-            for s in sources:
-                if s.type == self.binary_type:
-                    if s.dist not in comps_per_dist:
-                        comps_per_dist[s.dist] = set()
+        sources = []
+        sources.extend(self.main_sources)
+        sources.extend(self.child_sources)
+        # store what comps are enabled already per distro (where distro is
+        # e.g. "dapper", "dapper-updates")
+        comps_per_dist = {}
+        comps_per_sdist = {}
+        for s in sources:
+            if s.type == self.binary_type:
+                if s.dist not in comps_per_dist:
+                    comps_per_dist[s.dist] = set()
                     map(comps_per_dist[s.dist].add, s.comps)
-            for s in self.source_code_sources:
-                if s.type == self.source_type:
-                    if s.dist not in comps_per_sdist:
-                        comps_per_sdist[s.dist] = set()
+        for s in self.source_code_sources:
+            if s.type == self.source_type:
+                if s.dist not in comps_per_sdist:
+                    comps_per_sdist[s.dist] = set()
                     map(comps_per_sdist[s.dist].add, s.comps)
 
-            # check if there is a main source at all
-            if len(self.main_sources) < 1:
+        # check if there is a main source at all
+        if len(self.main_sources) < 1:
+            # create a new main source
+            self.add_source(comps=["%s"%comp])
+        else:
+            # add the comp to all main, child and source code sources
+            for source in sources:
+                add_component_only_once(source, comps_per_dist)
+
+        # check if there is a main source code source at all
+        if self.get_source_code == True:
+            if len(self.source_code_sources) < 1:
                 # create a new main source
-                self.add_source(comps=["%s"%comp])
+                self.add_source(type=self.source_type, comps=["%s"%comp])
             else:
                 # add the comp to all main, child and source code sources
-                for source in sources:
-                    add_component_only_once(source, comps_per_dist)
-
-            # check if there is a main source code source at all
-            if self.get_source_code == True:
-                if len(self.source_code_sources) < 1:
-                    # create a new main source
-                    self.add_source(type=self.source_type, comps=["%s"%comp])
-                else:
-                    # add the comp to all main, child and source code sources
-                    for source in self.source_code_sources:
-                        add_component_only_once(source, comps_per_sdist)
+                for source in self.source_code_sources:
+                    add_component_only_once(source, comps_per_sdist)
 
     def disable_component(self, comp):
         """

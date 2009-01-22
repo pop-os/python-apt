@@ -2,6 +2,7 @@ python-apt (0.7.9~exp3) experimental; urgency=low
 
   * aptsources/distro.py:
     - use iso_3166.xml instead of iso_3166.tab
+    - fix incorrect indent 
   * debian/control:
     - add Recommends to iso-codes (for iso_3166.xml)
 
