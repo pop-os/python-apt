@@ -202,7 +202,8 @@ class DebPackage(object):
                         if self.pkgname == pkg.name:
                             self._dbg(3, "conflict on self, ignoring")
                             continue
-                        if self._check_single_pkg_conflict(pkg.name, ver, oper):
+                        if self._check_single_pkg_conflict(pkg.name, ver,
+                                                           oper):
                             self._installed_conflicts.add(pkg.name)
                 continue
             if self._check_single_pkg_conflict(depname, ver, oper):
@@ -366,7 +367,8 @@ class DebPackage(object):
         # check depends
         for or_group in depends:
             #print "or_group: %s" % or_group
-            #print "or_group satified: %s" % self._is_or_group_satisfied(or_group)
+            #print "or_group satified: %s" % self._is_or_group_satisfied(
+            #                                or_group)
             if not self._is_or_group_satisfied(or_group):
                 if not self._satisfy_or_group(or_group):
                     return False
