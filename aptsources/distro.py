@@ -26,6 +26,7 @@ import re
 import os
 import sys
 
+from xml.etree.ElementTree import ElementTree
 import gettext
 
 
@@ -161,16 +162,20 @@ class Distribution:
 
         # get a list of country codes and real names
         self.countries = {}
-        try:
-            f = open("/usr/share/iso-codes/iso_3166.tab", "r")
-            lines = f.readlines()
-            for line in lines:
-                parts = line.split("\t")
-                self.countries[parts[0].lower()] = parts[1].strip()
-        except:
-            print "could not open file '%s'" % file
-        else:
-            f.close()
+        fname = "/usr/share/xml/iso-codes/iso_3166.xml"
+        if os.path.exists(fname):
+            et = ElementTree(file=fname)
+            it = et.getiterator('iso_3166_entry')
+            for elm in it:
+                if elm.attrib.has_key("common_name"):
+                    descr = elm.attrib["common_name"]
+                else:
+                    descr = elm.attrib["name"]
+                if elm.attrib.has_key("alpha_2_code"):
+                    code = elm.attrib["alpha_2_code"]
+                else:
+                    code = elm.attrib["alpha_3_code"]
+                self.countries[code.lower()] = gettext.dgettext('iso_3166',descr)
 
         # try to guess the nearest mirror from the locale
         self.country = None
@@ -199,9 +204,7 @@ class Distribution:
             country = server[i+len("://"):l]
         if country in self.countries:
             # TRANSLATORS: %s is a country
-            return _("Server for %s") % \
-                   gettext.dgettext("iso_3166",
-                                    self.countries[country].rstrip()).rstrip()
+            return _("Server for %s") % self.countries[country]
         else:
             return("%s" % server.rstrip("/ "))
 
@@ -304,42 +307,42 @@ class Distribution:
             source.comps.append(comp)
             comps_per_dist[source.dist].add(comp)
 
-            sources = []
-            sources.extend(self.main_sources)
-            sources.extend(self.child_sources)
-            # store what comps are enabled already per distro (where distro is
-            # e.g. "dapper", "dapper-updates")
-            comps_per_dist = {}
-            comps_per_sdist = {}
-            for s in sources:
-                if s.type == self.binary_type:
-                    if s.dist not in comps_per_dist:
-                        comps_per_dist[s.dist] = set()
+        sources = []
+        sources.extend(self.main_sources)
+        sources.extend(self.child_sources)
+        # store what comps are enabled already per distro (where distro is
+        # e.g. "dapper", "dapper-updates")
+        comps_per_dist = {}
+        comps_per_sdist = {}
+        for s in sources:
+            if s.type == self.binary_type:
+                if s.dist not in comps_per_dist:
+                    comps_per_dist[s.dist] = set()
                     map(comps_per_dist[s.dist].add, s.comps)
-            for s in self.source_code_sources:
-                if s.type == self.source_type:
-                    if s.dist not in comps_per_sdist:
-                        comps_per_sdist[s.dist] = set()
+        for s in self.source_code_sources:
+            if s.type == self.source_type:
+                if s.dist not in comps_per_sdist:
+                    comps_per_sdist[s.dist] = set()
                     map(comps_per_sdist[s.dist].add, s.comps)
 
-            # check if there is a main source at all
-            if len(self.main_sources) < 1:
+        # check if there is a main source at all
+        if len(self.main_sources) < 1:
+            # create a new main source
+            self.add_source(comps=["%s"%comp])
+        else:
+            # add the comp to all main, child and source code sources
+            for source in sources:
+                add_component_only_once(source, comps_per_dist)
+
+        # check if there is a main source code source at all
+        if self.get_source_code == True:
+            if len(self.source_code_sources) < 1:
                 # create a new main source
-                self.add_source(comps=["%s"%comp])
+                self.add_source(type=self.source_type, comps=["%s"%comp])
             else:
                 # add the comp to all main, child and source code sources
-                for source in sources:
-                    add_component_only_once(source, comps_per_dist)
-
-            # check if there is a main source code source at all
-            if self.get_source_code == True:
-                if len(self.source_code_sources) < 1:
-                    # create a new main source
-                    self.add_source(type=self.source_type, comps=["%s"%comp])
-                else:
-                    # add the comp to all main, child and source code sources
-                    for source in self.source_code_sources:
-                        add_component_only_once(source, comps_per_sdist)
+                for source in self.source_code_sources:
+                    add_component_only_once(source, comps_per_sdist)
 
     def disable_component(self, comp):
         """

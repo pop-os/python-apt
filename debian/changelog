@@ -1,3 +1,13 @@
+python-apt (0.7.9~exp2ubuntu3) jaunty; urgency=low
+
+  * apt/__init__.py:
+    - use iso_3166.xml instead of iso_3166.tab
+    - fix incorrect indent 
+  * debian/control:
+    - add Recommends to iso-codes (for iso_3166.xml)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 22 Jan 2009 09:37:17 +0100
+
 python-apt (0.7.9~exp2ubuntu2) jaunty; urgency=low
 
   * apt/__init__.py:
