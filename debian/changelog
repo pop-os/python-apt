@@ -1,9 +1,19 @@
+python-apt (0.7.9~exp3) experimental; urgency=low
+
+  * aptsources/distro.py:
+    - use iso_3166.xml instead of iso_3166.tab
+    - fix incorrect indent 
+  * debian/control:
+    - add Recommends to iso-codes (for iso_3166.xml)
+
+ --
+
 python-apt (0.7.9~exp2) experimental; urgency=low
 
   [ Julian Andres Klode ]
   * apt/*.py:
     - Almost complete cleanup of the code
-    - Fix inconsistent use of tabs and spaces (Closes: #505443) (LP: #297207)
+    - Remove inconsistent use of tabs and spaces (Closes: #505443)
     - Improved documentation
   * apt/debfile.py:
     - Drop get*() methods, as they are deprecated and were
@@ -11,7 +21,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - Make DscSrcPackage working
   * apt/gtk/widgets.py:
     - Fix the code and document the signals
-  * Introduce new documentation build with Sphinx (Closes: #204818)
+  * Introduce new documentation build with Sphinx
     - Contains style Guide (Closes: #481562)
     - debian/rules: Build the documentation here
     - setup.py: Remove pydoc building and add new docs.
@@ -26,7 +36,6 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - Remove the Conflicts on python2.3-apt, python2.4-apt, as
       they are only needed for oldstable (sarge)
     - Build-Depend on python-sphinx (>= 0.5)
-    - Add Vcs-Browser
   * aptsources/distinfo.py:
     - Allow @ in mirror urls (Closes: #478171) (LP: #223097)
   * Merge Ben Finney's whitespace changes (Closes: #481563)
@@ -43,7 +52,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - only add nearest_server and server to the mirrors if
       they are defined
 
- -- Julian Andres Klode <jak@debian.org>  Wed, 14 Jan 2009 14:48:20 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
@@ -75,6 +84,8 @@ python-apt (0.7.9~exp1) experimental; urgency=low
   * setup.py:
     - build html/ help of the apt and aptsources modules
       into /usr/share/doc/python-apt/html
+  * apt/__init__.py:
+    - remove the future warning 
 
  -- Michael Vogt <mvo@debian.org>  Mon, 15 Dec 2008 14:29:47 +0100
 
