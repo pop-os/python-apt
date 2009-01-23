@@ -32,10 +32,6 @@ import apt_pkg
 __all__ = 'BaseDependency', 'Dependency', 'Origin', 'Package', 'Record'
 
 
-# Set a timeout for the changelog download
-socket.setdefaulttimeout(2)
-
-
 def _(string):
     """Return the translation of the string."""
     return gettext.dgettext("python-apt", string)
@@ -596,7 +592,12 @@ class Package(object):
                      "prefix": prefix,
                      "src_pkg": src_pkg,
                      "src_ver": src_ver}
+
+        timeout = socket.getdefaultimeout()
         try:
+            # Set a timeout for the changelog download
+            socket.setdefaulttimeout(2)
+
             # Check if the download was canceled
             if cancel_lock and cancel_lock.isSet():
                 return ""
@@ -649,6 +650,8 @@ class Package(object):
         except (IOError, httplib.BadStatusLine):
             return _("Failed to download the list of changes. \nPlease "
                      "check your Internet connection.")
+        finally:
+            socket.setdefaulttimeout(timeout)
         return self._changelog
 
     @property
