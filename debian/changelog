@@ -1,3 +1,16 @@
+python-apt (0.7.9~exp2ubuntu4) jaunty; urgency=low
+
+  * apt/cache.py:
+    - when running with the rootdir option, run
+      InitConfig() again to ensure that the config
+      from the rootdir is read, not from the host
+      (lp: #243550)
+  * apt/package.py:
+    - make sure to set the defaulttimeout back to the
+      original value (in getChangelog(), LP: #314212)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Jan 2009 08:45:00 +0100
+
 python-apt (0.7.9~exp2ubuntu3) jaunty; urgency=low
 
   * apt/__init__.py:
