@@ -55,7 +55,6 @@ class Cache(object):
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
-            apt_pkg.InitConfig()
         self.open(progress)
 
     def _runCallbacks(self, name):

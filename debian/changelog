@@ -5,11 +5,6 @@ python-apt (0.7.9~exp3) experimental; urgency=low
     - fix incorrect indent 
   * debian/control:
     - add Recommends to iso-codes (for iso_3166.xml)
-  * apt/cache.py:
-    - when running with the rootdir option, run
-      InitConfig() again to ensure that the config
-      from the rootdir is read, not from the host
-      (lp: #243550)
   * apt/package.py:
     - make sure to set the defaulttimeout back to the
       original value (in getChangelog(), LP: #314212)
