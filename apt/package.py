@@ -593,7 +593,7 @@ class Package(object):
                      "src_pkg": src_pkg,
                      "src_ver": src_ver}
 
-        timeout = socket.getdefaultimeout()
+        timeout = socket.getdefaulttimeout()
         
         # FIXME: when python2.4 vanishes from the archive,
         #        merge this into a single try..finally block (pep 341)
@@ -778,9 +778,11 @@ def _test():
     print "homepage: %s" % pkg.homepage
     print "rec: ", pkg.candidateRecord
 
+
     # now test install/remove
     progress = apt.progress.OpTextProgress()
     cache = apt.Cache(progress)
+    print cache["2vcard"].getChangelog()
     for i in True, False:
         print "Running install on random upgradable pkgs with AutoFix: %s " % i
         for pkg in cache:
