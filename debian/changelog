@@ -1,3 +1,10 @@
+python-apt (0.7.9~exp2ubuntu5) jaunty; urgency=low
+
+  * apt/cache.py:
+    - revert the InitConfig change, has unintended side-effects
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 26 Jan 2009 12:13:46 +0100
+
 python-apt (0.7.9~exp2ubuntu4) jaunty; urgency=low
 
   * apt/cache.py:
