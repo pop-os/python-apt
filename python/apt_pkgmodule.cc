@@ -402,6 +402,7 @@ static PyMethodDef methods[] =
 
    // Command line
    {"ReadConfigFile",LoadConfig,METH_VARARGS,doc_LoadConfig},
+   {"ReadConfigDir",LoadConfigDir,METH_VARARGS,doc_LoadConfigDir},
    {"ReadConfigFileISC",LoadConfigISC,METH_VARARGS,doc_LoadConfig},
    {"ParseCommandLine",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
 

@@ -1,3 +1,13 @@
+python-apt (0.7.9~exp2ubuntu6) jaunty; urgency=low
+
+  * apt/cache.py:
+    - when setting a alternative rootdir, read the
+      config from it as well (LP: #243550)
+  * python/configuration.cc, python/apt_pkgmodule.cc:
+    - add apt_pkg.ReadConfigDir()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 29 Jan 2009 09:30:52 +0100
+
 python-apt (0.7.9~exp2ubuntu5) jaunty; urgency=low
 
   * apt/cache.py:
