@@ -52,6 +52,9 @@ class Cache(object):
             # force apt to build its caches in memory
             apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
         if rootdir:
+            print "reading apt.conf"
+            apt_pkg.ReadConfigFile(apt_pkg.Config, rootdir+"/etc/apt/apt.conf")
+            apt_pkg.ReadConfigDir(apt_pkg.Config, rootdir+"/etc/apt/apt.conf.d")
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")

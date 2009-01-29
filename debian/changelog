@@ -8,6 +8,11 @@ python-apt (0.7.9~exp3) experimental; urgency=low
   * apt/package.py:
     - make sure to set the defaulttimeout back to the
       original value (in getChangelog(), LP: #314212)
+  * apt/cache.py:
+    - when setting a alternative rootdir, read the
+      config from it as well
+  * python/configuration.cc, python/apt_pkgmodule.cc:
+    - add apt_pkg.ReadConfigDir()
 
  --
 

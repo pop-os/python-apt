@@ -330,6 +330,24 @@ PyObject *LoadConfigISC(PyObject *Self,PyObject *Args)
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
+char *doc_LoadConfigDir = "LoadConfigDir(Configuration,DirName) -> None";
+PyObject *LoadConfigDir(PyObject *Self,PyObject *Args)
+{
+   char *Name = 0;
+   if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
+      return 0;
+   if (Configuration_Check(Self)== 0)
+   {
+      PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
+      return 0;
+   }
+
+   if (ReadConfigDir(GetSelf(Self),Name,false) == false)
+     return HandleErrors();
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
 									/*}}}*/
 
 // ParseCommandLine - Wrapper for the command line interface		/*{{{*/
