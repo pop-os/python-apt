@@ -83,6 +83,7 @@ class Origin(object):
         self.label = VerFileIter.Label
         self.origin = VerFileIter.Origin
         self.site = VerFileIter.Site
+        self.not_automatic = VerFileIter.NotAutomatic
         # check the trust
         indexfile = pkg._list.FindIndex(VerFileIter)
         if indexfile and indexfile.IsTrusted:
