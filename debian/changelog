@@ -1,3 +1,12 @@
+python-apt (0.7.9~exp2ubuntu7) jaunty; urgency=low
+
+  * apt/package.py:
+    - add "not_automatic" flag to the origin
+  * debian/control:
+    - rebuild against latest apt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 09 Feb 2009 15:09:17 +0100
+
 python-apt (0.7.9~exp2ubuntu6) jaunty; urgency=low
 
   * apt/cache.py:
