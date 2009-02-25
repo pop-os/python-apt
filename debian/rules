@@ -3,7 +3,7 @@
 DEB_AUTO_CLEANUP_RCS := yes
 DEB_PYTHON_SYSTEM=pycentral
 
-export DH_PYCENTRAL=nomove
+export DH_PYCENTRAL=include-links
 
 DEB_PYTHON_PACKAGES_EXCLUDE=python-apt-dbg
 
@@ -27,7 +27,7 @@ build/python-apt::
 
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
-	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg; \
+	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg --install-layout=deb; \
 	done
 	find debian/python-apt-dbg \
 		! -type d ! -name '*_d.so' | xargs rm -f
