@@ -85,7 +85,7 @@ class Origin(object):
         self.site = VerFileIter.Site
         self.not_automatic = VerFileIter.NotAutomatic
         # check the trust
-        indexfile = pkg._list.FindIndex(VerFileIter)
+        indexfile = pkg._pcache._list.FindIndex(VerFileIter)
         if indexfile and indexfile.IsTrusted:
             self.trusted = True
         else:
@@ -145,13 +145,9 @@ class Package(object):
     much more.
     """
 
-    def __init__(self, cache, depcache, records, sourcelist, pcache, pkgiter):
+    def __init__(self, pcache, pkgiter):
         """ Init the Package object """
-        self._cache = cache             # low level cache
-        self._depcache = depcache
-        self._records = records
         self._pkg = pkgiter
-        self._list = sourcelist               # sourcelist
         self._pcache = pcache           # python cache in cache.py
         self._changelog = ""            # Cached changelog
 
@@ -161,7 +157,7 @@ class Package(object):
         Must be called before _records is accessed.
         """
         if UseCandidate:
-            ver = self._depcache.GetCandidateVer(self._pkg)
+            ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.CurrentVer
 
@@ -175,7 +171,7 @@ class Package(object):
             print "No FileList for: %s " % self._pkg.Name()
             return False
         f, index = ver.FileList.pop(0)
-        self._records.Lookup((f, index))
+        self._pcache._records.Lookup((f, index))
         return True
 
     @property
@@ -208,7 +204,7 @@ class Package(object):
     @property
     def candidateVersion(self):
         """Return the candidate version as string."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if ver is not None:
             return ver.VerStr
         else:
@@ -234,7 +230,7 @@ class Package(object):
     @property
     def candidateDependencies(self):
         """Return a list of candidate dependencies."""
-        candver = self._depcache.GetCandidateVer(self._pkg)
+        candver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if candver is None:
             return []
         return self._getDependencies(candver)
@@ -252,7 +248,7 @@ class Package(object):
         """Return the Architecture of the package"""
         if not self._lookupRecord():
             return None
-        sec = apt_pkg.ParseSection(self._records.Record)
+        sec = apt_pkg.ParseSection(self._pcache._records.Record)
         try:
             return sec["Architecture"]
         except KeyError:
@@ -261,7 +257,7 @@ class Package(object):
     def _downloadable(self, useCandidate=True):
         """Return True if the package is downloadable."""
         if useCandidate:
-            ver = self._depcache.GetCandidateVer(self._pkg)
+            ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         else:
             ver = self._pkg.CurrentVer
         if ver is None:
@@ -284,7 +280,7 @@ class Package(object):
         if not self._lookupRecord():
             if not self._lookupRecord(False):
                 return self._pkg.Name
-        src = self._records.SourcePkg
+        src = self._pcache._records.SourcePkg
         if src != "":
             return src
         else:
@@ -295,7 +291,7 @@ class Package(object):
         """Return the homepage field as string."""
         if not self._lookupRecord():
             return None
-        return self._records.Homepage
+        return self._pcache._records.Homepage
 
     @property
     def section(self):
@@ -305,7 +301,7 @@ class Package(object):
     @property
     def priority(self):
         """Return the priority (of the candidate version)."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if ver:
             return ver.PriorityStr
         else:
@@ -314,7 +310,7 @@ class Package(object):
     @property
     def installedPriority(self):
         """Return the priority (of the installed version)."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if ver:
             return ver.PriorityStr
         else:
@@ -325,10 +321,10 @@ class Package(object):
         """Return the short description (one line summary)."""
         if not self._lookupRecord():
             return ""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         desc_iter = ver.TranslatedDescription
-        self._records.Lookup(desc_iter.FileList.pop(0))
-        return self._records.ShortDesc
+        self._pcache._records.Lookup(desc_iter.FileList.pop(0))
+        return self._pcache._records.ShortDesc
 
     @property
     def description(self, format=True, useDots=False):
@@ -344,12 +340,12 @@ class Package(object):
         if not self._lookupRecord():
             return ""
         # get the translated description
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         desc_iter = ver.TranslatedDescription
-        self._records.Lookup(desc_iter.FileList.pop(0))
+        self._pcache._records.Lookup(desc_iter.FileList.pop(0))
         desc = ""
         try:
-            dsc = unicode(self._records.LongDesc, "utf-8")
+            dsc = unicode(self._pcache._records.LongDesc, "utf-8")
         except UnicodeDecodeError, err:
             dsc = _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.name, err)
@@ -391,53 +387,53 @@ class Package(object):
         """return the long description (raw)."""
         if not self._lookupRecord():
             return ""
-        return self._records.LongDesc
+        return self._pcache._records.LongDesc
 
     @property
     def candidateRecord(self):
         """Return the Record of the candidate version of the package."""
         if not self._lookupRecord(True):
             return None
-        return Record(self._records.Record)
+        return Record(self._pcache._records.Record)
 
     @property
     def installedRecord(self):
         """Return the Record of the candidate version of the package."""
         if not self._lookupRecord(False):
             return None
-        return Record(self._records.Record)
+        return Record(self._pcache._records.Record)
 
     # depcache states
 
     @property
     def markedInstall(self):
         """Return True if the package is marked for install."""
-        return self._depcache.MarkedInstall(self._pkg)
+        return self._pcache._depcache.MarkedInstall(self._pkg)
 
     @property
     def markedUpgrade(self):
         """Return True if the package is marked for upgrade."""
-        return self._depcache.MarkedUpgrade(self._pkg)
+        return self._pcache._depcache.MarkedUpgrade(self._pkg)
 
     @property
     def markedDelete(self):
         """Return True if the package is marked for delete."""
-        return self._depcache.MarkedDelete(self._pkg)
+        return self._pcache._depcache.MarkedDelete(self._pkg)
 
     @property
     def markedKeep(self):
         """Return True if the package is marked for keep."""
-        return self._depcache.MarkedKeep(self._pkg)
+        return self._pcache._depcache.MarkedKeep(self._pkg)
 
     @property
     def markedDowngrade(self):
         """ Package is marked for downgrade """
-        return self._depcache.MarkedDowngrade(self._pkg)
+        return self._pcache._depcache.MarkedDowngrade(self._pkg)
 
     @property
     def markedReinstall(self):
         """Return True if the package is marked for reinstall."""
-        return self._depcache.MarkedReinstall(self._pkg)
+        return self._pcache._depcache.MarkedReinstall(self._pkg)
 
     @property
     def isInstalled(self):
@@ -447,7 +443,7 @@ class Package(object):
     @property
     def isUpgradable(self):
         """Return True if the package is upgradable."""
-        return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
+        return self.isInstalled and self._pcache._depcache.IsUpgradable(self._pkg)
 
     @property
     def isAutoRemovable(self):
@@ -457,14 +453,14 @@ class Package(object):
         another package, and if no packages depend on it anymore, the package
         is no longer required.
         """
-        return self.isInstalled and self._depcache.IsGarbage(self._pkg)
+        return self.isInstalled and self._pcache._depcache.IsGarbage(self._pkg)
 
     # sizes
 
     @property
     def packageSize(self):
         """Return the size of the candidate deb package."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         return ver.Size
 
     @property
@@ -476,7 +472,7 @@ class Package(object):
     @property
     def candidateInstalledSize(self, UseCandidate=True):
         """Return the size of the candidate installed package."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if ver:
             return ver.Size
         else:
@@ -545,7 +541,7 @@ class Package(object):
         # assume "main" section
         src_section = "main"
         # use the section of the candidate as a starting point
-        section = self._depcache.GetCandidateVer(self._pkg).Section
+        section = self._pcache._depcache.GetCandidateVer(self._pkg).Section
 
         # get the source version, start with the binaries version
         bin_ver = self.candidateVersion
@@ -661,7 +657,7 @@ class Package(object):
     @property
     def candidateOrigin(self):
         """Return the Origin() of the candidate version."""
-        ver = self._depcache.GetCandidateVer(self._pkg)
+        ver = self._pcache._depcache.GetCandidateVer(self._pkg)
         if not ver:
             return None
         origins = []
@@ -674,7 +670,7 @@ class Package(object):
     def markKeep(self):
         """Mark a package for keep."""
         self._pcache.cachePreChange()
-        self._depcache.MarkKeep(self._pkg)
+        self._pcache._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
 
     def markDelete(self, autoFix=True, purge=False):
@@ -687,10 +683,10 @@ class Package(object):
         well. The default is to keep the configuration.
         """
         self._pcache.cachePreChange()
-        self._depcache.MarkDelete(self._pkg, purge)
+        self._pcache._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
-        if autoFix and self._depcache.BrokenCount > 0:
-            Fix = apt_pkg.GetPkgProblemResolver(self._depcache)
+        if autoFix and self._pcache._depcache.BrokenCount > 0:
+            Fix = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
             Fix.Clear(self._pkg)
             Fix.Protect(self._pkg)
             Fix.Remove(self._pkg)
@@ -713,10 +709,10 @@ class Package(object):
         it.
         """
         self._pcache.cachePreChange()
-        self._depcache.MarkInstall(self._pkg, autoInst, fromUser)
+        self._pcache._depcache.MarkInstall(self._pkg, autoInst, fromUser)
         # try to fix broken stuff
-        if autoFix and self._depcache.BrokenCount > 0:
-            fixer = apt_pkg.GetPkgProblemResolver(self._depcache)
+        if autoFix and self._pcache._depcache.BrokenCount > 0:
+            fixer = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
@@ -740,7 +736,7 @@ class Package(object):
         The parameter `iprogress` refers to an InstallProgress() object, as
         found in apt.progress.
         """
-        self._depcache.Commit(fprogress, iprogress)
+        self._pcache._depcache.Commit(fprogress, iprogress)
 
 
 def _test():

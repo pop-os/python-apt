@@ -13,6 +13,8 @@ python-apt (0.7.9~exp3) experimental; urgency=low
       config from it as well
   * python/configuration.cc, python/apt_pkgmodule.cc:
     - add apt_pkg.ReadConfigDir()
+  * apt/package.py:
+    - avoid uneeded interal references in the Package objects
 
  --
 
