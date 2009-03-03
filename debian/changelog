@@ -13,6 +13,10 @@ python-apt (0.7.9~exp3) experimental; urgency=low
       config from it as well
   * python/configuration.cc, python/apt_pkgmodule.cc:
     - add apt_pkg.ReadConfigDir()
+  * python/cache.cc, tests/getcache_mem_corruption.py:
+    - test if progress objects have the right methods
+      and raise error if not (thanks to Emanuele Rocca)
+      closes: #497049
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
 
