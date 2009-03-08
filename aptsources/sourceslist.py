@@ -351,7 +351,7 @@ class SourcesList(object):
         files = {}
         # write an empty default config file if there aren't any sources
         if len(self.list) == 0:
-            path = apt_pkg.Config.FindFile("Dir::Etc::sourcelist"
+            path = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
             header = (
                 "## See sources.list(5) for more information, especialy\n"
                 "# Remember that you can only use http, ftp or file URIs\n"
