@@ -79,6 +79,7 @@ class Dependency(object):
     def __repr__(self):
         return repr(self.or_dependencies)
 
+
 class DeprecatedProperty(property):
     """A property which gives DeprecationWarning on access.
 
@@ -96,6 +97,7 @@ class DeprecatedProperty(property):
                        ((obj.__class__.__name__ or type.__name__),
                        self.fget.func_name), DeprecationWarning, 2)
         return property.__get__(self, obj, type)
+
 
 class Origin(object):
     """The origin of a version.
@@ -166,6 +168,7 @@ class Record(object):
     def has_key(self, key):
         """deprecated form of 'key in x'."""
         return self._rec.has_key(key)
+
 
 class Version(object):
     """Representation of a package version.
@@ -264,7 +267,7 @@ class Version(object):
             dsc = unicode(self.package._records.LongDesc, "utf-8")
         except UnicodeDecodeError, err:
             return _("Invalid unicode in description for '%s' (%s). "
-                  "Please report.") % (self.name, err)
+                  "Please report.") % (self.package.name, err)
 
         lines = iter(dsc.split("\n"))
         # Skip the first line, since its a duplication of the summary

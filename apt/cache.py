@@ -20,7 +20,6 @@
 #  USA
 
 import os
-import sys
 
 import apt_pkg
 from apt import Package
@@ -446,7 +445,7 @@ if __name__ == "__main__":
     print len(f)
 
     print "Testing filtered cache (no argument)"
-    f = FilteredCache(progress=OpTextProgress())
+    f = FilteredCache(progress=apt.progress.OpTextProgress())
     f.cache.connect("cache_pre_change", cache_pre_changed)
     f.cache.connect("cache_post_change", cache_post_changed)
     f.cache.upgrade()
