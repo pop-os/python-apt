@@ -52,9 +52,11 @@ class Cache(object):
             apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
         if rootdir:
             if os.path.exists(rootdir+"/etc/apt/apt.conf"):
-                apt_pkg.ReadConfigFile(apt_pkg.Config, rootdir+"/etc/apt/apt.conf")
+                apt_pkg.ReadConfigFile(apt_pkg.Config,
+                                       rootdir + "/etc/apt/apt.conf")
             if os.path.isdir(rootdir+"/etc/apt/apt.conf.d"):
-                apt_pkg.ReadConfigDir(apt_pkg.Config, rootdir+"/etc/apt/apt.conf.d")
+                apt_pkg.ReadConfigDir(apt_pkg.Config,
+                                      rootdir + "/etc/apt/apt.conf.d")
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")

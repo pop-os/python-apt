@@ -201,6 +201,7 @@ Other functions
 .. autofunction:: PkgSystemUnLock
 .. autofunction:: QuoteString
 .. autofunction:: ReadConfigFile
+.. autofunction:: ReadConfigDir()
 .. autofunction:: ReadConfigFileISC
 .. autofunction:: RewriteSection
 
