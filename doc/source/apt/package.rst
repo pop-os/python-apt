@@ -10,6 +10,11 @@ The Package class
 .. autoclass:: Package
     :members:
 
+The Version class
+-----------------
+.. autoclass:: Version
+    :members:
+
 
 Dependency Information
 ----------------------

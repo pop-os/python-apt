@@ -3,6 +3,10 @@ python-apt (0.7.9~exp3) experimental; urgency=low
   [ Julian Andres Klode ]
   * apt/gtk/widgets.py:
     - Handle older versions of python-gobject which do not ship glib
+  * apt/package.py: Introduce the Version class
+    - Deprecate Package.candidate*() and Package.installed*(), except for
+      installedFiles.
+    - Provide Version.get_source() (LP: #118788)
 
   [ Michael Vogt ]
   * aptsources/distro.py:
