@@ -1,8 +1,13 @@
 python-apt (0.7.9~exp3) experimental; urgency=low
 
+  [ Julian Andres Klode ]
+  * apt/gtk/widgets.py:
+    - Handle older versions of python-gobject which do not ship glib
+
+  [ Michael Vogt ]
   * aptsources/distro.py:
     - use iso_3166.xml instead of iso_3166.tab
-    - fix incorrect indent 
+    - fix incorrect indent
   * debian/control:
     - add Recommends to iso-codes (for iso_3166.xml)
 
@@ -42,7 +47,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * Merge Ben Finney's do not use has_key() (Closes: #481878)
   * Do not use deprecated form of raise statement (Closes: #494259)
   * Add support for PkgRecords.SHA256Hash (Closes: #456113)
-  
+
   [ Michael Vogt ]
   * apt/package.py:
     - fix bug in candidateInstalledSize property
@@ -59,7 +64,7 @@ python-apt (0.7.9~exp1) experimental; urgency=low
   * Merged python-apt consolidation branch by Sebastian
     Heinlein (many thanks)
   * apt/cache.py:
-    - new method "isVirtualPackage()" 
+    - new method "isVirtualPackage()"
     - new method "getProvidingPackages()"
     - new method "getRequiredDownload()"
     - new method "additionalRequiredSpace()"
@@ -68,7 +73,7 @@ python-apt (0.7.9~exp1) experimental; urgency=low
       provides interfaces for querrying and installing
       .deb files and .dsc files
   * apt/package.py:
-    - better description parsing 
+    - better description parsing
     - new method "installedFiles()"
     - new method "getChangelog()"
   * apt/gtk/widgets.py:
@@ -77,7 +82,7 @@ python-apt (0.7.9~exp1) experimental; urgency=low
     - new gobject GInstallProgress
     - new gobject GDpkgInstallProgress
     - new widget GtkAptProgress
-  * doc/examples/gui-inst.py: 
+  * doc/examples/gui-inst.py:
     - updated to use the new widgets
   * debian/control:
     - add suggests for python-gtk2 and python-vte
@@ -85,7 +90,7 @@ python-apt (0.7.9~exp1) experimental; urgency=low
     - build html/ help of the apt and aptsources modules
       into /usr/share/doc/python-apt/html
   * apt/__init__.py:
-    - remove the future warning 
+    - remove the future warning
 
  -- Michael Vogt <mvo@debian.org>  Mon, 15 Dec 2008 14:29:47 +0100
 
@@ -93,7 +98,7 @@ python-apt (0.7.8) unstable; urgency=low
 
   [ Michael Vogt ]
   * python/cache.cc:
-    - fix crash if Ver.PriorityType() returns NULL 
+    - fix crash if Ver.PriorityType() returns NULL
     - fix GetCandidateVer() reporting incorrect versions after
       SetCandidateVer() was used. Thanks to Julian Andres Klode for
       the test-case (LP: #237372)
@@ -158,7 +163,7 @@ python-apt (0.7.7) unstable; urgency=low
   [ Michael Vogt ]
   * python/apt_pkgmodule.cc:
     - fix bug in hashsum calculation when the original string
-      contains \0 charackters (thanks to Celso Providelo and 
+      contains \0 charackters (thanks to Celso Providelo and
       Ryan Hass for the test-case) LP: #243630
   * tests/test_hashsums.py:
     - add tests for the hashsum code
@@ -180,7 +185,7 @@ python-apt (0.7.6) unstable; urgency=low
       race condition in the pkgcache.bin handling)
   * data/templates/Ubuntu.info.in:
     - added ubuntu 'intrepid'
-  * debian/README.source: 
+  * debian/README.source:
     - added (basic) documentation how to build python-apt
   * aptsources/distinfo.py:
     - support arch specific BaseURI, MatchURI and MirrosFile fields
