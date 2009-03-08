@@ -23,9 +23,11 @@ extern PyTypeObject VersionType;
 
 extern char *doc_LoadConfig;
 extern char *doc_LoadConfigISC;
+extern char *doc_LoadConfigDir;
 extern char *doc_ParseCommandLine;
 PyObject *LoadConfig(PyObject *Self,PyObject *Args);
 PyObject *LoadConfigISC(PyObject *Self,PyObject *Args);
+PyObject *LoadConfigDir(PyObject *Self,PyObject *Args);
 PyObject *ParseCommandLine(PyObject *Self,PyObject *Args);
 
 // Tag File Stuff

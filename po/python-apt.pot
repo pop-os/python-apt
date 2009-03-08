@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-09 18:08+0100\n"
+"POT-Creation-Date: 2009-03-03 21:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,11 +82,6 @@ msgstr ""
 msgid "Community-maintained"
 msgstr ""
 
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:305
-msgid "Proprietary drivers for devices"
-msgstr ""
-
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:307
 msgid "Restricted software"
@@ -124,7 +119,7 @@ msgstr ""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:357
-msgid "Proprietary drivers for devices "
+msgid "Proprietary drivers for devices"
 msgstr ""
 
 #. CompDescription
@@ -275,7 +270,7 @@ msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-msgid "Debian 4.0 'Etch' "
+msgid "Debian 4.0 'Etch'"
 msgstr ""
 
 #. Description
@@ -319,7 +314,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:194 ../aptsources/distro.py:401
+#: ../aptsources/distro.py:207 ../aptsources/distro.py:422
 #, python-format
 msgid "Server for %s"
 msgstr ""
@@ -327,12 +322,12 @@ msgstr ""
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:213 ../aptsources/distro.py:218
-#: ../aptsources/distro.py:232
+#: ../aptsources/distro.py:225 ../aptsources/distro.py:231
+#: ../aptsources/distro.py:247
 msgid "Main server"
 msgstr ""
 
-#: ../aptsources/distro.py:235
+#: ../aptsources/distro.py:251
 msgid "Custom servers"
 msgstr ""
 

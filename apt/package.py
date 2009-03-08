@@ -36,10 +36,6 @@ __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version')
 
 
-# Set a timeout for the changelog download
-socket.setdefaulttimeout(2)
-
-
 def _(string):
     """Return the translation of the string."""
     return gettext.dgettext("python-apt", string)
@@ -117,8 +113,9 @@ class Origin(object):
         self.label = VerFileIter.Label
         self.origin = VerFileIter.Origin
         self.site = VerFileIter.Site
+        self.not_automatic = VerFileIter.NotAutomatic
         # check the trust
-        indexfile = pkg._list.FindIndex(VerFileIter)
+        indexfile = pkg._pcache._list.FindIndex(VerFileIter)
         if indexfile and indexfile.IsTrusted:
             self.trusted = True
         else:
@@ -202,8 +199,8 @@ class Version(object):
     @property
     def _records(self):
         """Internal helper that moves the Records to the right position."""
-        if self.package._records.Lookup(self._cand.FileList[0]):
-            return self.package._records
+        if self.package._pcache._records.Lookup(self._cand.FileList[0]):
+            return self.package._pcache._records
 
     @property
     def installed_size(self):
@@ -239,8 +236,8 @@ class Version(object):
     def summary(self):
         """Return the short description (one line summary)."""
         desc_iter = self._cand.TranslatedDescription
-        self.package._records.Lookup(desc_iter.FileList.pop(0))
-        return self.package._records.ShortDesc
+        self.package._pcache._records.Lookup(desc_iter.FileList.pop(0))
+        return self.package._pcache._records.ShortDesc
 
     @property
     def raw_description(self):
@@ -264,7 +261,7 @@ class Version(object):
         self.summary # This does the lookup for us.
         desc = ''
         try:
-            dsc = unicode(self.package._records.LongDesc, "utf-8")
+            dsc = unicode(self.package._pcache._records.LongDesc, "utf-8")
         except UnicodeDecodeError, err:
             return _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.package.name, err)
@@ -381,13 +378,9 @@ class Package(object):
     much more.
     """
 
-    def __init__(self, cache, depcache, records, sourcelist, pcache, pkgiter):
+    def __init__(self, pcache, pkgiter):
         """ Init the Package object """
-        self._cache = cache             # low level cache
-        self._depcache = depcache
-        self._records = records
         self._pkg = pkgiter
-        self._list = sourcelist               # sourcelist
         self._pcache = pcache           # python cache in cache.py
         self._changelog = ""            # Cached changelog
 
@@ -399,7 +392,7 @@ class Package(object):
         """Return the candidate version of the package.
 
         :since: 0.7.9"""
-        return Version(self, self._depcache.GetCandidateVer(self._pkg))
+        return Version(self, self._pcache._depcache.GetCandidateVer(self._pkg))
 
     @property
     def installed(self):
@@ -519,7 +512,7 @@ class Package(object):
     @DeprecatedProperty
     def candidateRecord(self):
         """Return the Record of the candidate version of the package."""
-        return self.candidate.record
+        return self.candidate.recor
 
     @DeprecatedProperty
     def installedRecord(self):
@@ -531,32 +524,32 @@ class Package(object):
     @property
     def markedInstall(self):
         """Return True if the package is marked for install."""
-        return self._depcache.MarkedInstall(self._pkg)
+        return self._pcache._depcache.MarkedInstall(self._pkg)
 
     @property
     def markedUpgrade(self):
         """Return True if the package is marked for upgrade."""
-        return self._depcache.MarkedUpgrade(self._pkg)
+        return self._pcache._depcache.MarkedUpgrade(self._pkg)
 
     @property
     def markedDelete(self):
         """Return True if the package is marked for delete."""
-        return self._depcache.MarkedDelete(self._pkg)
+        return self._pcache._depcache.MarkedDelete(self._pkg)
 
     @property
     def markedKeep(self):
         """Return True if the package is marked for keep."""
-        return self._depcache.MarkedKeep(self._pkg)
+        return self._pcache._depcache.MarkedKeep(self._pkg)
 
     @property
     def markedDowngrade(self):
         """ Package is marked for downgrade """
-        return self._depcache.MarkedDowngrade(self._pkg)
+        return self._pcache._depcache.MarkedDowngrade(self._pkg)
 
     @property
     def markedReinstall(self):
         """Return True if the package is marked for reinstall."""
-        return self._depcache.MarkedReinstall(self._pkg)
+        return self._pcache._depcache.MarkedReinstall(self._pkg)
 
     @property
     def isInstalled(self):
@@ -566,7 +559,8 @@ class Package(object):
     @property
     def isUpgradable(self):
         """Return True if the package is upgradable."""
-        return self.isInstalled and self._depcache.IsUpgradable(self._pkg)
+        return (self.isInstalled and
+                self._pcache._depcache.IsUpgradable(self._pkg))
 
     @property
     def isAutoRemovable(self):
@@ -576,7 +570,7 @@ class Package(object):
         another package, and if no packages depend on it anymore, the package
         is no longer required.
         """
-        return self.isInstalled and self._depcache.IsGarbage(self._pkg)
+        return self.isInstalled and self._pcache._depcache.IsGarbage(self._pkg)
 
     # sizes
 
@@ -655,7 +649,7 @@ class Package(object):
         # assume "main" section
         src_section = "main"
         # use the section of the candidate as a starting point
-        section = self._depcache.GetCandidateVer(self._pkg).Section
+        section = self.candidate.section
 
         # get the source version, start with the binaries version
         bin_ver = self.candidate.version
@@ -703,59 +697,68 @@ class Package(object):
                      "prefix": prefix,
                      "src_pkg": src_pkg,
                      "src_ver": src_ver}
-        try:
-            # Check if the download was canceled
-            if cancel_lock and cancel_lock.isSet():
-                return ""
-            changelog_file = urllib2.urlopen(uri)
-            # do only get the lines that are new
-            changelog = ""
-            regexp = "^%s \((.*)\)(.*)$" % (re.escape(src_pkg))
 
-            while True:
+        timeout = socket.getdefaulttimeout()
+
+        # FIXME: when python2.4 vanishes from the archive,
+        #        merge this into a single try..finally block (pep 341)
+        try:
+            try:
+                # Set a timeout for the changelog download
+                socket.setdefaulttimeout(2)
+
                 # Check if the download was canceled
                 if cancel_lock and cancel_lock.isSet():
                     return ""
-                # Read changelog line by line
-                line_raw = changelog_file.readline()
-                if line_raw == "":
-                    break
-                # The changelog is encoded in utf-8, but since there isn't any
-                # http header, urllib2 seems to treat it as ascii
-                line = line_raw.decode("utf-8")
-
-                #print line.encode('utf-8')
-                match = re.match(regexp, line)
-                if match:
-                    # strip epoch from installed version
-                    # and from changelog too
-                    installed = getattr(self.installed, 'version', None)
-                    if installed and ":" in installed:
-                        installed = installed.split(":", 1)[1]
-                    changelog_ver = match.group(1)
-                    if changelog_ver and ":" in changelog_ver:
-                        changelog_ver = changelog_ver.split(":", 1)[1]
-                    if installed and \
-                        apt_pkg.VersionCompare(changelog_ver, installed) <= 0:
+                changelog_file = urllib2.urlopen(uri)
+                # do only get the lines that are new
+                changelog = ""
+                regexp = "^%s \((.*)\)(.*)$" % (re.escape(src_pkg))
+                while True:
+                    # Check if the download was canceled
+                    if cancel_lock and cancel_lock.isSet():
+                        return ""
+                    # Read changelog line by line
+                    line_raw = changelog_file.readline()
+                    if line_raw == "":
                         break
-                # EOF (shouldn't really happen)
-                changelog += line
+                    # The changelog is encoded in utf-8, but since there isn't
+                    # any http header, urllib2 seems to treat it as ascii
+                    line = line_raw.decode("utf-8")
 
-            # Print an error if we failed to extract a changelog
-            if len(changelog) == 0:
-                changelog = _("The list of changes is not available")
-            self._changelog = changelog
+                    #print line.encode('utf-8')
+                    match = re.match(regexp, line)
+                    if match:
+                        # strip epoch from installed version
+                        # and from changelog too
+                        installed = self.installedVersion
+                        if installed and ":" in installed:
+                            installed = installed.split(":", 1)[1]
+                        changelog_ver = match.group(1)
+                        if changelog_ver and ":" in changelog_ver:
+                            changelog_ver = changelog_ver.split(":", 1)[1]
+                        if (installed and apt_pkg.VersionCompare(changelog_ver,
+                                                              installed) <= 0):
+                            break
+                    # EOF (shouldn't really happen)
+                    changelog += line
 
-        # FIXME: Ubuntu-specific part.
-        except urllib2.HTTPError:
-            return _("The list of changes is not available yet.\n\n"
-                     "Please use http://launchpad.net/ubuntu/+source/%s/%s/"
-                     "+changelog\n"
-                     "until the changes become available or try again "
-                     "later.") % (src_pkg, src_ver)
-        except (IOError, httplib.BadStatusLine):
-            return _("Failed to download the list of changes. \nPlease "
-                     "check your Internet connection.")
+                # Print an error if we failed to extract a changelog
+                if len(changelog) == 0:
+                    changelog = _("The list of changes is not available")
+                self._changelog = changelog
+
+            except urllib2.HTTPError:
+                return _("The list of changes is not available yet.\n\n"
+                         "Please use http://launchpad.net/ubuntu/+source/%s/"
+                         "%s/+changelog\n"
+                         "until the changes become available or try again "
+                         "later.") % (src_pkg, src_ver)
+            except (IOError, httplib.BadStatusLine):
+                return _("Failed to download the list of changes. \nPlease "
+                         "check your Internet connection.")
+        finally:
+            socket.setdefaulttimeout(timeout)
         return self._changelog
 
     @DeprecatedProperty
@@ -776,7 +779,7 @@ class Package(object):
     def markKeep(self):
         """Mark a package for keep."""
         self._pcache.cachePreChange()
-        self._depcache.MarkKeep(self._pkg)
+        self._pcache._depcache.MarkKeep(self._pkg)
         self._pcache.cachePostChange()
 
     def markDelete(self, autoFix=True, purge=False):
@@ -789,10 +792,10 @@ class Package(object):
         well. The default is to keep the configuration.
         """
         self._pcache.cachePreChange()
-        self._depcache.MarkDelete(self._pkg, purge)
+        self._pcache._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
-        if autoFix and self._depcache.BrokenCount > 0:
-            Fix = apt_pkg.GetPkgProblemResolver(self._depcache)
+        if autoFix and self._pcache._depcache.BrokenCount > 0:
+            Fix = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
             Fix.Clear(self._pkg)
             Fix.Protect(self._pkg)
             Fix.Remove(self._pkg)
@@ -815,10 +818,10 @@ class Package(object):
         it.
         """
         self._pcache.cachePreChange()
-        self._depcache.MarkInstall(self._pkg, autoInst, fromUser)
+        self._pcache._depcache.MarkInstall(self._pkg, autoInst, fromUser)
         # try to fix broken stuff
-        if autoFix and self._depcache.BrokenCount > 0:
-            fixer = apt_pkg.GetPkgProblemResolver(self._depcache)
+        if autoFix and self._pcache._depcache.BrokenCount > 0:
+            fixer = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
@@ -842,7 +845,7 @@ class Package(object):
         The parameter `iprogress` refers to an InstallProgress() object, as
         found in apt.progress.
         """
-        self._depcache.Commit(fprogress, iprogress)
+        self._pcache._depcache.Commit(fprogress, iprogress)
 
 
 def _test():
@@ -851,13 +854,9 @@ def _test():
     import random
     import apt
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
-    depcache = apt_pkg.GetDepCache(cache)
-    records = apt_pkg.GetPkgRecords(cache)
-    sourcelist = apt_pkg.GetPkgSourceList()
-
-    pkgiter = cache["apt-utils"]
-    pkg = Package(cache, depcache, records, sourcelist, None, pkgiter)
+    progress = apt.progress.OpTextProgress()
+    cache = apt.Cache(progress)
+    pkg = cache["apt-utils"]
     print "Name: %s " % pkg.name
     print "ID: %s " % pkg.id
     print "Priority (Candidate): %s " % pkg.candidate.priority
@@ -881,9 +880,8 @@ def _test():
     print "homepage: %s" % pkg.candidate.homepage
     print "rec: ", pkg.candidate.record
 
-    # now test install/remove
-    progress = apt.progress.OpTextProgress()
-    cache = apt.Cache(progress)
+
+    print cache["2vcard"].getChangelog()
     for i in True, False:
         print "Running install on random upgradable pkgs with AutoFix: %s " % i
         for pkg in cache:

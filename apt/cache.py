@@ -51,6 +51,10 @@ class Cache(object):
             # force apt to build its caches in memory
             apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
         if rootdir:
+            if os.path.exists(rootdir+"/etc/apt/apt.conf"):
+                apt_pkg.ReadConfigFile(apt_pkg.Config, rootdir+"/etc/apt/apt.conf")
+            if os.path.isdir(rootdir+"/etc/apt/apt.conf.d"):
+                apt_pkg.ReadConfigDir(apt_pkg.Config, rootdir+"/etc/apt/apt.conf.d")
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
@@ -85,9 +89,7 @@ class Cache(object):
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
-                self._dict[pkg.Name] = Package(self._cache, self._depcache,
-                                               self._records, self._list,
-                                               self, pkg)
+                self._dict[pkg.Name] = Package(self, pkg)
 
             i += 1
         if progress is not None:

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import apt
 import apt_pkg
 import os.path
