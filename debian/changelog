@@ -10,6 +10,8 @@ python-apt (0.7.9~exp3) experimental; urgency=low
   * apt/progress/: New package, replaces apt.progress and apt.gtk
     - apt/progress/gtk2.py: Moved here from apt/gtk/widgets.py
     - apt/progress/__init__.py: Move here from apt/progress.py
+  * doc/source/*: Improve the documentation
+    - Document more attributes and functions of apt_pkg (they are all listed)
 
   [ Michael Vogt ]
   * aptsources/distro.py:
