@@ -635,11 +635,11 @@ class Package(object):
             return self._changelog
 
         if uri is None:
-            if self.candidateOrigin[0].origin == "Debian":
+            if self.candidate.origins[0].origin == "Debian":
                 uri = "http://packages.debian.org/changelogs/pool" \
                       "/%(src_section)s/%(prefix)s/%(src_pkg)s" \
                       "/%(src_pkg)s_%(src_ver)s/changelog"
-            elif self.candidateOrigin[0].origin == "Ubuntu":
+            elif self.candidate.origins[0].origin == "Ubuntu":
                 uri = "http://changelogs.ubuntu.com/changelogs/pool" \
                       "/%(src_section)s/%(prefix)s/%(src_pkg)s" \
                       "/%(src_pkg)s_%(src_ver)s/changelog"
@@ -647,7 +647,7 @@ class Package(object):
                 return _("The list of changes is not available")
 
         # get the src package name
-        src_pkg = self.sourcePackageName
+        src_pkg = self.candidate.source_name
 
         # assume "main" section
         src_section = "main"
@@ -655,8 +655,8 @@ class Package(object):
         section = self._depcache.GetCandidateVer(self._pkg).Section
 
         # get the source version, start with the binaries version
-        bin_ver = self.candidateVersion
-        src_ver = self.candidateVersion
+        bin_ver = self.candidate.version
+        src_ver = self.candidate.version
         #print "bin: %s" % binver
         try:
             # FIXME: This try-statement is too long ...
@@ -726,7 +726,7 @@ class Package(object):
                 if match:
                     # strip epoch from installed version
                     # and from changelog too
-                    installed = self.installedVersion
+                    installed = getattr(self.installed, 'version', None)
                     if installed and ":" in installed:
                         installed = installed.split(":", 1)[1]
                     changelog_ver = match.group(1)

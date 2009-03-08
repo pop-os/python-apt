@@ -152,7 +152,7 @@ class Cache(object):
         """Return the packages not downloadable packages in reqreinst state."""
         reqreinst = set()
         for pkg in self:
-            if (not pkg.candidateDownloadable and
+            if (not pkg.candidate.downloadable and
                 (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
                  pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
                 reqreinst.add(pkg.name)
