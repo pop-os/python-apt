@@ -7,6 +7,7 @@ python-apt (0.7.9~exp3) experimental; urgency=low
     - Deprecate Package.candidate*() and Package.installed*(), except for
       installedFiles.
     - Provide Version.get_source() (LP: #118788)
+    - Provide Package.versions (Closes: #513236)
   * apt/progress/: New package, replaces apt.progress and apt.gtk
     - apt/progress/gtk2.py: Moved here from apt/gtk/widgets.py
     - apt/progress/__init__.py: Move here from apt/progress.py
