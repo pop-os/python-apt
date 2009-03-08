@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-03 21:17+0100\n"
+"POT-Creation-Date: 2009-03-08 19:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -314,7 +314,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:207 ../aptsources/distro.py:422
+#: ../aptsources/distro.py:208 ../aptsources/distro.py:423
 #, python-format
 msgid "Server for %s"
 msgstr ""
@@ -322,34 +322,106 @@ msgstr ""
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:225 ../aptsources/distro.py:231
-#: ../aptsources/distro.py:247
+#: ../aptsources/distro.py:226 ../aptsources/distro.py:232
+#: ../aptsources/distro.py:248
 msgid "Main server"
 msgstr ""
 
-#: ../aptsources/distro.py:251
+#: ../aptsources/distro.py:252
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:243
+#: ../apt/progress/gtk2.py:246
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:249
+#: ../apt/progress/gtk2.py:252
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/gtk/widgets.py:269
+#: ../apt/progress/gtk2.py:272
 msgid "Details"
 msgstr ""
 
-#: ../apt/gtk/widgets.py:351
+#: ../apt/progress/gtk2.py:354
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/gtk/widgets.py:357
+#: ../apt/progress/gtk2.py:360
 msgid "Complete"
+msgstr ""
+
+#: ../apt/package.py:266
+#, python-format
+msgid "Invalid unicode in description for '%s' (%s). Please report."
+msgstr ""
+
+#: ../apt/package.py:644 ../apt/package.py:748
+msgid "The list of changes is not available"
+msgstr ""
+
+#: ../apt/package.py:752
+#, python-format
+msgid ""
+"The list of changes is not available yet.\n"
+"\n"
+"Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"until the changes become available or try again later."
+msgstr ""
+
+#: ../apt/package.py:758
+msgid ""
+"Failed to download the list of changes. \n"
+"Please check your Internet connection."
+msgstr ""
+
+#: ../apt/debfile.py:59
+#, python-format
+msgid "This is not a valid DEB archive, missing '%s' member"
+msgstr ""
+
+#: ../apt/debfile.py:84
+#, python-format
+msgid "List of files for '%s'could not be read"
+msgstr ""
+
+#: ../apt/debfile.py:152
+#, python-format
+msgid "Dependency is not satisfiable: %s\n"
+msgstr ""
+
+#: ../apt/debfile.py:176
+#, python-format
+msgid "Conflicts with the installed package '%s'"
+msgstr ""
+
+#: ../apt/debfile.py:322
+#, python-format
+msgid "Wrong architecture '%s'"
+msgstr ""
+
+#. the deb is older than the installed
+#: ../apt/debfile.py:328
+msgid "A later version is already installed"
+msgstr ""
+
+#: ../apt/debfile.py:348
+msgid "Failed to satisfy all dependencies (broken cache)"
+msgstr ""
+
+#: ../apt/debfile.py:379
+#, python-format
+msgid "Cannot install '%s'"
+msgstr ""
+
+#: ../apt/debfile.py:487
+#, python-format
+msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
+msgstr ""
+
+#: ../apt/debfile.py:497
+msgid "An essential package would be removed"
 msgstr ""
