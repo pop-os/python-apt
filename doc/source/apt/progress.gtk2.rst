@@ -1,6 +1,6 @@
-:mod:`apt.gtk.widgets` --- GTK widgets
-======================================
-.. automodule:: apt.gtk.widgets
+:mod:`apt.progress.gtk2` --- GTK widgets
+========================================
+.. automodule:: apt.progress.gtk2
 
 
 GObject progress classes
