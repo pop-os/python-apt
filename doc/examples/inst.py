@@ -3,9 +3,6 @@
 
 import apt
 import sys
-import os
-import copy
-import time
 
 from apt.progress import InstallProgress
 
