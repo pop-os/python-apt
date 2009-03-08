@@ -72,6 +72,8 @@ class Cache(object):
         """ Open the package cache, after that it can be used like
             a dictionary
         """
+        if progress is None:
+            progress = apt.progress.OpProgress()
         self._runCallbacks("cache_pre_open")
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
@@ -80,9 +82,7 @@ class Cache(object):
         self._list.ReadMainList()
         self._dict = {}
 
-        # build the packages dict
-        if progress is not None:
-            progress.Op = "Building data structures"
+        progress.Op = "Building data structures"
         i=last=0
         size=len(self._cache.Packages)
         for pkg in self._cache.Packages:
@@ -94,8 +94,8 @@ class Cache(object):
                 self._dict[pkg.Name] = Package(self, pkg)
 
             i += 1
-        if progress is not None:
-            progress.done()
+
+        progress.done()
         self._runCallbacks("cache_post_open")
 
     def __getitem__(self, key):
