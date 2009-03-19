@@ -1,4 +1,4 @@
-bpython-apt (0.7.9~exp2ubuntu9) jaunty; urgency=low
+python-apt (0.7.9~exp2ubuntu9) jaunty; urgency=low
 
   * aptsources/sourceslist.py:
     - fix bug in invalid lines detection (LP: #324614)
