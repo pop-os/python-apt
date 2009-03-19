@@ -1,4 +1,4 @@
-python-apt (0.7.9~exp3) experimental; urgency=low
+python-apt (0.7.9~exp3) UNRELEASED; urgency=low
 
   [ Julian Andres Klode ]
   * apt/gtk/widgets.py:
