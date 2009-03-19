@@ -1,4 +1,4 @@
-python-apt (0.7.9~exp3) UNRELEASED; urgency=low
+python-apt (0.7.9) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * apt/gtk/widgets.py:
@@ -81,7 +81,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - only add nearest_server and server to the mirrors if
       they are defined
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
+ -- Michael Vogt <mvo@debian.org>  Fri, 16 Jan 2009 11:28:17 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
