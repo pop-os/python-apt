@@ -5,13 +5,13 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 
-import apt.gtk.widgets
+import apt.progress.gtk2
 
 
 if __name__ == "__main__":
 
     win = gtk.Window()
-    progress = apt.gtk.widgets.GtkAptProgress()
+    progress = apt.progress.gtk2.GtkAptProgress()
     win.set_title("GtkAptProgress Demo")
     win.add(progress)
     progress.show()

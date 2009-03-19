@@ -26,6 +26,7 @@ import re
 import os
 import sys
 
+from xml.etree.ElementTree import ElementTree
 import gettext
 
 
@@ -78,69 +79,68 @@ class Distribution:
 
         # find the distro template
         for template in self.sourceslist.matcher.templates:
-            if self.is_codename(template.name) and\
-                template.distribution == self.id:
+            if (self.is_codename(template.name) and
+                template.distribution == self.id):
                 #print "yeah! found a template for %s" % self.description
                 #print template.description, template.base_uri, \
                 #    template.components
                 self.source_template = template
                 break
-            if self.source_template is None:
-                raise NoDistroTemplateException("Error: could not find a "
+        if self.source_template is None:
+            raise NoDistroTemplateException("Error: could not find a "
                                                 "distribution template")
 
-            # find main and child sources
-            media = []
-            comps = []
-            cdrom_comps = []
-            enabled_comps = []
-            source_code = []
-            for source in self.sourceslist.list:
-                if source.invalid == False and\
-                   self.is_codename(source.dist) and\
-                   source.template and\
-                   self.is_codename(source.template.name):
-                    #print "yeah! found a distro repo:  %s" % source.line
-                    # cdroms need do be handled differently
-                    if source.uri.startswith("cdrom:") and \
-                       source.disabled == False:
-                        self.cdrom_sources.append(source)
-                        cdrom_comps.extend(source.comps)
-                    elif source.uri.startswith("cdrom:") and \
-                         source.disabled == True:
-                        self.cdrom_sources.append(source)
-                    elif source.type == self.binary_type and \
-                         source.disabled == False:
-                        self.main_sources.append(source)
-                        comps.extend(source.comps)
-                        media.append(source.uri)
-                    elif source.type == self.binary_type and \
-                         source.disabled == True:
-                        self.disabled_sources.append(source)
-                    elif source.type == self.source_type \
-                        and source.disabled == False:
-                        self.source_code_sources.append(source)
-                    elif source.type == self.source_type \
-                        and source.disabled == True:
-                        self.disabled_sources.append(source)
-                if source.invalid == False and\
-                   source.template in self.source_template.children:
-                    if source.disabled == False \
-                        and source.type == self.binary_type:
-                        self.child_sources.append(source)
-                    elif source.disabled == False \
-                        and source.type == self.source_type:
-                        self.source_code_sources.append(source)
-                    else:
-                        self.disabled_sources.append(source)
-            self.download_comps = set(comps)
-            self.cdrom_comps = set(cdrom_comps)
-            enabled_comps.extend(comps)
-            enabled_comps.extend(cdrom_comps)
-            self.enabled_comps = set(enabled_comps)
-            self.used_media = set(media)
-
-            self.get_mirrors()
+        # find main and child sources
+        media = []
+        comps = []
+        cdrom_comps = []
+        enabled_comps = []
+        source_code = []
+        for source in self.sourceslist.list:
+            if (source.invalid == False and
+                self.is_codename(source.dist) and
+                source.template and
+                self.is_codename(source.template.name)):
+                #print "yeah! found a distro repo:  %s" % source.line
+                # cdroms need do be handled differently
+                if (source.uri.startswith("cdrom:") and
+                    source.disabled == False):
+                    self.cdrom_sources.append(source)
+                    cdrom_comps.extend(source.comps)
+                elif (source.uri.startswith("cdrom:") and
+                      source.disabled == True):
+                    self.cdrom_sources.append(source)
+                elif (source.type == self.binary_type and
+                      source.disabled == False):
+                    self.main_sources.append(source)
+                    comps.extend(source.comps)
+                    media.append(source.uri)
+                elif (source.type == self.binary_type and
+                      source.disabled == True):
+                    self.disabled_sources.append(source)
+                elif (source.type == self.source_type
+                        and source.disabled == False):
+                    self.source_code_sources.append(source)
+                elif (source.type == self.source_type and
+                      source.disabled == True):
+                    self.disabled_sources.append(source)
+            if (source.invalid == False and
+                source.template in self.source_template.children):
+                if (source.disabled == False
+                    and source.type == self.binary_type):
+                    self.child_sources.append(source)
+                elif (source.disabled == False
+                      and source.type == self.source_type):
+                    self.source_code_sources.append(source)
+                else:
+                    self.disabled_sources.append(source)
+        self.download_comps = set(comps)
+        self.cdrom_comps = set(cdrom_comps)
+        enabled_comps.extend(comps)
+        enabled_comps.extend(cdrom_comps)
+        self.enabled_comps = set(enabled_comps)
+        self.used_media = set(media)
+        self.get_mirrors()
 
     def get_mirrors(self, mirror_template=None):
         """
@@ -162,16 +162,21 @@ class Distribution:
 
         # get a list of country codes and real names
         self.countries = {}
-        try:
-            f = open("/usr/share/iso-codes/iso_3166.tab", "r")
-            lines = f.readlines()
-            for line in lines:
-                parts = line.split("\t")
-                self.countries[parts[0].lower()] = parts[1].strip()
-        except:
-            print "could not open file '%s'" % file
-        else:
-            f.close()
+        fname = "/usr/share/xml/iso-codes/iso_3166.xml"
+        if os.path.exists(fname):
+            et = ElementTree(file=fname)
+            it = et.getiterator('iso_3166_entry')
+            for elm in it:
+                try:
+                    descr = elm.attrib["common_name"]
+                except KeyError:
+                    descr = elm.attrib["name"]
+                try:
+                    code = elm.attrib["alpha_2_code"]
+                except KeyError:
+                    code = elm.attrib["alpha_3_code"]
+                self.countries[code.lower()] = gettext.dgettext('iso_3166',
+                                                                descr)
 
         # try to guess the nearest mirror from the locale
         self.country = None
@@ -200,9 +205,7 @@ class Distribution:
             country = server[i+len("://"):l]
         if country in self.countries:
             # TRANSLATORS: %s is a country
-            return _("Server for %s") % \
-                   gettext.dgettext("iso_3166",
-                                    self.countries[country].rstrip()).rstrip()
+            return _("Server for %s") % self.countries[country]
         else:
             return("%s" % server.rstrip("/ "))
 
@@ -217,15 +220,15 @@ class Distribution:
         # Store all available servers:
         # Name, URI, active
         mirrors = []
-        if len(self.used_servers) < 1 or \
-           (len(self.used_servers) == 1 and \
-            compare_mirrors(self.used_servers[0], self.main_server)):
+        if (len(self.used_servers) < 1 or
+            (len(self.used_servers) == 1 and
+             compare_mirrors(self.used_servers[0], self.main_server))):
             mirrors.append([_("Main server"), self.main_server, True])
             if self.nearest_server:
                 mirrors.append([self._get_mirror_name(self.nearest_server),
                                 self.nearest_server, False])
-        elif len(self.used_servers) == 1 and not \
-             compare_mirrors(self.used_servers[0], self.main_server):
+        elif (len(self.used_servers) == 1 and not
+              compare_mirrors(self.used_servers[0], self.main_server)):
             mirrors.append([_("Main server"), self.main_server, False])
             # Only one server is used
             server = self.used_servers[0]
@@ -305,42 +308,42 @@ class Distribution:
             source.comps.append(comp)
             comps_per_dist[source.dist].add(comp)
 
-            sources = []
-            sources.extend(self.main_sources)
-            sources.extend(self.child_sources)
-            # store what comps are enabled already per distro (where distro is
-            # e.g. "dapper", "dapper-updates")
-            comps_per_dist = {}
-            comps_per_sdist = {}
-            for s in sources:
-                if s.type == self.binary_type:
-                    if s.dist not in comps_per_dist:
-                        comps_per_dist[s.dist] = set()
+        sources = []
+        sources.extend(self.main_sources)
+        sources.extend(self.child_sources)
+        # store what comps are enabled already per distro (where distro is
+        # e.g. "dapper", "dapper-updates")
+        comps_per_dist = {}
+        comps_per_sdist = {}
+        for s in sources:
+            if s.type == self.binary_type:
+                if s.dist not in comps_per_dist:
+                    comps_per_dist[s.dist] = set()
                     map(comps_per_dist[s.dist].add, s.comps)
-            for s in self.source_code_sources:
-                if s.type == self.source_type:
-                    if s.dist not in comps_per_sdist:
-                        comps_per_sdist[s.dist] = set()
+        for s in self.source_code_sources:
+            if s.type == self.source_type:
+                if s.dist not in comps_per_sdist:
+                    comps_per_sdist[s.dist] = set()
                     map(comps_per_sdist[s.dist].add, s.comps)
 
-            # check if there is a main source at all
-            if len(self.main_sources) < 1:
+        # check if there is a main source at all
+        if len(self.main_sources) < 1:
+            # create a new main source
+            self.add_source(comps=["%s"%comp])
+        else:
+            # add the comp to all main, child and source code sources
+            for source in sources:
+                add_component_only_once(source, comps_per_dist)
+
+        # check if there is a main source code source at all
+        if self.get_source_code == True:
+            if len(self.source_code_sources) < 1:
                 # create a new main source
-                self.add_source(comps=["%s"%comp])
+                self.add_source(type=self.source_type, comps=["%s"%comp])
             else:
                 # add the comp to all main, child and source code sources
-                for source in sources:
-                    add_component_only_once(source, comps_per_dist)
-
-            # check if there is a main source code source at all
-            if self.get_source_code == True:
-                if len(self.source_code_sources) < 1:
-                    # create a new main source
-                    self.add_source(type=self.source_type, comps=["%s"%comp])
-                else:
-                    # add the comp to all main, child and source code sources
-                    for source in self.source_code_sources:
-                        add_component_only_once(source, comps_per_sdist)
+                for source in self.source_code_sources:
+                    add_component_only_once(source, comps_per_sdist)
 
     def disable_component(self, comp):
         """
@@ -382,8 +385,8 @@ class Distribution:
             change_server_of_source(source, uri, seen_binary)
         for source in self.child_sources:
             # Do not change the forces server of a child source
-            if source.template.base_uri is None or \
-               source.template.base_uri != source.uri:
+            if (source.template.base_uri is None or
+                source.template.base_uri != source.uri):
                 change_server_of_source(source, uri, seen_binary)
         for source in self.source_code_sources:
             change_server_of_source(source, uri, seen_source)

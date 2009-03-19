@@ -10,7 +10,6 @@
 
 import apt_pkg
 import sys
-import posixpath
 
 ConfigFile = apt_pkg.ParseCommandLine(apt_pkg.Config, [], sys.argv)
 

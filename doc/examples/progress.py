@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 import time
 
@@ -38,7 +40,7 @@ class TextFetchProgress(apt.FetchProgress):
 
     def pulse(self):
         print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
-            apt.SizeToStr(self.currentCPS), SizeToStr(self.currentBytes),
+            apt.SizeToStr(self.currentCPS), apt.SizeToStr(self.currentBytes),
             apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
         return True
 
@@ -79,12 +81,12 @@ class TextCdromProgress(apt.CdromProgress):
     def update(self, text, step):
         # check if we actually have some text to display
         if text != "":
-            print "Update: %s %s" % (string.strip(text), step)
+            print "Update: %s %s" % (text.strip(), step)
 
     def askCdromName(self):
         print "Please enter cd-name: ",
         cd_name = sys.stdin.readline()
-        return (True, string.strip(cd_name))
+        return (True, cd_name.strip())
 
     def changeCdrom(self):
         print "Please insert cdrom and press <ENTER>"

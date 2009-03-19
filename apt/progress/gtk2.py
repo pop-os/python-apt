@@ -29,7 +29,10 @@ import time
 import pygtk
 pygtk.require('2.0')
 import gtk
-import glib
+try:
+    import glib
+except ImportError:
+    import gobject as glib
 import gobject
 import pango
 import vte

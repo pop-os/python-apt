@@ -20,7 +20,6 @@
 #  USA
 
 import os
-import sys
 
 import apt_pkg
 from apt import Package
@@ -52,6 +51,12 @@ class Cache(object):
             # force apt to build its caches in memory
             apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
         if rootdir:
+            if os.path.exists(rootdir+"/etc/apt/apt.conf"):
+                apt_pkg.ReadConfigFile(apt_pkg.Config,
+                                       rootdir + "/etc/apt/apt.conf")
+            if os.path.isdir(rootdir+"/etc/apt/apt.conf.d"):
+                apt_pkg.ReadConfigDir(apt_pkg.Config,
+                                      rootdir + "/etc/apt/apt.conf.d")
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
@@ -67,6 +72,8 @@ class Cache(object):
         """ Open the package cache, after that it can be used like
             a dictionary
         """
+        if progress is None:
+            progress = apt.progress.OpProgress()
         self._runCallbacks("cache_pre_open")
         self._cache = apt_pkg.GetCache(progress)
         self._depcache = apt_pkg.GetDepCache(self._cache)
@@ -75,9 +82,7 @@ class Cache(object):
         self._list.ReadMainList()
         self._dict = {}
 
-        # build the packages dict
-        if progress is not None:
-            progress.Op = "Building data structures"
+        progress.Op = "Building data structures"
         i=last=0
         size=len(self._cache.Packages)
         for pkg in self._cache.Packages:
@@ -86,13 +91,11 @@ class Cache(object):
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
-                self._dict[pkg.Name] = Package(self._cache, self._depcache,
-                                               self._records, self._list,
-                                               self, pkg)
+                self._dict[pkg.Name] = Package(self, pkg)
 
             i += 1
-        if progress is not None:
-            progress.done()
+
+        progress.done()
         self._runCallbacks("cache_post_open")
 
     def __getitem__(self, key):
@@ -152,7 +155,7 @@ class Cache(object):
         """Return the packages not downloadable packages in reqreinst state."""
         reqreinst = set()
         for pkg in self:
-            if (not pkg.candidateDownloadable and
+            if (not pkg.candidate.downloadable and
                 (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
                  pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
                 reqreinst.add(pkg.name)
@@ -446,7 +449,7 @@ if __name__ == "__main__":
     print len(f)
 
     print "Testing filtered cache (no argument)"
-    f = FilteredCache(progress=OpTextProgress())
+    f = FilteredCache(progress=apt.progress.OpTextProgress())
     f.cache.connect("cache_pre_change", cache_pre_changed)
     f.cache.connect("cache_post_change", cache_post_changed)
     f.cache.upgrade()

@@ -108,9 +108,8 @@ class DebPackage(object):
                             return True
                 continue
 
-            inst = self._cache[depname]
-            instver = inst.installedVersion
-            if instver is not None and apt_pkg.CheckDep(instver, oper, ver):
+            inst = self._cache[depname].installed
+            if inst is not None and apt_pkg.CheckDep(inst.version, oper, ver):
                 return True
         return False
 
@@ -163,9 +162,9 @@ class DebPackage(object):
 
         pkg = self._cache[pkgname]
         if pkg.isInstalled:
-            pkgver = pkg.installedVersion
+            pkgver = pkg.installed.version
         elif pkg.markedInstall:
-            pkgver = pkg.candidateVersion
+            pkgver = pkg.candidate.version
         else:
             return False
         #print "pkg: %s" % pkgname
@@ -202,7 +201,8 @@ class DebPackage(object):
                         if self.pkgname == pkg.name:
                             self._dbg(3, "conflict on self, ignoring")
                             continue
-                        if self._check_single_pkg_conflict(pkg.name, ver, oper):
+                        if self._check_single_pkg_conflict(pkg.name, ver,
+                                                           oper):
                             self._installed_conflicts.add(pkg.name)
                 continue
             if self._check_single_pkg_conflict(depname, ver, oper):
@@ -257,9 +257,9 @@ class DebPackage(object):
         self._dbg(3, "replacesPkg() %s %s %s" % (pkgname, oper, ver))
         pkg = self._cache[pkgname]
         if pkg.isInstalled:
-            pkgver = pkg.installedVersion
+            pkgver = pkg.installed.version
         elif pkg.markedInstall:
-            pkgver = pkg.candidateVersion
+            pkgver = pkg.candidate.version
         else:
             pkgver = None
         for or_group in self.replaces:
@@ -296,10 +296,10 @@ class DebPackage(object):
         debver = self._sections["Version"]
         self._dbg(1, "debver: %s" % debver)
         if pkgname in self._cache:
-            if use_installed:
-                cachever = self._cache[pkgname].installedVersion
+            if use_installed and self._cache[pkgname].installed:
+                cachever = self._cache[pkgname].installed.version
             else:
-                cachever = self._cache[pkgname].candidateVersion
+                cachever = self._cache[pkgname].candidate.version
             if cachever is not None:
                 cmp = apt_pkg.VersionCompare(cachever, debver)
                 self._dbg(1, "CompareVersion(debver,instver): %s" % cmp)
@@ -366,7 +366,8 @@ class DebPackage(object):
         # check depends
         for or_group in depends:
             #print "or_group: %s" % or_group
-            #print "or_group satified: %s" % self._is_or_group_satisfied(or_group)
+            #print "or_group satified: %s" % self._is_or_group_satisfied(
+            #                                or_group)
             if not self._is_or_group_satisfied(or_group):
                 if not self._satisfy_or_group(or_group):
                     return False
@@ -403,7 +404,7 @@ class DebPackage(object):
                 # check authentication, one authenticated origin is enough
                 # libapt will skip non-authenticated origins then
                 authenticated = False
-                for origin in pkg.candidateOrigin:
+                for origin in pkg.candidate.origins:
                     authenticated |= origin.trusted
                 if not authenticated:
                     unauthenticated.append(pkg.name)

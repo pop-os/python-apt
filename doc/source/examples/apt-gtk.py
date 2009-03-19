@@ -4,14 +4,14 @@ import pygtk
 pygtk.require("2.0")
 import gtk
 
-import apt.gtk.widgets
+import apt.progress.gtk2
 
 
 def main():
     """Main function."""
     win = gtk.Window()
     win.connect("destroy", gtk.main_quit)
-    progress = apt.gtk.widgets.GtkAptProgress()
+    progress = apt.progress.gtk2.GtkAptProgress()
     win.set_title("GtkAptProgress Demo")
     win.add(progress)
     progress.show()

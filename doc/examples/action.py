@@ -3,7 +3,6 @@
 
 import apt_pkg
 import sys
-import copy
 from apt.progress import OpTextProgress
 from progress import TextFetchProgress
 

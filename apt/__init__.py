@@ -15,6 +15,6 @@ from apt_pkg import SizeToStr, TimeToStr, VersionCompare
 apt_pkg.init()
 
 
-import warnings
-warnings.warn("apt API not stable yet", FutureWarning)
-del warnings
+#import warnings
+#warnings.warn("apt API not stable yet", FutureWarning)
+#del warnings
