@@ -19,6 +19,8 @@ python-apt (0.7.9~exp3) experimental; urgency=low
       closes: #497049
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
+  * aptsources/sourceslist.py:
+    - fix bug in invalid lines detection (LP: #324614)
 
  --
 
