@@ -1,4 +1,11 @@
-python-apt (0.7.9~exp2ubuntu8) jaunty; urgency=low
+bpython-apt (0.7.9~exp2ubuntu9) jaunty; urgency=low
+
+  * aptsources/sourceslist.py:
+    - fix bug in invalid lines detection (LP: #324614)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 19 Mar 2009 14:09:50 +0100
+
+bpython-apt (0.7.9~exp2ubuntu8) jaunty; urgency=low
 
   * Rebuild for python2.6.
   * Call dh_pycentral with "DH_PYCENTRAL=include-links".
