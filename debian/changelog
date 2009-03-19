@@ -35,7 +35,7 @@ python-apt (0.7.9) unstable; urgency=low
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 19 Mar 2009 13:39:21 +0100
+ -- Michael Vogt <mvo@debian.org>  Thu, 19 Mar 2009 13:39:21 +0100
 
 python-apt (0.7.9~exp2) experimental; urgency=low
 
