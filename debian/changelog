@@ -22,7 +22,8 @@ python-apt (0.7.9) unstable; urgency=low
     - add Recommends to iso-codes (for iso_3166.xml)
   * apt/package.py:
     - make sure to set the defaulttimeout back to the
-      original value (in getChangelog(), LP: #314212)
+      original value (in getChangelog(), LP: #314212) 
+      Closes: #513315
   * apt/cache.py:
     - when setting a alternative rootdir, read the
       config from it as well
