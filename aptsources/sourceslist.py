@@ -144,7 +144,7 @@ class SourceEntry:
             return
         if line[0] == "#":
             self.disabled = True
-            pieces = line[1:].strip()
+            pieces = line[1:].strip().split()
             # if it looks not like a disabled deb line return
             if not pieces[0] in ("rpm", "rpm-src", "deb", "deb-src"):
                 self.invalid = True

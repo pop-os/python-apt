@@ -35,6 +35,8 @@ python-apt (0.7.9) unstable; urgency=low
       closes: #497049
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
+  * aptsources/sourceslist.py:
+    - fix bug in invalid lines detection (LP: #324614)
 
  -- Michael Vogt <mvo@debian.org>  Thu, 19 Mar 2009 13:39:21 +0100
 
