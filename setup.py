@@ -1,13 +1,25 @@
 #! /usr/bin/env python
 # $Id: setup.py,v 1.2 2002/01/08 07:13:21 jgg Exp $
-
-from distutils.core import setup, Extension
-from distutils.sysconfig import parse_makefile
-from DistUtilsExtra.command import build_extra, build_i18n
 import glob
 import os
 import shutil
 import sys
+
+from distutils.core import setup, Extension
+from distutils.sysconfig import parse_makefile
+from DistUtilsExtra.command import build_extra, build_i18n
+
+
+class FakeDebianSupportModule(object):
+    """Work around the python-apt dependency of debian_support."""
+
+    class Version(object):
+        """Empty class."""
+
+sys.modules['debian_bundle.debian_support'] = FakeDebianSupportModule
+
+from debian_bundle.changelog import Changelog
+
 
 
 # The apt_pkg module
@@ -46,7 +58,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
             print "Not removing", dirname, "because it does not exist"
 
 setup(name="python-apt",
-      version="0.7.9",
+      version=Changelog(open('debian/changelog')).full_version,
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
