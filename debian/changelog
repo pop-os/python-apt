@@ -1,3 +1,10 @@
+python-apt (0.7.9~exp2ubuntu10) jaunty; urgency=low
+
+  * .bzr-buildpackage/default.conf:
+    - add pre-build hook to update the mirror list from LP
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Mar 2009 17:22:38 +0200
+
 python-apt (0.7.9~exp2ubuntu9) jaunty; urgency=low
 
   * aptsources/sourceslist.py:
