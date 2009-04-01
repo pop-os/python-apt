@@ -1,6 +1,6 @@
-# Progress.py - progress reporting classes
+# progress.py - progress reporting classes
 #
-#  Copyright (c) 2005 Canonical
+#  Copyright (c) 2005-2009 Canonical
 #
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 #

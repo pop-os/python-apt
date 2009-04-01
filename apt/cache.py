@@ -1,6 +1,6 @@
 # cache.py - apt cache abstraction
 #
-#  Copyright (c) 2005 Canonical
+#  Copyright (c) 2005-2009 Canonical
 #
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>
 #

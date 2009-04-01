@@ -1,12 +1,10 @@
-#!/usr/bin/env python
-#
 #  distinfo.py - provide meta information for distro repositories
 #
-#  Copyright (c) 2005 Gustavo Noronha Silva
-#                2006-2007 Sebastian Heinlein
+#  Copyright (c) 2005 Gustavo Noronha Silva <kov@debian.org>
+#  Copyright (c) 2006-2007 Sebastian Heinlein <glatzor@ubuntu.com>
 #
-#  Author: Gustavo Noronha Silva <kov@debian.org>
-#          Sebastian Heinlein <glatzor@ubuntu.com>
+#  Authors: Gustavo Noronha Silva <kov@debian.org>
+#           Sebastian Heinlein <glatzor@ubuntu.com>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as

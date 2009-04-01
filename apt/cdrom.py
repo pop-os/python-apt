@@ -1,6 +1,6 @@
 # cdrom.py - CDROM handling
 #
-#  Copyright (c) 2005 Canonical
+#  Copyright (c) 2005-2009 Canonical
 #  Copyright (c) 2009 Julian Andres Klode <jak@debian.org>
 #
 #  Author: Michael Vogt <michael.vogt@ubuntu.com>

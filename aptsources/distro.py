@@ -1,7 +1,7 @@
 #  distro.py - Provide a distro abstraction of the sources.list
 #
-#  Copyright (c) 2004-2007 Canonical Ltd.
-#                2006-2007 Sebastian Heinlein
+#  Copyright (c) 2004-2009 Canonical Ltd.
+#  Copyright (c) 2006-2007 Sebastian Heinlein
 #
 #  Authors: Sebastian Heinlein <glatzor@ubuntu.com>
 #           Michael Vogt <mvo@debian.org>

@@ -2,18 +2,30 @@ Source: python-apt
 Section: python
 Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
-Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
-Standards-Version: 3.7.2.2
+Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
+Standards-Version: 3.8.1
 XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.10), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.5), python-all-dbg, python-sphinx (>= 0.5)
+Build-Depends: apt-utils,
+               cdbs,
+               debhelper (>= 5.0.37.1),
+               libapt-pkg-dev (>= 0.7.10),
+               python-all-dbg,
+               python-all-dev,
+               python-central (>= 0.5),
+               python-debian,
+               python-distutils-extra (>= 1.9.0),
+               python-gtk2,
+               python-sphinx (>= 0.5),
+               python-vte
 Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release,
+         libjs-jquery
 Recommends: iso-codes
-Priority: optional
+Breaks: debdelta (<< 0.28~)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}
@@ -33,10 +45,12 @@ Description: Python interface to libapt-pkg
 Package: python-apt-dbg
 Priority: extra
 Architecture: any
-Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends}
+Section: debug
+Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
+         ${misc:Depends}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
  variety of functions.
  .
- This package contains the extension built for the python debug interpreter.
+ This package contains the extension built for the Python debug interpreter.
