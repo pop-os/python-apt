@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2004-2005 Canonical
+# Copyright (c) 2004-2009 Canonical
 #
 # Authors: Michael Vogt <michael.vogt@ubuntu.com>
 #          Sebastian Heinlein <glatzor@ubuntu.com>

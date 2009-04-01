@@ -8,6 +8,7 @@ python-apt (0.7.10~exp1) experimental; urgency=low
     - Remove mdz from Uploaders (Closes: #521477), add myself.
     - Update Standards-Version to 3.8.1
     - Use ${binary:Version} instead of ${Source-Version}
+  * debian/copyright: Switch to machine-interpretable copyright
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 01 Apr 2009 15:24:29 +0200
 
