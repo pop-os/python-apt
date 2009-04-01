@@ -43,7 +43,8 @@ Description: Python interface to libapt-pkg
 Package: python-apt-dbg
 Priority: extra
 Architecture: any
-Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends}
+Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends},
+         ${misc:Depends}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
