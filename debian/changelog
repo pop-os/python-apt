@@ -1,7 +1,7 @@
-python-apt (0.7.10~exp1) experimental; urgency=low
+python-apt (0.7.10) unstable; urgency=low
 
   * Build-Depend on python-debian, use it to get version number from changelog
-  * Depend on libjs-jquery, and remove internal copy
+  * Depend on libjs-jquery, and remove internal copy (Closes: #521532)
   * apt/package.py:
     - Introduce Version.{uri,uris,fetch_binary()}
   * debian/control:
