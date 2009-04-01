@@ -20,7 +20,8 @@ Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release,
+         libjs-jquery
 Recommends: iso-codes
 Priority: optional
 Provides: ${python:Provides}

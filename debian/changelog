@@ -1,8 +1,9 @@
 python-apt (0.7.10~exp1) experimental; urgency=low
 
   * Build-Depend on python-debian, use it to get version number from changelog
+  * Depend on libjs-jquery, and remove internal copy
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 29 Mar 2009 14:09:18 +0200
+ -- Julian Andres Klode <jak@debian.org>  Wed, 01 Apr 2009 15:24:29 +0200
 
 python-apt (0.7.9) unstable; urgency=low
 
