@@ -3,7 +3,7 @@ Section: python
 Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
-Standards-Version: 3.7.2.2
+Standards-Version: 3.8.1
 XS-Python-Version: all
 Build-Depends: apt-utils,
                cdbs,
@@ -43,7 +43,7 @@ Package: python-apt-dbg
 Priority: extra
 Architecture: any
 Section: debug
-Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends},
+Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal

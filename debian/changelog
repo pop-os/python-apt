@@ -4,7 +4,10 @@ python-apt (0.7.10~exp1) experimental; urgency=low
   * Depend on libjs-jquery, and remove internal copy
   * apt/package.py:
     - Introduce Version.{uri,uris,fetch_binary()}
-  * Remove mdz from Uploaders (Closes: #521477), add myself.
+  * debian/control:
+    - Remove mdz from Uploaders (Closes: #521477), add myself.
+    - Update Standards-Version to 3.8.1
+    - Use ${binary:Version} instead of ${Source-Version}
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 01 Apr 2009 15:24:29 +0200
 
