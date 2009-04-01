@@ -23,9 +23,13 @@ import sys
 # absolute, like shown here.
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../..'))
+
+# Find the path to the built apt_pkg and apt_inst extensions
 if os.path.exists("../../build"):
+    version = '.'.join(str(x) for x in sys.version_info[:2])
     for dirname in os.listdir('../../build'):
-        sys.path.insert(0, os.path.abspath('../../build/' + dirname))
+        if version in dirname:
+            sys.path.insert(0, os.path.abspath('../../build/' + dirname))
 
 # General configuration
 # ---------------------
