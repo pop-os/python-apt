@@ -31,7 +31,8 @@ python-apt (0.7.9) unstable; urgency=low
     - add Recommends to iso-codes (for iso_3166.xml)
   * apt/package.py:
     - make sure to set the defaulttimeout back to the
-      original value (in getChangelog(), LP: #314212)
+      original value (in getChangelog(), LP: #314212) 
+      Closes: #513315
   * apt/cache.py:
     - when setting a alternative rootdir, read the
       config from it as well
@@ -43,6 +44,8 @@ python-apt (0.7.9) unstable; urgency=low
       closes: #497049
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
+  * aptsources/sourceslist.py:
+    - fix bug in invalid lines detection (LP: #324614)
 
  -- Michael Vogt <mvo@debian.org>  Thu, 19 Mar 2009 13:39:21 +0100
 
