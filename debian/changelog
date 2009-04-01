@@ -13,6 +13,8 @@ python-apt (0.7.10) unstable; urgency=low
     - doc/source/conf.py: Only include directories for current python version.
     - debian/control: Build-Depend on python-gtk2, python-vte.
     - setup.py: If pygtk can not be imported, do not build the documentation.
+  * Breaks: debdelta (<< 0.28) to avoid more problems due to the internal
+    API changes from 0.7.9.
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 01 Apr 2009 15:24:29 +0200
 
