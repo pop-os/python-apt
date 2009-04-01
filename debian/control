@@ -23,7 +23,6 @@ Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release,
          libjs-jquery
 Recommends: iso-codes
-Priority: optional
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}
@@ -43,6 +42,7 @@ Description: Python interface to libapt-pkg
 Package: python-apt-dbg
 Priority: extra
 Architecture: any
+Section: debug
 Depends: python-dbg, python-apt (= ${Source-Version}), ${shlibs:Depends},
          ${misc:Depends}
 Description: Python interface to libapt-pkg (debug extension)
