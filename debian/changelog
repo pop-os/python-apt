@@ -8,6 +8,7 @@ python-apt (0.7.10) unstable; urgency=low
     - Remove mdz from Uploaders (Closes: #521477), add myself.
     - Update Standards-Version to 3.8.1
     - Use ${binary:Version} instead of ${Source-Version}
+    - Fix spelling error: python -> Python
   * debian/copyright: Switch to machine-interpretable copyright
   * Fix documentation building
     - doc/source/conf.py: Only include directories for current python version.

@@ -53,4 +53,4 @@ Description: Python interface to libapt-pkg (debug extension)
  libapt-pkg structures allowing Python programs to easily perform a
  variety of functions.
  .
- This package contains the extension built for the python debug interpreter.
+ This package contains the extension built for the Python debug interpreter.
