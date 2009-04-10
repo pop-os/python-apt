@@ -4,6 +4,8 @@ python-apt (0.7.10.1) unstable; urgency=low
     get a version number in setup.py (Closes: #523473)
   * apt/package.py:
     - (Package.candidateRecord): Fix missing 'd' in 'record'
+    - (DeprecatedProperty.__get__): Only warn when used on objects, this
+      makes it easier to use e.g. pydoc,sphinx,pychecker.
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 10 Apr 2009 17:51:07 +0200
 

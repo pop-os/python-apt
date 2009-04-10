@@ -99,10 +99,11 @@ class DeprecatedProperty(property):
         self.__doc__ = ':Deprecated: ' + (doc or fget.__doc__ or '')
 
     def __get__(self, obj, type=None):
-        warnings.warn("Accessed deprecated property %s.%s, please see the "
-                      "Version class for alternatives." %
-                       ((obj.__class__.__name__ or type.__name__),
-                       self.fget.func_name), DeprecationWarning, 2)
+        if obj is not None:
+            warnings.warn("Accessed deprecated property %s.%s, please see the "
+                          "Version class for alternatives." %
+                           ((obj.__class__.__name__ or type.__name__),
+                           self.fget.func_name), DeprecationWarning, 2)
         return property.__get__(self, obj, type)
 
 
