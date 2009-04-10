@@ -874,6 +874,12 @@ class Package(object):
 
     # depcache actions
 
+    def set_candidate(self, version):
+        """Set the candidate version of the package."""
+        self._pcache.cachePreChange()
+        self._pcache._depcache.SetCandidateVer(self._pkg, version._cand)
+        self._pcache.cachePostChange()
+
     def markKeep(self):
         """Mark a package for keep."""
         self._pcache.cachePreChange()
