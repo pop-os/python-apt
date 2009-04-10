@@ -872,6 +872,13 @@ class Package(object):
         """
         return [Version(self, ver) for ver in self._pkg.VersionList]
 
+    def get_version(self, version):
+        """Get the Version instance matching the given version string."""
+        for ver in self.versions:
+            if ver.version == version:
+                return ver
+        return None
+
     # depcache actions
 
     def markKeep(self):
