@@ -10,18 +10,6 @@ from distutils.sysconfig import parse_makefile
 from DistUtilsExtra.command import build_extra, build_i18n
 
 
-class FakeDebianSupportModule(object):
-    """Work around the python-apt dependency of debian_support."""
-
-    class Version(object):
-        """Empty class."""
-
-sys.modules['debian_bundle.debian_support'] = FakeDebianSupportModule
-
-from debian_bundle.changelog import Changelog
-
-
-
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
             parse_makefile("python/makefile")["APT_PKG_SRC"].split())
@@ -58,7 +46,6 @@ if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
             print "Not removing", dirname, "because it does not exist"
 
 setup(name="python-apt",
-      version=Changelog(open('debian/changelog')).full_version,
       description="Python bindings for APT",
       author="APT Development Team",
       author_email="deity@lists.debian.org",
@@ -78,7 +65,8 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
     try:
         import pygtk
     except ImportError:
-        print >> sys.stderr, 'E: python-gtk2 is required to build documentation.'
+        print >> sys.stderr, ('W: Not building documentation because python-'
+                              'gtk2 is not available at the moment.')
         sys.exit(0)
     sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
                 os.path.abspath("doc/source"), "build/doc/html"])
