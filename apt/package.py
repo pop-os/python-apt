@@ -610,7 +610,7 @@ class Package(object):
     @DeprecatedProperty
     def candidateRecord(self):
         """Return the Record of the candidate version of the package."""
-        return self.candidate.recor
+        return self.candidate.record
 
     @DeprecatedProperty
     def installedRecord(self):

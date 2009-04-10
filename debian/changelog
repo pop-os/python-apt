@@ -2,8 +2,10 @@ python-apt (0.7.10.1) unstable; urgency=low
 
   * Fix FTBFS with python-debian (>= 0.1.13) on Python 2.4 by not using it to
     get a version number in setup.py (Closes: #523473)
+  * apt/package.py:
+    - (Package.candidateRecord): Fix missing 'd' in 'record'
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 10 Apr 2009 15:27:28 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 10 Apr 2009 17:51:07 +0200
 
 python-apt (0.7.10) unstable; urgency=low
 
