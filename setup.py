@@ -47,6 +47,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
 
 setup(name="python-apt",
       description="Python bindings for APT",
+      version=os.environ.get('DEBVER'),
       author="APT Development Team",
       author_email="deity@lists.debian.org",
       ext_modules=[apt_pkg, apt_inst],

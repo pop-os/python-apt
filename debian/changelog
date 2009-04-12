@@ -3,6 +3,9 @@ python-apt (0.7.10.2) unstable; urgency=low
   * apt/package.py: Handle cases where no candidate is available and
     one of the deprecated properties (e.g. candidateVersion) is
     requested. (Closes: #523801)
+  * setup.py, debian/rules: Support version in setup.py again by getting
+    the value from the variable DEBVER (defined in debian/rules), falling
+    back to None.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 12 Apr 2009 19:00:07 +0200
 
