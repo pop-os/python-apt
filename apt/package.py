@@ -529,12 +529,12 @@ class Package(object):
     @DeprecatedProperty
     def candidateVersion(self):
         """Return the candidate version as string."""
-        return self.candidate.version
+        return getattr(self.candidate, "version", None)
 
     @DeprecatedProperty
     def candidateDependencies(self):
         """Return a list of candidate dependencies."""
-        return self.candidate.dependencies
+        return getattr(self.candidate, "dependencies", None)
 
     @DeprecatedProperty
     def installedDependencies(self):
@@ -544,12 +544,12 @@ class Package(object):
     @DeprecatedProperty
     def architecture(self):
         """Return the Architecture of the package"""
-        return self.candidate.architecture
+        return getattr(self.candidate, "architecture", None)
 
     @DeprecatedProperty
     def candidateDownloadable(self):
         """Return True if the candidate is downloadable."""
-        return self.candidate.downloadable
+        return getattr(self.candidate, "downloadable", None)
 
     @DeprecatedProperty
     def installedDownloadable(self):
@@ -570,7 +570,7 @@ class Package(object):
     @DeprecatedProperty
     def homepage(self):
         """Return the homepage field as string."""
-        return self.candidate.homepage
+        return getattr(self.candidate, "homepage", None)
 
     @property
     def section(self):
@@ -580,7 +580,7 @@ class Package(object):
     @DeprecatedProperty
     def priority(self):
         """Return the priority (of the candidate version)."""
-        return self.candidate.priority
+        return getattr(self.candidate, "priority", None)
 
     @DeprecatedProperty
     def installedPriority(self):
@@ -590,7 +590,7 @@ class Package(object):
     @DeprecatedProperty
     def summary(self):
         """Return the short description (one line summary)."""
-        return self.candidate.summary
+        return getattr(self.candidate, "summary", None)
 
     @DeprecatedProperty
     def description(self):
@@ -601,17 +601,17 @@ class Package(object):
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
         """
-        return self.candidate.description
+        return getattr(self.candidate, "description", None)
 
     @DeprecatedProperty
     def rawDescription(self):
         """return the long description (raw)."""
-        return self.candidate.raw_description
+        return getattr(self.candidate, "raw_description", None)
 
     @DeprecatedProperty
     def candidateRecord(self):
         """Return the Record of the candidate version of the package."""
-        return self.candidate.record
+        return getattr(self.candidate, "record", None)
 
     @DeprecatedProperty
     def installedRecord(self):
@@ -676,7 +676,7 @@ class Package(object):
     @DeprecatedProperty
     def packageSize(self):
         """Return the size of the candidate deb package."""
-        return self.candidate.size
+        return getattr(self.candidate, "size", None)
 
     @DeprecatedProperty
     def installedPackageSize(self):
@@ -686,7 +686,7 @@ class Package(object):
     @DeprecatedProperty
     def candidateInstalledSize(self):
         """Return the size of the candidate installed package."""
-        return self.candidate.installed_size
+        return getattr(self.candidate, "installed_size", None)
 
     @DeprecatedProperty
     def installedSize(self):
@@ -731,6 +731,8 @@ class Package(object):
             return self._changelog
 
         if uri is None:
+            if not self.candidate:
+                pass
             if self.candidate.origins[0].origin == "Debian":
                 uri = "http://packages.debian.org/changelogs/pool" \
                       "/%(src_section)s/%(prefix)s/%(src_pkg)s" \
@@ -863,7 +865,7 @@ class Package(object):
     @DeprecatedProperty
     def candidateOrigin(self):
         """Return a list of Origin() objects for the candidate version."""
-        return self.candidate.origins
+        return getattr(self.candidate, "origins", None)
 
     @property
     def versions(self):

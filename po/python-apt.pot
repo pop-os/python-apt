@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-08 19:15+0100\n"
+"POT-Creation-Date: 2009-04-12 19:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,16 +354,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:266
+#: ../apt/package.py:278
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:644 ../apt/package.py:748
+#: ../apt/package.py:745 ../apt/package.py:849
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:752
+#: ../apt/package.py:853
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -372,56 +372,56 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:758
+#: ../apt/package.py:859
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
 
-#: ../apt/debfile.py:59
+#: ../apt/debfile.py:56
 #, python-format
 msgid "This is not a valid DEB archive, missing '%s' member"
 msgstr ""
 
-#: ../apt/debfile.py:84
+#: ../apt/debfile.py:81
 #, python-format
 msgid "List of files for '%s'could not be read"
 msgstr ""
 
-#: ../apt/debfile.py:152
+#: ../apt/debfile.py:149
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:176
+#: ../apt/debfile.py:173
 #, python-format
 msgid "Conflicts with the installed package '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:322
+#: ../apt/debfile.py:319
 #, python-format
 msgid "Wrong architecture '%s'"
 msgstr ""
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:328
+#: ../apt/debfile.py:325
 msgid "A later version is already installed"
 msgstr ""
 
-#: ../apt/debfile.py:348
+#: ../apt/debfile.py:345
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
 
-#: ../apt/debfile.py:379
+#: ../apt/debfile.py:376
 #, python-format
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:487
+#: ../apt/debfile.py:484
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:497
+#: ../apt/debfile.py:494
 msgid "An essential package would be removed"
 msgstr ""
