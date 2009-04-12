@@ -491,7 +491,9 @@ class Package(object):
         """Return the candidate version of the package.
 
         :since: 0.7.9"""
-        return Version(self, self._pcache._depcache.GetCandidateVer(self._pkg))
+        cand = self._pcache._depcache.GetCandidateVer(self._pkg)
+        if cand is not None:
+            return Version(self, cand)
 
     @property
     def installed(self):
