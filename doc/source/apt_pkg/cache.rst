@@ -117,6 +117,10 @@ Classes in apt_pkg
 
     The Configuration objects store the configuration of apt.
 
+    .. describe:: key in conf
+
+      Return ``True`` if *conf* has a key *key*, else ``False``.
+
     .. describe:: conf[key]
 
         Return the value of the option given key *key*. If it does not

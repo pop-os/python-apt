@@ -1,7 +1,7 @@
 python-apt (0.7.11) UNRELEASED; urgency=low
 
-  * python/tag.cc:
-    - Support 'key in mapping' for TagSections
+  * Support the 'in' operator (e.g. "k in d") in Configuration{,Ptr,Sub}
+    objects (e.g. apt_pkg.Config) and in TagSections (apt_pkg.ParseSection())
   * Replace support for file objects with a more generic support for any object
     providing a fileno() method and for file descriptors (integers).
   * Add support for the Breaks fields
