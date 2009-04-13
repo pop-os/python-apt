@@ -174,6 +174,16 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i",1);
 }
 
+static int TagSecContains(PyObject *Self,PyObject *Arg)
+{
+   char *Name = PyString_AsString(Arg);
+   const char *Start;
+   const char *Stop;
+   if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
+      return 0;
+   return 1;
+}
+
 static char *doc_Bytes = "Bytes() -> integer";
 static PyObject *TagSecBytes(PyObject *Self,PyObject *Args)
 {
@@ -365,36 +375,41 @@ static PyMethodDef TagSecMethods[] =
    {}
 };
 
-// TagSecGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *TagSecGetAttr(PyObject *Self,char *Name)
-{
-   return Py_FindMethod(TagSecMethods,Self,Name);
-}
-									/*}}}*/
-// Type for a Tag Section
+
+PySequenceMethods TagSecSeqMeth = {0,0,0,0,0,0,0,TagSecContains,0,0};
 PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 PyTypeObject TagSecType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "TagSection",	                // tp_name
+   0,                                   // ob_size
+   "TagSection",                        // tp_name
    sizeof(TagSecData),                  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    TagSecFree,                          // tp_dealloc
-   0,		                        // tp_print
-   TagSecGetAttr,                       // tp_getattr
+   0,                                   // tp_print
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &TagSecSeqMeth,                      // tp_as_sequence
    &TagSecMapMeth,                      // tp_as_mapping
    0,                                   // tp_hash
-   0,					// tp_call
-   TagSecStr,				// tp_str
+   0,                                   // tp_call
+   TagSecStr,                           // tp_str
+   0,                                   // tp_getattro 
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer 
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "TagSection Object",                 // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter 
+   0,                                   // tp_iternext
+   TagSecMethods                        // tp_methods
 };
 
 // Method table for the Tag File object

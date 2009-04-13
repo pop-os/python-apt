@@ -472,6 +472,10 @@ static void AddInt(PyObject *Dict,const char *Itm,unsigned long I)
 
 extern "C" void initapt_pkg()
 {
+   // Finalize our types to add slots, etc.
+   if (PyType_Ready(&TagSecType) == -1) return;
+
+   // Initialize the module
    PyObject *Module = Py_InitModule("apt_pkg",methods);
    PyObject *Dict = PyModule_GetDict(Module);
 

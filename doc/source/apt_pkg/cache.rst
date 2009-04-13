@@ -1199,6 +1199,10 @@ broken dependencies:
         Return the value of the field at *key*. If *key* is not available,
         raise :exc:`KeyError`.
 
+    .. describe:: key in section
+
+        Return ``True`` if *section* has a key *key*, else ``False``.
+
     .. method:: Bytes
 
         The number of bytes in the section.

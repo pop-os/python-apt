@@ -157,7 +157,7 @@ class Record(object):
         return self._rec[key]
 
     def __contains__(self, key):
-        return self._rec.has_key(key)
+        return key in self._rec
 
     def __iter__(self):
         return iter(self._rec.keys())
@@ -176,7 +176,7 @@ class Record(object):
 
     def has_key(self, key):
         """deprecated form of 'key in x'."""
-        return self._rec.has_key(key)
+        return key in self._rec
 
 
 class Version(object):
