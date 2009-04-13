@@ -423,38 +423,51 @@ static PyMethodDef TagFileMethods[] =
    {}
 };
 
-// TagFileGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *TagFileGetAttr(PyObject *Self,char *Name)
-{
-   if (strcmp("Section",Name) == 0)
-   {
-      PyObject *Obj = ((TagFileData *)Self)->Section;
-      Py_INCREF(Obj);
-      return Obj;
-   }
-
-   return Py_FindMethod(TagFileMethods,Self,Name);
+// Return the current section.
+static PyObject *TagFileGetSection(PyObject *Self,void*) {
+   PyObject *Obj = ((TagFileData *)Self)->Section;
+   Py_INCREF(Obj);
+   return Obj;
 }
+
+static PyGetSetDef TagFileGetSet[] = {
+    {"Section",TagFileGetSection,0,"Return a TagSection.",0},
+    {}
+};
 
 // Type for a Tag File
 PyTypeObject TagFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "TagFile",		                // tp_name
+   0,                                   // ob_size
+   "TagFile",                           // tp_name
    sizeof(TagFileData),                 // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    TagFileFree,                         // tp_dealloc
    0,                                   // tp_print
-   TagFileGetAttr,                      // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
    0,                                   // tp_as_sequence
-   0,		                        // tp_as_mapping
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro 
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer 
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "TagFile Object",                    // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter 
+   0,                                   // tp_iternext
+   TagFileMethods,                      // tp_methods
+   0,                                   // tp_members
+   TagFileGetSet                        // tp_getset
 };

@@ -474,6 +474,7 @@ extern "C" void initapt_pkg()
 {
    // Finalize our types to add slots, etc.
    if (PyType_Ready(&TagSecType) == -1) return;
+   if (PyType_Ready(&TagFileType) == -1) return;
 
    // Initialize the module
    PyObject *Module = Py_InitModule("apt_pkg",methods);
