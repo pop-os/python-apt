@@ -24,7 +24,7 @@ Contents:
    apt_pkg/index
    apt_inst
    aptsources/index
-   coding
+   contributing
 
 
 

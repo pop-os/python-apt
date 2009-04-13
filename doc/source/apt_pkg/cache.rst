@@ -207,6 +207,8 @@ Classes in apt_pkg
 
         Return whether the configuration contains the key *key*.
 
+        .. deprecated:: 0.7.11
+
     .. method:: get(key[, default=''])
 
         This behaves just like :meth:`dict.get` and :meth:`Configuration.Find`,
@@ -1233,6 +1235,8 @@ broken dependencies:
     .. method:: has_key(key)
 
         Check whether the field with named by *key* exists.
+
+        .. deprecated:: 0.7.11
 
     .. method:: keys()
 
