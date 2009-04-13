@@ -749,15 +749,6 @@ static PyMethodDef PkgProblemResolverMethods[] =
    {}
 };
 
-
-static PyObject *ProblemResolverAttr(PyObject *Self,char *Name)
-{
-   pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
-
-   return Py_FindMethod(PkgProblemResolverMethods,Self,Name);
-}
-
-
 PyTypeObject PkgProblemResolverType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -768,7 +759,7 @@ PyTypeObject PkgProblemResolverType =
    // Methods
    CppOwnedDealloc<pkgProblemResolver *>,        // tp_dealloc
    0,                                   // tp_print
-   ProblemResolverAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
@@ -776,6 +767,20 @@ PyTypeObject PkgProblemResolverType =
    0,                                   // tp_as_sequence
    0,	                                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro 
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer 
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "ProblemResolver Object",            // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter 
+   0,                                   // tp_iternext
+   PkgProblemResolverMethods,           // tp_methods
 };
 
 									/*}}}*/
@@ -800,15 +805,6 @@ static PyMethodDef PkgActionGroupMethods[] =
    {}
 };
 
-
-static PyObject *ActionGroupAttr(PyObject *Self,char *Name)
-{
-   pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
-
-   return Py_FindMethod(PkgActionGroupMethods,Self,Name);
-}
-
-
 PyTypeObject PkgActionGroupType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -819,7 +815,7 @@ PyTypeObject PkgActionGroupType =
    // Methods
    CppOwnedDealloc<pkgDepCache::ActionGroup*>,        // tp_dealloc
    0,                                   // tp_print
-   ActionGroupAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
@@ -827,6 +823,20 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_as_sequence
    0,	                                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro 
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer 
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "ActionGroup Object",                // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter 
+   0,                                   // tp_iternext
+   PkgActionGroupMethods,               // tp_methods
 };
 
 PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)

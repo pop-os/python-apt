@@ -71,6 +71,7 @@ extern PyTypeObject PkgProblemResolverType;
 PyObject *GetPkgProblemResolver(PyObject *Self, PyObject *Args);
 PyObject *GetPkgActionGroup(PyObject *Self, PyObject *Args);
 
+extern PyTypeObject PkgActionGroupType;
 // cdrom
 extern PyTypeObject PkgCdromType;
 PyObject *GetCdrom(PyObject *Self,PyObject *Args);
