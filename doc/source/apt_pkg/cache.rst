@@ -121,6 +121,8 @@ Classes in apt_pkg
 
       Return ``True`` if *conf* has a key *key*, else ``False``.
 
+      .. versionadded:: 0.7.11
+
     .. describe:: conf[key]
 
         Return the value of the option given key *key*. If it does not
@@ -1206,6 +1208,8 @@ broken dependencies:
     .. describe:: key in section
 
         Return ``True`` if *section* has a key *key*, else ``False``.
+
+      .. versionadded:: 0.7.11
 
     .. method:: Bytes
 
