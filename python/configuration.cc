@@ -498,16 +498,16 @@ PyTypeObject ConfigurationType =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro 
+   0,                                   // tp_getattro
    0,                                   // tp_setattro
-   0,                                   // tp_as_buffer 
+   0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
    "Configuration Object",              // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter 
+   0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
 };
@@ -532,16 +532,16 @@ PyTypeObject ConfigurationPtrType =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro 
+   0,                                   // tp_getattro
    0,                                   // tp_setattro
-   0,                                   // tp_as_buffer 
+   0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
    "ConfigurationPtr Object",           // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter 
+   0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
 };
@@ -566,16 +566,16 @@ PyTypeObject ConfigurationSubType =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro 
+   0,                                   // tp_getattro
    0,                                   // tp_setattro
-   0,                                   // tp_as_buffer 
+   0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
    "ConfigurationSub Object",           // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter 
+   0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
 };

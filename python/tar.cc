@@ -111,7 +111,7 @@ PyObject *tarExtract(PyObject *Self,PyObject *Args)
       int fileno = PyObject_AsFileDescriptor(File);
       if (fileno == -1)
         return 0;
-      
+
       FileFd Fd(fileno,false);
       ExtractTar Tar(Fd,0xFFFFFFFF,Comp);
       if (_error->PendingError() == true)

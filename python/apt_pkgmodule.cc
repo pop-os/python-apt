@@ -481,7 +481,7 @@ extern "C" void initapt_pkg()
    if (PyType_Ready(&PkgCdromType) == -1) return;
    if (PyType_Ready(&PkgProblemResolverType) == -1) return;
    if (PyType_Ready(&PkgActionGroupType) == -1) return;
-   
+
 
    // Initialize the module
    PyObject *Module = Py_InitModule("apt_pkg",methods);

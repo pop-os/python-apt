@@ -951,7 +951,7 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
       progress.setCallbackInst(pyCallbackInst);
       if (Cache->Open(progress,false) == false)
          return HandleErrors();
-   }  
+   }
    else {
       OpTextProgress Prog;
       if (Cache->Open(Prog,false) == false)

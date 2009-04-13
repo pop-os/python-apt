@@ -639,7 +639,6 @@ class Package(object):
     def installedPriority(self):
         """Return the priority (of the installed version).
 
-                
         .. deprecated:: 0.7.9
         """
         return getattr(self.installed, 'priority', None)
@@ -800,7 +799,7 @@ class Package(object):
         contain multiple named variables which will be substitued. These
         variables are (src_section, prefix, src_pkg, src_ver). An example is
         the Ubuntu changelog::
-        
+
             "http://changelogs.ubuntu.com/changelogs/pool" \\
                 "/%(src_section)s/%(prefix)s/%(src_pkg)s" \\
                 "/%(src_pkg)s_%(src_ver)s/changelog"

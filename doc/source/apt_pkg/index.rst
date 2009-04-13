@@ -252,7 +252,7 @@ Dependencies
 
         >>> apt_pkg.ParseDepends("PkgA (>= VerA) | PkgB (>= VerB)")
         [[('PkgA', 'VerA', '>='), ('PkgB', 'VerB', '>=')]]
-    
+
 
     Furthemore, this function also supports to limit the architectures, as
     used in e.g. Build-Depends::

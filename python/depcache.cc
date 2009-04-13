@@ -769,16 +769,16 @@ PyTypeObject PkgProblemResolverType =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro 
+   0,                                   // tp_getattro
    0,                                   // tp_setattro
-   0,                                   // tp_as_buffer 
+   0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
    "ProblemResolver Object",            // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter 
+   0,                                   // tp_iter
    0,                                   // tp_iternext
    PkgProblemResolverMethods,           // tp_methods
 };
@@ -825,16 +825,16 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro 
+   0,                                   // tp_getattro
    0,                                   // tp_setattro
-   0,                                   // tp_as_buffer 
+   0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
    "ActionGroup Object",                // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter 
+   0,                                   // tp_iter
    0,                                   // tp_iternext
    PkgActionGroupMethods,               // tp_methods
 };
