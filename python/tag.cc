@@ -272,11 +272,14 @@ char *doc_ParseTagFile = "ParseTagFile(File) -> TagFile";
 PyObject *ParseTagFile(PyObject *self,PyObject *Args)
 {
    PyObject *File;
-   if (PyArg_ParseTuple(Args,"O!",&PyFile_Type,&File) == 0)
+   if (PyArg_ParseTuple(Args,"O",&File) == 0)
+      return 0;
+   int fileno = PyObject_AsFileDescriptor(File);
+   if (fileno == -1)
       return 0;
 
    TagFileData *New = PyObject_NEW(TagFileData,&TagFileType);
-   new (&New->Fd) FileFd(fileno(PyFile_AsFile(File)),false);
+   new (&New->Fd) FileFd(fileno,false);
    New->File = File;
    Py_INCREF(New->File);
    new (&New->Object) pkgTagFile(&New->Fd);

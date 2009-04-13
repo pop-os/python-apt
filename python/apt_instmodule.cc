@@ -35,14 +35,17 @@ static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
 {
    char *Member = "control";
    PyObject *File;
-   if (PyArg_ParseTuple(Args,"O!|s",&PyFile_Type,&File,&Member) == 0)
+   if (PyArg_ParseTuple(Args,"O|s",&File,&Member) == 0)
       return 0;
 
    // Subscope makes sure any clean up errors are properly handled.
    PyObject *Res = 0;
    {
       // Open the file and associate the .deb
-      FileFd Fd(fileno(PyFile_AsFile(File)),false);
+      int fileno = PyObject_AsFileDescriptor(File);
+      if (fileno == -1)
+         return 0;
+      FileFd Fd(fileno,false);
       debDebFile Deb(Fd);
       if (_error->PendingError() == true)
 	 return HandleErrors();
@@ -76,7 +79,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
    char *Rootdir = NULL;
    char cwd[512];
    PyObject *File;
-   if (PyArg_ParseTuple(Args,"O!|s",&PyFile_Type,&File,&Rootdir) == 0)
+   if (PyArg_ParseTuple(Args,"O|s",&File,&Rootdir) == 0)
       return 0;
 
    // Subscope makes sure any clean up errors are properly handled.
@@ -89,7 +92,10 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       }
 
       // Open the file and associate the .deb
-      FileFd Fd(fileno(PyFile_AsFile(File)),false);
+      int fileno = PyObject_AsFileDescriptor(File);
+      if (fileno == -1)
+         return 0;
+      FileFd Fd(fileno,false);
       debDebFile Deb(Fd);
       if (_error->PendingError() == true) {
 	 if (Rootdir != NULL)
@@ -118,11 +124,14 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
    char *Member = NULL;
    bool res = false;
    PyObject *File;
-   if (PyArg_ParseTuple(Args,"O!s",&PyFile_Type,&File,&Member) == 0)
+   if (PyArg_ParseTuple(Args,"Os",&File,&Member) == 0)
       return 0;
 
    // Open the file and associate the .deb
-   FileFd Fd(fileno(PyFile_AsFile(File)),false);
+   int fileno = PyObject_AsFileDescriptor(File);
+   if (fileno == -1)
+      return 0;
+   FileFd Fd(fileno,false);
    ARArchive AR(Fd);
    if (_error->PendingError() == true)
       return HandleErrors(Py_BuildValue("b",res));

@@ -184,10 +184,10 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       MD5Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
@@ -224,10 +224,10 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       SHA1Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
@@ -264,10 +264,10 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       SHA256Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
