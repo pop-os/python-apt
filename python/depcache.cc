@@ -560,50 +560,71 @@ static PyMethodDef PkgDepCacheMethods[] =
    {}
 };
 
-
-static PyObject *DepCacheAttr(PyObject *Self,char *Name)
-{
-   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
-
-   // size querries
-   if(strcmp("KeepCount",Name) == 0)
-      return Py_BuildValue("l", depcache->KeepCount());
-   else if(strcmp("InstCount",Name) == 0)
-      return Py_BuildValue("l", depcache->InstCount());
-   else if(strcmp("DelCount",Name) == 0)
-      return Py_BuildValue("l", depcache->DelCount());
-   else if(strcmp("BrokenCount",Name) == 0)
-      return Py_BuildValue("l", depcache->BrokenCount());
-   else if(strcmp("UsrSize",Name) == 0)
-      return Py_BuildValue("d", depcache->UsrSize());
-   else if(strcmp("DebSize",Name) == 0)
-      return Py_BuildValue("d", depcache->DebSize());
-
-
-   return Py_FindMethod(PkgDepCacheMethods,Self,Name);
+#define depcache (GetCpp<pkgDepCache *>(Self))
+static PyObject *PkgDepCacheGetKeepCount(PyObject *Self,void*) {
+   return Py_BuildValue("l", depcache->KeepCount());
 }
+static PyObject *PkgDepCacheGetInstCount(PyObject *Self,void*) {
+   return Py_BuildValue("l", depcache->InstCount());
+}
+static PyObject *PkgDepCacheGetDelCount(PyObject *Self,void*) {
+   return Py_BuildValue("l", depcache->DelCount());
+}
+static PyObject *PkgDepCacheGetBrokenCount(PyObject *Self,void*) {
+   return Py_BuildValue("l", depcache->BrokenCount());
+}
+static PyObject *PkgDepCacheGetUsrSize(PyObject *Self,void*) {
+   return Py_BuildValue("d", depcache->UsrSize());
+}
+static PyObject *PkgDepCacheGetDebSize(PyObject *Self,void*) {
+   return Py_BuildValue("d", depcache->DebSize());
+}
+#undef depcache
 
-
-
+static PyGetSetDef PkgDepCacheGetSet[] = {
+    {"BrokenCount",PkgDepCacheGetBrokenCount},
+    {"DebSize",PkgDepCacheGetDebSize},
+    {"DelCount",PkgDepCacheGetDelCount},
+    {"InstCount",PkgDepCacheGetInstCount},
+    {"KeepCount",PkgDepCacheGetKeepCount},
+    {"UsrSize",PkgDepCacheGetUsrSize},
+    {}
+};
 
 PyTypeObject PkgDepCacheType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "pkgDepCache",                          // tp_name
+   0,                                   // ob_size
+   "pkgDepCache",                       // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgDepCache *>,        // tp_dealloc
+   CppOwnedDealloc<pkgDepCache *>,      // tp_dealloc
    0,                                   // tp_print
-   DepCacheAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
    0,                                   // tp_as_sequence
-   0,	                                // tp_as_mapping
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "pkgDepCache Object",                // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgDepCacheMethods,                  // tp_methods
+   0,                                   // tp_members
+   PkgDepCacheGetSet,                   // tp_getset
 };
 
 
