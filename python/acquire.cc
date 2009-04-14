@@ -123,63 +123,89 @@ static PyMethodDef PkgAcquireMethods[] =
    {}
 };
 
-
-static PyObject *AcquireAttr(PyObject *Self,char *Name)
+#define fetcher (GetCpp<pkgAcquire*>(Self))
+static PyObject *PkgAcquireGetTotalNeeded(PyObject *Self,void*) {
+   return Py_BuildValue("d", fetcher->TotalNeeded());
+}
+static PyObject *PkgAcquireGetFetchNeeded(PyObject *Self,void*) {
+   return Py_BuildValue("d", fetcher->FetchNeeded());
+}
+static PyObject *PkgAcquireGetPartialPresent(PyObject *Self,void*) {
+      return Py_BuildValue("d", fetcher->PartialPresent());
+}
+#undef fetcher
+static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
 {
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
-
-   if(strcmp("TotalNeeded",Name) == 0)
-      return Py_BuildValue("d", fetcher->TotalNeeded());
-   if(strcmp("FetchNeeded",Name) == 0)
-      return Py_BuildValue("d", fetcher->FetchNeeded());
-   if(strcmp("PartialPresent",Name) == 0)
-      return Py_BuildValue("d", fetcher->PartialPresent());
-   if(strcmp("Items",Name) == 0)
+   PyObject *List = PyList_New(0);
+   for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
+        I != fetcher->ItemsEnd(); I++)
    {
-      PyObject *List = PyList_New(0);
-      for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
-	   I != fetcher->ItemsEnd(); I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,&AcquireItemType,I);
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
+      PyObject *Obj;
+      Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,
+                                                           &AcquireItemType,I);
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
 
-      }
-      return List;
    }
-   // some constants
-   if(strcmp("ResultContinue",Name) == 0)
+   return List;
+}
+// some constants
+static PyObject *PkgAcquireGetResultContinue(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Continue);
-   if(strcmp("ResultFailed",Name) == 0)
+}
+static PyObject *PkgAcquireGetResultFailed(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Failed);
-   if(strcmp("ResultCancelled",Name) == 0)
+}
+static PyObject *PkgAcquireGetResultCancelled(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Cancelled);
-
-   return Py_FindMethod(PkgAcquireMethods,Self,Name);
 }
 
-
-
+static PyGetSetDef PkgAcquireGetSet[] = {
+    {"FetchNeeded",PkgAcquireGetFetchNeeded},
+    {"Items",PkgAcquireGetItems},
+    {"PartialPresent",PkgAcquireGetPartialPresent},
+    {"ResultCancelled",PkgAcquireGetResultCancelled},
+    {"ResultContinue",PkgAcquireGetResultContinue},
+    {"ResultFailed",PkgAcquireGetResultFailed},
+    {"TotalNeeded",PkgAcquireGetTotalNeeded},
+    {}
+};
 
 PyTypeObject PkgAcquireType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "Acquire",                          // tp_name
-   sizeof(CppPyObject<pkgAcquire*>),   // tp_basicsize
+   0,                                   // ob_size
+   "Acquire",                           // tp_name
+   sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgAcquire*>,        // tp_dealloc
+   CppDealloc<pkgAcquire*>,             // tp_dealloc
    0,                                   // tp_print
-   AcquireAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
    0,                                   // tp_as_sequence
-   0,	                                // tp_as_mapping
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "pkgAcquire Object",                 // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgAcquireMethods,                   // tp_methods
+   0,                                   // tp_members
+   PkgAcquireGetSet,                    // tp_getset
 };
 
 PyObject *GetAcquire(PyObject *Self,PyObject *Args)
