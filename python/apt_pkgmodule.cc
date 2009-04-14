@@ -487,6 +487,7 @@ extern "C" void initapt_pkg()
    if (PyType_Ready(&PkgDepCacheType) == -1) return;
    if (PyType_Ready(&PkgAcquireType) == -1) return;
    if (PyType_Ready(&PackageIndexFileType) == -1) return;
+   if (PyType_Ready(&PkgManagerType) == -1) return;
 
 
    // Initialize the module
