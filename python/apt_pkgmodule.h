@@ -89,6 +89,7 @@ PyObject *GetPkgManager(PyObject *Self,PyObject *Args);
 
 // PkgRecords Stuff
 extern PyTypeObject PkgRecordsType;
+extern PyTypeObject PkgSrcRecordsType;
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args);
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args);
 
