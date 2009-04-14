@@ -482,6 +482,7 @@ extern "C" void initapt_pkg()
    if (PyType_Ready(&PkgProblemResolverType) == -1) return;
    if (PyType_Ready(&PkgActionGroupType) == -1) return;
    if (PyType_Ready(&PkgSourceListType) == -1) return;
+   if (PyType_Ready(&PkgCacheType) == -1) return;
 
 
    // Initialize the module

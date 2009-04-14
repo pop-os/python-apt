@@ -142,39 +142,64 @@ static PyMethodDef PkgCacheMethods[] =
    {}
 };
 
-static PyObject *CacheAttr(PyObject *Self,char *Name)
-{
+static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-
-   if (strcmp("Packages",Name) == 0)
-      return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,Cache->PkgBegin());
-   else if (strcmp("PackageCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->PackageCount);
-   else if (strcmp("VersionCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->VersionCount);
-   else if (strcmp("DependsCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->DependsCount);
-   else if (strcmp("PackageFileCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->PackageFileCount);
-   else if (strcmp("VerFileCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->VerFileCount);
-   else if (strcmp("ProvidesCount",Name) == 0)
-      return Py_BuildValue("i",Cache->HeaderP->ProvidesCount);
-   else if (strcmp("FileList",Name) == 0)
-   {
-      PyObject *List = PyList_New(0);
-      for (pkgCache::PkgFileIterator I = Cache->FileBegin(); I.end() == false; I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PackageFileType,I);
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
-      }
-      return List;
-   }
-
-   return Py_FindMethod(PkgCacheMethods,Self,Name);
+   return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,Cache->PkgBegin());
 }
+
+static PyObject *PkgCacheGetPackageCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->PackageCount);
+}
+
+static PyObject *PkgCacheGetVersionCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->VersionCount);
+}
+static PyObject *PkgCacheGetDependsCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->DependsCount);
+}
+
+static PyObject *PkgCacheGetPackageFileCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->PackageFileCount);
+}
+
+static PyObject *PkgCacheGetVerFileCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->VerFileCount);
+}
+
+static PyObject *PkgCacheGetProvidesCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->ProvidesCount);
+}
+
+static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   PyObject *List = PyList_New(0);
+   for (pkgCache::PkgFileIterator I = Cache->FileBegin(); I.end() == false; I++)
+   {
+      PyObject *Obj;
+      Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PackageFileType,I);
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
+   }
+   return List;
+}
+
+static PyGetSetDef PkgCacheGetSet[] = {
+   {"DependsCount",PkgCacheGetDependsCount},
+   {"FileList",PkgCacheGetFileList},
+   {"PackageCount",PkgCacheGetPackageCount},
+   {"PackageFileCount",PkgCacheGetPackageFileCount},
+   {"Packages",PkgCacheGetPackages},
+   {"ProvidesCount",PkgCacheGetProvidesCount},
+   {"VerFileCount",PkgCacheGetVerFileCount},
+   {"VersionCount",PkgCacheGetVersionCount},
+   {}
+};
 
 // Map access, operator []
 static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
@@ -221,7 +246,7 @@ PyTypeObject PkgCacheType =
    // Methods
    PkgCacheFileDealloc,                  // tp_dealloc
    0,                                   // tp_print
-   CacheAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
@@ -229,6 +254,22 @@ PyTypeObject PkgCacheType =
    0,                                   // tp_as_sequence
    &CacheMap,		                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT ,                 // tp_flags
+   "Cache Object",                      // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgCacheMethods,                     // tp_methods
+   0,                                   // tp_members
+   PkgCacheGetSet,                      // tp_getset
 };
 									/*}}}*/
 // PkgCacheFile Class							/*{{{*/
