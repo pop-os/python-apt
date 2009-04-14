@@ -840,34 +840,67 @@ static PyMethodDef DependencyMethods[] =
 // Dependency Class							/*{{{*/
 // ---------------------------------------------------------------------
 
-static PyObject *DependencyAttr(PyObject *Self,char *Name)
+static PyObject *DependencyGetTargetVer(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   if (Dep->Version == 0)
+      return PyString_FromString("");
+   return PyString_FromString(Dep.TargetVer());
+}
+
+static PyObject *DependencyGetTargetPkg(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-
-   if (strcmp("TargetVer",Name) == 0)
-   {
-      if (Dep->Version == 0)
-	 return PyString_FromString("");
-      return PyString_FromString(Dep.TargetVer());
-   }
-   else if (strcmp("TargetPkg",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
-							 Dep.TargetPkg());
-   else if (strcmp("ParentVer",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
-							 Dep.ParentVer());
-   else if (strcmp("ParentPkg",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,							 Dep.ParentPkg());
-   else if (strcmp("CompType",Name) == 0)
-      return PyString_FromString(Dep.CompType());
-   else if (strcmp("DepType",Name) == 0)
-      return PyString_FromString(Dep.DepType());
-   else if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",Dep->ID);
-
-   return Py_FindMethod(DependencyMethods,Self,Name);
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+                                                      Dep.TargetPkg());
 }
+
+static PyObject *DependencyGetParentVer(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
+   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+                                                      Dep.ParentVer());
+}
+
+static PyObject *DependencyGetParentPkg(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+                                                      Dep.ParentPkg());
+}
+
+static PyObject *DependencyGetCompType(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return PyString_FromString(Dep.CompType());
+}
+
+static PyObject *DependencyGetDepType(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return PyString_FromString(Dep.DepType());
+}
+
+static PyObject *DependencyGetID(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return Py_BuildValue("i",Dep->ID);
+}
+
+static PyGetSetDef DependencyGetSet[] = {
+   {"CompType",DependencyGetCompType},
+   {"DepType",DependencyGetDepType},
+   {"ID",DependencyGetID},
+   {"ParentPkg",DependencyGetParentPkg},
+   {"ParentVer",DependencyGetParentVer},
+   {"TargetPkg",DependencyGetTargetPkg},
+   {"TargetVer",DependencyGetTargetVer},
+   {}
+};
+
 
 PyTypeObject DependencyType =
 {
@@ -879,14 +912,30 @@ PyTypeObject DependencyType =
    // Methods
    CppOwnedDealloc<pkgCache::DepIterator>,          // tp_dealloc
    0,                                   // tp_print
-   DependencyAttr,                       // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
-   DependencyRepr,                       // tp_repr
+   DependencyRepr,                      // tp_repr
    0,                                   // tp_as_number
    0,		                        // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "Dependency Object",                 // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   DependencyMethods,                   // tp_methods
+   0,                                   // tp_members
+   DependencyGetSet,                    // tp_getset
 };
 
 									/*}}}*/
