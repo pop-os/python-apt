@@ -205,23 +205,6 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
    return FetcherObj;
 }
 
-
-
-
-
-// pkgAcquireFile
-
-static PyObject *AcquireFileAttr(PyObject *Self,char *Name)
-{
-   pkgAcqFile *acqFile = GetCpp<pkgAcqFile*>(Self);
-
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
-}
-
-
-
-
 PyTypeObject PkgAcquireFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
@@ -232,7 +215,7 @@ PyTypeObject PkgAcquireFileType =
    // Methods
    CppDealloc<pkgAcqFile*>,        // tp_dealloc
    0,                                   // tp_print
-   AcquireFileAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
