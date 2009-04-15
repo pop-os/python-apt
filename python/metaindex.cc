@@ -59,7 +59,9 @@ static PyObject *MetaIndexRepr(PyObject *Self)
 PyTypeObject MetaIndexType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "metaIndex",         // tp_name
    sizeof(CppOwnedPyObject<metaIndex*>),   // tp_basicsize
    0,                                   // tp_itemsize

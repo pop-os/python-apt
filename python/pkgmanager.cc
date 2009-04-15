@@ -75,41 +75,59 @@ static PyMethodDef PkgManagerMethods[] =
 };
 
 
-static PyObject *PkgManagerAttr(PyObject *Self,char *Name)
-{
-   //PkgManagerStruct &Struct = GetCpp<PkgManagerStruct>(Self);
-   pkgPackageManager *pm = GetCpp<pkgPackageManager*>(Self);
-
-   // some constants
-   if(strcmp("ResultCompleted",Name) == 0)
-      return Py_BuildValue("i", pkgPackageManager::Completed);
-   if(strcmp("ResultFailed",Name) == 0)
-      return Py_BuildValue("i", pkgPackageManager::Failed);
-   if(strcmp("ResultIncomplete",Name) == 0)
-      return Py_BuildValue("i", pkgPackageManager::Incomplete);
-
-   return Py_FindMethod(PkgManagerMethods,Self,Name);
+static PyObject *PkgManagerGetResultCompleted(PyObject *Self,void*) {
+   return Py_BuildValue("i", pkgPackageManager::Completed);
+}
+static PyObject *PkgManagerGetResultFailed(PyObject *Self,void*) {
+   return Py_BuildValue("i", pkgPackageManager::Failed);
+}
+static PyObject *PkgManagerGetResultIncomplete(PyObject *Self,void*) {
+   return Py_BuildValue("i", pkgPackageManager::Incomplete);
 }
 
+static PyGetSetDef PkgManagerGetSet[] = {
+    {"ResultCompleted",PkgManagerGetResultCompleted},
+    {"ResultFailed",PkgManagerGetResultFailed},
+    {"ResultIncomplete",PkgManagerGetResultIncomplete},
+    {}
+};
 
 PyTypeObject PkgManagerType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
+   #if PY_MAJOR_VERSION < 3
+   0,                                   // ob_size
+   #endif
    "PackageManager",                          // tp_name
    sizeof(CppPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgPackageManager*>,        // tp_dealloc
+   CppDealloc<pkgPackageManager*>,      // tp_dealloc
    0,                                   // tp_print
-   PkgManagerAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
    0,                                   // tp_as_sequence
-   0,	                                // tp_as_mapping
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "PackageManager Object",             // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgManagerMethods,                   // tp_methods
+   0,                                   // tp_members
+   PkgManagerGetSet,                    // tp_getset
 };
 
 #include <apt-pkg/init.h>

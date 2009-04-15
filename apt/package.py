@@ -42,7 +42,7 @@ def _(string):
 
 
 def _file_is_same(path, size, md5):
-    """Return True if the file is the same."""
+    """Return ``True`` if the file is the same."""
     if (os.path.exists(path) and os.path.getsize(path) == size and
         apt_pkg.md5sum(open(path)) == md5):
         return True
@@ -96,7 +96,7 @@ class DeprecatedProperty(property):
 
     def __init__(self, fget=None, fset=None, fdel=None, doc=None):
         property.__init__(self, fget, fset, fdel, doc)
-        self.__doc__ = ':Deprecated: ' + (doc or fget.__doc__ or '')
+        self.__doc__ = (doc or fget.__doc__ or '')
 
     def __get__(self, obj, type=None):
         if obj is not None:
@@ -157,7 +157,7 @@ class Record(object):
         return self._rec[key]
 
     def __contains__(self, key):
-        return self._rec.has_key(key)
+        return key in self._rec
 
     def __iter__(self):
         return iter(self._rec.keys())
@@ -168,21 +168,21 @@ class Record(object):
             yield key, self._rec[key]
 
     def get(self, key, default=None):
-        """Return record[key] if key in record, else `default`.
+        """Return record[key] if key in record, else *default*.
 
-        The parameter `default` must be either a string or None.
+        The parameter *default* must be either a string or None.
         """
         return self._rec.get(key, default)
 
     def has_key(self, key):
-        """deprecated form of 'key in x'."""
-        return self._rec.has_key(key)
+        """deprecated form of ``key in x``."""
+        return key in self._rec
 
 
 class Version(object):
     """Representation of a package version.
 
-    :since: 0.7.9
+    .. versionadded:: 0.7.9
     """
 
     def __init__(self, package, cand):
@@ -272,8 +272,12 @@ class Version(object):
         """
         self.summary # This does the lookup for us.
         desc = ''
+
+        dsc = self.package._pcache._records.LongDesc
         try:
-            dsc = unicode(self.package._pcache._records.LongDesc, "utf-8")
+            if not isinstance(dsc, unicode):
+                # Only convert where needed (i.e. Python 2.X)
+                dsc = unicode(dsc, "utf-8")
         except UnicodeDecodeError, err:
             return _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.package.name, err)
@@ -352,26 +356,41 @@ class Version(object):
 
     @property
     def filename(self):
-        """Return the path to the file inside the archive."""
+        """Return the path to the file inside the archive.
+
+        .. versionadded:: 0.7.10
+        """
         return self._records.FileName
 
     @property
     def md5(self):
-        """Return the md5sum of the binary."""
+        """Return the md5sum of the binary.
+
+        .. versionadded:: 0.7.10
+        """
         return self._records.MD5Hash
 
     @property
     def sha1(self):
-        """Return the sha1sum of the binary."""
+        """Return the sha1sum of the binary.
+
+        .. versionadded:: 0.7.10
+        """
         return self._records.SHA1Hash
 
     @property
     def sha256(self):
-        """Return the sha1sum of the binary."""
+        """Return the sha256sum of the binary.
+
+        .. versionadded:: 0.7.10
+        """
         return self._records.SHA256Hash
 
     def _uris(self):
-        """Return an iterator over all available urls."""
+        """Return an iterator over all available urls.
+
+        .. versionadded:: 0.7.10
+        """
         for (packagefile, index) in self._cand.FileList:
             indexfile = self.package._pcache._list.FindIndex(packagefile)
             if indexfile:
@@ -379,23 +398,31 @@ class Version(object):
 
     @property
     def uris(self):
-        """Return a list of all available uris for the binary."""
+        """Return a list of all available uris for the binary.
+
+        .. versionadded:: 0.7.10
+        """
         return list(self._uris())
 
     @property
     def uri(self):
-        """Return a single URI for the binary."""
+        """Return a single URI for the binary.
+
+        .. versionadded:: 0.7.10
+        """
         return self._uris().next()
 
     def fetch_binary(self, destdir='', progress=None):
         """Fetch the binary version of the package.
 
-        The parameter 'destdir' specifies the directory where the package will
+        The parameter *destdir* specifies the directory where the package will
         be fetched to.
 
-        The parameter 'progress' may refer to an apt.progress.FetchProgress()
+        The parameter *progress* may refer to an apt.progress.FetchProgress()
         object. If not specified or None, apt.progress.TextFetchProgress() is
         used.
+
+        .. versionadded:: 0.7.10
         """
         base = os.path.basename(self._records.FileName)
         destfile = os.path.join(destdir, base)
@@ -415,18 +442,18 @@ class Version(object):
     def fetch_source(self, destdir="", progress=None, unpack=True):
         """Get the source code of a package.
 
-        The parameter 'destdir' specifies the directory where the source will
+        The parameter *destdir* specifies the directory where the source will
         be fetched to.
 
-        The parameter 'progress' may refer to an apt.progress.FetchProgress()
+        The parameter *progress* may refer to an apt.progress.FetchProgress()
         object. If not specified or None, apt.progress.TextFetchProgress() is
         used.
 
-        The parameter 'unpack' describes whether the source should be unpacked
-        (True) or not (False). By default, it is unpacked.
+        The parameter *unpack* describes whether the source should be unpacked
+        (``True``) or not (``False``). By default, it is unpacked.
 
-        If 'unpack' is True, the path to the extracted directory is returned.
-        Otherwise, the path to the .dsc file is returned.
+        If *unpack* is ``True``, the path to the extracted directory is
+        returned. Otherwise, the path to the .dsc file is returned.
         """
         src = apt_pkg.GetPkgSrcRecords()
         acq = apt_pkg.GetAcquire(progress or apt.progress.TextFetchProgress())
@@ -486,20 +513,33 @@ class Package(object):
     def __repr__(self):
         return '<Package: name:%r id:%r>' % (self._pkg.Name, self._pkg.ID)
 
-    @property
     def candidate(self):
         """Return the candidate version of the package.
 
-        :since: 0.7.9"""
+        This property is writeable to allow you to set the candidate version
+        of the package. Just assign a Version() object, and it will be set as
+        the candidate version.
+
+        .. versionadded:: 0.7.9
+        """
         cand = self._pcache._depcache.GetCandidateVer(self._pkg)
         if cand is not None:
             return Version(self, cand)
+
+    def __set_candidate(self, version):
+        """Set the candidate version of the package."""
+        self._pcache.cachePreChange()
+        self._pcache._depcache.SetCandidateVer(self._pkg, version._cand)
+        self._pcache.cachePostChange()
+
+    candidate = property(candidate, __set_candidate)
 
     @property
     def installed(self):
         """Return the currently installed version of the package.
 
-        :since: 0.7.9"""
+        .. versionadded:: 0.7.9
+        """
         if self._pkg.CurrentVer is not None:
             return Version(self, self._pkg.CurrentVer)
 
@@ -525,42 +565,62 @@ class Package(object):
     def installedVersion(self):
         """Return the installed version as string.
 
-        Deprecated, please use installed.version instead."""
+        .. deprecated:: 0.7.9"""
         return getattr(self.installed, 'version', None)
 
     @DeprecatedProperty
     def candidateVersion(self):
-        """Return the candidate version as string."""
+        """Return the candidate version as string.
+
+        .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "version", None)
 
     @DeprecatedProperty
     def candidateDependencies(self):
-        """Return a list of candidate dependencies."""
+        """Return a list of candidate dependencies.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "dependencies", None)
 
     @DeprecatedProperty
     def installedDependencies(self):
-        """Return a list of installed dependencies."""
+        """Return a list of installed dependencies.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.installed, 'dependencies', [])
 
     @DeprecatedProperty
     def architecture(self):
-        """Return the Architecture of the package"""
+        """Return the Architecture of the package.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "architecture", None)
 
     @DeprecatedProperty
     def candidateDownloadable(self):
-        """Return True if the candidate is downloadable."""
+        """Return ``True`` if the candidate is downloadable.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "downloadable", None)
 
     @DeprecatedProperty
     def installedDownloadable(self):
-        """Return True if the installed version is downloadable."""
+        """Return ``True`` if the installed version is downloadable.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.installed, 'downloadable', False)
 
     @DeprecatedProperty
     def sourcePackageName(self):
-        """Return the source package name as string."""
+        """Return the source package name as string.
+
+        .. deprecated:: 0.7.9
+        """
         try:
             return self.candidate._records.SourcePkg or self._pkg.Name
         except AttributeError:
@@ -571,7 +631,10 @@ class Package(object):
 
     @DeprecatedProperty
     def homepage(self):
-        """Return the homepage field as string."""
+        """Return the homepage field as string.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "homepage", None)
 
     @property
@@ -581,17 +644,26 @@ class Package(object):
 
     @DeprecatedProperty
     def priority(self):
-        """Return the priority (of the candidate version)."""
+        """Return the priority (of the candidate version).
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "priority", None)
 
     @DeprecatedProperty
     def installedPriority(self):
-        """Return the priority (of the installed version)."""
+        """Return the priority (of the installed version).
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.installed, 'priority', None)
 
     @DeprecatedProperty
     def summary(self):
-        """Return the short description (one line summary)."""
+        """Return the short description (one line summary).
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "summary", None)
 
     @DeprecatedProperty
@@ -602,44 +674,52 @@ class Package(object):
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
+
+        .. deprecated:: 0.7.9
         """
         return getattr(self.candidate, "description", None)
 
     @DeprecatedProperty
     def rawDescription(self):
-        """return the long description (raw)."""
+        """return the long description (raw).
+
+        .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "raw_description", None)
 
     @DeprecatedProperty
     def candidateRecord(self):
-        """Return the Record of the candidate version of the package."""
+        """Return the Record of the candidate version of the package.
+
+        .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "record", None)
 
     @DeprecatedProperty
     def installedRecord(self):
-        """Return the Record of the candidate version of the package."""
+        """Return the Record of the candidate version of the package.
+
+        .. deprecated:: 0.7.9"""
         return getattr(self.installed, 'record', '')
 
     # depcache states
 
     @property
     def markedInstall(self):
-        """Return True if the package is marked for install."""
+        """Return ``True`` if the package is marked for install."""
         return self._pcache._depcache.MarkedInstall(self._pkg)
 
     @property
     def markedUpgrade(self):
-        """Return True if the package is marked for upgrade."""
+        """Return ``True`` if the package is marked for upgrade."""
         return self._pcache._depcache.MarkedUpgrade(self._pkg)
 
     @property
     def markedDelete(self):
-        """Return True if the package is marked for delete."""
+        """Return ``True`` if the package is marked for delete."""
         return self._pcache._depcache.MarkedDelete(self._pkg)
 
     @property
     def markedKeep(self):
-        """Return True if the package is marked for keep."""
+        """Return ``True`` if the package is marked for keep."""
         return self._pcache._depcache.MarkedKeep(self._pkg)
 
     @property
@@ -649,23 +729,23 @@ class Package(object):
 
     @property
     def markedReinstall(self):
-        """Return True if the package is marked for reinstall."""
+        """Return ``True`` if the package is marked for reinstall."""
         return self._pcache._depcache.MarkedReinstall(self._pkg)
 
     @property
     def isInstalled(self):
-        """Return True if the package is installed."""
+        """Return ``True`` if the package is installed."""
         return (self._pkg.CurrentVer is not None)
 
     @property
     def isUpgradable(self):
-        """Return True if the package is upgradable."""
+        """Return ``True`` if the package is upgradable."""
         return (self.isInstalled and
                 self._pcache._depcache.IsUpgradable(self._pkg))
 
     @property
     def isAutoRemovable(self):
-        """Return True if the package is no longer required.
+        """Return ``True`` if the package is no longer required.
 
         If the package has been installed automatically as a dependency of
         another package, and if no packages depend on it anymore, the package
@@ -677,22 +757,35 @@ class Package(object):
 
     @DeprecatedProperty
     def packageSize(self):
-        """Return the size of the candidate deb package."""
+        """Return the size of the candidate deb package.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "size", None)
 
     @DeprecatedProperty
     def installedPackageSize(self):
-        """Return the size of the installed deb package."""
+        """Return the size of the installed deb package.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.installed, 'size', 0)
 
     @DeprecatedProperty
     def candidateInstalledSize(self):
-        """Return the size of the candidate installed package."""
+        """Return the size of the candidate installed package.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "installed_size", None)
 
     @DeprecatedProperty
     def installedSize(self):
-        """Return the size of the currently installed package."""
+        """Return the size of the currently installed package.
+
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.installed, 'installed_size', 0)
 
     @property
@@ -717,15 +810,16 @@ class Package(object):
         Download the changelog of the package and return it as unicode
         string.
 
-        The parameter `uri` refers to the uri of the changelog file. It may
+        The parameter *uri* refers to the uri of the changelog file. It may
         contain multiple named variables which will be substitued. These
         variables are (src_section, prefix, src_pkg, src_ver). An example is
-        the Ubuntu changelog:
+        the Ubuntu changelog::
+
             "http://changelogs.ubuntu.com/changelogs/pool" \\
                 "/%(src_section)s/%(prefix)s/%(src_pkg)s" \\
                 "/%(src_pkg)s_%(src_ver)s/changelog"
 
-        The parameter `cancel_lock` refers to an instance of threading.Lock,
+        The parameter *cancel_lock* refers to an instance of threading.Lock,
         which if set, prevents the download.
         """
         # Return a cached changelog if available
@@ -866,14 +960,17 @@ class Package(object):
 
     @DeprecatedProperty
     def candidateOrigin(self):
-        """Return a list of Origin() objects for the candidate version."""
+        """Return a list of `Origin()` objects for the candidate version.
+
+        .. deprecated:: 0.7.9
+        """
         return getattr(self.candidate, "origins", None)
 
     @property
     def versions(self):
         """Return a list of versions.
 
-        :since: 0.7.9
+        .. versionadded:: 0.7.9
         """
         return [Version(self, ver) for ver in self._pkg.VersionList]
 
@@ -888,11 +985,11 @@ class Package(object):
     def markDelete(self, autoFix=True, purge=False):
         """Mark a package for install.
 
-        If autoFix is True, the resolver will be run, trying to fix broken
-        packages. This is the default.
+        If *autoFix* is ``True``, the resolver will be run, trying to fix
+        broken packages.  This is the default.
 
-        If purge is True, remove the configuration files of the package as
-        well. The default is to keep the configuration.
+        If *purge* is ``True``, remove the configuration files of the package
+        as well.  The default is to keep the configuration.
         """
         self._pcache.cachePreChange()
         self._pcache._depcache.MarkDelete(self._pkg, purge)
@@ -909,16 +1006,16 @@ class Package(object):
     def markInstall(self, autoFix=True, autoInst=True, fromUser=True):
         """Mark a package for install.
 
-        If autoFix is True, the resolver will be run, trying to fix broken
-        packages. This is the default.
+        If *autoFix* is ``True``, the resolver will be run, trying to fix
+        broken packages.  This is the default.
 
-        If autoInst is True, the dependencies of the packages will be installed
-        automatically. This is the default.
+        If *autoInst* is ``True``, the dependencies of the packages will be
+        installed automatically.  This is the default.
 
-        If fromUser is True, this package will not be marked as automatically
-        installed. This is the default. Set it to False if you want to be able
-        to remove the package at a later stage if no other package depends on
-        it.
+        If *fromUser* is ``True``, this package will not be marked as
+        automatically installed. This is the default. Set it to False if you
+        want to be able to automatically remove the package at a later stage
+        when no other package depends on it.
         """
         self._pcache.cachePreChange()
         self._pcache._depcache.MarkInstall(self._pkg, autoInst, fromUser)
@@ -942,10 +1039,10 @@ class Package(object):
     def commit(self, fprogress, iprogress):
         """Commit the changes.
 
-        The parameter `fprogress` refers to a FetchProgress() object, as
+        The parameter *fprogress* refers to a FetchProgress() object, as
         found in apt.progress.
 
-        The parameter `iprogress` refers to an InstallProgress() object, as
+        The parameter *iprogress* refers to an InstallProgress() object, as
         found in apt.progress.
         """
         self._pcache._depcache.Commit(fprogress, iprogress)

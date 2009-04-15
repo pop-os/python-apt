@@ -11,22 +11,44 @@ DEB_PYTHON_PACKAGES_EXCLUDE=python-apt-dbg
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
 
+PY3K = y
 PKG=python-apt
 DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
 DEB_COMPRESS_EXCLUDE:=.html .js _static/* _sources/* _sources/*/* .inv
 DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
 export DEBVER
 
+
+ifeq ($(PY3K),y)
+build/python-apt::
+	python3.1 setup3.py build
+
+install/python-apt::
+	python3.1 ./setup3.py install --root $(CURDIR)/debian/python-apt \
+		--install-layout=deb --no-compile
+
+	find $(CURDIR)/debian/python-apt/usr/lib/python3.1/dist-packages/ -name '*.py' \
+	 | xargs 2to3-3.1 | patch -p0
+endif
+
 build/python-apt-dbg::
 	set -e; \
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py build; \
 	done
+ifeq ($(PY3K),y)
+	python3.1-dbg ./setup3.py build
+endif
 
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
-	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg; \
+	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg \
+	                                   --no-compile; \
 	done
+ifeq ($(PY3K),y)
+	python3.1-dbg ./setup3.py install --root $(CURDIR)/debian/python-apt-dbg \
+		--install-layout=deb --no-compile
+endif
 	find debian/python-apt-dbg \
 		! -type d ! -name '*_d.so' | xargs rm -f
 	find debian/python-apt-dbg -depth -empty -exec rmdir {} \;
@@ -39,4 +61,4 @@ binary-predeb/python-apt-dbg::
 	ln -s python-apt debian/python-apt-dbg/usr/share/doc/python-apt-dbg
 
 clean::
-	rm -rf build/lib* build/temp*
+	rm -rf build/lib* build/temp* build

@@ -185,7 +185,7 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    bool res = true;
    if(!PyArg_Parse(result, "b", &res))
    {
-      // most of the time the user who subclasses the pulse() 
+      // most of the time the user who subclasses the pulse()
       // method forgot to add a return {True,False} so we just
       // assume he wants a True
       return true;

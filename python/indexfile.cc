@@ -32,25 +32,26 @@ static PyMethodDef PackageIndexFileMethods[] =
    {}
 };
 
-
-static PyObject *PackageIndexFileAttr(PyObject *Self,char *Name)
-{
-   pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
-   if (strcmp("Label",Name) == 0)
-      return Safe_FromString(File->GetType()->Label);
-   else if (strcmp("Describe",Name) == 0)
-      return Safe_FromString(File->Describe().c_str());
-   else if (strcmp("Exists",Name) == 0)
-      return Py_BuildValue("i",(File->Exists()));
-   else if (strcmp("HasPackages",Name) == 0)
-      return Py_BuildValue("i",(File->HasPackages()));
-   else if (strcmp("Size",Name) == 0)
-      return Py_BuildValue("i",(File->Size()));
-   else if (strcmp("IsTrusted",Name) == 0)
-      return Py_BuildValue("i",(File->IsTrusted()));
-
-   return Py_FindMethod(PackageIndexFileMethods,Self,Name);
+#define File (GetCpp<pkgIndexFile*>(Self))
+static PyObject *PackageIndexFileGetLabel(PyObject *Self,void*) {
+   return Safe_FromString(File->GetType()->Label);
 }
+static PyObject *PackageIndexFileGetDescribe(PyObject *Self,void*) {
+   return Safe_FromString(File->Describe().c_str());
+}
+static PyObject *PackageIndexFileGetExists(PyObject *Self,void*) {
+   return Py_BuildValue("i",(File->Exists()));
+}
+static PyObject *PackageIndexFileGetHasPackages(PyObject *Self,void*) {
+   return Py_BuildValue("i",(File->HasPackages()));
+}
+static PyObject *PackageIndexFileGetSize(PyObject *Self,void*) {
+   return Py_BuildValue("i",(File->Size()));
+}
+static PyObject *PackageIndexFileGetIsTrusted(PyObject *Self,void*) {
+   return Py_BuildValue("i",(File->IsTrusted()));
+}
+#undef File
 
 static PyObject *PackageIndexFileRepr(PyObject *Self)
 {
@@ -67,24 +68,52 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
    return PyString_FromString(S);
 }
 
+static PyGetSetDef PackageIndexFileGetSet[] = {
+    {"Describe",PackageIndexFileGetDescribe},
+    {"Exists",PackageIndexFileGetExists},
+    {"HasPackages",PackageIndexFileGetHasPackages},
+    {"IsTrusted",PackageIndexFileGetIsTrusted},
+    {"Label",PackageIndexFileGetLabel},
+    {"Size",PackageIndexFileGetSize},
+    {}
+};
+
 PyTypeObject PackageIndexFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "pkgIndexFile",         // tp_name
+   #if PY_MAJOR_VERSION < 3
+   0,                                   // ob_size
+   #endif
+   "pkgIndexFile",                      // tp_name
    sizeof(CppOwnedPyObject<pkgIndexFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgIndexFile*>,          // tp_dealloc
+   CppOwnedDealloc<pkgIndexFile*>,      // tp_dealloc
    0,                                   // tp_print
-   PackageIndexFileAttr,                     // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
-   PackageIndexFileRepr,                     // tp_repr
+   PackageIndexFileRepr,                // tp_repr
    0,                                   // tp_as_number
-   0,		                        // tp_as_sequence
-   0,			                // tp_as_mapping
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "pkgIndexFile Object",               // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PackageIndexFileMethods,             // tp_methods
+   0,                                   // tp_members
+   PackageIndexFileGetSet,              // tp_getset
 };
 
 

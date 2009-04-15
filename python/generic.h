@@ -35,6 +35,31 @@
 typedef int Py_ssize_t;
 #endif
 
+/* Define compatibility for Python 3.
+ *
+ * We will use the names PyString_* to refer to the default string type
+ * of the current Python version (PyString on 2.X, PyUnicode on 3.X).
+ *
+ * When we really need unicode strings, we will use PyUnicode_* directly, as
+ * long as it exists in Python 2 and Python 3.
+ *
+ * When we want bytes in Python 3, we use PyBytes*_ instead of PyString_* and
+ * define aliases from PyBytes_* to PyString_* for Python 2.
+ */
+
+#if PY_MAJOR_VERSION >= 3
+#define PyString_Check PyUnicode_Check
+#define PyString_FromString PyUnicode_FromString
+#define PyString_FromStringAndSize PyUnicode_FromStringAndSize
+#define PyString_AsString(op) PyBytes_AsString(PyUnicode_AsUTF8String(op))
+#define PyInt_Check PyLong_Check
+#define PyInt_AsLong PyLong_AsLong
+#else
+#define PyBytes_Check PyString_Check
+#define PyBytes_AsString PyString_AsString
+#define PyBytes_AsStringAndSize PyString_AsStringAndSize
+#endif
+
 template <class T> struct CppPyObject : public PyObject
 {
    // We are only using CppPyObject and friends as dumb structs only, ie the

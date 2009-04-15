@@ -173,21 +173,21 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
       return 0;
 
    // Digest of a string.
-   if (PyString_Check(Obj) != 0)
+   if (PyBytes_Check(Obj) != 0)
    {
       char *s;
       Py_ssize_t len;
       MD5Summation Sum;
-      PyString_AsStringAndSize(Obj, &s, &len);
+      PyBytes_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       MD5Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
@@ -213,21 +213,21 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
       return 0;
 
    // Digest of a string.
-   if (PyString_Check(Obj) != 0)
+   if (PyBytes_Check(Obj) != 0)
    {
       char *s;
       Py_ssize_t len;
       SHA1Summation Sum;
-      PyString_AsStringAndSize(Obj, &s, &len);
+      PyBytes_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       SHA1Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
@@ -253,21 +253,21 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
       return 0;
 
    // Digest of a string.
-   if (PyString_Check(Obj) != 0)
+   if (PyBytes_Check(Obj) != 0)
    {
       char *s;
       Py_ssize_t len;
       SHA256Summation Sum;
-      PyString_AsStringAndSize(Obj, &s, &len);
+      PyBytes_AsStringAndSize(Obj, &s, &len);
       Sum.Add((const unsigned char*)s, len);
       return CppPyString(Sum.Result().Value());
    }
 
    // Digest of a file
-   if (PyFile_Check(Obj) != 0)
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
    {
       SHA256Summation Sum;
-      int Fd = fileno(PyFile_AsFile(Obj));
       struct stat St;
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
@@ -470,9 +470,70 @@ static void AddInt(PyObject *Dict,const char *Itm,unsigned long I)
    Py_DECREF(Obj);
 }
 
+#if PY_MAJOR_VERSION >= 3
+struct module_state {
+    PyObject *error;
+};
+
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+
+static int apt_inst_traverse(PyObject *m, visitproc visit, void *arg) {
+    Py_VISIT(GETSTATE(m)->error);
+    return 0;
+}
+
+static int apt_inst_clear(PyObject *m) {
+    Py_CLEAR(GETSTATE(m)->error);
+    return 0;
+}
+
+static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "apt_inst",
+        NULL,
+        sizeof(struct module_state),
+        methods,
+        NULL,
+        apt_inst_traverse,
+        apt_inst_clear,
+        NULL
+};
+
+#define INIT_ERROR return 0
+extern "C" PyObject * PyInit_apt_pkg()
+#else
+#define INIT_ERROR return
 extern "C" void initapt_pkg()
+#endif
 {
+   // Finalize our types to add slots, etc.
+   if (PyType_Ready(&TagSecType) == -1) INIT_ERROR;
+   if (PyType_Ready(&TagFileType) == -1) INIT_ERROR;
+   if (PyType_Ready(&ConfigurationType) == -1) INIT_ERROR;
+   if (PyType_Ready(&ConfigurationPtrType) == -1) INIT_ERROR;
+   if (PyType_Ready(&ConfigurationSubType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgCdromType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgProblemResolverType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgActionGroupType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgSourceListType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgCacheType) == -1) INIT_ERROR;
+   if (PyType_Ready(&DependencyType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgDepCacheType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgAcquireType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PackageIndexFileType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgManagerType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgSrcRecordsType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgRecordsType) == -1) INIT_ERROR;
+   if (PyType_Ready(&AcquireItemType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PackageType) == -1) INIT_ERROR;
+   if (PyType_Ready(&DescriptionType) == -1) INIT_ERROR;
+
+   // Initialize the module
+   #if PY_MAJOR_VERSION >= 3
+   PyObject *Module = PyModule_Create(&moduledef);
+   #else
    PyObject *Module = Py_InitModule("apt_pkg",methods);
+   #endif
    PyObject *Dict = PyModule_GetDict(Module);
 
    // Global variable linked to the global configuration class
@@ -528,6 +589,9 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"InstStateReInstReq",pkgCache::State::ReInstReq);
    AddInt(Dict,"InstStateHold",pkgCache::State::Hold);
    AddInt(Dict,"InstStateHoldReInstReq",pkgCache::State::HoldReInstReq);
+   #if PY_MAJOR_VERSION >= 3
+   return Module;
+   #endif
 }
 									/*}}}*/
 

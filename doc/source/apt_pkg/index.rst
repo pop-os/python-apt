@@ -17,6 +17,8 @@ the beginning.
 Module Initialization
 ---------------------
 
+Initialization is needed for most functions, but not for all of them. Some can
+be called without having run init*(), but will not return the expected value.
 
 .. function:: initConfig
 
@@ -89,9 +91,6 @@ Object initialization
 
     Return a new :class:`PkgSrcRecords` object.
 
-.. function:: newConfiguration()
-
-    Return a new :class:`Configuration` object.
 
 
 The Acquire interface
@@ -164,46 +163,197 @@ of the ones provides in Python's :mod:`hashlib` module.
 
     Return the md5sum of the object. *object* may either be a string, in
     which case the md5sum of the string is returned, or a :class:`file()`
-    object, in which case the md5sum of its contents is returned.
+    object (or a file descriptor), in which case the md5sum of its contents is
+    returned.
+
+    .. versionchanged:: 0.8.0
+        Added support for using file descriptors.
 
 .. function:: sha1sum(object)
 
     Return the sha1sum of the object. *object* may either be a string, in
     which case the sha1sum of the string is returned, or a :class:`file()`
-    object, in which case the sha1sum of its contents is returned.
+    object (or a file descriptor), in which case the sha1sum of its contents
+    is returned.
+
+    .. versionchanged:: 0.8.0
+        Added support for using file descriptors.
 
 .. function:: sha256sum(object)
 
     Return the sha256sum of the object. *object* may either be a string, in
     which case the sha256sum of the string is returned, or a :class:`file()`
-    object, in which case the sha256sum of its contents is returned.
+    object  (or a file descriptor), in which case the sha256sum of its contents
+    is returned.
+
+    .. versionchanged:: 0.8.0
+        Added support for using file descriptors.
+
+Debian control files
+--------------------
+.. function:: ParseSection(text)
+
+    Parse the string given in the parameter *text* and return a
+    :class:`TagSection` object.
+
+.. function:: ParseTagFile(file)
+
+    Parse the given *file* and return a :class:`TagFile()` object. *file* may
+    be a :class:`file()` object, a file descriptor, or anything providing a
+    :meth:`fileno()` method.
+
+    .. versionchanged:: 0.8.0
+        Added support for using file descriptors.
+
+.. autofunction:: RewriteSection(section, order, rewrite_list)
+
+.. data:: RewritePackageOrder
+
+    The order in which the information for binary packages should be rewritten,
+    i.e. the order in which the fields should appear.
+
+.. data:: RewriteSourceOrder
+
+    The order in which the information for source packages should be rewritten,
+    i.e. the order in which the fields should appear.
+
+Dependencies
+------------
+.. function:: CheckDep(pkgver, op, depver)
+
+    Check that the dependency requirements consisting of op and depver can be
+    satisfied by the version pkgver.
+
+    Example::
+
+        >>> bool(apt_pkg.CheckDep("1.0", ">=", "1"))
+        True
+
+.. function:: ParseDepends(depends)
+
+    Parse the string *depends* which contains dependency information as
+    specified in Debian Policy, Section 7.1.
+
+    Returns a list. The members of this list are lists themselves and contain
+    one or more tuples in the format ``(package,version,operation)`` for every
+    'or'-option given, e.g.::
+
+        >>> apt_pkg.ParseDepends("PkgA (>= VerA) | PkgB (>= VerB)")
+        [[('PkgA', 'VerA', '>='), ('PkgB', 'VerB', '>=')]]
+
+.. function:: ParseSrcDepends(depends)
+
+    Parse the string *depends* which contains dependency information as
+    specified in Debian Policy, Section 7.1.
+
+    Returns a list. The members of this list are lists themselves and contain
+    one or more tuples in the format ``(package,version,operation)`` for every
+    'or'-option given, e.g.::
+
+        >>> apt_pkg.ParseDepends("PkgA (>= VerA) | PkgB (>= VerB)")
+        [[('PkgA', 'VerA', '>='), ('PkgB', 'VerB', '>=')]]
+
+
+    Furthemore, this function also supports to limit the architectures, as
+    used in e.g. Build-Depends::
+
+        >>> apt_pkg.ParseSrcDepends("a (>= 01) [i386 amd64]")
+        [[('a', '01', '>=')]]
+
+
+Configuration
+-------------
+
+.. data:: Config
+
+    A :class:`Configuration()`-like object with the default configuration. This
+    is implemented in the :class:`ConfigurationPtr` class, which has the same
+    API like the :class:`Configuration` class.
+
+.. function:: newConfiguration()
+
+    Return a new :class:`Configuration` object.
+
+.. function:: ReadConfigFile(configuration, filename)
+
+    Read the configuration file specified by the parameter *filename* and add
+    the settings therein to the :class:`Configuration()` object specified by
+    the parameter *configuration*
+
+.. function:: ReadConfigDir(configuration, dirname)
+
+    Read configuration files in the directory specified by the parameter
+    *dirname* and add the settings therein to the :class:`Configuration()`
+    object specified by the parameter *configuration*.
+
+.. function:: ReadConfigFileISC(configuration, filename)
+
+    Read the configuration file specified by the parameter *filename* and add
+    the settings therein to the :class:`Configuration()` object specified by
+    the parameter *configuration*
+
+.. function:: ParseCommandLine(configuration,options,argv)
+
+    This function is like getopt except it manipulates a configuration space.
+    output is a list of non-option arguments (filenames, etc). *options* is a
+    list of tuples of the form ``(‘c’,”long-opt or None”,
+    ”Configuration::Variable”,”optional type”)``.
+
+    Where ``type`` may be one of HasArg, IntLevel, Boolean, InvBoolean,
+    ConfigFile, or ArbItem. The default is Boolean.
+
+Locking
+--------
+
+.. function:: GetLock(filename)
+
+    Create an empty file at the path specified by the parameter *filename* and
+    lock it.
+
+    While the file is locked by a process, calling this function in another
+    process returns ``-1``.
+
+    When the lock is not required anymore, the file descriptor should be closed
+    using :func:`os.close`.
+
+.. function:: PkgSystemLock()
+
+    Lock the global pkgsystem.
+
+.. function:: PkgSystemUnLock()
+
+    Unlock the global pkgsystem.
 
 Other functions
 ----------------
+.. function:: Base64Encode(string)
 
-.. note::
+    Encode the given string using base64, e.g::
 
-    This documentation is (in parts) created automatically, and still needs to
-    be improved.
+        >>> apt_pkg.Base64Encode(u"A")
+        'QQ=='
 
-.. autofunction:: Base64Encode
-.. autofunction:: CheckDep
-.. autofunction:: CheckDomainList
-.. autofunction:: DeQuoteString
-.. autofunction:: GetLock
 
-.. autofunction:: ParseCommandLine
-.. autofunction:: ParseDepends
-.. autofunction:: ParseSection
-.. autofunction:: ParseSrcDepends
-.. autofunction:: ParseTagFile
-.. autofunction:: PkgSystemLock
-.. autofunction:: PkgSystemUnLock
-.. autofunction:: QuoteString
-.. autofunction:: ReadConfigFile
-.. autofunction:: ReadConfigDir()
-.. autofunction:: ReadConfigFileISC
-.. autofunction:: RewriteSection
+.. function:: CheckDomainList(host, list)
+
+    See if Host is in a ',' seperated list, e.g.::
+
+        apt_pkg.CheckDomainList("alioth.debian.org","debian.net,debian.org")
+
+.. function:: DeQuoteString(string)
+
+    Dequote the string specified by the parameter *string*, e.g.::
+
+        >>> apt_pkg.DeQuoteString("%61%70%74%20is%20cool")
+        'apt is cool'
+
+.. function:: QuoteString(string, repl)
+
+    For every character listed in the string *repl*, replace all occurences in
+    the string *string* with the correct HTTP encoded value:
+
+        >>> apt_pkg.QuoteString("apt is cool","apt")
+        '%61%70%74%20is%20cool'
 
 .. function:: SizeToStr(size)
 
@@ -271,8 +421,6 @@ Other functions
         >>> apt_pkg.TimeToStr(3601)
         '1h0min1s'
 
-
-
 .. function:: UpstreamVersion(version)
 
     Return the string *version*, eliminating everything following the last
@@ -305,23 +453,12 @@ Other functions
         ===== =============================================
 
 
-Data
------
-
-.. data:: Config
-
-    An :class:`Configuration()` object with the default configuration. Actually,
-    this is a bit different object, but it is compatible.
-
-.. data:: RewritePackageOrder
-
-.. data:: RewriteSourceOrder
 
 
 .. _CurStates:
 
 Package States
-^^^^^^^^^^^^^^^
+---------------
 .. data:: CurStateConfigFiles
 .. data:: CurStateHalfConfigured
 .. data:: CurStateHalfInstalled
@@ -333,7 +470,7 @@ Package States
 
 
 Dependency types
-^^^^^^^^^^^^^^^^
+----------------
 .. data:: DepConflicts
 .. data:: DepDepends
 .. data:: DepObsoletes
@@ -345,7 +482,7 @@ Dependency types
 .. _InstStates:
 
 Installed states
-^^^^^^^^^^^^^^^^^
+-----------------
 .. data:: InstStateHold
 .. data:: InstStateHoldReInstReq
 .. data:: InstStateOk
@@ -354,7 +491,7 @@ Installed states
 .. _Priorities:
 
 Priorities
-^^^^^^^^^^
+----------
 .. data:: PriExtra
 .. data:: PriImportant
 .. data:: PriOptional
@@ -365,7 +502,7 @@ Priorities
 .. _SelStates:
 
 Select states
-^^^^^^^^^^^^^^
+--------------
 .. data:: SelStateDeInstall
 .. data:: SelStateHold
 .. data:: SelStateInstall
@@ -374,7 +511,7 @@ Select states
 
 
 Build information
-^^^^^^^^^^^^^^^^^
+-----------------
 .. data:: Date
 
     The date on which this extension has been compiled.

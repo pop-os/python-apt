@@ -11,7 +11,12 @@ Checking packages
 .. function:: arCheckMember(file, membername)
 
     Check if the member specified by the parameter *membername* exists in
-    the AR file referenced by the :class:`file` object *file*.
+    the AR file referenced by the parameter *file*, which may be a
+    :class:`file()` object, a file descriptor, or anything implementing a
+    :meth:`fileno` method.
+
+    .. versionchanged:: 0.8.0
+        Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 
 Listing contents
@@ -19,8 +24,9 @@ Listing contents
 .. function:: debExtract(file, func, chunk)
 
     Call the function referenced by *func* for each member of the tar file
-    *chunk* which is contained in the AR file referenced by the file object
-    *file*.
+    *chunk* which is contained in the AR file referenced by the parameter
+    *file*, which may be a :class:`file()` object, a file descriptor, or
+    anything implementing a :meth:`fileno` method.
 
     An example would be::
 
@@ -28,12 +34,21 @@ Listing contents
 
     See :ref:`emulating-dpkg-contents` for a more detailed example.
 
+    .. versionchanged:: 0.8.0
+        Added support for file descriptors and objects implementing a :meth:`fileno` method.
+
 .. function:: tarExtract(file,func,comp)
 
     Call the function *func* for each member of the tar file *file*.
 
-    *Comp* is a string determining the compressor used. Possible options are
-    "lzma", "bzip2" and "gzip".
+    The parameter *comp* is a string determining the compressor used. Possible
+    options are "lzma", "bzip2" and "gzip".
+
+    The parameter *file* may be a :class:`file()` object, a file descriptor, or
+    anything implementing a :meth:`fileno` method.
+
+    .. versionchanged:: 0.8.0
+        Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 
 Callback
@@ -56,6 +71,9 @@ Extracting contents
     Extract the archive referenced by the :class:`file` object *file*
     into the directory specified by *rootdir*.
 
+    The parameter *file* may be a :class:`file()` object, a file descriptor, or
+    anything implementing a :meth:`fileno` method.
+
     See :ref:`emulating-dpkg-extract` for an example.
 
     .. warning::
@@ -63,16 +81,24 @@ Extracting contents
         If the directory given by *rootdir* does not exist, the package is
         extracted into the current directory.
 
+    .. versionchanged:: 0.8.0
+        Added support for file descriptors and objects implementing a :meth:`fileno` method.
+
 .. function:: debExtractControl(file[, member='control'])
 
-    Return the indicated file from the control tar. The default is 'control'.
+    Return the indicated file as a string from the control tar. The default
+    is 'control'.
+
+    The parameter *file* may be a :class:`file()` object, a file descriptor, or
+    anything implementing a :meth:`fileno` method.
 
     If you want to print the control file of a given package, you could do
     something like::
 
         print debExtractControl(open("package.deb"))
 
-    :return: The contents of the file, as :class:`str`.
+    .. versionchanged:: 0.8.0
+        Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 
 .. _emulating-dpkg-extract:

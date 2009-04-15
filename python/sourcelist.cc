@@ -74,39 +74,42 @@ static PyMethodDef PkgSourceListMethods[] =
 {
    {"FindIndex",PkgSourceListFindIndex,METH_VARARGS,doc_PkgSourceListFindIndex},
    {"ReadMainList",PkgSourceListReadMainList,METH_VARARGS,doc_PkgSourceListReadMainList},
-   {"GetIndexes",PkgSourceListGetIndexes,METH_VARARGS,doc_PkgSourceListReadMainList},
+   {"GetIndexes",PkgSourceListGetIndexes,METH_VARARGS,doc_PkgSourceListGetIndexes},
    {}
 };
 
-static PyObject *PkgSourceListAttr(PyObject *Self,char *Name)
+static PyObject *PkgSourceListGetList(PyObject *Self,void*)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
-
-   if (strcmp("List",Name) == 0)
+   PyObject *List = PyList_New(0);
+   for (vector<metaIndex *>::const_iterator I = list->begin();
+        I != list->end(); I++)
    {
-      PyObject *List = PyList_New(0);
-      for (vector<metaIndex *>::const_iterator I = list->begin();
-	   I != list->end(); I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppPyObject_NEW<metaIndex*>(&MetaIndexType,*I);
-	 PyList_Append(List,Obj);
-      }
-      return List;
+      PyObject *Obj;
+      Obj = CppPyObject_NEW<metaIndex*>(&MetaIndexType,*I);
+      PyList_Append(List,Obj);
    }
-   return Py_FindMethod(PkgSourceListMethods,Self,Name);
+   return List;
 }
+
+static PyGetSetDef PkgSourceListGetSet[] = {
+    {"List",PkgSourceListGetList,0,"A list of MetaIndex() objects.",0},
+    {}
+};
+
 PyTypeObject PkgSourceListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgSourceList",                          // tp_name
    sizeof(CppPyObject<pkgSourceList*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    CppDealloc<pkgSourceList*>,   // tp_dealloc
    0,                                   // tp_print
-   PkgSourceListAttr,                      // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
@@ -114,6 +117,22 @@ PyTypeObject PkgSourceListType =
    0,                                   // tp_as_sequence
    0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "pkgSourceList Object",              // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgSourceListMethods,                // tp_methods
+   0,                                   // tp_members
+   PkgSourceListGetSet,                 // tp_getset
 };
 
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args)

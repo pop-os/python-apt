@@ -1,5 +1,5 @@
-Coding for python-apt
-======================
+Contributing to python-apt
+==========================
 Let's say you need a new feature, you can develop it, and you want to get it
 included in python-apt. Then be sure to follow the following guidelines.
 
@@ -61,30 +61,22 @@ attributes, etc.
     This coding style guidelines are incomplete. If you have any questions
     send an email to deity@lists.debian.org.
 
-.. note::
-
-    The coding style may be changed completely during the port to Python 3.0.
-    But this will not happen very soon.
-
 
 Python Coding Style
 -------------------
-The coding style for all code written in python is :PEP:`8`. For modules added
-from version 0.7.9 on, there are no exceptions.
+The coding style for all code written in python is :PEP:`8`. For modules and
+classes added from version 0.7.9 on, there are no exceptions.
 
-Modules introduced prior to 0.7.9 use mixedCase names for methods, functions
+Classes introduced prior to 0.7.9 use mixedCase names for methods, functions
 and variables. These names will be replaced by names conforming to :PEP:`8`
 in a future release of python-apt.
 
 Therefore, try to reduce the introduction of the mixedName code to the absolute
 minimum (sometimes you can also use shorter names).
 
-To prepare the port to Python 3.0, code should not use any functionality which
-is deprecated as of Python 2.6.
-
-The has_key() functionality may be used only on TagSection objects; as they
-provide no other way to do this. If someone is willing to adapt TagSection to
-support ``key in mapping`` and ``iter(mapping)``, this would be great.
+In order to make the automatic generation of Python 3 code using 2to possible,
+code written in Python may not utilize any functionality unsupported by 2to3 or
+deprecated as of Python 2.6.
 
 .. note::
 

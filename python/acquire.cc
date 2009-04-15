@@ -12,45 +12,49 @@
 
 #include <apt-pkg/acquire-item.h>
 
-// pkgAcquire::Item
-static PyObject *AcquireItemAttr(PyObject *Self,char *Name)
-{
-   pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
-
-   if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",(*I)->ID);
-   else if (strcmp("Status",Name) == 0)
-      return Py_BuildValue("i",(*I)->Status);
-   else if (strcmp("Complete",Name) == 0)
-      return Py_BuildValue("i",(*I)->Complete);
-   else if (strcmp("Local",Name) == 0)
-      return Py_BuildValue("i",(*I)->Local);
-   else if (strcmp("IsTrusted",Name) == 0)
-      return Py_BuildValue("i",(*I)->IsTrusted());
-   else if (strcmp("FileSize",Name) == 0)
-      return Py_BuildValue("i",(*I)->FileSize);
-   else if (strcmp("ErrorText",Name) == 0)
-      return Safe_FromString((*I)->ErrorText.c_str());
-   else if (strcmp("DestFile",Name) == 0)
-      return Safe_FromString((*I)->DestFile.c_str());
-   else if (strcmp("DescURI",Name) == 0)
-      return Safe_FromString((*I)->DescURI().c_str());
-   // constants
-   else if (strcmp("StatIdle",Name) == 0)
-      return Py_BuildValue("i", pkgAcquire::Item::StatIdle);
-   else if (strcmp("StatFetching",Name) == 0)
-      return Py_BuildValue("i", pkgAcquire::Item::StatFetching);
-   else if (strcmp("StatDone",Name) == 0)
-      return Py_BuildValue("i", pkgAcquire::Item::StatDone);
-   else if (strcmp("StatError",Name) == 0)
-      return Py_BuildValue("i", pkgAcquire::Item::StatError);
-   else if (strcmp("StatAuthError",Name) == 0)
-      return Py_BuildValue("i", pkgAcquire::Item::StatAuthError);
-
-
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+#define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
+{ \
+    pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self); \
+    return Ret; \
 }
+
+// Define our getters
+MkGet(AcquireItemGetComplete,Py_BuildValue("i",(*I)->Complete));
+MkGet(AcquireItemGetDescURI,Safe_FromString((*I)->DescURI().c_str()));
+MkGet(AcquireItemGetDestFile,Safe_FromString((*I)->DestFile.c_str()));
+MkGet(AcquireItemGetErrorText,Safe_FromString((*I)->ErrorText.c_str()));
+MkGet(AcquireItemGetFileSize,Py_BuildValue("i",(*I)->FileSize));
+MkGet(AcquireItemGetID,Py_BuildValue("i",(*I)->ID));
+MkGet(AcquireItemGetIsTrusted,Py_BuildValue("i",(*I)->IsTrusted()));
+MkGet(AcquireItemGetLocal,Py_BuildValue("i",(*I)->Local));
+MkGet(AcquireItemGetStatus,Py_BuildValue("i",(*I)->Status));
+
+// Constants
+MkGet(AcquireItemGetStatIdle,Py_BuildValue("i", pkgAcquire::Item::StatIdle));
+MkGet(AcquireItemGetStatFetching,Py_BuildValue("i", pkgAcquire::Item::StatFetching));
+MkGet(AcquireItemGetStatDone,Py_BuildValue("i", pkgAcquire::Item::StatDone));
+MkGet(AcquireItemGetStatError,Py_BuildValue("i", pkgAcquire::Item::StatError));
+MkGet(AcquireItemGetStatAuthError,Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
+#undef MkGet
+
+static PyGetSetDef AcquireItemGetSet[] = {
+    {"Complete",AcquireItemGetComplete},
+    {"DescURI",AcquireItemGetDescURI},
+    {"DestFile",AcquireItemGetDestFile},
+    {"ErrorText",AcquireItemGetErrorText},
+    {"FileSize",AcquireItemGetFileSize},
+    {"ID",AcquireItemGetID},
+    {"IsTrusted",AcquireItemGetIsTrusted},
+    {"Local",AcquireItemGetLocal},
+    {"Status",AcquireItemGetStatus},
+    {"StatIdle",AcquireItemGetStatIdle},
+    {"StatFetching",AcquireItemGetStatFetching},
+    {"StatDone",AcquireItemGetStatDone},
+    {"StatError",AcquireItemGetStatError},
+    {"StatAuthError",AcquireItemGetStatAuthError},
+    {}
+};
+
 
 
 static PyObject *AcquireItemRepr(PyObject *Self)
@@ -72,21 +76,39 @@ static PyObject *AcquireItemRepr(PyObject *Self)
 PyTypeObject AcquireItemType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgAcquire::ItemIterator",         // tp_name
    sizeof(CppOwnedPyObject<pkgAcquire::ItemIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    CppOwnedDealloc<pkgAcquire::ItemIterator>,          // tp_dealloc
    0,                                   // tp_print
-   AcquireItemAttr,                     // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    AcquireItemRepr,                     // tp_repr
    0,                                   // tp_as_number
-   0,		                        // tp_as_sequence
-   0,			                // tp_as_mapping
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "AcquireItem Object",                // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   AcquireItemGetSet,                   // tp_getset
 };
 
 
@@ -123,63 +145,91 @@ static PyMethodDef PkgAcquireMethods[] =
    {}
 };
 
-
-static PyObject *AcquireAttr(PyObject *Self,char *Name)
+#define fetcher (GetCpp<pkgAcquire*>(Self))
+static PyObject *PkgAcquireGetTotalNeeded(PyObject *Self,void*) {
+   return Py_BuildValue("d", fetcher->TotalNeeded());
+}
+static PyObject *PkgAcquireGetFetchNeeded(PyObject *Self,void*) {
+   return Py_BuildValue("d", fetcher->FetchNeeded());
+}
+static PyObject *PkgAcquireGetPartialPresent(PyObject *Self,void*) {
+      return Py_BuildValue("d", fetcher->PartialPresent());
+}
+#undef fetcher
+static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
 {
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
-
-   if(strcmp("TotalNeeded",Name) == 0)
-      return Py_BuildValue("d", fetcher->TotalNeeded());
-   if(strcmp("FetchNeeded",Name) == 0)
-      return Py_BuildValue("d", fetcher->FetchNeeded());
-   if(strcmp("PartialPresent",Name) == 0)
-      return Py_BuildValue("d", fetcher->PartialPresent());
-   if(strcmp("Items",Name) == 0)
+   PyObject *List = PyList_New(0);
+   for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
+        I != fetcher->ItemsEnd(); I++)
    {
-      PyObject *List = PyList_New(0);
-      for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
-	   I != fetcher->ItemsEnd(); I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,&AcquireItemType,I);
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
+      PyObject *Obj;
+      Obj = CppOwnedPyObject_NEW<pkgAcquire::ItemIterator>(Self,
+                                                           &AcquireItemType,I);
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
 
-      }
-      return List;
    }
-   // some constants
-   if(strcmp("ResultContinue",Name) == 0)
+   return List;
+}
+// some constants
+static PyObject *PkgAcquireGetResultContinue(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Continue);
-   if(strcmp("ResultFailed",Name) == 0)
+}
+static PyObject *PkgAcquireGetResultFailed(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Failed);
-   if(strcmp("ResultCancelled",Name) == 0)
+}
+static PyObject *PkgAcquireGetResultCancelled(PyObject *Self,void*) {
       return Py_BuildValue("i", pkgAcquire::Cancelled);
-
-   return Py_FindMethod(PkgAcquireMethods,Self,Name);
 }
 
-
-
+static PyGetSetDef PkgAcquireGetSet[] = {
+    {"FetchNeeded",PkgAcquireGetFetchNeeded},
+    {"Items",PkgAcquireGetItems},
+    {"PartialPresent",PkgAcquireGetPartialPresent},
+    {"ResultCancelled",PkgAcquireGetResultCancelled},
+    {"ResultContinue",PkgAcquireGetResultContinue},
+    {"ResultFailed",PkgAcquireGetResultFailed},
+    {"TotalNeeded",PkgAcquireGetTotalNeeded},
+    {}
+};
 
 PyTypeObject PkgAcquireType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "Acquire",                          // tp_name
-   sizeof(CppPyObject<pkgAcquire*>),   // tp_basicsize
+   #if PY_MAJOR_VERSION < 3
+   0,                                   // ob_size
+   #endif
+   "Acquire",                           // tp_name
+   sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgAcquire*>,        // tp_dealloc
+   CppDealloc<pkgAcquire*>,             // tp_dealloc
    0,                                   // tp_print
-   AcquireAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
    0,                                   // tp_as_sequence
-   0,	                                // tp_as_mapping
+   0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "pkgAcquire Object",                 // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgAcquireMethods,                   // tp_methods
+   0,                                   // tp_members
+   PkgAcquireGetSet,                    // tp_getset
 };
 
 PyObject *GetAcquire(PyObject *Self,PyObject *Args)
@@ -205,34 +255,19 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
    return FetcherObj;
 }
 
-
-
-
-
-// pkgAcquireFile
-
-static PyObject *AcquireFileAttr(PyObject *Self,char *Name)
-{
-   pkgAcqFile *acqFile = GetCpp<pkgAcqFile*>(Self);
-
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
-}
-
-
-
-
 PyTypeObject PkgAcquireFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgAcquireFile",                   // tp_name
    sizeof(CppPyObject<pkgAcqFile*>),// tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    CppDealloc<pkgAcqFile*>,        // tp_dealloc
    0,                                   // tp_print
-   AcquireFileAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr

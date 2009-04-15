@@ -463,18 +463,18 @@ class DscSrcPackage(DebPackage):
         try:
             while tagfile.Step() == 1:
                 for tag in depends_tags:
-                    if not sec.has_key(tag):
+                    if not tag in sec:
                         continue
                     self._depends.extend(apt_pkg.ParseSrcDepends(sec[tag]))
                 for tag in conflicts_tags:
-                    if not sec.has_key(tag):
+                    if not tag in sec:
                         continue
                     self._conflicts.extend(apt_pkg.ParseSrcDepends(sec[tag]))
-                if sec.has_key('Source'):
+                if 'Source' in sec:
                     self.pkgname = sec['Source']
-                if sec.has_key('Binary'):
+                if 'Binary' in sec:
                     self.binaries = sec['Binary'].split(', ')
-                if sec.has_key('Version'):
+                if 'Version' in sec:
                     self._sections['Version'] = sec['Version']
         finally:
             del sec

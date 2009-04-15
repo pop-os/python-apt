@@ -117,6 +117,12 @@ Classes in apt_pkg
 
     The Configuration objects store the configuration of apt.
 
+    .. describe:: key in conf
+
+      Return ``True`` if *conf* has a key *key*, else ``False``.
+
+      .. versionadded:: 0.8.0
+
     .. describe:: conf[key]
 
         Return the value of the option given key *key*. If it does not
@@ -200,6 +206,8 @@ Classes in apt_pkg
     .. method:: has_key(key)
 
         Return whether the configuration contains the key *key*.
+
+        .. deprecated:: 0.8.0
 
     .. method:: get(key[, default=''])
 
@@ -1199,6 +1207,12 @@ broken dependencies:
         Return the value of the field at *key*. If *key* is not available,
         raise :exc:`KeyError`.
 
+    .. describe:: key in section
+
+        Return ``True`` if *section* has a key *key*, else ``False``.
+
+      .. versionadded:: 0.8.0
+
     .. method:: Bytes
 
         The number of bytes in the section.
@@ -1221,6 +1235,8 @@ broken dependencies:
     .. method:: has_key(key)
 
         Check whether the field with named by *key* exists.
+
+        .. deprecated:: 0.8.0
 
     .. method:: keys()
 

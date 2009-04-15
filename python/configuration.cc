@@ -128,6 +128,11 @@ static PyObject *CnfExists(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i",(int)GetSelf(Self).Exists(Name));
 }
 
+static int CnfContains(PyObject *Self,PyObject *Arg)
+{
+   return (int)GetSelf(Self).Exists(PyString_AsString(Arg));
+}
+
 static char *doc_Clear = "Clear(Name) -> None";
 static PyObject *CnfClear(PyObject *Self,PyObject *Args)
 {
@@ -470,73 +475,114 @@ static PyMethodDef CnfMethods[] =
    {}
 };
 
-// CnfGetAttr - Get an attribute - variable/method			/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-static PyObject *CnfGetAttr(PyObject *Self,char *Name)
-{
-   return Py_FindMethod(CnfMethods,Self,Name);
-}
-
 // Type for a Normal Configuration object
+static PySequenceMethods ConfigurationSeq = {0,0,0,0,0,0,0,CnfContains,0,0};
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
 PyTypeObject ConfigurationType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
+   #if PY_MAJOR_VERSION < 3
+   0,                                   // ob_size
+   #endif
    "Configuration",                     // tp_name
    sizeof(CppPyObject<Configuration>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    CppDealloc<Configuration>,           // tp_dealloc
    0,                                   // tp_print
-   CnfGetAttr,                          // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &ConfigurationSeq,                   // tp_as_sequence
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "Configuration Object",              // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   CnfMethods,                          // tp_methods
 };
 
 PyTypeObject ConfigurationPtrType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "ConfigurationPtr",                  // tp_name
    sizeof(CppPyObject<Configuration *>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    (destructor)PyObject_Free,              // tp_dealloc
    0,                                   // tp_print
-   CnfGetAttr,                          // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &ConfigurationSeq,                   // tp_as_sequence
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "ConfigurationPtr Object",           // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   CnfMethods,                          // tp_methods
 };
 
 PyTypeObject ConfigurationSubType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "ConfigurationSub",                  // tp_name
    sizeof(SubConfiguration),            // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    CnfSubFree,		                // tp_dealloc
    0,                                   // tp_print
-   CnfGetAttr,                          // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &ConfigurationSeq,                   // tp_as_sequence
    &ConfigurationMap,                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "ConfigurationSub Object",           // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   CnfMethods,                          // tp_methods
 };
 

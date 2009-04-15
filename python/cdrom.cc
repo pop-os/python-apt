@@ -64,27 +64,19 @@ static PyMethodDef PkgCdromMethods[] =
 };
 
 
-static PyObject *CdromAttr(PyObject *Self,char *Name)
-{
-   PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
-
-   return Py_FindMethod(PkgCdromMethods,Self,Name);
-}
-
-
-
-
 PyTypeObject PkgCdromType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
-   0,			                // ob_size
-   "Cdrom",                          // tp_name
+   #if PY_MAJOR_VERSION < 3
+   0,                                   // ob_size
+   #endif
+   "Cdrom",                             // tp_name
    sizeof(CppOwnedPyObject<PkgCdromStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgCdromStruct>,        // tp_dealloc
+   CppOwnedDealloc<PkgCdromStruct>,     // tp_dealloc
    0,                                   // tp_print
-   CdromAttr,                           // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    0,                                   // tp_repr
@@ -92,6 +84,20 @@ PyTypeObject PkgCdromType =
    0,                                   // tp_as_sequence
    0,	                                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "Cdrom Object",                      // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   PkgCdromMethods,                     // tp_methods
 };
 
 PyObject *GetCdrom(PyObject *Self,PyObject *Args)
