@@ -368,64 +368,72 @@ PyTypeObject PkgListType =
    0,                                   // tp_hash
 };
 
-									/*}}}*/
-// Package Class							/*{{{*/
-// ---------------------------------------------------------------------
-static PyObject *PackageAttr(PyObject *Self,char *Name)
+#define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
+{ \
+    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self); \
+    PyObject *Owner = GetOwner<pkgCache::PkgIterator>(Self); \
+    return Ret; \
+}
+
+MkGet(PackageGetName,PyString_FromString(Pkg.Name()));
+MkGet(PackageGetSection,Safe_FromString(Pkg.Section()));
+MkGet(PackageGetRevDependsList,CppOwnedPyObject_NEW<RDepListStruct>(Owner,
+                               &RDepListType, Pkg.RevDependsList()));
+MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()));
+MkGet(PackageGetSelectedState,Py_BuildValue("i",Pkg->SelectedState));
+MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState));
+MkGet(PackageGetCurrentState,Py_BuildValue("i",Pkg->CurrentState));
+MkGet(PackageGetID,Py_BuildValue("i",Pkg->ID));
+#
+MkGet(PackageGetAuto,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0));
+MkGet(PackageGetEssential,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0));
+MkGet(PackageGetImportant,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0));
+#undef MkGet
+
+static PyObject *PackageGetVersionList(PyObject *Self,void*)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::PkgIterator>(Self);
 
-   if (strcmp("Name",Name) == 0)
-      return PyString_FromString(Pkg.Name());
-   else if (strcmp("VersionList",Name) == 0)
+   PyObject *List = PyList_New(0);
+   for (pkgCache::VerIterator I = Pkg.VersionList(); I.end() == false; I++)
    {
-      PyObject *List = PyList_New(0);
-      for (pkgCache::VerIterator I = Pkg.VersionList(); I.end() == false; I++)
-      {
-	 PyObject *Obj;
-	 Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,I);
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
-      }
-      return List;
+      PyObject *Obj;
+      Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,I);
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
    }
-   else if (strcmp("CurrentVer",Name) == 0)
-   {
-      if (Pkg->CurrentVer == 0)
-      {
-	 Py_INCREF(Py_None);
-	 return Py_None;
-      }
-
-      return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
-							 Pkg.CurrentVer());
-   }
-   else if (strcmp("Section",Name) == 0)
-      return Safe_FromString(Pkg.Section());
-   else if (strcmp("RevDependsList",Name) == 0)
-      return CppOwnedPyObject_NEW<RDepListStruct>(Owner,&RDepListType,
-							 Pkg.RevDependsList());
-   else if (strcmp("ProvidesList",Name) == 0)
-      return CreateProvides(Owner,Pkg.ProvidesList());
-   else if (strcmp("SelectedState",Name) == 0)
-      return Py_BuildValue("i",Pkg->SelectedState);
-   else if (strcmp("InstState",Name) == 0)
-      return Py_BuildValue("i",Pkg->InstState);
-   else if (strcmp("CurrentState",Name) == 0)
-      return Py_BuildValue("i",Pkg->CurrentState);
-   else if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",Pkg->ID);
-   else if (strcmp("Auto",Name) == 0)
-      return Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0);
-   else if (strcmp("Essential",Name) == 0)
-      return Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0);
-   else if (strcmp("Important",Name) == 0)
-      return Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0);
-
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+   return List;
 }
+static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
+{
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::PkgIterator>(Self);
+   if (Pkg->CurrentVer == 0)
+   {
+      Py_INCREF(Py_None);
+      return Py_None;
+   }
+   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+							 Pkg.CurrentVer());
+}
+
+static PyGetSetDef PackageGetSet[] = {
+    {"Name",PackageGetName},
+    {"Section",PackageGetSection},
+    {"RevDependsList",PackageGetRevDependsList},
+    {"ProvidesList",PackageGetProvidesList},
+    {"SelectedState",PackageGetSelectedState},
+    {"InstState",PackageGetInstState},
+    {"CurrentState",PackageGetCurrentState},
+    {"ID",PackageGetID},
+    {"Auto",PackageGetID},
+    {"Essential",PackageGetEssential},
+    {"Important",PackageGetImportant},
+    {"VersionList",PackageGetVersionList},
+    {"CurrentVer",PackageGetCurrentVer},
+    {}
+};
 
 static PyObject *PackageRepr(PyObject *Self)
 {
@@ -450,7 +458,7 @@ PyTypeObject PackageType =
    // Methods
    CppOwnedDealloc<pkgCache::PkgIterator>,  // tp_dealloc
    0,                                   // tp_print
-   PackageAttr,                         // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    PackageRepr,                         // tp_repr
@@ -458,39 +466,61 @@ PyTypeObject PackageType =
    0,                                   // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "Package Object",                    // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   PackageGetSet,                       // tp_getset
 };
-									/*}}}*/
-// Description Class							/*{{{*/
-// ---------------------------------------------------------------------
-static PyObject *DescriptionAttr(PyObject *Self,char *Name)
+
+#define Description_MkGet(PyFunc,Ret) static PyObject \
+   *PyFunc(PyObject *Self,void*) { \
+       pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self); \
+       return Ret; }
+
+Description_MkGet(DescriptionGetLanguageCode,
+                  PyString_FromString(Desc.LanguageCode()));
+Description_MkGet(DescriptionGetMd5,Safe_FromString(Desc.md5()));
+#undef Description_MkGet
+
+static PyObject *DescriptionGetFileList(PyObject *Self,void*)
 {
    pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DescIterator>(Self);
 
-   if (strcmp("LanguageCode",Name) == 0)
-      return PyString_FromString(Desc.LanguageCode());
-   else if (strcmp("md5",Name) == 0)
-      return Safe_FromString(Desc.md5());
-   else if (strcmp("FileList",Name) == 0)
+   /* The second value in the tuple is the index of the VF item. If the
+      user wants to request a lookup then that number will be used.
+      Maybe later it can become an object. */
+   PyObject *List = PyList_New(0);
+   for (pkgCache::DescFileIterator I = Desc.FileList(); I.end() == false; I++)
    {
-      /* The second value in the tuple is the index of the VF item. If the
-         user wants to request a lookup then that number will be used.
-         Maybe later it can become an object. */
-      PyObject *List = PyList_New(0);
-      for (pkgCache::DescFileIterator I = Desc.FileList(); I.end() == false; I++)
-      {
-	 PyObject *DescFile;
-	 PyObject *Obj;
-	 DescFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
-	 Obj = Py_BuildValue("Nl",DescFile,I.Index());
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
-      }
-      return List;
+      PyObject *DescFile;
+      PyObject *Obj;
+      DescFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
+      Obj = Py_BuildValue("Nl",DescFile,I.Index());
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
    }
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+   return List;
 }
+
+static PyGetSetDef DescriptionGetSet[] = {
+    {"LanguageCode",DescriptionGetLanguageCode},
+    {"md5",DescriptionGetMd5},
+    {"FileList",DescriptionGetFileList},
+    {}
+};
 
 static PyObject *DescriptionRepr(PyObject *Self)
 {
@@ -515,7 +545,7 @@ PyTypeObject DescriptionType =
    // Methods
    CppOwnedDealloc<pkgCache::DescIterator>,          // tp_dealloc
    0,                                   // tp_print
-   DescriptionAttr,                         // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    DescriptionRepr,                         // tp_repr
@@ -523,6 +553,22 @@ PyTypeObject DescriptionType =
    0,		                        // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "AcquireItem Object",                // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   DescriptionGetSet,                   // tp_getset
 };
 									/*}}}*/
 // Version Class							/*{{{*/

@@ -56,6 +56,7 @@ PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
 extern PyTypeObject PkgCacheType;
 extern PyTypeObject PkgCacheFileType;
 extern PyTypeObject PkgListType;
+extern PyTypeObject DescriptionType;
 extern PyTypeObject PackageType;
 extern PyTypeObject PackageFileType;
 extern PyTypeObject DependencyType;
@@ -77,6 +78,7 @@ extern PyTypeObject PkgCdromType;
 PyObject *GetCdrom(PyObject *Self,PyObject *Args);
 
 // acquire
+extern PyTypeObject AcquireItemType;
 extern PyTypeObject PkgAcquireType;
 extern char *doc_GetPkgAcqFile;
 PyObject *GetAcquire(PyObject *Self,PyObject *Args);

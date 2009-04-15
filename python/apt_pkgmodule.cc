@@ -524,7 +524,9 @@ extern "C" void initapt_pkg()
    if (PyType_Ready(&PkgManagerType) == -1) INIT_ERROR;
    if (PyType_Ready(&PkgSrcRecordsType) == -1) INIT_ERROR;
    if (PyType_Ready(&PkgRecordsType) == -1) INIT_ERROR;
-
+   if (PyType_Ready(&AcquireItemType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PackageType) == -1) INIT_ERROR;
+   if (PyType_Ready(&DescriptionType) == -1) INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
