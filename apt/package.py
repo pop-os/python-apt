@@ -513,15 +513,26 @@ class Package(object):
     def __repr__(self):
         return '<Package: name:%r id:%r>' % (self._pkg.Name, self._pkg.ID)
 
-    @property
     def candidate(self):
         """Return the candidate version of the package.
+
+        This property is writeable to allow you to set the candidate version
+        of the package. Just assign a Version() object, and it will be set as
+        the candidate version.
 
         .. versionadded:: 0.7.9
         """
         cand = self._pcache._depcache.GetCandidateVer(self._pkg)
         if cand is not None:
             return Version(self, cand)
+
+    def __set_candidate(self, version):
+        """Set the candidate version of the package."""
+        self._pcache.cachePreChange()
+        self._pcache._depcache.SetCandidateVer(self._pkg, version._cand)
+        self._pcache.cachePostChange()
+
+    candidate = property(candidate, __set_candidate)
 
     @property
     def installed(self):

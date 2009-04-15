@@ -9,6 +9,9 @@ python-apt (0.7.11) UNRELEASED; urgency=low
   * Add support for the Breaks fields
   * Only create Package objects when they are requested, do not keep them in
     a dict. Saves 10MB for 25,000 packages on my machine.
+  * apt/package.py: Allow to set the candidate of a package (Closes: #523997)
+    - Support assignments to the 'candidate' property of Package objects.
+    - Initial patch by Sebastian Heinlein
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
 
