@@ -20,6 +20,7 @@
 #  USA
 
 import os
+import weakref
 
 import apt_pkg
 from apt import Package
@@ -80,7 +81,8 @@ class Cache(object):
         self._records = apt_pkg.GetPkgRecords(self._cache)
         self._list = apt_pkg.GetPkgSourceList()
         self._list.ReadMainList()
-        self._dict = {}
+        self._set = set()
+        self._weakref = weakref.WeakValueDictionary()
 
         progress.Op = "Building data structures"
         i=last=0
@@ -91,7 +93,7 @@ class Cache(object):
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
-                self._dict[pkg.Name] = Package(self, pkg)
+                self._set.add(pkg.Name)
 
             i += 1
 
@@ -100,30 +102,36 @@ class Cache(object):
 
     def __getitem__(self, key):
         """ look like a dictionary (get key) """
-        return self._dict[key]
+        try:
+            return self._weakref[key]
+        except KeyError:
+            if key in self._set:
+                pkg = self._weakref[key] = Package(self, self._cache[key])
+                return pkg
+            else:
+                raise KeyError('The cache has no package named %r' % key)
 
     def __iter__(self):
-        for pkgname in self._dict.keys():
-            yield self._dict[pkgname]
+        for pkgname in self._set:
+            yield self[pkgname]
         raise StopIteration
 
     def has_key(self, key):
-        return (key in self._dict)
+        return (key in self._set)
 
     def __contains__(self, key):
-        return (key in self._dict)
+        return (key in self._set)
 
     def __len__(self):
-        return len(self._dict)
+        return len(self._set)
 
     def keys(self):
-        return self._dict.keys()
+        return list(self._set)
 
     def getChanges(self):
         """ Get the marked changes """
         changes = []
-        for name in self._dict.keys():
-            p = self._dict[name]
+        for p in self:
             if p.markedUpgrade or p.markedInstall or p.markedDelete or \
                p.markedDowngrade or p.markedReinstall:
                 changes.append(p)
@@ -348,7 +356,7 @@ class FilteredCache(object):
         return len(self._filtered)
 
     def __getitem__(self, key):
-        return self.cache._dict[key]
+        return self.cache[key]
 
     def __iter__(self):
         for pkgname in self._filtered:
@@ -366,10 +374,10 @@ class FilteredCache(object):
     def _reapplyFilter(self):
         " internal helper to refilter "
         self._filtered = {}
-        for pkg in self.cache._dict.keys():
+        for pkg in self.cache:
             for f in self._filters:
-                if f.apply(self.cache._dict[pkg]):
-                    self._filtered[pkg] = 1
+                if f.apply(pkg):
+                    self._filtered[pkg.name] = 1
                     break
 
     def setFilter(self, filter):
