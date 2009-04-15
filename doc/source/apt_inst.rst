@@ -15,7 +15,7 @@ Checking packages
     :class:`file()` object, a file descriptor, or anything implementing a
     :meth:`fileno` method.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 
@@ -34,7 +34,7 @@ Listing contents
 
     See :ref:`emulating-dpkg-contents` for a more detailed example.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 .. function:: tarExtract(file,func,comp)
@@ -47,7 +47,7 @@ Listing contents
     The parameter *file* may be a :class:`file()` object, a file descriptor, or
     anything implementing a :meth:`fileno` method.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 
@@ -81,7 +81,7 @@ Extracting contents
         If the directory given by *rootdir* does not exist, the package is
         extracted into the current directory.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 .. function:: debExtractControl(file[, member='control'])
@@ -97,7 +97,7 @@ Extracting contents
 
         print debExtractControl(open("package.deb"))
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for file descriptors and objects implementing a :meth:`fileno` method.
 
 

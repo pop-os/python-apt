@@ -1,4 +1,4 @@
-python-apt (0.7.11) UNRELEASED; urgency=low
+python-apt (0.7.90) experimental; urgency=low
 
   * Introduce support for Python 3 (Closes: #523645)
 

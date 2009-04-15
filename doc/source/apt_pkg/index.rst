@@ -166,7 +166,7 @@ of the ones provides in Python's :mod:`hashlib` module.
     object (or a file descriptor), in which case the md5sum of its contents is
     returned.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for using file descriptors.
 
 .. function:: sha1sum(object)
@@ -176,7 +176,7 @@ of the ones provides in Python's :mod:`hashlib` module.
     object (or a file descriptor), in which case the sha1sum of its contents
     is returned.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for using file descriptors.
 
 .. function:: sha256sum(object)
@@ -186,7 +186,7 @@ of the ones provides in Python's :mod:`hashlib` module.
     object  (or a file descriptor), in which case the sha256sum of its contents
     is returned.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for using file descriptors.
 
 Debian control files
@@ -202,7 +202,7 @@ Debian control files
     be a :class:`file()` object, a file descriptor, or anything providing a
     :meth:`fileno()` method.
 
-    .. versionchanged:: 0.7.11
+    .. versionchanged:: 0.8.0
         Added support for using file descriptors.
 
 .. autofunction:: RewriteSection(section, order, rewrite_list)

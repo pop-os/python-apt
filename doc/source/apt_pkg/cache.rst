@@ -121,7 +121,7 @@ Classes in apt_pkg
 
       Return ``True`` if *conf* has a key *key*, else ``False``.
 
-      .. versionadded:: 0.7.11
+      .. versionadded:: 0.8.0
 
     .. describe:: conf[key]
 
@@ -207,7 +207,7 @@ Classes in apt_pkg
 
         Return whether the configuration contains the key *key*.
 
-        .. deprecated:: 0.7.11
+        .. deprecated:: 0.8.0
 
     .. method:: get(key[, default=''])
 
@@ -1211,7 +1211,7 @@ broken dependencies:
 
         Return ``True`` if *section* has a key *key*, else ``False``.
 
-      .. versionadded:: 0.7.11
+      .. versionadded:: 0.8.0
 
     .. method:: Bytes
 
@@ -1236,7 +1236,7 @@ broken dependencies:
 
         Check whether the field with named by *key* exists.
 
-        .. deprecated:: 0.7.11
+        .. deprecated:: 0.8.0
 
     .. method:: keys()
 
