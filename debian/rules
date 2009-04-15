@@ -36,19 +36,19 @@ build/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py build; \
 	done
-	ifeq($(PY3K),y)
+ifeq ($(PY3K),y)
 	python3.1-dbg ./setup3.py build
-	endif
+endif
 
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg \
 	                                   --no-compile; \
 	done
-	ifeq($(PY3K),y)
+ifeq ($(PY3K),y)
 	python3.1-dbg ./setup3.py install --root $(CURDIR)/debian/python-apt-dbg \
 		--install-layout=deb --no-compile
-	endif
+endif
 	find debian/python-apt-dbg \
 		! -type d ! -name '*_d.so' | xargs rm -f
 	find debian/python-apt-dbg -depth -empty -exec rmdir {} \;
