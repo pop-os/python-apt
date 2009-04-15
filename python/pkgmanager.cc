@@ -95,7 +95,9 @@ static PyGetSetDef PkgManagerGetSet[] = {
 PyTypeObject PkgManagerType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "PackageManager",                          // tp_name
    sizeof(CppPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize

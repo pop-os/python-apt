@@ -594,7 +594,9 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
 PyTypeObject PkgDepCacheType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "pkgDepCache",                       // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -773,7 +775,9 @@ static PyMethodDef PkgProblemResolverMethods[] =
 PyTypeObject PkgProblemResolverType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgProblemResolver",                       // tp_name
    sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -829,7 +833,9 @@ static PyMethodDef PkgActionGroupMethods[] =
 PyTypeObject PkgActionGroupType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgActionGroup",                       // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
    0,                                   // tp_itemsize

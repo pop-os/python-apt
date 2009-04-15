@@ -162,8 +162,41 @@ static PyMethodDef methods[] =
    {}
 };
 
+#if PY_MAJOR_VERSION >= 3
+struct module_state {
+    PyObject *error;
+};
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+
+static int apt_inst_traverse(PyObject *m, visitproc visit, void *arg) {
+    Py_VISIT(GETSTATE(m)->error);
+    return 0;
+}
+
+static int apt_inst_clear(PyObject *m) {
+    Py_CLEAR(GETSTATE(m)->error);
+    return 0;
+}
+
+static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "apt_inst",
+        NULL,
+        sizeof(struct module_state),
+        methods,
+        NULL,
+        apt_inst_traverse,
+        apt_inst_clear,
+        NULL
+};
+
+extern "C" PyObject * PyInit_apt_inst()
+{
+   return PyModule_Create(&moduledef);
+}
+#else
 extern "C" void initapt_inst()
 {
    Py_InitModule("apt_inst",methods);
 }
-									/*}}}*/
+#endif									/*}}}*/

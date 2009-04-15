@@ -100,7 +100,9 @@ static PyGetSetDef PkgSourceListGetSet[] = {
 PyTypeObject PkgSourceListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgSourceList",                          // tp_name
    sizeof(CppPyObject<pkgSourceList*>),   // tp_basicsize
    0,                                   // tp_itemsize

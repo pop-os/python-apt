@@ -272,8 +272,12 @@ class Version(object):
         """
         self.summary # This does the lookup for us.
         desc = ''
+
+        dsc = self.package._pcache._records.LongDesc
         try:
-            dsc = unicode(self.package._pcache._records.LongDesc, "utf-8")
+            if not isinstance(dsc, unicode):
+                # Only convert where needed (i.e. Python 2.X)
+                dsc = unicode(dsc, "utf-8")
         except UnicodeDecodeError, err:
             return _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.package.name, err)

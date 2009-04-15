@@ -72,7 +72,9 @@ static PyObject *AcquireItemRepr(PyObject *Self)
 PyTypeObject AcquireItemType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgAcquire::ItemIterator",         // tp_name
    sizeof(CppOwnedPyObject<pkgAcquire::ItemIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -175,7 +177,9 @@ static PyGetSetDef PkgAcquireGetSet[] = {
 PyTypeObject PkgAcquireType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "Acquire",                           // tp_name
    sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
    0,                                   // tp_itemsize
@@ -234,7 +238,9 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 PyTypeObject PkgAcquireFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgAcquireFile",                   // tp_name
    sizeof(CppPyObject<pkgAcqFile*>),// tp_basicsize
    0,                                   // tp_itemsize

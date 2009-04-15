@@ -481,7 +481,9 @@ static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
 PyTypeObject ConfigurationType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "Configuration",                     // tp_name
    sizeof(CppPyObject<Configuration>),  // tp_basicsize
    0,                                   // tp_itemsize
@@ -515,7 +517,9 @@ PyTypeObject ConfigurationType =
 PyTypeObject ConfigurationPtrType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "ConfigurationPtr",                  // tp_name
    sizeof(CppPyObject<Configuration *>),  // tp_basicsize
    0,                                   // tp_itemsize
@@ -549,7 +553,9 @@ PyTypeObject ConfigurationPtrType =
 PyTypeObject ConfigurationSubType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "ConfigurationSub",                  // tp_name
    sizeof(SubConfiguration),            // tp_basicsize
    0,                                   // tp_itemsize

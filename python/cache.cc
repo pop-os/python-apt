@@ -239,7 +239,9 @@ static PyMappingMethods CacheMap = {0,CacheMapOp,0};
 PyTypeObject PkgCacheType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache",                          // tp_name
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -277,7 +279,9 @@ PyTypeObject PkgCacheType =
 PyTypeObject PkgCacheFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCacheFile",                      // tp_name
    sizeof(CppOwnedPyObject<pkgCacheFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -345,7 +349,9 @@ static PySequenceMethods PkgListSeq =
 PyTypeObject PkgListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::PkgIterator",             // tp_name
    sizeof(CppOwnedPyObject<PkgListStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -435,7 +441,9 @@ static PyObject *PackageRepr(PyObject *Self)
 PyTypeObject PackageType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::Package",                 // tp_name
    sizeof(CppOwnedPyObject<pkgCache::PkgIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -498,7 +506,9 @@ static PyObject *DescriptionRepr(PyObject *Self)
 PyTypeObject DescriptionType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::DescIterator",             // tp_name
    sizeof(CppOwnedPyObject<pkgCache::DescIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -684,7 +694,9 @@ static PyObject *VersionRepr(PyObject *Self)
 PyTypeObject VersionType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::VerIterator",             // tp_name
    sizeof(CppOwnedPyObject<pkgCache::VerIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -759,7 +771,9 @@ static PyObject *PackageFileRepr(PyObject *Self)
 PyTypeObject PackageFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::PkgFileIterator",         // tp_name
    sizeof(CppOwnedPyObject<pkgCache::PkgFileIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -905,7 +919,9 @@ static PyGetSetDef DependencyGetSet[] = {
 PyTypeObject DependencyType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::DepIterator",             // tp_name
    sizeof(CppOwnedPyObject<pkgCache::DepIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -991,7 +1007,9 @@ static PySequenceMethods RDepListSeq =
 PyTypeObject RDepListType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgCache::DepIterator",             // tp_name
    sizeof(CppOwnedPyObject<RDepListStruct>),   // tp_basicsize
    0,                                   // tp_itemsize

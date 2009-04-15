@@ -384,7 +384,9 @@ PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 PyTypeObject TagSecType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "TagSection",                        // tp_name
    sizeof(TagSecData),                  // tp_basicsize
    0,                                   // tp_itemsize
@@ -442,7 +444,9 @@ static PyGetSetDef TagFileGetSet[] = {
 PyTypeObject TagFileType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
+   #endif
    "TagFile",                           // tp_name
    sizeof(TagFileData),                 // tp_basicsize
    0,                                   // tp_itemsize

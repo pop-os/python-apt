@@ -183,7 +183,9 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
 PyTypeObject PkgSrcRecordsType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
+   #endif
    "pkgSrcRecords",                          // tp_name
    sizeof(CppPyObject<PkgSrcRecordsStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
