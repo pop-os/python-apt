@@ -422,10 +422,10 @@ def _test():
     win.show()
     cache = apt.cache.Cache(apt_progress.open)
     pkg = cache["xterm"]
-    if pkg.isInstalled:
-        pkg.markDelete()
+    if pkg.is_installed:
+        pkg.mark_delete()
     else:
-        pkg.markInstall()
+        pkg.mark_install()
     apt_progress.show_terminal(True)
     try:
         cache.commit(apt_progress.fetch, apt_progress.install)

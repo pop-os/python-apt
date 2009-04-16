@@ -589,6 +589,12 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"InstStateReInstReq",pkgCache::State::ReInstReq);
    AddInt(Dict,"InstStateHold",pkgCache::State::Hold);
    AddInt(Dict,"InstStateHoldReInstReq",pkgCache::State::HoldReInstReq);
+
+   #ifdef COMPAT_0_7
+   AddInt(Dict,"_COMPAT_0_7",1);
+   #else
+   AddInt(Dict,"_COMPAT_0_7",0);
+   #endif
    #if PY_MAJOR_VERSION >= 3
    return Module;
    #endif

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-15 16:10+0200\n"
+"POT-Creation-Date: 2009-04-16 19:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -354,16 +354,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:282
+#: ../apt/package.py:286
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:830 ../apt/package.py:934
+#: ../apt/package.py:846 ../apt/package.py:950
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:938
+#: ../apt/package.py:954
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -372,7 +372,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:944
+#: ../apt/package.py:960
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."

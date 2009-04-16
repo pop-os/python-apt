@@ -17,17 +17,21 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 # import the core of apt_pkg
+"""High-Level Interface for working with apt."""
 import apt_pkg
-import sys
-import os
 
 # import some fancy classes
 from apt.package import Package
 from apt.cache import Cache
-from apt.progress import (
-    OpProgress, FetchProgress, InstallProgress, CdromProgress)
 from apt.cdrom import Cdrom
-from apt_pkg import SizeToStr, TimeToStr, VersionCompare
+
+if apt_pkg._COMPAT_0_7:
+    from apt.progress import (OpProgress, FetchProgress, InstallProgress,
+                              CdromProgress)
+
+
+if apt_pkg._COMPAT_0_7:
+    from apt_pkg import SizeToStr, TimeToStr, VersionCompare
 
 # init the package system
 apt_pkg.init()
@@ -36,3 +40,4 @@ apt_pkg.init()
 #import warnings
 #warnings.warn("apt API not stable yet", FutureWarning)
 #del warnings
+__all__ = ['Cache', 'Cdrom', 'Package']

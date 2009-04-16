@@ -33,6 +33,7 @@ import time
 
 import apt_pkg
 from aptsources.distinfo import DistInfo
+from apt.deprecation import function_deprecated_by
 
 
 # some global helpers
@@ -309,7 +310,7 @@ class SourcesList(object):
         """ remove the specified entry from the sources.list """
         self.list.remove(source_entry)
 
-    def restoreBackup(self, backup_ext):
+    def restore_backup(self, backup_ext):
         " restore sources.list files based on the backup extension "
         file = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
         if os.path.exists(file+backup_ext) and \
@@ -320,6 +321,9 @@ class SourcesList(object):
         for file in glob.glob("%s/*.list" % partsdir):
             if os.path.exists(file+backup_ext):
                 shutil.copy(file+backup_ext, file)
+
+    if apt_pkg._COMPAT_0_7:
+        restoreBackup = function_deprecated_by(restore_backup)
 
     def backup(self, backup_ext=None):
         """ make a backup of the current source files, if no backup extension

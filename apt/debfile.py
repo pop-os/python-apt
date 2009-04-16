@@ -97,11 +97,11 @@ class DebPackage(object):
 
             # check for virtual pkgs
             if not depname in self._cache:
-                if self._cache.isVirtualPackage(depname):
+                if self._cache.is_virtual_package(depname):
                     self._dbg(3, "_isOrGroupSatisfied(): %s is virtual dep" %
                                  depname)
-                    for pkg in self._cache.getProvidingPackages(depname):
-                        if pkg.isInstalled:
+                    for pkg in self._cache.get_providing_packages(depname):
+                        if pkg.is_installed:
                             return True
                 continue
 
@@ -117,9 +117,9 @@ class DebPackage(object):
 
             # if we don't have it in the cache, it may be virtual
             if not depname in self._cache:
-                if not self._cache.isVirtualPackage(depname):
+                if not self._cache.is_virtual_package(depname):
                     continue
-                providers = self._cache.getProvidingPackages(depname)
+                providers = self._cache.get_providing_packages(depname)
                 # if a package just has a single virtual provider, we
                 # just pick that (just like apt)
                 if len(providers) != 1:
@@ -158,9 +158,9 @@ class DebPackage(object):
                      (pkgname, ver, oper))
 
         pkg = self._cache[pkgname]
-        if pkg.isInstalled:
+        if pkg.is_installed:
             pkgver = pkg.installed.version
-        elif pkg.markedInstall:
+        elif pkg.marked_install:
             pkgver = pkg.candidate.version
         else:
             return False
@@ -191,8 +191,8 @@ class DebPackage(object):
             if not depname in self._cache:
                 # FIXME: we have to check for virtual replaces here as
                 #        well (to pass tests/gdebi-test8.deb)
-                if self._cache.isVirtualPackage(depname):
-                    for pkg in self._cache.getProvidingPackages(depname):
+                if self._cache.is_virtual_package(depname):
+                    for pkg in self._cache.get_providing_packages(depname):
                         self._dbg(3, "conflicts virtual check: %s" % pkg.name)
                         # P/C/R on virtal pkg, e.g. ftpd
                         if self.pkgname == pkg.name:
@@ -253,9 +253,9 @@ class DebPackage(object):
         """
         self._dbg(3, "replacesPkg() %s %s %s" % (pkgname, oper, ver))
         pkg = self._cache[pkgname]
-        if pkg.isInstalled:
+        if pkg.is_installed:
             pkgver = pkg.installed.version
-        elif pkg.markedInstall:
+        elif pkg.marked_install:
             pkgver = pkg.candidate.version
         else:
             pkgver = None
@@ -371,7 +371,7 @@ class DebPackage(object):
         # now try it out in the cache
         for pkg in self._need_pkgs:
             try:
-                self._cache[pkg].markInstall(fromUser=False)
+                self._cache[pkg].mark_install(fromUser=False)
             except SystemError, e:
                 self._failure_string = _("Cannot install '%s'" % pkg)
                 self._cache.clear()
@@ -396,7 +396,7 @@ class DebPackage(object):
         remove = []
         unauthenticated = []
         for pkg in self._cache:
-            if pkg.markedInstall or pkg.markedUpgrade:
+            if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
                 # check authentication, one authenticated origin is enough
                 # libapt will skip non-authenticated origins then
@@ -405,7 +405,7 @@ class DebPackage(object):
                     authenticated |= origin.trusted
                 if not authenticated:
                     unauthenticated.append(pkg.name)
-            if pkg.markedDelete:
+            if pkg.marked_delete:
                 remove.append(pkg.name)
         return (install, remove, unauthenticated)
 
@@ -492,7 +492,7 @@ class DscSrcPackage(DebPackage):
             for pkgname in self._installed_conflicts:
                 if self._cache[pkgname]._pkg.Essential:
                     raise Exception(_("An essential package would be removed"))
-                self._cache[pkgname].markDelete()
+                self._cache[pkgname].mark_delete()
         # FIXME: a additional run of the checkConflicts()
         #        after _satisfyDepends() should probably be done
         return self._satisfy_depends(self.depends)
@@ -507,7 +507,7 @@ def _test():
 
     vp = "www-browser"
     #print "%s virtual: %s" % (vp, cache.isVirtualPackage(vp))
-    providers = cache.getProvidingPackages(vp)
+    providers = cache.get_providing_packages(vp)
     print "Providers for %s :" % vp
     for pkg in providers:
         print " %s" % pkg.name

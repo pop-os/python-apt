@@ -31,6 +31,7 @@ import warnings
 
 import apt_pkg
 import apt.progress
+from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version')
@@ -56,21 +57,24 @@ class BaseDependency(object):
     """A single dependency.
 
     Attributes defined here:
-        name      - The name of the dependency
-        relation  - The relation (>>,>=,==,<<,<=,)
-        version   - The version depended on
-        preDepend - Boolean value whether this is a pre-dependency.
+        name       - The name of the dependency
+        relation   - The relation (>>,>=,==,<<,<=,)
+        version    - The version depended on
+        pre_depend - Boolean value whether this is a pre-dependency.
     """
 
     def __init__(self, name, rel, ver, pre):
         self.name = name
         self.relation = rel
         self.version = ver
-        self.preDepend = pre
+        self.pre_depend = pre
 
     def __repr__(self):
         return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
-                % (self.name, self.relation, self.version, self.preDepend))
+                % (self.name, self.relation, self.version, self.pre_depend))
+
+    if apt_pkg._COMPAT_0_7:
+        preDepend = AttributeDeprecatedBy('pre_depend')
 
 
 class Dependency(object):
@@ -103,7 +107,7 @@ class DeprecatedProperty(property):
             warnings.warn("Accessed deprecated property %s.%s, please see the "
                           "Version class for alternatives." %
                            ((obj.__class__.__name__ or type.__name__),
-                           self.fget.func_name), DeprecationWarning, 2)
+                           self.fget.__name__), DeprecationWarning, 2)
         return property.__get__(self, obj, type)
 
 
@@ -528,9 +532,9 @@ class Package(object):
 
     def __set_candidate(self, version):
         """Set the candidate version of the package."""
-        self._pcache.cachePreChange()
+        self._pcache.cache_pre_change()
         self._pcache._depcache.SetCandidateVer(self._pkg, version._cand)
-        self._pcache.cachePostChange()
+        self._pcache.cache_post_change()
 
     candidate = property(candidate, __set_candidate)
 
@@ -703,55 +707,56 @@ class Package(object):
     # depcache states
 
     @property
-    def markedInstall(self):
+    def marked_install(self):
         """Return ``True`` if the package is marked for install."""
         return self._pcache._depcache.MarkedInstall(self._pkg)
 
     @property
-    def markedUpgrade(self):
+    def marked_upgrade(self):
         """Return ``True`` if the package is marked for upgrade."""
         return self._pcache._depcache.MarkedUpgrade(self._pkg)
 
     @property
-    def markedDelete(self):
+    def marked_delete(self):
         """Return ``True`` if the package is marked for delete."""
         return self._pcache._depcache.MarkedDelete(self._pkg)
 
     @property
-    def markedKeep(self):
+    def marked_keep(self):
         """Return ``True`` if the package is marked for keep."""
         return self._pcache._depcache.MarkedKeep(self._pkg)
 
     @property
-    def markedDowngrade(self):
+    def marked_downgrade(self):
         """ Package is marked for downgrade """
         return self._pcache._depcache.MarkedDowngrade(self._pkg)
 
     @property
-    def markedReinstall(self):
+    def marked_reinstall(self):
         """Return ``True`` if the package is marked for reinstall."""
         return self._pcache._depcache.MarkedReinstall(self._pkg)
 
     @property
-    def isInstalled(self):
+    def is_installed(self):
         """Return ``True`` if the package is installed."""
         return (self._pkg.CurrentVer is not None)
 
     @property
-    def isUpgradable(self):
+    def is_upgradable(self):
         """Return ``True`` if the package is upgradable."""
-        return (self.isInstalled and
+        return (self.is_installed and
                 self._pcache._depcache.IsUpgradable(self._pkg))
 
     @property
-    def isAutoRemovable(self):
+    def is_auto_removable(self):
         """Return ``True`` if the package is no longer required.
 
         If the package has been installed automatically as a dependency of
         another package, and if no packages depend on it anymore, the package
         is no longer required.
         """
-        return self.isInstalled and self._pcache._depcache.IsGarbage(self._pkg)
+        return self.is_installed and \
+               self._pcache._depcache.IsGarbage(self._pkg)
 
     # sizes
 
@@ -789,7 +794,7 @@ class Package(object):
         return getattr(self.installed, 'installed_size', 0)
 
     @property
-    def installedFiles(self):
+    def installed_files(self):
         """Return a list of files installed by the package.
 
         Return a list of unicode names of the files which have
@@ -805,7 +810,7 @@ class Package(object):
         except EnvironmentError:
             return []
 
-    def getChangelog(self, uri=None, cancel_lock=None):
+    def get_changelog(self, uri=None, cancel_lock=None):
         """
         Download the changelog of the package and return it as unicode
         string.
@@ -928,7 +933,7 @@ class Package(object):
                     if match:
                         # strip epoch from installed version
                         # and from changelog too
-                        installed = self.installedVersion
+                        installed = getattr(self.installed, 'version', None)
                         if installed and ":" in installed:
                             installed = installed.split(":", 1)[1]
                         changelog_ver = match.group(1)
@@ -976,13 +981,13 @@ class Package(object):
 
     # depcache actions
 
-    def markKeep(self):
+    def mark_keep(self):
         """Mark a package for keep."""
-        self._pcache.cachePreChange()
+        self._pcache.cache_pre_change()
         self._pcache._depcache.MarkKeep(self._pkg)
-        self._pcache.cachePostChange()
+        self._pcache.cache_post_change()
 
-    def markDelete(self, autoFix=True, purge=False):
+    def mark_delete(self, autoFix=True, purge=False):
         """Mark a package for install.
 
         If *autoFix* is ``True``, the resolver will be run, trying to fix
@@ -991,7 +996,7 @@ class Package(object):
         If *purge* is ``True``, remove the configuration files of the package
         as well.  The default is to keep the configuration.
         """
-        self._pcache.cachePreChange()
+        self._pcache.cache_pre_change()
         self._pcache._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
         if autoFix and self._pcache._depcache.BrokenCount > 0:
@@ -1001,9 +1006,9 @@ class Package(object):
             Fix.Remove(self._pkg)
             Fix.InstallProtect()
             Fix.Resolve()
-        self._pcache.cachePostChange()
+        self._pcache.cache_post_change()
 
-    def markInstall(self, autoFix=True, autoInst=True, fromUser=True):
+    def mark_install(self, autoFix=True, autoInst=True, fromUser=True):
         """Mark a package for install.
 
         If *autoFix* is ``True``, the resolver will be run, trying to fix
@@ -1017,7 +1022,7 @@ class Package(object):
         want to be able to automatically remove the package at a later stage
         when no other package depends on it.
         """
-        self._pcache.cachePreChange()
+        self._pcache.cache_pre_change()
         self._pcache._depcache.MarkInstall(self._pkg, autoInst, fromUser)
         # try to fix broken stuff
         if autoFix and self._pcache._depcache.BrokenCount > 0:
@@ -1025,12 +1030,12 @@ class Package(object):
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
             fixer.Resolve(True)
-        self._pcache.cachePostChange()
+        self._pcache.cache_post_change()
 
-    def markUpgrade(self):
+    def mark_upgrade(self):
         """Mark a package for upgrade."""
-        if self.isUpgradable:
-            self.markInstall()
+        if self.is_upgradable:
+            self.mark_install()
         else:
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
@@ -1048,11 +1053,50 @@ class Package(object):
         self._pcache._depcache.Commit(fprogress, iprogress)
 
 
+    if not apt_pkg._COMPAT_0_7:
+        del installedVersion
+        del candidateVersion
+        del candidateDependencies
+        del installedDependencies
+        del architecture
+        del candidateDownloadable
+        del installedDownloadable
+        del sourcePackageName
+        del homepage
+        del priority
+        del installedPriority
+        del summary
+        del description
+        del rawDescription
+        del candidateRecord
+        del installedRecord
+        del packageSize
+        del installedPackageSize
+        del candidateInstalledSize
+        del installedSize
+        del candidateOrigin
+    else:
+        markedInstalled = AttributeDeprecatedBy('marked_installed')
+        markedUpgrade = AttributeDeprecatedBy('marked_upgrade')
+        markedDelete = AttributeDeprecatedBy('marked_delete')
+        markedKeep = AttributeDeprecatedBy('marked_keep')
+        markedDowngrade = AttributeDeprecatedBy('marked_downgrade')
+        markedReinstall = AttributeDeprecatedBy('marked_reinstall')
+        isInstalled = AttributeDeprecatedBy('is_installed')
+        isUpgradable = AttributeDeprecatedBy('is_upgradable')
+        isAutoRemovable = AttributeDeprecatedBy('is_auto_removable')
+        installedFiles = AttributeDeprecatedBy('installed_files')
+        getChangelog = function_deprecated_by(get_changelog)
+        markDelete = function_deprecated_by(mark_delete)
+        markInstall = function_deprecated_by(mark_install)
+        markKeep = function_deprecated_by(mark_keep)
+        markUpgrade = function_deprecated_by(mark_upgrade)
+
+
 def _test():
     """Self-test."""
     print "Self-test for the Package modul"
     import random
-    import apt
     apt_pkg.init()
     progress = apt.progress.OpTextProgress()
     cache = apt.Cache(progress)
@@ -1075,19 +1119,19 @@ def _test():
     print "Dependencies: %s" % pkg.installed.dependencies
     for dep in pkg.candidate.dependencies:
         print ",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
-                        o.preDepend) for o in dep.or_dependencies)
+                        o.pre_depend) for o in dep.or_dependencies)
     print "arch: %s" % pkg.candidate.architecture
     print "homepage: %s" % pkg.candidate.homepage
     print "rec: ", pkg.candidate.record
 
 
-    print cache["2vcard"].getChangelog()
+    print cache["2vcard"].get_changelog()
     for i in True, False:
         print "Running install on random upgradable pkgs with AutoFix: %s " % i
         for pkg in cache:
-            if pkg.isUpgradable:
+            if pkg.is_upgradable:
                 if random.randint(0, 1) == 1:
-                    pkg.markInstall(i)
+                    pkg.mark_install(i)
         print "Broken: %s " % cache._depcache.BrokenCount
         print "InstCount: %s " % cache._depcache.InstCount
 
@@ -1099,7 +1143,7 @@ def _test():
         for name in cache.keys():
             if random.randint(0, 1) == 1:
                 try:
-                    cache[name].markDelete(i)
+                    cache[name].mark_delete(i)
                 except SystemError:
                     print "Error trying to remove: %s " % name
         print "Broken: %s " % cache._depcache.BrokenCount

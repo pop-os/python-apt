@@ -24,6 +24,7 @@ import glob
 
 import apt_pkg
 from apt.progress import CdromProgress
+from apt.deprecation import AttributeDeprecatedBy
 
 
 class Cdrom(object):
@@ -69,7 +70,7 @@ class Cdrom(object):
             return ident
 
     @property
-    def inSourcesList(self):
+    def in_sources_list(self):
         """Check if the cdrom is already in the current sources.list."""
         cd_id = self.ident()
         if cd_id is None:
@@ -84,3 +85,6 @@ class Cdrom(object):
                 if not line.lstrip().startswith("#") and cd_id in line:
                     return True
         return False
+
+    if apt_pkg._COMPAT_0_7:
+        inSourcesList = AttributeDeprecatedBy('in_sources_list')
