@@ -427,7 +427,7 @@ static PyGetSetDef PackageGetSet[] = {
     {"InstState",PackageGetInstState},
     {"CurrentState",PackageGetCurrentState},
     {"ID",PackageGetID},
-    {"Auto",PackageGetID},
+    {"Auto",PackageGetAuto},
     {"Essential",PackageGetEssential},
     {"Important",PackageGetImportant},
     {"VersionList",PackageGetVersionList},
