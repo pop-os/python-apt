@@ -1,3 +1,14 @@
+python-apt (0.7.9~exp2ubuntu11) jaunty; urgency=low
+
+  [ Matthias Klose ]
+  * Build for python2.4 as well. LP: #354812.
+
+  [ Michael vogt ]
+  * setup.py:
+    - only use sphinx for python2.5 or later
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 16 Apr 2009 16:50:38 +0200
+
 python-apt (0.7.9~exp2ubuntu10) jaunty; urgency=low
 
   * .bzr-buildpackage/default.conf:

@@ -5,8 +5,8 @@ Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Matt Zimmerman <mdz@debian.org>, Michael Vogt <mvo@debian.org>
 Standards-Version: 3.7.2.2
-XS-Python-Version: all
-Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.20), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.6.11), python-all-dbg, python-sphinx (>= 0.5)
+XS-Python-Version: 2.4, all
+Build-Depends: debhelper (>= 5.0.37.1), libapt-pkg-dev (>= 0.7.20), apt-utils, python-all-dev, python-distutils-extra (>= 1.9.0), cdbs, python-central (>= 0.6.11), python-all-dbg, python-sphinx (>= 0.5), python2.4-dev, python2.4-dbg
 XS-Original-Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
 

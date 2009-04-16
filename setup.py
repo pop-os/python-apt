@@ -61,7 +61,8 @@ setup(name="python-apt",
       license = 'GNU GPL',
       platforms = 'posix')
 
-if len(sys.argv) > 1 and sys.argv[1] == "build":
+if (len(sys.argv) > 1 and sys.argv[1] == "build" and
+    sys.version_info[0] >= 2 and sys.version_info[1] >= 5):
     import sphinx
     sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
                 os.path.abspath("doc/source"), "build/doc/html"])
