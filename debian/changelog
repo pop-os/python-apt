@@ -1,8 +1,9 @@
 python-apt (0.7.91) UNRELEASED; urgency=low
 
   * Rename all methods,functions,attributes to conform to PEP 8 (Closes: #481061)
+  * Where possible, derive apt.package.Record from collections.Mapping.
 
- -- Julian Andres Klode <jak@debian.org>  Thu, 16 Apr 2009 18:54:29 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 17 Apr 2009 17:48:27 +0200
 
 python-apt (0.7.90) experimental; urgency=low
 

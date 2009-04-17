@@ -28,6 +28,11 @@ import socket
 import subprocess
 import urllib2
 import warnings
+try:
+    from collections import Mapping
+except ImportError:
+    # (for Python < 2.6) pylint: disable-msg=C0103
+    Mapping = object
 
 import apt_pkg
 import apt.progress
@@ -145,7 +150,7 @@ class Origin(object):
                                             self.site, self.trusted)
 
 
-class Record(object):
+class Record(Mapping):
     """Represent a pkgRecord.
 
     It can be accessed like a dictionary and can also give the original package
@@ -154,6 +159,9 @@ class Record(object):
 
     def __init__(self, record_str):
         self._rec = apt_pkg.ParseSection(record_str)
+
+    def __hash__(self):
+        return hash(self._rec)
 
     def __str__(self):
         return str(self._rec)
@@ -182,6 +190,9 @@ class Record(object):
     def has_key(self, key):
         """deprecated form of ``key in x``."""
         return key in self._rec
+
+    def __len__(self):
+        return len(self._rec)
 
 
 class Version(object):
