@@ -66,8 +66,8 @@ packages whose state has been changed, eg. packages marked for installation::
     >>> from apt.cache import FilteredCache, Cache, MarkedChangesFilter
     >>> cache = apt.Cache()
     >>> changed = apt.FilteredCache(cache)
-    >>> changed.setFilter(MarkedChangesFilter())
-    >>> print len(changed) == len(cache.GetChanges()) # Both need to have same length
+    >>> changed.set_filter(MarkedChangesFilter())
+    >>> print len(changed) == len(cache.get_changes()) # Both need to have same length
     True
 
 

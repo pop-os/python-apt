@@ -40,7 +40,7 @@ Dependency Information
 
         The version or None.
 
-    .. attribute:: preDepend
+    .. attribute:: pre_depend
 
         Boolean value whether this is a pre-dependency.
 
@@ -101,9 +101,9 @@ Examples
     print 'python-apt is trusted:', pkg.candidate.origins[0].trusted
 
     # Mark python-apt for install
-    pkg.markInstall()
+    pkg.mark_install()
 
-    print 'python-apt is marked for install:', pkg.markedInstall
+    print 'python-apt is marked for install:', pkg.marked_install
 
     print 'python-apt is (summary):', pkg.candidate.summary
 
