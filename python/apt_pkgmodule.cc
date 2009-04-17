@@ -456,19 +456,6 @@ static PyMethodDef methods[] =
    {}
 };
 
-static void AddStr(PyObject *Dict,const char *Itm,const char *Str)
-{
-   PyObject *Obj = PyString_FromString(Str);
-   PyDict_SetItemString(Dict,(char *)Itm,Obj);
-   Py_DECREF(Obj);
-}
-
-static void AddInt(PyObject *Dict,const char *Itm,unsigned long I)
-{
-   PyObject *Obj = Py_BuildValue("i",I);
-   PyDict_SetItemString(Dict,(char *)Itm,Obj);
-   Py_DECREF(Obj);
-}
 
 #if PY_MAJOR_VERSION >= 3
 struct module_state {
@@ -534,66 +521,63 @@ extern "C" void initapt_pkg()
    #else
    PyObject *Module = Py_InitModule("apt_pkg",methods);
    #endif
-   PyObject *Dict = PyModule_GetDict(Module);
 
    // Global variable linked to the global configuration class
    CppPyObject<Configuration *> *Config = CppPyObject_NEW<Configuration *>(&ConfigurationPtrType);
    Config->Object = _config;
-   PyDict_SetItemString(Dict,"Config",Config);
-   Py_DECREF(Config);
+   PyModule_AddObject(Module,"Config",Config);
 
    // Tag file constants
-   PyObject *Obj;
-   PyDict_SetItemString(Dict,"RewritePackageOrder",
-			Obj = CharCharToList(TFRewritePackageOrder));
-   Py_DECREF(Obj);
-   PyDict_SetItemString(Dict,"RewriteSourceOrder",
-			Obj = CharCharToList(TFRewriteSourceOrder));
-   Py_DECREF(Obj);
+   PyModule_AddObject(Module,"RewritePackageOrder",
+                      CharCharToList(TFRewritePackageOrder));
+
+   PyModule_AddObject(Module,"RewriteSourceOrder",
+                      CharCharToList(TFRewriteSourceOrder));
 
    // Version..
-   AddStr(Dict,"Version",pkgVersion);
-   AddStr(Dict,"LibVersion",pkgLibVersion);
-   AddStr(Dict,"Date",__DATE__);
-   AddStr(Dict,"Time",__TIME__);
+   PyModule_AddStringConstant(Module,"Version",pkgVersion);
+   PyModule_AddStringConstant(Module,"LibVersion",pkgLibVersion);
+   PyModule_AddStringConstant(Module,"Date",__DATE__);
+   PyModule_AddStringConstant(Module,"Time",__TIME__);
 
    // My constants
-   AddInt(Dict,"DepDepends",pkgCache::Dep::Depends);
-   AddInt(Dict,"DepPreDepends",pkgCache::Dep::PreDepends);
-   AddInt(Dict,"DepSuggests",pkgCache::Dep::Suggests);
-   AddInt(Dict,"DepRecommends",pkgCache::Dep::Recommends);
-   AddInt(Dict,"DepConflicts",pkgCache::Dep::Conflicts);
-   AddInt(Dict,"DepReplaces",pkgCache::Dep::Replaces);
-   AddInt(Dict,"DepObsoletes",pkgCache::Dep::Obsoletes);
 
-   AddInt(Dict,"PriImportant",pkgCache::State::Important);
-   AddInt(Dict,"PriRequired",pkgCache::State::Required);
-   AddInt(Dict,"PriStandard",pkgCache::State::Standard);
-   AddInt(Dict,"PriOptional",pkgCache::State::Optional);
-   AddInt(Dict,"PriExtra",pkgCache::State::Extra);
+   PyModule_AddIntConstant(Module,"DepDepends",pkgCache::Dep::Depends);
+   PyModule_AddIntConstant(Module,"DepPreDepends",pkgCache::Dep::PreDepends);
+   PyModule_AddIntConstant(Module,"DepSuggests",pkgCache::Dep::Suggests);
+   PyModule_AddIntConstant(Module,"DepRecommends",pkgCache::Dep::Recommends);
+   PyModule_AddIntConstant(Module,"DepConflicts",pkgCache::Dep::Conflicts);
+   PyModule_AddIntConstant(Module,"DepReplaces",pkgCache::Dep::Replaces);
+   PyModule_AddIntConstant(Module,"DepObsoletes",pkgCache::Dep::Obsoletes);
 
-   AddInt(Dict,"CurStateNotInstalled",pkgCache::State::NotInstalled);
-   AddInt(Dict,"CurStateUnPacked",pkgCache::State::UnPacked);
-   AddInt(Dict,"CurStateHalfConfigured",pkgCache::State::HalfConfigured);
-   AddInt(Dict,"CurStateHalfInstalled",pkgCache::State::HalfInstalled);
-   AddInt(Dict,"CurStateConfigFiles",pkgCache::State::ConfigFiles);
-   AddInt(Dict,"CurStateInstalled",pkgCache::State::Installed);
+   PyModule_AddIntConstant(Module,"PriImportant",pkgCache::State::Important);
+   PyModule_AddIntConstant(Module,"PriRequired",pkgCache::State::Required);
+   PyModule_AddIntConstant(Module,"PriStandard",pkgCache::State::Standard);
+   PyModule_AddIntConstant(Module,"PriOptional",pkgCache::State::Optional);
+   PyModule_AddIntConstant(Module,"PriExtra",pkgCache::State::Extra);
 
-   AddInt(Dict,"SelStateUnknown",pkgCache::State::Unknown);
-   AddInt(Dict,"SelStateInstall",pkgCache::State::Install);
-   AddInt(Dict,"SelStateHold",pkgCache::State::Hold);
-   AddInt(Dict,"SelStateDeInstall",pkgCache::State::DeInstall);
-   AddInt(Dict,"SelStatePurge",pkgCache::State::Purge);
+   PyModule_AddIntConstant(Module,"CurStateNotInstalled",pkgCache::State::NotInstalled);
+   PyModule_AddIntConstant(Module,"CurStateUnPacked",pkgCache::State::UnPacked);
+   PyModule_AddIntConstant(Module,"CurStateHalfConfigured",pkgCache::State::HalfConfigured);
+   PyModule_AddIntConstant(Module,"CurStateHalfInstalled",pkgCache::State::HalfInstalled);
+   PyModule_AddIntConstant(Module,"CurStateConfigFiles",pkgCache::State::ConfigFiles);
+   PyModule_AddIntConstant(Module,"CurStateInstalled",pkgCache::State::Installed);
 
-   AddInt(Dict,"InstStateOk",pkgCache::State::Ok);
-   AddInt(Dict,"InstStateReInstReq",pkgCache::State::ReInstReq);
-   AddInt(Dict,"InstStateHold",pkgCache::State::Hold);
-   AddInt(Dict,"InstStateHoldReInstReq",pkgCache::State::HoldReInstReq);
+   PyModule_AddIntConstant(Module,"SelStateUnknown",pkgCache::State::Unknown);
+   PyModule_AddIntConstant(Module,"SelStateInstall",pkgCache::State::Install);
+   PyModule_AddIntConstant(Module,"SelStateHold",pkgCache::State::Hold);
+   PyModule_AddIntConstant(Module,"SelStateDeInstall",pkgCache::State::DeInstall);
+   PyModule_AddIntConstant(Module,"SelStatePurge",pkgCache::State::Purge);
+
+   PyModule_AddIntConstant(Module,"InstStateOk",pkgCache::State::Ok);
+   PyModule_AddIntConstant(Module,"InstStateReInstReq",pkgCache::State::ReInstReq);
+   PyModule_AddIntConstant(Module,"InstStateHold",pkgCache::State::Hold);
+   PyModule_AddIntConstant(Module,"InstStateHoldReInstReq",pkgCache::State::HoldReInstReq);
 
    #ifdef COMPAT_0_7
-   AddInt(Dict,"_COMPAT_0_7",1);
+   PyModule_AddIntConstant(Module,"_COMPAT_0_7",1);
    #else
-   AddInt(Dict,"_COMPAT_0_7",0);
+   PyModule_AddIntConstant(Module,"_COMPAT_0_7",0);
    #endif
    #if PY_MAJOR_VERSION >= 3
    return Module;
