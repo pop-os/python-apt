@@ -26,6 +26,8 @@ import re
 import operator
 import warnings
 
+import apt_pkg
+
 __all__ = []
 
 
@@ -43,12 +45,12 @@ class AttributeDeprecatedBy(object):
         self.__doc__ = 'Deprecated, please use \'%s\' instead' % attribute
         self.getter = operator.attrgetter(attribute)
 
-    def __get__(self, obj, type=None):
+    def __get__(self, obj, type_=None):
         """Issue a  DeprecationWarning and return the requested value."""
         if obj is None:
-            return getattr(type, self.attribute, self)
+            return getattr(type_, self.attribute, self)
         warnings.warn(self.__doc__, DeprecationWarning, stacklevel=2)
-        return self.getter(obj or type)
+        return self.getter(obj or type_)
 
     def __set__(self, obj, value):
         """Issue a  DeprecationWarning and set the requested value."""
@@ -65,12 +67,40 @@ def function_deprecated_by(func, convert_names=True):
     This function also converts all keyword argument names from mixedCase to
     lowercase_with_underscores, but only if 'convert_names' is True (default).
     """
-    warning = 'Deprecated, please use \'%s\' instead' % func.func_name
+    warning = 'Deprecated, please use \'%s\' instead' % func.__name__
 
     def deprecated_function(*args, **kwds):
+        """Wrapper around a deprecated function."""
         warnings.warn(warning, DeprecationWarning, stacklevel=2)
         if convert_names:
             for key in kwds.keys():
                 kwds[re.sub('([A-Z])', '_\\1', key).lower()] = kwds.pop(key)
         return func(*args, **kwds)
+    return deprecated_function
+
+
+def deprecated_args(func):
+    """A function with deprecated arguments.
+
+    Similar to function_deprecated_by() but warns on every deprecated argument
+    instead of function calls.
+    """
+    if not apt_pkg._COMPAT_0_7:
+        return func
+
+    def deprecated_function(*args, **kwds):
+        """Wrapper around a function with deprecated arguments."""
+        for key in kwds.keys():
+            new_key = re.sub('([A-Z])', '_\\1', key).lower()
+            if new_key != key:
+                warnings.warn("Deprecated parameter %r" % key)
+                kwds[new_key] = kwds.pop(key)
+        return func(*args, **kwds)
+
+    # Wrap the function completely (same as functools.wraps)
+    # pylint: disable-msg=W0622
+    deprecated_function.__name__ = func.__name__
+    deprecated_function.__doc__ = func.__doc__
+    deprecated_function.__module__ = func.__module__
+    deprecated_function.__dict__.update(func.__dict__)
     return deprecated_function
