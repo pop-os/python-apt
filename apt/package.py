@@ -220,6 +220,13 @@ class Version(object):
             return self.package._pcache._records
 
     @property
+    def _translated_records(self):
+        """Internal helper to get the translated description."""
+        desc_iter = self._cand.TranslatedDescription
+        self.package._pcache._records.Lookup(desc_iter.FileList.pop(0))
+        return self.package._pcache._records
+
+    @property
     def installed_size(self):
         """Return the size of the package when installed."""
         return self._cand.InstalledSize
@@ -252,9 +259,7 @@ class Version(object):
     @property
     def summary(self):
         """Return the short description (one line summary)."""
-        desc_iter = self._cand.TranslatedDescription
-        self.package._pcache._records.Lookup(desc_iter.FileList.pop(0))
-        return self.package._pcache._records.ShortDesc
+        return self._translated_records.ShortDesc
 
     @property
     def raw_description(self):
@@ -275,9 +280,8 @@ class Version(object):
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
         """
-        self.summary # This does the lookup for us.
         desc = ''
-        dsc = self.package._pcache._records.LongDesc
+        dsc = self._translated_records.LongDesc
         try:
             if not isinstance(dsc, unicode):
                 # Only convert where needed (i.e. Python 2.X)
