@@ -24,7 +24,8 @@ import weakref
 
 import apt_pkg
 from apt import Package
-from apt.deprecation import AttributeDeprecatedBy, function_deprecated_by
+from apt.deprecation import (AttributeDeprecatedBy, function_deprecated_by,
+                             deprecated_args)
 import apt.progress
 
 
@@ -132,18 +133,22 @@ class Cache(object):
     def get_changes(self):
         """ Get the marked changes """
         changes = []
-        for p in self:
-            if p.marked_upgrade or p.marked_install or p.marked_delete or \
-               p.marked_downgrade or p.marked_reinstall:
-                changes.append(p)
+        for pkg in self:
+            if (pkg.marked_upgrade or pkg.marked_install or pkg.marked_delete
+                or pkg.marked_downgrade or pkg.marked_reinstall):
+                changes.append(pkg)
         return changes
 
-    def upgrade(self, distUpgrade=False):
-        """ Upgrade the all package, DistUpgrade will also install
-            new dependencies
+    @deprecated_args
+    def upgrade(self, dist_upgrade=False):
+        """Upgrade all packages.
+
+        If the parameter *dist_upgrade* is True, new dependencies will be
+        installed as well (and conflicting packages may be removed). The
+        default value is False.
         """
         self.cache_pre_change()
-        self._depcache.Upgrade(distUpgrade)
+        self._depcache.Upgrade(dist_upgrade)
         self.cache_post_change()
 
     @property
@@ -177,22 +182,22 @@ class Cache(object):
         # now check the result (this is the code from apt-get.cc)
         failed = False
         transient = False
-        errMsg = ""
+        err_msg = ""
         for item in fetcher.Items:
             if item.Status == item.StatDone:
                 continue
             if item.StatIdle:
                 transient = True
                 continue
-            errMsg += "Failed to fetch %s %s\n" % (item.DescURI,
+            err_msg += "Failed to fetch %s %s\n" % (item.DescURI,
                                                    item.ErrorText)
             failed = True
 
         # we raise a exception if the download failed or it was cancelt
         if res == fetcher.ResultCancelled:
-            raise FetchCancelledException(errMsg)
+            raise FetchCancelledException(err_msg)
         elif failed:
-            raise FetchFailedException(errMsg)
+            raise FetchFailedException(err_msg)
         return res
 
     def _fetch_archives(self, fetcher, pm):
@@ -241,34 +246,57 @@ class Cache(object):
                     providers.append(pkg)
         return providers
 
-    def update(self, fetchProgress=None):
-        " run the equivalent of apt-get update "
+    @deprecated_args
+    def update(self, fetch_progress=None):
+        """Run the equivalent of apt-get update.
+
+        The first parameter *fetch_progress* may be set to an instance of
+        apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
+        .
+        """
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
         lock = apt_pkg.GetLock(lockfile)
         if lock < 0:
             raise LockFailedException("Failed to lock %s" % lockfile)
 
         try:
-            if fetchProgress is None:
-                fetchProgress = apt.progress.FetchProgress()
-            return self._cache.Update(fetchProgress, self._list)
+            if fetch_progress is None:
+                fetch_progress = apt.progress.FetchProgress()
+            return self._cache.Update(fetch_progress, self._list)
         finally:
             os.close(lock)
 
-    def install_archives(self, pm, installProgress):
+    @deprecated_args
+    def install_archives(self, pm, install_progress):
+        """
+        The first parameter *pm* refers to an object returned by
+        apt_pkg.GetPackageManager().
+
+        The second parameter *install_progress* refers to an InstallProgress()
+        object of the module apt.progress.
+        """
         try:
-            installProgress.start_update()
+            install_progress.start_update()
         except AttributeError:
-            installProgress.startUpdate()
-        res = installProgress.run(pm)
+            install_progress.startUpdate()
+        res = install_progress.run(pm)
         try:
-            installProgress.finish_update()
+            install_progress.finish_update()
         except AttributeError:
-            installProgress.finishUpdate()
+            install_progress.finishUpdate()
         return res
 
-    def commit(self, fetchProgress=None, installProgress=None):
-        """ Apply the marked changes to the cache """
+    @deprecated_args
+    def commit(self, fetch_progress=None, install_progress=None):
+        """Apply the marked changes to the cache.
+
+        The first parameter, *fetch_progress*, refers to a FetchProgress()
+        object as found in apt.progress, the default being
+        apt.progress.FetchProgress().
+
+        The second parameter, *install_progress*, is a
+        apt.progress.InstallProgress() object.
+        """
         # FIXME:
         # use the new acquire/pkgmanager interface here,
         # raise exceptions when a download or install fails
@@ -276,19 +304,19 @@ class Cache(object):
         # Current a failed download will just display "error"
         # which is less than optimal!
 
-        if fetchProgress is None:
-            fetchProgress = apt.progress.FetchProgress()
-        if installProgress is None:
-            installProgress = apt.progress.InstallProgress()
+        if fetch_progress is None:
+            fetch_progress = apt.progress.FetchProgress()
+        if install_progress is None:
+            install_progress = apt.progress.InstallProgress()
 
         pm = apt_pkg.GetPackageManager(self._depcache)
-        fetcher = apt_pkg.GetAcquire(fetchProgress)
+        fetcher = apt_pkg.GetAcquire(fetch_progress)
         while True:
             # fetch archives first
             res = self._fetch_archives(fetcher, pm)
 
             # then install
-            res = self.install_archives(pm, installProgress)
+            res = self.install_archives(pm, install_progress)
             if res == pm.ResultCompleted:
                 break
             if res == pm.ResultFailed:
@@ -442,59 +470,57 @@ def _test():
     """Internal test code."""
     print "Cache self test"
     apt_pkg.init()
-    c = Cache(apt.progress.OpTextProgress())
-    c.connect("cache_pre_change", cache_pre_changed)
-    c.connect("cache_post_change", cache_post_changed)
-    print ("aptitude" in c)
-    p = c["aptitude"]
-    print p.name
-    print len(c)
+    cache = Cache(apt.progress.OpTextProgress())
+    cache.connect("cache_pre_change", cache_pre_changed)
+    cache.connect("cache_post_change", cache_post_changed)
+    print ("aptitude" in cache)
+    pkg = cache["aptitude"]
+    print pkg.name
+    print len(cache)
 
-    for pkg in c.keys():
-        x= c[pkg].name
+    for pkgname in cache.keys():
+        assert cache[pkgname].name == pkgname
 
-    c.upgrade()
-    changes = c.get_changes()
+    cache.upgrade()
+    changes = cache.get_changes()
     print len(changes)
-    for p in changes:
-        #print p.name
-        x = p.name
+    for pkg in changes:
+        assert pkg.name
+
 
 
     # see if fetching works
-    for d in ["/tmp/pytest", "/tmp/pytest/partial"]:
-        if not os.path.exists(d):
-            os.mkdir(d)
+    for dir in ["/tmp/pytest", "/tmp/pytest/partial"]:
+        if not os.path.exists(dir):
+            os.mkdir(dir)
     apt_pkg.Config.Set("Dir::Cache::Archives", "/tmp/pytest")
-    pm = apt_pkg.GetPackageManager(c._depcache)
+    pm = apt_pkg.GetPackageManager(cache._depcache)
     fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
-    c._fetch_archives(fetcher, pm)
+    cache._fetch_archives(fetcher, pm)
     #sys.exit(1)
 
     print "Testing filtered cache (argument is old cache)"
-    f = FilteredCache(c)
-    f.cache.connect("cache_pre_change", cache_pre_changed)
-    f.cache.connect("cache_post_change", cache_post_changed)
-    f.cache.upgrade()
-    f.set_filter(MarkedChangesFilter())
-    print len(f)
-    for pkg in f.keys():
-        #print c[pkg].name
-        x = f[pkg].name
+    filtered = FilteredCache(cache)
+    filtered.cache.connect("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.upgrade()
+    filtered.set_filter(MarkedChangesFilter())
+    print len(filtered)
+    for pkgname in filtered.keys():
+        assert pkgname == filtered[pkg].name
 
-    print len(f)
+    print len(filtered)
 
     print "Testing filtered cache (no argument)"
-    f = FilteredCache(progress=apt.progress.OpTextProgress())
-    f.cache.connect("cache_pre_change", cache_pre_changed)
-    f.cache.connect("cache_post_change", cache_post_changed)
-    f.cache.upgrade()
-    f.set_filter(MarkedChangesFilter())
-    print len(f)
-    for pkg in f.keys():
-        #print c[pkg].name
-        x = f[pkg].name
+    filtered = FilteredCache(progress=apt.progress.OpTextProgress())
+    filtered.cache.connect("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.upgrade()
+    filtered.set_filter(MarkedChangesFilter())
+    print len(filtered)
+    for pkgname in filtered.keys():
+        assert pkgname == filtered[pkgname].name
 
-    print len(f)
+    print len(filtered)
 if __name__ == '__main__':
     _test()

@@ -31,7 +31,8 @@ import warnings
 
 import apt_pkg
 import apt.progress
-from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
+from apt.deprecation import (function_deprecated_by, AttributeDeprecatedBy,
+                             deprecated_args)
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version')
@@ -123,15 +124,15 @@ class Origin(object):
         trusted   - Boolean value whether this is trustworthy.
     """
 
-    def __init__(self, pkg, VerFileIter):
-        self.archive = VerFileIter.Archive
-        self.component = VerFileIter.Component
-        self.label = VerFileIter.Label
-        self.origin = VerFileIter.Origin
-        self.site = VerFileIter.Site
-        self.not_automatic = VerFileIter.NotAutomatic
+    def __init__(self, pkg, packagefile):
+        self.archive = packagefile.Archive
+        self.component = packagefile.Component
+        self.label = packagefile.Label
+        self.origin = packagefile.Origin
+        self.site = packagefile.Site
+        self.not_automatic = packagefile.NotAutomatic
         # check the trust
-        indexfile = pkg._pcache._list.FindIndex(VerFileIter)
+        indexfile = pkg._pcache._list.FindIndex(packagefile)
         if indexfile and indexfile.IsTrusted:
             self.trusted = True
         else:
@@ -266,7 +267,7 @@ class Version(object):
         return self._cand.Section
 
     @property
-    def description(self, format=True, useDots=False):
+    def description(self):
         """Return the formatted long description.
 
         Return the formated long description according to the Debian policy
@@ -276,7 +277,6 @@ class Version(object):
         """
         self.summary # This does the lookup for us.
         desc = ''
-
         dsc = self.package._pcache._records.LongDesc
         try:
             if not isinstance(dsc, unicode):
@@ -339,11 +339,11 @@ class Version(object):
         depends = self._cand.DependsList
         for t in ["PreDepends", "Depends"]:
             try:
-                for depVerList in depends[t]:
+                for dep_ver_list in depends[t]:
                     base_deps = []
-                    for depOr in depVerList:
-                        base_deps.append(BaseDependency(depOr.TargetPkg.Name,
-                                        depOr.CompType, depOr.TargetVer,
+                    for dep_or in dep_ver_list:
+                        base_deps.append(BaseDependency(dep_or.TargetPkg.Name,
+                                        dep_or.CompType, dep_or.TargetVer,
                                         (t == "PreDepends")))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
@@ -354,8 +354,8 @@ class Version(object):
     def origins(self):
         """Return a list of origins for the package version."""
         origins = []
-        for (verFileIter, index) in self._cand.FileList:
-            origins.append(Origin(self.package, verFileIter))
+        for (packagefile, index) in self._cand.FileList:
+            origins.append(Origin(self.package, packagefile))
         return origins
 
     @property
@@ -566,21 +566,21 @@ class Package(object):
         return self._pkg.ID
 
     @DeprecatedProperty
-    def installedVersion(self):
+    def installedVersion(self): #pylint: disable-msg=C0103
         """Return the installed version as string.
 
         .. deprecated:: 0.7.9"""
         return getattr(self.installed, 'version', None)
 
     @DeprecatedProperty
-    def candidateVersion(self):
+    def candidateVersion(self): #pylint: disable-msg=C0103
         """Return the candidate version as string.
 
         .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "version", None)
 
     @DeprecatedProperty
-    def candidateDependencies(self):
+    def candidateDependencies(self): #pylint: disable-msg=C0103
         """Return a list of candidate dependencies.
 
         .. deprecated:: 0.7.9
@@ -588,7 +588,7 @@ class Package(object):
         return getattr(self.candidate, "dependencies", None)
 
     @DeprecatedProperty
-    def installedDependencies(self):
+    def installedDependencies(self):  #pylint: disable-msg=C0103
         """Return a list of installed dependencies.
 
         .. deprecated:: 0.7.9
@@ -604,7 +604,7 @@ class Package(object):
         return getattr(self.candidate, "architecture", None)
 
     @DeprecatedProperty
-    def candidateDownloadable(self):
+    def candidateDownloadable(self):  #pylint: disable-msg=C0103
         """Return ``True`` if the candidate is downloadable.
 
         .. deprecated:: 0.7.9
@@ -612,7 +612,7 @@ class Package(object):
         return getattr(self.candidate, "downloadable", None)
 
     @DeprecatedProperty
-    def installedDownloadable(self):
+    def installedDownloadable(self):  #pylint: disable-msg=C0103
         """Return ``True`` if the installed version is downloadable.
 
         .. deprecated:: 0.7.9
@@ -620,7 +620,7 @@ class Package(object):
         return getattr(self.installed, 'downloadable', False)
 
     @DeprecatedProperty
-    def sourcePackageName(self):
+    def sourcePackageName(self):  #pylint: disable-msg=C0103
         """Return the source package name as string.
 
         .. deprecated:: 0.7.9
@@ -655,7 +655,7 @@ class Package(object):
         return getattr(self.candidate, "priority", None)
 
     @DeprecatedProperty
-    def installedPriority(self):
+    def installedPriority(self):  #pylint: disable-msg=C0103
         """Return the priority (of the installed version).
 
         .. deprecated:: 0.7.9
@@ -684,21 +684,21 @@ class Package(object):
         return getattr(self.candidate, "description", None)
 
     @DeprecatedProperty
-    def rawDescription(self):
+    def rawDescription(self):  #pylint: disable-msg=C0103
         """return the long description (raw).
 
         .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "raw_description", None)
 
     @DeprecatedProperty
-    def candidateRecord(self):
+    def candidateRecord(self):  #pylint: disable-msg=C0103
         """Return the Record of the candidate version of the package.
 
         .. deprecated:: 0.7.9"""
         return getattr(self.candidate, "record", None)
 
     @DeprecatedProperty
-    def installedRecord(self):
+    def installedRecord(self):  #pylint: disable-msg=C0103
         """Return the Record of the candidate version of the package.
 
         .. deprecated:: 0.7.9"""
@@ -761,7 +761,7 @@ class Package(object):
     # sizes
 
     @DeprecatedProperty
-    def packageSize(self):
+    def packageSize(self):  #pylint: disable-msg=C0103
         """Return the size of the candidate deb package.
 
         .. deprecated:: 0.7.9
@@ -769,7 +769,7 @@ class Package(object):
         return getattr(self.candidate, "size", None)
 
     @DeprecatedProperty
-    def installedPackageSize(self):
+    def installedPackageSize(self):  #pylint: disable-msg=C0103
         """Return the size of the installed deb package.
 
         .. deprecated:: 0.7.9
@@ -777,7 +777,7 @@ class Package(object):
         return getattr(self.installed, 'size', 0)
 
     @DeprecatedProperty
-    def candidateInstalledSize(self):
+    def candidateInstalledSize(self):  #pylint: disable-msg=C0103
         """Return the size of the candidate installed package.
 
         .. deprecated:: 0.7.9
@@ -785,7 +785,7 @@ class Package(object):
         return getattr(self.candidate, "installed_size", None)
 
     @DeprecatedProperty
-    def installedSize(self):
+    def installedSize(self):  #pylint: disable-msg=C0103
         """Return the size of the currently installed package.
 
 
@@ -964,7 +964,7 @@ class Package(object):
         return self._changelog
 
     @DeprecatedProperty
-    def candidateOrigin(self):
+    def candidateOrigin(self):  #pylint: disable-msg=C0103
         """Return a list of `Origin()` objects for the candidate version.
 
         .. deprecated:: 0.7.9
@@ -987,10 +987,11 @@ class Package(object):
         self._pcache._depcache.MarkKeep(self._pkg)
         self._pcache.cache_post_change()
 
-    def mark_delete(self, autoFix=True, purge=False):
+    @deprecated_args
+    def mark_delete(self, auto_fix=True, purge=False):
         """Mark a package for install.
 
-        If *autoFix* is ``True``, the resolver will be run, trying to fix
+        If *auto_fix* is ``True``, the resolver will be run, trying to fix
         broken packages.  This is the default.
 
         If *purge* is ``True``, remove the configuration files of the package
@@ -999,16 +1000,17 @@ class Package(object):
         self._pcache.cache_pre_change()
         self._pcache._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
-        if autoFix and self._pcache._depcache.BrokenCount > 0:
-            Fix = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
-            Fix.Clear(self._pkg)
-            Fix.Protect(self._pkg)
-            Fix.Remove(self._pkg)
-            Fix.InstallProtect()
-            Fix.Resolve()
+        if auto_fix and self._pcache._depcache.BrokenCount > 0:
+            fix = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
+            fix.Clear(self._pkg)
+            fix.Protect(self._pkg)
+            fix.Remove(self._pkg)
+            fix.InstallProtect()
+            fix.Resolve()
         self._pcache.cache_post_change()
 
-    def mark_install(self, autoFix=True, autoInst=True, fromUser=True):
+    @deprecated_args
+    def mark_install(self, auto_fix=True, auto_inst=True, from_user=True):
         """Mark a package for install.
 
         If *autoFix* is ``True``, the resolver will be run, trying to fix
@@ -1023,9 +1025,9 @@ class Package(object):
         when no other package depends on it.
         """
         self._pcache.cache_pre_change()
-        self._pcache._depcache.MarkInstall(self._pkg, autoInst, fromUser)
+        self._pcache._depcache.MarkInstall(self._pkg, auto_inst, from_user)
         # try to fix broken stuff
-        if autoFix and self._pcache._depcache.BrokenCount > 0:
+        if auto_fix and self._pcache._depcache.BrokenCount > 0:
             fixer = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
