@@ -54,6 +54,8 @@ typedef int Py_ssize_t;
 #define PyString_AsString(op) PyBytes_AsString(PyUnicode_AsUTF8String(op))
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
+// Force 0.7 compatibility to be off in Python 3 builds
+#undef COMPAT_0_7
 #else
 #define PyBytes_Check PyString_Check
 #define PyBytes_AsString PyString_AsString
