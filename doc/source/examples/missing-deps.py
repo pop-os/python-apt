@@ -35,7 +35,7 @@ def main():
     apt_pkg.InitConfig()
     apt_pkg.InitSystem()
 
-    cache = apt_pkg.GetCache()
+    cache = apt_pkg.Cache()
 
     for pkg in sorted(cache.Packages, key=lambda pkg: pkg.Name):
         # pkg is from a list of packages, sorted by name.

@@ -9,8 +9,8 @@ import sys
 
 def main():
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
-    depcache = apt_pkg.GetDepCache(cache)
+    cache = apt_pkg.Cache()
+    depcache = apt_pkg.DepCache(cache)
     depcache.Init()
     i=0
     all=cache.PackageCount
@@ -25,7 +25,7 @@ def main():
         if ver is not None:
             depcache.MarkInstall(pkg)
             if depcache.BrokenCount > 0:
-                fixer = apt_pkg.GetPkgProblemResolver(depcache)
+                fixer = apt_pkg.ProblemResolver(depcache)
                 fixer.Clear(pkg)
                 fixer.Protect(pkg)
                 # we first try to resolve the problem

@@ -78,10 +78,10 @@ class Cache(object):
         if progress is None:
             progress = apt.progress.OpProgress()
         self._run_callbacks("cache_pre_open")
-        self._cache = apt_pkg.GetCache(progress)
-        self._depcache = apt_pkg.GetDepCache(self._cache)
-        self._records = apt_pkg.GetPkgRecords(self._cache)
-        self._list = apt_pkg.GetPkgSourceList()
+        self._cache = apt_pkg.Cache(progress)
+        self._depcache = apt_pkg.DepCache(self._cache)
+        self._records = apt_pkg.PackageRecords(self._cache)
+        self._list = apt_pkg.SourceList()
         self._list.ReadMainList()
         self._set = set()
         self._weakref = weakref.WeakValueDictionary()
@@ -154,8 +154,8 @@ class Cache(object):
     @property
     def required_download(self):
         """Get the size of the packages that are required to download."""
-        pm = apt_pkg.GetPackageManager(self._depcache)
-        fetcher = apt_pkg.GetAcquire()
+        pm = apt_pkg.PackageManager(self._depcache)
+        fetcher = apt_pkg.Acquire()
         pm.GetArchives(fetcher, self._list, self._records)
         return fetcher.FetchNeeded
 
@@ -270,7 +270,7 @@ class Cache(object):
     def install_archives(self, pm, install_progress):
         """
         The first parameter *pm* refers to an object returned by
-        apt_pkg.GetPackageManager().
+        apt_pkg.PackageManager().
 
         The second parameter *install_progress* refers to an InstallProgress()
         object of the module apt.progress.
@@ -309,8 +309,8 @@ class Cache(object):
         if install_progress is None:
             install_progress = apt.progress.InstallProgress()
 
-        pm = apt_pkg.GetPackageManager(self._depcache)
-        fetcher = apt_pkg.GetAcquire(fetch_progress)
+        pm = apt_pkg.PackageManager(self._depcache)
+        fetcher = apt_pkg.Acquire(fetch_progress)
         while True:
             # fetch archives first
             res = self._fetch_archives(fetcher, pm)
@@ -494,8 +494,8 @@ def _test():
         if not os.path.exists(dir):
             os.mkdir(dir)
     apt_pkg.Config.Set("Dir::Cache::Archives", "/tmp/pytest")
-    pm = apt_pkg.GetPackageManager(cache._depcache)
-    fetcher = apt_pkg.GetAcquire(apt.progress.TextFetchProgress())
+    pm = apt_pkg.PackageManager(cache._depcache)
+    fetcher = apt_pkg.Acquire(apt.progress.TextFetchProgress())
     cache._fetch_archives(fetcher, pm)
     #sys.exit(1)
 

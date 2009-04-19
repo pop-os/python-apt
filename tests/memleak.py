@@ -29,10 +29,10 @@ for i in range(100):
 
 # no memleak, but more or less the apt.Cache.open() code
 for i in range(100):
-    cache = apt_pkg.GetCache()
-    depcache = apt_pkg.GetDepCache(cache)
-    records = apt_pkg.GetPkgRecords(cache)
-    list = apt_pkg.GetPkgSourceList()
+    cache = apt_pkg.Cache()
+    depcache = apt_pkg.DepCache(cache)
+    records = apt_pkg.PackageRecords(cache)
+    list = apt_pkg.SourceList()
     list.ReadMainList()
     dict = {}
     for pkg in cache.Packages:

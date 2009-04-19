@@ -57,7 +57,7 @@ class DebPackage(object):
                                           "missing '%s' member" %
                                           "debian-binary"))
         control = apt_inst.debExtractControl(open(self.filename))
-        self._sections = apt_pkg.ParseSection(control)
+        self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
 
     def __getitem__(self, key):
@@ -357,7 +357,7 @@ class DebPackage(object):
         """Satisfy the dependencies."""
         # turn off MarkAndSweep via a action group (if available)
         try:
-            _actiongroup = apt_pkg.GetPkgActionGroup(self._cache._depcache)
+            _actiongroup = apt_pkg.ActionGroup(self._cache._depcache)
         except AttributeError:
             pass
         # check depends
@@ -458,7 +458,7 @@ class DscSrcPackage(DebPackage):
         conflicts_tags = ["Build-Conflicts", "Build-Conflicts-Indep"]
 
         fobj = open(file)
-        tagfile = apt_pkg.ParseTagFile(fobj)
+        tagfile = apt_pkg.TagFile(fobj)
         sec = tagfile.Section
         try:
             while tagfile.Step() == 1:

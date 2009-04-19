@@ -10,12 +10,12 @@ import sys
 
 def main():
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
+    cache = apt_pkg.Cache()
     i=0
     print "Running PkgSrcRecords test on all packages:"
     for x in cache.Packages:
         i += 1
-        src = apt_pkg.GetPkgSrcRecords()
+        src = apt_pkg.SourceRecords()
         if src.Lookup(x.Name):
             #print src.Package
             pass

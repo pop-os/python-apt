@@ -158,7 +158,7 @@ class Record(Mapping):
     """
 
     def __init__(self, record_str):
-        self._rec = apt_pkg.ParseSection(record_str)
+        self._rec = apt_pkg.TagSection(record_str)
 
     def __hash__(self):
         return hash(self._rec)
@@ -448,9 +448,9 @@ class Version(object):
         if _file_is_same(destfile, self.size, self._records.MD5Hash):
             print 'Ignoring already existing file:', destfile
             return
-        acq = apt_pkg.GetAcquire(progress or apt.progress.TextFetchProgress())
-        apt_pkg.GetPkgAcqFile(acq, self.uri, self._records.MD5Hash, self.size,
-                              base, destFile=destfile)
+        acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
+        apt_pkg.AcquireFile(acq, self.uri, self._records.MD5Hash, self.size,
+                              base, destfile=destfile)
         acq.Run()
         for item in acq.Items:
             if item.Status != item.StatDone:
@@ -474,8 +474,8 @@ class Version(object):
         If *unpack* is ``True``, the path to the extracted directory is
         returned. Otherwise, the path to the .dsc file is returned.
         """
-        src = apt_pkg.GetPkgSrcRecords()
-        acq = apt_pkg.GetAcquire(progress or apt.progress.TextFetchProgress())
+        src = apt_pkg.SourceRecords()
+        acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
 
         dsc = None
         src.Lookup(self.package.name)
@@ -497,8 +497,8 @@ class Version(object):
                         continue
                 finally:
                     fobj.close()
-            apt_pkg.GetPkgAcqFile(acq, src.Index.ArchiveURI(path), md5, size,
-                                  base, destFile=destfile)
+            apt_pkg.AcquireFile(acq, src.Index.ArchiveURI(path), md5, size,
+                                  base, destfile=destfile)
         acq.Run()
 
         for item in acq.Items:
@@ -879,7 +879,7 @@ class Package(object):
             # this feature only works if the correct deb-src are in the
             # sources.list
             # otherwise we fall back to the binary version number
-            src_records = apt_pkg.GetPkgSrcRecords()
+            src_records = apt_pkg.SourceRecords()
             src_rec = src_records.Lookup(src_pkg)
             if src_rec:
                 src_ver = src_records.Version
@@ -1016,7 +1016,7 @@ class Package(object):
         self._pcache._depcache.MarkDelete(self._pkg, purge)
         # try to fix broken stuffsta
         if auto_fix and self._pcache._depcache.BrokenCount > 0:
-            fix = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
+            fix = apt_pkg.ProblemResolver(self._pcache._depcache)
             fix.Clear(self._pkg)
             fix.Protect(self._pkg)
             fix.Remove(self._pkg)
@@ -1043,7 +1043,7 @@ class Package(object):
         self._pcache._depcache.MarkInstall(self._pkg, auto_inst, from_user)
         # try to fix broken stuff
         if auto_fix and self._pcache._depcache.BrokenCount > 0:
-            fixer = apt_pkg.GetPkgProblemResolver(self._pcache._depcache)
+            fixer = apt_pkg.ProblemResolver(self._pcache._depcache)
             fixer.Clear(self._pkg)
             fixer.Protect(self._pkg)
             fixer.Resolve(True)

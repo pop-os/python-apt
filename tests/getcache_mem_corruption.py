@@ -13,12 +13,12 @@ class TestGetCache(unittest.TestCase):
 
     def testWrongInvocation(self):
         # wrongly invoke GetCache() rather than GetDepCache()
-        apt_cache = apt_pkg.GetCache()
-        self.assertRaises(ValueError, apt_pkg.GetCache, apt_cache)
+        apt_cache = apt_pkg.Cache()
+        self.assertRaises(ValueError, apt_pkg.Cache, apt_cache)
 
     def testProperInvocation(self):
-        apt_cache = apt_pkg.GetCache(apt.progress.OpTextProgress())
-        apt_depcache = apt_pkg.GetDepCache(apt_cache)
+        apt_cache = apt_pkg.Cache(apt.progress.OpTextProgress())
+        apt_depcache = apt_pkg.DepCache(apt_cache)
 
 if __name__ == "__main__":
     unittest.main()

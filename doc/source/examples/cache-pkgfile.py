@@ -5,7 +5,7 @@ import apt_pkg
 def main():
     """Example for PackageFile()"""
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
+    cache = apt_pkg.Cache()
     for pkgfile in cache.FileList:
         print 'Package-File:', pkgfile.FileName
         print 'Index-Type:', pkgfile.IndexType # 'Debian Package Index'

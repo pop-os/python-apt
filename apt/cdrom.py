@@ -45,7 +45,7 @@ class Cdrom(object):
     """
 
     def __init__(self, progress=None, mountpoint=None, nomount=True):
-        self._cdrom = apt_pkg.GetCdrom()
+        self._cdrom = apt_pkg.Cdrom()
         if progress is None:
             self._progress = CdromProgress()
         else:

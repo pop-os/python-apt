@@ -9,8 +9,8 @@ import sys
 
 def main():
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
-    depcache = apt_pkg.GetDepCache(cache)
+    cache = apt_pkg.Cache()
+    depcache = apt_pkg.DepCache(cache)
     depcache.Init()
     i=0
     all=cache.PackageCount

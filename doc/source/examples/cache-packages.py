@@ -8,7 +8,7 @@ def main():
     """Main."""
     apt_pkg.InitConfig()
     apt_pkg.InitSystem()
-    cache = apt_pkg.GetCache()
+    cache = apt_pkg.Cache()
     print "Essential packages:"
     for pkg in cache.Packages:
         if pkg.Essential:

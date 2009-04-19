@@ -10,14 +10,14 @@ import sys
 
 def main():
     apt_pkg.init()
-    cache = apt_pkg.GetCache()
-    depcache = apt_pkg.GetDepCache(cache)
+    cache = apt_pkg.Cache()
+    depcache = apt_pkg.DepCache(cache)
     depcache.Init()
     i=0
     print "Running PkgRecords test on all packages:"
     for pkg in cache.Packages:
         i += 1
-        records = apt_pkg.GetPkgRecords(cache)
+        records = apt_pkg.PackageRecords(cache)
         if len(pkg.VersionList) == 0:
             #print "no available version, cruft"
             continue
