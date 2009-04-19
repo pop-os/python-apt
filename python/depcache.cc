@@ -852,9 +852,24 @@ static PyObject *PkgActionGroupRelease(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgActionGroupEnter(PyObject *Self,PyObject *Args) {
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+    return Self;
+}
+static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
+   pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
+   ag->release();
+   Py_RETURN_FALSE;
+}
+
 static PyMethodDef PkgActionGroupMethods[] =
 {
    {"release", PkgActionGroupRelease, METH_VARARGS, "release()"},
+   {"__exit__", PkgActionGroupExit, METH_VARARGS, "__exit__(...) -> "
+               "Release the action group, for 'with' statement."},
+   {"__enter__", PkgActionGroupEnter, METH_VARARGS, "__enter__() -> "
+               "Enter, for the 'with' statement. Does nothing."},
    {}
 };
 
@@ -879,11 +894,18 @@ static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *k
 }
 
 static const char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
-    "Create a new ActionGroup() object. ActionGroups disable certain cleanup\n"
-    "actions, so modifying many packages is much faster.\n\n"
-    "Creating an ActionGroup() makes it active, use release() to disable it\n"
-    "again.\n\n"
-    "The parameter *depcache* refers to an apt_pkg.DepCache() object.";
+    "Create a new ActionGroup() object. The parameter *depcache* refers to an\n"
+    "apt_pkg.DepCache() object.\n\n"
+    "ActionGroups disable certain cleanup actions, so modifying many packages\n"
+    "is much faster.\n\n"
+    "ActionGroup() can also be used with the 'with' statement, but be aware\n"
+    "that the ActionGroup() is active as soon as it is created, and not just\n"
+    "when entering the context. This means you can write::\n\n"
+    "    with apt_pkg.ActionGroup(depcache):\n"
+    "        depcache.markInstall(pkg)\n\n"
+    "Once the block of the with statement is left, the action group is \n"
+    "automatically released from the cache.";
+
 
 PyTypeObject PkgActionGroupType =
 {
