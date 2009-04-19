@@ -1,0 +1,33 @@
+What's New In python-apt 0.8
+============================
+Python-apt 0.8 is a new major release of the python bindings for the APT
+package management libraries. It provides support for Python 3, new language
+features and an API conforming to :PEP:`8`.
+
+Despite the many changes made in python-apt 0.8, the release still provides
+backwards compatibility to the 0.7 series. This makes it possible to run your
+old applications. Applications using the old API should be updated to the new
+API, because the old one will be removed after some time.
+
+Support for Python 3
+--------------------
+Python-apt is the first Debian package to support the third major release of
+Python. The port is straight forward and integrates as nicely in Python 3 as
+the Python 2 builds integrate in Python 2.
+
+Real classes in :mod:`apt_pkg`
+------------------------------
+
+Complete rename of functions, methods and attributes
+-----------------------------------------------------
+
+Supporting new language features like the :keyword:`with` statement
+-------------------------------------------------------------------
+
+Other changes
+-------------
+This release of python-apt also features several other, smaller changes:
+
+    * Reduced memory usage by creating Package() objects in apt.Cache() only
+      when needed.
+    * Support to set the candidate version in :class:`apt.package.Package`

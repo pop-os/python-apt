@@ -11,8 +11,6 @@ with an easy-to-use interface.
     functions provided as deprecated ones.
 
 .. automodule:: apt
-    :members:
-
 
 
 
