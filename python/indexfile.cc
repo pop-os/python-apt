@@ -84,7 +84,7 @@ PyTypeObject PackageIndexFileType =
    #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
    #endif
-   "pkgIndexFile",                      // tp_name
+   "apt_pkg.PackageIndexFile",          // tp_name
    sizeof(CppOwnedPyObject<pkgIndexFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods

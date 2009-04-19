@@ -475,6 +475,13 @@ static PyMethodDef CnfMethods[] =
    {}
 };
 
+static PyObject *CnfNew(PyTypeObject *type, PyObject *args, PyObject *kwds) {
+    static char *kwlist[] = {};
+    if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
+        return 0;
+    return CppPyObject_NEW<Configuration>(type);
+}
+
 // Type for a Normal Configuration object
 static PySequenceMethods ConfigurationSeq = {0,0,0,0,0,0,0,CnfContains,0,0};
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
@@ -484,7 +491,7 @@ PyTypeObject ConfigurationType =
    #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
    #endif
-   "Configuration",                     // tp_name
+   "apt_pkg.Configuration",             // tp_name
    sizeof(CppPyObject<Configuration>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -512,6 +519,16 @@ PyTypeObject ConfigurationType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   CnfNew,                              // tp_new
 };
 
 PyTypeObject ConfigurationPtrType =
@@ -520,7 +537,7 @@ PyTypeObject ConfigurationPtrType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "ConfigurationPtr",                  // tp_name
+   "apt_pkg.ConfigurationPtr",          // tp_name
    sizeof(CppPyObject<Configuration *>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -556,7 +573,7 @@ PyTypeObject ConfigurationSubType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "ConfigurationSub",                  // tp_name
+   "apt_pkg.ConfigurationSub",     // tp_name
    sizeof(SubConfiguration),            // tp_basicsize
    0,                                   // tp_itemsize
    // Methods

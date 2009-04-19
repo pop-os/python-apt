@@ -15,7 +15,31 @@
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/error.h>
 #include <apt-pkg/acquire.h>
+#include <apt-pkg/init.h>
+#include <apt-pkg/configuration.h>
+
 #include <iostream>
+
+static PyObject *PkgManagerNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   PyObject *Owner;
+   char *kwlist[] = {"depcache",0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+                                   &Owner) == 0)
+      return 0;
+
+   pkgPackageManager *pm = _system->CreatePM(GetCpp<pkgDepCache*>(Owner));
+
+   CppPyObject<pkgPackageManager*> *PkgManagerObj =
+	   CppPyObject_NEW<pkgPackageManager*>(type,pm);
+
+   return PkgManagerObj;
+}
+
+PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
+{
+    return PkgManagerNew(&PkgManagerType,Args,0);
+}
 
 
 static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
@@ -98,7 +122,7 @@ PyTypeObject PkgManagerType =
    #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
    #endif
-   "PackageManager",                          // tp_name
+   "apt_pkg.PackageManager",           // tp_name
    sizeof(CppPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -128,25 +152,15 @@ PyTypeObject PkgManagerType =
    PkgManagerMethods,                   // tp_methods
    0,                                   // tp_members
    PkgManagerGetSet,                    // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgManagerNew,                         // tp_new
 };
-
-#include <apt-pkg/init.h>
-#include <apt-pkg/configuration.h>
-
-PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
-{
-   PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgDepCacheType,&Owner) == 0)
-      return 0;
-
-   pkgPackageManager *pm = _system->CreatePM(GetCpp<pkgDepCache*>(Owner));
-
-   CppPyObject<pkgPackageManager*> *PkgManagerObj =
-	   CppPyObject_NEW<pkgPackageManager*>(&PkgManagerType,pm);
-
-   return PkgManagerObj;
-}
-
 
 
 

@@ -591,13 +591,39 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
     {}
 };
 
+static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   PyObject *Owner;
+   static char *kwlist[] = {"cache", 0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgCacheType,
+                                   &Owner) == 0)
+      return 0;
+
+
+   // the owner of the Python cache object is a cachefile object, get it
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Owner);
+   // get the pkgCacheFile from the cachefile
+   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
+   // and now the depcache
+   pkgDepCache *depcache = (pkgDepCache *)(*CacheF);
+
+   CppOwnedPyObject<pkgDepCache*> *DepCachePyObj;
+   DepCachePyObj = CppOwnedPyObject_NEW<pkgDepCache*>(Owner,type,depcache);
+   HandleErrors(DepCachePyObj);
+
+   return DepCachePyObj;
+}
+
+static const char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
+    "A DepCache() holds extra information on the state of the packages.\n\n"
+    "The parameter *cache* refers to an apt_pkg.Cache() object.";
 PyTypeObject PkgDepCacheType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
    #endif
-   "pkgDepCache",                       // tp_name
+   "apt_pkg.DepCache",                  // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -617,7 +643,7 @@ PyTypeObject PkgDepCacheType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
-   "pkgDepCache Object",                // tp_doc
+   doc_PkgDepCache,                     // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
@@ -627,30 +653,20 @@ PyTypeObject PkgDepCacheType =
    PkgDepCacheMethods,                  // tp_methods
    0,                                   // tp_members
    PkgDepCacheGetSet,                   // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgDepCacheNew,                      // tp_new
 };
 
 
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
-   PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
-      return 0;
-
-
-   // the owner of the Python cache object is a cachefile object, get it
-   PyObject *CacheFilePy = GetOwner<pkgCache*>(Owner);
-   // get the pkgCacheFile from the cachefile
-   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
-   // and now the depcache
-   pkgDepCache *depcache = (pkgDepCache *)(*CacheF);
-
-   CppOwnedPyObject<pkgDepCache*> *DepCachePyObj;
-   DepCachePyObj = CppOwnedPyObject_NEW<pkgDepCache*>(Owner,
-						      &PkgDepCacheType,
-						      depcache);
-   HandleErrors(DepCachePyObj);
-
-   return DepCachePyObj;
+    return PkgDepCacheNew(&PkgDepCacheType,Args,0);
 }
 
 
@@ -661,26 +677,28 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 
 // pkgProblemResolver Class						/*{{{*/
 // ---------------------------------------------------------------------
-
-
-PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args)
+static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgDepCacheType,&Owner) == 0)
+   static char *kwlist[] = {"depcache",0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+                                   &Owner) == 0)
       return 0;
 
    pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
    pkgProblemResolver *fixer = new pkgProblemResolver(depcache);
    CppOwnedPyObject<pkgProblemResolver*> *PkgProblemResolverPyObj;
    PkgProblemResolverPyObj = CppOwnedPyObject_NEW<pkgProblemResolver*>(Owner,
-						      &PkgProblemResolverType,
+						      type,
 						      fixer);
    HandleErrors(PkgProblemResolverPyObj);
 
    return PkgProblemResolverPyObj;
-
 }
 
+PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args) {
+    return PkgProblemResolverNew(&PkgProblemResolverType,Args,0);
+}
 
 static PyObject *PkgProblemResolverResolve(PyObject *Self,PyObject *Args)
 {
@@ -778,7 +796,7 @@ PyTypeObject PkgProblemResolverType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgProblemResolver",                       // tp_name
+   "apt_pkg.ProblemResolver",                       // tp_name
    sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -806,6 +824,16 @@ PyTypeObject PkgProblemResolverType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    PkgProblemResolverMethods,           // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgProblemResolverNew,               // tp_new
 };
 
 									/*}}}*/
@@ -830,13 +858,40 @@ static PyMethodDef PkgActionGroupMethods[] =
    {}
 };
 
+static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   PyObject *Owner;
+   static char *kwlist[] = {"depcache", 0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+                                   &Owner) == 0)
+      return 0;
+
+   pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
+   pkgDepCache::ActionGroup *group = new pkgDepCache::ActionGroup(*depcache);
+   CppOwnedPyObject<pkgDepCache::ActionGroup*> *PkgActionGroupPyObj;
+   PkgActionGroupPyObj = CppOwnedPyObject_NEW<pkgDepCache::ActionGroup*>(Owner,
+						      type,
+						      group);
+   HandleErrors(PkgActionGroupPyObj);
+
+   return PkgActionGroupPyObj;
+
+}
+
+static const char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
+    "Create a new ActionGroup() object. ActionGroups disable certain cleanup\n"
+    "actions, so modifying many packages is much faster.\n\n"
+    "Creating an ActionGroup() makes it active, use release() to disable it\n"
+    "again.\n\n"
+    "The parameter *depcache* refers to an apt_pkg.DepCache() object.";
+
 PyTypeObject PkgActionGroupType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgActionGroup",                       // tp_name
+   "apt_pkg.ActionGroup",               // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -856,7 +911,7 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
-   "ActionGroup Object",                // tp_doc
+   doc_PkgActionGroup,                  // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
@@ -864,24 +919,21 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    PkgActionGroupMethods,               // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgActionGroupNew,                         // tp_new
 };
 
 PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)
 {
-   PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgDepCacheType,&Owner) == 0)
-      return 0;
-
-   pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
-   pkgDepCache::ActionGroup *group = new pkgDepCache::ActionGroup(*depcache);
-   CppOwnedPyObject<pkgDepCache::ActionGroup*> *PkgActionGroupPyObj;
-   PkgActionGroupPyObj = CppOwnedPyObject_NEW<pkgDepCache::ActionGroup*>(Owner,
-						      &PkgActionGroupType,
-						      group);
-   HandleErrors(PkgActionGroupPyObj);
-
-   return PkgActionGroupPyObj;
-
+    return PkgActionGroupNew(&PkgActionGroupType,Args,0);
 }
 
 

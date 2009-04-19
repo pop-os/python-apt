@@ -235,6 +235,61 @@ void PkgCacheFileDealloc(PyObject *Self)
    CppOwnedDealloc<pkgCache *>(Self);
 }
 
+static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   PyObject *pyCallbackInst = 0;
+   static char *kwlist[] = {"progress", 0};
+   if (PyArg_ParseTupleAndKeywords	(Args, kwds, "|O", kwlist, &pyCallbackInst) == 0)
+      return 0;
+
+    if (_system == 0) {
+        PyErr_SetString(PyExc_ValueError,"_system not initialized");
+        return 0;
+    }
+
+   pkgCacheFile *Cache = new pkgCacheFile();
+
+   if(pyCallbackInst != 0) {
+      // sanity check for the progress object, see #497049
+      if (PyObject_HasAttrString(pyCallbackInst, "done") != true) {
+        PyErr_SetString(PyExc_ValueError,
+                        "OpProgress object must implement done()");
+        return 0;
+      }
+      if (PyObject_HasAttrString(pyCallbackInst, "update") != true) {
+        PyErr_SetString(PyExc_ValueError,
+                        "OpProgress object must implement update()");
+        return 0;
+      }
+      PyOpProgress progress;
+      progress.setCallbackInst(pyCallbackInst);
+      if (Cache->Open(progress,false) == false)
+         return HandleErrors();
+   }
+   else {
+      OpTextProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	     return HandleErrors();
+   }
+
+   CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
+	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PkgCacheFileType, Cache);
+
+   CppOwnedPyObject<pkgCache *> *CacheObj =
+	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,type,
+					    (pkgCache *)(*Cache));
+
+   //Py_DECREF(CacheFileObj);
+   return CacheObj;
+}
+
+static const char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
+    "The cache provides access to the packages and other stuff.\n\n"
+    "The optional parameter *progress* can be used to specify an \n"
+    "apt.progress.OpProgress() object (or similar) which displays\n"
+    "the opening progress.\n\n"
+    "If not specified, the progress is displayed in simple text form.";
+
 static PyMappingMethods CacheMap = {0,CacheMapOp,0};
 PyTypeObject PkgCacheType =
 {
@@ -242,7 +297,7 @@ PyTypeObject PkgCacheType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache",                          // tp_name
+   "apt_pkg.Cache",                     // tp_name
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -262,7 +317,7 @@ PyTypeObject PkgCacheType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT ,                 // tp_flags
-   "Cache Object",                      // tp_doc
+   doc_PkgCache,                        // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
@@ -272,6 +327,14 @@ PyTypeObject PkgCacheType =
    PkgCacheMethods,                     // tp_methods
    0,                                   // tp_members
    PkgCacheGetSet,                      // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgCacheNew,                         // tp_new
 };
 									/*}}}*/
 // PkgCacheFile Class							/*{{{*/
@@ -352,7 +415,7 @@ PyTypeObject PkgListType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::PkgIterator",             // tp_name
+   "apt_pkg.PackageList",               // tp_name
    sizeof(CppOwnedPyObject<PkgListStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -452,7 +515,7 @@ PyTypeObject PackageType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::Package",                 // tp_name
+   "apt_pkg.Package",                 // tp_name
    sizeof(CppOwnedPyObject<pkgCache::PkgIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -539,7 +602,7 @@ PyTypeObject DescriptionType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::DescIterator",             // tp_name
+   "apt_pkg.Description",               // tp_name
    sizeof(CppOwnedPyObject<pkgCache::DescIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -743,7 +806,7 @@ PyTypeObject VersionType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::VerIterator",             // tp_name
+   "apt_pkg.Version",                   // tp_name
    sizeof(CppOwnedPyObject<pkgCache::VerIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -820,7 +883,7 @@ PyTypeObject PackageFileType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::PkgFileIterator",         // tp_name
+   "apt_pkg.PackageFile",         // tp_name
    sizeof(CppOwnedPyObject<pkgCache::PkgFileIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -968,7 +1031,7 @@ PyTypeObject DependencyType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::DepIterator",             // tp_name
+   "apt_pkg.Dependency",                // tp_name
    sizeof(CppOwnedPyObject<pkgCache::DepIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -1056,7 +1119,7 @@ PyTypeObject RDepListType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgCache::DepIterator",             // tp_name
+   "apt_pkg.DependencyList",             // tp_name
    sizeof(CppOwnedPyObject<RDepListStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -1078,47 +1141,5 @@ PyTypeObject RDepListType =
 
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
-   PyObject *pyCallbackInst = 0;
-   if (PyArg_ParseTuple(Args, "|O", &pyCallbackInst) == 0)
-      return 0;
-
-    if (_system == 0) {
-        PyErr_SetString(PyExc_ValueError,"_system not initialized");
-        return 0;
-    }
-
-   pkgCacheFile *Cache = new pkgCacheFile();
-
-   if(pyCallbackInst != 0) {
-      // sanity check for the progress object, see #497049
-      if (PyObject_HasAttrString(pyCallbackInst, "done") != true) {
-        PyErr_SetString(PyExc_ValueError,
-                        "OpProgress object must implement done()");
-        return 0;
-      }
-      if (PyObject_HasAttrString(pyCallbackInst, "update") != true) {
-        PyErr_SetString(PyExc_ValueError,
-                        "OpProgress object must implement update()");
-        return 0;
-      }
-      PyOpProgress progress;
-      progress.setCallbackInst(pyCallbackInst);
-      if (Cache->Open(progress,false) == false)
-         return HandleErrors();
-   }
-   else {
-      OpTextProgress Prog;
-      if (Cache->Open(Prog,false) == false)
-	     return HandleErrors();
-   }
-
-   CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
-	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PkgCacheFileType, Cache);
-
-   CppOwnedPyObject<pkgCache *> *CacheObj =
-	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,&PkgCacheType,
-					    (pkgCache *)(*Cache));
-
-   //Py_DECREF(CacheFileObj);
-   return CacheObj;
+    return PkgCacheNew(&PkgCacheType,Args,0);
 }

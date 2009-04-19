@@ -180,13 +180,21 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {}
 };
 
+static PyObject *PkgSrcRecordsNew(PyTypeObject *type,PyObject *args,PyObject *kwds) {
+   char *kwlist[] = {0};
+   if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
+      return 0;
+
+   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(type));
+}
+
 PyTypeObject PkgSrcRecordsType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgSrcRecords",                          // tp_name
+   "apt_pkg.SourceRecords",     // tp_name
    sizeof(CppPyObject<PkgSrcRecordsStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -216,6 +224,14 @@ PyTypeObject PkgSrcRecordsType =
    PkgSrcRecordsMethods,                   // tp_methods
    0,                                   // tp_members
    PkgSrcRecordsGetSet,                    // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgSrcRecordsNew,                         // tp_new
 };
 
 									/*}}}*/

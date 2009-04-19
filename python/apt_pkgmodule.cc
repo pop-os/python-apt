@@ -385,14 +385,18 @@ static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
 static PyMethodDef methods[] =
 {
    // Constructors
+   #ifdef COMPAT_0_7
    {"newConfiguration",newConfiguration,METH_VARARGS,doc_newConfiguration},
+   #endif
    {"init",Init,METH_VARARGS,doc_Init},
    {"InitConfig",InitConfig,METH_VARARGS,doc_InitConfig},
    {"InitSystem",InitSystem,METH_VARARGS,doc_InitSystem},
 
    // Tag File
+   #ifdef COMPAT_0_7
    {"ParseSection",ParseSection,METH_VARARGS,doc_ParseSection},
    {"ParseTagFile",ParseTagFile,METH_VARARGS,doc_ParseTagFile},
+   #endif
    {"RewriteSection",RewriteSection,METH_VARARGS,doc_RewriteSection},
 
    // Locking
@@ -433,6 +437,7 @@ static PyMethodDef methods[] =
    {"StrToTime",StrStrToTime,METH_VARARGS,"StrToTime(String) -> Int"},
 
    // Cache
+   #ifdef COMPAT_0_7
    {"GetCache",TmpGetCache,METH_VARARGS,"GetCache() -> PkgCache"},
    {"GetDepCache",GetDepCache,METH_VARARGS,"GetDepCache(Cache) -> DepCache"},
    {"GetPkgRecords",GetPkgRecords,METH_VARARGS,"GetPkgRecords(Cache) -> PkgRecords"},
@@ -452,9 +457,14 @@ static PyMethodDef methods[] =
 
    // PkgManager
    {"GetPackageManager",GetPkgManager,METH_VARARGS,"GetPackageManager(DepCache) -> PackageManager"},
+   #endif
 
    {}
 };
+
+
+#define ADDTYPE(mod,name,type) { Py_INCREF(type); \
+    PyModule_AddObject(mod,name,(PyObject *)type); }
 
 
 #if PY_MAJOR_VERSION >= 3
@@ -527,6 +537,45 @@ extern "C" void initapt_pkg()
    Config->Object = _config;
    PyModule_AddObject(Module,"Config",Config);
 
+   // Add our classes.
+   /* ============================ tag.cc ============================ */
+   ADDTYPE(Module,"TagSection",&TagSecType);
+   ADDTYPE(Module,"TagFile",&TagFileType);
+   /* ============================ acquire.cc ============================ */
+   ADDTYPE(Module,"Acquire",&PkgAcquireType);
+   ADDTYPE(Module,"AcquireFile",&PkgAcquireFileType);
+   ADDTYPE(Module,"AcquireItem",&AcquireItemType); // NO __new__()
+   /* ============================ cache.cc ============================ */
+   ADDTYPE(Module,"Cache",&PkgCacheType);
+   ADDTYPE(Module,"Dependency",&DependencyType); // NO __new__()
+   ADDTYPE(Module,"Description",&DescriptionType); // NO __new__()
+   ADDTYPE(Module,"PackageFile",&PackageFileType); // NO __new__()
+   //ADDTYPE(Module,"PackageList",&PkgListType);  // NO __new__(), internal
+   //ADDTYPE(Module,"DependencyList",&RDepListType); // NO __new__(), internal
+   ADDTYPE(Module,"Package",&PackageType); // NO __new__()
+   ADDTYPE(Module,"Version",&VersionType); // NO __new__()
+   /* ============================ cdrom.cc ============================ */
+   ADDTYPE(Module,"Cdrom",&PkgCdromType);
+   /* ========================= configuration.cc ========================= */
+   ADDTYPE(Module,"Configuration",&ConfigurationType);
+   //ADDTYPE(Module,"ConfigurationSub",&ConfigurationSubType); // NO __new__()
+   //ADDTYPE(Module,"ConfigurationPtr",&ConfigurationPtrType); // NO __new__()
+   /* ========================= depcache.cc ========================= */
+   ADDTYPE(Module,"ActionGroup",&PkgActionGroupType);
+   ADDTYPE(Module,"DepCache",&PkgDepCacheType);
+   ADDTYPE(Module,"ProblemResolver",&PkgProblemResolverType);
+   /* ========================= indexfile.cc ========================= */
+   ADDTYPE(Module,"PackageIndexFile",&PackageIndexFileType); // NO __new__()
+   /* ========================= metaindex.cc ========================= */
+   ADDTYPE(Module,"MetaIndex",&MetaIndexType); // NO __new__()
+   /* ========================= pkgmanager.cc ========================= */
+   ADDTYPE(Module,"PackageManager",&PkgManagerType);
+   /* ========================= pkgrecords.cc ========================= */
+   ADDTYPE(Module,"PackageRecords",&PkgRecordsType);
+   /* ========================= pkgsrcrecords.cc ========================= */
+   ADDTYPE(Module,"SourceRecords",&PkgSrcRecordsType);
+   /* ========================= sourcelist.cc ========================= */
+   ADDTYPE(Module,"SourceList",&PkgSourceListType);
    // Tag file constants
    PyModule_AddObject(Module,"RewritePackageOrder",
                       CharCharToList(TFRewritePackageOrder));

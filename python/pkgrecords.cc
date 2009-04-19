@@ -132,13 +132,25 @@ static PyGetSetDef PkgRecordsGetSet[] = {
    {}
 };
 
+static PyObject *PkgRecordsNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   PyObject *Owner;
+   char *kwlist[] = {"cache",0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgCacheType,
+                                   &Owner) == 0)
+      return 0;
+
+   return HandleErrors(CppOwnedPyObject_NEW<PkgRecordsStruct>(Owner,type,
+							      GetCpp<pkgCache *>(Owner)));
+}
+
 PyTypeObject PkgRecordsType =
 {
    PyObject_HEAD_INIT(&PyType_Type)
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgRecords",                          // tp_name
+   "apt_pkg.PackageRecords",                          // tp_name
    sizeof(CppOwnedPyObject<PkgRecordsStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -168,17 +180,22 @@ PyTypeObject PkgRecordsType =
    PkgRecordsMethods,                   // tp_methods
    0,                                   // tp_members
    PkgRecordsGetSet,                    // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgRecordsNew,                       // tp_new
 };
 
 									/*}}}*/
 
+
+
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args)
 {
-   PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
-      return 0;
-
-   return HandleErrors(CppOwnedPyObject_NEW<PkgRecordsStruct>(Owner,&PkgRecordsType,
-							      GetCpp<pkgCache *>(Owner)));
+    return PkgRecordsNew(&PkgRecordsType,Args,0);
 }
 

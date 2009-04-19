@@ -58,10 +58,25 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgCdromMethods[] =
 {
-   {"Add",PkgCdromAdd,METH_VARARGS,"Add a cdrom"},
-   {"Ident",PkgCdromIdent,METH_VARARGS,"Ident a cdrom"},
+   {"Add",PkgCdromAdd,METH_VARARGS,"Add(progress) -> Add a cdrom"},
+   {"Ident",PkgCdromIdent,METH_VARARGS,"Ident(progress) -> Ident a cdrom"},
    {}
 };
+
+
+static PyObject *PkgCdromNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
+{
+   pkgCdrom *cdrom = new pkgCdrom();
+
+   static char *kwlist[] = {};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"",kwlist) == 0)
+      return 0;
+
+   CppOwnedPyObject<pkgCdrom> *CdromObj =
+	   CppOwnedPyObject_NEW<pkgCdrom>(0,type, *cdrom);
+
+   return CdromObj;
+}
 
 
 PyTypeObject PkgCdromType =
@@ -70,7 +85,7 @@ PyTypeObject PkgCdromType =
    #if PY_MAJOR_VERSION < 3
    0,                                   // ob_size
    #endif
-   "Cdrom",                             // tp_name
+   "apt_pkg.Cdrom",                     // tp_name
    sizeof(CppOwnedPyObject<PkgCdromStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
@@ -98,16 +113,21 @@ PyTypeObject PkgCdromType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    PkgCdromMethods,                     // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PkgCdromNew,                         // tp_new
 };
 
 PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
-   pkgCdrom *cdrom = new pkgCdrom();
-
-   CppOwnedPyObject<pkgCdrom> *CdromObj =
-	   CppOwnedPyObject_NEW<pkgCdrom>(0,&PkgCdromType, *cdrom);
-
-   return CdromObj;
+   return PkgCdromNew(&PkgCdromType,Args,0);
 }
 
 

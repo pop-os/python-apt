@@ -62,7 +62,7 @@ PyTypeObject MetaIndexType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "metaIndex",         // tp_name
+   "apt_pkg.MetaIndex",         // tp_name
    sizeof(CppOwnedPyObject<metaIndex*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods

@@ -80,6 +80,7 @@ PyObject *GetCdrom(PyObject *Self,PyObject *Args);
 // acquire
 extern PyTypeObject AcquireItemType;
 extern PyTypeObject PkgAcquireType;
+extern PyTypeObject PkgAcquireFileType;
 extern char *doc_GetPkgAcqFile;
 PyObject *GetAcquire(PyObject *Self,PyObject *Args);
 PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject *kwds);
