@@ -61,6 +61,7 @@ def do_color(string, words):
     if not color:
         return string
     for word in words:
+        word = re.escape(word)
         string = re.sub('([^_]*)(%s)([^_]*)' % word, "\\1\033[31m\033[1m" +
                         r"\2" + "\033[0m\\3", string)
     return string
@@ -86,7 +87,10 @@ def find_deprecated_cpp():
                 if lines:
                     line = lines.pop(0)
                 while lines and not '#endif' in line:
-                    all_old.add(line.split(",")[0].strip().strip('{"'))
+                    name = line.split(",")[0].strip().strip('{"')
+                    if 'module' in fname:
+                        name = '.' + name
+                    all_old.add(name)
                     line = lines.pop(0)
     return all_old
 
@@ -119,7 +123,7 @@ def find_deprecated_py():
             if not isinstance(cls, types.TypeType):
                 new.add(clsname)
                 continue
-            new.update(dir(cls))
+            new.update('.' + name for name in dir(cls)) # Attributes/Methods
 
     for mname in sys.modules.keys():
         if not mname in empty:
@@ -134,7 +138,7 @@ def find_deprecated_py():
             if not isinstance(cls, types.TypeType):
                 deprecated.add(clsname)
                 continue
-            deprecated.update(dir(cls))
+            deprecated.update('.' + name for name in dir(cls)) # Attributes/Methods
 
 
     for mname in sys.modules.keys():
@@ -160,7 +164,7 @@ def find_occurences(all_old, files):
             if isinstance(i, _ast.Name) and i.id in all_old:
                 words[i.lineno].add(i.id)
 
-            if isinstance(i, _ast.Attribute) and i.attr in all_old:
+            if isinstance(i, _ast.Attribute) and ('.' + i.attr in all_old):
                 words[i.lineno].add(i.attr)
 
         for lineno in sorted(words):
@@ -178,6 +182,7 @@ if color:
     print
 
 all_old = find_deprecated_cpp() | find_deprecated_py()
+
 
 
 files = set()
