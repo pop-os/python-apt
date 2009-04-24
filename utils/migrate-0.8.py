@@ -88,7 +88,7 @@ def find_deprecated_cpp():
                     line = lines.pop(0)
                 while lines and not '#endif' in line:
                     name = line.split(",")[0].strip().strip('{"')
-                    if 'module' in fname:
+                    if not 'module' in fname:
                         name = '.' + name
                     all_old.add(name)
                     line = lines.pop(0)
