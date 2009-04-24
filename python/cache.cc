@@ -283,7 +283,7 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return CacheObj;
 }
 
-static const char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
+static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "The cache provides access to the packages and other stuff.\n\n"
     "The optional parameter *progress* can be used to specify an \n"
     "apt.progress.OpProgress() object (or similar) which displays\n"

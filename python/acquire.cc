@@ -217,7 +217,7 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return FetcherObj;
 }
 
-static const char *doc_PkgAcquire = "Acquire(progress) -> Acquire() object.\n\n"
+static char *doc_PkgAcquire = "Acquire(progress) -> Acquire() object.\n\n"
     "Create a new acquire object. The parameter *progress* can be used to\n"
     "specify a apt.progress.FetchProgress() object, which will display the\n"
     "progress of the fetching.";
@@ -305,7 +305,7 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
 }
 
 
-static const char *doc_PkgAcquireFile =
+static char *doc_PkgAcquireFile =
     "AcquireFile(owner, uri[, md5, size, descr, short_descr, dest_dir,"
     "dest_file]) -> New AcquireFile() object\n\n"
     "The parameter *owner* refers to an apt_pkg.Acquire() object. You can use\n"

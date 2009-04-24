@@ -393,7 +393,7 @@ PySequenceMethods TagSecSeqMeth = {0,0,0,0,0,0,0,TagSecContains,0,0};
 PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 
 
-static const char *doc_TagSec = "TagSection(text) -> Create a new object.\n\n"
+static char *doc_TagSec = "TagSection(text) -> Create a new object.\n\n"
    "TagSection() objects provide methods to access rfc822-style formatted\n"
    "header sections, like those in debian/control or Packages files.\n\n"
    "TagSection() behave like read-only dictionaries and also provide access\n"
@@ -467,7 +467,7 @@ static PyGetSetDef TagFileGetSet[] = {
     {}
 };
 
-static const char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
+static char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
    "TagFile() objects provide access to debian control files, which consists\n"
    "of multiple RFC822-like formatted sections.\n\n"
    "A file may consists of multiple sections, and you can use Step() to move\n"

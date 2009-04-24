@@ -614,7 +614,7 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
    return DepCachePyObj;
 }
 
-static const char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
+static char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
     "A DepCache() holds extra information on the state of the packages.\n\n"
     "The parameter *cache* refers to an apt_pkg.Cache() object.";
 PyTypeObject PkgDepCacheType =
@@ -893,7 +893,7 @@ static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *k
 
 }
 
-static const char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
+static char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
     "Create a new ActionGroup() object. The parameter *depcache* refers to an\n"
     "apt_pkg.DepCache() object.\n\n"
     "ActionGroups disable certain cleanup actions, so modifying many packages\n"

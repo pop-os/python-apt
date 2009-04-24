@@ -584,8 +584,8 @@ extern "C" void initapt_pkg()
                       CharCharToList(TFRewriteSourceOrder));
 
    // Version..
-   PyModule_AddStringConstant(Module,"Version",pkgVersion);
-   PyModule_AddStringConstant(Module,"LibVersion",pkgLibVersion);
+   PyModule_AddStringConstant(Module,"Version",(char *)pkgVersion);
+   PyModule_AddStringConstant(Module,"LibVersion",(char *)pkgLibVersion);
    PyModule_AddStringConstant(Module,"Date",__DATE__);
    PyModule_AddStringConstant(Module,"Time",__TIME__);
 
