@@ -116,14 +116,14 @@ def find_deprecated_py():
     new, deprecated = set(), set()
 
     for mname in sorted(modules):
-        module = __import__(mname)
+        module = __import__(mname, fromlist=['*'])
 
         for clsname in dir(module):
             cls = getattr(module, clsname)
             if not isinstance(cls, types.TypeType):
                 new.add(clsname)
                 continue
-            new.update('.' + name for name in dir(cls)) # Attributes/Methods
+            new.update(clsname + '.' + name for name in dir(cls)) # Attributes/Methods
 
     for mname in sys.modules.keys():
         if not mname in empty:
@@ -132,14 +132,16 @@ def find_deprecated_py():
     apt_pkg._COMPAT_0_7 = 1
 
     for mname in sorted(modules):
-        module = __import__(mname)
+        module = __import__(mname, fromlist=['*'])
         for clsname in dir(module):
             cls = getattr(module, clsname)
             if not isinstance(cls, types.TypeType):
                 deprecated.add(clsname)
                 continue
-            deprecated.update('.' + name for name in dir(cls)) # Attributes/Methods
-
+            for name in dir(cls):
+                if not clsname + '.' + name in new:
+                    # Attributes/Methods, which are deprecated (not in new).
+                    deprecated.add('.' + name)
 
     for mname in sys.modules.keys():
         if not mname in empty:
