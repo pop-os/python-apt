@@ -123,7 +123,8 @@ def find_deprecated_py():
             if not isinstance(cls, types.TypeType):
                 new.add(clsname)
                 continue
-            new.update(clsname + '.' + name for name in dir(cls)) # Attributes/Methods
+            # Attributes/Methods
+            new.update(clsname + '.' + name for name in dir(cls))
 
     for mname in sys.modules.keys():
         if not mname in empty:
@@ -158,7 +159,6 @@ def find_occurences(all_old, files):
 
         words = defaultdict(lambda: set())
         for i in ast.walk(ast.parse(open(fname).read())):
-
             if isinstance(i, _ast.ImportFrom):
                 for alias in i.names:
                     if alias.name in all_old:
@@ -178,14 +178,15 @@ def find_occurences(all_old, files):
 
 print __doc__.split("\n")[0]
 print
+print fill('Information: Please verify that the results are correct before '
+           'you modify any code, because there may be false positives.', 79)
+print
 if color:
     print fill('Information: The color is not always correct, because we '
                'simply highlight the matched words (like grep).', 79)
     print
 
 all_old = find_deprecated_cpp() | find_deprecated_py()
-
-
 
 files = set()
 for path in sys.argv[1:]:
