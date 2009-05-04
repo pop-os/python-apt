@@ -107,13 +107,14 @@ class FetchProgress(object):
     def stop(self):
         """Called when all files have been fetched."""
 
-    def updateStatus(self, uri, descr, shortDescr, status):
+    def updateStatus(self, uri, descr, shortDescr, status, fileSize, 
+                     partialSize):
         """Called when the status of an item changes.
 
         This happens eg. when the downloads fails or is completed.
         """
 
-    def pulse(self):
+    def pulse(self, items):
         """Called periodically to update the user interface.
 
         Return True to continue or False to cancel.
