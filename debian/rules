@@ -15,15 +15,13 @@ PKG=python-apt
 DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
 DEB_COMPRESS_EXCLUDE:=.html .js _static/* _sources/* _sources/*/* .inv
 DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
+export DEBVER
 
 build/python-apt-dbg::
 	set -e; \
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py build; \
 	done
-
-build/python-apt::
-	pydoc -w
 
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
@@ -32,6 +30,9 @@ install/python-apt-dbg::
 	find debian/python-apt-dbg \
 		! -type d ! -name '*_d.so' | xargs rm -f
 	find debian/python-apt-dbg -depth -empty -exec rmdir {} \;
+
+binary-predeb/python-apt::
+	ln -sf ../../../../javascript/jquery/jquery.js debian/python-apt/usr/share/doc/python-apt/html/_static/jquery.js
 
 binary-predeb/python-apt-dbg::
 	rm -rf debian/python-apt-dbg/usr/share/doc/python-apt-dbg

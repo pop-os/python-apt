@@ -3,10 +3,8 @@
 
 import apt_pkg
 import sys
-import os
-import copy
 
-from progress import CdromProgress
+from progress import TextCdromProgress
 
 
 # init
@@ -15,7 +13,7 @@ apt_pkg.init()
 cdrom = apt_pkg.GetCdrom()
 print cdrom
 
-progress = CdromProgress()
+progress = TextCdromProgress()
 
 (res, ident) = cdrom.Ident(progress)
 print "ident result is: %s (%s) " % (res, ident)

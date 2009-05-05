@@ -10,6 +10,16 @@ The Package class
 .. autoclass:: Package
     :members:
 
+    .. note::
+
+        Several methods have been deprecated in version 0.7.9 of python-apt,
+        please see the :class:`Version` class for the new alternatives.
+
+The Version class
+-----------------
+.. autoclass:: Version
+    :members:
+
 
 Dependency Information
 ----------------------
@@ -88,14 +98,14 @@ Examples
 
     cache = apt.Cache()
     pkg = cache['python-apt'] # Access the Package object for python-apt
-    print 'python-apt is trusted:', pkg.candidateOrigin.trusted
+    print 'python-apt is trusted:', pkg.candidate.origins[0].trusted
 
     # Mark python-apt for install
     pkg.markInstall()
 
     print 'python-apt is marked for install:', pkg.markedInstall
 
-    print 'python-apt is', pkg.summary #Python interface to libapt-pkg
+    print 'python-apt is (summary):', pkg.candidate.summary
 
     # Now, really install it
     cache.commit()

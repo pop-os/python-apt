@@ -1,10 +1,7 @@
 #!/usr/bin/python
 # example how to deal with the depcache
 
-import apt
 import apt_pkg
-import sys
-import copy
 from progress import TextProgress
 
 

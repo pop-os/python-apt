@@ -2,8 +2,6 @@
 import apt
 import apt_pkg
 import os
-import sys
-import tempfile
 
 
 def get_file(fetcher, uri, destFile):

@@ -1,12 +1,12 @@
 #  aptsource.py - Provide an abstraction of the sources.list
 #
-#  Copyright (c) 2004-2007 Canonical Ltd.
-#                2004 Michiel Sikkes
-#                2006-2007 Sebastian Heinlein
+#  Copyright (c) 2004-2009 Canonical Ltd.
+#  Copyright (c) 2004 Michiel Sikkes
+#  Copyright (c) 2006-2007 Sebastian Heinlein
 #
-#  Author: Michiel Sikkes <michiel@eyesopened.nl>
-#          Michael Vogt <mvo@debian.org>
-#          Sebastian Heinlein <glatzor@ubuntu.com>
+#  Authors: Michiel Sikkes <michiel@eyesopened.nl>
+#           Michael Vogt <mvo@debian.org>
+#           Sebastian Heinlein <glatzor@ubuntu.com>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as
@@ -351,7 +351,7 @@ class SourcesList(object):
         files = {}
         # write an empty default config file if there aren't any sources
         if len(self.list) == 0:
-            path = apt_pkg.Config.FindFile("Dir::Etc::sourcelist"
+            path = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
             header = (
                 "## See sources.list(5) for more information, especialy\n"
                 "# Remember that you can only use http, ftp or file URIs\n"
