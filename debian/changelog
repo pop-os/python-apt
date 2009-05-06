@@ -9,7 +9,7 @@ python-apt (0.7.9~exp2ubuntu11) karmic; urgency=low
   * data/templates/Ubuntu.info.in:
     - updated for karmic
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 16 Apr 2009 16:50:38 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 06 May 2009 14:28:56 +0200
 
 python-apt (0.7.9~exp2ubuntu10) jaunty; urgency=low
 
