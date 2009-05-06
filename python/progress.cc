@@ -120,7 +120,15 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 				     Itm.Owner->FileSize,
 				     Itm.Owner->PartialSize);
 
+   RunSimpleCallback("update_status_full", arglist);
+
+   // legacy version of the interface
+   arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), 
+				     Itm.Description.c_str(), 
+				     Itm.ShortDesc.c_str(), 
+                                     status);
    RunSimpleCallback("updateStatus", arglist);
+
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
@@ -274,11 +282,19 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    }
 
    PyObject *result;
+   bool res = true;
+
+   RunSimpleCallback("pulse_items", arglist, &result);
+   if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
+      // the user returned a explicit false here, stop
+      return false;
+   }
+
+   arglist = Py_BuildValue("()");
    if (!RunSimpleCallback("pulse", arglist, &result)) {
      return true;
    }
 
-   bool res = true;
    if((result == NULL) || (!PyArg_Parse(result, "b", &res)))
    {
       // most of the time the user who subclasses the pulse() 
