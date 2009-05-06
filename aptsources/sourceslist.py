@@ -1,12 +1,12 @@
 #  aptsource.py - Provide an abstraction of the sources.list
 #
-#  Copyright (c) 2004-2007 Canonical Ltd.
-#                2004 Michiel Sikkes
-#                2006-2007 Sebastian Heinlein
+#  Copyright (c) 2004-2009 Canonical Ltd.
+#  Copyright (c) 2004 Michiel Sikkes
+#  Copyright (c) 2006-2007 Sebastian Heinlein
 #
-#  Author: Michiel Sikkes <michiel@eyesopened.nl>
-#          Michael Vogt <mvo@debian.org>
-#          Sebastian Heinlein <glatzor@ubuntu.com>
+#  Authors: Michiel Sikkes <michiel@eyesopened.nl>
+#           Michael Vogt <mvo@debian.org>
+#           Sebastian Heinlein <glatzor@ubuntu.com>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as
@@ -219,7 +219,7 @@ class NullMatcher(object):
         return True
 
 
-class SourcesList:
+class SourcesList(object):
     """ represents the full sources.list + sources.list.d file """
 
     def __init__(self,
@@ -236,9 +236,8 @@ class SourcesList:
         """ update the list of known entries """
         self.list = []
         # read sources.list
-        dir = apt_pkg.Config.FindDir("Dir::Etc")
-        file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
-        self.load(dir+file)
+        file = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
+        self.load(file)
         # read sources.list.d
         partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
         for file in glob.glob("%s/*.list" % partsdir):
@@ -312,11 +311,10 @@ class SourcesList:
 
     def restoreBackup(self, backup_ext):
         " restore sources.list files based on the backup extension "
-        dir = apt_pkg.Config.FindDir("Dir::Etc")
-        file = apt_pkg.Config.Find("Dir::Etc::sourcelist")
-        if os.path.exists(dir+file+backup_ext) and \
-            os.path.exists(dir+file):
-            shutil.copy(dir+file+backup_ext, dir+file)
+        file = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
+        if os.path.exists(file+backup_ext) and \
+            os.path.exists(file):
+            shutil.copy(file+backup_ext, file)
         # now sources.list.d
         partsdir = apt_pkg.Config.FindDir("Dir::Etc::sourceparts")
         for file in glob.glob("%s/*.list" % partsdir):
@@ -353,8 +351,7 @@ class SourcesList:
         files = {}
         # write an empty default config file if there aren't any sources
         if len(self.list) == 0:
-            path = "%s%s" % (apt_pkg.Config.FindDir("Dir::Etc"),
-                             apt_pkg.Config.Find("Dir::Etc::sourcelist"))
+            path = apt_pkg.Config.FindFile("Dir::Etc::sourcelist")
             header = (
                 "## See sources.list(5) for more information, especialy\n"
                 "# Remember that you can only use http, ftp or file URIs\n"

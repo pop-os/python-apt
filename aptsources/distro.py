@@ -1,7 +1,7 @@
 #  distro.py - Provide a distro abstraction of the sources.list
 #
-#  Copyright (c) 2004-2007 Canonical Ltd.
-#                2006-2007 Sebastian Heinlein
+#  Copyright (c) 2004-2009 Canonical Ltd.
+#  Copyright (c) 2006-2007 Sebastian Heinlein
 #
 #  Authors: Sebastian Heinlein <glatzor@ubuntu.com>
 #           Michael Vogt <mvo@debian.org>
@@ -103,22 +103,22 @@ class Distribution:
                 self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently
-                if (source.uri.startswith("cdrom:") and 
+                if (source.uri.startswith("cdrom:") and
                     source.disabled == False):
                     self.cdrom_sources.append(source)
                     cdrom_comps.extend(source.comps)
-                elif (source.uri.startswith("cdrom:") and 
+                elif (source.uri.startswith("cdrom:") and
                       source.disabled == True):
                     self.cdrom_sources.append(source)
-                elif (source.type == self.binary_type and 
+                elif (source.type == self.binary_type and
                       source.disabled == False):
                     self.main_sources.append(source)
                     comps.extend(source.comps)
                     media.append(source.uri)
-                elif (source.type == self.binary_type and 
+                elif (source.type == self.binary_type and
                       source.disabled == True):
                     self.disabled_sources.append(source)
-                elif (source.type == self.source_type 
+                elif (source.type == self.source_type
                         and source.disabled == False):
                     self.source_code_sources.append(source)
                 elif (source.type == self.source_type and
@@ -126,10 +126,10 @@ class Distribution:
                     self.disabled_sources.append(source)
             if (source.invalid == False and
                 source.template in self.source_template.children):
-                if (source.disabled == False 
+                if (source.disabled == False
                     and source.type == self.binary_type):
                     self.child_sources.append(source)
-                elif (source.disabled == False 
+                elif (source.disabled == False
                       and source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
@@ -167,15 +167,16 @@ class Distribution:
             et = ElementTree(file=fname)
             it = et.getiterator('iso_3166_entry')
             for elm in it:
-                if elm.attrib.has_key("common_name"):
+                try:
                     descr = elm.attrib["common_name"]
-                else:
+                except KeyError:
                     descr = elm.attrib["name"]
-                if elm.attrib.has_key("alpha_2_code"):
+                try:
                     code = elm.attrib["alpha_2_code"]
-                else:
+                except KeyError:
                     code = elm.attrib["alpha_3_code"]
-                self.countries[code.lower()] = gettext.dgettext('iso_3166',descr)
+                self.countries[code.lower()] = gettext.dgettext('iso_3166',
+                                                                descr)
 
         # try to guess the nearest mirror from the locale
         self.country = None
@@ -219,14 +220,14 @@ class Distribution:
         # Store all available servers:
         # Name, URI, active
         mirrors = []
-        if (len(self.used_servers) < 1 or 
-            (len(self.used_servers) == 1 and 
+        if (len(self.used_servers) < 1 or
+            (len(self.used_servers) == 1 and
              compare_mirrors(self.used_servers[0], self.main_server))):
             mirrors.append([_("Main server"), self.main_server, True])
             if self.nearest_server:
                 mirrors.append([self._get_mirror_name(self.nearest_server),
                                 self.nearest_server, False])
-        elif (len(self.used_servers) == 1 and not 
+        elif (len(self.used_servers) == 1 and not
               compare_mirrors(self.used_servers[0], self.main_server)):
             mirrors.append([_("Main server"), self.main_server, False])
             # Only one server is used
@@ -384,7 +385,7 @@ class Distribution:
             change_server_of_source(source, uri, seen_binary)
         for source in self.child_sources:
             # Do not change the forces server of a child source
-            if (source.template.base_uri is None or 
+            if (source.template.base_uri is None or
                 source.template.base_uri != source.uri):
                 change_server_of_source(source, uri, seen_binary)
         for source in self.source_code_sources:

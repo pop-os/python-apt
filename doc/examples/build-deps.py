@@ -32,7 +32,7 @@ if len(sys.argv) < 2:
     print "need a package name as argument"
     sys.exit(1)
 try:
-    base = cache[sys.argv[1]]
+    pkg = base = cache[sys.argv[1]]
 except KeyError:
     print "No package %s found" % sys.argv[1]
     sys.exit(1)

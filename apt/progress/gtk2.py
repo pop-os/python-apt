@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2004-2005 Canonical
+# Copyright (c) 2004-2009 Canonical
 #
 # Authors: Michael Vogt <michael.vogt@ubuntu.com>
 #          Sebastian Heinlein <glatzor@ubuntu.com>
@@ -29,7 +29,10 @@ import time
 import pygtk
 pygtk.require('2.0')
 import gtk
-import glib
+try:
+    import glib
+except ImportError:
+    import gobject as glib
 import gobject
 import pango
 import vte

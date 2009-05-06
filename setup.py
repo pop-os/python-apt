@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 # $Id: setup.py,v 1.2 2002/01/08 07:13:21 jgg Exp $
-
-from distutils.core import setup, Extension
-from distutils.sysconfig import parse_makefile
-from DistUtilsExtra.command import build_extra, build_i18n
 import glob
 import os
 import shutil
 import sys
+
+from distutils.core import setup, Extension
+from distutils.sysconfig import parse_makefile
+from DistUtilsExtra.command import build_extra, build_i18n
 
 
 # The apt_pkg module
@@ -46,12 +46,12 @@ if len(sys.argv) > 1 and sys.argv[1] == "clean" and '-a' in sys.argv:
             print "Not removing", dirname, "because it does not exist"
 
 setup(name="python-apt",
-      version="0.7.9",
       description="Python bindings for APT",
+      version=os.environ.get('DEBVER'),
       author="APT Development Team",
       author_email="deity@lists.debian.org",
       ext_modules=[apt_pkg, apt_inst],
-      packages=['apt', 'apt.gtk', 'aptsources'],
+      packages=['apt', 'apt.progress', 'aptsources'],
       data_files = [('share/python-apt/templates',
                     glob.glob('build/data/templates/*.info')),
                     ('share/python-apt/templates',
@@ -64,6 +64,12 @@ setup(name="python-apt",
 if (len(sys.argv) > 1 and sys.argv[1] == "build" and
     sys.version_info[0] >= 2 and sys.version_info[1] >= 5):
     import sphinx
+    try:
+        import pygtk
+    except ImportError:
+        print >> sys.stderr, ('W: Not building documentation because python-'
+                              'gtk2 is not available at the moment.')
+        sys.exit(0)
     sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
                 os.path.abspath("doc/source"), "build/doc/html"])
     sphinx.main(["sphinx", "-b", "text", "-d", "build/doc/doctrees",

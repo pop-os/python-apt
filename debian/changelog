@@ -1,3 +1,95 @@
+python-apt (0.7.10.3ubuntu1) karmic; urgency=low
+
+  * merged from debian, remaining changes:
+    - updated mirrors
+    - build python2.4
+    - use DH_PYCENTRAL=include-links
+    - use --install-layout=deb
+    - pre-build.sh: update ubuntu mirrors on bzr-buildpackage
+  
+ -- Michael Vogt <mvo@debian.org>  Tue, 05 May 2009 12:03:27 +0200
+
+python-apt (0.7.10.3) unstable; urgency=low
+
+  * apt/package.py: Handle cases where no candidate is available, by returning
+    None in the candidate property. (Closes: #523801)
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 12 Apr 2009 19:50:26 +0200
+
+python-apt (0.7.10.2) unstable; urgency=low
+
+  * apt/package.py: Handle cases where no candidate is available and
+    one of the deprecated properties (e.g. candidateVersion) is
+    requested. (Closes: #523801)
+  * setup.py, debian/rules: Support version in setup.py again by getting
+    the value from the variable DEBVER (defined in debian/rules), falling
+    back to None.
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 12 Apr 2009 19:00:07 +0200
+
+python-apt (0.7.10) unstable; urgency=low
+
+  * Build-Depend on python-debian, use it to get version number from changelog
+  * Depend on libjs-jquery, and remove internal copy (Closes: #521532)
+  * apt/package.py:
+    - Introduce Version.{uri,uris,fetch_binary()}
+  * debian/control:
+    - Remove mdz from Uploaders (Closes: #521477), add myself.
+    - Update Standards-Version to 3.8.1
+    - Use ${binary:Version} instead of ${Source-Version}
+    - Fix spelling error: python -> Python
+  * debian/copyright: Switch to machine-interpretable copyright
+  * Fix documentation building
+    - doc/source/conf.py: Only include directories for current python version.
+    - debian/control: Build-Depend on python-gtk2, python-vte.
+    - setup.py: If pygtk can not be imported, do not build the documentation.
+  * Breaks: debdelta (<< 0.28~) to avoid more problems due to the internal
+    API changes from 0.7.9.
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 01 Apr 2009 15:24:29 +0200
+
+python-apt (0.7.9) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * apt/gtk/widgets.py:
+    - Handle older versions of python-gobject which do not ship glib
+  * apt/package.py: Introduce the Version class
+    - Deprecate Package.candidate*() and Package.installed*(), except for
+      installedFiles.
+    - Provide Version.get_source() (LP: #118788)
+    - Provide Package.versions (Closes: #513236)
+  * apt/progress/: New package, replaces apt.progress and apt.gtk
+    - apt/progress/gtk2.py: Moved here from apt/gtk/widgets.py
+    - apt/progress/__init__.py: Move here from apt/progress.py
+  * doc/source/*: Improve the documentation
+    - Document more attributes and functions of apt_pkg (they are all listed)
+
+  [ Michael Vogt ]
+  * aptsources/distro.py:
+    - use iso_3166.xml instead of iso_3166.tab
+    - fix incorrect indent
+  * debian/control:
+    - add Recommends to iso-codes (for iso_3166.xml)
+  * apt/package.py:
+    - make sure to set the defaulttimeout back to the
+      original value (in getChangelog(), LP: #314212)
+      Closes: #513315
+  * apt/cache.py:
+    - when setting a alternative rootdir, read the
+      config from it as well
+  * python/configuration.cc, python/apt_pkgmodule.cc:
+    - add apt_pkg.ReadConfigDir()
+  * python/cache.cc, tests/getcache_mem_corruption.py:
+    - test if progress objects have the right methods
+      and raise error if not (thanks to Emanuele Rocca)
+      closes: #497049
+  * apt/package.py:
+    - avoid uneeded interal references in the Package objects
+  * aptsources/sourceslist.py:
+    - fix bug in invalid lines detection (LP: #324614)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 19 Mar 2009 13:39:21 +0100
+
 python-apt (0.7.9~exp2ubuntu11) karmic; urgency=low
 
   [ Matthias Klose ]
