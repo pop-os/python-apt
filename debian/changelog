@@ -1,4 +1,4 @@
-python-apt (0.7.10.3ubuntu2) UNRELEASED; urgency=critical
+python-apt (0.7.10.3ubuntu2) karmic; urgency=critical
 
   [ Loic Minier ]
   * Merge changes below from Michael Casadevall.
@@ -13,7 +13,7 @@ python-apt (0.7.10.3ubuntu2) UNRELEASED; urgency=critical
   * Update mirror list from LP.
   * Unsset https_proxy in pre-build.sh to workaround LP #94130.
 
- -- Michael Casadevall <mcasadevall@blacksteel>  Tue, 12 May 2009 05:53:07 -0400
+ -- Loic Minier <lool@dooz.org>  Tue, 12 May 2009 13:29:08 +0200
 
 python-apt (0.7.10.3ubuntu1) karmic; urgency=low
 
