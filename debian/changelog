@@ -1,11 +1,11 @@
-python-apt (0.7.10.3ubuntu2) UNRELEASED; urgency=critical
+python-apt (0.7.10.3ubuntu2) karmic; urgency=critical
 
   * setup.py:
     - Added gcc and gcc_s to work around gcc-4.4 issue on ARM and libstdc++
     - This is a temporary workaround for Karmic Alpha 1. See bug #375334 
       for more details
 
- -- Michael Casadevall <mcasadevall@ubuntu.com>  Tue, 12 May 2009 04:49:49 -0400
+ -- Michael Casadevall <mcasadevall@blacksteel>  Tue, 12 May 2009 05:53:07 -0400
 
 python-apt (0.7.10.3ubuntu1) karmic; urgency=low
 
