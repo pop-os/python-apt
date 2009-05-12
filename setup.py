@@ -13,7 +13,7 @@ from DistUtilsExtra.command import build_extra, build_i18n
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
             parse_makefile("python/makefile")["APT_PKG_SRC"].split())
-apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
+apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg", "gcc", "gcc_s"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
