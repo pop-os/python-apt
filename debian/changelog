@@ -1,11 +1,16 @@
 python-apt (0.7.91) UNRELEASED; urgency=low
 
+  [ Julian Andres Klode ]
   * Rename all methods,functions,attributes to conform to PEP 8 (Closes: #481061)
   * Where possible, derive apt.package.Record from collections.Mapping.
   * ActionGroups can be used as a context manager for the 'with' statement.
   * utils/migrate-0.8.py: Helper to check Python code for deprecated functions,
     attributes,etc. Has to be run from the python-apt source tree, but can be
     used for all Python code using python-apt.
+
+  [ Stefano Zacchiroli ]
+  * debian/python-apt.doc-base: register the documentation with the
+    doc-base system (Closes: #525134)
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 17 Apr 2009 17:48:27 +0200
 
