@@ -367,13 +367,11 @@ class DpkgInstallProgress(InstallProgress):
 
     def run(self, debfile):
         """Start installing the given Debian package."""
-        self.debfile = debfile
-        self.debname = os.path.basename(debfile).split("_")[0]
         pid = self.fork()
         if pid == 0:
             # child
             res = os.system("/usr/bin/dpkg --status-fd %s -i %s" % \
-                            (self.writefd, self.debfile))
+                            (self.writefd, debfile))
             os._exit(os.WEXITSTATUS(res))
         self.child_pid = pid
         res = self.wait_child()
