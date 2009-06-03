@@ -90,6 +90,8 @@ def find_deprecated_cpp():
                     name = line.split(",")[0].strip().strip('{"')
                     if not 'module' in fname:
                         name = '.' + name
+                    else:
+                        all_old.add('.' + name)
                     all_old.add(name)
                     line = lines.pop(0)
     return all_old
@@ -186,7 +188,12 @@ if color:
                'simply highlight the matched words (like grep).', 79)
     print
 
-all_old = find_deprecated_cpp() | find_deprecated_py()
+all_old = find_deprecated_cpp()
+
+if not '-P' in sys.argv:
+    all_old |= find_deprecated_py()
+else:
+    sys.argv.remove('-P')
 
 files = set()
 for path in sys.argv[1:]:
