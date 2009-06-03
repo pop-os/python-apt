@@ -377,13 +377,20 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
 static PyMethodDef TagSecMethods[] =
 {
    // Query
+   {"find",TagSecFind,METH_VARARGS,doc_Find},
+   {"findflag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
+   {"bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
+#ifdef COMPAT_0_7
    {"Find",TagSecFind,METH_VARARGS,doc_Find},
    {"FindFlag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"Bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
+#endif
 
    // Python Special
    {"keys",TagSecKeys,METH_VARARGS,doc_Keys},
+#if PY_MAJOR_VERSION < 3
    {"has_key",TagSecExists,METH_VARARGS,doc_Exists},
+#endif
    {"get",TagSecFind,METH_VARARGS,doc_Find},
    {}
 };
@@ -448,9 +455,14 @@ PyTypeObject TagSecType =
 static PyMethodDef TagFileMethods[] =
 {
    // Query
+   {"step",TagFileStep,METH_VARARGS,doc_Step},
+   {"offset",TagFileOffset,METH_VARARGS,doc_Offset},
+   {"jump",TagFileJump,METH_VARARGS,doc_Jump},
+#ifdef COMPAT_0_7
    {"Step",TagFileStep,METH_VARARGS,doc_Step},
    {"Offset",TagFileOffset,METH_VARARGS,doc_Offset},
    {"Jump",TagFileJump,METH_VARARGS,doc_Jump},
+#endif
 
    {}
 };
@@ -463,7 +475,10 @@ static PyObject *TagFileGetSection(PyObject *Self,void*) {
 }
 
 static PyGetSetDef TagFileGetSet[] = {
+    {"section",TagFileGetSection,0,"Return a TagSection.",0},
+#ifdef COMPAT_0_7
     {"Section",TagFileGetSection,0,"Return a TagSection.",0},
+#endif
     {}
 };
 

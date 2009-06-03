@@ -72,9 +72,14 @@ static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgSourceListMethods[] =
 {
+   {"find_index",PkgSourceListFindIndex,METH_VARARGS,doc_PkgSourceListFindIndex},
+   {"read_main_list",PkgSourceListReadMainList,METH_VARARGS,doc_PkgSourceListReadMainList},
+   {"get_indexes",PkgSourceListGetIndexes,METH_VARARGS,doc_PkgSourceListGetIndexes},
+#ifdef COMPAT_0_7
    {"FindIndex",PkgSourceListFindIndex,METH_VARARGS,doc_PkgSourceListFindIndex},
    {"ReadMainList",PkgSourceListReadMainList,METH_VARARGS,doc_PkgSourceListReadMainList},
    {"GetIndexes",PkgSourceListGetIndexes,METH_VARARGS,doc_PkgSourceListGetIndexes},
+#endif
    {}
 };
 
@@ -93,7 +98,10 @@ static PyObject *PkgSourceListGetList(PyObject *Self,void*)
 }
 
 static PyGetSetDef PkgSourceListGetSet[] = {
+    {"list",PkgSourceListGetList,0,"A list of MetaIndex() objects.",0},
+#ifdef COMPAT_0_7
     {"List",PkgSourceListGetList,0,"A list of MetaIndex() objects.",0},
+#endif
     {}
 };
 

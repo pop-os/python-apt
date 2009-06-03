@@ -49,7 +49,10 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgRecordsMethods[] =
 {
+   {"lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
+   #ifdef COMPAT_0_7
    {"Lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
+   #endif
    {}
 };
 
@@ -117,6 +120,19 @@ static PyObject *PkgRecordsGetRecord(PyObject *Self,void*) {
    return PyString_FromStringAndSize(start,stop-start);
 }
 static PyGetSetDef PkgRecordsGetSet[] = {
+   {"filename",PkgRecordsGetFileName},
+   {"homepage",PkgRecordsGetHomepage},
+   {"longdesc",PkgRecordsGetLongDesc},
+   {"md5",PkgRecordsGetMD5Hash},
+   {"maintainer",PkgRecordsGetMaintainer},
+   {"name",PkgRecordsGetName},
+   {"record",PkgRecordsGetRecord},
+   {"sha1",PkgRecordsGetSHA1Hash},
+   {"sha256",PkgRecordsGetSHA256Hash},
+   {"shortdesc",PkgRecordsGetShortDesc},
+   {"sourcepkg",PkgRecordsGetSourcePkg},
+   {"sourcever",PkgRecordsGetSourceVer},
+#ifdef COMPAT_0_7
    {"FileName",PkgRecordsGetFileName},
    {"Homepage",PkgRecordsGetHomepage},
    {"LongDesc",PkgRecordsGetLongDesc},
@@ -129,6 +145,7 @@ static PyGetSetDef PkgRecordsGetSet[] = {
    {"ShortDesc",PkgRecordsGetShortDesc},
    {"SourcePkg",PkgRecordsGetSourcePkg},
    {"SourceVer",PkgRecordsGetSourceVer},
+#endif
    {}
 };
 

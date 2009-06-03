@@ -29,7 +29,7 @@
    expose the full range of the apt-inst .deb processing will join it some
    day. */
 static char *doc_debExtractControl =
-"debExtractControl(File[,Member]) -> String\n"
+"deb_extract_control(file[,member]) -> String\n"
 "Returns the indicated file from the control tar. The default is 'control'\n";
 static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
 {
@@ -72,7 +72,7 @@ static PyObject *debExtractControl(PyObject *Self,PyObject *Args)
 // debExtractArchive - Exctract the archive		/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_debExtractArchive =
-"debExtractArchve(File,rootdir) -> Bool\n"
+"deb_extract_archive(File,rootdir) -> Bool\n"
 "Extracts the Archive into the given root dir";
 static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
 {
@@ -118,7 +118,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
 // arFindMember - Find member in AR archive              		/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_arCheckMember =
-"arCheckMember(File, membername) -> Bool\n";
+"ar_check_member(file, membername) -> Bool\n";
 static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
 {
    char *Member = NULL;
@@ -149,16 +149,23 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
 static PyMethodDef methods[] =
 {
    // access to ar files
-   {"arCheckMember", arCheckMember, METH_VARARGS, doc_arCheckMember},
+   {"ar_check_member", arCheckMember, METH_VARARGS, doc_arCheckMember},
 
    // access to deb files
-   {"debExtractControl",debExtractControl,METH_VARARGS,doc_debExtractControl},
-   {"debExtractArchive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
+   {"deb_extract_control",debExtractControl,METH_VARARGS,doc_debExtractControl},
+   {"deb_extract_archive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
 
    // access to tar streams
+   {"tar_extract",tarExtract,METH_VARARGS,doc_tarExtract},
+   {"deb_extract",debExtract,METH_VARARGS,doc_debExtract},
+
+#ifdef COMPAT_0_7
+   {"arCheckMember", arCheckMember, METH_VARARGS, doc_arCheckMember},
+   {"debExtractControl",debExtractControl,METH_VARARGS,doc_debExtractControl},
+   {"debExtractArchive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
    {"tarExtract",tarExtract,METH_VARARGS,doc_tarExtract},
    {"debExtract",debExtract,METH_VARARGS,doc_debExtract},
-
+#endif
    {}
 };
 

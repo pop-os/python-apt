@@ -453,13 +453,26 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 static PyMethodDef CnfMethods[] =
 {
    // Query
+   {"find",CnfFind,METH_VARARGS,doc_Find},
+   {"find_file",CnfFindFile,METH_VARARGS,doc_FindFile},
+   {"find_dir",CnfFindDir,METH_VARARGS,doc_FindDir},
+   {"find_i",CnfFindI,METH_VARARGS,doc_FindI},
+   {"find_b",CnfFindB,METH_VARARGS,doc_FindB},
+
+   // Others
+   {"set",CnfSet,METH_VARARGS,doc_Set},
+   {"exists",CnfExists,METH_VARARGS,doc_Exists},
+   {"subtree",CnfSubTree,METH_VARARGS,doc_SubTree},
+   {"list",CnfList,METH_VARARGS,doc_List},
+   {"valuelist",CnfValueList,METH_VARARGS,doc_ValueList},
+   {"mytag",CnfMyTag,METH_VARARGS,doc_MyTag},
+   {"clear",CnfClear,METH_VARARGS,doc_Clear},
+#ifdef COMPAT_0_7
    {"Find",CnfFind,METH_VARARGS,doc_Find},
    {"FindFile",CnfFindFile,METH_VARARGS,doc_FindFile},
    {"FindDir",CnfFindDir,METH_VARARGS,doc_FindDir},
    {"FindI",CnfFindI,METH_VARARGS,doc_FindI},
    {"FindB",CnfFindB,METH_VARARGS,doc_FindB},
-
-   // Others
    {"Set",CnfSet,METH_VARARGS,doc_Set},
    {"Exists",CnfExists,METH_VARARGS,doc_Exists},
    {"SubTree",CnfSubTree,METH_VARARGS,doc_SubTree},
@@ -467,10 +480,12 @@ static PyMethodDef CnfMethods[] =
    {"ValueList",CnfValueList,METH_VARARGS,doc_ValueList},
    {"MyTag",CnfMyTag,METH_VARARGS,doc_MyTag},
    {"Clear",CnfClear,METH_VARARGS,doc_Clear},
-
+#endif
    // Python Special
    {"keys",CnfKeys,METH_VARARGS,doc_Keys},
+   #if PY_MAJOR_VERSION < 3
    {"has_key",CnfExists,METH_VARARGS,doc_Exists},
+   #endif
    {"get",CnfFind,METH_VARARGS,doc_Find},
    {}
 };

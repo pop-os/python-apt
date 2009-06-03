@@ -136,9 +136,14 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgCacheMethods[] =
 {
+   {"update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
+   {"open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
+   {"close", PkgCacheClose, METH_VARARGS,"Close the cache"},
+#ifdef COMPAT_0_7
    {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
    {"Open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
    {"Close", PkgCacheClose, METH_VARARGS,"Close the cache"},
+#endif
    {}
 };
 
@@ -190,6 +195,15 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
 }
 
 static PyGetSetDef PkgCacheGetSet[] = {
+   {"depends_count",PkgCacheGetDependsCount},
+   {"filelist",PkgCacheGetFileList},
+   {"package_count",PkgCacheGetPackageCount},
+   {"packagefile_count",PkgCacheGetPackageFileCount},
+   {"packages",PkgCacheGetPackages},
+   {"provides_count",PkgCacheGetProvidesCount},
+   {"verfile_count",PkgCacheGetVerFileCount},
+   {"version_count",PkgCacheGetVersionCount},
+#ifdef COMPAT_0_7
    {"DependsCount",PkgCacheGetDependsCount},
    {"FileList",PkgCacheGetFileList},
    {"PackageCount",PkgCacheGetPackageCount},
@@ -198,6 +212,7 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {"ProvidesCount",PkgCacheGetProvidesCount},
    {"VerFileCount",PkgCacheGetVerFileCount},
    {"VersionCount",PkgCacheGetVersionCount},
+#endif
    {}
 };
 
@@ -482,6 +497,20 @@ static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
 }
 
 static PyGetSetDef PackageGetSet[] = {
+    {"name",PackageGetName},
+    {"section",PackageGetSection},
+    {"revdependslist",PackageGetRevDependsList},
+    {"provideslist",PackageGetProvidesList},
+    {"selected_state",PackageGetSelectedState},
+    {"inst_state",PackageGetInstState},
+    {"current_state",PackageGetCurrentState},
+    {"id",PackageGetID},
+    {"auto",PackageGetAuto},
+    {"essential",PackageGetEssential},
+    {"important",PackageGetImportant},
+    {"versionlist",PackageGetVersionList},
+    {"currentver",PackageGetCurrentVer},
+    #ifdef COMPAT_0_7
     {"Name",PackageGetName},
     {"Section",PackageGetSection},
     {"RevDependsList",PackageGetRevDependsList},
@@ -495,6 +524,7 @@ static PyGetSetDef PackageGetSet[] = {
     {"Important",PackageGetImportant},
     {"VersionList",PackageGetVersionList},
     {"CurrentVer",PackageGetCurrentVer},
+    #endif
     {}
 };
 
@@ -579,9 +609,13 @@ static PyObject *DescriptionGetFileList(PyObject *Self,void*)
 }
 
 static PyGetSetDef DescriptionGetSet[] = {
-    {"LanguageCode",DescriptionGetLanguageCode},
+    {"languagecode",DescriptionGetLanguageCode},
     {"md5",DescriptionGetMd5},
+    {"filelist",DescriptionGetFileList},
+    #ifdef COMPAT_0_7
+    {"LanguageCode",DescriptionGetLanguageCode},
     {"FileList",DescriptionGetFileList},
+    #endif
     {}
 };
 
@@ -955,8 +989,12 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 
 static PyMethodDef DependencyMethods[] =
 {
+   {"smart_target_pkg",DepSmartTargetPkg,METH_VARARGS,"Returns the natural Target or None"},
+   {"all_targets",DepAllTargets,METH_VARARGS,"Returns all possible Versions that match this dependency"},
+#ifdef COMPAT_0_7
    {"SmartTargetPkg",DepSmartTargetPkg,METH_VARARGS,"Returns the natural Target or None"},
    {"AllTargets",DepAllTargets,METH_VARARGS,"Returns all possible Versions that match this dependency"},
+#endif
    {}
 };
 
@@ -1014,6 +1052,14 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 }
 
 static PyGetSetDef DependencyGetSet[] = {
+   {"comptype",DependencyGetCompType},
+   {"deptype",DependencyGetDepType},
+   {"id",DependencyGetID},
+   {"parentpkg",DependencyGetParentPkg},
+   {"parentver",DependencyGetParentVer},
+   {"targetpkg",DependencyGetTargetPkg},
+   {"targetver",DependencyGetTargetVer},
+#ifdef COMPAT_0_7
    {"CompType",DependencyGetCompType},
    {"DepType",DependencyGetDepType},
    {"ID",DependencyGetID},
@@ -1021,6 +1067,7 @@ static PyGetSetDef DependencyGetSet[] = {
    {"ParentVer",DependencyGetParentVer},
    {"TargetPkg",DependencyGetTargetPkg},
    {"TargetVer",DependencyGetTargetVer},
+#endif
    {}
 };
 

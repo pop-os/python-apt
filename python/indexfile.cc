@@ -28,7 +28,10 @@ static PyObject *PackageIndexFileArchiveURI(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PackageIndexFileMethods[] =
 {
+   {"archive_uri",PackageIndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
+   #ifdef COMPAT_0_7
    {"ArchiveURI",PackageIndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
+   #endif
    {}
 };
 
@@ -69,12 +72,20 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
 }
 
 static PyGetSetDef PackageIndexFileGetSet[] = {
+    {"describe",PackageIndexFileGetDescribe},
+    {"exists",PackageIndexFileGetExists},
+    {"has_packages",PackageIndexFileGetHasPackages},
+    {"is_trusted",PackageIndexFileGetIsTrusted},
+    {"label",PackageIndexFileGetLabel},
+    {"size",PackageIndexFileGetSize},
+    #ifdef COMPAT_0_7
     {"Describe",PackageIndexFileGetDescribe},
     {"Exists",PackageIndexFileGetExists},
     {"HasPackages",PackageIndexFileGetHasPackages},
     {"IsTrusted",PackageIndexFileGetIsTrusted},
     {"Label",PackageIndexFileGetLabel},
     {"Size",PackageIndexFileGetSize},
+    #endif
     {}
 };
 

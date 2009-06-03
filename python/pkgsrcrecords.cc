@@ -70,8 +70,12 @@ static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgSrcRecordsMethods[] =
 {
+   {"lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
+   {"restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
+#ifdef COMPAT_0_7
    {"Lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"Restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
+#endif
    {}
 };
 
@@ -168,6 +172,16 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
 }
 
 static PyGetSetDef PkgSrcRecordsGetSet[] = {
+   {"binaries",PkgSrcRecordsGetBinaries},
+   {"builddepends",PkgSrcRecordsGetBuildDepends},
+   {"files",PkgSrcRecordsGetFiles},
+   {"index",PkgSrcRecordsGetIndex},
+   {"maintainer",PkgSrcRecordsGetMaintainer},
+   {"package",PkgSrcRecordsGetPackage},
+   {"record",PkgSrcRecordsGetRecord},
+   {"section",PkgSrcRecordsGetSection},
+   {"version",PkgSrcRecordsGetVersion},
+#ifdef COMPAT_0_7
    {"Binaries",PkgSrcRecordsGetBinaries},
    {"BuildDepends",PkgSrcRecordsGetBuildDepends},
    {"Files",PkgSrcRecordsGetFiles},
@@ -177,6 +191,7 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"Record",PkgSrcRecordsGetRecord},
    {"Section",PkgSrcRecordsGetSection},
    {"Version",PkgSrcRecordsGetVersion},
+#endif
    {}
 };
 

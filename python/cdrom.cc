@@ -58,8 +58,12 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgCdromMethods[] =
 {
+   {"add",PkgCdromAdd,METH_VARARGS,"add(progress) -> Add a cdrom"},
+   {"ident",PkgCdromIdent,METH_VARARGS,"ident(progress) -> Ident a cdrom"},
+#ifdef COMPAT_0_7
    {"Add",PkgCdromAdd,METH_VARARGS,"Add(progress) -> Add a cdrom"},
    {"Ident",PkgCdromIdent,METH_VARARGS,"Ident(progress) -> Ident a cdrom"},
+#endif
    {}
 };
 

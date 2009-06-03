@@ -38,6 +38,21 @@ MkGet(AcquireItemGetStatAuthError,Py_BuildValue("i", pkgAcquire::Item::StatAuthE
 #undef MkGet
 
 static PyGetSetDef AcquireItemGetSet[] = {
+    {"complete",AcquireItemGetComplete},
+    {"descuri",AcquireItemGetDescURI},
+    {"destfile",AcquireItemGetDestFile},
+    {"errortext",AcquireItemGetErrorText},
+    {"filesize",AcquireItemGetFileSize},
+    {"is",AcquireItemGetID},
+    {"is_trusted",AcquireItemGetIsTrusted},
+    {"local",AcquireItemGetLocal},
+    {"status",AcquireItemGetStatus},
+    {"stat_idle",AcquireItemGetStatIdle},
+    {"stat_fetching",AcquireItemGetStatFetching},
+    {"stat_done",AcquireItemGetStatDone},
+    {"stat_error",AcquireItemGetStatError},
+    {"stat_auth_error",AcquireItemGetStatAuthError},
+#ifdef COMPAT_0_7
     {"Complete",AcquireItemGetComplete},
     {"DescURI",AcquireItemGetDescURI},
     {"DestFile",AcquireItemGetDestFile},
@@ -52,6 +67,7 @@ static PyGetSetDef AcquireItemGetSet[] = {
     {"StatDone",AcquireItemGetStatDone},
     {"StatError",AcquireItemGetStatError},
     {"StatAuthError",AcquireItemGetStatAuthError},
+#endif
     {}
 };
 
@@ -140,8 +156,12 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgAcquireMethods[] =
 {
+   {"run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
+   {"shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
+   #ifdef COMPAT_0_7
    {"Run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
    {"Shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
+   #endif
    {}
 };
 
@@ -184,6 +204,14 @@ static PyObject *PkgAcquireGetResultCancelled(PyObject *Self,void*) {
 }
 
 static PyGetSetDef PkgAcquireGetSet[] = {
+    {"fetch_needed",PkgAcquireGetFetchNeeded},
+    {"items",PkgAcquireGetItems},
+    {"partial_present",PkgAcquireGetPartialPresent},
+    {"result_cancelled",PkgAcquireGetResultCancelled},
+    {"result_continue",PkgAcquireGetResultContinue},
+    {"result_failed",PkgAcquireGetResultFailed},
+    {"total_needed",PkgAcquireGetTotalNeeded},
+    #ifdef COMPAT_0_7
     {"FetchNeeded",PkgAcquireGetFetchNeeded},
     {"Items",PkgAcquireGetItems},
     {"PartialPresent",PkgAcquireGetPartialPresent},
@@ -191,6 +219,7 @@ static PyGetSetDef PkgAcquireGetSet[] = {
     {"ResultContinue",PkgAcquireGetResultContinue},
     {"ResultFailed",PkgAcquireGetResultFailed},
     {"TotalNeeded",PkgAcquireGetTotalNeeded},
+    #endif
     {}
 };
 

@@ -92,9 +92,14 @@ static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgManagerMethods[] =
 {
+   {"get_archives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
+   {"do_install",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
+   {"fix_missing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
+#ifdef COMPAT_0_7
    {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
    {"DoInstall",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
    {"FixMissing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
+#endif
    {}
 };
 
@@ -110,9 +115,14 @@ static PyObject *PkgManagerGetResultIncomplete(PyObject *Self,void*) {
 }
 
 static PyGetSetDef PkgManagerGetSet[] = {
+    {"result_completed",PkgManagerGetResultCompleted},
+    {"result_failed",PkgManagerGetResultFailed},
+    {"result_incomplete",PkgManagerGetResultIncomplete},
+#ifdef COMPAT_0_7
     {"ResultCompleted",PkgManagerGetResultCompleted},
     {"ResultFailed",PkgManagerGetResultFailed},
     {"ResultIncomplete",PkgManagerGetResultIncomplete},
+#endif
     {}
 };
 
