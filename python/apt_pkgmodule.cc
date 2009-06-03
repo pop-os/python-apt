@@ -673,23 +673,23 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"PriExtra",pkgCache::State::Extra);
 #endif
    // CurState
-   PyModule_AddIntConstant(Module,"STATE_NOTINSTALLED",pkgCache::State::NotInstalled);
-   PyModule_AddIntConstant(Module,"STATE_UNPACKED",pkgCache::State::UnPacked);
-   PyModule_AddIntConstant(Module,"STATE_HALFCONFIGURED",pkgCache::State::HalfConfigured);
-   PyModule_AddIntConstant(Module,"STATE_HALFINSTALLED",pkgCache::State::HalfInstalled);
-   PyModule_AddIntConstant(Module,"STATE_CONFIGFILES",pkgCache::State::ConfigFiles);
-   PyModule_AddIntConstant(Module,"STATE_INSTALLED",pkgCache::State::Installed);
+   PyModule_AddIntConstant(Module,"CURSTATE_NOTINSTALLED",pkgCache::State::NotInstalled);
+   PyModule_AddIntConstant(Module,"CURSTATE_UNPACKED",pkgCache::State::UnPacked);
+   PyModule_AddIntConstant(Module,"CURSTATE_HALFCONFIGURED",pkgCache::State::HalfConfigured);
+   PyModule_AddIntConstant(Module,"CURSTATE_HALFINSTALLED",pkgCache::State::HalfInstalled);
+   PyModule_AddIntConstant(Module,"CURSTATE_CONFIGFILES",pkgCache::State::ConfigFiles);
+   PyModule_AddIntConstant(Module,"CURSTATE_INSTALLED",pkgCache::State::Installed);
    // SelState
-   PyModule_AddIntConstant(Module,"STATE_UNKNOWN",pkgCache::State::Unknown);
-   PyModule_AddIntConstant(Module,"STATE_INSTALL",pkgCache::State::Install);
-   PyModule_AddIntConstant(Module,"STATE_HOLD",pkgCache::State::Hold);
-   PyModule_AddIntConstant(Module,"STATE_DEINSTALL",pkgCache::State::DeInstall);
-   PyModule_AddIntConstant(Module,"STATE_PURGE",pkgCache::State::Purge);
+   PyModule_AddIntConstant(Module,"SELSTATE_UNKNOWN",pkgCache::State::Unknown);
+   PyModule_AddIntConstant(Module,"SELSTATE_INSTALL",pkgCache::State::Install);
+   PyModule_AddIntConstant(Module,"SELSTATE_HOLD",pkgCache::State::Hold);
+   PyModule_AddIntConstant(Module,"SELSTATE_DEINSTALL",pkgCache::State::DeInstall);
+   PyModule_AddIntConstant(Module,"SELSTATE_PURGE",pkgCache::State::Purge);
    // InstState
-   PyModule_AddIntConstant(Module,"STATE_OK",pkgCache::State::Ok);
-   PyModule_AddIntConstant(Module,"STATE_REINSTREQ",pkgCache::State::ReInstReq);
-   PyModule_AddIntConstant(Module,"STATE_HOLD",pkgCache::State::Hold);
-   PyModule_AddIntConstant(Module,"STATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
+   PyModule_AddIntConstant(Module,"INSTSTATE_OK",pkgCache::State::Ok);
+   PyModule_AddIntConstant(Module,"INSTSTATE_REINSTREQ",pkgCache::State::ReInstReq);
+   PyModule_AddIntConstant(Module,"INSTSTATE_HOLD",pkgCache::State::Hold);
+   PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
 
 #ifdef COMPAT_0_7
    PyModule_AddIntConstant(Module,"CurStateNotInstalled",pkgCache::State::NotInstalled);
