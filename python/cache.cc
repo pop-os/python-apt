@@ -745,63 +745,86 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
    return Dict;
 }
 
-static PyObject *VersionAttr(PyObject *Self,char *Name)
-{
+static inline pkgCache::VerIterator Version_GetVer(PyObject *Self) {
+   return GetCpp<pkgCache::VerIterator>(Self);
+}
+
+// Version attributes.
+static PyObject *VersionGetVerStr(PyObject *Self, void*) {
+   return PyString_FromString(Version_GetVer(Self).VerStr());
+}
+static PyObject *VersionGetSection(PyObject *Self, void*) {
+   return Safe_FromString(Version_GetVer(Self).Section());
+}
+static PyObject *VersionGetArch(PyObject *Self, void*) {
+   return Safe_FromString(Version_GetVer(Self).Arch());
+}
+static PyObject *VersionGetFileList(PyObject *Self, void*) {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
-
-   if (strcmp("VerStr",Name) == 0)
-      return PyString_FromString(Ver.VerStr());
-   else if (strcmp("Section",Name) == 0)
-      return Safe_FromString(Ver.Section());
-   else if (strcmp("Arch",Name) == 0)
-      return Safe_FromString(Ver.Arch());
-   else if (strcmp("FileList",Name) == 0)
+   PyObject *List = PyList_New(0);
+   for (pkgCache::VerFileIterator I = Ver.FileList(); I.end() == false; I++)
    {
-      /* The second value in the tuple is the index of the VF item. If the
-         user wants to request a lookup then that number will be used.
-         Maybe later it can become an object. */
-      PyObject *List = PyList_New(0);
-      for (pkgCache::VerFileIterator I = Ver.FileList(); I.end() == false; I++)
-      {
-	 PyObject *PkgFile;
-	 PyObject *Obj;
-	 PkgFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
-	 Obj = Py_BuildValue("Nl",PkgFile,I.Index());
-	 PyList_Append(List,Obj);
-	 Py_DECREF(Obj);
-      }
-      return List;
+      PyObject *PkgFile;
+      PyObject *Obj;
+      PkgFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
+      Obj = Py_BuildValue("Nl",PkgFile,I.Index());
+      PyList_Append(List,Obj);
+      Py_DECREF(Obj);
    }
-   else if (strcmp("DependsListStr",Name) == 0)
-      return MakeDepends(Owner,Ver,false);
-   else if (strcmp("DependsList",Name) == 0)
-      return MakeDepends(Owner,Ver,true);
-   else if (strcmp("ParentPkg",Name) == 0)
-      return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
-							 Ver.ParentPkg());
-   else if (strcmp("ProvidesList",Name) == 0)
-      return CreateProvides(Owner,Ver.ProvidesList());
-   else if (strcmp("Size",Name) == 0)
-      return Py_BuildValue("i",Ver->Size);
-   else if (strcmp("InstalledSize",Name) == 0)
-      return Py_BuildValue("i",Ver->InstalledSize);
-   else if (strcmp("Hash",Name) == 0)
-      return Py_BuildValue("i",Ver->Hash);
-   else if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",Ver->ID);
-   else if (strcmp("Priority",Name) == 0)
-      return Py_BuildValue("i",Ver->Priority);
-   else if (strcmp("PriorityStr",Name) == 0)
-      return Safe_FromString(Ver.PriorityType());
-   else if (strcmp("Downloadable", Name) == 0)
-      return Py_BuildValue("b", Ver.Downloadable());
-   else if (strcmp("TranslatedDescription", Name) == 0) {
-      return CppOwnedPyObject_NEW<pkgCache::DescIterator>(Owner,
-							  &DescriptionType,
-							  Ver.TranslatedDescription());
-   }
+   return List;
+}
+
+static PyObject *VersionGetDependsListStr(PyObject *Self, void*) {
+   pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
+   return MakeDepends(Owner,Ver,false);
+}
+static PyObject *VersionGetDependsList(PyObject *Self, void*) {
+   pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
+   return MakeDepends(Owner,Ver,true);
+}
+static PyObject *VersionGetParentPkg(PyObject *Self, void*) {
+   PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+                                                      Version_GetVer(Self).ParentPkg());
+}
+static PyObject *VersionGetProvidesList(PyObject *Self, void*) {
+   PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
+   return CreateProvides(Owner,Version_GetVer(Self).ProvidesList());
+}
+static PyObject *VersionGetSize(PyObject *Self, void*) {
+   return Py_BuildValue("i", Version_GetVer(Self)->Size);
+}
+static PyObject *VersionGetInstalledSize(PyObject *Self, void*) {
+   return Py_BuildValue("i", Version_GetVer(Self)->InstalledSize);
+}
+static PyObject *VersionGetHash(PyObject *Self, void*) {
+   return Py_BuildValue("i", Version_GetVer(Self)->Hash);
+}
+static PyObject *VersionGetID(PyObject *Self, void*) {
+   return Py_BuildValue("i", Version_GetVer(Self)->ID);
+}
+static PyObject *VersionGetPriority(PyObject *Self, void*) {
+   return Py_BuildValue("i",Version_GetVer(Self)->Priority);
+}
+static PyObject *VersionGetPriorityStr(PyObject *Self, void*) {
+   return Safe_FromString(Version_GetVer(Self).PriorityType());
+}
+static PyObject *VersionGetDownloadable(PyObject *Self, void*) {
+   return Py_BuildValue("b",Version_GetVer(Self).Downloadable());
+}
+static PyObject *VersionGetTranslatedDescription(PyObject *Self, void*) {
+   pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
+   PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
+   return CppOwnedPyObject_NEW<pkgCache::DescIterator>(Owner,
+                    &DescriptionType,
+                    Ver.TranslatedDescription());
+}
+
 #if 0 // FIXME: enable once pkgSourceList is stored somewhere
+static PyObject *VersionGetIsTrusted(PyObject *Self, void*) {
    else if (strcmp("IsTrusted", Name) == 0)
    {
       pkgSourceList Sources;
@@ -814,18 +837,16 @@ static PyObject *VersionAttr(PyObject *Self,char *Name)
       }
       return Py_BuildValue("b", true);
    }
+}
 #endif
 
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
-}
 
 static PyObject *VersionRepr(PyObject *Self)
 {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
 
    char S[300];
-   snprintf(S,sizeof(S),"<pkgCache::Version object: Pkg:'%s' Ver:'%s' "
+   snprintf(S,sizeof(S),"<apt_pkg.Version object: Pkg:'%s' Ver:'%s' "
 	                "Section:'%s' Arch:'%s' Size:%lu ISize:%lu Hash:%u "
 	                "ID:%u Priority:%u>",
 	    Ver.ParentPkg().Name(),Ver.VerStr(),Ver.Section(),Ver.Arch(),
@@ -833,6 +854,44 @@ static PyObject *VersionRepr(PyObject *Self)
 	    Ver->Hash,Ver->ID,Ver->Priority);
    return PyString_FromString(S);
 }
+
+static PyGetSetDef VersionGetSet[] = {
+   {"arch",VersionGetArch},
+   {"depends_list",VersionGetDependsList},
+   {"depends_list_str",VersionGetDependsListStr},
+   {"downloadable",VersionGetDownloadable},
+   {"file_list",VersionGetFileList},
+   {"hash",VersionGetHash},
+   {"id",VersionGetID},
+   {"installed_size",VersionGetInstalledSize},
+   {"parent_pkg",VersionGetParentPkg},
+   {"priority",VersionGetPriority},
+   {"priority_str",VersionGetPriorityStr},
+   {"provides_list",VersionGetProvidesList},
+   {"section",VersionGetSection},
+   {"size",VersionGetSize},
+   {"translated_description",VersionGetTranslatedDescription},
+   {"ver_str",VersionGetVerStr},
+#ifdef COMPAT_0_7
+   {"Arch",VersionGetArch},
+   {"DependsList",VersionGetDependsList},
+   {"DependsListStr",VersionGetDependsListStr},
+   {"Downloadable",VersionGetDownloadable},
+   {"FileList",VersionGetFileList},
+   {"Hash",VersionGetHash},
+   {"ID",VersionGetID},
+   {"InstalledSize",VersionGetInstalledSize},
+   {"ParentPkg",VersionGetParentPkg},
+   {"Priority",VersionGetPriority},
+   {"PriorityStr",VersionGetPriorityStr},
+   {"ProvidesList",VersionGetProvidesList},
+   {"Section",VersionGetSection},
+   {"Size",VersionGetSize},
+   {"TranslationDescription",VersionGetTranslatedDescription},
+   {"VerStr",VersionGetVerStr},
+#endif
+   {}
+};
 
 PyTypeObject VersionType =
 {
@@ -846,7 +905,7 @@ PyTypeObject VersionType =
    // Methods
    CppOwnedDealloc<pkgCache::VerIterator>,          // tp_dealloc
    0,                                   // tp_print
-   VersionAttr,                         // tp_getattr
+   0,                                   // tp_getattr
    0,                                   // tp_setattr
    0,                                   // tp_compare
    VersionRepr,                         // tp_repr
@@ -854,85 +913,186 @@ PyTypeObject VersionType =
    0,		                        // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   "Version Object",                    // tp_doc
+   0,                                   // tp_traverse
+   0,                                   // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   VersionGetSet,                       // tp_getset
 };
 
 									/*}}}*/
 
 // PackageFile Class							/*{{{*/
 // ---------------------------------------------------------------------
-static PyObject *PackageFileAttr(PyObject *Self,char *Name)
+static PyObject *PackageFile_GetFileName(PyObject *Self,void*)
 {
-   pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-//   PyObject *Owner = GetOwner<pkgCache::PkgFileIterator>(Self);
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.FileName());
+}
 
-   if (strcmp("FileName",Name) == 0)
-      return Safe_FromString(File.FileName());
-   else if (strcmp("Archive",Name) == 0)
-      return Safe_FromString(File.Archive());
-   else if (strcmp("Component",Name) == 0)
-      return Safe_FromString(File.Component());
-   else if (strcmp("Version",Name) == 0)
-      return Safe_FromString(File.Version());
-   else if (strcmp("Origin",Name) == 0)
-      return Safe_FromString(File.Origin());
-   else if (strcmp("Label",Name) == 0)
-      return Safe_FromString(File.Label());
-   else if (strcmp("Architecture",Name) == 0)
-      return Safe_FromString(File.Architecture());
-   else if (strcmp("Site",Name) == 0)
-      return Safe_FromString(File.Site());
-   else if (strcmp("IndexType",Name) == 0)
-      return Safe_FromString(File.IndexType());
-   else if (strcmp("Size",Name) == 0)
-      return Py_BuildValue("i",File->Size);
-   else if (strcmp("NotSource",Name) == 0)
-      return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotSource) != 0);
-   else if (strcmp("NotAutomatic",Name) == 0)
-      return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotAutomatic) != 0);
-   else if (strcmp("ID",Name) == 0)
-      return Py_BuildValue("i",File->ID);
+static PyObject *PackageFile_GetArchive(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Archive());
+}
 
-   PyErr_SetString(PyExc_AttributeError,Name);
-   return 0;
+static PyObject *PackageFile_GetComponent(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Component());
+}
+
+static PyObject *PackageFile_GetVersion(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Version());
+}
+
+static PyObject *PackageFile_GetOrigin(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Origin());
+}
+
+static PyObject *PackageFile_GetLabel(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Label());
+}
+
+static PyObject *PackageFile_GetArchitecture(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Architecture());
+}
+
+static PyObject *PackageFile_GetSite(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Site());
+}
+
+static PyObject *PackageFile_GetIndexType(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.IndexType());
+}
+static PyObject *PackageFile_GetSize(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Py_BuildValue("i",File->Size);
+}
+
+static PyObject *PackageFile_GetNotSource(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotSource) != 0);
+}
+static PyObject *PackageFile_GetNotAutomatic(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotSource) != 0);
+}
+
+static PyObject *PackageFile_GetID(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Py_BuildValue("i",File->ID);
 }
 
 static PyObject *PackageFileRepr(PyObject *Self)
 {
-   pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
 
-   char S[300];
-   snprintf(S,sizeof(S),"<pkgCache::PackageFile object: "
-			"File:'%s' a=%s,c=%s,v=%s,o=%s,l=%s "
-	                "Arch='%s' Site='%s' IndexType='%s' Size=%lu "
-	                "Flags=0x%lX ID:%u>",
-	    File.FileName(),File.Archive(),File.Component(),File.Version(),
-	    File.Origin(),File.Label(),File.Architecture(),File.Site(),
-	    File.IndexType(),File->Size,File->Flags,File->ID);
-   return PyString_FromString(S);
+    char S[300];
+    snprintf(S,sizeof(S),"<apt_pkg.PackageFile object: "
+             "File:'%s' a=%s,c=%s,v=%s,o=%s,l=%s "
+             "Arch='%s' Site='%s' IndexType='%s' Size=%lu "
+             "Flags=0x%lX ID:%u>",
+             File.FileName(),File.Archive(),File.Component(),File.Version(),
+             File.Origin(),File.Label(),File.Architecture(),File.Site(),
+             File.IndexType(),File->Size,File->Flags,File->ID);
+    return PyString_FromString(S);
 }
 
-PyTypeObject PackageFileType =
-{
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
-   "apt_pkg.PackageFile",         // tp_name
-   sizeof(CppOwnedPyObject<pkgCache::PkgFileIterator>),   // tp_basicsize
-   0,                                   // tp_itemsize
-   // Methods
-   CppOwnedDealloc<pkgCache::PkgFileIterator>,          // tp_dealloc
-   0,                                   // tp_print
-   PackageFileAttr,                     // tp_getattr
-   0,                                   // tp_setattr
-   0,                                   // tp_compare
-   PackageFileRepr,                     // tp_repr
-   0,                                   // tp_as_number
-   0,		                        // tp_as_sequence
-   0,			                // tp_as_mapping
-   0,                                   // tp_hash
+static PyGetSetDef PackageFileGetSet[] = {
+  {(char*)"architecture",PackageFile_GetArchitecture},
+  {(char*)"archive",PackageFile_GetArchive},
+  {(char*)"component",PackageFile_GetComponent},
+  {(char*)"file_name",PackageFile_GetFileName},
+  {(char*)"id",PackageFile_GetID},
+  {(char*)"index_type",PackageFile_GetIndexType},
+  {(char*)"label",PackageFile_GetLabel},
+  {(char*)"not_automatic",PackageFile_GetNotAutomatic},
+  {(char*)"not_source",PackageFile_GetNotSource},
+  {(char*)"origin",PackageFile_GetOrigin},
+  {(char*)"site",PackageFile_GetSite},
+  {(char*)"size",PackageFile_GetSize},
+  {(char*)"version",PackageFile_GetVersion},
+  #ifdef COMPAT_0_7
+  {(char*)"Architecture",PackageFile_GetArchitecture},
+  {(char*)"Archive",PackageFile_GetArchive},
+  {(char*)"Component",PackageFile_GetComponent},
+  {(char*)"FileName",PackageFile_GetFileName},
+  {(char*)"ID",PackageFile_GetID},
+  {(char*)"IndexType",PackageFile_GetIndexType},
+  {(char*)"Label",PackageFile_GetLabel},
+  {(char*)"NotAutomatic",PackageFile_GetNotAutomatic},
+  {(char*)"NotSource",PackageFile_GetNotSource},
+  {(char*)"Origin",PackageFile_GetOrigin},
+  {(char*)"Site",PackageFile_GetSite},
+  {(char*)"Size",PackageFile_GetSize},
+  {(char*)"Version",PackageFile_GetVersion},
+  #endif
+  {}
 };
 
+PyTypeObject PackageFileType = {
+   PyObject_HEAD_INIT(&PyType_Type)
+   #if PY_MAJOR_VERSION < 3
+   0,                                                    // ob_size
+   #endif
+   "apt_pkg.PackageFile",                                // tp_name
+   sizeof(CppOwnedPyObject<pkgCache::PkgFileIterator>),  // tp_basicsize
+   0,                                                    // tp_itemsize
+   CppOwnedDealloc<pkgCache::PkgFileIterator>,           // tp_dealloc
+   0,                                                    // tp_print
+   0,                                                    // tp_getattr
+   0,                                                    // tp_setattr
+   0,                                                    // tp_compare
+   PackageFileRepr,                                      // tp_repr
+   0,                                                    // tp_as_number
+   0,                                                    // tp_as_sequence
+   0,                                                    // tp_as_mapping
+   0,                                                    // tp_hash
+   0,                                                    // tp_call
+   0,                                                    // tp_str
+   0,                                                    // tp_getattro
+   0,                                                    // tp_setattro
+   0,                                                    // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                                   // tp_flags
+   "apt_pkg.PackageFile Object",                         // tp_doc
+   0,                                                    // tp_traverse
+   0,                                                    // tp_clear
+   0,                                                    // tp_richcompare
+   0,                                                    // tp_weaklistoffset
+   0,                                                    // tp_iter
+   0,                                                    // tp_iternext
+   0,                                                    // tp_methods
+   0,                                                    // tp_members
+   PackageFileGetSet,                                    // tp_getset
+};
 
 // depends class
 static PyObject *DependencyRepr(PyObject *Self)
