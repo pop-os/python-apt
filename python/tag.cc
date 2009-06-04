@@ -378,7 +378,7 @@ static PyMethodDef TagSecMethods[] =
 {
    // Query
    {"find",TagSecFind,METH_VARARGS,doc_Find},
-   {"findflag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
+   {"find_flag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
 #ifdef COMPAT_0_7
    {"Find",TagSecFind,METH_VARARGS,doc_Find},

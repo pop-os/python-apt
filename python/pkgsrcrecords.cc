@@ -173,7 +173,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
 
 static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"binaries",PkgSrcRecordsGetBinaries},
-   {"builddepends",PkgSrcRecordsGetBuildDepends},
+   {"build_depends",PkgSrcRecordsGetBuildDepends},
    {"files",PkgSrcRecordsGetFiles},
    {"index",PkgSrcRecordsGetIndex},
    {"maintainer",PkgSrcRecordsGetMaintainer},

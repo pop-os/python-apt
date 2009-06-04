@@ -196,12 +196,12 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
 
 static PyGetSetDef PkgCacheGetSet[] = {
    {"depends_count",PkgCacheGetDependsCount},
-   {"filelist",PkgCacheGetFileList},
+   {"file_list",PkgCacheGetFileList},
    {"package_count",PkgCacheGetPackageCount},
-   {"packagefile_count",PkgCacheGetPackageFileCount},
+   {"package_file_count",PkgCacheGetPackageFileCount},
    {"packages",PkgCacheGetPackages},
    {"provides_count",PkgCacheGetProvidesCount},
-   {"verfile_count",PkgCacheGetVerFileCount},
+   {"ver_file_count",PkgCacheGetVerFileCount},
    {"version_count",PkgCacheGetVersionCount},
 #ifdef COMPAT_0_7
    {"DependsCount",PkgCacheGetDependsCount},
@@ -499,8 +499,8 @@ static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
 static PyGetSetDef PackageGetSet[] = {
     {"name",PackageGetName},
     {"section",PackageGetSection},
-    {"revdependslist",PackageGetRevDependsList},
-    {"provideslist",PackageGetProvidesList},
+    {"rev_depends_list",PackageGetRevDependsList},
+    {"provides_list",PackageGetProvidesList},
     {"selected_state",PackageGetSelectedState},
     {"inst_state",PackageGetInstState},
     {"current_state",PackageGetCurrentState},
@@ -508,8 +508,8 @@ static PyGetSetDef PackageGetSet[] = {
     {"auto",PackageGetAuto},
     {"essential",PackageGetEssential},
     {"important",PackageGetImportant},
-    {"versionlist",PackageGetVersionList},
-    {"currentver",PackageGetCurrentVer},
+    {"version_list",PackageGetVersionList},
+    {"current_ver",PackageGetCurrentVer},
     #ifdef COMPAT_0_7
     {"Name",PackageGetName},
     {"Section",PackageGetSection},
@@ -609,9 +609,9 @@ static PyObject *DescriptionGetFileList(PyObject *Self,void*)
 }
 
 static PyGetSetDef DescriptionGetSet[] = {
-    {"languagecode",DescriptionGetLanguageCode},
+    {"language_code",DescriptionGetLanguageCode},
     {"md5",DescriptionGetMd5},
-    {"filelist",DescriptionGetFileList},
+    {"file_list",DescriptionGetFileList},
     #ifdef COMPAT_0_7
     {"LanguageCode",DescriptionGetLanguageCode},
     {"FileList",DescriptionGetFileList},
@@ -1212,13 +1212,13 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 }
 
 static PyGetSetDef DependencyGetSet[] = {
-   {"comptype",DependencyGetCompType},
-   {"deptype",DependencyGetDepType},
+   {"comp_type",DependencyGetCompType},
+   {"dep_type",DependencyGetDepType},
    {"id",DependencyGetID},
-   {"parentpkg",DependencyGetParentPkg},
-   {"parentver",DependencyGetParentVer},
-   {"targetpkg",DependencyGetTargetPkg},
-   {"targetver",DependencyGetTargetVer},
+   {"parent_pkg",DependencyGetParentPkg},
+   {"parent_ver",DependencyGetParentVer},
+   {"target_pkg",DependencyGetTargetPkg},
+   {"target_ver",DependencyGetTargetVer},
 #ifdef COMPAT_0_7
    {"CompType",DependencyGetCompType},
    {"DepType",DependencyGetDepType},

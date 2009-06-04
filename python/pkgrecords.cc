@@ -120,18 +120,18 @@ static PyObject *PkgRecordsGetRecord(PyObject *Self,void*) {
    return PyString_FromStringAndSize(start,stop-start);
 }
 static PyGetSetDef PkgRecordsGetSet[] = {
-   {"filename",PkgRecordsGetFileName},
+   {"file_name",PkgRecordsGetFileName},
    {"homepage",PkgRecordsGetHomepage},
-   {"longdesc",PkgRecordsGetLongDesc},
-   {"md5",PkgRecordsGetMD5Hash},
+   {"long_desc",PkgRecordsGetLongDesc},
+   {"md5_hash",PkgRecordsGetMD5Hash},
    {"maintainer",PkgRecordsGetMaintainer},
    {"name",PkgRecordsGetName},
    {"record",PkgRecordsGetRecord},
-   {"sha1",PkgRecordsGetSHA1Hash},
-   {"sha256",PkgRecordsGetSHA256Hash},
-   {"shortdesc",PkgRecordsGetShortDesc},
-   {"sourcepkg",PkgRecordsGetSourcePkg},
-   {"sourcever",PkgRecordsGetSourceVer},
+   {"sha1_hash",PkgRecordsGetSHA1Hash},
+   {"sha256_hash",PkgRecordsGetSHA256Hash},
+   {"short_desc",PkgRecordsGetShortDesc},
+   {"source_pkg",PkgRecordsGetSourcePkg},
+   {"source_ver",PkgRecordsGetSourceVer},
 #ifdef COMPAT_0_7
    {"FileName",PkgRecordsGetFileName},
    {"Homepage",PkgRecordsGetHomepage},

@@ -39,10 +39,10 @@ MkGet(AcquireItemGetStatAuthError,Py_BuildValue("i", pkgAcquire::Item::StatAuthE
 
 static PyGetSetDef AcquireItemGetSet[] = {
     {"complete",AcquireItemGetComplete},
-    {"descuri",AcquireItemGetDescURI},
-    {"destfile",AcquireItemGetDestFile},
-    {"errortext",AcquireItemGetErrorText},
-    {"filesize",AcquireItemGetFileSize},
+    {"desc_uri",AcquireItemGetDescURI},
+    {"dest_file",AcquireItemGetDestFile},
+    {"error_text",AcquireItemGetErrorText},
+    {"file_size",AcquireItemGetFileSize},
     {"is",AcquireItemGetID},
     {"is_trusted",AcquireItemGetIsTrusted},
     {"local",AcquireItemGetLocal},
