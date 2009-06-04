@@ -94,6 +94,20 @@ def find_deprecated_cpp():
                         all_old.add('.' + name)
                     all_old.add(name)
                     line = lines.pop(0)
+    # Let's handle constants in the apt_pkg module
+    lines = list(open('python/apt_pkgmodule.cc'))
+    while lines:
+        while lines and not 'COMPAT_0_7' in line:
+            line = lines.pop(0)
+        if lines:
+            lines.pop(0)
+        while lines and not '#endif' in line:
+            if 'PyModule_Add' in line:
+                name = line.split(",")[1].strip().strip('"')
+                if name != '_COMPAT_0_7':
+                    all_old.add('.' + name)
+                    all_old.add(name)
+            line = lines.pop(0)
     return all_old
 
 
