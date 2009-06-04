@@ -153,8 +153,8 @@ class TextFetchProgress(FetchProgress):
         FetchProgress.pulse(self)
         if self.currentCPS > 0:
             s = "[%2.f%%] %sB/s %s" % (self.percent,
-                                       apt_pkg.SizeToStr(int(self.currentCPS)),
-                                       apt_pkg.TimeToStr(int(self.eta)))
+                                       apt_pkg.size_to_str(int(self.currentCPS)),
+                                       apt_pkg.time_to_str(int(self.eta)))
         else:
             s = "%2.f%% [Working]" % (self.percent)
         print "\r%s" % (s),
@@ -184,7 +184,7 @@ class DumbInstallProgress(object):
 
     def run(self, pm):
         """Start installation."""
-        return pm.DoInstall()
+        return pm.do_install()
 
     def finishUpdate(self):
         """Called when update has finished."""
@@ -278,7 +278,7 @@ class InstallProgress(DumbInstallProgress):
         pid = self.fork()
         if pid == 0:
             # child
-            res = pm.DoInstall(self.writefd)
+            res = pm.do_install(self.writefd)
             os._exit(res)
         self.child_pid = pid
         res = self.waitChild()

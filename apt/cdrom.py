@@ -52,20 +52,20 @@ class Cdrom(object):
             self._progress = progress
         # see if we have a alternative mountpoint
         if mountpoint is not None:
-            apt_pkg.Config.Set("Acquire::cdrom::mount", mountpoint)
+            apt_pkg.config.set("Acquire::cdrom::mount", mountpoint)
         # do not mess with mount points by default
         if nomount:
-            apt_pkg.Config.Set("APT::CDROM::NoMount", "true")
+            apt_pkg.config.set("APT::CDROM::NoMount", "true")
         else:
-            apt_pkg.Config.Set("APT::CDROM::NoMount", "false")
+            apt_pkg.config.set("APT::CDROM::NoMount", "false")
 
     def add(self):
         """Add cdrom to the sources.list."""
-        return self._cdrom.Add(self._progress)
+        return self._cdrom.add(self._progress)
 
     def ident(self):
         """Identify the cdrom."""
-        (res, ident) = self._cdrom.Ident(self._progress)
+        (res, ident) = self._cdrom.ident(self._progress)
         if res:
             return ident
 
@@ -77,8 +77,8 @@ class Cdrom(object):
             # FIXME: throw exception instead
             return False
         # Get a list of files
-        src = glob.glob(apt_pkg.Config.FindDir("Dir::Etc::sourceparts") + '*')
-        src.append(apt_pkg.Config.FindFile("Dir::Etc::sourcelist"))
+        src = glob.glob(apt_pkg.config.find_dir("Dir::Etc::sourceparts") + '*')
+        src.append(apt_pkg.config.find_file("Dir::Etc::sourcelist"))
         # Check each file
         for fname in src:
             for line in open(fname):

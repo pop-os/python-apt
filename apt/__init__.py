@@ -31,7 +31,9 @@ if apt_pkg._COMPAT_0_7:
 
 
 if apt_pkg._COMPAT_0_7:
-    from apt_pkg import SizeToStr, TimeToStr, VersionCompare
+    from apt_pkg import (size_to_str as SizeToStr,
+                         time_to_str as TimeToStr,
+                         version_compare as VersionCompare)
 
 # init the package system
 apt_pkg.init()

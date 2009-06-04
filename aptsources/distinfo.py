@@ -148,7 +148,7 @@ class DistInfo:
                  base_dir = "/usr/share/python-apt/templates"):
         self.metarelease_uri = ''
         self.templates = []
-        self.arch = apt_pkg.Config.Find("APT::Architecture")
+        self.arch = apt_pkg.config.find("APT::Architecture")
 
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")

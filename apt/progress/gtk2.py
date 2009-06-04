@@ -247,7 +247,7 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
                       "%(speed)s/s") % \
                       {"current": currentItem,
                        "total": self.totalItems,
-                       "speed": apt_pkg.SizeToStr(self.currentCPS)})
+                       "speed": apt_pkg.size_to_str(self.currentCPS)})
         else:
             text = (_("Downloading file %(current)li of %(total)li") % \
                       {"current": currentItem,

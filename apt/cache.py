@@ -52,16 +52,16 @@ class Cache(object):
         self._callbacks = {}
         if memonly:
             # force apt to build its caches in memory
-            apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
+            apt_pkg.config.set("Dir::Cache::pkgcache", "")
         if rootdir:
             if os.path.exists(rootdir+"/etc/apt/apt.conf"):
-                apt_pkg.ReadConfigFile(apt_pkg.Config,
+                apt_pkg.read_config_file(apt_pkg.config,
                                        rootdir + "/etc/apt/apt.conf")
             if os.path.isdir(rootdir+"/etc/apt/apt.conf.d"):
-                apt_pkg.ReadConfigDir(apt_pkg.Config,
+                apt_pkg.read_config_dir(apt_pkg.config,
                                       rootdir + "/etc/apt/apt.conf.d")
-            apt_pkg.Config.Set("Dir", rootdir)
-            apt_pkg.Config.Set("Dir::State::status",
+            apt_pkg.config.set("Dir", rootdir)
+            apt_pkg.config.set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
         self.open(progress)
 
@@ -82,20 +82,20 @@ class Cache(object):
         self._depcache = apt_pkg.DepCache(self._cache)
         self._records = apt_pkg.PackageRecords(self._cache)
         self._list = apt_pkg.SourceList()
-        self._list.ReadMainList()
+        self._list.read_main_list()
         self._set = set()
         self._weakref = weakref.WeakValueDictionary()
 
         progress.Op = "Building data structures"
         i=last=0
-        size=len(self._cache.Packages)
-        for pkg in self._cache.Packages:
+        size=len(self._cache.packages)
+        for pkg in self._cache.packages:
             if progress is not None and last+100 < i:
                 progress.update(i/float(size)*100)
                 last=i
             # drop stuff with no versions (cruft)
-            if len(pkg.VersionList) > 0:
-                self._set.add(pkg.Name)
+            if len(pkg.version_list) > 0:
+                self._set.add(pkg.name)
 
             i += 1
 
@@ -148,7 +148,7 @@ class Cache(object):
         default value is False.
         """
         self.cache_pre_change()
-        self._depcache.Upgrade(dist_upgrade)
+        self._depcache.upgrade(dist_upgrade)
         self.cache_post_change()
 
     @property
@@ -156,13 +156,13 @@ class Cache(object):
         """Get the size of the packages that are required to download."""
         pm = apt_pkg.PackageManager(self._depcache)
         fetcher = apt_pkg.Acquire()
-        pm.GetArchives(fetcher, self._list, self._records)
-        return fetcher.FetchNeeded
+        pm.get_archives(fetcher, self._list, self._records)
+        return fetcher.fetch_needed
 
     @property
     def required_space(self):
         """Get the size of the additional required space on the fs."""
-        return self._depcache.UsrSize
+        return self._depcache.usr_size
 
     @property
     def req_reinstall_pkgs(self):
@@ -170,31 +170,31 @@ class Cache(object):
         reqreinst = set()
         for pkg in self:
             if (not pkg.candidate.downloadable and
-                (pkg._pkg.InstState == apt_pkg.InstStateReInstReq or
-                 pkg._pkg.InstState == apt_pkg.InstStateHoldReInstReq)):
+                (pkg._pkg.inst_state == apt_pkg.INSTSTATE_RE_INST_REQ or
+                 pkg._pkg.inst_state == apt_pkg.INSTSTATE_HOLD_RE_INST_REQ)):
                 reqreinst.add(pkg.name)
         return reqreinst
 
     def _run_fetcher(self, fetcher):
         # do the actual fetching
-        res = fetcher.Run()
+        res = fetcher.run()
 
         # now check the result (this is the code from apt-get.cc)
         failed = False
         transient = False
         err_msg = ""
-        for item in fetcher.Items:
-            if item.Status == item.StatDone:
+        for item in fetcher.items:
+            if item.status == item.stat_done:
                 continue
-            if item.StatIdle:
+            if item.stat_idle:
                 transient = True
                 continue
-            err_msg += "Failed to fetch %s %s\n" % (item.DescURI,
-                                                   item.ErrorText)
+            err_msg += "Failed to fetch %s %s\n" % (item.desc_uri,
+                                                   item.error_text)
             failed = True
 
         # we raise a exception if the download failed or it was cancelt
-        if res == fetcher.ResultCancelled:
+        if res == fetcher.result_cancelled:
             raise FetchCancelledException(err_msg)
         elif failed:
             raise FetchFailedException(err_msg)
@@ -204,14 +204,14 @@ class Cache(object):
         """ fetch the needed archives """
 
         # get lock
-        lockfile = apt_pkg.Config.FindDir("Dir::Cache::Archives") + "lock"
-        lock = apt_pkg.GetLock(lockfile)
+        lockfile = apt_pkg.config.find_dir("Dir::Cache::Archives") + "lock"
+        lock = apt_pkg.get_lock(lockfile)
         if lock < 0:
             raise LockFailedException("Failed to lock %s" % lockfile)
 
         try:
             # this may as well throw a SystemError exception
-            if not pm.GetArchives(fetcher, self._list, self._records):
+            if not pm.get_archives(fetcher, self._list, self._records):
                 return False
             # now run the fetcher, throw exception if something fails to be
             # fetched
@@ -222,7 +222,7 @@ class Cache(object):
     def is_virtual_package(self, pkgname):
         """Return whether the package is a virtual package."""
         pkg = self._cache[pkgname]
-        return bool(pkg.ProvidesList and not pkg.VersionList)
+        return bool(pkg.provides_list and not pkg.version_list)
 
     def get_providing_packages(self, virtual):
         """
@@ -232,15 +232,15 @@ class Cache(object):
         providers = []
         try:
             vp = self._cache[virtual]
-            if len(vp.VersionList) != 0:
+            if len(vp.version_list) != 0:
                 return providers
         except KeyError:
             return providers
         for pkg in self:
-            v = self._depcache.GetCandidateVer(pkg._pkg)
+            v = self._depcache.get_candidate_ver(pkg._pkg)
             if v is None:
                 continue
-            for p in v.ProvidesList:
+            for p in v.provides_list:
                 if virtual == p[0]:
                     # we found a pkg that provides this virtual pkg
                     providers.append(pkg)
@@ -254,15 +254,15 @@ class Cache(object):
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
         .
         """
-        lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
-        lock = apt_pkg.GetLock(lockfile)
+        lockfile = apt_pkg.config.find_dir("Dir::State::Lists") + "lock"
+        lock = apt_pkg.get_lock(lockfile)
         if lock < 0:
             raise LockFailedException("Failed to lock %s" % lockfile)
 
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.FetchProgress()
-            return self._cache.Update(fetch_progress, self._list)
+            return self._cache.update(fetch_progress, self._list)
         finally:
             os.close(lock)
 
@@ -317,17 +317,17 @@ class Cache(object):
 
             # then install
             res = self.install_archives(pm, install_progress)
-            if res == pm.ResultCompleted:
+            if res == pm.result_completed:
                 break
-            if res == pm.ResultFailed:
+            if res == pm.result_failed:
                 raise SystemError("installArchives() failed")
             # reload the fetcher for media swaping
-            fetcher.Shutdown()
-        return (res == pm.ResultCompleted)
+            fetcher.shutdown()
+        return (res == pm.result_completed)
 
     def clear(self):
         """ Unmark all changes """
-        self._depcache.Init()
+        self._depcache.init()
 
     # cache changes
 
@@ -493,7 +493,7 @@ def _test():
     for dir in ["/tmp/pytest", "/tmp/pytest/partial"]:
         if not os.path.exists(dir):
             os.mkdir(dir)
-    apt_pkg.Config.Set("Dir::Cache::Archives", "/tmp/pytest")
+    apt_pkg.config.set("Dir::Cache::Archives", "/tmp/pytest")
     pm = apt_pkg.PackageManager(cache._depcache)
     fetcher = apt_pkg.Acquire(apt.progress.TextFetchProgress())
     cache._fetch_archives(fetcher, pm)
