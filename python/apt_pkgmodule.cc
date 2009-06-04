@@ -501,6 +501,7 @@ static PyMethodDef methods[] =
 
 
 #define ADDTYPE(mod,name,type) { Py_INCREF(type); \
+    if (PyType_Ready(type) == -1) INIT_ERROR; \
     PyModule_AddObject(mod,name,(PyObject *)type); }
 
 
@@ -541,26 +542,8 @@ extern "C" void initapt_pkg()
 #endif
 {
    // Finalize our types to add slots, etc.
-   if (PyType_Ready(&TagSecType) == -1) INIT_ERROR;
-   if (PyType_Ready(&TagFileType) == -1) INIT_ERROR;
-   if (PyType_Ready(&ConfigurationType) == -1) INIT_ERROR;
    if (PyType_Ready(&ConfigurationPtrType) == -1) INIT_ERROR;
    if (PyType_Ready(&ConfigurationSubType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgCdromType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgProblemResolverType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgActionGroupType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgSourceListType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgCacheType) == -1) INIT_ERROR;
-   if (PyType_Ready(&DependencyType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgDepCacheType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgAcquireType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PackageIndexFileType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgManagerType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgSrcRecordsType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgRecordsType) == -1) INIT_ERROR;
-   if (PyType_Ready(&AcquireItemType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PackageType) == -1) INIT_ERROR;
-   if (PyType_Ready(&DescriptionType) == -1) INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
