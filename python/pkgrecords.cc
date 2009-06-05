@@ -210,9 +210,9 @@ PyTypeObject PkgRecordsType =
 									/*}}}*/
 
 
-
+#ifdef COMPAT_0_7
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args)
 {
     return PkgRecordsNew(&PkgRecordsType,Args,0);
 }
-
+#endif

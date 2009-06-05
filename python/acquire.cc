@@ -297,11 +297,12 @@ PyTypeObject PkgAcquireType =
    PkgAcquireNew,                       // tp_new
 };
 
-
+#ifdef COMPAT_0_7
 PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 {
     return PkgAcquireNew(&PkgAcquireType,Args,0);
 }
+#endif
 
 static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject * kwds)
 {
@@ -386,6 +387,7 @@ PyTypeObject PkgAcquireFileType =
    PkgAcquireFileNew,                   // tp_new
 };
 
+#ifdef COMPAT_0_7
 char *doc_GetPkgAcqFile =
 "GetPkgAcqFile(pkgAquire, uri[, md5, size, descr, shortDescr, destDir, destFile]) -> PkgAcqFile\n";
 PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
@@ -417,3 +419,4 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 
    return AcqFileObj;
 }
+#endif

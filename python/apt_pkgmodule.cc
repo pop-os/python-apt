@@ -30,11 +30,13 @@
 
 // newConfiguration - Build a new configuration class			/*{{{*/
 // ---------------------------------------------------------------------
+#ifdef COMPAT_0_7
 static char *doc_newConfiguration = "Construct a configuration instance";
 static PyObject *newConfiguration(PyObject *self,PyObject *args)
 {
    return CppPyObject_NEW<Configuration>(&ConfigurationType);
 }
+#endif
 									/*}}}*/
 
 // Version Wrappers							/*{{{*/

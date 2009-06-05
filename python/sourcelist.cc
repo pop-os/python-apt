@@ -159,8 +159,9 @@ PyTypeObject PkgSourceListType =
    PkgSourceListNew,                    // tp_new
 };
 
+#ifdef COMPAT_0_7
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args)
 {
-   return CppPyObject_NEW<pkgSourceList*>(&PkgSourceListType,new pkgSourceList());
+   return PkgSourceListNew(&PkgSourceListType,Args,0);
 }
-
+#endif

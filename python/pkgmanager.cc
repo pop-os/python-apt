@@ -36,10 +36,12 @@ static PyObject *PkgManagerNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return PkgManagerObj;
 }
 
+#ifdef COMPAT_0_7
 PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
 {
     return PkgManagerNew(&PkgManagerType,Args,0);
 }
+#endif
 
 
 static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)

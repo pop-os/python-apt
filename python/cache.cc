@@ -1345,8 +1345,9 @@ PyTypeObject RDepListType =
 									/*}}}*/
 
 
-
+#ifdef COMPAT_0_7
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
     return PkgCacheNew(&PkgCacheType,Args,0);
 }
+#endif

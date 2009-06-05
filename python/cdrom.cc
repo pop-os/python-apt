@@ -129,10 +129,12 @@ PyTypeObject PkgCdromType =
    PkgCdromNew,                         // tp_new
 };
 
+#ifdef COMPAT_0_7
 PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
    return PkgCdromNew(&PkgCdromType,Args,0);
 }
+#endif
 
 
 

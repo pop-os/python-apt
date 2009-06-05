@@ -264,11 +264,13 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    return New;
 }
 
+#ifdef COMPAT_0_7
 char *doc_ParseSection ="ParseSection(Text) -> TagSection() object. Deprecated.";
 PyObject *ParseSection(PyObject *self,PyObject *Args)
 {
     return TagSecNew(&TagSecType,Args,0);
 }
+#endif
 									/*}}}*/
 // ParseTagFile - Parse a tagd file					/*{{{*/
 // ---------------------------------------------------------------------
@@ -297,10 +299,12 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    return HandleErrors(New);
 }
+#ifdef COMPAT_0_7
 char *doc_ParseTagFile = "ParseTagFile(File) -> TagFile() object. Deprecated.";
 PyObject *ParseTagFile(PyObject *self,PyObject *Args) {
     return TagFileNew(&TagFileType,Args,0);
 }
+#endif
 									/*}}}*/
 // RewriteSection - Rewrite a section..					/*{{{*/
 // ---------------------------------------------------------------------

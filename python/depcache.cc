@@ -696,12 +696,12 @@ PyTypeObject PkgDepCacheType =
    PkgDepCacheNew,                      // tp_new
 };
 
-
+#ifdef COMPAT_0_7
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
     return PkgDepCacheNew(&PkgDepCacheType,Args,0);
 }
-
+#endif
 
 
 
@@ -729,9 +729,11 @@ static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObjec
    return PkgProblemResolverPyObj;
 }
 
+#ifdef COMPAT_0_7
 PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args) {
     return PkgProblemResolverNew(&PkgProblemResolverType,Args,0);
 }
+#endif
 
 static PyObject *PkgProblemResolverResolve(PyObject *Self,PyObject *Args)
 {
@@ -994,10 +996,12 @@ PyTypeObject PkgActionGroupType =
    PkgActionGroupNew,                         // tp_new
 };
 
+#ifdef COMPAT_0_7
 PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)
 {
     return PkgActionGroupNew(&PkgActionGroupType,Args,0);
 }
+#endif
 
 
 									/*}}}*/

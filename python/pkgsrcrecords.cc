@@ -251,6 +251,7 @@ PyTypeObject PkgSrcRecordsType =
 
 									/*}}}*/
 
+#ifdef COMPAT_0_7
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 {
 #if 0
@@ -266,4 +267,4 @@ PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 
    return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PkgSrcRecordsType));
 }
-
+#endif
