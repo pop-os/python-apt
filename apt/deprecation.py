@@ -67,7 +67,7 @@ def function_deprecated_by(func, convert_names=True):
     This function also converts all keyword argument names from mixedCase to
     lowercase_with_underscores, but only if 'convert_names' is True (default).
     """
-    warning = 'Deprecated, please use \'%s\' instead' % func.__name__
+    warning = 'Deprecated, please use \'%s()\' instead' % func.__name__
 
     def deprecated_function(*args, **kwds):
         """Wrapper around a deprecated function."""

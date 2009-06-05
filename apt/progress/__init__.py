@@ -33,6 +33,7 @@ import select
 import sys
 
 import apt_pkg
+from apt.deprecation import AttributeDeprecatedBy, function_deprecated_by
 
 
 __all__ = ('CdromProgress', 'DpkgInstallProgress', 'DumbInstallProgress',
@@ -48,13 +49,16 @@ class OpProgress(object):
 
     def __init__(self):
         self.op = None
-        self.subOp = None
+        self.sub_op = None
 
     def update(self, percent):
         """Called periodically to update the user interface."""
 
     def done(self):
         """Called once an operation has been completed."""
+
+    if apt_pkg._COMPAT_0_7:
+        subOp = AttributeDeprecatedBy('sub_op')
 
 
 class OpTextProgress(OpProgress):
@@ -65,7 +69,7 @@ class OpTextProgress(OpProgress):
 
     def update(self, percent):
         """Called periodically to update the user interface."""
-        sys.stdout.write("\r%s: %.2i  " % (self.subOp, percent))
+        sys.stdout.write("\r%s: %.2i  " % (self.sub_op, percent))
         sys.stdout.flush()
 
     def done(self):
@@ -80,26 +84,26 @@ class FetchProgress(object):
     """
 
     # download status constants
-    dlDone = 0
-    dlQueued = 1
-    dlFailed = 2
-    dlHit = 3
-    dlIgnored = 4
-    dlStatusStr = {dlDone: "Done",
-                   dlQueued: "Queued",
-                   dlFailed: "Failed",
-                   dlHit: "Hit",
-                   dlIgnored: "Ignored"}
+    dl_done = 0
+    dl_queued = 1
+    dl_failed = 2
+    dl_hit = 3
+    dl_ignored = 4
+    dl_status_str = {dl_done: "Done",
+                   dl_queued: "Queued",
+                   dl_failed: "Failed",
+                   dl_hit: "Hit",
+                   dl_ignored: "Ignored"}
 
     def __init__(self):
         self.eta = 0.0
         self.percent = 0.0
         # Make checking easier
-        self.currentBytes = 0
-        self.currentItems = 0
-        self.totalBytes = 0
-        self.totalItems = 0
-        self.currentCPS = 0
+        self.current_bytes = 0
+        self.current_items = 0
+        self.total_bytes = 0
+        self.total_items = 0
+        self.current_cps = 0
 
     def start(self):
         """Called when the fetching starts."""
@@ -107,7 +111,7 @@ class FetchProgress(object):
     def stop(self):
         """Called when all files have been fetched."""
 
-    def updateStatus(self, uri, descr, shortDescr, status):
+    def update_status(self, uri, descr, short_descr, status):
         """Called when the status of an item changes.
 
         This happens eg. when the downloads fails or is completed.
@@ -118,15 +122,30 @@ class FetchProgress(object):
 
         Return True to continue or False to cancel.
         """
-        self.percent = (((self.currentBytes + self.currentItems) * 100.0) /
-                        float(self.totalBytes + self.totalItems))
-        if self.currentCPS > 0:
-            self.eta = ((self.totalBytes - self.currentBytes) /
-                        float(self.currentCPS))
+        self.percent = (((self.current_bytes + self.current_items) * 100.0) /
+                        float(self.total_bytes + self.total_items))
+        if self.current_cps > 0:
+            self.eta = ((self.total_bytes - self.current_bytes) /
+                        float(self.current_cps))
         return True
 
-    def mediaChange(self, medium, drive):
+    def media_change(self, medium, drive):
         """react to media change events."""
+
+    if apt_pkg._COMPAT_0_7:
+        dlDone = AttributeDeprecatedBy('dl_done')
+        dlQueued = AttributeDeprecatedBy('dl_queued')
+        dlFailed = AttributeDeprecatedBy('dl_failed')
+        dlHit = AttributeDeprecatedBy('dl_hit')
+        dlIgnored = AttributeDeprecatedBy('dl_ignored')
+        dlStatusStr = AttributeDeprecatedBy('dl_status_str')
+        currentBytes = AttributeDeprecatedBy('current_bytes')
+        currentItems = AttributeDeprecatedBy('current_items')
+        totalBytes = AttributeDeprecatedBy('total_bytes')
+        totalItems = AttributeDeprecatedBy('total_items')
+        currentCPS = AttributeDeprecatedBy('current_cps')
+        updateStatus = function_deprecated_by(update_status)
+        mediaChange = function_deprecated_by(media_change)
 
 
 class TextFetchProgress(FetchProgress):
@@ -136,13 +155,13 @@ class TextFetchProgress(FetchProgress):
         FetchProgress.__init__(self)
         self.items = {}
 
-    def updateStatus(self, uri, descr, shortDescr, status):
+    def update_status(self, uri, descr, short_descr, status):
         """Called when the status of an item changes.
 
         This happens eg. when the downloads fails or is completed.
         """
-        if status != self.dlQueued:
-            print "\r%s %s" % (self.dlStatusStr[status], descr)
+        if status != self.dl_queued:
+            print "\r%s %s" % (self.dl_status_str[status], descr)
         self.items[uri] = status
 
     def pulse(self):
@@ -151,10 +170,10 @@ class TextFetchProgress(FetchProgress):
         Return True to continue or False to cancel.
         """
         FetchProgress.pulse(self)
-        if self.currentCPS > 0:
+        if self.current_cps > 0:
             s = "[%2.f%%] %sB/s %s" % (self.percent,
-                                       apt_pkg.size_to_str(int(self.currentCPS)),
-                                       apt_pkg.time_to_str(int(self.eta)))
+                                    apt_pkg.size_to_str(int(self.current_cps)),
+                                    apt_pkg.time_to_str(int(self.eta)))
         else:
             s = "%2.f%% [Working]" % (self.percent)
         print "\r%s" % (s),
@@ -165,12 +184,16 @@ class TextFetchProgress(FetchProgress):
         """Called when all files have been fetched."""
         print "\rDone downloading            "
 
-    def mediaChange(self, medium, drive):
+    def media_change(self, medium, drive):
         """react to media change events."""
         print ("Media change: please insert the disc labeled "
                "'%s' in the drive '%s' and press enter") % (medium, drive)
 
         return raw_input() not in ('c', 'C')
+
+    if apt_pkg._COMPAT_0_7:
+        updateStatus = function_deprecated_by(update_status)
+        mediaChange = function_deprecated_by(media_change)
 
 
 class DumbInstallProgress(object):
@@ -179,18 +202,23 @@ class DumbInstallProgress(object):
     Subclass this class to implement install progress reporting.
     """
 
-    def startUpdate(self):
+    def start_update(self):
         """Start update."""
 
     def run(self, pm):
         """Start installation."""
         return pm.do_install()
 
-    def finishUpdate(self):
+    def finish_update(self):
         """Called when update has finished."""
 
-    def updateInterface(self):
+    def update_interface(self):
         """Called periodically to update the user interface"""
+
+    if apt_pkg._COMPAT_0_7:
+        startUpdate = function_deprecated_by(start_update)
+        finishUpdate = function_deprecated_by(finish_update)
+        updateInterface = function_deprecated_by(update_interface)
 
 
 class InstallProgress(DumbInstallProgress):
@@ -202,7 +230,7 @@ class InstallProgress(DumbInstallProgress):
 
     def __init__(self):
         DumbInstallProgress.__init__(self)
-        self.selectTimeout = 0.1
+        self.select_timeout = 0.1
         (read, write) = os.pipe()
         self.writefd = write
         self.statusfd = os.fdopen(read, "r")
@@ -217,10 +245,10 @@ class InstallProgress(DumbInstallProgress):
     def conffile(self, current, new):
         """Called when a conffile question from dpkg is detected."""
 
-    def statusChange(self, pkg, percent, status):
+    def status_change(self, pkg, percent, status):
         """Called when the status changed."""
 
-    def updateInterface(self):
+    def update_interface(self):
         """Called periodically to update the interface."""
         if self.statusfd is None:
             return
@@ -253,7 +281,7 @@ class InstallProgress(DumbInstallProgress):
                 self.conffile(match.group(1), match.group(2))
         elif status == "pmstatus":
             if float(percent) != self.percent or status_str != self.status:
-                self.statusChange(pkg, float(percent),
+                self.status_change(pkg, float(percent),
                                   status_str.strip())
                 self.percent = float(percent)
                 self.status = status_str.strip()
@@ -263,11 +291,11 @@ class InstallProgress(DumbInstallProgress):
         """Fork."""
         return os.fork()
 
-    def waitChild(self):
+    def wait_child(self):
         """Wait for child progress to exit."""
         while True:
-            select.select([self.statusfd], [], [], self.selectTimeout)
-            self.updateInterface()
+            select.select([self.statusfd], [], [], self.select_timeout)
+            self.update_interface()
             (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
             if pid == self.child_pid:
                 break
@@ -281,8 +309,14 @@ class InstallProgress(DumbInstallProgress):
             res = pm.do_install(self.writefd)
             os._exit(res)
         self.child_pid = pid
-        res = self.waitChild()
+        res = self.wait_child()
         return os.WEXITSTATUS(res)
+
+    if apt_pkg._COMPAT_0_7:
+        selectTimeout = AttributeDeprecatedBy('select_timeout')
+        statusChange = function_deprecated_by(status_change)
+        waitChild = function_deprecated_by(wait_child)
+        updateInterface = function_deprecated_by(update_interface)
 
 
 class CdromProgress(object):
@@ -297,11 +331,15 @@ class CdromProgress(object):
     def update(self, text, step):
         """Called periodically to update the user interface."""
 
-    def askCdromName(self):
+    def ask_cdrom_name(self):
         """Called to ask for the name of the cdrom."""
 
-    def changeCdrom(self):
+    def change_cdrom(self):
         """Called to ask for the cdrom to be changed."""
+
+    if apt_pkg._COMPAT_0_7:
+        askCdromName = function_deprecated_by(ask_cdrom_name)
+        changeCdrom = function_deprecated_by(change_cdrom)
 
 
 class DpkgInstallProgress(InstallProgress):
@@ -318,10 +356,10 @@ class DpkgInstallProgress(InstallProgress):
                             (self.writefd, self.debfile))
             os._exit(os.WEXITSTATUS(res))
         self.child_pid = pid
-        res = self.waitChild()
+        res = self.wait_child()
         return res
 
-    def updateInterface(self):
+    def update_interface(self):
         """Process status messages from dpkg."""
         if self.statusfd is None:
             return
@@ -354,3 +392,6 @@ class DpkgInstallProgress(InstallProgress):
             else:
                 self.status = status
             self.read = ""
+
+    if apt_pkg._COMPAT_0_7:
+        updateInterface = function_deprecated_by(update_interface)

@@ -12,7 +12,6 @@
 #include <apt-pkg/acquire-item.h>
 #include "progress.h"
 
-
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 				      PyObject *arglist,
@@ -58,10 +57,16 @@ void PyOpProgress::Update()
    PyObject_SetAttrString(callbackInst, "op", o);
    Py_XDECREF(o);
    o = Py_BuildValue("s", SubOp.c_str());
-   PyObject_SetAttrString(callbackInst, "subOp", o);
+   if(PyObject_HasAttrString(callbackInst, "sub_op"))
+      PyObject_SetAttrString(callbackInst, "sub_op", o);
+   else
+      PyObject_SetAttrString(callbackInst, "subOp", o);
    Py_XDECREF(o);
    o = Py_BuildValue("b", MajorChange);
-   PyObject_SetAttrString(callbackInst, "majorChange", o);
+   if(PyObject_HasAttrString(callbackInst, "major_change"))
+      PyObject_SetAttrString(callbackInst, "major_change", o);
+   else
+      PyObject_SetAttrString(callbackInst, "majorChange", o);
    Py_XDECREF(o);
 
    // Build up the argument list...
@@ -89,7 +94,10 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    //std::cout << "MediaChange" << std::endl;
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
    PyObject *result;
-   RunSimpleCallback("mediaChange", arglist, &result);
+   if(PyObject_HasAttrString(callbackInst, "media_change"))
+       RunSimpleCallback("media_change", arglist, &result);
+   else
+       RunSimpleCallback("mediaChange", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res))
@@ -105,7 +113,10 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 {
    //std::cout << "UpdateStatus: " << Itm.URI << " " << status << std::endl;
    PyObject *arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(), Itm.ShortDesc.c_str(), status);
-   RunSimpleCallback("updateStatus", arglist);
+   if(PyObject_HasAttrString(callbackInst, "update_status"))
+       RunSimpleCallback("update_status", arglist);
+   else
+       RunSimpleCallback("updateStatus", arglist);
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
@@ -163,19 +174,34 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    // set stats
    PyObject *o;
    o = Py_BuildValue("f", CurrentCPS);
-   PyObject_SetAttrString(callbackInst, "currentCPS", o);
+   if(PyObject_HasAttrString(callbackInst, "current_cps"))
+      PyObject_SetAttrString(callbackInst, "current_cps", o);
+   else
+      PyObject_SetAttrString(callbackInst, "currentCPS", o);
    Py_XDECREF(o);
    o = Py_BuildValue("f", CurrentBytes);
-   PyObject_SetAttrString(callbackInst, "currentBytes", o);
+   if(PyObject_HasAttrString(callbackInst, "current_bytes"))
+      PyObject_SetAttrString(callbackInst, "current_bytes", o);
+   else
+      PyObject_SetAttrString(callbackInst, "currentBytes", o);
    Py_XDECREF(o);
    o = Py_BuildValue("i", CurrentItems);
-   PyObject_SetAttrString(callbackInst, "currentItems", o);
+   if(PyObject_HasAttrString(callbackInst, "current_items"))
+      PyObject_SetAttrString(callbackInst, "current_items", o);
+   else
+      PyObject_SetAttrString(callbackInst, "currentItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("i", TotalItems);
-   PyObject_SetAttrString(callbackInst, "totalItems", o);
+   if(PyObject_HasAttrString(callbackInst, "total_items"))
+      PyObject_SetAttrString(callbackInst, "total_items", o);
+   else
+      PyObject_SetAttrString(callbackInst, "totalItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("f", TotalBytes);
-   PyObject_SetAttrString(callbackInst, "totalBytes", o);
+   if(PyObject_HasAttrString(callbackInst, "total_bytes"))
+      PyObject_SetAttrString(callbackInst, "total_bytes", o);
+   else
+      PyObject_SetAttrString(callbackInst, "totalBytes", o);
    Py_XDECREF(o);
 
    PyObject *arglist = Py_BuildValue("()");
@@ -201,17 +227,26 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
 void PyInstallProgress::StartUpdate()
 {
-   RunSimpleCallback("startUpdate");
+   if(PyObject_HasAttrString(callbackInst, "start_update"))
+       RunSimpleCallback("start_update");
+   else
+       RunSimpleCallback("startUpdate");
 }
 
 void PyInstallProgress::UpdateInterface()
 {
-   RunSimpleCallback("updateInterface");
+   if(PyObject_HasAttrString(callbackInst, "update_interface"))
+       RunSimpleCallback("update_interface");
+   else
+       RunSimpleCallback("updateInterface");
 }
 
 void PyInstallProgress::FinishUpdate()
 {
-   RunSimpleCallback("finishUpdate");
+   if(PyObject_HasAttrString(callbackInst, "finish_update"))
+       RunSimpleCallback("finish_update");
+   else
+       RunSimpleCallback("finishUpdate");
 }
 
 pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
@@ -272,8 +307,13 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 
    StartUpdate();
 
-   if(PyObject_HasAttrString(callbackInst, "waitChild")) {
-      PyObject *method = PyObject_GetAttrString(callbackInst, "waitChild");
+   if(PyObject_HasAttrString(callbackInst, "waitChild") ||
+      PyObject_HasAttrString(callbackInst, "wait_child")) {
+      PyObject *method;
+      if (PyObject_HasAttrString(callbackInst, "wait_child"))
+          method = PyObject_GetAttrString(callbackInst, "wait_child");
+      else
+          method = PyObject_GetAttrString(callbackInst, "waitChild");
       //std::cerr << "custom waitChild found" << std::endl;
       PyObject *arglist = Py_BuildValue("(i)",child_id);
       PyObject *result = PyEval_CallObject(method, arglist);
@@ -323,7 +363,10 @@ bool PyCdromProgress::ChangeCdrom()
 {
    PyObject *arglist = Py_BuildValue("()");
    PyObject *result;
-   RunSimpleCallback("changeCdrom", arglist, &result);
+   if(PyObject_HasAttrString(callbackInst, "change_cdrom"))
+       RunSimpleCallback("change_cdrom", arglist, &result);
+   else
+       RunSimpleCallback("changeCdrom", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res))
@@ -337,7 +380,11 @@ bool PyCdromProgress::AskCdromName(string &Name)
 {
    PyObject *arglist = Py_BuildValue("()");
    PyObject *result;
-   RunSimpleCallback("askCdromName", arglist, &result);
+
+   if(PyObject_HasAttrString(callbackInst, "ask_cdrom_name"))
+       RunSimpleCallback("ask_cdrom_name", arglist, &result);
+   else
+       RunSimpleCallback("askCdromName", arglist, &result);
 
    const char *new_name;
    bool res;

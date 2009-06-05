@@ -39,6 +39,7 @@ import vte
 
 import apt
 import apt_pkg
+from apt.deprecation import function_deprecated_by
 
 
 def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
@@ -113,13 +114,13 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         self.time_last_update = time.time()
         self.term = term
         reaper = vte.reaper_get()
-        reaper.connect("child-exited", self.childExited)
+        reaper.connect("child-exited", self.child_exited)
         self.env = ["VTE_PTY_KEEP_FD=%s" % self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=gtk"]
         self._context = glib.main_context_default()
 
-    def childExited(self, term, pid, status):
+    def child_exited(self, term, pid, status):
         """Called when a child process exits"""
         self.apt_status = os.WEXITSTATUS(status)
         self.finished = True
@@ -138,21 +139,21 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         """
         self.emit("status-conffile")
 
-    def startUpdate(self):
+    def start_update(self):
         """Called when the update starts.
 
         Emits: status-started()
         """
         self.emit("status-started")
 
-    def finishUpdate(self):
+    def finish_update(self):
         """Called when the update finished.
 
         Emits: status-finished()
         """
         self.emit("status-finished")
 
-    def statusChange(self, pkg, percent, status):
+    def status_change(self, pkg, percent, status):
         """Called when the status changed.
 
         Emits: status-changed(status, percent)
@@ -160,12 +161,12 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         self.time_last_update = time.time()
         self.emit("status-changed", status, percent)
 
-    def updateInterface(self):
+    def update_interface(self):
         """Called periodically to update the interface.
 
         Emits: status-timeout() [When a timeout happens]
         """
-        apt.progress.InstallProgress.updateInterface(self)
+        apt.progress.InstallProgress.update_interface(self)
         while self._context.pending():
             self._context.iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
@@ -175,11 +176,19 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         """Fork the process."""
         return self.term.forkpty(envv=self.env)
 
-    def waitChild(self):
+    def wait_child(self):
         """Wait for the child process to exit."""
         while not self.finished:
-            self.updateInterface()
+            self.update_interface()
         return self.apt_status
+
+    if apt_pkg._COMPAT_0_7:
+        updateInterface = function_deprecated_by(update_interface)
+        startUpdate = function_deprecated_by(start_update)
+        finishUpdate = function_deprecated_by(finish_update)
+        statusChange = function_deprecated_by(status_change)
+        waitChild = function_deprecated_by(wait_child)
+        childExited = function_deprecated_by(child_exited)
 
 
 class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
@@ -199,13 +208,16 @@ class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
         """Install the given package."""
         apt.progress.DpkgInstallProgress.run(self, debfile)
 
-    def updateInterface(self):
+    def update_interface(self):
         """Called periodically to update the interface.
 
         Emits: status-timeout() [When a timeout happens]"""
-        apt.progress.DpkgInstallProgress.updateInterface(self)
+        apt.progress.DpkgInstallProgress.update_interface(self)
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
             self.emit("status-timeout")
+
+    if apt_pkg._COMPAT_0_7:
+        updateInterface = function_deprecated_by(update_interface)
 
 
 class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
@@ -239,19 +251,19 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
 
     def pulse(self):
         apt.progress.FetchProgress.pulse(self)
-        currentItem = self.currentItems + 1
-        if currentItem > self.totalItems:
-            currentItem = self.totalItems
-        if self.currentCPS > 0:
+        current_item = self.current_items + 1
+        if current_item > self.total_items:
+            current_item = self.total_items
+        if self.current_cps > 0:
             text = (_("Downloading file %(current)li of %(total)li with "
                       "%(speed)s/s") % \
-                      {"current": currentItem,
-                       "total": self.totalItems,
-                       "speed": apt_pkg.size_to_str(self.currentCPS)})
+                      {"current": current_item,
+                       "total": self.total_items,
+                       "speed": apt_pkg.size_to_str(self.current_cps)})
         else:
             text = (_("Downloading file %(current)li of %(total)li") % \
-                      {"current": currentItem,
-                       "total": self.totalItems})
+                      {"current": current_item,
+                       "total": self.total_items})
         self.emit("status-changed", text, self.percent)
         while self._context.pending():
             self._context.iteration()
