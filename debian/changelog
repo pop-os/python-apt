@@ -1,7 +1,7 @@
-python-apt (0.7.91) UNRELEASED; urgency=low
+python-apt (0.7.91) experimental; urgency=low
 
   [ Julian Andres Klode ]
-  * Rename all methods,functions,attributes to conform to PEP 8 (Closes: #481061)
+  * Rename where needed according to PEP 8 conventions (Closes: #481061)
   * Where possible, derive apt.package.Record from collections.Mapping.
   * ActionGroups can be used as a context manager for the 'with' statement.
   * utils/migrate-0.8.py: Helper to check Python code for deprecated functions,
