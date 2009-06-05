@@ -347,6 +347,27 @@ class Cache(object):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 
+    def actiongroup(self):
+        """Return an ActionGroup() object for the current cache.
+
+        Action groups can be used to speedup actions. The action group is
+        active as soon as it is created, and disabled when the object is
+        deleted or when release() is called.
+
+        You can use the action group as a context manager, this is the
+        recommended way::
+
+            with cache.actiongroup():
+                for package in my_selected_packages:
+                    package.mark_install()
+
+        This way, the ActionGroup is automatically released as soon as the
+        with statement block is left. It also has the benefit of making it
+        clear which parts of the code run with a action group and which
+        don't.
+        """
+        return apt_pkg.ActionGroup(self._depcache)
+
     if apt_pkg._COMPAT_0_7:
         _runCallbacks = function_deprecated_by(_run_callbacks)
         getChanges = function_deprecated_by(get_changes)

@@ -70,7 +70,7 @@ action group, and is just cooler::
 
 This also works for :class:`apt.Cache`::
 
-    with cache.action_group(): # cache is an Instance of apt.Cache
+    with cache.actiongroup(): # cache is an Instance of apt.Cache
         for package in my_selected_packages:
             package.mark_install() # Instance of apt.Package
 
