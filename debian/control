@@ -23,9 +23,8 @@ Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release,
-         libjs-jquery
-Recommends: iso-codes
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
+Recommends: iso-codes, libjs-jquery
 Breaks: debdelta (<< 0.28~)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
