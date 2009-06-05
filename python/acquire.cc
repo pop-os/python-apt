@@ -95,7 +95,7 @@ PyTypeObject AcquireItemType =
    #if PY_MAJOR_VERSION < 3
    0,			                // ob_size
    #endif
-   "pkgAcquire::ItemIterator",         // tp_name
+   "apt_pkg.AcquireItem",         // tp_name
    sizeof(CppOwnedPyObject<pkgAcquire::ItemIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
