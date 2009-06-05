@@ -31,6 +31,10 @@ if os.path.exists("../../build"):
         if version in dirname:
             sys.path.insert(0, os.path.abspath('../../build/' + dirname))
 
+# Hack: Disable compatibility mode
+import apt_pkg
+apt_pkg._COMPAT_0_7 = 0
+
 # General configuration
 # ---------------------
 
