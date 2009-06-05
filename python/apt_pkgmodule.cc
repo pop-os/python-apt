@@ -500,8 +500,9 @@ static PyMethodDef methods[] =
 };
 
 
-#define ADDTYPE(mod,name,type) { Py_INCREF(type); \
+#define ADDTYPE(mod,name,type) { \
     if (PyType_Ready(type) == -1) INIT_ERROR; \
+    Py_INCREF(type); \
     PyModule_AddObject(mod,name,(PyObject *)type); }
 
 
@@ -557,6 +558,7 @@ extern "C" void initapt_pkg()
    Config->Object = _config;
    PyModule_AddObject(Module,"config",Config);
    #ifdef COMPAT_0_7
+   Py_INCREF(Config);
    PyModule_AddObject(Module,"Config",Config);
    #endif
 
