@@ -13,6 +13,10 @@ python-apt (0.7.91) UNRELEASED; urgency=low
   * debian/python-apt.doc-base: register the documentation with the
     doc-base system (Closes: #525134)
 
+  [ Sebastian Heinlein ]
+  * apt/package.py: Add Package.get_version() which returns a Version instance
+    for the given version string or None (Closes: #523998)
+
  -- Julian Andres Klode <jak@debian.org>  Fri, 05 Jun 2009 19:36:45 +0200
 
 python-apt (0.7.90) experimental; urgency=low
