@@ -7,7 +7,7 @@ def main():
     apt_pkg.init()
     cache = apt_pkg.Cache()
     for pkgfile in cache.file_list:
-        print 'Package-File:', pkgfile.file_name
+        print 'Package-File:', pkgfile.filename
         print 'Index-Type:', pkgfile.index_type # 'Debian Package Index'
         if pkgfile.not_source:
             print 'Source: None'

@@ -167,7 +167,7 @@ Working with the cache
         If *from_user* is ``True``, the package will be marked as manually
         installed. This is the default.
 
-    .. method:: set_re_install(pkg)
+    .. method:: set_reinstall(pkg)
 
         Set if the :class:`Package` *pkg* should be reinstalled.
 
@@ -398,7 +398,7 @@ Resolving Dependencies
 
         The component (eg. main)
 
-    .. attribute:: file_name
+    .. attribute:: filename
 
         The name of the file.
 
@@ -430,7 +430,7 @@ Resolving Dependencies
 
             for pkgfile in cache.file_list:
                 if pkgfile.not_source:
-                    print 'The file %s has no source.' % pkgfile.file_name
+                    print 'The file %s has no source.' % pkgfile.filename
 
     .. attribute:: origin
 
@@ -809,7 +809,7 @@ Records
             # Now you can access the record
             print records.SourcePkg # == python-apt
 
-    .. attribute:: file_name
+    .. attribute:: filename
 
         Return the field 'Filename' of the record. This is the path to the
         package, relative to the base path of the archive.
@@ -1103,7 +1103,7 @@ installation.
         Constant for comparing :attr:`AcquireItem.status`
 
 
-.. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, dest_dir, dest_file])
+.. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
 
     Create a new :class:`AcquireFile()` object and register it with *acquire*,
     so it will be fetched. AcquireFile objects provide no methods or attributes
@@ -1126,9 +1126,9 @@ installation.
     used to describe the item in the progress class. *short_descr* is the
     short form of it.
 
-    You can use *dest_dir* to manipulate the directory where the file will
-    be saved in. Instead of *dest_dir*, you can also specify the full path to
-    the file using the parameter *dest_file*. You can not combine both.
+    You can use *destdir* to manipulate the directory where the file will
+    be saved in. Instead of *destdir*, you can also specify the full path to
+    the file using the parameter *destfile*. You can not combine both.
 
 
 
@@ -1379,7 +1379,7 @@ Configuration
 
         Check whether the key *key* exists in the configuration.
 
-    .. method:: sub_tree(key)
+    .. method:: subtree(key)
 
         Return a sub tree starting at *key*. The resulting object can be used
         like this one.
@@ -1429,7 +1429,7 @@ Configuration
 
     Behaves like a :class:`Configuration()` objects, but provides access to
     a subsection of another Configuration-like object. This type of object is
-    returned by the :meth:`Configuration.sub_tree()` method.
+    returned by the :meth:`Configuration.subtree()` method.
 
 .. data:: config
 
@@ -1459,7 +1459,7 @@ Modifying
     the settings therein to the :class:`Configuration()` object specified by
     the parameter *configuration*
 
-.. function:: parse_command_line(configuration, options, argv)
+.. function:: parse_commandline(configuration, options, argv)
 
     This function is like getopt except it manipulates a configuration space.
     output is a list of non-option arguments (filenames, etc). *options* is a
@@ -1541,11 +1541,11 @@ String functions
 
         apt_pkg.check_domain_list("alioth.debian.org","debian.net,debian.org")
 
-.. function:: de_quote_string(string)
+.. function:: dequote_string(string)
 
     Dequote the string specified by the parameter *string*, e.g.::
 
-        >>> apt_pkg.DeQuoteString("%61%70%74%20is%20cool")
+        >>> apt_pkg.dequote_string("%61%70%74%20is%20cool")
         'apt is cool'
 
 .. function:: quote_string(string, repl)
@@ -1627,14 +1627,14 @@ String functions
     Return the string *version*, eliminating everything following the last
     '-'. Thus, this should be equivalent to ``version.rsplit('-', 1)[0]``.
 
-.. function:: uri_to_file_name(uri)
+.. function:: uri_to_filename(uri)
 
     Take a string *uri* as parameter and return a filename which can be used to
     store the file, based on the URI.
 
     Example::
 
-        >>> apt_pkg.uri_to_file_name('http://debian.org/index.html')
+        >>> apt_pkg.uri_to_filename('http://debian.org/index.html')
         'debian.org_index.html'
 
 
@@ -1667,7 +1667,7 @@ Package States
 .. data:: CURSTATE_HALF_INSTALLED
 .. data:: CURSTATE_INSTALLED
 .. data:: CURSTATE_NOT_INSTALLED
-.. data:: CURSTATE_UN_PACKED
+.. data:: CURSTATE_UNPACKED
 
 
 
@@ -1687,9 +1687,9 @@ Dependency types
 Installed states
 ^^^^^^^^^^^^^^^^
 .. data:: INSTSTATE_HOLD
-.. data:: INSTSTATE_HOLD_RE_INST_REQ
+.. data:: INSTSTATE_HOLD_REINSTREQ
 .. data:: INSTSTATE_OK
-.. data:: INSTSTATE_RE_INST_REQ
+.. data:: INSTSTATE_REINSTREQ
 
 .. _Priorities:
 

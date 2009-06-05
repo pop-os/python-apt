@@ -462,7 +462,7 @@ static PyMethodDef CnfMethods[] =
    // Others
    {"set",CnfSet,METH_VARARGS,doc_Set},
    {"exists",CnfExists,METH_VARARGS,doc_Exists},
-   {"sub_tree",CnfSubTree,METH_VARARGS,doc_SubTree},
+   {"subtree",CnfSubTree,METH_VARARGS,doc_SubTree},
    {"list",CnfList,METH_VARARGS,doc_List},
    {"value_list",CnfValueList,METH_VARARGS,doc_ValueList},
    {"my_tag",CnfMyTag,METH_VARARGS,doc_MyTag},

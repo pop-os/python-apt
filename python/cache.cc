@@ -1030,7 +1030,7 @@ static PyGetSetDef PackageFileGetSet[] = {
   {(char*)"architecture",PackageFile_GetArchitecture},
   {(char*)"archive",PackageFile_GetArchive},
   {(char*)"component",PackageFile_GetComponent},
-  {(char*)"file_name",PackageFile_GetFileName},
+  {(char*)"filename",PackageFile_GetFileName},
   {(char*)"id",PackageFile_GetID},
   {(char*)"index_type",PackageFile_GetIndexType},
   {(char*)"label",PackageFile_GetLabel},

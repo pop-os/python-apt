@@ -379,7 +379,7 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        return self._records.file_name
+        return self._records.filename
 
     @property
     def md5(self):
@@ -413,7 +413,7 @@ class Version(object):
         for (packagefile, index) in self._cand.file_list:
             indexfile = self.package._pcache._list.find_index(packagefile)
             if indexfile:
-                yield indexfile.archive_uri(self._records.file_name)
+                yield indexfile.archive_uri(self._records.filename)
 
     @property
     def uris(self):
@@ -443,19 +443,19 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        base = os.path.basename(self._records.file_name)
+        base = os.path.basename(self._records.filename)
         destfile = os.path.join(destdir, base)
         if _file_is_same(destfile, self.size, self._records.md5_hash):
             print 'Ignoring already existing file:', destfile
             return
         acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
         apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash, self.size,
-                              base, dest_file=destfile)
+                              base, destfile=destfile)
         acq.run()
         for item in acq.items:
             if item.status != item.stat_done:
                 raise FetchError("The item %r could not be fetched: %s" %
-                                    (item.dest_file, item.error_text))
+                                    (item.destfile, item.error_text))
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):

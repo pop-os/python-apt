@@ -40,9 +40,9 @@ MkGet(AcquireItemGetStatAuthError,Py_BuildValue("i", pkgAcquire::Item::StatAuthE
 static PyGetSetDef AcquireItemGetSet[] = {
     {"complete",AcquireItemGetComplete},
     {"desc_uri",AcquireItemGetDescURI},
-    {"dest_file",AcquireItemGetDestFile},
+    {"destfile",AcquireItemGetDestFile},
     {"error_text",AcquireItemGetErrorText},
-    {"file_size",AcquireItemGetFileSize},
+    {"filesize",AcquireItemGetFileSize},
     {"is",AcquireItemGetID},
     {"is_trusted",AcquireItemGetIsTrusted},
     {"local",AcquireItemGetLocal},
@@ -310,7 +310,7 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
    int size = 0;
    uri = md5 = descr = shortDescr = destDir = destFile = "";
 
-   char * kwlist[] = {"owner","uri", "md5", "size", "descr", "shortdescr",
+   char * kwlist[] = {"owner","uri", "md5", "size", "descr", "short_descr",
                       "destdir", "destfile", NULL};
 
    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
@@ -335,8 +335,8 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
 
 
 static char *doc_PkgAcquireFile =
-    "AcquireFile(owner, uri[, md5, size, descr, short_descr, dest_dir,"
-    "dest_file]) -> New AcquireFile() object\n\n"
+    "AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir,"
+    "destfile]) -> New AcquireFile() object\n\n"
     "The parameter *owner* refers to an apt_pkg.Acquire() object. You can use\n"
     "*destdir* OR *destfile* to specify the destination directory/file.";
 

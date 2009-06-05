@@ -407,7 +407,7 @@ static PyMethodDef methods[] =
    // Locking
    {"get_lock",GetLock,METH_VARARGS,doc_GetLock},
    {"pkgsystem_lock",PkgSystemLock,METH_VARARGS,doc_PkgSystemLock},
-   {"pkgsystem_un_lock",PkgSystemUnLock,METH_VARARGS,doc_PkgSystemUnLock},
+   {"pkgsystem_unlock",PkgSystemUnLock,METH_VARARGS,doc_PkgSystemUnLock},
    #ifdef COMPAT_0_7
    {"GetLock",GetLock,METH_VARARGS,doc_GetLock},
    {"PkgSystemLock",PkgSystemLock,METH_VARARGS,doc_PkgSystemLock},
@@ -418,7 +418,7 @@ static PyMethodDef methods[] =
    {"read_config_file",LoadConfig,METH_VARARGS,doc_LoadConfig},
    {"read_config_dir",LoadConfigDir,METH_VARARGS,doc_LoadConfigDir},
    {"read_config_file_isc",LoadConfigISC,METH_VARARGS,doc_LoadConfig},
-   {"parse_command_line",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
+   {"parse_commandline",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
    #ifdef COMPAT_0_7
    {"ReadConfigFile",LoadConfig,METH_VARARGS,doc_LoadConfig},
    {"ReadConfigDir",LoadConfigDir,METH_VARARGS,doc_LoadConfigDir},
@@ -452,10 +452,10 @@ static PyMethodDef methods[] =
    // Strings
    {"check_domain_list",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
    {"quote_string",StrQuoteString,METH_VARARGS,"QuoteString(String,String) -> String"},
-   {"de_quote_string",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
+   {"dequote_string",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
    {"size_to_str",StrSizeToStr,METH_VARARGS,"SizeToStr(int) -> String"},
    {"time_to_str",StrTimeToStr,METH_VARARGS,"TimeToStr(int) -> String"},
-   {"uri_to_file_name",StrURItoFileName,METH_VARARGS,"URItoFileName(String) -> String"},
+   {"uri_to_filename",StrURItoFileName,METH_VARARGS,"URItoFileName(String) -> String"},
    {"base64_encode",StrBase64Encode,METH_VARARGS,"Base64Encode(String) -> String"},
    {"string_to_bool",StrStringToBool,METH_VARARGS,"StringToBool(String) -> int"},
    {"time_rfc1123",StrTimeRFC1123,METH_VARARGS,"TimeRFC1123(int) -> String"},
@@ -657,7 +657,7 @@ extern "C" void initapt_pkg()
 #endif
    // CurState
    PyModule_AddIntConstant(Module,"CURSTATE_NOT_INSTALLED",pkgCache::State::NotInstalled);
-   PyModule_AddIntConstant(Module,"CURSTATE_UN_PACKED",pkgCache::State::UnPacked);
+   PyModule_AddIntConstant(Module,"CURSTATE_UNPACKED",pkgCache::State::UnPacked);
    PyModule_AddIntConstant(Module,"CURSTATE_HALF_CONFIGURED",pkgCache::State::HalfConfigured);
    PyModule_AddIntConstant(Module,"CURSTATE_HALF_INSTALLED",pkgCache::State::HalfInstalled);
    PyModule_AddIntConstant(Module,"CURSTATE_CONFIG_FILES",pkgCache::State::ConfigFiles);
@@ -666,13 +666,13 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"SELSTATE_UNKNOWN",pkgCache::State::Unknown);
    PyModule_AddIntConstant(Module,"SELSTATE_INSTALL",pkgCache::State::Install);
    PyModule_AddIntConstant(Module,"SELSTATE_HOLD",pkgCache::State::Hold);
-   PyModule_AddIntConstant(Module,"SELSTATE_DE_INSTALL",pkgCache::State::DeInstall);
+   PyModule_AddIntConstant(Module,"SELSTATE_DEINSTALL",pkgCache::State::DeInstall);
    PyModule_AddIntConstant(Module,"SELSTATE_PURGE",pkgCache::State::Purge);
    // InstState
    PyModule_AddIntConstant(Module,"INSTSTATE_OK",pkgCache::State::Ok);
-   PyModule_AddIntConstant(Module,"INSTSTATE_RE_INST_REQ",pkgCache::State::ReInstReq);
+   PyModule_AddIntConstant(Module,"INSTSTATE_REINSTREQ",pkgCache::State::ReInstReq);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD",pkgCache::State::Hold);
-   PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_RE_INST_REQ",pkgCache::State::HoldReInstReq);
+   PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
 
 #ifdef COMPAT_0_7
    PyModule_AddIntConstant(Module,"CurStateNotInstalled",pkgCache::State::NotInstalled);

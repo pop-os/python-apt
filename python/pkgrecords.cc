@@ -120,7 +120,7 @@ static PyObject *PkgRecordsGetRecord(PyObject *Self,void*) {
    return PyString_FromStringAndSize(start,stop-start);
 }
 static PyGetSetDef PkgRecordsGetSet[] = {
-   {"file_name",PkgRecordsGetFileName},
+   {"filename",PkgRecordsGetFileName},
    {"homepage",PkgRecordsGetHomepage},
    {"long_desc",PkgRecordsGetLongDesc},
    {"md5_hash",PkgRecordsGetMD5Hash},

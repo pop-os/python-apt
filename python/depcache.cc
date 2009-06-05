@@ -535,13 +535,13 @@ static PyMethodDef PkgDepCacheMethods[] =
    // global cache operations
    {"upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
    {"fix_broken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
-   {"read_pin_file",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
+   {"read_pinfile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
    {"minimize_upgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,"Go over the entire set of packages and try to keep each package marked for upgrade. If a conflict is generated then the package is restored."},
    // Manipulators
    {"mark_keep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
    {"mark_delete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
    {"mark_install",PkgDepCacheMarkInstall,METH_VARARGS,"Mark package for Install"},
-   {"set_re_install",PkgDepCacheSetReInstall,METH_VARARGS,"Set if the package should be reinstalled"},
+   {"set_reinstall",PkgDepCacheSetReInstall,METH_VARARGS,"Set if the package should be reinstalled"},
    // state information
    {"is_upgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
    {"is_now_broken",PkgDepCacheIsNowBroken,METH_VARARGS,"Is pkg is now broken"},

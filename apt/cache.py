@@ -170,8 +170,8 @@ class Cache(object):
         reqreinst = set()
         for pkg in self:
             if (not pkg.candidate.downloadable and
-                (pkg._pkg.inst_state == apt_pkg.INSTSTATE_RE_INST_REQ or
-                 pkg._pkg.inst_state == apt_pkg.INSTSTATE_HOLD_RE_INST_REQ)):
+                (pkg._pkg.inst_state == apt_pkg.INSTSTATE_REINSTREQ or
+                 pkg._pkg.inst_state == apt_pkg.INSTSTATE_HOLD_REINSTREQ)):
                 reqreinst.add(pkg.name)
         return reqreinst
 
