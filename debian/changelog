@@ -6,6 +6,7 @@ python-apt (0.7.10.4) UNRELEASED; urgency=low
 
   [ Otavio Salvador ]
   * utils/get_debian_mirrors.py: updated to support current mirror page.
+  * Update Debian mirrors. (Closes: #518071)
 
  -- Michael Vogt <mvo@debian.org>  Tue, 05 May 2009 12:03:27 +0200
 
