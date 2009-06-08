@@ -14,6 +14,7 @@
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/acquire-worker.h>
 #include "progress.h"
+#include "generic.h"
 
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
