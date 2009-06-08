@@ -64,7 +64,7 @@ static PyObject *HashString_HashType(PyObject *self)
     return CppPyString(hash->HashType());
 }
 
-static const char *HashString_VerifyFile_doc =
+static char *HashString_VerifyFile_doc =
     "verify_file(filename: str) --> bool\n\n"
     "Verify that the file indicated by filename matches the hash.";
 
@@ -87,7 +87,7 @@ static PyMethodDef HashString_Methods[] = {
     {}
 };
 
-static const char *HashString_doc =
+static char *HashString_doc =
     "HashString(type, hash) OR HashString('type:hash')\n\n"
     "Create a new HashString object. The first form allows you to specify\n"
     "a type and a hash, and the second form a single string where type and\n"

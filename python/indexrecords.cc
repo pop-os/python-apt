@@ -44,7 +44,7 @@ static PyObject *IndexRecords_Load(PyObject *self,PyObject *args)
     return HandleErrors(Py_BuildValue("i", records->Load(filename)));
 }
 
-static const char *IndexRecords_Lookup_doc = "lookup(metakey)\n\n"
+static char *IndexRecords_Lookup_doc = "lookup(metakey)\n\n"
     "Lookup the filename given by metakey, return a tuple (hash, size).\n"
     "The hash part is a HashString() object.";
 static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
