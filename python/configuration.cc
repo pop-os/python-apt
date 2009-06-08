@@ -161,7 +161,8 @@ static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
    }
 
    // Create a new sub configuration.
-   SubConfiguration *New = PyObject_NEW(SubConfiguration,&ConfigurationSubType);
+   SubConfiguration *New = (SubConfiguration*)(&ConfigurationSubType)
+                           ->tp_alloc(&ConfigurationSubType,0);
    new (&New->Object) Configuration(Itm);
    New->Owner = Self;
    Py_INCREF(Self);

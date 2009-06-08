@@ -99,7 +99,7 @@ inline PyObject *GetOwner(PyObject *Obj)
 template <class T>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 {
-   CppPyObject<T> *New = PyObject_NEW(CppPyObject<T>,Type);
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    return New;
 }
@@ -107,7 +107,7 @@ inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 template <class T,class A>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type,A const &Arg)
 {
-   CppPyObject<T> *New = PyObject_NEW(CppPyObject<T>,Type);
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    return New;
 }
@@ -116,7 +116,7 @@ template <class T>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type)
 {
-   CppOwnedPyObject<T> *New = PyObject_NEW(CppOwnedPyObject<T>,Type);
+   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    New->Owner = Owner;
    Py_INCREF(Owner);
@@ -127,7 +127,7 @@ template <class T,class A>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type,A const &Arg)
 {
-   CppOwnedPyObject<T> *New = PyObject_NEW(CppOwnedPyObject<T>,Type);
+   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    New->Owner = Owner;
    if (Owner != 0)
@@ -140,7 +140,7 @@ template <class T>
 void CppDealloc(PyObject *Obj)
 {
    GetCpp<T>(Obj).~T();
-   PyObject_DEL(Obj);
+   Obj->ob_type->tp_free(Obj);
 }
 
 template <class T>
@@ -150,7 +150,7 @@ void CppOwnedDealloc(PyObject *iObj)
    Obj->Object.~T();
    if (Obj->Owner != 0)
       Py_DECREF(Obj->Owner);
-   PyObject_DEL(Obj);
+   iObj->ob_type->tp_free(iObj);
 }
 
 inline PyObject *CppPyString(std::string Str)

@@ -68,7 +68,7 @@ void TagFileFree(PyObject *Obj)
    Self->Object.~pkgTagFile();
    Self->Fd.~FileFd();
    Py_DECREF(Self->File);
-   PyObject_DEL(Obj);
+   Obj->ob_type->tp_free(Obj);
 }
 									/*}}}*/
 
@@ -246,7 +246,7 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
       return 0;
 
    // Create the object..
-   TagSecData *New = PyObject_NEW(TagSecData,type);
+   TagSecData *New = (TagSecData*)type->tp_alloc(type, 0);
    new (&New->Object) pkgTagSection();
    New->Data = new char[strlen(Data)+2];
    snprintf(New->Data,strlen(Data)+2,"%s\n",Data);
@@ -286,14 +286,14 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    if (fileno == -1)
       return 0;
 
-   TagFileData *New = PyObject_NEW(TagFileData,type);
+   TagFileData *New = (TagFileData*)type->tp_alloc(type, 0);
    new (&New->Fd) FileFd(fileno,false);
    New->File = File;
    Py_INCREF(New->File);
    new (&New->Object) pkgTagFile(&New->Fd);
 
    // Create the section
-   New->Section = PyObject_NEW(TagSecData,&TagSecType);
+   New->Section = (TagSecData*)(&TagSecType)->tp_alloc(&TagSecType, 0);
    new (&New->Section->Object) pkgTagSection();
    New->Section->Data = 0;
 
