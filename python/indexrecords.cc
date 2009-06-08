@@ -45,7 +45,7 @@ static PyObject *IndexRecords_Load(PyObject *self,PyObject *args)
 }
 
 static const char *IndexRecords_Lookup_doc = "lookup(metakey)\n\n"
-    "Lookup the filename given by metakey, return a tuple (size,hash).\n"
+    "Lookup the filename given by metakey, return a tuple (hash, size).\n"
     "The hash part is a HashString() object.";
 static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
 {
@@ -54,8 +54,13 @@ static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
         return 0;
     indexRecords *records = GetCpp<indexRecords*>(self);
     const indexRecords::checkSum *result = records->Lookup(keyname);
-    return Py_BuildValue("(iO)",result->Size,
-                         PyHashString_FromCpp((HashString*)&result->Hash));
+    if (result == 0) {
+        PyErr_SetString(PyExc_KeyError,keyname);
+        return 0;
+    }
+    return Py_BuildValue("(Oi)",
+                         PyHashString_FromCpp((HashString*)&result->Hash),
+                         result->Size);
 }
 
 static PyObject *IndexRecords_GetDist(PyObject *self)
