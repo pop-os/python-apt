@@ -36,6 +36,20 @@ python-apt (0.7.90) experimental; urgency=low
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
 
+python-apt (0.7.10.4) UNRELEASED; urgency=low
+
+  [ Stephan Peijnik ]
+  * apt/progress/__init__.py:
+    - add update_status_full() that takes file_size/partial_size as
+      additional callback arguments
+    - add pulse_items() that takes a addtional "items" tuple that
+      gives the user full access to the individual items that are
+      fetched
+  * python/progress.cc:
+    - low level code for update_status_full and pulse_items()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 05 May 2009 11:57:57 +0200
+
 python-apt (0.7.10.3) unstable; urgency=low
 
   * apt/package.py: Handle cases where no candidate is available, by returning

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-16 19:54+0200\n"
+"POT-Creation-Date: 2009-06-08 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -331,39 +331,39 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:246
+#: ../apt/progress/gtk2.py:258
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:252
+#: ../apt/progress/gtk2.py:264
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:272
+#: ../apt/progress/gtk2.py:284
 msgid "Details"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:354
+#: ../apt/progress/gtk2.py:366
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/progress/gtk2.py:360
+#: ../apt/progress/gtk2.py:372
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:286
+#: ../apt/package.py:301
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:846 ../apt/package.py:950
+#: ../apt/package.py:861 ../apt/package.py:965
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:954
+#: ../apt/package.py:969
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -372,7 +372,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:960
+#: ../apt/package.py:975
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."

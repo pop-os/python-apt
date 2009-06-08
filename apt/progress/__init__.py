@@ -116,11 +116,31 @@ class FetchProgress(object):
 
         This happens eg. when the downloads fails or is completed.
         """
+    def update_status_full(self, uri, descr, short_descr, status, file_size,
+                           partial_size):
+        """Called when the status of an item changes.
+
+        This happens eg. when the downloads fails or is completed. This
+        version include information on current filesize and partial size
+        """
 
     def pulse(self):
         """Called periodically to update the user interface.
 
         Return True to continue or False to cancel.
+        """
+        self.percent = (((self.current_bytes + self.current_items) * 100.0) /
+                        float(self.total_bytes + self.total_items))
+        if self.current_cps > 0:
+            self.eta = ((self.total_bytes - self.current_bytes) /
+                        float(self.current_cps))
+        return True
+
+    def pulse_items(self, items):
+        """Called periodically to update the user interface.
+        This function includes details about the items being fetched
+        Return True to continue or False to cancel.
+
         """
         self.percent = (((self.current_bytes + self.current_items) * 100.0) /
                         float(self.total_bytes + self.total_items))

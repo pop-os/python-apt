@@ -9,7 +9,10 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <map>
+#include <utility>
 #include <apt-pkg/acquire-item.h>
+#include <apt-pkg/acquire-worker.h>
 #include "progress.h"
 
 // generic
@@ -30,14 +33,16 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
       return false;
    }
    PyObject *result = PyEval_CallObject(method, arglist);
+
    Py_XDECREF(arglist);
 
    if(result == NULL) {
       // exception happend
       std::cerr << "Error in function " << method_name << std::endl;
       PyErr_Print();
+      PyErr_Clear();
 
-      return NULL;
+      return false;
    }
    if(res != NULL)
       *res = result;
@@ -89,6 +94,7 @@ void PyOpProgress::Done()
 
 
 // apt interface
+
 bool PyFetchProgress::MediaChange(string Media, string Drive)
 {
    //std::cout << "MediaChange" << std::endl;
@@ -112,7 +118,24 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
 void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 {
    //std::cout << "UpdateStatus: " << Itm.URI << " " << status << std::endl;
-   PyObject *arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(), Itm.ShortDesc.c_str(), status);
+
+   // Added object file size and object partial size to
+   // parameters that are passed to updateStatus.
+   // -- Stephan
+   PyObject *arglist = Py_BuildValue("(sssikk)", Itm.URI.c_str(),
+				     Itm.Description.c_str(),
+				     Itm.ShortDesc.c_str(),
+				     status,
+				     Itm.Owner->FileSize,
+				     Itm.Owner->PartialSize);
+
+   RunSimpleCallback("update_status_full", arglist);
+
+   // legacy version of the interface
+   arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(),
+				     Itm.Description.c_str(),
+				     Itm.ShortDesc.c_str(),
+                                     status);
    if(PyObject_HasAttrString(callbackInst, "update_status"))
        RunSimpleCallback("update_status", arglist);
    else
@@ -152,6 +175,28 @@ void PyFetchProgress::Start()
 {
    //std::cout << "Start" << std::endl;
    pkgAcquireStatus::Start();
+
+   // These attributes should be initialized before the first callback (start)
+   // is invoked.
+   // -- Stephan
+   PyObject *o;
+
+   o = Py_BuildValue("f", 0.0f);
+   PyObject_SetAttrString(callbackInst, "currentCPS", o);
+   Py_XDECREF(o);
+   o = Py_BuildValue("f", 0.0f);
+   PyObject_SetAttrString(callbackInst, "currentBytes", o);
+   Py_XDECREF(o);
+   o = Py_BuildValue("i", 0);
+   PyObject_SetAttrString(callbackInst, "currentItems", o);
+   Py_XDECREF(o);
+   o = Py_BuildValue("i", 0);
+   PyObject_SetAttrString(callbackInst, "totalItems", o);
+   Py_XDECREF(o);
+   o = Py_BuildValue("f", 0.0f);
+   PyObject_SetAttrString(callbackInst, "totalBytes", o);
+   Py_XDECREF(o);
+
    RunSimpleCallback("start");
 }
 
@@ -204,12 +249,79 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       PyObject_SetAttrString(callbackInst, "totalBytes", o);
    Py_XDECREF(o);
 
-   PyObject *arglist = Py_BuildValue("()");
-   PyObject *result;
-   RunSimpleCallback("pulse", arglist, &result);
+   // Go through the list of items and add active items to the
+   // activeItems vector.
+   map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
 
+   for(pkgAcquire::Worker *Worker = Owner->WorkersBegin();
+       Worker != 0; Worker = Owner->WorkerStep(Worker)) {
+
+     if (Worker->CurrentItem == 0) {
+       // Ignore workers with no item running
+       continue;
+     }
+     activeItemMap.insert(std::make_pair(Worker, Worker->CurrentItem));
+   }
+
+   // Create the tuple that is passed as argument to pulse().
+   // This tuple contains activeItemMap.size() item tuples.
+   PyObject *arglist;
+
+   if (((int)activeItemMap.size()) > 0) {
+     PyObject *itemsTuple = PyTuple_New((Py_ssize_t) activeItemMap.size());
+
+     // Go through activeItems, create an item tuple in the form
+     // (URI, Description, ShortDesc, FileSize, PartialSize) and
+     // add that tuple to itemsTuple.
+     map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *>::iterator iter;
+     int tuplePos;
+
+     for(tuplePos = 0, iter = activeItemMap.begin();
+	 iter != activeItemMap.end(); ++iter, tuplePos++) {
+       pkgAcquire::Worker *worker = iter->first;
+       pkgAcquire::ItemDesc *itm = iter->second;
+
+       PyObject *itmTuple = Py_BuildValue("(ssskk)", itm->URI.c_str(),
+					  itm->Description.c_str(),
+					  itm->ShortDesc.c_str(),
+					  worker->TotalSize,
+					  worker->CurrentSize);
+       PyTuple_SetItem(itemsTuple, tuplePos, itmTuple);
+     }
+
+     // Now our itemsTuple is ready for being passed to pulse().
+     // pulse() is going to receive a single argument, being the
+     // tuple of items, which again contains one tuple with item
+     // information per item.
+     //
+     // Python Example:
+     //
+     // class MyFetchProgress(FetchProgress):
+     //   def pulse(self, items):
+     //     for itm in items:
+     //       uri, desc, shortdesc, filesize, partialsize = itm
+     //
+     arglist = PyTuple_Pack(1, itemsTuple);
+   }
+   else {
+     arglist = Py_BuildValue("(())");
+   }
+
+   PyObject *result;
    bool res = true;
-   if(!PyArg_Parse(result, "b", &res))
+
+   RunSimpleCallback("pulse_items", arglist, &result);
+   if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
+      // the user returned a explicit false here, stop
+      return false;
+   }
+
+   arglist = Py_BuildValue("()");
+   if (!RunSimpleCallback("pulse", arglist, &result)) {
+     return true;
+   }
+
+   if((result == NULL) || (!PyArg_Parse(result, "b", &res)))
    {
       // most of the time the user who subclasses the pulse()
       // method forgot to add a return {True,False} so we just
