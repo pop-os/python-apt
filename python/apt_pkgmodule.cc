@@ -603,6 +603,8 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"SourceRecords",&PkgSrcRecordsType);
    /* ========================= sourcelist.cc ========================= */
    ADDTYPE(Module,"SourceList",&PkgSourceListType);
+   ADDTYPE(Module,"IndexRecords",&PyIndexRecords_Type);
+   ADDTYPE(Module,"HashString",&PyHashString_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));

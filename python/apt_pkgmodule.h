@@ -11,6 +11,7 @@
 #define APT_PKGMODULE_H
 
 #include <Python.h>
+#include <apt-pkg/hashes.h>
 
 // Configuration Stuff
 #define Configuration_Check(op) ((op)->ob_type == &ConfigurationType || \
@@ -106,5 +107,11 @@ extern PyTypeObject PackageIndexFileType;
 // metaIndex
 extern PyTypeObject MetaIndexType;
 
+// HashString
+PyObject *PyHashString_FromCpp(HashString *obj);
+extern PyTypeObject PyHashString_Type;
+
+// IndexRecord
+extern PyTypeObject PyIndexRecords_Type;
 
 #endif
