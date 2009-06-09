@@ -1,9 +1,10 @@
 python-apt (0.7.92) experimental; urgency=low
 
   * Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141)
+  * Add apt_pkg.Policy class (Closes: #382725)
   * Allow types providing __new__() to be subclassed.
 
- -- Julian Andres Klode <jak@debian.org>  Tue, 09 Jun 2009 18:09:53 +0200
+ -- Julian Andres Klode <jak@debian.org>  Tue, 09 Jun 2009 20:39:39 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 

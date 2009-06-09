@@ -114,4 +114,7 @@ extern PyTypeObject PyHashString_Type;
 // IndexRecord
 extern PyTypeObject PyIndexRecords_Type;
 
+// Policy
+extern PyTypeObject PyPolicy_Type;
+
 #endif
