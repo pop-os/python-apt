@@ -527,7 +527,7 @@ static int apt_inst_clear(PyObject *m) {
 
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
-        "apt_inst",
+        "apt_pkg",
         NULL,
         sizeof(struct module_state),
         methods,
