@@ -498,13 +498,13 @@ class Version(object):
                 finally:
                     fobj.close()
             apt_pkg.AcquireFile(acq, src.index.archive_uri(path), md5, size,
-                                  base, dest_file=destfile)
+                                  base, destfile=destfile)
         acq.run()
 
         for item in acq.items:
             if item.status != item.stat_done:
                 raise FetchError("The item %r could not be fetched: %s" %
-                                    (item.dest_file, item.error_text))
+                                    (item.destfile, item.error_text))
 
         if unpack:
             outdir = src.package + '-' + apt_pkg.upstream_version(src.version)
