@@ -374,6 +374,12 @@ PyTypeObject PkgCacheFileType =
    0,                                   // tp_as_sequence
    0,                                   // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
 };
 									/*}}}*/
 // Package List Class							/*{{{*/
@@ -444,6 +450,12 @@ PyTypeObject PkgListType =
    &PkgListSeq,                         // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT ,                 // tp_flags
 };
 
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
@@ -656,7 +668,7 @@ PyTypeObject DescriptionType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
-   "AcquireItem Object",                // tp_doc
+   "apt_pkg.Description Object",        // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare
@@ -1340,6 +1352,12 @@ PyTypeObject RDepListType =
    &RDepListSeq,                         // tp_as_sequence
    0,			                // tp_as_mapping
    0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
 };
 
 									/*}}}*/

@@ -547,6 +547,7 @@ extern "C" void initapt_pkg()
    // Finalize our types to add slots, etc.
    if (PyType_Ready(&ConfigurationPtrType) == -1) INIT_ERROR;
    if (PyType_Ready(&ConfigurationSubType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PkgCacheFileType) == -1) INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
@@ -577,8 +578,8 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"Dependency",&DependencyType); // NO __new__()
    ADDTYPE(Module,"Description",&DescriptionType); // NO __new__()
    ADDTYPE(Module,"PackageFile",&PackageFileType); // NO __new__()
-   //ADDTYPE(Module,"PackageList",&PkgListType);  // NO __new__(), internal
-   //ADDTYPE(Module,"DependencyList",&RDepListType); // NO __new__(), internal
+   ADDTYPE(Module,"PackageList",&PkgListType);  // NO __new__(), internal
+   ADDTYPE(Module,"DependencyList",&RDepListType); // NO __new__(), internal
    ADDTYPE(Module,"Package",&PackageType); // NO __new__()
    ADDTYPE(Module,"Version",&VersionType); // NO __new__()
    /* ============================ cdrom.cc ============================ */
