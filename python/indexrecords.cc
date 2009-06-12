@@ -89,7 +89,7 @@ PyTypeObject PyIndexRecords_Type = {
     sizeof(CppPyObject<indexRecords*>),  // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppDealloc<indexRecords*>,           // tp_dealloc
+    CppDeallocPtr<indexRecords*>,        // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr

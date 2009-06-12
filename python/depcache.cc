@@ -660,7 +660,7 @@ PyTypeObject PkgDepCacheType =
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgDepCache *>,      // tp_dealloc
+   CppOwnedDeallocPtr<pkgDepCache *>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -844,7 +844,7 @@ PyTypeObject PkgProblemResolverType =
    sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgProblemResolver *>,        // tp_dealloc
+   CppOwnedDeallocPtr<pkgProblemResolver *>,// tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -962,7 +962,7 @@ PyTypeObject PkgActionGroupType =
    sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgDepCache::ActionGroup*>,        // tp_dealloc
+   CppOwnedDeallocPtr<pkgDepCache::ActionGroup*>,        // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr

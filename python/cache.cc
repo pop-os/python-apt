@@ -247,7 +247,7 @@ void PkgCacheFileDealloc(PyObject *Self)
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
    CacheF->Close();
-   CppOwnedDealloc<pkgCache *>(Self);
+   CppOwnedDeallocPtr<pkgCache *>(Self);
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
@@ -365,7 +365,7 @@ PyTypeObject PkgCacheFileType =
    sizeof(CppOwnedPyObject<pkgCacheFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgCacheFile*>,       // tp_dealloc
+   CppOwnedDeallocPtr<pkgCacheFile*>,       // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr

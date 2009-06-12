@@ -138,7 +138,7 @@ PyTypeObject PkgManagerType =
    sizeof(CppPyObject<pkgPackageManager*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgPackageManager*>,      // tp_dealloc
+   CppDeallocPtr<pkgPackageManager*>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr

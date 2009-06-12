@@ -80,7 +80,7 @@ PyTypeObject MetaIndexType =
    sizeof(CppOwnedPyObject<metaIndex*>),   // tp_basicsize
    0,                                      // tp_itemsize
    // Methods
-   CppOwnedDealloc<metaIndex*>,            // tp_dealloc
+   CppOwnedDeallocPtr<metaIndex*>,         // tp_dealloc
    0,                                      // tp_print
    0,                                      // tp_getattr
    0,                                      // tp_setattr

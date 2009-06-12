@@ -153,6 +153,25 @@ void CppOwnedDealloc(PyObject *iObj)
    iObj->ob_type->tp_free(iObj);
 }
 
+// Pointer deallocation
+// Generic Dealloc type functions
+template <class T>
+void CppDeallocPtr(PyObject *Obj)
+{
+   delete GetCpp<T>(Obj);
+   Obj->ob_type->tp_free(Obj);
+}
+
+template <class T>
+void CppOwnedDeallocPtr(PyObject *iObj)
+{
+   CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
+   delete Obj->Object;
+   if (Obj->Owner != 0)
+      Py_DECREF(Obj->Owner);
+   iObj->ob_type->tp_free(iObj);
+}
+
 inline PyObject *CppPyString(std::string Str)
 {
    return PyString_FromStringAndSize(Str.c_str(),Str.length());

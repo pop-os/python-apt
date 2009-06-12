@@ -103,7 +103,7 @@ PyTypeObject PyHashString_Type = {
     sizeof(CppPyObject<HashString*>),  // tp_basicsize
     0,                                 // tp_itemsize
     // Methods
-    CppDealloc<HashString*>,           // tp_dealloc
+    CppDeallocPtr<HashString*>,        // tp_dealloc
     0,                                 // tp_print
     0,                                 // tp_getattr
     0,                                 // tp_setattr

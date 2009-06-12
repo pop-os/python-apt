@@ -261,7 +261,7 @@ PyTypeObject PkgAcquireType =
    sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgAcquire*>,             // tp_dealloc
+   CppDeallocPtr<pkgAcquire*>,          // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -329,7 +329,7 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
 				   shortDescr,
 				   destDir,
 				   destFile); // short-desc
-   CppPyObject<pkgAcqFile*> *AcqFileObj = CppPyObject_NEW<pkgAcqFile*>(type);
+   CppOwnedPyObject<pkgAcqFile*> *AcqFileObj = CppOwnedPyObject_NEW<pkgAcqFile*>(pyfetcher, type);
    AcqFileObj->Object = af;
 
    return AcqFileObj;
@@ -349,10 +349,10 @@ PyTypeObject PkgAcquireFileType =
    0,			                // ob_size
    #endif
    "apt_pkg.AcquireFile",                   // tp_name
-   sizeof(CppPyObject<pkgAcqFile*>),// tp_basicsize
+   sizeof(CppOwnedPyObject<pkgAcqFile*>),// tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<pkgAcqFile*>,        // tp_dealloc
+   CppOwnedDeallocPtr<pkgAcqFile*>,        // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
