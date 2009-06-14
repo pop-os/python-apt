@@ -247,7 +247,9 @@ void PkgCacheFileDealloc(PyObject *Self)
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
    CacheF->Close();
-   CppOwnedDeallocPtr<pkgCache *>(Self);
+   // Do not delete the pointer here, because it has already been deleted by
+   // closing the cache file.
+   CppOwnedDealloc<pkgCache *>(Self);
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
