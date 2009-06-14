@@ -5,12 +5,14 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Add apt_pkg.Policy class (Closes: #382725)
   * Allow types providing __new__() to be subclassed.
   * Bugfix: Delete pointers correctly, fixing memory leaks. (LP: #370149)
+  * apt/package.py: Return VersionList objects in Package.versions, which
+    are sequences and also provide features of mappings. (small API BREAK)
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
     (Closes: #532660)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 12 Jun 2009 18:42:02 +0200
+ -- Julian Andres Klode <jak@debian.org>  Sun, 14 Jun 2009 16:23:39 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 

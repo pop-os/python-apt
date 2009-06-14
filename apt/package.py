@@ -29,10 +29,10 @@ import subprocess
 import urllib2
 import warnings
 try:
-    from collections import Mapping
+    from collections import Mapping, Sequence
 except ImportError:
     # (for Python < 2.6) pylint: disable-msg=C0103
-    Mapping = object
+    Sequence = Mapping = object
 
 import apt_pkg
 import apt.progress
@@ -206,7 +206,10 @@ class Version(object):
         self._cand = cand
 
     def __eq__(self, other):
-        return self._cand.id == other._cand.id
+        try:
+            return self._cand.id == other._cand.id
+        except:
+            return apt_pkg.version_compare(self.version, other) == 0
 
     def __gt__(self, other):
         return apt_pkg.version_compare(self.version, other.version) > 0
@@ -513,6 +516,81 @@ class Version(object):
             return os.path.abspath(outdir)
         else:
             return os.path.abspath(dsc)
+
+
+class VersionList(Sequence):
+    """Provide a mapping & sequence interface to all versions of a package.
+
+    This class can be used like a dictionary, where version strings are the
+    keys. It can also be used as a sequence, where integers are the keys.
+
+    You can also convert this to a dictionary or a list, using the usual way
+    of dict(version_list) or list(version_list). This is useful if you need
+    to access the version objects multiple times, because they do not have to
+    be recreated this way.
+
+    Examples ('package.versions' being a version list):
+        '0.7.92' in package.versions # Check whether 0.7.92 is a valid version.
+        package.versions[0] # Return first version or raise IndexError
+        package.versions[0:2] # Return a new VersionList for objects 0-2
+        package.versions['0.7.92'] # Return version 0.7.92 or raise KeyError
+        package.versions.keys() # All keys, as strings.
+        max(package.versions)
+    """
+
+    def __init__(self, package, slice=None):
+        self._package = package # apt.package.Package()
+        self._versions = package._pkg.version_list # [apt_pkg.Version(), ...]
+        if slice:
+            self._versions = self._versions[slice]
+
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            return self.__class__(self._package, item)
+        try:
+            # Sequence interface, item is an integer
+            return Version(self._package, self._versions[item])
+        except TypeError:
+            # Dictionary interface item is a string.
+            for ver in self._versions:
+                if ver.ver_str == item:
+                    return Version(self._package, ver)
+        raise KeyError("Version: %r not found." % (item))
+
+    def __repr__(self):
+        return '<VersionList: %r>' % self.keys()
+
+    def __iter__(self):
+        """Return an iterator over all value objects."""
+        return (Version(self._package, ver) for ver in self._versions)
+
+    def __contains__(self, item):
+        if isinstance(item, Version): # Sequence interface
+            item = item.version
+        # Dictionary interface.
+        for ver in self._versions:
+            if ver.ver_str == item:
+                return True
+        return False
+
+    def __eq__(self, other):
+        return list(self) == list(other)
+
+    def __len__(self):
+        return len(self._versions)
+
+    # Mapping interface
+
+    def keys(self):
+        """Return a list of all versions, as strings."""
+        return [ver.ver_str for ver in self._versions]
+
+    def get(self, key, default=None):
+        """Return the key or the default."""
+        try:
+            return self[key]
+        except LookupError:
+            return default
 
 
 class Package(object):
@@ -988,18 +1066,15 @@ class Package(object):
 
     @property
     def versions(self):
-        """Return a list of versions.
+        """Return a VersionList() object for all available versions.
 
         .. versionadded:: 0.7.9
         """
-        return [Version(self, ver) for ver in self._pkg.version_list]
+        return VersionList(self)
 
     def get_version(self, version):
         """Get the Version instance matching the given version string."""
-        for ver in self.versions:
-            if ver.version == version:
-                return ver
-        return None
+        return self.versions[version]
 
     # depcache actions
 
