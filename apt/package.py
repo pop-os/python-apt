@@ -1101,6 +1101,7 @@ class Package(object):
         del candidateOrigin
     else:
         markedInstalled = AttributeDeprecatedBy('marked_installed')
+        markedInstall = AttributeDeprecatedBy('marked_install')
         markedUpgrade = AttributeDeprecatedBy('marked_upgrade')
         markedDelete = AttributeDeprecatedBy('marked_delete')
         markedKeep = AttributeDeprecatedBy('marked_keep')
