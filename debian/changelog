@@ -12,6 +12,16 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * apt/progress.py: Extract the package name from the status message
     (Closes: #532660)
 
+  [ Stephan Peijnik ]
+  * apt/progress/__init__.py:
+    - add update_status_full() that takes file_size/partial_size as
+      additional callback arguments
+    - add pulse_items() that takes a addtional "items" tuple that
+      gives the user full access to the individual items that are
+      fetched
+  * python/progress.cc:
+    - low level code for update_status_full and pulse_items()
+
  -- Julian Andres Klode <jak@debian.org>  Sun, 14 Jun 2009 16:23:39 +0200
 
 python-apt (0.7.91) experimental; urgency=low
@@ -52,19 +62,19 @@ python-apt (0.7.90) experimental; urgency=low
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
 
-python-apt (0.7.10.4) UNRELEASED; urgency=low
+python-apt (0.7.10.4) unstable; urgency=low
 
-  [ Stephan Peijnik ]
-  * apt/progress/__init__.py:
-    - add update_status_full() that takes file_size/partial_size as
-      additional callback arguments
-    - add pulse_items() that takes a addtional "items" tuple that
-      gives the user full access to the individual items that are
-      fetched
-  * python/progress.cc:
-    - low level code for update_status_full and pulse_items()
+  [ Michael Vogt ]
+  * data/templates/Ubuntu.info.in:
+    - updated for the new ubuntu karmic version
+  * data/templates/Debian.info.in:
+    - add squeeze
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 05 May 2009 11:57:57 +0200
+  [ Otavio Salvador ]
+  * utils/get_debian_mirrors.py: updated to support current mirror page.
+  * Update Debian mirrors. (Closes: #518071)
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 05 May 2009 12:03:27 +0200
 
 python-apt (0.7.10.3) unstable; urgency=low
 
