@@ -60,7 +60,32 @@ class Cache(object):
             apt_pkg.Config.Set("Dir", rootdir)
             apt_pkg.Config.Set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
+            # create required dirs/files when run with special rootdir
+            # automatically
+            self._check_and_create_required_dirs(rootdir)
         self.open(progress)
+
+    def _check_and_create_required_dirs(self, rootdir):
+        """
+        check if the required apt directories/files are there and if
+        not create them
+        """
+        files = ["/var/lib/dpkg/status",
+                 "/etc/apt/sources.list",
+                ]
+        dirs = ["/var/lib/dpkg",
+                "/etc/apt/",
+                "/var/cache/apt/archives/partial",
+                "/var/lib/apt/lists/partial",
+               ]
+        for d in dirs:
+            if not os.path.exists(rootdir+d):
+                print "creating: ",rootdir+d
+                os.makedirs(rootdir+d)
+        for f in files:
+            if not os.path.exists(rootdir+f):
+                open(rootdir+f,"w")
+       
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
