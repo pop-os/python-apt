@@ -9,6 +9,8 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     are sequences and also provide features of mappings. (small API BREAK)
   * apt/progress/__init__.py: Check for EINTR in select (Closes: #499296)
   * Add support for Enhances as a dependency type (Closes: #416247)
+  * apt/cache.py: Provide broken_count, delete_count, install_count, keep_count
+    properties (Closes: #532338)
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
