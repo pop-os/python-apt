@@ -25,9 +25,12 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 
    PyObject *method = PyObject_GetAttrString(callbackInst,(char*) method_name);
    if(method == NULL) {
-      // FIXME: make this silent
       //std::cerr << "Can't find '" << method_name << "' method" << std::endl;
       Py_XDECREF(arglist);
+      if (res) {
+	 Py_INCREF(Py_None);
+	 *res = Py_None;
+      }
       return false;
    }
    PyObject *result = PyEval_CallObject(method, arglist);

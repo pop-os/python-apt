@@ -2,6 +2,11 @@ python-apt (0.7.10.4ubuntu1) karmic; urgency=low
 
   [ Michael Vogt ]
   * merged from debian/unstable
+  * apt/cache.py:
+    - when the cache is run with a alternative rootdir, create
+      required dirs/files automatically
+  * python/progress.cc:
+    - fix crash in RunSimpleCallback()
   
   [ Loic Minier ]
   * Merge changes below from Michael Casadevall; note that these changes were
