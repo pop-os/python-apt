@@ -1,3 +1,9 @@
+python-apt (0.7.10.5) UNRELEASED; urgency=low
+
+  * data/templates/Debian.info.in: Squeeze will be 6.0, not 5.1
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 15 Jun 2009 17:21:57 +0200
+
 python-apt (0.7.10.4) unstable; urgency=low
 
   [ Michael Vogt ]

@@ -5,7 +5,7 @@ RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
 MatchURI: ftp[0-9]*\.[a-z]\.debian\.org
 MirrorsFile: /usr/share/python-apt/templates/Debian.mirrors
-_Description: Debian 5.1 'Squeeze' 
+_Description: Debian 6.0 'Squeeze' 
 Component: main
 _CompDescription: Officially supported
 Component: contrib
