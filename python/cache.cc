@@ -711,7 +711,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
 	 {
 	    "", "Depends","PreDepends","Suggests",
 	    "Recommends","Conflicts","Replaces",
-	    "Obsoletes", "Breaks"
+	    "Obsoletes", "Breaks", "Enhances"
 	 };
 	 PyObject *Dep = PyString_FromString(Types[Start->Type]);
 	 LastDepType = Start->Type;
