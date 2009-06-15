@@ -116,6 +116,7 @@ class FetchProgress(object):
 
         This happens eg. when the downloads fails or is completed.
         """
+
     def update_status_full(self, uri, descr, short_descr, status, file_size,
                            partial_size):
         """Called when the status of an item changes.
@@ -314,7 +315,12 @@ class InstallProgress(DumbInstallProgress):
     def wait_child(self):
         """Wait for child progress to exit."""
         while True:
-            select.select([self.statusfd], [], [], self.select_timeout)
+            try:
+                select.select([self.statusfd], [], [], self.select_timeout)
+            except select.error, e:
+                if e[0] != errno.EINTR:
+                    raise
+
             self.update_interface()
             (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
             if pid == self.child_pid:

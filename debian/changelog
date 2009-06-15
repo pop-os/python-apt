@@ -7,6 +7,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Bugfix: Delete pointers correctly, fixing memory leaks. (LP: #370149)
   * apt/package.py: Return VersionList objects in Package.versions, which
     are sequences and also provide features of mappings. (small API BREAK)
+  * apt/progress/__init__.py: Check for EINTR in select (Closes: #499296)
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -22,7 +23,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 14 Jun 2009 16:23:39 +0200
+ -- Julian Andres Klode <jak@debian.org>  Mon, 15 Jun 2009 14:45:06 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
