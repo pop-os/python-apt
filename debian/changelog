@@ -1,5 +1,8 @@
-python-apt (0.7.10.3ubuntu3) UNRELEASED; urgency=critical
+python-apt (0.7.10.4ubuntu1) karmic; urgency=low
 
+  [ Michael Vogt ]
+  * merged from debian/unstable
+  
   [ Loic Minier ]
   * Merge changes below from Michael Casadevall; note that these changes were
     concurrently uploaded in a different form in 0.7.10.3ubuntu2 which wasn't
@@ -15,7 +18,21 @@ python-apt (0.7.10.3ubuntu3) UNRELEASED; urgency=critical
   * Update mirror list from LP.
   * Unset https_proxy in pre-build.sh to workaround LP #94130.
 
- -- Loic Minier <lool@dooz.org>  Tue, 12 May 2009 13:29:08 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Jun 2009 11:02:25 +0200
+
+python-apt (0.7.10.4) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * data/templates/Ubuntu.info.in:
+    - updated for the new ubuntu karmic version
+  * data/templates/Debian.info.in:
+    - add squeeze
+
+  [ Otavio Salvador ]
+  * utils/get_debian_mirrors.py: updated to support current mirror page.
+  * Update Debian mirrors. (Closes: #518071)
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 05 May 2009 12:03:27 +0200
 
 python-apt (0.7.10.3ubuntu1) karmic; urgency=low
 
