@@ -167,15 +167,16 @@ PyTypeObject PyPolicy_Type = {
     0,                                   // tp_setattro
     0,                                   // tp_as_buffer
     (Py_TPFLAGS_DEFAULT |                // tp_flags
-     Py_TPFLAGS_BASETYPE),
+     Py_TPFLAGS_BASETYPE |
+     Py_TPFLAGS_HAVE_GC),
     Policy_doc,                          // tp_doc
-    0,                                   // tp_traverse
-    0,                                   // tp_clear
+    CppOwnedTraverse<pkgPolicy*>,        // tp_traverse
+    CppOwnedClear<pkgPolicy*>,           // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
     0,                                   // tp_iternext
-    Policy_Methods,                // tp_methods
+    Policy_Methods,                      // tp_methods
     0,                                   // tp_members
     0,                                   // tp_getset
     0,                                   // tp_base

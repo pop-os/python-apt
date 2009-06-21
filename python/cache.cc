@@ -241,19 +241,6 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Self,&PackageType,Pkg);
 }
 
-// we need a special dealloc here to make sure that the CacheFile
-// is closed before deallocation the cache (otherwise we have a bad)
-// memory leak
-void PkgCacheFileDealloc(PyObject *Self)
-{
-   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
-   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
-   CacheF->Close();
-   // Do not delete the pointer here, because it has already been deleted by
-   // closing the cache file.
-   CppOwnedDealloc<pkgCache *>(Self);
-}
-
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *pyCallbackInst = 0;
@@ -320,7 +307,7 @@ PyTypeObject PkgCacheType =
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   PkgCacheFileDealloc,                  // tp_dealloc
+   CppOwnedDealloc<pkgCache *>,         // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -336,10 +323,11 @@ PyTypeObject PkgCacheType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_PkgCache,                        // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgCache *>,        // tp_traverse
+   CppOwnedClear<pkgCache *>,           // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -460,7 +448,10 @@ PyTypeObject PkgListType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT ,                 // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
+   0,                                   // tp_doc
+   CppOwnedTraverse<PkgListStruct>,     // tp_traverse
+   CppOwnedClear<PkgListStruct>,        // tp_clear
 };
 
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
@@ -581,10 +572,10 @@ PyTypeObject PackageType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
    "Package Object",                    // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgCache::PkgIterator>, // tp_traverse
+   CppOwnedClear<pkgCache::PkgIterator>,// tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -672,10 +663,10 @@ PyTypeObject DescriptionType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
    "apt_pkg.Description Object",        // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgCache::DescIterator>, // tp_traverse
+   CppOwnedClear<pkgCache::DescIterator>,// tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -935,10 +926,10 @@ PyTypeObject VersionType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,                  // tp_flags
    "Version Object",                    // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgCache::VerIterator>, // tp_traverse
+   CppOwnedClear<pkgCache::VerIterator>,// tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -1098,10 +1089,10 @@ PyTypeObject PackageFileType = {
    0,                                                    // tp_getattro
    0,                                                    // tp_setattro
    0,                                                    // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                                   // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,              // tp_flags
    "apt_pkg.PackageFile Object",                         // tp_doc
-   0,                                                    // tp_traverse
-   0,                                                    // tp_clear
+   CppOwnedTraverse<pkgCache::PkgFileIterator>,          // tp_traverse
+   CppOwnedClear<pkgCache::PkgFileIterator>,             // tp_clear
    0,                                                    // tp_richcompare
    0,                                                    // tp_weaklistoffset
    0,                                                    // tp_iter
@@ -1274,10 +1265,10 @@ PyTypeObject DependencyType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
    "Dependency Object",                 // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgCache::DepIterator>, // tp_traverse
+   CppOwnedClear<pkgCache::DepIterator>, // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -1362,7 +1353,10 @@ PyTypeObject RDepListType =
    0,                                   // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
+   "DependencyList Object",             // tp_doc
+   CppOwnedTraverse<RDepListStruct>,    // tp_traverse
+   CppOwnedClear<RDepListStruct>,       // tp_clear
 };
 
 									/*}}}*/

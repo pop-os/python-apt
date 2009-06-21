@@ -677,10 +677,11 @@ PyTypeObject PkgDepCacheType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_PkgDepCache,                     // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgDepCache *>,     // tp_traverse
+   CppOwnedClear<pkgDepCache *>,        // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -866,10 +867,11 @@ PyTypeObject PkgProblemResolverType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    "ProblemResolver Object",            // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgProblemResolver *>, // tp_traverse
+   CppOwnedClear<pkgProblemResolver *>, // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -984,10 +986,11 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_PkgActionGroup,                  // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgDepCache::ActionGroup*>, // tp_traverse
+   CppOwnedClear<pkgDepCache::ActionGroup*>, // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -1002,7 +1005,7 @@ PyTypeObject PkgActionGroupType =
    0,                                   // tp_dictoffset
    0,                                   // tp_init
    0,                                   // tp_alloc
-   PkgActionGroupNew,                         // tp_new
+   PkgActionGroupNew,                   // tp_new
 };
 
 #ifdef COMPAT_0_7

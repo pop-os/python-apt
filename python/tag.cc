@@ -34,7 +34,7 @@
 using namespace std;
 									/*}}}*/
 /* We need to keep a private copy of the data.. */
-struct TagSecData : public CppPyObject<pkgTagSection>
+struct TagSecData : public CppOwnedPyObject<pkgTagSection>
 {
    char *Data;
 };
@@ -47,6 +47,18 @@ struct TagFileData : public PyObject
    FileFd Fd;
 };
 
+// Traversal and Clean for owned objects
+int TagFileTraverse(PyObject *self, visitproc visit, void* arg) {
+    Py_VISIT(((TagFileData *)self)->Section);
+    return 0;
+}
+
+int TagFileClear(PyObject *self) {
+    Py_CLEAR(((TagFileData *)self)->Section);
+    return 0;
+}
+
+
 									/*}}}*/
 // TagSecFree - Free a Tag Section					/*{{{*/
 // ---------------------------------------------------------------------
@@ -55,7 +67,7 @@ void TagSecFree(PyObject *Obj)
 {
    TagSecData *Self = (TagSecData *)Obj;
    delete [] Self->Data;
-   CppDealloc<pkgTagSection>(Obj);
+   CppOwnedDealloc<pkgTagSection>(Obj);
 }
 									/*}}}*/
 // TagFileFree - Free a Tag File					/*{{{*/
@@ -63,8 +75,11 @@ void TagSecFree(PyObject *Obj)
 /* */
 void TagFileFree(PyObject *Obj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "^ ===\n";
+   #endif
    TagFileData *Self = (TagFileData *)Obj;
-   Py_DECREF((PyObject *)Self->Section);
+   TagFileClear(Obj);
    Self->Object.~pkgTagFile();
    Self->Fd.~FileFd();
    Py_DECREF(Self->File);
@@ -298,6 +313,8 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    // Create the section
    New->Section = (TagSecData*)(&TagSecType)->tp_alloc(&TagSecType, 0);
    new (&New->Section->Object) pkgTagSection();
+   New->Section->Owner = New;
+   Py_INCREF(New->Section->Owner);
    New->Section->Data = 0;
 
    return HandleErrors(New);
@@ -441,10 +458,11 @@ PyTypeObject TagSecType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_TagSec,                          // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgTagSection>,     // tp_traverse
+   CppOwnedClear<pkgTagSection>,         // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -529,10 +547,11 @@ PyTypeObject TagFileType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_TagFile,                         // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   TagFileTraverse,                     // tp_traverse
+   TagFileClear,                        // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

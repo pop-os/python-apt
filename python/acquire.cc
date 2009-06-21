@@ -372,10 +372,11 @@ PyTypeObject PkgAcquireFileType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
-    Py_TPFLAGS_BASETYPE),
+    Py_TPFLAGS_BASETYPE |
+    Py_TPFLAGS_HAVE_GC),
    doc_PkgAcquireFile,                  // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
+   CppOwnedTraverse<pkgAcqFile*>,       // tp_traverse
+   CppOwnedClear<pkgAcqFile*>,          // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

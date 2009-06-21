@@ -29,6 +29,7 @@
 
 #include <Python.h>
 #include <string>
+#include <iostream>
 #include <new>
 
 #if PYTHON_API_VERSION < 1013
@@ -99,6 +100,9 @@ inline PyObject *GetOwner(PyObject *Obj)
 template <class T>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
+   #endif
    CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    return New;
@@ -107,6 +111,9 @@ inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 template <class T,class A>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type,A const &Arg)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
+   #endif
    CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    return New;
@@ -116,6 +123,9 @@ template <class T>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
+   #endif
    CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    New->Owner = Owner;
@@ -127,6 +137,9 @@ template <class T,class A>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type,A const &Arg)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
+   #endif
    CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    New->Owner = Owner;
@@ -135,10 +148,26 @@ inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
    return New;
 }
 
+// Traversal and Clean for owned objects
+template <class T>
+int CppOwnedTraverse(PyObject *self, visitproc visit, void* arg) {
+    Py_VISIT(((CppOwnedPyObject<T> *)self)->Owner);
+    return 0;
+}
+
+template <class T>
+int CppOwnedClear(PyObject *self) {
+    Py_CLEAR(((CppOwnedPyObject<T> *)self)->Owner);
+    return 0;
+}
+
 // Generic Dealloc type functions
 template <class T>
 void CppDealloc(PyObject *Obj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << " ===\n";
+   #endif
    GetCpp<T>(Obj).~T();
    Obj->ob_type->tp_free(Obj);
 }
@@ -146,10 +175,12 @@ void CppDealloc(PyObject *Obj)
 template <class T>
 void CppOwnedDealloc(PyObject *iObj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "+ ===\n";
+   #endif
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
    Obj->Object.~T();
-   if (Obj->Owner != 0)
-      Py_DECREF(Obj->Owner);
+   CppOwnedClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
 
@@ -158,6 +189,9 @@ void CppOwnedDealloc(PyObject *iObj)
 template <class T>
 void CppDeallocPtr(PyObject *Obj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "* ===\n";
+   #endif
    delete GetCpp<T>(Obj);
    Obj->ob_type->tp_free(Obj);
 }
@@ -165,10 +199,12 @@ void CppDeallocPtr(PyObject *Obj)
 template <class T>
 void CppOwnedDeallocPtr(PyObject *iObj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "*+ ===\n";
+   #endif
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
    delete Obj->Object;
-   if (Obj->Owner != 0)
-      Py_DECREF(Obj->Owner);
+   CppOwnedClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
 
