@@ -492,14 +492,9 @@ class Version(object):
             destfile = os.path.join(destdir, base)
             if type == 'dsc':
                 dsc = destfile
-            if os.path.exists(base) and os.path.getsize(base) == size:
-                fobj = open(base)
-                try:
-                    if apt_pkg.md5sum(fobj) == md5:
-                        print 'Ignoring already existing file:', destfile
-                        continue
-                finally:
-                    fobj.close()
+            if _file_is_same(destfile, size, md5):
+                print 'Ignoring already existing file:', destfile
+                continue
             apt_pkg.AcquireFile(acq, src.index.archive_uri(path), md5, size,
                                   base, destfile=destfile)
         acq.run()
