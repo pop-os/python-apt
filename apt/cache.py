@@ -50,6 +50,8 @@ class Cache(object):
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
         self._callbacks = {}
+        self._weakref = weakref.WeakValueDictionary()
+        self._set = set()
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -71,7 +73,7 @@ class Cache(object):
             for callback in self._callbacks[name]:
                 callback()
 
-    def open(self, progress):
+    def open(self, progress=None):
         """ Open the package cache, after that it can be used like
             a dictionary
         """
@@ -83,8 +85,8 @@ class Cache(object):
         self._records = apt_pkg.PackageRecords(self._cache)
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
-        self._set = set()
-        self._weakref = weakref.WeakValueDictionary()
+        self._set.clear()
+        self._weakref.clear()
 
         progress.Op = "Building data structures"
         i=last=0
