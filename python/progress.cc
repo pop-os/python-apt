@@ -310,11 +310,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
    PyObject *result;
    bool res = true;
-
-   RunSimpleCallback("pulse_items", arglist, &result);
-   if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
-      // the user returned a explicit false here, stop
-      return false;
+   if (RunSimpleCallback("pulse_items", arglist, &result)) {
+      if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
+         // the user returned a explicit false here, stop
+         return false;
+      }
    }
 
    arglist = Py_BuildValue("()");
