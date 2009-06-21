@@ -354,7 +354,9 @@ PyTypeObject PkgAcquireFileType =
    sizeof(CppOwnedPyObject<pkgAcqFile*>),// tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<pkgAcqFile*>,        // tp_dealloc
+   // Not ..Ptr, because this would cause the item to be removed from the
+   // fetcher, which would be incompatible to previous behaviour.
+   CppOwnedDealloc<pkgAcqFile*>,        // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr

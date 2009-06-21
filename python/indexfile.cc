@@ -22,7 +22,6 @@ static PyObject *PackageIndexFileArchiveURI(PyObject *Self,PyObject *Args)
 
    if (PyArg_ParseTuple(Args, "s",&path) == 0)
       return 0;
-
    return HandleErrors(Safe_FromString(File->ArchiveURI(path).c_str()));
 }
 
@@ -99,7 +98,8 @@ PyTypeObject PackageIndexFileType =
    sizeof(CppOwnedPyObject<pkgIndexFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<pkgIndexFile*>,   // tp_dealloc
+   // Not ..Ptr, because the pointer is managed somewhere else.
+   CppOwnedDealloc<pkgIndexFile*>,      // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
