@@ -223,7 +223,9 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 
    if (PyString_Check(Arg) == 0)
    {
-      PyErr_SetNone(PyExc_TypeError);
+      PyObject *repr = PyObject_Repr(Arg);
+      PyErr_SetObject(PyExc_TypeError, repr);
+      Py_DECREF(repr);
       return 0;
    }
 
