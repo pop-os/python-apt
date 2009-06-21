@@ -255,14 +255,9 @@ PyTypeObject PkgSrcRecordsType =
 #ifdef COMPAT_0_7
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 {
-#if 0
-   PyObject *Owner;
-   if (PyArg_ParseTuple(Args,"O!",&PkgCacheType,&Owner) == 0)
-      return 0;
-
-   return HandleErrors(CppOwnedPyObject_NEW<PkgSrcRecordsStruct>(Owner,
-			   &PkgSrcRecordsType));
-#endif
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgSrcRecords() is "
+                "deprecated. Please see apt_pkg.SourceRecords() for the "
+                "replacement.", 1);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 

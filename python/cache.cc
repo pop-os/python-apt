@@ -1371,6 +1371,8 @@ PyTypeObject RDepListType =
 #ifdef COMPAT_0_7
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCache() is deprecated. "
+                 "Please see apt_pkg.Cache() for the replacement.", 1);
     return PkgCacheNew(&PkgCacheType,Args,0);
 }
 #endif

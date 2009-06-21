@@ -301,6 +301,8 @@ PyTypeObject PkgAcquireType =
 #ifdef COMPAT_0_7
 PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 {
+    PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetAcquire() is deprecated."
+                 " Please see apt_pkg.Acquire() for the replacement.", 1);
     return PkgAcquireNew(&PkgAcquireType,Args,0);
 }
 #endif
@@ -394,6 +396,9 @@ char *doc_GetPkgAcqFile =
 "GetPkgAcqFile(pkgAquire, uri[, md5, size, descr, shortDescr, destDir, destFile]) -> PkgAcqFile\n";
 PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgAcqFile() is "
+                "deprecated. Please see apt_pkg.AcquireFile() for the "
+                "replacement", 1);
    PyObject *pyfetcher;
    char *uri, *md5, *descr, *shortDescr, *destDir, *destFile;
    int size = 0;

@@ -268,6 +268,9 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
 char *doc_ParseSection ="ParseSection(Text) -> TagSection() object. Deprecated.";
 PyObject *ParseSection(PyObject *self,PyObject *Args)
 {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseSection() is "
+                "deprecated. Please see apt_pkg.TagSection() for the "
+                "replacement.", 1);
     return TagSecNew(&TagSecType,Args,0);
 }
 #endif
@@ -302,6 +305,9 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 #ifdef COMPAT_0_7
 char *doc_ParseTagFile = "ParseTagFile(File) -> TagFile() object. Deprecated.";
 PyObject *ParseTagFile(PyObject *self,PyObject *Args) {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseTagFile() is "
+                "deprecated. Please see apt_pkg.TagFile() for the "
+                "replacement.", 1);
     return TagFileNew(&TagFileType,Args,0);
 }
 #endif

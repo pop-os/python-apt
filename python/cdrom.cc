@@ -133,6 +133,8 @@ PyTypeObject PkgCdromType =
 #ifdef COMPAT_0_7
 PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
+                 "Please see apt_pkg.Cdrom() for the replacement.", 1);
    return PkgCdromNew(&PkgCdromType,Args,0);
 }
 #endif
