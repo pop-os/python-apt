@@ -80,6 +80,10 @@ class Cache(object):
         if progress is None:
             progress = apt.progress.OpProgress()
         self._run_callbacks("cache_pre_open")
+
+        # Make changes to Dir::State::Status work again, by reinitialising
+        # the system.
+        apt_pkg.init_system()
         self._cache = apt_pkg.Cache(progress)
         self._depcache = apt_pkg.DepCache(self._cache)
         self._records = apt_pkg.PackageRecords(self._cache)

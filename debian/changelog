@@ -11,6 +11,8 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Add support for Enhances as a dependency type (Closes: #416247)
   * apt/cache.py: Provide broken_count, delete_count, install_count, keep_count
     properties (Closes: #532338)
+  * apt/cache.py: Correctly handle rootdir on second and later invocations of
+    open() (LP: #320665).
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
