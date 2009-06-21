@@ -629,7 +629,7 @@ extern "C" void initapt_pkg()
    PyModule_AddStringConstant(Module,"DATE",__DATE__);
    PyModule_AddStringConstant(Module,"TIME",__TIME__);
 #ifdef COMPAT_0_7
-   PyModule_AddStringConstant(Module,"Version",(char *)pkgVersion);
+   //PyModule_AddStringConstant(Module,"Version",(char *)pkgVersion);
    PyModule_AddStringConstant(Module,"LibVersion",(char *)pkgLibVersion);
    PyModule_AddStringConstant(Module,"Date",__DATE__);
    PyModule_AddStringConstant(Module,"Time",__TIME__);
