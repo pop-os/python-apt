@@ -63,6 +63,11 @@ typedef int Py_ssize_t;
 #define PyBytes_AsStringAndSize PyString_AsStringAndSize
 #endif
 
+// Hacks to make Python 2.4 build.
+#if PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 4
+#define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
+#endif
+
 template <class T> struct CppPyObject : public PyObject
 {
    // We are only using CppPyObject and friends as dumb structs only, ie the
