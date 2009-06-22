@@ -108,13 +108,13 @@ class DeprecatedProperty(property):
         property.__init__(self, fget, fset, fdel, doc)
         self.__doc__ = (doc or fget.__doc__ or '')
 
-    def __get__(self, obj, type=None):
+    def __get__(self, obj, type_=None):
         if obj is not None:
             warnings.warn("Accessed deprecated property %s.%s, please see the "
                           "Version class for alternatives." %
-                           ((obj.__class__.__name__ or type.__name__),
+                           ((obj.__class__.__name__ or type_.__name__),
                            self.fget.__name__), DeprecationWarning, 2)
-        return property.__get__(self, obj, type)
+        return property.__get__(self, obj, type_)
 
 
 class Origin(object):
@@ -208,8 +208,10 @@ class Version(object):
     def __eq__(self, other):
         try:
             return self._cand.id == other._cand.id
-        except:
+        except AttributeError:
             return apt_pkg.version_compare(self.version, other) == 0
+        except Exception:
+            return False
 
     def __gt__(self, other):
         return apt_pkg.version_compare(self.version, other.version) > 0
@@ -355,14 +357,14 @@ class Version(object):
         """Return the dependencies of the package version."""
         depends_list = []
         depends = self._cand.depends_list
-        for t in ["PreDepends", "Depends"]:
+        for type_ in ["PreDepends", "Depends"]:
             try:
-                for dep_ver_list in depends[t]:
+                for dep_ver_list in depends[type_]:
                     base_deps = []
                     for dep_or in dep_ver_list:
                         base_deps.append(BaseDependency(dep_or.target_pkg.name,
                                         dep_or.comp_type, dep_or.target_ver,
-                                        (t == "PreDepends")))
+                                        (type_ == "PreDepends")))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
                 pass
@@ -372,7 +374,7 @@ class Version(object):
     def origins(self):
         """Return a list of origins for the package version."""
         origins = []
-        for (packagefile, index) in self._cand.file_list:
+        for (packagefile, _) in self._cand.file_list:
             origins.append(Origin(self.package, packagefile))
         return origins
 
@@ -413,7 +415,7 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        for (packagefile, index) in self._cand.file_list:
+        for (packagefile, _) in self._cand.file_list:
             indexfile = self.package._pcache._list.find_index(packagefile)
             if indexfile:
                 yield indexfile.archive_uri(self._records.filename)
@@ -432,7 +434,7 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        return self._uris().next()
+        return iter(self._uris()).next()
 
     def fetch_binary(self, destdir='', progress=None):
         """Fetch the binary version of the package.
@@ -487,10 +489,10 @@ class Version(object):
                 src.lookup(self.package.name)
         except AttributeError:
             raise ValueError("No source for %r" % self)
-        for md5, size, path, type in src.files:
+        for md5, size, path, type_ in src.files:
             base = os.path.basename(path)
             destfile = os.path.join(destdir, base)
-            if type == 'dsc':
+            if type_ == 'dsc':
                 dsc = destfile
             if _file_is_same(destfile, size, md5):
                 print 'Ignoring already existing file:', destfile
@@ -533,11 +535,11 @@ class VersionList(Sequence):
         max(package.versions)
     """
 
-    def __init__(self, package, slice=None):
+    def __init__(self, package, slice_=None):
         self._package = package # apt.package.Package()
         self._versions = package._pkg.version_list # [apt_pkg.Version(), ...]
-        if slice:
-            self._versions = self._versions[slice]
+        if slice_:
+            self._versions = self._versions[slice_]
 
     def __getitem__(self, item):
         if isinstance(item, slice):
@@ -973,9 +975,10 @@ class Package(object):
         except SystemError:
             src_ver = bin_ver
 
-        l = section.split("/")
-        if len(l) > 1:
-            src_section = l[0]
+        section_split = section.split("/", 1)
+        if len(section_split) > 1:
+            src_section = section_split[0]
+        del section_split
 
         # lib is handled special
         prefix = src_pkg[0]
@@ -983,9 +986,10 @@ class Package(object):
             prefix = "lib" + src_pkg[3]
 
         # stip epoch
-        l = src_ver.split(":")
-        if len(l) > 1:
-            src_ver = "".join(l[1:])
+        src_ver_split = src_ver.split(":", 1)
+        if len(src_ver_split) > 1:
+            src_ver = "".join(src_ver_split[1:])
+        del src_ver_split
 
         uri = uri % {"src_section": src_section,
                      "prefix": prefix,
