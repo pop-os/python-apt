@@ -846,6 +846,10 @@ class Package(object):
         return self.is_installed and \
                self._pcache._depcache.is_garbage(self._pkg)
 
+    @property
+    def is_auto_installed(self):
+        """Return whether the package is marked as automatically installed."""
+        return self._pcache._depcache.is_auto_installed(self._pkg)
     # sizes
 
     @DeprecatedProperty
@@ -1134,6 +1138,15 @@ class Package(object):
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
                               "'%s'\n") % self._pkg.name)
+
+    def mark_auto(self, auto=True):
+        """Mark a package as automatically installed.
+
+        Call this function to mark a package as automatically installed. If the
+        optional parameter *auto* is set to ``False``, the package will not be
+        marked as automatically installed anymore. The default is ``True``.
+        """
+        self._pcache._depcache.mark_auto(self._pkg, auto)
 
     def commit(self, fprogress, iprogress):
         """Commit the changes.

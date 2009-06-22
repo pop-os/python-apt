@@ -367,6 +367,23 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgDepCacheMarkAuto(PyObject *Self,PyObject *Args)
+{
+   pkgDepCache *depcache = GetCpp<pkgDepCache*>(Self);
+
+   PyObject *PackageObj;
+   char value = 0;
+   if (PyArg_ParseTuple(Args,"O!b",&PackageType,&PackageObj, &value) == 0)
+      return 0;
+
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
+   depcache->MarkAuto(Pkg,value);
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+
 static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
 {
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
@@ -541,6 +558,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"mark_keep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
    {"mark_delete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
    {"mark_install",PkgDepCacheMarkInstall,METH_VARARGS,"Mark package for Install"},
+   {"mark_auto",PkgDepCacheMarkAuto,METH_VARARGS,"mark_auto(pkg: apt_pkg.Package, auto: bool)\n\nMark package as automatically installed."},
    {"set_reinstall",PkgDepCacheSetReInstall,METH_VARARGS,"Set if the package should be reinstalled"},
    // state information
    {"is_upgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
