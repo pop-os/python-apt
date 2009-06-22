@@ -15,6 +15,8 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     open() (LP: #320665).
   * Add apt_pkg.DepCache.mark_auto() and apt.Package.mark_auto() methods to
     mark a package as automatically installed.
+  * Drop apt_pkg.Cache.open() and apt_pkg.Cache.close(), they cause segfaults
+    and memory leaks. Simply create a new cache instead.
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -30,7 +32,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 22 Jun 2009 14:38:19 +0200
+ -- Julian Andres Klode <jak@debian.org>  Mon, 22 Jun 2009 15:49:03 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 

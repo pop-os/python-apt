@@ -95,6 +95,8 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Close() is deprecated, "
+                "because it causes segfaults. Delete the Cache instead.", 1);
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
    Cache->Close();
@@ -105,6 +107,9 @@ static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 {
+   PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Open() is deprecated, "
+                "because it causes memory leaks. Create a new Cache instead.",
+                1);
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
@@ -137,8 +142,6 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgCacheMethods[] =
 {
    {"update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
-   {"open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
-   {"close", PkgCacheClose, METH_VARARGS,"Close the cache"},
 #ifdef COMPAT_0_7
    {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
    {"Open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
