@@ -17,6 +17,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     mark a package as automatically installed.
   * Drop apt_pkg.Cache.open() and apt_pkg.Cache.close(), they cause segfaults
     and memory leaks. Simply create a new cache instead.
+  * Merge 0.7.10.4 from unstable
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
