@@ -14,20 +14,27 @@
 
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
 { \
-    pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self); \
+    pkgAcquire::Item *Itm; \
+    if (PyObject_TypeCheck(Self, &PkgAcquireFileType)) { \
+        Itm = GetCpp<pkgAcqFile*>(Self); \
+    } else { \
+        pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self); \
+        Itm = *I; \
+    } \
     return Ret; \
 }
 
 // Define our getters
-MkGet(AcquireItemGetComplete,Py_BuildValue("i",(*I)->Complete));
-MkGet(AcquireItemGetDescURI,Safe_FromString((*I)->DescURI().c_str()));
-MkGet(AcquireItemGetDestFile,Safe_FromString((*I)->DestFile.c_str()));
-MkGet(AcquireItemGetErrorText,Safe_FromString((*I)->ErrorText.c_str()));
-MkGet(AcquireItemGetFileSize,Py_BuildValue("i",(*I)->FileSize));
-MkGet(AcquireItemGetID,Py_BuildValue("i",(*I)->ID));
-MkGet(AcquireItemGetIsTrusted,Py_BuildValue("i",(*I)->IsTrusted()));
-MkGet(AcquireItemGetLocal,Py_BuildValue("i",(*I)->Local));
-MkGet(AcquireItemGetStatus,Py_BuildValue("i",(*I)->Status));
+MkGet(AcquireItemGetComplete,Py_BuildValue("i",Itm->Complete));
+MkGet(AcquireItemGetDescURI,Safe_FromString(Itm->DescURI().c_str()));
+MkGet(AcquireItemGetDestFile,Safe_FromString(Itm->DestFile.c_str()));
+MkGet(AcquireItemGetErrorText,Safe_FromString(Itm->ErrorText.c_str()));
+MkGet(AcquireItemGetFileSize,Py_BuildValue("i",Itm->FileSize));
+MkGet(AcquireItemGetID,Py_BuildValue("i",Itm->ID));
+MkGet(AcquireItemGetIsTrusted,Py_BuildValue("i",Itm->IsTrusted()));
+MkGet(AcquireItemGetLocal,Py_BuildValue("i",Itm->Local));
+MkGet(AcquireItemGetStatus,Py_BuildValue("i",Itm->Status));
+
 
 // Constants
 MkGet(AcquireItemGetStatIdle,Py_BuildValue("i", pkgAcquire::Item::StatIdle));
@@ -43,7 +50,7 @@ static PyGetSetDef AcquireItemGetSet[] = {
     {"destfile",AcquireItemGetDestFile},
     {"error_text",AcquireItemGetErrorText},
     {"filesize",AcquireItemGetFileSize},
-    {"is",AcquireItemGetID},
+    {"id",AcquireItemGetID},
     {"is_trusted",AcquireItemGetIsTrusted},
     {"local",AcquireItemGetLocal},
     {"status",AcquireItemGetStatus},
@@ -75,16 +82,23 @@ static PyGetSetDef AcquireItemGetSet[] = {
 
 static PyObject *AcquireItemRepr(PyObject *Self)
 {
-   pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
+    pkgAcquire::Item *Itm;
+    if (PyObject_TypeCheck(Self, &PkgAcquireFileType)) {
+        Itm = GetCpp<pkgAcqFile*>(Self);
+    } else { 
+        pkgAcquire::ItemIterator &I = GetCpp<pkgAcquire::ItemIterator>(Self);
+        Itm = *I; 
+    }
 
    char S[300];
-   snprintf(S,sizeof(S),"<pkgAcquire::ItemIterator object: "
+   snprintf(S,sizeof(S),"<%s object: "
 			"Status: %i Complete: %i Local: %i IsTrusted: %i "
 	                "FileSize: %i DestFile:'%s' "
                         "DescURI: '%s' ID:%i ErrorText: '%s'>",
-	    (*I)->Status, (*I)->Complete, (*I)->Local, (*I)->IsTrusted(),
-	    (*I)->FileSize, (*I)->DestFile.c_str(), (*I)->DescURI().c_str(),
-	    (*I)->ID,(*I)->ErrorText.c_str());
+        Self->ob_type->tp_name,
+	    Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
+	    Itm->FileSize, Itm->DestFile.c_str(), Itm->DescURI().c_str(),
+	    Itm->ID,Itm->ErrorText.c_str());
    return PyString_FromString(S);
 }
 
@@ -383,8 +397,8 @@ PyTypeObject PkgAcquireFileType =
    0,                                   // tp_iternext
    0,                                   // tp_methods
    0,                                   // tp_members
-   0,                                   // tp_getset
-   0,                                   // tp_base
+   0,                   // tp_getset
+   &AcquireItemType,                    // tp_base
    0,                                   // tp_dict
    0,                                   // tp_descr_get
    0,                                   // tp_descr_set
