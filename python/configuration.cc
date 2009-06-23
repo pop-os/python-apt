@@ -582,6 +582,9 @@ PyTypeObject ConfigurationPtrType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   &ConfigurationType,                  // tp_base
 };
 
 PyTypeObject ConfigurationSubType =
@@ -618,5 +621,8 @@ PyTypeObject ConfigurationSubType =
    0,                                   // tp_iter
    0,                                   // tp_iternext
    CnfMethods,                          // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   &ConfigurationType,                  // tp_base
 };
 
