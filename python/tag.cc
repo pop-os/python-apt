@@ -191,7 +191,7 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 
 static int TagSecContains(PyObject *Self,PyObject *Arg)
 {
-   char *Name = PyString_AsString(Arg);
+   const char *Name = PyString_AsString(Arg);
    const char *Start;
    const char *Stop;
    if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
