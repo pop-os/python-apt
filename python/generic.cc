@@ -25,8 +25,9 @@ PyObject *HandleErrors(PyObject *Res)
       return Res;
    }
 
-   if (Res != 0)
+   if (Res != 0) {
       Py_DECREF(Res);
+   }
 
    string Err;
    int errcnt = 0;

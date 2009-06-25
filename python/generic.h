@@ -52,21 +52,46 @@ typedef int Py_ssize_t;
 #define PyString_Check PyUnicode_Check
 #define PyString_FromString PyUnicode_FromString
 #define PyString_FromStringAndSize PyUnicode_FromStringAndSize
-#define PyString_AsString(op) PyBytes_AsString(PyUnicode_AsUTF8String(op))
+#define PyString_AsString PyUnicode_AsString
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
 // Force 0.7 compatibility to be off in Python 3 builds
 #undef COMPAT_0_7
 #else
+// Compatibility for Python 2.5 and previous.
+#if (PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 5)
 #define PyBytes_Check PyString_Check
 #define PyBytes_AsString PyString_AsString
 #define PyBytes_AsStringAndSize PyString_AsStringAndSize
+#endif
 #endif
 
 // Hacks to make Python 2.4 build.
 #if PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 4
 #define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
 #endif
+
+
+static inline const char *PyUnicode_AsString(PyObject *op) {
+    // Convert to bytes object, using the default encoding.
+    PyObject *bytes = PyUnicode_AsEncodedString(op,0,0);
+    if (!bytes)
+        return 0;
+    const char *result = PyBytes_AsString(bytes);
+    Py_DECREF(bytes);
+    return result;
+}
+
+// Convert any type of string based object to a const char.
+static inline const char *PyObject_AsString(PyObject *object) {
+    if (PyBytes_Check(object))
+        return PyBytes_AsString(object);
+    else if (PyUnicode_Check(object))
+        return PyUnicode_AsString(object);
+    else
+        PyErr_SetObject(PyExc_TypeError, object);
+    return 0;
+}
 
 template <class T> struct CppPyObject : public PyObject
 {

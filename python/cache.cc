@@ -219,21 +219,20 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {}
 };
 
+
+
 // Map access, operator []
 static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
 
-   if (PyString_Check(Arg) == 0)
-   {
-      PyObject *repr = PyObject_Repr(Arg);
-      PyErr_SetObject(PyExc_TypeError, repr);
-      Py_DECREF(repr);
+   // Get the name of the package, unicode and normal strings.
+   const char *Name = PyObject_AsString(Arg);
+   if (Name == NULL)
       return 0;
-   }
+      
 
    // Search for the package
-   const char *Name = PyString_AsString(Arg);
    pkgCache::PkgIterator Pkg = Cache->FindPkg(Name);
    if (Pkg.end() == true)
    {
