@@ -72,7 +72,11 @@ bool ProcessTar::DoItem(Item &Itm,int &Fd)
       case Item::FIFO:
       Type = "FIFO";
       break;
+
+      default:
+      return false;
    }
+
 
    if (PyObject_CallFunction(Function,"sssiiiiiii",Type,Itm.Name,
 			     Itm.LinkTarget,Itm.Mode,Itm.UID,Itm.GID,Itm.Size,

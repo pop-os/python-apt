@@ -62,8 +62,6 @@ static PyObject *PkgDepCacheInit(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 {
-   PyObject *result;
-
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *pyInstallProgressInst = 0;
@@ -196,7 +194,6 @@ static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
 			&VersionType, &VersionObj) == 0)
       return 0;
 
-   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgCache::VerIterator &I = GetCpp<pkgCache::VerIterator>(VersionObj);
    if(I.end()) {
       return HandleErrors(Py_BuildValue("b",false));

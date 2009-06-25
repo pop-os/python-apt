@@ -12,12 +12,12 @@ from DistUtilsExtra.command import build_extra, build_i18n
 
 # The apt_pkg module
 files = map(lambda source: "python/"+source,
-            parse_makefile("python/makefile")["APT_PKG_SRC"].split())
+            sorted(parse_makefile("python/makefile")["APT_PKG_SRC"].split()))
 apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = map(lambda source: "python/"+source,
-            parse_makefile("python/makefile")["APT_INST_SRC"].split())
+            sorted(parse_makefile("python/makefile")["APT_INST_SRC"].split()))
 apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation

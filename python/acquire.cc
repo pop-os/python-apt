@@ -93,8 +93,8 @@ static PyObject *AcquireItemRepr(PyObject *Self)
    char S[300];
    snprintf(S,sizeof(S),"<%s object: "
 			"Status: %i Complete: %i Local: %i IsTrusted: %i "
-	                "FileSize: %i DestFile:'%s' "
-                        "DescURI: '%s' ID:%i ErrorText: '%s'>",
+	                "FileSize: %lu DestFile:'%s' "
+                        "DescURI: '%s' ID:%lu ErrorText: '%s'>",
         Self->ob_type->tp_name,
 	    Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
 	    Itm->FileSize, Itm->DestFile.c_str(), Itm->DescURI().c_str(),

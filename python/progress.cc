@@ -354,7 +354,6 @@ void PyInstallProgress::FinishUpdate()
 
 pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 {
-   void *dummy;
    pkgPackageManager::OrderResult res;
    int ret;
    pid_t child_id;
@@ -426,7 +425,6 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 	 PyErr_Print();
 	 return pkgPackageManager::Failed;
       }
-      int child_res;
       if(!PyArg_Parse(result, "i", &res) ) {
 	 std::cerr << "custom waitChild() result could not be parsed?"<< std::endl;
 	 return pkgPackageManager::Failed;

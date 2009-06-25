@@ -62,7 +62,7 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
    char S[1024];
    snprintf(S,sizeof(S),"<pkIndexFile object: "
 			"Label:'%s' Describe='%s' Exists='%i' "
-	                "HasPackages='%i' Size='%i'  "
+	                "HasPackages='%i' Size='%lu'  "
  	                "IsTrusted='%i' ArchiveURI='%s'>",
 	    File->GetType()->Label,  File->Describe().c_str(), File->Exists(),
 	    File->HasPackages(), File->Size(),

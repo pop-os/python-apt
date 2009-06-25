@@ -58,7 +58,6 @@ static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
 {
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
 
-   char *Name = 0;
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 

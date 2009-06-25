@@ -76,9 +76,6 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
 // ---------------------------------------------------------------------
 static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 {
-   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
-   pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
-
    PyObject *pyFetchProgressInst = 0;
    PyObject *pySourcesList = 0;
    if (PyArg_ParseTuple(Args, "OO", &pyFetchProgressInst,&pySourcesList) == 0)
@@ -93,6 +90,7 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    return HandleErrors(PyRes);
 }
 
+#ifdef COMPAT_0_7
 static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Close() is deprecated, "
@@ -137,7 +135,7 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
-
+#endif
 
 static PyMethodDef PkgCacheMethods[] =
 {
@@ -456,10 +454,10 @@ PyTypeObject PkgListType =
    CppOwnedClear<PkgListStruct>,        // tp_clear
 };
 
+#define Owner (GetOwner<pkgCache::PkgIterator>(Self))
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
 { \
     pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self); \
-    PyObject *Owner = GetOwner<pkgCache::PkgIterator>(Self); \
     return Ret; \
 }
 
@@ -477,6 +475,7 @@ MkGet(PackageGetAuto,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0)
 MkGet(PackageGetEssential,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0));
 MkGet(PackageGetImportant,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0));
 #undef MkGet
+#undef Owner
 
 static PyObject *PackageGetVersionList(PyObject *Self,void*)
 {
