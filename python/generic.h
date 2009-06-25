@@ -83,15 +83,25 @@ static inline const char *PyUnicode_AsString(PyObject *op) {
 }
 
 // Convert any type of string based object to a const char.
+#if PY_MAJOR_VERSION < 3
 static inline const char *PyObject_AsString(PyObject *object) {
     if (PyBytes_Check(object))
         return PyBytes_AsString(object);
     else if (PyUnicode_Check(object))
         return PyUnicode_AsString(object);
     else
-        PyErr_SetObject(PyExc_TypeError, object);
+        PyErr_SetString(PyExc_TypeError, "Argument must be str.");
     return 0;
 }
+#else
+static inline const char *PyObject_AsString(PyObject *object) {
+    if (PyUnicode_Check(object) == 0) {
+        PyErr_SetString(PyExc_TypeError, "Argument must be str.");
+        return 0;
+    }
+    return PyUnicode_AsString(object);
+}
+#endif
 
 template <class T> struct CppPyObject : public PyObject
 {
