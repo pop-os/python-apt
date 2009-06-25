@@ -81,10 +81,7 @@ static PyMethodDef IndexRecords_Methods[] = {
 static char *IndexRecords_doc = "IndexRecords()\n\n"
     "Representation of a release file.";
 PyTypeObject PyIndexRecords_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
-#if PY_MAJOR_VERSION < 3
-    0,                                   // ob_size
-#endif
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.IndexRecords",              // tp_name
     sizeof(CppPyObject<indexRecords*>),  // tp_basicsize
     0,                                   // tp_itemsize

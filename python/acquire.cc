@@ -105,10 +105,7 @@ static PyObject *AcquireItemRepr(PyObject *Self)
 
 PyTypeObject AcquireItemType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.AcquireItem",         // tp_name
    sizeof(CppOwnedPyObject<pkgAcquire::ItemIterator>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -267,10 +264,7 @@ static char *doc_PkgAcquire = "Acquire(progress) -> Acquire() object.\n\n"
 
 PyTypeObject PkgAcquireType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,                                   // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Acquire",                   // tp_name
    sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
    0,                                   // tp_itemsize
@@ -360,11 +354,8 @@ static char *doc_PkgAcquireFile =
 
 PyTypeObject PkgAcquireFileType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
-   "apt_pkg.AcquireFile",                   // tp_name
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.AcquireFile",                // tp_name
    sizeof(CppOwnedPyObject<pkgAcqFile*>),// tp_basicsize
    0,                                   // tp_itemsize
    // Methods

@@ -503,10 +503,7 @@ static PySequenceMethods ConfigurationSeq = {0,0,0,0,0,0,0,CnfContains,0,0};
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
 PyTypeObject ConfigurationType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,                                   // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Configuration",             // tp_name
    sizeof(CppPyObject<Configuration>),  // tp_basicsize
    0,                                   // tp_itemsize
@@ -550,10 +547,7 @@ PyTypeObject ConfigurationType =
 
 PyTypeObject ConfigurationPtrType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ConfigurationPtr",          // tp_name
    sizeof(CppPyObject<Configuration *>),  // tp_basicsize
    0,                                   // tp_itemsize
@@ -589,10 +583,7 @@ PyTypeObject ConfigurationPtrType =
 
 PyTypeObject ConfigurationSubType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ConfigurationSub",     // tp_name
    sizeof(SubConfiguration),            // tp_basicsize
    0,                                   // tp_itemsize

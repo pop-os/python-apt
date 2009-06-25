@@ -175,6 +175,7 @@ static PyObject *TagSecKeys(PyObject *Self,PyObject *Args)
    return List;
 }
 
+#if PY_MAJOR_VERSION < 3
 static char *doc_Exists = "Exists(Name) -> integer";
 static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 {
@@ -188,6 +189,7 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
       return Py_BuildValue("i",0);
    return Py_BuildValue("i",1);
 }
+#endif
 
 static int TagSecContains(PyObject *Self,PyObject *Arg)
 {
@@ -436,10 +438,7 @@ static char *doc_TagSec = "TagSection(text) -> Create a new object.\n\n"
    "to the functions provided by the C++ class (e.g. Find)";
 PyTypeObject TagSecType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,                                   // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.TagSection",                // tp_name
    sizeof(TagSecData),                  // tp_basicsize
    0,                                   // tp_itemsize
@@ -525,10 +524,7 @@ static char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
 // Type for a Tag File
 PyTypeObject TagFileType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,                                   // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.TagFile",                   // tp_name
    sizeof(TagFileData),                 // tp_basicsize
    0,                                   // tp_itemsize

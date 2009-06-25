@@ -95,10 +95,7 @@ static char *HashString_doc =
     "   HashString('MD5Sum', '6cc1b6e6655e3555ac47e5b5fe26d04e')\n\n"
     "Valid options for 'type' are: MD5Sum, SHA1, SHA256.";
 PyTypeObject PyHashString_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
-#if PY_MAJOR_VERSION < 3
-    0,                                 // ob_size
-#endif
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.HashString",              // tp_name
     sizeof(CppPyObject<HashString*>),  // tp_basicsize
     0,                                 // tp_itemsize

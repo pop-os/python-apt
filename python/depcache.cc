@@ -667,10 +667,7 @@ static char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
     "The parameter *cache* refers to an apt_pkg.Cache() object.";
 PyTypeObject PkgDepCacheType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,                                   // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.DepCache",                  // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -858,10 +855,7 @@ static PyMethodDef PkgProblemResolverMethods[] =
 
 PyTypeObject PkgProblemResolverType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ProblemResolver",                       // tp_name
    sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
    0,                                   // tp_itemsize
@@ -977,10 +971,7 @@ static char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
 
 PyTypeObject PkgActionGroupType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ActionGroup",               // tp_name
    sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
    0,                                   // tp_itemsize

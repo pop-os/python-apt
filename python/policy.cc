@@ -143,10 +143,7 @@ static char *Policy_doc = "Policy(cache)\n\n"
     "may be some cases where a special policy class is needed.";
 
 PyTypeObject PyPolicy_Type = {
-    PyObject_HEAD_INIT(&PyType_Type)
-#if PY_MAJOR_VERSION < 3
-    0,                                   // ob_size
-#endif
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.Policy",                    // tp_name
     sizeof(CppOwnedPyObject<pkgPolicy*>),// tp_basicsize
     0,                                   // tp_itemsize

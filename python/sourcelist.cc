@@ -115,10 +115,7 @@ static PyObject *PkgSourceListNew(PyTypeObject *type,PyObject *args,PyObject *kw
 
 PyTypeObject PkgSourceListType =
 {
-   PyObject_HEAD_INIT(&PyType_Type)
-   #if PY_MAJOR_VERSION < 3
-   0,			                // ob_size
-   #endif
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.SourceList",                          // tp_name
    sizeof(CppPyObject<pkgSourceList*>),   // tp_basicsize
    0,                                   // tp_itemsize
