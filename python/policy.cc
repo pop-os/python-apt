@@ -111,11 +111,11 @@ static PyObject *Policy_CreatePin(PyObject *self, PyObject *args) {
     if (PyArg_ParseTuple(args, "sssh", &type, &pkg, &data, &priority) == 0)
         return 0;
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
-    if (type == "Version" || type == "version")
+    if (strcmp(type,"Version") == 0 || strcmp(type, "version") == 0)
         match_type = pkgVersionMatch::Version;
-    if (type == "Release" || type == "release")
+    if (strcmp(type,"Release") == 0 || strcmp(type, "release") == 0)
         match_type = pkgVersionMatch::Release;
-    if (type == "Origin" || type == "origin")
+    if (strcmp(type,"Origin") == 0 || strcmp(type, "origin") == 0)
         match_type = pkgVersionMatch::Origin;
     else
         match_type = pkgVersionMatch::None;
