@@ -191,6 +191,8 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 
 static int TagSecContains(PyObject *Self,PyObject *Arg)
 {
+   if (PyString_Check(Arg) == 0)
+       return 0;
    const char *Name = PyString_AsString(Arg);
    const char *Start;
    const char *Stop;
