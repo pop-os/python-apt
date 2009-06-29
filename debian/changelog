@@ -99,8 +99,13 @@ python-apt (0.7.9) unstable; urgency=low
       closes: #497049
   * apt/package.py:
     - avoid uneeded interal references in the Package objects
+  * python/progress.cc:
+    - fix crash in RunSimpleCallback()
   * aptsources/sourceslist.py:
     - fix bug in invalid lines detection (LP: #324614)
+  * apt/cache.py:
+    - when the cache is run with a alternative rootdir, create
+      required dirs/files automatically
 
  -- Michael Vogt <mvo@debian.org>  Thu, 19 Mar 2009 13:39:21 +0100
 
