@@ -208,7 +208,6 @@ void PyFetchProgress::Stop()
     * PyCbObj_END_ALLOW_THREADS to our previous
     * PyCbObj_BEGIN_ALLOW_THREADS (Python requires this!).
     */
-   std::cout << "PyFetchProgress::STOP" << std::endl;
    PyCbObj_END_ALLOW_THREADS
    //std::cout << "Stop" << std::endl;
    pkgAcquireStatus::Stop();
