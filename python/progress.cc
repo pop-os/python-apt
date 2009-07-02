@@ -94,6 +94,7 @@ void PyOpProgress::Done()
 
 bool PyFetchProgress::MediaChange(string Media, string Drive)
 {
+   PyCbObj_END_ALLOW_THREADS
    //std::cout << "MediaChange" << std::endl;
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
    PyObject *result;
@@ -106,6 +107,7 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    // FIXME: find out what it should return usually
    //std::cerr << "res is: " << res << std::endl;
 
+   PyCbObj_BEGIN_ALLOW_THREADS
    return res;
 }
 
@@ -116,6 +118,7 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
    // Added object file size and object partial size to
    // parameters that are passed to updateStatus.
    // -- Stephan
+   PyCbObj_END_ALLOW_THREADS
    PyObject *arglist = Py_BuildValue("(sssikk)", Itm.URI.c_str(), 
 				     Itm.Description.c_str(), 
 				     Itm.ShortDesc.c_str(), 
@@ -131,6 +134,7 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 				     Itm.ShortDesc.c_str(), 
                                      status);
    RunSimpleCallback("updateStatus", arglist);
+   PyCbObj_BEGIN_ALLOW_THREADS
 
 }
 
@@ -190,11 +194,21 @@ void PyFetchProgress::Start()
    Py_XDECREF(o);
 
    RunSimpleCallback("start");
+   /* After calling the start method we can safely allow
+    * other Python threads to do their work for now.
+    */
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 
 void PyFetchProgress::Stop()
 {
+   /* After the stop operation occured no other threads
+    * are allowed. This is done so we have a matching 
+    * PyCbObj_END_ALLOW_THREADS to our previous
+    * PyCbObj_BEGIN_ALLOW_THREADS (Python requires this!).
+    */
+   PyCbObj_END_ALLOW_THREADS
    //std::cout << "Stop" << std::endl;
    pkgAcquireStatus::Stop();
    RunSimpleCallback("stop");
@@ -202,6 +216,7 @@ void PyFetchProgress::Stop()
 
 bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 {
+   PyCbObj_END_ALLOW_THREADS
    pkgAcquireStatus::Pulse(Owner);
 
    //std::cout << "Pulse" << std::endl;
@@ -290,11 +305,13 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    RunSimpleCallback("pulse_items", arglist, &result);
    if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
       // the user returned a explicit false here, stop
+      PyCbObj_BEGIN_ALLOW_THREADS
       return false;
    }
 
    arglist = Py_BuildValue("()");
    if (!RunSimpleCallback("pulse", arglist, &result)) {
+     PyCbObj_BEGIN_ALLOW_THREADS
      return true;
    }
 
@@ -303,9 +320,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       // most of the time the user who subclasses the pulse() 
       // method forgot to add a return {True,False} so we just
       // assume he wants a True
+      PyCbObj_BEGIN_ALLOW_THREADS
       return true;
    }
 
+   PyCbObj_BEGIN_ALLOW_THREADS
    // fetching can be canceld by returning false
    return res;
 }

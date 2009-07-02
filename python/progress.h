@@ -15,10 +15,27 @@
 #include <apt-pkg/cdrom.h>
 #include <Python.h>
 
+/* PyCbObj_BEGIN_ALLOW_THREADS and PyCbObj_END_ALLOW_THREADS are sligthly
+ * modified versions of Py_BEGIN_ALLOW_THREADS and Py_END_ALLOW_THREADS.
+ * Instead of storing the thread state in a function-local variable these
+ * use a class attribute (with the same) name, allowing blocking and 
+ * unblocking from different class methods.
+ * Py_BLOCK_THREADS and Py_UNBLOCK_THREADS do not define their own
+ * local variable but use the one provided by PyCbObj_BEGIN_ALLOW_THREADS
+ * and thus are the same as Py_BLOCK_THREADS and Py_UNBLOCK_THREADS.
+ */
+#define PyCbObj_BEGIN_ALLOW_THREADS \
+  _save = PyEval_SaveThread();
+#define PyCbObj_END_ALLOW_THREADS \
+  PyEval_RestoreThread(_save); \
+  _save = NULL;
+#define PyCbObj_BLOCK_THREADS Py_BLOCK_THREADS
+#define PyCbObj_UNBLOCK_THREADS Py_UNBLOCK_THREADS
 
 class PyCallbackObj {
  protected:
    PyObject *callbackInst;
+   PyThreadState *_save;
 
  public:
    void setCallbackInst(PyObject *o) {
