@@ -9,6 +9,7 @@ python-apt (0.7.10.4) UNRELEASED; urgency=low
       fetched
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
+    - better threading support
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 05 May 2009 11:57:57 +0200
 
