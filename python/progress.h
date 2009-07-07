@@ -15,12 +15,6 @@
 #include <apt-pkg/cdrom.h>
 #include <Python.h>
 
-/* Python 2.4 compatibility */
-#if (PY_VERSION_HEX < 0x02050000)
-typedef int Py_ssize_t;
-#endif
-
-
 /* PyCbObj_BEGIN_ALLOW_THREADS and PyCbObj_END_ALLOW_THREADS are sligthly
  * modified versions of Py_BEGIN_ALLOW_THREADS and Py_END_ALLOW_THREADS.
  * Instead of storing the thread state in a function-local variable these

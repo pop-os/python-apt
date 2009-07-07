@@ -1,4 +1,4 @@
-python-apt (0.7.10.4) UNRELEASED; urgency=low
+python-apt (0.7.11.0) UNRELEASED; urgency=low
 
   [ Stephan Peijnik ]
   * apt/progress/__init__.py:

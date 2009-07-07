@@ -13,6 +13,7 @@
 #include <utility>
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/acquire-worker.h>
+#include "generic.h"
 #include "progress.h"
 
 // generic
