@@ -96,6 +96,18 @@ static PyObject *Policy_ReadPinFile(PyObject *self, PyObject *arg) {
     return PyBool_FromLong(ReadPinFile(*policy, PyString_AsString(arg)));
 }
 
+static char *Policy_ReadPinDir_doc = "read_pindir(dirname: str) -> bool\n\n"
+    "Read the pin files in the given dir (e.g. '/etc/apt/preferences.d') and\n"
+    "add them to the policy.";
+
+static PyObject *Policy_ReadPinDir(PyObject *self, PyObject *arg) {
+    if (!PyString_Check(arg))
+        return 0;
+    pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
+
+    return PyBool_FromLong(ReadPinDir(*policy, PyString_AsString(arg)));
+}
+
 static char *Policy_CreatePin_doc = "create_pin(type: str, pkg: str, "
     "data: str, priority: int)\n\n"
     "Create a pin for the policy. The parameter 'type' refers to one of the\n"
@@ -130,6 +142,8 @@ static PyMethodDef Policy_Methods[] = {
     {"get_candidate_ver",(PyCFunction)Policy_GetCandidateVer,METH_O,
      Policy_GetCandidateVer_doc},
     {"read_pinfile",(PyCFunction)Policy_ReadPinFile,METH_O,
+     Policy_ReadPinFile_doc},
+    {"read_pindir",(PyCFunction)Policy_ReadPinDir,METH_O,
      Policy_ReadPinFile_doc},
     {"create_pin",Policy_CreatePin,METH_VARARGS,Policy_CreatePin_doc},
     {"get_match",(PyCFunction)Policy_GetMatch,METH_O, Policy_GetMatch_doc},
