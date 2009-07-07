@@ -8,7 +8,7 @@ XS-Python-Version: all
 Build-Depends: apt-utils,
                cdbs,
                debhelper (>= 5.0.37.1),
-               libapt-pkg-dev (>= 0.7.10),
+               libapt-pkg-dev (>= 0.7.22~),
                python-all-dbg,
                python-all-dev,
                python3.1-dev,

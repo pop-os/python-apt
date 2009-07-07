@@ -21,6 +21,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * debian/control: Update Standards-Version to 3.8.2
   * Make AcquireFile a subclass of AcquireItem
   * Make ConfigurationPtr,ConfigurationSub subclasses of Configuration.
+  * debian/control: Build-Depend on libapt-pkg-dev (>= 0.7.22~).
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -36,7 +37,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 22 Jun 2009 15:49:03 +0200
+ -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jul 2009 16:56:44 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
