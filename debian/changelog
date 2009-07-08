@@ -22,6 +22,10 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Make AcquireFile a subclass of AcquireItem
   * Make ConfigurationPtr,ConfigurationSub subclasses of Configuration.
   * debian/control: Build-Depend on libapt-pkg-dev (>= 0.7.22~).
+  * Unification of dependency handling:
+    - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
+      (i.e. < instead of <<) to match the interface of Version.depends_list_str
+
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message

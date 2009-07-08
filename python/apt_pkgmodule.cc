@@ -104,9 +104,10 @@ static char *doc_ParseDepends =
 "The resulting tuples are (Pkg,Ver,Operation). Each anded dependency is a\n"
 "list of or'd dependencies\n"
 "Source depends are evaluated against the curernt arch and only those that\n"
-"Match are returned.";
+"Match are returned.\n\n"
+"apt_pkg.Parse{,Src}Depends() are old forms which return >>,<< instead of >,<";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
-				  bool ParseArchFlags)
+				  bool ParseArchFlags, bool debStyle=false)
 {
    string Package;
    string Version;
@@ -143,7 +144,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	 PyObject *Obj;
 	 PyList_Append(LastRow,Obj = Py_BuildValue("sss",Package.c_str(),
 						   Version.c_str(),
-						pkgCache::CompTypeDeb(Op)));
+						debStyle ? pkgCache::CompTypeDeb(Op) : pkgCache::CompType(Op)));
 	 Py_DECREF(Obj);
       }
 
@@ -165,6 +166,14 @@ static PyObject *ParseDepends(PyObject *Self,PyObject *Args)
 static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
 {
    return RealParseDepends(Self,Args,true);
+}
+static PyObject *ParseDepends_old(PyObject *Self,PyObject *Args)
+{
+   return RealParseDepends(Self,Args,false, true);
+}
+static PyObject *ParseSrcDepends_old(PyObject *Self,PyObject *Args)
+{
+   return RealParseDepends(Self,Args,true, true);
 }
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
@@ -444,8 +453,8 @@ static PyMethodDef methods[] =
    {"parse_depends",ParseDepends,METH_VARARGS,doc_ParseDepends},
    {"parse_src_depends",ParseSrcDepends,METH_VARARGS,doc_ParseDepends},
    #ifdef COMPAT_0_7
-   {"ParseDepends",ParseDepends,METH_VARARGS,doc_ParseDepends},
-   {"ParseSrcDepends",ParseSrcDepends,METH_VARARGS,doc_ParseDepends},
+   {"ParseDepends",ParseDepends_old,METH_VARARGS,doc_ParseDepends},
+   {"ParseSrcDepends",ParseSrcDepends_old,METH_VARARGS,doc_ParseDepends},
    #endif
 
    // Stuff
