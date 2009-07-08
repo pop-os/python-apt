@@ -154,6 +154,54 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    PkgSrcRecordsStruct &Struct = GetStruct(Self,"BuildDepends");
    if (Struct.Last == 0)
       return 0;
+
+   PyObject *Dict = PyDict_New();
+   PyObject *Dep = 0;
+   PyObject *LastDep = 0;
+   PyObject *OrGroup = 0;
+   
+   vector<pkgSrcRecords::Parser::BuildDepRec> bd;
+   if(!Struct.Last->BuildDepends(bd, false /* arch-only*/))
+      return NULL; // error
+   
+   PyObject *v;
+   for(unsigned int i=0;i<bd.size();i++) {
+     
+     Dep = PyString_FromString(pkgSrcRecords::Parser::BuildDepType(bd[i].Type));
+     
+	 LastDep = PyDict_GetItem(Dict,Dep);
+	 if (LastDep == 0)
+	 {
+	    LastDep = PyList_New(0);
+	    PyDict_SetItem(Dict,Dep,LastDep);
+	    Py_DECREF(LastDep);
+	 }
+     Py_DECREF(Dep);
+     OrGroup = PyList_New(0);
+     PyList_Append(LastDep, OrGroup);
+     Py_DECREF(OrGroup);
+
+     // Add at least one package to the group, add more if Or is set.
+     while (1)
+     {
+	    v = Py_BuildValue("(sss)", bd[i].Package.c_str(),
+			bd[i].Version.c_str(), pkgCache::CompType(bd[i].Op));
+	    PyList_Append(OrGroup, v);
+	    Py_DECREF(v);
+	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i == bd.size())
+	       break;
+        i++;
+     }
+      
+   }
+   return Dict;
+}
+
+#ifdef COMPAT_0_7
+static PyObject *PkgSrcRecordsGetBuildDepends_old(PyObject *Self,void*) {
+   PkgSrcRecordsStruct &Struct = GetStruct(Self,"BuildDepends");
+   if (Struct.Last == 0)
+      return 0;
    PyObject *List = PyList_New(0);
 
    vector<pkgSrcRecords::Parser::BuildDepRec> bd;
@@ -169,6 +217,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    }
    return List;
 }
+#endif
 
 static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"binaries",PkgSrcRecordsGetBinaries},
@@ -182,7 +231,7 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"version",PkgSrcRecordsGetVersion},
 #ifdef COMPAT_0_7
    {"Binaries",PkgSrcRecordsGetBinaries},
-   {"BuildDepends",PkgSrcRecordsGetBuildDepends},
+   {"BuildDepends",PkgSrcRecordsGetBuildDepends_old,0,"Deprecated function and deprecated output format."},
    {"Files",PkgSrcRecordsGetFiles},
    {"Index",PkgSrcRecordsGetIndex},
    {"Maintainer",PkgSrcRecordsGetMaintainer},
