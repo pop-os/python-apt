@@ -947,22 +947,30 @@ Records
 
     .. attribute:: build_depends
 
+        Return a dictionary representing the build-time dependencies of the
+        package. The format is the same as for :attr:`Version.depends_list_str`
+        and possible keys being ``"Build-Depends"``, ``"Build-Depends-Indep"``,
+        ``"Build-Conflicts"`` or ``"Build-Conflicts-Indep"``.
+
+    .. attribute:: BuildDepends
+
         Return the list of Build dependencies, as
-        ``(str: package, str: version, int: op, int: type)``.
+        ``(str: package, str: version, int: op, int: type)``. This is a
+        completely deprecated format
 
         .. table:: Values of *op*
 
             ===== =============================================
             Value      Meaning
             ===== =============================================
-            0x0   No Operation (no versioned build dependency)
+            0x00  No Operation (no versioned build dependency)
             0x10  | (or) - this will be added to the other values
-            0x1   <= (less than or equal)
-            0x2   >= (greater than or equal)
-            0x3   << (less than)
-            0x4   >> (greater than)
-            0x5   == (equal)
-            0x6   != (not equal)
+            0x01  <= (less than or equal)
+            0x02  >= (greater than or equal)
+            0x03  << (less than)
+            0x04  >> (greater than)
+            0x05   = (equal)
+            0x06  != (not equal)
             ===== =============================================
 
         .. table:: Values of *type*
@@ -983,7 +991,7 @@ Records
 
         This results in::
 
-            [('A', '1', 18, 0), # 18 = 16 + 2 = 0x10 + 0x2
+            [('A', '1', 18, 0), # 18 = (16 | 2) = (0x10 | 0x2)
              ('B', '1', 2, 0),
              ('C', '', 0, 0)]
 
@@ -1293,10 +1301,19 @@ Dependencies
         >>> apt_pkg.parse_depends("PkgA (>= VerA) | PkgB (>= VerB)")
         [[('PkgA', 'VerA', '>='), ('PkgB', 'VerB', '>=')]]
 
+
+    .. note::
+
+        The behavior of this function is different than the behavior of the
+        old function :func:`ParseDepends()`, because the third field
+        ``operation`` uses `>` instead of `>>` and `<` instead of `<<` which
+        is specified in control files.
+
+
 .. function:: parse_src_depends(depends)
 
     Parse the string *depends* which contains dependency information as
-    specified in Debian Policy, Section 7.1.
+    specified in Debian Policy, Section 7.1. 
 
     Returns a list. The members of this list are lists themselves and contain
     one or more tuples in the format ``(package,version,operation)`` for every
@@ -1311,6 +1328,13 @@ Dependencies
 
         >>> apt_pkg.parse_src_depends("a (>= 01) [i386 amd64]")
         [[('a', '01', '>=')]]
+
+    .. note::
+
+        The behavior of this function is different than the behavior of the
+        old function :func:`ParseDepends()`, because the third field
+        ``operation`` uses `>` instead of `>>` and `<` instead of `<<` which
+        is specified in control files.
 
 
 Configuration

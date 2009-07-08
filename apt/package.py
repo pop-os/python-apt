@@ -64,7 +64,7 @@ class BaseDependency(object):
 
     Attributes defined here:
         name       - The name of the dependency
-        relation   - The relation (>>,>=,==,<<,<=,)
+        relation   - The relation (>,>=,==,<,<=,)
         version    - The version depended on
         pre_depend - Boolean value whether this is a pre-dependency.
     """
