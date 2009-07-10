@@ -58,9 +58,12 @@ static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
         PyErr_SetString(PyExc_KeyError,keyname);
         return 0;
     }
-    return Py_BuildValue("(Oi)",
-                         PyHashString_FromCpp((HashString*)&result->Hash),
-                         result->Size);
+    // Copy the HashString(), to prevent crashes and to not require the
+    // indexRecords object to exist.
+    PyObject *py_hash = PyHashString_FromCpp(new HashString(result->Hash));
+    PyObject *value = Py_BuildValue("(Oi)",py_hash,result->Size);
+    Py_DECREF(py_hash);
+    return value;
 }
 
 static PyObject *IndexRecords_GetDist(PyObject *self)
