@@ -117,6 +117,11 @@ template <class T> struct CppPyObject : public PyObject
    // So basically having the c'tor here removes the need for T to have a
    // default c'tor, which is not always desireable.
    CppPyObject() { };
+
+   // Flag which causes the underlying object to not be deleted.
+   bool NoDelete;
+
+   // The underlying C++ object.
    T Object;
 };
 
@@ -209,7 +214,8 @@ void CppDealloc(PyObject *Obj)
    #ifdef ALLOC_DEBUG
    std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << " ===\n";
    #endif
-   GetCpp<T>(Obj).~T();
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      GetCpp<T>(Obj).~T();
    Obj->ob_type->tp_free(Obj);
 }
 
@@ -220,7 +226,8 @@ void CppOwnedDealloc(PyObject *iObj)
    std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "+ ===\n";
    #endif
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
-   Obj->Object.~T();
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      Obj->Object.~T();
    CppOwnedClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
@@ -233,7 +240,8 @@ void CppDeallocPtr(PyObject *Obj)
    #ifdef ALLOC_DEBUG
    std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "* ===\n";
    #endif
-   delete GetCpp<T>(Obj);
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      delete GetCpp<T>(Obj);
    Obj->ob_type->tp_free(Obj);
 }
 
@@ -244,7 +252,8 @@ void CppOwnedDeallocPtr(PyObject *iObj)
    std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "*+ ===\n";
    #endif
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
-   delete Obj->Object;
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      delete Obj->Object;
    CppOwnedClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
