@@ -621,6 +621,18 @@ static PyObject *PkgDepCacheGetDebSize(PyObject *Self,void*) {
 }
 #undef depcache
 
+static PyObject *PkgDepCacheGetPolicy(PyObject *Self,void*) {
+   PyObject *Owner = GetOwner<pkgDepCache*>(Self);
+   pkgDepCache *DepCache = GetCpp<pkgDepCache*>(Self);
+   pkgPolicy *Policy = (pkgPolicy *)&DepCache->GetPolicy();
+   CppOwnedPyObject<pkgPolicy*> *PyPolicy =
+        CppOwnedPyObject_NEW<pkgPolicy*>(Owner,&PyPolicy_Type,Policy);
+   // Policy should not be deleted, it is managed by CacheFile.
+   PyPolicy->NoDelete = true;
+   return PyPolicy;
+}
+
+
 static PyGetSetDef PkgDepCacheGetSet[] = {
     {"broken_count",PkgDepCacheGetBrokenCount},
     {"deb_size",PkgDepCacheGetDebSize},
@@ -628,6 +640,7 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
     {"inst_count",PkgDepCacheGetInstCount},
     {"keep_count",PkgDepCacheGetKeepCount},
     {"usr_size",PkgDepCacheGetUsrSize},
+    {"policy",PkgDepCacheGetPolicy},
     #ifdef COMPAT_0_7
     {"BrokenCount",PkgDepCacheGetBrokenCount},
     {"DebSize",PkgDepCacheGetDebSize},
