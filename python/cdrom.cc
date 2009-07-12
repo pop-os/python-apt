@@ -12,15 +12,9 @@
 
 #include <apt-pkg/cdrom.h>
 
-
-struct PkgCdromStruct
-{
-   pkgCdrom cdrom;
-};
-
 static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
 {
-   PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
+   pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
 
    PyObject *pyCdromProgressInst = 0;
    if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
@@ -30,14 +24,14 @@ static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
    PyCdromProgress progress;
    progress.setCallbackInst(pyCdromProgressInst);
 
-   bool res = Struct.cdrom.Add(&progress);
+   bool res = Cdrom.Add(&progress);
 
    return HandleErrors(Py_BuildValue("b", res));
 }
 
 static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 {
-   PkgCdromStruct &Struct = GetCpp<PkgCdromStruct>(Self);
+   pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
 
    PyObject *pyCdromProgressInst = 0;
    if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
@@ -48,7 +42,7 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
    progress.setCallbackInst(pyCdromProgressInst);
 
    string ident;
-   bool res = Struct.cdrom.Ident(ident, &progress);
+   bool res = Cdrom.Ident(ident, &progress);
 
    PyObject *result = Py_BuildValue("(bs)", res, ident.c_str());
 
@@ -87,10 +81,10 @@ PyTypeObject PkgCdromType =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Cdrom",                     // tp_name
-   sizeof(CppOwnedPyObject<PkgCdromStruct>),   // tp_basicsize
+   sizeof(CppOwnedPyObject<pkgCdrom>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgCdromStruct>,     // tp_dealloc
+   CppOwnedDealloc<pkgCdrom>,     // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
