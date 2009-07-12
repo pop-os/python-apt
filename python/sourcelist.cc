@@ -90,9 +90,12 @@ static PyObject *PkgSourceListGetList(PyObject *Self,void*)
    for (vector<metaIndex *>::const_iterator I = list->begin();
         I != list->end(); I++)
    {
-      PyObject *Obj;
-      Obj = CppPyObject_NEW<metaIndex*>(&MetaIndexType,*I);
+      CppOwnedPyObject<metaIndex*> *Obj;
+      Obj = CppOwnedPyObject_NEW<metaIndex*>(Self, &MetaIndexType,*I);
+      // Never delete metaIndex*, they are managed by the pkgSourceList.
+      Obj->NoDelete = true;
       PyList_Append(List,Obj);
+      Py_DECREF(Obj);
    }
    return List;
 }
