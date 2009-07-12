@@ -26,7 +26,7 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    PyObject *pyPkgFileIter;
-   PyObject *pyPkgIndexFile;
+   CppOwnedPyObject<pkgIndexFile*> *pyPkgIndexFile;
 
    if (PyArg_ParseTuple(Args, "O!", &PackageFileType,&pyPkgFileIter) == 0)
       return 0;
@@ -36,6 +36,8 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
    if(list->FindIndex(i, index))
    {
       pyPkgIndexFile = CppOwnedPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PackageIndexFileType,index);
+      // Do not delete the pkgIndexFile*, it is managed by pkgSourceList.
+      pyPkgIndexFile->NoDelete = true;
       return pyPkgIndexFile;
    }
 
