@@ -30,6 +30,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
       + Closes: #468123 - there is no need anymore for binding CompType or
         CompTypeDeb, because we don't return integer values for CompType
         anymore.
+  * Introduce apt_pkg.Hashes class.
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -45,7 +46,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jul 2009 16:56:44 +0200
+ -- Julian Andres Klode <jak@debian.org>  Sun, 12 Jul 2009 18:51:57 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 

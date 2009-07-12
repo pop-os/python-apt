@@ -1139,15 +1139,31 @@ installation.
     the file using the parameter *destfile*. You can not combine both.
 
 
-
-
-
-
-Hash functions
---------------
+Hashes 
+------
 The apt_pkg module also provides several hash functions. If you develop
 applications with python-apt it is often easier to use these functions instead
 of the ones provides in Python's :mod:`hashlib` module.
+
+.. class:: Hashes(object)
+
+    Calculate all supported hashes of the object. *object* may either be a
+    string, in which cases the hashes of the string are calculated, or a
+    :class:`file()` object or file descriptor, in which case the hashes of
+    its contents is calculated. The calculated hashes are then available via
+    attributes:
+
+    .. attribute:: md5
+
+        The MD5 hash of the data, as string.
+
+    .. attribute:: sha1
+
+        The SHA1 hash of the data, as string.
+
+    .. attribute:: sha256
+
+        The SHA256 hash of the data, as string.
 
 .. function:: md5sum(object)
 
