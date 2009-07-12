@@ -454,13 +454,13 @@ class Version(object):
             print 'Ignoring already existing file:', destfile
             return
         acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
-        apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash, self.size,
-                              base, destfile=destfile)
+        acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,
+                                      self.size, base, destfile=destfile)
         acq.run()
-        for item in acq.items:
-            if item.status != item.stat_done:
-                raise FetchError("The item %r could not be fetched: %s" %
-                                    (item.destfile, item.error_text))
+
+        if acqfile.status != acqfile.stat_done:
+            raise FetchError("The item %r could not be fetched: %s" %
+                             (acqfile.destfile, acqfile.error_text))
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):
@@ -489,6 +489,7 @@ class Version(object):
                 src.lookup(self.package.name)
         except AttributeError:
             raise ValueError("No source for %r" % self)
+        files = list()
         for md5, size, path, type_ in src.files:
             base = os.path.basename(path)
             destfile = os.path.join(destdir, base)
@@ -497,8 +498,8 @@ class Version(object):
             if _file_is_same(destfile, size, md5):
                 print 'Ignoring already existing file:', destfile
                 continue
-            apt_pkg.AcquireFile(acq, src.index.archive_uri(path), md5, size,
-                                  base, destfile=destfile)
+            files.append(apt_pkg.AcquireFile(acq, src.index.archive_uri(path),
+                         md5, size, base, destfile=destfile))
         acq.run()
 
         for item in acq.items:
