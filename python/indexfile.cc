@@ -96,7 +96,7 @@ PyTypeObject PackageIndexFileType =
    0,                                   // tp_itemsize
    // Methods
    // Not ..Ptr, because the pointer is managed somewhere else.
-   CppOwnedDealloc<pkgIndexFile*>,      // tp_dealloc
+   CppOwnedDeallocPtr<pkgIndexFile*>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -112,7 +112,7 @@ PyTypeObject PackageIndexFileType =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
-   "pkgIndexFile Object",               // tp_doc
+   "IndexFile Object",               // tp_doc
    CppOwnedTraverse<pkgIndexFile*>,     // tp_traverse
    CppOwnedClear<pkgIndexFile*>,        // tp_clear
    0,                                   // tp_richcompare
