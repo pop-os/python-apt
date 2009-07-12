@@ -37,9 +37,12 @@ static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {
     for (vector<pkgIndexFile *>::const_iterator I = indexFiles->begin();
         I != indexFiles->end(); I++)
     {
-        PyObject *Obj;
-        Obj = CppPyObject_NEW<pkgIndexFile*>(&PackageIndexFileType,*I);
+        CppOwnedPyObject<pkgIndexFile*> *Obj;
+        Obj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self, &PackageIndexFileType,*I);
+        // Do not delete pkgIndexFile*, they are managed by metaIndex.
+        Obj->NoDelete = true;
         PyList_Append(List,Obj);
+        Py_DECREF(Obj);
     }
     return List;
 }
