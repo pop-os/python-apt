@@ -670,9 +670,11 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
 
    CppOwnedPyObject<pkgDepCache*> *DepCachePyObj;
    DepCachePyObj = CppOwnedPyObject_NEW<pkgDepCache*>(Owner,type,depcache);
-   HandleErrors(DepCachePyObj);
 
-   return DepCachePyObj;
+   // Do not delete the underlying pointer, it is managed by the cachefile.
+   DepCachePyObj->NoDelete = true;
+
+   return HandleErrors(DepCachePyObj);
 }
 
 static char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
@@ -685,8 +687,7 @@ PyTypeObject PkgDepCacheType =
    sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   // Not ..Ptr, because the pkgDepCache pointer is managed by the CacheFile.
-   CppOwnedDealloc<pkgDepCache *>,      // tp_dealloc
+   CppOwnedDeallocPtr<pkgDepCache *>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
