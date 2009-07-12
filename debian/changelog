@@ -31,6 +31,8 @@ python-apt (0.7.92) UNRELEASED; urgency=low
         CompTypeDeb, because we don't return integer values for CompType
         anymore.
   * Introduce apt_pkg.Hashes class.
+  * Make AcquireItem objects raise ValueError instead of segfaulting when the Acquire()
+    object is shut down or the main object (e.g. AcquireFile) is deallocated.
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -46,7 +48,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 12 Jul 2009 18:51:57 +0200
+ -- Julian Andres Klode <jak@debian.org>  Sun, 12 Jul 2009 21:19:40 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
