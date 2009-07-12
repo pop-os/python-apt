@@ -285,6 +285,8 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,type,
 					    (pkgCache *)(*Cache));
 
+   // Do not delete the pointer to the pkgCache, it is managed by pkgCacheFile.
+   CacheObj->NoDelete = true;
    Py_DECREF(CacheFileObj);
    return CacheObj;
 }
@@ -304,7 +306,7 @@ PyTypeObject PkgCacheType =
    sizeof(CppOwnedPyObject<pkgCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<pkgCache *>,         // tp_dealloc
+   CppOwnedDeallocPtr<pkgCache *>,      // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
