@@ -285,7 +285,7 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,type,
 					    (pkgCache *)(*Cache));
 
-   //Py_DECREF(CacheFileObj);
+   Py_DECREF(CacheFileObj);
    return CacheObj;
 }
 
