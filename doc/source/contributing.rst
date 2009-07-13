@@ -43,46 +43,184 @@ submit them.
 
 C++ Coding style
 ----------------
-When you work on the C++ code in the python/ directory, you should follow some
-basic rules.
+This document gives coding conventions for the C++ code comprising
+the C++ extensions of Python APT.  Please see the companion
+informational PEP describing style guidelines for Python code (:PEP:`8`).
 
-The indentation of the code is a bit non-standard. We currently use 3 spaces
-indentation for the C++ code.
+Note, rules are there to be broken.  Two good reasons to break a
+particular rule:
 
-When you create new functions, you should follow some naming conventions. All
-C++ functions are named according to the ``CamelCase`` convention.
+    (1) When applying the rule would make the code less readable, even
+        for someone who is used to reading code that follows the rules.
 
-The resulting Python functions should be ``CamelCase`` as well in apt_pkg, or
-``mixedCase`` in apt_inst. The same applies for variables, parameters,
-attributes, etc.
+    (2) To be consistent with surrounding code that also breaks it
+        (maybe for historic reasons) -- although this is also an
+        opportunity to clean up someone else's mess (in true XP style).
 
-.. note::
+This part of the document is derived from :PEP:`7` which was written by
+Guido van Rossum.
 
-    This coding style guidelines are incomplete. If you have any questions
-    send an email to deity@lists.debian.org.
+
+C++ dialect
+^^^^^^^^^^^
+
+- Use ISO standard C++ (the 1998 version of the standard).
+
+- All function declarations and definitions must use full
+  prototypes (i.e. specify the types of all arguments).
+
+- Use C++ style // one-line comments where useful.
+
+- No compiler warnings with ``gcc -std=c++98 -Wall -Wno-write-strings``. There
+  should also be no errors with ``-pedantic`` added.
+
+
+Code lay-out
+^^^^^^^^^^^^
+
+- Use 3-space indents, in files that already use them. In new source files,
+  that were created after this rule was introduced, use 4-space indents.
+
+  At some point, the whole codebase may be converted to use only
+  4-space indents.
+
+- No line should be longer than 79 characters.  If this and the
+  previous rule together don't give you enough room to code, your
+  code is too complicated -- consider using subroutines.
+
+- No line should end in whitespace.  If you think you need
+  significant trailing whitespace, think again -- somebody's
+  editor might delete it as a matter of routine.
+
+- Function definition style: function name in column 2, outermost
+  curly braces in column 1, blank line after local variable
+  declarations::
+
+    static int extra_ivars(PyTypeObject *type, PyTypeObject *base)
+    {
+        int t_size = PyType_BASICSIZE(type);
+        int b_size = PyType_BASICSIZE(base);
+    
+        assert(t_size >= b_size); /* type smaller than base! */
+        ...
+        return 1;
+    }
+
+- Code structure: one space between keywords like 'if', 'for' and
+  the following left paren; no spaces inside the paren; braces as
+  shown::
+
+    if (mro != NULL) {
+        ...
+    }
+    else {
+        ...
+    }
+
+- The return statement should *not* get redundant parentheses::
+
+    return Py_None; /* correct */
+    return(Py_None); /* incorrect */
+
+- Function and macro call style: ``foo(a, b, c)`` -- no space before
+  the open paren, no spaces inside the parens, no spaces before
+  commas, one space after each comma.
+
+- Always put spaces around assignment, Boolean and comparison
+  operators.  In expressions using a lot of operators, add spaces
+  around the outermost (lowest-priority) operators.
+
+- Breaking long lines: if you can, break after commas in the
+  outermost argument list.  Always indent continuation lines
+  appropriately, e.g.::
+
+    PyErr_Format(PyExc_TypeError,
+            "cannot create '%.100s' instances",
+            type->tp_name);
+
+- When you break a long expression at a binary operator, the
+  operator goes at the end of the previous line, e.g.::
+
+    if (type->tp_dictoffset != 0 && base->tp_dictoffset == 0 &&
+        type->tp_dictoffset == b_size &&
+        (size_t)t_size == b_size + sizeof(PyObject *))
+        return 0; /* "Forgive" adding a __dict__ only */
+
+- Put blank lines around functions, structure definitions, and
+  major sections inside functions.
+
+- Comments go before the code they describe.
+
+- All functions and global variables should be declared static
+  unless they are to be part of a published interface
+
+
+Naming conventions
+^^^^^^^^^^^^^^^^^^
+
+- Use a ``Py`` prefix for public functions; never for static
+  functions.  The ``Py_`` prefix is reserved for global service
+  routines like ``Py_FatalError``; specific groups of routines
+  (e.g. specific object type APIs) use a longer prefix,
+  e.g. ``PyString_`` for string functions.
+
+- Public functions and variables use MixedCase with underscores,
+  like this: ``PyObject_GetAttr``, ``Py_BuildValue``, ``PyExc_TypeError``.
+
+- Internal functions and variables use lowercase with underscores, like
+  this: ``hashes_get_sha1.``
+
+- Occasionally an "internal" function has to be visible to the
+  loader; we use the _Py prefix for this, e.g.: ``_PyObject_Dump``.
+
+- Macros should have a MixedCase prefix and then use upper case,
+  for example: ``PyString_AS_STRING``, ``Py_PRINT_RAW``.
+
+
+Documentation Strings
+^^^^^^^^^^^^^^^^^^^^^
+- The first line of each function docstring should be a "signature
+  line" that gives a brief synopsis of the arguments and return
+  value.  For example::
+
+    PyDoc_STRVAR(myfunction__doc__,
+    "myfunction(name: str, value) -> bool\n\n"
+    Determine whether name and value make a valid pair.");
+
+  The signature line should be formatted using the format for function
+  annotations described in :PEP:`3107`, whereas the annotations shall reflect
+  the name of the type (e.g. ``str``). The leading ``def`` and the trailing
+  ``:`` as used for function definitions must not be included.
+
+  Always include a blank line between the signature line and the
+  text of the description.
+
+  If the return value for the function is always ``None`` (because
+  there is no meaningful return value), do not include the
+  indication of the return type.
+
+- When writing multi-line docstrings, be sure to always use
+  string literal concatenation::
+
+    PyDoc_STRVAR(myfunction__doc__,
+    "myfunction(name, value) -> bool\n\n"
+    "Determine whether name and value make a valid pair.");
 
 
 Python Coding Style
 -------------------
-The coding style for all code written in python is :PEP:`8`. For modules and
-classes added from version 0.7.9 on, there are no exceptions.
+The coding style for all code written in python is :PEP:`8`. Exceptions from
+this rule are the documentation, where code is sometimes formatted differently
+to explain aspects, and functions provided for 0.7 compatibility purposes.
 
-Classes introduced prior to 0.7.9 use mixedCase names for methods, functions
-and variables. These names will be replaced by names conforming to :PEP:`8`
-in a future release of python-apt.
-
-Therefore, try to reduce the introduction of the mixedName code to the absolute
-minimum (sometimes you can also use shorter names).
+When writing code, use tools like pylint, pyflakes, pychecker and pep8.py from
+http://svn.browsershots.org/trunk/devtools/pep8/ to verify that your code is
+OK. Fix all the problems which seem reasonable, and mention the unfixed issues
+when asking for merge.
 
 In order to make the automatic generation of Python 3 code using 2to possible,
 code written in Python may not utilize any functionality unsupported by 2to3 or
 deprecated as of Python 2.6.
-
-.. note::
-
-    You can use the tool pep8.py from http://svn.browsershots.org/trunk/devtools/pep8/
-    to validate your code. Please also run pylint, pychecker, and pyflakes and
-    fix all new **errors** they report (undefined names, etc.).
 
 Submitting your patch
 ---------------------
