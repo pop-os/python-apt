@@ -522,32 +522,17 @@ static PyMethodDef methods[] =
 
 
 #if PY_MAJOR_VERSION >= 3
-struct module_state {
-    PyObject *error;
-};
-
-#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
-
-static int apt_inst_traverse(PyObject *m, visitproc visit, void *arg) {
-    Py_VISIT(GETSTATE(m)->error);
-    return 0;
-}
-
-static int apt_inst_clear(PyObject *m) {
-    Py_CLEAR(GETSTATE(m)->error);
-    return 0;
-}
-
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
         "apt_pkg",
-        NULL,
-        sizeof(struct module_state),
+        "Classes and functions wrapping the apt-pkg library.\n\n"
+        "The apt_pkg module provides...",
+        -1,
         methods,
-        NULL,
-        apt_inst_traverse,
-        apt_inst_clear,
-        NULL
+        0,
+        0,
+        0,
+        0,
 };
 
 #define INIT_ERROR return 0

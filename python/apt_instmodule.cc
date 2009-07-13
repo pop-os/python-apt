@@ -170,31 +170,16 @@ static PyMethodDef methods[] =
 };
 
 #if PY_MAJOR_VERSION >= 3
-struct module_state {
-    PyObject *error;
-};
-#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
-
-static int apt_inst_traverse(PyObject *m, visitproc visit, void *arg) {
-    Py_VISIT(GETSTATE(m)->error);
-    return 0;
-}
-
-static int apt_inst_clear(PyObject *m) {
-    Py_CLEAR(GETSTATE(m)->error);
-    return 0;
-}
-
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
         "apt_inst",
-        NULL,
-        sizeof(struct module_state),
+        "Functions for working with packages and ar,tar archives (apt-inst)",
+        -1,
         methods,
-        NULL,
-        apt_inst_traverse,
-        apt_inst_clear,
-        NULL
+        0,
+        0,
+        0,
+        0
 };
 
 extern "C" PyObject * PyInit_apt_inst()
