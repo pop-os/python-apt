@@ -290,7 +290,7 @@ PyObject *ParseSection(PyObject *self,PyObject *Args)
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseSection() is "
                 "deprecated. Please see apt_pkg.TagSection() for the "
                 "replacement.", 1);
-    return TagSecNew(&TagSecType,Args,0);
+    return TagSecNew(&PyTagSection_Type,Args,0);
 }
 #endif
 									/*}}}*/
@@ -315,7 +315,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    new (&New->Object) pkgTagFile(&New->Fd);
 
    // Create the section
-   New->Section = (TagSecData*)(&TagSecType)->tp_alloc(&TagSecType, 0);
+   New->Section = (TagSecData*)(&PyTagSection_Type)->tp_alloc(&PyTagSection_Type, 0);
    new (&New->Section->Object) pkgTagSection();
    New->Section->Owner = New;
    Py_INCREF(New->Section->Owner);
@@ -329,7 +329,7 @@ PyObject *ParseTagFile(PyObject *self,PyObject *Args) {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseTagFile() is "
                 "deprecated. Please see apt_pkg.TagFile() for the "
                 "replacement.", 1);
-    return TagFileNew(&TagFileType,Args,0);
+    return TagFileNew(&PyTagFile_Type,Args,0);
 }
 #endif
 									/*}}}*/
@@ -357,7 +357,7 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
    PyObject *Section;
    PyObject *Order;
    PyObject *Rewrite;
-   if (PyArg_ParseTuple(Args,"O!O!O!",&TagSecType,&Section,
+   if (PyArg_ParseTuple(Args,"O!O!O!",&PyTagSection_Type,&Section,
 			&PyList_Type,&Order,&PyList_Type,&Rewrite) == 0)
       return 0;
 
@@ -436,7 +436,7 @@ static char *doc_TagSec = "TagSection(text) -> Create a new object.\n\n"
    "header sections, like those in debian/control or Packages files.\n\n"
    "TagSection() behave like read-only dictionaries and also provide access\n"
    "to the functions provided by the C++ class (e.g. Find)";
-PyTypeObject TagSecType =
+PyTypeObject PyTagSection_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.TagSection",                // tp_name
@@ -522,7 +522,7 @@ static char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
    "a file descriptor (an integer)";
 
 // Type for a Tag File
-PyTypeObject TagFileType =
+PyTypeObject PyTagFile_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.TagFile",                   // tp_name

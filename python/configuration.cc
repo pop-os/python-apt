@@ -49,7 +49,7 @@ void CnfSubFree(PyObject *Obj)
 /* */
 static inline Configuration &GetSelf(PyObject *Obj)
 {
-   if (Obj->ob_type == &ConfigurationPtrType)
+   if (Obj->ob_type == &PyConfigurationPtr_Type)
       return *GetCpp<Configuration *>(Obj);
    return GetCpp<Configuration>(Obj);
 }
@@ -161,8 +161,8 @@ static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
    }
 
    // Create a new sub configuration.
-   SubConfiguration *New = (SubConfiguration*)(&ConfigurationSubType)
-                           ->tp_alloc(&ConfigurationSubType,0);
+   SubConfiguration *New = (SubConfiguration*)(&PyConfigurationSub_Type)
+                           ->tp_alloc(&PyConfigurationSub_Type,0);
    new (&New->Object) Configuration(Itm);
    New->Owner = Self;
    Py_INCREF(Self);
@@ -501,7 +501,7 @@ static PyObject *CnfNew(PyTypeObject *type, PyObject *args, PyObject *kwds) {
 // Type for a Normal Configuration object
 static PySequenceMethods ConfigurationSeq = {0,0,0,0,0,0,0,CnfContains,0,0};
 static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
-PyTypeObject ConfigurationType =
+PyTypeObject PyConfiguration_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Configuration",             // tp_name
@@ -545,7 +545,7 @@ PyTypeObject ConfigurationType =
    CnfNew,                              // tp_new
 };
 
-PyTypeObject ConfigurationPtrType =
+PyTypeObject PyConfigurationPtr_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ConfigurationPtr",          // tp_name
@@ -578,10 +578,10 @@ PyTypeObject ConfigurationPtrType =
    CnfMethods,                          // tp_methods
    0,                                   // tp_members
    0,                                   // tp_getset
-   &ConfigurationType,                  // tp_base
+   &PyConfiguration_Type,                  // tp_base
 };
 
-PyTypeObject ConfigurationSubType =
+PyTypeObject PyConfigurationSub_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ConfigurationSub",     // tp_name
@@ -614,6 +614,6 @@ PyTypeObject ConfigurationSubType =
    CnfMethods,                          // tp_methods
    0,                                   // tp_members
    0,                                   // tp_getset
-   &ConfigurationType,                  // tp_base
+   &PyConfiguration_Type,                  // tp_base
 };
 

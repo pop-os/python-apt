@@ -29,7 +29,7 @@ static PyObject *Policy_NEW(PyTypeObject *type,PyObject *Args,
     char *kwlist[] = {"cache", NULL};
     if (PyArg_ParseTupleAndKeywords(Args, kwds, "O", kwlist, &cache) == 0)
         return 0;
-    if (!PyObject_TypeCheck(cache, &PkgCacheType)) {
+    if (!PyObject_TypeCheck(cache, &PyCache_Type)) {
         PyErr_SetString(PyExc_TypeError,"`cache` must be a apt_pkg.Cache().");
         return 0;
     }
@@ -43,7 +43,7 @@ static char *Policy_GetPriority_doc = "get_priority(package: apt_pkg.Package)"
 
 PyObject *Policy_GetPriority(PyObject *self, PyObject *arg) {
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
-    if (PyObject_TypeCheck(arg, &PackageType)) {
+    if (PyObject_TypeCheck(arg, &PyPackage_Type)) {
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
         return Py_BuildValue("i", policy->GetPriority(pkg));
     } else {
@@ -57,11 +57,11 @@ static char *Policy_GetCandidateVer_doc = "get_match(package: apt_pkg.Package)"
     "Get the best package for the job.";
 
 PyObject *Policy_GetCandidateVer(PyObject *self, PyObject *arg) {
-    if (PyObject_TypeCheck(arg, &PackageType)) {
+    if (PyObject_TypeCheck(arg, &PyPackage_Type)) {
         pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
         pkgCache::VerIterator ver = policy->GetCandidateVer(pkg);
-        return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&VersionType,
+        return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,
                                                            ver);
     } else {
         PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
@@ -74,14 +74,14 @@ static char *Policy_GetMatch_doc = "get_match(package: apt_pkg.Package) -> "
     "Return a matching version for the given package.";
 
 static PyObject *Policy_GetMatch(PyObject *self, PyObject *arg) {
-    if (PyObject_TypeCheck(arg, &PackageType) == 0) {
+    if (PyObject_TypeCheck(arg, &PyPackage_Type) == 0) {
         PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
         return 0;
     }
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
     pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
     pkgCache::VerIterator ver = policy->GetMatch(pkg);
-    return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&VersionType,ver);
+    return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
 }
 
 static char *Policy_ReadPinFile_doc = "read_pinfile(filename: str) -> bool\n\n"

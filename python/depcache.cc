@@ -190,8 +190,8 @@ static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
    PyObject *PackageObj;
    PyObject *VersionObj;
    if (PyArg_ParseTuple(Args,"O!O!",
-			&PackageType, &PackageObj,
-			&VersionType, &VersionObj) == 0)
+			&PyPackage_Type, &PackageObj,
+			&PyVersion_Type, &VersionObj) == 0)
       return 0;
 
    pkgCache::VerIterator &I = GetCpp<pkgCache::VerIterator>(VersionObj);
@@ -208,7 +208,7 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
    PyObject *PackageObj;
    PyObject *CandidateObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -219,7 +219,7 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   CandidateObj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(PackageObj,&VersionType,I);
+   CandidateObj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(PackageObj,&PyVersion_Type,I);
 
    return CandidateObj;
 }
@@ -300,7 +300,7 @@ static PyObject *PkgDepCacheMarkKeep(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache*>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -316,7 +316,7 @@ static PyObject *PkgDepCacheSetReInstall(PyObject *Self,PyObject *Args)
 
    PyObject *PackageObj;
    char value = 0;
-   if (PyArg_ParseTuple(Args,"O!b",&PackageType,&PackageObj, &value) == 0)
+   if (PyArg_ParseTuple(Args,"O!b",&PyPackage_Type,&PackageObj, &value) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -333,7 +333,7 @@ static PyObject *PkgDepCacheMarkDelete(PyObject *Self,PyObject *Args)
 
    PyObject *PackageObj;
    char purge = 0;
-   if (PyArg_ParseTuple(Args,"O!|b",&PackageType,&PackageObj, &purge) == 0)
+   if (PyArg_ParseTuple(Args,"O!|b",&PyPackage_Type,&PackageObj, &purge) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -351,7 +351,7 @@ static PyObject *PkgDepCacheMarkInstall(PyObject *Self,PyObject *Args)
    PyObject *PackageObj;
    char autoInst=1;
    char fromUser=1;
-   if (PyArg_ParseTuple(Args,"O!|bb",&PackageType,&PackageObj,
+   if (PyArg_ParseTuple(Args,"O!|bb",&PyPackage_Type,&PackageObj,
 			&autoInst, &fromUser) == 0)
       return 0;
 
@@ -370,7 +370,7 @@ static PyObject *PkgDepCacheMarkAuto(PyObject *Self,PyObject *Args)
 
    PyObject *PackageObj;
    char value = 0;
-   if (PyArg_ParseTuple(Args,"O!b",&PackageType,&PackageObj, &value) == 0)
+   if (PyArg_ParseTuple(Args,"O!b",&PyPackage_Type,&PackageObj, &value) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -386,7 +386,7 @@ static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -400,7 +400,7 @@ static PyObject *PkgDepCacheIsGarbage(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -414,7 +414,7 @@ static PyObject *PkgDepCacheIsAutoInstalled(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -428,7 +428,7 @@ static PyObject *PkgDepCacheIsNowBroken(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -442,7 +442,7 @@ static PyObject *PkgDepCacheIsInstBroken(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -457,7 +457,7 @@ static PyObject *PkgDepCacheMarkedInstall(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -472,7 +472,7 @@ static PyObject *PkgDepCacheMarkedUpgrade(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -486,7 +486,7 @@ static PyObject *PkgDepCacheMarkedDelete(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -500,7 +500,7 @@ static PyObject *PkgDepCacheMarkedKeep(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -514,7 +514,7 @@ static PyObject *PkgDepCacheMarkedDowngrade(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -528,7 +528,7 @@ static PyObject *PkgDepCacheMarkedReinstall(PyObject *Self,PyObject *Args)
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
 
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
 
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
@@ -656,7 +656,7 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
 {
    PyObject *Owner;
    static char *kwlist[] = {"cache", 0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgCacheType,
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyCache_Type,
                                    &Owner) == 0)
       return 0;
 
@@ -680,7 +680,7 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
 static char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
     "A DepCache() holds extra information on the state of the packages.\n\n"
     "The parameter *cache* refers to an apt_pkg.Cache() object.";
-PyTypeObject PkgDepCacheType =
+PyTypeObject PyDepCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.DepCache",                  // tp_name
@@ -730,7 +730,7 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
     PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetDepCache() is deprecated"
                  ". Please see apt_pkg.DepCache() for the replacement.",1);
-    return PkgDepCacheNew(&PkgDepCacheType,Args,0);
+    return PkgDepCacheNew(&PyDepCache_Type,Args,0);
 }
 #endif
 
@@ -745,7 +745,7 @@ static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObjec
 {
    PyObject *Owner;
    static char *kwlist[] = {"depcache",0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyDepCache_Type,
                                    &Owner) == 0)
       return 0;
 
@@ -765,7 +765,7 @@ PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args) {
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgProblemResolver() is"
                  " deprecated. Please see apt_pkg.ProblemResolver() for the "
                  "replacement.", 1);
-    return PkgProblemResolverNew(&PkgProblemResolverType,Args,0);
+    return PkgProblemResolverNew(&PyProblemResolver_Type,Args,0);
 }
 #endif
 
@@ -803,7 +803,7 @@ static PyObject *PkgProblemResolverProtect(PyObject *Self,PyObject *Args)
 {
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    fixer->Protect(Pkg);
@@ -815,7 +815,7 @@ static PyObject *PkgProblemResolverRemove(PyObject *Self,PyObject *Args)
 {
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    fixer->Remove(Pkg);
@@ -827,7 +827,7 @@ static PyObject *PkgProblemResolverClear(PyObject *Self,PyObject *Args)
 {
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    PyObject *PackageObj;
-   if (PyArg_ParseTuple(Args,"O!",&PackageType,&PackageObj) == 0)
+   if (PyArg_ParseTuple(Args,"O!",&PyPackage_Type,&PackageObj) == 0)
       return 0;
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    fixer->Clear(Pkg);
@@ -867,7 +867,7 @@ static PyMethodDef PkgProblemResolverMethods[] =
    {}
 };
 
-PyTypeObject PkgProblemResolverType =
+PyTypeObject PyProblemResolver_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ProblemResolver",                       // tp_name
@@ -953,7 +953,7 @@ static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *k
 {
    PyObject *Owner;
    static char *kwlist[] = {"depcache", 0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyDepCache_Type,
                                    &Owner) == 0)
       return 0;
 
@@ -983,7 +983,7 @@ static char *doc_PkgActionGroup = "ActionGroup(depcache)\n\n"
     "automatically released from the cache.";
 
 
-PyTypeObject PkgActionGroupType =
+PyTypeObject PyActionGroup_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ActionGroup",               // tp_name
@@ -1034,7 +1034,7 @@ PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgActionGroup() is "
                  "deprecated. Please see apt_pkg.ActionGroup() for the "
                  "replacement.", 1);
-    return PkgActionGroupNew(&PkgActionGroupType,Args,0);
+    return PkgActionGroupNew(&PyActionGroup_Type,Args,0);
 }
 #endif
 

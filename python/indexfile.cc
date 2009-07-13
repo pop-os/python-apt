@@ -88,7 +88,7 @@ static PyGetSetDef PackageIndexFileGetSet[] = {
     {}
 };
 
-PyTypeObject PackageIndexFileType =
+PyTypeObject PyPackageIndexFile_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageIndexFile",          // tp_name

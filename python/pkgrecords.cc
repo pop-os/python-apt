@@ -27,7 +27,7 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
 
    PyObject *PkgFObj;
    long int Index;
-   if (PyArg_ParseTuple(Args,"(O!l)",&PackageFileType,&PkgFObj,&Index) == 0)
+   if (PyArg_ParseTuple(Args,"(O!l)",&PyPackageFile_Type,&PkgFObj,&Index) == 0)
       return 0;
 
    // Get the index and check to make sure it is reasonable
@@ -153,7 +153,7 @@ static PyObject *PkgRecordsNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
    char *kwlist[] = {"cache",0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgCacheType,
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyCache_Type,
                                    &Owner) == 0)
       return 0;
 
@@ -161,7 +161,7 @@ static PyObject *PkgRecordsNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 							      GetCpp<pkgCache *>(Owner)));
 }
 
-PyTypeObject PkgRecordsType =
+PyTypeObject PyPackageRecords_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageRecords",                          // tp_name
@@ -215,6 +215,6 @@ PyObject *GetPkgRecords(PyObject *Self,PyObject *Args)
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgRecords() is "
                  "deprecated. Please see apt_pkg.Records() for the "
                  "replacement.", 1);
-    return PkgRecordsNew(&PkgRecordsType,Args,0);
+    return PkgRecordsNew(&PyPackageRecords_Type,Args,0);
 }
 #endif

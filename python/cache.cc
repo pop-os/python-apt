@@ -62,7 +62,7 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
    {
       PyObject *Obj;
       PyObject *Ver;
-      Ver = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+      Ver = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,
 							I.OwnerVer());
       Obj = Py_BuildValue("ssN",I.ParentPkg().Name(),I.ProvideVersion(),
 			  Ver);
@@ -150,7 +150,7 @@ static PyMethodDef PkgCacheMethods[] =
 
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PkgListType,Cache->PkgBegin());
+   return CppOwnedPyObject_NEW<PkgListStruct>(Self,&PyPackageList_Type,Cache->PkgBegin());
 }
 
 static PyObject *PkgCacheGetPackageCount(PyObject *Self, void*) {
@@ -188,7 +188,7 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
    for (pkgCache::PkgFileIterator I = Cache->FileBegin(); I.end() == false; I++)
    {
       PyObject *Obj;
-      Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PackageFileType,I);
+      Obj = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Self,&PyPackageFile_Type,I);
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
    }
@@ -238,7 +238,7 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
       return 0;
    }
 
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Self,&PackageType,Pkg);
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Self,&PyPackage_Type,Pkg);
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
@@ -279,7 +279,7 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    }
 
    CppOwnedPyObject<pkgCacheFile*> *CacheFileObj =
-	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PkgCacheFileType, Cache);
+	   CppOwnedPyObject_NEW<pkgCacheFile*>(0,&PyCacheFile_Type, Cache);
 
    CppOwnedPyObject<pkgCache *> *CacheObj =
 	   CppOwnedPyObject_NEW<pkgCache *>(CacheFileObj,type,
@@ -299,7 +299,7 @@ static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "If not specified, the progress is displayed in simple text form.";
 
 static PyMappingMethods CacheMap = {0,CacheMapOp,0};
-PyTypeObject PkgCacheType =
+PyTypeObject PyCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Cache",                     // tp_name
@@ -346,7 +346,7 @@ PyTypeObject PkgCacheType =
 									/*}}}*/
 // PkgCacheFile Class							/*{{{*/
 // ---------------------------------------------------------------------
-PyTypeObject PkgCacheFileType =
+PyTypeObject PyCacheFile_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "pkgCacheFile",                      // tp_name
@@ -404,7 +404,7 @@ static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
       }
    }
 
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(GetOwner<PkgListStruct>(iSelf),&PackageType,
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(GetOwner<PkgListStruct>(iSelf),&PyPackage_Type,
 						      Self.Iter);
 }
 
@@ -419,7 +419,7 @@ static PySequenceMethods PkgListSeq =
    0                 // assign slice
 };
 
-PyTypeObject PkgListType =
+PyTypeObject PyPackageList_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageList",               // tp_name
@@ -457,7 +457,7 @@ PyTypeObject PkgListType =
 MkGet(PackageGetName,PyString_FromString(Pkg.Name()));
 MkGet(PackageGetSection,Safe_FromString(Pkg.Section()));
 MkGet(PackageGetRevDependsList,CppOwnedPyObject_NEW<RDepListStruct>(Owner,
-                               &RDepListType, Pkg.RevDependsList()));
+                               &PyDependencyList_Type, Pkg.RevDependsList()));
 MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()));
 MkGet(PackageGetSelectedState,Py_BuildValue("i",Pkg->SelectedState));
 MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState));
@@ -479,7 +479,7 @@ static PyObject *PackageGetVersionList(PyObject *Self,void*)
    for (pkgCache::VerIterator I = Pkg.VersionList(); I.end() == false; I++)
    {
       PyObject *Obj;
-      Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,I);
+      Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,I);
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
    }
@@ -494,7 +494,7 @@ static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,
 							 Pkg.CurrentVer());
 }
 
@@ -541,7 +541,7 @@ static PyObject *PackageRepr(PyObject *Self)
    return PyString_FromString(S);
 }
 
-PyTypeObject PackageType =
+PyTypeObject PyPackage_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Package",                 // tp_name
@@ -599,7 +599,7 @@ static PyObject *DescriptionGetFileList(PyObject *Self,void*)
    {
       PyObject *DescFile;
       PyObject *Obj;
-      DescFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
+      DescFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PyPackageFile_Type,I.File());
       Obj = Py_BuildValue("Nl",DescFile,I.Index());
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
@@ -629,7 +629,7 @@ static PyObject *DescriptionRepr(PyObject *Self)
    return PyString_FromString(S);
 }
 
-PyTypeObject DescriptionType =
+PyTypeObject PyDescription_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Description",               // tp_name
@@ -711,7 +711,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       {
 	 PyObject *Obj;
 	 if (AsObj == true)
-	    Obj = CppOwnedPyObject_NEW<pkgCache::DepIterator>(Owner,&DependencyType,
+	    Obj = CppOwnedPyObject_NEW<pkgCache::DepIterator>(Owner,&PyDependency_Type,
 							 Start);
 	 else
 	 {
@@ -763,7 +763,7 @@ static PyObject *VersionGetFileList(PyObject *Self, void*) {
    {
       PyObject *PkgFile;
       PyObject *Obj;
-      PkgFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PackageFileType,I.File());
+      PkgFile = CppOwnedPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PyPackageFile_Type,I.File());
       Obj = Py_BuildValue("Nl",PkgFile,I.Index());
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
@@ -783,7 +783,7 @@ static PyObject *VersionGetDependsList(PyObject *Self, void*) {
 }
 static PyObject *VersionGetParentPkg(PyObject *Self, void*) {
    PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,
                                                       Version_GetVer(Self).ParentPkg());
 }
 static PyObject *VersionGetProvidesList(PyObject *Self, void*) {
@@ -815,7 +815,7 @@ static PyObject *VersionGetTranslatedDescription(PyObject *Self, void*) {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::VerIterator>(Self);
    return CppOwnedPyObject_NEW<pkgCache::DescIterator>(Owner,
-                    &DescriptionType,
+                    &PyDescription_Type,
                     Ver.TranslatedDescription());
 }
 
@@ -889,7 +889,7 @@ static PyGetSetDef VersionGetSet[] = {
    {}
 };
 
-PyTypeObject VersionType =
+PyTypeObject PyVersion_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Version",                   // tp_name
@@ -1051,7 +1051,7 @@ static PyGetSetDef PackageFileGetSet[] = {
   {}
 };
 
-PyTypeObject PackageFileType = {
+PyTypeObject PyPackageFile_Type = {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageFile",                                // tp_name
    sizeof(CppOwnedPyObject<pkgCache::PkgFileIterator>),  // tp_basicsize
@@ -1113,7 +1113,7 @@ static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)
       return Py_None;
    }
 
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,P);
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,P);
 }
 
 static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
@@ -1129,7 +1129,7 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
    for (pkgCache::Version **I = Vers; *I != 0; I++)
    {
       PyObject *Obj;
-      Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+      Obj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,
 							pkgCache::VerIterator(*Dep.Cache(),*I));
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
@@ -1163,7 +1163,7 @@ static PyObject *DependencyGetTargetPkg(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,
                                                       Dep.TargetPkg());
 }
 
@@ -1171,7 +1171,7 @@ static PyObject *DependencyGetParentVer(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&VersionType,
+   return CppOwnedPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,
                                                       Dep.ParentVer());
 }
 
@@ -1179,7 +1179,7 @@ static PyObject *DependencyGetParentPkg(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PackageType,
+   return CppOwnedPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,
                                                       Dep.ParentPkg());
 }
 
@@ -1222,7 +1222,7 @@ static PyGetSetDef DependencyGetSet[] = {
 };
 
 
-PyTypeObject DependencyType =
+PyTypeObject PyDependency_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Dependency",                // tp_name
@@ -1293,7 +1293,7 @@ static PyObject *RDepListItem(PyObject *iSelf,Py_ssize_t Index)
    }
 
    return CppOwnedPyObject_NEW<pkgCache::DepIterator>(GetOwner<RDepListStruct>(iSelf),
-						      &DependencyType,Self.Iter);
+						      &PyDependency_Type,Self.Iter);
 }
 
 static PySequenceMethods RDepListSeq =
@@ -1307,7 +1307,7 @@ static PySequenceMethods RDepListSeq =
    0                 // assign slice
 };
 
-PyTypeObject RDepListType =
+PyTypeObject PyDependencyList_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.DependencyList",             // tp_name
@@ -1343,6 +1343,6 @@ PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCache() is deprecated. "
                  "Please see apt_pkg.Cache() for the replacement.", 1);
-    return PkgCacheNew(&PkgCacheType,Args,0);
+    return PkgCacheNew(&PyCache_Type,Args,0);
 }
 #endif

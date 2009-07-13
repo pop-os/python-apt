@@ -24,7 +24,7 @@ static PyObject *PkgManagerNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
    char *kwlist[] = {"depcache",0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PkgDepCacheType,
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyDepCache_Type,
                                    &Owner) == 0)
       return 0;
 
@@ -42,7 +42,7 @@ PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPackageManager() is "
                  "deprecated. Please see apt_pkg.PackageManager() for the "
                  "replacement.", 1);
-    return PkgManagerNew(&PkgManagerType,Args,0);
+    return PkgManagerNew(&PyPackageManager_Type,Args,0);
 }
 #endif
 
@@ -53,9 +53,9 @@ static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
    PyObject *fetcher, *list, *recs;
 
    if (PyArg_ParseTuple(Args, "O!O!O!",
-			&PkgAcquireType,&fetcher,
-			&PkgSourceListType, &list,
-			&PkgRecordsType, &recs) == 0)
+			&PyAcquire_Type,&fetcher,
+			&PySourceList_Type, &list,
+			&PyPackageRecords_Type, &recs) == 0)
       return 0;
 
    pkgAcquire *s_fetcher = GetCpp<pkgAcquire*>(fetcher);
@@ -131,7 +131,7 @@ static PyGetSetDef PkgManagerGetSet[] = {
     {}
 };
 
-PyTypeObject PkgManagerType =
+PyTypeObject PyPackageManager_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageManager",           // tp_name

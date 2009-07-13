@@ -140,7 +140,7 @@ static void AcquireItemDealloc(PyObject *self) {
 
 
 
-PyTypeObject AcquireItemType =
+PyTypeObject PyAcquireItem_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.AcquireItem",         // tp_name
@@ -238,7 +238,7 @@ static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
         I != fetcher->ItemsEnd(); I++)
    {
       PyAcquireItemObject *Obj;
-      Obj = CppOwnedPyObject_NEW<pkgAcquire::Item*>(Self,&AcquireItemType,*I);
+      Obj = CppOwnedPyObject_NEW<pkgAcquire::Item*>(Self,&PyAcquireItem_Type,*I);
       Obj->NoDelete = true;
       PyList_Append(List,Obj);
       ((PyAcquireObject *)Self)->items.push_back(Obj);
@@ -305,7 +305,7 @@ static char *doc_PkgAcquire = "Acquire(progress) -> Acquire() object.\n\n"
     "specify a apt.progress.FetchProgress() object, which will display the\n"
     "progress of the fetching.";
 
-PyTypeObject PkgAcquireType =
+PyTypeObject PyAcquire_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Acquire",                   // tp_name
@@ -354,7 +354,7 @@ PyObject *GetAcquire(PyObject *Self,PyObject *Args)
 {
     PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetAcquire() is deprecated."
                  " Please see apt_pkg.Acquire() for the replacement.", 1);
-    return PkgAcquireNew(&PkgAcquireType,Args,0);
+    return PkgAcquireNew(&PyAcquire_Type,Args,0);
 }
 #endif
 
@@ -369,7 +369,7 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
                       "destdir", "destfile", NULL};
 
    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
-				   &PkgAcquireType, &pyfetcher, &uri, &md5,
+				   &PyAcquire_Type, &pyfetcher, &uri, &md5,
 				   &size, &descr, &shortDescr, &destDir, &destFile) == 0)
       return 0;
 
@@ -397,7 +397,7 @@ static char *doc_PkgAcquireFile =
     "The parameter *owner* refers to an apt_pkg.Acquire() object. You can use\n"
     "*destdir* OR *destfile* to specify the destination directory/file.";
 
-PyTypeObject PkgAcquireFileType =
+PyTypeObject PyAcquireFile_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.AcquireFile",                // tp_name
@@ -432,7 +432,7 @@ PyTypeObject PkgAcquireFileType =
    0,                                   // tp_methods
    0,                                   // tp_members
    0,                   // tp_getset
-   &AcquireItemType,                    // tp_base
+   &PyAcquireItem_Type,                    // tp_base
    0,                                   // tp_dict
    0,                                   // tp_descr_get
    0,                                   // tp_descr_set
@@ -459,7 +459,7 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
                       "destDir", "destFile", NULL};
 
    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
-				   &PkgAcquireType, &pyfetcher, &uri, &md5,
+				   &PyAcquire_Type, &pyfetcher, &uri, &md5,
 				   &size, &descr, &shortDescr, &destDir, &destFile) == 0)
       return 0;
 
@@ -472,7 +472,7 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
 				   shortDescr,
 				   destDir,
 				   destFile); // short-desc
-   CppPyObject<pkgAcqFile*> *AcqFileObj =   CppPyObject_NEW<pkgAcqFile*>(&PkgAcquireFileType);
+   CppPyObject<pkgAcqFile*> *AcqFileObj =   CppPyObject_NEW<pkgAcqFile*>(&PyAcquireFile_Type);
    AcqFileObj->Object = af;
    AcqFileObj->NoDelete = true;
 

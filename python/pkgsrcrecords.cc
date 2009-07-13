@@ -124,7 +124,7 @@ static PyObject *PkgSrcRecordsGetIndex(PyObject *Self,void*) {
       return 0;
    const pkgIndexFile &tmp = Struct.Last->Index();
    CppOwnedPyObject<pkgIndexFile*> *PyObj;
-   PyObj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PackageIndexFileType,
+   PyObj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PyPackageIndexFile_Type,
                                               (pkgIndexFile*)&tmp);
    // Do not delete the pkgIndexFile*, it is managed by PkgSrcRecords::Parser.
    PyObj->NoDelete=true;
@@ -255,7 +255,7 @@ static PyObject *PkgSrcRecordsNew(PyTypeObject *type,PyObject *args,PyObject *kw
    return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(type));
 }
 
-PyTypeObject PkgSrcRecordsType =
+PyTypeObject PySourceRecords_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.SourceRecords",     // tp_name
@@ -310,6 +310,6 @@ PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PkgSrcRecordsType));
+   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PySourceRecords_Type));
 }
 #endif

@@ -36,7 +36,7 @@ static PyObject *newConfiguration(PyObject *self,PyObject *args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.newConfiguration() is "
                 "deprecated. Use apt_pkg.Configuration() instead.", 1);
-   return CppPyObject_NEW<Configuration>(&ConfigurationType);
+   return CppPyObject_NEW<Configuration>(&PyConfiguration_Type);
 }
 #endif
 									/*}}}*/
@@ -556,9 +556,9 @@ extern "C" void initapt_pkg()
 #endif
 {
    // Finalize our types to add slots, etc.
-   if (PyType_Ready(&ConfigurationPtrType) == -1) INIT_ERROR;
-   if (PyType_Ready(&ConfigurationSubType) == -1) INIT_ERROR;
-   if (PyType_Ready(&PkgCacheFileType) == -1) INIT_ERROR;
+   if (PyType_Ready(&PyConfigurationPtr_Type) == -1) INIT_ERROR;
+   if (PyType_Ready(&PyConfigurationSub_Type) == -1) INIT_ERROR;
+   if (PyType_Ready(&PyCacheFile_Type) == -1) INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
@@ -568,7 +568,7 @@ extern "C" void initapt_pkg()
    #endif
 
    // Global variable linked to the global configuration class
-   CppPyObject<Configuration *> *Config = CppPyObject_NEW<Configuration *>(&ConfigurationPtrType);
+   CppPyObject<Configuration *> *Config = CppPyObject_NEW<Configuration *>(&PyConfigurationPtr_Type);
    Config->Object = _config;
    PyModule_AddObject(Module,"config",Config);
    #ifdef COMPAT_0_7
@@ -578,43 +578,43 @@ extern "C" void initapt_pkg()
 
    // Add our classes.
    /* ============================ tag.cc ============================ */
-   ADDTYPE(Module,"TagSection",&TagSecType);
-   ADDTYPE(Module,"TagFile",&TagFileType);
+   ADDTYPE(Module,"TagSection",&PyTagSection_Type);
+   ADDTYPE(Module,"TagFile",&PyTagFile_Type);
    /* ============================ acquire.cc ============================ */
-   ADDTYPE(Module,"Acquire",&PkgAcquireType);
-   ADDTYPE(Module,"AcquireFile",&PkgAcquireFileType);
-   ADDTYPE(Module,"AcquireItem",&AcquireItemType); // NO __new__()
+   ADDTYPE(Module,"Acquire",&PyAcquire_Type);
+   ADDTYPE(Module,"AcquireFile",&PyAcquireFile_Type);
+   ADDTYPE(Module,"AcquireItem",&PyAcquireItem_Type); // NO __new__()
    /* ============================ cache.cc ============================ */
-   ADDTYPE(Module,"Cache",&PkgCacheType);
-   ADDTYPE(Module,"Dependency",&DependencyType); // NO __new__()
-   ADDTYPE(Module,"Description",&DescriptionType); // NO __new__()
-   ADDTYPE(Module,"PackageFile",&PackageFileType); // NO __new__()
-   ADDTYPE(Module,"PackageList",&PkgListType);  // NO __new__(), internal
-   ADDTYPE(Module,"DependencyList",&RDepListType); // NO __new__(), internal
-   ADDTYPE(Module,"Package",&PackageType); // NO __new__()
-   ADDTYPE(Module,"Version",&VersionType); // NO __new__()
+   ADDTYPE(Module,"Cache",&PyCache_Type);
+   ADDTYPE(Module,"Dependency",&PyDependency_Type); // NO __new__()
+   ADDTYPE(Module,"Description",&PyDescription_Type); // NO __new__()
+   ADDTYPE(Module,"PackageFile",&PyPackageFile_Type); // NO __new__()
+   ADDTYPE(Module,"PackageList",&PyPackageList_Type);  // NO __new__(), internal
+   ADDTYPE(Module,"DependencyList",&PyDependencyList_Type); // NO __new__(), internal
+   ADDTYPE(Module,"Package",&PyPackage_Type); // NO __new__()
+   ADDTYPE(Module,"Version",&PyVersion_Type); // NO __new__()
    /* ============================ cdrom.cc ============================ */
-   ADDTYPE(Module,"Cdrom",&PkgCdromType);
+   ADDTYPE(Module,"Cdrom",&PyCdrom_Type);
    /* ========================= configuration.cc ========================= */
-   ADDTYPE(Module,"Configuration",&ConfigurationType);
-   //ADDTYPE(Module,"ConfigurationSub",&ConfigurationSubType); // NO __new__()
-   //ADDTYPE(Module,"ConfigurationPtr",&ConfigurationPtrType); // NO __new__()
+   ADDTYPE(Module,"Configuration",&PyConfiguration_Type);
+   //ADDTYPE(Module,"ConfigurationSub",&PyConfigurationSub_Type); // NO __new__()
+   //ADDTYPE(Module,"ConfigurationPtr",&PyConfigurationPtr_Type); // NO __new__()
    /* ========================= depcache.cc ========================= */
-   ADDTYPE(Module,"ActionGroup",&PkgActionGroupType);
-   ADDTYPE(Module,"DepCache",&PkgDepCacheType);
-   ADDTYPE(Module,"ProblemResolver",&PkgProblemResolverType);
+   ADDTYPE(Module,"ActionGroup",&PyActionGroup_Type);
+   ADDTYPE(Module,"DepCache",&PyDepCache_Type);
+   ADDTYPE(Module,"ProblemResolver",&PyProblemResolver_Type);
    /* ========================= indexfile.cc ========================= */
-   ADDTYPE(Module,"PackageIndexFile",&PackageIndexFileType); // NO __new__()
+   ADDTYPE(Module,"PackageIndexFile",&PyPackageIndexFile_Type); // NO __new__()
    /* ========================= metaindex.cc ========================= */
-   ADDTYPE(Module,"MetaIndex",&MetaIndexType); // NO __new__()
+   ADDTYPE(Module,"MetaIndex",&PyMetaIndex_Type); // NO __new__()
    /* ========================= pkgmanager.cc ========================= */
-   ADDTYPE(Module,"PackageManager",&PkgManagerType);
+   ADDTYPE(Module,"PackageManager",&PyPackageManager_Type);
    /* ========================= pkgrecords.cc ========================= */
-   ADDTYPE(Module,"PackageRecords",&PkgRecordsType);
+   ADDTYPE(Module,"PackageRecords",&PyPackageRecords_Type);
    /* ========================= pkgsrcrecords.cc ========================= */
-   ADDTYPE(Module,"SourceRecords",&PkgSrcRecordsType);
+   ADDTYPE(Module,"SourceRecords",&PySourceRecords_Type);
    /* ========================= sourcelist.cc ========================= */
-   ADDTYPE(Module,"SourceList",&PkgSourceListType);
+   ADDTYPE(Module,"SourceList",&PySourceList_Type);
    ADDTYPE(Module,"IndexRecords",&PyIndexRecords_Type);
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);

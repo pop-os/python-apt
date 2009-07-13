@@ -77,7 +77,7 @@ static PyObject *PkgCdromNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 }
 
 
-PyTypeObject PkgCdromType =
+PyTypeObject PyCdrom_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Cdrom",                     // tp_name
@@ -126,7 +126,7 @@ PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
                  "Please see apt_pkg.Cdrom() for the replacement.", 1);
-   return PkgCdromNew(&PkgCdromType,Args,0);
+   return PkgCdromNew(&PyCdrom_Type,Args,0);
 }
 #endif
 
