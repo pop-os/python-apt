@@ -107,7 +107,8 @@ static char *doc_ParseDepends =
 "Match are returned.\n\n"
 "apt_pkg.Parse{,Src}Depends() are old forms which return >>,<< instead of >,<";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
-				  bool ParseArchFlags, bool debStyle=false)
+                                  bool ParseArchFlags, string name,
+                                  bool debStyle=false)
 {
    string Package;
    string Version;
@@ -117,7 +118,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    const char *Stop;
    int Len;
 
-   if (PyArg_ParseTuple(Args,"s#",&Start,&Len) == 0)
+   if (PyArg_ParseTuple(Args,("s#:" + name).c_str(),&Start,&Len) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);
@@ -161,20 +162,20 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 }
 static PyObject *ParseDepends(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self,Args,false);
+   return RealParseDepends(Self, Args, false, "parse_depends");
 }
 static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self,Args,true);
+   return RealParseDepends(Self, Args, true, "parse_src_depends");
 }
 #ifdef COMPAT_0_7
 static PyObject *ParseDepends_old(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self,Args,false, true);
+   return RealParseDepends(Self, Args, false, "ParseDepends", true);
 }
 static PyObject *ParseSrcDepends_old(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self,Args,true, true);
+   return RealParseDepends(Self, Args, true, "ParseSrcDepends", true);
 }
 #endif
 									/*}}}*/
