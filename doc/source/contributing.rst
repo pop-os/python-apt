@@ -27,6 +27,14 @@ submit them.
 
     VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
+**debian-experimental:** http://bzr.debian.org/apt/python-apt/debian-experimental
+
+    This is another official Debian branch of python-apt, for releases
+    targetted at Debian experimental. This branch may contain unstable code
+    and may thus not work correctly.
+
+    VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-experimental/changes
+
 **jak:** http://bzr.debian.org/users/jak/python-apt/jak
     This is Julian Andres Klode's (the documentation author's) branch. This
     is the place where cleanup and documentation updates happen. It is based
@@ -40,6 +48,8 @@ submit them.
 
     VCS-Browser: https://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
 
+
+.. highlightlang:: c
 
 C++ Coding style
 ----------------
@@ -185,7 +195,7 @@ Documentation Strings
 
     PyDoc_STRVAR(myfunction__doc__,
     "myfunction(name: str, value) -> bool\n\n"
-    Determine whether name and value make a valid pair.");
+    "Determine whether name and value make a valid pair.");
 
   The signature line should be formatted using the format for function
   annotations described in :PEP:`3107`, whereas the annotations shall reflect
@@ -224,8 +234,10 @@ deprecated as of Python 2.6.
 
 Submitting your patch
 ---------------------
-First of all, the patch you create should be based against the debian-sid
-branch of python-apt.
+First of all, the patch you create should be based against the most current
+branch of python-apt (debian-sid or debian-experimental). If it is a bugfix,
+you should probably use debian-sid. If you choose the wrong branch, we will
+ask you to rebase your patches against the correct one.
 
 Once you have made your change, check that it:
 
@@ -271,13 +283,11 @@ patch, you may need to *merge* the branch instead.
 Documentation updates
 ---------------------
 If you want to update the documentation, please follow the procedure as written
-above. But please CC: jak@debian.org in the bug report.
+above. You can send your content in plain text, but reStructuredText is the
+preferred format. I (Julian Andres Klode) will review your patch and include
+it.
 
-You can send your content in plain text, but reStructuredText is the preferred
-format. I (Julian Andres Klode) will review your patch and will forward them to
-Michael Vogt, for inclusion in his branch. On release, this will be merged into
-the debian-sid branch.
-
+.. highlightlang:: sh
 
 Example patch session
 ----------------------
