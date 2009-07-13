@@ -118,7 +118,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    const char *Stop;
    int Len;
 
-   if (PyArg_ParseTuple(Args,("s#:" + name).c_str(),&Start,&Len) == 0)
+   if (PyArg_ParseTuple(Args,(char *)("s#:" + name).c_str(),&Start,&Len) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);
