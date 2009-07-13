@@ -61,6 +61,7 @@ typedef int Py_ssize_t;
 // Compatibility for Python 2.5 and previous.
 #if (PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 5)
 #define PyBytes_Check PyString_Check
+#define PyBytes_AS_STRING PyString_AS_STRING
 #define PyBytes_AsString PyString_AsString
 #define PyBytes_AsStringAndSize PyString_AsStringAndSize
 #define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
@@ -78,7 +79,7 @@ static inline const char *PyUnicode_AsString(PyObject *op) {
     PyObject *bytes = PyUnicode_AsEncodedString(op,0,0);
     if (!bytes)
         return 0;
-    const char *result = PyBytes_AsString(bytes);
+    const char *result = PyBytes_AS_STRING(bytes);
     Py_DECREF(bytes);
     return result;
 }
