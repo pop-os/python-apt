@@ -260,7 +260,7 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 // ---------------------------------------------------------------------
 static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    char *Data;
-   static char *kwlist[] = {"text", 0};
+   char *kwlist[] = {"text", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"s",kwlist,&Data) == 0)
       return 0;
 
@@ -301,7 +301,7 @@ PyObject *ParseSection(PyObject *self,PyObject *Args)
 static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *File;
-   static char *kwlist[] = {"file", 0};
+   char *kwlist[] = {"file", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"O",kwlist,&File) == 0)
       return 0;
    int fileno = PyObject_AsFileDescriptor(File);

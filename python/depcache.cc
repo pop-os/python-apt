@@ -655,7 +655,7 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
 static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
-   static char *kwlist[] = {"cache", 0};
+   char *kwlist[] = {"cache", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyCache_Type,
                                    &Owner) == 0)
       return 0;
@@ -744,7 +744,7 @@ PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
-   static char *kwlist[] = {"depcache",0};
+   char *kwlist[] = {"depcache",0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyDepCache_Type,
                                    &Owner) == 0)
       return 0;
@@ -952,7 +952,7 @@ static PyMethodDef PkgActionGroupMethods[] =
 static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *Owner;
-   static char *kwlist[] = {"depcache", 0};
+   char *kwlist[] = {"depcache", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"O!",kwlist,&PyDepCache_Type,
                                    &Owner) == 0)
       return 0;

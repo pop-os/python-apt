@@ -66,7 +66,7 @@ static PyObject *PkgCdromNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    pkgCdrom *cdrom = new pkgCdrom();
 
-   static char *kwlist[] = {};
+   char *kwlist[] = {NULL};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"",kwlist) == 0)
       return 0;
 

@@ -492,7 +492,7 @@ static PyMethodDef CnfMethods[] =
 };
 
 static PyObject *CnfNew(PyTypeObject *type, PyObject *args, PyObject *kwds) {
-    static char *kwlist[] = {};
+    char *kwlist[] = {NULL};
     if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
         return 0;
     return CppPyObject_NEW<Configuration>(type);

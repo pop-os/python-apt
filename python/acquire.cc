@@ -281,7 +281,7 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    pkgAcquire *fetcher;
 
    PyObject *pyFetchProgressInst = NULL;
-   static char *kwlist[] = {"progress", 0};
+   char *kwlist[] = {"progress", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"|O",kwlist,&pyFetchProgressInst) == 0)
       return 0;
 

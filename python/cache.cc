@@ -244,7 +244,7 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *pyCallbackInst = 0;
-   static char *kwlist[] = {"progress", 0};
+   char *kwlist[] = {"progress", 0};
    if (PyArg_ParseTupleAndKeywords	(Args, kwds, "|O", kwlist, &pyCallbackInst) == 0)
       return 0;
 
