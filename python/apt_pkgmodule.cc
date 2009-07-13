@@ -167,6 +167,7 @@ static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
 {
    return RealParseDepends(Self,Args,true);
 }
+#ifdef COMPAT_0_7
 static PyObject *ParseDepends_old(PyObject *Self,PyObject *Args)
 {
    return RealParseDepends(Self,Args,false, true);
@@ -175,6 +176,7 @@ static PyObject *ParseSrcDepends_old(PyObject *Self,PyObject *Args)
 {
    return RealParseDepends(Self,Args,true, true);
 }
+#endif
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
 // ---------------------------------------------------------------------
