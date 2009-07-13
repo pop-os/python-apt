@@ -55,8 +55,8 @@ static int hashes_init(PyObject *self, PyObject *args, PyObject *kwds)
         }
     }
     else {
-        PyErr_SetString(PyExc_TypeError, "__init__() only understand strings"
-                                        " and files");
+        PyErr_SetString(PyExc_TypeError,
+                        "__init__() only understand strings and files");
         return -1;
     }
     return 0;
