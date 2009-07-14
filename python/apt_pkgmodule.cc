@@ -527,8 +527,7 @@ extern "C" void initapt_pkg()
 #endif
 {
    // Finalize our types to add slots, etc.
-   if (PyType_Ready(&PyConfigurationPtr_Type) == -1) INIT_ERROR;
-   if (PyType_Ready(&PyConfigurationSub_Type) == -1) INIT_ERROR;
+   if (PyType_Ready(&PyConfiguration_Type) == -1) INIT_ERROR;
    if (PyType_Ready(&PyCacheFile_Type) == -1) INIT_ERROR;
 
    // Initialize the module
@@ -539,8 +538,10 @@ extern "C" void initapt_pkg()
    #endif
 
    // Global variable linked to the global configuration class
-   CppPyObject<Configuration *> *Config = CppPyObject_NEW<Configuration *>(&PyConfigurationPtr_Type);
+   CppOwnedPyObject<Configuration*> *Config = CppOwnedPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type);
    Config->Object = _config;
+   // Global configuration, should never be deleted.
+   Config->NoDelete = true;
    PyModule_AddObject(Module,"config",Config);
    #ifdef COMPAT_0_7
    Py_INCREF(Config);
@@ -568,8 +569,6 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"Cdrom",&PyCdrom_Type);
    /* ========================= configuration.cc ========================= */
    ADDTYPE(Module,"Configuration",&PyConfiguration_Type);
-   //ADDTYPE(Module,"ConfigurationSub",&PyConfigurationSub_Type); // NO __new__()
-   //ADDTYPE(Module,"ConfigurationPtr",&PyConfigurationPtr_Type); // NO __new__()
    /* ========================= depcache.cc ========================= */
    ADDTYPE(Module,"ActionGroup",&PyActionGroup_Type);
    ADDTYPE(Module,"DepCache",&PyDepCache_Type);

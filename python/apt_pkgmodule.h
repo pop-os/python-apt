@@ -14,12 +14,8 @@
 #include <apt-pkg/hashes.h>
 
 // Configuration Stuff
-#define Configuration_Check(op) ((op)->ob_type == &PyConfiguration_Type || \
-                                 (op)->ob_type == &PyConfigurationPtr_Type || \
-                                 (op)->ob_type == &PyConfigurationSub_Type)
+#define Configuration_Check(op) ((op)->ob_type == &PyConfiguration_Type)
 extern PyTypeObject PyConfiguration_Type;
-extern PyTypeObject PyConfigurationPtr_Type;
-extern PyTypeObject PyConfigurationSub_Type;
 extern PyTypeObject PyVersion_Type;
 
 extern char *doc_LoadConfig;

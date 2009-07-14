@@ -5,11 +5,8 @@
 
    Configuration - Binding for the configuration object.
 
-   There are three seperate classes..
-     Configuration - A stand alone configuration instance
-     ConfigurationPtr - A pointer to a configuration instance, used only
-                        for the global instance (_config)
-     ConfigurationSub - A subtree - has a reference to its owner.
+   The Configuration object can have an owner (a parent Configuration object),
+   and it always uses a pointer.
 
    The wrapping is mostly 1:1 with the C++ code, but there are additions to
    wrap the linked tree walking into nice flat sequence walking.
@@ -25,33 +22,13 @@
 
 #include <Python.h>
 									/*}}}*/
-/* If we create a sub tree then it is of this type, the Owner is used
-   to manage reference counting. */
-struct SubConfiguration : public CppPyObject<Configuration>
-{
-   PyObject *Owner;
-};
-
-									/*}}}*/
-// CnfSubFree - Free a sub configuration				/*{{{*/
-// ---------------------------------------------------------------------
-/* */
-void CnfSubFree(PyObject *Obj)
-{
-   SubConfiguration *Self = (SubConfiguration *)Obj;
-   Py_DECREF(Self->Owner);
-   CppDealloc<Configuration>(Obj);
-}
-									/*}}}*/
 
 // GetSelf - Convert PyObject to Configuration				/*{{{*/
 // ---------------------------------------------------------------------
 /* */
 static inline Configuration &GetSelf(PyObject *Obj)
 {
-   if (Obj->ob_type == &PyConfigurationPtr_Type)
-      return *GetCpp<Configuration *>(Obj);
-   return GetCpp<Configuration>(Obj);
+   return *GetCpp<Configuration*>(Obj);
 }
 									/*}}}*/
 
@@ -160,13 +137,8 @@ static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
       return 0;
    }
 
-   // Create a new sub configuration.
-   SubConfiguration *New = (SubConfiguration*)(&PyConfigurationSub_Type)
-                           ->tp_alloc(&PyConfigurationSub_Type,0);
-   new (&New->Object) Configuration(Itm);
-   New->Owner = Self;
-   Py_INCREF(Self);
-   return New;
+   return CppOwnedPyObject_NEW<Configuration*>(Self,&PyConfiguration_Type,
+                                               new Configuration(Itm));
 }
 
 // Return a list of items at a specific level
@@ -495,7 +467,7 @@ static PyObject *CnfNew(PyTypeObject *type, PyObject *args, PyObject *kwds) {
     char *kwlist[] = {NULL};
     if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
         return 0;
-    return CppPyObject_NEW<Configuration>(type);
+    return CppOwnedPyObject_NEW<Configuration*>(NULL, type, new Configuration());
 }
 
 // Type for a Normal Configuration object
@@ -505,10 +477,10 @@ PyTypeObject PyConfiguration_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Configuration",             // tp_name
-   sizeof(CppPyObject<Configuration>),  // tp_basicsize
+   sizeof(CppOwnedPyObject<Configuration*>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppDealloc<Configuration>,           // tp_dealloc
+   CppOwnedDeallocPtr<Configuration*>,  // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -543,77 +515,5 @@ PyTypeObject PyConfiguration_Type =
    0,                                   // tp_init
    0,                                   // tp_alloc
    CnfNew,                              // tp_new
-};
-
-PyTypeObject PyConfigurationPtr_Type =
-{
-   PyVarObject_HEAD_INIT(&PyType_Type, 0)
-   "apt_pkg.ConfigurationPtr",          // tp_name
-   sizeof(CppPyObject<Configuration *>),  // tp_basicsize
-   0,                                   // tp_itemsize
-   // Methods
-   (destructor)PyObject_Free,              // tp_dealloc
-   0,                                   // tp_print
-   0,                                   // tp_getattr
-   0,                                   // tp_setattr
-   0,                                   // tp_compare
-   0,                                   // tp_repr
-   0,                                   // tp_as_number
-   &ConfigurationSeq,                   // tp_as_sequence
-   &ConfigurationMap,                   // tp_as_mapping
-   0,                                   // tp_hash
-   0,                                   // tp_call
-   0,                                   // tp_str
-   0,                                   // tp_getattro
-   0,                                   // tp_setattro
-   0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
-   "ConfigurationPtr Object",           // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
-   0,                                   // tp_richcompare
-   0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter
-   0,                                   // tp_iternext
-   CnfMethods,                          // tp_methods
-   0,                                   // tp_members
-   0,                                   // tp_getset
-   &PyConfiguration_Type,                  // tp_base
-};
-
-PyTypeObject PyConfigurationSub_Type =
-{
-   PyVarObject_HEAD_INIT(&PyType_Type, 0)
-   "apt_pkg.ConfigurationSub",     // tp_name
-   sizeof(SubConfiguration),            // tp_basicsize
-   0,                                   // tp_itemsize
-   // Methods
-   CnfSubFree,		                // tp_dealloc
-   0,                                   // tp_print
-   0,                                   // tp_getattr
-   0,                                   // tp_setattr
-   0,                                   // tp_compare
-   0,                                   // tp_repr
-   0,                                   // tp_as_number
-   &ConfigurationSeq,                   // tp_as_sequence
-   &ConfigurationMap,                   // tp_as_mapping
-   0,                                   // tp_hash
-   0,                                   // tp_call
-   0,                                   // tp_str
-   0,                                   // tp_getattro
-   0,                                   // tp_setattro
-   0,                                   // tp_as_buffer
-   Py_TPFLAGS_DEFAULT,                  // tp_flags
-   "ConfigurationSub Object",           // tp_doc
-   0,                                   // tp_traverse
-   0,                                   // tp_clear
-   0,                                   // tp_richcompare
-   0,                                   // tp_weaklistoffset
-   0,                                   // tp_iter
-   0,                                   // tp_iternext
-   CnfMethods,                          // tp_methods
-   0,                                   // tp_members
-   0,                                   // tp_getset
-   &PyConfiguration_Type,                  // tp_base
 };
 
