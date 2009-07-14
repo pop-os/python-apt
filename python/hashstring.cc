@@ -25,8 +25,8 @@
 static PyObject *HashString_NEW(PyTypeObject *type,PyObject *Args,
                                 PyObject *kwds)
 {
-    const char *Hash;
-    const char *Type;
+    char *Type = NULL;
+    char *Hash = NULL;
     char *kwlist[] = {"type", "hash",  NULL};
     if (PyArg_ParseTupleAndKeywords(Args, kwds, "s|s", kwlist, &Type,
                                     &Hash) == 0)
