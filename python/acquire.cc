@@ -112,6 +112,12 @@ static PyObject *AcquireItemRepr(PyObject *Self)
 static void AcquireItemDealloc(PyObject *self) {
    pkgAcquire::Item *file = GetCpp<pkgAcquire::Item*>(self);
    PyAcquireObject *owner = (PyAcquireObject *)GetOwner<pkgAcquire::Item*>(self);
+
+   // Simply deallocate the object if we have no owner. 
+   if (owner == NULL) {
+       CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
+       return;
+   }
    vector<PyAcquireItemObject *> &items = owner->items;
    bool DeletePtr = !((CppPyObject<pkgAcquire::Item*> *)self)->NoDelete; 
 
