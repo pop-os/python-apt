@@ -39,10 +39,9 @@ struct TagSecData : public CppOwnedPyObject<pkgTagSection>
    char *Data;
 };
 
-struct TagFileData : public PyObject
+// The owner of the TagFile is a Python file object.
+struct TagFileData : public CppOwnedPyObject<pkgTagFile>
 {
-   pkgTagFile Object;
-   PyObject *File;
    TagSecData *Section;
    FileFd Fd;
 };
@@ -50,11 +49,13 @@ struct TagFileData : public PyObject
 // Traversal and Clean for owned objects
 int TagFileTraverse(PyObject *self, visitproc visit, void* arg) {
     Py_VISIT(((TagFileData *)self)->Section);
+    Py_VISIT(((TagFileData *)self)->Owner);
     return 0;
 }
 
 int TagFileClear(PyObject *self) {
     Py_CLEAR(((TagFileData *)self)->Section);
+    Py_CLEAR(((TagFileData *)self)->Owner);
     return 0;
 }
 
@@ -79,10 +80,10 @@ void TagFileFree(PyObject *Obj)
    std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "^ ===\n";
    #endif
    TagFileData *Self = (TagFileData *)Obj;
-   TagFileClear(Obj);
+   Py_CLEAR(Self->Section);
    Self->Object.~pkgTagFile();
    Self->Fd.~FileFd();
-   Py_DECREF(Self->File);
+   Py_CLEAR(Self->Owner);
    Obj->ob_type->tp_free(Obj);
 }
 									/*}}}*/
@@ -310,8 +311,8 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    TagFileData *New = (TagFileData*)type->tp_alloc(type, 0);
    new (&New->Fd) FileFd(fileno,false);
-   New->File = File;
-   Py_INCREF(New->File);
+   New->Owner = File;
+   Py_INCREF(New->Owner);
    new (&New->Object) pkgTagFile(&New->Fd);
 
    // Create the section
