@@ -20,7 +20,7 @@ struct PyAcquireObject : public CppPyObject<pkgAcquire*> {
     vector<PyAcquireItemObject *> items;
 };
 
-inline pkgAcquire::Item *PyAcquireItem_ToCpp(PyObject *self) {
+inline pkgAcquire::Item *acquireitem_tocpp(PyObject *self) {
     pkgAcquire::Item *itm = GetCpp<pkgAcquire::Item*>(self);
     if (itm == 0)
         PyErr_SetString(PyExc_ValueError, "Acquire() has been shut down or "
@@ -30,7 +30,7 @@ inline pkgAcquire::Item *PyAcquireItem_ToCpp(PyObject *self) {
 
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
 { \
-    pkgAcquire::Item *Itm = PyAcquireItem_ToCpp(Self); \
+    pkgAcquire::Item *Itm = acquireitem_tocpp(Self); \
     if (Itm == 0) \
         return 0; \
     return Ret; \
@@ -94,7 +94,7 @@ static PyGetSetDef AcquireItemGetSet[] = {
 
 static PyObject *AcquireItemRepr(PyObject *Self)
 {
-   pkgAcquire::Item *Itm = PyAcquireItem_ToCpp(Self);
+   pkgAcquire::Item *Itm = acquireitem_tocpp(Self);
    if (Itm == 0)
       return 0;
    char S[300];
