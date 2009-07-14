@@ -176,7 +176,7 @@ inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
    CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    New->Owner = Owner;
-   Py_INCREF(Owner);
+   Py_XINCREF(Owner);
    return New;
 }
 
@@ -190,8 +190,7 @@ inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
    CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    New->Owner = Owner;
-   if (Owner != 0)
-      Py_INCREF(Owner);
+   Py_XINCREF(Owner);
    return New;
 }
 
