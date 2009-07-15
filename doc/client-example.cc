@@ -18,13 +18,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  */
+
 #include <python-apt/python-apt.h>
+#include <apt-pkg/hashes.h>
 
-int main(int argc, char *argv[]) {
-    Py_Initialize();
+// The module initialization.
+extern "C" void initclient() {
     if (import_apt_pkg() < 0)
-        return 1;
-
+        return;
     // Initialize a module.
     PyObject *Module = Py_InitModule("client", NULL);
 
@@ -36,11 +37,32 @@ int main(int argc, char *argv[]) {
     // Another example: Add the HashString type to the module.
     Py_INCREF(&PyHashString_Type);
     PyModule_AddObject(Module, "HashString", (PyObject*)(&PyHashString_Type));
+}
 
-    // Run IPython, adding the client module to the namespace.
+int main(int argc, char *argv[]) {
+    // Return value.
+    int ret = 0;
+    // Initialize python 
+    Py_Initialize();
+    // Make the client module importable
+    PyImport_AppendInittab("client", &initclient);
+    // Set the commandline arguments.
     PySys_SetArgv(argc, argv);
-    PyRun_SimpleString("from IPython.Shell import start\n");
-    PyRun_SimpleString("import client\n");
-    PyRun_SimpleString("start(user_ns=dict(client=client)).mainloop()\n");
+
+    // Import the module, so the user does not have to import it.
+    if (PyRun_SimpleString("import client\n") < 0) {
+        // Failure (should never be reached)
+        ret = 1;
+        goto end;
+    }
+
+    // Run IPython if available, otherwise a normal interpreter.
+    if (PyRun_SimpleString("from IPython.Shell import start\n") == 0)
+        PyRun_SimpleString("start(user_ns=dict(client=client)).mainloop()\n");
+    else
+        Py_Main(argc, argv);
+
+end:
     Py_Finalize();
+    return ret;
 }
