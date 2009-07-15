@@ -37,6 +37,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Unify all Configuration,ConfigurationPtr,ConfigurationSub into one type.
   * Upgrade to debhelper 7 and remove debian/tmp in python-apt.install, to
     work around a bug in debhelper.
+  * Build-Depend on python-all-dev (>= 2.5.4-3), so we build for Python 2.6
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
@@ -52,7 +53,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
 
- -- Julian Andres Klode <jak@debian.org>  Tue, 14 Jul 2009 20:42:03 +0200
+ -- Julian Andres Klode <jak@debian.org>  Wed, 15 Jul 2009 14:56:24 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
