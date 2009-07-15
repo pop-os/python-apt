@@ -31,7 +31,7 @@ if sys.version_info[0] == 3:
 
 # The apt_pkg module.
 files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
-         'configuration.c', 'depcache.cc', 'generic.cc', 'hashes.cc',
+         'configuration.cc', 'depcache.cc', 'generic.cc', 'hashes.cc',
          'hashstring.cc', 'indexfile.cc', 'indexrecords.cc', 'metaindex.cc',
          'pkgmanager.cc', 'pkgrecords.cc', 'pkgsrcrecords.cc', 'policy.cc',
          'progress.cc', 'sourcelist.cc', 'string.cc', 'tag.cc']
