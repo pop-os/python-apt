@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 16:33+0200\n"
+"POT-Creation-Date: 2009-07-15 15:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,7 +275,7 @@ msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 5.1 'Squeeze' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr ""
 
 #. Description
@@ -369,16 +369,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:304
+#: ../apt/package.py:306
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:939 ../apt/package.py:1043
+#: ../apt/package.py:941 ../apt/package.py:1047
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1047
+#: ../apt/package.py:1051
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -387,7 +387,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1053
+#: ../apt/package.py:1057
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
