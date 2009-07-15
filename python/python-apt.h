@@ -22,7 +22,6 @@
 #ifndef PYTHON_APT_H
 #define PYTHON_APT_H
 #include <Python.h>
-#include <apt-pkg/hashes.h>
 #include "generic.h"
 
 struct _PyAptPkgAPIStruct {
