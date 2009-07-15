@@ -17,6 +17,7 @@
 #include "generic.h"
 #include "apt_pkgmodule.h"
 
+#define TUPLEIZE(op) Py_BuildValue("(O)", op)
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 				      PyObject *arglist,
@@ -151,17 +152,26 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
-   UpdateStatus(Itm, DLHit);
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+       RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+   else
+       UpdateStatus(Itm, DLHit);
 }
 
 void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
-   UpdateStatus(Itm, DLQueued);
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+       RunSimpleCallback("fetch", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+   else
+       UpdateStatus(Itm, DLQueued);
 }
 
 void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
-   UpdateStatus(Itm, DLDone);
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+       RunSimpleCallback("done", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+   else
+       UpdateStatus(Itm, DLDone);
 }
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
@@ -175,13 +185,20 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
       UpdateStatus(Itm, DLIgnored);
    }
 
-   UpdateStatus(Itm, DLFailed);
+   
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+   else
+       UpdateStatus(Itm, DLFailed);
 }
 
 void PyFetchProgress::Start()
 {
    //std::cout << "Start" << std::endl;
    pkgAcquireStatus::Start();
+
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+      goto end;
 
    // These attributes should be initialized before the first callback (start)
    // is invoked.
@@ -198,12 +215,14 @@ void PyFetchProgress::Start()
    PyObject_SetAttrString(callbackInst, "currentItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("i", 0);
+   
    PyObject_SetAttrString(callbackInst, "totalItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("f", 0.0f);
    PyObject_SetAttrString(callbackInst, "totalBytes", o);
    Py_XDECREF(o);
 
+end:
    RunSimpleCallback("start");
 }
 
@@ -256,6 +275,17 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       PyObject_SetAttrString(callbackInst, "totalBytes", o);
    Py_XDECREF(o);
 
+   if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
+      PyObject *result1;
+      bool res1 = true;
+      if (RunSimpleCallback("pulse", TUPLEIZE(PyAcquire_FromCpp(Owner)), &result1)) {
+      if (result1 != NULL && PyArg_Parse(result1, "b", &res1) && res1 == false) {
+         // the user returned a explicit false here, stop
+         return false;
+      }
+     }
+     return true;
+   }
    // Go through the list of items and add active items to the
    // activeItems vector.
    map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
