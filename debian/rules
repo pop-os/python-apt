@@ -11,56 +11,29 @@ DEB_PYTHON_PACKAGES_EXCLUDE=python-apt-dbg
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
 
-PY3K_VERSIONS := $(shell find /usr/bin/python3.? | sed s/.*python//)
-2TO3_VERSION  := $(lastword $(PY3K_VERSIONS))
+# Add python3 versions to the list of python versions
+cdbs_python_build_versions += $(shell find /usr/bin/python3.? | sed s/.*python//)
 
-PKG=python-apt
+
 DEBVER=$(shell dpkg-parsechangelog |sed -n -e '/^Version:/s/^Version: //p')
 DEB_COMPRESS_EXCLUDE:=.html .js _static/* _sources/* _sources/*/* .inv
 DEB_PYTHON_INSTALL_ARGS_ALL=--no-compile --install-layout=deb 
-DEB_BUILD_PROG:=debuild --preserve-envvar PATH --preserve-envvar CCACHE_DIR -us -uc $(DEB_BUILD_PROG_OPTS)
 
 # Define COMPAT_0_7 to get all the deprecated interfaces.
 export CFLAGS+=-DCOMPAT_0_7 -Wno-write-strings
 export DEBVER
-
-build/python-apt::
-	set -e; for i in $(PY3K_VERSIONS); do \
-		python$$i setup3.py build; \
-	done
-
-install/python-apt::
-	set -e; for i in $(PY3K_VERSIONS); do \
-		python$$i ./setup3.py install --root $(CURDIR)/debian/python-apt \
-			--install-layout=deb --no-compile; \
-	done
-
-ifneq ($(PY3K_VERSIONS),)
-	find $(CURDIR)/debian/python-apt/usr/lib/python3*/dist-packages/ -name '*.py' \
-	 | xargs 2to3-$(2TO3_VERSION)| patch -p0
-endif
 
 build/python-apt-dbg::
 	set -e; \
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py build; \
 	done
-	set -e; for i in $(PY3K_VERSIONS); do \
-		python$$i-dbg setup3.py build; \
-	done
-
 
 install/python-apt-dbg::
 	for i in $(cdbs_python_build_versions); do \
 	  python$$i-dbg ./setup.py install --root $(CURDIR)/debian/python-apt-dbg \
-	                                   --no-compile; \
+	                                   $(DEB_PYTHON_INSTALL_ARGS_ALL); \
 	done
-
-	set -e; for i in $(PY3K_VERSIONS); do \
-		python$$i-dbg ./setup3.py install --root $(CURDIR)/debian/python-apt-dbg \
-		--install-layout=deb --no-compile; \
-	done
-
 	find debian/python-apt-dbg \
 		! -type d ! -name '*_d.so' | xargs rm -f
 	find debian/python-apt-dbg -depth -empty -exec rmdir {} \;
