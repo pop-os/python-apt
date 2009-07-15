@@ -502,6 +502,7 @@ static struct _PyAptPkgAPIStruct API = {
    &PyAcquire_Type,           // acquire_type
    &PyAcquireFile_Type,       // acquirefile_type
    &PyAcquireItem_Type,       // acquireitem_type
+   &PyAcquireItemDesc_Type,   // acquireitemdesc_type
    &PyActionGroup_Type,       // actiongroup_type
    &PyCache_Type,             // cache_type
    &PyCacheFile_Type,          // cachefile_type
@@ -623,6 +624,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
    ADDTYPE(Module,"OpProgress",&PyOpProgress_Type);
    ADDTYPE(Module,"AcquireProgress",&PyAcquireProgress_Type);
+   ADDTYPE(Module,"AcquireItemDesc",&PyAcquireItemDesc_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));
