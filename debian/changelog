@@ -3,6 +3,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141)
   * Add apt_pkg.Policy class (Closes: #382725)
+  * Provide a C++ API in the package python-apt-dev (Closes: #334923)
   * Allow types providing __new__() to be subclassed.
   * Bugfix: Delete pointers correctly, fixing memory leaks. (LP: #370149)
   * apt/package.py: Return VersionList objects in Package.versions, which

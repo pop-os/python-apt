@@ -498,6 +498,38 @@ static PyMethodDef methods[] =
    {}
 };
 
+static struct _PyAptPkgAPIStruct API = {
+   &PyAcquire_Type,           // acquire_type
+   &PyAcquireFile_Type,       // acquirefile_type
+   &PyAcquireItem_Type,       // acquireitem_type
+   &PyActionGroup_Type,       // actiongroup_type
+   &PyCache_Type,             // cache_type
+   &PyCacheFile_Type,          // cachefile_type
+   &PyCdrom_Type,             // cdrom_type
+   &PyConfiguration_Type,     // configuration_type
+   &PyDepCache_Type,          // depcache_type
+   &PyDependency_Type,        // dependency_type
+   &PyDependencyList_Type,    // dependencylist_type
+   &PyDescription_Type,       // description_type
+   &PyHashes_Type,            // hashes_type
+   &PyHashString_Type,        // hashstring_type
+   &PyIndexRecords_Type,      // indexrecords_type
+   &PyMetaIndex_Type,         // metaindex_type
+   &PyPackage_Type,           // package_type
+   &PyPackageFile_Type,       // packagefile_type
+   &PyPackageIndexFile_Type,  // packageindexfile_type
+   &PyPackageList_Type,       // packagelist_type
+   &PyPackageManager_Type,    // packagemanager_type
+   &PyPackageRecords_Type,    // packagerecords_type
+   &PyPolicy_Type,            // policy_type
+   &PyProblemResolver_Type,   // problemresolver_type
+   &PySourceList_Type,        // sourcelist_type
+   &PySourceRecords_Type,     // sourcerecords_type
+   &PyTagFile_Type,           // tagfile_type
+   &PyTagSection_Type,        // tagsection_type
+   &PyVersion_Type,           // version_type
+};
+
 
 #define ADDTYPE(mod,name,type) { \
     if (PyType_Ready(type) == -1) INIT_ERROR; \
@@ -596,6 +628,12 @@ extern "C" void initapt_pkg()
    PyModule_AddObject(Module,"REWRITE_SOURCE_ORDER",
                       CharCharToList(TFRewriteSourceOrder));
 
+#if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 1
+   PyObject *PyCapsule = PyCapsule_New(&API, "apt_pkg._C_API", NULL);
+#else
+   PyObject *PyCapsule = PyCObject_FromVoidPtr(&API, NULL);
+#endif
+   PyModule_AddObject(Module, "_C_API", PyCapsule);
    // Version..
    PyModule_AddStringConstant(Module,"VERSION",(char *)pkgVersion);
    PyModule_AddStringConstant(Module,"LIB_VERSION",(char *)pkgLibVersion);

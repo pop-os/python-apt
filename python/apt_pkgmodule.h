@@ -104,7 +104,6 @@ extern PyTypeObject PyPackageIndexFile_Type;
 extern PyTypeObject PyMetaIndex_Type;
 
 // HashString
-PyObject *PyHashString_FromCpp(HashString *obj);
 extern PyTypeObject PyHashString_Type;
 
 // IndexRecord
@@ -113,5 +112,6 @@ extern PyTypeObject PyIndexRecords_Type;
 // Policy
 extern PyTypeObject PyPolicy_Type;
 extern PyTypeObject PyHashes_Type;
-
+#include "python-apt.h"
 #endif
+

@@ -39,11 +39,6 @@ static PyObject *HashString_NEW(PyTypeObject *type,PyObject *Args,
     return PyObj;
 }
 
-PyObject *PyHashString_FromCpp(HashString *obj)
-{
-    return CppPyObject_NEW<HashString*>(&PyHashString_Type, obj);
-}
-
 static PyObject *HashString_Repr(PyObject *self)
 {
     HashString *hash = GetCpp<HashString*>(self);
