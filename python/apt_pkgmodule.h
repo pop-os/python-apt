@@ -112,6 +112,8 @@ extern PyTypeObject PyIndexRecords_Type;
 // Policy
 extern PyTypeObject PyPolicy_Type;
 extern PyTypeObject PyHashes_Type;
+extern PyTypeObject PyOpProgress_Type;
+extern PyTypeObject PyAcquireProgress_Type;
 #include "python-apt.h"
 #endif
 

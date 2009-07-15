@@ -15,6 +15,7 @@
 #include <apt-pkg/acquire-worker.h>
 #include "progress.h"
 #include "generic.h"
+#include "apt_pkgmodule.h"
 
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
@@ -75,11 +76,20 @@ void PyOpProgress::Update()
       PyObject_SetAttrString(callbackInst, "majorChange", o);
    Py_XDECREF(o);
 
+   
+    
    // Build up the argument list...
    if(CheckChange(0.05))
    {
-      PyObject *arglist = Py_BuildValue("(f)", Percent);
-      RunSimpleCallback("update", arglist);
+      if (PyObject_TypeCheck(callbackInst, &PyOpProgress_Type)) {
+         o = Py_BuildValue("f", Percent);
+         PyObject_SetAttrString(callbackInst, "percent", o);
+         RunSimpleCallback("update");
+         Py_XDECREF(o);
+      } else {
+         PyObject *arglist = Py_BuildValue("(f)", Percent);
+         RunSimpleCallback("update", arglist);
+     }
    }
 };
 

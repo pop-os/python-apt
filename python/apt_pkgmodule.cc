@@ -621,6 +621,8 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
+   ADDTYPE(Module,"OpProgress",&PyOpProgress_Type);
+   ADDTYPE(Module,"AcquireProgress",&PyAcquireProgress_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));

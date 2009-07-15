@@ -39,6 +39,9 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     work around a bug in debhelper.
   * Build-Depend on python-all-dev (>= 2.5.4-3), so we build for Python 2.6
   * Simplify the whole building, build all Python versions with setup.py
+  * Introduce new progress (base) classes in apt_pkg:
+    - apt_pkg.AcquireProgress
+    - apt_pkg.OpProgress
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
