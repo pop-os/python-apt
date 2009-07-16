@@ -23,7 +23,7 @@
 import glob
 
 import apt_pkg
-from apt.progress import CdromProgress
+from apt.progress.old import CdromProgress
 from apt.deprecation import AttributeDeprecatedBy
 
 

@@ -26,9 +26,8 @@ from apt.cache import Cache
 from apt.cdrom import Cdrom
 
 if apt_pkg._COMPAT_0_7:
-    from apt.progress import (OpProgress, FetchProgress, InstallProgress,
-                              CdromProgress)
-
+    from apt.progress.old import (OpProgress, FetchProgress, InstallProgress,
+                                  CdromProgress)
 
 if apt_pkg._COMPAT_0_7:
     from apt_pkg import (size_to_str as SizeToStr,

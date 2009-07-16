@@ -35,7 +35,7 @@ except ImportError:
     Sequence = Mapping = object
 
 import apt_pkg
-import apt.progress
+import apt.progress.text
 from apt.deprecation import (function_deprecated_by, AttributeDeprecatedBy,
                              deprecated_args)
 
@@ -442,9 +442,9 @@ class Version(object):
         The parameter *destdir* specifies the directory where the package will
         be fetched to.
 
-        The parameter *progress* may refer to an apt.progress.FetchProgress()
-        object. If not specified or None, apt.progress.TextFetchProgress() is
-        used.
+        The parameter *progress* may refer to an apt_pkg.AcquireProgress()
+        object. If not specified or None, apt.progress.text.AcquireProgress()
+        is used.
 
         .. versionadded:: 0.7.10
         """
@@ -453,7 +453,7 @@ class Version(object):
         if _file_is_same(destfile, self.size, self._records.md5_hash):
             print 'Ignoring already existing file:', destfile
             return
-        acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
+        acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
         acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,
                                       self.size, base, destfile=destfile)
         acq.run()
@@ -461,6 +461,7 @@ class Version(object):
         if acqfile.status != acqfile.stat_done:
             raise FetchError("The item %r could not be fetched: %s" %
                              (acqfile.destfile, acqfile.error_text))
+        print self._records.filename
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):
@@ -469,9 +470,9 @@ class Version(object):
         The parameter *destdir* specifies the directory where the source will
         be fetched to.
 
-        The parameter *progress* may refer to an apt.progress.FetchProgress()
-        object. If not specified or None, apt.progress.TextFetchProgress() is
-        used.
+        The parameter *progress* may refer to an apt_pkg.AcquireProgress()
+        object. If not specified or None, apt.progress.text.AcquireProgress()
+        is used.
 
         The parameter *unpack* describes whether the source should be unpacked
         (``True``) or not (``False``). By default, it is unpacked.
@@ -480,7 +481,7 @@ class Version(object):
         returned. Otherwise, the path to the .dsc file is returned.
         """
         src = apt_pkg.SourceRecords()
-        acq = apt_pkg.Acquire(progress or apt.progress.TextFetchProgress())
+        acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
 
         dsc = None
         src.lookup(self.package.name)
@@ -1152,11 +1153,11 @@ class Package(object):
     def commit(self, fprogress, iprogress):
         """Commit the changes.
 
-        The parameter *fprogress* refers to a FetchProgress() object, as
-        found in apt.progress.
+        The parameter *fprogress* refers to a apt_pkg.AcquireProgress() object,
+        like apt.progress.text.AcquireProgress().
 
         The parameter *iprogress* refers to an InstallProgress() object, as
-        found in apt.progress.
+        found in apt.progress.old.
         """
         self._pcache._depcache.commit(fprogress, iprogress)
 
@@ -1207,7 +1208,7 @@ def _test():
     print "Self-test for the Package modul"
     import random
     apt_pkg.init()
-    progress = apt.progress.OpTextProgress()
+    progress = apt.progress.text.OpProgress()
     cache = apt.Cache(progress)
     pkg = cache["apt-utils"]
     print "Name: %s " % pkg.name
