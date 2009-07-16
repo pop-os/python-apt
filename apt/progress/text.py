@@ -29,15 +29,15 @@ class TextProgress(object):
         self._file = outfile or sys.stdout
         self._width = 0
 
-    def _write(self, msg, newline=True):
+    def _write(self, msg, newline=True, maximize=False):
         """Write the message on the terminal, fill remaining space."""
         self._file.write("\r")
         self._file.write(msg)
         # Fill remaining stuff with whitespace
         if self._width > len(msg):
             self._file.write((self._width - len(msg)) * ' ')
-        #else:
-        #    self._width = max(self._width, len(msg))
+        elif maximize: # Needed for OpProgress.
+            self._width = max(self._width, len(msg))
         if newline:
             self._file.write("\n")
         else:
@@ -63,14 +63,14 @@ class OpProgress(apt_pkg.OpProgress, TextProgress):
         apt_pkg.OpProgress.update(self)
         if self.major_change and self.old_op:
             self._write(self.old_op)
-        self._write("%s... %i%%\r" % (self.op, self.percent), False)
+        self._write("%s... %i%%\r" % (self.op, self.percent), False, True)
         self.old_op = self.op
 
     def done(self):
         """Called once an operation has been completed."""
         apt_pkg.OpProgress.done(self)
         if self.old_op:
-            self._write("%s... Done" % self.old_op)
+            self._write("%s... Done" % self.old_op, True, True)
         self.old_op = ""
 
 
@@ -102,7 +102,6 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def fail(self, item):
         """Called when an item is failed."""
-        self._write("Fail  %s" % item.description)
         if item.owner.status == item.owner.stat_done:
             self._write("Ign %s" % item.description)
         else:
@@ -141,7 +140,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
             val = ''
             if not worker.current_item:
                 if worker.status:
-                    val += ' [%s]' % worker.status
+                    tval += ' [%s]' % worker.status
                     shown = True
                 continue
             shown = True
