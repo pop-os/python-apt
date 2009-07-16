@@ -37,7 +37,7 @@ import gobject
 import pango
 import vte
 
-import apt
+import apt.progress.old
 import apt_pkg
 from apt.deprecation import function_deprecated_by
 
@@ -53,7 +53,7 @@ def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
     return (run, rettype, params)
 
 
-class GOpProgress(gobject.GObject, apt.progress.OpProgress):
+class GOpProgress(gobject.GObject, apt.progress.old.OpProgress):
     """Operation progress with GObject signals.
 
     Signals:
@@ -69,7 +69,7 @@ class GOpProgress(gobject.GObject, apt.progress.OpProgress):
                     "status-finished": mksig()}
 
     def __init__(self):
-        apt.progress.OpProgress.__init__(self)
+        apt.progress.old.OpProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._context = glib.main_context_default()
 
@@ -84,7 +84,7 @@ class GOpProgress(gobject.GObject, apt.progress.OpProgress):
         self.emit("status-finished")
 
 
-class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
+class GInstallProgress(gobject.GObject, apt.progress.old.InstallProgress):
     """Installation progress with GObject signals.
 
     Signals:
@@ -108,7 +108,7 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
                     "status-finished": mksig()}
 
     def __init__(self, term):
-        apt.progress.InstallProgress.__init__(self)
+        apt.progress.old.InstallProgress.__init__(self)
         gobject.GObject.__init__(self)
         self.finished = False
         self.time_last_update = time.time()
@@ -166,7 +166,7 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
 
         Emits: status-timeout() [When a timeout happens]
         """
-        apt.progress.InstallProgress.update_interface(self)
+        apt.progress.old.InstallProgress.update_interface(self)
         while self._context.pending():
             self._context.iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
@@ -191,7 +191,8 @@ class GInstallProgress(gobject.GObject, apt.progress.InstallProgress):
         childExited = function_deprecated_by(child_exited)
 
 
-class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
+class GDpkgInstallProgress(apt.progress.old.DpkgInstallProgress,
+                           GInstallProgress):
     """An InstallProgress for local installations.
 
     Signals:
@@ -206,13 +207,13 @@ class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
 
     def run(self, debfile):
         """Install the given package."""
-        apt.progress.DpkgInstallProgress.run(self, debfile)
+        apt.progress.old.DpkgInstallProgress.run(self, debfile)
 
     def update_interface(self):
         """Called periodically to update the interface.
 
         Emits: status-timeout() [When a timeout happens]"""
-        apt.progress.DpkgInstallProgress.update_interface(self)
+        apt.progress.old.DpkgInstallProgress.update_interface(self)
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
             self.emit("status-timeout")
 
@@ -220,7 +221,7 @@ class GDpkgInstallProgress(apt.progress.DpkgInstallProgress, GInstallProgress):
         updateInterface = function_deprecated_by(update_interface)
 
 
-class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
+class GFetchProgress(gobject.GObject, apt.progress.old.FetchProgress):
     """A Fetch Progress with GObject signals.
 
     Signals:
@@ -235,7 +236,7 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
                     "status-finished": mksig()}
 
     def __init__(self):
-        apt.progress.FetchProgress.__init__(self)
+        apt.progress.old.FetchProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._continue = True
         self._context = glib.main_context_default()
@@ -250,7 +251,7 @@ class GFetchProgress(gobject.GObject, apt.progress.FetchProgress):
         self._continue = False
 
     def pulse(self):
-        apt.progress.FetchProgress.pulse(self)
+        apt.progress.old.FetchProgress.pulse(self)
         current_item = self.current_items + 1
         if current_item > self.total_items:
             current_item = self.total_items
