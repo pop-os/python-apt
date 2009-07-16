@@ -450,27 +450,27 @@ static PyMethodDef methods[] =
    {"newConfiguration",newConfiguration,METH_VARARGS,doc_newConfiguration},
    {"InitConfig",InitConfig,METH_VARARGS,doc_InitConfig},
    {"InitSystem",InitSystem,METH_VARARGS,doc_InitSystem},
-   
+
    {"ParseSection",ParseSection,METH_VARARGS,doc_ParseSection},
    {"ParseTagFile",ParseTagFile,METH_VARARGS,doc_ParseTagFile},
    {"RewriteSection",RewriteSection,METH_VARARGS,doc_RewriteSection},
-   
+
    {"GetLock",GetLock,METH_VARARGS,doc_GetLock},
    {"PkgSystemLock",PkgSystemLock,METH_VARARGS,doc_PkgSystemLock},
    {"PkgSystemUnLock",PkgSystemUnLock,METH_VARARGS,doc_PkgSystemUnLock},
-   
+
    {"ReadConfigFile",LoadConfig,METH_VARARGS,doc_LoadConfig},
    {"ReadConfigDir",LoadConfigDir,METH_VARARGS,doc_LoadConfigDir},
    {"ReadConfigFileISC",LoadConfigISC,METH_VARARGS,doc_LoadConfig},
    {"ParseCommandLine",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
-   
+
    {"VersionCompare",VersionCompare,METH_VARARGS,doc_VersionCompare},
    {"CheckDep",CheckDep,METH_VARARGS,doc_CheckDep},
    {"UpstreamVersion",UpstreamVersion,METH_VARARGS,doc_UpstreamVersion},
 
    {"ParseDepends",ParseDepends_old,METH_VARARGS,doc_ParseDepends},
    {"ParseSrcDepends",ParseSrcDepends_old,METH_VARARGS,doc_ParseDepends},
-   
+
    {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
    {"QuoteString",StrQuoteString,METH_VARARGS,"QuoteString(String,String) -> String"},
    {"DeQuoteString",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
@@ -481,7 +481,7 @@ static PyMethodDef methods[] =
    {"StringToBool",StrStringToBool,METH_VARARGS,"StringToBool(String) -> int"},
    {"TimeRFC1123",StrTimeRFC1123,METH_VARARGS,"TimeRFC1123(int) -> String"},
    {"StrToTime",StrStrToTime,METH_VARARGS,"StrToTime(String) -> Int"},
-   
+
    {"GetCache",TmpGetCache,METH_VARARGS,"GetCache() -> PkgCache"},
    {"GetDepCache",GetDepCache,METH_VARARGS,"GetDepCache(Cache) -> DepCache"},
    {"GetPkgRecords",GetPkgRecords,METH_VARARGS,"GetPkgRecords(Cache) -> PkgRecords"},
@@ -589,6 +589,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"Acquire",&PyAcquire_Type);
    ADDTYPE(Module,"AcquireFile",&PyAcquireFile_Type);
    ADDTYPE(Module,"AcquireItem",&PyAcquireItem_Type); // NO __new__()
+   ADDTYPE(Module,"AcquireWorker",&PyAcquireWorker_Type); // NO __new__()
    /* ============================ cache.cc ============================ */
    ADDTYPE(Module,"Cache",&PyCache_Type);
    ADDTYPE(Module,"Dependency",&PyDependency_Type); // NO __new__()

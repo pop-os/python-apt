@@ -184,7 +184,7 @@ static int import_apt_pkg(void) {
 # define PyAcquire_ToCpp           GetCpp<pkgAcquire*>
 # define PyAcquireFile_ToCpp       GetCpp<pkgAcqFile*>
 # define PyAcquireItem_ToCpp       GetCpp<pkgAcquire::Item*>
-# define PyAcquireItemDesc_ToCpp   GetCpp<pkgAcquire::ItemDesc>
+# define PyAcquireItemDesc_ToCpp   GetCpp<pkgAcquire::ItemDesc*>
 # define PyActionGroup_ToCpp       GetCpp<pkgDepCache::ActionGroup*>
 # define PyCache_ToCpp             GetCpp<pkgCache*>
 # define PyCacheFile_ToCpp         GetCpp<pkgCacheFile*>
@@ -234,7 +234,7 @@ inline PyObject *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
 # define PyAcquire_FromCpp(...)          FromCpp<pkgAcquire*>(&PyAcquire_Type, ##__VA_ARGS__)
 # define PyAcquireFile_FromCpp(...)      FromCppOwned<pkgAcqFile*>(&PyAcquireFile_Type, ##__VA_ARGS__)
 # define PyAcquireItem_FromCpp(...)      FromCppOwned<pkgAcquire::Item*>(&PyAcquireItem_Type,##__VA_ARGS__)
-# define PyAcquireItemDesc_FromCpp(...)  FromCppOwned<pkgAcquire::ItemDesc>(&PyAcquireItemDesc_Type,##__VA_ARGS__)
+# define PyAcquireItemDesc_FromCpp(...)  FromCppOwned<pkgAcquire::ItemDesc*>(&PyAcquireItemDesc_Type,##__VA_ARGS__)
 # define PyActionGroup_FromCpp(...)      FromCppOwned<pkgDepCache::ActionGroup*>(&PyActionGroup_Type,##__VA_ARGS__)
 # define PyCache_FromCpp(...)            FromCppOwned<pkgCache*>(&PyCache_Type,##__VA_ARGS__)
 # define PyCacheFile_FromCpp(...)        FromCpp<pkgCacheFile*>(&PyCacheFile_Type,##__VA_ARGS__)

@@ -156,7 +156,7 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+       RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLHit);
 }
@@ -164,7 +164,7 @@ void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("fetch", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+       RunSimpleCallback("fetch", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLQueued);
 }
@@ -172,7 +172,7 @@ void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("done", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+       RunSimpleCallback("done", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLDone);
 }
@@ -190,7 +190,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 
 
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
+       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLFailed);
 }
