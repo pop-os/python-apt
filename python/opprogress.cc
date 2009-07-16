@@ -42,6 +42,7 @@ static PyObject *opprogress_done(PyObject *Self, PyObject *args)
 
 static PyObject *opprogress_get_op(PyOpProgressObject *self, void *closure)
 {
+    Py_INCREF(self->op);
     return self->op;
 }
 
@@ -65,6 +66,7 @@ static int opprogress_set_op(PyOpProgressObject *self, PyObject *value,
 
 static PyObject *opprogress_get_subop(PyOpProgressObject *self, void *closure)
 {
+    Py_INCREF(self->subop);
     return self->subop;
 }
 
