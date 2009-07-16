@@ -88,8 +88,13 @@ static PyMethodDef opprogress_methods[] = {
     {NULL},
 };
 
+#ifndef T_BOOL
+# define _T_BOOL T_INT
+#else
+# define _T_BOOL T_BOOL
+#endif
 static PyMemberDef opprogress_members[] = {
-    {"major_change", T_INT, offsetof(PyOpProgressObject, major_change), 0,
+    {"major_change", _T_BOOL, offsetof(PyOpProgressObject, major_change), 0,
      "Boolean value indicating whether the change is a major change."},
     {"percent", T_FLOAT, offsetof(PyOpProgressObject, percent), 0,
      "Percentage of completion (float value)."},

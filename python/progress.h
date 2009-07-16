@@ -15,11 +15,16 @@
 #include <apt-pkg/cdrom.h>
 #include <Python.h>
 
+
 typedef struct {
     PyObject_HEAD
     PyObject *op;
     PyObject *subop;
+#ifdef T_BOOL
+    char major_change;
+#else
     int major_change;
+#endif
     float percent;
 } PyOpProgressObject;
 

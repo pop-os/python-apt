@@ -65,33 +65,35 @@ void PyOpProgress::Update()
       return;
 
 
-   PyObject *o;
-   o = Py_BuildValue("s", Op.c_str());
-   PyObject_SetAttrString(callbackInst, "op", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("s", SubOp.c_str());
-   if(PyObject_HasAttrString(callbackInst, "sub_op"))
-      PyObject_SetAttrString(callbackInst, "sub_op", o);
-   else
-      PyObject_SetAttrString(callbackInst, "subOp", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("b", MajorChange);
-   if(PyObject_HasAttrString(callbackInst, "major_change"))
-      PyObject_SetAttrString(callbackInst, "major_change", o);
-   else
-      PyObject_SetAttrString(callbackInst, "majorChange", o);
-   Py_XDECREF(o);
-
-
-
-
    if (PyObject_TypeCheck(callbackInst, &PyOpProgress_Type)) {
-      o = Py_BuildValue("f", Percent);
-      PyObject_SetAttrString(callbackInst, "percent", o);
+      PyOpProgressObject *obj = (PyOpProgressObject *)callbackInst;
+      obj->op = CppPyString(Op);
+      obj->subop = CppPyString(SubOp);
+#ifdef T_BOOL
+      obj->major_change = (char)(MajorChange);
+#else
+      obj->major_change = (int)(MajorChange);
+#endif
+      obj->percent = Percent;
       RunSimpleCallback("update");
-      Py_XDECREF(o);
    }
    else {
+      PyObject *o;
+      o = Py_BuildValue("s", Op.c_str());
+      PyObject_SetAttrString(callbackInst, "op", o);
+      Py_XDECREF(o);
+      o = Py_BuildValue("s", SubOp.c_str());
+      if(PyObject_HasAttrString(callbackInst, "sub_op"))
+         PyObject_SetAttrString(callbackInst, "sub_op", o);
+      else
+         PyObject_SetAttrString(callbackInst, "subOp", o);
+      Py_XDECREF(o);
+      o = Py_BuildValue("b", MajorChange);
+      if(PyObject_HasAttrString(callbackInst, "major_change"))
+         PyObject_SetAttrString(callbackInst, "major_change", o);
+      else
+         PyObject_SetAttrString(callbackInst, "majorChange", o);
+      Py_XDECREF(o);
       PyObject *arglist = Py_BuildValue("(f)", Percent);
       RunSimpleCallback("update", arglist);
   }
