@@ -116,16 +116,27 @@ static PyObject *acquireitemdesc_get_shortdesc(PyObject *self, void *closure)
 {
     return CppPyString(GetCpp<pkgAcquire::ItemDesc*>(self)->ShortDesc);
 }
-static PyObject *acquireitemdesc_get_owner(PyObject *self, void *closure)
+static PyObject *acquireitemdesc_get_owner(CppOwnedPyObject<pkgAcquire::ItemDesc*> *self, void *closure)
 {
-    return GetOwner<pkgAcquire::ItemDesc*>(self);
+
+
+    if (self->Owner != NULL) {
+        Py_INCREF(self->Owner);
+        return self->Owner;
+    }
+    else if (self->Object && self->Object->Owner != NULL) {
+        self->Owner = PyAcquireItem_FromCpp(self->Object->Owner);
+        Py_INCREF(self->Owner);
+        return self->Owner;
+    }
+    Py_RETURN_NONE;
 }
 
 static PyGetSetDef acquireitemdesc_getset[] = {
    {"uri",acquireitemdesc_get_uri,0,"The URI from which to download this item."},
    {"description",acquireitemdesc_get_description},
    {"shortdesc",acquireitemdesc_get_shortdesc},
-   {"owner",acquireitemdesc_get_owner},
+   {"owner",(getter)acquireitemdesc_get_owner},
    {NULL}
 };
 
@@ -198,7 +209,7 @@ MkGet(AcquireItemGetDescURI,Safe_FromString(Itm->DescURI().c_str()));
 MkGet(AcquireItemGetDestFile,Safe_FromString(Itm->DestFile.c_str()));
 MkGet(AcquireItemGetErrorText,Safe_FromString(Itm->ErrorText.c_str()));
 MkGet(AcquireItemGetFileSize,Py_BuildValue("i",Itm->FileSize));
-MkGet(AcquireItemGetID,Py_BuildValue("i",Itm));
+MkGet(AcquireItemGetID,Py_BuildValue("k",Itm->ID));
 MkGet(AcquireItemGetMode,Py_BuildValue("s",Itm->Mode));
 MkGet(AcquireItemGetIsTrusted,Py_BuildValue("i",Itm->IsTrusted()));
 MkGet(AcquireItemGetLocal,Py_BuildValue("i",Itm->Local));
@@ -212,13 +223,35 @@ MkGet(AcquireItemGetStatError,Py_BuildValue("i", pkgAcquire::Item::StatError));
 MkGet(AcquireItemGetStatAuthError,Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
 #undef MkGet
 
+static int AcquireItemSetID(PyObject *self, PyObject *value, void *closure)
+{
+    pkgAcquire::Item *Itm = acquireitem_tocpp(self);
+    if (Itm == 0)
+        return -1;
+    if (PyLong_Check(value)) {
+        Itm->ID = PyLong_AsLong(value);
+    }
+    else if (PyInt_Check(value)) {
+        Itm->ID = PyInt_AsLong(value);
+    }
+    else {
+        PyErr_SetString(PyExc_TypeError, "value must be integer.");
+        return -1;
+    }
+
+
+
+    return 0;
+}
+
+
 static PyGetSetDef AcquireItemGetSet[] = {
     {"complete",AcquireItemGetComplete},
     {"desc_uri",AcquireItemGetDescURI},
     {"destfile",AcquireItemGetDestFile},
     {"error_text",AcquireItemGetErrorText},
     {"filesize",AcquireItemGetFileSize},
-    {"id",AcquireItemGetID},
+    {"id",AcquireItemGetID,AcquireItemSetID},
     {"mode",AcquireItemGetMode},
     {"is_trusted",AcquireItemGetIsTrusted},
     {"local",AcquireItemGetLocal},

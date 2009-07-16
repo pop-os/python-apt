@@ -247,6 +247,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
    // set stats
    PyObject *o;
+
+
+   o = Py_BuildValue("d", FetchedBytes);
+   PyObject_SetAttrString(callbackInst, "fetched_bytes", o);
+   Py_DECREF(o);
    o = Py_BuildValue("d", CurrentCPS);
    if(PyObject_HasAttrString(callbackInst, "current_cps"))
       PyObject_SetAttrString(callbackInst, "current_cps", o);
