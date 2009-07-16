@@ -19,16 +19,11 @@
  */
 
 #include "generic.h"
+#include "progress.h"
 #include <Python.h>
 #include <structmember.h>
 
-typedef struct {
-    PyObject_HEAD
-    PyObject *op;
-    PyObject *subop;
-    int major_change;
-    float percent;
-} PyOpProgressObject;
+
 
 static PyObject *opprogress_update(PyObject *Self, PyObject *args)
 {

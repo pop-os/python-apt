@@ -245,43 +245,54 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    if(callbackInst == 0)
       return false;
 
-   // set stats
-   PyObject *o;
-
-
-   o = Py_BuildValue("d", FetchedBytes);
-   PyObject_SetAttrString(callbackInst, "fetched_bytes", o);
-   Py_DECREF(o);
-   o = Py_BuildValue("d", CurrentCPS);
-   if(PyObject_HasAttrString(callbackInst, "current_cps"))
-      PyObject_SetAttrString(callbackInst, "current_cps", o);
-   else
-      PyObject_SetAttrString(callbackInst, "currentCPS", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("d", CurrentBytes);
-   if(PyObject_HasAttrString(callbackInst, "current_bytes"))
-      PyObject_SetAttrString(callbackInst, "current_bytes", o);
-   else
-      PyObject_SetAttrString(callbackInst, "currentBytes", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("k", CurrentItems);
-   if(PyObject_HasAttrString(callbackInst, "current_items"))
-      PyObject_SetAttrString(callbackInst, "current_items", o);
-   else
-      PyObject_SetAttrString(callbackInst, "currentItems", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("k", TotalItems);
-   if(PyObject_HasAttrString(callbackInst, "total_items"))
-      PyObject_SetAttrString(callbackInst, "total_items", o);
-   else
-      PyObject_SetAttrString(callbackInst, "totalItems", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("d", TotalBytes);
-   if(PyObject_HasAttrString(callbackInst, "total_bytes"))
-      PyObject_SetAttrString(callbackInst, "total_bytes", o);
-   else
-      PyObject_SetAttrString(callbackInst, "totalBytes", o);
-   Py_XDECREF(o);
+   if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
+       PyAcquireProgressObject *obj = (PyAcquireProgressObject *)callbackInst;
+       obj->last_bytes = LastBytes;
+       obj->current_cps = CurrentCPS;
+       obj->current_bytes = CurrentBytes;
+       obj->total_bytes = TotalBytes;
+       obj->fetched_bytes = FetchedBytes;
+       obj->elapsed_time = ElapsedTime;
+       obj->total_items = TotalItems;
+       obj->current_items = CurrentItems;
+   }
+   else {
+       // set stats
+       PyObject *o;
+       o = Py_BuildValue("d", FetchedBytes);
+       PyObject_SetAttrString(callbackInst, "fetched_bytes", o);
+       Py_DECREF(o);
+       o = Py_BuildValue("d", CurrentCPS);
+       if(PyObject_HasAttrString(callbackInst, "current_cps"))
+          PyObject_SetAttrString(callbackInst, "current_cps", o);
+       else
+          PyObject_SetAttrString(callbackInst, "currentCPS", o);
+       Py_XDECREF(o);
+       o = Py_BuildValue("d", CurrentBytes);
+       if(PyObject_HasAttrString(callbackInst, "current_bytes"))
+          PyObject_SetAttrString(callbackInst, "current_bytes", o);
+       else
+          PyObject_SetAttrString(callbackInst, "currentBytes", o);
+       Py_XDECREF(o);
+       o = Py_BuildValue("k", CurrentItems);
+       if(PyObject_HasAttrString(callbackInst, "current_items"))
+          PyObject_SetAttrString(callbackInst, "current_items", o);
+       else
+          PyObject_SetAttrString(callbackInst, "currentItems", o);
+       Py_XDECREF(o);
+       o = Py_BuildValue("k", TotalItems);
+       if(PyObject_HasAttrString(callbackInst, "total_items"))
+          PyObject_SetAttrString(callbackInst, "total_items", o);
+       else
+          PyObject_SetAttrString(callbackInst, "totalItems", o);
+       Py_XDECREF(o);
+       o = Py_BuildValue("d", TotalBytes);
+       if(PyObject_HasAttrString(callbackInst, "total_bytes"))
+          PyObject_SetAttrString(callbackInst, "total_bytes", o);
+       else
+          PyObject_SetAttrString(callbackInst, "totalBytes", o);
+       Py_XDECREF(o);
+   }
 
    if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
       PyObject *result1;

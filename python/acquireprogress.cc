@@ -19,20 +19,10 @@
  */
 
 #include "apt_pkgmodule.h"
+#include "progress.h"
 #include <Python.h>
 #include <structmember.h>
 
-typedef struct {
-    PyObject_HEAD
-    double last_bytes;
-    double current_cps;
-    double current_bytes;
-    double total_bytes;
-    double fetched_bytes;
-    unsigned long elapsed_time;
-    unsigned long total_items;
-    unsigned long current_items;
-} PyAcquireProgressObject;
 
 
 // DUMMY IMPLEMENTATIONS.

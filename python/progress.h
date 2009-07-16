@@ -15,6 +15,26 @@
 #include <apt-pkg/cdrom.h>
 #include <Python.h>
 
+typedef struct {
+    PyObject_HEAD
+    PyObject *op;
+    PyObject *subop;
+    int major_change;
+    float percent;
+} PyOpProgressObject;
+
+typedef struct {
+    PyObject_HEAD
+    double last_bytes;
+    double current_cps;
+    double current_bytes;
+    double total_bytes;
+    double fetched_bytes;
+    unsigned long elapsed_time;
+    unsigned long total_items;
+    unsigned long current_items;
+} PyAcquireProgressObject;
+
 
 class PyCallbackObj {
  protected:
