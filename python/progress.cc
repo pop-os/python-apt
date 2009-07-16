@@ -205,20 +205,20 @@ void PyFetchProgress::Start()
    // -- Stephan
    PyObject *o;
 
-   o = Py_BuildValue("f", 0.0f);
+   o = Py_BuildValue("d", 0.0f);
    PyObject_SetAttrString(callbackInst, "currentCPS", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("f", 0.0f);
+   o = Py_BuildValue("d", 0.0f);
    PyObject_SetAttrString(callbackInst, "currentBytes", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("i", 0);
+   o = Py_BuildValue("k", 0);
    PyObject_SetAttrString(callbackInst, "currentItems", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("i", 0);
+   o = Py_BuildValue("k", 0);
    
    PyObject_SetAttrString(callbackInst, "totalItems", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("f", 0.0f);
+   o = Py_BuildValue("d", 0.0f);
    PyObject_SetAttrString(callbackInst, "totalBytes", o);
    Py_XDECREF(o);
 
@@ -244,31 +244,31 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
    // set stats
    PyObject *o;
-   o = Py_BuildValue("f", CurrentCPS);
+   o = Py_BuildValue("d", CurrentCPS);
    if(PyObject_HasAttrString(callbackInst, "current_cps"))
       PyObject_SetAttrString(callbackInst, "current_cps", o);
    else
       PyObject_SetAttrString(callbackInst, "currentCPS", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("f", CurrentBytes);
+   o = Py_BuildValue("d", CurrentBytes);
    if(PyObject_HasAttrString(callbackInst, "current_bytes"))
       PyObject_SetAttrString(callbackInst, "current_bytes", o);
    else
       PyObject_SetAttrString(callbackInst, "currentBytes", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("i", CurrentItems);
+   o = Py_BuildValue("k", CurrentItems);
    if(PyObject_HasAttrString(callbackInst, "current_items"))
       PyObject_SetAttrString(callbackInst, "current_items", o);
    else
       PyObject_SetAttrString(callbackInst, "currentItems", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("i", TotalItems);
+   o = Py_BuildValue("k", TotalItems);
    if(PyObject_HasAttrString(callbackInst, "total_items"))
       PyObject_SetAttrString(callbackInst, "total_items", o);
    else
       PyObject_SetAttrString(callbackInst, "totalItems", o);
    Py_XDECREF(o);
-   o = Py_BuildValue("f", TotalBytes);
+   o = Py_BuildValue("d", TotalBytes);
    if(PyObject_HasAttrString(callbackInst, "total_bytes"))
       PyObject_SetAttrString(callbackInst, "total_bytes", o);
    else
