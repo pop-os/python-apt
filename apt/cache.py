@@ -26,7 +26,7 @@ import apt_pkg
 from apt import Package
 from apt.deprecation import (AttributeDeprecatedBy, function_deprecated_by,
                              deprecated_args)
-import apt.progress
+import apt.progress.text
 
 
 class FetchCancelledException(IOError):
@@ -78,7 +78,7 @@ class Cache(object):
             a dictionary
         """
         if progress is None:
-            progress = apt.progress.OpProgress()
+            progress = apt.progress.text.OpProgress()
         self._run_callbacks("cache_pre_open")
 
         # Make changes to Dir::State::Status work again, by reinitialising
@@ -92,12 +92,16 @@ class Cache(object):
         self._set.clear()
         self._weakref.clear()
 
-        progress.Op = "Building data structures"
+        progress.op = "Building data structures"
         i=last=0
         size=len(self._cache.packages)
         for pkg in self._cache.packages:
             if progress is not None and last+100 < i:
-                progress.update(i/float(size)*100)
+                if isinstance(progress, apt_pkg.OpProgress):
+                    progress.percent = i/float(size)*100
+                    progress.update()
+                else:
+                    progress.update(i/float(size)*100)
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.version_list) > 0:
