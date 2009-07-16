@@ -140,7 +140,10 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
             val = ''
             if not worker.current_item:
                 if worker.status:
-                    tval += ' [%s]' % worker.status
+                    val = ' [%s]' % worker.status
+                    if len(tval) + len(val) + len(end) >= self._width:
+                        break
+                    tval += val
                     shown = True
                 continue
             shown = True
@@ -166,7 +169,10 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
             val += ']'
 
-            tval += val
+            if len(tval) + len(val) + len(end)  >= self._width:
+                break
+            else:
+                tval += val
 
         if not shown:
             tval += ' [Working]'
