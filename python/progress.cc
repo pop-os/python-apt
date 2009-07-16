@@ -60,6 +60,11 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 // OpProgress interface
 void PyOpProgress::Update()
 {
+   // Build up the argument list...
+   if(!CheckChange(0.7))
+      return;
+
+
    PyObject *o;
    o = Py_BuildValue("s", Op.c_str());
    PyObject_SetAttrString(callbackInst, "op", o);
@@ -77,21 +82,19 @@ void PyOpProgress::Update()
       PyObject_SetAttrString(callbackInst, "majorChange", o);
    Py_XDECREF(o);
 
-   
-    
-   // Build up the argument list...
-   if(CheckChange(0.05))
-   {
-      if (PyObject_TypeCheck(callbackInst, &PyOpProgress_Type)) {
-         o = Py_BuildValue("f", Percent);
-         PyObject_SetAttrString(callbackInst, "percent", o);
-         RunSimpleCallback("update");
-         Py_XDECREF(o);
-      } else {
-         PyObject *arglist = Py_BuildValue("(f)", Percent);
-         RunSimpleCallback("update", arglist);
-     }
+
+
+
+   if (PyObject_TypeCheck(callbackInst, &PyOpProgress_Type)) {
+      o = Py_BuildValue("f", Percent);
+      PyObject_SetAttrString(callbackInst, "percent", o);
+      RunSimpleCallback("update");
+      Py_XDECREF(o);
    }
+   else {
+      PyObject *arglist = Py_BuildValue("(f)", Percent);
+      RunSimpleCallback("update", arglist);
+  }
 };
 
 void PyOpProgress::Done()
@@ -185,7 +188,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
       UpdateStatus(Itm, DLIgnored);
    }
 
-   
+
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
        RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(Itm)));
    else
@@ -215,7 +218,7 @@ void PyFetchProgress::Start()
    PyObject_SetAttrString(callbackInst, "currentItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("k", 0);
-   
+
    PyObject_SetAttrString(callbackInst, "totalItems", o);
    Py_XDECREF(o);
    o = Py_BuildValue("d", 0.0f);
