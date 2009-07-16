@@ -179,6 +179,11 @@ void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
+   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
+       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       return;
+   }
+
    // Ignore certain kinds of transient failures (bad code)
    if (Itm.Owner->Status == pkgAcquire::Item::StatIdle)
       return;
