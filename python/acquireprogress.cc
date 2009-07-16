@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  */
 
-#include "generic.h"
+#include "apt_pkgmodule.h"
 #include <Python.h>
 #include <structmember.h>
 
@@ -58,40 +58,60 @@ static char *acquireprogress_ims_hit_doc = "ims_hit(item: AcquireItemDesc)\n\n"
     "not modified.";
 static PyObject *acquireprogress_ims_hit(PyObject *self, PyObject *arg)
 {
-    // TODO: Add type check.
+    if (!PyAcquireItemDesc_Check(arg)) {
+        PyErr_SetString(PyExc_TypeError, "ims_hit() argument must be "
+                                         "apt_pkg.AcquireItemDesc");
+        return 0;
+    }
     Py_RETURN_NONE;
 }
 
 static char *acquireprogress_fetch_doc = "fetch(item: AcquireItemDesc)\n\n"
     "Invoked when some of an item's data is fetched.";
-static PyObject *acquireprogress_fetch(PyObject *self, PyObject *args)
+static PyObject *acquireprogress_fetch(PyObject *self, PyObject *arg)
 {
-    // TODO: Add type check.
+    if (!PyAcquireItemDesc_Check(arg)) {
+        PyErr_SetString(PyExc_TypeError, "fetch() argument must be "
+                                         "apt_pkg.AcquireItemDesc");
+        return 0;
+    }
     Py_RETURN_NONE;
 }
 
 static char *acquireprogress_done_doc = "done(item: AcquireItemDesc)\n\n"
     "Invoked when an item is successfully and completely fetched.";
-static PyObject *acquireprogress_done(PyObject *self, PyObject *args)
+static PyObject *acquireprogress_done(PyObject *self, PyObject *arg)
 {
-    // TODO: Add type check.
+    if (!PyAcquireItemDesc_Check(arg)) {
+        PyErr_SetString(PyExc_TypeError, "done() argument must be "
+                                         "apt_pkg.AcquireItemDesc");
+        return 0;
+    }
     Py_RETURN_NONE;
 }
 
 static char *acquireprogress_fail_doc = "fail(item: AcquireItemDesc)\n\n"
     "Invoked when the process of fetching an item encounters a fatal error.";
-static PyObject *acquireprogress_fail(PyObject *self, PyObject *args)
+static PyObject *acquireprogress_fail(PyObject *self, PyObject *arg)
 {
-    // TODO: Add type check.
+    if (!PyAcquireItemDesc_Check(arg)) {
+        PyErr_SetString(PyExc_TypeError, "fail() argument must be "
+                                         "apt_pkg.AcquireItemDesc");
+        return 0;
+    }
     Py_RETURN_NONE;
 }
 
 static char *acquireprogress_pulse_doc = "pulse(owner: Acquire) -> bool\n\n"
     "Periodically invoked while the Acquire process is underway.\n\n"
     "Return False if the user asked to cancel the whole Acquire process.";
-static PyObject *acquireprogress_pulse(PyObject *self, PyObject *args)
+static PyObject *acquireprogress_pulse(PyObject *self, PyObject *arg)
 {
-    // TODO: Add type check.
+    if (!PyAcquire_Check(arg)) {
+        PyErr_SetString(PyExc_TypeError, "pulse() argument must be "
+                                         "apt_pkg.Acquire");
+        return 0;
+    }
     Py_RETURN_TRUE;
 }
 
@@ -112,12 +132,12 @@ static PyObject *acquireprogress_stop(PyObject *self, PyObject *args)
 static PyMethodDef acquireprogress_methods[] = {
     {"media_change", acquireprogress_media_change, METH_VARARGS,
      acquireprogress_media_change_doc},
-    {"ims_hit",acquireprogress_ims_hit,METH_VARARGS,
+    {"ims_hit",acquireprogress_ims_hit,METH_O,
      acquireprogress_ims_hit_doc},
-    {"fetch",acquireprogress_fetch,METH_VARARGS,acquireprogress_fetch_doc},
-    {"done",acquireprogress_done,METH_VARARGS,acquireprogress_done_doc},
-    {"fail",acquireprogress_fail,METH_VARARGS,acquireprogress_fail_doc},
-    {"pulse",acquireprogress_pulse,METH_VARARGS,acquireprogress_pulse_doc},
+    {"fetch",acquireprogress_fetch,METH_O,acquireprogress_fetch_doc},
+    {"done",acquireprogress_done,METH_O,acquireprogress_done_doc},
+    {"fail",acquireprogress_fail,METH_O,acquireprogress_fail_doc},
+    {"pulse",acquireprogress_pulse,METH_O,acquireprogress_pulse_doc},
     {"start",acquireprogress_start,METH_NOARGS,acquireprogress_start_doc},
     {"stop",acquireprogress_stop,METH_NOARGS,acquireprogress_stop_doc},
     {NULL}
