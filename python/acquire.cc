@@ -24,7 +24,18 @@ struct PyAcquireObject : public CppPyObject<pkgAcquire*> {
 
 static PyObject *acquireworker_get_current_item(PyObject *self, void *closure)
 {
-    return PyAcquireItemDesc_FromCpp((GetCpp<pkgAcquire::Worker*>(self)->CurrentItem),false,self);
+    pkgAcquire::Worker *worker = GetCpp<pkgAcquire::Worker*>(self);
+
+    if (worker->CurrentItem == NULL) {
+        Py_RETURN_NONE;
+    }
+
+    PyAcquireObject *PyCache = (PyAcquireObject *)GetOwner<pkgAcquire::Worker*>(self);
+
+    pkgAcquire::Item *Item = worker->CurrentItem->Owner;
+    PyObject *PyItem = PyAcquireItem_FromCpp(Item,false,PyCache);
+    PyCache->items.push_back((PyAcquireItemObject *)PyItem);
+    return PyAcquireItemDesc_FromCpp(worker->CurrentItem,false,PyItem);
 }
 
 static PyObject *acquireworker_get_status(PyObject *self, void *closure)
@@ -188,6 +199,7 @@ MkGet(AcquireItemGetDestFile,Safe_FromString(Itm->DestFile.c_str()));
 MkGet(AcquireItemGetErrorText,Safe_FromString(Itm->ErrorText.c_str()));
 MkGet(AcquireItemGetFileSize,Py_BuildValue("i",Itm->FileSize));
 MkGet(AcquireItemGetID,Py_BuildValue("i",Itm));
+MkGet(AcquireItemGetMode,Py_BuildValue("s",Itm->Mode));
 MkGet(AcquireItemGetIsTrusted,Py_BuildValue("i",Itm->IsTrusted()));
 MkGet(AcquireItemGetLocal,Py_BuildValue("i",Itm->Local));
 MkGet(AcquireItemGetStatus,Py_BuildValue("i",Itm->Status));
@@ -207,6 +219,7 @@ static PyGetSetDef AcquireItemGetSet[] = {
     {"error_text",AcquireItemGetErrorText},
     {"filesize",AcquireItemGetFileSize},
     {"id",AcquireItemGetID},
+    {"mode",AcquireItemGetMode},
     {"is_trusted",AcquireItemGetIsTrusted},
     {"local",AcquireItemGetLocal},
     {"status",AcquireItemGetStatus},
