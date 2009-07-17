@@ -21,12 +21,17 @@
 
 import os
 import weakref
+from gettext import dgettext
 
 import apt_pkg
 from apt import Package
 from apt.deprecation import (AttributeDeprecatedBy, function_deprecated_by,
                              deprecated_args)
 import apt.progress.text
+
+
+def _(msg):
+    return dgettext('python-apt', msg)
 
 
 class FetchCancelledException(IOError):
@@ -92,7 +97,7 @@ class Cache(object):
         self._set.clear()
         self._weakref.clear()
 
-        progress.op = "Building data structures"
+        progress.op = _("Building data structures")
         i=last=0
         size=len(self._cache.packages)
         for pkg in self._cache.packages:
