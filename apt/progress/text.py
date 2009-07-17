@@ -16,10 +16,20 @@
 # USA
 """Progress reporting for text interfaces."""
 import sys
+from gettext import gettext, dgettext
 
 import apt_pkg
 
 __all__ = ['AcquireProgress', 'OpProgress']
+
+
+def _(msg):
+    """Translate the message, also try apt if translation is missing."""
+    res = dgettext("python-apt", msg)
+    if res == msg:
+        return dgettext("apt", msg)
+    else:
+        return res
 
 
 class TextProgress(object):
@@ -70,7 +80,7 @@ class OpProgress(apt_pkg.OpProgress, TextProgress):
         """Called once an operation has been completed."""
         apt_pkg.OpProgress.done(self)
         if self.old_op:
-            self._write("%s... Done" % self.old_op, True, True)
+            self._write(_("%c%s... Done") % ('\r', self.old_op), True, True)
         self.old_op = ""
 
 
@@ -85,41 +95,50 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
         self._winch()
         self._id = 1L
 
-    def _winch(self, *a):
+    def __del__(self):
+        import signal
+        signal.signal(signal.SIGWINCH, self._signal)
+
+    def _winch(self, *dummy):
+        """Signal handler for window resize signals."""
         import fcntl
         import termios
         import struct
-        buf = fcntl.ioctl(self._file.fileno(),termios.TIOCGWINSZ, 8 * ' ')
-        row, col, rpx, cpx = struct.unpack('hhhh', buf)
+        buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * ' ')
+        dummy, col, dummy, dummy = struct.unpack('hhhh', buf)
         self._width = col - 1 # 1 for the cursor
 
     def ims_hit(self, item):
         """Called when an item is update (e.g. not modified on the server)."""
-        line = 'Hit %s' % item.description
-        if (item.owner.filesize != 0):
-            line+= ' [%sB]' % apt_pkg.size_to_str(item.owner.filesize)
+        line = _('Hit ') + item.description
+        if item.owner.filesize:
+            line += ' [%sB]' % apt_pkg.size_to_str(item.owner.filesize)
         self._write(line)
 
     def fail(self, item):
         """Called when an item is failed."""
         if item.owner.status == item.owner.stat_done:
-            self._write("Ign %s" % item.description)
+            self._write(_("Ign ") + item.description)
         else:
-            self._write("Err %s" % item.description)
+            self._write(_("Err ") + item.description)
             self._write("  %s" % item.owner.error_text)
 
     def fetch(self, item):
         """Called when some of the item's data is fetched."""
         # It's complete already (e.g. Hit)
-        if item.owner.complete == True:
+        if item.owner.complete:
             return
         item.owner.id = self._id
         self._id += 1
-        line = "Get:%s %s" % (item.owner.id, item.description)
-        if item.owner.filesize != 0:
+        line = _("Get:") + "%s %s" % (item.owner.id, item.description)
+        if item.owner.filesize:
             line += (" [%sB]" % apt_pkg.size_to_str(item.owner.filesize))
 
         self._write(line)
+
+    @staticmethod
+    def _fmt_worker(worker):
+        """Format a worker."""
 
     def pulse(self, owner):
         """Periodically invoked while the Acquire process is underway.
@@ -130,14 +149,14 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
                         float(self.total_bytes + self.total_items))
 
         shown = False
-        mode = 'long'
         tval = '%i%%' % percent
 
         end = ""
         if self.current_cps:
-            eta = int(float(self.total_bytes - self.current_bytes) / self.current_cps)
+            eta = int(float(self.total_bytes - self.current_bytes) /
+                      self.current_cps)
             end = " %sB/s %s" % (apt_pkg.size_to_str(self.current_cps),
-                            apt_pkg.time_to_str(eta))
+                                 apt_pkg.time_to_str(eta))
 
         for worker in owner.workers:
             val = ''
@@ -151,55 +170,48 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
                 continue
             shown = True
 
-            if worker.current_item.owner.id != 0:
-                val += " [%i %s" % (worker.current_item.owner.id, worker.current_item.shortdesc)
+            if worker.current_item.owner.id:
+                val += " [%i %s" % (worker.current_item.owner.id,
+                                    worker.current_item.shortdesc)
             else:
                 val += ' [%s' % worker.current_item.description
             if worker.current_item.owner.mode:
                 val += ' %s' % worker.current_item.owner.mode
-            if mode == 'long' and False:
-                val += ' %i' % worker.current_size
-            elif mode == 'medium' or worker.total_size == 0 or True:
-                val += ' %sB' % apt_pkg.size_to_str(worker.current_size)
+
+            val += ' %sB' % apt_pkg.size_to_str(worker.current_size)
 
             # Add the total size and percent
-            if worker.total_size > 0 and worker.current_item.owner.complete == False:
-                if mode == 'short':
-                    val += ' %i%%' % worker.current_size*100.0/worker.total_size
-                else:
-                    val += "/%sB %i%%" % ( apt_pkg.size_to_str(worker.total_size),
-                            worker.current_size*100.0/worker.total_size )
+            if worker.total_size and not worker.current_item.owner.complete:
+                val += "/%sB %i%%" % (apt_pkg.size_to_str(worker.total_size),
+                                worker.current_size*100.0/worker.total_size)
 
             val += ']'
 
-            if len(tval) + len(val) + len(end)  >= self._width:
+            if len(tval) + len(val) + len(end) >= self._width:
                 break
             else:
                 tval += val
 
         if not shown:
-            tval += ' [Working]'
+            tval += _(" [Working]")
 
         if self.current_cps:
             tval += (self._width - len(end) - len(tval)) * ' ' + end
 
-        if len(tval) <= self._width:
-            self._write(tval, False)
-        else:
-            self._write(tval)
+        self._write(tval, False)
         return True
 
     def media_change(self, medium, drive):
         """Prompt the user to change the inserted removable media."""
-        print ("Media change: please insert the disc labeled "
-               "'%s' in the drive '%s' and press enter") % (medium, drive)
-
+        self._write(_("Media change: please insert the disc labeled\n"
+                      " '%s'\n"
+                      "in the drive '%s' and press enter\n") % (medium, drive))
         return raw_input() not in ('c', 'C')
 
     def stop(self):
         """Invoked when the Acquire process stops running."""
-        if self.fetched_bytes != 0:
-            self._write("Fetched %sB in %s (%sB/s)" % (
-	                    apt_pkg.size_to_str(self.fetched_bytes),
+        if self.fetched_bytes:
+            self._write(_("Fetched %sB in %s (%sB/s)\n") % (
+                        apt_pkg.size_to_str(self.fetched_bytes),
                         apt_pkg.time_to_str(self.elapsed_time),
-                        apt_pkg.size_to_str(self.current_cps)))
+                        apt_pkg.size_to_str(self.current_cps)), False)
