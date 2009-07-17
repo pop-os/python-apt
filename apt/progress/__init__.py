@@ -17,13 +17,8 @@
 """Progress reporting."""
 import apt_pkg
 
-#from apt.progress.text import AcquireProgress as TextAcquireProgress
-#from apt.progress.text import OpProgress as TextOpProgress
-
-__all__ = [] #'TextAcquireProgress', 'TextOpProgress']
-
 if apt_pkg._COMPAT_0_7:
-    import apt.progress.old
-    from apt.progress.old import *
-
-    __all__ += apt.progress.old.__all__
+    from apt.progress.old import (CdromProgress, DpkgInstallProgress,
+                                  DumbInstallProgress, FetchProgress,
+                                  InstallProgress, OpProgress,
+                                  OpTextProgress, TextFetchProgress)
