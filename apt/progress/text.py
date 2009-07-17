@@ -16,7 +16,7 @@
 # USA
 """Progress reporting for text interfaces."""
 import sys
-from gettext import gettext, dgettext
+from gettext import dgettext
 
 import apt_pkg
 
@@ -90,14 +90,21 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
     def __init__(self, outfile=None):
         TextProgress.__init__(self, outfile)
         apt_pkg.AcquireProgress.__init__(self)
+        self._signal = None
+        self._width = 80
+        self._id = 1
+
+    def start(self):
+        """Start an Acquire progress.
+
+        In this case, the function sets up a signal handler for SIGWINCH, i.e.
+        window resize signals. And it also sets id to 1.
+        """
         import signal
         self._signal = signal.signal(signal.SIGWINCH, self._winch)
+        # Get the window size.
         self._winch()
         self._id = 1L
-
-    def __del__(self):
-        import signal
-        signal.signal(signal.SIGWINCH, self._signal)
 
     def _winch(self, *dummy):
         """Signal handler for window resize signals."""
@@ -135,10 +142,6 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
             line += (" [%sB]" % apt_pkg.size_to_str(item.owner.filesize))
 
         self._write(line)
-
-    @staticmethod
-    def _fmt_worker(worker):
-        """Format a worker."""
 
     def pulse(self, owner):
         """Periodically invoked while the Acquire process is underway.
@@ -188,6 +191,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
             val += ']'
 
             if len(tval) + len(val) + len(end) >= self._width:
+                # Display as many items as screen width
                 break
             else:
                 tval += val
@@ -210,8 +214,12 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def stop(self):
         """Invoked when the Acquire process stops running."""
-        if self.fetched_bytes:
-            self._write(_("Fetched %sB in %s (%sB/s)\n") % (
-                        apt_pkg.size_to_str(self.fetched_bytes),
-                        apt_pkg.time_to_str(self.elapsed_time),
-                        apt_pkg.size_to_str(self.current_cps)), False)
+        # Trick for getting a translation from apt
+        self._write((_("Fetched %sB in %s (%sB/s)\n") % (
+                    apt_pkg.size_to_str(self.fetched_bytes),
+                    apt_pkg.time_to_str(self.elapsed_time),
+                    apt_pkg.size_to_str(self.current_cps))).rstrip("\n"))
+
+        # Delete the signal again.
+        import signal
+        signal.signal(signal.SIGWINCH, self._signal)
