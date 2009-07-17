@@ -18,8 +18,6 @@
 #  USA
 # import the core of apt_pkg
 """High-Level Interface for working with apt."""
-import locale
-
 import apt_pkg
 
 # import some fancy classes
@@ -30,15 +28,10 @@ from apt.cdrom import Cdrom
 if apt_pkg._COMPAT_0_7:
     from apt.progress.old import (OpProgress, FetchProgress, InstallProgress,
                                   CdromProgress)
-    from apt_pkg import (size_to_str as SizeToStr,
-                         time_to_str as TimeToStr,
+    from apt_pkg import (size_to_str as SizeToStr, time_to_str as TimeToStr,
                          version_compare as VersionCompare)
 
 # init the package system
 apt_pkg.init()
-locale.setlocale(locale.LC_ALL, '')
 
-#import warnings
-#warnings.warn("apt API not stable yet", FutureWarning)
-#del warnings
 __all__ = ['Cache', 'Cdrom', 'Package']

@@ -17,12 +17,12 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 """Classes for working with locally available Debian packages."""
-from gettext import gettext as _
 import os
 import sys
 
 import apt_inst
 import apt_pkg
+from apt_pkg import gettext as _
 
 
 # Constants for comparing the local package file with the version in the cache

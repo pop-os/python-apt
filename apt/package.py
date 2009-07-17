@@ -19,7 +19,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 """Functionality related to packages."""
-import gettext
 import httplib
 import os
 import sys
@@ -36,16 +35,12 @@ except ImportError:
 
 import apt_pkg
 import apt.progress.text
+from apt_pkg import gettext as _
 from apt.deprecation import (function_deprecated_by, AttributeDeprecatedBy,
                              deprecated_args)
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version')
-
-
-def _(string):
-    """Return the translation of the string."""
-    return gettext.dgettext("python-apt", string)
 
 
 def _file_is_same(path, size, md5):

@@ -21,17 +21,13 @@
 
 import os
 import weakref
-from gettext import dgettext
 
 import apt_pkg
 from apt import Package
+from apt_pkg import gettext as _
 from apt.deprecation import (AttributeDeprecatedBy, function_deprecated_by,
                              deprecated_args)
 import apt.progress.text
-
-
-def _(msg):
-    return dgettext('python-apt', msg)
 
 
 class FetchCancelledException(IOError):

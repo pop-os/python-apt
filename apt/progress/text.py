@@ -16,7 +16,6 @@
 # USA
 """Progress reporting for text interfaces."""
 import sys
-from gettext import dgettext
 
 import apt_pkg
 
@@ -25,12 +24,11 @@ __all__ = ['AcquireProgress', 'OpProgress']
 
 def _(msg):
     """Translate the message, also try apt if translation is missing."""
-    res = dgettext("python-apt", msg)
+    res = apt_pkg.gettext(msg)
     if res == msg:
-        return dgettext("apt", msg)
+        return apt_pkg.gettext(msg, "apt")
     else:
         return res
-
 
 class TextProgress(object):
     """Internal Base class for text progress classes."""

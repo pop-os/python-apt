@@ -22,7 +22,6 @@
 #  USA
 """GObject-powered progress classes and a GTK+ status widget."""
 
-from gettext import gettext as _
 import os
 import time
 
@@ -39,6 +38,7 @@ import vte
 
 import apt.progress.old
 import apt_pkg
+from apt_pkg import gettext as _
 from apt.deprecation import function_deprecated_by
 
 
