@@ -1,16 +1,18 @@
 #!/usr/bin/python
-import apt_pkg
-
 import unittest
 
+import apt_pkg
+
+
 class TestCache(unittest.TestCase):
+    """Test invocation of apt_pkg.Cache()"""
 
     def setUp(self):
         apt_pkg.init_config()
         apt_pkg.init_system()
 
     def test_wrong_invocation(self):
-        """wrongly invoke GetCache() rather than GetDepCache()."""
+        """Test wrong invocation of apt_pkg.Cache(apt_pkg.Cache())"""
         apt_cache = apt_pkg.Cache(apt_pkg.OpProgress())
         if apt_pkg._COMPAT_0_7:
             self.assertRaises(ValueError, apt_pkg.Cache, apt_cache)
@@ -24,7 +26,7 @@ class TestCache(unittest.TestCase):
             self.assertRaises(TypeError, apt_pkg.Cache, 0)
 
     def test_proper_invocation(self):
-        """Invoke it the right way."""
+        """Test correct invocation of apt_pkg.DepCache(apt_pkg.Cache())."""
         apt_cache = apt_pkg.Cache(apt_pkg.OpProgress())
         apt_depcache = apt_pkg.DepCache(apt_cache)
 
