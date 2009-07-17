@@ -24,9 +24,28 @@
 #include <apt-pkg/pkgsystem.h>
 
 #include <sys/stat.h>
+#include <libintl.h>
 #include <unistd.h>
 #include <Python.h>
 									/*}}}*/
+
+
+/**
+ * A Python->C->Python gettext() function.
+ *
+ * Python's gettext() ignores setlocale() which causes a strange behavior
+ * because the values received from apt-pkg respect setlocale(). We circumvent
+ * this problem by calling the C version of gettext(). This is also much
+ * faster.
+ */
+static PyObject *py_gettext(PyObject *self, PyObject *Args) {
+    const char *msg;
+    char *domain = "python-apt";
+    if (PyArg_ParseTuple(Args,"s|s:gettext",&msg) == 0)
+        return 0;
+
+    return PyString_FromString(dgettext(domain, msg));
+}
 
 // newConfiguration - Build a new configuration class			/*{{{*/
 // ---------------------------------------------------------------------
@@ -404,6 +423,12 @@ static PyMethodDef methods[] =
    {"init",Init,METH_VARARGS,doc_Init},
    {"init_config",InitConfig,METH_VARARGS,doc_InitConfig},
    {"init_system",InitSystem,METH_VARARGS,doc_InitSystem},
+
+   // Internationalization.
+   {"gettext",py_gettext,METH_VARARGS,
+    "gettext(msg: str[, domain: str = 'python-apt']) -> str\n\n"
+    "Translate the given string. Much Faster than Python's version and only\n"
+    "does translations after setlocale() has been called."},
 
    // Tag File
    {"rewrite_section",RewriteSection,METH_VARARGS,doc_RewriteSection},
