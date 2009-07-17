@@ -16,6 +16,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import os
+import glob
 import sys
 
 # If your extensions are in another directory, add it here. If the directory
@@ -27,13 +28,21 @@ sys.path.insert(0, os.path.abspath('../..'))
 # Find the path to the built apt_pkg and apt_inst extensions
 if os.path.exists("../../build"):
     version = '.'.join(str(x) for x in sys.version_info[:2])
-    for dirname in os.listdir('../../build'):
-        if version in dirname:
-            sys.path.insert(0, os.path.abspath('../../build/' + dirname))
+    for apt_pkg_path in glob.glob('../../build/lib*%s/apt_pkg.so' % version):
+        sys.path.insert(0, os.path.dirname(apt_pkg_path))
+        try:
+            import apt_pkg
+        except ImportError, exc:
+            # Not the correct version
+            sys.stderr.write('W: Ignoring error %s\n' % exc)
+            sys.path.pop(0)
+        else:
+            sys.stdout.write('I: Found apt_pkg.so in %s\n' % sys.path[0])
+            # Hack: Disable compatibility mode
+            apt_pkg._COMPAT_0_7 = 0
+            break
 
-# Hack: Disable compatibility mode
-import apt_pkg
-apt_pkg._COMPAT_0_7 = 0
+
 
 # General configuration
 # ---------------------
