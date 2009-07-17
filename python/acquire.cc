@@ -287,8 +287,8 @@ static PyObject *AcquireItemRepr(PyObject *Self)
    pkgAcquire::Item *Itm = acquireitem_tocpp(Self);
    if (Itm == 0)
       return 0;
-   char S[300];
-   snprintf(S,sizeof(S),"<%s object: "
+
+   return PyString_FromFormat("<%s object: "
 			"Status: %i Complete: %i Local: %i IsTrusted: %i "
 	                "FileSize: %lu DestFile:'%s' "
                         "DescURI: '%s' ID:%lu ErrorText: '%s'>",
@@ -296,7 +296,6 @@ static PyObject *AcquireItemRepr(PyObject *Self)
 	    Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
 	    Itm->FileSize, Itm->DestFile.c_str(), Itm->DescURI().c_str(),
 	    Itm->ID,Itm->ErrorText.c_str());
-   return PyString_FromString(S);
 }
 
 static void AcquireItemDealloc(PyObject *self) {

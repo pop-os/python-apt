@@ -42,9 +42,8 @@ static PyObject *HashString_NEW(PyTypeObject *type,PyObject *Args,
 static PyObject *HashString_Repr(PyObject *self)
 {
     HashString *hash = GetCpp<HashString*>(self);
-    char repr[100];
-    sprintf(repr, "<%s: \"%s\">", self->ob_type->tp_name, hash->toStr().c_str());
-    return PyString_FromString(repr);
+    return PyString_FromFormat("<%s object: \"%s\">", self->ob_type->tp_name,
+                               hash->toStr().c_str());
 }
 
 static PyObject *HashString_ToStr(PyObject *self)

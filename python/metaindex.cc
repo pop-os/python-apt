@@ -64,13 +64,10 @@ static PyGetSetDef MetaIndexGetSet[] = {
 static PyObject *MetaIndexRepr(PyObject *Self)
 {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
-
-    char S[1024];
-    snprintf(S,sizeof(S),"<apt_pkg.MetaIndex object: "
-                    "Type='%s', URI:'%s' Dist='%s' IsTrusted='%i'>",
-             meta->GetType(),  meta->GetURI().c_str(), meta->GetDist().c_str(),
-             meta->IsTrusted());
-    return PyString_FromString(S);
+    return PyString_FromFormat("<%s object: type='%s', uri:'%s' dist='%s' "
+                               "is_trusted='%i'>", Self->ob_type->tp_name,
+                               meta->GetType(),  meta->GetURI().c_str(),
+                               meta->GetDist().c_str(), meta->IsTrusted());
 }
 
 PyTypeObject PyMetaIndex_Type =

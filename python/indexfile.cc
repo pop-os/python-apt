@@ -58,16 +58,13 @@ static PyObject *PackageIndexFileGetIsTrusted(PyObject *Self,void*) {
 static PyObject *PackageIndexFileRepr(PyObject *Self)
 {
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
-
-   char S[1024];
-   snprintf(S,sizeof(S),"<pkIndexFile object: "
+   return PyString_FromFormat("<pkIndexFile object: "
 			"Label:'%s' Describe='%s' Exists='%i' "
 	                "HasPackages='%i' Size='%lu'  "
  	                "IsTrusted='%i' ArchiveURI='%s'>",
 	    File->GetType()->Label,  File->Describe().c_str(), File->Exists(),
 	    File->HasPackages(), File->Size(),
             File->IsTrusted(), File->ArchiveURI("").c_str());
-   return PyString_FromString(S);
 }
 
 static PyGetSetDef PackageIndexFileGetSet[] = {

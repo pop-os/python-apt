@@ -228,7 +228,7 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    const char *Name = PyObject_AsString(Arg);
    if (Name == NULL)
       return 0;
-      
+
 
    // Search for the package
    pkgCache::PkgIterator Pkg = Cache->FindPkg(Name);
@@ -534,11 +534,9 @@ static PyObject *PackageRepr(PyObject *Self)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
 
-   char S[300];
-   snprintf(S,sizeof(S),"<pkgCache::Package object: Name:'%s' Section: '%s'"
-	                " ID:%u Flags:0x%lX>",
-	    Pkg.Name(),Pkg.Section(),Pkg->ID,Pkg->Flags);
-   return PyString_FromString(S);
+   return PyString_FromFormat("<%s object: name:'%s' section: "
+                              "'%s' id:%u>", Self->ob_type->tp_name,
+                              Pkg.Name(), Pkg.Section(), Pkg->ID);
 }
 
 PyTypeObject PyPackage_Type =
@@ -621,12 +619,9 @@ static PyGetSetDef DescriptionGetSet[] = {
 static PyObject *DescriptionRepr(PyObject *Self)
 {
    pkgCache::DescIterator &Desc = GetCpp<pkgCache::DescIterator>(Self);
-
-   char S[300];
-   snprintf(S,sizeof(S),
-	    "<pkgCache::Description object: language_code:'%s' md5:'%s' ",
-	    Desc.LanguageCode(), Desc.md5());
-   return PyString_FromString(S);
+   return PyString_FromFormat("<%s object: language_code:'%s' md5:'%s' ",
+                              Self->ob_type->tp_name, Desc.LanguageCode(),
+                              Desc.md5());
 }
 
 PyTypeObject PyDescription_Type =
@@ -840,15 +835,14 @@ static PyObject *VersionGetIsTrusted(PyObject *Self, void*) {
 static PyObject *VersionRepr(PyObject *Self)
 {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
-
-   char S[300];
-   snprintf(S,sizeof(S),"<apt_pkg.Version object: Pkg:'%s' Ver:'%s' "
-	                "Section:'%s' Arch:'%s' Size:%lu ISize:%lu Hash:%u "
-	                "ID:%u Priority:%u>",
-	    Ver.ParentPkg().Name(),Ver.VerStr(),Ver.Section(),Ver.Arch(),
-	    (unsigned long)Ver->Size,(unsigned long)Ver->InstalledSize,
-	    Ver->Hash,Ver->ID,Ver->Priority);
-   return PyString_FromString(S);
+   return PyString_FromFormat("<%s object: Pkg:'%s' Ver:'%s' Section:'%s' "
+                              " Arch:'%s' Size:%lu ISize:%lu Hash:%u ID:%u "
+                              "Priority:%u>", Self->ob_type->tp_name,
+                              Ver.ParentPkg().Name(), Ver.VerStr(),
+                              Ver.Section(), Ver.Arch(),
+                              (unsigned long)Ver->Size,
+                              (unsigned long)Ver->InstalledSize,
+	                          Ver->Hash, Ver->ID, Ver->Priority);
 }
 
 static PyGetSetDef VersionGetSet[] = {
@@ -1004,20 +998,22 @@ static PyObject *PackageFile_GetID(PyObject *Self,void*)
     return Py_BuildValue("i",File->ID);
 }
 
+#define S(s) (s == NULL ? "" : s)
 static PyObject *PackageFileRepr(PyObject *Self)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
 
-    char S[300];
-    snprintf(S,sizeof(S),"<apt_pkg.PackageFile object: "
-             "File:'%s' a=%s,c=%s,v=%s,o=%s,l=%s "
-             "Arch='%s' Site='%s' IndexType='%s' Size=%lu "
-             "Flags=0x%lX ID:%u>",
-             File.FileName(),File.Archive(),File.Component(),File.Version(),
-             File.Origin(),File.Label(),File.Architecture(),File.Site(),
-             File.IndexType(),File->Size,File->Flags,File->ID);
-    return PyString_FromString(S);
+    return PyString_FromFormat("<%s object: filename:'%s'"
+                               "  a=%s,c=%s,v=%s,o=%s,l=%s arch='%s' site='%s'"
+                               " IndexType='%s' Size=%lu ID:%u>",
+                               Self->ob_type->tp_name, File.FileName(),
+                               S(File.Archive()),
+                               S(File.Component()),S(File.Version()),
+                               S(File.Origin()),S(File.Label()),
+                               S(File.Architecture()),S(File.Site()),
+                               S(File.IndexType()),File->Size,File->ID);
 }
+#undef S
 
 static PyGetSetDef PackageFileGetSet[] = {
   {(char*)"architecture",PackageFile_GetArchitecture},
@@ -1089,13 +1085,10 @@ static PyObject *DependencyRepr(PyObject *Self)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
 
-   char S[300];
-   snprintf(S,sizeof(S),"<pkgCache::Dependency object: "
-	                "Pkg:'%s' Ver:'%s' Comp:'%s'>",
-	    Dep.TargetPkg().Name(),
-	    (Dep.TargetVer() == 0?"":Dep.TargetVer()),
-	    Dep.CompType());
-   return PyString_FromString(S);
+   return PyString_FromFormat("<%s object: pkg:'%s' ver:'%s' comp:'%s'>",
+	                          Self->ob_type->tp_name, Dep.TargetPkg().Name(),
+	                          (Dep.TargetVer() == 0?"":Dep.TargetVer()),
+	                          Dep.CompType());
 }
 
 static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)

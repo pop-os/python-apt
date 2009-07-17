@@ -53,6 +53,7 @@ typedef int Py_ssize_t;
 #define PyString_FromString PyUnicode_FromString
 #define PyString_FromStringAndSize PyUnicode_FromStringAndSize
 #define PyString_AsString PyUnicode_AsString
+#define PyString_FromFormat PyUnicode_FromFormat
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
 // Force 0.7 compatibility to be off in Python 3 builds
