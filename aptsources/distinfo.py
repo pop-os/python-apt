@@ -137,8 +137,10 @@ class Repository:
 
 def split_url(url):
     ''' split a given URL into the protocoll, the hostname and the dir part '''
-    return map(lambda a, b: a, re.split(":*\/+", url, maxsplit=2),
-               [None, None, None])
+    split = re.split(":*\/+", url, maxsplit=2)
+    while len(split) < 3:
+        split.append(None)
+    return split
 
 
 class DistInfo:
