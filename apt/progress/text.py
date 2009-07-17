@@ -110,6 +110,9 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def fetch(self, item):
         """Called when some of the item's data is fetched."""
+        # It's complete already (e.g. Hit)
+        if item.owner.complete == True:
+            return
         item.owner.id = self._id
         self._id += 1
         line = "Get:%s %s" % (item.owner.id, item.description)
