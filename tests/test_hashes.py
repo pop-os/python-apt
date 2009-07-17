@@ -11,6 +11,7 @@ Unit tests to verify the correctness of Hashes, HashString and the various
 functions like md5sum."""
 import unittest
 import hashlib
+import sys
 
 import apt_pkg
 
@@ -62,6 +63,19 @@ class TestHashes(unittest.TestCase):
         self.assertEqual(self.hashes.sha1, self.fhashes.sha1)
         self.assertEqual(self.hashes.sha256, self.fhashes.sha256)
 
+    def test_unicode(self):
+        """Test apt_pkg.Hashes(unicode)."""
+        if sys.version_info[0] == 3:
+            self.assertRaises(TypeError, apt_pkg.Hashes, "D")
+            self.assertRaises(TypeError, apt_pkg.md5sum, "D")
+            self.assertRaises(TypeError, apt_pkg.sha1sum, "D")
+            self.assertRaises(TypeError, apt_pkg.sha256sum, "D")
+        else:
+            self.assertRaises(TypeError, apt_pkg.Hashes, unicode())
+            self.assertRaises(TypeError, apt_pkg.md5sum, unicode())
+            self.assertRaises(TypeError, apt_pkg.sha1sum, unicode())
+            self.assertRaises(TypeError, apt_pkg.sha256sum, unicode())
+
 
 class TestHashString(unittest.TestCase):
     """Test apt_pkg.HashString()."""
@@ -87,6 +101,12 @@ class TestHashString(unittest.TestCase):
         """Test apt_pkg.HashString().sha256"""
         self.assertEqual("SHA256:%s" % self.hashes.sha256, str(self.sha256))
         self.assertTrue(self.sha256.verify_file(apt_pkg.__file__))
+
+    def test_wrong(self):
+        """Test wrong invocation of HashString."""
+        self.assertRaises(TypeError, apt_pkg.HashString, 0)
+        if sys.version_info[0] == 3:
+            self.assertRaises(TypeError, apt_pkg.HashString, bytes())
 
 
 if __name__ == "__main__":
