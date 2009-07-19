@@ -34,9 +34,20 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
    pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
 
    PyObject *pyCdromProgressInst = 0;
+#ifdef COMPAT_0_7
    if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
+#else
+   if (PyArg_ParseTuple(Args, "O!", &PyCdromProgress_Type,
+                        &pyCdromProgressInst) == 0) {
+#endif
       return 0;
    }
+#ifdef COMPAT_0_7
+   if (!PyObject_TypeCheck(pyCdromProgressInst, &PyCdromProgress_Type)) {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Argument should be a subclass of"
+                 " apt_pkg.CdromProgress.", 1);
+   }
+#endif
 
    PyCdromProgress progress;
    progress.setCallbackInst(pyCdromProgressInst);

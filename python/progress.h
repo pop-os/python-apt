@@ -28,6 +28,12 @@ typedef struct {
     float percent;
 } PyOpProgressObject;
 
+
+typedef struct {
+    PyObject_HEAD
+    int total_steps;
+} PyCdromProgressObject;
+
 typedef struct {
     PyObject_HEAD
     double last_bytes;

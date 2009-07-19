@@ -651,6 +651,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"OpProgress",&PyOpProgress_Type);
    ADDTYPE(Module,"AcquireProgress",&PyAcquireProgress_Type);
    ADDTYPE(Module,"AcquireItemDesc",&PyAcquireItemDesc_Type);
+   ADDTYPE(Module,"CdromProgress",&PyCdromProgress_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));

@@ -518,10 +518,14 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 void PyCdromProgress::Update(string text, int current)
 {
    PyObject *arglist = Py_BuildValue("(si)", text.c_str(), current);
-
-   PyObject *o = Py_BuildValue("i", totalSteps);
-   PyObject_SetAttrString(callbackInst, "totalSteps", o);
-   Py_XDECREF(o);
+   if (PyObject_TypeCheck(callbackInst, &PyCdromProgress_Type)) {
+      ((PyCdromProgressObject *)callbackInst)->total_steps = totalSteps;
+   }
+   else {
+      PyObject *o = Py_BuildValue("i", totalSteps);
+      PyObject_SetAttrString(callbackInst, "totalSteps", o);
+      Py_XDECREF(o);
+   }
 
    RunSimpleCallback("update", arglist);
 }

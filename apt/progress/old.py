@@ -343,27 +343,13 @@ class InstallProgress(DumbInstallProgress):
         updateInterface = function_deprecated_by(update_interface)
 
 
-class CdromProgress(object):
+class CdromProgress(apt_pkg.CdromProgress):
     """Report the cdrom add progress.
 
-    Subclass this class to implement cdrom add progress reporting.
+    This class has been replaced by apt_pkg.CdromProgress.
     """
-
-    def __init__(self):
-        pass
-
-    def update(self, text, step):
-        """Called periodically to update the user interface."""
-
-    def ask_cdrom_name(self):
-        """Called to ask for the name of the cdrom."""
-
-    def change_cdrom(self):
-        """Called to ask for the cdrom to be changed."""
-
-    if apt_pkg._COMPAT_0_7:
-        askCdromName = function_deprecated_by(ask_cdrom_name)
-        changeCdrom = function_deprecated_by(change_cdrom)
+    askCdromName = function_deprecated_by(apt_pkg.CdromProgress.ask_cdrom_name)
+    changeCdrom = function_deprecated_by(apt_pkg.CdromProgress.change_cdrom)
 
 
 class DpkgInstallProgress(InstallProgress):
