@@ -29,6 +29,7 @@ def _(msg):
         res = apt_pkg.gettext(msg, "apt")
     return res
 
+
 class TextProgress(object):
     """Internal Base class for text progress classes."""
 
@@ -222,10 +223,12 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
         import signal
         signal.signal(signal.SIGWINCH, self._signal)
 
+
 class CdromProgress(apt_pkg.CdromProgress, TextProgress):
     """Text CD-ROM progress."""
 
     def ask_cdrom_name(self):
+        """Ask the user to provide a name for the disc."""
         self._write(_("Please provide a name for this Disc, such as "
                       "'Debian 2.1r1 Disk 1'"), False)
         try:
@@ -234,10 +237,12 @@ class CdromProgress(apt_pkg.CdromProgress, TextProgress):
             return
 
     def update(self, text, current):
+        """Set the current progress."""
         if text:
             self._write(text, False)
 
     def change_cdrom(self):
+        """Ask the user to change the CD-ROM."""
         self._write(_("Please insert a Disc in the drive and press enter"),
                     False)
         try:
