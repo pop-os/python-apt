@@ -32,22 +32,35 @@ static PyObject *PkgCdromAdd(PyObject *Self,PyObject *Args)
 static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 {
    pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
-
    PyObject *pyCdromProgressInst = 0;
-#ifdef COMPAT_0_7
-   if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
-#else
    if (PyArg_ParseTuple(Args, "O!", &PyCdromProgress_Type,
                         &pyCdromProgressInst) == 0) {
-#endif
       return 0;
    }
-#ifdef COMPAT_0_7
-   if (!PyObject_TypeCheck(pyCdromProgressInst, &PyCdromProgress_Type)) {
-    PyErr_WarnEx(PyExc_DeprecationWarning, "Argument should be a subclass of"
-                 " apt_pkg.CdromProgress.", 1);
+
+   PyCdromProgress progress;
+   progress.setCallbackInst(pyCdromProgressInst);
+
+   string ident;
+   bool res = Cdrom.Ident(ident, &progress);
+
+   if (res)
+       return CppPyString(ident);
+   else {
+       Py_INCREF(Py_None);
+       return HandleErrors(Py_None);
    }
-#endif
+}
+
+#ifdef COMPAT_0_7
+static PyObject *PkgCdromIdent_old(PyObject *Self,PyObject *Args)
+{
+   pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
+
+   PyObject *pyCdromProgressInst = 0;
+   if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
+      return 0;
+   }
 
    PyCdromProgress progress;
    progress.setCallbackInst(pyCdromProgressInst);
@@ -59,6 +72,7 @@ static PyObject *PkgCdromIdent(PyObject *Self,PyObject *Args)
 
    return HandleErrors(result);
 }
+#endif
 
 
 static PyMethodDef PkgCdromMethods[] =
@@ -67,7 +81,7 @@ static PyMethodDef PkgCdromMethods[] =
    {"ident",PkgCdromIdent,METH_VARARGS,"ident(progress) -> Ident a cdrom"},
 #ifdef COMPAT_0_7
    {"Add",PkgCdromAdd,METH_VARARGS,"Add(progress) -> Add a cdrom"},
-   {"Ident",PkgCdromIdent,METH_VARARGS,"Ident(progress) -> Ident a cdrom"},
+   {"Ident",PkgCdromIdent_old,METH_VARARGS,"Ident(progress) -> Ident a cdrom"},
 #endif
    {}
 };
