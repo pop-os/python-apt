@@ -99,6 +99,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
         In this case, the function sets up a signal handler for SIGWINCH, i.e.
         window resize signals. And it also sets id to 1.
         """
+        apt_pkg.AcquireProgress.start(self)
         import signal
         self._signal = signal.signal(signal.SIGWINCH, self._winch)
         # Get the window size.
@@ -116,6 +117,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def ims_hit(self, item):
         """Called when an item is update (e.g. not modified on the server)."""
+        apt_pkg.AcquireProgress.ims_hit(self, item)
         line = _('Hit ') + item.description
         if item.owner.filesize:
             line += ' [%sB]' % apt_pkg.size_to_str(item.owner.filesize)
@@ -123,6 +125,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def fail(self, item):
         """Called when an item is failed."""
+        apt_pkg.AcquireProgress.fail(self, item)
         if item.owner.status == item.owner.stat_done:
             self._write(_("Ign ") + item.description)
         else:
@@ -131,6 +134,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def fetch(self, item):
         """Called when some of the item's data is fetched."""
+        apt_pkg.AcquireProgress.fetch(self, item)
         # It's complete already (e.g. Hit)
         if item.owner.complete:
             return
@@ -146,7 +150,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
         """Periodically invoked while the Acquire process is underway.
 
         Return False if the user asked to cancel the whole Acquire process."""
-
+        apt_pkg.AcquireProgress.pulse(self, owner)
         percent = (((self.current_bytes + self.current_items) * 100.0) /
                         float(self.total_bytes + self.total_items))
 
@@ -206,6 +210,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def media_change(self, medium, drive):
         """Prompt the user to change the inserted removable media."""
+        apt_pkg.AcquireProgress.media_change(self, medium, drive)
         self._write(_("Media change: please insert the disc labeled\n"
                       " '%s'\n"
                       "in the drive '%s' and press enter\n") % (medium, drive))
@@ -213,6 +218,7 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
 
     def stop(self):
         """Invoked when the Acquire process stops running."""
+        apt_pkg.AcquireProgress.stop(self)
         # Trick for getting a translation from apt
         self._write((_("Fetched %sB in %s (%sB/s)\n") % (
                     apt_pkg.size_to_str(self.fetched_bytes),
@@ -229,6 +235,7 @@ class CdromProgress(apt_pkg.CdromProgress, TextProgress):
 
     def ask_cdrom_name(self):
         """Ask the user to provide a name for the disc."""
+        apt_pkg.CdromProgress.ask_cdrom_name(self)
         self._write(_("Please provide a name for this Disc, such as "
                       "'Debian 2.1r1 Disk 1'"), False)
         try:
@@ -238,11 +245,13 @@ class CdromProgress(apt_pkg.CdromProgress, TextProgress):
 
     def update(self, text, current):
         """Set the current progress."""
+        apt_pkg.CdromProgress.change_cdrom(self, text, current)
         if text:
             self._write(text, False)
 
     def change_cdrom(self):
         """Ask the user to change the CD-ROM."""
+        apt_pkg.CdromProgress.change_cdrom(self)
         self._write(_("Please insert a Disc in the drive and press enter"),
                     False)
         try:
