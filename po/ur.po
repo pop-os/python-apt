@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 16:48+0200\n"
+"POT-Creation-Date: 2009-07-19 15:59+0200\n"
 "PO-Revision-Date: 2006-05-19 02:46+0000\n"
 "Last-Translator: Hameed محمد حمید <hameeduddin517@yahoo.com>\n"
 "Language-Team: Urdu <urd@li.org>\n"
@@ -347,36 +347,36 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:258
+#: ../apt/progress/gtk2.py:259
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:264
+#: ../apt/progress/gtk2.py:265
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:284
+#: ../apt/progress/gtk2.py:285
 #, fuzzy
 msgid "Details"
 msgstr "روز"
 
-#: ../apt/progress/gtk2.py:366
+#: ../apt/progress/gtk2.py:367
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/progress/gtk2.py:372
+#: ../apt/progress/gtk2.py:373
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:304
+#: ../apt/package.py:301
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:939 ../apt/package.py:1043
+#: ../apt/package.py:937 ../apt/package.py:1043
 msgid "The list of changes is not available"
 msgstr ""
 
@@ -441,4 +441,55 @@ msgstr ""
 
 #: ../apt/debfile.py:494
 msgid "An essential package would be removed"
+msgstr ""
+
+#: ../apt/progress/text.py:81
+#, python-format
+msgid "%c%s... Done"
+msgstr ""
+
+#: ../apt/progress/text.py:118
+msgid "Hit "
+msgstr ""
+
+#: ../apt/progress/text.py:126
+msgid "Ign "
+msgstr ""
+
+#: ../apt/progress/text.py:128
+msgid "Err "
+msgstr ""
+
+#: ../apt/progress/text.py:138
+msgid "Get:"
+msgstr ""
+
+#: ../apt/progress/text.py:198
+msgid " [Working]"
+msgstr ""
+
+#: ../apt/progress/text.py:208
+#, python-format
+msgid ""
+"Media change: please insert the disc labeled\n"
+" '%s'\n"
+"in the drive '%s' and press enter\n"
+msgstr ""
+
+#. Trick for getting a translation from apt
+#: ../apt/progress/text.py:216
+#, python-format
+msgid "Fetched %sB in %s (%sB/s)\n"
+msgstr ""
+
+#: ../apt/progress/text.py:229
+msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
+msgstr ""
+
+#: ../apt/progress/text.py:241
+msgid "Please insert a Disc in the drive and press enter"
+msgstr ""
+
+#: ../apt/cache.py:96
+msgid "Building data structures"
 msgstr ""
