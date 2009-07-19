@@ -35,7 +35,7 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
       Py_XDECREF(arglist);
       return false;
    }
-   PyObject *result = PyEval_CallObject(method, arglist);
+   PyObject *result = PyObject_CallObject(method, arglist);
 
    Py_XDECREF(arglist);
 
@@ -44,7 +44,6 @@ bool PyCallbackObj::RunSimpleCallback(const char* method_name,
       std::cerr << "Error in function " << method_name << std::endl;
       PyErr_Print();
       PyErr_Clear();
-
       return false;
    }
    if(res != NULL)
@@ -435,7 +434,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       PyObject *method = PyObject_GetAttrString(callbackInst, "fork");
       std::cerr << "custom fork found" << std::endl;
       PyObject *arglist = Py_BuildValue("()");
-      PyObject *result = PyEval_CallObject(method, arglist);
+      PyObject *result = PyObject_CallObject(method, arglist);
       Py_DECREF(arglist);
       if (result == NULL) {
 	 std::cerr << "fork method invalid" << std::endl;
@@ -484,7 +483,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
           method = PyObject_GetAttrString(callbackInst, "waitChild");
       //std::cerr << "custom waitChild found" << std::endl;
       PyObject *arglist = Py_BuildValue("(i)",child_id);
-      PyObject *result = PyEval_CallObject(method, arglist);
+      PyObject *result = PyObject_CallObject(method, arglist);
       Py_DECREF(arglist);
       if (result == NULL) {
 	 std::cerr << "waitChild method invalid" << std::endl;
