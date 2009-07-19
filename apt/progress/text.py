@@ -26,9 +26,8 @@ def _(msg):
     """Translate the message, also try apt if translation is missing."""
     res = apt_pkg.gettext(msg)
     if res == msg:
-        return apt_pkg.gettext(msg, "apt")
-    else:
-        return res
+        res = apt_pkg.gettext(msg, "apt")
+    return res
 
 class TextProgress(object):
     """Internal Base class for text progress classes."""
@@ -40,7 +39,8 @@ class TextProgress(object):
     def _write(self, msg, newline=True, maximize=False):
         """Write the message on the terminal, fill remaining space."""
         self._file.write("\r")
-        self._file.write(msg)
+        print >> self._file, msg,
+
         # Fill remaining stuff with whitespace
         if self._width > len(msg):
             self._file.write((self._width - len(msg)) * ' ')
@@ -221,3 +221,26 @@ class AcquireProgress(apt_pkg.AcquireProgress, TextProgress):
         # Delete the signal again.
         import signal
         signal.signal(signal.SIGWINCH, self._signal)
+
+class CdromProgress(apt_pkg.CdromProgress, TextProgress):
+    """Text CD-ROM progress."""
+
+    def ask_cdrom_name(self):
+        self._write(_("Please provide a name for this Disc, such as "
+                      "'Debian 2.1r1 Disk 1'"), False)
+        try:
+            return raw_input(":")
+        except KeyboardInterrupt:
+            return
+
+    def update(self, text, current):
+        if text:
+            self._write(text, False)
+
+    def change_cdrom(self):
+        self._write(_("Please insert a Disc in the drive and press enter"),
+                    False)
+        try:
+            return (raw_input() == '')
+        except KeyboardInterrupt:
+            return False
