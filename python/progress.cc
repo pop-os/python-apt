@@ -548,20 +548,28 @@ bool PyCdromProgress::ChangeCdrom()
 bool PyCdromProgress::AskCdromName(string &Name)
 {
    PyObject *arglist = Py_BuildValue("()");
-   PyObject *result;
-
-   if (!RunSimpleCallback("ask_cdrom_name", arglist, &result))
-       RunSimpleCallback("askCdromName", arglist, &result);
-
    const char *new_name;
    bool res;
-   if(!PyArg_Parse(result, "(bs)", &res, &new_name))
-      std::cerr << "AskCdromName: result could not be parsed" << std::endl;
+   PyObject *result;
 
-   //std::cerr << "got: " << res << " " << "name: " << new_name << std::endl;
+   // New style: String on success, None on failure.
+   if (RunSimpleCallback("ask_cdrom_name", arglist, &result)) {
+        if(result == Py_None)
+            return false;
+        if(!PyArg_Parse(result, "s", &new_name))
+            std::cerr << "AskCdromName: result could not be parsed" << std::endl;
+        else
+            Name = string(new_name);
+            return true;
+   }
+   // Old style: (True, name) on success, (False, name) on failure.
+   else {
+      RunSimpleCallback("askCdromName", arglist, &result);
+      if(!PyArg_Parse(result, "(bs)", &res, &new_name))
+         std::cerr << "AskCdromName: result could not be parsed" << std::endl;
+      // set the new name
+      Name = string(new_name);
 
-   // set the new name
-   Name = string(new_name);
-
-   return res;
+      return res;
+  }
 }

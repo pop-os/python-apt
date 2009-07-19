@@ -37,7 +37,7 @@ static PyObject *cdromprogress_change_cdrom(PyObject *self, PyObject *args)
 // Takes a single PyObject argument as *arg
 static PyObject *cdromprogress_ask_cdrom_name(PyObject *self, PyObject *arg)
 {
-    Py_RETURN_FALSE;
+    Py_RETURN_NONE;
 }
 
 static PyMethodDef cdromprogress_methods[] = {
@@ -47,8 +47,8 @@ static PyMethodDef cdromprogress_methods[] = {
      "change_cdrom() -> bool\n\nAsk for the CD-ROM to be changed.\n"
      "Return False if the user requested to cancel the action (default)."},
     {"ask_cdrom_name",cdromprogress_ask_cdrom_name,METH_O,
-     "ask_cdrom_name(name: str) -> bool\n\nAsk for the name of the CD-ROM.\n"
-     "Return False if the user requested to cancel the action (default)."},
+     "ask_cdrom_name() -> str\n\nAsk for the name of the CD-ROM.\n"
+     "Return None if the user requested to cancel the action (default)."},
     {NULL}
 };
 
