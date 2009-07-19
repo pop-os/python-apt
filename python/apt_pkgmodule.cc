@@ -29,7 +29,6 @@
 #include <Python.h>
 									/*}}}*/
 
-
 /**
  * A Python->C->Python gettext() function.
  *
@@ -41,7 +40,7 @@
 static PyObject *py_gettext(PyObject *self, PyObject *Args) {
     const char *msg;
     char *domain = "python-apt";
-    if (PyArg_ParseTuple(Args,"s|s:gettext",&msg) == 0)
+    if (PyArg_ParseTuple(Args,"s|s:gettext",&msg, &domain) == 0)
         return 0;
 
     return PyString_FromString(dgettext(domain, msg));
