@@ -23,11 +23,10 @@
 import glob
 
 import apt_pkg
-from apt.progress.old import CdromProgress
 from apt.deprecation import AttributeDeprecatedBy
 
 
-class Cdrom(object):
+class Cdrom(apt_pkg.Cdrom):
     """Support for apt-cdrom like features.
 
     This class has several optional parameters for initialisation, which may
@@ -45,9 +44,9 @@ class Cdrom(object):
     """
 
     def __init__(self, progress=None, mountpoint=None, nomount=True):
-        self._cdrom = apt_pkg.Cdrom()
+        apt_pkg.Cdrom.__init__(self)
         if progress is None:
-            self._progress = CdromProgress()
+            self._progress = apt_pkg.CdromProgress()
         else:
             self._progress = progress
         # see if we have a alternative mountpoint
@@ -59,15 +58,13 @@ class Cdrom(object):
         else:
             apt_pkg.config.set("APT::CDROM::NoMount", "false")
 
-    def add(self):
+    def add(self, progress=None):
         """Add cdrom to the sources.list."""
-        return self._cdrom.add(self._progress)
+        return apt_pkg.Cdrom.add(self, progress or self._progress)
 
-    def ident(self):
+    def ident(self, progress=None):
         """Identify the cdrom."""
-        (res, ident) = self._cdrom.ident(self._progress)
-        if res:
-            return ident
+        return apt_pkg.Cdrom.ident(self, progress or self._progress)
 
     @property
     def in_sources_list(self):
