@@ -57,8 +57,8 @@ In May 2008, Ben Finney reported bug 481061 against the python-apt package,
 asking for PEP8 conformant names. With the release of python-apt 0.8, this
 is finally happening.
 
-Supporting new language features like the :keyword:`with` statement
--------------------------------------------------------------------
+Context managers for the :keyword:`with` statement
+--------------------------------------------------
 This is not a real big change, but it's good to have it:
 :class:`apt_pkg.ActionGroup` can now be used as a context manager for the
 :keyword:`with` statement. This makes it more obvious that you are using an
@@ -73,6 +73,11 @@ This also works for :class:`apt.Cache`::
     with cache.actiongroup(): # cache is an Instance of apt.Cache
         for package in my_selected_packages:
             package.mark_install() # Instance of apt.Package
+
+Yet another context manager is available for locking the package system::
+
+    with apt_pkg.SystemLock():
+        # do your stuff here
 
 Unification of dependency handling
 ----------------------------------
