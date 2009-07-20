@@ -13,6 +13,7 @@
 #include <utility>
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/acquire-worker.h>
+#include "generic.h"
 #include "progress.h"
 
 // generic
@@ -336,15 +337,19 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 void PyInstallProgress::StartUpdate()
 {
    RunSimpleCallback("startUpdate");
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::UpdateInterface()
 {
+   PyCbObj_END_ALLOW_THREADS
    RunSimpleCallback("updateInterface");
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::FinishUpdate()
 {
+   PyCbObj_END_ALLOW_THREADS
    RunSimpleCallback("finishUpdate");
 }
 
@@ -403,9 +408,9 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       _exit(res);
    }
 
-
    StartUpdate();
 
+   PyCbObj_END_ALLOW_THREADS
    if(PyObject_HasAttrString(callbackInst, "waitChild")) {
       PyObject *method = PyObject_GetAttrString(callbackInst, "waitChild");
       //std::cerr << "custom waitChild found" << std::endl;
@@ -420,14 +425,19 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       int child_res;
       if(!PyArg_Parse(result, "i", &res) ) {
 	 std::cerr << "custom waitChild() result could not be parsed?"<< std::endl;
+	 PyCbObj_BEGIN_ALLOW_THREADS
 	 return pkgPackageManager::Failed;
       }
+      PyCbObj_BEGIN_ALLOW_THREADS
       //std::cerr << "got child_res: " << res << std::endl;
    } else {
       //std::cerr << "using build-in waitpid()" << std::endl;
-
-      while (waitpid(child_id, &ret, WNOHANG) == 0)
+      PyCbObj_BEGIN_ALLOW_THREADS
+      while (waitpid(child_id, &ret, WNOHANG) == 0) {
+	 PyCbObj_END_ALLOW_THREADS
 	 UpdateInterface();
+         PyCbObj_BEGIN_ALLOW_THREADS
+      }
 
       res = (pkgPackageManager::OrderResult) WEXITSTATUS(ret);
       //std::cerr << "build-in waitpid() got: " << res << std::endl;
