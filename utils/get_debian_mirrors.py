@@ -5,7 +5,7 @@
 #  Download the latest list with available mirrors from the Debian
 #  website and extract the hosts from the raw page
 #
-#  Copyright (c) 2006 Free Software Foundation Europe
+#  Copyright (c) 2006, 2009 Free Software Foundation Europe
 #
 #  Author: Sebastian Heinlein <glatzor@ubuntu.com>
 #
@@ -37,7 +37,8 @@ list_path = "../data/templates/Debian.mirrors"
 
 req = urllib2.Request("http://www.debian.org/mirror/mirrors_full")
 match = re.compile("^.*>([A-Za-z0-9-.\/_]+)<\/a>.*\n$")
-match_location = re.compile('^<strong><a name="([A-Z]+)">.*')
+match_location = re.compile('^<h3><a name="([A-Z]+)">.*')
+match_sites = re.compile('^Site: <tt>([A-Za-z0-9-.\ \/_,]+)<\/tt>.*\n$')
 
 
 def add_sites(line, proto, sites, mirror_type):
@@ -50,15 +51,15 @@ try:
     print "Downloading mirrors list from the Debian website..."
     uri=urllib2.urlopen(req)
     for line in uri.readlines():
-        if line.startswith('<strong><a name="'):
+        if line.startswith('<h3><a name="'):
             location = match_location.sub(r"\1", line)
             if location:
                 mirrors.append("#LOC:%s" % location)
         if line.startswith("Site:"):
-            sites = line[6:-1].split(",")
-        elif line.startswith('Packages over HTTP'):
+            sites = match_sites.sub(r"\1", line).split(",")
+        elif line.startswith('<br>Packages over HTTP'):
             add_sites(line, "http", sites, mirrors)
-        elif line.startswith('Packages over FTP'):
+        elif line.startswith('<br>Packages over FTP'):
             add_sites(line, "ftp", sites, mirrors)
     uri.close()
 except:
