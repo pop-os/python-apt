@@ -35,7 +35,7 @@ files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
          'hashstring.cc', 'indexfile.cc', 'indexrecords.cc', 'metaindex.cc',
          'pkgmanager.cc', 'pkgrecords.cc', 'pkgsrcrecords.cc', 'policy.cc',
          'progress.cc', 'sourcelist.cc', 'string.cc', 'tag.cc',
-         'opprogress.cc', 'acquireprogress.cc', 'cdromprogress.cc']
+         'opprogress.cc', 'acquireprogress.cc', 'cdromprogress.cc', 'lock.cc']
 files = sorted(['python/' + fname for fname in files])
 apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
