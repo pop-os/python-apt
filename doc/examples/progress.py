@@ -35,13 +35,29 @@ class TextFetchProgress(apt.FetchProgress):
         pass
 
     def updateStatus(self, uri, descr, shortDescr, status):
-        print "UpdateStatus: '%s' '%s' '%s' '%i'" % (
+        print "UpdateStatus: '%s' '%s' '%s' '%i' " % (
             uri, descr, shortDescr, status)
+
+    def update_status_full(self, uri, descr, shortDescr, status, fileSize, 
+                           partialSize):
+        print "update_status_full: '%s' '%s' '%s' '%i' '%d/%d'" % (
+            uri, descr, shortDescr, status, partialSize, fileSize)
 
     def pulse(self):
         print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
             apt.SizeToStr(self.currentCPS), apt.SizeToStr(self.currentBytes),
             apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+        return True
+
+    def pulse_items(self, items):
+        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
+            apt.SizeToStr(self.currentCPS), apt.SizeToStr(self.currentBytes),
+            apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+        print "Pulse-Items: "
+        for itm in items:
+            uri, descr, shortDescr, fileSize, partialSize = itm
+            print " - '%s' '%s' '%s' '%d/%d'" % (
+                uri, descr, shortDescr, partialSize, fileSize)
         return True
 
     def mediaChange(self, medium, drive):

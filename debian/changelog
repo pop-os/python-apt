@@ -1,9 +1,31 @@
-python-apt (0.7.10.5) UNRELEASED; urgency=low
+python-apt (0.7.11.0) UNRELEASED; urgency=low
 
+  [ Julian Andres Klode ]
   * data/templates/Debian.info.in: Squeeze will be 6.0, not 5.1
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 15 Jun 2009 17:21:57 +0200
+  [ Stephan Peijnik ]
+  * apt/progress/__init__.py:
+    - add update_status_full() that takes file_size/partial_size as 
+      additional callback arguments
+    - add pulse_items() that takes a addtional "items" tuple that 
+      gives the user full access to the individual items that are
+      fetched
+  * python/progress.cc:
+    - low level code for update_status_full and pulse_items()
+    - better threading support
+  
+  [ Michael Vogt ]
+  * aptsources/distro.py:
+    - fix indent error that causes incorrect sources.list additons
+      (LP: #372224)
+  * python/progress.cc:
+    - fix crash in RunSimpleCallback()
+  * apt/cache.py:
+    - when the cache is run with a alternative rootdir, create
+      required dirs/files automatically
 
+ -- Michael Vogt <mvo@debian.org>  Mon, 20 Jul 2009 15:35:27 +0200
+  
 python-apt (0.7.10.4) unstable; urgency=low
 
   [ Michael Vogt ]

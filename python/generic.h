@@ -121,8 +121,9 @@ void CppOwnedDealloc(PyObject *iObj)
 {
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
    Obj->Object.~T();
-   if (Obj->Owner != 0)
+   if (Obj->Owner != 0) {
       Py_DECREF(Obj->Owner);
+   }
    PyObject_DEL(Obj);
 }
 
