@@ -33,9 +33,18 @@ static PyObject *systemlock_exit(PyObject *self, PyObject *args)
                            &traceback)) {
         return 0;
     }
-    if ((! exc_type || exc_type == Py_None) && _system->UnLock() == 0) {
-        return HandleErrors();
+
+    if (_system->UnLock() == 0) {
+        // The unlock failed. If no exception happened within the suite, we
+        // will raise an error here. Otherwise, we just display the error, so
+        // Python can handle the original exception instead.
+        HandleErrors();
+        if (exc_type == Py_None)
+            return NULL;
+        else
+            PyErr_WriteUnraisable(self);
     }
+    // Return False, as required by the context manager protocol.
     Py_RETURN_FALSE;
 }
 
@@ -45,6 +54,7 @@ static PyObject *systemlock_enter(PyObject *self, PyObject *args)
         return NULL;
     if (!_system->Lock())
         return HandleErrors();
+    Py_INCREF(self);
     return self;
 }
 
