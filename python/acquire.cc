@@ -13,12 +13,23 @@
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/acquire-worker.h>
 
-typedef CppPyObject<pkgAcquire::Item*> PyAcquireItemObject;
+typedef CppOwnedPyObject<pkgAcquire::Item*> PyAcquireItemObject;
+typedef CppOwnedPyObject<pkgAcquire::ItemDesc*> PyAcquireItemDescObject;
+typedef CppOwnedPyObject<pkgAcqFile*> PyAcquireFileObject;
+typedef CppOwnedPyObject<pkgAcquire::Worker*> PyAcquireWorkerObject;
+
+
+struct PyAcquireItems {
+    PyAcquireFileObject *file;
+    PyAcquireItemObject *item;
+};
 
 // Keep a vector to PyAcquireItemObject pointers, so we can set the Object
 // pointers to NULL when deallocating the main object (mostly AcquireFile).
 struct PyAcquireObject : public CppPyObject<pkgAcquire*> {
-    vector<PyAcquireItemObject *> items;
+    map <pkgAcquire::Item*,PyAcquireItems> item_map;
+    map <pkgAcquire::ItemDesc*,PyAcquireItemDescObject*> itemdesc_map;
+    map <pkgAcquire::Worker*,PyAcquireWorkerObject*> worker_map;
 };
 
 
@@ -30,11 +41,16 @@ static PyObject *acquireworker_get_current_item(PyObject *self, void *closure)
         Py_RETURN_NONE;
     }
 
-    PyAcquireObject *PyCache = (PyAcquireObject *)GetOwner<pkgAcquire::Worker*>(self);
+    PyAcquireObject *PyAcquire = (PyAcquireObject *)GetOwner<pkgAcquire::Worker*>(self);
 
     pkgAcquire::Item *Item = worker->CurrentItem->Owner;
-    PyObject *PyItem = PyAcquireItem_FromCpp(Item,false,PyCache);
-    PyCache->items.push_back((PyAcquireItemObject *)PyItem);
+
+    PyObject *PyItem;
+    if (PyAcquire->item_map[Item].item)
+        PyItem = PyAcquire->item_map[Item].item;
+    else
+        PyItem = PyAcquire->item_map[Item].item = (PyAcquireItemObject*)PyAcquireItem_FromCpp(Item,false,PyAcquire);
+
     return PyAcquireItemDesc_FromCpp(worker->CurrentItem,false,PyItem);
 }
 
@@ -118,8 +134,6 @@ static PyObject *acquireitemdesc_get_shortdesc(PyObject *self, void *closure)
 }
 static PyObject *acquireitemdesc_get_owner(CppOwnedPyObject<pkgAcquire::ItemDesc*> *self, void *closure)
 {
-
-
     if (self->Owner != NULL) {
         Py_INCREF(self->Owner);
         return self->Owner;
@@ -238,9 +252,6 @@ static int AcquireItemSetID(PyObject *self, PyObject *value, void *closure)
         PyErr_SetString(PyExc_TypeError, "value must be integer.");
         return -1;
     }
-
-
-
     return 0;
 }
 
@@ -303,33 +314,16 @@ static void AcquireItemDealloc(PyObject *self) {
    PyAcquireObject *owner = (PyAcquireObject *)GetOwner<pkgAcquire::Item*>(self);
 
    // Simply deallocate the object if we have no owner.
-   if (owner == NULL) {
-       CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
-       return;
-   }
-   vector<PyAcquireItemObject *> &items = owner->items;
-   bool DeletePtr = !((CppPyObject<pkgAcquire::Item*> *)self)->NoDelete;
+   if (owner != NULL && !((CppPyObject<pkgAcquire::Item*> *)self)->NoDelete) {
+      PyAcquireItems &items = owner->item_map[file];
 
-   // Cleanup the other objects as well...
-   for (vector<PyAcquireItemObject *>::iterator I = items.begin();
-        I != items.end(); I++) {
-      // If it is the current object, remove it from the vector.
-      if ((*I) == self) {
-        items.erase(I);
-        I--; // erase() moved it one forward, move back
-      }
-      // If we delete the object below, set all other pointers to it to NULL,
-      // and remove them from the vector.
-      else if (DeletePtr && (*I)->Object == file) {
-        if ((*I) != self)
-            (*I)->Object = NULL;
-        items.erase(I);
-        I--; // erase() moved it one forward, move back
-      }
+      if (items.item && items.item != self)
+          items.item->Object = NULL;
+      if (items.file && items.item != self)
+          items.file->Object = NULL;
+      owner->item_map.erase(file);
    }
-#ifdef ALLOC_DEBUG
-   std::cerr << "ITEMS: " << items.size() << "\n";
-#endif
+
    CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
 }
 
@@ -394,10 +388,15 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 
    fetcher->Shutdown();
 
-   vector<PyAcquireItemObject *> items = ((PyAcquireObject *)Self)->items;
-   for (vector<PyAcquireItemObject *>::iterator I = items.begin();
-        I != items.end(); I++)
-        (*I)->Object = NULL;
+   // TODO: Delete all objects here
+   map<pkgAcquire::Item*,PyAcquireItems> items = ((PyAcquireObject *)Self)->item_map;
+   for (map<pkgAcquire::Item*,PyAcquireItems>::iterator I = items.begin();
+        I != items.end(); I++) {
+        (*I).second.file->Object = NULL;
+        (*I).second.item->Object = NULL;
+   }
+
+
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
@@ -443,15 +442,20 @@ static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
 {
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
    PyObject *List = PyList_New(0);
+   PyAcquireItemObject *Obj;
    for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
         I != fetcher->ItemsEnd(); I++)
    {
-      PyAcquireItemObject *Obj;
-      Obj = CppOwnedPyObject_NEW<pkgAcquire::Item*>(Self,&PyAcquireItem_Type,*I);
-      Obj->NoDelete = true;
-      PyList_Append(List,Obj);
-      ((PyAcquireObject *)Self)->items.push_back(Obj);
-      Py_DECREF(Obj);
+
+      if (((PyAcquireObject *)Self)->item_map[*I].item)
+        PyList_Append(List, ((PyAcquireObject *)Self)->item_map[*I].item);
+      else {
+        Obj = CppOwnedPyObject_NEW<pkgAcquire::Item*>(Self,&PyAcquireItem_Type,*I);
+        Obj->NoDelete = true;
+        PyList_Append(List,Obj);
+        ((PyAcquireObject *)Self)->item_map[*I].item = Obj;
+        Py_DECREF(Obj);
+    }
    }
    return List;
 }
@@ -504,9 +508,11 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       fetcher = new pkgAcquire();
    }
 
-   CppPyObject<pkgAcquire*> *FetcherObj =
+   PyAcquireObject *FetcherObj = (PyAcquireObject *)
 	   CppPyObject_NEW<pkgAcquire*>(type, fetcher);
 
+   // prepare our map of items.
+   new (&FetcherObj->item_map) map<pkgAcquire::Item*,PyAcquireItems>();
    return FetcherObj;
 }
 
@@ -594,8 +600,9 @@ static PyObject *PkgAcquireFileNew(PyTypeObject *type, PyObject *Args, PyObject 
 				   destFile); // short-desc
    CppOwnedPyObject<pkgAcqFile*> *AcqFileObj = CppOwnedPyObject_NEW<pkgAcqFile*>(pyfetcher, type);
    AcqFileObj->Object = af;
-   ((PyAcquireObject *)pyfetcher)->items.push_back((PyAcquireItemObject *)AcqFileObj);
 
+   // Register the file so we can remove it later.
+   ((PyAcquireObject *)pyfetcher)->item_map[af].file = AcqFileObj;
 
    return AcqFileObj;
 }
