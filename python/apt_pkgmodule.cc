@@ -527,6 +527,7 @@ static struct _PyAptPkgAPIStruct API = {
    &PyAcquireFile_Type,       // acquirefile_type
    &PyAcquireItem_Type,       // acquireitem_type
    &PyAcquireItemDesc_Type,   // acquireitemdesc_type
+   &PyAcquireWorker_Type,     // acquireworker_type
    &PyActionGroup_Type,       // actiongroup_type
    &PyCache_Type,             // cache_type
    &PyCacheFile_Type,          // cachefile_type
