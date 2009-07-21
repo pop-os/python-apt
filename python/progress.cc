@@ -138,11 +138,9 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
 void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 {
    //std::cout << "UpdateStatus: " << Itm.URI << " " << status << std::endl;
-
    // Added object file size and object partial size to
    // parameters that are passed to updateStatus.
    // -- Stephan
-   PyCbObj_END_ALLOW_THREADS
    PyObject *arglist = Py_BuildValue("(sssikk)", Itm.URI.c_str(),
 				     Itm.Description.c_str(),
 				     Itm.ShortDesc.c_str(),
@@ -159,35 +157,41 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 
    if(!RunSimpleCallback("update_status", arglist))
        RunSimpleCallback("updateStatus", arglist);
-   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
+   PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
        RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLHit);
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
+   PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
        RunSimpleCallback("fetch", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLQueued);
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
+   PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
        RunSimpleCallback("done", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLDone);
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
+   PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
        RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
        return;
@@ -207,6 +211,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
        RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
    else
        UpdateStatus(Itm, DLFailed);
+   PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyFetchProgress::Start()
@@ -258,6 +263,7 @@ void PyFetchProgress::Stop()
     * PyCbObj_END_ALLOW_THREADS to our previous
     * PyCbObj_BEGIN_ALLOW_THREADS (Python requires this!).
     */
+
    PyCbObj_END_ALLOW_THREADS
    //std::cout << "Stop" << std::endl;
    pkgAcquireStatus::Stop();
@@ -328,9 +334,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       if (RunSimpleCallback("pulse", TUPLEIZE(PyAcquire_FromCpp(Owner)), &result1)) {
       if (result1 != NULL && PyArg_Parse(result1, "b", &res1) && res1 == false) {
          // the user returned a explicit false here, stop
+         PyCbObj_BEGIN_ALLOW_THREADS
          return false;
       }
      }
+     PyCbObj_BEGIN_ALLOW_THREADS
      return true;
    }
 
