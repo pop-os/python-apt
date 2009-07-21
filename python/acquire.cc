@@ -46,10 +46,17 @@ static PyObject *acquireworker_get_current_item(PyObject *self, void *closure)
     pkgAcquire::Item *Item = worker->CurrentItem->Owner;
 
     PyObject *PyItem;
-    if (PyAcquire->item_map[Item].item)
+    // FIXME: PyAcquire_FromCpp needs to initialize item_map.
+    if (PyAcquire && false && PyAcquire->item_map[Item].item) {
+        Py_INCREF(PyItem);
         PyItem = PyAcquire->item_map[Item].item;
-    else
-        PyItem = PyAcquire->item_map[Item].item = (PyAcquireItemObject*)PyAcquireItem_FromCpp(Item,false,PyAcquire);
+    }
+    else {
+        PyItem = PyAcquireItem_FromCpp(Item,false,PyAcquire);
+        // FIXME: PyAcquire_FromCpp needs to initialize item_map.
+        if (PyAcquire && false)
+            PyAcquire->item_map[Item].item = (PyAcquireItemObject*)PyItem;
+    }
 
     return PyAcquireItemDesc_FromCpp(worker->CurrentItem,false,PyItem);
 }
