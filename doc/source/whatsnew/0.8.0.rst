@@ -79,6 +79,12 @@ Yet another context manager is available for locking the package system::
     with apt_pkg.SystemLock():
         # do your stuff here
 
+There is also one for file based locking:
+
+    with apt_pkg.FileLock(filename):
+        # do your stuff here
+
+
 Unification of dependency handling
 ----------------------------------
 In apt 0.7, there were three different return types of functions parsing

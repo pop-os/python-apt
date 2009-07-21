@@ -652,6 +652,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"AcquireItemDesc",&PyAcquireItemDesc_Type);
    ADDTYPE(Module,"CdromProgress",&PyCdromProgress_Type);
    ADDTYPE(Module,"SystemLock",&PySystemLock_Type);
+   ADDTYPE(Module,"FileLock",&PyFileLock_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));

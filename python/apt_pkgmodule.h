@@ -118,6 +118,7 @@ extern PyTypeObject PyCdromProgress_Type;
 extern PyTypeObject PyAcquireItemDesc_Type;
 extern PyTypeObject PyAcquireWorker_Type;
 extern PyTypeObject PySystemLock_Type;
+extern PyTypeObject PyFileLock_Type;
 #include "python-apt.h"
 #endif
 
