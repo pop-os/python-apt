@@ -47,7 +47,7 @@ class OpProgress(object):
 
     def __init__(self):
         self.op = None
-        self.sub_op = None
+        self.subop = None
 
     def update(self, percent):
         """Called periodically to update the user interface."""
@@ -56,7 +56,7 @@ class OpProgress(object):
         """Called once an operation has been completed."""
 
     if apt_pkg._COMPAT_0_7:
-        subOp = AttributeDeprecatedBy('sub_op')
+        subOp = AttributeDeprecatedBy('subop')
 
 
 class OpTextProgress(OpProgress):
@@ -67,7 +67,7 @@ class OpTextProgress(OpProgress):
 
     def update(self, percent):
         """Called periodically to update the user interface."""
-        sys.stdout.write("\r%s: %.2i  " % (self.sub_op, percent))
+        sys.stdout.write("\r%s: %.2i  " % (self.subop, percent))
         sys.stdout.flush()
 
     def done(self):
