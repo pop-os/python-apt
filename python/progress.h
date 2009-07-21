@@ -18,7 +18,7 @@
 /* PyCbObj_BEGIN_ALLOW_THREADS and PyCbObj_END_ALLOW_THREADS are sligthly
  * modified versions of Py_BEGIN_ALLOW_THREADS and Py_END_ALLOW_THREADS.
  * Instead of storing the thread state in a function-local variable these
- * use a class attribute (with the same) name, allowing blocking and 
+ * use a class attribute (with the same) name, allowing blocking and
  * unblocking from different class methods.
  * Py_BLOCK_THREADS and Py_UNBLOCK_THREADS do not define their own
  * local variable but use the one provided by PyCbObj_BEGIN_ALLOW_THREADS
@@ -61,6 +61,7 @@ typedef struct {
     unsigned long total_items;
     unsigned long current_items;
 } PyAcquireProgressObject;
+
 
 
 class PyCallbackObj {

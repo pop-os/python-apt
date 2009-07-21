@@ -17,6 +17,24 @@
 #include "generic.h"
 #include "apt_pkgmodule.h"
 
+
+/**
+ * Set an attribute on an object, after creating the value with
+ * Py_BuildValue(fmt, arg). Afterwards, decrease its refcount and return
+ * whether setting the attribute was successful.
+ */
+template<class T>
+inline bool setattr(PyObject *object, const char *attr, const char *fmt, T arg)
+{
+    if (!object)
+        return false;
+    PyObject *value = Py_BuildValue(fmt, arg);
+
+    int result = PyObject_SetAttrString(object, attr, value);
+    Py_DECREF(value);
+    return result != -1;
+}
+
 #define TUPLEIZE(op) Py_BuildValue("(O)", op)
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
@@ -81,22 +99,11 @@ void PyOpProgress::Update()
       RunSimpleCallback("update");
    }
    else {
-      PyObject *o;
-      o = Py_BuildValue("s", Op.c_str());
-      PyObject_SetAttrString(callbackInst, "op", o);
-      Py_XDECREF(o);
-      o = Py_BuildValue("s", SubOp.c_str());
-      if(PyObject_HasAttrString(callbackInst, "sub_op"))
-         PyObject_SetAttrString(callbackInst, "sub_op", o);
-      else
-         PyObject_SetAttrString(callbackInst, "subOp", o);
-      Py_XDECREF(o);
-      o = Py_BuildValue("b", MajorChange);
-      if(PyObject_HasAttrString(callbackInst, "major_change"))
-         PyObject_SetAttrString(callbackInst, "major_change", o);
-      else
-         PyObject_SetAttrString(callbackInst, "majorChange", o);
-      Py_XDECREF(o);
+      setattr(callbackInst, "op", "s", Op.c_str());
+      setattr(callbackInst, "subop", "s", SubOp.c_str());
+      setattr(callbackInst, "subOp", "s", SubOp.c_str());
+      setattr(callbackInst, "major_change", "b", MajorChange);
+      setattr(callbackInst, "majorChange", "b", MajorChange);
       PyObject *arglist = Py_BuildValue("(f)", Percent);
       RunSimpleCallback("update", arglist);
   }
@@ -219,35 +226,16 @@ void PyFetchProgress::Start()
    //std::cout << "Start" << std::endl;
    pkgAcquireStatus::Start();
 
+#ifdef COMPAT_0_7
+   if (!PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
+      setattr(callbackInst, "currentCPS", "d", 0);
+      setattr(callbackInst, "currentBytes", "d", 0);
+      setattr(callbackInst, "currentItems", "k", 0);
+      setattr(callbackInst, "totalItems", "k", 0);
+      setattr(callbackInst, "totalBytes", "d", 0);
+   }
+#endif
 
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-      goto end;
-
-   // These attributes should be initialized before the first callback (start)
-   // is invoked.
-   // -- Stephan
-   PyObject *o;
-
-   o = Py_BuildValue("d", 0);
-   PyObject_SetAttrString(callbackInst, "currentCPS", o);
-   Py_XDECREF(o);
-
-   o = Py_BuildValue("d", 0);
-   PyObject_SetAttrString(callbackInst, "currentBytes", o);
-   Py_XDECREF(o);
-
-   o = Py_BuildValue("k", 0);
-   PyObject_SetAttrString(callbackInst, "currentItems", o);
-   Py_XDECREF(o);
-   o = Py_BuildValue("k", 0);
-   PyObject_SetAttrString(callbackInst, "totalItems", o);
-   Py_XDECREF(o);
-
-   o = Py_BuildValue("d", 0);
-   PyObject_SetAttrString(callbackInst, "totalBytes", o);
-   Py_XDECREF(o);
-
-end:
    RunSimpleCallback("start");
    /* After calling the start method we can safely allow
     * other Python threads to do their work for now.
@@ -291,41 +279,22 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
        obj->current_items = CurrentItems;
    }
    else {
-       // set stats
-       PyObject *o;
-       o = Py_BuildValue("d", FetchedBytes);
-       PyObject_SetAttrString(callbackInst, "fetched_bytes", o);
-       Py_DECREF(o);
-       o = Py_BuildValue("d", CurrentCPS);
-       if(PyObject_HasAttrString(callbackInst, "current_cps"))
-          PyObject_SetAttrString(callbackInst, "current_cps", o);
-       else
-          PyObject_SetAttrString(callbackInst, "currentCPS", o);
-       Py_XDECREF(o);
-       o = Py_BuildValue("d", CurrentBytes);
-       if(PyObject_HasAttrString(callbackInst, "current_bytes"))
-          PyObject_SetAttrString(callbackInst, "current_bytes", o);
-       else
-          PyObject_SetAttrString(callbackInst, "currentBytes", o);
-       Py_XDECREF(o);
-       o = Py_BuildValue("k", CurrentItems);
-       if(PyObject_HasAttrString(callbackInst, "current_items"))
-          PyObject_SetAttrString(callbackInst, "current_items", o);
-       else
-          PyObject_SetAttrString(callbackInst, "currentItems", o);
-       Py_XDECREF(o);
-       o = Py_BuildValue("k", TotalItems);
-       if(PyObject_HasAttrString(callbackInst, "total_items"))
-          PyObject_SetAttrString(callbackInst, "total_items", o);
-       else
-          PyObject_SetAttrString(callbackInst, "totalItems", o);
-       Py_XDECREF(o);
-       o = Py_BuildValue("d", TotalBytes);
-       if(PyObject_HasAttrString(callbackInst, "total_bytes"))
-          PyObject_SetAttrString(callbackInst, "total_bytes", o);
-       else
-          PyObject_SetAttrString(callbackInst, "totalBytes", o);
-       Py_XDECREF(o);
+       setattr(callbackInst, "last_bytes", "d", LastBytes);
+       setattr(callbackInst, "current_cps", "d", CurrentCPS);
+       setattr(callbackInst, "current_bytes", "d", CurrentBytes);
+       setattr(callbackInst, "total_bytes", "d", TotalBytes);
+       setattr(callbackInst, "fetched_bytes", "d", FetchedBytes);
+       setattr(callbackInst, "elapsed_time", "k", ElapsedTime);
+       setattr(callbackInst, "current_items", "k", CurrentItems);
+       setattr(callbackInst, "total_items", "k", TotalItems);
+#ifdef COMPAT_0_7
+       setattr(callbackInst, "currentCPS", "d", CurrentCPS);
+       setattr(callbackInst, "currentBytes", "d", CurrentBytes);
+       setattr(callbackInst, "totalBytes", "d", TotalBytes);
+       setattr(callbackInst, "fetchedBytes", "d", FetchedBytes);
+       setattr(callbackInst, "currentItems", "k", CurrentItems);
+       setattr(callbackInst, "totalItems", "k", TotalItems);
+#endif
    }
 
    if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
@@ -568,9 +537,11 @@ void PyCdromProgress::Update(string text, int current)
       ((PyCdromProgressObject *)callbackInst)->total_steps = totalSteps;
    }
    else {
-      PyObject *o = Py_BuildValue("i", totalSteps);
-      PyObject_SetAttrString(callbackInst, "totalSteps", o);
-      Py_XDECREF(o);
+
+      setattr(callbackInst, "total_steps", "i", totalSteps);
+#ifdef COMPAT_0_7
+      setattr(callbackInst, "totalSteps", "i", totalSteps);
+#endif
    }
 
    RunSimpleCallback("update", arglist);
