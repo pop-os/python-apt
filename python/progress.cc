@@ -35,7 +35,12 @@ inline bool setattr(PyObject *object, const char *attr, const char *fmt, T arg)
     return result != -1;
 }
 
-#define TUPLEIZE(op) Py_BuildValue("(O)", op)
+inline PyObject *TUPLEIZE(PyObject *op) {
+    PyObject *ret = Py_BuildValue("(O)", op);
+    Py_DECREF(op);
+    return ret;
+}
+
 // generic
 bool PyCallbackObj::RunSimpleCallback(const char* method_name,
 				      PyObject *arglist,
@@ -300,7 +305,10 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
       PyObject *result1;
       bool res1 = true;
-      if (RunSimpleCallback("pulse", TUPLEIZE(PyAcquire_FromCpp(Owner)), &result1)) {
+
+      Py_INCREF(pyAcquire);
+
+      if (RunSimpleCallback("pulse", TUPLEIZE(pyAcquire) , &result1)) {
       if (result1 != NULL && PyArg_Parse(result1, "b", &res1) && res1 == false) {
          // the user returned a explicit false here, stop
          PyCbObj_BEGIN_ALLOW_THREADS

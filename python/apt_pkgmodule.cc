@@ -13,6 +13,7 @@
 #include "generic.h"
 
 #include <apt-pkg/configuration.h>
+#include <apt-pkg/acquire-item.h>
 #include <apt-pkg/version.h>
 #include <apt-pkg/deblistparser.h>
 #include <apt-pkg/pkgcache.h>
@@ -606,6 +607,9 @@ extern "C" void initapt_pkg()
    PyModule_AddObject(Module,"Config",Config);
    #endif
 
+
+
+
    // Add our classes.
    /* ============================ tag.cc ============================ */
    ADDTYPE(Module,"TagSection",&PyTagSection_Type);
@@ -660,6 +664,34 @@ extern "C" void initapt_pkg()
 
    PyModule_AddObject(Module,"REWRITE_SOURCE_ORDER",
                       CharCharToList(TFRewriteSourceOrder));
+
+
+   // AcquireItem Constants.
+
+
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_idle",
+                        Py_BuildValue("i", pkgAcquire::Item::StatIdle));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_fetching",
+                        Py_BuildValue("i", pkgAcquire::Item::StatFetching));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_done",
+                        Py_BuildValue("i", pkgAcquire::Item::StatDone));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_error",
+                        Py_BuildValue("i", pkgAcquire::Item::StatError));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_auth_error",
+                        Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
+
+#ifdef COMPAT_0_7
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatIdle",
+                        Py_BuildValue("i", pkgAcquire::Item::StatIdle));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatFetching",
+                        Py_BuildValue("i", pkgAcquire::Item::StatFetching));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatDone",
+                        Py_BuildValue("i", pkgAcquire::Item::StatDone));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatError",
+                        Py_BuildValue("i", pkgAcquire::Item::StatError));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatAuthError",
+                        Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
+#endif
 
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 1
    PyObject *PyCapsule = PyCapsule_New(&API, "apt_pkg._C_API", NULL);

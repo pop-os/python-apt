@@ -94,6 +94,9 @@ struct PyOpProgress : public OpProgress, public PyCallbackObj
 
 struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 {
+   protected:
+   PyObject *pyAcquire;
+   public:
    enum {
       DLDone, DLQueued, DLFailed, DLHit, DLIgnored
    };
@@ -101,6 +104,10 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
    void UpdateStatus(pkgAcquire::ItemDesc & Itm, int status);
 
    virtual bool MediaChange(string Media, string Drive);
+
+   void setPyAcquire(PyObject *o) {
+      pyAcquire = o;
+   }
 
    /* apt stuff */
    virtual void IMSHit(pkgAcquire::ItemDesc &Itm);
