@@ -175,7 +175,7 @@ void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLHit);
    PyCbObj_BEGIN_ALLOW_THREADS
@@ -185,7 +185,7 @@ void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("fetch", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       RunSimpleCallback("fetch", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLQueued);
    PyCbObj_BEGIN_ALLOW_THREADS
@@ -195,7 +195,7 @@ void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("done", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       RunSimpleCallback("done", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLDone);
    PyCbObj_BEGIN_ALLOW_THREADS
@@ -205,7 +205,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
-       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       RunSimpleCallback("fail", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
        return;
    }
 
@@ -220,7 +220,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 
 
    if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
-       RunSimpleCallback("fail", TUPLEIZE(PyAcquireItemDesc_FromCpp(&Itm)));
+       RunSimpleCallback("fail", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLFailed);
    PyCbObj_BEGIN_ALLOW_THREADS

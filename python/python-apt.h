@@ -220,7 +220,8 @@ static int import_apt_pkg(void) {
 // Python object creation, using two inline template functions and one variadic
 // macro per type.
 template<class Cpp>
-inline PyObject *FromCpp(PyTypeObject *pytype, Cpp obj, bool Delete=false)
+inline CppPyObject<Cpp> *FromCpp(PyTypeObject *pytype, Cpp obj,
+                                 bool Delete=false)
 {
     CppPyObject<Cpp> *Obj = CppPyObject_NEW<Cpp>(pytype, obj);
     Obj->NoDelete = (!Delete);
@@ -228,7 +229,7 @@ inline PyObject *FromCpp(PyTypeObject *pytype, Cpp obj, bool Delete=false)
 }
 
 template<class Cpp>
-inline PyObject *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
+inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
                               bool Delete=false, PyObject *Owner=NULL)
 {
     CppOwnedPyObject<Cpp> *Obj = CppOwnedPyObject_NEW<Cpp>(Owner, pytype, obj);

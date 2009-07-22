@@ -12,6 +12,7 @@
 
 #include <Python.h>
 #include <apt-pkg/hashes.h>
+#include <apt-pkg/acquire-item.h>
 
 // Configuration Stuff
 #define Configuration_Check(op) ((op)->ob_type == &PyConfiguration_Type)
@@ -48,6 +49,10 @@ PyObject *StrStringToBool(PyObject *self,PyObject *Args);
 PyObject *StrTimeRFC1123(PyObject *self,PyObject *Args);
 PyObject *StrStrToTime(PyObject *self,PyObject *Args);
 PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
+
+PyObject *PyAcquire_GetItem(PyObject *self, pkgAcquire::Item *item);
+PyObject *PyAcquire_GetItemDesc(PyObject *self, pkgAcquire::ItemDesc *item);
+bool     PyAcquire_DropItem(PyObject *self, pkgAcquire::Item *item);
 
 // Cache Stuff
 extern PyTypeObject PyCache_Type;
