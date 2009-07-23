@@ -37,34 +37,34 @@ class TestHashes(unittest.TestCase):
         self.file.close()
 
     def test_md5sum(self):
-        """Test apt_pkg.md5sum()"""
+        """hashes: Test apt_pkg.md5sum()"""
         self.assertEqual(apt_pkg.md5sum(self.value), self.md5)
         self.assertEqual(apt_pkg.md5sum(self.file), self.md5)
 
     def test_sha1sum(self):
-        """Test apt_pkg.sha1sum()"""
+        """hashes: Test apt_pkg.sha1sum()"""
         self.assertEqual(apt_pkg.sha1sum(self.value), self.sha1)
         self.assertEqual(apt_pkg.sha1sum(self.file), self.sha1)
 
     def test_sha256sum(self):
-        """Test apt_pkg.sha256sum()"""
+        """hashes: Test apt_pkg.sha256sum()"""
         self.assertEqual(apt_pkg.sha256sum(self.value), self.sha256)
         self.assertEqual(apt_pkg.sha256sum(self.file), self.sha256)
 
     def test_bytes(self):
-        """Test apt_pkg.Hashes(bytes)"""
+        """hashes: Test apt_pkg.Hashes(bytes)"""
         self.assertEqual(self.hashes.md5, self.md5)
         self.assertEqual(self.hashes.sha1, self.sha1)
         self.assertEqual(self.hashes.sha256, self.sha256)
 
     def test_file(self):
-        """Test apt_pkg.Hashes(file)."""
+        """hashes: Test apt_pkg.Hashes(file)."""
         self.assertEqual(self.hashes.md5, self.fhashes.md5)
         self.assertEqual(self.hashes.sha1, self.fhashes.sha1)
         self.assertEqual(self.hashes.sha256, self.fhashes.sha256)
 
     def test_unicode(self):
-        """Test apt_pkg.Hashes(unicode)."""
+        """hashes: Test apt_pkg.Hashes(unicode)."""
         if sys.version_info[0] == 3:
             self.assertRaises(TypeError, apt_pkg.Hashes, "D")
             self.assertRaises(TypeError, apt_pkg.md5sum, "D")
@@ -88,22 +88,22 @@ class TestHashString(unittest.TestCase):
         self.sha256 = apt_pkg.HashString("SHA256", self.hashes.sha256)
 
     def test_md5(self):
-        """Test apt_pkg.HashString().md5"""
+        """hashes: Test apt_pkg.HashString().md5"""
         self.assertEqual("MD5Sum:%s" % self.hashes.md5, str(self.md5))
         self.assertTrue(self.md5.verify_file(apt_pkg.__file__))
 
     def test_sha1(self):
-        """Test apt_pkg.HashString().sha1"""
+        """hashes: Test apt_pkg.HashString().sha1"""
         self.assertEqual("SHA1:%s" % self.hashes.sha1, str(self.sha1))
         self.assertTrue(self.sha1.verify_file(apt_pkg.__file__))
 
     def test_sha256(self):
-        """Test apt_pkg.HashString().sha256"""
+        """hashes: Test apt_pkg.HashString().sha256"""
         self.assertEqual("SHA256:%s" % self.hashes.sha256, str(self.sha256))
         self.assertTrue(self.sha256.verify_file(apt_pkg.__file__))
 
     def test_wrong(self):
-        """Test wrong invocation of HashString."""
+        """hashes: Test apt_pkg.HashString(wrong_type)."""
         self.assertRaises(TypeError, apt_pkg.HashString, 0)
         if sys.version_info[0] == 3:
             self.assertRaises(TypeError, apt_pkg.HashString, bytes())

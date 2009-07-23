@@ -12,7 +12,7 @@ class TestCache(unittest.TestCase):
         apt_pkg.init_system()
 
     def test_wrong_invocation(self):
-        """Test wrong invocation of apt_pkg.Cache(apt_pkg.Cache())"""
+        """cache_invocation: Test wrong invocation."""
         apt_cache = apt_pkg.Cache(apt_pkg.OpProgress())
         if apt_pkg._COMPAT_0_7:
             self.assertRaises(ValueError, apt_pkg.Cache, apt_cache)
@@ -26,7 +26,7 @@ class TestCache(unittest.TestCase):
             self.assertRaises(TypeError, apt_pkg.Cache, 0)
 
     def test_proper_invocation(self):
-        """Test correct invocation of apt_pkg.DepCache(apt_pkg.Cache())."""
+        """cache_invocation: Test correct invocation."""
         apt_cache = apt_pkg.Cache(apt_pkg.OpProgress())
         apt_depcache = apt_pkg.DepCache(apt_cache)
 

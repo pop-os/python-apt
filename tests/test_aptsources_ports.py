@@ -20,7 +20,7 @@ class TestAptSourcesPorts(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
 
     def testMatcher(self):
-        """Test matcher."""
+        """aptsources_ports: Test matcher."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "sources.list")
         sources = aptsources.sourceslist.SourcesList()
         distro = aptsources.distro.get_distro("Ubuntu", "hardy", "desc",

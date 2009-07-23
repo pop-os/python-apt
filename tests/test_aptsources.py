@@ -18,7 +18,7 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
 
     def testIsMirror(self):
-        """Test mirror detection."""
+        """aptsources: Test mirror detection."""
         yes = aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
                                                "http://de.archive.ubuntu.com")
         no = aptsources.sourceslist.is_mirror("http://archive.ubuntu.com",
@@ -27,7 +27,7 @@ class TestAptSources(unittest.TestCase):
         self.assertFalse(no)
 
     def testSourcesListReading(self):
-        """Test sources.list parsing."""
+        """aptsources: Test sources.list parsing."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
         sources = aptsources.sourceslist.SourcesList()
@@ -38,7 +38,7 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(len(sources.list), 6)
 
     def testSourcesListAdding(self):
-        """Test additions to sources.list"""
+        """aptsources: Test additions to sources.list"""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
         sources = aptsources.sourceslist.SourcesList()
@@ -88,7 +88,7 @@ class TestAptSources(unittest.TestCase):
         self.assertEqual(found_universe, 1)
 
     def testMatcher(self):
-        """Test matcher (detection of what is what in sources.list)"""
+        """aptsources: Test matcher"""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
         sources = aptsources.sourceslist.SourcesList()
@@ -101,7 +101,7 @@ class TestAptSources(unittest.TestCase):
                 self.fail("source entry '%s' has no matcher" % s)
 
     def testDistribution(self):
-        """Test distribution detection."""
+        """aptsources: Test distribution detection."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
         sources = aptsources.sourceslist.SourcesList()
@@ -152,4 +152,5 @@ class TestAptSources(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    os.chdir(os.path.dirname(__file__))
     unittest.main()
