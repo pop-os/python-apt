@@ -361,7 +361,11 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
    for (int I = 0; I != Length; I++)
    {
       char *Type = 0;
+      #if PY_MAJOR_VERSION >= 3
+      if (PyArg_ParseTuple(PySequence_GetItem(POList,I),"Czs|s",
+      #else
       if (PyArg_ParseTuple(PySequence_GetItem(POList,I),"czs|s",
+      #endif
 			   &OList[I].ShortOpt,&OList[I].LongOpt,
 			   &OList[I].ConfName,&Type) == 0)
       {
