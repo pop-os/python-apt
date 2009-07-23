@@ -245,7 +245,7 @@ class CdromProgress(apt_pkg.CdromProgress, TextProgress):
 
     def update(self, text, current):
         """Set the current progress."""
-        apt_pkg.CdromProgress.change_cdrom(self, text, current)
+        apt_pkg.CdromProgress.update(self, text, current)
         if text:
             self._write(text, False)
 
