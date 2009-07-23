@@ -108,15 +108,15 @@ Example: Emulating :program:`dpkg` :option:`--extract`
 Here is a code snippet which emulates dpkg -x. It can be run as
 :program:`tool` :option:`pkg.deb` :option:`outdir`.
 
-.. literalinclude:: examples/dpkg-extract.py
+.. literalinclude:: ../examples/dpkg-extract.py
 
 
 .. _emulating-dpkg-contents:
 
 Example: Emulating :program:`dpkg` :option:`--contents`
 -------------------------------------------------------
-.. literalinclude:: examples/dpkg-contents.py
+.. literalinclude:: ../examples/dpkg-contents.py
 
 Example: Emulating :program:`dpkg` :option:`--info`
 ----------------------------------------------------
-.. literalinclude:: examples/dpkg-info.py
+.. literalinclude:: ../examples/dpkg-info.py

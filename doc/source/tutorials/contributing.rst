@@ -1,5 +1,9 @@
 Contributing to python-apt
 ==========================
+:Author: Julian Andres Klode <jak@debian.org>
+:Release: |release|
+:Date: |today|
+
 Let's say you need a new feature, you can develop it, and you want to get it
 included in python-apt. Then be sure to follow the following guidelines.
 
@@ -110,7 +114,7 @@ Code lay-out
     {
         int t_size = PyType_BASICSIZE(type);
         int b_size = PyType_BASICSIZE(base);
-    
+
         assert(t_size >= b_size); /* type smaller than base! */
         ...
         return 1;

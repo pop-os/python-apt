@@ -1,5 +1,5 @@
-:mod:`apt.progress.gtk2` --- GTK widgets
-========================================
+:mod:`apt.progress.gtk2` --- Progress reporting for GTK+ interfaces
+===================================================================
 .. automodule:: apt.progress.gtk2
 
 

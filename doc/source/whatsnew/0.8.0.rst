@@ -78,11 +78,13 @@ Yet another context manager is available for locking the package system::
 
     with apt_pkg.SystemLock():
         # do your stuff here
+        pass
 
-There is also one for file based locking:
+There is also one for file based locking::
 
     with apt_pkg.FileLock(filename):
         # do your stuff here
+        pass
 
 
 Unification of dependency handling

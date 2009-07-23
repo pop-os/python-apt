@@ -451,7 +451,7 @@ Resolving Dependencies
 
 Example
 ^^^^^^^
-.. literalinclude:: examples/cache-pkgfile.py
+.. literalinclude:: ../examples/cache-pkgfile.py
 
 
 :class:`Package`
@@ -542,7 +542,7 @@ Example
 
 Example:
 ^^^^^^^^^
-.. literalinclude:: examples/cache-packages.py
+.. literalinclude:: ../examples/cache-packages.py
 
 
 
@@ -715,7 +715,7 @@ Example: Find all missing dependencies
 With the help of Dependency.AllTargets(), you can easily find all packages with
 broken dependencies:
 
-.. literalinclude:: examples/missing-deps.py
+.. literalinclude:: ../examples/missing-deps.py
 
 
 :class:`Description`
@@ -1139,7 +1139,7 @@ installation.
     the file using the parameter *destfile*. You can not combine both.
 
 
-Hashes 
+Hashes
 ------
 The apt_pkg module also provides several hash functions. If you develop
 applications with python-apt it is often easier to use these functions instead
@@ -1281,7 +1281,22 @@ section as a string.
 
         Return a list of keys in the section.
 
-.. autofunction:: rewrite_section(section, order, rewrite_list)
+.. function:: rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str
+
+    Rewrite the section given by *section* using *rewrite_list*, and order the
+    fields according to *order*.
+
+    The parameter *order* is a :class:`list` object containing the names of the
+    fields in the order they should appear in the rewritten section.
+    :data:`apt_pkg.REWRITE_PACKAGE_ORDER` and
+    :data:`apt_pkg.REWRITE_SOURCE_ORDER` are two predefined lists for rewriting
+    package and source sections, respectively.
+
+    The parameter *rewrite_list* is a list of tuples of the form
+    ``(tag, newvalue[, renamed_to])``, whereas *tag* describes the field which
+    should be changed, *newvalue* the value which should be inserted or
+    ``None`` to delete the field, and the optional *renamed_to* can be used
+    to rename the field.
 
 .. data:: REWRITE_PACKAGE_ORDER
 
@@ -1329,7 +1344,7 @@ Dependencies
 .. function:: parse_src_depends(depends)
 
     Parse the string *depends* which contains dependency information as
-    specified in Debian Policy, Section 7.1. 
+    specified in Debian Policy, Section 7.1.
 
     Returns a list. The members of this list are lists themselves and contain
     one or more tuples in the format ``(package,version,operation)`` for every
