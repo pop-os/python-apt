@@ -6,7 +6,6 @@ The apt_pkg extensions provides a more low-level way to work with apt. It can
 do everything apt can, and is written in C++. It has been in python-apt since
 the beginning.
 
-
 Module Initialization
 ---------------------
 
@@ -23,7 +22,11 @@ be called without having run init*(), but will not return the expected value.
 
 .. function:: init
 
-    Deprecated function. Use init_config() and init_system() instead.
+    A short cut to calling :func:`init_config` and :func:`init_system`. You
+    can use this if you do not use the command line parsing facilities provided
+    by :func:`parse_commandline`, otherwise call :func:`init_config`, parse
+    the commandline afterwards and finally call :func:`init_system`.
+
 
 Working with the cache
 ----------------------
@@ -37,15 +40,6 @@ Working with the cache
 
         Return the :class:`Package()` object for the package name given by
         *pkgname*.
-
-    .. method:: close()
-
-        Close the package cache.
-
-    .. method:: open([progress])
-
-        Open the package cache again. The parameter *progress* may be set to
-        an :class:`apt.progress.OpProgress()` object or `None`.
 
     .. method:: update(progress, list)
 
@@ -61,6 +55,10 @@ Working with the cache
     .. attribute:: package_count
 
         The total number of packages available in the cache.
+
+    .. attribute:: packages
+
+        A sequence of :class:`Package` objects.
 
     .. attribute:: provides_count
 
@@ -122,7 +120,6 @@ Working with the cache
         version of the :class:`Package` *pkg* to the :class:`Version`
         *version*.
 
-
     .. method:: upgrade([dist_upgrade=False])
 
         Perform an upgrade. More detailed, this marks all the upgradable
@@ -136,7 +133,7 @@ Working with the cache
 
         Fix broken packages.
 
-    .. method:: read_pin_file()
+    .. method:: read_pinfile()
 
         Read the policy, eg. /etc/apt/preferences.
 
@@ -147,6 +144,10 @@ Working with the cache
 
         .. todo::
             Explain better..
+
+    .. method:: mark_auto(pkg)
+
+        Mark the :class:`Package` *pkg* as automatically installed.
 
     .. method:: mark_keep(pkg)
 
@@ -246,6 +247,11 @@ Working with the cache
 
         The size of the packages which are needed for the changes to be
         applied.
+
+    .. attribute:: policy
+
+        The underlying :class:`Policy` object used by the :class:`DepCache` to
+        select candidate versions.
 
 
 .. class:: PackageManager(depcache)
@@ -379,84 +385,8 @@ Resolving Dependencies
         Try to resolve problems only by using keep.
 
 
-:class:`PackageFile`
---------------------
-.. class:: PackageFile
-
-    A :class:`PackageFile` represents a Packages file, eg.
-    /var/lib/dpkg/status.
-
-    .. attribute:: architecture
-
-        The architecture of the package file.
-
-    .. attribute:: archive
-
-        The archive (eg. unstable)
-
-    .. attribute:: component
-
-        The component (eg. main)
-
-    .. attribute:: filename
-
-        The name of the file.
-
-    .. attribute:: id
-
-        The ID of the package. This is an integer which can be used to store
-        further information about the file [eg. as dictionary key].
-
-    .. attribute:: index_type
-
-        The sort of the index file. In normal cases, this is
-        'Debian Package Index'.
-
-    .. attribute:: label
-
-        The Label, as set in the Release file
-
-    .. attribute:: not_automatic
-
-        Whether packages from this list will be updated automatically. The
-        default for eg. example is 0 (aka false).
-
-    .. attribute:: not_source
-
-        Whether the file has no source from which it can be updated. In such a
-        case, the value is 1; else 0. /var/lib/dpkg/status is 0 for example.
-
-        Example::
-
-            for pkgfile in cache.file_list:
-                if pkgfile.not_source:
-                    print 'The file %s has no source.' % pkgfile.filename
-
-    .. attribute:: origin
-
-        The Origin, as set in the Release file
-
-    .. attribute:: site
-
-        The hostname of the site.
-
-    .. attribute:: size
-
-        The size of the file.
-
-    .. attribute:: version
-
-        The version, as set in the release file (eg. "4.0" for "Etch")
-
-
-Example
-^^^^^^^
-.. literalinclude:: ../examples/cache-pkgfile.py
-
-
 :class:`Package`
-----------------
-
+^^^^^^^^^^^^^^^^^
 .. class:: Package
 
     The pkgCache::Package objects are an interface to package specific
@@ -520,7 +450,7 @@ Example
 
         See :ref:`InstStates` for a list of available states.
 
-    .. attribute:: cur_state
+    .. attribute:: current_state
 
         The current state of the package (not installed, unpacked, installed,
         etc). See :ref:`CurStates` for a list of available states.
@@ -541,13 +471,13 @@ Example
         Whether the package is important.
 
 Example:
-^^^^^^^^^
+~~~~~~~~~
 .. literalinclude:: ../examples/cache-packages.py
 
 
 
 :class:`Version`
-----------------
+^^^^^^^^^^^^^^^^^
 .. class:: Version
 
     The version object contains all information related to a specific package
@@ -575,7 +505,6 @@ Example:
 
         A dictionary of dependencies. The key specifies the type of the
         dependency ('Depends', 'Recommends', etc.).
-
 
         The value is a list, containing items which refer to the or-groups of
         dependencies. Each of these or-groups is itself a list, containing
@@ -658,7 +587,7 @@ Example:
 
 
 :class:`Dependency`
--------------------
+^^^^^^^^^^^^^^^^^^^^
 .. class:: Dependency
 
     Represent a dependency from one package to another one.
@@ -711,7 +640,7 @@ Example:
         The ID of the package, as integer.
 
 Example: Find all missing dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 With the help of Dependency.AllTargets(), you can easily find all packages with
 broken dependencies:
 
@@ -719,7 +648,7 @@ broken dependencies:
 
 
 :class:`Description`
---------------------
+^^^^^^^^^^^^^^^^^^^^^
 .. class:: Description
 
     Represent the description of the package.
@@ -738,8 +667,9 @@ broken dependencies:
 
 
 
-:class:`MetaIndex`
-------------------
+Index Files
+-------------
+
 
 .. todo::
 
@@ -753,9 +683,6 @@ broken dependencies:
     .. attribute:: index_files
 
 
-:class:`PackageIndexFile`
--------------------------
-
 .. class:: PackageIndexFile
 
     .. method:: archive_uri(path)
@@ -765,6 +692,10 @@ broken dependencies:
     .. attribute:: label
 
         Return the Label.
+
+    .. attribute:: describe
+
+        A description of the :class:`PackageIndexFile`.
 
     .. attribute:: exists
 
@@ -781,6 +712,80 @@ broken dependencies:
     .. attribute:: is_trusted
 
         Whether we can trust the file.
+
+
+.. class:: PackageFile
+
+    A :class:`PackageFile` represents a Packages file, eg.
+    /var/lib/dpkg/status.
+
+    .. attribute:: architecture
+
+        The architecture of the package file.
+
+    .. attribute:: archive
+
+        The archive (eg. unstable)
+
+    .. attribute:: component
+
+        The component (eg. main)
+
+    .. attribute:: filename
+
+        The name of the file.
+
+    .. attribute:: id
+
+        The ID of the package. This is an integer which can be used to store
+        further information about the file [eg. as dictionary key].
+
+    .. attribute:: index_type
+
+        The sort of the index file. In normal cases, this is
+        'Debian Package Index'.
+
+    .. attribute:: label
+
+        The Label, as set in the Release file
+
+    .. attribute:: not_automatic
+
+        Whether packages from this list will be updated automatically. The
+        default for eg. example is 0 (aka false).
+
+    .. attribute:: not_source
+
+        Whether the file has no source from which it can be updated. In such a
+        case, the value is 1; else 0. /var/lib/dpkg/status is 0 for example.
+
+        Example::
+
+            for pkgfile in cache.file_list:
+                if pkgfile.not_source:
+                    print 'The file %s has no source.' % pkgfile.filename
+
+    .. attribute:: origin
+
+        The Origin, as set in the Release file
+
+    .. attribute:: site
+
+        The hostname of the site.
+
+    .. attribute:: size
+
+        The size of the file.
+
+    .. attribute:: version
+
+        The version, as set in the release file (eg. "4.0" for "Etch")
+
+
+
+The following example shows how to use PackageFile:
+
+.. literalinclude:: ../examples/cache-pkgfile.py
 
 
 Records
@@ -952,53 +957,6 @@ Records
         and possible keys being ``"Build-Depends"``, ``"Build-Depends-Indep"``,
         ``"Build-Conflicts"`` or ``"Build-Conflicts-Indep"``.
 
-    .. attribute:: BuildDepends
-
-        Return the list of Build dependencies, as
-        ``(str: package, str: version, int: op, int: type)``. This is a
-        completely deprecated format
-
-        .. table:: Values of *op*
-
-            ===== =============================================
-            Value      Meaning
-            ===== =============================================
-            0x00  No Operation (no versioned build dependency)
-            0x10  | (or) - this will be added to the other values
-            0x01  <= (less than or equal)
-            0x02  >= (greater than or equal)
-            0x03  << (less than)
-            0x04  >> (greater than)
-            0x05   = (equal)
-            0x06  != (not equal)
-            ===== =============================================
-
-        .. table:: Values of *type*
-
-            ===== ===================
-            Value Meaning
-            ===== ===================
-            0     Build-Depends
-            1     Build-Depends-Indep
-            2     Build-Conflicts
-            3     Build-Conflicts-Indep
-            ===== ===================
-
-        **Example**: In the following content, we will imagine a
-        build-dependency::
-
-            Build-Depends: A (>= 1) | B (>= 1), C
-
-        This results in::
-
-            [('A', '1', 18, 0), # 18 = (16 | 2) = (0x10 | 0x2)
-             ('B', '1', 2, 0),
-             ('C', '', 0, 0)]
-
-        This is **not** the same as returned by
-        :func:`apt_pkg.ParseSrcDepends`.
-
-
 
 The Acquire interface
 ----------------------
@@ -1021,7 +979,7 @@ installation.
     to this list, you can create new :class:`AcquireFile` objects which allow
     you to add single files.
 
-    Acquire items have multiple methods:
+    Acquire items have multiple methods and attributes:
 
     .. method:: run()
 
@@ -1044,6 +1002,16 @@ installation.
 
         Whether some files have been acquired already. (???)
 
+    .. attribute:: items
+
+        A list of :class:`AcquireItem` objects which are attached to the
+        queue of this object.
+
+    .. attribute:: workers
+
+        A list of :class:`AcquireWorker` objects which are currently active
+        on this instance.
+
 .. class:: AcquireItem
 
     The :class:`AcquireItem()` objects represent the items of a
@@ -1063,11 +1031,15 @@ installation.
 
         Is the item a local file?
 
+    .. attribute:: mode
+
+        A string indicating the current mode e.g. ``"Fetching"``.
+
     .. attribute:: is_trusted
 
         Can the file be trusted?
 
-    .. attribute:: file_size
+    .. attribute:: filesize
 
         The size of the file, in bytes.
 
@@ -1076,7 +1048,7 @@ installation.
         The error message. For example, when a file does not exist on a http
         server, this will contain a 404 error message.
 
-    .. attribute:: dest_file
+    .. attribute:: destfile
 
         The location the file is saved as.
 
@@ -1110,12 +1082,11 @@ installation.
 
         Constant for comparing :attr:`AcquireItem.status`
 
-
 .. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
 
     Create a new :class:`AcquireFile()` object and register it with *acquire*,
-    so it will be fetched. AcquireFile objects provide no methods or attributes
-    and are completely useless at the moment.
+    so it will be fetched. You must always keep around a reference to the
+    object, otherwise it will be removed from the Acquire queue again.
 
     The parameter *owner* refers to an :class:`Acquire()` object as returned
     by :func:`GetAcquire`. The file will be added to the Acquire queue
@@ -1138,12 +1109,164 @@ installation.
     be saved in. Instead of *destdir*, you can also specify the full path to
     the file using the parameter *destfile*. You can not combine both.
 
+    In terms of attributes, this class is a subclass of :class:`AcquireItem`
+    and thus inherits all its attributes.
+
+.. class:: AcquireWorker
+
+    An :class:`AcquireWorker` object represents a subprocess responsible for
+    fetching files from remote locations. This class is not instanciable from
+    Python.
+
+    .. attribute:: current_item
+
+        The item which is currently being fetched. This returns an
+        :class:`AcquireItemDesc` object.
+
+    .. attribute:: current_size
+
+        How many bytes of the file have been downloaded. Zero if the current
+        progress of the file cannot be determined.
+
+    .. attribute:: resumepoint
+
+        The amount of the file that was already downloaded prior to starting
+        this worker.
+
+    .. attribute:: status
+
+        The most recent status string received from the subprocess.
+
+    .. attribute:: total_size
+
+        The total number of bytes to be downloaded. Zero if the total size is
+        unknown.
+
+.. class:: AcquireItemDesc
+
+    An :class:`AcquireItemDesc` object stores information about the item which
+    can be used to describe the item.
+
+    .. attribute:: description
+
+        The long description given to the item.
+
+    .. attribute:: owner
+
+        The :class:`AcquireItem` object owning this object.
+
+    .. attribute:: shortdesc
+
+        A short description which has been given to this item.
+
+    .. attribute:: uri
+
+        The URI from which to download this item.
+
+.. class:: AcquireProgress
+
+    A monitor object for downloads controlled by the Acquire class. This is
+    an mostly abstract class. You should subclass it and implement the
+    methods to get something useful.
+
+    Methods defined here:
+
+    .. method:: done(item: AcquireItemDesc)
+
+        Invoked when an item is successfully and completely fetched.
+
+    .. method:: fail(item: AcquireItemDesc)
+
+        Invoked when the process of fetching an item encounters a fatal error.
+
+    .. method:: fetch(item: AcquireItemDesc)
+
+        Invoked when some of an item's data is fetched.
+
+    .. method:: ims_hit(item: AcquireItemDesc)
+
+        Invoked when an item is confirmed to be up-to-date. For instance,
+        when an HTTP download is informed that the file on the server was
+        not modified.
+
+    .. method:: media_change(media: str, drive: str) -> bool
+
+        Invoked when the user should be prompted to change the inserted
+        removable media.
+
+        This method should not return until the user has confirmed to the user
+        interface that the media change is complete.
+
+        The parameter *media* is the name of the media type that should be
+        changed, the parameter *drive* is the identifying name of the drive
+        whose media should be changed.
+
+        Return True if the user confirms the media change, False if it is
+        cancelled.
+
+    .. method:: pulse(owner: Acquire) -> bool
+
+        Periodically invoked while the Acquire process is underway.
+
+        Return False if the user asked to cancel the whole Acquire process.
+
+    .. method:: start()
+
+        Invoked when the Acquire process starts running.
+
+    .. method:: stop()
+
+        Invoked when the Acquire process stops running.
+
+    There are also some data descriptors:
+
+    .. attribute:: current_bytes
+
+        The number of bytes fetched.
+
+    .. attribute:: current_cps
+
+        The current rate of download, in bytes per second.
+
+    .. attribute:: current_items
+
+        The number of items that have been successfully downloaded.
+
+    .. attribute:: elapsed_time
+
+        The amount of time that has elapsed since the download started.
+
+    .. attribute:: fetched_bytes
+
+        The total number of bytes accounted for by items that were
+        successfully fetched.
+
+    .. attribute:: last_bytes
+
+        The number of bytes fetched as of the previous call to pulse(),
+        including local items.
+
+    .. attribute:: total_bytes
+
+        The total number of bytes that need to be fetched. This member is
+        inaccurate, as new items might be enqueued while the download is
+        in progress!
+
+    .. attribute:: total_items
+
+        The total number of items that need to be fetched. This member is
+        inaccurate, as new items might be enqueued while the download is
+        in progress!
+
 
 Hashes
 ------
 The apt_pkg module also provides several hash functions. If you develop
 applications with python-apt it is often easier to use these functions instead
 of the ones provides in Python's :mod:`hashlib` module.
+
+The module provides the two classes :class:`Hashes` and :class:`HashString` for
+generic hash support:
 
 .. class:: Hashes(object)
 
@@ -1164,6 +1287,31 @@ of the ones provides in Python's :mod:`hashlib` module.
     .. attribute:: sha256
 
         The SHA256 hash of the data, as string.
+
+.. class:: HashString(type: str, hash: str)
+
+    HashString objects store the type of a hash and the corresponding hash.
+    They are used by e.g :meth:`IndexRecords.lookup`. The first parameter,
+    *type* refers to one of MD5Sum, SHA1 and SHA256. The second parameter
+    *hash* is the corresponding hash.
+
+    .. describe:: str(hashstring)
+
+        Convert the HashString to a string by joining the hash type and the
+        hash using ':', e.g. ``"MD5Sum:d41d8cd98f00b204e9800998ecf8427e"``.
+
+    .. attribute:: hashtype
+
+        The type of the hash. This may be MD5Sum, SHA1 or SHA256.
+
+    .. method:: verify_file(filename: str) -> bool
+
+        Verify that the file given by the parameter *filename* matches the hash
+        stored in this object.
+
+The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
+:func:`sha1sum` and :func:`sha256sum` for creating a single hash from a
+:class:`bytes` or :class:`file` object:
 
 .. function:: md5sum(object)
 
@@ -1271,12 +1419,6 @@ section as a string.
         Return the value of the field at the key *key* if available, else
         return *default*.
 
-    .. method:: has_key(key)
-
-        Check whether the field with named by *key* exists.
-
-        .. deprecated:: 0.8.0
-
     .. method:: keys()
 
         Return a list of keys in the section.
@@ -1319,6 +1461,9 @@ Dependencies
 
         >>> bool(apt_pkg.check_dep("1.0", ">=", "1"))
         True
+
+The following two functions provide the ability to parse dependencies. They
+use the same format as :attr:`Version.depends_list_str`.
 
 .. function:: parse_depends(depends)
 
@@ -1373,15 +1518,13 @@ Configuration
 
 .. class:: Configuration()
 
-    Configuration() objects store the configuration of apt, mostly created from
-    the contents of :file:`/etc/apt.conf` and the files in
+    Configuration() objects store the configuration of apt, mostly created
+    from the contents of :file:`/etc/apt.conf` and the files in
     :file:`/etc/apt.conf.d`.
 
     .. describe:: key in conf
 
       Return ``True`` if *conf* has a key *key*, else ``False``.
-
-      .. versionadded:: 0.8.0
 
     .. describe:: conf[key]
 
@@ -1463,37 +1606,15 @@ Configuration
 
         Return all the keys, recursive. If *key* is specified, ... (FIXME)
 
-    .. method:: has_key(key)
-
-        Return whether the configuration contains the key *key*.
-
-        .. deprecated:: 0.8.0
-
     .. method:: get(key[, default=''])
 
         This behaves just like :meth:`dict.get` and :meth:`Configuration.find`,
         it returns the value of key or if it does not exist, *default*.
 
-.. class:: ConfigurationPtr
-
-    Behaves like a :class:`Configuration()` objects, but uses a pointer to the
-    underlying C++ object. This is used for the default configuration in the
-    :data:`Config` attribute of the module.
-
-.. class:: ConfigurationSub
-
-    Behaves like a :class:`Configuration()` objects, but provides access to
-    a subsection of another Configuration-like object. This type of object is
-    returned by the :meth:`Configuration.subtree()` method.
-
 .. data:: config
 
-    A :class:`ConfigurationPtr()` object with the default configuration. This
+    A :class:`Configuration()` object with the default configuration. This
     object is initialized by calling :func:`init_config`.
-
-
-Modifying
-^^^^^^^^^
 
 
 .. function:: read_config_file(configuration, filename)
@@ -1518,33 +1639,86 @@ Modifying
 
     This function is like getopt except it manipulates a configuration space.
     output is a list of non-option arguments (filenames, etc). *options* is a
-    list of tuples of the form ``(‘c’,”long-opt or None”,
-    ”Configuration::Variable”,”optional type”)``.
+    list of tuples of the form ``('c',"long-opt or None",
+    "Configuration::Variable","optional type")``.
 
     Where ``type`` may be one of HasArg, IntLevel, Boolean, InvBoolean,
     ConfigFile, or ArbItem. The default is Boolean.
 
 Locking
 --------
+When working on the global cache, it is important to lock the cache so other
+programs do not modify it. This module provides two context managers for
+locking the package system or file-based locking.
 
-.. function:: get_lock(filename)
+.. class:: SystemLock
+
+    Context manager for locking the package system. The lock is established
+    as soon as the method __enter__() is called. It is released when
+    __exit__() is called. If the lock can not be acquired or can not be
+    released an exception is raised.
+
+    This should be used via the 'with' statement, e.g.::
+
+        with apt_pkg.SystemLock():
+            ... # Do your stuff here.
+        ... # Now it's unlocked again
+
+    Once the block is left, the lock is released automatically. The object
+    can be used multiple times::
+
+        lock = apt_pkg.SystemLock()
+        with lock:
+            ...
+        with lock:
+            ...
+
+.. class:: FileLock(filename: str)
+
+    Context manager for locking using a file. The lock is established
+    as soon as the method __enter__() is called. It is released when
+    __exit__() is called. If the lock can not be acquired or can not be
+    released, an exception is raised.
+
+    This should be used via the 'with' statement, e.g.::
+
+        with apt_pkg.FileLock(filename):
+            ...
+
+    Once the block is left, the lock is released automatically. The object
+    can be used multiple times::
+
+        lock = apt_pkg.FileLock(filename)
+        with lock:
+            ...
+        with lock:
+            ...
+
+For Python versions prior to 2.5, similar functionality is provided by the
+following three functions:
+
+.. function:: get_lock(filename, errors=False) -> int
 
     Create an empty file at the path specified by the parameter *filename* and
-    lock it.
+    lock it. If this fails and *errors* is **True**, the function raises an
+    error. If *errors* is **False**, the function returns -1.
 
-    While the file is locked by a process, calling this function in another
-    process returns ``-1``.
+    The lock can be acquired multiple times within the same process, and can be
+    released by calling :func:`os.close` on the return value which is the file
+    descriptor of the created file.
 
-    When the lock is not required anymore, the file descriptor should be closed
-    using :func:`os.close`.
+.. function:: pkgsystem_lock()
 
-.. function:: pkg_system_lock()
+    Lock the global pkgsystem. The lock should be released by calling
+    :func:`pkgsystem_unlock` again. If this function is called n-times, the
+    :func:`pkgsystem_unlock` function must be called n-times as well to release
+    all acquired locks.
 
-    Lock the global pkgsystem.
+.. function:: pkgsystem_unlock()
 
-.. function:: pkg_system_un_lock()
+    Unlock the global pkgsystem. This reverts the effect of
+    :func:`pkgsystem_unlock`.
 
-    Unlock the global pkgsystem.
 
 Other classes
 --------------
@@ -1580,6 +1754,10 @@ Other classes
         Add the index files to the :class:`Acquire()` object *acq*. If *all* is
         given and ``True``, all files are fetched.
 
+    .. attribute:: list
+
+        A list of :class:`MetaIndex` objects.
+
 String functions
 ----------------
 .. function:: base64_encode(string)
@@ -1588,7 +1766,6 @@ String functions
 
         >>> apt_pkg.base64_encode(u"A")
         'QQ=='
-
 
 .. function:: check_domain_list(host, list)
 
@@ -1724,19 +1901,6 @@ Package States
 .. data:: CURSTATE_NOT_INSTALLED
 .. data:: CURSTATE_UNPACKED
 
-
-
-
-Dependency types
-^^^^^^^^^^^^^^^^
-.. data:: DEP_CONFLICTS
-.. data:: DEP_DEPENDS
-.. data:: DEP_OBSOLETES
-.. data:: DEP_PRE_DEPENDS
-.. data:: DEP_RECOMMENDS
-.. data:: DEP_REPLACES
-.. data:: DEP_SUGGESTS
-
 .. _InstStates:
 
 Installed states
@@ -1761,7 +1925,7 @@ Priorities
 
 Select states
 ^^^^^^^^^^^^^
-.. data:: SELSTATE_DE_INSTALL
+.. data:: SELSTATE_DEINSTALL
 .. data:: SELSTATE_HOLD
 .. data:: SELSTATE_INSTALL
 .. data:: SELSTATE_PURGE
@@ -1786,10 +1950,3 @@ Build information
 .. data:: VERSION
 
     The version of apt (not of python-apt).
-
-.. data:: _COMPAT_0_7
-
-    A more or less internal variable defining whether this build provides an
-    API which is compatible to the one of python-apt 0.7. This is used in the
-    apt and aptsources packages to decide whether compatibility should be
-    enabled or not.
