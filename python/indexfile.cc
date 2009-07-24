@@ -55,6 +55,7 @@ static PyObject *PackageIndexFileGetIsTrusted(PyObject *Self,void*) {
 }
 #undef File
 
+#define S(x) (x ? x : "")
 static PyObject *PackageIndexFileRepr(PyObject *Self)
 {
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
@@ -62,10 +63,11 @@ static PyObject *PackageIndexFileRepr(PyObject *Self)
 			"Label:'%s' Describe='%s' Exists='%i' "
 	                "HasPackages='%i' Size='%lu'  "
  	                "IsTrusted='%i' ArchiveURI='%s'>",
-	    File->GetType()->Label,  File->Describe().c_str(), File->Exists(),
+	    S(File->GetType()->Label),  File->Describe().c_str(), File->Exists(),
 	    File->HasPackages(), File->Size(),
             File->IsTrusted(), File->ArchiveURI("").c_str());
 }
+#undef S
 
 static PyGetSetDef PackageIndexFileGetSet[] = {
     {"describe",PackageIndexFileGetDescribe},

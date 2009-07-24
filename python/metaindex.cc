@@ -61,14 +61,16 @@ static PyGetSetDef MetaIndexGetSet[] = {
    {}
 };
 
+#define S(x) (x ? x : "")
 static PyObject *MetaIndexRepr(PyObject *Self)
 {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
     return PyString_FromFormat("<%s object: type='%s', uri:'%s' dist='%s' "
                                "is_trusted='%i'>", Self->ob_type->tp_name,
-                               meta->GetType(),  meta->GetURI().c_str(),
+                               S(meta->GetType()),  meta->GetURI().c_str(),
                                meta->GetDist().c_str(), meta->IsTrusted());
 }
+#undef S
 
 PyTypeObject PyMetaIndex_Type =
 {

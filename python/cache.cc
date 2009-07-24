@@ -840,6 +840,7 @@ static PyObject *VersionGetIsTrusted(PyObject *Self, void*) {
 }
 #endif
 
+#define NOTNULL(x) (x ? x : "")
 
 static PyObject *VersionRepr(PyObject *Self)
 {
@@ -848,11 +849,12 @@ static PyObject *VersionRepr(PyObject *Self)
                               " Arch:'%s' Size:%lu ISize:%lu Hash:%u ID:%u "
                               "Priority:%u>", Self->ob_type->tp_name,
                               Ver.ParentPkg().Name(), Ver.VerStr(),
-                              Ver.Section(), Ver.Arch(),
+                              NOTNULL(Ver.Section()), NOTNULL(Ver.Arch()),
                               (unsigned long)Ver->Size,
                               (unsigned long)Ver->InstalledSize,
 	                          Ver->Hash, Ver->ID, Ver->Priority);
 }
+#undef NOTNULL
 
 static PyGetSetDef VersionGetSet[] = {
    {"arch",VersionGetArch},
@@ -1096,7 +1098,7 @@ static PyObject *DependencyRepr(PyObject *Self)
 
    return PyString_FromFormat("<%s object: pkg:'%s' ver:'%s' comp:'%s'>",
 	                          Self->ob_type->tp_name, Dep.TargetPkg().Name(),
-	                          (Dep.TargetVer() == 0?"":Dep.TargetVer()),
+	                          (Dep.TargetVer() == 0 ? "" : Dep.TargetVer()),
 	                          Dep.CompType());
 }
 
