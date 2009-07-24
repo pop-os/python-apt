@@ -462,19 +462,19 @@ PyTypeObject PyPackageList_Type =
     return Ret; \
 }
 
-MkGet(PackageGetName,PyString_FromString(Pkg.Name()));
-MkGet(PackageGetSection,Safe_FromString(Pkg.Section()));
+MkGet(PackageGetName,PyString_FromString(Pkg.Name()))
+MkGet(PackageGetSection,Safe_FromString(Pkg.Section()))
 MkGet(PackageGetRevDependsList,CppOwnedPyObject_NEW<RDepListStruct>(Owner,
-                               &PyDependencyList_Type, Pkg.RevDependsList()));
-MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()));
-MkGet(PackageGetSelectedState,Py_BuildValue("i",Pkg->SelectedState));
-MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState));
-MkGet(PackageGetCurrentState,Py_BuildValue("i",Pkg->CurrentState));
-MkGet(PackageGetID,Py_BuildValue("i",Pkg->ID));
+                               &PyDependencyList_Type, Pkg.RevDependsList()))
+MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()))
+MkGet(PackageGetSelectedState,Py_BuildValue("i",Pkg->SelectedState))
+MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState))
+MkGet(PackageGetCurrentState,Py_BuildValue("i",Pkg->CurrentState))
+MkGet(PackageGetID,Py_BuildValue("i",Pkg->ID))
 #
-MkGet(PackageGetAuto,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0));
-MkGet(PackageGetEssential,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0));
-MkGet(PackageGetImportant,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0));
+MkGet(PackageGetAuto,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0))
+MkGet(PackageGetEssential,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0))
+MkGet(PackageGetImportant,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0))
 #undef MkGet
 #undef Owner
 
@@ -544,7 +544,8 @@ static PyObject *PackageRepr(PyObject *Self)
 
    return PyString_FromFormat("<%s object: name:'%s' section: "
                               "'%s' id:%u>", Self->ob_type->tp_name,
-                              Pkg.Name(), Pkg.Section(), Pkg->ID);
+                              Pkg.Name(), (Pkg.Section() ? Pkg.Section() : ""),
+                              Pkg->ID);
 }
 
 PyTypeObject PyPackage_Type =
@@ -588,8 +589,8 @@ PyTypeObject PyPackage_Type =
        return Ret; }
 
 Description_MkGet(DescriptionGetLanguageCode,
-                  PyString_FromString(Desc.LanguageCode()));
-Description_MkGet(DescriptionGetMd5,Safe_FromString(Desc.md5()));
+                  PyString_FromString(Desc.LanguageCode()))
+Description_MkGet(DescriptionGetMd5,Safe_FromString(Desc.md5()))
 #undef Description_MkGet
 
 static PyObject *DescriptionGetFileList(PyObject *Self,void*)
