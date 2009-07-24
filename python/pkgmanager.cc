@@ -109,28 +109,6 @@ static PyMethodDef PkgManagerMethods[] =
 };
 
 
-static PyObject *PkgManagerGetResultCompleted(PyObject *Self,void*) {
-   return Py_BuildValue("i", pkgPackageManager::Completed);
-}
-static PyObject *PkgManagerGetResultFailed(PyObject *Self,void*) {
-   return Py_BuildValue("i", pkgPackageManager::Failed);
-}
-static PyObject *PkgManagerGetResultIncomplete(PyObject *Self,void*) {
-   return Py_BuildValue("i", pkgPackageManager::Incomplete);
-}
-
-static PyGetSetDef PkgManagerGetSet[] = {
-    {"result_completed",PkgManagerGetResultCompleted},
-    {"result_failed",PkgManagerGetResultFailed},
-    {"result_incomplete",PkgManagerGetResultIncomplete},
-#ifdef COMPAT_0_7
-    {"ResultCompleted",PkgManagerGetResultCompleted},
-    {"ResultFailed",PkgManagerGetResultFailed},
-    {"ResultIncomplete",PkgManagerGetResultIncomplete},
-#endif
-    {}
-};
-
 PyTypeObject PyPackageManager_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -164,7 +142,7 @@ PyTypeObject PyPackageManager_Type =
    0,                                   // tp_iternext
    PkgManagerMethods,                   // tp_methods
    0,                                   // tp_members
-   PkgManagerGetSet,                    // tp_getset
+   0,                                   // tp_getset
    0,                                   // tp_base
    0,                                   // tp_dict
    0,                                   // tp_descr_get

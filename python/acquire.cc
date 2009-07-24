@@ -332,36 +332,17 @@ static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
     }
     return List;
 }
-// some constants
-static PyObject *PkgAcquireGetResultContinue(PyObject *Self,void*)
-{
-    return Py_BuildValue("i", pkgAcquire::Continue);
-}
-static PyObject *PkgAcquireGetResultFailed(PyObject *Self,void*)
-{
-    return Py_BuildValue("i", pkgAcquire::Failed);
-}
-static PyObject *PkgAcquireGetResultCancelled(PyObject *Self,void*)
-{
-    return Py_BuildValue("i", pkgAcquire::Cancelled);
-}
 
 static PyGetSetDef PkgAcquireGetSet[] = {
     {"fetch_needed",PkgAcquireGetFetchNeeded},
     {"items",PkgAcquireGetItems},
     {"workers",PkgAcquireGetWorkers},
     {"partial_present",PkgAcquireGetPartialPresent},
-    {"result_cancelled",PkgAcquireGetResultCancelled},
-    {"result_continue",PkgAcquireGetResultContinue},
-    {"result_failed",PkgAcquireGetResultFailed},
     {"total_needed",PkgAcquireGetTotalNeeded},
 #ifdef COMPAT_0_7
     {"FetchNeeded",PkgAcquireGetFetchNeeded},
     {"Items",PkgAcquireGetItems},
     {"PartialPresent",PkgAcquireGetPartialPresent},
-    {"ResultCancelled",PkgAcquireGetResultCancelled},
-    {"ResultContinue",PkgAcquireGetResultContinue},
-    {"ResultFailed",PkgAcquireGetResultFailed},
     {"TotalNeeded",PkgAcquireGetTotalNeeded},
 #endif
     {}

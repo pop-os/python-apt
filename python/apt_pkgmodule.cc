@@ -14,6 +14,7 @@
 
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/acquire-item.h>
+#include <apt-pkg/packagemanager.h>
 #include <apt-pkg/version.h>
 #include <apt-pkg/deblistparser.h>
 #include <apt-pkg/pkgcache.h>
@@ -666,9 +667,41 @@ extern "C" void initapt_pkg()
                       CharCharToList(TFRewriteSourceOrder));
 
 
+   // Acquire constants.
+   // some constants
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_cancelled",
+                        Py_BuildValue("i", pkgAcquire::Cancelled));
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_continue",
+                        Py_BuildValue("i", pkgAcquire::Continue));
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_failed",
+                        Py_BuildValue("i", pkgAcquire::Failed));
+#ifdef COMPAT_0_7
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultCancelled",
+                        Py_BuildValue("i", pkgAcquire::Cancelled));
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultContinue",
+                        Py_BuildValue("i", pkgAcquire::Continue));
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultFailed",
+                        Py_BuildValue("i", pkgAcquire::Failed));
+#endif
+
+   // PackageManager constants
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_completed",
+                        Py_BuildValue("i", pkgPackageManager::Completed));
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_failed",
+                        Py_BuildValue("i", pkgPackageManager::Failed));
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_incomplete",
+                        Py_BuildValue("i", pkgPackageManager::Incomplete));
+
+#ifdef COMPAT_0_7
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultCompleted",
+                        Py_BuildValue("i", pkgPackageManager::Completed));
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultFailed",
+                        Py_BuildValue("i", pkgPackageManager::Failed));
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultIncomplete",
+                        Py_BuildValue("i", pkgPackageManager::Incomplete));
+#endif
+
    // AcquireItem Constants.
-
-
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_idle",
                         Py_BuildValue("i", pkgAcquire::Item::StatIdle));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_fetching",
