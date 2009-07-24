@@ -245,7 +245,7 @@ inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
 # define PyActionGroup_FromCpp(...)      FromCppOwned<pkgDepCache::ActionGroup*>(&PyActionGroup_Type,##__VA_ARGS__)
 # define PyCache_FromCpp(...)            FromCppOwned<pkgCache*>(&PyCache_Type,##__VA_ARGS__)
 # define PyCacheFile_FromCpp(...)        FromCpp<pkgCacheFile*>(&PyCacheFile_Type,##__VA_ARGS__)
-# define PyCdrom_FromCpp(...)            FromCpp<pkgCdrom*>(&PyCdrom_Type,##__VA_ARGS__)
+# define PyCdrom_FromCpp(...)            FromCpp<pkgCdrom>(&PyCdrom_Type,##__VA_ARGS__)
 # define PyConfiguration_FromCpp(...)    FromCppOwned<Configuration*>(&PyConfiguration_Type, ##__VA_ARGS__)
 # define PyDepCache_FromCpp(...)         FromCppOwned<pkgDepCache*>(&PyDepCache_Type,##__VA_ARGS__)
 # define PyDependency_FromCpp(...)       FromCppOwned<pkgCache::DepIterator>(&PyDependency_Type,##__VA_ARGS__)
