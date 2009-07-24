@@ -22,13 +22,13 @@
 #include "apt_pkgmodule.h"
 #include <apt-pkg/hashes.h>
 
-static PyObject *HashString_NEW(PyTypeObject *type,PyObject *Args,
+static PyObject *hashstring_new(PyTypeObject *type,PyObject *Args,
                                 PyObject *kwds)
 {
     char *Type = NULL;
     char *Hash = NULL;
     char *kwlist[] = {"type", "hash",  NULL};
-    if (PyArg_ParseTupleAndKeywords(Args, kwds, "s|s", kwlist, &Type,
+    if (PyArg_ParseTupleAndKeywords(Args, kwds, "s|s:__new__", kwlist, &Type,
                                     &Hash) == 0)
         return 0;
     CppPyObject<HashString*> *PyObj = CppPyObject_NEW<HashString*>(type);
@@ -39,49 +39,51 @@ static PyObject *HashString_NEW(PyTypeObject *type,PyObject *Args,
     return PyObj;
 }
 
-static PyObject *HashString_Repr(PyObject *self)
+static PyObject *hashstring_repr(PyObject *self)
 {
     HashString *hash = GetCpp<HashString*>(self);
     return PyString_FromFormat("<%s object: \"%s\">", self->ob_type->tp_name,
                                hash->toStr().c_str());
 }
 
-static PyObject *HashString_ToStr(PyObject *self)
+static PyObject *hashstring_str(PyObject *self)
 {
     HashString *hash = GetCpp<HashString*>(self);
     return CppPyString(hash->toStr());
 }
 
-static PyObject *HashString_HashType(PyObject *self)
+static PyObject *hashstring_get_hashtype(PyObject *self)
 {
     HashString *hash = GetCpp<HashString*>(self);
     return CppPyString(hash->HashType());
 }
 
-static char *HashString_VerifyFile_doc =
-    "verify_file(filename: str) --> bool\n\n"
+static char *hashstring_verify_file_doc =
+    "verify_file(filename: str) -> bool\n\n"
     "Verify that the file indicated by filename matches the hash.";
 
-static PyObject *HashString_VerifyFile(PyObject *self,PyObject *args)
+static PyObject *hashstring_verify_file(PyObject *self,PyObject *args)
 {
     HashString *hash = GetCpp<HashString*>(self);
     char *filename;
-    if (PyArg_ParseTuple(args, "s", &filename) == 0)
+    if (PyArg_ParseTuple(args, "s:verify_file", &filename) == 0)
         return 0;
     return PyBool_FromLong(hash->VerifyFile(filename));
 }
 
-static PyMethodDef HashString_Methods[] = {
-    {"to_str",(PyCFunction)HashString_ToStr,METH_NOARGS,
-     "to_str() --> str\n\nReturn a string, consisting of type:hash"},
-    {"verify_file",HashString_VerifyFile,METH_VARARGS,
-     HashString_VerifyFile_doc},
-    {"hash_type",(PyCFunction)HashString_HashType,METH_NOARGS,
-     "hash_type() --> str\n\nReturn the type of hash (MD5Sum,SHA1,SHA256)"},
-    {}
+static PyMethodDef hashstring_methods[] = {
+    {"verify_file",hashstring_verify_file,METH_VARARGS,
+     hashstring_verify_file_doc},
+    {NULL}
 };
 
-static char *HashString_doc =
+static PyGetSetDef hashstring_getset[] = {
+    {"hashtype",(getter)hashstring_get_hashtype,0,
+     "The type of the hash, as a string (possible: MD5Sum,SHA1,SHA256)."},
+    {NULL}
+};
+
+static char *hashstring_doc =
     "HashString(type, hash) OR HashString('type:hash')\n\n"
     "Create a new HashString object. The first form allows you to specify\n"
     "a type and a hash, and the second form a single string where type and\n"
@@ -99,28 +101,28 @@ PyTypeObject PyHashString_Type = {
     0,                                 // tp_getattr
     0,                                 // tp_setattr
     0,                                 // tp_compare
-    HashString_Repr,                   // tp_repr
+    hashstring_repr,                   // tp_repr
     0,                                 // tp_as_number
     0,                                 // tp_as_sequence
     0,                                 // tp_as_mapping
     0,                                 // tp_hash
     0,                                 // tp_call
-    HashString_ToStr,                  // tp_str
+    hashstring_str,                    // tp_str
     0,                                 // tp_getattro
     0,                                 // tp_setattro
     0,                                 // tp_as_buffer
-    (Py_TPFLAGS_DEFAULT |              // tp_flags
-     Py_TPFLAGS_BASETYPE),
-    HashString_doc,                    // tp_doc
+    Py_TPFLAGS_DEFAULT |               // tp_flags
+    Py_TPFLAGS_BASETYPE,
+    hashstring_doc,                    // tp_doc
     0,                                 // tp_traverse
     0,                                 // tp_clear
     0,                                 // tp_richcompare
     0,                                 // tp_weaklistoffset
     0,                                 // tp_iter
     0,                                 // tp_iternext
-    HashString_Methods,                // tp_methods
+    hashstring_methods,                // tp_methods
     0,                                 // tp_members
-    0,                                 // tp_getset
+    hashstring_getset,                 // tp_getset
     0,                                 // tp_base
     0,                                 // tp_dict
     0,                                 // tp_descr_get
@@ -128,5 +130,5 @@ PyTypeObject PyHashString_Type = {
     0,                                 // tp_dictoffset
     0,                                 // tp_init
     0,                                 // tp_alloc
-    HashString_NEW,                    // tp_new
+    hashstring_new,                    // tp_new
 };
