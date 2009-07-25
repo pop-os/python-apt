@@ -286,11 +286,20 @@ class InstallProgress(DumbInstallProgress):
     def waitChild(self):
         """Wait for child progress to exit."""
         while True:
-            select.select([self.statusfd], [], [], self.selectTimeout)
-            self.updateInterface()
-            (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
-            if pid == self.child_pid:
+            try:
+                select.select([self.statusfd], [], [], self.selectTimeout)
+            except select.error, (errno_, errstr):
+                if errno_ != errno.EINTR:
+                    raise
                 break
+            self.updateInterface()
+            try:
+                (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
+                if pid == self.child_pid:
+                    break
+            except OSError, (errno_, errstr):
+                if errno_ != errno.EINTR:
+                    raise
         return res
 
     def run(self, pm):
