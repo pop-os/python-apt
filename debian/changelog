@@ -1,9 +1,15 @@
 python-apt (0.7.11.1) UNRELEASED; urgency=low
 
+  [ Stephan Peijnik ]
   * apt/progress/__init__.py:
     - Exception handling fixes in InstallProgress class.
+  
+  [ Michael Vogt ]
+  * python/tag.cc:
+    - merge patch from John Wright that adds FindRaw method
+      (closes: #538723)
 
- -- Stephan Peijnik <debian@sp.or.at>  Sat, 25 Jul 2009 10:37:11 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 27 Jul 2009 11:17:27 +0200
 
 python-apt (0.7.11.0) unstable; urgency=low
 
