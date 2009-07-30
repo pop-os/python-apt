@@ -22,6 +22,9 @@ python-apt (0.7.12.0) unstable; urgency=low
     - Return VersionList objects in Package.versions, which are sequences
       and also provide features of mappings. (partial API BREAK)
       + Allows to get a specific version (Closes: #523998)
+  * apt/progress/__init__.py:
+    - Do not break out of InstallProgress.waitChild()'s loop just because it
+      is hitting EINTR, but only on child exit or on ECHILD.
   * Use debhelper 7 instead of CDBS
 
   [ Stefano Zacchiroli ]
