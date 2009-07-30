@@ -6,11 +6,10 @@ Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.8.2
 XS-Python-Version: all
 Build-Depends: apt-utils,
-               cdbs,
-               debhelper (>= 5.0.37.1),
+               debhelper (>= 7.3.5),
                libapt-pkg-dev (>= 0.7.22~),
-               python-all-dbg,
-               python-all-dev,
+               python-all-dbg (>= 2.5.4-1),
+               python-all-dev (>= 2.5.4-1),
                python-central (>= 0.5),
                python-debian,
                python-distutils-extra (>= 1.9.0),

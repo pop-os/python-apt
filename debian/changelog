@@ -1,4 +1,4 @@
-python-apt (0.7.11.2) unstable; urgency=low
+python-apt (0.7.12.0) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * python/cache.cc:
@@ -18,6 +18,7 @@ python-apt (0.7.11.2) unstable; urgency=low
     - Allow to set the candidate of a package (Closes: #523997)
       + Support assignments to the 'candidate' property of Package objects.
       + Initial patch by Sebastian Heinlein
+  * Use debhelper 7 instead of CDBS
 
   [ Stefano Zacchiroli ]
   * debian/python-apt.doc-base: register the documentation with the
