@@ -1,3 +1,47 @@
+python-apt (0.7.11.2) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * python/cache.cc:
+    - Support Breaks, Enhances dependency types (Closes: #416247)
+  * debian/control:
+    - Only recommend libjs-jquery (Closes: #527543)
+    - Build-depend on libapt-pkg-dev (>= 0.7.22~)
+    - Update Standards-Version to 3.8.2
+  * apt/cache.py:
+    - Correctly handle rootdir on second and later invocations of
+      open(), by calling InitSystem again. (LP: #320665).
+    - Provide broken_count, delete_count, install_count, keep_count
+      properties (Closes: #532338)
+    - Only create Package objects when they are requested, do not keep them in
+      a dict. Saves 10MB for 25,000 packages on my machine.
+  * apt/package.py:
+    - Allow to set the candidate of a package (Closes: #523997)
+      + Support assignments to the 'candidate' property of Package objects.
+      + Initial patch by Sebastian Heinlein
+
+  [ Stefano Zacchiroli ]
+  * debian/python-apt.doc-base: register the documentation with the
+    doc-base system (Closes: #525134)
+
+  [ Sebastian Heinlein ]
+  * apt/progress.py: Extract the package name from the status message
+    (Closes: #532660) 
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
+
+python-apt (0.7.11.1) unstable; urgency=low
+
+  [ Stephan Peijnik ]
+  * apt/progress/__init__.py:
+    - Exception handling fixes in InstallProgress class.
+  
+  [ Michael Vogt ]
+  * python/tag.cc:
+    - merge patch from John Wright that adds FindRaw method
+      (closes: #538723)
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 29 Jul 2009 19:15:56 +0200
+
 python-apt (0.7.11.0) unstable; urgency=low
 
   [ Julian Andres Klode ]

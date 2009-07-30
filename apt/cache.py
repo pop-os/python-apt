@@ -20,6 +20,7 @@
 #  USA
 
 import os
+import weakref
 
 import apt_pkg
 from apt import Package
@@ -47,6 +48,8 @@ class Cache(object):
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
         self._callbacks = {}
+        self._weakref = weakref.WeakValueDictionary()
+        self._set = set()
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.Config.Set("Dir::Cache::pkgcache", "")
@@ -63,6 +66,9 @@ class Cache(object):
             # create required dirs/files when run with special rootdir
             # automatically
             self._check_and_create_required_dirs(rootdir)
+            # Call InitSystem so the change to Dir::State::Status is actually
+            # recognized (LP: #320665)
+            apt_pkg.InitSystem()
         self.open(progress)
 
     def _check_and_create_required_dirs(self, rootdir):
@@ -93,7 +99,7 @@ class Cache(object):
             for callback in self._callbacks[name]:
                 callback()
 
-    def open(self, progress):
+    def open(self, progress=None):
         """ Open the package cache, after that it can be used like
             a dictionary
         """
@@ -105,7 +111,8 @@ class Cache(object):
         self._records = apt_pkg.GetPkgRecords(self._cache)
         self._list = apt_pkg.GetPkgSourceList()
         self._list.ReadMainList()
-        self._dict = {}
+        self._set.clear()
+        self._weakref.clear()
 
         progress.Op = "Building data structures"
         i=last=0
@@ -116,7 +123,7 @@ class Cache(object):
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.VersionList) > 0:
-                self._dict[pkg.Name] = Package(self, pkg)
+                self._set.add(pkg.Name)
 
             i += 1
 
@@ -125,30 +132,36 @@ class Cache(object):
 
     def __getitem__(self, key):
         """ look like a dictionary (get key) """
-        return self._dict[key]
+        try:
+            return self._weakref[key]
+        except KeyError:
+            if key in self._set:
+                pkg = self._weakref[key] = Package(self, self._cache[key])
+                return pkg
+            else:
+                raise KeyError('The cache has no package named %r' % key)
 
     def __iter__(self):
-        for pkgname in self._dict.keys():
-            yield self._dict[pkgname]
+        for pkgname in self._set:
+            yield self[pkgname]
         raise StopIteration
 
     def has_key(self, key):
-        return (key in self._dict)
+        return (key in self._set)
 
     def __contains__(self, key):
-        return (key in self._dict)
+        return (key in self._set)
 
     def __len__(self):
-        return len(self._dict)
+        return len(self._set)
 
     def keys(self):
-        return self._dict.keys()
+        return list(self._set)
 
     def getChanges(self):
         """ Get the marked changes """
         changes = []
-        for name in self._dict.keys():
-            p = self._dict[name]
+        for p in self:
             if p.markedUpgrade or p.markedInstall or p.markedDelete or \
                p.markedDowngrade or p.markedReinstall:
                 changes.append(p)
@@ -329,6 +342,26 @@ class Cache(object):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 
+    @property
+    def broken_count(self):
+        """Return the number of packages with broken dependencies."""
+        return self._depcache.broken_count
+
+    @property
+    def delete_count(self):
+        """Return the number of packages marked for deletion."""
+        return self._depcache.del_count
+
+    @property
+    def install_count(self):
+        """Return the number of packages marked for installation."""
+        return self._depcache.inst_count
+
+    @property
+    def keep_count(self):
+        """Return the number of packages marked as keep."""
+        return self._depcache.keep_count
+
 
 # ----------------------------- experimental interface
 
@@ -373,7 +406,7 @@ class FilteredCache(object):
         return len(self._filtered)
 
     def __getitem__(self, key):
-        return self.cache._dict[key]
+        return self.cache[key]
 
     def __iter__(self):
         for pkgname in self._filtered:
@@ -391,10 +424,10 @@ class FilteredCache(object):
     def _reapplyFilter(self):
         " internal helper to refilter "
         self._filtered = {}
-        for pkg in self.cache._dict.keys():
+        for pkg in self.cache:
             for f in self._filters:
-                if f.apply(self.cache._dict[pkg]):
-                    self._filtered[pkg] = 1
+                if f.apply(pkg):
+                    self._filtered[pkg.name] = 1
                     break
 
     def setFilter(self, filter):
