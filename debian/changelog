@@ -12,6 +12,10 @@ python-apt (0.7.11.2) unstable; urgency=low
       open(), by calling InitSystem again. (LP: #320665).
     - Provide broken_count, delete_count, install_count, keep_count
       properties (Closes: #532338)
+  * apt/package.py:
+    - Allow to set the candidate of a package (Closes: #523997)
+      + Support assignments to the 'candidate' property of Package objects.
+      + Initial patch by Sebastian Heinlein
 
   [ Stefano Zacchiroli ]
   * debian/python-apt.doc-base: register the documentation with the
