@@ -6,6 +6,7 @@ python-apt (0.7.11.2) unstable; urgency=low
   * debian/control:
     - Only recommend libjs-jquery (Closes: #527543)
     - Build-depend on libapt-pkg-dev (>= 0.7.22~)
+    - Update Standards-Version to 3.8.2
   * apt/cache.py:
     - Correctly handle rootdir on second and later invocations of
       open(), by calling InitSystem again. (LP: #320665).
