@@ -2,6 +2,7 @@ python-apt (0.7.11.2) unstable; urgency=low
 
   * python/cache.cc:
     - Support Breaks, Enhances dependency types (Closes: #416247)
+  * debian/control: Only recommend libjs-jquery (Closes: #527543)  
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
 
