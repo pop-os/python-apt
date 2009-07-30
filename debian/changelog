@@ -21,6 +21,7 @@ python-apt (0.7.12.0) unstable; urgency=low
     - Make comparisons of Version object more robust.
     - Return VersionList objects in Package.versions, which are sequences
       and also provide features of mappings. (partial API BREAK)
+      + Allows to get a specific version (Closes: #523998)
   * Use debhelper 7 instead of CDBS
 
   [ Stefano Zacchiroli ]
