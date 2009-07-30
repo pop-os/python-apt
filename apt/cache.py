@@ -332,6 +332,26 @@ class Cache(object):
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 
+    @property
+    def broken_count(self):
+        """Return the number of packages with broken dependencies."""
+        return self._depcache.broken_count
+
+    @property
+    def delete_count(self):
+        """Return the number of packages marked for deletion."""
+        return self._depcache.del_count
+
+    @property
+    def install_count(self):
+        """Return the number of packages marked for installation."""
+        return self._depcache.inst_count
+
+    @property
+    def keep_count(self):
+        """Return the number of packages marked as keep."""
+        return self._depcache.keep_count
+
 
 # ----------------------------- experimental interface
 
