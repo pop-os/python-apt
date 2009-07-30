@@ -344,7 +344,7 @@ class DpkgInstallProgress(InstallProgress):
         if pid == 0:
             # child
             res = os.system("/usr/bin/dpkg --status-fd %s -i %s" % \
-                            (self.writefd, self.debfile))
+                            (self.writefd, debfile))
             os._exit(os.WEXITSTATUS(res))
         self.child_pid = pid
         res = self.waitChild()
@@ -370,10 +370,11 @@ class DpkgInstallProgress(InstallProgress):
                 print "got garbage from dpkg: '%s'" % self.read
                 self.read = ""
                 break
+            pkg_name = statusl[1].strip()
             status = statusl[2].strip()
             #print status
             if status == "error":
-                self.error(self.debname, status)
+                self.error(pkg_name, status)
             elif status == "conffile-prompt":
                 # we get a string like this:
                 # 'current-conffile' 'new-conffile' useredited distedited

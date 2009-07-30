@@ -15,6 +15,10 @@ python-apt (0.7.11.2) unstable; urgency=low
   * debian/python-apt.doc-base: register the documentation with the
     doc-base system (Closes: #525134)
 
+  [ Sebastian Heinlein ]
+  * apt/progress.py: Extract the package name from the status message
+    (Closes: #532660) 
+
  -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
 
 python-apt (0.7.11.1) unstable; urgency=low
