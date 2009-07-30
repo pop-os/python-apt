@@ -165,6 +165,6 @@ PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
     PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
                  "Please see apt_pkg.Cdrom() for the replacement.", 1);
-    return PkgCdromNew(&PyCdrom_Type,Args,0);
+    return cdrom_new(&PyCdrom_Type,Args,0);
 }
 #endif
