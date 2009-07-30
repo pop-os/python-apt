@@ -63,6 +63,9 @@ class Cache(object):
             # create required dirs/files when run with special rootdir
             # automatically
             self._check_and_create_required_dirs(rootdir)
+            # Call InitSystem so the change to Dir::State::Status is actually
+            # recognized (LP: #320665)
+            apt_pkg.InitSystem()
         self.open(progress)
 
     def _check_and_create_required_dirs(self, rootdir):
