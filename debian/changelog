@@ -12,6 +12,8 @@ python-apt (0.7.11.2) unstable; urgency=low
       open(), by calling InitSystem again. (LP: #320665).
     - Provide broken_count, delete_count, install_count, keep_count
       properties (Closes: #532338)
+    - Only create Package objects when they are requested, do not keep them in
+      a dict. Saves 10MB for 25,000 packages on my machine.
   * apt/package.py:
     - Allow to set the candidate of a package (Closes: #523997)
       + Support assignments to the 'candidate' property of Package objects.
