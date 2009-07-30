@@ -112,11 +112,31 @@ class FetchProgress(object):
 
         This happens eg. when the downloads fails or is completed.
         """
+    def update_status_full(self, uri, descr, short_descr, status, file_size, 
+                           partial_size):
+        """Called when the status of an item changes.
+
+        This happens eg. when the downloads fails or is completed. This
+        version include information on current filesize and partial size
+        """
 
     def pulse(self):
         """Called periodically to update the user interface.
 
         Return True to continue or False to cancel.
+        """
+        self.percent = (((self.currentBytes + self.currentItems) * 100.0) /
+                        float(self.totalBytes + self.totalItems))
+        if self.currentCPS > 0:
+            self.eta = ((self.totalBytes - self.currentBytes) /
+                        float(self.currentCPS))
+        return True
+
+    def pulse_items(self, items):
+        """Called periodically to update the user interface.
+        This function includes details about the items being fetched
+        Return True to continue or False to cancel.
+
         """
         self.percent = (((self.currentBytes + self.currentItems) * 100.0) /
                         float(self.totalBytes + self.totalItems))
@@ -266,11 +286,20 @@ class InstallProgress(DumbInstallProgress):
     def waitChild(self):
         """Wait for child progress to exit."""
         while True:
-            select.select([self.statusfd], [], [], self.selectTimeout)
-            self.updateInterface()
-            (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
-            if pid == self.child_pid:
+            try:
+                select.select([self.statusfd], [], [], self.selectTimeout)
+            except select.error, (errno_, errstr):
+                if errno_ != errno.EINTR:
+                    raise
                 break
+            self.updateInterface()
+            try:
+                (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
+                if pid == self.child_pid:
+                    break
+            except OSError, (errno_, errstr):
+                if errno_ != errno.EINTR:
+                    raise
         return res
 
     def run(self, pm):
@@ -315,7 +344,7 @@ class DpkgInstallProgress(InstallProgress):
         if pid == 0:
             # child
             res = os.system("/usr/bin/dpkg --status-fd %s -i %s" % \
-                            (self.writefd, self.debfile))
+                            (self.writefd, debfile))
             os._exit(os.WEXITSTATUS(res))
         self.child_pid = pid
         res = self.waitChild()
@@ -341,10 +370,11 @@ class DpkgInstallProgress(InstallProgress):
                 print "got garbage from dpkg: '%s'" % self.read
                 self.read = ""
                 break
+            pkg_name = statusl[1].strip()
             status = statusl[2].strip()
             #print status
             if status == "error":
-                self.error(self.debname, status)
+                self.error(pkg_name, status)
             elif status == "conffile-prompt":
                 # we get a string like this:
                 # 'current-conffile' 'new-conffile' useredited distedited

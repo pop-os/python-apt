@@ -92,6 +92,29 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
    return PyString_FromStringAndSize(Start,Stop-Start);
 }
 
+static char *doc_FindRaw = "FindRaw(Name) -> String/None";
+static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
+{
+   char *Name = 0;
+   char *Default = 0;
+   if (PyArg_ParseTuple(Args,"s|z",&Name,&Default) == 0)
+      return 0;
+
+   unsigned Pos;
+   if (GetCpp<pkgTagSection>(Self).Find(Name,Pos) == false)
+   {
+      if (Default == 0)
+	 Py_RETURN_NONE;
+      return PyString_FromString(Default);
+   }
+
+   const char *Start;
+   const char *Stop;
+   GetCpp<pkgTagSection>(Self).Get(Start,Stop,Pos);
+
+   return PyString_FromStringAndSize(Start,Stop-Start);
+}
+
 static char *doc_FindFlag = "FindFlag(Name) -> integer/none";
 static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
 {
@@ -355,6 +378,7 @@ static PyMethodDef TagSecMethods[] =
 {
    // Query
    {"Find",TagSecFind,METH_VARARGS,doc_Find},
+   {"FindRaw",TagSecFindRaw,METH_VARARGS,doc_FindRaw},
    {"FindFlag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"Bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
 

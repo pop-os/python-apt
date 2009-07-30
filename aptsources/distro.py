@@ -319,12 +319,12 @@ class Distribution:
             if s.type == self.binary_type:
                 if s.dist not in comps_per_dist:
                     comps_per_dist[s.dist] = set()
-                    map(comps_per_dist[s.dist].add, s.comps)
+                map(comps_per_dist[s.dist].add, s.comps)
         for s in self.source_code_sources:
             if s.type == self.source_type:
                 if s.dist not in comps_per_sdist:
                     comps_per_sdist[s.dist] = set()
-                    map(comps_per_sdist[s.dist].add, s.comps)
+                map(comps_per_sdist[s.dist].add, s.comps)
 
         # check if there is a main source at all
         if len(self.main_sources) < 1:
