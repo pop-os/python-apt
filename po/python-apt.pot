@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-19 15:59+0200\n"
+"POT-Creation-Date: 2009-07-30 20:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,16 +369,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:301
+#: ../apt/package.py:331
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:937 ../apt/package.py:1043
+#: ../apt/package.py:965 ../apt/package.py:1071
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1047
+#: ../apt/package.py:1075
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -387,7 +387,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1053
+#: ../apt/package.py:1081
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
@@ -441,32 +441,32 @@ msgstr ""
 msgid "An essential package would be removed"
 msgstr ""
 
-#: ../apt/progress/text.py:81
+#: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
 msgstr ""
 
-#: ../apt/progress/text.py:118
+#: ../apt/progress/text.py:121
 msgid "Hit "
 msgstr ""
 
-#: ../apt/progress/text.py:126
+#: ../apt/progress/text.py:130
 msgid "Ign "
 msgstr ""
 
-#: ../apt/progress/text.py:128
+#: ../apt/progress/text.py:132
 msgid "Err "
 msgstr ""
 
-#: ../apt/progress/text.py:138
+#: ../apt/progress/text.py:143
 msgid "Get:"
 msgstr ""
 
-#: ../apt/progress/text.py:198
+#: ../apt/progress/text.py:203
 msgid " [Working]"
 msgstr ""
 
-#: ../apt/progress/text.py:208
+#: ../apt/progress/text.py:214
 #, python-format
 msgid ""
 "Media change: please insert the disc labeled\n"
@@ -475,19 +475,19 @@ msgid ""
 msgstr ""
 
 #. Trick for getting a translation from apt
-#: ../apt/progress/text.py:216
+#: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
 msgstr ""
 
-#: ../apt/progress/text.py:229
+#: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
 msgstr ""
 
-#: ../apt/progress/text.py:241
+#: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:96
+#: ../apt/cache.py:120
 msgid "Building data structures"
 msgstr ""

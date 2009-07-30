@@ -315,14 +315,20 @@ class InstallProgress(DumbInstallProgress):
         while True:
             try:
                 select.select([self.statusfd], [], [], self.select_timeout)
-            except select.error, e:
-                if e[0] != errno.EINTR:
+            except select.error, (errno_, errstr):
+                if errno_ != errno.EINTR:
                     raise
 
             self.update_interface()
-            (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
-            if pid == self.child_pid:
-                break
+            try:
+                (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
+                if pid == self.child_pid:
+                    break
+            except OSError, (errno_, errstr):
+                if errno_ != errno.EINTR:
+                    raise
+                if errno_ == errno.ECHILD:
+                    break
         return res
 
     def run(self, pm):

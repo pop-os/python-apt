@@ -1,28 +1,17 @@
 python-apt (0.7.92) UNRELEASED; urgency=low
 
-  [ Julian Andres Klode ]
   * Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141)
   * Add apt_pkg.Policy class (Closes: #382725)
   * Provide a C++ API in the package python-apt-dev (Closes: #334923)
   * Allow types providing __new__() to be subclassed.
   * Bugfix: Delete pointers correctly, fixing memory leaks. (LP: #370149)
-  * apt/package.py: Return VersionList objects in Package.versions, which
-    are sequences and also provide features of mappings. (small API BREAK)
-  * apt/progress/__init__.py: Check for EINTR in select (Closes: #499296)
-  * Add support for Enhances as a dependency type (Closes: #416247)
-  * apt/cache.py: Provide broken_count, delete_count, install_count, keep_count
-    properties (Closes: #532338)
-  * apt/cache.py: Correctly handle rootdir on second and later invocations of
-    open() (LP: #320665).
   * Add apt_pkg.DepCache.mark_auto() and apt.Package.mark_auto() methods to
     mark a package as automatically installed.
   * Drop apt_pkg.Cache.open() and apt_pkg.Cache.close(), they cause segfaults
-    and memory leaks. Simply create a new cache instead.
-  * Merge 0.7.10.4, 0.7.11.0 from unstable
-  * debian/control: Update Standards-Version to 3.8.2
+    and memory leaks. Simply create a new cache instxead.
+  * Merge releases 0.7.10.4 - 0.7.12.0 from unstable
   * Make AcquireFile a subclass of AcquireItem
   * Make ConfigurationPtr,ConfigurationSub subclasses of Configuration.
-  * debian/control: Build-Depend on libapt-pkg-dev (>= 0.7.22~).
   * Unification of dependency handling:
     - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
       (i.e. < instead of <<) to match the interface of Version.depends_list_str
@@ -35,17 +24,11 @@ python-apt (0.7.92) UNRELEASED; urgency=low
   * Make AcquireItem objects raise ValueError instead of segfaulting when the Acquire()
     object is shut down or the main object (e.g. AcquireFile) is deallocated.
   * Unify all Configuration,ConfigurationPtr,ConfigurationSub into one type.
-  * Upgrade to debhelper 7 and remove debian/tmp in python-apt.install, to
-    work around a bug in debhelper.
   * Build-Depend on python-all-dev (>= 2.5.4-3), so we build for Python 2.6
   * Simplify the whole building, build all Python versions with setup.py
   * Introduce new progress (base) classes in apt_pkg:
     - apt_pkg.AcquireProgress
     - apt_pkg.OpProgress
-
-  [ Sebastian Heinlein ]
-  * apt/progress.py: Extract the package name from the status message
-    (Closes: #532660)
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Jul 2009 14:56:24 +0200
 
@@ -87,7 +70,59 @@ python-apt (0.7.90) experimental; urgency=low
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
 
-python-apt (0.7.11.0) UNRELEASED; urgency=low
+python-apt (0.7.12.0) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * python/cache.cc:
+    - Support Breaks, Enhances dependency types (Closes: #416247)
+  * debian/control:
+    - Only recommend libjs-jquery (Closes: #527543)
+    - Build-depend on libapt-pkg-dev (>= 0.7.22~)
+    - Update Standards-Version to 3.8.2
+  * apt/cache.py:
+    - Correctly handle rootdir on second and later invocations of
+      open(), by calling InitSystem again. (LP: #320665).
+    - Provide broken_count, delete_count, install_count, keep_count
+      properties (Closes: #532338)
+    - Only create Package objects when they are requested, do not keep them in
+      a dict. Saves 10MB for 25,000 packages on my machine.
+  * apt/package.py:
+    - Allow to set the candidate of a package (Closes: #523997)
+      + Support assignments to the 'candidate' property of Package objects.
+      + Initial patch by Sebastian Heinlein
+    - Make comparisons of Version object more robust.
+    - Return VersionList objects in Package.versions, which are sequences
+      and also provide features of mappings. (partial API BREAK)
+      + Allows to get a specific version (Closes: #523998)
+  * apt/progress/__init__.py:
+    - Do not break out of InstallProgress.waitChild()'s loop just because it
+      is hitting EINTR, but only on child exit or on ECHILD.
+  * Use debhelper 7 instead of CDBS
+
+  [ Stefano Zacchiroli ]
+  * debian/python-apt.doc-base: register the documentation with the
+    doc-base system (Closes: #525134)
+
+  [ Sebastian Heinlein ]
+  * apt/progress.py: Extract the package name from the status message
+    (Closes: #532660)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
+
+python-apt (0.7.11.1) unstable; urgency=low
+
+  [ Stephan Peijnik ]
+  * apt/progress/__init__.py:
+    - Exception handling fixes in InstallProgress class.
+
+  [ Michael Vogt ]
+  * python/tag.cc:
+    - merge patch from John Wright that adds FindRaw method
+      (closes: #538723)
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 29 Jul 2009 19:15:56 +0200
+
+python-apt (0.7.11.0) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * data/templates/Debian.info.in: Squeeze will be 6.0, not 5.1

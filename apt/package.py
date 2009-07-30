@@ -33,6 +33,11 @@ except ImportError:
     # (for Python < 2.6) pylint: disable-msg=C0103
     Sequence = Mapping = object
 
+try:
+    from collections import Sequence
+except ImportError:
+    Sequence = object
+
 import apt_pkg
 import apt.progress.text
 from apt_pkg import gettext as _
@@ -40,7 +45,7 @@ from apt.deprecation import (function_deprecated_by, AttributeDeprecatedBy,
                              deprecated_args)
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
-           'Version')
+           'Version', 'VersionList')
 
 
 def _file_is_same(path, size, md5):
@@ -200,22 +205,47 @@ class Version(object):
         self.package = package
         self._cand = cand
 
+    def _cmp(self, other):
+        try:
+            return apt_pkg.Version_compare(self._cand.ver_str, other.version)
+        except AttributeError:
+            return apt_pkg.Version_compare(self._cand.ver_str, other)
+
     def __eq__(self, other):
         try:
-            return self._cand.id == other._cand.id
-        except AttributeError:
-            return apt_pkg.version_compare(self.version, other) == 0
-        except Exception:
-            return False
+            return self._cmp(other) == 0
+        except TypeError:
+            return NotImplemented
+
+    def __ge__(self, other):
+        try:
+            return self._cmp(other) >= 0
+        except TypeError:
+            return NotImplemented
 
     def __gt__(self, other):
-        return apt_pkg.version_compare(self.version, other.version) > 0
+        try:
+            return self._cmp(other) > 0
+        except TypeError:
+            return NotImplemented
+
+    def __le__(self, other):
+        try:
+            return self._cmp(other) <= 0
+        except TypeError:
+            return NotImplemented
 
     def __lt__(self, other):
-        return apt_pkg.version_compare(self.version, other.version) < 0
+        try:
+            return self._cmp(other) < 0
+        except TypeError:
+            return NotImplemented
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        try:
+            return self._cmp(other) != 0
+        except TypeError:
+            return NotImplemented
 
     def __hash__(self):
         return self._cand.hash
@@ -610,8 +640,6 @@ class Package(object):
         This property is writeable to allow you to set the candidate version
         of the package. Just assign a Version() object, and it will be set as
         the candidate version.
-
-        .. versionadded:: 0.7.9
         """
         cand = self._pcache._depcache.get_candidate_ver(self._pkg)
         if cand is not None:
