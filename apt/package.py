@@ -189,17 +189,47 @@ class Version(object):
         self.package = package
         self._cand = cand
 
+    def _cmp(self, other):
+        try:
+            return apt_pkg.VersionCompare(self._cand.VerStr, other.version)
+        except AttributeError:
+            return apt_pkg.VersionCompare(self._cand.VerStr, other)
+
     def __eq__(self, other):
-        return self._cand.ID == other._cand.ID
+        try:
+            return self._cmp(other) == 0
+        except TypeError:
+            return NotImplemented
+
+    def __ge__(self):
+        try:
+            return self._cmp(other) >= 0
+        except TypeError:
+            return NotImplemented
 
     def __gt__(self, other):
-        return apt_pkg.VersionCompare(self.version, other.version) > 0
+        try:
+            return self._cmp(other) > 0
+        except TypeError:
+            return NotImplemented
+
+    def __le__(self):
+        try:
+            return self._cmp(other) <= 0
+        except TypeError:
+            return NotImplemented
 
     def __lt__(self, other):
-        return apt_pkg.VersionCompare(self.version, other.version) < 0
+        try:
+            return self._cmp(other) < 0
+        except TypeError:
+            return NotImplemented
 
     def __ne__(self, other):
-        return not self.__eq__(other)
+        try:
+            return self._cmp(other) != 0
+        except TypeError:
+            return NotImplemented
 
     def __hash__(self):
         return self._cand.Hash
@@ -488,7 +518,7 @@ class Package(object):
 
     def candidate(self):
         """Return the candidate version of the package.
-        
+
         This property is writeable to allow you to set the candidate version
         of the package. Just assign a Version() object, and it will be set as
         the candidate version.

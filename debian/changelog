@@ -18,6 +18,7 @@ python-apt (0.7.12.0) unstable; urgency=low
     - Allow to set the candidate of a package (Closes: #523997)
       + Support assignments to the 'candidate' property of Package objects.
       + Initial patch by Sebastian Heinlein
+    - Make comparisons of Version object more robust.
   * Use debhelper 7 instead of CDBS
 
   [ Stefano Zacchiroli ]
@@ -26,7 +27,7 @@ python-apt (0.7.12.0) unstable; urgency=low
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
-    (Closes: #532660) 
+    (Closes: #532660)
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
 
@@ -35,7 +36,7 @@ python-apt (0.7.11.1) unstable; urgency=low
   [ Stephan Peijnik ]
   * apt/progress/__init__.py:
     - Exception handling fixes in InstallProgress class.
-  
+
   [ Michael Vogt ]
   * python/tag.cc:
     - merge patch from John Wright that adds FindRaw method
@@ -50,15 +51,15 @@ python-apt (0.7.11.0) unstable; urgency=low
 
   [ Stephan Peijnik ]
   * apt/progress/__init__.py:
-    - add update_status_full() that takes file_size/partial_size as 
+    - add update_status_full() that takes file_size/partial_size as
       additional callback arguments
-    - add pulse_items() that takes a addtional "items" tuple that 
+    - add pulse_items() that takes a addtional "items" tuple that
       gives the user full access to the individual items that are
       fetched
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
     - better threading support
-  
+
   [ Michael Vogt ]
   * aptsources/distro.py:
     - fix indent error that causes incorrect sources.list additons
@@ -70,7 +71,7 @@ python-apt (0.7.11.0) unstable; urgency=low
       required dirs/files automatically
 
  -- Michael Vogt <mvo@debian.org>  Mon, 20 Jul 2009 15:35:27 +0200
-  
+
 python-apt (0.7.10.4) unstable; urgency=low
 
   [ Michael Vogt ]
