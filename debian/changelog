@@ -1,17 +1,17 @@
 python-apt (0.7.92) UNRELEASED; urgency=low
 
-  * Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141)
-  * Add apt_pkg.Policy class (Closes: #382725)
-  * Provide a C++ API in the package python-apt-dev (Closes: #334923)
-  * Allow types providing __new__() to be subclassed.
-  * Bugfix: Delete pointers correctly, fixing memory leaks. (LP: #370149)
-  * Add apt_pkg.DepCache.mark_auto() and apt.Package.mark_auto() methods to
-    mark a package as automatically installed.
-  * Drop apt_pkg.Cache.open() and apt_pkg.Cache.close(), they cause segfaults
-    and memory leaks. Simply create a new cache instxead.
-  * Merge releases 0.7.10.4 - 0.7.12.0 from unstable
-  * Make AcquireFile a subclass of AcquireItem
-  * Make ConfigurationPtr,ConfigurationSub subclasses of Configuration.
+  * New features:
+    - Provide a C++ API in the package python-apt-dev (Closes: #334923).
+    - Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141).
+    - Add apt_pkg.Policy class (Closes: #382725).
+    - Add apt_pkg.Hashes class.
+    - Allow types providing __new__() to be subclassed.
+    - Add apt_pkg.DepCache.mark_auto() and apt.Package.mark_auto() methods to
+      mark a package as automatically installed.
+    - Make AcquireFile a subclass of AcquireItem, thus inheriting attributes.
+    - New progress handling in apt.progress.base and apt.progress.text. Still
+      missing Qt4 progress handlers.
+
   * Unification of dependency handling:
     - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
       (i.e. < instead of <<) to match the interface of Version.depends_list_str
@@ -20,15 +20,17 @@ python-apt (0.7.92) UNRELEASED; urgency=low
       + Closes: #468123 - there is no need anymore for binding CompType or
         CompTypeDeb, because we don't return integer values for CompType
         anymore.
-  * Introduce apt_pkg.Hashes class.
-  * Make AcquireItem objects raise ValueError instead of segfaulting when the Acquire()
-    object is shut down or the main object (e.g. AcquireFile) is deallocated.
-  * Unify all Configuration,ConfigurationPtr,ConfigurationSub into one type.
-  * Build-Depend on python-all-dev (>= 2.5.4-3), so we build for Python 2.6
-  * Simplify the whole building, build all Python versions with setup.py
-  * Introduce new progress (base) classes in apt_pkg:
-    - apt_pkg.AcquireProgress
-    - apt_pkg.OpProgress
+
+  * Bugfixes:
+    - Delete pointers correctly, fixing memory leaks (LP: #370149).
+    - Drop open() and close() in apt_pkg.Cache as they cause segfaults.
+    - Raise ValueError in AcquireItem if the Acquire process is shut down
+      instead of segfaulting.
+
+  * Other stuff:
+    - Merge releases 0.7.10.4 - 0.7.12.0 from unstable.
+    - Merge Configuration,ConfigurationPtr,ConfigurationSub into one type.
+    - Simplify the whole build process by using a single setup.py.
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Jul 2009 14:56:24 +0200
 
