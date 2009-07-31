@@ -152,6 +152,8 @@ static PyObject *CnfList(PyObject *Self,PyObject *Args)
    // Convert the whole configuration space into a list
    PyObject *List = PyList_New(0);
    const Configuration::Item *Top = GetSelf(Self).Tree(RootName);
+   if (!GetSelf(Self).Tree(0))
+    return List;
    const Configuration::Item *Root = GetSelf(Self).Tree(0)->Parent;
    if (Top != 0 && RootName != 0)
       Top = Top->Child;
@@ -216,7 +218,7 @@ static PyObject *CnfKeys(PyObject *Self,PyObject *Args)
    const Configuration::Item *Root = 0;
    if (RootName == 0)
       Stop = 0;
-   if (Top != 0)
+   if (Top != 0 && GetSelf(Self).Tree(0))
       Root = GetSelf(Self).Tree(0)->Parent;
    for (; Top != 0;)
    {

@@ -56,7 +56,7 @@ static PyObject *newConfiguration(PyObject *self,PyObject *args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.newConfiguration() is "
                 "deprecated. Use apt_pkg.Configuration() instead.", 1);
-   return CppPyObject_NEW<Configuration>(&PyConfiguration_Type);
+   return CppOwnedPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type, new Configuration());
 }
 #endif
 									/*}}}*/
