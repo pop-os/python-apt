@@ -31,6 +31,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     - Merge releases 0.7.10.4 - 0.7.12.0 from unstable.
     - Merge Configuration,ConfigurationPtr,ConfigurationSub into one type.
     - Simplify the whole build process by using a single setup.py.
+    - The documentation has been restructured and enhanced with tutorials.
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Jul 2009 14:56:24 +0200
 
