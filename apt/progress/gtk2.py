@@ -36,10 +36,10 @@ import gobject
 import pango
 import vte
 
-import apt.progress.old
 import apt_pkg
 from apt_pkg import gettext as _
-from apt.deprecation import function_deprecated_by
+from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
+from apt.progress import base, old
 
 
 def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
@@ -53,7 +53,7 @@ def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
     return (run, rettype, params)
 
 
-class GOpProgress(gobject.GObject, apt.progress.old.OpProgress):
+class GOpProgress(gobject.GObject, base.OpProgress):
     """Operation progress with GObject signals.
 
     Signals:
@@ -69,22 +69,28 @@ class GOpProgress(gobject.GObject, apt.progress.old.OpProgress):
                     "status-finished": mksig()}
 
     def __init__(self):
-        apt.progress.old.OpProgress.__init__(self)
+        base.OpProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._context = glib.main_context_default()
 
-    def update(self, percent):
+    def update(self, percent=None):
         """Called to update the percentage done"""
-        self.emit("status-changed", self.op, percent)
+        base.OpProgress.update(self, percent)
+        self.emit("status-changed", self.op, self.percent)
         while self._context.pending():
             self._context.iteration()
 
     def done(self):
         """Called when all operation have finished."""
+        base.OpProgress.done(self)
         self.emit("status-finished")
 
+    if apt_pkg._COMPAT_0_7:
+        subOp = AttributeDeprecatedBy('subop')
+        Op = AttributeDeprecatedBy('op')
 
-class GInstallProgress(gobject.GObject, apt.progress.old.InstallProgress):
+
+class GInstallProgress(gobject.GObject, old.InstallProgress):
     """Installation progress with GObject signals.
 
     Signals:
@@ -108,7 +114,7 @@ class GInstallProgress(gobject.GObject, apt.progress.old.InstallProgress):
                     "status-finished": mksig()}
 
     def __init__(self, term):
-        apt.progress.old.InstallProgress.__init__(self)
+        old.InstallProgress.__init__(self)
         gobject.GObject.__init__(self)
         self.finished = False
         self.time_last_update = time.time()
@@ -166,7 +172,7 @@ class GInstallProgress(gobject.GObject, apt.progress.old.InstallProgress):
 
         Emits: status-timeout() [When a timeout happens]
         """
-        apt.progress.old.InstallProgress.update_interface(self)
+        old.InstallProgress.update_interface(self)
         while self._context.pending():
             self._context.iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
@@ -191,7 +197,7 @@ class GInstallProgress(gobject.GObject, apt.progress.old.InstallProgress):
         childExited = function_deprecated_by(child_exited)
 
 
-class GDpkgInstallProgress(apt.progress.old.DpkgInstallProgress,
+class GDpkgInstallProgress(old.DpkgInstallProgress,
                            GInstallProgress):
     """An InstallProgress for local installations.
 
@@ -207,13 +213,13 @@ class GDpkgInstallProgress(apt.progress.old.DpkgInstallProgress,
 
     def run(self, debfile):
         """Install the given package."""
-        apt.progress.old.DpkgInstallProgress.run(self, debfile)
+        old.DpkgInstallProgress.run(self, debfile)
 
     def update_interface(self):
         """Called periodically to update the interface.
 
         Emits: status-timeout() [When a timeout happens]"""
-        apt.progress.old.DpkgInstallProgress.update_interface(self)
+        old.DpkgInstallProgress.update_interface(self)
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
             self.emit("status-timeout")
 
@@ -221,7 +227,7 @@ class GDpkgInstallProgress(apt.progress.old.DpkgInstallProgress,
         updateInterface = function_deprecated_by(update_interface)
 
 
-class GFetchProgress(gobject.GObject, apt.progress.old.FetchProgress):
+class GFetchProgress(gobject.GObject, old.FetchProgress):
     """A Fetch Progress with GObject signals.
 
     Signals:
@@ -236,7 +242,7 @@ class GFetchProgress(gobject.GObject, apt.progress.old.FetchProgress):
                     "status-finished": mksig()}
 
     def __init__(self):
-        apt.progress.old.FetchProgress.__init__(self)
+        old.FetchProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._continue = True
         self._context = glib.main_context_default()
@@ -251,7 +257,7 @@ class GFetchProgress(gobject.GObject, apt.progress.old.FetchProgress):
         self._continue = False
 
     def pulse(self):
-        apt.progress.old.FetchProgress.pulse(self)
+        old.FetchProgress.pulse(self)
         current_item = self.current_items + 1
         if current_item > self.total_items:
             current_item = self.total_items
