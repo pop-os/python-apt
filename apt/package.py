@@ -207,9 +207,9 @@ class Version(object):
 
     def _cmp(self, other):
         try:
-            return apt_pkg.Version_compare(self._cand.ver_str, other.version)
+            return apt_pkg.version_compare(self._cand.ver_str, other.version)
         except AttributeError:
-            return apt_pkg.Version_compare(self._cand.ver_str, other)
+            return apt_pkg.version_compare(self._cand.ver_str, other)
 
     def __eq__(self, other):
         try:
