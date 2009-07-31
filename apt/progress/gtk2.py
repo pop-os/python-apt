@@ -11,7 +11,7 @@
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
 #
-#  his program is distributed in the hope that it will be useful,
+#  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
@@ -40,6 +40,9 @@ import apt_pkg
 from apt_pkg import gettext as _
 from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
 from apt.progress import base, old
+
+
+__all__ = ['GInstallProgress', 'GOpProgress', 'GtkAptProgress']
 
 
 def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
@@ -90,7 +93,7 @@ class GOpProgress(gobject.GObject, base.OpProgress):
         Op = AttributeDeprecatedBy('op')
 
 
-class GInstallProgress(gobject.GObject, old.InstallProgress):
+class GInstallProgress(gobject.GObject, base.InstallProgress):
     """Installation progress with GObject signals.
 
     Signals:
@@ -114,7 +117,7 @@ class GInstallProgress(gobject.GObject, old.InstallProgress):
                     "status-finished": mksig()}
 
     def __init__(self, term):
-        old.InstallProgress.__init__(self)
+        base.InstallProgress.__init__(self)
         gobject.GObject.__init__(self)
         self.finished = False
         self.time_last_update = time.time()
@@ -152,12 +155,22 @@ class GInstallProgress(gobject.GObject, old.InstallProgress):
         """
         self.emit("status-started")
 
+    def run(self, obj):
+        """Run."""
+        self.finished = False
+        return base.InstallProgress.run(self, obj)
+
     def finish_update(self):
         """Called when the update finished.
 
         Emits: status-finished()
         """
         self.emit("status-finished")
+
+    def processing(self, pkg, stage):
+        """Called when entering a new stage in dpkg."""
+        # We have no percentage or alike, send -1 to let the bar pulse.
+        self.emit("status-changed", ("Installing %s...") % pkg, -1)
 
     def status_change(self, pkg, percent, status):
         """Called when the status changed.
@@ -172,7 +185,7 @@ class GInstallProgress(gobject.GObject, old.InstallProgress):
 
         Emits: status-timeout() [When a timeout happens]
         """
-        old.InstallProgress.update_interface(self)
+        base.InstallProgress.update_interface(self)
         while self._context.pending():
             self._context.iteration()
         if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
@@ -197,34 +210,7 @@ class GInstallProgress(gobject.GObject, old.InstallProgress):
         childExited = function_deprecated_by(child_exited)
 
 
-class GDpkgInstallProgress(old.DpkgInstallProgress,
-                           GInstallProgress):
-    """An InstallProgress for local installations.
-
-    Signals:
-
-        * status-changed(str: status, int: percent)
-        * status-started()  - Not Implemented yet
-        * status-finished()
-        * status-timeout() - When the maintainer script hangs
-        * status-error() - When an error happens
-        * status-conffile() - On Conffile
-    """
-
-    def run(self, debfile):
-        """Install the given package."""
-        old.DpkgInstallProgress.run(self, debfile)
-
-    def update_interface(self):
-        """Called periodically to update the interface.
-
-        Emits: status-timeout() [When a timeout happens]"""
-        old.DpkgInstallProgress.update_interface(self)
-        if self.time_last_update + self.INSTALL_TIMEOUT < time.time():
-            self.emit("status-timeout")
-
-    if apt_pkg._COMPAT_0_7:
-        updateInterface = function_deprecated_by(update_interface)
+GDpkgInstallProgress = GInstallProgress
 
 
 class GFetchProgress(gobject.GObject, old.FetchProgress):
@@ -235,6 +221,8 @@ class GFetchProgress(gobject.GObject, old.FetchProgress):
         * status-changed(str: description, int: percent)
         * status-started()
         * status-finished()
+
+    DEPRECATED.
     """
 
     __gsignals__ = {"status-changed": mksig((str, int)),
@@ -258,19 +246,19 @@ class GFetchProgress(gobject.GObject, old.FetchProgress):
 
     def pulse(self):
         old.FetchProgress.pulse(self)
-        current_item = self.current_items + 1
-        if current_item > self.total_items:
-            current_item = self.total_items
+        current_item = self.currentItems + 1
+        if current_item > self.totalItems:
+            current_item = self.totalItems
         if self.current_cps > 0:
             text = (_("Downloading file %(current)li of %(total)li with "
                       "%(speed)s/s") % \
                       {"current": current_item,
-                       "total": self.total_items,
-                       "speed": apt_pkg.size_to_str(self.current_cps)})
+                       "total": self.totalItems,
+                       "speed": apt_pkg.size_to_str(self.currentCPS)})
         else:
             text = (_("Downloading file %(current)li of %(total)li") % \
                       {"current": current_item,
-                       "total": self.total_items})
+                       "total": self.totalItems})
         self.emit("status-changed", text, self.percent)
         while self._context.pending():
             self._context.iteration()
@@ -328,19 +316,6 @@ class GtkAptProgress(gtk.VBox):
                                      self._on_status_timeout)
         self._progress_install.connect("status-conffile",
                                      self._on_status_timeout)
-        self._progress_dpkg_install = GDpkgInstallProgress(self._terminal)
-        self._progress_dpkg_install.connect("status-changed",
-                                       self._on_status_changed)
-        self._progress_dpkg_install.connect("status-started",
-                                       self._on_status_started)
-        self._progress_dpkg_install.connect("status-finished",
-                                     self._on_status_finished)
-        self._progress_dpkg_install.connect("status-timeout",
-                                     self._on_status_timeout)
-        self._progress_dpkg_install.connect("status-error",
-                                     self._on_status_timeout)
-        self._progress_dpkg_install.connect("status-conffile",
-                                     self._on_status_timeout)
 
     def clear(self):
         """Reset all status information."""
@@ -361,7 +336,7 @@ class GtkAptProgress(gtk.VBox):
     @property
     def dpkg_install(self):
         """Return the install progress handler for dpkg."""
-        return self._dpkg_progress_install
+        return self._progress_install
 
     @property
     def fetch(self):
@@ -383,7 +358,7 @@ class GtkAptProgress(gtk.VBox):
     def _on_status_changed(self, progress, status, percent):
         """Called when the status changed."""
         self._label.set_text(status)
-        if percent is None:
+        if percent is None or percent == -1:
             self._progressbar.pulse()
         else:
             self._progressbar.set_fraction(percent/100.0)
@@ -431,6 +406,7 @@ def _test():
     """Test function"""
     import sys
 
+    import apt
     from apt.debfile import DebPackage
 
     win = gtk.Window()

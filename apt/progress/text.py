@@ -257,3 +257,5 @@ class CdromProgress(base.CdromProgress, TextProgress):
             return (raw_input() == '')
         except KeyboardInterrupt:
             return False
+
+InstallProgress = base.InstallProgress

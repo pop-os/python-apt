@@ -417,7 +417,7 @@ class DebPackage(object):
     def install(self, install_progress=None):
         """Install the package."""
         if install_progress is None:
-            return os.system("dpkg -i %s" % self.filename)
+            return os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "-i", self.filename)
         else:
             try:
                 install_progress.start_update()

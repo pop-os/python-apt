@@ -1180,7 +1180,7 @@ class Package(object):
         like apt.progress.text.AcquireProgress().
 
         The parameter *iprogress* refers to an InstallProgress() object, as
-        found in apt.progress.old.
+        found in apt.progress.base.
         """
         self._pcache._depcache.commit(fprogress, iprogress)
 

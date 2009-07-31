@@ -21,6 +21,13 @@
 Custom progress classes should inherit from these classes. They can also be
 used as dummy progress classes which simply do nothing.
 """
+import errno
+import fcntl
+import os
+import re
+import select
+
+__all__ = ['AcquireProgress', 'CdromProgress', 'InstallProgress', 'OpProgress']
 
 
 class AcquireProgress(object):
@@ -125,23 +132,131 @@ class CdromProgress(object):
 
 
 class InstallProgress(object):
-    """Report the install progress.
+    """Class to report the progress of installing packages."""
 
-    Subclass this class to implement install progress reporting.
-    """
+    percent, select_timeout, status = 0.0, 0.1, ""
+
+    def __init__(self):
+        (read, write) = os.pipe()
+        self.writefd = os.fdopen(write, "w")
+        self.statusfd = os.fdopen(read, "r")
+        fcntl.fcntl(self.statusfd, fcntl.F_SETFL, os.O_NONBLOCK)
 
     def start_update(self):
-        """Start update."""
-
-    def run(self, pm):
-        """Start installation."""
-        return pm.do_install()
+        """(Abstract) Start update."""
 
     def finish_update(self):
-        """Called when update has finished."""
+        """(Abstract) Called when update has finished."""
+
+    def error(self, pkg, errormsg):
+        """(Abstract) Called when a error is detected during the install."""
+
+    def conffile(self, current, new):
+        """(Abstract) Called when a conffile question from dpkg is detected."""
+
+    def status_change(self, pkg, percent, status):
+        """(Abstract) Called when the status changed."""
+
+    def processing(self, pkg, stage):
+        """(Abstract) Sent just before a processing stage starts.
+
+        The parameter 'stage' is one of "upgrade", "install"
+        (both sent before unpacking), "configure", "trigproc", "remove",
+        "purge". This method is used for dpkg only.
+        """
+
+    def run(self, obj):
+        """Install using the object 'obj'.
+
+        This functions runs install actions. The parameter 'obj' may either
+        be a PackageManager object in which case its do_install() method is
+        called or the path to a deb file.
+
+        If the object is a PackageManager, the functions returns the result
+        of calling its do_install() method. Otherwise, the function returns
+        the exit status of dpkg. In both cases, 0 means that there were no
+        problems.
+        """
+        pid = self.fork()
+        if pid == 0:
+            try:
+                os._exit(obj.do_install(self.writefd.fileno()))
+            except AttributeError:
+                os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
+                                    str(self.writefd.fileno()), "-i", obj))
+        self.child_pid = pid
+        res = self.wait_child()
+        return os.WEXITSTATUS(res)
+
+    def fork(self):
+        """Fork."""
+        return os.fork()
 
     def update_interface(self):
-        """Called periodically to update the user interface."""
+        """Update the interface."""
+        try:
+            line = self.statusfd.readline()
+        except IOError, (errno_, errstr):
+            # resource temporarly unavailable is ignored
+            if errno_ != errno.EAGAIN and errno_ != errno.EWOULDBLOCK:
+                print errstr
+            return
+
+        pkgname = status = status_str = percent = base = ""
+
+        if line.startswith('pm'):
+            try:
+                (status, pkgname, percent, status_str) = line.split(":", 3)
+            except ValueError:
+                # silently ignore lines that can't be parsed
+                self.read = ""
+                return
+        elif line.startswith('status'):
+            try:
+                (base, pkgname, status, status_str) = line.split(": ", 3)
+            except ValueError:
+                (base, pkgname, status) = line.split(": ", 2)
+        elif line.startswith('processing'):
+            (status, status_str, pkgname) = line.split(": ", 2)
+            self.processing(pkgname.strip(), status_str.strip())
+
+        if status == 'pmerror' or status == 'error':
+            self.error(pkgname, status_str)
+        elif status == 'conffile-prompt' or status == 'pmconffile':
+            match = re.match("\s*\'(.*)\'\s*\'(.*)\'.*", status_str)
+            if match:
+                self.conffile(match.group(1), match.group(2))
+        elif status == "pmstatus":
+            if float(percent) != self.percent or status_str != self.status:
+                self.status_change(pkgname, float(percent), status_str.strip())
+                self.percent = float(percent)
+                self.status = status_str.strip()
+
+    def wait_child(self):
+        """Wait for child progress to exit.
+
+        This method is responsible for calling update_interface() from time to
+        time. It exits once the child has exited.
+        """
+        (pid, res) = (0, 0)
+        while True:
+            try:
+                select.select([self.statusfd], [], [], self.select_timeout)
+            except select.error, err:
+                if err[0] != errno.EINTR:
+                    raise
+
+            self.update_interface()
+            try:
+                (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
+                if pid == self.child_pid:
+                    break
+            except OSError, err:
+                if err[0] != errno.EINTR:
+                    raise
+                if err[0] == errno.ECHILD:
+                    break
+        return res
 
 
 class OpProgress(object):
