@@ -206,7 +206,7 @@ class Version(object):
         except TypeError:
             return NotImplemented
 
-    def __ge__(self):
+    def __ge__(self, other):
         try:
             return self._cmp(other) >= 0
         except TypeError:
@@ -218,7 +218,7 @@ class Version(object):
         except TypeError:
             return NotImplemented
 
-    def __le__(self):
+    def __le__(self, other):
         try:
             return self._cmp(other) <= 0
         except TypeError:
