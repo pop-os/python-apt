@@ -117,9 +117,6 @@ extern PyTypeObject PyIndexRecords_Type;
 // Policy
 extern PyTypeObject PyPolicy_Type;
 extern PyTypeObject PyHashes_Type;
-extern PyTypeObject PyOpProgress_Type;
-extern PyTypeObject PyAcquireProgress_Type;
-extern PyTypeObject PyCdromProgress_Type;
 extern PyTypeObject PyAcquireItemDesc_Type;
 extern PyTypeObject PyAcquireWorker_Type;
 extern PyTypeObject PySystemLock_Type;

@@ -34,29 +34,21 @@ import sys
 
 import apt_pkg
 from apt.deprecation import AttributeDeprecatedBy, function_deprecated_by
+from apt.progress import base
 
 
 __all__ = []
 
 
-class OpProgress(object):
+class OpProgress(base.OpProgress):
     """Abstract class to implement reporting on cache opening.
 
     Subclass this class to implement simple Operation progress reporting.
     """
 
-    def __init__(self):
-        self.op = None
-        self.subop = None
-
-    def update(self, percent):
-        """Called periodically to update the user interface."""
-
-    def done(self):
-        """Called once an operation has been completed."""
-
     if apt_pkg._COMPAT_0_7:
         subOp = AttributeDeprecatedBy('subop')
+        Op = AttributeDeprecatedBy('op')
 
 
 class OpTextProgress(OpProgress):
@@ -65,13 +57,15 @@ class OpTextProgress(OpProgress):
     def __init__(self):
         OpProgress.__init__(self)
 
-    def update(self, percent):
+    def update(self, percent=None):
         """Called periodically to update the user interface."""
-        sys.stdout.write("\r%s: %.2i  " % (self.subop, percent))
+        OpProgress.update(self, percent)
+        sys.stdout.write("\r%s: %.2i  " % (self.subop, self.percent))
         sys.stdout.flush()
 
     def done(self):
         """Called once an operation has been completed."""
+        OpProgress.done(self)
         sys.stdout.write("\r%s: Done\n" % self.op)
 
 
@@ -349,13 +343,15 @@ class InstallProgress(DumbInstallProgress):
         updateInterface = function_deprecated_by(update_interface)
 
 
-class CdromProgress(apt_pkg.CdromProgress):
+class CdromProgress(base.CdromProgress):
     """Report the cdrom add progress.
 
     This class has been replaced by apt_pkg.CdromProgress.
     """
-    askCdromName = function_deprecated_by(apt_pkg.CdromProgress.ask_cdrom_name)
-    changeCdrom = function_deprecated_by(apt_pkg.CdromProgress.change_cdrom)
+    _basetype = base.CdromProgress
+    askCdromName = function_deprecated_by(_basetype.ask_cdrom_name)
+    changeCdrom = function_deprecated_by(_basetype.change_cdrom)
+    del _basetype
 
 
 class DpkgInstallProgress(InstallProgress):

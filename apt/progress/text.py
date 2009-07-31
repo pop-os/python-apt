@@ -18,7 +18,7 @@
 import sys
 
 import apt_pkg
-import apt.progress.base
+from apt.progress import base
 
 __all__ = ['AcquireProgress', 'CdromProgress', 'OpProgress']
 
@@ -55,7 +55,7 @@ class TextProgress(object):
             self._file.flush()
 
 
-class OpProgress(apt.progress.base.OpProgress, TextProgress):
+class OpProgress(base.OpProgress, TextProgress):
     """Operation progress reporting.
 
     This closely resembles OpTextProgress in libapt-pkg.
@@ -63,12 +63,12 @@ class OpProgress(apt.progress.base.OpProgress, TextProgress):
 
     def __init__(self, outfile=None):
         TextProgress.__init__(self, outfile)
-        apt.progress.base.OpProgress.__init__(self)
+        base.OpProgress.__init__(self)
         self.old_op = ""
 
     def update(self, percent=None):
         """Called periodically to update the user interface."""
-        apt.progress.base.OpProgress.update(self, percent)
+        base.OpProgress.update(self, percent)
         if self.major_change and self.old_op:
             self._write(self.old_op)
         self._write("%s... %i%%\r" % (self.op, self.percent), False, True)
@@ -76,18 +76,18 @@ class OpProgress(apt.progress.base.OpProgress, TextProgress):
 
     def done(self):
         """Called once an operation has been completed."""
-        apt.progress.base.OpProgress.done(self)
+        base.OpProgress.done(self)
         if self.old_op:
             self._write(_("%c%s... Done") % ('\r', self.old_op), True, True)
         self.old_op = ""
 
 
-class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
+class AcquireProgress(base.AcquireProgress, TextProgress):
     """AcquireProgress for the text interface."""
 
     def __init__(self, outfile=None):
         TextProgress.__init__(self, outfile)
-        apt.progress.base.AcquireProgress.__init__(self)
+        base.AcquireProgress.__init__(self)
         self._signal = None
         self._width = 80
         self._id = 1
@@ -98,7 +98,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
         In this case, the function sets up a signal handler for SIGWINCH, i.e.
         window resize signals. And it also sets id to 1.
         """
-        apt.progress.base.AcquireProgress.start(self)
+        base.AcquireProgress.start(self)
         import signal
         self._signal = signal.signal(signal.SIGWINCH, self._winch)
         # Get the window size.
@@ -116,7 +116,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
 
     def ims_hit(self, item):
         """Called when an item is update (e.g. not modified on the server)."""
-        apt.progress.base.AcquireProgress.ims_hit(self, item)
+        base.AcquireProgress.ims_hit(self, item)
         line = _('Hit ') + item.description
         if item.owner.filesize:
             line += ' [%sB]' % apt_pkg.size_to_str(item.owner.filesize)
@@ -124,7 +124,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
 
     def fail(self, item):
         """Called when an item is failed."""
-        apt.progress.base.AcquireProgress.fail(self, item)
+        base.AcquireProgress.fail(self, item)
         if item.owner.status == item.owner.stat_done:
             self._write(_("Ign ") + item.description)
         else:
@@ -133,7 +133,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
 
     def fetch(self, item):
         """Called when some of the item's data is fetched."""
-        apt.progress.base.AcquireProgress.fetch(self, item)
+        base.AcquireProgress.fetch(self, item)
         # It's complete already (e.g. Hit)
         if item.owner.complete:
             return
@@ -149,7 +149,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
         """Periodically invoked while the Acquire process is underway.
 
         Return False if the user asked to cancel the whole Acquire process."""
-        apt.progress.base.AcquireProgress.pulse(self, owner)
+        base.AcquireProgress.pulse(self, owner)
         percent = (((self.current_bytes + self.current_items) * 100.0) /
                         float(self.total_bytes + self.total_items))
 
@@ -209,7 +209,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
 
     def media_change(self, medium, drive):
         """Prompt the user to change the inserted removable media."""
-        apt.progress.base.AcquireProgress.media_change(self, medium, drive)
+        base.AcquireProgress.media_change(self, medium, drive)
         self._write(_("Media change: please insert the disc labeled\n"
                       " '%s'\n"
                       "in the drive '%s' and press enter\n") % (medium, drive))
@@ -217,7 +217,7 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
 
     def stop(self):
         """Invoked when the Acquire process stops running."""
-        apt.progress.base.AcquireProgress.stop(self)
+        base.AcquireProgress.stop(self)
         # Trick for getting a translation from apt
         self._write((_("Fetched %sB in %s (%sB/s)\n") % (
                     apt_pkg.size_to_str(self.fetched_bytes),
@@ -229,12 +229,12 @@ class AcquireProgress(apt.progress.base.AcquireProgress, TextProgress):
         signal.signal(signal.SIGWINCH, self._signal)
 
 
-class CdromProgress(apt.progress.base.CdromProgress, TextProgress):
+class CdromProgress(base.CdromProgress, TextProgress):
     """Text CD-ROM progress."""
 
     def ask_cdrom_name(self):
         """Ask the user to provide a name for the disc."""
-        apt.progress.base.CdromProgress.ask_cdrom_name(self)
+        base.CdromProgress.ask_cdrom_name(self)
         self._write(_("Please provide a name for this Disc, such as "
                       "'Debian 2.1r1 Disk 1'"), False)
         try:
@@ -244,13 +244,13 @@ class CdromProgress(apt.progress.base.CdromProgress, TextProgress):
 
     def update(self, text, current):
         """Set the current progress."""
-        apt.progress.base.CdromProgress.update(self, text, current)
+        base.CdromProgress.update(self, text, current)
         if text:
             self._write(text, False)
 
     def change_cdrom(self):
         """Ask the user to change the CD-ROM."""
-        apt.progress.base.CdromProgress.change_cdrom(self)
+        base.CdromProgress.change_cdrom(self)
         self._write(_("Please insert a Disc in the drive and press enter"),
                     False)
         try:

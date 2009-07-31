@@ -24,6 +24,7 @@ import glob
 
 import apt_pkg
 from apt.deprecation import AttributeDeprecatedBy
+from apt.progress.base import CdromProgress
 
 
 class Cdrom(apt_pkg.Cdrom):
@@ -46,7 +47,7 @@ class Cdrom(apt_pkg.Cdrom):
     def __init__(self, progress=None, mountpoint=None, nomount=True):
         apt_pkg.Cdrom.__init__(self)
         if progress is None:
-            self._progress = apt_pkg.CdromProgress()
+            self._progress = CdromProgress()
         else:
             self._progress = progress
         # see if we have a alternative mountpoint

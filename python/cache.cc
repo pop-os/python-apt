@@ -246,15 +246,9 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    PyObject *pyCallbackInst = 0;
    char *kwlist[] = {"progress", 0};
 
-   #ifdef COMPAT_0_7
    if (PyArg_ParseTupleAndKeywords(Args, kwds, "|O", kwlist,
                                    &pyCallbackInst) == 0)
       return 0;
-   #else
-   if (PyArg_ParseTupleAndKeywords(Args, kwds, "|O!", kwlist,
-                                   &PyOpProgress_Type, &pyCallbackInst) == 0)
-      return 0;
-   #endif
 
     if (_system == 0) {
         PyErr_SetString(PyExc_ValueError,"_system not initialized");

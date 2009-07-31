@@ -653,10 +653,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
-   ADDTYPE(Module,"OpProgress",&PyOpProgress_Type);
-   ADDTYPE(Module,"AcquireProgress",&PyAcquireProgress_Type);
    ADDTYPE(Module,"AcquireItemDesc",&PyAcquireItemDesc_Type);
-   ADDTYPE(Module,"CdromProgress",&PyCdromProgress_Type);
    ADDTYPE(Module,"SystemLock",&PySystemLock_Type);
    ADDTYPE(Module,"FileLock",&PyFileLock_Type);
    // Tag file constants

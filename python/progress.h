@@ -32,38 +32,6 @@
 #define PyCbObj_BLOCK_THREADS Py_BLOCK_THREADS
 #define PyCbObj_UNBLOCK_THREADS Py_UNBLOCK_THREADS
 
-typedef struct {
-    PyObject_HEAD
-    PyObject *op;
-    PyObject *subop;
-#ifdef T_BOOL
-    char major_change;
-#else
-    int major_change;
-#endif
-    float percent;
-} PyOpProgressObject;
-
-
-typedef struct {
-    PyObject_HEAD
-    int total_steps;
-} PyCdromProgressObject;
-
-typedef struct {
-    PyObject_HEAD
-    double last_bytes;
-    double current_cps;
-    double current_bytes;
-    double total_bytes;
-    double fetched_bytes;
-    unsigned long elapsed_time;
-    unsigned long total_items;
-    unsigned long current_items;
-} PyAcquireProgressObject;
-
-
-
 class PyCallbackObj {
  protected:
    PyObject *callbackInst;

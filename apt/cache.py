@@ -122,11 +122,7 @@ class Cache(object):
         size=len(self._cache.packages)
         for pkg in self._cache.packages:
             if progress is not None and last+100 < i:
-                if isinstance(progress, apt_pkg.OpProgress):
-                    progress.percent = i/float(size)*100
-                    progress.update()
-                else:
-                    progress.update(i/float(size)*100)
+                progress.update(i/float(size)*100)
                 last=i
             # drop stuff with no versions (cruft)
             if len(pkg.version_list) > 0:

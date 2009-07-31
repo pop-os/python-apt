@@ -57,8 +57,7 @@ static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
 {
     pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
     PyObject *pyCdromProgressInst = 0;
-    if (PyArg_ParseTuple(Args, "O!", &PyCdromProgress_Type,
-                         &pyCdromProgressInst) == 0) {
+    if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
         return 0;
     }
 
