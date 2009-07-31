@@ -91,28 +91,20 @@ void PyOpProgress::Update()
       return;
 
 
-   if (PyObject_TypeCheck(callbackInst, &PyOpProgress_Type)) {
-      PyOpProgressObject *obj = (PyOpProgressObject *)callbackInst;
-      obj->op = CppPyString(Op);
-      obj->subop = CppPyString(SubOp);
-#ifdef T_BOOL
-      obj->major_change = (char)(MajorChange);
+   setattr(callbackInst, "op", "s", Op.c_str());
+   setattr(callbackInst, "subop", "s", SubOp.c_str());
+   setattr(callbackInst, "major_change", "b", MajorChange);
+#ifdef COMPAT_0_7
+   setattr(callbackInst, "Op", "s", Op.c_str());
+   setattr(callbackInst, "subOp", "s", SubOp.c_str());
+   setattr(callbackInst, "majorChange", "b", MajorChange);
+   PyObject *arglist = Py_BuildValue("(f)", Percent);
+   RunSimpleCallback("update", arglist);
 #else
-      obj->major_change = (int)(MajorChange);
+   setattr(callbackInst, "percent", "f", Percent);
+   RunSimpleCallback("update");
 #endif
-      obj->percent = Percent;
-      RunSimpleCallback("update");
-   }
-   else {
-      setattr(callbackInst, "op", "s", Op.c_str());
-      setattr(callbackInst, "subop", "s", SubOp.c_str());
-      setattr(callbackInst, "subOp", "s", SubOp.c_str());
-      setattr(callbackInst, "major_change", "b", MajorChange);
-      setattr(callbackInst, "majorChange", "b", MajorChange);
-      PyObject *arglist = Py_BuildValue("(f)", Percent);
-      RunSimpleCallback("update", arglist);
-  }
-};
+}
 
 void PyOpProgress::Done()
 {
@@ -174,7 +166,7 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+   if (PyObject_HasAttrString(callbackInst, "ims_hit"))
        RunSimpleCallback("ims_hit", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLHit);
@@ -184,7 +176,7 @@ void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
 void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+   if (PyObject_HasAttrString(callbackInst, "fetch"))
        RunSimpleCallback("fetch", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLQueued);
@@ -194,7 +186,7 @@ void PyFetchProgress::Fetch(pkgAcquire::ItemDesc &Itm)
 void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+   if (PyObject_HasAttrString(callbackInst, "done"))
        RunSimpleCallback("done", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLDone);
@@ -204,7 +196,7 @@ void PyFetchProgress::Done(pkgAcquire::ItemDesc &Itm)
 void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
 {
    PyCbObj_END_ALLOW_THREADS
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
+   if (PyObject_HasAttrString(callbackInst, "fail")) {
        RunSimpleCallback("fail", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
        return;
    }
@@ -219,7 +211,7 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
    }
 
 
-   if (PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type))
+   if (PyObject_HasAttrString(callbackInst, "fail"))
        RunSimpleCallback("fail", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
    else
        UpdateStatus(Itm, DLFailed);
@@ -232,13 +224,11 @@ void PyFetchProgress::Start()
    pkgAcquireStatus::Start();
 
 #ifdef COMPAT_0_7
-   if (!PyObject_TypeCheck(callbackInst,&PyAcquireProgress_Type)) {
-      setattr(callbackInst, "currentCPS", "d", 0);
-      setattr(callbackInst, "currentBytes", "d", 0);
-      setattr(callbackInst, "currentItems", "k", 0);
-      setattr(callbackInst, "totalItems", "k", 0);
-      setattr(callbackInst, "totalBytes", "d", 0);
-   }
+   setattr(callbackInst, "currentCPS", "d", 0);
+   setattr(callbackInst, "currentBytes", "d", 0);
+   setattr(callbackInst, "currentItems", "k", 0);
+   setattr(callbackInst, "totalItems", "k", 0);
+   setattr(callbackInst, "totalBytes", "d", 0);
 #endif
 
    RunSimpleCallback("start");
@@ -272,37 +262,29 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    if(callbackInst == 0)
       return false;
 
-   if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
-       PyAcquireProgressObject *obj = (PyAcquireProgressObject *)callbackInst;
-       obj->last_bytes = LastBytes;
-       obj->current_cps = CurrentCPS;
-       obj->current_bytes = CurrentBytes;
-       obj->total_bytes = TotalBytes;
-       obj->fetched_bytes = FetchedBytes;
-       obj->elapsed_time = ElapsedTime;
-       obj->total_items = TotalItems;
-       obj->current_items = CurrentItems;
-   }
-   else {
-       setattr(callbackInst, "last_bytes", "d", LastBytes);
-       setattr(callbackInst, "current_cps", "d", CurrentCPS);
-       setattr(callbackInst, "current_bytes", "d", CurrentBytes);
-       setattr(callbackInst, "total_bytes", "d", TotalBytes);
-       setattr(callbackInst, "fetched_bytes", "d", FetchedBytes);
-       setattr(callbackInst, "elapsed_time", "k", ElapsedTime);
-       setattr(callbackInst, "current_items", "k", CurrentItems);
-       setattr(callbackInst, "total_items", "k", TotalItems);
+   setattr(callbackInst, "last_bytes", "d", LastBytes);
+   setattr(callbackInst, "current_cps", "d", CurrentCPS);
+   setattr(callbackInst, "current_bytes", "d", CurrentBytes);
+   setattr(callbackInst, "total_bytes", "d", TotalBytes);
+   setattr(callbackInst, "fetched_bytes", "d", FetchedBytes);
+   setattr(callbackInst, "elapsed_time", "k", ElapsedTime);
+   setattr(callbackInst, "current_items", "k", CurrentItems);
+   setattr(callbackInst, "total_items", "k", TotalItems);
 #ifdef COMPAT_0_7
-       setattr(callbackInst, "currentCPS", "d", CurrentCPS);
-       setattr(callbackInst, "currentBytes", "d", CurrentBytes);
-       setattr(callbackInst, "totalBytes", "d", TotalBytes);
-       setattr(callbackInst, "fetchedBytes", "d", FetchedBytes);
-       setattr(callbackInst, "currentItems", "k", CurrentItems);
-       setattr(callbackInst, "totalItems", "k", TotalItems);
+   setattr(callbackInst, "currentCPS", "d", CurrentCPS);
+   setattr(callbackInst, "currentBytes", "d", CurrentBytes);
+   setattr(callbackInst, "totalBytes", "d", TotalBytes);
+   setattr(callbackInst, "fetchedBytes", "d", FetchedBytes);
+   setattr(callbackInst, "currentItems", "k", CurrentItems);
+   setattr(callbackInst, "totalItems", "k", TotalItems);
 #endif
-   }
 
-   if (PyObject_TypeCheck(callbackInst, &PyAcquireProgress_Type)) {
+   // New style
+#ifdef COMPAT_0_7
+   if (!PyObject_HasAttrString(callbackInst, "updateStatus")) {
+#else
+    {
+#endif
       PyObject *result1;
       bool res1 = true;
 
@@ -317,8 +299,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
      }
      PyCbObj_BEGIN_ALLOW_THREADS
      return true;
-   }
 
+
+
+   }
+#ifdef COMPAT_0_7
    // Go through the list of items and add active items to the
    // activeItems vector.
    map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
@@ -407,6 +392,7 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    PyCbObj_BEGIN_ALLOW_THREADS
    // fetching can be canceld by returning false
    return res;
+#endif
 }
 
 
@@ -541,17 +527,10 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 void PyCdromProgress::Update(string text, int current)
 {
    PyObject *arglist = Py_BuildValue("(si)", text.c_str(), current);
-   if (PyObject_TypeCheck(callbackInst, &PyCdromProgress_Type)) {
-      ((PyCdromProgressObject *)callbackInst)->total_steps = totalSteps;
-   }
-   else {
-
-      setattr(callbackInst, "total_steps", "i", totalSteps);
-#ifdef COMPAT_0_7
-      setattr(callbackInst, "totalSteps", "i", totalSteps);
-#endif
-   }
-
+   setattr(callbackInst, "total_steps", "i", totalSteps);
+   #ifdef COMPAT_0_7
+   setattr(callbackInst, "totalSteps", "i", totalSteps);
+   #endif
    RunSimpleCallback("update", arglist);
 }
 
