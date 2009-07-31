@@ -34,7 +34,7 @@ import sys
 
 import apt_pkg
 from apt.deprecation import AttributeDeprecatedBy, function_deprecated_by
-from apt.progress import base
+from apt.progress import base, text
 
 
 __all__ = []
@@ -51,22 +51,12 @@ class OpProgress(base.OpProgress):
         Op = AttributeDeprecatedBy('op')
 
 
-class OpTextProgress(OpProgress):
+class OpTextProgress(text.OpProgress):
     """A simple text based cache open reporting class."""
 
-    def __init__(self):
-        OpProgress.__init__(self)
-
-    def update(self, percent=None):
-        """Called periodically to update the user interface."""
-        OpProgress.update(self, percent)
-        sys.stdout.write("\r%s: %.2i  " % (self.subop, self.percent))
-        sys.stdout.flush()
-
-    def done(self):
-        """Called once an operation has been completed."""
-        OpProgress.done(self)
-        sys.stdout.write("\r%s: Done\n" % self.op)
+    if apt_pkg._COMPAT_0_7:
+        subOp = AttributeDeprecatedBy('subop')
+        Op = AttributeDeprecatedBy('op')
 
 
 class FetchProgress(object):
@@ -209,29 +199,16 @@ class TextFetchProgress(FetchProgress):
         mediaChange = function_deprecated_by(media_change)
 
 
-class DumbInstallProgress(object):
+class DumbInstallProgress(base.InstallProgress):
     """Report the install progress.
 
     Subclass this class to implement install progress reporting.
     """
 
-    def start_update(self):
-        """Start update."""
-
-    def run(self, pm):
-        """Start installation."""
-        return pm.do_install()
-
-    def finish_update(self):
-        """Called when update has finished."""
-
-    def update_interface(self):
-        """Called periodically to update the user interface"""
-
-    if apt_pkg._COMPAT_0_7:
-        startUpdate = function_deprecated_by(start_update)
-        finishUpdate = function_deprecated_by(finish_update)
-        updateInterface = function_deprecated_by(update_interface)
+    startUpdate = function_deprecated_by(base.InstallProgress.start_update)
+    finishUpdate = function_deprecated_by(base.InstallProgress.finish_update)
+    updateInterface = function_deprecated_by(
+                        base.InstallProgress.update_interface)
 
 
 class InstallProgress(DumbInstallProgress):
