@@ -21,9 +21,11 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import errno
 import os
 import gettext
 from os import getenv
+from subprocess import Popen, PIPE
 import ConfigParser
 import re
 
@@ -160,10 +162,13 @@ class DistInfo:
         #match_mirror_line = re.compile(r".+")
 
         if not dist:
-            pipe = os.popen("lsb_release -i -s")
-            dist = pipe.read().strip()
-            pipe.close()
-            del pipe
+            try:
+                dist = Popen(["lsb_release", "-i", "-s"],
+                             stdout=PIPE).communicate()[0].strip()
+            except OSError, exc:
+                if exc.errno != errno.ENOENT:
+                    print 'WARNING: lsb_release failed, using defaults:', exc
+                dist = "Debian"
 
         self.dist = dist
 
