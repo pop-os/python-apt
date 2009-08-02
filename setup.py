@@ -63,12 +63,6 @@ setup(name="python-apt",
 
 if len(sys.argv) > 1 and sys.argv[1] == "build":
     import sphinx
-    try:
-        import pygtk
-    except ImportError:
-        print >> sys.stderr, ('W: Not building documentation because python-'
-                              'gtk2 is not available at the moment.')
-        sys.exit(0)
     sphinx.main(["sphinx", "-b", "html", "-d", "build/doc/doctrees",
                 os.path.abspath("doc/source"), "build/doc/html"])
     sphinx.main(["sphinx", "-b", "text", "-d", "build/doc/doctrees",
