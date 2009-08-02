@@ -2,6 +2,8 @@ python-apt (0.7.12.1) UNRELEASED; urgency=low
 
   * apt/package.py:
     - Add missing argument to Version.__le__() and Version.__ge__()
+  * debian/control:
+    - Do not build-depend on python-gtk2 and python-vte on kfreebsd-*.
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 31 Jul 2009 12:38:18 +0200
 
