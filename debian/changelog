@@ -1,4 +1,4 @@
-python-apt (0.7.12.1) UNRELEASED; urgency=low
+python-apt (0.7.12.1) unstable; urgency=low
 
   * apt/debfile.py:
     - Fix missing space in message (Closes: #539704)
@@ -9,7 +9,7 @@ python-apt (0.7.12.1) UNRELEASED; urgency=low
   * setup.py:
     - Always build documentation, even if python-gtk2 is not installed.
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 31 Jul 2009 12:38:18 +0200
+ -- Julian Andres Klode <jak@debian.org>  Mon, 03 Aug 2009 15:17:43 +0200
 
 python-apt (0.7.12.0) unstable; urgency=low
 
