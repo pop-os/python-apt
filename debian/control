@@ -16,9 +16,9 @@ Build-Depends: apt-utils,
                python3.1-dbg,
                python-central (>= 0.5),
                python-distutils-extra (>= 2.0),
-               python-gtk2,
+               python-gtk2 [!kfreebsd-amd64 !kfreebsd-i386],
                python-sphinx (>= 0.5),
-               python-vte
+               python-vte [!kfreebsd-amd64 !kfreebsd-i386]
 Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 

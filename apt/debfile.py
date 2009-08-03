@@ -78,7 +78,7 @@ class DebPackage(object):
                                         member)
                     break
                 except SystemError:
-                    return [_("List of files for '%s'could not be read" %
+                    return [_("List of files for '%s' could not be read" %
                               self.filename)]
         return files
 

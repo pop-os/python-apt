@@ -28,7 +28,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
       instead of segfaulting.
 
   * Other stuff:
-    - Merge releases 0.7.10.4 - 0.7.12.0 from unstable.
+    - Merge releases 0.7.10.4 - 0.7.12.1 from unstable.
     - Merge Configuration,ConfigurationPtr,ConfigurationSub into one type.
     - Simplify the whole build process by using a single setup.py.
     - The documentation has been restructured and enhanced with tutorials.
@@ -74,6 +74,19 @@ python-apt (0.7.90) experimental; urgency=low
     - Initial patch by Sebastian Heinlein
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
+
+python-apt (0.7.12.1) unstable; urgency=low
+
+  * apt/debfile.py:
+    - Fix missing space in message (Closes: #539704)
+  * apt/package.py:
+    - Add missing argument to Version.__le__() and Version.__ge__()
+  * debian/control:
+    - Do not build-depend on python-gtk2 and python-vte on kfreebsd-*.
+  * setup.py:
+    - Always build documentation, even if python-gtk2 is not installed.
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 03 Aug 2009 15:17:43 +0200
 
 python-apt (0.7.12.0) unstable; urgency=low
 
