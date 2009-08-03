@@ -1,5 +1,7 @@
 python-apt (0.7.12.1) UNRELEASED; urgency=low
 
+  * apt/debfile.py:
+    - Fix missing space in message (Closes: #539704)
   * apt/package.py:
     - Add missing argument to Version.__le__() and Version.__ge__()
   * debian/control:
