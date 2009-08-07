@@ -17,4 +17,8 @@ extern char *doc_debExtract;
 PyObject *tarExtract(PyObject *Self,PyObject *Args);
 extern char *doc_tarExtract;
 
+
+extern PyTypeObject PyArMember_Type;
+extern PyTypeObject PyArArchive_Type;
+
 #endif

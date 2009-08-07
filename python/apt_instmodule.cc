@@ -169,11 +169,22 @@ static PyMethodDef methods[] =
    {}
 };
 
+
+static const char *apt_inst_doc =
+    "Functions for working with AR,tar archives and .deb packages.\n\n"
+    "This module provides useful classes and functions to work with\n"
+    "archives, modelled after the 'TarFile' class in the 'tarfile' module.";
+#define ADDTYPE(mod,name,type) { \
+    if (PyType_Ready(type) == -1) RETURN(0); \
+    Py_INCREF(type); \
+    PyModule_AddObject(mod,name,(PyObject *)type); }
+
+
 #if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
         "apt_inst",
-        "Functions for working with packages and ar,tar archives (apt-inst)",
+        apt_inst_doc,
         -1,
         methods,
         0,
@@ -181,14 +192,20 @@ static struct PyModuleDef moduledef = {
         0,
         0
 };
-
+#define RETURN(x) return x
 extern "C" PyObject * PyInit_apt_inst()
-{
-   return PyModule_Create(&moduledef);
-}
 #else
 extern "C" void initapt_inst()
+#define RETURN(x)
+#endif
 {
-   Py_InitModule("apt_inst",methods);
+#if PY_MAJOR_VERSION >= 3
+   PyObject *module = PyModule_Create(&moduledef);
+#else
+   PyObject *module = Py_InitModule3("apt_inst",methods, apt_inst_doc);
+#endif
+
+   ADDTYPE(module,"ArMember",&PyArMember_Type);
+   ADDTYPE(module,"ArArchive",&PyArArchive_Type);
+   RETURN(module);
 }
-#endif									/*}}}*/

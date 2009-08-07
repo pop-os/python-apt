@@ -66,6 +66,7 @@ typedef int Py_ssize_t;
 #define PyBytes_AS_STRING PyString_AS_STRING
 #define PyBytes_AsString PyString_AsString
 #define PyBytes_AsStringAndSize PyString_AsStringAndSize
+#define PyBytes_FromStringAndSize PyString_FromStringAndSize
 #define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
 #endif
 #endif
