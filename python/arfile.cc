@@ -21,6 +21,7 @@
 
 #include <Python.h>
 #include "generic.h"
+#include "apt_instmodule.h"
 #include <apt-pkg/arfile.h>
 #include <apt-pkg/error.h>
 
@@ -59,6 +60,13 @@ PyObject *armember_get_start(PyObject *self, void *closure)
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Start);
 }
 
+PyObject *armember_repr(PyObject *self)
+{
+    return PyString_FromFormat("<%s object: name:'%s'>",
+                               self->ob_type->tp_name,
+                               GetCpp<ARArchive::Member*>(self)->Name.c_str());
+}
+
 PyGetSetDef armember_getset[] = {
     {"gid",armember_get_gid,0,"The group id of the owner."},
     {"mode",armember_get_mode,0,"The mode of the file."},
@@ -86,10 +94,10 @@ PyTypeObject PyArMember_Type = {
     0,                                   // tp_getattr
     0,                                   // tp_setattr
     0,                                   // tp_compare
-    0,                                   // tp_repr
+    armember_repr,                       // tp_repr
     0,                                   // tp_as_number
     0,                                   // tp_as_sequence
-    0,                                  // tp_as_mapping
+    0,                                   // tp_as_mapping
     0,                                   // tp_hash
     0,                                   // tp_call
     0,                                   // tp_str
@@ -110,14 +118,24 @@ PyTypeObject PyArMember_Type = {
     armember_getset,                     // tp_getset
 };
 
-struct PyArArchiveObject : public CppOwnedPyObject<ARArchive*> {
+// We just add an inline method and should thus be ABI compatible in a way that
+// we can simply cast ARArchive instances to PyARArchiveHack.
+class PyARArchiveHack : public ARArchive
+{
+public:
+    inline Member *Members() {
+        return List;
+    }
+};
+
+struct PyArArchiveObject : public CppOwnedPyObject<PyARArchiveHack*> {
     FileFd Fd;
 };
 
 static const char *ararchive_getmember_doc =
-     "getmember(name: str) -> ArMember\n\n"
-     "Return a ArMember object for the member given by name. Raise\n"
-     "LookupError if there is no ArMember with the given name.";
+    "getmember(name: str) -> ArMember\n\n"
+    "Return a ArMember object for the member given by name. Raise\n"
+    "LookupError if there is no ArMember with the given name.";
 PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 {
     const char *name;
@@ -140,8 +158,8 @@ PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 
 static const char *ararchive_getdata_doc =
     "getdata(name: str) -> bytes\n\n"
-     "Return the contents of the member, as a bytes object. Raise\n"
-     "LookupError if there is no ArMember with the given name.";
+    "Return the contents of the member, as a bytes object. Raise\n"
+    "LookupError if there is no ArMember with the given name.";
 PyObject *ararchive_getdata(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
@@ -164,11 +182,11 @@ PyObject *ararchive_getdata(PyArArchiveObject *self, PyObject *args)
 
 static const char *ararchive_extract_doc =
     "extract(name: str[, target: str]) -> bool\n\n"
-     "Extract the member given by name into the directory given by target.\n"
-     "If the extraction failed, an error is raised. Otherwise, the method\n"
-     "returns True if the owner could be set or False if the owner could not\n"
-     "be changed. It may also raise LookupError if there is member with\n"
-     "the given name.";
+    "Extract the member given by name into the directory given by target.\n"
+    "If the extraction failed, an error is raised. Otherwise, the method\n"
+    "returns True if the owner could be set or False if the owner could not\n"
+    "be changed. It may also raise LookupError if there is member with\n"
+    "the given name.";
 PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
@@ -210,13 +228,80 @@ PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
     Py_RETURN_TRUE;
 }
 
+static const char *ararchive_gettar_doc =
+    "gettar(name: str, comp: str) -> TarFile\n\n"
+    "Return a TarFile object for the member given by 'name' which will be\n"
+    "decompressed using the compression algorithm given by 'comp'.\n"
+    "This is almost equal to:\n\n"
+    "   member = arfile.getmember(name)\n"
+    "   tarfile = TarFile(file, member.start, member.size, 'gzip')'\n\n"
+    "It just opens a new TarFile on the given position in the stream.";
+static PyObject *ararchive_gettar(PyArArchiveObject *self, PyObject *args)
+{
+    const char *name;
+    const char *comp;
+    if (PyArg_ParseTuple(args, "ss:gettar", &name, &comp) == 0)
+        return 0;
+
+    const ARArchive::Member *member = self->Object->FindMember(name);
+    if (!member) {
+        PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
+        return 0;
+    }
+
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppOwnedPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
+    new (&tarfile->Fd) FileFd(self->Fd);
+    tarfile->min = member->Start;
+    tarfile->Object = new ExtractTar(self->Fd, member->Size, comp);
+    return HandleErrors(tarfile);
+}
+
+static const char *ararchive_getmembers_doc =
+    "getmembers() -> list\n\n"
+    "Return a list of all members in the AR archive.";
+static PyObject *ararchive_getmembers(PyArArchiveObject *self)
+{
+    PyObject *list = PyList_New(0);
+    ARArchive::Member *member = self->Object->Members();
+    do {
+        CppOwnedPyObject<ARArchive::Member*> *ret;
+        ret = CppOwnedPyObject_NEW<ARArchive::Member*>(self,&PyArMember_Type);
+        ret->Object = member;
+        ret->NoDelete = true;
+        PyList_Append(list, ret);
+        Py_DECREF(ret);
+    } while ((member = member->Next));
+    return list;
+}
+
+static const char *ararchive_getnames_doc =
+    "getnames() -> list\n\n"
+    "Return a list of the names of all members in the AR archive.";
+static PyObject *ararchive_getnames(PyArArchiveObject *self)
+{
+    PyObject *list = PyList_New(0);
+    ARArchive::Member *member = self->Object->Members();
+    do {
+        PyObject *item = CppPyString(member->Name);
+        PyList_Append(list, item);
+        Py_DECREF(item);
+    } while ((member = member->Next));
+    return list;
+}
+
 PyMethodDef ararchive_methods[] = {
     {"getmember",(PyCFunction)ararchive_getmember,METH_O,
      ararchive_getmember_doc},
+    {"gettar",(PyCFunction)ararchive_gettar,METH_VARARGS,
+     ararchive_gettar_doc},
     {"getdata",(PyCFunction)ararchive_getdata,METH_VARARGS,
      ararchive_getdata_doc},
     {"extract",(PyCFunction)ararchive_extract,METH_VARARGS,
      ararchive_extract_doc},
+    {"getmembers",(PyCFunction)ararchive_getmembers,METH_NOARGS,
+     ararchive_getmembers_doc},
+    {"getnames",(PyCFunction)ararchive_getnames,METH_NOARGS,
+     ararchive_getnames_doc},
     {NULL}
 };
 
@@ -244,13 +329,14 @@ PyObject *ararchive_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     else {
         return 0;
     }
-    self->Object = new ARArchive(self->Fd);
+    self->Object = (PyARArchiveHack*)new ARArchive(self->Fd);
     if (_error->PendingError() == true)
         return HandleErrors();
     return self;
 }
 
-static void ararchive_dealloc(PyObject *self) {
+static void ararchive_dealloc(PyObject *self)
+{
     ((PyArArchiveObject *)(self))->Fd.~FileFd();
     CppOwnedDeallocPtr<ARArchive*>(self);
 }
@@ -264,11 +350,13 @@ static int ararchive_contains(PyObject *self, PyObject *arg)
     return (GetCpp<ARArchive*>(self)->FindMember(name) != 0);
 }
 
-static PySequenceMethods ararchive_as_sequence =
-    {0,0,0,0,0,0,0,ararchive_contains,0,0};
+static PySequenceMethods ararchive_as_sequence = {
+    0,0,0,0,0,0,0,ararchive_contains,0,0
+};
 
-static PyMappingMethods ararchive_as_mapping =
-    {0,(PyCFunction)ararchive_getmember,0};
+static PyMappingMethods ararchive_as_mapping = {
+    0,(PyCFunction)ararchive_getmember,0
+};
 
 static const char *ararchive_doc =
     "ArArchive(file: str/int/file)\n\n"
