@@ -41,7 +41,7 @@ apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
 
 # The apt_inst module
 files = ["python/apt_instmodule.cc", "python/generic.cc", "python/tar.cc",
-         "python/arfile.cc"]
+         "python/arfile.cc", "python/tarfile.cc"]
 apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
 
 # Replace the leading _ that is used in the templates for translation
