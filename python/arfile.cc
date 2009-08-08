@@ -32,49 +32,49 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-PyObject *armember_get_name(PyObject *self, void *closure)
+static PyObject *armember_get_name(PyObject *self, void *closure)
 {
     return CppPyString(GetCpp<ARArchive::Member*>(self)->Name);
 }
 
-PyObject *armember_get_mtime(PyObject *self, void *closure)
+static PyObject *armember_get_mtime(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->MTime);
 }
 
-PyObject *armember_get_uid(PyObject *self, void *closure)
+static PyObject *armember_get_uid(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->UID);
 }
 
-PyObject *armember_get_gid(PyObject *self, void *closure)
+static PyObject *armember_get_gid(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->GID);
 }
 
-PyObject *armember_get_mode(PyObject *self, void *closure)
+static PyObject *armember_get_mode(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Mode);
 }
 
-PyObject *armember_get_size(PyObject *self, void *closure)
+static PyObject *armember_get_size(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Size);
 }
 
-PyObject *armember_get_start(PyObject *self, void *closure)
+static PyObject *armember_get_start(PyObject *self, void *closure)
 {
     return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Start);
 }
 
-PyObject *armember_repr(PyObject *self)
+static PyObject *armember_repr(PyObject *self)
 {
     return PyString_FromFormat("<%s object: name:'%s'>",
                                self->ob_type->tp_name,
                                GetCpp<ARArchive::Member*>(self)->Name.c_str());
 }
 
-PyGetSetDef armember_getset[] = {
+static PyGetSetDef armember_getset[] = {
     {"gid",armember_get_gid,0,"The group id of the owner."},
     {"mode",armember_get_mode,0,"The mode of the file."},
     {"mtime",armember_get_mtime,0,"Last time of modification."},
@@ -143,7 +143,7 @@ static const char *ararchive_getmember_doc =
     "getmember(name: str) -> ArMember\n\n"
     "Return a ArMember object for the member given by name. Raise\n"
     "LookupError if there is no ArMember with the given name.";
-PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
+static PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 {
     const char *name;
     CppOwnedPyObject<ARArchive::Member*> *ret;
@@ -167,7 +167,7 @@ static const char *ararchive_extractdata_doc =
     "extractdata(name: str) -> bytes\n\n"
     "Return the contents of the member, as a bytes object. Raise\n"
     "LookupError if there is no ArMember with the given name.";
-PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
+static PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
     if (PyArg_ParseTuple(args, "s:extractdata", &name) == 0)
@@ -243,7 +243,7 @@ static const char *ararchive_extract_doc =
     "returns True if the owner could be set or False if the owner could not\n"
     "be changed. It may also raise LookupError if there is member with\n"
     "the given name.";
-PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
+static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
     char *target = "";
@@ -350,7 +350,7 @@ static PyObject *ararchive_iter(PyArArchiveObject *self) {
     return iter;
 }
 
-PyMethodDef ararchive_methods[] = {
+static PyMethodDef ararchive_methods[] = {
     {"getmember",(PyCFunction)ararchive_getmember,METH_O,
      ararchive_getmember_doc},
     {"gettar",(PyCFunction)ararchive_gettar,METH_VARARGS,
@@ -368,7 +368,8 @@ PyMethodDef ararchive_methods[] = {
     {NULL}
 };
 
-PyObject *ararchive_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
+static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
+                               PyObject *kwds)
 {
     PyObject *file;
     PyArArchiveObject *self;
