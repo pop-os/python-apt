@@ -156,14 +156,14 @@ PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
     return ret;
 }
 
-static const char *ararchive_getdata_doc =
-    "getdata(name: str) -> bytes\n\n"
+static const char *ararchive_extractdata_doc =
+    "extractdata(name: str) -> bytes\n\n"
     "Return the contents of the member, as a bytes object. Raise\n"
     "LookupError if there is no ArMember with the given name.";
-PyObject *ararchive_getdata(PyArArchiveObject *self, PyObject *args)
+PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
-    if (PyArg_ParseTuple(args, "s:getdata", &name) == 0)
+    if (PyArg_ParseTuple(args, "s:extractdata", &name) == 0)
         return 0;
     const ARArchive::Member *member = self->Object->FindMember(name);
     if (!member) {
@@ -302,8 +302,8 @@ PyMethodDef ararchive_methods[] = {
      ararchive_getmember_doc},
     {"gettar",(PyCFunction)ararchive_gettar,METH_VARARGS,
      ararchive_gettar_doc},
-    {"getdata",(PyCFunction)ararchive_getdata,METH_VARARGS,
-     ararchive_getdata_doc},
+    {"extractdata",(PyCFunction)ararchive_extractdata,METH_VARARGS,
+     ararchive_extractdata_doc},
     {"extract",(PyCFunction)ararchive_extract,METH_VARARGS,
      ararchive_extract_doc},
     {"getmembers",(PyCFunction)ararchive_getmembers,METH_NOARGS,
