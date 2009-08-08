@@ -24,6 +24,13 @@
 #include "apt_instmodule.h"
 #include <apt-pkg/arfile.h>
 #include <apt-pkg/error.h>
+#include <apt-pkg/sptr.h>
+#include <utime.h>
+
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 PyObject *armember_get_name(PyObject *self, void *closure)
 {
@@ -180,6 +187,55 @@ PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
     return result;
 }
 
+// Helper class to close the FD automatically.
+class IntFD {
+    public:
+    int fd;
+    inline operator int() { return fd; };
+    inline IntFD(int fd): fd(fd) { };
+    inline ~IntFD() { close(fd); };
+};
+
+static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
+                          const char *dir)
+{
+    if (!Fd.Seek(member->Start))
+        return HandleErrors();
+
+    string outfile_str = flCombine(dir,member->Name);
+    char *outfile = (char*)outfile_str.c_str();
+
+    // We are not using FileFd here, because we want to raise OSErrror with
+    // the correct errno and filename. IntFD's are closed automatically.
+    IntFD outfd(open(outfile, O_NDELAY|O_WRONLY|O_CREAT|O_TRUNC|O_APPEND,
+		             member->Mode));
+    if (outfd == -1)
+        return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
+    if (fchmod(outfd, member->Mode) == -1)
+        return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
+    if (fchown(outfd, member->UID, member->GID) != 0 && errno != EPERM)
+        return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
+
+    // Read 4 KiB from the file, until all of the file is read. Deallocated
+    // automatically when the function returns.
+    SPtrArray<char> value = new char[4096];
+    unsigned long size = member->Size;
+    unsigned long read = 4096;
+    while (size > 0) {
+        if (size < read)
+            read = size;
+        if (!Fd.Read(value, read, true))
+            return HandleErrors();
+        if (write(outfd, value, read) != (signed)read)
+            return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
+        size -= read;
+    }
+    utimbuf time = {member->MTime, member->MTime};
+    if (utime(outfile,&time) == -1)
+        return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
+    Py_RETURN_TRUE;
+}
+
 static const char *ararchive_extract_doc =
     "extract(name: str[, target: str]) -> bool\n\n"
     "Extract the member given by name into the directory given by target.\n"
@@ -200,31 +256,28 @@ PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
         PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
         return 0;
     }
+    return _extract(self->Fd, member, target);
+}
 
-    if (!self->Fd.Seek(member->Start))
-        return HandleErrors();
+static const char *ararchive_extractall_doc =
+    "extract([target: str]) -> bool\n\n"
+    "Extract all into the directory given by target.\n"
+    "If the extraction failed, an error is raised. Otherwise, the method\n"
+    "returns True if the owner could be set or False if the owner could not\n"
+    "be changed.";
 
-    // Open the target file
-    FileFd outfd(flCombine(target,name), FileFd::WriteAny, member->Mode);
-    if (_error->PendingError() == true)
-        return HandleErrors();
+static PyObject *ararchive_extractall(PyArArchiveObject *self, PyObject *args)
+{
+    char *target = "";
+    if (PyArg_ParseTuple(args, "|s:extractall", &target) == 0)
+        return 0;
 
-    // Temporary buffer. We should probably split this into smaller parts.
-    char* value = new char[member->Size];
+    const ARArchive::Member *member = self->Object->Members();
 
-    // Read into the buffer
-    if (!self->Fd.Read(value, member->Size, true)) {
-        delete[] value;
-        return HandleErrors();
-    }
-    if (!outfd.Write(value, member->Size)) {
-        delete[] value;
-        return HandleErrors();
-    }
-    if (fchown(outfd.Fd(), member->UID, member->GID) == -1) {
-        delete[] value;
-        Py_RETURN_FALSE;
-    }
+    do {
+        if (_extract(self->Fd, member, target) == 0)
+            return 0;
+    } while ((member = member->Next));
     Py_RETURN_TRUE;
 }
 
@@ -306,6 +359,8 @@ PyMethodDef ararchive_methods[] = {
      ararchive_extractdata_doc},
     {"extract",(PyCFunction)ararchive_extract,METH_VARARGS,
      ararchive_extract_doc},
+    {"extractall",(PyCFunction)ararchive_extractall,METH_VARARGS,
+     ararchive_extractall_doc},
     {"getmembers",(PyCFunction)ararchive_getmembers,METH_NOARGS,
      ararchive_getmembers_doc},
     {"getnames",(PyCFunction)ararchive_getnames,METH_NOARGS,
