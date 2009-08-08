@@ -289,6 +289,14 @@ static PyObject *ararchive_getnames(PyArArchiveObject *self)
     return list;
 }
 
+// Just run getmembers() and return an iterator over the list.
+static PyObject *ararchive_iter(PyArArchiveObject *self) {
+    PyObject *members = ararchive_getmembers(self);
+    PyObject *iter = PyObject_GetIter(members);
+    Py_DECREF(members);
+    return iter;
+}
+
 PyMethodDef ararchive_methods[] = {
     {"getmember",(PyCFunction)ararchive_getmember,METH_O,
      ararchive_getmember_doc},
@@ -395,7 +403,7 @@ PyTypeObject PyArArchive_Type = {
     CppOwnedClear<ARArchive*>,           // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
-    0,                                   // tp_iter
+    (getiterfunc)ararchive_iter,         // tp_iter
     0,                                   // tp_iternext
     ararchive_methods,                   // tp_methods
     0,                                   // tp_members
