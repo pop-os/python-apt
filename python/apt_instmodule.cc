@@ -207,6 +207,7 @@ extern "C" void initapt_inst()
 
    ADDTYPE(module,"ArMember",&PyArMember_Type);
    ADDTYPE(module,"ArArchive",&PyArArchive_Type);
+   ADDTYPE(module,"DebFile",&PyDebFile_Type);
    ADDTYPE(module,"TarFile",&PyTarFile_Type);
    ADDTYPE(module,"TarMember",&PyTarMember_Type);
    RETURN(module);

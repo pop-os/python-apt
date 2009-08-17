@@ -22,6 +22,7 @@ extern char *doc_tarExtract;
 
 extern PyTypeObject PyArMember_Type;
 extern PyTypeObject PyArArchive_Type;
+extern PyTypeObject PyDebFile_Type;
 extern PyTypeObject PyTarFile_Type;
 extern PyTypeObject PyTarMember_Type;
 

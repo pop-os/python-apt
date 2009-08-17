@@ -473,3 +473,174 @@ PyTypeObject PyArArchive_Type = {
     0,                                   // tp_alloc
     ararchive_new                        // tp_new
 };
+
+/**
+ * Representation of a Debian package.
+ *
+ * This does not resemble debDebFile in apt-inst, but instead is a subclass
+ * of ArFile which adds properties for the control.tar.{lzma,bz2,gz} and
+ * data.tar.{lzma,bz2,gz} members which return TarFile objects. It also adds
+ * a descriptor 'version' which returns the content of 'debian-binary'.
+ *
+ * We are using it this way as it seems more natural to represent this special
+ * kind of AR archive as an AR archive with some extras.
+ */
+struct PyDebFileObject : PyArArchiveObject {
+    PyObject *data;
+    PyObject *control;
+    PyObject *debian_binary;
+};
+
+static PyObject *debfile_get_data(PyDebFileObject *self)
+{
+    return Py_INCREF(self->data), self->data;
+}
+
+static PyObject *debfile_get_control(PyDebFileObject *self)
+{
+    return Py_INCREF(self->control), self->control;
+}
+
+static PyObject *debfile_get_debian_binary(PyDebFileObject *self)
+{
+    return Py_INCREF(self->debian_binary), self->debian_binary;
+}
+
+static PyObject *_gettar(PyDebFileObject *self, const ARArchive::Member *m,
+                         const char *comp)
+{
+    if (!m)
+        return 0;
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppOwnedPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
+    new (&tarfile->Fd) FileFd(self->Fd);
+    tarfile->min = m->Start;
+    tarfile->Object = new ExtractTar(self->Fd, m->Size, comp);
+    return tarfile;
+}
+
+
+
+static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
+{
+    PyDebFileObject *self = (PyDebFileObject*)ararchive_new(type, args, kwds);
+
+    // DebFile
+    self->control = _gettar(self, self->Object->FindMember("control.tar.gz"),
+                            "gzip");
+    if (!self->control)
+        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
+                            "control.tar.gz");
+
+    self->data = _gettar(self, self->Object->FindMember("data.tar.gz"),
+                         "gzip");
+    if (!self->data)
+        self->data = _gettar(self, self->Object->FindMember("data.tar.bz2"),
+                             "bzip2");
+    if (!self->data)
+        self->data = _gettar(self, self->Object->FindMember("data.tar.lzma"),
+                             "lzma");
+    if (!self->data)
+        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
+                            "data.tar.gz or data.tar.bz2 or data.tar.lzma");
+
+
+    const ARArchive::Member *member = self->Object->FindMember("debian-binary");
+    if (!member)
+        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
+                            "debian-binary");
+
+    if (!self->Fd.Seek(member->Start))
+        return HandleErrors();
+
+    char* value = new char[member->Size];
+    self->Fd.Read(value, member->Size, true);
+    self->debian_binary = PyBytes_FromStringAndSize(value, member->Size);
+    delete[] value;
+    return self;
+}
+
+static int debfile_traverse(PyObject *_self, visitproc visit, void* arg)
+{
+    PyDebFileObject *self = (PyDebFileObject*)_self;
+    Py_VISIT(self->data);
+    Py_VISIT(self->control);
+    Py_VISIT(self->debian_binary);
+    return PyArArchive_Type.tp_traverse(self, visit, arg);
+}
+
+static int debfile_clear(PyObject *_self) {
+    PyDebFileObject *self = (PyDebFileObject*)_self;
+    Py_CLEAR(self->data);
+    Py_CLEAR(self->control);
+    Py_CLEAR(self->debian_binary);
+    return PyArArchive_Type.tp_clear(self);
+}
+
+static void debfile_dealloc(PyObject *self) {
+    debfile_clear((PyDebFileObject *)self);
+    PyArArchive_Type.tp_dealloc(self);
+}
+
+static PyGetSetDef debfile_getset[] = {
+    {"control",(getter)debfile_get_control,0,
+     "The TarFile object associated with the control.tar.gz member."},
+    {"data",(getter)debfile_get_data,0,
+     "The TarFile object associated with the data.tar.{gz,bz2,lzma} member."},
+    {"debian_binary",(getter)debfile_get_debian_binary,0,
+     "The package version, as contained in debian-binary."},
+    {NULL}
+};
+
+static const char *debfile_doc =
+    "DebFile(file: str/int/file)\n\n"
+    "A DebFile object represents a file in the .deb package format.\n\n"
+    "The parameter 'file' may be a string specifying the path of a file, or\n"
+    "a file-like object providing the fileno() method. It may also be an int\n"
+    "specifying a file descriptor (returned by e.g. os.open()).\n"
+    "The recommended way is to pass in the path to the file.\n\n"
+    "It differs from ArArchive by providing the members 'control', 'data'\n"
+    "and 'version' for accessing the control.tar.gz,data.tar.{gz,bz2,lzma}\n"
+    ",debian-binary members in the archive.";
+
+PyTypeObject PyDebFile_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "apt_inst.DebFile",                // tp_name
+    sizeof(PyDebFileObject),           // tp_basicsize
+    0,                                 // tp_itemsize
+    // Methods
+    debfile_dealloc,                   // tp_dealloc
+    0,                                 // tp_print
+    0,                                 // tp_getattr
+    0,                                 // tp_setattr
+    0,                                 // tp_compare
+    0,                                 // tp_repr
+    0,                                 // tp_as_number
+    0,                                 // tp_as_sequence
+    0,                                 // tp_as_mapping
+    0,                                 // tp_hash
+    0,                                 // tp_call
+    0,                                 // tp_str
+    0,                                 // tp_getattro
+    0,                                 // tp_setattro
+    0,                                 // tp_as_buffer
+    Py_TPFLAGS_DEFAULT |               // tp_flags
+    Py_TPFLAGS_HAVE_GC,
+    debfile_doc,                       // tp_doc
+    debfile_traverse,                  // tp_traverse
+    debfile_clear,                     // tp_clear
+    0,                                 // tp_richcompare
+    0,                                 // tp_weaklistoffset
+    0,                                 // tp_iter
+    0,                                 // tp_iternext
+    0,                                 // tp_methods
+    0,                                 // tp_members
+    debfile_getset,                    // tp_getset
+    &PyArArchive_Type,                 // tp_base
+    0,                                 // tp_dict
+    0,                                 // tp_descr_get
+    0,                                 // tp_descr_set
+    0,                                 // tp_dictoffset
+    0,                                 // tp_init
+    0,                                 // tp_alloc
+    debfile_new                        // tp_new
+};

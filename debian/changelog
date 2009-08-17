@@ -11,6 +11,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     - Make AcquireFile a subclass of AcquireItem, thus inheriting attributes.
     - New progress handling in apt.progress.base and apt.progress.text. Still
       missing Qt4 progress handlers.
+    - Classes in apt_inst (Closes: #536096)
 
   * Unification of dependency handling:
     - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
@@ -34,8 +35,9 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     - The documentation has been restructured and enhanced with tutorials.
     - Only recommend lsb-release instead of depending on it. Default to
       Debian unstable if lsb_release is not available.
+  * 
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 02 Aug 2009 16:35:42 +0200
+ -- Julian Andres Klode <jak@debian.org>  Mon, 17 Aug 2009 16:19:51 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
