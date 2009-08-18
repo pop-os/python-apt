@@ -12,6 +12,8 @@ python-apt (0.7.92) UNRELEASED; urgency=low
     - New progress handling in apt.progress.base and apt.progress.text. Still
       missing Qt4 progress handlers.
     - Classes in apt_inst (Closes: #536096)
+      + You can now use apt_inst.DebFile.data to access the data.tar.* member
+        regardless of its compression (LP: #44493)
 
   * Unification of dependency handling:
     - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
@@ -37,7 +39,7 @@ python-apt (0.7.92) UNRELEASED; urgency=low
       Debian unstable if lsb_release is not available.
   * 
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 17 Aug 2009 16:19:51 +0200
+ -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2009 13:38:55 +0200
 
 python-apt (0.7.91) experimental; urgency=low
 
