@@ -72,8 +72,10 @@ void PyOpProgress::Update()
    PyObject_SetAttrString(callbackInst, "majorChange", o);
    Py_XDECREF(o);
 
-   // Build up the argument list...
-   if(CheckChange(0.05))
+   // CheckChange takes a time delta argument how often we
+   // should run update - for interactive UIs it makes sense
+   // to run ~25/sec
+   if(CheckChange(0.04))
    {
       PyObject *arglist = Py_BuildValue("(f)", Percent);
       RunSimpleCallback("update", arglist);
