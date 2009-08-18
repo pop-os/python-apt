@@ -4,10 +4,13 @@
 /* ######################################################################
 
    Tar Inteface
+   * THIS FILE IS COMPLETELY DEPRECATED, AND NOT USED ANYMORE IF BUILT *
+   * WITHOUT COMPATIBILITY. *
 
    ##################################################################### */
 									/*}}}*/
 // Include Files							/*{{{*/
+#ifdef COMPAT_0_7
 #include "generic.h"
 
 #include <apt-pkg/extracttar.h>
@@ -189,3 +192,4 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 									/*}}}*/
+#endif // defined(COMPAT_0_7)

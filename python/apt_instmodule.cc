@@ -23,6 +23,8 @@
 #include <Python.h>
 									/*}}}*/
 
+#ifdef COMPAT_0_7
+
 // debExtractControl - Exctract an arbitary control member		/*{{{*/
 // ---------------------------------------------------------------------
 /* This is a common operation so this function will stay, but others that
@@ -149,25 +151,20 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
 static PyMethodDef methods[] =
 {
    // access to ar files
-   {"ar_check_member", arCheckMember, METH_VARARGS, doc_arCheckMember},
+   {"arCheckMember", arCheckMember, METH_VARARGS, doc_arCheckMember},
 
    // access to deb files
-   {"deb_extract_control",debExtractControl,METH_VARARGS,doc_debExtractControl},
-   {"deb_extract_archive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
-
-   // access to tar streams
-   {"tar_extract",tarExtract,METH_VARARGS,doc_tarExtract},
-   {"deb_extract",debExtract,METH_VARARGS,doc_debExtract},
-
-#ifdef COMPAT_0_7
-   {"arCheckMember", arCheckMember, METH_VARARGS, doc_arCheckMember},
    {"debExtractControl",debExtractControl,METH_VARARGS,doc_debExtractControl},
    {"debExtractArchive",debExtractArchive,METH_VARARGS,doc_debExtractArchive},
+   
+   // access to tar streams
    {"tarExtract",tarExtract,METH_VARARGS,doc_tarExtract},
    {"debExtract",debExtract,METH_VARARGS,doc_debExtract},
-#endif
    {}
 };
+#else
+static PyMethodDef *methods = 0;
+#endif // defined(COMPAT_0_7)
 
 
 static const char *apt_inst_doc =
