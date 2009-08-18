@@ -67,11 +67,12 @@ class BaseDependency(object):
         preDepend - Boolean value whether this is a pre-dependency.
     """
 
-    def __init__(self, name, rel, ver, pre):
+    def __init__(self, name, rel, ver, pre, recommends=False):
         self.name = name
         self.relation = rel
         self.version = ver
         self.preDepend = pre
+        self.recommends = recommends
 
     def __repr__(self):
         return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
@@ -376,6 +377,23 @@ class Version(object):
             except KeyError:
                 pass
         return depends_list
+
+    @property
+    def recommends(self):
+        """Return the recommends of the package version."""
+        recommends_list = []
+        depends = self._cand.DependsList
+        try:
+            for depVerList in depends["Recommends"]:
+                base_recs = []
+                for depOr in depVerList:
+                    base_recs.append(BaseDependency(depOr.TargetPkg.Name,
+                                                    depOr.CompType, 
+                                                    False, True))
+                recommends_list.append(Dependency(base_recs))
+        except KeyError:
+            pass
+        return recommends_list
 
     @property
     def origins(self):
@@ -1096,6 +1114,7 @@ def _test():
     print "InstalledSize: %s " % pkg.candidate.installed_size
     print "PackageSize: %s " % pkg.candidate.size
     print "Dependencies: %s" % pkg.installed.dependencies
+    print "Recommends: %s" % pkg.installed.recommends
     for dep in pkg.candidate.dependencies:
         print ",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
                         o.preDepend) for o in dep.or_dependencies)
