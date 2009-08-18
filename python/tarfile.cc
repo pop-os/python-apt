@@ -30,12 +30,21 @@
  *
  * This calls a Python callback in FinishedFile() with the Item as the first
  * argument and the data as the second argument.
+ *
+ * It can also work without a callback, in which case it just sets the
+ * 'py_member' and 'py_data' members. This can be combined with setting
+ * 'member' to extract a single member into the memory.
  */
 class PyDirStream : public pkgDirStream
 {
 
 public:
     PyObject *callback;
+    // The current member and data.
+    CppOwnedPyObject<Item*> *py_member;
+    PyObject *py_data;
+    // The requested member or NULL.
+    const char *member;
     // Set to true if an error occured in the Python callback.
     bool error;
     // Place where the copy of the data is stored.
@@ -46,21 +55,27 @@ public:
     virtual bool Process(Item &Itm,const unsigned char *Data,
                          unsigned long Size,unsigned long Pos);
 
-    PyDirStream(PyObject *callback) : callback(callback), error(false), copy(0) {
-        Py_INCREF(callback);
+    PyDirStream(PyObject *callback, const char *member=0) : callback(callback),
+        py_member(0), py_data(0), member(member), error(false), copy(0)
+    {
+        Py_XINCREF(callback);
     }
 
     virtual ~PyDirStream() {
-        Py_DECREF(callback);
+        Py_XDECREF(callback);
+        Py_XDECREF(py_member);
+        Py_XDECREF(py_data);
         delete[] copy;
     }
 };
 
 bool PyDirStream::DoItem(Item &Itm, int &Fd)
 {
-    delete[] copy;
-    copy = new char[Itm.Size];
-    Fd = -2;
+    if (!member || strcmp(Itm.Name, member) == 0) {
+        delete[] copy;
+        copy = new char[Itm.Size];
+        Fd = -2;
+    }
     return true;
 }
 
@@ -73,15 +88,21 @@ bool PyDirStream::Process(Item &Itm,const unsigned char *Data,
 
 bool PyDirStream::FinishedFile(Item &Itm,int Fd)
 {
-    PyObject *py_member = CppOwnedPyObject_NEW<Item*>(0,&PyTarMember_Type,&Itm);
+    if (member && strcmp(Itm.Name, member) != 0)
+        // Skip non-matching Items, if a specific one is requested.
+        return true;
+        
+    // Clear the old objects and create new ones.
+    Py_XDECREF(py_member);
+    Py_XDECREF(py_data);
+    py_member = CppOwnedPyObject_NEW<Item*>(0, &PyTarMember_Type, &Itm);
+    py_member->NoDelete = true;
+    py_data = PyBytes_FromStringAndSize(copy, Itm.Size);
 
-    ((CppOwnedPyObject<Item*>*)py_member)->NoDelete = true;
-    PyObject *py_data = PyBytes_FromStringAndSize(copy, Itm.Size);
-    PyObject *result = PyObject_CallFunctionObjArgs(callback, py_member,
-                       py_data, 0);
-    if (result == 0)
-        error = true;
-    return (result != 0);
+    if (!callback)
+        return true;
+    error = PyObject_CallFunctionObjArgs(callback, py_member, py_data, 0) == 0;
+    return (!error);
 }
 
 // The tarfile.TarInfo interface for our TarMember class.
@@ -332,24 +353,60 @@ static PyObject *tarfile_extractall(PyObject *self, PyObject *args)
 }
 
 static const char *tarfile_go_doc =
-    "go(callback: callable) -> True\n\n"
+    "go(callback: callable[, member: str]) -> True\n\n"
     "Go through the archive and call the callable callback for each\n"
     "member with 2 arguments. The first argument is the TarMember and\n"
-    "the second one is the data, as bytes.";
-static PyObject *tarfile_go(PyObject *self, PyObject *arg)
+    "the second one is the data, as bytes.\n\n"
+    "The optional parameter 'member' can be used to specify the member for\n"
+    "which call the callback. If not specified, it will be called for all\n"
+    "members. If specified and not found, LookupError will be raised.";
+static PyObject *tarfile_go(PyObject *self, PyObject *args)
 {
+    PyObject *callback;
+    char *member = 0;
+    if (PyArg_ParseTuple(args,"O|s",&callback,&member) == 0)
+        return 0;
+    if (strcmp(member, "") == 0) 
+        member = 0;
     pkgDirStream Extract;
-    PyDirStream stream(arg);
+    PyDirStream stream(callback, member);
     ((PyTarFileObject*)self)->Fd.Seek(((PyTarFileObject*)self)->min);
     bool res = GetCpp<ExtractTar*>(self)->Go(stream);
     if (stream.error)
         return 0;
+    if (member && !stream.py_data)
+        return PyErr_Format(PyExc_LookupError, "There is no member named '%s'",
+                            member);
     return HandleErrors(PyBool_FromLong(res));
 }
 
+static const char *tarfile_extractdata_doc =
+    "extractdata(member: str) -> bytes\n\n"
+    "Return the contents of the member, as a bytes object. Raise\n"
+    "LookupError if there is no member with the given name.";
+static PyObject *tarfile_extractdata(PyObject *self, PyObject *args)
+{
+    const char *member;
+    if (PyArg_ParseTuple(args,"s",&member) == 0)
+        return 0;
+    PyDirStream stream(NULL, member);
+    ((PyTarFileObject*)self)->Fd.Seek(((PyTarFileObject*)self)->min);
+    // Go through the stream.
+    GetCpp<ExtractTar*>(self)->Go(stream);
+
+    if (!stream.py_data)
+        return PyErr_Format(PyExc_LookupError, "There is no member named '%s'",
+                            member);
+    if (stream.error) {
+        return 0;
+    }
+    return Py_INCREF(stream.py_data), stream.py_data;
+}
+
 static PyMethodDef tarfile_methods[] = {
+    {"extractdata",tarfile_extractdata,METH_VARARGS,tarfile_extractdata_doc},
     {"extractall",tarfile_extractall,METH_VARARGS,tarfile_extractall_doc},
-    {"go",tarfile_go,METH_O,tarfile_go_doc},
+    {"go",tarfile_go,METH_VARARGS,tarfile_go_doc},
     {NULL}
 };
 
