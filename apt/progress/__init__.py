@@ -112,7 +112,7 @@ class FetchProgress(object):
 
         This happens eg. when the downloads fails or is completed.
         """
-    def update_status_full(self, uri, descr, short_descr, status, file_size, 
+    def update_status_full(self, uri, descr, short_descr, status, file_size,
                            partial_size):
         """Called when the status of an item changes.
 
@@ -291,7 +291,6 @@ class InstallProgress(DumbInstallProgress):
             except select.error, (errno_, errstr):
                 if errno_ != errno.EINTR:
                     raise
-                break
             self.updateInterface()
             try:
                 (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
@@ -300,6 +299,8 @@ class InstallProgress(DumbInstallProgress):
             except OSError, (errno_, errstr):
                 if errno_ != errno.EINTR:
                     raise
+                if errno_ == errno.ECHILD:
+                    break
         return res
 
     def run(self, pm):

@@ -7,9 +7,8 @@ Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.8.2
 XS-Python-Version: all
 Build-Depends: apt-utils,
-               cdbs,
-               debhelper (>= 5.0.37.1),
-               libapt-pkg-dev (>= 0.7.22~),
+               debhelper (>= 7.3.5),
+               libapt-pkg-dev (>= 0.7.21),
                python-all-dbg,
                python-all-dev,
 	       python2.4-dev,
@@ -17,9 +16,9 @@ Build-Depends: apt-utils,
                python-central (>= 0.5),
                python-debian,
                python-distutils-extra (>= 1.9.0),
-               python-gtk2,
+               python-gtk2 [!kfreebsd-amd64 !kfreebsd-i386],
                python-sphinx (>= 0.5),
-               python-vte
+               python-vte [!kfreebsd-amd64 !kfreebsd-i386]
 Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 

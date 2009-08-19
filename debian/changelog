@@ -1,15 +1,37 @@
-python-apt (0.7.11.2ubuntu1) UNRELEASED; urgency=low
+python-apt (0.7.12.1ubuntu1) karmic; urgency=low
+
+  [ Michael Vogt ]
+  * apt/package.py:
+    - add "recommends" property
+  * debian/control:
+    - change build-dep for libapt-pkg-dev to >= 0.7.21
+  * merged with debian/unstable
 
   [ Loïc Minier ]
   * Revert addition of gcc and gcc_s to python-apt libs as the toolchain has
     been fixed; LP: #375334.
-  
-  [ Michael Vogt ]
-  * merged with debian/unstable
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 30 Jul 2009 15:51:27 +0200
+  [ Julian Andres Klode ]
+  * apt/package.py:
+   - Introduce Version.get_dependencies() which takes one or more types
+     of dependencies and returns a list of Dependency objects.
 
-python-apt (0.7.11.2) unstable; urgency=low
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 19 Aug 2009 11:33:59 +0200
+
+python-apt (0.7.12.1) unstable; urgency=low
+
+  * apt/debfile.py:
+    - Fix missing space in message (Closes: #539704)
+  * apt/package.py:
+    - Add missing argument to Version.__le__() and Version.__ge__()
+  * debian/control:
+    - Do not build-depend on python-gtk2 and python-vte on kfreebsd-*.
+  * setup.py:
+    - Always build documentation, even if python-gtk2 is not installed.
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 03 Aug 2009 15:17:43 +0200
+
+python-apt (0.7.12.0) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * python/cache.cc:
@@ -29,6 +51,14 @@ python-apt (0.7.11.2) unstable; urgency=low
     - Allow to set the candidate of a package (Closes: #523997)
       + Support assignments to the 'candidate' property of Package objects.
       + Initial patch by Sebastian Heinlein
+    - Make comparisons of Version object more robust.
+    - Return VersionList objects in Package.versions, which are sequences
+      and also provide features of mappings. (partial API BREAK)
+      + Allows to get a specific version (Closes: #523998)
+  * apt/progress/__init__.py:
+    - Do not break out of InstallProgress.waitChild()'s loop just because it
+      is hitting EINTR, but only on child exit or on ECHILD.
+  * Use debhelper 7 instead of CDBS
 
   [ Stefano Zacchiroli ]
   * debian/python-apt.doc-base: register the documentation with the
@@ -36,7 +66,7 @@ python-apt (0.7.11.2) unstable; urgency=low
 
   [ Sebastian Heinlein ]
   * apt/progress.py: Extract the package name from the status message
-    (Closes: #532660) 
+    (Closes: #532660)
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 30 Jul 2009 14:08:30 +0200
 
@@ -45,7 +75,7 @@ python-apt (0.7.11.1) unstable; urgency=low
   [ Stephan Peijnik ]
   * apt/progress/__init__.py:
     - Exception handling fixes in InstallProgress class.
-  
+
   [ Michael Vogt ]
   * python/tag.cc:
     - merge patch from John Wright that adds FindRaw method
@@ -60,15 +90,15 @@ python-apt (0.7.11.0) unstable; urgency=low
 
   [ Stephan Peijnik ]
   * apt/progress/__init__.py:
-    - add update_status_full() that takes file_size/partial_size as 
+    - add update_status_full() that takes file_size/partial_size as
       additional callback arguments
-    - add pulse_items() that takes a addtional "items" tuple that 
+    - add pulse_items() that takes a addtional "items" tuple that
       gives the user full access to the individual items that are
       fetched
   * python/progress.cc:
     - low level code for update_status_full and pulse_items()
     - better threading support
-  
+
   [ Michael Vogt ]
   * aptsources/distro.py:
     - fix indent error that causes incorrect sources.list additons
