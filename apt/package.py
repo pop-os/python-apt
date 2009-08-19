@@ -372,7 +372,7 @@ class Version(object):
                     for depOr in depVerList:
                         base_deps.append(BaseDependency(depOr.TargetPkg.Name,
                                         depOr.CompType, depOr.TargetVer,
-                                        (t == "PreDepends"), deptype=t))
+                                        (t == "PreDepends"), rawtype=t))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
                 pass
