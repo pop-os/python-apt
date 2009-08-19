@@ -3,6 +3,10 @@ python-apt (0.7.12.2) UNRELEASED; urgency=low
   [ Michael Vogt ]
   * apt/package.py:
     - add "recommends" property
+  * apt/cache.py, python/cache.cc:
+    - add optional pulseIntevall option to "update()"
+  * po/python-apt.pot:
+    - refreshed
 
   [ Julian Andres Klode ]
   * apt/package.py:
