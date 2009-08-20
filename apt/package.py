@@ -1064,7 +1064,8 @@ class Package(object):
     def markUpgrade(self):
         """Mark a package for upgrade."""
         if self.isUpgradable:
-            self.markInstall()
+            fromUser = not self._pcache._depcache.IsAutoInstalled(self._pkg)
+            self.markInstall(fromUser=fromUser)
         else:
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
