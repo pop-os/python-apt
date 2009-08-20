@@ -26,7 +26,7 @@ Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, lsb-release
 Recommends: iso-codes, libjs-jquery
-Breaks: debdelta (<< 0.28~)
+Breaks: debdelta (<< 0.28~), packagekit-backend-apt (<= 0.4.8-0ubuntu4)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte
 XB-Python-Version: ${python:Versions}

@@ -1,3 +1,12 @@
+python-apt (0.7.12.1ubuntu2) UNRELEASEDkarmic; urgency=low
+
+  * apt/package.py:
+    - fix bug in BaseDependency initialization
+  * debian/control:
+    - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 20 Aug 2009 14:23:40 +0200
+
 python-apt (0.7.12.1ubuntu1) karmic; urgency=low
 
   [ Michael Vogt ]
