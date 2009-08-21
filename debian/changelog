@@ -1,3 +1,9 @@
+python-apt (0.7.93) experimental; urgency=low
+
+  * Merge 0.7.13.0 from unstable.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:50:54 +0200
+
 python-apt (0.7.92) experimental; urgency=low
 
   * New features:
@@ -77,6 +83,38 @@ python-apt (0.7.90) experimental; urgency=low
     - Initial patch by Sebastian Heinlein
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
+
+python-apt (0.7.13.0) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * apt/package.py:
+    - add "recommends" property
+  * apt/cache.py, python/cache.cc:
+    - add optional pulseInterval option to "update()"
+
+  [ Sebastian Heinlein ]
+  * apt/cache.py:
+   - Fix the (inst|keep|broken|del)_count attributes (Closes: #542773).
+
+  [ Julian Andres Klode ]
+  * apt/package.py:
+   - Introduce Version.get_dependencies() which takes one or more types
+     of dependencies and returns a list of Dependency objects.
+   - Do not mark the package as manually installed on upgrade (Closes: #542699)
+   - Add Package.is_now_broken and Package.is_inst_broken.
+  * apt/cache.py:
+   - Introduce ProblemResolver class (Closes: #542705)
+  * python/pkgsrcrecords.cc:
+   - Fix spelling error (begining should be beginning).
+  * po:
+   - Update template and the translations de.po, fr.po (Closes: #467120),
+     ja.po (Closes: #454293).
+  * debian/control:
+   - Update Standards-Version to 3.8.3.
+  * debian/rules:
+   - Build with DH_PYCENTRAL=include-links instead of nomove.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:22:34 +0200
 
 python-apt (0.7.12.1) unstable; urgency=low
 

@@ -278,7 +278,7 @@ class Cache(object):
         return providers
 
     @deprecated_args
-    def update(self, fetch_progress=None):
+    def update(self, fetch_progress=None, pulse_interval=0):
         """Run the equivalent of apt-get update.
 
         The first parameter *fetch_progress* may be set to an instance of
@@ -287,13 +287,15 @@ class Cache(object):
         """
         lockfile = apt_pkg.config.find_dir("Dir::State::Lists") + "lock"
         lock = apt_pkg.get_lock(lockfile)
+
         if lock < 0:
             raise LockFailedException("Failed to lock %s" % lockfile)
 
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.FetchProgress()
-            return self._cache.update(fetch_progress, self._list)
+            return self._cache.update(fetch_progress, self._list,
+                                      pulse_interval)
         finally:
             os.close(lock)
 
@@ -432,6 +434,40 @@ class Cache(object):
         installArchives = function_deprecated_by(install_archives)
         cachePostChange = function_deprecated_by(cache_post_change)
         cachePreChange = function_deprecated_by(cache_pre_change)
+
+
+class ProblemResolver(object):
+    """Resolve problems due to dependencies and conflicts.
+
+    The first argument 'cache' is an instance of apt.Cache.
+    """
+
+    def __init__(self, cache):
+        self._resolver = apt_pkg.ProblemResolver(cache._depcache)
+
+    def clear(self, package):
+        """Reset the package to the default state."""
+        self._resolver.clear(package._pkg)
+
+    def install_protect(self):
+        """mark protected packages for install or removal."""
+        self._resolver.install_protect()
+
+    def protect(self, package):
+        """Protect a package so it won't be removed."""
+        self._resolver.protect(package._pkg)
+
+    def remove(self, package):
+        """Mark a package for removal."""
+        self._resolver.remove(package._pkg)
+
+    def resolve(self):
+        """Resolve dependencies, try to remove packages where needed."""
+        self._resolver.resolve()
+
+    def resolve_by_keep(self):
+        """Resolve dependencies, do not try to remove packages."""
+        self._resolver.resolve_by_keep()
 
 
 # ----------------------------- experimental interface

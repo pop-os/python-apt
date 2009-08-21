@@ -22,7 +22,7 @@ import apt_pkg
 
 # import some fancy classes
 from apt.package import Package
-from apt.cache import Cache
+from apt.cache import Cache, ProblemResolver
 from apt.cdrom import Cdrom
 
 if apt_pkg._COMPAT_0_7:

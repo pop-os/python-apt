@@ -70,6 +70,11 @@ packages whose state has been changed, eg. packages marked for installation::
     >>> print len(changed) == len(cache.get_changes()) # Both need to have same length
     True
 
+The ProblemResolver class
+--------------------------
+
+.. autoclass:: ProblemResolver
+    :members:
 
 Exceptions
 ----------

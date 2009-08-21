@@ -41,12 +41,15 @@ Working with the cache
         Return the :class:`Package()` object for the package name given by
         *pkgname*.
 
-    .. method:: update(progress, list)
+    .. method:: update(progress, list[, pulse_interval])
 
         Update the package cache.
 
         The parameter *progress* points to an :class:`apt.progress.FetchProgress()`
         object. The parameter *list* refers to a :class:`SourceList()` object.
+
+        The optional parameter *pulse_interval* describes the interval between
+        the calls to the :meth:`FetchProgress.pulse` method.
 
     .. attribute:: depends_count
 

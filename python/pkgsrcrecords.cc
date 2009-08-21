@@ -53,7 +53,7 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i", 1);
 }
 
-static char *doc_PkgSrcRecordsRestart = "Start Lookup from the begining";
+static char *doc_PkgSrcRecordsRestart = "Start Lookup from the beginning";
 static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
 {
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);

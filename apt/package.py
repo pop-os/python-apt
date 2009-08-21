@@ -66,14 +66,16 @@ class BaseDependency(object):
         name       - The name of the dependency
         relation   - The relation (>,>=,==,<,<=,)
         version    - The version depended on
+        rawtype   - The type of the dependendy (e.g. 'Recommends')
         pre_depend - Boolean value whether this is a pre-dependency.
     """
 
-    def __init__(self, name, rel, ver, pre):
+    def __init__(self, name, rel, ver, pre, rawtype=None):
         self.name = name
         self.relation = rel
         self.version = ver
         self.pre_depend = pre
+        self.rawtype = rawtype
 
     def __repr__(self):
         return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
@@ -377,9 +379,8 @@ class Version(object):
         """Return a Record() object for this version."""
         return Record(self._records.record)
 
-    @property
-    def dependencies(self):
-        """Return the dependencies of the package version."""
+    def get_dependencies(self, *types):
+        """Return a list of Dependency objects for the given types."""
         depends_list = []
         depends = self._cand.depends_list
         for type_ in ["PreDepends", "Depends"]:
@@ -389,11 +390,22 @@ class Version(object):
                     for dep_or in dep_ver_list:
                         base_deps.append(BaseDependency(dep_or.target_pkg.name,
                                         dep_or.comp_type, dep_or.target_ver,
-                                        (type_ == "PreDepends")))
+                                        (type_ == "PreDepends"),
+                                         rawtype=type_))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
                 pass
         return depends_list
+
+    @property
+    def dependencies(self):
+        """Return the dependencies of the package version."""
+        return self.get_dependencies("PreDepends", "Depends")
+
+    @property
+    def recommends(self):
+        """Return the recommends of the package version."""
+        return self.get_dependencies("Recommends")
 
     @property
     def origins(self):
@@ -1100,6 +1112,16 @@ class Package(object):
         """
         return VersionList(self)
 
+    @property
+    def is_inst_broken(self):
+        """Return True if the to-be-installed package is broken."""
+        return self._pcache._depcache.IsInstBroken(self._pkg)
+
+    @property
+    def is_now_broken(self):
+        """Return True if the installed package is broken."""
+        return self._pcache._depcache.IsNowBroken(self._pkg)
+
     # depcache actions
 
     def mark_keep(self):
@@ -1158,7 +1180,8 @@ class Package(object):
     def mark_upgrade(self):
         """Mark a package for upgrade."""
         if self.is_upgradable:
-            self.mark_install()
+            from_user = not self._pcache._depcache.is_auto_installed(self._pkg)
+            self.mark_install(from_user=from_user)
         else:
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
@@ -1250,6 +1273,7 @@ def _test():
     print "InstalledSize: %s " % pkg.candidate.installed_size
     print "PackageSize: %s " % pkg.candidate.size
     print "Dependencies: %s" % pkg.installed.dependencies
+    print "Recommends: %s" % pkg.installed.recommends
     for dep in pkg.candidate.dependencies:
         print ",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
                         o.pre_depend) for o in dep.or_dependencies)
