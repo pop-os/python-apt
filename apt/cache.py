@@ -269,7 +269,7 @@ class Cache(object):
                     providers.append(pkg)
         return providers
 
-    def update(self, fetchProgress=None):
+    def update(self, fetchProgress=None, pulseInterval=0):
         " run the equivalent of apt-get update "
         lockfile = apt_pkg.Config.FindDir("Dir::State::Lists") + "lock"
         lock = apt_pkg.GetLock(lockfile)
@@ -279,7 +279,7 @@ class Cache(object):
         try:
             if fetchProgress is None:
                 fetchProgress = apt.progress.FetchProgress()
-            return self._cache.Update(fetchProgress, self._list)
+            return self._cache.Update(fetchProgress, self._list, pulseInterval)
         finally:
             os.close(lock)
 

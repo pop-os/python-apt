@@ -3,6 +3,8 @@ python-apt (0.7.13.0) UNRELEASED; urgency=low
   [ Michael Vogt ]
   * apt/package.py:
     - add "recommends" property
+  * apt/cache.py, python/cache.cc:
+    - add optional pulseInterval option to "update()"
 
   [ Sebastian Heinlein ]
   * apt/cache.py:
