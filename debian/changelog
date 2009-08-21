@@ -1,3 +1,10 @@
+python-apt (0.7.13.1) unstable; urgency=low
+
+  * apt/package.py:
+   - Fix Version.get_dependencies() to not ignore the arguments.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:59:08 +0200
+
 python-apt (0.7.13.0) unstable; urgency=low
 
   [ Michael Vogt ]
