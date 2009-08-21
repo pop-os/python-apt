@@ -344,22 +344,22 @@ class Cache(object):
     @property
     def broken_count(self):
         """Return the number of packages with broken dependencies."""
-        return self._depcache.broken_count
+        return self._depcache.BrokenCount
 
     @property
     def delete_count(self):
         """Return the number of packages marked for deletion."""
-        return self._depcache.del_count
+        return self._depcache.DelCount
 
     @property
     def install_count(self):
         """Return the number of packages marked for installation."""
-        return self._depcache.inst_count
+        return self._depcache.InstCount
 
     @property
     def keep_count(self):
         """Return the number of packages marked as keep."""
-        return self._depcache.keep_count
+        return self._depcache.KeepCount
 
 
 class ProblemResolver(object):

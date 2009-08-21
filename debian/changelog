@@ -4,6 +4,10 @@ python-apt (0.7.13.0) UNRELEASED; urgency=low
   * apt/package.py:
     - add "recommends" property
 
+  [ Sebastian Heinlein ]
+  * apt/cache.py:
+   - Fix the (inst|keep|broken|del)_count attributes (Closes: #542773).
+
   [ Julian Andres Klode ]
   * apt/package.py:
    - Introduce Version.get_dependencies() which takes one or more types
