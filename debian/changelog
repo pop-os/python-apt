@@ -1,4 +1,4 @@
-python-apt (0.7.13.0) UNRELEASED; urgency=low
+python-apt (0.7.13.0) unstable; urgency=low
 
   [ Michael Vogt ]
   * apt/package.py:
@@ -26,7 +26,7 @@ python-apt (0.7.13.0) UNRELEASED; urgency=low
   * debian/control:
    - Update Standards-Version to 3.8.3.
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:17:01 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:18:37 +0200
 
 python-apt (0.7.12.1) unstable; urgency=low
 
