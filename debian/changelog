@@ -25,8 +25,10 @@ python-apt (0.7.13.0) unstable; urgency=low
      ja.po (Closes: #454293).
   * debian/control:
    - Update Standards-Version to 3.8.3.
+  * debian/rules:
+   - Build with DH_PYCENTRAL=include-links instead of nomove.
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:18:37 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:22:34 +0200
 
 python-apt (0.7.12.1) unstable; urgency=low
 
