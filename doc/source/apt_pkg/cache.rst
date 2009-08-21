@@ -227,7 +227,7 @@ Classes in apt_pkg
         Open the package cache again. The parameter *progress* may be set to
         an :class:`apt.progress.OpProgress()` object or `None`.
 
-    .. method:: Update(progress, list)
+    .. method:: Update(progress, list[, pulseInterval])
 
         Update the package cache.
 
@@ -236,6 +236,9 @@ Classes in apt_pkg
 
         The parameter *list* refers to an object as returned by
         :func:`apt_pkg.GetPkgSourceList`.
+
+        The optional parameter *pulseInterval* describes the interval between
+        the calls to the :meth:`FetchProgress.pulse` method.
 
     .. attribute:: DependsCount
 
