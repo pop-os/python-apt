@@ -9,8 +9,9 @@ python-apt (0.7.12.2) UNRELEASED; urgency=low
    - Introduce Version.get_dependencies() which takes one or more types
      of dependencies and returns a list of Dependency objects.
    - Do not mark the package as manually installed on upgrade (Closes: #542699)
+   - Add Package.is_now_broken and Package.is_inst_broken.
 
- -- Julian Andres Klode <jak@debian.org>  Thu, 20 Aug 2009 23:13:00 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 14:57:08 +0200
 
 python-apt (0.7.12.1) unstable; urgency=low
 

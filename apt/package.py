@@ -1008,6 +1008,16 @@ class Package(object):
         """
         return VersionList(self)
 
+    @property
+    def is_inst_broken(self):
+        """Return True if the to-be-installed package is broken."""
+        return self._pcache._depcache.IsInstBroken(self._pkg)
+
+    @property
+    def is_now_broken(self):
+        """Return True if the installed package is broken."""
+        return self._pcache._depcache.IsNowBroken(self._pkg)
+
     # depcache actions
 
     def markKeep(self):
