@@ -383,7 +383,7 @@ class Version(object):
         """Return a list of Dependency objects for the given types."""
         depends_list = []
         depends = self._cand.depends_list
-        for type_ in ["PreDepends", "Depends"]:
+        for type_ in types:
             try:
                 for dep_ver_list in depends[type_]:
                     base_deps = []

@@ -1,6 +1,6 @@
 python-apt (0.7.93) experimental; urgency=low
 
-  * Merge 0.7.13.0 from unstable.
+  * Merge 0.7.13.0 and 0.7.13.1 from unstable.
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:50:54 +0200
 
@@ -83,6 +83,13 @@ python-apt (0.7.90) experimental; urgency=low
     - Initial patch by Sebastian Heinlein
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
+
+python-apt (0.7.13.1) unstable; urgency=low
+
+  * apt/package.py:
+   - Fix Version.get_dependencies() to not ignore the arguments.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:59:08 +0200
 
 python-apt (0.7.13.0) unstable; urgency=low
 
