@@ -23,7 +23,7 @@ import os
 
 # import some fancy classes
 from apt.package import Package
-from apt.cache import Cache
+from apt.cache import Cache, ProblemResolver
 from apt.progress import (
     OpProgress, FetchProgress, InstallProgress, CdromProgress)
 from apt.cdrom import Cdrom

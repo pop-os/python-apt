@@ -1,4 +1,4 @@
-python-apt (0.7.12.2) UNRELEASED; urgency=low
+python-apt (0.7.13.0) UNRELEASED; urgency=low
 
   [ Michael Vogt ]
   * apt/package.py:
@@ -10,6 +10,8 @@ python-apt (0.7.12.2) UNRELEASED; urgency=low
      of dependencies and returns a list of Dependency objects.
    - Do not mark the package as manually installed on upgrade (Closes: #542699)
    - Add Package.is_now_broken and Package.is_inst_broken.
+  * apt/cache.py:
+   - Introduce ProblemResolver class (Closes: #542705)
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 14:57:08 +0200
 

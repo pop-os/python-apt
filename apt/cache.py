@@ -91,7 +91,6 @@ class Cache(object):
         for f in files:
             if not os.path.exists(rootdir+f):
                 open(rootdir+f,"w")
-       
 
     def _runCallbacks(self, name):
         """ internal helper to run a callback """
@@ -361,6 +360,40 @@ class Cache(object):
     def keep_count(self):
         """Return the number of packages marked as keep."""
         return self._depcache.keep_count
+
+
+class ProblemResolver(object):
+    """Resolve problems due to dependencies and conflicts.
+
+    The first argument 'cache' is an instance of apt.Cache.
+    """
+
+    def __init__(self, cache):
+        self._resolver = apt_pkg.GetPkgProblemResolver(cache._depcache)
+
+    def clear(self, package):
+        """Reset the package to the default state."""
+        self._resolver.Clear(package._pkg)
+
+    def install_protect(self):
+        """mark protected packages for install or removal."""
+        self._resolver.InstallProtect()
+
+    def protect(self, package):
+        """Protect a package so it won't be removed."""
+        self._resolver.Protect(package._pkg)
+
+    def remove(self, package):
+        """Mark a package for removal."""
+        self._resolver.Remove(package._pkg)
+
+    def resolve(self):
+        """Resolve dependencies, try to remove packages where needed."""
+        self._resolver.Resolve()
+
+    def resolve_by_keep(self):
+        """Resolve dependencies, do not try to remove packages."""
+        self._resolver.ResolveByKeep()
 
 
 # ----------------------------- experimental interface
