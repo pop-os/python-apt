@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-24 13:56+0200\n"
+"POT-Creation-Date: 2009-08-21 15:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,16 +369,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:278
+#: ../apt/package.py:315
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:747 ../apt/package.py:851
+#: ../apt/package.py:878 ../apt/package.py:982
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:855
+#: ../apt/package.py:986
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -387,7 +387,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:861
+#: ../apt/package.py:992
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
@@ -400,7 +400,7 @@ msgstr ""
 
 #: ../apt/debfile.py:81
 #, python-format
-msgid "List of files for '%s'could not be read"
+msgid "List of files for '%s' could not be read"
 msgstr ""
 
 #: ../apt/debfile.py:149
