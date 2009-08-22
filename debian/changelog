@@ -1,3 +1,10 @@
+python-apt (0.7.13.2) unstable; urgency=low
+
+  * apt/cache.py:
+   - Convert argument to str in __getitem__() (Closes: #542965).
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 22 Aug 2009 22:47:30 +0200
+
 python-apt (0.7.13.1) unstable; urgency=low
 
   * apt/package.py:
