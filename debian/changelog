@@ -11,7 +11,7 @@ python-apt (0.7.13.2ubuntu1) karmic; urgency=low
     - Make ActionGroups context managers so apt.Cache.actiongroup() has
       the same behavior as in 0.7.92
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 24 Aug 2009 15:43:00 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Aug 2009 16:53:16 +0200
 
 python-apt (0.7.13.2) unstable; urgency=low
 
