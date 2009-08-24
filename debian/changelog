@@ -1,8 +1,24 @@
-python-apt (0.7.13.1ubuntu1) karmic; urgency=low
+python-apt (0.7.13.2ubuntu1) karmic; urgency=low
 
-  * merged from debian-sid
+  * merged from the debian-sid bzr branch
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 24 Aug 2009 13:36:02 +0200
+  [ Michael Vogt ]
+  * apt/cache.py:
+    - add actiongroup() method (backport from 0.7.92)
+
+  [ Julian Andres Klode ]
+  * python/depcache.cc:
+    - Make ActionGroups context managers so apt.Cache.actiongroup() has
+      the same behavior as in 0.7.92
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 24 Aug 2009 15:43:00 +0200
+
+python-apt (0.7.13.2) unstable; urgency=low
+
+  * apt/cache.py:
+   - Convert argument to str in __getitem__() (Closes: #542965).
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 22 Aug 2009 22:47:30 +0200
 
 python-apt (0.7.13.1) unstable; urgency=low
 

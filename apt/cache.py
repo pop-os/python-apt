@@ -135,6 +135,7 @@ class Cache(object):
             return self._weakref[key]
         except KeyError:
             if key in self._set:
+                key = str(key)
                 pkg = self._weakref[key] = Package(self, self._cache[key])
                 return pkg
             else:
@@ -333,6 +334,15 @@ class Cache(object):
         """ called internally if the cache is about to change, emit
             a signal then """
         self._runCallbacks("cache_pre_change")
+
+    def actiongroup(self):
+        """Return an ActionGroup() object for the current cache.
+
+        Action groups can be used to speedup actions. The action group is
+        active as soon as it is created, and disabled when the object is
+        deleted or when release() is called.
+        """
+        return apt_pkg.GetPkgActionGroup(self._depcache)
 
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
