@@ -794,9 +794,24 @@ static PyObject *PkgActionGroupRelease(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgActionGroupEnter(PyObject *Self,PyObject *Args) {
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+    Py_INCREF(Self);
+    return Self;
+}
+static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
+   pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
+   ag->release();
+   Py_RETURN_FALSE;
+}
+
+
 static PyMethodDef PkgActionGroupMethods[] =
 {
    {"release", PkgActionGroupRelease, METH_VARARGS, "release()"},
+   {"__enter__", PkgActionGroupEnter, METH_VARARGS, "__enter__() -> self"},
+   {"__exit__", PkgActionGroupExit, METH_VARARGS, "__exit__()"},
    {}
 };
 

@@ -135,6 +135,7 @@ class Cache(object):
             return self._weakref[key]
         except KeyError:
             if key in self._set:
+                key = str(key)
                 pkg = self._weakref[key] = Package(self, self._cache[key])
                 return pkg
             else:
