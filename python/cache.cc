@@ -81,13 +81,14 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 
    PyObject *pyFetchProgressInst = 0;
    PyObject *pySourcesList = 0;
-   if (PyArg_ParseTuple(Args, "OO", &pyFetchProgressInst,&pySourcesList) == 0)
+   int pulseInterval = 0;
+   if (PyArg_ParseTuple(Args, "OO|i", &pyFetchProgressInst,&pySourcesList, &pulseInterval) == 0)
       return 0;
 
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
    pkgSourceList *source = GetCpp<pkgSourceList*>(pySourcesList);
-   bool res = ListUpdate(progress, *source);
+   bool res = ListUpdate(progress, *source, pulseInterval);
 
    PyObject *PyRes = Py_BuildValue("b", res);
    return HandleErrors(PyRes);

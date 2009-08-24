@@ -56,3 +56,6 @@ in the package.
 
     Please see :class:`apt.package.Package` for documentation.
 
+.. class:: ProblemResolver
+
+    Please see :class:`apt.cache.ProblemResolver` for documentation.

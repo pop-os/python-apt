@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-20 16:43+0100\n"
+"POT-Creation-Date: 2009-08-21 15:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,4 +352,76 @@ msgstr ""
 
 #: ../apt/gtk/widgets.py:357
 msgid "Complete"
+msgstr ""
+
+#: ../apt/package.py:315
+#, python-format
+msgid "Invalid unicode in description for '%s' (%s). Please report."
+msgstr ""
+
+#: ../apt/package.py:878 ../apt/package.py:982
+msgid "The list of changes is not available"
+msgstr ""
+
+#: ../apt/package.py:986
+#, python-format
+msgid ""
+"The list of changes is not available yet.\n"
+"\n"
+"Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"until the changes become available or try again later."
+msgstr ""
+
+#: ../apt/package.py:992
+msgid ""
+"Failed to download the list of changes. \n"
+"Please check your Internet connection."
+msgstr ""
+
+#: ../apt/debfile.py:56
+#, python-format
+msgid "This is not a valid DEB archive, missing '%s' member"
+msgstr ""
+
+#: ../apt/debfile.py:81
+#, python-format
+msgid "List of files for '%s' could not be read"
+msgstr ""
+
+#: ../apt/debfile.py:149
+#, python-format
+msgid "Dependency is not satisfiable: %s\n"
+msgstr ""
+
+#: ../apt/debfile.py:173
+#, python-format
+msgid "Conflicts with the installed package '%s'"
+msgstr ""
+
+#: ../apt/debfile.py:319
+#, python-format
+msgid "Wrong architecture '%s'"
+msgstr ""
+
+#. the deb is older than the installed
+#: ../apt/debfile.py:325
+msgid "A later version is already installed"
+msgstr ""
+
+#: ../apt/debfile.py:345
+msgid "Failed to satisfy all dependencies (broken cache)"
+msgstr ""
+
+#: ../apt/debfile.py:376
+#, python-format
+msgid "Cannot install '%s'"
+msgstr ""
+
+#: ../apt/debfile.py:484
+#, python-format
+msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
+msgstr ""
+
+#: ../apt/debfile.py:494
+msgid "An essential package would be removed"
 msgstr ""
