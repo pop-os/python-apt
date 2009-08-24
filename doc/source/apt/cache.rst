@@ -70,6 +70,11 @@ packages whose state has been changed, eg. packages marked for installation::
     >>> print len(changed) == len(cache.GetChanges()) # Both need to have same length
     True
 
+The ProblemResolver class
+--------------------------
+
+.. autoclass:: ProblemResolver
+    :members:
 
 Exceptions
 ----------

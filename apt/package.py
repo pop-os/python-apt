@@ -365,7 +365,7 @@ class Version(object):
         """Return a list of Dependency objects for the given types."""
         depends_list = []
         depends = self._cand.DependsList
-        for t in ["PreDepends", "Depends"]:
+        for t in types:
             try:
                 for depVerList in depends[t]:
                     base_deps = []
@@ -1008,6 +1008,16 @@ class Package(object):
         """
         return VersionList(self)
 
+    @property
+    def is_inst_broken(self):
+        """Return True if the to-be-installed package is broken."""
+        return self._pcache._depcache.IsInstBroken(self._pkg)
+
+    @property
+    def is_now_broken(self):
+        """Return True if the installed package is broken."""
+        return self._pcache._depcache.IsNowBroken(self._pkg)
+
     # depcache actions
 
     def markKeep(self):
@@ -1064,7 +1074,8 @@ class Package(object):
     def markUpgrade(self):
         """Mark a package for upgrade."""
         if self.isUpgradable:
-            self.markInstall()
+            fromUser = not self._pcache._depcache.IsAutoInstalled(self._pkg)
+            self.markInstall(fromUser=fromUser)
         else:
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "

@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-export DH_PYCENTRAL=nomove
+export DH_PYCENTRAL=include-links
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 export CFLAGS=-Wno-write-strings
 
