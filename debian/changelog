@@ -4,6 +4,10 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   * apt/cache.py:
     - add actiongroup() method (backport from 0.7.92)
 
+  [ Sebastian Heinlein ]
+  * apt/package.py:
+    - Export if a package is an essential one (Closes: #543428)
+
   [ Julian Andres Klode ]
   * python/depcache.cc:
     - Make ActionGroups context managers so apt.Cache.actiongroup() has
