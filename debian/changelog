@@ -12,8 +12,10 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   * python/depcache.cc:
     - Make ActionGroups context managers so apt.Cache.actiongroup() has
       the same behavior as in 0.7.92
+  * apt/package.py:
+    - Use the source version instead of the binary version in fetch_source().
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 24 Aug 2009 15:43:00 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 28 Aug 2009 14:38:06 +0200
 
 python-apt (0.7.13.2) unstable; urgency=low
 
