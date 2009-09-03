@@ -308,7 +308,11 @@ class InstallProgress(DumbInstallProgress):
         return res
 
     def run(self, pm):
-        """Start installing."""
+        """Start installing. 
+        
+        Returns the PackageManager status:
+        (pm.ResultCompleted, pm.ResultFailed, pm.ResultIncomplete)
+        """
         pid = self.fork()
         if pid == 0:
             # pm.DoInstall might raise a exception,
