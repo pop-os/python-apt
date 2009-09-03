@@ -311,8 +311,15 @@ class InstallProgress(DumbInstallProgress):
         """Start installing."""
         pid = self.fork()
         if pid == 0:
-            # child
-            res = pm.DoInstall(self.writefd)
+            # pm.DoInstall might raise a exception,
+            # when this happens, we need to catch
+            # it, otherwise os._exit() is not run
+            # and the execution continues in the 
+            # parent code leading to very confusing bugs
+            try:
+                res = pm.DoInstall(self.writefd)
+            except Exception, e:
+                os._exit(pm.ResultFailed)
             os._exit(res)
         self.child_pid = pid
         res = self.waitChild()
