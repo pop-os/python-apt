@@ -652,6 +652,11 @@ class Package(object):
         This returns the same value as ID, which is unique."""
         return self._pkg.ID
 
+    @property
+    def essential(self):
+        """Return True if the package is an essential part of the system."""
+        return self._pkg.Essential
+
     @DeprecatedProperty
     def installedVersion(self):
         """Return the installed version as string.

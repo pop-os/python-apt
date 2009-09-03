@@ -1,3 +1,19 @@
+python-apt (0.7.13.2ubuntu2) UNRELEASEDkarmic; urgency=low
+
+  [ Michael Vogt ]
+  * apt/cache.py:
+    - re-work the logic in commit() to fail if installArchives() returns
+      a unexpected result
+  * apt/progress/__init__.py:
+    - catch exceptions in pm.DoInstall()
+
+  [ Sebastian Heinlein ]
+  * apt/package.py:
+    - Export if a package is an essential one (Closes: #543428)
+
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 03 Sep 2009 15:36:56 +0200
+
 python-apt (0.7.13.2ubuntu1) karmic; urgency=low
 
   * merged from the debian-sid bzr branch
