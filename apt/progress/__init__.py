@@ -284,7 +284,11 @@ class InstallProgress(DumbInstallProgress):
         return os.fork()
 
     def waitChild(self):
-        """Wait for child progress to exit."""
+        """Wait for child progress to exit.
+
+        The return values is the full status returned from os.waitpid()
+        (not only the return code).
+        """
         while True:
             try:
                 select.select([self.statusfd], [], [], self.selectTimeout)
