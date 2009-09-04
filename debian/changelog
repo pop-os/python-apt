@@ -1,4 +1,4 @@
-python-apt (0.7.13.2ubuntu2) UNRELEASEDkarmic; urgency=low
+python-apt (0.7.13.2ubuntu2) karmic; urgency=low
 
   [ Michael Vogt ]
   * apt/cache.py:
@@ -11,8 +11,7 @@ python-apt (0.7.13.2ubuntu2) UNRELEASEDkarmic; urgency=low
   * apt/package.py:
     - Export if a package is an essential one (Closes: #543428)
 
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 03 Sep 2009 15:36:56 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 04 Sep 2009 10:32:19 +0200
 
 python-apt (0.7.13.2ubuntu1) karmic; urgency=low
 
