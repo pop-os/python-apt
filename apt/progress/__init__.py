@@ -297,10 +297,10 @@ class InstallProgress(DumbInstallProgress):
                 if pid == self.child_pid:
                     break
             except OSError, (errno_, errstr):
-                if errno_ != errno.EINTR:
-                    raise
                 if errno_ == errno.ECHILD:
                     break
+                if errno_ != errno.EINTR:
+                    raise
         return res
 
     def run(self, pm):
