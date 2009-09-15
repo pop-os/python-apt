@@ -314,8 +314,12 @@ class Cache(object):
             res = self.installArchives(pm, installProgress)
             if res == pm.ResultCompleted:
                 break
-            if res == pm.ResultFailed:
+            elif res == pm.ResultFailed:
                 raise SystemError("installArchives() failed")
+            elif res == pm.ResultIncomplete:
+                 pass
+            else:
+                 raise SystemError("internal-error: unknown result code from InstallArchives: %s" % res)
             # reload the fetcher for media swaping
             fetcher.Shutdown()
         return (res == pm.ResultCompleted)

@@ -3,6 +3,10 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   [ Michael Vogt ]
   * apt/cache.py:
     - add actiongroup() method (backport from 0.7.92)
+    - re-work the logic in commit() to fail if installArchives() returns
+      a unexpected result
+  * apt/progress/__init__.py:
+    - catch exceptions in pm.DoInstall()
 
   [ Sebastian Heinlein ]
   * apt/package.py:

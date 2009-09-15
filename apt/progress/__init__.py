@@ -284,7 +284,11 @@ class InstallProgress(DumbInstallProgress):
         return os.fork()
 
     def waitChild(self):
-        """Wait for child progress to exit."""
+        """Wait for child progress to exit.
+
+        The return values is the full status returned from os.waitpid()
+        (not only the return code).
+        """
         while True:
             try:
                 select.select([self.statusfd], [], [], self.selectTimeout)
@@ -304,11 +308,22 @@ class InstallProgress(DumbInstallProgress):
         return res
 
     def run(self, pm):
-        """Start installing."""
+        """Start installing. 
+        
+        Returns the PackageManager status:
+        (pm.ResultCompleted, pm.ResultFailed, pm.ResultIncomplete)
+        """
         pid = self.fork()
         if pid == 0:
-            # child
-            res = pm.DoInstall(self.writefd)
+            # pm.DoInstall might raise a exception,
+            # when this happens, we need to catch
+            # it, otherwise os._exit() is not run
+            # and the execution continues in the 
+            # parent code leading to very confusing bugs
+            try:
+                res = pm.DoInstall(self.writefd)
+            except Exception, e:
+                os._exit(pm.ResultFailed)
             os._exit(res)
         self.child_pid = pid
         res = self.waitChild()
