@@ -1,4 +1,4 @@
-python-apt (0.7.13.3) UNRELEASED; urgency=low
+python-apt (0.7.13.3) unstable; urgency=low
 
   [ Michael Vogt ]
   * apt/cache.py:
@@ -23,7 +23,7 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   * apt/progress/__init__.py:
     - Correctly ignore ECHILD by checking before EINTR (Closes: #546007)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 28 Aug 2009 14:38:06 +0200
+ -- Julian Andres Klode <jak@debian.org>  Tue, 15 Sep 2009 15:18:45 +0200
 
 python-apt (0.7.13.2) unstable; urgency=low
 
