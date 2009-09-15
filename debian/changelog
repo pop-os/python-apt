@@ -16,6 +16,8 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   * python/depcache.cc:
     - Make ActionGroups context managers so apt.Cache.actiongroup() has
       the same behavior as in 0.7.92
+  * apt/cache.py:
+    - Add raiseOnError option to Cache.update() (Closes: #545474)
   * apt/package.py:
     - Use the source version instead of the binary version in fetch_source().
   * apt/progress/__init__.py:
