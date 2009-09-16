@@ -27,6 +27,8 @@ import os
 import re
 import select
 
+import apt_pkg
+
 __all__ = ['AcquireProgress', 'CdromProgress', 'InstallProgress', 'OpProgress']
 
 
@@ -179,11 +181,19 @@ class InstallProgress(object):
         """
         pid = self.fork()
         if pid == 0:
+            # pm.do_install might raise a exception,
+            # when this happens, we need to catch
+            # it, otherwise os._exit() is not run
+            # and the execution continues in the 
+            # parent code leading to very confusing bugs
             try:
                 os._exit(obj.do_install(self.writefd.fileno()))
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.writefd.fileno()), "-i", obj))
+            except Exception:
+                os._exit(apt_pkg.PackageManager.result_failed)
+                
         self.child_pid = pid
         res = self.wait_child()
         return os.WEXITSTATUS(res)
@@ -236,7 +246,8 @@ class InstallProgress(object):
         """Wait for child progress to exit.
 
         This method is responsible for calling update_interface() from time to
-        time. It exits once the child has exited.
+        time. It exits once the child has exited. The return values is the
+        full status returned from os.waitpid() (not only the return code).
         """
         (pid, res) = (0, 0)
         while True:
@@ -252,10 +263,11 @@ class InstallProgress(object):
                 if pid == self.child_pid:
                     break
             except OSError, err:
-                if err[0] != errno.EINTR:
-                    raise
                 if err[0] == errno.ECHILD:
                     break
+                if err[0] != errno.EINTR:
+                    raise
+
         return res
 
 

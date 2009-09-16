@@ -521,10 +521,12 @@ class Version(object):
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
 
         dsc = None
-        src.lookup(self.package.name)
+        record = self._records
+        src.lookup(record.source_pkg)
+
         try:
-            while self.version != src.version:
-                src.lookup(self.package.name)
+            while record.source_ver != src.version:
+                src.lookup(record.source_pkg)
         except AttributeError:
             raise ValueError("No source for %r" % self)
         files = list()
@@ -691,6 +693,11 @@ class Package(object):
 
         This returns the same value as ID, which is unique."""
         return self._pkg.id
+
+    @property
+    def essential(self):
+        """Return True if the package is an essential part of the system."""
+        return self._pkg.essential
 
     @DeprecatedProperty
     def installedVersion(self): #pylint: disable-msg=C0103

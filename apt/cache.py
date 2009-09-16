@@ -71,7 +71,7 @@ class Cache(object):
             self._check_and_create_required_dirs(rootdir)
             # Call InitSystem so the change to Dir::State::Status is actually
             # recognized (LP: #320665)
-            apt_pkg.InitSystem()
+            apt_pkg.init_system()
         self.open(progress)
 
     def _check_and_create_required_dirs(self, rootdir):
@@ -139,6 +139,7 @@ class Cache(object):
             return self._weakref[key]
         except KeyError:
             if key in self._set:
+                key = str(key)
                 pkg = self._weakref[key] = Package(self, self._cache[key])
                 return pkg
             else:
@@ -278,7 +279,8 @@ class Cache(object):
         return providers
 
     @deprecated_args
-    def update(self, fetch_progress=None, pulse_interval=0):
+    def update(self, fetch_progress=None, pulse_interval=0,
+               raise_on_error=True):
         """Run the equivalent of apt-get update.
 
         The first parameter *fetch_progress* may be set to an instance of
@@ -294,8 +296,14 @@ class Cache(object):
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.FetchProgress()
-            return self._cache.update(fetch_progress, self._list,
+            res = self._cache.update(fetch_progress, self._list,
                                       pulse_interval)
+            if res == apt_pkg.Acquire.result_cancelled and raise_on_error:
+                raise FetchCancelledException()
+            if res == apt_pkg.Acquire.result_failed and raise_on_error:
+                raise FetchFailedException()
+            else:
+                return res
         finally:
             os.close(lock)
 
@@ -352,8 +360,12 @@ class Cache(object):
             res = self.install_archives(pm, install_progress)
             if res == pm.result_completed:
                 break
-            if res == pm.result_failed:
+            elif res == pm.result_failed:
                 raise SystemError("installArchives() failed")
+            elif res == pm.result_incomplete:
+                 pass
+            else:
+                 raise SystemError("internal-error: unknown result code from InstallArchives: %s" % res)
             # reload the fetcher for media swaping
             fetcher.shutdown()
         return (res == pm.result_completed)

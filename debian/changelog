@@ -1,8 +1,8 @@
 python-apt (0.7.93) experimental; urgency=low
 
-  * Merge 0.7.13.0 and 0.7.13.1 from unstable.
+  * Merge 0.7.13.0 - 0.7.13.3 from unstable.
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 21 Aug 2009 16:50:54 +0200
+ -- Julian Andres Klode <jak@debian.org>  Wed, 16 Sep 2009 19:26:17 +0200
 
 python-apt (0.7.92) experimental; urgency=low
 
@@ -83,6 +83,40 @@ python-apt (0.7.90) experimental; urgency=low
     - Initial patch by Sebastian Heinlein
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
+
+python-apt (0.7.13.3) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * apt/cache.py:
+    - add actiongroup() method (backport from 0.7.92)
+    - re-work the logic in commit() to fail if installArchives() returns
+      a unexpected result
+  * apt/progress/__init__.py:
+    - catch exceptions in pm.DoInstall()
+
+  [ Sebastian Heinlein ]
+  * apt/package.py:
+    - Export if a package is an essential one (Closes: #543428)
+
+  [ Julian Andres Klode ]
+  * python/depcache.cc:
+    - Make ActionGroups context managers so apt.Cache.actiongroup() has
+      the same behavior as in 0.7.92
+  * apt/cache.py:
+    - Add raiseOnError option to Cache.update() (Closes: #545474)
+  * apt/package.py:
+    - Use the source version instead of the binary version in fetch_source().
+  * apt/progress/__init__.py:
+    - Correctly ignore ECHILD by checking before EINTR (Closes: #546007)
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 15 Sep 2009 15:18:45 +0200
+
+python-apt (0.7.13.2) unstable; urgency=low
+
+  * apt/cache.py:
+   - Convert argument to str in __getitem__() (Closes: #542965).
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 22 Aug 2009 22:47:30 +0200
 
 python-apt (0.7.13.1) unstable; urgency=low
 
