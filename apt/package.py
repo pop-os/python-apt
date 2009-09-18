@@ -478,10 +478,11 @@ class Version(object):
         acq = apt_pkg.GetAcquire(progress or apt.progress.TextFetchProgress())
 
         dsc = None
-        src.Lookup(self.package.name)
+        record = self._records
+        src.Lookup(record.SourcePkg)
         try:
-            while self.version != src.Version:
-                src.Lookup(self.package.name)
+            while record.SourceVer != src.Version:
+                src.Lookup(record.SourcePkg)
         except AttributeError:
             raise ValueError("No source for %r" % self)
         for md5, size, path, type in src.Files:

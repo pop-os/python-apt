@@ -1,4 +1,4 @@
-python-apt (0.7.13.3) UNRELEASED; urgency=low
+python-apt (0.7.13.3) unstable; urgency=low
 
   [ Michael Vogt ]
   * apt/cache.py:
@@ -16,8 +16,14 @@ python-apt (0.7.13.3) UNRELEASED; urgency=low
   * python/depcache.cc:
     - Make ActionGroups context managers so apt.Cache.actiongroup() has
       the same behavior as in 0.7.92
+  * apt/cache.py:
+    - Add raiseOnError option to Cache.update() (Closes: #545474)
+  * apt/package.py:
+    - Use the source version instead of the binary version in fetch_source().
+  * apt/progress/__init__.py:
+    - Correctly ignore ECHILD by checking before EINTR (Closes: #546007)
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 24 Aug 2009 15:43:00 +0200
+ -- Julian Andres Klode <jak@debian.org>  Tue, 15 Sep 2009 15:18:45 +0200
 
 python-apt (0.7.13.2) unstable; urgency=low
 
