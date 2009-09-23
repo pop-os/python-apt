@@ -1,3 +1,10 @@
+python-apt (0.7.13.4) UNRELEASED; urgency=low
+
+  * po/zh_CN.po:
+    - updated, thanks to Feng Chao 
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 23 Sep 2009 15:32:13 +0200
+
 python-apt (0.7.13.3) unstable; urgency=low
 
   [ Michael Vogt ]
