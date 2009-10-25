@@ -1,6 +1,8 @@
-python-apt (0.7.93) experimental; urgency=low
+python-apt (0.7.93) UNRELEASED; urgency=low
 
   * Merge 0.7.13.0 - 0.7.13.3 from unstable.
+  * Add a tutorial on how to do things which are possible with apt-get,
+    like apt-get --print-uris update (cf. #551164).
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 16 Sep 2009 19:26:17 +0200
 
