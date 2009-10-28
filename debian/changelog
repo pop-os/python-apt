@@ -2,8 +2,7 @@ python-apt (0.7.13.2ubuntu5) UNRELEASED; urgency=low
 
   * python/progress.cc:
     - if the mediaChange() does not return anything or is not implemented
-      send "false" to libapt
-  * 
+      send "false" to libapt (LP: #462771)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Oct 2009 19:09:44 +0100
 
