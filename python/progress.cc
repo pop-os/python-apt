@@ -104,11 +104,10 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    RunSimpleCallback("mediaChange", arglist, &result);
 
    bool res = true;
-   if(!PyArg_Parse(result, "b", &res))
-      std::cerr << "result could not be parsed" << std::endl;
-
-   // FIXME: find out what it should return usually
-   //std::cerr << "res is: " << res << std::endl;
+   if(!PyArg_Parse(result, "b", &res)) {
+      // no return value or None, assume false
+      return false;
+   }
 
    PyCbObj_BEGIN_ALLOW_THREADS
    return res;
