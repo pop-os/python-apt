@@ -1,5 +1,13 @@
-python-apt (0.7.13.4) unstable; urgency=low
+python-apt (0.7.13.4) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
+  * po/zh_CN.po:
+    - updated, thanks to Feng Chao
+  * python/progress.cc:
+    - if the mediaChange() does not return anything or is not implemented
+      send "false" to libapt
+
+  [ Julian Andres Klode ]
   * apt/package.py: Fix dictionary access of VersionList, patch
     by Sebastian Heinlein (Closes: #554895).
 
