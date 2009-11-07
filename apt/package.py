@@ -551,7 +551,7 @@ class VersionList(Sequence):
         except TypeError:
             # Dictionary interface item is a string.
             for ver in self._versions:
-                if ver.ver_str == item:
+                if ver.VerStr == item:
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
@@ -567,7 +567,7 @@ class VersionList(Sequence):
             item = item.version
         # Dictionary interface.
         for ver in self._versions:
-            if ver.ver_str == item:
+            if ver.VerStr == item:
                 return True
         return False
 

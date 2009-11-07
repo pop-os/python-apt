@@ -1,3 +1,10 @@
+python-apt (0.7.13.4) unstable; urgency=low
+
+  * apt/package.py: Fix dictionary access of VersionList, patch
+    by Sebastian Heinlein (Closes: #554895).
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 07 Nov 2009 18:56:37 +0100
+
 python-apt (0.7.13.3) unstable; urgency=low
 
   [ Michael Vogt ]
