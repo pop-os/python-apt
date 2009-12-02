@@ -1,3 +1,11 @@
+python-apt (0.7.13.2ubuntu6) UNRELEASED; urgency=low
+
+  * apt/progress/__init__.py:
+    - Fix InstallProgress.updateInterface() to cope with read() returning 0
+      on non-blocking file descriptors (LP: #491027).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 02 Dec 2009 13:56:58 +0000
+
 python-apt (0.7.13.2ubuntu5) lucid; urgency=low
 
   * python/progress.cc:
