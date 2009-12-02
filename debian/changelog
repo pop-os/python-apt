@@ -5,6 +5,10 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
     - Fix InstallProgress.updateInterface() to cope with read() returning 0
       on non-blocking file descriptors (LP: #491027).
 
+  [ Michael Vogt ]
+  * data/templates/Ubuntu.info.in:
+    - add lucid
+
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 02 Dec 2009 16:50:55 +0100
 
 python-apt (0.7.13.4) unstable; urgency=low
