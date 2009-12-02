@@ -478,10 +478,11 @@ class Version(object):
         acq = apt_pkg.GetAcquire(progress or apt.progress.TextFetchProgress())
 
         dsc = None
-        src.Lookup(self.package.name)
+        record = self._records
+        src.Lookup(record.SourcePkg)
         try:
-            while self.version != src.Version:
-                src.Lookup(self.package.name)
+            while record.SourceVer != src.Version:
+                src.Lookup(record.SourcePkg)
         except AttributeError:
             raise ValueError("No source for %r" % self)
         for md5, size, path, type in src.Files:
@@ -550,7 +551,7 @@ class VersionList(Sequence):
         except TypeError:
             # Dictionary interface item is a string.
             for ver in self._versions:
-                if ver.ver_str == item:
+                if ver.VerStr == item:
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
@@ -566,7 +567,7 @@ class VersionList(Sequence):
             item = item.version
         # Dictionary interface.
         for ver in self._versions:
-            if ver.ver_str == item:
+            if ver.VerStr == item:
                 return True
         return False
 

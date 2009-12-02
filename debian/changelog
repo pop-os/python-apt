@@ -1,10 +1,54 @@
-python-apt (0.7.13.2ubuntu6) UNRELEASED; urgency=low
+python-apt (0.7.13.4ubuntu1) UNRELEASED; urgency=low
 
+  * merge from debian, remaining changes:
+    - different mirror list
   * apt/progress/__init__.py:
     - Fix InstallProgress.updateInterface() to cope with read() returning 0
       on non-blocking file descriptors (LP: #491027).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Wed, 02 Dec 2009 13:56:58 +0000
+
+python-apt (0.7.13.4) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * po/zh_CN.po:
+    - updated, thanks to Feng Chao
+  * python/progress.cc:
+    - if the mediaChange() does not return anything or is not implemented
+      send "false" to libapt
+
+  [ Julian Andres Klode ]
+  * apt/package.py: Fix dictionary access of VersionList, patch
+    by Sebastian Heinlein (Closes: #554895).
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 29 Nov 2009 20:26:31 +0100
+
+python-apt (0.7.13.3) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * apt/cache.py:
+    - add actiongroup() method (backport from 0.7.92)
+    - re-work the logic in commit() to fail if installArchives() returns
+      a unexpected result
+  * apt/progress/__init__.py:
+    - catch exceptions in pm.DoInstall()
+
+  [ Sebastian Heinlein ]
+  * apt/package.py:
+    - Export if a package is an essential one (Closes: #543428)
+
+  [ Julian Andres Klode ]
+  * python/depcache.cc:
+    - Make ActionGroups context managers so apt.Cache.actiongroup() has
+      the same behavior as in 0.7.92
+  * apt/cache.py:
+    - Add raiseOnError option to Cache.update() (Closes: #545474)
+  * apt/package.py:
+    - Use the source version instead of the binary version in fetch_source().
+  * apt/progress/__init__.py:
+    - Correctly ignore ECHILD by checking before EINTR (Closes: #546007)
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 15 Sep 2009 15:18:45 +0200
 
 python-apt (0.7.13.2ubuntu5) lucid; urgency=low
 
