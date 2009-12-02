@@ -246,7 +246,10 @@ class InstallProgress(DumbInstallProgress):
             return
         try:
             while not self.read.endswith("\n"):
-                self.read += os.read(self.statusfd.fileno(), 1)
+                r = os.read(self.statusfd.fileno(), 1)
+                if not r:
+                    return
+                self.read += r
         except OSError, (errno_, errstr):
             # resource temporarly unavailable is ignored
             if errno_ != errno.EAGAIN and errno_ != errno.EWOULDBLOCK:

@@ -1,5 +1,11 @@
 python-apt (0.7.13.4) UNRELEASED; urgency=low
 
+  [ Colin Watson ]
+  * apt/progress/__init__.py:
+    - Fix InstallProgress.updateInterface() to cope with read() returning 0
+      on non-blocking file descriptors (LP: #491027).
+
+  [ Michael Vogt ]
   * po/zh_CN.po:
     - updated, thanks to Feng Chao 
   * python/progress.cc:
