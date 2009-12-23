@@ -8,8 +8,8 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
   [ Michael Vogt ]
   * apt/history.py:
     - simple abstraction for the apt history file 
-
-  [ Michael Vogt ]
+  * apt/cache.py: 
+    - improved docstring for the cache
   * data/templates/Ubuntu.info.in:
     - add lucid
 
