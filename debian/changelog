@@ -6,8 +6,6 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
       on non-blocking file descriptors (LP: #491027).
   
   [ Michael Vogt ]
-  * apt/history.py:
-    - simple abstraction for the apt history file 
   * apt/cache.py: 
     - improved docstring for the cache
     - add "enhances" property
