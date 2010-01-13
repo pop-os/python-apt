@@ -329,7 +329,7 @@ Package States
 .. data:: CurStateNotInstalled
 .. data:: CurStateUnPacked
 
-
+.. _DependencyTypes:
 
 
 Dependency types

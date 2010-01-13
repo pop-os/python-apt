@@ -605,7 +605,7 @@ Example:
     .. attribute:: DepTypeEnum
 
         The type of the dependency, as integer that matches a value
-        of `Dependency types`_
+        of :ref:`Dependency types <DependencyTypes>`.
 
     .. attribute:: ID
 
