@@ -1,12 +1,15 @@
-python-apt (0.7.13.4ubuntu1) UNRELEASED; urgency=low
+python-apt (0.7.13.4ubuntu1) lucid; urgency=low
 
+  [ Michael Vogt ]
   * merge from debian, remaining changes:
     - different mirror list
+  
+  [ Colin Watson ]
   * apt/progress/__init__.py:
     - Fix InstallProgress.updateInterface() to cope with read() returning 0
       on non-blocking file descriptors (LP: #491027).
 
- -- Colin Watson <cjwatson@ubuntu.com>  Wed, 02 Dec 2009 13:56:58 +0000
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 02 Dec 2009 17:02:37 +0100
 
 python-apt (0.7.13.4) unstable; urgency=low
 
