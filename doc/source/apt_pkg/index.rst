@@ -336,11 +336,14 @@ Dependency types
 ^^^^^^^^^^^^^^^^
 .. data:: DepConflicts
 .. data:: DepDepends
+.. data:: DepDpkgBreaks
+.. data:: DepEnhances
 .. data:: DepObsoletes
 .. data:: DepPreDepends
 .. data:: DepRecommends
 .. data:: DepReplaces
 .. data:: DepSuggests
+
 
 .. _InstStates:
 

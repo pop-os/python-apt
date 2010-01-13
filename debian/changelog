@@ -13,6 +13,14 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
     - add "enhances" property
   * data/templates/Ubuntu.info.in:
     - add lucid
+  * python/cache.cc:
+    - add UntranslatedDepType attribute to DependencyType
+    - add DepTypeEnum that returns a value from 
+      {DepDepends, DepPreDepends, ...}
+  * python/apt_pkgmodule.cc:
+    - add DepDpkgBreaks, DepEnhances constants
+  * doc/source/apt_pkg/{cache.rst, index.rst}:
+    - update documentation as well
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 02 Dec 2009 16:50:55 +0100
 
