@@ -504,6 +504,8 @@ extern "C" void initapt_pkg()
    AddInt(Dict,"DepConflicts",pkgCache::Dep::Conflicts);
    AddInt(Dict,"DepReplaces",pkgCache::Dep::Replaces);
    AddInt(Dict,"DepObsoletes",pkgCache::Dep::Obsoletes);
+   AddInt(Dict,"DepDpkgBreaks",pkgCache::Dep::DpkgBreaks);
+   AddInt(Dict,"DepEnhances",pkgCache::Dep::Enhances);
 
    AddInt(Dict,"PriImportant",pkgCache::State::Important);
    AddInt(Dict,"PriRequired",pkgCache::State::Required);

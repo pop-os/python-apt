@@ -596,7 +596,16 @@ Example:
 
     .. attribute:: DepType
 
+        The type of the dependency, as translated string, eg. "Depends".
+
+    .. attribute:: UntranslatedDepType
+
         The type of the dependency, as string, eg. "Depends".
+
+    .. attribute:: DepTypeEnum
+
+        The type of the dependency, as integer that matches a value
+        of :ref:`Dependency types <DependencyTypes>`.
 
     .. attribute:: ID
 

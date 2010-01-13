@@ -43,7 +43,14 @@ class Cache(object):
     """Dictionary-like package cache.
 
     This class has all the packages that are available in it's
-    dictionary
+    dictionary. 
+
+    Keyword arguments:
+    progress -- a OpProgress object
+    rootdir -- a alternative root directory. if that is given 
+               the system sources.list and system lists/ files are 
+               not read, only files relative to the given rootdir
+    memonly -- build the cache in memory only
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
