@@ -47,7 +47,9 @@ class Cache(object):
 
     Keyword arguments:
     progress -- a OpProgress object
-    rootdir -- a alternative root directory
+    rootdir -- a alternative root directory. if that is given 
+               the system sources.list and system lists/ files are 
+               not read, only files relative to the given rootdir
     memonly -- build the cache in memory only
     """
 
