@@ -245,7 +245,10 @@ class Cache(object):
 
     def isVirtualPackage(self, pkgname):
         """Return whether the package is a virtual package."""
-        pkg = self._cache[pkgname]
+        try:
+            pkg = self._cache[pkgname]
+        except KeyError:
+            return False
         return bool(pkg.ProvidesList and not pkg.VersionList)
 
     def getProvidingPackages(self, virtual):
