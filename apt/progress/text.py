@@ -125,7 +125,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
     def fail(self, item):
         """Called when an item is failed."""
         base.AcquireProgress.fail(self, item)
-        if item.owner.status == item.owner.stat_done:
+        if item.owner.status == item.owner.STAT_DONE:
             self._write(_("Ign ") + item.description)
         else:
             self._write(_("Err ") + item.description)

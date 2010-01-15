@@ -192,7 +192,7 @@ class InstallProgress(object):
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.writefd.fileno()), "-i", obj))
             except Exception:
-                os._exit(apt_pkg.PackageManager.result_failed)
+                os._exit(apt_pkg.PackageManager.RESULT_FAILED)
                 
         self.child_pid = pid
         res = self.wait_child()

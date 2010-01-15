@@ -670,7 +670,7 @@ extern "C" void initapt_pkg()
                         Py_BuildValue("i", pkgAcquire::Cancelled));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_continue",
                         Py_BuildValue("i", pkgAcquire::Continue));
-   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_failed",
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_FAILED",
                         Py_BuildValue("i", pkgAcquire::Failed));
 #ifdef COMPAT_0_7
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultCancelled",
@@ -702,11 +702,11 @@ extern "C" void initapt_pkg()
 
 
    // PackageManager constants
-   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_completed",
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_COMPLETED",
                         Py_BuildValue("i", pkgPackageManager::Completed));
-   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_failed",
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_FAILED",
                         Py_BuildValue("i", pkgPackageManager::Failed));
-   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_incomplete",
+   PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_INCOMPLETE",
                         Py_BuildValue("i", pkgPackageManager::Incomplete));
 
 #ifdef COMPAT_0_7
@@ -719,15 +719,15 @@ extern "C" void initapt_pkg()
 #endif
 
    // AcquireItem Constants.
-   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_idle",
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_IDLE",
                         Py_BuildValue("i", pkgAcquire::Item::StatIdle));
-   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_fetching",
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_FETCHING",
                         Py_BuildValue("i", pkgAcquire::Item::StatFetching));
-   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_done",
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_DONE",
                         Py_BuildValue("i", pkgAcquire::Item::StatDone));
-   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_error",
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_ERROR",
                         Py_BuildValue("i", pkgAcquire::Item::StatError));
-   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "stat_auth_error",
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_AUTH_ERROR",
                         Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
 
 #ifdef COMPAT_0_7

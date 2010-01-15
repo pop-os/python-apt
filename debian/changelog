@@ -8,6 +8,7 @@ python-apt (0.7.93) UNRELEASED; urgency=low
     - Disable 2.6 and 3.1 builds previously available in experimental.
  * Merge lp:~forest-bond/python-apt/cache-is-virtual-package-catch-key-error
     - Return False in Cache.is_virtual_package if the package does not exist.
+ * Make all class-level constants have uppercase names.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:

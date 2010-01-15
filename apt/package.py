@@ -500,7 +500,7 @@ class Version(object):
                                       self.size, base, destfile=destfile)
         acq.run()
 
-        if acqfile.status != acqfile.stat_done:
+        if acqfile.status != acqfile.STAT_DONE:
             raise FetchError("The item %r could not be fetched: %s" %
                              (acqfile.destfile, acqfile.error_text))
         print self._records.filename
@@ -548,7 +548,7 @@ class Version(object):
         acq.run()
 
         for item in acq.items:
-            if item.status != item.stat_done:
+            if item.status != item.STAT_DONE:
                 raise FetchError("The item %r could not be fetched: %s" %
                                     (item.destfile, item.error_text))
 

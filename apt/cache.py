@@ -223,9 +223,9 @@ class Cache(object):
         transient = False
         err_msg = ""
         for item in fetcher.items:
-            if item.status == item.stat_done:
+            if item.status == item.STAT_DONE:
                 continue
-            if item.stat_idle:
+            if item.STAT_IDLE:
                 transient = True
                 continue
             err_msg += "Failed to fetch %s %s\n" % (item.desc_uri,
@@ -311,7 +311,7 @@ class Cache(object):
                                       pulse_interval)
             if res == apt_pkg.Acquire.result_cancelled and raise_on_error:
                 raise FetchCancelledException()
-            if res == apt_pkg.Acquire.result_failed and raise_on_error:
+            if res == apt_pkg.Acquire.RESULT_FAILED and raise_on_error:
                 raise FetchFailedException()
             else:
                 return res
@@ -369,17 +369,17 @@ class Cache(object):
 
             # then install
             res = self.install_archives(pm, install_progress)
-            if res == pm.result_completed:
+            if res == pm.RESULT_COMPLETED:
                 break
-            elif res == pm.result_failed:
+            elif res == pm.RESULT_FAILED:
                 raise SystemError("installArchives() failed")
-            elif res == pm.result_incomplete:
+            elif res == pm.RESULT_INCOMPLETE:
                  pass
             else:
                  raise SystemError("internal-error: unknown result code from InstallArchives: %s" % res)
             # reload the fetcher for media swaping
             fetcher.shutdown()
-        return (res == pm.result_completed)
+        return (res == pm.RESULT_COMPLETED)
 
     def clear(self):
         """ Unmark all changes """

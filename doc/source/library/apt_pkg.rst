@@ -282,21 +282,21 @@ Working with the cache
 
         Fix the installation if a package could not be downloaded.
 
-    .. attribute:: result_completed
+    .. attribute:: RESULT_COMPLETED
 
         A constant for checking whether the the result is 'completed'.
 
         Compare it against the return value of :meth:`PackageManager.get_archives`
         or :meth:`PackageManager.do_install`.
 
-    .. attribute:: result_failed
+    .. attribute:: RESULT_FAILED
 
         A constant for checking whether the the result is 'failed'.
 
         Compare it against the return value of :meth:`PackageManager.get_archives`
         or :meth:`PackageManager.do_install`.
 
-    .. attribute:: result_incomplete
+    .. attribute:: RESULT_INCOMPLETE
 
         A constant for checking whether the the result is 'incomplete'.
 
@@ -1110,23 +1110,23 @@ installation.
 
         Integer, representing the status of the item.
 
-    .. attribute:: stat_idle
+    .. attribute:: STAT_IDLE
 
         Constant for comparing :attr:`AcquireItem.status`.
 
-    .. attribute:: stat_fetching
+    .. attribute:: STAT_FETCHING
 
         Constant for comparing :attr:`AcquireItem.status`
 
-    .. attribute:: stat_done
+    .. attribute:: STAT_DONE
 
         Constant for comparing :attr:`AcquireItem.status`
 
-    .. attribute:: stat_error
+    .. attribute:: STAT_ERROR
 
         Constant for comparing :attr:`AcquireItem.status`
 
-    .. attribute:: stat_auth_error
+    .. attribute:: STAT_AUTH_ERROR
 
         Constant for comparing :attr:`AcquireItem.status`
 
