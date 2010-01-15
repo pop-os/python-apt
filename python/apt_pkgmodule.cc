@@ -666,9 +666,9 @@ extern "C" void initapt_pkg()
 
    // Acquire constants.
    // some constants
-   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_cancelled",
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_CANCELLED",
                         Py_BuildValue("i", pkgAcquire::Cancelled));
-   PyDict_SetItemString(PyAcquire_Type.tp_dict, "result_continue",
+   PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_CONTINUE",
                         Py_BuildValue("i", pkgAcquire::Continue));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_FAILED",
                         Py_BuildValue("i", pkgAcquire::Failed));

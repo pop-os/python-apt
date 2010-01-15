@@ -233,7 +233,7 @@ class Cache(object):
             failed = True
 
         # we raise a exception if the download failed or it was cancelt
-        if res == fetcher.result_cancelled:
+        if res == fetcher.RESULT_CANCELLED:
             raise FetchCancelledException(err_msg)
         elif failed:
             raise FetchFailedException(err_msg)
@@ -309,7 +309,7 @@ class Cache(object):
                 fetch_progress = apt.progress.FetchProgress()
             res = self._cache.update(fetch_progress, self._list,
                                       pulse_interval)
-            if res == apt_pkg.Acquire.result_cancelled and raise_on_error:
+            if res == apt_pkg.Acquire.RESULT_CANCELLED and raise_on_error:
                 raise FetchCancelledException()
             if res == apt_pkg.Acquire.RESULT_FAILED and raise_on_error:
                 raise FetchFailedException()
