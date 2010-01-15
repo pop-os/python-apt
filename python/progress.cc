@@ -5,7 +5,7 @@
    Progress - Wrapper for the progress related functions
 
    ##################################################################### */
-
+#include <Python.h>
 #include <iostream>
 #include <sys/types.h>
 #include <sys/wait.h>

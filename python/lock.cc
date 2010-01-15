@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  */
+#include <Python.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/error.h>
-#include <Python.h>
 #include "generic.h"
 
 static PyObject *systemlock_exit(PyObject *self, PyObject *args)
