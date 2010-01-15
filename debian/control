@@ -4,16 +4,12 @@ Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.8.3
-XS-Python-Version: 2.5, 2.6, 3.1
+XS-Python-Version: all
 Build-Depends: apt-utils,
                debhelper (>= 7.3.5),
                libapt-pkg-dev (>= 0.7.22~),
-               python2.5-dbg,
-               python2.5-dev,
-               python2.6-dev,
-               python2.6-dbg,
-               python3.1-dev,
-               python3.1-dbg,
+               python-all-dbg,
+               python-all-dev,
                python-central (>= 0.5),
                python-distutils-extra (>= 2.0),
                python-gtk2 [!kfreebsd-amd64 !kfreebsd-i386],
