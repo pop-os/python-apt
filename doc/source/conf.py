@@ -19,17 +19,11 @@ import os
 import glob
 import sys
 
-# If your extensions are in another directory, add it here. If the directory
-# is relative to the documentation root, use os.path.abspath to make it
-# absolute, like shown here.
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../..'))
-
 # Find the path to the built apt_pkg and apt_inst extensions
 if os.path.exists("../../build"):
     version = '.'.join(str(x) for x in sys.version_info[:2])
     for apt_pkg_path in glob.glob('../../build/lib*%s/apt_pkg.so' % version):
-        sys.path.insert(0, os.path.dirname(apt_pkg_path))
+        sys.path.insert(0, os.path.abspath(os.path.dirname(apt_pkg_path)))
         try:
             import apt_pkg
         except ImportError, exc:
@@ -67,7 +61,7 @@ source_suffix = '.rst'
 
 # General information about the project.
 project = u'python-apt'
-copyright = u'2009, Julian Andres Klode <jak@debian.org>'
+copyright = u'2009-2010, Julian Andres Klode <jak@debian.org>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -83,11 +77,15 @@ except KeyError:
     p2 = Popen(["sed", "-n", 's/^Version: //p'], stdin=p1.stdout, stdout=PIPE)
     release = p2.communicate()[0]
 
-# Handle the alpha release scheme.
+# Handle the alpha release scheme
 if int(release.split("~")[0].split(".")[2]) >= 90:
     version_s = release.split("~")[0].split(".")[:3]
-    version_s[1] = str(int(version_s[1]) + 1)
-    version_s[2] = "0"
+    # Set the version to 0.X.100 if the release is 0.X.9Y (0.7.90 => 0.7.100)
+    # Use
+    #  version_s[1] = str(int(version_s[1]) + 1)
+    #  version_s[2] = "0"
+    # if the version of a 0.X.9Y release should be 0.X+1.0 (0.7.90=>0.8)
+    version_s[2] = "100"
     version = '.'.join(version_s)
     del version_s
 else:

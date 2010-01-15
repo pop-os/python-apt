@@ -1,13 +1,19 @@
-What's New In python-apt 0.8
-============================
-Python-apt 0.8 is a new major release of the python bindings for the APT
+What's New In python-apt 0.7.100
+================================
+Python-apt 0.7.100 is a new major release of the python bindings for the APT
 package management libraries. It provides support for Python 3, new language
 features and an API conforming to :PEP:`8`.
 
-Despite the many changes made in python-apt 0.8, the release still provides
+Despite the many changes made in python-apt 0.7.100, the release still provides
 backwards compatibility to the 0.7 series. This makes it possible to run your
-old applications. Applications using the old API should be updated to the new
-API, because the old one will be removed after some time.
+old applications.
+
+.. note::
+
+    Applications using the old API should be updated to the new API because
+    the old ones will be dropped in the 0.8 release. To build a python-apt
+    variant without the deprecated API, build it without the -DCOMPAT_0_7
+    compiler flag.
 
 Support for Python 3
 --------------------
@@ -20,15 +26,17 @@ compatibility options enabled for Python 2 builds. They also do not provide
 methods like :meth:`has_key` on mapping objects, because it has been removed
 in Python 3.
 
+Python 3 support may be disabled by distributions.
+
 Real classes in :mod:`apt_pkg`
 ------------------------------
-The 0.8 release introduces real classes in the :mod:`apt_pkg` extension. This
+The 0.7.100 release introduces real classes in the :mod:`apt_pkg` extension. This
 is an important step forward and makes writing code much easier, because you
 can see the classes without having to create an object first. It also makes
 it easier to talk about those classes, because they have a real name now.
 
 The 0.7 series shipped many functions for creating new objects, because the
-classes were not exported. In 0.8, the classes themselves replace those
+classes were not exported. In 0.7.100, the classes themselves replace those
 functions, as you can see in the following table.
 
 .. table::
@@ -54,7 +62,7 @@ functions, as you can see in the following table.
 Complete rename of functions, methods and attributes
 -----------------------------------------------------
 In May 2008, Ben Finney reported bug 481061 against the python-apt package,
-asking for PEP8 conformant names. With the release of python-apt 0.8, this
+asking for PEP8 conformant names. With the release of python-apt 0.7.100, this
 is finally happening.
 
 Context managers for the :keyword:`with` statement
@@ -89,7 +97,7 @@ There is also one for file based locking::
 
 Unification of dependency handling
 ----------------------------------
-In apt 0.7, there were three different return types of functions parsing
+In apt 0.7.XX, there were three different return types of functions parsing
 dependencies.
 
 First of all, there were :func:`apt_pkg.ParseDepends()` and
@@ -109,7 +117,7 @@ representing the type of the dependency (e.g. 'Build-Depends'). The whole
 format was almost useless from the Python perspective because the string
 representations or constants for checking the values were not exported.
 
-python-apt 0.8 puts an end to this confusion and uses one basic format, which
+python-apt 0.7.100 puts an end to this confusion and uses one basic format, which
 is the format known from Package.DependsListStr. The format change only applies
 to the new functions and attributes, i.e. :attr:`SourceRecords.build_depends`
 will now return a dict, whereas :attr:`SourceRecords.BuildDepends` will still
@@ -145,9 +153,15 @@ Example::
     ('docbook-xsl', '', 0, 0),
     ('xmlto', '', 0, 0)]
 
+C++ headers
+------------
+The 0.7.100 release introduces python-apt-dev which provides headers for
+developers to provide Python support in the libapt-pkg-using application.
 
+.. warning::
 
-
+    As of 0.7.93, those headers are still considered experimental and their
+    API may change without prior notice.
 
 Other changes
 -------------
@@ -158,11 +172,11 @@ This release of python-apt also features several other, smaller changes:
       them during the cache initialization.
     * Support to set the candidate version in :class:`apt.package.Package`
 
-Porting your applications to python-apt 0.8
--------------------------------------------
-Porting your application to python-apt 0.8 may be trivial. You should download
-the source tarball of python-apt and run the tool utils/migrate-0.8 using
-Python 2.6 over your code::
+Porting your applications to python-apt 0.8 API
+------------------------------------------------
+Porting your application to the new python-apt 0.8 API may be trivial. You
+should download the source tarball of python-apt and run the tool
+utils/migrate-0.8 using Python 2.6 over your code::
 
     python2.6 utils/migrate-0.8.py -c myapp.py mypackage/
 
