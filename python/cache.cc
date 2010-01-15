@@ -27,6 +27,17 @@
 
 class pkgSourceList;
 
+// must be in sync with pkgCache::DepType in libapt
+// it sucks to have it here duplicated, but we get it
+// translated from libapt and that is certainly not what
+// we want in a programing interface
+const char *UntranslatedDepTypes[] =
+{
+   "", "Depends","PreDepends","Suggests",
+   "Recommends","Conflicts","Replaces",
+   "Obsoletes", "Breaks", "Enhances"
+};
+
 									/*}}}*/
 struct PkgListStruct
 {
@@ -683,17 +694,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 // must be in sync with pkgCache::DepType in libapt
-	 // it sucks to have it here duplicated, but we get it
-	 // translated from libapt and that is certainly not what
-	 // we want in a programing interface
-	 const char *Types[] =
-	 {
-	    "", "Depends","PreDepends","Suggests",
-	    "Recommends","Conflicts","Replaces",
-	    "Obsoletes", "Breaks", "Enhances"
-	 };
-	 PyObject *Dep = PyString_FromString(Types[Start->Type]);
+	 PyObject *Dep = PyString_FromString(UntranslatedDepTypes[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -1194,6 +1195,18 @@ static PyObject *DependencyGetDepType(PyObject *Self,void*)
    return PyString_FromString(Dep.DepType());
 }
 
+static PyObject *DependencyGetDepTypeUntranslated(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return PyString_FromString(UntranslatedDepTypes[Dep->Type]);
+}
+
+static PyObject *DependencyGetDepTypeEnum(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return Py_BuildValue("i", Dep->Type);
+}
+
 static PyObject *DependencyGetID(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
@@ -1203,6 +1216,8 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 static PyGetSetDef DependencyGetSet[] = {
    {"comp_type",DependencyGetCompType},
    {"dep_type",DependencyGetDepType},
+   {"dep_type_untranslated",DependencyGetDepTypeUntranslated},
+   {"dep_type_enum",DependencyGetDepTypeEnum},
    {"id",DependencyGetID},
    {"parent_pkg",DependencyGetParentPkg},
    {"parent_ver",DependencyGetParentVer},

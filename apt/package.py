@@ -398,6 +398,11 @@ class Version(object):
         return depends_list
 
     @property
+    def enhances(self):
+        """Return the list of enhances for the package version."""
+        return self.get_dependencies("Enhances")
+
+    @property
     def dependencies(self):
         """Return the dependencies of the package version."""
         return self.get_dependencies("PreDepends", "Depends")
@@ -591,7 +596,7 @@ class VersionList(Sequence):
         except TypeError:
             # Dictionary interface item is a string.
             for ver in self._versions:
-                if ver.ver_str == item:
+                if ver.VerStr == item:
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
@@ -607,7 +612,7 @@ class VersionList(Sequence):
             item = item.version
         # Dictionary interface.
         for ver in self._versions:
-            if ver.ver_str == item:
+            if ver.VerStr == item:
                 return True
         return False
 

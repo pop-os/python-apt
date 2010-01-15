@@ -680,6 +680,26 @@ extern "C" void initapt_pkg()
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultFailed",
                         Py_BuildValue("i", pkgAcquire::Failed));
 #endif
+    // Dependency constants
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_DEPENDS",
+                        Py_BuildValue("i", pkgCache::Dep::Depends));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_PREDEPENDS",
+                        Py_BuildValue("i", pkgCache::Dep::PreDepends));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_SUGGESTS",
+                        Py_BuildValue("i", pkgCache::Dep::Suggests));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_RECOMMENDS",
+                        Py_BuildValue("i", pkgCache::Dep::Suggests));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_CONFLICTS",
+                        Py_BuildValue("i", pkgCache::Dep::Conflicts));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_REPLACES",
+                        Py_BuildValue("i", pkgCache::Dep::Replaces));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_OBSOLETES",
+                        Py_BuildValue("i", pkgCache::Dep::Obsoletes));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_DPKG_BREAKS",
+                        Py_BuildValue("i", pkgCache::Dep::DpkgBreaks));
+   PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_ENHANCES",
+                        Py_BuildValue("i", pkgCache::Dep::Enhances));
+
 
    // PackageManager constants
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "result_completed",

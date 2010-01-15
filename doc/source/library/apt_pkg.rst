@@ -638,9 +638,54 @@ Example:
 
         The type of the dependency, as string, eg. "Depends".
 
+    .. attribute:: dep_type_enum
+
+        The type of the dependency, as an integer which can be compared to
+        one of the TYPE_* constants below.
+
+    .. attribute:: dep_type_untranslated
+
+        The type of the depndency, as an untranslated string.
+
     .. attribute:: id
 
         The ID of the package, as integer.
+
+    .. attribute:: TYPE_CONFLICTS
+
+        Constant for checking against dep_type_enum
+
+    .. attribute:: TYPE_DEPENDS
+
+        Constant for checking against dep_type_enum
+
+    .. attribute:: TYPE_DPKG_BREAKS
+
+        Constant for checking against dep_type_enum
+
+    .. attribute:: TYPE_ENHANCES
+
+        Constant for checking against dep_type_enum
+
+    .. attribute:: TYPE_OBSOLETES
+
+        Constant for checking against dep_type_enum
+
+    .. attribute:: TYPE_PREDEPENDS
+
+        Constant for checking against dep_type_enum
+        
+    .. attribute:: TYPE_RECOMMENDS
+
+        Constant for checking against dep_type_enum
+        
+    .. attribute:: TYPE_REPLACES
+
+        Constant for checking against dep_type_enum
+        
+    .. attribute:: TYPE_SUGGESTS
+
+        Constant for checking against dep_type_enum
 
 Example: Find all missing dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
