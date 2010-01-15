@@ -46,7 +46,7 @@ CD-ROMs::
     elif sys.argv[1] == 'ident':
         cdrom.ident()
 
-Advcaned example with command-line parsing
+Advanced example with command-line parsing
 -------------------------------------------
 Our example clearly misses a way to parse the commandline in a correct
 manner. Luckily, :mod:`apt_pkg` provides us with a function to do this:
