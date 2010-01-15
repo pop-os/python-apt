@@ -22,7 +22,7 @@ import sys
 # Find the path to the built apt_pkg and apt_inst extensions
 if os.path.exists("../../build"):
     version = '.'.join(str(x) for x in sys.version_info[:2])
-    for apt_pkg_path in glob.glob('../../build/lib*%s/apt_pkg.so' % version):
+    for apt_pkg_path in glob.glob('../../build/lib*%s/*.so' % version):
         sys.path.insert(0, os.path.abspath(os.path.dirname(apt_pkg_path)))
         try:
             import apt_pkg
