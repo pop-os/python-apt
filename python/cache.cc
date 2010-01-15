@@ -27,6 +27,17 @@
 
 class pkgSourceList;
 
+// must be in sync with pkgCache::DepType in libapt
+// it sucks to have it here duplicated, but we get it
+// translated from libapt and that is certainly not what
+// we want in a programing interface
+const char *UntranslatedDepTypes[] =
+{
+   "", "Depends","PreDepends","Suggests",
+   "Recommends","Conflicts","Replaces",
+   "Obsoletes", "Breaks", "Enhances"
+};
+
 									/*}}}*/
 struct PkgListStruct
 {
@@ -495,17 +506,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 // must be in sync with pkgCache::DepType in libapt
-	 // it sucks to have it here duplicated, but we get it
-	 // translated from libapt and that is certainly not what
-	 // we want in a programing interface
-	 const char *Types[] =
-	 {
-	    "", "Depends","PreDepends","Suggests",
-	    "Recommends","Conflicts","Replaces",
-	    "Obsoletes", "Breaks", "Enhances"
-	 };
-	 PyObject *Dep = PyString_FromString(Types[Start->Type]);
+	 PyObject *Dep = PyString_FromString(UntranslatedDepTypes[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -823,6 +824,10 @@ static PyObject *DependencyAttr(PyObject *Self,char *Name)
       return PyString_FromString(Dep.CompType());
    else if (strcmp("DepType",Name) == 0)
       return PyString_FromString(Dep.DepType());
+   else if (strcmp("UntranslatedDepType",Name) == 0)
+      return PyString_FromString(UntranslatedDepTypes[Dep->Type]);
+   else if (strcmp("DepTypeEnum",Name) == 0)
+      return Py_BuildValue("i", Dep->Type);
    else if (strcmp("ID",Name) == 0)
       return Py_BuildValue("i",Dep->ID);
 

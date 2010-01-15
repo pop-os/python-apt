@@ -379,6 +379,11 @@ class Version(object):
         return depends_list
 
     @property
+    def enhances(self):
+        """Return the list of enhances for the package version."""
+        return self.get_dependencies("Enhances")
+
+    @property
     def dependencies(self):
         """Return the dependencies of the package version."""
         return self.get_dependencies("PreDepends", "Depends")

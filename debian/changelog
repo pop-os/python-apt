@@ -1,3 +1,22 @@
+python-apt (0.7.13.4ubuntu2) lucid; urgency=low
+
+  [ Michael Vogt ]
+  * apt/cache.py: 
+    - improved docstring for the cache
+    - add "enhances" property
+  * data/templates/Ubuntu.info.in:
+    - add lucid
+  * python/cache.cc:
+    - add UntranslatedDepType attribute to DependencyType
+    - add DepTypeEnum that returns a value from 
+      {DepDepends, DepPreDepends, ...}
+  * python/apt_pkgmodule.cc:
+    - add DepDpkgBreaks, DepEnhances constants
+  * doc/source/apt_pkg/{cache.rst, index.rst}:
+    - update documentation as well
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 15 Jan 2010 15:06:10 +0100
+
 python-apt (0.7.13.4ubuntu1) lucid; urgency=low
 
   [ Michael Vogt ]
