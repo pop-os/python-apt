@@ -23,7 +23,7 @@
 #include "generic.h"
 #include <apt-pkg/policy.h>
 
-static PyObject *Policy_NEW(PyTypeObject *type,PyObject *Args,
+static PyObject *policy_new(PyTypeObject *type,PyObject *Args,
                                   PyObject *kwds) {
     PyObject *cache;
     char *kwlist[] = {"cache", NULL};
@@ -37,11 +37,11 @@ static PyObject *Policy_NEW(PyTypeObject *type,PyObject *Args,
     return CppOwnedPyObject_NEW<pkgPolicy*>(cache,&PyPolicy_Type,policy);
 }
 
-static char *Policy_GetPriority_doc = "get_priority(package: apt_pkg.Package)"
+static char *policy_get_priority_doc = "get_priority(package: apt_pkg.Package)"
     " -> int\n\n"
     "Return the priority of the package.";
 
-PyObject *Policy_GetPriority(PyObject *self, PyObject *arg) {
+PyObject *policy_get_priority(PyObject *self, PyObject *arg) {
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
     if (PyObject_TypeCheck(arg, &PyPackage_Type)) {
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
@@ -52,11 +52,11 @@ PyObject *Policy_GetPriority(PyObject *self, PyObject *arg) {
     }
 }
 
-static char *Policy_GetCandidateVer_doc = "get_match(package: apt_pkg.Package)"
+static char *policy_get_candidate_ver_doc = "get_match(package: apt_pkg.Package)"
     " -> apt_pkg.Version\n\n"
     "Get the best package for the job.";
 
-PyObject *Policy_GetCandidateVer(PyObject *self, PyObject *arg) {
+PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
     if (PyObject_TypeCheck(arg, &PyPackage_Type)) {
         pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
@@ -69,11 +69,11 @@ PyObject *Policy_GetCandidateVer(PyObject *self, PyObject *arg) {
     }
 }
 
-static char *Policy_GetMatch_doc = "get_match(package: apt_pkg.Package) -> "
+static char *policy_get_match_doc = "get_match(package: apt_pkg.Package) -> "
     "apt_pkg.Version\n\n"
     "Return a matching version for the given package.";
 
-static PyObject *Policy_GetMatch(PyObject *self, PyObject *arg) {
+static PyObject *policy_get_match(PyObject *self, PyObject *arg) {
     if (PyObject_TypeCheck(arg, &PyPackage_Type) == 0) {
         PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
         return 0;
@@ -84,11 +84,11 @@ static PyObject *Policy_GetMatch(PyObject *self, PyObject *arg) {
     return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
 }
 
-static char *Policy_ReadPinFile_doc = "read_pinfile(filename: str) -> bool\n\n"
+static char *policy_read_pinfile_doc = "read_pinfile(filename: str) -> bool\n\n"
     "Read the pin file given by filename (e.g. '/etc/apt/preferences') and\n"
     "add it to the policy.";
 
-static PyObject *Policy_ReadPinFile(PyObject *self, PyObject *arg) {
+static PyObject *policy_read_pinfile(PyObject *self, PyObject *arg) {
     if (!PyString_Check(arg))
         return 0;
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
@@ -97,11 +97,11 @@ static PyObject *Policy_ReadPinFile(PyObject *self, PyObject *arg) {
 }
 
 #if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
-static char *Policy_ReadPinDir_doc = "read_pindir(dirname: str) -> bool\n\n"
+static char *policy_read_pindir_doc = "read_pindir(dirname: str) -> bool\n\n"
     "Read the pin files in the given dir (e.g. '/etc/apt/preferences.d') and\n"
     "add them to the policy.";
 
-static PyObject *Policy_ReadPinDir(PyObject *self, PyObject *arg) {
+static PyObject *policy_read_pindir(PyObject *self, PyObject *arg) {
     if (!PyString_Check(arg))
         return 0;
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
@@ -110,7 +110,7 @@ static PyObject *Policy_ReadPinDir(PyObject *self, PyObject *arg) {
 }
 #endif
 
-static char *Policy_CreatePin_doc = "create_pin(type: str, pkg: str, "
+static char *policy_create_pin_doc = "create_pin(type: str, pkg: str, "
     "data: str, priority: int)\n\n"
     "Create a pin for the policy. The parameter 'type' refers to one of the\n"
     "following strings: 'Version', 'Release', 'Origin'. The argument 'pkg'\n"
@@ -118,7 +118,7 @@ static char *Policy_CreatePin_doc = "create_pin(type: str, pkg: str, "
     "e.g. unstable for type='Release' and the other possible options. \n"
     "The parameter 'priority' gives the priority of the pin.";
 
-static PyObject *Policy_CreatePin(PyObject *self, PyObject *args) {
+static PyObject *policy_create_pin(PyObject *self, PyObject *args) {
     pkgVersionMatch::MatchType match_type;
     const char *type, *pkg, *data;
     signed short priority;
@@ -138,23 +138,23 @@ static PyObject *Policy_CreatePin(PyObject *self, PyObject *args) {
     Py_RETURN_NONE;
 }
 
-static PyMethodDef Policy_Methods[] = {
-    {"get_priority",(PyCFunction)Policy_GetPriority,METH_O,
-     Policy_GetPriority_doc},
-    {"get_candidate_ver",(PyCFunction)Policy_GetCandidateVer,METH_O,
-     Policy_GetCandidateVer_doc},
-    {"read_pinfile",(PyCFunction)Policy_ReadPinFile,METH_O,
-     Policy_ReadPinFile_doc},
+static PyMethodDef policy_methods[] = {
+    {"get_priority",(PyCFunction)policy_get_priority,METH_O,
+     policy_get_priority_doc},
+    {"get_candidate_ver",(PyCFunction)policy_get_candidate_ver,METH_O,
+     policy_get_candidate_ver_doc},
+    {"read_pinfile",(PyCFunction)policy_read_pinfile,METH_O,
+     policy_read_pinfile_doc},
 #if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
-    {"read_pindir",(PyCFunction)Policy_ReadPinDir,METH_O,
-     Policy_ReadPinFile_doc},
+    {"read_pindir",(PyCFunction)policy_read_pindir,METH_O,
+     policy_read_pindir_doc},
 #endif
-    {"create_pin",Policy_CreatePin,METH_VARARGS,Policy_CreatePin_doc},
-    {"get_match",(PyCFunction)Policy_GetMatch,METH_O, Policy_GetMatch_doc},
+    {"create_pin",policy_create_pin,METH_VARARGS,policy_create_pin_doc},
+    {"get_match",(PyCFunction)policy_get_match,METH_O, policy_get_match_doc},
     {}
 };
 
-static char *Policy_doc = "Policy(cache)\n\n"
+static char *policy_doc = "Policy(cache)\n\n"
     "Representation of the policy of the Cache object given by cache. This\n"
     "provides a superset of policy-related functionality compared to the\n"
     "DepCache class. The DepCache can be used for most purposes, but there\n"
@@ -184,14 +184,14 @@ PyTypeObject PyPolicy_Type = {
     (Py_TPFLAGS_DEFAULT |                // tp_flags
      Py_TPFLAGS_BASETYPE |
      Py_TPFLAGS_HAVE_GC),
-    Policy_doc,                          // tp_doc
+    policy_doc,                          // tp_doc
     CppOwnedTraverse<pkgPolicy*>,        // tp_traverse
     CppOwnedClear<pkgPolicy*>,           // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
     0,                                   // tp_iternext
-    Policy_Methods,                      // tp_methods
+    policy_methods,                      // tp_methods
     0,                                   // tp_members
     0,                                   // tp_getset
     0,                                   // tp_base
@@ -201,5 +201,5 @@ PyTypeObject PyPolicy_Type = {
     0,                                   // tp_dictoffset
     0,                                   // tp_init
     0,                                   // tp_alloc
-    Policy_NEW,                    // tp_new
+    policy_new,                    // tp_new
 };

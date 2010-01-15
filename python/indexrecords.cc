@@ -23,7 +23,7 @@
 #include "generic.h"
 #include <apt-pkg/indexrecords.h>
 
-static PyObject *IndexRecords_NEW(PyTypeObject *type,PyObject *Args,
+static PyObject *indexrecords_new(PyTypeObject *type,PyObject *Args,
                                   PyObject *kwds)
 {
     char * kwlist[] = {NULL};
@@ -35,7 +35,7 @@ static PyObject *IndexRecords_NEW(PyTypeObject *type,PyObject *Args,
     return New;
 }
 
-static PyObject *IndexRecords_Load(PyObject *self,PyObject *args)
+static PyObject *indexrecords_load(PyObject *self,PyObject *args)
 {
     const char *filename;
     if (PyArg_ParseTuple(args, "s", &filename) == 0)
@@ -44,10 +44,10 @@ static PyObject *IndexRecords_Load(PyObject *self,PyObject *args)
     return HandleErrors(Py_BuildValue("i", records->Load(filename)));
 }
 
-static char *IndexRecords_Lookup_doc = "lookup(metakey)\n\n"
+static char *indexrecords_lookup_doc = "lookup(metakey)\n\n"
     "Lookup the filename given by metakey, return a tuple (hash, size).\n"
     "The hash part is a HashString() object.";
-static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
+static PyObject *indexrecords_lookup(PyObject *self,PyObject *args)
 {
     const char *keyname;
     if (PyArg_ParseTuple(args, "s", &keyname) == 0)
@@ -66,22 +66,22 @@ static PyObject *IndexRecords_Lookup(PyObject *self,PyObject *args)
     return value;
 }
 
-static PyObject *IndexRecords_GetDist(PyObject *self)
+static PyObject *indexrecords_get_dist(PyObject *self)
 {
     indexRecords *records = GetCpp<indexRecords*>(self);
     return HandleErrors(PyString_FromString(records->GetDist().c_str()));
 }
 
-static PyMethodDef IndexRecords_Methods[] = {
-    {"load",IndexRecords_Load,METH_VARARGS,
+static PyMethodDef indexrecords_methods[] = {
+    {"load",indexrecords_load,METH_VARARGS,
      "load(filename: str)\n\nLoad the file given by filename."},
-    {"get_dist",(PyCFunction)IndexRecords_GetDist,METH_NOARGS,
+    {"get_dist",(PyCFunction)indexrecords_get_dist,METH_NOARGS,
      "get_dist() -> str\n\nReturn a distribution set in the release file."},
-    {"lookup",IndexRecords_Lookup,METH_VARARGS,IndexRecords_Lookup_doc},
+    {"lookup",indexrecords_lookup,METH_VARARGS,indexrecords_lookup_doc},
     {}
 };
 
-static char *IndexRecords_doc = "IndexRecords()\n\n"
+static char *indexrecords_doc = "IndexRecords()\n\n"
     "Representation of a release file.";
 PyTypeObject PyIndexRecords_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -106,14 +106,14 @@ PyTypeObject PyIndexRecords_Type = {
     0,                                   // tp_as_buffer
     (Py_TPFLAGS_DEFAULT |                // tp_flags
      Py_TPFLAGS_BASETYPE),
-    IndexRecords_doc,                    // tp_doc
+    indexrecords_doc,                    // tp_doc
     0,                                   // tp_traverse
     0,                                   // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
     0,                                   // tp_iternext
-    IndexRecords_Methods,                // tp_methods
+    indexrecords_methods,                // tp_methods
     0,                                   // tp_members
     0,                                   // tp_getset
     0,                                   // tp_base
@@ -123,5 +123,5 @@ PyTypeObject PyIndexRecords_Type = {
     0,                                   // tp_dictoffset
     0,                                   // tp_init
     0,                                   // tp_alloc
-    IndexRecords_NEW,                    // tp_new
+    indexrecords_new,                    // tp_new
 };
