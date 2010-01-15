@@ -6,6 +6,8 @@ python-apt (0.7.93) UNRELEASED; urgency=low
     like apt-get --print-uris update (cf. #551164).
   * Build for all supported Python versions.
     - Disable 2.6 and 3.1 builds previously available in experimental.
+ * Merge lp:~forest-bond/python-apt/cache-is-virtual-package-catch-key-error
+    - Return False in Cache.is_virtual_package if the package does not exist.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:
