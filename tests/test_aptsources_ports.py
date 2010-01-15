@@ -1,29 +1,27 @@
 #!/usr/bin/env python
-
+import os
 import unittest
 
-import os
-import copy
-import sys
 
-sys.path.insert(0, "../")
 import apt_pkg
-import aptsources
 import aptsources.sourceslist
 import aptsources.distro
 
 
-class TestAptSources(unittest.TestCase):
+class TestAptSourcesPorts(unittest.TestCase):
+    """Test aptsources on ports.ubuntu.com."""
 
-    def __init__(self, methodName):
-        unittest.TestCase.__init__(self, methodName)
-        apt_pkg.init()
-        apt_pkg.Config.Set("APT::Architecture", "powerpc")
-        apt_pkg.Config.Set("Dir::Etc", os.path.abspath("test-data-ports"))
-        apt_pkg.Config.Set("Dir::Etc::sourceparts", "/xxx")
+    def setUp(self):
+        apt_pkg.init_config()
+        apt_pkg.init_system()
+        apt_pkg.config.set("APT::Architecture", "powerpc")
+        apt_pkg.config.set("Dir::Etc",
+                           os.path.abspath("data/aptsources_ports"))
+        apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
 
     def testMatcher(self):
-        apt_pkg.Config.Set("Dir::Etc::sourcelist", "sources.list")
+        """aptsources_ports: Test matcher."""
+        apt_pkg.config.set("Dir::Etc::sourcelist", "sources.list")
         sources = aptsources.sourceslist.SourcesList()
         distro = aptsources.distro.get_distro("Ubuntu", "hardy", "desc",
                                               "8.04")

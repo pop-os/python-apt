@@ -3,5 +3,4 @@ AUTHORS
 TODO
 apt/README.apt
 data/templates/README.templates
-build/doc/html/
-build/doc/text/
+build/sphinx/html/

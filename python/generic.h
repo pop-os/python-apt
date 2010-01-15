@@ -29,10 +29,79 @@
 
 #include <Python.h>
 #include <string>
+#include <iostream>
 #include <new>
 
 #if PYTHON_API_VERSION < 1013
 typedef int Py_ssize_t;
+#endif
+
+/* Define compatibility for Python 3.
+ *
+ * We will use the names PyString_* to refer to the default string type
+ * of the current Python version (PyString on 2.X, PyUnicode on 3.X).
+ *
+ * When we really need unicode strings, we will use PyUnicode_* directly, as
+ * long as it exists in Python 2 and Python 3.
+ *
+ * When we want bytes in Python 3, we use PyBytes*_ instead of PyString_* and
+ * define aliases from PyBytes_* to PyString_* for Python 2.
+ */
+
+#if PY_MAJOR_VERSION >= 3
+#define PyString_Check PyUnicode_Check
+#define PyString_FromString PyUnicode_FromString
+#define PyString_FromStringAndSize PyUnicode_FromStringAndSize
+#define PyString_AsString PyUnicode_AsString
+#define PyString_FromFormat PyUnicode_FromFormat
+#define PyString_Type PyUnicode_Type
+#define PyInt_Check PyLong_Check
+#define PyInt_AsLong PyLong_AsLong
+// Force 0.7 compatibility to be off in Python 3 builds
+#undef COMPAT_0_7
+#else
+// Compatibility for Python 2.5 and previous.
+#if (PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 5)
+#define PyBytes_Check PyString_Check
+#define PyBytes_AS_STRING PyString_AS_STRING
+#define PyBytes_AsString PyString_AsString
+#define PyBytes_AsStringAndSize PyString_AsStringAndSize
+#define PyBytes_FromStringAndSize PyString_FromStringAndSize
+#define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
+#endif
+#endif
+
+// Hacks to make Python 2.4 build.
+#if PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 4
+#define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
+#endif
+
+
+static inline const char *PyUnicode_AsString(PyObject *op) {
+    // Convert to bytes object, using the default encoding.
+    PyObject *bytes = PyUnicode_AsEncodedString(op,0,0);
+    return bytes ? PyBytes_AS_STRING(bytes) : 0;
+}
+
+// Convert any type of string based object to a const char.
+#if PY_MAJOR_VERSION < 3
+static inline const char *PyObject_AsString(PyObject *object) {
+    if (PyBytes_Check(object))
+        return PyBytes_AsString(object);
+    else if (PyUnicode_Check(object))
+        return PyUnicode_AsString(object);
+    else
+        PyErr_SetString(PyExc_TypeError, "Argument must be str.");
+    return 0;
+}
+#else
+static inline const char *PyObject_AsString(PyObject *object) {
+    if (PyUnicode_Check(object) == 0) {
+        PyErr_SetString(PyExc_TypeError, "Argument must be str.");
+        return 0;
+    }
+    return PyUnicode_AsString(object);
+}
 #endif
 
 template <class T> struct CppPyObject : public PyObject
@@ -48,6 +117,11 @@ template <class T> struct CppPyObject : public PyObject
    // So basically having the c'tor here removes the need for T to have a
    // default c'tor, which is not always desireable.
    CppPyObject() { };
+
+   // Flag which causes the underlying object to not be deleted.
+   bool NoDelete;
+
+   // The underlying C++ object.
    T Object;
 };
 
@@ -72,7 +146,10 @@ inline PyObject *GetOwner(PyObject *Obj)
 template <class T>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 {
-   CppPyObject<T> *New = PyObject_NEW(CppPyObject<T>,Type);
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
+   #endif
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    return New;
 }
@@ -80,7 +157,10 @@ inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
 template <class T,class A>
 inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type,A const &Arg)
 {
-   CppPyObject<T> *New = PyObject_NEW(CppPyObject<T>,Type);
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
+   #endif
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    return New;
 }
@@ -89,10 +169,13 @@ template <class T>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type)
 {
-   CppOwnedPyObject<T> *New = PyObject_NEW(CppOwnedPyObject<T>,Type);
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
+   #endif
+   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    New->Owner = Owner;
-   Py_INCREF(Owner);
+   Py_XINCREF(Owner);
    return New;
 }
 
@@ -100,31 +183,78 @@ template <class T,class A>
 inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
 						 PyTypeObject *Type,A const &Arg)
 {
-   CppOwnedPyObject<T> *New = PyObject_NEW(CppOwnedPyObject<T>,Type);
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
+   #endif
+   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    New->Owner = Owner;
-   if (Owner != 0)
-      Py_INCREF(Owner);
+   Py_XINCREF(Owner);
    return New;
+}
+
+// Traversal and Clean for owned objects
+template <class T>
+int CppOwnedTraverse(PyObject *self, visitproc visit, void* arg) {
+    Py_VISIT(((CppOwnedPyObject<T> *)self)->Owner);
+    return 0;
+}
+
+template <class T>
+int CppOwnedClear(PyObject *self) {
+    Py_CLEAR(((CppOwnedPyObject<T> *)self)->Owner);
+    return 0;
 }
 
 // Generic Dealloc type functions
 template <class T>
 void CppDealloc(PyObject *Obj)
 {
-   GetCpp<T>(Obj).~T();
-   PyObject_DEL(Obj);
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << " ===\n";
+   #endif
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      GetCpp<T>(Obj).~T();
+   Obj->ob_type->tp_free(Obj);
 }
 
 template <class T>
 void CppOwnedDealloc(PyObject *iObj)
 {
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "+ ===\n";
+   #endif
    CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
-   Obj->Object.~T();
-   if (Obj->Owner != 0) {
-      Py_DECREF(Obj->Owner);
-   }
-   PyObject_DEL(Obj);
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      Obj->Object.~T();
+   CppOwnedClear<T>(iObj);
+   iObj->ob_type->tp_free(iObj);
+}
+
+// Pointer deallocation
+// Generic Dealloc type functions
+template <class T>
+void CppDeallocPtr(PyObject *Obj)
+{
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "* ===\n";
+   #endif
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      delete GetCpp<T>(Obj);
+   Obj->ob_type->tp_free(Obj);
+}
+
+template <class T>
+void CppOwnedDeallocPtr(PyObject *iObj)
+{
+   #ifdef ALLOC_DEBUG
+   std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "*+ ===\n";
+   #endif
+   CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
+   if (!((CppPyObject<T>*)Obj)->NoDelete)
+      delete Obj->Object;
+   CppOwnedClear<T>(iObj);
+   iObj->ob_type->tp_free(iObj);
 }
 
 inline PyObject *CppPyString(std::string Str)

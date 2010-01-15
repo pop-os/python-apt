@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 export DH_PYCENTRAL=include-links
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
-export CFLAGS=-Wno-write-strings
+export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
 
 %:
 	dh --with python-central $@

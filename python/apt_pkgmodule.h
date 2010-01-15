@@ -11,15 +11,13 @@
 #define APT_PKGMODULE_H
 
 #include <Python.h>
+#include <apt-pkg/hashes.h>
+#include <apt-pkg/acquire-item.h>
 
 // Configuration Stuff
-#define Configuration_Check(op) ((op)->ob_type == &ConfigurationType || \
-                                 (op)->ob_type == &ConfigurationPtrType || \
-                                 (op)->ob_type == &ConfigurationSubType)
-extern PyTypeObject ConfigurationType;
-extern PyTypeObject ConfigurationPtrType;
-extern PyTypeObject ConfigurationSubType;
-extern PyTypeObject VersionType;
+#define Configuration_Check(op) ((op)->ob_type == &PyConfiguration_Type)
+extern PyTypeObject PyConfiguration_Type;
+extern PyTypeObject PyVersion_Type;
 
 extern char *doc_LoadConfig;
 extern char *doc_LoadConfigISC;
@@ -31,8 +29,8 @@ PyObject *LoadConfigDir(PyObject *Self,PyObject *Args);
 PyObject *ParseCommandLine(PyObject *Self,PyObject *Args);
 
 // Tag File Stuff
-extern PyTypeObject TagSecType;
-extern PyTypeObject TagFileType;
+extern PyTypeObject PyTagSection_Type;
+extern PyTypeObject PyTagFile_Type;
 extern char *doc_ParseSection;
 extern char *doc_ParseTagFile;
 extern char *doc_RewriteSection;
@@ -52,54 +50,77 @@ PyObject *StrTimeRFC1123(PyObject *self,PyObject *Args);
 PyObject *StrStrToTime(PyObject *self,PyObject *Args);
 PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args);
 
+PyObject *PyAcquire_GetItem(PyObject *self, pkgAcquire::Item *item);
+PyObject *PyAcquire_GetItemDesc(PyObject *self, pkgAcquire::ItemDesc *item);
+bool     PyAcquire_DropItem(PyObject *self, pkgAcquire::Item *item);
+
 // Cache Stuff
-extern PyTypeObject PkgCacheType;
-extern PyTypeObject PkgCacheFileType;
-extern PyTypeObject PkgListType;
-extern PyTypeObject PackageType;
-extern PyTypeObject PackageFileType;
-extern PyTypeObject DependencyType;
-extern PyTypeObject RDepListType;
+extern PyTypeObject PyCache_Type;
+extern PyTypeObject PyCacheFile_Type;
+extern PyTypeObject PyPackageList_Type;
+extern PyTypeObject PyDescription_Type;
+extern PyTypeObject PyPackage_Type;
+extern PyTypeObject PyPackageFile_Type;
+extern PyTypeObject PyDependency_Type;
+extern PyTypeObject PyDependencyList_Type;
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args);
 
 // DepCache
-extern PyTypeObject PkgDepCacheType;
+extern PyTypeObject PyDepCache_Type;
 PyObject *GetDepCache(PyObject *Self,PyObject *Args);
 
 // pkgProblemResolver
-extern PyTypeObject PkgProblemResolverType;
+extern PyTypeObject PyProblemResolver_Type;
 PyObject *GetPkgProblemResolver(PyObject *Self, PyObject *Args);
 PyObject *GetPkgActionGroup(PyObject *Self, PyObject *Args);
 
+extern PyTypeObject PyActionGroup_Type;
 // cdrom
-extern PyTypeObject PkgCdromType;
+extern PyTypeObject PyCdrom_Type;
 PyObject *GetCdrom(PyObject *Self,PyObject *Args);
 
 // acquire
-extern PyTypeObject PkgAcquireType;
+extern PyTypeObject PyAcquireItem_Type;
+extern PyTypeObject PyAcquire_Type;
+extern PyTypeObject PyAcquireFile_Type;
 extern char *doc_GetPkgAcqFile;
 PyObject *GetAcquire(PyObject *Self,PyObject *Args);
 PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject *kwds);
 
 // packagemanager
-extern PyTypeObject PkgManagerType;
+extern PyTypeObject PyPackageManager_Type;
 PyObject *GetPkgManager(PyObject *Self,PyObject *Args);
 
 
 // PkgRecords Stuff
-extern PyTypeObject PkgRecordsType;
+extern PyTypeObject PyPackageRecords_Type;
+extern PyTypeObject PySourceRecords_Type;
 PyObject *GetPkgRecords(PyObject *Self,PyObject *Args);
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args);
 
 // pkgSourceList
-extern PyTypeObject PkgSourceListType;
+extern PyTypeObject PySourceList_Type;
 PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args);
 
 // pkgSourceList
-extern PyTypeObject PackageIndexFileType;
+extern PyTypeObject PyPackageIndexFile_Type;
 
 // metaIndex
-extern PyTypeObject MetaIndexType;
+extern PyTypeObject PyMetaIndex_Type;
 
+// HashString
+extern PyTypeObject PyHashString_Type;
 
+// IndexRecord
+extern PyTypeObject PyIndexRecords_Type;
+
+// Policy
+extern PyTypeObject PyPolicy_Type;
+extern PyTypeObject PyHashes_Type;
+extern PyTypeObject PyAcquireItemDesc_Type;
+extern PyTypeObject PyAcquireWorker_Type;
+extern PyTypeObject PySystemLock_Type;
+extern PyTypeObject PyFileLock_Type;
+#include "python-apt.h"
 #endif
+

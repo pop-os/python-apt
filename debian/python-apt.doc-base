@@ -6,6 +6,3 @@ Section: Programming/Python
 Format: HTML
 Index: /usr/share/doc/python-apt/html/index.html
 Files: /usr/share/doc/python-apt/html/*
-
-Format: Text
-Files: /usr/share/doc/python-apt/text/*
