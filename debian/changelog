@@ -9,6 +9,8 @@ python-apt (0.7.93) UNRELEASED; urgency=low
   * Merge lp:~forest-bond/python-apt/cache-is-virtual-package-catch-key-error
     - Return False in Cache.is_virtual_package if the package does not exist.
   * Make all class-level constants have uppercase names.
+  * Rewrite apt.progress.gtk2 documentation by hand and drop python-gtk2
+    build-time dependency.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:
