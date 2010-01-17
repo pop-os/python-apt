@@ -13,6 +13,7 @@ python-apt (0.7.93) UNRELEASED; urgency=low
     build-time dependency.
   * aptsources:
     - Make all classes subclasses of object.
+    - distro.py: Support Python 3, decode lsb_release results using utf-8.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:
