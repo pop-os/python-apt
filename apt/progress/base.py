@@ -206,10 +206,10 @@ class InstallProgress(object):
         """Update the interface."""
         try:
             line = self.statusfd.readline()
-        except IOError, (errno_, errstr):
+        except IOError, err:
             # resource temporarly unavailable is ignored
-            if errno_ != errno.EAGAIN and errno_ != errno.EWOULDBLOCK:
-                print errstr
+            if err.errno != errno.EAGAIN and err.errno != errno.EWOULDBLOCK:
+                print err.strerror
             return
 
         pkgname = status = status_str = percent = base = ""
@@ -254,7 +254,7 @@ class InstallProgress(object):
             try:
                 select.select([self.statusfd], [], [], self.select_timeout)
             except select.error, err:
-                if err[0] != errno.EINTR:
+                if err.errno != errno.EINTR:
                     raise
 
             self.update_interface()
@@ -263,9 +263,9 @@ class InstallProgress(object):
                 if pid == self.child_pid:
                     break
             except OSError, err:
-                if err[0] == errno.ECHILD:
+                if err.errno == errno.ECHILD:
                     break
-                if err[0] != errno.EINTR:
+                if err.errno != errno.EINTR:
                     raise
 
         return res
