@@ -38,7 +38,7 @@ class NoDistroTemplateException(Exception):
     pass
 
 
-class Distribution:
+class Distribution(object):
 
     def __init__(self, id, codename, description, release):
         """ Container for distribution specific informations """

@@ -74,7 +74,7 @@ def uniq(s):
     return list(set(s))
 
 
-class SourceEntry:
+class SourceEntry(object):
     """ single sources.list entry """
 
     def __init__(self, line, file=None):
@@ -394,7 +394,7 @@ class SourcesList(object):
         return (parents, used_child_templates)
 
 
-class SourceEntryMatcher:
+class SourceEntryMatcher(object):
     """ matcher class to make a source entry look nice
         lots of predefined matchers to make it i18n/gettext friendly
         """

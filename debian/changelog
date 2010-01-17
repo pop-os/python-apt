@@ -11,6 +11,8 @@ python-apt (0.7.93) UNRELEASED; urgency=low
   * Make all class-level constants have uppercase names.
   * Rewrite apt.progress.gtk2 documentation by hand and drop python-gtk2
     build-time dependency.
+  * aptsources:
+    - Make all classes subclasses of object.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:

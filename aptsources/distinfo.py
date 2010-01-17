@@ -36,7 +36,7 @@ def _(s):
     return gettext.dgettext("python-apt", s)
 
 
-class Template:
+class Template(object):
 
     def __init__(self):
         self.name = None
@@ -66,7 +66,7 @@ class Template:
             return False
 
 
-class Component:
+class Component(object):
 
     def __init__(self, name, desc=None, long_desc=None):
         self.name = name
@@ -91,7 +91,7 @@ class Component:
         return self.description_long
 
 
-class Mirror:
+class Mirror(object):
     ''' Storage for mirror related information '''
 
     def __init__(self, proto, hostname, dir, location=None):
@@ -124,7 +124,7 @@ class Mirror:
         self.location = location
 
 
-class Repository:
+class Repository(object):
 
     def __init__(self, proto, dir):
         self.proto = proto
@@ -145,7 +145,7 @@ def split_url(url):
     return split
 
 
-class DistInfo:
+class DistInfo(object):
 
     def __init__(self,
                  dist = None,
