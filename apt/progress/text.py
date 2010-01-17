@@ -41,7 +41,7 @@ class TextProgress(object):
     def _write(self, msg, newline=True, maximize=False):
         """Write the message on the terminal, fill remaining space."""
         self._file.write("\r")
-        print >> self._file, msg,
+        self._file.write(msg)
 
         # Fill remaining stuff with whitespace
         if self._width > len(msg):

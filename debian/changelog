@@ -16,6 +16,8 @@ python-apt (0.7.93) UNRELEASED; urgency=low
     - distro.py: Support Python 3, decode lsb_release results using utf-8.
   * apt/progress/base.py:
     - Fix some parsing of dpkg status fd.
+  * apt/progress/text.py:
+    - Replace one print statement with a .write() call.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:
