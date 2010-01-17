@@ -4,8 +4,8 @@ python-apt (0.7.93) UNRELEASED; urgency=low
   * Merge debian-sid and debian-experimental.
   * Add a tutorial on how to do things which are possible with apt-get,
     like apt-get --print-uris update (cf. #551164).
-  * Build for all supported Python versions newer than 2.5.
-    - Disable 2.6 and 3.1 builds previously available in experimental.
+  * Build for Python 2.5, 2.6 and 3.1; 2.6 and 3.1 hit unstable on Jan 16.
+    - Use DH_PYCENTRAL=nomove for now because include-links seems broken
   * Merge lp:~forest-bond/python-apt/cache-is-virtual-package-catch-key-error
     - Return False in Cache.is_virtual_package if the package does not exist.
   * Make all class-level constants have uppercase names.
