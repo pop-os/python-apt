@@ -223,12 +223,17 @@ class InstallProgress(object):
                 return
         elif line.startswith('status'):
             try:
-                (base, pkgname, status, status_str) = line.split(": ", 3)
+                (base, pkgname, status, status_str) = line.split(":", 3)
             except ValueError:
-                (base, pkgname, status) = line.split(": ", 2)
+                (base, pkgname, status) = line.split(":", 2)
         elif line.startswith('processing'):
-            (status, status_str, pkgname) = line.split(": ", 2)
+            (status, status_str, pkgname) = line.split(":", 2)
             self.processing(pkgname.strip(), status_str.strip())
+
+        # Always strip the status message
+        pkgname = pkgname.strip()
+        status_str = status_str.strip()
+        status = status.strip()
 
         if status == 'pmerror' or status == 'error':
             self.error(pkgname, status_str)
@@ -237,6 +242,7 @@ class InstallProgress(object):
             if match:
                 self.conffile(match.group(1), match.group(2))
         elif status == "pmstatus":
+            # FIXME: Float comparison
             if float(percent) != self.percent or status_str != self.status:
                 self.status_change(pkgname, float(percent), status_str.strip())
                 self.percent = float(percent)
