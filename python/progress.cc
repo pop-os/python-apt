@@ -90,10 +90,10 @@ void PyOpProgress::Update()
    if(!CheckChange(0.7))
       return;
 
-
    setattr(callbackInst, "op", "s", Op.c_str());
    setattr(callbackInst, "subop", "s", SubOp.c_str());
    setattr(callbackInst, "major_change", "b", MajorChange);
+   setattr(callbackInst, "percent", "f", Percent);
 #ifdef COMPAT_0_7
    setattr(callbackInst, "Op", "s", Op.c_str());
    setattr(callbackInst, "subOp", "s", SubOp.c_str());
@@ -101,7 +101,6 @@ void PyOpProgress::Update()
    PyObject *arglist = Py_BuildValue("(f)", Percent);
    RunSimpleCallback("update", arglist);
 #else
-   setattr(callbackInst, "percent", "f", Percent);
    RunSimpleCallback("update");
 #endif
 }
