@@ -39,10 +39,14 @@ import vte
 import apt_pkg
 from apt_pkg import gettext as _
 from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
-from apt.progress import base, old
+from apt.progress import base
+
+if apt_pkg._COMPAT_0_7:
+    from apt.progress import old
 
 
-__all__ = ['GInstallProgress', 'GOpProgress', 'GtkAptProgress']
+__all__ = ['GAcquireProgress', 'GInstallProgress', 'GOpProgress',
+           'GtkAptProgress']
 
 
 def mksig(params=(), run=gobject.SIGNAL_RUN_FIRST, rettype=gobject.TYPE_NONE):
@@ -213,7 +217,7 @@ class GInstallProgress(gobject.GObject, base.InstallProgress):
 GDpkgInstallProgress = GInstallProgress
 
 
-class GFetchProgress(gobject.GObject, old.FetchProgress):
+class GAcquireProgress(gobject.GObject, base.AcquireProgress):
     """A Fetch Progress with GObject signals.
 
     Signals:
@@ -230,39 +234,97 @@ class GFetchProgress(gobject.GObject, old.FetchProgress):
                     "status-finished": mksig()}
 
     def __init__(self):
-        old.FetchProgress.__init__(self)
+        base.AcquireProgress.__init__(self)
         gobject.GObject.__init__(self)
         self._continue = True
         self._context = glib.main_context_default()
 
     def start(self):
+        base.AcquireProgress.start(self)
         self.emit("status-started")
 
     def stop(self):
+        base.AcquireProgress.stop(self)
         self.emit("status-finished")
 
     def cancel(self):
         self._continue = False
 
-    def pulse(self):
-        old.FetchProgress.pulse(self)
-        current_item = self.currentItems + 1
-        if current_item > self.totalItems:
-            current_item = self.totalItems
+    def pulse(self, owner):
+        base.AcquireProgress.pulse(self, owner)
+        current_item = self.current_items + 1
+        if current_item > self.total_items:
+            current_item = self.total_items
         if self.current_cps > 0:
             text = (_("Downloading file %(current)li of %(total)li with "
                       "%(speed)s/s") % \
                       {"current": current_item,
-                       "total": self.totalItems,
-                       "speed": apt_pkg.size_to_str(self.currentCPS)})
+                       "total": self.total_items,
+                       "speed": apt_pkg.size_to_str(self.current_cps)})
         else:
             text = (_("Downloading file %(current)li of %(total)li") % \
                       {"current": current_item,
-                       "total": self.totalItems})
-        self.emit("status-changed", text, self.percent)
+                       "total": self.total_items})
+
+        percent = (((self.current_bytes + self.current_items) * 100.0) /
+                        float(self.total_bytes + self.total_items))
+        self.emit("status-changed", text, percent)
         while self._context.pending():
             self._context.iteration()
         return self._continue
+
+if apt_pkg._COMPAT_0_7:
+
+    class GFetchProgress(gobject.GObject, old.FetchProgress):
+        """A Fetch Progress with GObject signals.
+
+        Signals:
+
+            * status-changed(str: description, int: percent)
+            * status-started()
+            * status-finished()
+
+        DEPRECATED.
+        """
+
+        __gsignals__ = {"status-changed": mksig((str, int)),
+                        "status-started": mksig(),
+                        "status-finished": mksig()}
+
+        def __init__(self):
+            old.FetchProgress.__init__(self)
+            gobject.GObject.__init__(self)
+            self._continue = True
+            self._context = glib.main_context_default()
+
+        def start(self):
+            self.emit("status-started")
+
+        def stop(self):
+            self.emit("status-finished")
+
+        def cancel(self):
+            self._continue = False
+
+        def pulse(self):
+            old.FetchProgress.pulse(self)
+            current_item = self.currentItems + 1
+            if current_item > self.totalItems:
+                current_item = self.totalItems
+            if self.current_cps > 0:
+                text = (_("Downloading file %(current)li of %(total)li with "
+                          "%(speed)s/s") % \
+                          {"current": current_item,
+                           "total": self.totalItems,
+                           "speed": apt_pkg.size_to_str(self.currentCPS)})
+            else:
+                text = (_("Downloading file %(current)li of %(total)li") % \
+                          {"current": current_item,
+                           "total": self.totalItems})
+            self.emit("status-changed", text, self.percent)
+            while self._context.pending():
+                self._context.iteration()
+            return self._continue
 
 
 class GtkAptProgress(gtk.VBox):
@@ -298,11 +360,15 @@ class GtkAptProgress(gtk.VBox):
         self._progress_open.connect("status-started", self._on_status_started)
         self._progress_open.connect("status-finished",
                                     self._on_status_finished)
-        self._progress_fetch = GFetchProgress()
-        self._progress_fetch.connect("status-changed", self._on_status_changed)
-        self._progress_fetch.connect("status-started", self._on_status_started)
-        self._progress_fetch.connect("status-finished",
+        self._progress_acquire = GAcquireProgress()
+        self._progress_acquire.connect("status-changed",
+                                       self._on_status_changed)
+        self._progress_acquire.connect("status-started",
+                                       self._on_status_started)
+        self._progress_acquire.connect("status-finished",
                                      self._on_status_finished)
+
+        self._progress_fetch = None
         self._progress_install = GInstallProgress(self._terminal)
         self._progress_install.connect("status-changed",
                                        self._on_status_changed)
@@ -338,10 +404,25 @@ class GtkAptProgress(gtk.VBox):
         """Return the install progress handler for dpkg."""
         return self._progress_install
 
+    if apt_pkg._COMPAT_0_7:
+
+        @property
+        def fetch(self):
+            """Return the fetch progress handler."""
+            if self._progress_fetch is None:
+                self._progress_fetch = GFetchProgress()
+                self._progress_fetch.connect("status-changed",
+                                            self._on_status_changed)
+                self._progress_fetch.connect("status-started",
+                                            self._on_status_started)
+                self._progress_fetch.connect("status-finished",
+                                            self._on_status_finished)
+            return self._progress_fetch
+
     @property
-    def fetch(self):
-        """Return the fetch progress handler."""
-        return self._progress_fetch
+    def acquire(self):
+        """Return the acquire progress handler."""
+        return self._progress_acquire
 
     def _on_status_started(self, progress):
         """Called when something starts."""
@@ -423,12 +504,13 @@ def _test():
         pkg.mark_install()
     apt_progress.show_terminal(True)
     try:
-        cache.commit(apt_progress.fetch, apt_progress.install)
+        cache.commit(apt_progress.acquire, apt_progress.install)
     except Exception, exc:
         print >> sys.stderr, "Exception happened:", exc
     if len(sys.argv) > 1:
         deb = DebPackage(sys.argv[1], cache)
         deb.install(apt_progress.dpkg_install)
+    win.connect("destroy", gtk.main_quit)
     gtk.main()
 
 

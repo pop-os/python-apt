@@ -38,9 +38,9 @@ GObject progress classes
         Emitted when a conffile update is happening.
 
 
-.. class:: GFetchProgress
+.. class:: GAcquireProgress
 
-    An implementation of :class:`apt.progress.old.FetchProgress` supporting
+    An implementation of :class:`apt.progress.base.AcquireProgress` supporting
     GObject signals. The class emits the following signals:
 
     .. describe:: status-changed(description: str, percent: int)
