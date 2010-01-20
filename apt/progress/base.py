@@ -157,7 +157,10 @@ class InstallProgress(object):
         """(Abstract) Called when a conffile question from dpkg is detected."""
 
     def status_change(self, pkg, percent, status):
-        """(Abstract) Called when the status changed."""
+        """(Abstract) Called when the APT status changed."""
+
+    def dpkg_status_change(self, pkg, status):
+        """(Abstract) Called when the dpkg status changed."""
 
     def processing(self, pkg, stage):
         """(Abstract) Sent just before a processing stage starts.
@@ -184,7 +187,7 @@ class InstallProgress(object):
             # pm.do_install might raise a exception,
             # when this happens, we need to catch
             # it, otherwise os._exit() is not run
-            # and the execution continues in the 
+            # and the execution continues in the
             # parent code leading to very confusing bugs
             try:
                 os._exit(obj.do_install(self.writefd.fileno()))
@@ -193,7 +196,7 @@ class InstallProgress(object):
                                     str(self.writefd.fileno()), "-i", obj))
             except Exception:
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
-                
+
         self.child_pid = pid
         res = self.wait_child()
         return os.WEXITSTATUS(res)
@@ -247,6 +250,8 @@ class InstallProgress(object):
                 self.status_change(pkgname, float(percent), status_str.strip())
                 self.percent = float(percent)
                 self.status = status_str.strip()
+        elif base == "status":
+            self.dpkg_status_change(pkgname, status)
 
     def wait_child(self):
         """Wait for child progress to exit.
