@@ -35,13 +35,13 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
    pkgIndexFile *index;
    if(list->FindIndex(i, index))
    {
-      pyPkgIndexFile = CppOwnedPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PyPackageIndexFile_Type,index);
+      pyPkgIndexFile = CppOwnedPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PyIndexFile_Type,index);
       // Do not delete the pkgIndexFile*, it is managed by pkgSourceList.
       pyPkgIndexFile->NoDelete = true;
       return pyPkgIndexFile;
    }
 
-   //&PyPackageIndexFile_Type,&pyPkgIndexFile)
+   //&PyIndexFile_Type,&pyPkgIndexFile)
 
    Py_INCREF(Py_None);
    return Py_None;

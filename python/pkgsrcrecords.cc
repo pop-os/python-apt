@@ -124,7 +124,7 @@ static PyObject *PkgSrcRecordsGetIndex(PyObject *Self,void*) {
       return 0;
    const pkgIndexFile &tmp = Struct.Last->Index();
    CppOwnedPyObject<pkgIndexFile*> *PyObj;
-   PyObj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PyPackageIndexFile_Type,
+   PyObj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PyIndexFile_Type,
                                               (pkgIndexFile*)&tmp);
    // Do not delete the pkgIndexFile*, it is managed by PkgSrcRecords::Parser.
    PyObj->NoDelete=true;

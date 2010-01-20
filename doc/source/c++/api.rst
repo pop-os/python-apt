@@ -564,31 +564,31 @@ PackageFile (pkgCache::PkgFileIterator)
     Return the :ctype:`pkgCache::PkgFileIterator` reference contained in the
     Python object *object*.
 
-PackageIndexFile (pkgIndexFile)
+IndexFile (pkgIndexFile)
 --------------------------------------
-.. cvar:: PyTypeObject PyPackageIndexFile_Type
+.. cvar:: PyTypeObject PyIndexFile_Type
 
-    The type object for :class:`apt_pkg.PackageIndexFile` objects.
+    The type object for :class:`apt_pkg.IndexFile` objects.
 
-.. cfunction:: int PyPackageIndexFile_Check(PyObject *object)
+.. cfunction:: int PyIndexFile_Check(PyObject *object)
 
-    Check that the object *object* is an :class:`apt_pkg.PackageIndexFile` object, or
+    Check that the object *object* is an :class:`apt_pkg.IndexFile` object, or
     a subclass thereof.
 
-.. cfunction:: int PyPackageIndexFile_CheckExact(PyObject *object)
+.. cfunction:: int PyIndexFile_CheckExact(PyObject *object)
 
-    Check that the object *object* is an :class:`apt_pkg.PackageIndexFile` object
+    Check that the object *object* is an :class:`apt_pkg.IndexFile` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyPackageIndexFile_FromCpp(pkgIndexFile *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyIndexFile_FromCpp(pkgIndexFile *cpp, bool delete=false, PyObject *owner)
 
-    Create a new :class:`apt_pkg.PackageIndexFile` object from the :ctype:`pkgIndexFile`
+    Create a new :class:`apt_pkg.IndexFile` object from the :ctype:`pkgIndexFile`
     pointer given by the parameter *cpp*. If the parameter *delete* is
     true, the object pointed to by *cpp* will be deleted when the reference
     count of the returned object reaches 0. The parameter *owner* should be
     a PyObject of the type :cdata:`PyMetaIndex_Type`.
 
-.. cfunction:: pkgIndexFile* PyPackageIndexFile_ToCpp(PyObject *object)
+.. cfunction:: pkgIndexFile* PyIndexFile_ToCpp(PyObject *object)
 
     Return the :ctype:`pkgIndexFile` pointer contained in the Python object
     *object*.

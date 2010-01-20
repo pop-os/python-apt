@@ -79,7 +79,7 @@ struct _PyAptPkgAPIStruct {
 #  define PyMetaIndex_Type         *(_PyAptPkg_API->metaindex_type)
 #  define PyPackage_Type           *(_PyAptPkg_API->package_type)
 #  define PyPackageFile_Type       *(_PyAptPkg_API->packagefile_type)
-#  define PyPackageIndexFile_Type  *(_PyAptPkg_API->packageindexfile_type)
+#  define PyIndexFile_Type  *(_PyAptPkg_API->packageindexfile_type)
 #  define PyPackageList_Type       *(_PyAptPkg_API->packagelist_type)
 #  define PyPackageManager_Type    *(_PyAptPkg_API->packagemanager_type)
 #  define PyPackageRecords_Type    *(_PyAptPkg_API->packagerecords_type)
@@ -140,7 +140,7 @@ static int import_apt_pkg(void) {
 # define PyMetaIndex_Check(op)        PyObject_TypeCheck(op, &PyMetaIndex_Type)
 # define PyPackage_Check(op)          PyObject_TypeCheck(op, &PyPackage_Type)
 # define PyPackageFile_Check(op)      PyObject_TypeCheck(op, &PyPackageFile_Type)
-# define PyPackageIndexFile_Check(op) PyObject_TypeCheck(op, &PyPackageIndexFile_Type)
+# define PyIndexFile_Check(op) PyObject_TypeCheck(op, &PyIndexFile_Type)
 # define PyPackageList_Check(op)      PyObject_TypeCheck(op, &PyPackageList_Type)
 # define PyPackageManager_Check(op)   PyObject_TypeCheck(op, &PyPackageManager_Type)
 # define PyPackageRecords_Check(op)   PyObject_TypeCheck(op, &PyPackageRecords_Type)
@@ -172,7 +172,7 @@ static int import_apt_pkg(void) {
 # define PyMetaIndex_CheckExact(op)        (op->op_type == &PyMetaIndex_Type)
 # define PyPackage_CheckExact(op)          (op->op_type == &PyPackage_Type)
 # define PyPackageFile_CheckExact(op)      (op->op_type == &PyPackageFile_Type)
-# define PyPackageIndexFile_CheckExact(op) (op->op_type == &PyPackageIndexFile_Type)
+# define PyIndexFile_CheckExact(op) (op->op_type == &PyIndexFile_Type)
 # define PyPackageList_CheckExact(op)      (op->op_type == &PyPackageList_Type)
 # define PyPackageManager_CheckExact(op)   (op->op_type == &PyPackageManager_Type)
 # define PyPackageRecords_CheckExact(op)   (op->op_type == &PyPackageRecords_Type)
@@ -205,7 +205,7 @@ static int import_apt_pkg(void) {
 # define PyMetaIndex_ToCpp         GetCpp<metaIndex*>
 # define PyPackage_ToCpp           GetCpp<pkgCache::PkgIterator>
 # define PyPackageFile_ToCpp       GetCpp<pkgCache::PkgFileIterator>
-# define PyPackageIndexFile_ToCpp  GetCpp<pkgIndexFile*>
+# define PyIndexFile_ToCpp  GetCpp<pkgIndexFile*>
 //# define PyPackageList_ToCpp       GetCpp<PkgListStruct> // NOT EXPORTED.
 # define PyPackageManager_ToCpp    GetCpp<pkgPackageManager*>
 //# define PyPackageRecords_ToCpp    GetCpp<PkgRecordsStruct> // NOT EXPORTED
@@ -256,7 +256,7 @@ inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
 # define PyIndexRecords_FromCpp(...)     FromCpp<indexRecords*>(&PyIndexRecords_Type,##__VA_ARGS__)
 # define PyMetaIndex_FromCpp(...)        FromCppOwned<metaIndex*>(&PyMetaIndex_Type,##__VA_ARGS__)
 # define PyPackage_FromCpp(...)          FromCppOwned<pkgCache::PkgIterator>(&PyPackage_Type,##__VA_ARGS__)
-# define PyPackageIndexFile_FromCpp(...) FromCppOwned<pkgIndexFile*>(&PyPackageIndexFile_Type,##__VA_ARGS__)
+# define PyIndexFile_FromCpp(...) FromCppOwned<pkgIndexFile*>(&PyIndexFile_Type,##__VA_ARGS__)
 # define PyPackageFile_FromCpp(...)      FromCppOwned<pkgCache::PkgFileIterator>(&PyPackageFile_Type,##__VA_ARGS__)
 //# define PyPackageList_FromCpp(...)      FromCppOwned<PkgListStruct>(&PyPackageList_Type,##__VA_ARGS__)
 # define PyPackageManager_FromCpp(...)   FromCpp<pkgPackageManager*>(&PyPackageManager_Type,##__VA_ARGS__)

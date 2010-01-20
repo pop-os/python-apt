@@ -18,6 +18,7 @@ python-apt (0.7.93) UNRELEASED; urgency=low
     - Fix some parsing of dpkg status fd.
   * apt/progress/text.py:
     - Replace one print statement with a .write() call.
+  * Rename apt_pkg.PackageIndexFile to apt_pkg.IndexFile.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:

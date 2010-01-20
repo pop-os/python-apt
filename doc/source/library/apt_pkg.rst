@@ -731,7 +731,7 @@ Index Files
     .. attribute:: index_files
 
 
-.. class:: PackageIndexFile
+.. class:: IndexFile
 
     .. method:: archive_uri(path)
 
@@ -743,7 +743,7 @@ Index Files
 
     .. attribute:: describe
 
-        A description of the :class:`PackageIndexFile`.
+        A description of the :class:`IndexFile`.
 
     .. attribute:: exists
 
@@ -1790,7 +1790,7 @@ Other classes
 
     .. method:: find_index(pkgfile)
 
-        Return a :class:`PackageIndexFile` object for the :class:`PackageFile`
+        Return a :class:`IndexFile` object for the :class:`PackageFile`
         *pkgfile*.
 
     .. method:: read_main_list

@@ -545,7 +545,7 @@ static struct _PyAptPkgAPIStruct API = {
    &PyMetaIndex_Type,         // metaindex_type
    &PyPackage_Type,           // package_type
    &PyPackageFile_Type,       // packagefile_type
-   &PyPackageIndexFile_Type,  // packageindexfile_type
+   &PyIndexFile_Type,  // packageindexfile_type
    &PyPackageList_Type,       // packagelist_type
    &PyPackageManager_Type,    // packagemanager_type
    &PyPackageRecords_Type,    // packagerecords_type
@@ -638,7 +638,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"DepCache",&PyDepCache_Type);
    ADDTYPE(Module,"ProblemResolver",&PyProblemResolver_Type);
    /* ========================= indexfile.cc ========================= */
-   ADDTYPE(Module,"PackageIndexFile",&PyPackageIndexFile_Type); // NO __new__()
+   ADDTYPE(Module,"IndexFile",&PyIndexFile_Type); // NO __new__()
    /* ========================= metaindex.cc ========================= */
    ADDTYPE(Module,"MetaIndex",&PyMetaIndex_Type); // NO __new__()
    /* ========================= pkgmanager.cc ========================= */
