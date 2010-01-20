@@ -25,3 +25,10 @@ module ``client`` with the attribute ``hash`` which stores an object of the
 type :class:`apt_pkg.HashString`:
 
 .. literalinclude:: ../../client-example.cc
+
+
+.. highlightlang:: sh
+
+If this file were called client-example.cc, you could compile it using::
+
+    g++ -lapt-pkg -lpython2.5 -I/usr/include/python2.5 -o client client-example.cc
