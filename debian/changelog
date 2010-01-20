@@ -19,6 +19,8 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
     - add DepDpkgBreaks, DepEnhances constants
   * doc/source/apt_pkg/{cache.rst, index.rst}:
     - update documentation as well
+  * apt/utils.py:
+    - add some misc utils like get_release_filename_for_pkg()
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 02 Dec 2009 16:50:55 +0100
 
