@@ -1,4 +1,4 @@
-python-apt (0.7.93) UNRELEASED; urgency=low
+python-apt (0.7.93) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * Merge debian-sid and debian-experimental.
@@ -40,7 +40,7 @@ python-apt (0.7.93) UNRELEASED; urgency=low
   * doc/source/apt_pkg/{cache.rst, index.rst}:
     - update documentation as well
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 15 Jan 2010 15:24:16 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 20 Jan 2010 17:06:20 +0100
 
 python-apt (0.7.92) experimental; urgency=low
 
