@@ -379,6 +379,17 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
     return FetcherObj;
 }
 
+/**
+ * Create a new apt_pkg.Acquire Python object from the pkgAcquire object.
+ */
+PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete) {
+    PyAcquireObject *FetcherObj = (PyAcquireObject *)CppPyObject_NEW<pkgAcquire*>(&PyAcquire_Type, fetcher);
+    new (&FetcherObj->items) item_map();
+    new (&FetcherObj->workers) worker_map();
+    FetcherObj->NoDelete =  (!Delete);
+    return FetcherObj;
+}
+
 static char *doc_PkgAcquire =
     "Acquire(progress: apt_pkg.AcquireProgress) -> Acquire() object.\n\n"
     "Create a new acquire object. The parameter *progress* can be used to\n"

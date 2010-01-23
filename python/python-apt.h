@@ -26,6 +26,7 @@
 
 struct _PyAptPkgAPIStruct {
     PyTypeObject *acquire_type;
+    PyObject*   (*acquire_fromcpp)(pkgAcquire *acquire, bool Delete);
     PyTypeObject *acquirefile_type;
     PyTypeObject *acquireitem_type;
     PyTypeObject *acquireitemdesc_type;
@@ -237,7 +238,9 @@ inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
     return Obj;
 }
 
-# define PyAcquire_FromCpp(...)          FromCpp<pkgAcquire*>(&PyAcquire_Type, ##__VA_ARGS__)
+# ifndef APT_PKGMODULE_H
+#  define PyAcquire_FromCpp              _PyAptPkg_API->acquire_fromcpp
+#endif
 # define PyAcquireFile_FromCpp(...)      FromCppOwned<pkgAcqFile*>(&PyAcquireFile_Type, ##__VA_ARGS__)
 # define PyAcquireItem_FromCpp(...)      FromCppOwned<pkgAcquire::Item*>(&PyAcquireItem_Type,##__VA_ARGS__)
 # define PyAcquireItemDesc_FromCpp(...)  FromCppOwned<pkgAcquire::ItemDesc*>(&PyAcquireItemDesc_Type,##__VA_ARGS__)

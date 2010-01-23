@@ -121,6 +121,8 @@ extern PyTypeObject PyAcquireItemDesc_Type;
 extern PyTypeObject PyAcquireWorker_Type;
 extern PyTypeObject PySystemLock_Type;
 extern PyTypeObject PyFileLock_Type;
+
+PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete);
 #include "python-apt.h"
 #endif
 

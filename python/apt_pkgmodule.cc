@@ -526,6 +526,7 @@ static PyMethodDef methods[] =
 
 static struct _PyAptPkgAPIStruct API = {
    &PyAcquire_Type,           // acquire_type
+   &PyAcquire_FromCpp,        // acquire_fromcpp
    &PyAcquireFile_Type,       // acquirefile_type
    &PyAcquireItem_Type,       // acquireitem_type
    &PyAcquireItemDesc_Type,   // acquireitemdesc_type
