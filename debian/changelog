@@ -1,3 +1,9 @@
+python-apt (0.7.93.1) UNRELEASED; urgency=low
+
+  * Fix reference counting for old progress classes (Closes: #566370).
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
+
 python-apt (0.7.93) unstable; urgency=low
 
   [ Julian Andres Klode ]

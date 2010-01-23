@@ -124,8 +124,11 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    //std::cout << "MediaChange" << std::endl;
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
    PyObject *result;
-   if(! RunSimpleCallback("media_change", arglist, &result))
-       RunSimpleCallback("mediaChange", arglist, &result);
+
+   if(PyObject_HasAttrString(callbackInst, "media_change"))
+      RunSimpleCallback("media_change", arglist, &result);
+   else
+      RunSimpleCallback("mediaChange", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res)) {
@@ -157,8 +160,10 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
    arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(),
                            Itm.ShortDesc.c_str(), status);
 
-   if(!RunSimpleCallback("update_status", arglist))
-       RunSimpleCallback("updateStatus", arglist);
+   if(PyObject_HasAttrString(callbackInst, "update_status"))
+      RunSimpleCallback("update_status", arglist);
+   else
+      RunSimpleCallback("updateStatus", arglist);
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
@@ -536,8 +541,10 @@ bool PyCdromProgress::ChangeCdrom()
 {
    PyObject *arglist = Py_BuildValue("()");
    PyObject *result;
-   if(!RunSimpleCallback("change_cdrom", arglist, &result))
-       RunSimpleCallback("changeCdrom", arglist, &result);
+   if (PyObject_HasAttrString(callbackInst, "change_cdrom"))
+      RunSimpleCallback("change_cdrom", arglist, &result);
+   else
+      RunSimpleCallback("changeCdrom", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res))
@@ -555,7 +562,8 @@ bool PyCdromProgress::AskCdromName(string &Name)
    PyObject *result;
 
    // New style: String on success, None on failure.
-   if (RunSimpleCallback("ask_cdrom_name", arglist, &result)) {
+   if (PyObject_HasAttrString(callbackInst, "ask_cdrom_name")) {
+        RunSimpleCallback("ask_cdrom_name", arglist, &result);
         if(result == Py_None)
             return false;
         if(!PyArg_Parse(result, "s", &new_name))
