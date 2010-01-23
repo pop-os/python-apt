@@ -307,11 +307,12 @@ class Cache(object):
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.FetchProgress()
-            res = self._cache.update(fetch_progress, self._list,
-                                      pulse_interval)
-            if res == apt_pkg.Acquire.RESULT_CANCELLED and raise_on_error:
-                raise FetchCancelledException()
-            if res == apt_pkg.Acquire.RESULT_FAILED and raise_on_error:
+            try:
+                res = self._cache.update(fetch_progress, self._list,
+                                         pulse_interval)
+            except SystemError, e:
+                raise FetchFailedException(e)
+            if not res and raise_on_error:
                 raise FetchFailedException()
             else:
                 return res
