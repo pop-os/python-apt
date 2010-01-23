@@ -133,6 +133,7 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    bool res = true;
    if(!PyArg_Parse(result, "b", &res)) {
       // no return value or None, assume false
+      PyCbObj_BEGIN_ALLOW_THREADS
       return false;
    }
 
@@ -201,12 +202,15 @@ void PyFetchProgress::Fail(pkgAcquire::ItemDesc &Itm)
    PyCbObj_END_ALLOW_THREADS
    if (PyObject_HasAttrString(callbackInst, "fail")) {
        RunSimpleCallback("fail", TUPLEIZE(PyAcquire_GetItemDesc(pyAcquire, &Itm)));
+       PyCbObj_BEGIN_ALLOW_THREADS
        return;
    }
 
    // Ignore certain kinds of transient failures (bad code)
-   if (Itm.Owner->Status == pkgAcquire::Item::StatIdle)
+   if (Itm.Owner->Status == pkgAcquire::Item::StatIdle) {
+      PyCbObj_BEGIN_ALLOW_THREADS
       return;
+   }
 
    if (Itm.Owner->Status == pkgAcquire::Item::StatDone)
    {
@@ -262,8 +266,10 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    pkgAcquireStatus::Pulse(Owner);
 
    //std::cout << "Pulse" << std::endl;
-   if(callbackInst == 0)
+   if(callbackInst == 0) {
+      PyCbObj_BEGIN_ALLOW_THREADS
       return false;
+   }
 
    setattr(callbackInst, "last_bytes", "d", LastBytes);
    setattr(callbackInst, "current_cps", "d", CurrentCPS);
@@ -496,6 +502,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       if (result == NULL) {
 	 std::cerr << "waitChild method invalid" << std::endl;
 	 PyErr_Print();
+	 PyCbObj_BEGIN_ALLOW_THREADS
 	 return pkgPackageManager::Failed;
       }
       if(!PyArg_Parse(result, "i", &res) ) {
