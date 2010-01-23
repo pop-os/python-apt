@@ -5,6 +5,8 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     - Fix Cache.update() to not raise errors on successful updates.
   * python/progress.cc:
     - Fix some threading issues (add some missing PyCbObj_BEGIN_ALLOW_THREADS)
+  * python/acquire-item.cc:
+    - Support items without an owner set.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 

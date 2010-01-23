@@ -178,26 +178,28 @@ static void acquireitem_dealloc(PyObject *self)
 {
     pkgAcquire::Item *item = PyAcquireItem_ToCpp(self);
     PyAcquireObject *Owner = (PyAcquireObject *)GetOwner<pkgAcquire::Item*>(self);
-    PyAcquireItems item_struct = Owner->items[item];
-    // TODO: Unregister the object in the owner.
-    if (!((CppOwnedPyObject<pkgAcquire::Item*>*)self)->NoDelete) {
-        if (item_struct.file != 0 && item_struct.file != self)
-            item_struct.file->Object = 0;
-        if (item_struct.item != 0 && item_struct.item != self) {
-            item_struct.item->Object = 0;
-            Py_DECREF(item_struct.item);
+    if (Owner != NULL) {
+        PyAcquireItems item_struct = Owner->items[item];
+        // TODO: Unregister the object in the owner.
+        if (!((CppOwnedPyObject<pkgAcquire::Item*>*)self)->NoDelete) {
+            if (item_struct.file != 0 && item_struct.file != self)
+                item_struct.file->Object = 0;
+            if (item_struct.item != 0 && item_struct.item != self) {
+                item_struct.item->Object = 0;
+                Py_DECREF(item_struct.item);
+            }
+            if (item_struct.desc != 0) {
+                item_struct.desc->Object = 0;
+                Py_DECREF(item_struct.desc);
+            }
+            Owner->items.erase(item);
         }
-        if (item_struct.desc != 0) {
-            item_struct.desc->Object = 0;
-            Py_DECREF(item_struct.desc);
+        else {
+            if (item_struct.file == self)
+                item_struct.file = 0;
+            if (item_struct.item == self)
+                item_struct.item = 0;
         }
-        Owner->items.erase(item);
-    }
-    else {
-        if (item_struct.file == self)
-            item_struct.file = 0;
-        if (item_struct.item == self)
-            item_struct.item = 0;
     }
 
     CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
