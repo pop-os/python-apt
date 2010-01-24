@@ -7,6 +7,9 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     - Fix some threading issues (add some missing PyCbObj_BEGIN_ALLOW_THREADS)
   * python/acquire-item.cc:
     - Support items without an owner set.
+  * python/tarfile.cc:
+    - When extracting, only allocate a new buffer if the old one was too small.
+    - Do not segfault if TarFile.go() is called without a member name.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 

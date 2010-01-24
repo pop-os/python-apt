@@ -49,6 +49,8 @@ public:
     bool error;
     // Place where the copy of the data is stored.
     char *copy;
+    // The size of the copy
+    size_t copy_size;
 
     virtual bool DoItem(Item &Itm,int &Fd);
     virtual bool FinishedFile(Item &Itm,int Fd);
@@ -72,8 +74,12 @@ public:
 bool PyDirStream::DoItem(Item &Itm, int &Fd)
 {
     if (!member || strcmp(Itm.Name, member) == 0) {
-        delete[] copy;
-        copy = new char[Itm.Size];
+        // Allocate a new buffer if the old one is too small.
+        if (copy == NULL || copy_size < Itm.Size) {
+            delete[] copy;
+            copy = new char[Itm.Size];
+            copy_size = Itm.Size;
+        }
         Fd = -2;
     }
     return true;
@@ -91,7 +97,7 @@ bool PyDirStream::FinishedFile(Item &Itm,int Fd)
     if (member && strcmp(Itm.Name, member) != 0)
         // Skip non-matching Items, if a specific one is requested.
         return true;
-        
+
     // Clear the old objects and create new ones.
     Py_XDECREF(py_member);
     Py_XDECREF(py_data);
@@ -366,7 +372,7 @@ static PyObject *tarfile_go(PyObject *self, PyObject *args)
     char *member = 0;
     if (PyArg_ParseTuple(args,"O|s",&callback,&member) == 0)
         return 0;
-    if (strcmp(member, "") == 0) 
+    if (member && strcmp(member, "") == 0)
         member = 0;
     pkgDirStream Extract;
     PyDirStream stream(callback, member);
