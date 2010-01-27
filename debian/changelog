@@ -12,6 +12,9 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     - Do not segfault if TarFile.go() is called without a member name.
     - Clone all pkgDirStream::Item's so apt_pkg.TarMember object can be used
       outside of the callback function passed to go().
+  * Drop the segfault prevention measures from the Acquire code, as they fail
+    to work. A replacement will be added once destruction callbacks are added
+    in APT.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 

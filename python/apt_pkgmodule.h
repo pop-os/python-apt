@@ -123,6 +123,7 @@ extern PyTypeObject PySystemLock_Type;
 extern PyTypeObject PyFileLock_Type;
 
 PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete);
+PyObject *PyAcquireItem_FromCpp(pkgAcquire::Item *item, bool Delete, PyObject *owner);
 #include "python-apt.h"
 #endif
 

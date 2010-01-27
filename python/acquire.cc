@@ -30,43 +30,18 @@
 #include <apt-pkg/acquire-worker.h>
 
 
-typedef CppOwnedPyObject<pkgAcquire::Worker*> PyAcquireWorkerObject;
-struct PyAcquireItems {
-    CppOwnedPyObject<pkgAcqFile*> *file;
-    CppOwnedPyObject<pkgAcquire::Item*> *item;
-    CppOwnedPyObject<pkgAcquire::ItemDesc*> *desc;
-};
-
-typedef map<pkgAcquire::Item*,PyAcquireItems> item_map;
-typedef map<pkgAcquire::Worker*,PyAcquireWorkerObject*> worker_map;
-
-// Keep a vector to PyAcquireItemObject pointers, so we can set the Object
-// pointers to NULL when deallocating the main object (mostly AcquireFile).
-struct PyAcquireObject : public CppPyObject<pkgAcquire*> {
-    item_map items;
-    worker_map workers;
-};
-
-
 static PyObject *acquireworker_get_current_item(PyObject *self, void *closure)
 {
     pkgAcquire::Worker *worker = GetCpp<pkgAcquire::Worker*>(self);
-
-    if (worker->CurrentItem == NULL) {
+    pkgAcquire::ItemDesc *desc = worker->CurrentItem;
+    if (desc == NULL) {
         Py_RETURN_NONE;
     }
-
-    PyObject *PyAcquire = GetOwner<pkgAcquire::Worker*>(self);
-
-    if (PyAcquire)
-        return PyAcquire_GetItemDesc(PyAcquire, worker->CurrentItem);
-    else {
-        PyObject *PyItem = PyAcquireItem_FromCpp(worker->CurrentItem->Owner);
-        PyObject *ret = PyAcquireItemDesc_FromCpp(worker->CurrentItem,false,
-                        PyItem);
-        Py_DECREF(PyItem);
-        return ret;
-    }
+    PyObject *PyAcq  = GetOwner<pkgAcquire::Worker*>(self);
+    PyObject *PyItem = PyAcquireItem_FromCpp(desc->Owner, false, PyAcq);
+    PyObject *PyDesc = PyAcquireItemDesc_FromCpp(desc, false, PyItem);
+    Py_XDECREF(PyItem);
+    return PyDesc;
 }
 
 static PyObject *acquireworker_get_status(PyObject *self, void *closure)
@@ -134,17 +109,28 @@ PyTypeObject PyAcquireWorker_Type = {
     acquireworker_getset,                 // tp_getset
 };
 
+
+static pkgAcquire::ItemDesc* acquireitemdesc_tocpp(PyObject *self) {
+    pkgAcquire::ItemDesc *item = GetCpp<pkgAcquire::ItemDesc*>(self);
+    if (item == NULL)
+        PyErr_SetString(PyExc_ValueError, "Acquire has been shutdown");
+    return item;
+}
+
 static PyObject *acquireitemdesc_get_uri(PyObject *self, void *closure)
 {
-    return CppPyString(GetCpp<pkgAcquire::ItemDesc*>(self)->URI);
+    pkgAcquire::ItemDesc *item = acquireitemdesc_tocpp(self);
+    return item ? CppPyString(item->URI) : NULL;
 }
 static PyObject *acquireitemdesc_get_description(PyObject *self, void *closure)
 {
-    return CppPyString(GetCpp<pkgAcquire::ItemDesc*>(self)->Description);
+    pkgAcquire::ItemDesc *item = acquireitemdesc_tocpp(self);
+    return item ? CppPyString(item->Description) : NULL;
 }
 static PyObject *acquireitemdesc_get_shortdesc(PyObject *self, void *closure)
 {
-    return CppPyString(GetCpp<pkgAcquire::ItemDesc*>(self)->ShortDesc);
+    pkgAcquire::ItemDesc *item = acquireitemdesc_tocpp(self);
+    return item ? CppPyString(item->ShortDesc) : NULL;
 }
 static PyObject *acquireitemdesc_get_owner(CppOwnedPyObject<pkgAcquire::ItemDesc*> *self, void *closure)
 {
@@ -153,7 +139,7 @@ static PyObject *acquireitemdesc_get_owner(CppOwnedPyObject<pkgAcquire::ItemDesc
         return self->Owner;
     }
     else if (self->Object) {
-        self->Owner = PyAcquireItem_FromCpp(self->Object->Owner);
+        self->Owner = PyAcquireItem_FromCpp(self->Object->Owner, false, NULL);
         Py_INCREF(self->Owner);
         return self->Owner;
     }
@@ -214,31 +200,6 @@ PyTypeObject PyAcquireItemDesc_Type = {
     0,                                   // tp_new
 };
 
-
-// Acquire
-
-PyObject *PyAcquire_GetItem(PyObject *self, pkgAcquire::Item *item)
-{
-    PyAcquireItems &item_struct = ((PyAcquireObject *)self)->items[item];
-    if (! item_struct.item) {
-        item_struct.item = PyAcquireItem_FromCpp(item,false,self);
-    }
-    Py_INCREF(item_struct.item);
-    return item_struct.item;
-}
-
-PyObject *PyAcquire_GetItemDesc(PyObject *self, pkgAcquire::ItemDesc *item)
-{
-    PyAcquireItems &item_struct = ((PyAcquireObject *)self)->items[item->Owner];
-    if (! item_struct.item)
-        item_struct.item = PyAcquireItem_FromCpp(item->Owner,false,self);
-    if (! item_struct.desc)
-        item_struct.desc = PyAcquireItemDesc_FromCpp(item,false,
-                           item_struct.item);
-    Py_INCREF(item_struct.desc);
-    return item_struct.desc;
-}
-
 static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 {
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
@@ -252,33 +213,18 @@ static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
     return HandleErrors(Py_BuildValue("i",run));
 }
 
+
 static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 {
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(Self);
-
     if (PyArg_ParseTuple(Args, "") == 0)
         return 0;
-
     fetcher->Shutdown();
-
-    // TODO: Delete all objects here
-    item_map &items = ((PyAcquireObject *)Self)->items;
-    for (item_map::iterator I = items.begin(); I != items.end(); I++) {
-        if ((*I).second.file)
-            (*I).second.file->Object = NULL;
-        if ((*I).second.item) {
-            (*I).second.item->Object = NULL;
-            Py_DECREF((*I).second.item);
-        }
-        if ((*I).second.desc) {
-            (*I).second.desc->Object = NULL;
-            Py_DECREF((*I).second.desc);
-        }
-    }
-    items.clear();
     Py_INCREF(Py_None);
     return HandleErrors(Py_None);
 }
+
+
 
 static PyMethodDef PkgAcquireMethods[] = {
     {"run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
@@ -312,8 +258,7 @@ static PyObject *PkgAcquireGetWorkers(PyObject *self, void *closure)
     CppOwnedPyObject<pkgAcquire::Worker*> *PyWorker = NULL;
     for (pkgAcquire::Worker *Worker = Owner->WorkersBegin();
             Worker != 0; Worker = Owner->WorkerStep(Worker)) {
-        PyWorker = CppOwnedPyObject_NEW<pkgAcquire::Worker*>(self,&PyAcquireWorker_Type, Worker);
-        PyWorker->NoDelete = true;
+        PyWorker = PyAcquireWorker_FromCpp(Worker, false, self);
         PyList_Append(List, PyWorker);
         Py_DECREF(PyWorker);
     }
@@ -326,7 +271,7 @@ static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
     PyObject *Obj;
     for (pkgAcquire::ItemIterator I = fetcher->ItemsBegin();
             I != fetcher->ItemsEnd(); I++) {
-        Obj = PyAcquire_GetItem(Self, *I);
+        Obj = PyAcquireItem_FromCpp(*I, false, Self);
         PyList_Append(List,Obj);
         Py_DECREF(Obj);
     }
@@ -368,14 +313,11 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
         fetcher = new pkgAcquire();
     }
 
-    PyAcquireObject *FetcherObj = (PyAcquireObject *)
-                                  CppPyObject_NEW<pkgAcquire*>(type, fetcher);
+    PyObject *FetcherObj = CppPyObject_NEW<pkgAcquire*>(type, fetcher);
 
     if (progress != 0)
         progress->setPyAcquire(FetcherObj);
     // prepare our map of items.
-    new (&FetcherObj->items) item_map();
-    new (&FetcherObj->workers) worker_map();
     return FetcherObj;
 }
 
@@ -383,11 +325,9 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
  * Create a new apt_pkg.Acquire Python object from the pkgAcquire object.
  */
 PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete) {
-    PyAcquireObject *FetcherObj = (PyAcquireObject *)CppPyObject_NEW<pkgAcquire*>(&PyAcquire_Type, fetcher);
-    new (&FetcherObj->items) item_map();
-    new (&FetcherObj->workers) worker_map();
-    FetcherObj->NoDelete =  (!Delete);
-    return FetcherObj;
+    CppPyObject<pkgAcquire*> *obj = CppPyObject_NEW<pkgAcquire*>(&PyAcquire_Type, fetcher);
+    obj->NoDelete = (!Delete);
+    return obj;
 }
 
 static char *doc_PkgAcquire =
@@ -399,7 +339,7 @@ static char *doc_PkgAcquire =
 PyTypeObject PyAcquire_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.Acquire",                   // tp_name
-    sizeof(PyAcquireObject),             // tp_basicsize
+    sizeof(CppPyObject<pkgAcquire*>),    // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
     CppDeallocPtr<pkgAcquire*>,          // tp_dealloc

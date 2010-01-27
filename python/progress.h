@@ -64,6 +64,7 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 {
    protected:
    PyObject *pyAcquire;
+   PyObject *GetDesc(pkgAcquire::ItemDesc *item);
    public:
    enum {
       DLDone, DLQueued, DLFailed, DLHit, DLIgnored

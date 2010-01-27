@@ -28,22 +28,6 @@
 
 using namespace std;
 
-
-
-struct PyAcquireItems {
-    CppOwnedPyObject<pkgAcqFile*> *file;
-    CppOwnedPyObject<pkgAcquire::Item*> *item;
-    CppOwnedPyObject<pkgAcquire::ItemDesc*> *desc;
-};
-
-typedef map<pkgAcquire::Item*,PyAcquireItems> item_map;
-
-// Keep a vector to PyAcquireItemObject pointers, so we can set the Object
-// pointers to NULL when deallocating the main object (mostly AcquireFile).
-struct PyAcquireObject : public CppPyObject<pkgAcquire*> {
-    item_map items;
-};
-
 inline pkgAcquire::Item *acquireitem_tocpp(PyObject *self)
 {
     pkgAcquire::Item *itm = GetCpp<pkgAcquire::Item*>(self);
@@ -163,45 +147,18 @@ static PyObject *acquireitem_repr(PyObject *Self)
     pkgAcquire::Item *Itm = acquireitem_tocpp(Self);
     if (Itm == 0)
         return 0;
-
     return PyString_FromFormat("<%s object: "
                                "Status: %i Complete: %i Local: %i IsTrusted: %i "
                                "FileSize: %lu DestFile:'%s' "
                                "DescURI: '%s' ID:%lu ErrorText: '%s'>",
                                Self->ob_type->tp_name,
                                Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
-                               Itm->FileSize, Itm->DestFile.c_str(), Itm->DescURI().c_str(),
+                               Itm->FileSize, Itm->DestFile.c_str(),  Itm->DescURI().c_str(),
                                Itm->ID,Itm->ErrorText.c_str());
 }
 
 static void acquireitem_dealloc(PyObject *self)
 {
-    pkgAcquire::Item *item = PyAcquireItem_ToCpp(self);
-    PyAcquireObject *Owner = (PyAcquireObject *)GetOwner<pkgAcquire::Item*>(self);
-    if (Owner != NULL) {
-        PyAcquireItems item_struct = Owner->items[item];
-        // TODO: Unregister the object in the owner.
-        if (!((CppOwnedPyObject<pkgAcquire::Item*>*)self)->NoDelete) {
-            if (item_struct.file != 0 && item_struct.file != self)
-                item_struct.file->Object = 0;
-            if (item_struct.item != 0 && item_struct.item != self) {
-                item_struct.item->Object = 0;
-                Py_DECREF(item_struct.item);
-            }
-            if (item_struct.desc != 0) {
-                item_struct.desc->Object = 0;
-                Py_DECREF(item_struct.desc);
-            }
-            Owner->items.erase(item);
-        }
-        else {
-            if (item_struct.file == self)
-                item_struct.file = 0;
-            if (item_struct.item == self)
-                item_struct.item = 0;
-        }
-    }
-
     CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
 }
 
@@ -267,9 +224,6 @@ static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * 
                                     destFile); // short-desc
     CppOwnedPyObject<pkgAcqFile*> *AcqFileObj = CppOwnedPyObject_NEW<pkgAcqFile*>(pyfetcher, type);
     AcqFileObj->Object = af;
-
-
-    ((PyAcquireObject *)pyfetcher)->items[af].file = AcqFileObj;
     return AcqFileObj;
 }
 
