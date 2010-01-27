@@ -25,7 +25,7 @@
 static PyObject *hashes_new(PyTypeObject *type,PyObject *args,
                             PyObject *kwds)
 {
-    return CppPyObject_NEW<Hashes>(type);
+    return CppPyObject_NEW<Hashes>(NULL, type);
 }
 
 static int hashes_init(PyObject *self, PyObject *args, PyObject *kwds)

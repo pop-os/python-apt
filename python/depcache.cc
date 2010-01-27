@@ -219,7 +219,7 @@ static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   CandidateObj = CppOwnedPyObject_NEW<pkgCache::VerIterator>(PackageObj,&PyVersion_Type,I);
+   CandidateObj = CppPyObject_NEW<pkgCache::VerIterator>(PackageObj,&PyVersion_Type,I);
 
    return CandidateObj;
 }
@@ -625,8 +625,8 @@ static PyObject *PkgDepCacheGetPolicy(PyObject *Self,void*) {
    PyObject *Owner = GetOwner<pkgDepCache*>(Self);
    pkgDepCache *DepCache = GetCpp<pkgDepCache*>(Self);
    pkgPolicy *Policy = (pkgPolicy *)&DepCache->GetPolicy();
-   CppOwnedPyObject<pkgPolicy*> *PyPolicy =
-        CppOwnedPyObject_NEW<pkgPolicy*>(Owner,&PyPolicy_Type,Policy);
+   CppPyObject<pkgPolicy*> *PyPolicy =
+        CppPyObject_NEW<pkgPolicy*>(Owner,&PyPolicy_Type,Policy);
    // Policy should not be deleted, it is managed by CacheFile.
    PyPolicy->NoDelete = true;
    return PyPolicy;
@@ -668,8 +668,8 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
    // and now the depcache
    pkgDepCache *depcache = (pkgDepCache *)(*CacheF);
 
-   CppOwnedPyObject<pkgDepCache*> *DepCachePyObj;
-   DepCachePyObj = CppOwnedPyObject_NEW<pkgDepCache*>(Owner,type,depcache);
+   CppPyObject<pkgDepCache*> *DepCachePyObj;
+   DepCachePyObj = CppPyObject_NEW<pkgDepCache*>(Owner,type,depcache);
 
    // Do not delete the underlying pointer, it is managed by the cachefile.
    DepCachePyObj->NoDelete = true;
@@ -684,10 +684,10 @@ PyTypeObject PyDepCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.DepCache",                  // tp_name
-   sizeof(CppOwnedPyObject<pkgDepCache *>),   // tp_basicsize
+   sizeof(CppPyObject<pkgDepCache *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<pkgDepCache *>,   // tp_dealloc
+   CppDeallocPtr<pkgDepCache *>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -706,8 +706,8 @@ PyTypeObject PyDepCache_Type =
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
    doc_PkgDepCache,                     // tp_doc
-   CppOwnedTraverse<pkgDepCache *>,     // tp_traverse
-   CppOwnedClear<pkgDepCache *>,        // tp_clear
+   CppTraverse<pkgDepCache *>,     // tp_traverse
+   CppClear<pkgDepCache *>,        // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -751,8 +751,8 @@ static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObjec
 
    pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
    pkgProblemResolver *fixer = new pkgProblemResolver(depcache);
-   CppOwnedPyObject<pkgProblemResolver*> *PkgProblemResolverPyObj;
-   PkgProblemResolverPyObj = CppOwnedPyObject_NEW<pkgProblemResolver*>(Owner,
+   CppPyObject<pkgProblemResolver*> *PkgProblemResolverPyObj;
+   PkgProblemResolverPyObj = CppPyObject_NEW<pkgProblemResolver*>(Owner,
 						      type,
 						      fixer);
    HandleErrors(PkgProblemResolverPyObj);
@@ -871,10 +871,10 @@ PyTypeObject PyProblemResolver_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ProblemResolver",                       // tp_name
-   sizeof(CppOwnedPyObject<pkgProblemResolver *>),   // tp_basicsize
+   sizeof(CppPyObject<pkgProblemResolver *>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<pkgProblemResolver *>,// tp_dealloc
+   CppDeallocPtr<pkgProblemResolver *>,// tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -893,8 +893,8 @@ PyTypeObject PyProblemResolver_Type =
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
    "ProblemResolver Object",            // tp_doc
-   CppOwnedTraverse<pkgProblemResolver *>, // tp_traverse
-   CppOwnedClear<pkgProblemResolver *>, // tp_clear
+   CppTraverse<pkgProblemResolver *>, // tp_traverse
+   CppClear<pkgProblemResolver *>, // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
@@ -959,8 +959,8 @@ static PyObject *PkgActionGroupNew(PyTypeObject *type,PyObject *Args,PyObject *k
 
    pkgDepCache *depcache = GetCpp<pkgDepCache*>(Owner);
    pkgDepCache::ActionGroup *group = new pkgDepCache::ActionGroup(*depcache);
-   CppOwnedPyObject<pkgDepCache::ActionGroup*> *PkgActionGroupPyObj;
-   PkgActionGroupPyObj = CppOwnedPyObject_NEW<pkgDepCache::ActionGroup*>(Owner,
+   CppPyObject<pkgDepCache::ActionGroup*> *PkgActionGroupPyObj;
+   PkgActionGroupPyObj = CppPyObject_NEW<pkgDepCache::ActionGroup*>(Owner,
 						      type,
 						      group);
    HandleErrors(PkgActionGroupPyObj);
@@ -987,10 +987,10 @@ PyTypeObject PyActionGroup_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.ActionGroup",               // tp_name
-   sizeof(CppOwnedPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
+   sizeof(CppPyObject<pkgDepCache::ActionGroup*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<pkgDepCache::ActionGroup*>,        // tp_dealloc
+   CppDeallocPtr<pkgDepCache::ActionGroup*>,        // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -1009,8 +1009,8 @@ PyTypeObject PyActionGroup_Type =
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
    doc_PkgActionGroup,                  // tp_doc
-   CppOwnedTraverse<pkgDepCache::ActionGroup*>, // tp_traverse
-   CppOwnedClear<pkgDepCache::ActionGroup*>, // tp_clear
+   CppTraverse<pkgDepCache::ActionGroup*>, // tp_traverse
+   CppClear<pkgDepCache::ActionGroup*>, // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

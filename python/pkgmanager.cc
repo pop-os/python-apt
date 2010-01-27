@@ -31,7 +31,7 @@ static PyObject *PkgManagerNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    pkgPackageManager *pm = _system->CreatePM(GetCpp<pkgDepCache*>(Owner));
 
    CppPyObject<pkgPackageManager*> *PkgManagerObj =
-	   CppPyObject_NEW<pkgPackageManager*>(type,pm);
+	   CppPyObject_NEW<pkgPackageManager*>(NULL, type,pm);
 
    return PkgManagerObj;
 }

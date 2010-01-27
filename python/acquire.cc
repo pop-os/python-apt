@@ -77,10 +77,10 @@ static PyGetSetDef acquireworker_getset[] = {
 PyTypeObject PyAcquireWorker_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireWorker",                // tp_name
-    sizeof(CppOwnedPyObject<pkgAcquire::Worker*>),// tp_basicsize
+    sizeof(CppPyObject<pkgAcquire::Worker*>),// tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppOwnedDealloc<pkgAcquire::Worker*>, // tp_dealloc
+    CppDealloc<pkgAcquire::Worker*>, // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr
@@ -98,8 +98,8 @@ PyTypeObject PyAcquireWorker_Type = {
     Py_TPFLAGS_DEFAULT|                  // tp_flags
     Py_TPFLAGS_HAVE_GC,
     0,                 // tp_doc
-    CppOwnedTraverse<pkgAcquire::Worker*>, // tp_traverse
-    CppOwnedClear<pkgAcquire::Worker*>,   // tp_clear
+    CppTraverse<pkgAcquire::Worker*>, // tp_traverse
+    CppClear<pkgAcquire::Worker*>,   // tp_clear
     0,                                    // tp_richcompare
     0,                                    // tp_weaklistoffset
     0,                                    // tp_iter
@@ -132,7 +132,7 @@ static PyObject *acquireitemdesc_get_shortdesc(PyObject *self, void *closure)
     pkgAcquire::ItemDesc *item = acquireitemdesc_tocpp(self);
     return item ? CppPyString(item->ShortDesc) : NULL;
 }
-static PyObject *acquireitemdesc_get_owner(CppOwnedPyObject<pkgAcquire::ItemDesc*> *self, void *closure)
+static PyObject *acquireitemdesc_get_owner(CppPyObject<pkgAcquire::ItemDesc*> *self, void *closure)
 {
     if (self->Owner != NULL) {
         Py_INCREF(self->Owner);
@@ -160,10 +160,10 @@ static char *acquireitemdesc_doc =
 PyTypeObject PyAcquireItemDesc_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireItemDesc",                // tp_name
-    sizeof(CppOwnedPyObject<pkgAcquire::ItemDesc*>),// tp_basicsize
+    sizeof(CppPyObject<pkgAcquire::ItemDesc*>),// tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppOwnedDealloc<pkgAcquire::ItemDesc*>, // tp_dealloc
+    CppDealloc<pkgAcquire::ItemDesc*>, // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr
@@ -181,8 +181,8 @@ PyTypeObject PyAcquireItemDesc_Type = {
     (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_HAVE_GC),
     acquireitemdesc_doc,                 // tp_doc
-    CppOwnedTraverse<pkgAcquire::ItemDesc*>,// tp_traverse
-    CppOwnedClear<pkgAcquire::ItemDesc*>, // tp_clear
+    CppTraverse<pkgAcquire::ItemDesc*>,// tp_traverse
+    CppClear<pkgAcquire::ItemDesc*>, // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
@@ -255,7 +255,7 @@ static PyObject *PkgAcquireGetWorkers(PyObject *self, void *closure)
 {
     PyObject *List = PyList_New(0);
     pkgAcquire *Owner = GetCpp<pkgAcquire*>(self);
-    CppOwnedPyObject<pkgAcquire::Worker*> *PyWorker = NULL;
+    CppPyObject<pkgAcquire::Worker*> *PyWorker = NULL;
     for (pkgAcquire::Worker *Worker = Owner->WorkersBegin();
             Worker != 0; Worker = Owner->WorkerStep(Worker)) {
         PyWorker = PyAcquireWorker_FromCpp(Worker, false, self);
@@ -313,7 +313,7 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
         fetcher = new pkgAcquire();
     }
 
-    PyObject *FetcherObj = CppPyObject_NEW<pkgAcquire*>(type, fetcher);
+    PyObject *FetcherObj = CppPyObject_NEW<pkgAcquire*>(NULL, type, fetcher);
 
     if (progress != 0)
         progress->setPyAcquire(FetcherObj);
@@ -325,7 +325,7 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
  * Create a new apt_pkg.Acquire Python object from the pkgAcquire object.
  */
 PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete) {
-    CppPyObject<pkgAcquire*> *obj = CppPyObject_NEW<pkgAcquire*>(&PyAcquire_Type, fetcher);
+    CppPyObject<pkgAcquire*> *obj = CppPyObject_NEW<pkgAcquire*>(NULL, &PyAcquire_Type, fetcher);
     obj->NoDelete = (!Delete);
     return obj;
 }

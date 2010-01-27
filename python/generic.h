@@ -111,23 +111,22 @@ template <class T> struct CppPyObject : public PyObject
    // However if T doesn't have a default c'tor C++ doesn't generate one for
    // CppPyObject (since it can't know how it should initialize Object).
    //
-   // This causes problems then in CppOwnedPyObject, for which C++ can't create
+   // This causes problems then in CppPyObject, for which C++ can't create
    // a c'tor that calls the base class c'tor (which causes a compilation
    // error).
    // So basically having the c'tor here removes the need for T to have a
    // default c'tor, which is not always desireable.
    CppPyObject() { };
 
+   // The owner of the object. The object keeps a reference to it during its
+   // lifetime.
+   PyObject *Owner;
+
    // Flag which causes the underlying object to not be deleted.
    bool NoDelete;
 
    // The underlying C++ object.
    T Object;
-};
-
-template <class T> struct CppOwnedPyObject : public CppPyObject<T>
-{
-   PyObject *Owner;
 };
 
 template <class T>
@@ -139,121 +138,73 @@ inline T &GetCpp(PyObject *Obj)
 template <class T>
 inline PyObject *GetOwner(PyObject *Obj)
 {
-   return ((CppOwnedPyObject<T> *)Obj)->Owner;
+   return ((CppPyObject<T> *)Obj)->Owner;
 }
 
-// Generic 'new' functions
-template <class T>
-inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type)
-{
-   #ifdef ALLOC_DEBUG
-   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
-   #endif
-   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
-   new (&New->Object) T;
-   return New;
-}
-
-template <class T,class A>
-inline CppPyObject<T> *CppPyObject_NEW(PyTypeObject *Type,A const &Arg)
-{
-   #ifdef ALLOC_DEBUG
-   std::cerr << "=== ALLOCATING " << Type->tp_name << " ===\n";
-   #endif
-   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
-   new (&New->Object) T(Arg);
-   return New;
-}
 
 template <class T>
-inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
-						 PyTypeObject *Type)
+inline CppPyObject<T> *CppPyObject_NEW(PyObject *Owner,PyTypeObject *Type)
 {
    #ifdef ALLOC_DEBUG
    std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
    #endif
-   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T;
    New->Owner = Owner;
    Py_XINCREF(Owner);
    return New;
 }
 
-template <class T,class A>
-inline CppOwnedPyObject<T> *CppOwnedPyObject_NEW(PyObject *Owner,
-						 PyTypeObject *Type,A const &Arg)
+template <class T>
+inline CppPyObject<T> *CppPyObject_NEW(PyObject *Owner, PyTypeObject *Type,T const &Arg)
 {
    #ifdef ALLOC_DEBUG
    std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
    #endif
-   CppOwnedPyObject<T> *New = (CppOwnedPyObject<T>*)Type->tp_alloc(Type, 0);
+   CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
    new (&New->Object) T(Arg);
    New->Owner = Owner;
    Py_XINCREF(Owner);
    return New;
 }
 
-// Traversal and Clean for owned objects
+// Traversal and Clean for  objects
 template <class T>
-int CppOwnedTraverse(PyObject *self, visitproc visit, void* arg) {
-    Py_VISIT(((CppOwnedPyObject<T> *)self)->Owner);
+int CppTraverse(PyObject *self, visitproc visit, void* arg) {
+    Py_VISIT(((CppPyObject<T> *)self)->Owner);
     return 0;
 }
 
 template <class T>
-int CppOwnedClear(PyObject *self) {
-    Py_CLEAR(((CppOwnedPyObject<T> *)self)->Owner);
+int CppClear(PyObject *self) {
+    Py_CLEAR(((CppPyObject<T> *)self)->Owner);
     return 0;
 }
 
-// Generic Dealloc type functions
 template <class T>
-void CppDealloc(PyObject *Obj)
-{
-   #ifdef ALLOC_DEBUG
-   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << " ===\n";
-   #endif
-   if (!((CppPyObject<T>*)Obj)->NoDelete)
-      GetCpp<T>(Obj).~T();
-   Obj->ob_type->tp_free(Obj);
-}
-
-template <class T>
-void CppOwnedDealloc(PyObject *iObj)
+void CppDealloc(PyObject *iObj)
 {
    #ifdef ALLOC_DEBUG
    std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "+ ===\n";
    #endif
-   CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
+   CppPyObject<T> *Obj = (CppPyObject<T> *)iObj;
    if (!((CppPyObject<T>*)Obj)->NoDelete)
       Obj->Object.~T();
-   CppOwnedClear<T>(iObj);
+   CppClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
 
-// Pointer deallocation
-// Generic Dealloc type functions
-template <class T>
-void CppDeallocPtr(PyObject *Obj)
-{
-   #ifdef ALLOC_DEBUG
-   std::cerr << "=== DEALLOCATING " << Obj->ob_type->tp_name << "* ===\n";
-   #endif
-   if (!((CppPyObject<T>*)Obj)->NoDelete)
-      delete GetCpp<T>(Obj);
-   Obj->ob_type->tp_free(Obj);
-}
 
 template <class T>
-void CppOwnedDeallocPtr(PyObject *iObj)
+void CppDeallocPtr(PyObject *iObj)
 {
    #ifdef ALLOC_DEBUG
    std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "*+ ===\n";
    #endif
-   CppOwnedPyObject<T> *Obj = (CppOwnedPyObject<T> *)iObj;
+   CppPyObject<T> *Obj = (CppPyObject<T> *)iObj;
    if (!((CppPyObject<T>*)Obj)->NoDelete)
       delete Obj->Object;
-   CppOwnedClear<T>(iObj);
+   CppClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
 

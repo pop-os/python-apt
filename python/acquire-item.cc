@@ -159,13 +159,13 @@ static PyObject *acquireitem_repr(PyObject *Self)
 
 static void acquireitem_dealloc(PyObject *self)
 {
-    CppOwnedDeallocPtr<pkgAcquire::Item*>(self);
+    CppDeallocPtr<pkgAcquire::Item*>(self);
 }
 
 PyTypeObject PyAcquireItem_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireItem",         // tp_name
-    sizeof(CppOwnedPyObject<pkgAcquire::Item*>),   // tp_basicsize
+    sizeof(CppPyObject<pkgAcquire::Item*>),   // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
     acquireitem_dealloc,                  // tp_dealloc
@@ -186,8 +186,8 @@ PyTypeObject PyAcquireItem_Type = {
     Py_TPFLAGS_DEFAULT |
     Py_TPFLAGS_HAVE_GC,                  // tp_flags
     "AcquireItem Object",                // tp_doc
-    CppOwnedTraverse<pkgAcquire::Item*>, // tp_traverse
-    CppOwnedClear<pkgAcquire::Item*>,    // tp_clear
+    CppTraverse<pkgAcquire::Item*>, // tp_traverse
+    CppClear<pkgAcquire::Item*>,    // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
@@ -222,7 +222,7 @@ static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * 
                                     shortDescr,
                                     destDir,
                                     destFile); // short-desc
-    CppOwnedPyObject<pkgAcqFile*> *AcqFileObj = CppOwnedPyObject_NEW<pkgAcqFile*>(pyfetcher, type);
+    CppPyObject<pkgAcqFile*> *AcqFileObj = CppPyObject_NEW<pkgAcqFile*>(pyfetcher, type);
     AcqFileObj->Object = af;
     return AcqFileObj;
 }
@@ -237,7 +237,7 @@ static char *acquirefile_doc =
 PyTypeObject PyAcquireFile_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireFile",                // tp_name
-    sizeof(CppOwnedPyObject<pkgAcqFile*>),// tp_basicsize
+    sizeof(CppPyObject<pkgAcqFile*>),// tp_basicsize
     0,                                   // tp_itemsize
     // Methods
     acquireitem_dealloc,                 // tp_dealloc
@@ -259,8 +259,8 @@ PyTypeObject PyAcquireFile_Type = {
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC,
     acquirefile_doc,                     // tp_doc
-    CppOwnedTraverse<pkgAcqFile*>,       // tp_traverse
-    CppOwnedClear<pkgAcqFile*>,          // tp_clear
+    CppTraverse<pkgAcqFile*>,       // tp_traverse
+    CppClear<pkgAcqFile*>,          // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
@@ -309,7 +309,7 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject * kwds)
                                     shortDescr,
                                     destDir,
                                     destFile); // short-desc
-    CppPyObject<pkgAcqFile*> *AcqFileObj = CppPyObject_NEW<pkgAcqFile*>(&PyAcquireFile_Type);
+    CppPyObject<pkgAcqFile*> *AcqFileObj = CppPyObject_NEW<pkgAcqFile*>(NULL, &PyAcquireFile_Type);
     AcqFileObj->Object = af;
     AcqFileObj->NoDelete = true;
 

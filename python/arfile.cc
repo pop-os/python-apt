@@ -93,10 +93,10 @@ static const char *armember_doc =
 PyTypeObject PyArMember_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_inst.ArMember",                 // tp_name
-    sizeof(CppOwnedPyObject<ARArchive::Member*>),  // tp_basicsize
+    sizeof(CppPyObject<ARArchive::Member*>),  // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppOwnedDeallocPtr<ARArchive::Member*>, // tp_dealloc
+    CppDeallocPtr<ARArchive::Member*>, // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr
@@ -114,8 +114,8 @@ PyTypeObject PyArMember_Type = {
     Py_TPFLAGS_DEFAULT |                 // tp_flags
     Py_TPFLAGS_HAVE_GC,
     armember_doc,                        // tp_doc
-    CppOwnedTraverse<ARArchive::Member*>,// tp_traverse
-    CppOwnedClear<ARArchive::Member*>,   // tp_clear
+    CppTraverse<ARArchive::Member*>,// tp_traverse
+    CppClear<ARArchive::Member*>,   // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
@@ -135,7 +135,7 @@ public:
     }
 };
 
-struct PyArArchiveObject : public CppOwnedPyObject<PyARArchiveHack*> {
+struct PyArArchiveObject : public CppPyObject<PyARArchiveHack*> {
     FileFd Fd;
 };
 
@@ -146,7 +146,7 @@ static const char *ararchive_getmember_doc =
 static PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 {
     const char *name;
-    CppOwnedPyObject<ARArchive::Member*> *ret;
+    CppPyObject<ARArchive::Member*> *ret;
     if (! (name = PyObject_AsString(arg)))
         return 0;
 
@@ -157,7 +157,7 @@ static PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
     }
 
     // Create our object.
-    ret = CppOwnedPyObject_NEW<ARArchive::Member*>(self,&PyArMember_Type);
+    ret = CppPyObject_NEW<ARArchive::Member*>(self,&PyArMember_Type);
     ret->Object = const_cast<ARArchive::Member*>(member);
     ret->NoDelete = true;
     return ret;
@@ -302,7 +302,7 @@ static PyObject *ararchive_gettar(PyArArchiveObject *self, PyObject *args)
         return 0;
     }
 
-    PyTarFileObject *tarfile = (PyTarFileObject*)CppOwnedPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
     new (&tarfile->Fd) FileFd(self->Fd);
     tarfile->min = member->Start;
     tarfile->Object = new ExtractTar(self->Fd, member->Size, comp);
@@ -317,8 +317,8 @@ static PyObject *ararchive_getmembers(PyArArchiveObject *self)
     PyObject *list = PyList_New(0);
     ARArchive::Member *member = self->Object->Members();
     do {
-        CppOwnedPyObject<ARArchive::Member*> *ret;
-        ret = CppOwnedPyObject_NEW<ARArchive::Member*>(self,&PyArMember_Type);
+        CppPyObject<ARArchive::Member*> *ret;
+        ret = CppPyObject_NEW<ARArchive::Member*>(self,&PyArMember_Type);
         ret->Object = member;
         ret->NoDelete = true;
         PyList_Append(list, ret);
@@ -380,14 +380,14 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
 
     // We receive a filename.
     if ((filename = (char*)PyObject_AsString(file))) {
-        self = (PyArArchiveObject *)CppOwnedPyObject_NEW<ARArchive*>(0,type);
+        self = (PyArArchiveObject *)CppPyObject_NEW<ARArchive*>(0,type);
         new (&self->Fd) FileFd(filename,FileFd::ReadOnly);
     }
     // We receive a file object.
     else if ((fileno = PyObject_AsFileDescriptor(file)) != -1) {
         // Clear the error set by PyObject_AsString().
         PyErr_Clear();
-        self = (PyArArchiveObject *)CppOwnedPyObject_NEW<ARArchive*>(file,type);
+        self = (PyArArchiveObject *)CppPyObject_NEW<ARArchive*>(file,type);
         new (&self->Fd) FileFd(fileno,false);
     }
     else {
@@ -402,7 +402,7 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
 static void ararchive_dealloc(PyObject *self)
 {
     ((PyArArchiveObject *)(self))->Fd.~FileFd();
-    CppOwnedDeallocPtr<ARArchive*>(self);
+    CppDeallocPtr<ARArchive*>(self);
 }
 
 // Return bool or -1 (exception).
@@ -455,8 +455,8 @@ PyTypeObject PyArArchive_Type = {
     Py_TPFLAGS_DEFAULT |                 // tp_flags
     Py_TPFLAGS_HAVE_GC,
     ararchive_doc,                       // tp_doc
-    CppOwnedTraverse<ARArchive*>,        // tp_traverse
-    CppOwnedClear<ARArchive*>,           // tp_clear
+    CppTraverse<ARArchive*>,        // tp_traverse
+    CppClear<ARArchive*>,           // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     (getiterfunc)ararchive_iter,         // tp_iter
@@ -511,7 +511,7 @@ static PyObject *_gettar(PyDebFileObject *self, const ARArchive::Member *m,
 {
     if (!m)
         return 0;
-    PyTarFileObject *tarfile = (PyTarFileObject*)CppOwnedPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
     new (&tarfile->Fd) FileFd(self->Fd);
     tarfile->min = m->Start;
     tarfile->Object = new ExtractTar(self->Fd, m->Size, comp);

@@ -102,8 +102,8 @@ bool PyDirStream::FinishedFile(Item &Itm,int Fd)
         return true;
 
     // The current member and data.
-    CppOwnedPyObject<Item> *py_member;
-    py_member = CppOwnedPyObject_NEW<Item>(0, &PyTarMember_Type);
+    CppPyObject<Item> *py_member;
+    py_member = CppPyObject_NEW<Item>(0, &PyTarMember_Type);
     // Clone our object, including the strings in it.
     py_member->Object = Itm;
     py_member->Object.Name = new char[strlen(Itm.Name)+1];
@@ -121,7 +121,7 @@ void tarmember_dealloc(PyObject *self) {
     // We cloned those strings, delete them again.
     delete[] GetCpp<pkgDirStream::Item>(self).Name;
     delete[] GetCpp<pkgDirStream::Item>(self).LinkTarget;
-    CppOwnedDealloc<pkgDirStream::Item>(self);
+    CppDealloc<pkgDirStream::Item>(self);
 }
 
 // The tarfile.TarInfo interface for our TarMember class.
@@ -269,7 +269,7 @@ static const char *tarmember_doc =
 PyTypeObject PyTarMember_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_inst.TarMember",                // tp_name
-    sizeof(CppOwnedPyObject<pkgDirStream::Item>),           // tp_basicsize
+    sizeof(CppPyObject<pkgDirStream::Item>),           // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
     tarmember_dealloc,                   // tp_dealloc
@@ -290,8 +290,8 @@ PyTypeObject PyTarMember_Type = {
     Py_TPFLAGS_DEFAULT |                 // tp_flags
     Py_TPFLAGS_HAVE_GC,
     tarmember_doc,                       // tp_doc
-    CppOwnedTraverse<pkgDirStream::Item>,       // tp_traverse
-    CppOwnedClear<pkgDirStream::Item>,          // tp_clear
+    CppTraverse<pkgDirStream::Item>,       // tp_traverse
+    CppClear<pkgDirStream::Item>,          // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter
@@ -318,7 +318,7 @@ static PyObject *tarfile_new(PyTypeObject *type,PyObject *args,PyObject *kwds)
                                     &max,&comp) == 0)
         return 0;
 
-    self = (PyTarFileObject*)CppOwnedPyObject_NEW<ExtractTar*>(file,type);
+    self = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(file,type);
 
     // We receive a filename.
     if ((filename = (char*)PyObject_AsString(file)))
@@ -450,7 +450,7 @@ PyTypeObject PyTarFile_Type = {
     sizeof(PyTarFileObject),             // tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppOwnedDealloc<ExtractTar*>,        // tp_dealloc
+    CppDealloc<ExtractTar*>,        // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr
@@ -468,8 +468,8 @@ PyTypeObject PyTarFile_Type = {
     Py_TPFLAGS_DEFAULT |                 // tp_flags
     Py_TPFLAGS_HAVE_GC,
     tarfile_doc,                         // tp_doc
-    CppOwnedTraverse<ExtractTar*>,       // tp_traverse
-    CppOwnedClear<ExtractTar*>,          // tp_clear
+    CppTraverse<ExtractTar*>,       // tp_traverse
+    CppClear<ExtractTar*>,          // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter

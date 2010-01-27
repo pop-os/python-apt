@@ -56,7 +56,7 @@ static PyObject *newConfiguration(PyObject *self,PyObject *args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.newConfiguration() is "
                 "deprecated. Use apt_pkg.Configuration() instead.", 1);
-   return CppOwnedPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type, new Configuration());
+   return CppPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type, new Configuration());
 }
 #endif
 									/*}}}*/
@@ -599,7 +599,7 @@ extern "C" void initapt_pkg()
    #endif
 
    // Global variable linked to the global configuration class
-   CppOwnedPyObject<Configuration*> *Config = CppOwnedPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type);
+   CppPyObject<Configuration*> *Config = CppPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type);
    Config->Object = _config;
    // Global configuration, should never be deleted.
    Config->NoDelete = true;

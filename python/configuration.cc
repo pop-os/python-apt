@@ -137,7 +137,7 @@ static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
       return 0;
    }
 
-   return CppOwnedPyObject_NEW<Configuration*>(Self,&PyConfiguration_Type,
+   return CppPyObject_NEW<Configuration*>(Self,&PyConfiguration_Type,
                                                new Configuration(Itm));
 }
 
@@ -473,7 +473,7 @@ static PyObject *CnfNew(PyTypeObject *type, PyObject *args, PyObject *kwds) {
     char *kwlist[] = {NULL};
     if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
         return 0;
-    return CppOwnedPyObject_NEW<Configuration*>(NULL, type, new Configuration());
+    return CppPyObject_NEW<Configuration*>(NULL, type, new Configuration());
 }
 
 // Type for a Normal Configuration object
@@ -483,10 +483,10 @@ PyTypeObject PyConfiguration_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.Configuration",             // tp_name
-   sizeof(CppOwnedPyObject<Configuration*>),  // tp_basicsize
+   sizeof(CppPyObject<Configuration*>),  // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<Configuration*>,  // tp_dealloc
+   CppDeallocPtr<Configuration*>,  // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr

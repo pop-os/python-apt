@@ -34,13 +34,13 @@
 using namespace std;
 									/*}}}*/
 /* We need to keep a private copy of the data.. */
-struct TagSecData : public CppOwnedPyObject<pkgTagSection>
+struct TagSecData : public CppPyObject<pkgTagSection>
 {
    char *Data;
 };
 
 // The owner of the TagFile is a Python file object.
-struct TagFileData : public CppOwnedPyObject<pkgTagFile>
+struct TagFileData : public CppPyObject<pkgTagFile>
 {
    TagSecData *Section;
    FileFd Fd;
@@ -68,7 +68,7 @@ void TagSecFree(PyObject *Obj)
 {
    TagSecData *Self = (TagSecData *)Obj;
    delete [] Self->Data;
-   CppOwnedDealloc<pkgTagSection>(Obj);
+   CppDealloc<pkgTagSection>(Obj);
 }
 									/*}}}*/
 // TagFileFree - Free a Tag File					/*{{{*/
@@ -488,8 +488,8 @@ PyTypeObject PyTagSection_Type =
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
    doc_TagSec,                          // tp_doc
-   CppOwnedTraverse<pkgTagSection>,     // tp_traverse
-   CppOwnedClear<pkgTagSection>,         // tp_clear
+   CppTraverse<pkgTagSection>,     // tp_traverse
+   CppClear<pkgTagSection>,         // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

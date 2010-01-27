@@ -91,11 +91,11 @@ PyTypeObject PyIndexFile_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.IndexFile",          // tp_name
-   sizeof(CppOwnedPyObject<pkgIndexFile*>),   // tp_basicsize
+   sizeof(CppPyObject<pkgIndexFile*>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
    // Not ..Ptr, because the pointer is managed somewhere else.
-   CppOwnedDeallocPtr<pkgIndexFile*>,   // tp_dealloc
+   CppDeallocPtr<pkgIndexFile*>,   // tp_dealloc
    0,                                   // tp_print
    0,                                   // tp_getattr
    0,                                   // tp_setattr
@@ -112,8 +112,8 @@ PyTypeObject PyIndexFile_Type =
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
    "IndexFile Object",               // tp_doc
-   CppOwnedTraverse<pkgIndexFile*>,     // tp_traverse
-   CppOwnedClear<pkgIndexFile*>,        // tp_clear
+   CppTraverse<pkgIndexFile*>,     // tp_traverse
+   CppClear<pkgIndexFile*>,        // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

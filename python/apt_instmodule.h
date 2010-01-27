@@ -27,7 +27,7 @@ extern PyTypeObject PyDebFile_Type;
 extern PyTypeObject PyTarFile_Type;
 extern PyTypeObject PyTarMember_Type;
 
-struct PyTarFileObject : public CppOwnedPyObject<ExtractTar*> {
+struct PyTarFileObject : public CppPyObject<ExtractTar*> {
     int min;
     FileFd Fd;
 };

@@ -37,8 +37,8 @@ static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {
     for (vector<pkgIndexFile *>::const_iterator I = indexFiles->begin();
         I != indexFiles->end(); I++)
     {
-        CppOwnedPyObject<pkgIndexFile*> *Obj;
-        Obj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self, &PyIndexFile_Type,*I);
+        CppPyObject<pkgIndexFile*> *Obj;
+        Obj = CppPyObject_NEW<pkgIndexFile*>(Self, &PyIndexFile_Type,*I);
         // Do not delete pkgIndexFile*, they are managed by metaIndex.
         Obj->NoDelete = true;
         PyList_Append(List,Obj);
@@ -76,10 +76,10 @@ PyTypeObject PyMetaIndex_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.MetaIndex",                    // tp_name
-   sizeof(CppOwnedPyObject<metaIndex*>),   // tp_basicsize
+   sizeof(CppPyObject<metaIndex*>),   // tp_basicsize
    0,                                      // tp_itemsize
    // Methods
-   CppOwnedDeallocPtr<metaIndex*>,         // tp_dealloc
+   CppDeallocPtr<metaIndex*>,         // tp_dealloc
    0,                                      // tp_print
    0,                                      // tp_getattr
    0,                                      // tp_setattr

@@ -26,7 +26,7 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    PyObject *pyPkgFileIter;
-   CppOwnedPyObject<pkgIndexFile*> *pyPkgIndexFile;
+   CppPyObject<pkgIndexFile*> *pyPkgIndexFile;
 
    if (PyArg_ParseTuple(Args, "O!", &PyPackageFile_Type,&pyPkgFileIter) == 0)
       return 0;
@@ -35,7 +35,7 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
    pkgIndexFile *index;
    if(list->FindIndex(i, index))
    {
-      pyPkgIndexFile = CppOwnedPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PyIndexFile_Type,index);
+      pyPkgIndexFile = CppPyObject_NEW<pkgIndexFile*>(pyPkgFileIter,&PyIndexFile_Type,index);
       // Do not delete the pkgIndexFile*, it is managed by pkgSourceList.
       pyPkgIndexFile->NoDelete = true;
       return pyPkgIndexFile;
@@ -92,8 +92,8 @@ static PyObject *PkgSourceListGetList(PyObject *Self,void*)
    for (vector<metaIndex *>::const_iterator I = list->begin();
         I != list->end(); I++)
    {
-      CppOwnedPyObject<metaIndex*> *Obj;
-      Obj = CppOwnedPyObject_NEW<metaIndex*>(Self, &PyMetaIndex_Type,*I);
+      CppPyObject<metaIndex*> *Obj;
+      Obj = CppPyObject_NEW<metaIndex*>(Self, &PyMetaIndex_Type,*I);
       // Never delete metaIndex*, they are managed by the pkgSourceList.
       Obj->NoDelete = true;
       PyList_Append(List,Obj);
@@ -115,7 +115,7 @@ static PyObject *PkgSourceListNew(PyTypeObject *type,PyObject *args,PyObject *kw
    char *kwlist[] = {0};
    if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
       return 0;
-   return CppPyObject_NEW<pkgSourceList*>(type,new pkgSourceList());
+   return CppPyObject_NEW<pkgSourceList*>(NULL, type,new pkgSourceList());
 }
 
 PyTypeObject PySourceList_Type =

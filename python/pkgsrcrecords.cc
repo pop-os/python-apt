@@ -123,8 +123,8 @@ static PyObject *PkgSrcRecordsGetIndex(PyObject *Self,void*) {
    if (Struct.Last == 0)
       return 0;
    const pkgIndexFile &tmp = Struct.Last->Index();
-   CppOwnedPyObject<pkgIndexFile*> *PyObj;
-   PyObj = CppOwnedPyObject_NEW<pkgIndexFile*>(Self,&PyIndexFile_Type,
+   CppPyObject<pkgIndexFile*> *PyObj;
+   PyObj = CppPyObject_NEW<pkgIndexFile*>(Self,&PyIndexFile_Type,
                                               (pkgIndexFile*)&tmp);
    // Do not delete the pkgIndexFile*, it is managed by PkgSrcRecords::Parser.
    PyObj->NoDelete=true;
@@ -252,7 +252,7 @@ static PyObject *PkgSrcRecordsNew(PyTypeObject *type,PyObject *args,PyObject *kw
    if (PyArg_ParseTupleAndKeywords(args,kwds,"",kwlist) == 0)
       return 0;
 
-   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(type));
+   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(NULL, type));
 }
 
 PyTypeObject PySourceRecords_Type =
@@ -310,6 +310,6 @@ PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(&PySourceRecords_Type));
+   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(NULL, &PySourceRecords_Type));
 }
 #endif

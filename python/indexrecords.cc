@@ -30,7 +30,7 @@ static PyObject *indexrecords_new(PyTypeObject *type,PyObject *Args,
     if (PyArg_ParseTupleAndKeywords(Args, kwds, "", kwlist) == 0)
         return 0;
     indexRecords *records = new indexRecords();
-    CppPyObject<indexRecords*> *New = CppPyObject_NEW<indexRecords*>(type,
+    CppPyObject<indexRecords*> *New = CppPyObject_NEW<indexRecords*>(NULL, type,
                                       records);
     return New;
 }

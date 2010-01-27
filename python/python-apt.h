@@ -218,22 +218,11 @@ static int import_apt_pkg(void) {
 # define PyTagSection_ToCpp        GetCpp<pkgTagSection>
 # define PyVersion_ToCpp           GetCpp<pkgCache::VerIterator>
 
-// Python object creation, using two inline template functions and one variadic
-// macro per type.
+// Template using a simpler version of from cpp
 template<class Cpp>
-inline CppPyObject<Cpp> *FromCpp(PyTypeObject *pytype, Cpp obj,
-                                 bool Delete=false)
+inline CppPyObject<Cpp> *FromCpp(PyTypeObject *pytype, Cpp const &obj, bool Delete=false, PyObject *Owner=NULL)
 {
-    CppPyObject<Cpp> *Obj = CppPyObject_NEW<Cpp>(pytype, obj);
-    Obj->NoDelete = (!Delete);
-    return Obj;
-}
-
-template<class Cpp>
-inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
-                              bool Delete=false, PyObject *Owner=NULL)
-{
-    CppOwnedPyObject<Cpp> *Obj = CppOwnedPyObject_NEW<Cpp>(Owner, pytype, obj);
+    CppPyObject<Cpp> *Obj = CppPyObject_NEW<Cpp>(Owner, pytype, obj);
     Obj->NoDelete = (!Delete);
     return Obj;
 }
@@ -241,34 +230,34 @@ inline CppOwnedPyObject<Cpp> *FromCppOwned(PyTypeObject *pytype, Cpp const &obj,
 # ifndef APT_PKGMODULE_H
 #  define PyAcquire_FromCpp              _PyAptPkg_API->acquire_fromcpp
 #endif
-# define PyAcquireFile_FromCpp(...)      FromCppOwned<pkgAcqFile*>(&PyAcquireFile_Type, ##__VA_ARGS__)
-# define PyAcquireItem_FromCpp(...)      FromCppOwned<pkgAcquire::Item*>(&PyAcquireItem_Type,##__VA_ARGS__)
-# define PyAcquireItemDesc_FromCpp(...)  FromCppOwned<pkgAcquire::ItemDesc*>(&PyAcquireItemDesc_Type,##__VA_ARGS__)
-# define PyAcquireWorker_FromCpp(...)  FromCppOwned<pkgAcquire::Worker*>(&PyAcquireWorker_Type,##__VA_ARGS__)
-# define PyActionGroup_FromCpp(...)      FromCppOwned<pkgDepCache::ActionGroup*>(&PyActionGroup_Type,##__VA_ARGS__)
-# define PyCache_FromCpp(...)            FromCppOwned<pkgCache*>(&PyCache_Type,##__VA_ARGS__)
+# define PyAcquireFile_FromCpp(...)      FromCpp<pkgAcqFile*>(&PyAcquireFile_Type, ##__VA_ARGS__)
+# define PyAcquireItem_FromCpp(...)      FromCpp<pkgAcquire::Item*>(&PyAcquireItem_Type,##__VA_ARGS__)
+# define PyAcquireItemDesc_FromCpp(...)  FromCpp<pkgAcquire::ItemDesc*>(&PyAcquireItemDesc_Type,##__VA_ARGS__)
+# define PyAcquireWorker_FromCpp(...)  FromCpp<pkgAcquire::Worker*>(&PyAcquireWorker_Type,##__VA_ARGS__)
+# define PyActionGroup_FromCpp(...)      FromCpp<pkgDepCache::ActionGroup*>(&PyActionGroup_Type,##__VA_ARGS__)
+# define PyCache_FromCpp(...)            FromCpp<pkgCache*>(&PyCache_Type,##__VA_ARGS__)
 # define PyCacheFile_FromCpp(...)        FromCpp<pkgCacheFile*>(&PyCacheFile_Type,##__VA_ARGS__)
 # define PyCdrom_FromCpp(...)            FromCpp<pkgCdrom>(&PyCdrom_Type,##__VA_ARGS__)
-# define PyConfiguration_FromCpp(...)    FromCppOwned<Configuration*>(&PyConfiguration_Type, ##__VA_ARGS__)
-# define PyDepCache_FromCpp(...)         FromCppOwned<pkgDepCache*>(&PyDepCache_Type,##__VA_ARGS__)
-# define PyDependency_FromCpp(...)       FromCppOwned<pkgCache::DepIterator>(&PyDependency_Type,##__VA_ARGS__)
-//# define PyDependencyList_FromCpp(...)   FromCppOwned<RDepListStruct>(&PyDependencyList_Type,##__VA_ARGS__)
-# define PyDescription_FromCpp(...)      FromCppOwned<pkgCache::DescIterator>(&PyDescription_Type,##__VA_ARGS__)
+# define PyConfiguration_FromCpp(...)    FromCpp<Configuration*>(&PyConfiguration_Type, ##__VA_ARGS__)
+# define PyDepCache_FromCpp(...)         FromCpp<pkgDepCache*>(&PyDepCache_Type,##__VA_ARGS__)
+# define PyDependency_FromCpp(...)       FromCpp<pkgCache::DepIterator>(&PyDependency_Type,##__VA_ARGS__)
+//# define PyDependencyList_FromCpp(...)   FromCpp<RDepListStruct>(&PyDependencyList_Type,##__VA_ARGS__)
+# define PyDescription_FromCpp(...)      FromCpp<pkgCache::DescIterator>(&PyDescription_Type,##__VA_ARGS__)
 # define PyHashes_FromCpp(...)           FromCpp<Hashes>(&PyHashes_Type,##__VA_ARGS__)
 # define PyHashString_FromCpp(...)       FromCpp<HashString*>(&PyHashString_Type,##__VA_ARGS__)
 # define PyIndexRecords_FromCpp(...)     FromCpp<indexRecords*>(&PyIndexRecords_Type,##__VA_ARGS__)
-# define PyMetaIndex_FromCpp(...)        FromCppOwned<metaIndex*>(&PyMetaIndex_Type,##__VA_ARGS__)
-# define PyPackage_FromCpp(...)          FromCppOwned<pkgCache::PkgIterator>(&PyPackage_Type,##__VA_ARGS__)
-# define PyIndexFile_FromCpp(...) FromCppOwned<pkgIndexFile*>(&PyIndexFile_Type,##__VA_ARGS__)
-# define PyPackageFile_FromCpp(...)      FromCppOwned<pkgCache::PkgFileIterator>(&PyPackageFile_Type,##__VA_ARGS__)
-//# define PyPackageList_FromCpp(...)      FromCppOwned<PkgListStruct>(&PyPackageList_Type,##__VA_ARGS__)
+# define PyMetaIndex_FromCpp(...)        FromCpp<metaIndex*>(&PyMetaIndex_Type,##__VA_ARGS__)
+# define PyPackage_FromCpp(...)          FromCpp<pkgCache::PkgIterator>(&PyPackage_Type,##__VA_ARGS__)
+# define PyIndexFile_FromCpp(...) FromCpp<pkgIndexFile*>(&PyIndexFile_Type,##__VA_ARGS__)
+# define PyPackageFile_FromCpp(...)      FromCpp<pkgCache::PkgFileIterator>(&PyPackageFile_Type,##__VA_ARGS__)
+//# define PyPackageList_FromCpp(...)      FromCpp<PkgListStruct>(&PyPackageList_Type,##__VA_ARGS__)
 # define PyPackageManager_FromCpp(...)   FromCpp<pkgPackageManager*>(&PyPackageManager_Type,##__VA_ARGS__)
-//# define PyPackageRecords_FromCpp(...)   FromCppOwned<PkgRecordsStruct>(&PyPackageRecords_Type,##__VA_ARGS__)
-# define PyPolicy_FromCpp(...)           FromCppOwned<pkgPolicy*>(&PyPolicy_Type,##__VA_ARGS__)
-# define PyProblemResolver_FromCpp(...)  FromCppOwned<pkgProblemResolver*>(&PyProblemResolver_Type,##__VA_ARGS__)
+//# define PyPackageRecords_FromCpp(...)   FromCpp<PkgRecordsStruct>(&PyPackageRecords_Type,##__VA_ARGS__)
+# define PyPolicy_FromCpp(...)           FromCpp<pkgPolicy*>(&PyPolicy_Type,##__VA_ARGS__)
+# define PyProblemResolver_FromCpp(...)  FromCpp<pkgProblemResolver*>(&PyProblemResolver_Type,##__VA_ARGS__)
 # define PySourceList_FromCpp(...)       FromCpp<pkgSourceList*>(&PySourceList_Type,##__VA_ARGS__)
 //# define PySourceRecords_FromCpp(...)    FromCpp<PkgSrcRecordsStruct>(&PySourceRecords_Type,##__VA_ARGS__)
-# define PyTagFile_FromCpp(...)          FromCppOwned<pkgTagFile>(&PyTagFile_Type,##__VA_ARGS__)
-# define PyTagSection_FromCpp(...)       FromCppOwned<pkgTagSection>(&PyTagSection_Type,##__VA_ARGS__)
-# define PyVersion_FromCpp(...)          FromCppOwned<pkgCache::VerIterator>(&PyVersion_Type,##__VA_ARGS__)
+# define PyTagFile_FromCpp(...)          FromCpp<pkgTagFile>(&PyTagFile_Type,##__VA_ARGS__)
+# define PyTagSection_FromCpp(...)       FromCpp<pkgTagSection>(&PyTagSection_Type,##__VA_ARGS__)
+# define PyVersion_FromCpp(...)          FromCpp<pkgCache::VerIterator>(&PyVersion_Type,##__VA_ARGS__)
 #endif

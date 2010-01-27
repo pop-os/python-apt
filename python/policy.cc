@@ -34,7 +34,7 @@ static PyObject *policy_new(PyTypeObject *type,PyObject *Args,
         return 0;
     }
     pkgPolicy *policy = new pkgPolicy(GetCpp<pkgCache *>(cache));
-    return CppOwnedPyObject_NEW<pkgPolicy*>(cache,&PyPolicy_Type,policy);
+    return CppPyObject_NEW<pkgPolicy*>(cache,&PyPolicy_Type,policy);
 }
 
 static char *policy_get_priority_doc = "get_priority(package: apt_pkg.Package)"
@@ -61,7 +61,7 @@ PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
         pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
         pkgCache::VerIterator ver = policy->GetCandidateVer(pkg);
-        return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,
+        return CppPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,
                                                            ver);
     } else {
         PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
@@ -81,7 +81,7 @@ static PyObject *policy_get_match(PyObject *self, PyObject *arg) {
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
     pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
     pkgCache::VerIterator ver = policy->GetMatch(pkg);
-    return CppOwnedPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
+    return CppPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
 }
 
 static char *policy_read_pinfile_doc = "read_pinfile(filename: str) -> bool\n\n"
@@ -163,10 +163,10 @@ static char *policy_doc = "Policy(cache)\n\n"
 PyTypeObject PyPolicy_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.Policy",                    // tp_name
-    sizeof(CppOwnedPyObject<pkgPolicy*>),// tp_basicsize
+    sizeof(CppPyObject<pkgPolicy*>),// tp_basicsize
     0,                                   // tp_itemsize
     // Methods
-    CppOwnedDeallocPtr<pkgPolicy*>,      // tp_dealloc
+    CppDeallocPtr<pkgPolicy*>,      // tp_dealloc
     0,                                   // tp_print
     0,                                   // tp_getattr
     0,                                   // tp_setattr
@@ -185,8 +185,8 @@ PyTypeObject PyPolicy_Type = {
      Py_TPFLAGS_BASETYPE |
      Py_TPFLAGS_HAVE_GC),
     policy_doc,                          // tp_doc
-    CppOwnedTraverse<pkgPolicy*>,        // tp_traverse
-    CppOwnedClear<pkgPolicy*>,           // tp_clear
+    CppTraverse<pkgPolicy*>,        // tp_traverse
+    CppClear<pkgPolicy*>,           // tp_clear
     0,                                   // tp_richcompare
     0,                                   // tp_weaklistoffset
     0,                                   // tp_iter

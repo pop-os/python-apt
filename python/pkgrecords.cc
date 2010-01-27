@@ -157,7 +157,7 @@ static PyObject *PkgRecordsNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
                                    &Owner) == 0)
       return 0;
 
-   return HandleErrors(CppOwnedPyObject_NEW<PkgRecordsStruct>(Owner,type,
+   return HandleErrors(CppPyObject_NEW<PkgRecordsStruct>(Owner,type,
 							      GetCpp<pkgCache *>(Owner)));
 }
 
@@ -165,10 +165,10 @@ PyTypeObject PyPackageRecords_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
    "apt_pkg.PackageRecords",                          // tp_name
-   sizeof(CppOwnedPyObject<PkgRecordsStruct>),   // tp_basicsize
+   sizeof(CppPyObject<PkgRecordsStruct>),   // tp_basicsize
    0,                                   // tp_itemsize
    // Methods
-   CppOwnedDealloc<PkgRecordsStruct>,   // tp_dealloc
+   CppDealloc<PkgRecordsStruct>,   // tp_dealloc
    0,                                   // tp_print
    0,                                    // tp_getattr
    0,                                   // tp_setattr
@@ -187,8 +187,8 @@ PyTypeObject PyPackageRecords_Type =
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
    "Records Object",                    // tp_doc
-   CppOwnedTraverse<PkgRecordsStruct>,  // tp_traverse
-   CppOwnedClear<PkgRecordsStruct>,     // tp_clear
+   CppTraverse<PkgRecordsStruct>,  // tp_traverse
+   CppClear<PkgRecordsStruct>,     // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

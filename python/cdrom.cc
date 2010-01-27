@@ -109,7 +109,7 @@ static PyMethodDef cdrom_methods[] = {
 
 static PyObject *cdrom_new(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
-    return CppPyObject_NEW<pkgCdrom>(type);
+    return CppPyObject_NEW<pkgCdrom>(NULL, type);
 }
 
 static char *cdrom_doc =

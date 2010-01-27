@@ -15,6 +15,7 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
   * Drop the segfault prevention measures from the Acquire code, as they fail
     to work. A replacement will be added once destruction callbacks are added
     in APT.
+  * Merge the CppOwnedPyObject C++ class into CppPyObject.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 
