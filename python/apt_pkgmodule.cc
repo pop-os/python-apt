@@ -527,36 +527,67 @@ static PyMethodDef methods[] =
 static struct _PyAptPkgAPIStruct API = {
    &PyAcquire_Type,           // acquire_type
    &PyAcquire_FromCpp,        // acquire_fromcpp
+   &PyAcquire_ToCpp,          // acquire_tocpp
    &PyAcquireFile_Type,       // acquirefile_type
+   &PyAcquireFile_ToCpp,      // acquirefile_tocpp
    &PyAcquireItem_Type,       // acquireitem_type
+   &PyAcquireItem_ToCpp,      // acquireitem_type
    &PyAcquireItemDesc_Type,   // acquireitemdesc_type
+   &PyAcquireItemDesc_ToCpp,  // acquireitemdesc_tocpp
    &PyAcquireWorker_Type,     // acquireworker_type
+   &PyAcquireWorker_ToCpp,    // acquireworker_tocpp
    &PyActionGroup_Type,       // actiongroup_type
+   &PyActionGroup_ToCpp,      // actiongroup_type
    &PyCache_Type,             // cache_type
-   &PyCacheFile_Type,          // cachefile_type
+   &PyCache_ToCpp,            // cache_tocpp
+   &PyCacheFile_Type,         // cachefile_type
+   &PyCacheFile_ToCpp,        // cachefile_tocpp
    &PyCdrom_Type,             // cdrom_type
+   &PyCdrom_ToCpp,            // cdrom_tocpp
    &PyConfiguration_Type,     // configuration_type
+   &PyConfiguration_ToCpp,    // configuration_tocpp
    &PyDepCache_Type,          // depcache_type
+   &PyDepCache_ToCpp,         // depcache_tocpp
    &PyDependency_Type,        // dependency_type
+   &PyDependency_ToCpp,       // dependency_type
    &PyDependencyList_Type,    // dependencylist_type
+   0,                         // FIXME: dependencylist_tocpp
    &PyDescription_Type,       // description_type
+   &PyDescription_ToCpp,      // description_tocpp
    &PyHashes_Type,            // hashes_type
+   &PyHashes_ToCpp,           // hashes_tocpp
    &PyHashString_Type,        // hashstring_type
+   &PyHashString_ToCpp,       // hashstring_tocpp
    &PyIndexRecords_Type,      // indexrecords_type
+   &PyIndexRecords_ToCpp,     // indexrecords_tocpp
    &PyMetaIndex_Type,         // metaindex_type
+   &PyMetaIndex_ToCpp,        // metaindex_tocpp
    &PyPackage_Type,           // package_type
+   &PyPackage_ToCpp,          // package_tocpp
    &PyPackageFile_Type,       // packagefile_type
-   &PyIndexFile_Type,  // packageindexfile_type
+   &PyPackageFile_ToCpp,      // packagefile_tocpp
+   &PyIndexFile_Type,         // packageindexfile_type
+   &PyIndexFile_ToCpp,        // packageindexfile_tocpp
    &PyPackageList_Type,       // packagelist_type
+   0,                         // FIXME: packagelist_tocpp
    &PyPackageManager_Type,    // packagemanager_type
+   &PyPackageManager_ToCpp,   // packagemanager_type
    &PyPackageRecords_Type,    // packagerecords_type
+   0,                         // FIXME: packagerecords_tocpp
    &PyPolicy_Type,            // policy_type
+   &PyPolicy_ToCpp,           // policy_tocpp
    &PyProblemResolver_Type,   // problemresolver_type
+   &PyProblemResolver_ToCpp,  // problemresolver_tocpp
    &PySourceList_Type,        // sourcelist_type
+   &PySourceList_ToCpp,       // sourcelist_tocpp
    &PySourceRecords_Type,     // sourcerecords_type
+   0,                         // sourcerecords_tocpp
    &PyTagFile_Type,           // tagfile_type
+   &PyTagFile_ToCpp,          // tagfile_tocpp
    &PyTagSection_Type,        // tagsection_type
+   &PyTagSection_ToCpp,       // tagsection_tocpp
    &PyVersion_Type,           // version_type
+   &PyVersion_ToCpp,          // version_tocpp
 };
 
 

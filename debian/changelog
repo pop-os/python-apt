@@ -16,6 +16,7 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     to work. A replacement will be added once destruction callbacks are added
     in APT.
   * Merge the CppOwnedPyObject C++ class into CppPyObject.
+  * Remove inline functions from the C++ API, export them instead.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 
