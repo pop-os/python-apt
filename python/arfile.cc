@@ -523,6 +523,8 @@ static PyObject *_gettar(PyDebFileObject *self, const ARArchive::Member *m,
 static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
     PyDebFileObject *self = (PyDebFileObject*)ararchive_new(type, args, kwds);
+    if (self == NULL)
+        return NULL;
 
     // DebFile
     self->control = _gettar(self, self->Object->FindMember("control.tar.gz"),
