@@ -33,7 +33,7 @@ msgstr "Ubuntu 10.04 »Lucid Lynx«"
 #. Description
 #: ../data/templates/Ubuntu.info.in:31
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "CD mit Ubuntu 10.04 »Hardy Heron«"
+msgstr "CD mit Ubuntu 10.04 »Lucid Lynx«"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:74
