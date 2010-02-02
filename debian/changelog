@@ -25,7 +25,7 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
   * apt/progress/base.py:
     - select.error objects do not have an errno attribute (Closes: #568005)
   * doc/client-example.cc: Update against the new API.
-  * Fix typo seperated => separated in multiple files (reported by lintian).
+  * Fix typos of separated in multiple files (reported by lintian).
   * debian/control:
     - Make python-apt-dev depend on ${misc:Depends} and recommend python-dev.
 
