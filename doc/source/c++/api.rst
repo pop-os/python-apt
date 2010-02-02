@@ -1,10 +1,10 @@
 Python APT C++ API
 ==================
 The C++ API provides functions to create Python objects from C++ objects and
-to retrieve the C++ object stored in the Python object. There are two types
-of Python objects: owned ones and unowned ones. An owned object has another
-Python object as its owner and keeps its owner alive for its lifetime. An
-unowned object has no such owner.
+to retrieve the C++ object stored in the Python object. An object may have
+another Python object as its owner and keeps its owner alive for its
+lifetime. Some objects require an owner of a specific type, while others
+require none. Refer to the sections below for details.
 
 The C++ API names use the name of the class in apt_pkg and are prefixed with
 Py. For each supported class, there is a _Type object, a _Check() function,
@@ -31,7 +31,7 @@ Acquire (pkgAcquire)
     Check that the object *object* is an :class:`apt_pkg.Acquire` object and no
     subclass thereof.
 
-.. cfunction:: PyObject* PyAcquire_FromCpp(pkgAcquire *acquire, bool delete=false)
+.. cfunction:: PyObject* PyAcquire_FromCpp(pkgAcquire *acquire, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Acquire` object from the :ctype:`pkgAcquire`
     pointer given by the parameter *acquire*. If the parameter *delete* is
@@ -60,7 +60,7 @@ AcquireFile (pkgAcqFile)
     Check that the object *object* is an :class:`apt_pkg.AcquireFile` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyAcquireFile_FromCpp(pkgAcqFile *file, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyAcquireFile_FromCpp(pkgAcqFile *file, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.AcquireFile` object from the :ctype:`pkgAcqFile`
     pointer given by the parameter *file*. If the parameter *delete* is
@@ -89,7 +89,7 @@ AcquireItem (pkgAcquire::Item)
     Check that the object *object* is an :class:`apt_pkg.AcquireItem` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyAcquireItem_FromCpp(pkgAcquire::Item *item, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyAcquireItem_FromCpp(pkgAcquire::Item *item, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.AcquireItem` object from the :ctype:`pkgAcquire::Item`
     pointer given by the parameter *item*. If the parameter *delete* is
@@ -118,7 +118,7 @@ AcquireItemDesc (pkgAcquire::ItemDesc)
     Check that the object *object* is an :class:`apt_pkg.AcquireItemDesc` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyAcquireItemDesc_FromCpp(pkgAcquire::ItemDesc *desc, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyAcquireItemDesc_FromCpp(pkgAcquire::ItemDesc *desc, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.AcquireItemDesc` object from the :ctype:`pkgAcquire::ItemDesc`
     pointer given by the parameter *desc*. If the parameter *delete* is
@@ -147,7 +147,7 @@ AcquireWorker (pkgAcquire::Worker)
     Check that the object *object* is an :class:`apt_pkg.AcquireWorker` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyAcquireWorker_FromCpp(pkgAcquire::Worker *worker, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyAcquireWorker_FromCpp(pkgAcquire::Worker *worker, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.AcquireWorker` object from the :ctype:`pkgAcquire::Worker`
     pointer given by the parameter *worker*. If the parameter *delete* is
@@ -176,7 +176,7 @@ ActionGroup (pkgDepCache::ActionGroup)
     Check that the object *object* is an :class:`apt_pkg.ActionGroup` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyActionGroup_FromCpp(pkgDepCache::ActionGroup *agroup, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyActionGroup_FromCpp(pkgDepCache::ActionGroup *agroup, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.ActionGroup` object from the :ctype:`pkgDepCache::ActionGroup`
     pointer given by the parameter *agroup*. If the parameter *delete* is
@@ -205,7 +205,7 @@ Cache (pkgCache)
     Check that the object *object* is an :class:`apt_pkg.Cache` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyCache_FromCpp(pkgCache *cache, bool delete=false, PyObject *owner=NULL)
+.. cfunction:: PyObject* PyCache_FromCpp(pkgCache *cache, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Cache` object from the :ctype:`pkgCache`
     pointer given by the parameter *cache*. If the parameter *delete* is
@@ -236,7 +236,7 @@ CacheFile (pkgCacheFile)
     Check that the object *object* is of the type :cdata:`PyCacheFile_Type` and
     no subclass thereof.
 
-.. cfunction:: PyObject* PyCacheFile_FromCpp(pkgCacheFile *file, bool delete=false)
+.. cfunction:: PyObject* PyCacheFile_FromCpp(pkgCacheFile *file, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.CacheFile` object from the :ctype:`pkgCacheFile`
     pointer given by the parameter *file* If the parameter *delete* is
@@ -264,7 +264,7 @@ Cdrom (pkgCdrom)
     Check that the object *object* is an :class:`apt_pkg.Cdrom` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyCdrom_FromCpp(pkgCdrom &cdrom, bool delete=false)
+.. cfunction:: PyObject* PyCdrom_FromCpp(pkgCdrom &cdrom, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Cdrom` object from the :ctype:`pkgCdrom`
     reference given by the parameter *cdrom*. If the parameter *delete* is
@@ -292,7 +292,7 @@ Configuration (Configuration)
     Check that the object *object* is an :class:`apt_pkg.Configuration` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyConfiguration_FromCpp(Configuration *cpp, bool delete=false, PyObject *owner=null)
+.. cfunction:: PyObject* PyConfiguration_FromCpp(Configuration *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Configuration` object from the :ctype:`Configuration`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -321,7 +321,7 @@ DepCache (pkgDepCache)
     Check that the object *object* is an :class:`apt_pkg.DepCache` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyDepCache_FromCpp(pkgDepCache *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyDepCache_FromCpp(pkgDepCache *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.DepCache` object from the :ctype:`pkgDepCache`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -350,7 +350,7 @@ Dependency (pkgCache::DepIterator)
     Check that the object *object* is an :class:`apt_pkg.Dependency` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyDependency_FromCpp(pkgCache::DepIterator &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyDependency_FromCpp(pkgCache::DepIterator &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Dependency` object from the :ctype:`pkgCache::DepIterator`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -379,7 +379,7 @@ Description (pkgCache::DescIterator)
     Check that the object *object* is an :class:`apt_pkg.Description` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyDescription_FromCpp(pkgCache::DescIterator &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyDescription_FromCpp(pkgCache::DescIterator &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Description` object from the :ctype:`pkgCache::DescIterator`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -408,7 +408,7 @@ Hashes (Hashes)
     Check that the object *object* is an :class:`apt_pkg.Hashes` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyHashes_FromCpp(Hashes &cpp, bool delete=false)
+.. cfunction:: PyObject* PyHashes_FromCpp(Hashes &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Hashes` object from the :ctype:`Hashes`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -436,7 +436,7 @@ HashString (HashString)
     Check that the object *object* is an :class:`apt_pkg.HashString` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyHashString_FromCpp(HashString *cpp, bool delete=false)
+.. cfunction:: PyObject* PyHashString_FromCpp(HashString *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.HashString` object from the :ctype:`HashString`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -464,7 +464,7 @@ IndexRecords (indexRecords)
     Check that the object *object* is an :class:`apt_pkg.IndexRecords` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyIndexRecords_FromCpp(indexRecords *cpp, bool delete=false)
+.. cfunction:: PyObject* PyIndexRecords_FromCpp(indexRecords *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.IndexRecords` object from the :ctype:`indexRecords`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -493,7 +493,7 @@ MetaIndex (metaIndex)
     Check that the object *object* is an :class:`apt_pkg.MetaIndex` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyMetaIndex_FromCpp(metaIndex *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyMetaIndex_FromCpp(metaIndex *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.MetaIndex` object from the :ctype:`metaIndex`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -522,7 +522,7 @@ Package (pkgCache::PkgIterator)
     Check that the object *object* is an :class:`apt_pkg.Package` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyPackage_FromCpp(pkgCache::PkgIterator &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyPackage_FromCpp(pkgCache::PkgIterator &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Package` object from the :ctype:`pkgCache::PkgIterator`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -551,7 +551,7 @@ PackageFile (pkgCache::PkgFileIterator)
     Check that the object *object* is an :class:`apt_pkg.PackageFile` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyPackageFile_FromCpp(pkgCache::PkgFileIterator &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyPackageFile_FromCpp(pkgCache::PkgFileIterator &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.PackageFile` object from the :ctype:`pkgCache::PkgFileIterator`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -580,7 +580,7 @@ IndexFile (pkgIndexFile)
     Check that the object *object* is an :class:`apt_pkg.IndexFile` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyIndexFile_FromCpp(pkgIndexFile *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyIndexFile_FromCpp(pkgIndexFile *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.IndexFile` object from the :ctype:`pkgIndexFile`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -610,7 +610,7 @@ PackageManager (pkgPackageManager)
     Check that the object *object* is an :class:`apt_pkg.PackageManager` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyPackageManager_FromCpp(pkgPackageManager *cpp, bool delete=false)
+.. cfunction:: PyObject* PyPackageManager_FromCpp(pkgPackageManager *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.PackageManager` object from the :ctype:`pkgPackageManager`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -639,7 +639,7 @@ Policy (pkgPolicy)
     Check that the object *object* is an :class:`apt_pkg.Policy` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyPolicy_FromCpp(pkgPolicy *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyPolicy_FromCpp(pkgPolicy *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Policy` object from the :ctype:`pkgPolicy`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -669,7 +669,7 @@ ProblemResolver (pkgProblemResolver)
     Check that the object *object* is an :class:`apt_pkg.ProblemResolver` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyProblemResolver_FromCpp(pkgProblemResolver *cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyProblemResolver_FromCpp(pkgProblemResolver *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.ProblemResolver` object from the :ctype:`pkgProblemResolver`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -700,7 +700,7 @@ SourceList (pkgSourceList)
     Check that the object *object* is an :class:`apt_pkg.SourceList` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PySourceList_FromCpp(pkgSourceList *cpp, bool delete=false)
+.. cfunction:: PyObject* PySourceList_FromCpp(pkgSourceList *cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.SourceList` object from the :ctype:`pkgSourceList`
     pointer given by the parameter *cpp*. If the parameter *delete* is
@@ -729,7 +729,7 @@ TagFile (pkgTagFile)
     Check that the object *object* is an :class:`apt_pkg.TagFile` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyTagFile_FromCpp(pkgTagFile &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyTagFile_FromCpp(pkgTagFile &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.TagFile` object from the :ctype:`pkgTagFile`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -758,7 +758,7 @@ TagSection (pkgTagSection)
     Check that the object *object* is an :class:`apt_pkg.TagSection` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyTagSection_FromCpp(pkgTagSection &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyTagSection_FromCpp(pkgTagSection &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.TagSection` object from the :ctype:`pkgTagSection`
     reference given by the parameter *cpp*. If the parameter *delete* is
@@ -787,7 +787,7 @@ Version (pkgCache::VerIterator)
     Check that the object *object* is an :class:`apt_pkg.Version` object
     and no subclass thereof.
 
-.. cfunction:: PyObject* PyVersion_FromCpp(pkgCache::VerIterator &cpp, bool delete=false, PyObject *owner)
+.. cfunction:: PyObject* PyVersion_FromCpp(pkgCache::VerIterator &cpp, bool delete, PyObject *owner)
 
     Create a new :class:`apt_pkg.Version` object from the :ctype:`pkgCache::VerIterator`
     reference given by the parameter *cpp*. If the parameter *delete* is
