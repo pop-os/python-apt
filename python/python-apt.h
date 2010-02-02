@@ -43,7 +43,7 @@ typedef pkgDepCache::ActionGroup*& ActionGroupT(PyObject *self);
 struct _PyAptPkgAPIStruct {
     // apt_pkg.Acquire (pkgAcquire*)
     PyTypeObject *acquire_type;
-    PyObject*    (*acquire_fromcpp)(pkgAcquire *acquire, bool Delete);
+    PyObject*    (*acquire_fromcpp)(pkgAcquire *acquire, bool Delete, PyObject*);
     pkgAcquire*& (*acquire_tocpp)(PyObject *self);
     // apt_pkg.AcquireFile
     PyTypeObject *acquirefile_type;

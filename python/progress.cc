@@ -119,7 +119,7 @@ void PyOpProgress::Done()
 
 PyObject *PyFetchProgress::GetDesc(pkgAcquire::ItemDesc *item) {
     if (!pyAcquire && item->Owner && item->Owner->GetOwner()) {
-        pyAcquire = PyAcquire_FromCpp(item->Owner->GetOwner(), false);
+        pyAcquire = PyAcquire_FromCpp(item->Owner->GetOwner(), false, NULL);
     }
     PyObject *pyItem = PyAcquireItem_FromCpp(item->Owner, false, pyAcquire);
     PyObject *pyDesc = PyAcquireItemDesc_FromCpp(item, false, pyItem);
@@ -295,7 +295,7 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       bool res1 = true;
 
       if (pyAcquire == NULL) {
-         pyAcquire = PyAcquire_FromCpp(Owner, false);
+         pyAcquire = PyAcquire_FromCpp(Owner, false, NULL);
       }
       Py_INCREF(pyAcquire);
 

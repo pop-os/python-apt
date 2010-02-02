@@ -324,8 +324,8 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 /**
  * Create a new apt_pkg.Acquire Python object from the pkgAcquire object.
  */
-PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete) {
-    CppPyObject<pkgAcquire*> *obj = CppPyObject_NEW<pkgAcquire*>(NULL, &PyAcquire_Type, fetcher);
+PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete, PyObject *owner) {
+    CppPyObject<pkgAcquire*> *obj = CppPyObject_NEW<pkgAcquire*>(owner, &PyAcquire_Type, fetcher);
     obj->NoDelete = (!Delete);
     return obj;
 }

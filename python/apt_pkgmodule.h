@@ -134,7 +134,7 @@ extern PyTypeObject PySystemLock_Type;
 extern PyTypeObject PyFileLock_Type;
 
 // Functions to be exported in the public API.
-PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete);
+
 # define PyAcquire_ToCpp           GetCpp<pkgAcquire*>
 # define PyAcquireFile_ToCpp       GetCpp<pkgAcqFile*>
 # define PyAcquireItem_ToCpp       GetCpp<pkgAcquire::Item*>
@@ -167,6 +167,7 @@ PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete);
 # define PyTagSection_ToCpp        GetCpp<pkgTagSection>
 # define PyVersion_ToCpp           GetCpp<pkgCache::VerIterator>
 
+PyObject* PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete, PyObject *Owner);
 PyObject* PyAcquireFile_FromCpp(pkgAcqFile* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyAcquireItem_FromCpp(pkgAcquire::Item* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyAcquireItemDesc_FromCpp(pkgAcquire::ItemDesc* const &obj, bool Delete, PyObject *Owner);
