@@ -78,6 +78,8 @@ bool PyDirStream::DoItem(Item &Itm, int &Fd)
             copy_size = Itm.Size;
         }
         Fd = -2;
+    } else {
+        Fd = -1;
     }
     return true;
 }
