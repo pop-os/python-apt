@@ -192,7 +192,7 @@ methods, functions, and their parameters the following rules apply:
     3. Replace every [A-Z] with the corresponding [a-z] (descUri => desc_uri)
 
 As an exception, refixes such as 'de' (e.g. 'dequote') or 'un' (e.g. 'unlock')
-are normally not seperated by underscores from the next word. There are also
+are normally not separated by underscores from the next word. There are also
 some other exceptions which are listed here, and apply to any name containing
 this word: **filename**, **filesize**, **destdir**, **destfile**, **dequote**,
 **unlock**, **reinstall**, **pinfile**, **REINSTREQ**, **UNPACKED**,

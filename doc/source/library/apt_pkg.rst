@@ -1817,7 +1817,7 @@ String functions
 
 .. function:: check_domain_list(host, list)
 
-    See if Host is in a ',' seperated list, e.g.::
+    See if Host is in a ',' separated list, e.g.::
 
         apt_pkg.check_domain_list("alioth.debian.org","debian.net,debian.org")
 
