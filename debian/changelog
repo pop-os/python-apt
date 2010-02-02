@@ -28,6 +28,7 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
   * Fix typos of separated in multiple files (reported by lintian).
   * debian/control:
     - Make python-apt-dev depend on ${misc:Depends} and recommend python-dev.
+    - Set Standards-Version to 3.8.4.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 
