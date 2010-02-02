@@ -47,6 +47,7 @@ Architecture: any
 Section: debug
 Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
+XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -56,7 +57,9 @@ Description: Python interface to libapt-pkg (debug extension)
 
 Package: python-apt-dev
 Architecture: all
-Depends: python-apt (>= ${source:Version}), libapt-pkg-dev (>= 0.7.10)
+Depends: python-apt (>= ${source:Version}), libapt-pkg-dev (>= 0.7.10),
+         ${misc:Depends}
+Recommends: python-dev
 Description: Python interface to libapt-pkg (development files)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a

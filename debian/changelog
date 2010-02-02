@@ -26,6 +26,8 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     - select.error objects do not have an errno attribute (Closes: #568005)
   * doc/client-example.cc: Update against the new API.
   * Fix typo seperated => separated in multiple files (reported by lintian).
+  * debian/control:
+    - Make python-apt-dev depend on ${misc:Depends} and recommend python-dev.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 
