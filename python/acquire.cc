@@ -255,7 +255,7 @@ static PyObject *PkgAcquireGetWorkers(PyObject *self, void *closure)
 {
     PyObject *List = PyList_New(0);
     pkgAcquire *Owner = GetCpp<pkgAcquire*>(self);
-    CppPyObject<pkgAcquire::Worker*> *PyWorker = NULL;
+    PyObject *PyWorker = NULL;
     for (pkgAcquire::Worker *Worker = Owner->WorkersBegin();
             Worker != 0; Worker = Owner->WorkerStep(Worker)) {
         PyWorker = PyAcquireWorker_FromCpp(Worker, false, self);

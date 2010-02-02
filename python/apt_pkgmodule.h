@@ -13,10 +13,20 @@
 #include <Python.h>
 #include <apt-pkg/hashes.h>
 #include <apt-pkg/acquire-item.h>
+#include <apt-pkg/configuration.h>
+#include <apt-pkg/packagemanager.h>
+#include <apt-pkg/version.h>
+#include <apt-pkg/deblistparser.h>
+#include <apt-pkg/pkgcache.h>
+#include <apt-pkg/cachefile.h>
+#include <apt-pkg/tagfile.h>
+#include <apt-pkg/init.h>
+#include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/cdrom.h>
+#include <apt-pkg/algorithms.h>
 #include "generic.h"
 
 // Configuration Stuff
-#define Configuration_Check(op) ((op)->ob_type == &PyConfiguration_Type)
 extern PyTypeObject PyConfiguration_Type;
 extern PyTypeObject PyVersion_Type;
 
@@ -157,6 +167,36 @@ PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete);
 # define PyTagSection_ToCpp        GetCpp<pkgTagSection>
 # define PyVersion_ToCpp           GetCpp<pkgCache::VerIterator>
 
+PyObject* PyAcquireFile_FromCpp(pkgAcqFile* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyAcquireItem_FromCpp(pkgAcquire::Item* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyAcquireItemDesc_FromCpp(pkgAcquire::ItemDesc* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyAcquireWorker_FromCpp(pkgAcquire::Worker* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyActionGroup_FromCpp(pkgDepCache::ActionGroup* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyCache_FromCpp(pkgCache* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyCacheFile_FromCpp(pkgCacheFile* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyCdrom_FromCpp(pkgCdrom const &obj, bool Delete, PyObject *Owner);
+PyObject* PyConfiguration_FromCpp(Configuration* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyDepCache_FromCpp(pkgDepCache* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyDependency_FromCpp(pkgCache::DepIterator const &obj, bool Delete, PyObject *Owner);
+//PyObject* PyDependencyList_FromCpp(RDepListStruct const &obj, bool Delete, PyObject *Owner);
+PyObject* PyDescription_FromCpp(pkgCache::DescIterator const &obj, bool Delete, PyObject *Owner);
+PyObject* PyHashes_FromCpp(Hashes const &obj, bool Delete, PyObject *Owner);
+PyObject* PyHashString_FromCpp(HashString* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyIndexRecords_FromCpp(indexRecords* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyMetaIndex_FromCpp(metaIndex* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyPackage_FromCpp(pkgCache::PkgIterator const &obj, bool Delete, PyObject *Owner);
+PyObject* PyIndexFile_FromCpp(pkgIndexFile* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyPackageFile_FromCpp(pkgCache::PkgFileIterator const &obj, bool Delete, PyObject *Owner);
+//PyObject* PyPackageList_FromCpp(PkgListStruct const &obj, bool Delete, PyObject *Owner);
+PyObject* PyPackageManager_FromCpp(pkgPackageManager* const &obj, bool Delete, PyObject *Owner);
+//PyObject* PyPackageRecords_FromCpp(PkgRecordsStruct const &obj, bool Delete, PyObject *Owner);
+PyObject* PyPolicy_FromCpp(pkgPolicy* const &obj, bool Delete, PyObject *Owner);
+PyObject* PyProblemResolver_FromCpp(pkgProblemResolver* const &obj, bool Delete, PyObject *Owner);
+PyObject* PySourceList_FromCpp(pkgSourceList* const &obj, bool Delete, PyObject *Owner);
+//PyObject* PySourceRecords_FromCpp(PkgSrcRecordsStruct const &obj, bool Delete, PyObject *Owner);
+PyObject* PyTagFile_FromCpp(pkgTagFile const &obj, bool Delete, PyObject *Owner);
+PyObject* PyTagSection_FromCpp(pkgTagSection const &obj, bool Delete, PyObject *Owner);
+PyObject* PyVersion_FromCpp(pkgCache::VerIterator const &obj, bool Delete, PyObject *Owner);
 
 #include "python-apt.h"
 #endif

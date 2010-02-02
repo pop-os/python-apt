@@ -529,64 +529,94 @@ static struct _PyAptPkgAPIStruct API = {
    &PyAcquire_FromCpp,        // acquire_fromcpp
    &PyAcquire_ToCpp,          // acquire_tocpp
    &PyAcquireFile_Type,       // acquirefile_type
+   &PyAcquireFile_FromCpp,    // acquirefile_fromcpp
    &PyAcquireFile_ToCpp,      // acquirefile_tocpp
    &PyAcquireItem_Type,       // acquireitem_type
+   &PyAcquireItem_FromCpp,    // acquireitem_fromcpp
    &PyAcquireItem_ToCpp,      // acquireitem_type
    &PyAcquireItemDesc_Type,   // acquireitemdesc_type
+   &PyAcquireItemDesc_FromCpp,// acquireitemdesc_fromcpp
    &PyAcquireItemDesc_ToCpp,  // acquireitemdesc_tocpp
    &PyAcquireWorker_Type,     // acquireworker_type
+   &PyAcquireWorker_FromCpp,  // acquireworker_fromcpp
    &PyAcquireWorker_ToCpp,    // acquireworker_tocpp
    &PyActionGroup_Type,       // actiongroup_type
-   &PyActionGroup_ToCpp,      // actiongroup_type
+   &PyActionGroup_FromCpp,    // actiongroup_fromcpp
+   &PyActionGroup_ToCpp,      // actiongroup_tocpp
    &PyCache_Type,             // cache_type
+   &PyCache_FromCpp,          // cache_fromcpp
    &PyCache_ToCpp,            // cache_tocpp
    &PyCacheFile_Type,         // cachefile_type
+   &PyCacheFile_FromCpp,      // cachefile_fromcpp
    &PyCacheFile_ToCpp,        // cachefile_tocpp
    &PyCdrom_Type,             // cdrom_type
+   &PyCdrom_FromCpp,          // cdrom_fromcpp
    &PyCdrom_ToCpp,            // cdrom_tocpp
    &PyConfiguration_Type,     // configuration_type
+   &PyConfiguration_FromCpp,  // configuration_fromcpp
    &PyConfiguration_ToCpp,    // configuration_tocpp
    &PyDepCache_Type,          // depcache_type
+   &PyDepCache_FromCpp,       // depcache_fromcpp
    &PyDepCache_ToCpp,         // depcache_tocpp
    &PyDependency_Type,        // dependency_type
-   &PyDependency_ToCpp,       // dependency_type
+   &PyDependency_FromCpp,     // dependency_fromcpp
+   &PyDependency_ToCpp,       // dependency_tocpp
    &PyDependencyList_Type,    // dependencylist_type
+   0,                         // FIXME: dependencylist_fromcpp
    0,                         // FIXME: dependencylist_tocpp
    &PyDescription_Type,       // description_type
+   &PyDescription_FromCpp,    // description_fromcpp
    &PyDescription_ToCpp,      // description_tocpp
    &PyHashes_Type,            // hashes_type
+   &PyHashes_FromCpp,         // hashes_fromcpp
    &PyHashes_ToCpp,           // hashes_tocpp
    &PyHashString_Type,        // hashstring_type
+   &PyHashString_FromCpp,     // hashstring_fromcpp
    &PyHashString_ToCpp,       // hashstring_tocpp
    &PyIndexRecords_Type,      // indexrecords_type
+   &PyIndexRecords_FromCpp,     // indexrecords_tocpp
    &PyIndexRecords_ToCpp,     // indexrecords_tocpp
    &PyMetaIndex_Type,         // metaindex_type
+   &PyMetaIndex_FromCpp,        // metaindex_tocpp
    &PyMetaIndex_ToCpp,        // metaindex_tocpp
    &PyPackage_Type,           // package_type
+   &PyPackage_FromCpp,          // package_tocpp
    &PyPackage_ToCpp,          // package_tocpp
    &PyPackageFile_Type,       // packagefile_type
+   &PyPackageFile_FromCpp,      // packagefile_tocpp
    &PyPackageFile_ToCpp,      // packagefile_tocpp
    &PyIndexFile_Type,         // packageindexfile_type
+   &PyIndexFile_FromCpp,        // packageindexfile_tocpp
    &PyIndexFile_ToCpp,        // packageindexfile_tocpp
    &PyPackageList_Type,       // packagelist_type
+   0,                         // FIXME: packagelist_fromcpp
    0,                         // FIXME: packagelist_tocpp
    &PyPackageManager_Type,    // packagemanager_type
+   &PyPackageManager_FromCpp,   // packagemanager_type
    &PyPackageManager_ToCpp,   // packagemanager_type
    &PyPackageRecords_Type,    // packagerecords_type
+   0,                         // FIXME: packagerecords_fromcpp
    0,                         // FIXME: packagerecords_tocpp
    &PyPolicy_Type,            // policy_type
+   &PyPolicy_FromCpp,           // policy_tocpp
    &PyPolicy_ToCpp,           // policy_tocpp
    &PyProblemResolver_Type,   // problemresolver_type
+   &PyProblemResolver_FromCpp,  // problemresolver_tocpp
    &PyProblemResolver_ToCpp,  // problemresolver_tocpp
    &PySourceList_Type,        // sourcelist_type
+   &PySourceList_FromCpp,       // sourcelist_tocpp
    &PySourceList_ToCpp,       // sourcelist_tocpp
    &PySourceRecords_Type,     // sourcerecords_type
-   0,                         // sourcerecords_tocpp
+   0,                         // FIXME: sourcerecords_fromcpp
+   0,                         // FIXME: sourcerecords_tocpp
    &PyTagFile_Type,           // tagfile_type
+   &PyTagFile_FromCpp,          // tagfile_tocpp
    &PyTagFile_ToCpp,          // tagfile_tocpp
    &PyTagSection_Type,        // tagsection_type
+   &PyTagSection_FromCpp,       // tagsection_tocpp
    &PyTagSection_ToCpp,       // tagsection_tocpp
    &PyVersion_Type,           // version_type
+   &PyVersion_FromCpp,          // version_tocpp
    &PyVersion_ToCpp,          // version_tocpp
 };
 

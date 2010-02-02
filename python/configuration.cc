@@ -280,7 +280,7 @@ PyObject *LoadConfig(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
       return 0;
-   if (Configuration_Check(Self)== 0)
+   if (PyConfiguration_Check(Self)== 0)
    {
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
@@ -298,7 +298,7 @@ PyObject *LoadConfigISC(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
       return 0;
-   if (Configuration_Check(Self)== 0)
+   if (PyConfiguration_Check(Self)== 0)
    {
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
@@ -316,7 +316,7 @@ PyObject *LoadConfigDir(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
       return 0;
-   if (Configuration_Check(Self)== 0)
+   if (PyConfiguration_Check(Self)== 0)
    {
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;
@@ -348,7 +348,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"OO!O!",&Self,
 			&PyList_Type,&POList,&PyList_Type,&Pargv) == 0)
       return 0;
-   if (Configuration_Check(Self)== 0)
+   if (PyConfiguration_Check(Self)== 0)
    {
       PyErr_SetString(PyExc_TypeError,"argument 1: expected Configuration.");
       return 0;

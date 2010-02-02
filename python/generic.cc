@@ -9,6 +9,8 @@
 									/*}}}*/
 // Include Files							/*{{{*/
 #include "generic.h"
+using namespace std;
+
 
 #include <apt-pkg/error.h>
 									/*}}}*/
