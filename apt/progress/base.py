@@ -264,8 +264,8 @@ class InstallProgress(object):
         while True:
             try:
                 select.select([self.statusfd], [], [], self.select_timeout)
-            except select.error, err:
-                if err.errno != errno.EINTR:
+            except select.error, (errno_, errstr):
+                if errno_ != errno.EINTR:
                     raise
 
             self.update_interface()
