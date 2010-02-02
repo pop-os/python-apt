@@ -24,6 +24,7 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
     - Handle the case where ararchive_new returns NULL in debfile_new.
   * apt/progress/base.py:
     - select.error objects do not have an errno attribute (Closes: #568005)
+  * doc/client-example.cc: Update against the new API.
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 

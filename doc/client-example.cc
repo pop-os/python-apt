@@ -32,7 +32,7 @@ extern "C" void initclient() {
     // Create a HashString, which will be added to the module.
     HashString *hash = new HashString("0966a120bb936bdc6fdeac445707aa6b");
     // Create a Python object for the hashstring and add it to the module
-    PyModule_AddObject(Module, "hash", PyHashString_FromCpp(hash));
+    PyModule_AddObject(Module, "hash", PyHashString_FromCpp(hash, false, NULL));
 
     // Another example: Add the HashString type to the module.
     Py_INCREF(&PyHashString_Type);
