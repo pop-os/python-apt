@@ -1,3 +1,9 @@
+python-apt (0.7.13.4ubuntu4) lucid; urgency=low
+
+  * Drop build dependency on python2.4.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 01 Feb 2010 20:30:14 +0100
+
 python-apt (0.7.13.4ubuntu3) lucid; urgency=low
 
   * apt/utils.py:
