@@ -1,5 +1,6 @@
 python-apt (0.7.93.1) UNRELEASED; urgency=low
 
+  [ Julian Andres Klode ]
   * Fix reference counting for old progress classes (Closes: #566370).
   * apt/cache.py:
     - Fix Cache.update() to not raise errors on successful updates.
@@ -29,6 +30,10 @@ python-apt (0.7.93.1) UNRELEASED; urgency=low
   * debian/control:
     - Make python-apt-dev depend on ${misc:Depends} and recommend python-dev.
     - Set Standards-Version to 3.8.4.
+
+  [ Michael Vogt ]
+  * apt/utils.py:
+    - add some misc utils like get_release_filename_for_pkg()
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 23 Jan 2010 15:35:55 +0100
 
