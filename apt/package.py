@@ -596,7 +596,7 @@ class VersionList(Sequence):
         except TypeError:
             # Dictionary interface item is a string.
             for ver in self._versions:
-                if ver.VerStr == item:
+                if ver.ver_str == item:
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
@@ -612,7 +612,7 @@ class VersionList(Sequence):
             item = item.version
         # Dictionary interface.
         for ver in self._versions:
-            if ver.VerStr == item:
+            if ver.ver_str == item:
                 return True
         return False
 
@@ -1127,12 +1127,12 @@ class Package(object):
     @property
     def is_inst_broken(self):
         """Return True if the to-be-installed package is broken."""
-        return self._pcache._depcache.IsInstBroken(self._pkg)
+        return self._pcache._depcache.is_inst_broken(self._pkg)
 
     @property
     def is_now_broken(self):
         """Return True if the installed package is broken."""
-        return self._pcache._depcache.IsNowBroken(self._pkg)
+        return self._pcache._depcache.is_now_broken(self._pkg)
 
     # depcache actions
 

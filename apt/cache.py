@@ -306,7 +306,7 @@ class Cache(object):
 
         try:
             if fetch_progress is None:
-                fetch_progress = apt.progress.FetchProgress()
+                fetch_progress = apt.progress.base.AcquireProgress()
             try:
                 res = self._cache.update(fetch_progress, self._list,
                                          pulse_interval)
@@ -358,9 +358,9 @@ class Cache(object):
         # which is less than optimal!
 
         if fetch_progress is None:
-            fetch_progress = apt.progress.FetchProgress()
+            fetch_progress = apt.progress.base.AcquireProgress()
         if install_progress is None:
-            install_progress = apt.progress.InstallProgress()
+            install_progress = apt.progress.base.InstallProgress()
 
         pm = apt_pkg.PackageManager(self._depcache)
         fetcher = apt_pkg.Acquire(fetch_progress)
@@ -602,7 +602,7 @@ def _test():
     """Internal test code."""
     print "Cache self test"
     apt_pkg.init()
-    cache = Cache(apt.progress.OpTextProgress())
+    cache = Cache(apt.progress.text.OpProgress())
     cache.connect("cache_pre_change", cache_pre_changed)
     cache.connect("cache_post_change", cache_post_changed)
     print ("aptitude" in cache)
@@ -627,7 +627,7 @@ def _test():
             os.mkdir(dir)
     apt_pkg.config.set("Dir::Cache::Archives", "/tmp/pytest")
     pm = apt_pkg.PackageManager(cache._depcache)
-    fetcher = apt_pkg.Acquire(apt.progress.TextFetchProgress())
+    fetcher = apt_pkg.Acquire(apt.progress.text.AcquireProgress())
     cache._fetch_archives(fetcher, pm)
     #sys.exit(1)
 
@@ -644,7 +644,7 @@ def _test():
     print len(filtered)
 
     print "Testing filtered cache (no argument)"
-    filtered = FilteredCache(progress=apt.progress.OpTextProgress())
+    filtered = FilteredCache(progress=apt.progress.base.OpProgress())
     filtered.cache.connect("cache_pre_change", cache_pre_changed)
     filtered.cache.connect("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
