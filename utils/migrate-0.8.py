@@ -82,8 +82,10 @@ def find_deprecated_cpp():
                 break
 
             while lines and not ';' in line:
-                while lines and not 'COMPAT_0_7' in line:
+                while lines and not 'COMPAT_0_7' in line and not ';' in line:
                     line = lines.pop(0)
+                if ';' in line:
+                    continue
                 if lines:
                     line = lines.pop(0)
                 while lines and not '#endif' in line:
@@ -122,8 +124,8 @@ def find_deprecated_py():
     """
 
     modules = ('apt', 'apt.package', 'apt.cdrom', 'apt.cache', 'apt.debfile',
-               'apt.progress', 'aptsources.distinfo', 'aptsources.distro',
-               'aptsources.sourceslist')
+               'apt.progress', 'apt.progress.old', 'aptsources.distinfo',
+               'aptsources.distro', 'aptsources.sourceslist')
 
     import apt_pkg
     apt_pkg._COMPAT_0_7 = 0

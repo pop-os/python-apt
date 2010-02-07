@@ -4,6 +4,9 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
     - apt/utils.py: Completely ported, previous one was old-API from Ubuntu.
     - apt/cache.py: Use the new progress classes instead of the old ones.
     - apt/package.py: Various smaller issues fixed, probably caused by merge.
+  * utils/migrate-0.8.py:
+    - Improve C++ parsing and add apt.progress.old to the modules, reduces
+      false positives.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 
