@@ -9,6 +9,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
       false positives.
   * python/tagfile.cc:
     - Implement the iterator protocol in TagFile.
+  * data/templates/Debian.info.in:
+    - Replace the MatchURI with one that really matches something.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 
