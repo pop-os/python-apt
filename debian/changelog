@@ -19,6 +19,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * data/templates/*.in: Switch MirrorsFile to relative filenames.
     - setup.py: Copy the mirror lists to the build directory
     - aptsources/distinfo.py: Support relative filenames for MirrorsFile.
+  * debian/rules:
+    - Run tests during build time.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 
