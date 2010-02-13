@@ -55,6 +55,10 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
             build.write(line.lstrip("_"))
         source.close()
         build.close()
+    for template in glob.glob('data/templates/*.mirrors'):
+        import shutil
+        shutil.copy(template, os.path.join("build", template))
+        
 
 setup(name="python-apt",
       description="Python bindings for APT",

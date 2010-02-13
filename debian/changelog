@@ -16,6 +16,9 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * tests:
     - Fix aptsources tests to use local data files if available.
     - test_all.py: Use local modules instead of system ones if possible.
+  * data/templates/*.in: Switch MirrorsFile to relative filenames.
+    - setup.py: Copy the mirror lists to the build directory
+    - aptsources/distinfo.py: Support relative filenames for MirrorsFile.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 

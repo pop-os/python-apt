@@ -220,6 +220,9 @@ class DistInfo(object):
                 template.match_uri = value
             elif (field == 'MirrorsFile' or
                   field == 'MirrorsFile-%s' % self.arch):
+                # Make the path absolute.
+                value = os.path.isabs(value) and value or \
+                        os.path.abspath(os.path.join(base_dir, value))
                 if value not in map_mirror_sets:
                     mirror_set = {}
                     try:
