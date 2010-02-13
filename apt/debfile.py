@@ -448,9 +448,8 @@ class DscSrcPackage(DebPackage):
 
         fobj = open(file)
         tagfile = apt_pkg.TagFile(fobj)
-        sec = tagfile.section
         try:
-            while tagfile.step() == 1:
+            for sec in tagfile:
                 for tag in depends_tags:
                     if not tag in sec:
                         continue

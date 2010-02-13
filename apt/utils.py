@@ -39,10 +39,10 @@ def get_release_date_from_release_file(path):
     if not path or not os.path.exists(path):
         return None
     tag = apt_pkg.TagFile(open(path))
-    tag.step()
-    if not "Date" in tag.section:
+    section = tag.next()
+    if not "Date" in section:
         return None
-    date = tag.section["Date"]
+    date = section["Date"]
     return apt_pkg.str_to_time(date)
 
 def get_release_filename_for_pkg(cache, pkgname, label, release):

@@ -7,6 +7,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * utils/migrate-0.8.py:
     - Improve C++ parsing and add apt.progress.old to the modules, reduces
       false positives.
+  * python/tagfile.cc:
+    - Implement the iterator protocol in TagFile.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 

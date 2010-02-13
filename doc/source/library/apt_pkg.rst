@@ -1407,9 +1407,32 @@ section as a string.
 .. class:: TagFile(file)
 
     An object which represents a typical debian control file. Can be used for
-    Packages, Sources, control, Release, etc.
+    Packages, Sources, control, Release, etc. Such an object provides two
+    kinds of API which should not be used together:
 
-    An example for working with a TagFile could look like::
+    The first API implements the iterator protocol and should be used whenever
+    possible because it has less side effects than the other one. It may be
+    used e.g. with a for loop::
+
+        tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
+        for section in tagfile:
+            print section['Package']
+        
+    .. method:: next()
+
+        A TagFile is its own iterator. This method is part of the iterator
+        protocol and returns a :class:`TagSection` object for the next
+        section in the file. If there is no further section, this method
+        raises the :exc:`StopIteration` exception.
+
+        From Python 3 on, this method is not available anymore, and the
+        global function ``next()`` replaces it.
+
+    The second API uses a shared :class:`TagSection` object which is exposed
+    through the :attr:`section` attribute. This object is modified by calls
+    to :meth:`step` and :meth:`jump`. This API provides more control and may
+    use less memory, but is not recommended because it works by modifying
+    one object. It can be used like this::
 
         tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
         tagf.step()
@@ -1418,7 +1441,7 @@ section as a string.
     .. method:: step
 
         Step forward to the next section. This simply returns ``1`` if OK, and
-        ``0`` if there is no section
+        ``0`` if there is no section.
 
     .. method:: offset
 
