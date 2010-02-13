@@ -15,6 +15,7 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
     - Call lsb_release with -idrc instead of --all.
   * tests:
     - Fix aptsources tests to use local data files if available.
+    - test_all.py: Use local modules instead of system ones if possible.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 
