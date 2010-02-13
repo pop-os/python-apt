@@ -16,6 +16,10 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.init_system()
         apt_pkg.config.set("Dir::Etc", os.getcwd())
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
+        if os.path.exists("../build/data/templates"):
+            self.templates = os.path.abspath("../build/data/templates")
+        else:
+            self.templates = "/usr/share/python-apt/templates/"
 
     def testIsMirror(self):
         """aptsources: Test mirror detection."""
@@ -30,7 +34,7 @@ class TestAptSources(unittest.TestCase):
         """aptsources: Test sources.list parsing."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
-        sources = aptsources.sourceslist.SourcesList()
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
         self.assertEqual(len(sources.list), 6)
         # test load
         sources.list = []
@@ -41,7 +45,7 @@ class TestAptSources(unittest.TestCase):
         """aptsources: Test additions to sources.list"""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
-        sources = aptsources.sourceslist.SourcesList()
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
         # test to add something that is already there (main)
         before = copy.deepcopy(sources)
         sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
@@ -91,7 +95,7 @@ class TestAptSources(unittest.TestCase):
         """aptsources: Test matcher"""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
-        sources = aptsources.sourceslist.SourcesList()
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
         distro = aptsources.distro.get_distro()
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly
@@ -104,7 +108,7 @@ class TestAptSources(unittest.TestCase):
         """aptsources: Test distribution detection."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
-        sources = aptsources.sourceslist.SourcesList()
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
         distro = aptsources.distro.get_distro()
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly

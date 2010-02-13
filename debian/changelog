@@ -11,6 +11,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
     - Implement the iterator protocol in TagFile.
   * data/templates/Debian.info.in:
     - Replace the MatchURI with one that really matches something.
+  * tests:
+    - Fix aptsources tests to use local data files if available.
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 

@@ -18,11 +18,15 @@ class TestAptSourcesPorts(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc",
                            os.path.abspath("data/aptsources_ports"))
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
+        if os.path.exists("../build/data/templates"):
+            self.templates = os.path.abspath("../build/data/templates")
+        else:
+            self.templates = "/usr/share/python-apt/templates/"
 
     def testMatcher(self):
         """aptsources_ports: Test matcher."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "sources.list")
-        sources = aptsources.sourceslist.SourcesList()
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
         distro = aptsources.distro.get_distro("Ubuntu", "hardy", "desc",
                                               "8.04")
         distro.get_sources(sources)
