@@ -438,14 +438,14 @@ class UbuntuDistribution(Distribution):
             self, mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 def _lsb_release():
-    """Call lsb_release --all and return a mapping."""
+    """Call lsb_release --idrc and return a mapping."""
     from subprocess import Popen, PIPE
     import errno
     result = {'Codename': 'sid', 'Distributor ID': 'Debian',
               'Description': 'Debian GNU/Linux unstable (sid)',
               'Release': 'unstable'}
     try:
-        out = Popen(['lsb_release', '--all'], stdout=PIPE).communicate()[0]
+        out = Popen(['lsb_release', '-idrc'], stdout=PIPE).communicate()[0]
         # Convert to unicode string, needed for Python 3.1
         out = out.decode("utf-8")
         result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)

@@ -11,6 +11,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
     - Implement the iterator protocol in TagFile.
   * data/templates/Debian.info.in:
     - Replace the MatchURI with one that really matches something.
+  * aptsources/distro.py:
+    - Call lsb_release with -idrc instead of --all.
   * tests:
     - Fix aptsources tests to use local data files if available.
 
