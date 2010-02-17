@@ -38,39 +38,39 @@ def get_release_date_from_release_file(path):
     """
     if not path or not os.path.exists(path):
         return None
-    tag = apt_pkg.ParseTagFile(open(path))
-    tag.Step()
-    if not tag.Section.has_key("Date"):
+    tag = apt_pkg.TagFile(open(path))
+    section = tag.next()
+    if not "Date" in section:
         return None
-    date = tag.Section["Date"]
-    return apt_pkg.StrToTime(date)
+    date = section["Date"]
+    return apt_pkg.str_to_time(date)
 
 def get_release_filename_for_pkg(cache, pkgname, label, release):
     " get the release file that provides this pkg "
-    if not cache.has_key(pkgname):
+    if pkgname not in cache:
         return None
     pkg = cache[pkgname]
     ver = None
     # look for the version that comes from the repos with
     # the given label and origin
-    for aver in pkg._pkg.VersionList:
-        if aver == None or aver.FileList == None:
+    for aver in pkg._pkg.version_list:
+        if aver == None or aver.file_list == None:
             continue
-        for verFile, index in aver.FileList:
+        for ver_file, index in aver.file_list:
             #print verFile
-            if (verFile.Origin == label and
-                verFile.Label == label and
-                verFile.Archive == release):
+            if (ver_file.origin == label and
+                ver_file.label == label and
+                ver_file.archive == release):
                 ver = aver
     if not ver:
         return None
-    indexfile = cache._list.FindIndex(ver.FileList[0][0])
-    for metaindex in cache._list.List:
-        for m in metaindex.IndexFiles:
+    indexfile = cache._list.find_index(ver.file_list[0][0])
+    for metaindex in cache._list.list:
+        for m in metaindex.index_files:
             if (indexfile and
-                indexfile.Describe == m.Describe and
-                indexfile.IsTrusted):
-                dir = apt_pkg.Config.FindDir("Dir::State::lists")
-                name = apt_pkg.URItoFileName(metaindex.URI)+"dists_%s_Release" % metaindex.Dist
+                indexfile.describe == m.describe and
+                indexfile.is_trusted):
+                dir = apt_pkg.config.find_dir("Dir::State::lists")
+                name = apt_pkg.uri_to_filename(metaindex.uri)+"dists_%s_Release" % metaindex.dist
                 return dir+name
     return None

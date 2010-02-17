@@ -1,7 +1,8 @@
 #!/usr/bin/make -f
-export DH_PYCENTRAL=include-links
+# Should be include-links, but that somehow fails.
+export DH_PYCENTRAL=nomove
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
-export CFLAGS=-Wno-write-strings
+export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
 
 %:
 	dh --with python-central $@
@@ -18,3 +19,8 @@ override_dh_strip:
 	
 override_dh_compress:
 	dh_compress -X.js -X_static/* -X _sources/* -X_sources/*/* -X.inv
+
+override_dh_auto_test:
+	set -e; for python in $(shell pyversions -r); do \
+		$$python tests/test_all.py -q; \
+	done;

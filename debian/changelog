@@ -1,4 +1,89 @@
-python-apt (0.7.13.5) UNRELEASED; urgency=low
+python-apt (0.7.93.2) UNRELEASED; urgency=low
+
+  * Fix some places where the old API was still used:
+    - apt/utils.py: Completely ported, previous one was old-API from Ubuntu.
+    - apt/cache.py: Use the new progress classes instead of the old ones.
+    - apt/package.py: Various smaller issues fixed, probably caused by merge.
+  * utils/migrate-0.8.py:
+    - Improve C++ parsing and add apt.progress.old to the modules, reduces
+      false positives.
+  * python/tagfile.cc:
+    - Implement the iterator protocol in TagFile.
+  * data/templates/Debian.info.in:
+    - Replace the MatchURI with one that really matches something.
+  * aptsources/distro.py:
+    - Call lsb_release with -idrc instead of --all.
+  * tests:
+    - Fix aptsources tests to use local data files if available.
+    - test_all.py: Use local modules instead of system ones if possible.
+  * data/templates/*.in: Switch MirrorsFile to relative filenames.
+    - setup.py: Copy the mirror lists to the build directory
+    - aptsources/distinfo.py: Support relative filenames for MirrorsFile.
+  * debian/rules:
+    - Run tests during build time.
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
+
+python-apt (0.7.93.1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * Fix reference counting for old progress classes (Closes: #566370).
+  * apt/cache.py:
+    - Fix Cache.update() to not raise errors on successful updates.
+  * python/progress.cc:
+    - Fix some threading issues (add some missing PyCbObj_BEGIN_ALLOW_THREADS)
+  * python/acquire-item.cc:
+    - Support items without an owner set.
+  * python/tarfile.cc:
+    - When extracting, only allocate a new buffer if the old one was too small.
+    - Do not segfault if TarFile.go() is called without a member name.
+    - Clone all pkgDirStream::Item's so apt_pkg.TarMember object can be used
+      outside of the callback function passed to go().
+    - If only one member is requested, extract just that one.
+  * Drop the segfault prevention measures from the Acquire code, as they fail
+    to work. A replacement will be added once destruction callbacks are added
+    in APT.
+  * Merge the CppOwnedPyObject C++ class into CppPyObject.
+  * Remove inline functions from the C++ API, export them instead.
+  * Localization
+    - de.po: Update against new template
+  * python/arfile.cc:
+    - Handle the case where ararchive_new returns NULL in debfile_new.
+  * apt/progress/base.py:
+    - select.error objects do not have an errno attribute (Closes: #568005)
+  * doc/client-example.cc: Update against the new API.
+  * Fix typos of separated in multiple files (reported by lintian).
+  * debian/control:
+    - Make python-apt-dev depend on ${misc:Depends} and recommend python-dev.
+    - Set Standards-Version to 3.8.4.
+
+  [ Michael Vogt ]
+  * apt/utils.py:
+    - add some misc utils like get_release_filename_for_pkg()
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 05 Feb 2010 17:45:39 +0100
+
+python-apt (0.7.93) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * Merge debian-sid and debian-experimental.
+  * Add a tutorial on how to do things which are possible with apt-get,
+    like apt-get --print-uris update (cf. #551164).
+  * Build for Python 2.5, 2.6 and 3.1; 2.6 and 3.1 hit unstable on Jan 16.
+    - Use DH_PYCENTRAL=nomove for now because include-links seems broken
+  * Merge lp:~forest-bond/python-apt/cache-is-virtual-package-catch-key-error
+    - Return False in Cache.is_virtual_package if the package does not exist.
+  * Make all class-level constants have uppercase names.
+  * Rewrite apt.progress.gtk2 documentation by hand and drop python-gtk2
+    build-time dependency.
+  * aptsources:
+    - Make all classes subclasses of object.
+    - distro.py: Support Python 3, decode lsb_release results using utf-8.
+  * apt/progress/base.py:
+    - Fix some parsing of dpkg status fd.
+  * apt/progress/text.py:
+    - Replace one print statement with a .write() call.
+  * Rename apt_pkg.PackageIndexFile to apt_pkg.IndexFile.
 
   [ Colin Watson ]
   * apt/progress/__init__.py:
@@ -19,10 +104,88 @@ python-apt (0.7.13.5) UNRELEASED; urgency=low
     - add DepDpkgBreaks, DepEnhances constants
   * doc/source/apt_pkg/{cache.rst, index.rst}:
     - update documentation as well
-  * apt/utils.py:
-    - add some misc utils like get_release_filename_for_pkg()
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 02 Dec 2009 16:50:55 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 20 Jan 2010 17:06:20 +0100
+
+python-apt (0.7.92) experimental; urgency=low
+
+  * New features:
+    - Provide a C++ API in the package python-apt-dev (Closes: #334923).
+    - Add apt_pkg.HashString and apt_pkg.IndexRecords (Closes: #456141).
+    - Add apt_pkg.Policy class (Closes: #382725).
+    - Add apt_pkg.Hashes class.
+    - Allow types providing __new__() to be subclassed.
+    - Add apt_pkg.DepCache.mark_auto() and apt.Package.mark_auto() methods to
+      mark a package as automatically installed.
+    - Make AcquireFile a subclass of AcquireItem, thus inheriting attributes.
+    - New progress handling in apt.progress.base and apt.progress.text. Still
+      missing Qt4 progress handlers.
+    - Classes in apt_inst (Closes: #536096)
+      + You can now use apt_inst.DebFile.data to access the data.tar.* member
+        regardless of its compression (LP: #44493)
+
+  * Unification of dependency handling:
+    - apt_pkg.parse_[src_]depends() now use CompType instead of CompTypeDeb
+      (i.e. < instead of <<) to match the interface of Version.depends_list_str
+    - apt_pkg.SourceRecords.build_depends matches exactly the interface of
+      Version.depends_list_str just with different keys (e.g. Build-Depends).
+      + Closes: #468123 - there is no need anymore for binding CompType or
+        CompTypeDeb, because we don't return integer values for CompType
+        anymore.
+
+  * Bugfixes:
+    - Delete pointers correctly, fixing memory leaks (LP: #370149).
+    - Drop open() and close() in apt_pkg.Cache as they cause segfaults.
+    - Raise ValueError in AcquireItem if the Acquire process is shut down
+      instead of segfaulting.
+
+  * Other stuff:
+    - Merge releases 0.7.10.4 - 0.7.12.1 from unstable.
+    - Merge Configuration,ConfigurationPtr,ConfigurationSub into one type.
+    - Simplify the whole build process by using a single setup.py.
+    - The documentation has been restructured and enhanced with tutorials.
+    - Only recommend lsb-release instead of depending on it. Default to
+      Debian unstable if lsb_release is not available.
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2009 16:42:56 +0200
+
+python-apt (0.7.91) experimental; urgency=low
+
+  [ Julian Andres Klode ]
+  * Rename where needed according to PEP 8 conventions (Closes: #481061)
+  * Where possible, derive apt.package.Record from collections.Mapping.
+  * ActionGroups can be used as a context manager for the 'with' statement.
+  * utils/migrate-0.8.py: Helper to check Python code for deprecated functions,
+    attributes,etc. Has to be run from the python-apt source tree, but can be
+    used for all Python code using python-apt.
+  * debian/control: Only recommend libjs-jquery (Closes: #527543).
+
+  [ Stefano Zacchiroli ]
+  * debian/python-apt.doc-base: register the documentation with the
+    doc-base system (Closes: #525134)
+
+  [ Sebastian Heinlein ]
+  * apt/package.py: Add Package.get_version() which returns a Version instance
+    for the given version string or None (Closes: #523998)
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 05 Jun 2009 19:36:45 +0200
+
+python-apt (0.7.90) experimental; urgency=low
+
+  * Introduce support for Python 3 (Closes: #523645)
+
+  * Support the 'in' operator (e.g. "k in d") in Configuration{,Ptr,Sub}
+    objects (e.g. apt_pkg.Config) and in TagSections (apt_pkg.ParseSection())
+  * Replace support for file objects with a more generic support for any object
+    providing a fileno() method and for file descriptors (integers).
+  * Add support for the Breaks fields
+  * Only create Package objects when they are requested, do not keep them in
+    a dict. Saves 10MB for 25,000 packages on my machine.
+  * apt/package.py: Allow to set the candidate of a package (Closes: #523997)
+    - Support assignments to the 'candidate' property of Package objects.
+    - Initial patch by Sebastian Heinlein
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 15 Apr 2009 13:47:42 +0200
 
 python-apt (0.7.13.4) unstable; urgency=low
 

@@ -8,8 +8,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
-MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 10.04 'Lucid Lynx'
 Component: main
 _CompDescription: Officially supported
@@ -69,8 +69,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
-MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.10 'Karmic Koala'
 Component: main
 _CompDescription: Officially supported
@@ -130,8 +130,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
-MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.04 'Jaunty Jackalope'
 Component: main
 _CompDescription: Officially supported
@@ -191,8 +191,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
-MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
 Component: main
 _CompDescription: Officially supported
@@ -253,8 +253,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
-MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
 _CompDescription: Officially supported
@@ -309,7 +309,7 @@ Suite: gutsy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 7.10 'Gutsy Gibbon'
 Component: main
 _CompDescription: Officially supported
@@ -362,7 +362,7 @@ Suite: feisty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
 _CompDescription: Officially supported
@@ -414,7 +414,7 @@ Suite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
@@ -466,7 +466,7 @@ Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
@@ -518,7 +518,7 @@ Suite: breezy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 _CompDescription: Officially supported
@@ -561,7 +561,7 @@ Suite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
 _CompDescription: Officially supported
