@@ -284,10 +284,6 @@ class InstallProgress(object):
 
         return res
 
-    if apt_pkg._COMPAT_0_7:
-        updateInterface = function_deprecated_by(update_interface)
-        waitChild = function_deprecated_by(wait_child)
-
 
 class OpProgress(object):
     """Monitor objects for operations.
