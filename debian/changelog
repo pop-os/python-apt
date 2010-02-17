@@ -30,6 +30,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * apt/progress/base.py:
     - restore "self.statusfd, self.writefd" type, provide additional
       self.status_stream and self.write_stream file like objects
+  * python/progress.cc:
+    - try to call compatibility functions first, then new functions
 
  -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
 
