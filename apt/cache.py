@@ -328,15 +328,16 @@ class Cache(object):
         The second parameter *install_progress* refers to an InstallProgress()
         object of the module apt.progress.
         """
+        # compat with older API
         try:
-            install_progress.start_update()
-        except AttributeError:
             install_progress.startUpdate()
+        except AttributeError:
+            install_progress.start_update()
         res = install_progress.run(pm)
         try:
-            install_progress.finish_update()
-        except AttributeError:
             install_progress.finishUpdate()
+        except AttributeError:
+            install_progress.finish_update()
         return res
 
     @deprecated_args

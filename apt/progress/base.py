@@ -139,9 +139,9 @@ class InstallProgress(object):
     percent, select_timeout, status = 0.0, 0.1, ""
 
     def __init__(self):
-        (read, write) = os.pipe()
-        self.writefd = os.fdopen(write, "w")
-        self.statusfd = os.fdopen(read, "r")
+        (self.statusfd, self.writefd) = os.pipe()
+        self.write_pipe = os.fdopen(self.writefd, "w")
+        self.status_pipe = os.fdopen(self.statusfd, "r")
         fcntl.fcntl(self.statusfd, fcntl.F_SETFL, os.O_NONBLOCK)
 
     def start_update(self):
@@ -190,10 +190,10 @@ class InstallProgress(object):
             # and the execution continues in the
             # parent code leading to very confusing bugs
             try:
-                os._exit(obj.do_install(self.writefd.fileno()))
+                os._exit(obj.do_install(self.write_pipe.fileno()))
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
-                                    str(self.writefd.fileno()), "-i", obj))
+                                    str(self.write_pipe.fileno()), "-i", obj))
             except Exception:
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
@@ -208,7 +208,7 @@ class InstallProgress(object):
     def update_interface(self):
         """Update the interface."""
         try:
-            line = self.statusfd.readline()
+            line = self.status_pipe.readline()
         except IOError, err:
             # resource temporarly unavailable is ignored
             if err.errno != errno.EAGAIN and err.errno != errno.EWOULDBLOCK:
@@ -263,7 +263,7 @@ class InstallProgress(object):
         (pid, res) = (0, 0)
         while True:
             try:
-                select.select([self.statusfd], [], [], self.select_timeout)
+                select.select([self.status_pipe], [], [], self.select_timeout)
             except select.error, (errno_, errstr):
                 if errno_ != errno.EINTR:
                     raise
