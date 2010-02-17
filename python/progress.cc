@@ -415,24 +415,24 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
 void PyInstallProgress::StartUpdate()
 {
-   if (!RunSimpleCallback("start_update"))
-       RunSimpleCallback("startUpdate");
+   if (!RunSimpleCallback("startUpdate"))
+       RunSimpleCallback("start_update");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::UpdateInterface()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("update_interface"))
-       RunSimpleCallback("updateInterface");
+   if (!RunSimpleCallback("updateInterface"))
+       RunSimpleCallback("update_interface");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::FinishUpdate()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("finish_update"))
-       RunSimpleCallback("finishUpdate");
+   if (!RunSimpleCallback("finishUpdate"))
+       RunSimpleCallback("finish_update");
 }
 
 pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
@@ -575,7 +575,7 @@ bool PyCdromProgress::AskCdromName(string &Name)
 
    // Old style: (True, name) on success, (False, name) on failure.
    if (PyObject_HasAttrString(callbackInst, "askAdromName")) {
-      RunSimpleCallback("ask_cdrom_name", arglist, &result);
+      RunSimpleCallback("askAdromName", arglist, &result);
       if(!PyArg_Parse(result, "(bs)", &res, &new_name))
          std::cerr << "AskCdromName: result could not be parsed" << std::endl;
       // set the new name
@@ -588,7 +588,7 @@ bool PyCdromProgress::AskCdromName(string &Name)
         if(result == Py_None)
             return false;
         if(!PyArg_Parse(result, "s", &new_name))
-            std::cerr << "AskCdromName: result could not be parsed" << std::endl;
+            std::cerr << "ask_cdrom_name: result could not be parsed" << std::endl;
         else
             Name = string(new_name);
             return true;
