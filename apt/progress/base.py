@@ -28,6 +28,7 @@ import re
 import select
 
 import apt_pkg
+from apt.deprecation import function_deprecated_by
 
 __all__ = ['AcquireProgress', 'CdromProgress', 'InstallProgress', 'OpProgress']
 
@@ -158,6 +159,9 @@ class InstallProgress(object):
 
     def status_change(self, pkg, percent, status):
         """(Abstract) Called when the APT status changed."""
+        # compat with 0.7
+        if apt_pkg._COMPAT_0_7 and hasattr(self, "statusChange"):
+            self.statusChange(pkg, percent, status)
 
     def dpkg_status_change(self, pkg, status):
         """(Abstract) Called when the dpkg status changed."""
@@ -222,7 +226,6 @@ class InstallProgress(object):
                 (status, pkgname, percent, status_str) = line.split(":", 3)
             except ValueError:
                 # silently ignore lines that can't be parsed
-                self.read = ""
                 return
         elif line.startswith('status'):
             try:
@@ -280,6 +283,10 @@ class InstallProgress(object):
                     raise
 
         return res
+
+    if apt_pkg._COMPAT_0_7:
+        updateInterface = function_deprecated_by(update_interface)
+        waitChild = function_deprecated_by(wait_child)
 
 
 class OpProgress(object):
