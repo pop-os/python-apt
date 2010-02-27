@@ -1,3 +1,11 @@
+python-apt (0.7.93.3) unstable; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - Use generic MirrorsFile key instead of per-architecture ones in
+      order to fix FTBFS on !amd64 !i386 (Closes: #571752)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 23:26:45 +0100
+
 python-apt (0.7.93.2) unstable; urgency=low
 
   [ Julian Andres Klode ]
