@@ -43,7 +43,7 @@ python-apt (0.7.93.2) unstable; urgency=low
   * python/progress.cc:
     - try to call compatibility functions first, then new functions
 
- -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 14:00:43 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 18:33:11 +0100
 
 python-apt (0.7.93.1) unstable; urgency=low
 
