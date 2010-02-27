@@ -8,6 +8,9 @@ python-apt (0.7.93.2) unstable; urgency=low
   * utils/migrate-0.8.py:
     - Improve C++ parsing and add apt.progress.old to the modules, reduces
       false positives.
+    - Ship the list of deprecated things in the apt_pkg and apt_inst modules
+      inside the script itself, so we don't have to parse the source code
+      anymore.
   * python:
     - Handle deprecated attributes and methods in the tp_gettattro slot, this
       allows us to easily warn if a deprecated function is used.

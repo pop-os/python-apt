@@ -4,3 +4,4 @@ TODO
 apt/README.apt
 data/templates/README.templates
 build/sphinx/html/
+utils/migrate-0.8.py
