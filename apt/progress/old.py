@@ -191,6 +191,7 @@ class InstallProgress(DumbInstallProgress, base.InstallProgress):
 
     selectTimeout = AttributeDeprecatedBy('select_timeout')
     statusChange = function_deprecated_by(base.InstallProgress.status_change)
+    updateInterface = function_deprecated_by(base.InstallProgress.update_interface)
     waitChild = function_deprecated_by(base.InstallProgress.wait_child)
 
 

@@ -134,10 +134,10 @@ bool PyFetchProgress::MediaChange(string Media, string Drive)
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
    PyObject *result;
 
-   if(PyObject_HasAttrString(callbackInst, "media_change"))
-      RunSimpleCallback("media_change", arglist, &result);
-   else
+   if(PyObject_HasAttrString(callbackInst, "mediaChange"))
       RunSimpleCallback("mediaChange", arglist, &result);
+   else
+      RunSimpleCallback("media_change", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res)) {
@@ -170,10 +170,10 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
    arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(),
                            Itm.ShortDesc.c_str(), status);
 
-   if(PyObject_HasAttrString(callbackInst, "update_status"))
-      RunSimpleCallback("update_status", arglist);
-   else
+   if(PyObject_HasAttrString(callbackInst, "updateStatus"))
       RunSimpleCallback("updateStatus", arglist);
+   else
+      RunSimpleCallback("update_status", arglist);
 }
 
 void PyFetchProgress::IMSHit(pkgAcquire::ItemDesc &Itm)
@@ -415,24 +415,24 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
 void PyInstallProgress::StartUpdate()
 {
-   if (!RunSimpleCallback("start_update"))
-       RunSimpleCallback("startUpdate");
+   if (!RunSimpleCallback("startUpdate"))
+       RunSimpleCallback("start_update");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::UpdateInterface()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("update_interface"))
-       RunSimpleCallback("updateInterface");
+   if (!RunSimpleCallback("updateInterface"))
+       RunSimpleCallback("update_interface");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::FinishUpdate()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("finish_update"))
-       RunSimpleCallback("finishUpdate");
+   if (!RunSimpleCallback("finishUpdate"))
+       RunSimpleCallback("finish_update");
 }
 
 pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
@@ -496,10 +496,10 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
    if(PyObject_HasAttrString(callbackInst, "waitChild") ||
       PyObject_HasAttrString(callbackInst, "wait_child")) {
       PyObject *method;
-      if (PyObject_HasAttrString(callbackInst, "wait_child"))
-          method = PyObject_GetAttrString(callbackInst, "wait_child");
-      else
+      if (PyObject_HasAttrString(callbackInst, "waitChild"))
           method = PyObject_GetAttrString(callbackInst, "waitChild");
+      else
+          method = PyObject_GetAttrString(callbackInst, "wait_child");
       //std::cerr << "custom waitChild found" << std::endl;
       PyObject *arglist = Py_BuildValue("(i)",child_id);
       PyObject *result = PyObject_CallObject(method, arglist);
@@ -553,10 +553,10 @@ bool PyCdromProgress::ChangeCdrom()
 {
    PyObject *arglist = Py_BuildValue("()");
    PyObject *result;
-   if (PyObject_HasAttrString(callbackInst, "change_cdrom"))
-      RunSimpleCallback("change_cdrom", arglist, &result);
-   else
+   if (PyObject_HasAttrString(callbackInst, "changeCdrom"))
       RunSimpleCallback("changeCdrom", arglist, &result);
+   else
+      RunSimpleCallback("change_cdrom", arglist, &result);
 
    bool res = true;
    if(!PyArg_Parse(result, "b", &res))
@@ -573,25 +573,24 @@ bool PyCdromProgress::AskCdromName(string &Name)
    bool res;
    PyObject *result;
 
-   // New style: String on success, None on failure.
-   if (PyObject_HasAttrString(callbackInst, "ask_cdrom_name")) {
-        RunSimpleCallback("ask_cdrom_name", arglist, &result);
-        if(result == Py_None)
-            return false;
-        if(!PyArg_Parse(result, "s", &new_name))
-            std::cerr << "AskCdromName: result could not be parsed" << std::endl;
-        else
-            Name = string(new_name);
-            return true;
-   }
    // Old style: (True, name) on success, (False, name) on failure.
-   else {
-      RunSimpleCallback("askCdromName", arglist, &result);
+   if (PyObject_HasAttrString(callbackInst, "askAdromName")) {
+      RunSimpleCallback("askAdromName", arglist, &result);
       if(!PyArg_Parse(result, "(bs)", &res, &new_name))
          std::cerr << "AskCdromName: result could not be parsed" << std::endl;
       // set the new name
       Name = string(new_name);
-
       return res;
+   }
+   // New style: String on success, None on failure.
+   else {
+        RunSimpleCallback("ask_cdrom_name", arglist, &result);
+        if(result == Py_None)
+            return false;
+        if(!PyArg_Parse(result, "s", &new_name))
+            std::cerr << "ask_cdrom_name: result could not be parsed" << std::endl;
+        else
+            Name = string(new_name);
+            return true;
   }
 }
