@@ -30,6 +30,8 @@ python-apt (0.7.93.2) unstable; urgency=low
     - aptsources/distinfo.py: Support relative filenames for MirrorsFile.
   * debian/rules:
     - Run tests during build time.
+  * debian/python-apt.install:
+    - Install utils/migrate-0.8.py to /usr/share/python-apt/.
   
   [ Michael Vogt ]
   * apt/cache.py:
