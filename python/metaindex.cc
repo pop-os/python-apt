@@ -52,12 +52,6 @@ static PyGetSetDef MetaIndexGetSet[] = {
    {"index_files",MetaIndexGetIndexFiles},
    {"is_trusted",MetaIndexGetIsTrusted},
    {"uri",MetaIndexGetURI},
-   #ifdef COMPAT_0_7
-   {"Dist",MetaIndexGetDist},
-   {"IndexFiles",MetaIndexGetIndexFiles},
-   {"IsTrusted",MetaIndexGetIsTrusted},
-   {"URI",MetaIndexGetURI},
-   #endif
    {}
 };
 
@@ -91,7 +85,7 @@ PyTypeObject PyMetaIndex_Type =
    0,                                      // tp_hash
    0,                                      // tp_call
    0,                                      // tp_str
-   0,                                      // tp_getattro
+   _PyAptObject_getattro,                  // tp_getattro
    0,                                      // tp_setattro
    0,                                      // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                     // tp_flags

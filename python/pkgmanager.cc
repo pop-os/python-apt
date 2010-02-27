@@ -100,11 +100,6 @@ static PyMethodDef PkgManagerMethods[] =
    {"get_archives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
    {"do_install",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
    {"fix_missing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
-#ifdef COMPAT_0_7
-   {"GetArchives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
-   {"DoInstall",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
-   {"FixMissing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
-#endif
    {}
 };
 
@@ -128,7 +123,7 @@ PyTypeObject PyPackageManager_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

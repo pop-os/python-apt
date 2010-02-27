@@ -446,20 +446,6 @@ static PyMethodDef CnfMethods[] =
    {"value_list",CnfValueList,METH_VARARGS,doc_ValueList},
    {"my_tag",CnfMyTag,METH_VARARGS,doc_MyTag},
    {"clear",CnfClear,METH_VARARGS,doc_Clear},
-#ifdef COMPAT_0_7
-   {"Find",CnfFind,METH_VARARGS,doc_Find},
-   {"FindFile",CnfFindFile,METH_VARARGS,doc_FindFile},
-   {"FindDir",CnfFindDir,METH_VARARGS,doc_FindDir},
-   {"FindI",CnfFindI,METH_VARARGS,doc_FindI},
-   {"FindB",CnfFindB,METH_VARARGS,doc_FindB},
-   {"Set",CnfSet,METH_VARARGS,doc_Set},
-   {"Exists",CnfExists,METH_VARARGS,doc_Exists},
-   {"SubTree",CnfSubTree,METH_VARARGS,doc_SubTree},
-   {"List",CnfList,METH_VARARGS,doc_List},
-   {"ValueList",CnfValueList,METH_VARARGS,doc_ValueList},
-   {"MyTag",CnfMyTag,METH_VARARGS,doc_MyTag},
-   {"Clear",CnfClear,METH_VARARGS,doc_Clear},
-#endif
    // Python Special
    {"keys",CnfKeys,METH_VARARGS,doc_Keys},
    #if PY_MAJOR_VERSION < 3
@@ -498,7 +484,7 @@ PyTypeObject PyConfiguration_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

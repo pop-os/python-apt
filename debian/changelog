@@ -1,4 +1,4 @@
-python-apt (0.7.93.2) UNRELEASED; urgency=low
+python-apt (0.7.93.2) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * Fix some places where the old API was still used:
@@ -8,6 +8,9 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * utils/migrate-0.8.py:
     - Improve C++ parsing and add apt.progress.old to the modules, reduces
       false positives.
+  * python:
+    - Handle deprecated attributes and methods in the tp_gettattro slot, this
+      allows us to easily warn if a deprecated function is used.
   * python/tagfile.cc:
     - Implement the iterator protocol in TagFile.
   * python/cache.cc:
@@ -35,7 +38,7 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * python/progress.cc:
     - try to call compatibility functions first, then new functions
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 14:00:43 +0100
 
 python-apt (0.7.93.1) unstable; urgency=low
 

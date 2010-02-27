@@ -227,4 +227,10 @@ PyObject *HandleErrors(PyObject *Res = 0);
 const char **ListToCharChar(PyObject *List,bool NullTerm = false);
 PyObject *CharCharToList(const char **List,unsigned long Size = 0);
 
+# ifdef COMPAT_0_7
+PyObject *_PyAptObject_getattro(PyObject *self, PyObject *attr);
+# else
+#  define _PyAptObject_getattro 0
+# endif
+
 #endif
