@@ -253,6 +253,16 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    return CppPyObject_NEW<pkgCache::PkgIterator>(Self,&PyPackage_Type,Pkg);
 }
 
+// Check whether the cache contains a package with a given name.
+static int CacheContains(PyObject *Self,PyObject *Arg)
+{
+   // Get the name of the package, unicode and normal strings.
+   const char *Name = PyObject_AsString(Arg);
+   if (Name == NULL)
+      return 0;
+   return (GetCpp<pkgCache *>(Self)->FindPkg(Name).end() == false);
+}
+
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    PyObject *pyCallbackInst = 0;
@@ -305,14 +315,21 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return CacheObj;
 }
 
+static Py_ssize_t CacheMapLen(PyObject *Self)
+{
+    return GetCpp<pkgCache*>(Self)->HeaderP->PackageCount;
+}
+
 static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "The cache provides access to the packages and other stuff.\n\n"
     "The optional parameter *progress* can be used to specify an \n"
     "apt.progress.OpProgress() object (or similar) which displays\n"
-    "the opening progress.\n\n"
-    "If not specified, the progress is displayed in simple text form.";
-
-static PyMappingMethods CacheMap = {0,CacheMapOp,0};
+    "the opening progress. If not specified, the progress is\n"
+    "displayed in simple text form.\n\n"
+    "The cache can be used like a mapping of package names to Package\n"
+    "objects.";
+static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};
+static PyMappingMethods CacheMap = {CacheMapLen,CacheMapOp,0};
 PyTypeObject PyCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -327,7 +344,7 @@ PyTypeObject PyCache_Type =
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &CacheSeq,                           // tp_as_sequence
    &CacheMap,		                // tp_as_mapping
    0,                                   // tp_hash
    0,                                   // tp_call

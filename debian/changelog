@@ -10,6 +10,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
       false positives.
   * python/tagfile.cc:
     - Implement the iterator protocol in TagFile.
+  * python/cache.cc:
+    - Implement Cache.__len__() and Cache.__contains__() (Closes: #571443).
   * data/templates/Debian.info.in:
     - Replace the MatchURI with one that really matches something.
   * aptsources/distro.py:
