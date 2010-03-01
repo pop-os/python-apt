@@ -70,9 +70,19 @@ class BaseDependency(object):
         pre_depend - Boolean value whether this is a pre-dependency.
     """
 
+    class __dstr(str):
+        """Helper to make > match >> and < match <<"""
+
+        def __eq__(self, other):
+            return str.__eq__(self, other) or str.__eq__(2 * self, other)
+
+        def __ne__(self, other):
+            return str.__eq__(self, other) and str.__ne__(2 * self, other)
+
+
     def __init__(self, name, rel, ver, pre, rawtype=None):
         self.name = name
-        self.relation = rel
+        self.relation = len(rel) == 1 and self.__dstr(rel) or rel
         self.version = ver
         self.pre_depend = pre
         self.rawtype = rawtype

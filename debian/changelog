@@ -2,6 +2,9 @@ python-apt (0.7.93.4) unstable; urgency=low
 
   * python/acquire-item.cc:
     - Add AcquireItem.partialsize member.
+  * apt/package.py:
+    - Create a string class BaseDependency.__dstr which makes '>' equal to
+      '>>' and '<' equal to '<<' (compatibility).
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 
