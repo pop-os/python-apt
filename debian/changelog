@@ -5,6 +5,8 @@ python-apt (0.7.93.4) unstable; urgency=low
   * apt/package.py:
     - Create a string class BaseDependency.__dstr which makes '>' equal to
       '>>' and '<' equal to '<<' (compatibility).
+  * apt/progress/text.py:
+    - Drop InstallProgress, it's useless to keep this alias around.
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 
