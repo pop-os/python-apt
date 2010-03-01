@@ -18,6 +18,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
+# pylint: disable-msg = C0103
 """Deprecated progress reporting classes.
 
 This module provides classes for compatibility with python-apt 0.7. They are
@@ -195,9 +196,18 @@ class InstallProgress(DumbInstallProgress, base.InstallProgress):
         base.InstallProgress.update_interface)
     waitChild = function_deprecated_by(base.InstallProgress.wait_child)
 
+    def status_change(self, pkg, percent, status):
+        """(Abstract) Called when the APT status changed."""
+        # compat with 0.7
+        if apt_pkg._COMPAT_0_7 and hasattr(self, "statusChange"):
+            self.statusChange(pkg, percent, status)
+
 
 class DpkgInstallProgress(InstallProgress):
     """Progress handler for a local Debian package installation."""
+
+    debfile = ""
+    debname = ""
 
     def run(self, debfile):
         """Start installing the given Debian package."""

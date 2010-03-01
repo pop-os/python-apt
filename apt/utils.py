@@ -61,7 +61,7 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
     for aver in pkg._pkg.version_list:
         if aver is None or aver.file_list is None:
             continue
-        for ver_file, index in aver.file_list:
+        for ver_file, _index in aver.file_list:
             #print verFile
             if (ver_file.origin == label and
                 ver_file.label == label and
@@ -75,8 +75,8 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
             if (indexfile and
                 indexfile.describe == m.describe and
                 indexfile.is_trusted):
-                dir = apt_pkg.config.find_dir("Dir::State::lists")
+                dirname = apt_pkg.config.find_dir("Dir::State::lists")
                 name = (apt_pkg.uri_to_filename(metaindex.uri) +
                         "dists_%s_Release" % metaindex.dist)
-                return dir+name
+                return dirname + name
     return None

@@ -57,6 +57,10 @@ class Cache(object):
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
+        self._cache = None
+        self._depcache = None
+        self._records = None
+        self._list = None
         self._callbacks = {}
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
@@ -624,9 +628,9 @@ def _test():
 
 
     # see if fetching works
-    for dir in ["/tmp/pytest", "/tmp/pytest/partial"]:
-        if not os.path.exists(dir):
-            os.mkdir(dir)
+    for dirname in ["/tmp/pytest", "/tmp/pytest/partial"]:
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
     apt_pkg.config.set("Dir::Cache::Archives", "/tmp/pytest")
     pm = apt_pkg.PackageManager(cache._depcache)
     fetcher = apt_pkg.Acquire(apt.progress.text.AcquireProgress())
