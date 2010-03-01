@@ -92,6 +92,12 @@ static PyObject *acquireitem_get_local(PyObject *self, void *closure)
     return item ? PyBool_FromLong(item->Local) : 0;
 }
 
+static PyObject *acquireitem_get_partialsize(PyObject *self, void *closure)
+{
+    pkgAcquire::Item *item = acquireitem_tocpp(self);
+    return item ? Py_BuildValue("i", item->PartialSize) : 0;
+}
+
 static PyObject *acquireitem_get_status(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
@@ -127,6 +133,7 @@ static PyGetSetDef acquireitem_getset[] = {
     {"mode",acquireitem_get_mode},
     {"is_trusted",acquireitem_get_is_trusted},
     {"local",acquireitem_get_local},
+    {"partialsize",acquireitem_get_partialsize},
     {"status",acquireitem_get_status},
     {}
 };

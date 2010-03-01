@@ -1,3 +1,10 @@
+python-apt (0.7.93.4) unstable; urgency=low
+
+  * python/acquire-item.cc:
+    - Add AcquireItem.partialsize member.
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
+
 python-apt (0.7.93.3) unstable; urgency=low
 
   * data/templates/Ubuntu.info.in:
