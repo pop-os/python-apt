@@ -437,6 +437,7 @@ class UbuntuDistribution(Distribution):
         Distribution.get_mirrors(
             self, mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
+
 def _lsb_release():
     """Call lsb_release --idrc and return a mapping."""
     from subprocess import Popen, PIPE
@@ -453,6 +454,7 @@ def _lsb_release():
         if exc.errno != errno.ENOENT:
             print 'WARNING: lsb_release failed, using defaults:', exc
     return result
+
 
 def get_distro(id=None, codename=None, description=None, release=None):
     """

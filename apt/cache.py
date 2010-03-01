@@ -46,12 +46,12 @@ class Cache(object):
     """Dictionary-like package cache.
 
     This class has all the packages that are available in it's
-    dictionary. 
+    dictionary.
 
     Keyword arguments:
     progress -- a OpProgress object
-    rootdir -- a alternative root directory. if that is given 
-               the system sources.list and system lists/ files are 
+    rootdir -- a alternative root directory. if that is given
+               the system sources.list and system lists/ files are
                not read, only files relative to the given rootdir
     memonly -- build the cache in memory only
     """
@@ -95,12 +95,12 @@ class Cache(object):
                 "/var/lib/apt/lists/partial",
                ]
         for d in dirs:
-            if not os.path.exists(rootdir+d):
-                print "creating: ",rootdir+d
-                os.makedirs(rootdir+d)
+            if not os.path.exists(rootdir + d):
+                print "creating: ", rootdir + d
+                os.makedirs(rootdir + d)
         for f in files:
-            if not os.path.exists(rootdir+f):
-                open(rootdir+f,"w")
+            if not os.path.exists(rootdir + f):
+                open(rootdir + f, "w")
 
     def _run_callbacks(self, name):
         """ internal helper to run a callback """
@@ -125,12 +125,12 @@ class Cache(object):
         self._weakref.clear()
 
         progress.op = _("Building data structures")
-        i=last=0
-        size=len(self._cache.packages)
+        i = last = 0
+        size = len(self._cache.packages)
         for pkg in self._cache.packages:
             if progress is not None and last+100 < i:
                 progress.update(i/float(size)*100)
-                last=i
+                last = i
             # drop stuff with no versions (cruft)
             if len(pkg.version_list) > 0:
                 self._set.add(pkg.name)
@@ -376,9 +376,10 @@ class Cache(object):
             elif res == pm.RESULT_FAILED:
                 raise SystemError("installArchives() failed")
             elif res == pm.RESULT_INCOMPLETE:
-                 pass
+                pass
             else:
-                 raise SystemError("internal-error: unknown result code from InstallArchives: %s" % res)
+                raise SystemError("internal-error: unknown result code "
+                                  "from InstallArchives: %s" % res)
             # reload the fetcher for media swaping
             fetcher.shutdown()
         return (res == pm.RESULT_COMPLETED)

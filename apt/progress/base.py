@@ -197,7 +197,8 @@ class InstallProgress(object):
                 os._exit(obj.do_install(self.write_stream.fileno()))
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
-                                    str(self.write_stream.fileno()), "-i", obj))
+                                    str(self.write_stream.fileno()), "-i",
+                                    obj))
             except Exception:
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
@@ -266,7 +267,8 @@ class InstallProgress(object):
         (pid, res) = (0, 0)
         while True:
             try:
-                select.select([self.status_stream], [], [], self.select_timeout)
+                select.select([self.status_stream], [], [],
+                              self.select_timeout)
             except select.error, (errno_, errstr):
                 if errno_ != errno.EINTR:
                     raise

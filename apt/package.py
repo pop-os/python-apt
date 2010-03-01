@@ -79,7 +79,6 @@ class BaseDependency(object):
         def __ne__(self, other):
             return str.__eq__(self, other) and str.__ne__(2 * self, other)
 
-
     def __init__(self, name, rel, ver, pre, rawtype=None):
         self.name = name
         self.relation = len(rel) == 1 and self.__dstr(rel) or rel
