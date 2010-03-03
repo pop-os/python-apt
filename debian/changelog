@@ -12,6 +12,12 @@ python-apt (0.7.93.4) unstable; urgency=low
   * apt/progress/old.py:
     - Let the new method call the old one; e.g. status_update() now calls
       self.statusUpdate(). This improves compatibility for sub classes.
+  * Merge with Ubuntu:
+    - util/get_ubuntu_mirrors_from_lp.py:
+      + rewritten to use +archivemirrors-rss and feedburner
+    - pre-build.sh: update ubuntu mirrors on bzr-buildpackage (and also do this
+      for Debian mirrors)
+    - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 
