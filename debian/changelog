@@ -9,6 +9,9 @@ python-apt (0.7.93.4) unstable; urgency=low
       source version is not specified (i.e. in the normal case).
   * apt/progress/text.py:
     - Drop InstallProgress, it's useless to keep this alias around.
+  * apt/progress/old.py:
+    - Let the new method call the old one; e.g. status_update() now calls
+      self.statusUpdate(). This improves compatibility for sub classes.
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 
