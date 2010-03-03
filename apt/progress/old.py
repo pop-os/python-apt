@@ -204,22 +204,22 @@ class DumbInstallProgress(base.InstallProgress):
             self.write_stream = os.fdopen(self.writefd, "w")
         if hasattr(self, "statusfd") and not hasattr(self, "status_stream"):
             self.status_stream = os.fdopen(self.statusfd, "r")
-        base.InstallProgress.update_interface(self)
+        return base.InstallProgress.update_interface(self)
 
     def update_interface(self):
-        self.updateInterface()
+        return self.updateInterface()
 
     def startUpdate(self):
-        base.InstallProgress.start_update(self)
+        return base.InstallProgress.start_update(self)
 
     def start_update(self):
-        self.startUpdate()
+        return self.startUpdate()
 
     def finishUpdate(self):
-        base.InstallProgress.finish_update(self)
+        return base.InstallProgress.finish_update(self)
 
     def finish_update(self):
-        self.finishUpdate()
+        return self.finishUpdate()
 
 
 class InstallProgress(DumbInstallProgress, base.InstallProgress):
@@ -232,16 +232,16 @@ class InstallProgress(DumbInstallProgress, base.InstallProgress):
     selectTimeout = AttributeDeprecatedBy('select_timeout')
 
     def statusChange(self, pkg, percent, status):
-        base.InstallProgress.status_change(self, pkg, percent, status)
+        return base.InstallProgress.status_change(self, pkg, percent, status)
 
     def status_change(self, pkg, percent, status):
-        self.statusChange(pkg, percent, status)
+        return self.statusChange(pkg, percent, status)
 
     def waitChild(self):
-        base.InstallProgress.wait_child(self)
+        return base.InstallProgress.wait_child(self)
 
     def wait_child(self):
-        self.waitChild()
+        return self.waitChild()
 
 
 class DpkgInstallProgress(InstallProgress):
