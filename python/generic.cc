@@ -66,6 +66,7 @@ static PyObject *_PyApt_NewNameForAttribute(const char *attr) {
     if (strcasecmp(attr, "MD5Hash") == 0) return PyString_FromString("md5_hash");
     if (strcasecmp(attr, "SHA1Hash") == 0) return PyString_FromString("sha1_hash");
     if (strcasecmp(attr, "SHA256Hash") == 0) return PyString_FromString("sha256_hash");
+    if (strcasecmp(attr, "UntranslatedDepType") == 0) return PyString_FromString("dep_type_untranslated");
     size_t attrlen = strlen(attr);
     // Reserve the old name + 5, this should reduce resize to a minimum.
     string new_name;

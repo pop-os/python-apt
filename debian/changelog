@@ -2,6 +2,8 @@ python-apt (0.7.93.4) unstable; urgency=low
 
   * python/acquire-item.cc:
     - Add AcquireItem.partialsize member.
+  * python/generic.cc:
+    - Map UntranslatedDepType to dep_type_untranslated.
   * apt/package.py:
     - Create a string class BaseDependency.__dstr which makes '>' equal to
       '>>' and '<' equal to '<<' (compatibility).
