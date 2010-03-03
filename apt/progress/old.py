@@ -41,6 +41,7 @@ class OpProgress(base.OpProgress):
     """Abstract class to implement reporting on cache opening."""
 
     def __init__(self):
+        base.OpProgress.__init__(self)
         warnings.warn("apt.progress.OpProgress is deprecated.",
                       DeprecationWarning, stacklevel=2)
 
@@ -191,6 +192,7 @@ class DumbInstallProgress(base.InstallProgress):
     """Report the install progress."""
 
     def __init__(self):
+        base.InstallProgress.__init__(self)
         warnings.warn("apt.progress.*InstallProgress are deprecated.",
                       DeprecationWarning, stacklevel=2)
 
