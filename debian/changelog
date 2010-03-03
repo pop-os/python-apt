@@ -5,6 +5,8 @@ python-apt (0.7.93.4) unstable; urgency=low
   * apt/package.py:
     - Create a string class BaseDependency.__dstr which makes '>' equal to
       '>>' and '<' equal to '<<' (compatibility).
+    - Use the binary package version in Version.fetch_source() if the
+      source version is not specified (i.e. in the normal case).
   * apt/progress/text.py:
     - Drop InstallProgress, it's useless to keep this alias around.
 

@@ -537,9 +537,10 @@ class Version(object):
         dsc = None
         record = self._records
         src.lookup(record.source_pkg)
+        source_version = record.source_ver or self._cand.ver_str
 
         try:
-            while record.source_ver != src.version:
+            while source_version != src.version:
                 src.lookup(record.source_pkg)
         except AttributeError:
             raise ValueError("No source for %r" % self)
