@@ -18,6 +18,8 @@ python-apt (0.7.93.4) unstable; urgency=low
     - pre-build.sh: update ubuntu mirrors on bzr-buildpackage (and also do this
       for Debian mirrors)
     - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
+  * tests/data/aptsources/sources.list.testDistribution:
+    - change one mirror which is not on the mirror list anymore.
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 
