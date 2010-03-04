@@ -1,4 +1,4 @@
-python-apt (0.7.13.4ubuntu5) ludic; urgency=low
+python-apt (0.7.13.4ubuntu5) lucid; urgency=low
 
   * data/templates/Ubuntu.info.in:
     - make armel point to ports.ubuntu.com (LP: #531876)
