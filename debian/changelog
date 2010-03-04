@@ -1,3 +1,10 @@
+python-apt (0.7.13.4ubuntu5) ludic; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - make armel point to ports.ubuntu.com (LP: #531876)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 04 Mar 2010 13:12:39 +0100
+
 python-apt (0.7.13.4ubuntu4) lucid; urgency=low
 
   * Drop build dependency on python2.4.
