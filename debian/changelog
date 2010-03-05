@@ -4,6 +4,9 @@ python-apt (0.7.93.4) unstable; urgency=low
     - Add AcquireItem.partialsize member.
   * python/generic.cc:
     - Map UntranslatedDepType to dep_type_untranslated.
+  * python/tag.cc:
+    - Hack the TagFile iterator to not use shared storage (Closes: #572596):
+      Scan once, duplicate the section data, and scan again.
   * apt/package.py:
     - Create a string class BaseDependency.__dstr which makes '>' equal to
       '>>' and '<' equal to '<<' (compatibility).

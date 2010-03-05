@@ -271,6 +271,22 @@ static PyObject *TagFileNext(PyObject *Self)
    Obj.Section->Data = 0;
    if (Obj.Object.Step(Obj.Section->Object) == false)
       return HandleErrors(NULL);
+
+   // Bug-Debian: http://bugs.debian.org/572596
+   // Duplicate the data here and scan the duplicated section data; in order
+   // to not use any shared storage.
+   // TODO: Provide an API in apt-pkg to do this; this is really ugly.
+
+   // Fetch old section data
+   const char *Start;
+   const char *Stop;
+   Obj.Section->Object.GetSection(Start,Stop);
+   // Duplicate the data
+   Obj.Section->Data = new char[Stop-Start];
+   strncpy(Obj.Section->Data, Start, Stop-Start);
+   // Rescan it
+   Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start);
+
    Py_INCREF(Obj.Section);
    return HandleErrors(Obj.Section);
 }
