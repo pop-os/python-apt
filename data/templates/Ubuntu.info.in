@@ -2,14 +2,12 @@ _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/chang
 
 Suite: lucid
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com|archive.ubuntu.com
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 10.04 'Lucid Lynx'
@@ -40,14 +38,12 @@ _CompDescription: Restricted copyright
 Suite: lucid-security
 ParentSuite: lucid
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com/ubuntu
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: lucid-updates
@@ -67,14 +63,12 @@ _Description: Unsupported updates
 
 Suite: karmic
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com|archive.ubuntu.com
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 9.10 'Karmic Koala'
@@ -105,14 +99,12 @@ _CompDescription: Restricted copyright
 Suite: karmic-security
 ParentSuite: karmic
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com/ubuntu
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: karmic-updates
@@ -132,14 +124,12 @@ _Description: Unsupported updates
 
 Suite: jaunty
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com|archive.ubuntu.com
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 9.04 'Jaunty Jackalope'
@@ -170,14 +160,12 @@ _CompDescription: Restricted copyright
 Suite: jaunty-security
 ParentSuite: jaunty
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com/ubuntu
-BaseURI-armel: http://ports.ubuntu.com/
-MatchURI-armel: ports.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: jaunty-updates
@@ -197,12 +185,12 @@ _Description: Unsupported updates
 
 Suite: intrepid
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
@@ -233,12 +221,12 @@ _CompDescription: Restricted copyright
 Suite: intrepid-security
 ParentSuite: intrepid
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: intrepid-updates
@@ -259,12 +247,12 @@ _Description: Unsupported updates
 
 Suite: hardy
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
-BaseURI-lpia: http://ports.ubuntu.com/
-MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
+BaseURI: http://ports.ubuntu.com/ubuntu-ports
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: /usr/share/python-apt/templates/Ubuntu.mirrors
 MirrorsFile-i386: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
@@ -295,10 +283,12 @@ _CompDescription: Restricted copyright
 Suite: hardy-security
 ParentSuite: hardy
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: hardy-updates
@@ -319,8 +309,14 @@ _Description: Unsupported updates
 
 Suite: gutsy
 RepositoryType: deb
-BaseURI: http://archive.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu
+BaseURI: http://ports.ubuntu.com/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu
+BaseURI-sparc: http://archive.ubuntu.com/ubuntu/
+MatchURI-sparc: archive.ubuntu.com/ubuntu
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 7.10 'Gutsy Gibbon'
 Component: main
@@ -350,8 +346,14 @@ _CompDescription: Restricted copyright
 Suite: gutsy-security
 ParentSuite: gutsy
 RepositoryType: deb
-BaseURI: http://security.ubuntu.com/ubuntu/
-MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI: http://ports.ubuntu.com/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-sparc: http://security.ubuntu.com/ubuntu/
+MatchURI-sparc: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
 Suite: gutsy-updates
@@ -374,6 +376,12 @@ Suite: feisty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu-ports
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
@@ -405,6 +413,12 @@ ParentSuite: feisty
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
+BaseURI-powerpc: http://ports.ubuntu.com/
+MatchURI-powerpc: ports.ubuntu.com/ubuntu-ports
 _Description: Important security updates
 
 Suite: feisty-updates
@@ -426,6 +440,10 @@ Suite: edgy
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
@@ -457,6 +475,10 @@ ParentSuite: edgy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Important security updates
 
 Suite: edgy-updates
@@ -478,6 +500,10 @@ Suite: dapper
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
@@ -509,6 +535,10 @@ ParentSuite: dapper
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Important security updates
 
 Suite: dapper-updates
@@ -531,6 +561,10 @@ RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 5.10 'Breezy Badger'
 Component: main
 _CompDescription: Officially supported
@@ -557,6 +591,10 @@ ParentSuite: breezy
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 5.10 Security Updates
 
 Suite: breezy-updates
@@ -573,6 +611,10 @@ Suite: hoary
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 5.04 'Hoary Hedgehog'
 Component: main
@@ -600,6 +642,10 @@ ParentSuite: hoary
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 5.04 Security Updates
 
 Suite: hoary-updates
@@ -616,6 +662,10 @@ Suite: warty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 4.10 'Warty Warthog'
 Component: main
 _CompDescription: No longer officially supported
@@ -642,6 +692,10 @@ ParentSuite: warty
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-ia64: http://ports.ubuntu.com/
+MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
+BaseURI-hppa: http://ports.ubuntu.com/
+MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 4.10 Security Updates
 
 Suite: warty-updates
