@@ -26,6 +26,8 @@ python-apt (0.7.93.4) unstable; urgency=low
     - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
   * tests/data/aptsources/sources.list.testDistribution:
     - change one mirror which is not on the mirror list anymore.
+  * utils/get_debian_mirrors.py:
+    - Parse Mirrors.masterlist instead of the HTML web page.
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
 

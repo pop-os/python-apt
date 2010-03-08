@@ -8,4 +8,4 @@ fi
 utils/get_ubuntu_mirrors_from_lp.py > data/templates/Ubuntu.mirrors
 
 echo "updating Debian mirror list"
-( cd utils; ./get_debian_mirrors.py; )
+utils/get_debian_mirrors.py > data/templates/Debian.mirrors
