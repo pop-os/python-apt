@@ -380,8 +380,6 @@ BaseURI-ia64: http://ports.ubuntu.com/
 MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
 BaseURI-hppa: http://ports.ubuntu.com/
 MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu-ports
 MirrorsFile: /usr/share/python-apt/templates/Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
@@ -417,8 +415,6 @@ BaseURI-ia64: http://ports.ubuntu.com/
 MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
 BaseURI-hppa: http://ports.ubuntu.com/
 MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
-BaseURI-powerpc: http://ports.ubuntu.com/
-MatchURI-powerpc: ports.ubuntu.com/ubuntu-ports
 _Description: Important security updates
 
 Suite: feisty-updates
@@ -662,10 +658,6 @@ Suite: warty
 RepositoryType: deb
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu
-BaseURI-ia64: http://ports.ubuntu.com/
-MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
-BaseURI-hppa: http://ports.ubuntu.com/
-MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 4.10 'Warty Warthog'
 Component: main
 _CompDescription: No longer officially supported
@@ -692,10 +684,6 @@ ParentSuite: warty
 RepositoryType: deb
 BaseURI: http://security.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|security.ubuntu.com
-BaseURI-ia64: http://ports.ubuntu.com/
-MatchURI-ia64: ports.ubuntu.com/ubuntu-ports
-BaseURI-hppa: http://ports.ubuntu.com/
-MatchURI-hppa: ports.ubuntu.com/ubuntu-ports
 _Description: Ubuntu 4.10 Security Updates
 
 Suite: warty-updates
