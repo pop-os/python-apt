@@ -1,6 +1,7 @@
 python-apt (0.7.93.4) unstable; urgency=low
 
   * Move documentation into python-apt-doc (Closes: #572617)
+  * Build documentation only once on the default Python version.
   * python/acquire-item.cc:
     - Add AcquireItem.partialsize member.
   * python/apt_pkgmodule.cc:
