@@ -2,6 +2,8 @@ python-apt (0.7.93.4) unstable; urgency=low
 
   * python/acquire-item.cc:
     - Add AcquireItem.partialsize member.
+  * python/apt_pkgmodule.cc:
+    - Treat '>>' and '>', '<<' and '<' as identical in check_dep (LP: #535667).
   * python/generic.cc:
     - Map UntranslatedDepType to dep_type_untranslated.
   * python/tag.cc:
@@ -24,6 +26,9 @@ python-apt (0.7.93.4) unstable; urgency=low
     - pre-build.sh: update ubuntu mirrors on bzr-buildpackage (and also do this
       for Debian mirrors)
     - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
+  * tests:
+    - test_deps: Add tests for apt_pkg.CheckDep, apt_pkg.check_dep,
+      apt_pkg.parse_depends and apt_pkg.parse_src_depends.
   * tests/data/aptsources/sources.list.testDistribution:
     - change one mirror which is not on the mirror list anymore.
   * utils/get_debian_mirrors.py:

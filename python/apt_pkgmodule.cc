@@ -93,6 +93,35 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
 
    if (PyArg_ParseTuple(Args,"sss",&A,&OpStr,&B) == 0)
       return 0;
+
+   if (strcmp(OpStr, ">") == 0) OpStr = ">>";
+   if (strcmp(OpStr, "<") == 0) OpStr = "<<";
+   if (*debListParser::ConvertRelation(OpStr,Op) != 0)
+   {
+      PyErr_SetString(PyExc_ValueError,"Bad comparision operation");
+      return 0;
+   }
+
+   if (_system == 0)
+   {
+      PyErr_SetString(PyExc_ValueError,"_system not initialized");
+      return 0;
+   }
+
+   return Py_BuildValue("i",_system->VS->CheckDep(A,Op,B));
+//   return Py_BuildValue("i",pkgCheckDep(B,A,Op));
+}
+
+static char *doc_CheckDepOld = "CheckDep(PkgVer,DepOp,DepVer) -> int";
+static PyObject *CheckDepOld(PyObject *Self,PyObject *Args)
+{
+   char *A;
+   char *B;
+   char *OpStr;
+   unsigned int Op = 0;
+
+   if (PyArg_ParseTuple(Args,"sss",&A,&OpStr,&B) == 0)
+      return 0;
    if (*debListParser::ConvertRelation(OpStr,Op) != 0)
    {
       PyErr_SetString(PyExc_ValueError,"Bad comparision operation");
@@ -473,6 +502,7 @@ static PyMethodDef methods[] =
 
    // DEPRECATED
    #ifdef COMPAT_0_7
+   {"CheckDep",CheckDepOld,METH_VARARGS,doc_CheckDepOld},
    {"newConfiguration",newConfiguration,METH_VARARGS,doc_newConfiguration},
    {"InitConfig",InitConfig,METH_VARARGS,doc_InitConfig},
    {"InitSystem",InitSystem,METH_VARARGS,doc_InitSystem},
