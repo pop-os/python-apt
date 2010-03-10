@@ -1,4 +1,4 @@
-python-apt (0.7.93.4) unstable; urgency=low
+python-apt (0.7.94) unstable; urgency=low
 
   * Move documentation into python-apt-doc (Closes: #572617)
   * Build documentation only once on the default Python version.
@@ -38,7 +38,7 @@ python-apt (0.7.93.4) unstable; urgency=low
   * utils/get_ubuntu_mirrors_from_lp.py:
     - Sort the mirror list of each country.
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 01 Mar 2010 16:13:22 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 10 Mar 2010 16:10:27 +0100
 
 python-apt (0.7.93.3) unstable; urgency=low
 
