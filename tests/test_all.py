@@ -10,6 +10,7 @@ import unittest
 import sys
 
 if __name__ == '__main__':
+    print("[tests] Running on %s" % sys.version.replace("\n", ""))
     os.chdir(os.path.dirname(__file__))
     # Find the path to the built apt_pkg and apt_inst extensions
     if os.path.exists("../build"):
