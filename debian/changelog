@@ -1,3 +1,10 @@
+python-apt (0.7.94.1) UNRELEASED; urgency=low
+
+  * Pass --exclude=migrate-0.8.py to dh_pycentral; in order to not depend
+    on python2.6.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
+
 python-apt (0.7.94) unstable; urgency=low
 
   * Move documentation into python-apt-doc (Closes: #572617)
