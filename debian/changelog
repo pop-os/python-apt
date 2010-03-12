@@ -6,6 +6,7 @@ python-apt (0.7.94.1) UNRELEASED; urgency=low
   * Pass --link-doc=python-apt to dh_installdocs.
   * Install examples to python-apt-doc instead of python-apt.
   * tests/test_all.py: Write information header to stderr, not stdout.
+  * Build documentation only when needed (when building python-apt-doc).
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
 

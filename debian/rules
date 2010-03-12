@@ -9,11 +9,13 @@ export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
 
 override_dh_auto_build:
 	dh_auto_build
-	python setup.py build_sphinx
 
 override_dh_installdocs:
+	set -e; if [ -z $(filter -a,$(DH_INTERNAL_OPTIONS)) ]; then \
+		python setup.py build_sphinx; \
+		dh_installdirs -ppython-apt-doc usr/share/doc/python-apt; \
+	fi
 	dh_installdirs -ppython-apt-dev usr/share/doc/python-apt
-	dh_installdirs -ppython-apt-doc usr/share/doc/python-apt
 	dh_installdocs --link-doc=python-apt
 
 override_dh_strip:
