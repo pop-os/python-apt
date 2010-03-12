@@ -12,9 +12,9 @@ override_dh_auto_build:
 	python setup.py build_sphinx
 
 override_dh_installdocs:
-	dh_installdocs
-	rm -rf debian/python-apt-dbg/usr/share/doc/python-apt-dbg
-	ln -s python-apt debian/python-apt-dbg/usr/share/doc/python-apt-dbg
+	dh_installdirs -ppython-apt-dev usr/share/doc/python-apt
+	dh_installdirs -ppython-apt-doc usr/share/doc/python-apt
+	dh_installdocs --link-doc=python-apt
 
 override_dh_strip:
 	dh_strip --dbg-package=python-apt-dbg
