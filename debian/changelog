@@ -1,4 +1,4 @@
-python-apt (0.7.94.1) UNRELEASED; urgency=low
+python-apt (0.7.94.1) unstable; urgency=low
 
   * Pass --exclude=migrate-0.8.py to dh_pycentral; in order to not depend
     on python2.6; but recommend python2.6.
@@ -8,7 +8,7 @@ python-apt (0.7.94.1) UNRELEASED; urgency=low
   * tests/test_all.py: Write information header to stderr, not stdout.
   * Build documentation only when needed (when building python-apt-doc).
 
- -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
+ -- Julian Andres Klode <jak@debian.org>  Fri, 12 Mar 2010 14:36:48 +0100
 
 python-apt (0.7.94) unstable; urgency=low
 
