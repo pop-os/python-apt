@@ -2,6 +2,7 @@ python-apt (0.7.94.1) UNRELEASED; urgency=low
 
   * Pass --exclude=migrate-0.8.py to dh_pycentral; in order to not depend
     on python2.6.
+  * Use dh_link instead of ln for python-apt-doc (Closes: #573523).
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
 
