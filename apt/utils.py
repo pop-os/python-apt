@@ -17,8 +17,10 @@
 # this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
-import apt_pkg
 import os.path
+
+import apt_pkg
+
 
 def get_maintenance_end_date(release_date, m_months):
     """
@@ -28,9 +30,11 @@ def get_maintenance_end_date(release_date, m_months):
     """
     years = m_months / 12
     months = m_months % 12
-    support_end_year = release_date.year + years + (release_date.month + months)/12
+    support_end_year = (release_date.year + years +
+                        (release_date.month + months)/12)
     support_end_month = (release_date.month + months) % 12
     return (support_end_year, support_end_month)
+
 
 def get_release_date_from_release_file(path):
     """
@@ -45,6 +49,7 @@ def get_release_date_from_release_file(path):
     date = section["Date"]
     return apt_pkg.str_to_time(date)
 
+
 def get_release_filename_for_pkg(cache, pkgname, label, release):
     " get the release file that provides this pkg "
     if pkgname not in cache:
@@ -54,9 +59,9 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
     # look for the version that comes from the repos with
     # the given label and origin
     for aver in pkg._pkg.version_list:
-        if aver == None or aver.file_list == None:
+        if aver is None or aver.file_list is None:
             continue
-        for ver_file, index in aver.file_list:
+        for ver_file, _index in aver.file_list:
             #print verFile
             if (ver_file.origin == label and
                 ver_file.label == label and
@@ -70,7 +75,8 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
             if (indexfile and
                 indexfile.describe == m.describe and
                 indexfile.is_trusted):
-                dir = apt_pkg.config.find_dir("Dir::State::lists")
-                name = apt_pkg.uri_to_filename(metaindex.uri)+"dists_%s_Release" % metaindex.dist
-                return dir+name
+                dirname = apt_pkg.config.find_dir("Dir::State::lists")
+                name = (apt_pkg.uri_to_filename(metaindex.uri) +
+                        "dists_%s_Release" % metaindex.dist)
+                return dirname + name
     return None

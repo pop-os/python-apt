@@ -4,6 +4,7 @@
 This behaves somewhat like apt-get --print-uris update."""
 import apt_pkg
 
+
 def main():
     apt_pkg.init_config()
     apt_pkg.init_system()

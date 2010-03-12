@@ -153,7 +153,6 @@ static PyMethodDef PkgCacheMethods[] =
 {
    {"update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
 #ifdef COMPAT_0_7
-   {"Update",PkgCacheUpdate,METH_VARARGS,"Update the cache"},
    {"Open", PkgCacheOpen, METH_VARARGS,"Open the cache"},
    {"Close", PkgCacheClose, METH_VARARGS,"Close the cache"},
 #endif
@@ -216,16 +215,6 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {"provides_count",PkgCacheGetProvidesCount},
    {"ver_file_count",PkgCacheGetVerFileCount},
    {"version_count",PkgCacheGetVersionCount},
-#ifdef COMPAT_0_7
-   {"DependsCount",PkgCacheGetDependsCount},
-   {"FileList",PkgCacheGetFileList},
-   {"PackageCount",PkgCacheGetPackageCount},
-   {"PackageFileCount",PkgCacheGetPackageFileCount},
-   {"Packages",PkgCacheGetPackages},
-   {"ProvidesCount",PkgCacheGetProvidesCount},
-   {"VerFileCount",PkgCacheGetVerFileCount},
-   {"VersionCount",PkgCacheGetVersionCount},
-#endif
    {}
 };
 
@@ -251,6 +240,16 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
    }
 
    return CppPyObject_NEW<pkgCache::PkgIterator>(Self,&PyPackage_Type,Pkg);
+}
+
+// Check whether the cache contains a package with a given name.
+static int CacheContains(PyObject *Self,PyObject *Arg)
+{
+   // Get the name of the package, unicode and normal strings.
+   const char *Name = PyObject_AsString(Arg);
+   if (Name == NULL)
+      return 0;
+   return (GetCpp<pkgCache *>(Self)->FindPkg(Name).end() == false);
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
@@ -305,14 +304,21 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return CacheObj;
 }
 
+static Py_ssize_t CacheMapLen(PyObject *Self)
+{
+    return GetCpp<pkgCache*>(Self)->HeaderP->PackageCount;
+}
+
 static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "The cache provides access to the packages and other stuff.\n\n"
     "The optional parameter *progress* can be used to specify an \n"
     "apt.progress.OpProgress() object (or similar) which displays\n"
-    "the opening progress.\n\n"
-    "If not specified, the progress is displayed in simple text form.";
-
-static PyMappingMethods CacheMap = {0,CacheMapOp,0};
+    "the opening progress. If not specified, the progress is\n"
+    "displayed in simple text form.\n\n"
+    "The cache can be used like a mapping of package names to Package\n"
+    "objects.";
+static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};
+static PyMappingMethods CacheMap = {CacheMapLen,CacheMapOp,0};
 PyTypeObject PyCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -327,12 +333,12 @@ PyTypeObject PyCache_Type =
    0,                                   // tp_compare
    0,                                   // tp_repr
    0,                                   // tp_as_number
-   0,                                   // tp_as_sequence
+   &CacheSeq,                           // tp_as_sequence
    &CacheMap,		                // tp_as_mapping
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
@@ -526,21 +532,6 @@ static PyGetSetDef PackageGetSet[] = {
     {"important",PackageGetImportant},
     {"version_list",PackageGetVersionList},
     {"current_ver",PackageGetCurrentVer},
-    #ifdef COMPAT_0_7
-    {"Name",PackageGetName},
-    {"Section",PackageGetSection},
-    {"RevDependsList",PackageGetRevDependsList},
-    {"ProvidesList",PackageGetProvidesList},
-    {"SelectedState",PackageGetSelectedState},
-    {"InstState",PackageGetInstState},
-    {"CurrentState",PackageGetCurrentState},
-    {"ID",PackageGetID},
-    {"Auto",PackageGetAuto},
-    {"Essential",PackageGetEssential},
-    {"Important",PackageGetImportant},
-    {"VersionList",PackageGetVersionList},
-    {"CurrentVer",PackageGetCurrentVer},
-    #endif
     {}
 };
 
@@ -573,7 +564,7 @@ PyTypeObject PyPackage_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
@@ -624,10 +615,6 @@ static PyGetSetDef DescriptionGetSet[] = {
     {"language_code",DescriptionGetLanguageCode},
     {"md5",DescriptionGetMd5},
     {"file_list",DescriptionGetFileList},
-    #ifdef COMPAT_0_7
-    {"LanguageCode",DescriptionGetLanguageCode},
-    {"FileList",DescriptionGetFileList},
-    #endif
     {}
 };
 
@@ -658,7 +645,7 @@ PyTypeObject PyDescription_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
@@ -869,24 +856,6 @@ static PyGetSetDef VersionGetSet[] = {
    {"size",VersionGetSize},
    {"translated_description",VersionGetTranslatedDescription},
    {"ver_str",VersionGetVerStr},
-#ifdef COMPAT_0_7
-   {"Arch",VersionGetArch},
-   {"DependsList",VersionGetDependsList},
-   {"DependsListStr",VersionGetDependsListStr},
-   {"Downloadable",VersionGetDownloadable},
-   {"FileList",VersionGetFileList},
-   {"Hash",VersionGetHash},
-   {"ID",VersionGetID},
-   {"InstalledSize",VersionGetInstalledSize},
-   {"ParentPkg",VersionGetParentPkg},
-   {"Priority",VersionGetPriority},
-   {"PriorityStr",VersionGetPriorityStr},
-   {"ProvidesList",VersionGetProvidesList},
-   {"Section",VersionGetSection},
-   {"Size",VersionGetSize},
-   {"TranslationDescription",VersionGetTranslatedDescription},
-   {"VerStr",VersionGetVerStr},
-#endif
    {}
 };
 
@@ -909,7 +878,7 @@ PyTypeObject PyVersion_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,                  // tp_flags
@@ -1036,21 +1005,6 @@ static PyGetSetDef PackageFileGetSet[] = {
   {(char*)"site",PackageFile_GetSite},
   {(char*)"size",PackageFile_GetSize},
   {(char*)"version",PackageFile_GetVersion},
-  #ifdef COMPAT_0_7
-  {"Architecture",PackageFile_GetArchitecture},
-  {"Archive",PackageFile_GetArchive},
-  {"Component",PackageFile_GetComponent},
-  {"FileName",PackageFile_GetFileName},
-  {"ID",PackageFile_GetID},
-  {"IndexType",PackageFile_GetIndexType},
-  {"Label",PackageFile_GetLabel},
-  {"NotAutomatic",PackageFile_GetNotAutomatic},
-  {"NotSource",PackageFile_GetNotSource},
-  {"Origin",PackageFile_GetOrigin},
-  {"Site",PackageFile_GetSite},
-  {"Size",PackageFile_GetSize},
-  {"Version",PackageFile_GetVersion},
-  #endif
   {}
 };
 
@@ -1071,7 +1025,7 @@ PyTypeObject PyPackageFile_Type = {
    0,                                                    // tp_hash
    0,                                                    // tp_call
    0,                                                    // tp_str
-   0,                                                    // tp_getattro
+   _PyAptObject_getattro,                                // tp_getattro
    0,                                                    // tp_setattro
    0,                                                    // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC,              // tp_flags
@@ -1141,10 +1095,6 @@ static PyMethodDef DependencyMethods[] =
 {
    {"smart_target_pkg",DepSmartTargetPkg,METH_VARARGS,"Returns the natural Target or None"},
    {"all_targets",DepAllTargets,METH_VARARGS,"Returns all possible Versions that match this dependency"},
-#ifdef COMPAT_0_7
-   {"SmartTargetPkg",DepSmartTargetPkg,METH_VARARGS,"Returns the natural Target or None"},
-   {"AllTargets",DepAllTargets,METH_VARARGS,"Returns all possible Versions that match this dependency"},
-#endif
    {}
 };
 
@@ -1223,15 +1173,6 @@ static PyGetSetDef DependencyGetSet[] = {
    {"parent_ver",DependencyGetParentVer},
    {"target_pkg",DependencyGetTargetPkg},
    {"target_ver",DependencyGetTargetVer},
-#ifdef COMPAT_0_7
-   {"CompType",DependencyGetCompType},
-   {"DepType",DependencyGetDepType},
-   {"ID",DependencyGetID},
-   {"ParentPkg",DependencyGetParentPkg},
-   {"ParentVer",DependencyGetParentVer},
-   {"TargetPkg",DependencyGetTargetPkg},
-   {"TargetVer",DependencyGetTargetVer},
-#endif
    {}
 };
 
@@ -1255,7 +1196,7 @@ PyTypeObject PyDependency_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags

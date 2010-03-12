@@ -14,8 +14,6 @@ try:
     cmdclass['build'] = build_extra.build_extra
     cmdclass['build_i18n'] = build_i18n.build_i18n
     cmdclass['clean'] = clean_build_tree
-    build_extra.build_extra.sub_commands.append(("build_sphinx",
-                          lambda x: 'build_sphinx' in cmdclass))
 except ImportError:
     print('W: [python%s] DistUtilsExtra import error.' % sys.version[:3])
 

@@ -30,7 +30,8 @@ def show_help():
            "  -f   Fast mode, don't check package files\n"
            "  -a   Thorough scan mode\n"
            "  -c=? Read this configuration file\n"
-           "  -o=? Set an arbitrary configuration option, eg -o dir::cache=/tmp\n"
+           "  -o=? Set an arbitrary configuration option, eg -o "
+           "dir::cache=/tmp\n"
            "See fstab(5)")
     return 0
 

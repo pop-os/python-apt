@@ -28,9 +28,6 @@ static PyObject *IndexFileArchiveURI(PyObject *Self,PyObject *Args)
 static PyMethodDef IndexFileMethods[] =
 {
    {"archive_uri",IndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
-   #ifdef COMPAT_0_7
-   {"ArchiveURI",IndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
-   #endif
    {}
 };
 
@@ -76,14 +73,6 @@ static PyGetSetDef IndexFileGetSet[] = {
     {"is_trusted",IndexFileGetIsTrusted},
     {"label",IndexFileGetLabel},
     {"size",IndexFileGetSize},
-    #ifdef COMPAT_0_7
-    {"Describe",IndexFileGetDescribe},
-    {"Exists",IndexFileGetExists},
-    {"HasPackages",IndexFileGetHasPackages},
-    {"IsTrusted",IndexFileGetIsTrusted},
-    {"Label",IndexFileGetLabel},
-    {"Size",IndexFileGetSize},
-    #endif
     {}
 };
 
@@ -107,7 +96,7 @@ PyTypeObject PyIndexFile_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags

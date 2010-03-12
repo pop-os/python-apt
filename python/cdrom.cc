@@ -78,6 +78,9 @@ static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
 #ifdef COMPAT_0_7
 static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
 {
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Method 'Ident' of the "
+                 "'apt_pkg.Cdrom' object is deprecated, use 'ident' instead.",
+                 1);
     pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
 
     PyObject *pyCdromProgressInst = 0;
@@ -101,8 +104,7 @@ static PyMethodDef cdrom_methods[] = {
     {"add",cdrom_add,METH_VARARGS,cdrom_add_doc},
     {"ident",cdrom_ident,METH_VARARGS,cdrom_ident_doc},
 #ifdef COMPAT_0_7
-    {"Add",cdrom_add,METH_VARARGS,"Add(progress) -> Add a cdrom"},
-    {"Ident",cdrom_ident_old,METH_VARARGS,"Ident(progress) -> Ident a cdrom"},
+    {"Ident",cdrom_ident_old,METH_VARARGS,"DEPRECATED. DO NOT USE"},
 #endif
     {}
 };
@@ -134,7 +136,7 @@ PyTypeObject PyCdrom_Type = {
     0,                                   // tp_hash
     0,                                   // tp_call
     0,                                   // tp_str
-    0,                                   // tp_getattro
+    _PyAptObject_getattro,               // tp_getattro
     0,                                   // tp_setattro
     0,                                   // tp_as_buffer
     Py_TPFLAGS_DEFAULT |                 // tp_flags

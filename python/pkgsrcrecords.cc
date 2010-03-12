@@ -71,10 +71,6 @@ static PyMethodDef PkgSrcRecordsMethods[] =
 {
    {"lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
-#ifdef COMPAT_0_7
-   {"Lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
-   {"Restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
-#endif
    {}
 };
 
@@ -234,15 +230,7 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"section",PkgSrcRecordsGetSection},
    {"version",PkgSrcRecordsGetVersion},
 #ifdef COMPAT_0_7
-   {"Binaries",PkgSrcRecordsGetBinaries},
    {"BuildDepends",PkgSrcRecordsGetBuildDepends_old,0,"Deprecated function and deprecated output format."},
-   {"Files",PkgSrcRecordsGetFiles},
-   {"Index",PkgSrcRecordsGetIndex},
-   {"Maintainer",PkgSrcRecordsGetMaintainer},
-   {"Package",PkgSrcRecordsGetPackage},
-   {"Record",PkgSrcRecordsGetRecord},
-   {"Section",PkgSrcRecordsGetSection},
-   {"Version",PkgSrcRecordsGetVersion},
 #endif
    {}
 };
@@ -274,7 +262,7 @@ PyTypeObject PySourceRecords_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

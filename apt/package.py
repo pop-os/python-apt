@@ -70,9 +70,18 @@ class BaseDependency(object):
         pre_depend - Boolean value whether this is a pre-dependency.
     """
 
+    class __dstr(str):
+        """Helper to make > match >> and < match <<"""
+
+        def __eq__(self, other):
+            return str.__eq__(self, other) or str.__eq__(2 * self, other)
+
+        def __ne__(self, other):
+            return str.__eq__(self, other) and str.__ne__(2 * self, other)
+
     def __init__(self, name, rel, ver, pre, rawtype=None):
         self.name = name
-        self.relation = rel
+        self.relation = len(rel) == 1 and self.__dstr(rel) or rel
         self.version = ver
         self.pre_depend = pre
         self.rawtype = rawtype
@@ -528,9 +537,10 @@ class Version(object):
         dsc = None
         record = self._records
         src.lookup(record.source_pkg)
+        source_version = record.source_ver or self._cand.ver_str
 
         try:
-            while record.source_ver != src.version:
+            while source_version != src.version:
                 src.lookup(record.source_pkg)
         except AttributeError:
             raise ValueError("No source for %r" % self)
@@ -971,7 +981,7 @@ class Package(object):
         which if set, prevents the download.
         """
         # Return a cached changelog if available
-        if self._changelog != "":
+        if self._changelog != u"":
             return self._changelog
 
         if uri is None:
@@ -986,7 +996,8 @@ class Package(object):
                       "/%(src_section)s/%(prefix)s/%(src_pkg)s" \
                       "/%(src_pkg)s_%(src_ver)s/changelog"
             else:
-                return _("The list of changes is not available")
+                res = _("The list of changes is not available")
+                return res if isinstance(res, unicode) else res.decode("utf-8")
 
         # get the src package name
         src_pkg = self.candidate.source_name
@@ -1056,15 +1067,15 @@ class Package(object):
 
                 # Check if the download was canceled
                 if cancel_lock and cancel_lock.isSet():
-                    return ""
+                    return u""
                 changelog_file = urllib2.urlopen(uri)
                 # do only get the lines that are new
-                changelog = ""
+                changelog = u""
                 regexp = "^%s \((.*)\)(.*)$" % (re.escape(src_pkg))
                 while True:
                     # Check if the download was canceled
                     if cancel_lock and cancel_lock.isSet():
-                        return ""
+                        return u""
                     # Read changelog line by line
                     line_raw = changelog_file.readline()
                     if line_raw == "":
@@ -1084,6 +1095,7 @@ class Package(object):
                         changelog_ver = match.group(1)
                         if changelog_ver and ":" in changelog_ver:
                             changelog_ver = changelog_ver.split(":", 1)[1]
+
                         if (installed and apt_pkg.version_compare(
                                           changelog_ver, installed) <= 0):
                             break
@@ -1093,17 +1105,21 @@ class Package(object):
                 # Print an error if we failed to extract a changelog
                 if len(changelog) == 0:
                     changelog = _("The list of changes is not available")
+                    if not isinstance(changelog, unicode):
+                        changelog = changelog.decode("utf-8")
                 self._changelog = changelog
 
             except urllib2.HTTPError:
-                return _("The list of changes is not available yet.\n\n"
+                res = _("The list of changes is not available yet.\n\n"
                          "Please use http://launchpad.net/ubuntu/+source/%s/"
                          "%s/+changelog\n"
                          "until the changes become available or try again "
                          "later.") % (src_pkg, src_ver)
+                return res if isinstance(res, unicode) else res.decode("utf-8")
             except (IOError, httplib.BadStatusLine):
-                return _("Failed to download the list of changes. \nPlease "
+                res = _("Failed to download the list of changes. \nPlease "
                          "check your Internet connection.")
+                return res if isinstance(res, unicode) else res.decode("utf-8")
         finally:
             socket.setdefaulttimeout(timeout)
         return self._changelog

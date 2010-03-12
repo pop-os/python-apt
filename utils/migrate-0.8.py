@@ -44,7 +44,7 @@ from collections import defaultdict
 from textwrap import fill
 
 color=False
-if sys.argv[1] in ('-c', '--color', '--colour'):
+if len(sys.argv) > 1 and sys.argv[1] in ('-c', '--color', '--colour'):
     color=True
     del sys.argv[1]
 
@@ -55,6 +55,75 @@ if '-h' in sys.argv or '--help' in sys.argv or not sys.argv[1:]:
 if os.path.dirname(__file__).endswith('utils'):
     sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
+deprecated_cpp_stuff = set([
+    '.Add', '.AllTargets', '.Arch', '.Architecture', '.Archive', 
+    '.ArchiveURI', '.Auto', '.Base64Encode', '.Binaries', '.BrokenCount', 
+    '.BuildDepends', '.Bytes', '.CheckDep', '.CheckDomainList', '.Clear', 
+    '.Close', '.Commit', '.CompType', '.Complete', '.Component', '.Config', 
+    '.CurStateConfigFiles', '.CurStateHalfConfigured', 
+    '.CurStateHalfInstalled', '.CurStateInstalled', '.CurStateNotInstalled', 
+    '.CurStateUnPacked', '.CurrentState', '.CurrentVer', '.Date', 
+    '.DeQuoteString', '.DebSize', '.DelCount', '.DepType', '.DependsCount', 
+    '.DependsList', '.DependsListStr', '.DescURI', '.Describe', '.DestFile', 
+    '.Dist', '.DoInstall', '.Downloadable', '.ErrorText', '.Essential', 
+    '.Exists', '.FetchNeeded', '.FileList', '.FileName', '.FileSize', 
+    '.Files', '.Find', '.FindB', '.FindDir', '.FindFile', '.FindFlag', 
+    '.FindI', '.FindIndex', '.FindRaw', '.FixBroken', '.FixMissing', 
+    '.GetAcquire', '.GetArchives', '.GetCache', '.GetCandidateVer', 
+    '.GetCdrom', '.GetDepCache', '.GetIndexes', '.GetLock', 
+    '.GetPackageManager', '.GetPkgAcqFile', '.GetPkgActionGroup', 
+    '.GetPkgProblemResolver', '.GetPkgRecords', '.GetPkgSourceList', 
+    '.GetPkgSrcRecords', '.HasPackages', '.Hash', '.Homepage', '.ID', 
+    '.Ident', '.Important', '.Index', '.IndexFiles', '.IndexType', '.Init', 
+    '.InitConfig', '.InitSystem', '.InstCount', '.InstState', 
+    '.InstStateHold', '.InstStateHoldReInstReq', '.InstStateOk', 
+    '.InstStateReInstReq', '.InstallProtect', '.InstalledSize', 
+    '.IsAutoInstalled', '.IsGarbage', '.IsInstBroken', '.IsNowBroken', 
+    '.IsTrusted', '.IsUpgradable', '.Items', '.Jump', '.KeepCount', 
+    '.Label', '.LanguageCode', '.LibVersion', '.List', '.Local', 
+    '.LongDesc', '.Lookup', '.MD5Hash', '.Maintainer', '.MarkDelete', 
+    '.MarkInstall', '.MarkKeep', '.MarkedDelete', '.MarkedDowngrade', 
+    '.MarkedInstall', '.MarkedKeep', '.MarkedReinstall', '.MarkedUpgrade', 
+    '.MinimizeUpgrade', '.MyTag', '.Name', '.NotAutomatic', '.NotSource', 
+    '.Offset', '.Open', '.Origin', '.Package', '.PackageCount', 
+    '.PackageFileCount', '.Packages', '.ParentPkg', '.ParentVer', 
+    '.ParseCommandLine', '.ParseDepends', '.ParseSection', 
+    '.ParseSrcDepends', '.ParseTagFile', '.PartialPresent', 
+    '.PkgSystemLock', '.PkgSystemUnLock', '.PriExtra', '.PriImportant', 
+    '.PriOptional', '.PriRequired', '.PriStandard', '.Priority', 
+    '.PriorityStr', '.Protect', '.ProvidesCount', '.ProvidesList', 
+    '.QuoteString', '.ReadConfigDir', '.ReadConfigFile', 
+    '.ReadConfigFileISC', '.ReadMainList', '.ReadPinFile', '.Record', 
+    '.Remove', '.Resolve', '.ResolveByKeep', '.Restart', '.RevDependsList', 
+    '.RewriteSection', '.RewriteSourceOrder', '.Run', '.SHA1Hash', 
+    '.SHA256Hash', '.Section', '.SelStateDeInstall', '.SelStateHold', 
+    '.SelStateInstall', '.SelStatePurge', '.SelStateUnknown', 
+    '.SelectedState', '.Set', '.SetCandidateVer', '.SetReInstall', 
+    '.ShortDesc', '.Shutdown', '.Site', '.Size', '.SizeToStr', 
+    '.SmartTargetPkg', '.SourcePkg', '.SourceVer', '.Status', '.Step', 
+    '.StrToTime', '.StringToBool', '.SubTree', '.TargetPkg', '.TargetVer', 
+    '.Time', '.TimeRFC1123', '.TimeToStr', '.TotalNeeded', 
+    '.TranslationDescription', '.URI', '.URItoFileName', '.Update', 
+    '.Upgrade', '.UpstreamVersion', '.UsrSize', '.ValueList', 
+    '.VerFileCount', '.VerStr', '.Version', '.VersionCompare', 
+    '.VersionCount', '.VersionList', '.newConfiguration', 'Base64Encode', 
+    'CheckDep', 'CheckDomainList', 'Config', 'CurStateConfigFiles', 
+    'CurStateHalfConfigured', 'CurStateHalfInstalled', 'CurStateInstalled', 
+    'CurStateNotInstalled', 'CurStateUnPacked', 'Date', 'DeQuoteString', 
+    'GetAcquire', 'GetCache', 'GetCdrom', 'GetDepCache', 'GetLock', 
+    'GetPackageManager', 'GetPkgAcqFile', 'GetPkgActionGroup', 
+    'GetPkgProblemResolver', 'GetPkgRecords', 'GetPkgSourceList', 
+    'GetPkgSrcRecords', 'InitConfig', 'InitSystem', 'InstStateHold', 
+    'InstStateHoldReInstReq', 'InstStateOk', 'InstStateReInstReq', 
+    'LibVersion', 'ParseCommandLine', 'ParseDepends', 'ParseSection', 
+    'ParseSrcDepends', 'ParseTagFile', 'PkgSystemLock', 'PkgSystemUnLock', 
+    'PriExtra', 'PriImportant', 'PriOptional', 'PriRequired', 'PriStandard', 
+    'QuoteString', 'ReadConfigDir', 'ReadConfigFile', 'ReadConfigFileISC', 
+    'RewriteSection', 'RewriteSourceOrder', 'SelStateDeInstall', 
+    'SelStateHold', 'SelStateInstall', 'SelStatePurge', 'SelStateUnknown', 
+    'SizeToStr', 'StrToTime', 'StringToBool', 'Time', 'TimeRFC1123', 
+    'TimeToStr', 'URItoFileName', 'UpstreamVersion', 'VersionCompare', 
+    'newConfiguration'])
 
 def do_color(string, words):
     """Colorize (red) the given words in the given string."""
@@ -66,61 +135,13 @@ def do_color(string, words):
                         r"\2" + "\033[0m\\3", string)
     return string
 
-
-def find_deprecated_cpp():
-    """Find all the deprecated functions and attributes."""
-    is_open=False
-    all_old = set()
-    for fname in glob.glob('python/*.cc'):
-        lines = list(open(fname, 'r'))
-        while lines:
-            line = lines.pop(0)
-            while lines and not ('static PyMethodDef' in line or
-                                 'static PyGetSetDef' in line):
-                line = lines.pop(0)
-            if not lines:
-                break
-
-            while lines and not ';' in line:
-                while lines and not 'COMPAT_0_7' in line and not ';' in line:
-                    line = lines.pop(0)
-                if ';' in line:
-                    continue
-                if lines:
-                    line = lines.pop(0)
-                while lines and not '#endif' in line:
-                    name = line.split(",")[0].strip().strip('{"')
-                    if not 'module' in fname:
-                        name = '.' + name
-                    else:
-                        all_old.add('.' + name)
-                    all_old.add(name)
-                    line = lines.pop(0)
-    # Let's handle constants in the apt_pkg module
-    lines = list(open('python/apt_pkgmodule.cc'))
-    while lines:
-        while lines and not 'COMPAT_0_7' in line:
-            line = lines.pop(0)
-        if lines:
-            lines.pop(0)
-        while lines and not '#endif' in line:
-            if 'PyModule_Add' in line:
-                name = line.split(",")[1].strip().strip('"')
-                if name != '_COMPAT_0_7':
-                    all_old.add('.' + name)
-                    all_old.add(name)
-            line = lines.pop(0)
-    return all_old
-
-
 def find_deprecated_py():
-    """Same as find_deprecated_cpp(), but for apt and aptsources.
+    """Find all the deprecated functions and attributes.
 
-    We import apt_pkg, set _COMPAT_0_7 to 0, import apt and aptsources and
-    create a list of all attributes.
-
-    No we remove the imported modules, reimport them (with _COMPAT_0_7=1),
-    and see which functions have been removed.
+    Import apt_pkg, set _COMPAT_0_7 to 0, import apt and aptsources and
+    create a list of all attributes. Then remove the imported modules,
+    reimport them (with _COMPAT_0_7=1), and see which functions do not
+    exist anymore.
     """
 
     modules = ('apt', 'apt.package', 'apt.cdrom', 'apt.cache', 'apt.debfile',
@@ -204,7 +225,7 @@ if color:
                'simply highlight the matched words (like grep).', 79)
     print
 
-all_old = find_deprecated_cpp()
+all_old = deprecated_cpp_stuff
 
 if not '-P' in sys.argv:
     all_old |= find_deprecated_py()

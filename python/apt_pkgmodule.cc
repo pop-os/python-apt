@@ -83,8 +83,44 @@ static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i",_system->VS->DoCmpVersion(A,A+LenA,B,B+LenB));
 }
 
-static char *doc_CheckDep = "CheckDep(PkgVer,DepOp,DepVer) -> int";
+static char *doc_CheckDep =
+    "check_dep(pkg_ver: str, dep_op: str, dep_ver: str) -> bool\n\n"
+    "Check that the given requirement is fulfilled; i.e. that the version\n"
+    "string given by 'pkg_ver' matches the version string 'dep_ver' under\n"
+    "the condition specified by the operator 'dep_op' (<,<=,=,>=,>).\n\n"
+    "This functions returns True if 'pkg_ver' matches 'dep_ver' under the\n"
+    "condition 'dep_op'; e.g. this returns True:\n\n"
+    "    apt_pkg.check_dep('1', '<=', '2')";
 static PyObject *CheckDep(PyObject *Self,PyObject *Args)
+{
+   char *A;
+   char *B;
+   char *OpStr;
+   unsigned int Op = 0;
+
+   if (PyArg_ParseTuple(Args,"sss",&A,&OpStr,&B) == 0)
+      return 0;
+
+   if (strcmp(OpStr, ">") == 0) OpStr = ">>";
+   if (strcmp(OpStr, "<") == 0) OpStr = "<<";
+   if (*debListParser::ConvertRelation(OpStr,Op) != 0)
+   {
+      PyErr_SetString(PyExc_ValueError,"Bad comparision operation");
+      return 0;
+   }
+
+   if (_system == 0)
+   {
+      PyErr_SetString(PyExc_ValueError,"_system not initialized");
+      return 0;
+   }
+
+   return PyBool_FromLong(_system->VS->CheckDep(A,Op,B));
+}
+
+#ifdef COMPAT_0_7
+static char *doc_CheckDepOld = "CheckDep(PkgVer,DepOp,DepVer) -> bool";
+static PyObject *CheckDepOld(PyObject *Self,PyObject *Args)
 {
    char *A;
    char *B;
@@ -105,9 +141,9 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
       return 0;
    }
 
-   return Py_BuildValue("i",_system->VS->CheckDep(A,Op,B));
-//   return Py_BuildValue("i",pkgCheckDep(B,A,Op));
+   return PyBool_FromLong(_system->VS->CheckDep(A,Op,B));
 }
+#endif
 
 static char *doc_UpstreamVersion = "UpstreamVersion(a) -> string";
 static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
@@ -473,6 +509,7 @@ static PyMethodDef methods[] =
 
    // DEPRECATED
    #ifdef COMPAT_0_7
+   {"CheckDep",CheckDepOld,METH_VARARGS,doc_CheckDepOld},
    {"newConfiguration",newConfiguration,METH_VARARGS,doc_newConfiguration},
    {"InitConfig",InitConfig,METH_VARARGS,doc_InitConfig},
    {"InitSystem",InitSystem,METH_VARARGS,doc_InitSystem},
@@ -491,7 +528,6 @@ static PyMethodDef methods[] =
    {"ParseCommandLine",ParseCommandLine,METH_VARARGS,doc_ParseCommandLine},
 
    {"VersionCompare",VersionCompare,METH_VARARGS,doc_VersionCompare},
-   {"CheckDep",CheckDep,METH_VARARGS,doc_CheckDep},
    {"UpstreamVersion",UpstreamVersion,METH_VARARGS,doc_UpstreamVersion},
 
    {"ParseDepends",ParseDepends_old,METH_VARARGS,doc_ParseDepends},

@@ -229,10 +229,6 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgAcquireMethods[] = {
     {"run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
     {"shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
-#ifdef COMPAT_0_7
-    {"Run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
-    {"Shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
-#endif
     {}
 };
 
@@ -284,12 +280,6 @@ static PyGetSetDef PkgAcquireGetSet[] = {
     {"workers",PkgAcquireGetWorkers},
     {"partial_present",PkgAcquireGetPartialPresent},
     {"total_needed",PkgAcquireGetTotalNeeded},
-#ifdef COMPAT_0_7
-    {"FetchNeeded",PkgAcquireGetFetchNeeded},
-    {"Items",PkgAcquireGetItems},
-    {"PartialPresent",PkgAcquireGetPartialPresent},
-    {"TotalNeeded",PkgAcquireGetTotalNeeded},
-#endif
     {}
 };
 
@@ -354,7 +344,7 @@ PyTypeObject PyAcquire_Type = {
     0,                                   // tp_hash
     0,                                   // tp_call
     0,                                   // tp_str
-    0,                                   // tp_getattro
+    _PyAptObject_getattro,               // tp_getattro
     0,                                   // tp_setattro
     0,                                   // tp_as_buffer
     (Py_TPFLAGS_DEFAULT |                // tp_flags

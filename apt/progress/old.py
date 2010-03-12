@@ -18,6 +18,7 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
+# pylint: disable-msg = C0103
 """Deprecated progress reporting classes.
 
 This module provides classes for compatibility with python-apt 0.7. They are
@@ -39,12 +40,22 @@ __all__ = []
 class OpProgress(base.OpProgress):
     """Abstract class to implement reporting on cache opening."""
 
+    def __init__(self):
+        base.OpProgress.__init__(self)
+        warnings.warn("apt.progress.OpProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
+
     subOp = AttributeDeprecatedBy('subop')
     Op = AttributeDeprecatedBy('op')
 
 
 class OpTextProgress(OpProgress, text.OpProgress):
     """A simple text based cache open reporting class."""
+
+    def __init__(self):
+        text.OpProgress.__init__(self)
+        warnings.warn("apt.progress.OpTextProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
 
 class FetchProgress(object):
@@ -64,7 +75,8 @@ class FetchProgress(object):
         self.totalBytes = 0
         self.totalItems = 0
         self.currentCPS = 0
-        warnings.warn("FetchProgress() is deprecated.", DeprecationWarning)
+        warnings.warn("apt.progress.FetchProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
     def start(self):
         """Called when the fetching starts."""
@@ -159,27 +171,55 @@ class TextFetchProgress(FetchProgress):
         return raw_input() not in ('c', 'C')
 
 
-class CdromProgress(base.CdromProgress):
-    """Report the cdrom add progress.
+class CdromProgress(object):
+    """Report the cdrom add progress."""
 
-    This class has been replaced by apt_pkg.CdromProgress.
-    """
-    _basetype = base.CdromProgress
-    askCdromName = function_deprecated_by(_basetype.ask_cdrom_name)
-    changeCdrom = function_deprecated_by(_basetype.change_cdrom)
-    del _basetype
+    def __init__(self):
+        warnings.warn("apt.progress.CdromProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
+
+    def askCdromName(self):
+        """Ask for a cdrom name"""
+
+    def changeCdrom(self):
+        """Change cdrom"""
+
+    def update(self, text, current):
+        """Update."""
 
 
 class DumbInstallProgress(base.InstallProgress):
-    """Report the install progress.
+    """Report the install progress."""
 
-    Subclass this class to implement install progress reporting.
-    """
+    def __init__(self):
+        base.InstallProgress.__init__(self)
+        warnings.warn("apt.progress.*InstallProgress are deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
-    startUpdate = function_deprecated_by(base.InstallProgress.start_update)
-    finishUpdate = function_deprecated_by(base.InstallProgress.finish_update)
-    updateInterface = function_deprecated_by(
-                base.InstallProgress.update_interface)
+    def updateInterface(self):
+        # *_stream were not available in the old progress reporting classes,
+        # create the attributes if they do not exist yet; as they are used
+        # in base.InstallProgress.update_interface().
+        if hasattr(self, "writefd") and not hasattr(self, "write_stream"):
+            self.write_stream = os.fdopen(self.writefd, "w")
+        if hasattr(self, "statusfd") and not hasattr(self, "status_stream"):
+            self.status_stream = os.fdopen(self.statusfd, "r")
+        return base.InstallProgress.update_interface(self)
+
+    def update_interface(self):
+        return self.updateInterface()
+
+    def startUpdate(self):
+        return base.InstallProgress.start_update(self)
+
+    def start_update(self):
+        return self.startUpdate()
+
+    def finishUpdate(self):
+        return base.InstallProgress.finish_update(self)
+
+    def finish_update(self):
+        return self.finishUpdate()
 
 
 class InstallProgress(DumbInstallProgress, base.InstallProgress):
@@ -190,17 +230,29 @@ class InstallProgress(DumbInstallProgress, base.InstallProgress):
     """
 
     selectTimeout = AttributeDeprecatedBy('select_timeout')
-    statusChange = function_deprecated_by(base.InstallProgress.status_change)
-    updateInterface = function_deprecated_by(base.InstallProgress.update_interface)
-    waitChild = function_deprecated_by(base.InstallProgress.wait_child)
+
+    def statusChange(self, pkg, percent, status):
+        return base.InstallProgress.status_change(self, pkg, percent, status)
+
+    def status_change(self, pkg, percent, status):
+        return self.statusChange(pkg, percent, status)
+
+    def waitChild(self):
+        return base.InstallProgress.wait_child(self)
+
+    def wait_child(self):
+        return self.waitChild()
 
 
 class DpkgInstallProgress(InstallProgress):
     """Progress handler for a local Debian package installation."""
+
+    debfile = ""
+    debname = ""
 
     def run(self, debfile):
         """Start installing the given Debian package."""
         # Deprecated stuff
         self.debfile = debfile
         self.debname = os.path.basename(debfile).split("_")[0]
-        return base.InstallProgress(self, debfile)
+        return base.InstallProgress.run(self, debfile)

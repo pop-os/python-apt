@@ -92,6 +92,12 @@ static PyObject *acquireitem_get_local(PyObject *self, void *closure)
     return item ? PyBool_FromLong(item->Local) : 0;
 }
 
+static PyObject *acquireitem_get_partialsize(PyObject *self, void *closure)
+{
+    pkgAcquire::Item *item = acquireitem_tocpp(self);
+    return item ? Py_BuildValue("i", item->PartialSize) : 0;
+}
+
 static PyObject *acquireitem_get_status(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
@@ -127,18 +133,8 @@ static PyGetSetDef acquireitem_getset[] = {
     {"mode",acquireitem_get_mode},
     {"is_trusted",acquireitem_get_is_trusted},
     {"local",acquireitem_get_local},
+    {"partialsize",acquireitem_get_partialsize},
     {"status",acquireitem_get_status},
-#ifdef COMPAT_0_7
-    {"Complete",acquireitem_get_complete},
-    {"DescURI",acquireitem_get_desc_uri},
-    {"DestFile",acquireitem_get_destfile},
-    {"ErrorText",acquireitem_get_error_text},
-    {"FileSize",acquireitem_get_filesize},
-    {"ID",acquireitem_get_id},
-    {"IsTrusted",acquireitem_get_is_trusted},
-    {"Local",acquireitem_get_local},
-    {"Status",acquireitem_get_status},
-#endif
     {}
 };
 
@@ -180,7 +176,7 @@ PyTypeObject PyAcquireItem_Type = {
     0,                                   // tp_hash
     0,                                   // tp_call
     0,                                   // tp_str
-    0,                                   // tp_getattro
+    _PyAptObject_getattro,               // tp_getattro
     0,                                   // tp_setattro
     0,                                   // tp_as_buffer
     Py_TPFLAGS_DEFAULT |

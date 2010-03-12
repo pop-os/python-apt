@@ -271,6 +271,22 @@ static PyObject *TagFileNext(PyObject *Self)
    Obj.Section->Data = 0;
    if (Obj.Object.Step(Obj.Section->Object) == false)
       return HandleErrors(NULL);
+
+   // Bug-Debian: http://bugs.debian.org/572596
+   // Duplicate the data here and scan the duplicated section data; in order
+   // to not use any shared storage.
+   // TODO: Provide an API in apt-pkg to do this; this is really ugly.
+
+   // Fetch old section data
+   const char *Start;
+   const char *Stop;
+   Obj.Section->Object.GetSection(Start,Stop);
+   // Duplicate the data
+   Obj.Section->Data = new char[Stop-Start];
+   strncpy(Obj.Section->Data, Start, Stop-Start);
+   // Rescan it
+   Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start);
+
    Py_INCREF(Obj.Section);
    return HandleErrors(Obj.Section);
 }
@@ -458,12 +474,6 @@ static PyMethodDef TagSecMethods[] =
    {"find_raw",TagSecFindRaw,METH_VARARGS,doc_FindRaw},
    {"find_flag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
-#ifdef COMPAT_0_7
-   {"Find",TagSecFind,METH_VARARGS,doc_Find},
-   {"FindRaw",TagSecFindRaw,METH_VARARGS,doc_FindRaw},
-   {"FindFlag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
-   {"Bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
-#endif
 
    // Python Special
    {"keys",TagSecKeys,METH_VARARGS,doc_Keys},
@@ -503,7 +513,7 @@ PyTypeObject PyTagSection_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    TagSecStr,                           // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
@@ -536,11 +546,6 @@ static PyMethodDef TagFileMethods[] =
    {"step",TagFileStep,METH_VARARGS,doc_Step},
    {"offset",TagFileOffset,METH_VARARGS,doc_Offset},
    {"jump",TagFileJump,METH_VARARGS,doc_Jump},
-#ifdef COMPAT_0_7
-   {"Step",TagFileStep,METH_VARARGS,doc_Step},
-   {"Offset",TagFileOffset,METH_VARARGS,doc_Offset},
-   {"Jump",TagFileJump,METH_VARARGS,doc_Jump},
-#endif
 
    {}
 };
@@ -554,11 +559,9 @@ static PyObject *TagFileGetSection(PyObject *Self,void*) {
 
 static PyGetSetDef TagFileGetSet[] = {
     {"section",TagFileGetSection,0,"Return a TagSection.",0},
-#ifdef COMPAT_0_7
-    {"Section",TagFileGetSection,0,"Return a TagSection.",0},
-#endif
     {}
 };
+
 
 static char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
    "TagFile() objects provide access to debian control files, which consists\n"
@@ -593,7 +596,7 @@ PyTypeObject PyTagFile_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

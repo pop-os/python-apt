@@ -569,34 +569,8 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"marked_keep",PkgDepCacheMarkedKeep,METH_VARARGS,"Is pkg marked for keep"},
    {"marked_reinstall",PkgDepCacheMarkedReinstall,METH_VARARGS,"Is pkg marked for reinstall"},
    {"marked_downgrade",PkgDepCacheMarkedDowngrade,METH_VARARGS,"Is pkg marked for downgrade"},
-
    // Action
    {"commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},
-#ifdef COMPAT_0_7
-   {"Init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
-   {"GetCandidateVer",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
-   {"SetCandidateVer",PkgDepCacheSetCandidateVer,METH_VARARGS,"Set candidate version"},
-   {"Upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
-   {"FixBroken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
-   {"ReadPinFile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
-   {"MinimizeUpgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,"Go over the entire set of packages and try to keep each package marked for upgrade. If a conflict is generated then the package is restored."},
-   {"MarkKeep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
-   {"MarkDelete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
-   {"MarkInstall",PkgDepCacheMarkInstall,METH_VARARGS,"Mark package for Install"},
-   {"SetReInstall",PkgDepCacheSetReInstall,METH_VARARGS,"Set if the package should be reinstalled"},
-   {"IsUpgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
-   {"IsNowBroken",PkgDepCacheIsNowBroken,METH_VARARGS,"Is pkg is now broken"},
-   {"IsInstBroken",PkgDepCacheIsInstBroken,METH_VARARGS,"Is pkg broken on the current install"},
-   {"IsGarbage",PkgDepCacheIsGarbage,METH_VARARGS,"Is pkg garbage (mark-n-sweep)"},
-   {"IsAutoInstalled",PkgDepCacheIsAutoInstalled,METH_VARARGS,"Is pkg marked as auto installed"},
-   {"MarkedInstall",PkgDepCacheMarkedInstall,METH_VARARGS,"Is pkg marked for install"},
-   {"MarkedUpgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
-   {"MarkedDelete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
-   {"MarkedKeep",PkgDepCacheMarkedKeep,METH_VARARGS,"Is pkg marked for keep"},
-   {"MarkedReinstall",PkgDepCacheMarkedReinstall,METH_VARARGS,"Is pkg marked for reinstall"},
-   {"MarkedDowngrade",PkgDepCacheMarkedDowngrade,METH_VARARGS,"Is pkg marked for downgrade"},
-   {"Commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},
-#endif
    {}
 };
 
@@ -641,14 +615,6 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
     {"keep_count",PkgDepCacheGetKeepCount},
     {"usr_size",PkgDepCacheGetUsrSize},
     {"policy",PkgDepCacheGetPolicy},
-    #ifdef COMPAT_0_7
-    {"BrokenCount",PkgDepCacheGetBrokenCount},
-    {"DebSize",PkgDepCacheGetDebSize},
-    {"DelCount",PkgDepCacheGetDelCount},
-    {"InstCount",PkgDepCacheGetInstCount},
-    {"KeepCount",PkgDepCacheGetKeepCount},
-    {"UsrSize",PkgDepCacheGetUsrSize},
-    #endif
     {}
 };
 
@@ -699,7 +665,7 @@ PyTypeObject PyDepCache_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
@@ -856,14 +822,6 @@ static PyMethodDef PkgProblemResolverMethods[] =
    // Actions
    {"resolve", PkgProblemResolverResolve, METH_VARARGS, "Try to intelligently resolve problems by installing and removing packages"},
    {"resolve_by_keep", PkgProblemResolverResolveByKeep, METH_VARARGS, "Try to resolv problems only by using keep"},
-   #ifdef COMPAT_0_7
-   {"Protect", PkgProblemResolverProtect, METH_VARARGS, "Protect(PkgIterator)"},
-   {"Remove", PkgProblemResolverRemove, METH_VARARGS, "Remove(PkgIterator)"},
-   {"Clear", PkgProblemResolverClear, METH_VARARGS, "Clear(PkgIterator)"},
-   {"InstallProtect", PkgProblemResolverInstallProtect, METH_VARARGS, "ProtectInstalled()"},
-   {"Resolve", PkgProblemResolverResolve, METH_VARARGS, "Try to intelligently resolve problems by installing and removing packages"},
-   {"ResolveByKeep", PkgProblemResolverResolveByKeep, METH_VARARGS, "Try to resolv problems only by using keep"},
-   #endif
    {}
 };
 
@@ -886,7 +844,7 @@ PyTypeObject PyProblemResolver_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

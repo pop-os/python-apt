@@ -124,6 +124,7 @@ class GInstallProgress(gobject.GObject, base.InstallProgress):
         base.InstallProgress.__init__(self)
         gobject.GObject.__init__(self)
         self.finished = False
+        self.apt_status = -1
         self.time_last_update = time.time()
         self.term = term
         reaper = vte.reaper_get()

@@ -50,9 +50,6 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgRecordsMethods[] =
 {
    {"lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
-   #ifdef COMPAT_0_7
-   {"Lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
-   #endif
    {}
 };
 
@@ -132,20 +129,6 @@ static PyGetSetDef PkgRecordsGetSet[] = {
    {"short_desc",PkgRecordsGetShortDesc},
    {"source_pkg",PkgRecordsGetSourcePkg},
    {"source_ver",PkgRecordsGetSourceVer},
-#ifdef COMPAT_0_7
-   {"FileName",PkgRecordsGetFileName},
-   {"Homepage",PkgRecordsGetHomepage},
-   {"LongDesc",PkgRecordsGetLongDesc},
-   {"MD5Hash",PkgRecordsGetMD5Hash},
-   {"Maintainer",PkgRecordsGetMaintainer},
-   {"Name",PkgRecordsGetName},
-   {"Record",PkgRecordsGetRecord},
-   {"SHA1Hash",PkgRecordsGetSHA1Hash},
-   {"SHA256Hash",PkgRecordsGetSHA256Hash},
-   {"ShortDesc",PkgRecordsGetShortDesc},
-   {"SourcePkg",PkgRecordsGetSourcePkg},
-   {"SourceVer",PkgRecordsGetSourceVer},
-#endif
    {}
 };
 
@@ -180,7 +163,7 @@ PyTypeObject PyPackageRecords_Type =
    0,                                   // tp_hash
    0,                                   // tp_call
    0,                                   // tp_str
-   0,                                   // tp_getattro
+   _PyAptObject_getattro,               // tp_getattro
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags

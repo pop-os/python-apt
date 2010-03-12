@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
+# pylint: disable-msg = R0201
 """Base classes for progress reporting.
 
 Custom progress classes should inherit from these classes. They can also be
@@ -28,7 +29,6 @@ import re
 import select
 
 import apt_pkg
-from apt.deprecation import function_deprecated_by
 
 __all__ = ['AcquireProgress', 'CdromProgress', 'InstallProgress', 'OpProgress']
 
@@ -137,7 +137,7 @@ class CdromProgress(object):
 class InstallProgress(object):
     """Class to report the progress of installing packages."""
 
-    percent, select_timeout, status = 0.0, 0.1, ""
+    child_pid, percent, select_timeout, status = 0, 0.0, 0.1, ""
 
     def __init__(self):
         (self.statusfd, self.writefd) = os.pipe()
@@ -159,9 +159,6 @@ class InstallProgress(object):
 
     def status_change(self, pkg, percent, status):
         """(Abstract) Called when the APT status changed."""
-        # compat with 0.7
-        if apt_pkg._COMPAT_0_7 and hasattr(self, "statusChange"):
-            self.statusChange(pkg, percent, status)
 
     def dpkg_status_change(self, pkg, status):
         """(Abstract) Called when the dpkg status changed."""
@@ -197,7 +194,8 @@ class InstallProgress(object):
                 os._exit(obj.do_install(self.write_stream.fileno()))
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
-                                    str(self.write_stream.fileno()), "-i", obj))
+                                    str(self.write_stream.fileno()), "-i",
+                                    obj))
             except Exception:
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
@@ -266,8 +264,9 @@ class InstallProgress(object):
         (pid, res) = (0, 0)
         while True:
             try:
-                select.select([self.status_stream], [], [], self.select_timeout)
-            except select.error, (errno_, errstr):
+                select.select([self.status_stream], [], [],
+                              self.select_timeout)
+            except select.error, (errno_, _errstr):
                 if errno_ != errno.EINTR:
                     raise
 

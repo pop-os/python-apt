@@ -41,6 +41,11 @@ Working with the cache
         Return the :class:`Package()` object for the package name given by
         *pkgname*.
 
+    .. describe:: pkgname in cache
+
+        Check whether a package with the name given by *pkgname* exists in
+        the cache.
+
     .. method:: update(progress, list[, pulse_interval])
 
         Update the package cache.

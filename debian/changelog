@@ -1,4 +1,62 @@
-python-apt (0.7.93.2) UNRELEASED; urgency=low
+python-apt (0.7.94.1) UNRELEASED; urgency=low
+
+  * Pass --exclude=migrate-0.8.py to dh_pycentral; in order to not depend
+    on python2.6.
+  * Use dh_link instead of ln for python-apt-doc (Closes: #573523).
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
+
+python-apt (0.7.94) unstable; urgency=low
+
+  * Move documentation into python-apt-doc (Closes: #572617)
+  * Build documentation only once on the default Python version.
+  * python/acquire-item.cc:
+    - Add AcquireItem.partialsize member.
+  * python/apt_pkgmodule.cc:
+    - Treat '>>' and '>', '<<' and '<' as identical in check_dep (LP: #535667).
+  * python/generic.cc:
+    - Map UntranslatedDepType to dep_type_untranslated.
+  * python/tag.cc:
+    - Hack the TagFile iterator to not use shared storage (Closes: #572596):
+      Scan once, duplicate the section data, and scan again.
+  * apt/package.py:
+    - Create a string class BaseDependency.__dstr which makes '>' equal to
+      '>>' and '<' equal to '<<' (compatibility).
+    - Use the binary package version in Version.fetch_source() if the
+      source version is not specified (i.e. in the normal case).
+    - Always return unicode strings in Package.get_changelog (Closes: #572998).
+  * apt/progress/text.py:
+    - Drop InstallProgress, it's useless to keep this alias around.
+  * apt/progress/old.py:
+    - Let the new method call the old one; e.g. status_update() now calls
+      self.statusUpdate(). This improves compatibility for sub classes.
+  * Merge with Ubuntu:
+    - util/get_ubuntu_mirrors_from_lp.py:
+      + rewritten to use +archivemirrors-rss and feedburner
+    - pre-build.sh: update ubuntu mirrors on bzr-buildpackage (and also do this
+      for Debian mirrors)
+    - add break for packagekit-backend-apt (<= 0.4.8-0ubuntu4)
+  * tests:
+    - test_deps: Add tests for apt_pkg.CheckDep, apt_pkg.check_dep,
+      apt_pkg.parse_depends and apt_pkg.parse_src_depends.
+  * tests/data/aptsources/sources.list.testDistribution:
+    - change one mirror which is not on the mirror list anymore.
+  * utils/get_debian_mirrors.py:
+    - Parse Mirrors.masterlist instead of the HTML web page.
+  * utils/get_ubuntu_mirrors_from_lp.py:
+    - Sort the mirror list of each country.
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 10 Mar 2010 16:10:27 +0100
+
+python-apt (0.7.93.3) unstable; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - Use generic MirrorsFile key instead of per-architecture ones in
+      order to fix FTBFS on !amd64 !i386 (Closes: #571752)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 23:26:45 +0100
+
+python-apt (0.7.93.2) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * Fix some places where the old API was still used:
@@ -8,8 +66,16 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * utils/migrate-0.8.py:
     - Improve C++ parsing and add apt.progress.old to the modules, reduces
       false positives.
+    - Ship the list of deprecated things in the apt_pkg and apt_inst modules
+      inside the script itself, so we don't have to parse the source code
+      anymore.
+  * python:
+    - Handle deprecated attributes and methods in the tp_gettattro slot, this
+      allows us to easily warn if a deprecated function is used.
   * python/tagfile.cc:
     - Implement the iterator protocol in TagFile.
+  * python/cache.cc:
+    - Implement Cache.__len__() and Cache.__contains__() (Closes: #571443).
   * data/templates/Debian.info.in:
     - Replace the MatchURI with one that really matches something.
   * aptsources/distro.py:
@@ -22,6 +88,8 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
     - aptsources/distinfo.py: Support relative filenames for MirrorsFile.
   * debian/rules:
     - Run tests during build time.
+  * debian/python-apt.install:
+    - Install utils/migrate-0.8.py to /usr/share/python-apt/.
   
   [ Michael Vogt ]
   * apt/cache.py:
@@ -33,7 +101,7 @@ python-apt (0.7.93.2) UNRELEASED; urgency=low
   * python/progress.cc:
     - try to call compatibility functions first, then new functions
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 07 Feb 2010 19:58:40 +0100
+ -- Julian Andres Klode <jak@debian.org>  Sat, 27 Feb 2010 18:33:11 +0100
 
 python-apt (0.7.93.1) unstable; urgency=low
 

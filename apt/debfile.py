@@ -43,6 +43,9 @@ class DebPackage(object):
     def __init__(self, filename=None, cache=None):
         self._cache = cache
         self._need_pkgs = []
+        self._debfile = None
+        self.pkgname = ""
+        self.filename = filename
         self._sections = {}
         self._installed_conflicts = set()
         self._failure_string = ""
@@ -168,9 +171,6 @@ class DebPackage(object):
         """Check the or-group for conflicts with installed pkgs."""
         self._dbg(2, "_check_conflicts_or_group(): %s " % (or_group))
 
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname = dep[0]
             ver = dep[1]
@@ -287,13 +287,13 @@ class DebPackage(object):
             else:
                 cachever = self._cache[pkgname].candidate.version
             if cachever is not None:
-                cmp = apt_pkg.version_compare(cachever, debver)
-                self._dbg(1, "CompareVersion(debver,instver): %s" % cmp)
-                if cmp == 0:
+                cmpres = apt_pkg.version_compare(cachever, debver)
+                self._dbg(1, "CompareVersion(debver,instver): %s" % cmpres)
+                if cmpres == 0:
                     return VERSION_SAME
-                elif cmp < 0:
+                elif cmpres < 0:
                     return VERSION_NEWER
-                elif cmp > 0:
+                elif cmpres > 0:
                     return VERSION_OUTDATED
         return VERSION_NONE
 
@@ -361,7 +361,7 @@ class DebPackage(object):
         for pkg in self._need_pkgs:
             try:
                 self._cache[pkg].mark_install(fromUser=False)
-            except SystemError, e:
+            except SystemError:
                 self._failure_string = _("Cannot install '%s'" % pkg)
                 self._cache.clear()
                 return False
@@ -427,7 +427,8 @@ class DscSrcPackage(DebPackage):
         DebPackage.__init__(self, None, cache)
         self._depends = []
         self._conflicts = []
-        self._binaries = []
+        self.pkgname = ""
+        self.binaries = []
         if filename is not None:
             self.open(filename)
 
@@ -465,7 +466,6 @@ class DscSrcPackage(DebPackage):
                 if 'Version' in sec:
                     self._sections['Version'] = sec['Version']
         finally:
-            del sec
             del tagfile
             fobj.close()
 
