@@ -14,6 +14,8 @@ class TestAptSources(unittest.TestCase):
     def setUp(self):
         apt_pkg.init_config()
         apt_pkg.init_system()
+        if apt_pkg.config["APT::Architecture"] not in ('i386', 'amd64'):
+            apt_pkg.config.set("APT::Architecture", "i386")
         apt_pkg.config.set("Dir::Etc", os.getcwd())
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
         if os.path.exists("../build/data/templates"):
