@@ -1,3 +1,10 @@
+python-apt (0.7.94.3) UNRELEASED; urgency=low
+
+  * python/generic.cc:
+    - Fix a memory leak when using old attribute names.
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
+
 python-apt (0.7.94.2) unstable; urgency=low
 
   * Revert 0.7.93.3 and just set APT::Architecture to i386 for

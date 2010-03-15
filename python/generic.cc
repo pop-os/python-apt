@@ -107,6 +107,9 @@ PyObject *_PyAptObject_getattro(PyObject *self, PyObject *attr) {
             PyErr_Restore(ptype, pvalue, ptraceback);
         }
         Py_DECREF(newattr);
+        Py_XDECREF(ptype);
+        Py_XDECREF(pvalue);
+        Py_XDECREF(ptraceback);
     }
     return value;
 }
