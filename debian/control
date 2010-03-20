@@ -1,6 +1,6 @@
 Source: python-apt
 Section: python
-Priority: optional
+Priority: standard
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.8.4
@@ -42,6 +42,7 @@ Description: Python interface to libapt-pkg
  the sources.list configuration on the repository and the distro level.
 
 Package: python-apt-doc
+Priority: optional
 Architecture: all
 Section: doc
 Depends: libjs-jquery, ${misc:Depends}
@@ -69,6 +70,7 @@ Description: Python interface to libapt-pkg (debug extension)
  This package contains the extension built for the Python debug interpreter.
 
 Package: python-apt-dev
+Priority: optional
 Architecture: all
 Depends: python-apt (>= ${source:Version}), libapt-pkg-dev (>= 0.7.10),
          ${misc:Depends}
