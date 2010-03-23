@@ -9,6 +9,8 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
   [ Michael Vogt ]
   * apt/cache.py:
     - make cache open silent by default (use apt.progress.base.OpProgress)
+  * tests/data/aptsources_ports/sources.list:
+    - fix ports test-data
   
  -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
 
