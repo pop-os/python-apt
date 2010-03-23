@@ -6,12 +6,12 @@
 # newer versions of the distribution.
 
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy main restricted
-deb-src http://archive.ubuntu.com/ubuntu hardy main restricted
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy main restricted
 
 ## Major bug fix updates produced after the final release of the
 ## distribution.
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy-updates main restricted
-deb-src http://archive.ubuntu.com/ubuntu hardy-updates main restricted
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-updates main restricted
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
@@ -19,9 +19,9 @@ deb-src http://archive.ubuntu.com/ubuntu hardy-updates main restricted
 ## universe WILL NOT receive any review or updates from the Ubuntu security
 ## team.
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy universe
-deb-src http://archive.ubuntu.com/ubuntu hardy universe
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy universe
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy-updates universe
-deb-src http://archive.ubuntu.com/ubuntu hardy-updates universe
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-updates universe
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
 ## team, and may not be under a free licence. Please satisfy yourself as to
@@ -29,9 +29,9 @@ deb-src http://archive.ubuntu.com/ubuntu hardy-updates universe
 ## multiverse WILL NOT receive any review or updates from the Ubuntu
 ## security team.
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy multiverse
-deb-src http://archive.ubuntu.com/ubuntu hardy multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy multiverse
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy-updates multiverse
-deb-src http://archive.ubuntu.com/ubuntu hardy-updates multiverse
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-updates multiverse
 
 ## Uncomment the following two lines to add software from the 'backports'
 ## repository.
@@ -41,7 +41,7 @@ deb-src http://archive.ubuntu.com/ubuntu hardy-updates multiverse
 ## Also, please note that software in backports WILL NOT receive any review
 ## or updates from the Ubuntu security team.
 # deb http://ports.ubuntu.com/ubuntu-ports/ hardy-backports main restricted universe multiverse
-# deb-src http://archive.ubuntu.com/ubuntu hardy-backports main restricted universe multiverse
+# deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-backports main restricted universe multiverse
 
 ## Uncomment the following two lines to add software from Canonical's
 ## 'partner' repository. This software is not part of Ubuntu, but is
@@ -56,4 +56,4 @@ deb http://ports.ubuntu.com/ubuntu-ports/ hardy-security universe
 deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-security universe
 deb http://ports.ubuntu.com/ubuntu-ports/ hardy-security multiverse
 deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-security multiverse
-deb-src http://archive.ubuntu.com/ubuntu/ hardy-proposed restricted main multiverse universe
+deb-src http://ports.ubuntu.com/ubuntu-ports/ hardy-proposed restricted main multiverse universe
