@@ -1,5 +1,7 @@
-python-apt (0.7.94.3) UNRELEASED; urgency=low
+python-apt (0.7.94.2ubuntu1) UNRELEASED; urgency=low
 
+  Updated to the 0.7.9x series (FFe LP: #531518)
+  
   [ Julian Andres Klode ]
   * python/generic.cc:
     - Fix a memory leak when using old attribute names.
@@ -16,7 +18,7 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
   * tests/test_apt_cache.py:
     - add simple test for basic cache/dependency iteration
   
- -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Mar 2010 15:36:59 +0100
 
 python-apt (0.7.94.2) unstable; urgency=low
 
