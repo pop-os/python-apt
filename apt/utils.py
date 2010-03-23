@@ -17,8 +17,10 @@
 # this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
-import apt_pkg
 import os.path
+
+import apt_pkg
+
 
 def get_maintenance_end_date(release_date, m_months):
     """
@@ -28,9 +30,11 @@ def get_maintenance_end_date(release_date, m_months):
     """
     years = m_months / 12
     months = m_months % 12
-    support_end_year = release_date.year + years + (release_date.month + months)/12
+    support_end_year = (release_date.year + years +
+                        (release_date.month + months)/12)
     support_end_month = (release_date.month + months) % 12
     return (support_end_year, support_end_month)
+
 
 def get_release_date_from_release_file(path):
     """
@@ -38,39 +42,41 @@ def get_release_date_from_release_file(path):
     """
     if not path or not os.path.exists(path):
         return None
-    tag = apt_pkg.ParseTagFile(open(path))
-    tag.Step()
-    if not tag.Section.has_key("Date"):
+    tag = apt_pkg.TagFile(open(path))
+    section = tag.next()
+    if not "Date" in section:
         return None
-    date = tag.Section["Date"]
-    return apt_pkg.StrToTime(date)
+    date = section["Date"]
+    return apt_pkg.str_to_time(date)
+
 
 def get_release_filename_for_pkg(cache, pkgname, label, release):
     " get the release file that provides this pkg "
-    if not cache.has_key(pkgname):
+    if pkgname not in cache:
         return None
     pkg = cache[pkgname]
     ver = None
     # look for the version that comes from the repos with
     # the given label and origin
-    for aver in pkg._pkg.VersionList:
-        if aver == None or aver.FileList == None:
+    for aver in pkg._pkg.version_list:
+        if aver is None or aver.file_list is None:
             continue
-        for verFile, index in aver.FileList:
+        for ver_file, _index in aver.file_list:
             #print verFile
-            if (verFile.Origin == label and
-                verFile.Label == label and
-                verFile.Archive == release):
+            if (ver_file.origin == label and
+                ver_file.label == label and
+                ver_file.archive == release):
                 ver = aver
     if not ver:
         return None
-    indexfile = cache._list.FindIndex(ver.FileList[0][0])
-    for metaindex in cache._list.List:
-        for m in metaindex.IndexFiles:
+    indexfile = cache._list.find_index(ver.file_list[0][0])
+    for metaindex in cache._list.list:
+        for m in metaindex.index_files:
             if (indexfile and
-                indexfile.Describe == m.Describe and
-                indexfile.IsTrusted):
-                dir = apt_pkg.Config.FindDir("Dir::State::lists")
-                name = apt_pkg.URItoFileName(metaindex.URI)+"dists_%s_Release" % metaindex.Dist
-                return dir+name
+                indexfile.describe == m.describe and
+                indexfile.is_trusted):
+                dirname = apt_pkg.config.find_dir("Dir::State::lists")
+                name = (apt_pkg.uri_to_filename(metaindex.uri) +
+                        "dists_%s_Release" % metaindex.dist)
+                return dirname + name
     return None
