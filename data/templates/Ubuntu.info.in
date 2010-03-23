@@ -8,7 +8,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile: Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 10.04 'Lucid Lynx'
 Component: main
 _CompDescription: Officially supported
@@ -68,7 +69,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile: Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.10 'Karmic Koala'
 Component: main
 _CompDescription: Officially supported
@@ -128,7 +130,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile: Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.04 'Jaunty Jackalope'
 Component: main
 _CompDescription: Officially supported
@@ -188,7 +191,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile: Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
 Component: main
 _CompDescription: Officially supported
@@ -249,7 +253,8 @@ BaseURI-powerpc: http://ports.ubuntu.com/
 MatchURI-powerpc: ports.ubuntu.com|archive.ubuntu.com
 BaseURI-lpia: http://ports.ubuntu.com/
 MatchURI-lpia: ports.ubuntu.com|archive.ubuntu.com
-MirrorsFile: Ubuntu.mirrors
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
 _CompDescription: Officially supported

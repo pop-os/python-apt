@@ -1,10 +1,30 @@
-python-apt (0.7.94.1) UNRELEASED; urgency=low
+python-apt (0.7.94.3) UNRELEASED; urgency=low
+
+  * python/generic.cc:
+    - Fix a memory leak when using old attribute names.
+  * debian/control:
+    - Change priority to standard, keep -doc and -dev on optional.
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
+
+python-apt (0.7.94.2) unstable; urgency=low
+
+  * Revert 0.7.93.3 and just set APT::Architecture to i386 for
+    test_aptsources; fixes FTBFS on powerpc.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 12 Mar 2010 19:22:57 +0100
+
+python-apt (0.7.94.1) unstable; urgency=low
 
   * Pass --exclude=migrate-0.8.py to dh_pycentral; in order to not depend
-    on python2.6.
+    on python2.6; but recommend python2.6.
   * Use dh_link instead of ln for python-apt-doc (Closes: #573523).
+  * Pass --link-doc=python-apt to dh_installdocs.
+  * Install examples to python-apt-doc instead of python-apt.
+  * tests/test_all.py: Write information header to stderr, not stdout.
+  * Build documentation only when needed (when building python-apt-doc).
 
- -- Julian Andres Klode <jak@debian.org>  Thu, 11 Mar 2010 19:33:26 +0100
+ -- Julian Andres Klode <jak@debian.org>  Fri, 12 Mar 2010 14:36:48 +0100
 
 python-apt (0.7.94) unstable; urgency=low
 

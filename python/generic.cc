@@ -104,9 +104,15 @@ PyObject *_PyAptObject_getattro(PyObject *self, PyObject *attr) {
             PyErr_WarnEx(PyExc_DeprecationWarning, warning_string, 1);
             delete[] warning_string;
         } else {
+            Py_XINCREF(ptype);
+            Py_XINCREF(pvalue);
+            Py_XINCREF(ptraceback);
             PyErr_Restore(ptype, pvalue, ptraceback);
         }
         Py_DECREF(newattr);
+        Py_XDECREF(ptype);
+        Py_XDECREF(pvalue);
+        Py_XDECREF(ptraceback);
     }
     return value;
 }
