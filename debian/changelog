@@ -13,6 +13,8 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
     - fix ports test-data
   * debian/control
     - build against XS-Python-Versions: 2.6, 3.1
+  * tests/test_apt_cache.py:
+    - add simple test for basic cache/dependency iteration
   
  -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
 
