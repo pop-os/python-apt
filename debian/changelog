@@ -1,3 +1,11 @@
+python-apt (0.7.94.2ubuntu2) lucid; urgency=low
+
+  * python/indexfile.cc:
+    - add missing 0.7 compat indexfile.ArchiveURI method 
+      (LP: #545848)
+  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Mar 2010 16:03:50 +0100
+
 python-apt (0.7.94.2ubuntu1) lucid; urgency=low
 
   Updated to the 0.7.9x series (FFe LP: #531518), this
