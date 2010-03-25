@@ -5,7 +5,7 @@ Maintainer: Ubuntu Core Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.8.4
-XS-Python-Version: 2.6, 3.1
+XS-Python-Version: all
 Build-Depends: apt-utils,
                debhelper (>= 7.3.5),
                libapt-pkg-dev (>= 0.7.22~),

@@ -1,10 +1,18 @@
-python-apt (0.7.94.2ubuntu2) lucid; urgency=low
+python-apt (0.7.94.2ubuntu3) lucid; urgency=low
 
   * python/indexfile.cc:
     - add missing 0.7 compat indexfile.ArchiveURI method 
       (LP: #545848)
   
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Mar 2010 16:03:50 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 25 Mar 2010 10:44:31 +0100
+
+python-apt (0.7.94.2ubuntu2) lucid; urgency=low
+
+  * debian/control:
+    - build against "XS-Python-Versions: all" to ensure we only
+      build/test against supported python versions (fixes FTBFS)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Mar 2010 21:24:46 +0100
 
 python-apt (0.7.94.2ubuntu1) lucid; urgency=low
 
