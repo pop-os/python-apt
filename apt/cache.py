@@ -117,7 +117,7 @@ class Cache(object):
             a dictionary
         """
         if progress is None:
-            progress = apt.progress.text.OpProgress()
+            progress = apt.progress.base.OpProgress()
         self._run_callbacks("cache_pre_open")
 
         self._cache = apt_pkg.Cache(progress)
