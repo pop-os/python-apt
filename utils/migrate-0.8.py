@@ -197,7 +197,12 @@ def find_occurences(all_old, files):
             continue
 
         words = defaultdict(lambda: set())
-        for i in ast.walk(ast.parse(open(fname, "rU").read(), fname)):
+        try:
+            node = ast.parse(open(fname, "rU").read(), fname)
+        except Exception, e:
+            print >> sys.stderr, "Ignoring %s: %s" % (fname, e)
+            continue
+        for i in ast.walk(node):
             if isinstance(i, _ast.ImportFrom):
                 for alias in i.names:
                     if alias.name in all_old:
