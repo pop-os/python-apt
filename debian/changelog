@@ -6,6 +6,8 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
     - Map ArchiveURI property to archive_uri
   * debian/control:
     - Change priority to standard, keep -doc and -dev on optional.
+  * utils/migrate-0.8.py:
+    - Open files in universal newline support and pass filename to ast.parse.
 
   [ Michael Vogt ]
   * apt/cache.py:

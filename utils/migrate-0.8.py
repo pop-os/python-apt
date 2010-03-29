@@ -197,7 +197,7 @@ def find_occurences(all_old, files):
             continue
 
         words = defaultdict(lambda: set())
-        for i in ast.walk(ast.parse(open(fname).read())):
+        for i in ast.walk(ast.parse(open(fname, "rU").read(), fname)):
             if isinstance(i, _ast.ImportFrom):
                 for alias in i.names:
                     if alias.name in all_old:
