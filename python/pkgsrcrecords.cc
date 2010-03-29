@@ -292,9 +292,10 @@ PyTypeObject PySourceRecords_Type =
 #ifdef COMPAT_0_7
 PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
 {
-   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgSrcRecords() is "
-                "deprecated. Please see apt_pkg.SourceRecords() for the "
-                "replacement.", 1);
+   if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+      PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgSrcRecords() is "
+                   "deprecated. Please see apt_pkg.SourceRecords() for the "
+                   "replacement.", 1);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 

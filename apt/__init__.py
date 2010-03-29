@@ -17,11 +17,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import os
-import warnings
-if not "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-    warnings.simplefilter('ignore', DeprecationWarning)
-
 # import the core of apt_pkg
 """High-Level Interface for working with apt."""
 import apt_pkg

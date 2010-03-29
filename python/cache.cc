@@ -105,8 +105,9 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 #ifdef COMPAT_0_7
 static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 {
-   PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Close() is deprecated, "
-                "because it causes segfaults. Delete the Cache instead.", 1);
+   if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+      PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Close() is deprecated, "
+                   "because it causes segfaults. Delete the Cache instead.", 1);
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
    Cache->Close();
@@ -117,9 +118,10 @@ static PyObject *PkgCacheClose(PyObject *Self,PyObject *Args)
 
 static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 {
-   PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Open() is deprecated, "
-                "because it causes memory leaks. Create a new Cache instead.",
-                1);
+   if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+      PyErr_WarnEx(PyExc_DeprecationWarning, "Cache.Open() is deprecated, "
+                   "because it causes memory leaks. Create a new Cache instead.",
+                   1);
    PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
    pkgCacheFile *Cache = GetCpp<pkgCacheFile*>(CacheFilePy);
 
@@ -1296,8 +1298,9 @@ PyTypeObject PyDependencyList_Type =
 #ifdef COMPAT_0_7
 PyObject *TmpGetCache(PyObject *Self,PyObject *Args)
 {
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCache() is deprecated. "
-                 "Please see apt_pkg.Cache() for the replacement.", 1);
+    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+       PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCache() is deprecated. "
+                    "Please see apt_pkg.Cache() for the replacement.", 1);
     return PkgCacheNew(&PyCache_Type,Args,0);
 }
 #endif
