@@ -193,7 +193,10 @@ def find_deprecated_py():
 def find_occurences(all_old, files):
     """Find all ocurrences in the given Python files."""
     for fname in files:
-        if fname.endswith('setup3.py') or not fname.endswith('.py'):
+        if not os.path.exists(fname):
+            continue
+        if not (fname in sys.argv or fname.endswith('.py') or
+                re.match('^#.*python.*', open(fname).readline())):
             continue
 
         words = defaultdict(lambda: set())
