@@ -120,7 +120,7 @@ class DeprecatedProperty(property):
         self.__doc__ = (doc or fget.__doc__ or '')
 
     def __get__(self, obj, type_=None):
-        if obj is not None:
+        if obj is not None and "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
             warnings.warn("Accessed deprecated property %s.%s, please see the "
                           "Version class for alternatives." %
                            ((obj.__class__.__name__ or type_.__name__),

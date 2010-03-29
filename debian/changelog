@@ -1,3 +1,11 @@
+python-apt (0.7.94.2ubuntu4) lucid; urgency=low
+
+  * If PYTHON_APT_DEPRECATION_WARNINGS is unset, also disable the
+    deprecation warnings in apt_pkg directly; and don't just
+    disable any deprecation warning in apt/__init__.py (LP: #548623)
+
+ -- Julian Andres Klode <juliank@ubuntu.com>  Mon, 29 Mar 2010 13:18:20 +0200
+
 python-apt (0.7.94.2ubuntu3) lucid; urgency=low
 
   * python/indexfile.cc:

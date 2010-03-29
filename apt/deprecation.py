@@ -24,6 +24,7 @@ not use it for anything outside the apt package.
 """
 import re
 import operator
+import os
 import warnings
 
 import apt_pkg
@@ -49,12 +50,14 @@ class AttributeDeprecatedBy(object):
         """Issue a  DeprecationWarning and return the requested value."""
         if obj is None:
             return getattr(type_, self.attribute, self)
-        warnings.warn(self.__doc__, DeprecationWarning, stacklevel=2)
+        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
+            warnings.warn(self.__doc__, DeprecationWarning, stacklevel=2)
         return self.getter(obj or type_)
 
     def __set__(self, obj, value):
         """Issue a  DeprecationWarning and set the requested value."""
-        warnings.warn(self.__doc__, DeprecationWarning, stacklevel=2)
+        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
+            warnings.warn(self.__doc__, DeprecationWarning, stacklevel=2)
         setattr(obj, self.attribute, value)
 
 
@@ -71,7 +74,8 @@ def function_deprecated_by(func, convert_names=True):
 
     def deprecated_function(*args, **kwds):
         """Wrapper around a deprecated function."""
-        warnings.warn(warning, DeprecationWarning, stacklevel=2)
+        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
+            warnings.warn(warning, DeprecationWarning, stacklevel=2)
         if convert_names:
             for key in kwds.keys():
                 kwds[re.sub('([A-Z])', '_\\1', key).lower()] = kwds.pop(key)
@@ -93,7 +97,8 @@ def deprecated_args(func):
         for key in kwds.keys():
             new_key = re.sub('([A-Z])', '_\\1', key).lower()
             if new_key != key:
-                warnings.warn("Deprecated parameter %r" % key)
+                if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
+                    warnings.warn("Deprecated parameter %r" % key)
                 kwds[new_key] = kwds.pop(key)
         return func(*args, **kwds)
 

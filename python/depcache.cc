@@ -694,8 +694,9 @@ PyTypeObject PyDepCache_Type =
 #ifdef COMPAT_0_7
 PyObject *GetDepCache(PyObject *Self,PyObject *Args)
 {
-    PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetDepCache() is deprecated"
-                 ". Please see apt_pkg.DepCache() for the replacement.",1);
+    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+       PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetDepCache() is deprecated"
+                    ". Please see apt_pkg.DepCache() for the replacement.",1);
     return PkgDepCacheNew(&PyDepCache_Type,Args,0);
 }
 #endif
@@ -728,9 +729,10 @@ static PyObject *PkgProblemResolverNew(PyTypeObject *type,PyObject *Args,PyObjec
 
 #ifdef COMPAT_0_7
 PyObject *GetPkgProblemResolver(PyObject *Self,PyObject *Args) {
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgProblemResolver() is"
-                 " deprecated. Please see apt_pkg.ProblemResolver() for the "
-                 "replacement.", 1);
+    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+       PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgProblemResolver() is"
+                    " deprecated. Please see apt_pkg.ProblemResolver() for the "
+                    "replacement.", 1);
     return PkgProblemResolverNew(&PyProblemResolver_Type,Args,0);
 }
 #endif
@@ -989,9 +991,10 @@ PyTypeObject PyActionGroup_Type =
 #ifdef COMPAT_0_7
 PyObject *GetPkgActionGroup(PyObject *Self,PyObject *Args)
 {
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgActionGroup() is "
-                 "deprecated. Please see apt_pkg.ActionGroup() for the "
-                 "replacement.", 1);
+    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+       PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgActionGroup() is "
+                    "deprecated. Please see apt_pkg.ActionGroup() for the "
+                    "replacement.", 1);
     return PkgActionGroupNew(&PyActionGroup_Type,Args,0);
 }
 #endif

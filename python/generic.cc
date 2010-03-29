@@ -101,7 +101,8 @@ PyObject *_PyAptObject_getattro(PyObject *self, PyObject *attr) {
                                             strlen(attrname) + 66];
             sprintf(warning_string, "Attribute '%s' of the '%s' object is "
                     "deprecated, use '%s' instead.", attrname, cls, newattrname);
-            PyErr_WarnEx(PyExc_DeprecationWarning, warning_string, 1);
+            if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
+                PyErr_WarnEx(PyExc_DeprecationWarning, warning_string, 1);
             delete[] warning_string;
         } else {
             Py_XINCREF(ptype);
