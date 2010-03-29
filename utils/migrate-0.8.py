@@ -123,7 +123,7 @@ deprecated_cpp_stuff = set([
     'SelStateHold', 'SelStateInstall', 'SelStatePurge', 'SelStateUnknown', 
     'SizeToStr', 'StrToTime', 'StringToBool', 'Time', 'TimeRFC1123', 
     'TimeToStr', 'URItoFileName', 'UpstreamVersion', 'VersionCompare', 
-    'newConfiguration'])
+    'newConfiguration', '.has_key'])
 
 def do_color(string, words):
     """Colorize (red) the given words in the given string."""

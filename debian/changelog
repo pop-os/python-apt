@@ -8,6 +8,7 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
     - Change priority to standard, keep -doc and -dev on optional.
   * utils/migrate-0.8.py:
     - Open files in universal newline support and pass filename to ast.parse.
+    - Add has_key to the list of deprecated functions.
 
   [ Michael Vogt ]
   * apt/cache.py:
