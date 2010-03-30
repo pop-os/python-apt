@@ -955,9 +955,9 @@ class Package(object):
         """
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
-            file_list = open(path)
+            file_list = open(path, "rb")
             try:
-                return file_list.read().decode().split("\n")
+                return file_list.read().decode("utf-8").split(u"\n")
             finally:
                 file_list.close()
         except EnvironmentError:
