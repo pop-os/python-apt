@@ -15,9 +15,9 @@ class TestAptCache(unittest.TestCase):
     """ test the apt cache """
 
     def testAptCache(self):
-        """ simple test that iterates all packages and all dependencies """
+        """cache: iterate all packages and all dependencies """
         cache = apt.Cache()
-        # number is not meaningful and just need to be "big enough", 
+        # number is not meaningful and just need to be "big enough",
         # the important bit is the test against __len__
         self.assertTrue(len(cache) > 100)
         # go over the cache and all dependencies, just to see if
@@ -26,9 +26,9 @@ class TestAptCache(unittest.TestCase):
             if pkg.candidate:
                 for or_dep in pkg.candidate.dependencies:
                     for dep in or_dep.or_dependencies:
-                        name = dep.name
-                        relation = dep.relation
-                        preDepends = dep.pre_depend
+                        self.assertTrue(dep.name)
+                        self.assertTrue(isinstance(dep.relation, str))
+                        self.assertTrue(dep.pre_depend in (True, False))
 
 if __name__ == "__main__":
     unittest.main()

@@ -28,9 +28,6 @@ static PyObject *IndexFileArchiveURI(PyObject *Self,PyObject *Args)
 static PyMethodDef IndexFileMethods[] =
 {
    {"archive_uri",IndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
-#ifdef COMPAT_0_7
-   {"ArchiveURI",IndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
-#endif
    {}
 };
 

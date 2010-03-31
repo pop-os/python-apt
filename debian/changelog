@@ -1,3 +1,22 @@
+python-apt (0.7.94.2ubuntu5) UNRELEASED; urgency=low
+
+  [ Julian Andres Klode ]
+  * apt/package.py:
+    - Decode using utf-8 in installed_files (LP: #407953).
+    - Fix fetch_source() to work when source name = binary name (LP: #552400).
+  * python/cache.cc:
+    - Check that 2nd argument to Cache.update() really is a SourceList object.
+  * python/generic.cc:
+    - Map ArchiveURI property to archive_uri
+  * utils/migrate-0.8.py:
+    - Open files in universal newline support and pass filename to ast.parse.
+    - Add has_key to the list of deprecated functions.
+    - Don't abort if parsing failed.
+    - do not require files to end in .py if they are passed on the command
+      line or if they contain python somewhere in the shebang line.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 31 Mar 2010 22:11:38 +0200
+
 python-apt (0.7.94.2ubuntu4) lucid; urgency=low
 
   * If PYTHON_APT_DEPRECATION_WARNINGS is unset, also disable the

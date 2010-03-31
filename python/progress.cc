@@ -491,6 +491,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 
    StartUpdate();
 
+
    PyCbObj_END_ALLOW_THREADS
    if(PyObject_HasAttrString(callbackInst, "waitChild") ||
       PyObject_HasAttrString(callbackInst, "wait_child")) {
