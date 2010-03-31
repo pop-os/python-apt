@@ -536,13 +536,13 @@ class Version(object):
 
         dsc = None
         record = self._records
-        src.lookup(record.source_pkg)
+        source_name = record.source_pkg or self.package.name
         source_version = record.source_ver or self._cand.ver_str
+        source_lookup = src.lookup(source_name)
 
-        try:
-            while source_version != src.version:
-                src.lookup(record.source_pkg)
-        except AttributeError:
+        while source_lookup and source_version != src.version:
+            source_lookup = src.lookup(source_name)
+        if not source_lookup:
             raise ValueError("No source for %r" % self)
         files = list()
         for md5, size, path, type_ in src.files:

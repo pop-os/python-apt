@@ -3,6 +3,7 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * apt/package.py:
     - Decode using utf-8 in installed_files (LP: #407953).
+    - Fix fetch_source() to work when source name = binary name (LP: #552400).
   * python/generic.cc:
     - Fix a memory leak when using old attribute names.
     - Map ArchiveURI property to archive_uri
