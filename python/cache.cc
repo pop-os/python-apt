@@ -90,7 +90,8 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    PyObject *pyFetchProgressInst = 0;
    PyObject *pySourcesList = 0;
    int pulseInterval = 0;
-   if (PyArg_ParseTuple(Args, "OO|i", &pyFetchProgressInst,&pySourcesList, &pulseInterval) == 0)
+   if (PyArg_ParseTuple(Args, "OO!|i", &pyFetchProgressInst,
+            &PySourceList_Type, &pySourcesList, &pulseInterval) == 0)
       return 0;
 
    PyFetchProgress progress;
