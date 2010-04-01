@@ -238,11 +238,11 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
 
 static const char *ararchive_extract_doc =
     "extract(name: str[, target: str]) -> bool\n\n"
-    "Extract the member given by name into the directory given by target.\n"
-    "If the extraction failed, an error is raised. Otherwise, the method\n"
-    "returns True if the owner could be set or False if the owner could not\n"
-    "be changed. It may also raise LookupError if there is member with\n"
-    "the given name.";
+    "Extract the member given by 'name' into the directory given\n"
+    "by 'target'. If the extraction failed, raise OSError. In case\n"
+    "of success, return True if the file owner could be set or\n"
+    "False if this was not possible. If the requested member\n"
+    "does not exist, raise LookupError.";
 static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
@@ -260,11 +260,10 @@ static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 }
 
 static const char *ararchive_extractall_doc =
-    "extract([target: str]) -> bool\n\n"
-    "Extract all into the directory given by target.\n"
-    "If the extraction failed, an error is raised. Otherwise, the method\n"
-    "returns True if the owner could be set or False if the owner could not\n"
-    "be changed.";
+    "extractall([target: str]) -> bool\n\n"
+    "Extract all into the directory given by 'target'. If the extraction\n"
+    "failed, raise an error. Otherwise, return True if the owner could\n"
+    "be set or False if the owner could not be changed.";
 
 static PyObject *ararchive_extractall(PyArArchiveObject *self, PyObject *args)
 {

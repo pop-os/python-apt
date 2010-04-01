@@ -542,35 +542,97 @@ static PyObject *PkgDepCacheMarkedReinstall(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgDepCacheMethods[] =
 {
-   {"init",PkgDepCacheInit,METH_VARARGS,"Init the depcache (done on construct automatically)"},
-   {"get_candidate_ver",PkgDepCacheGetCandidateVer,METH_VARARGS,"Get candidate version"},
-   {"set_candidate_ver",PkgDepCacheSetCandidateVer,METH_VARARGS,"Set candidate version"},
+   {"init",PkgDepCacheInit,METH_VARARGS,
+    "init(progress: apt.progress.base.OpProgress)\n\n"
+    "Initialize the depcache (done on construct automatically)"},
+   {"get_candidate_ver",PkgDepCacheGetCandidateVer,METH_VARARGS,
+    "get_candidate_ver(pkg: apt_pkg.Package) -> apt_pkg.Version\n\n"
+    "Return the candidate version for the package, normally the version\n"
+    "with the highest pin (changeable using set_candidate_ver)."},
+   {"set_candidate_ver",PkgDepCacheSetCandidateVer,METH_VARARGS,
+    "set_candidate_ver(pkg: apt_pkg.Package, ver: apt_pkg.Version) -> bool\n\n"
+    "Set the candidate version of 'pkg' to 'ver'."},
 
    // global cache operations
-   {"upgrade",PkgDepCacheUpgrade,METH_VARARGS,"Perform Upgrade (optional boolean argument if dist-upgrade should be performed)"},
-   {"fix_broken",PkgDepCacheFixBroken,METH_VARARGS,"Fix broken packages"},
-   {"read_pinfile",PkgDepCacheReadPinFile,METH_VARARGS,"Read the pin policy"},
-   {"minimize_upgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,"Go over the entire set of packages and try to keep each package marked for upgrade. If a conflict is generated then the package is restored."},
+   {"upgrade",PkgDepCacheUpgrade,METH_VARARGS,
+    "upgrade([dist_upgrade: bool = True]) -> bool\n\n"
+    "Mark the packages for upgrade under the same conditions apt-get\n"
+    "upgrade does. If 'dist_upgrade' is True, also allow packages to\n"
+    "be upgraded if they require installation/removal of other packages;\n"
+    "just like apt-get dist-upgrade."},
+   {"fix_broken",PkgDepCacheFixBroken,METH_VARARGS,
+    "fix_broken() -> bool\n\n"
+    "Fix broken packages."},
+   {"read_pinfile",PkgDepCacheReadPinFile,METH_VARARGS,
+    "read_pinfile([file: str])\n\n"
+    "Read the pin policy"},
+   {"minimize_upgrade",PkgDepCacheMinimizeUpgrade, METH_VARARGS,
+    "minimize_upgrade() -> bool\n\n"
+    "Go over the entire set of packages and try to keep each package\n"
+    "marked for upgrade. If a conflict is generated then the package\n"
+    "is restored."},
    // Manipulators
-   {"mark_keep",PkgDepCacheMarkKeep,METH_VARARGS,"Mark package for keep"},
-   {"mark_delete",PkgDepCacheMarkDelete,METH_VARARGS,"Mark package for delete (optional boolean argument if it should be purged)"},
-   {"mark_install",PkgDepCacheMarkInstall,METH_VARARGS,"Mark package for Install"},
-   {"mark_auto",PkgDepCacheMarkAuto,METH_VARARGS,"mark_auto(pkg: apt_pkg.Package, auto: bool)\n\nMark package as automatically installed."},
-   {"set_reinstall",PkgDepCacheSetReInstall,METH_VARARGS,"Set if the package should be reinstalled"},
+   {"mark_keep",PkgDepCacheMarkKeep,METH_VARARGS,
+    "mark_keep(pkg: apt_pkg.Package)\n\n"
+    "Mark package for keep"},
+   {"mark_delete",PkgDepCacheMarkDelete,METH_VARARGS,
+    "mark_delete(pkg: apt_pkg.Package[, purge: bool = False])\n\n"
+    "Mark package for deletion, and if 'purge' is True also for purging."},
+   {"mark_install",PkgDepCacheMarkInstall,METH_VARARGS,
+    "mark_install(pkg: apt_pkg.Package[, auto_inst=True, from_user=True])\n\n"
+    "Mark the package for installation. The parameter 'auto_inst' controls\n"
+    "whether the dependencies of the package are marked for installation\n"
+    "as well. The parameter 'from_user' controls whether the package is\n"
+    "registered as NOT automatically installed."},
+   {"mark_auto",PkgDepCacheMarkAuto,METH_VARARGS,
+    "mark_auto(pkg: apt_pkg.Package, auto: bool)\n\n"
+    "Mark package as automatically installed (if auto=True),\n"
+    "or as not automatically installed (if auto=False)."},
+   {"set_reinstall",PkgDepCacheSetReInstall,METH_VARARGS,
+    "set_reinstall(pkg: apt_pkg.Package, reinstall: bool)\n\n"
+    "Set if the package should be reinstalled (reinstall = True or False)."},
    // state information
-   {"is_upgradable",PkgDepCacheIsUpgradable,METH_VARARGS,"Is pkg upgradable"},
-   {"is_now_broken",PkgDepCacheIsNowBroken,METH_VARARGS,"Is pkg is now broken"},
-   {"is_inst_broken",PkgDepCacheIsInstBroken,METH_VARARGS,"Is pkg broken on the current install"},
-   {"is_garbage",PkgDepCacheIsGarbage,METH_VARARGS,"Is pkg garbage (mark-n-sweep)"},
-   {"is_auto_installed",PkgDepCacheIsAutoInstalled,METH_VARARGS,"Is pkg marked as auto installed"},
-   {"marked_install",PkgDepCacheMarkedInstall,METH_VARARGS,"Is pkg marked for install"},
-   {"marked_upgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,"Is pkg marked for upgrade"},
-   {"marked_delete",PkgDepCacheMarkedDelete,METH_VARARGS,"Is pkg marked for delete"},
-   {"marked_keep",PkgDepCacheMarkedKeep,METH_VARARGS,"Is pkg marked for keep"},
-   {"marked_reinstall",PkgDepCacheMarkedReinstall,METH_VARARGS,"Is pkg marked for reinstall"},
-   {"marked_downgrade",PkgDepCacheMarkedDowngrade,METH_VARARGS,"Is pkg marked for downgrade"},
+   {"is_upgradable",PkgDepCacheIsUpgradable,METH_VARARGS,
+    "is_upgradable(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is upgradable."},
+   {"is_now_broken",PkgDepCacheIsNowBroken,METH_VARARGS,
+    "is_now_broken(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is broken, taking marked changes into account."},
+   {"is_inst_broken",PkgDepCacheIsInstBroken,METH_VARARGS,
+    "is_inst_broken(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is broken, ignoring marked changes."},
+   {"is_garbage",PkgDepCacheIsGarbage,METH_VARARGS,
+    "is_garbage(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is garbage, i.e. whether it is automatically\n"
+    "installed and the reverse dependencies are not installed anymore."},
+   {"is_auto_installed",PkgDepCacheIsAutoInstalled,METH_VARARGS,
+    "is_auto_installed(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked as automatically installed."},
+   {"marked_install",PkgDepCacheMarkedInstall,METH_VARARGS,
+    "marked_install(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked for installation."},
+   {"marked_upgrade",PkgDepCacheMarkedUpgrade,METH_VARARGS,
+    "marked_upgrade(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked for upgrade."},
+   {"marked_delete",PkgDepCacheMarkedDelete,METH_VARARGS,
+    "marked_delete(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked for removal."},
+   {"marked_keep",PkgDepCacheMarkedKeep,METH_VARARGS,
+    "marked_keep(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package should be kept."},
+   {"marked_reinstall",PkgDepCacheMarkedReinstall,METH_VARARGS,
+    "marked_reinstall(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked for re-installation."},
+   {"marked_downgrade",PkgDepCacheMarkedDowngrade,METH_VARARGS,
+    "marked_downgrade(pkg: apt_pkg.Package) -> bool\n\n"
+    "Check whether the package is marked for downgrade."},
    // Action
-   {"commit", PkgDepCacheCommit, METH_VARARGS, "Commit pending changes"},
+   {"commit", PkgDepCacheCommit, METH_VARARGS,
+    "commit(acquire_progress, install_progress)\n\n"
+    "Commit all the marked changes. This method takes two arguments,\n"
+    "'acquire_progress' takes an apt.progress.base.AcquireProgress\n"
+    "object and 'install_progress' an apt.progress.base.InstallProgress\n"
+    "object."},
    {}
 };
 
@@ -608,13 +670,23 @@ static PyObject *PkgDepCacheGetPolicy(PyObject *Self,void*) {
 
 
 static PyGetSetDef PkgDepCacheGetSet[] = {
-    {"broken_count",PkgDepCacheGetBrokenCount},
-    {"deb_size",PkgDepCacheGetDebSize},
-    {"del_count",PkgDepCacheGetDelCount},
-    {"inst_count",PkgDepCacheGetInstCount},
-    {"keep_count",PkgDepCacheGetKeepCount},
-    {"usr_size",PkgDepCacheGetUsrSize},
-    {"policy",PkgDepCacheGetPolicy},
+    {"broken_count",PkgDepCacheGetBrokenCount,0,
+     "The number of packages with broken dependencies in the cache."},
+    {"deb_size",PkgDepCacheGetDebSize,0,
+     "The size of the packages which are needed for the changes to be\n"
+     "applied."},
+    {"del_count",PkgDepCacheGetDelCount,0,
+     "The number of packages marked for removal."},
+    {"inst_count",PkgDepCacheGetInstCount,0,
+     "The number of packages marked for installation."},
+    {"keep_count",PkgDepCacheGetKeepCount,0,
+     "The number of packages marked for keep."},
+    {"usr_size",PkgDepCacheGetUsrSize,0,
+     "The amount of space required for installing/removing the packages,\n"
+     "i.e. the Installed-Size of all packages marked for installation\n"
+     "minus the Installed-Size of all packages for for removal."},
+    {"policy",PkgDepCacheGetPolicy,0,
+     "The apt_pkg.Policy object used by this cache."},
     {}
 };
 
@@ -643,9 +715,9 @@ static PyObject *PkgDepCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds
    return HandleErrors(DepCachePyObj);
 }
 
-static char *doc_PkgDepCache = "DepCache(cache) -> DepCache() object\n\n"
+static char *doc_PkgDepCache = "DepCache(cache: apt_pkg.Cache)\n\n"
     "A DepCache() holds extra information on the state of the packages.\n\n"
-    "The parameter *cache* refers to an apt_pkg.Cache() object.";
+    "The parameter 'cache' refers to an apt_pkg.Cache() object.";
 PyTypeObject PyDepCache_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -814,17 +886,37 @@ static PyObject *PkgProblemResolverInstallProtect(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgProblemResolverMethods[] =
 {
    // config
-   {"protect", PkgProblemResolverProtect, METH_VARARGS, "protect(PkgIterator)"},
-   {"remove", PkgProblemResolverRemove, METH_VARARGS, "remove(PkgIterator)"},
-   {"clear", PkgProblemResolverClear, METH_VARARGS, "clear(PkgIterator)"},
-   {"install_protect", PkgProblemResolverInstallProtect, METH_VARARGS, "install_protect()"},
+   {"protect", PkgProblemResolverProtect, METH_VARARGS,
+    "protect(pkg: apt_pkg.Package)\n\n"
+    "Mark the package as protected in the resolver, meaning that its\n"
+    "state will not be changed."},
+   {"remove", PkgProblemResolverRemove, METH_VARARGS,
+    "remove(pkg: apt_pkg.Package)\n\n"
+    "Mark the package for removal in the resolver."},
+   {"clear", PkgProblemResolverClear, METH_VARARGS,
+    "clear(pkg: apt_pkg.Package)\n\n"
+    "Revert the actions done by protect()/remove() on the package."},
+   {"install_protect", PkgProblemResolverInstallProtect, METH_VARARGS,
+    "install_protect()\n\n"
+    "Install all protected packages."},
 
    // Actions
-   {"resolve", PkgProblemResolverResolve, METH_VARARGS, "Try to intelligently resolve problems by installing and removing packages"},
-   {"resolve_by_keep", PkgProblemResolverResolveByKeep, METH_VARARGS, "Try to resolv problems only by using keep"},
+   {"resolve", PkgProblemResolverResolve, METH_VARARGS,
+    "resolve([fix_broken: bool = True]) -> bool\n\n"
+    "Try to intelligently resolve problems by installing and removing\n"
+    "packages. If 'fix_broken' is True, apt will try to repair broken\n"
+    "dependencies of installed packages."},
+   {"resolve_by_keep", PkgProblemResolverResolveByKeep, METH_VARARGS,
+    "resolve_by_keep() -> bool\n\n"
+    "Try to resolve problems only by using keep."},
    {}
 };
 
+static const char *problemresolver_doc =
+    "ProblemResolver(depcache: apt_pkg.DepCache)\n\n"
+    "ProblemResolver objects take care of resolving problems\n"
+    "with dependencies. They mark packages for installation/\n"
+    "removal and try to satisfy all dependencies.";
 PyTypeObject PyProblemResolver_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -850,7 +942,7 @@ PyTypeObject PyProblemResolver_Type =
    (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
-   "ProblemResolver Object",            // tp_doc
+   problemresolver_doc,                 // tp_doc
    CppTraverse<pkgProblemResolver *>, // tp_traverse
    CppClear<pkgProblemResolver *>, // tp_clear
    0,                                   // tp_richcompare
