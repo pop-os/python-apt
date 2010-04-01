@@ -432,7 +432,7 @@ static PyObject *PkgSystemLock(PyObject *Self,PyObject *Args)
    bool res = _system->Lock();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static char *doc_PkgSystemUnLock =
@@ -446,7 +446,7 @@ static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
    bool res = _system->UnLock();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 									/*}}}*/

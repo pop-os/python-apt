@@ -94,7 +94,8 @@ static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
     string ident;
     bool res = Cdrom.Ident(ident, &progress);
 
-    PyObject *result = Py_BuildValue("(bs)", res, ident.c_str());
+    PyObject *boolres = PyBool_FromLong(res);
+    PyObject *result = Py_BuildValue("(Os)", boolres, ident.c_str());
 
     return HandleErrors(result);
 }

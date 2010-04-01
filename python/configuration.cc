@@ -80,7 +80,7 @@ static PyObject *CnfFindB(PyObject *Self,PyObject *Args)
    int Default = 0;
    if (PyArg_ParseTuple(Args,"s|i",&Name,&Default) == 0)
       return 0;
-   return Py_BuildValue("i",(int)GetSelf(Self).FindB(Name,(Default == 0?false:true)));
+   return PyBool_FromLong(GetSelf(Self).FindB(Name,(Default == 0?false:true)));
 }
 
 static char *doc_Set = "Set(Name,Value) -> None";
@@ -102,7 +102,7 @@ static PyObject *CnfExists(PyObject *Self,PyObject *Args)
    char *Name = 0;
    if (PyArg_ParseTuple(Args,"s",&Name) == 0)
       return 0;
-   return Py_BuildValue("i",(int)GetSelf(Self).Exists(Name));
+   return PyBool_FromLong((int)GetSelf(Self).Exists(Name));
 }
 
 static int CnfContains(PyObject *Self,PyObject *Arg)

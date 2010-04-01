@@ -27,7 +27,7 @@ static PyObject *MetaIndexGetDist(PyObject *Self,void*) {
 
 static PyObject *MetaIndexGetIsTrusted(PyObject *Self,void*) {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
-    return Py_BuildValue("i",(meta->IsTrusted()));
+    return PyBool_FromLong((meta->IsTrusted()));
 }
 
 static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {

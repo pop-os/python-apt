@@ -144,7 +144,7 @@ static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   return Py_BuildValue("i",Flag);
+   return PyBool_FromLong(Flag);
 }
 
 // Map access, operator []
@@ -209,9 +209,7 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 
    const char *Start;
    const char *Stop;
-   if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
-      return Py_BuildValue("i",0);
-   return Py_BuildValue("i",1);
+   return PyBool_FromLong(GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop));
 }
 #endif
 
@@ -253,9 +251,9 @@ static PyObject *TagFileStep(PyObject *Self,PyObject *Args)
 
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Step(Obj.Section->Object) == false)
-      return HandleErrors(Py_BuildValue("i",0));
+      return HandleErrors(PyBool_FromLong(0));
 
-   return HandleErrors(Py_BuildValue("i",1));
+   return HandleErrors(PyBool_FromLong(1));
 }
 
 // TagFile Wrappers							/*{{{*/
@@ -313,9 +311,9 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Jump(Obj.Section->Object,Offset) == false)
-      return HandleErrors(Py_BuildValue("i",0));
+      return HandleErrors(PyBool_FromLong(0));
 
-   return HandleErrors(Py_BuildValue("i",1));
+   return HandleErrors(PyBool_FromLong(1));
 }
 									/*}}}*/
 // ParseSection - Parse a single section from a tag file		/*{{{*/

@@ -39,16 +39,16 @@ static PyObject *IndexFileGetDescribe(PyObject *Self,void*) {
    return Safe_FromString(File->Describe().c_str());
 }
 static PyObject *IndexFileGetExists(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->Exists()));
+   return PyBool_FromLong((File->Exists()));
 }
 static PyObject *IndexFileGetHasPackages(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->HasPackages()));
+   return PyBool_FromLong((File->HasPackages()));
 }
 static PyObject *IndexFileGetSize(PyObject *Self,void*) {
    return Py_BuildValue("i",(File->Size()));
 }
 static PyObject *IndexFileGetIsTrusted(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->IsTrusted()));
+   return PyBool_FromLong((File->IsTrusted()));
 }
 #undef File
 

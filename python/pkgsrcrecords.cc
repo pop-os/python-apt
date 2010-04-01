@@ -50,7 +50,7 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
       return HandleErrors(Py_None);
    }
 
-   return Py_BuildValue("i", 1);
+   return PyBool_FromLong(1);
 }
 
 static char *doc_PkgSrcRecordsRestart = "Start Lookup from the beginning";

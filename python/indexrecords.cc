@@ -41,7 +41,7 @@ static PyObject *indexrecords_load(PyObject *self,PyObject *args)
     if (PyArg_ParseTuple(args, "s", &filename) == 0)
         return 0;
     indexRecords *records = GetCpp<indexRecords*>(self);
-    return HandleErrors(Py_BuildValue("i", records->Load(filename)));
+    return HandleErrors(PyBool_FromLong(records->Load(filename)));
 }
 
 static char *indexrecords_lookup_doc = "lookup(metakey)\n\n"

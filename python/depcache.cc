@@ -157,18 +157,18 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       // fail if something else went wrong
       //FIXME: make this more flexible, e.g. with a failedDl handler
       if(Failed)
-	 return Py_BuildValue("b", false);
+	 Py_RETURN_FALSE;
       _system->UnLock(true);
 
       pkgPackageManager::OrderResult Res = iprogress.Run(PM);
       //std::cout << "iprogress.Run() returned: " << (int)Res << std::endl;
 
       if (Res == pkgPackageManager::Failed || _error->PendingError() == true) {
-	 return HandleErrors(Py_BuildValue("b", false));
+	 return HandleErrors(PyBool_FromLong(false));
       }
       if (Res == pkgPackageManager::Completed) {
 	 //std::cout << "iprogress.Run() returned Completed " << std::endl;
-	 return Py_BuildValue("b", true);
+     Py_RETURN_TRUE;
       }
 
       //std::cout << "looping again, install unfinished" << std::endl;
@@ -176,7 +176,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       // Reload the fetcher object and loop again for media swapping
       Fetcher.Shutdown();
       if (PM->GetArchives(&Fetcher,&List,&Recs) == false) {
-	 return Py_BuildValue("b", false);
+	 Py_RETURN_FALSE;
       }
       _system->Lock();
    }
@@ -196,11 +196,11 @@ static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
 
    pkgCache::VerIterator &I = GetCpp<pkgCache::VerIterator>(VersionObj);
    if(I.end()) {
-      return HandleErrors(Py_BuildValue("b",false));
+      return HandleErrors(PyBool_FromLong(false));
    }
    depcache->SetCandidateVersion(I);
 
-   return HandleErrors(Py_BuildValue("b",true));
+   return HandleErrors(PyBool_FromLong(true));
 }
 
 static PyObject *PkgDepCacheGetCandidateVer(PyObject *Self,PyObject *Args)
@@ -241,7 +241,7 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
    Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyObject *PkgDepCacheMinimizeUpgrade(PyObject *Self,PyObject *Args)
@@ -257,7 +257,7 @@ static PyObject *PkgDepCacheMinimizeUpgrade(PyObject *Self,PyObject *Args)
    Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 
@@ -291,7 +291,7 @@ static PyObject *PkgDepCacheFixBroken(PyObject *Self,PyObject *Args)
    res &=pkgFixBroken(*depcache);
    res &=pkgMinimizeUpgrade(*depcache);
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 
@@ -392,7 +392,7 @@ static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Upgradable()));
+   return HandleErrors(PyBool_FromLong(state.Upgradable()));
 }
 
 static PyObject *PkgDepCacheIsGarbage(PyObject *Self,PyObject *Args)
@@ -406,7 +406,7 @@ static PyObject *PkgDepCacheIsGarbage(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Garbage));
+   return HandleErrors(PyBool_FromLong(state.Garbage));
 }
 
 static PyObject *PkgDepCacheIsAutoInstalled(PyObject *Self,PyObject *Args)
@@ -420,7 +420,7 @@ static PyObject *PkgDepCacheIsAutoInstalled(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Flags & pkgCache::Flag::Auto));
+   return HandleErrors(PyBool_FromLong(state.Flags & pkgCache::Flag::Auto));
 }
 
 static PyObject *PkgDepCacheIsNowBroken(PyObject *Self,PyObject *Args)
@@ -434,7 +434,7 @@ static PyObject *PkgDepCacheIsNowBroken(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.NowBroken()));
+   return HandleErrors(PyBool_FromLong(state.NowBroken()));
 }
 
 static PyObject *PkgDepCacheIsInstBroken(PyObject *Self,PyObject *Args)
@@ -448,7 +448,7 @@ static PyObject *PkgDepCacheIsInstBroken(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.InstBroken()));
+   return HandleErrors(PyBool_FromLong(state.InstBroken()));
 }
 
 
@@ -463,7 +463,7 @@ static PyObject *PkgDepCacheMarkedInstall(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.NewInstall()));
+   return HandleErrors(PyBool_FromLong(state.NewInstall()));
 }
 
 
@@ -478,7 +478,7 @@ static PyObject *PkgDepCacheMarkedUpgrade(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Upgrade()));
+   return HandleErrors(PyBool_FromLong(state.Upgrade()));
 }
 
 static PyObject *PkgDepCacheMarkedDelete(PyObject *Self,PyObject *Args)
@@ -492,7 +492,7 @@ static PyObject *PkgDepCacheMarkedDelete(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Delete()));
+   return HandleErrors(PyBool_FromLong(state.Delete()));
 }
 
 static PyObject *PkgDepCacheMarkedKeep(PyObject *Self,PyObject *Args)
@@ -506,7 +506,7 @@ static PyObject *PkgDepCacheMarkedKeep(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Keep()));
+   return HandleErrors(PyBool_FromLong(state.Keep()));
 }
 
 static PyObject *PkgDepCacheMarkedDowngrade(PyObject *Self,PyObject *Args)
@@ -520,7 +520,7 @@ static PyObject *PkgDepCacheMarkedDowngrade(PyObject *Self,PyObject *Args)
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(PackageObj);
    pkgDepCache::StateCache &state = (*depcache)[Pkg];
 
-   return HandleErrors(Py_BuildValue("b",state.Downgrade()));
+   return HandleErrors(PyBool_FromLong(state.Downgrade()));
 }
 
 static PyObject *PkgDepCacheMarkedReinstall(PyObject *Self,PyObject *Args)
@@ -536,7 +536,7 @@ static PyObject *PkgDepCacheMarkedReinstall(PyObject *Self,PyObject *Args)
 
    bool res = state.Install() && (state.iFlags & pkgDepCache::ReInstall);
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 
@@ -748,7 +748,7 @@ static PyObject *PkgProblemResolverResolve(PyObject *Self,PyObject *Args)
    res = fixer->Resolve(brokenFix);
    Py_END_ALLOW_THREADS
 
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyObject *PkgProblemResolverResolveByKeep(PyObject *Self,PyObject *Args)
@@ -762,7 +762,7 @@ static PyObject *PkgProblemResolverResolveByKeep(PyObject *Self,PyObject *Args)
    res = fixer->ResolveByKeep();
    Py_END_ALLOW_THREADS
 
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyObject *PkgProblemResolverProtect(PyObject *Self,PyObject *Args)

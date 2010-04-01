@@ -102,7 +102,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       if (_error->PendingError() == true) {
 	 if (Rootdir != NULL)
 	    chdir (cwd);
-	 return HandleErrors(Py_BuildValue("b",false));
+	 return HandleErrors();
       }
 
       // extracts relative to the current dir
@@ -112,9 +112,9 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       if (Rootdir != NULL)
 	 chdir (cwd);
       if (res == false)
-	 return HandleErrors(Py_BuildValue("b",res));
+	 return HandleErrors(PyBool_FromLong(res));
    }
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 									/*}}}*/
 // arFindMember - Find member in AR archive              		/*{{{*/
@@ -136,12 +136,12 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
    FileFd Fd(fileno,false);
    ARArchive AR(Fd);
    if (_error->PendingError() == true)
-      return HandleErrors(Py_BuildValue("b",res));
+      return HandleErrors();
 
    if(AR.FindMember(Member) != 0)
       res = true;
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 									/*}}}*/
 

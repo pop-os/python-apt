@@ -65,7 +65,7 @@ static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
    bool res = pm->GetArchives(s_fetcher, s_list,
 			      &s_records.Records);
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyObject *PkgManagerDoInstall(PyObject *Self,PyObject *Args)
@@ -92,7 +92,7 @@ static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
 
    bool res = pm->FixMissing();
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyMethodDef PkgManagerMethods[] =

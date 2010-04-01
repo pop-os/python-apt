@@ -99,7 +99,7 @@ static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
    pkgSourceList *source = GetCpp<pkgSourceList*>(pySourcesList);
    bool res = ListUpdate(progress, *source, pulseInterval);
 
-   PyObject *PyRes = Py_BuildValue("b", res);
+   PyObject *PyRes = PyBool_FromLong(res);
    return HandleErrors(PyRes);
 }
 
@@ -485,9 +485,9 @@ MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState))
 MkGet(PackageGetCurrentState,Py_BuildValue("i",Pkg->CurrentState))
 MkGet(PackageGetID,Py_BuildValue("i",Pkg->ID))
 #
-MkGet(PackageGetAuto,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Auto) != 0))
-MkGet(PackageGetEssential,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Essential) != 0))
-MkGet(PackageGetImportant,Py_BuildValue("i",(Pkg->Flags & pkgCache::Flag::Important) != 0))
+MkGet(PackageGetAuto,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Auto) != 0))
+MkGet(PackageGetEssential,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Essential) != 0))
+MkGet(PackageGetImportant,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Important) != 0))
 #undef MkGet
 #undef Owner
 
@@ -797,7 +797,7 @@ static PyObject *VersionGetPriorityStr(PyObject *Self, void*) {
    return Safe_FromString(Version_GetVer(Self).PriorityType());
 }
 static PyObject *VersionGetDownloadable(PyObject *Self, void*) {
-   return Py_BuildValue("b",Version_GetVer(Self).Downloadable());
+   return PyBool_FromLong(Version_GetVer(Self).Downloadable());
 }
 static PyObject *VersionGetTranslatedDescription(PyObject *Self, void*) {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
@@ -817,9 +817,9 @@ static PyObject *VersionGetIsTrusted(PyObject *Self, void*) {
       {
 	 pkgIndexFile *index;
 	 if(Sources.FindIndex(i.File(), index) && !index->IsTrusted())
-	    return Py_BuildValue("b", false);
+	    Py_RETURN_FALSE;
       }
-      return Py_BuildValue("b", true);
+      Py_RETURN_TRUE;
    }
 }
 #endif
@@ -961,7 +961,7 @@ static PyObject *PackageFile_GetSize(PyObject *Self,void*)
 static PyObject *PackageFile_GetNotSource(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotSource) != 0);
+    return PyBool_FromLong((File->Flags & pkgCache::Flag::NotSource) != 0);
 }
 static PyObject *PackageFile_GetNotAutomatic(PyObject *Self,void*)
 {
