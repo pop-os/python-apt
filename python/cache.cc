@@ -968,7 +968,7 @@ static PyObject *PackageFile_GetNotSource(PyObject *Self,void*)
 static PyObject *PackageFile_GetNotAutomatic(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Py_BuildValue("i",(File->Flags & pkgCache::Flag::NotSource) != 0);
+    return PyBool_FromLong((File->Flags & pkgCache::Flag::NotAutomatic) != 0);
 }
 
 static PyObject *PackageFile_GetID(PyObject *Self,void*)

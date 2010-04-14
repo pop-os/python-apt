@@ -1,3 +1,13 @@
+python-apt (0.7.94.2ubuntu5) UNRELEASEDlucid; urgency=low
+
+  Cherry pick fix from the debian branch:
+  
+  [ Julian Andres Klode ]
+  * python/cache.cc:
+    - Fix PackageFile.not_automatic to use NotAutomatic instead of NotSource.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 14 Apr 2010 17:45:11 +0200
+
 python-apt (0.7.94.2ubuntu5) lucid; urgency=low
 
   [ Julian Andres Klode ]
