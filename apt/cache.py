@@ -215,10 +215,12 @@ class Cache(object):
     def req_reinstall_pkgs(self):
         """Return the packages not downloadable packages in reqreinst state."""
         reqreinst = set()
-        for pkg in self:
-            if (not pkg.candidate.downloadable and
-                (pkg._pkg.inst_state == apt_pkg.INSTSTATE_REINSTREQ or
-                 pkg._pkg.inst_state == apt_pkg.INSTSTATE_HOLD_REINSTREQ)):
+        get_candidate_ver = self._depcache.get_candidate_ver
+        states = frozenset((apt_pkg.INSTSTATE_REINSTREQ,
+                            apt_pkg.INSTSTATE_HOLD_REINSTREQ))
+        for pkg in self._cache.packages:
+            cand = get_candidate_ver(pkg)
+            if cand and not cand.downloadable and pkg.inst_state in states:
                 reqreinst.add(pkg.name)
         return reqreinst
 
