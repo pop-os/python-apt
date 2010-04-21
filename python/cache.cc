@@ -913,6 +913,25 @@ static PyObject *VersionRepr(PyObject *Self)
 }
 #undef NOTNULL
 
+static PyObject *version_richcompare(PyObject *obj1, PyObject *obj2, int op)
+{
+    if (!PyVersion_Check(obj2))
+        return Py_INCREF(Py_NotImplemented), Py_NotImplemented;
+
+    const pkgCache::VerIterator &a = GetCpp<pkgCache::VerIterator>(obj1);
+    const pkgCache::VerIterator &b = GetCpp<pkgCache::VerIterator>(obj2);
+    const int comparison = _system->VS->CmpVersion(a.VerStr(), b.VerStr());
+    switch (op) {
+        case Py_LT: return PyBool_FromLong(comparison < 0);
+        case Py_LE: return PyBool_FromLong(comparison <= 0);
+        case Py_EQ: return PyBool_FromLong(comparison == 0);
+        case Py_NE: return PyBool_FromLong(comparison != 0);
+        case Py_GE: return PyBool_FromLong(comparison >= 0);
+        case Py_GT: return PyBool_FromLong(comparison > 0);
+        default: return NULL; // should not happen.
+    }
+}
+
 static PyGetSetDef VersionGetSet[] = {
    {"arch",VersionGetArch,0,
     "The architecture of this specific version of the package."},
@@ -985,7 +1004,7 @@ PyTypeObject PyVersion_Type =
    "Version Object",                    // tp_doc
    CppTraverse<pkgCache::VerIterator>, // tp_traverse
    CppClear<pkgCache::VerIterator>,// tp_clear
-   0,                                   // tp_richcompare
+   version_richcompare,                 // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
    0,                                   // tp_iternext

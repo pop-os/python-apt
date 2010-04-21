@@ -13,6 +13,7 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
     - Check that 2nd argument to Cache.update() really is a SourceList object.
     - Fix PackageFile.not_automatic to use NotAutomatic instead of NotSource.
     - Add Package.has_versions to see which packages have at least one version.
+    - Add rich compare methods to the Version object.
   * python/generic.cc:
     - Fix a memory leak when using old attribute names.
     - Map ArchiveURI property to archive_uri
