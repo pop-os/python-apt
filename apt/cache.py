@@ -277,27 +277,34 @@ class Cache(object):
         else:
             return bool(pkg.provides_list and not pkg.version_list)
 
-    def get_providing_packages(self, virtual):
-        """
+    def get_providing_packages(self, virtual, candidate_only=True):
+        """Return a list of all packages providing a virtual package.
+        
         Return a list of packages which provide the virtual package of the
-        specified name
+        specified name. If 'candidate_only' is False, return all packages
+        with at least one version providing the virtual package. Otherwise,
+        return only those packages where the candidate version provides
+        the virtual package.
         """
-        providers = []
+        
+        providers = set()
+        get_candidate_ver = self._depcache.get_candidate_ver
         try:
             vp = self._cache[virtual]
             if len(vp.version_list) != 0:
-                return providers
+                return list(providers)
         except KeyError:
-            return providers
-        for pkg in self:
-            v = self._depcache.get_candidate_ver(pkg._pkg)
-            if v is None:
-                continue
-            for p in v.provides_list:
-                if virtual == p[0]:
-                    # we found a pkg that provides this virtual pkg
-                    providers.append(pkg)
-        return providers
+            return list(providers)
+
+        for provides, providesver, version in vp.provides_list:
+            pkg = version.parent_pkg
+            if not candidate_only or (version == get_candidate_ver(pkg)):
+                try:
+                    providers.add(self._weakref[pkg.name])
+                except KeyError:
+                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    providers.add(package)
+        return list(providers)
 
     @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,
