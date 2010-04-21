@@ -532,6 +532,13 @@ static PyObject *PackageGetVersionList(PyObject *Self,void*)
    }
    return List;
 }
+
+static PyObject *PackageGetHasVersions(PyObject *Self,void*)
+{
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+   return PyBool_FromLong(Pkg.VersionList().end() == false);
+}
+
 static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
@@ -583,6 +590,8 @@ static PyGetSetDef PackageGetSet[] = {
      "A list of all apt_pkg.Version objects for this package."},
     {"current_ver",PackageGetCurrentVer,0,
      "The version of the package currently installed or None."},
+    {"has_versions",PackageGetHasVersions,0,
+     "Whether the package has at least one version in the cache."},
     {}
 };
 
