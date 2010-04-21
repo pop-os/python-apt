@@ -136,7 +136,7 @@ class Cache(object):
                 progress.update(i/float(size)*100)
                 last = i
             # drop stuff with no versions (cruft)
-            if len(pkg.version_list) > 0:
+            if pkg.has_versions:
                 self._set.add(pkg.name)
 
             i += 1
@@ -275,7 +275,7 @@ class Cache(object):
         except KeyError:
             return False
         else:
-            return bool(pkg.provides_list and not pkg.version_list)
+            return bool(pkg.has_provides and not pkg.has_versions)
 
     def get_providing_packages(self, virtual, candidate_only=True):
         """Return a list of all packages providing a virtual package.
@@ -291,7 +291,7 @@ class Cache(object):
         get_candidate_ver = self._depcache.get_candidate_ver
         try:
             vp = self._cache[virtual]
-            if len(vp.version_list) != 0:
+            if vp.has_versions:
                 return list(providers)
         except KeyError:
             return list(providers)
