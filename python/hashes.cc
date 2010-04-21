@@ -88,9 +88,8 @@ static char *hashes_doc =
     "Hashes([object: (bytes, file)])\n\n"
     "Calculate hashes for the given object. It can be used to create all\n"
     "supported hashes for a file.\n\n"
-    "The parameter *object* can be a bytes (3.X) / str (2.X) object, or an\n"
-    "object providing the fileno() method or an integer describing a file\n"
-    "descriptor.";
+    "The parameter 'object' can be a bytestring, an object providing the\n"
+    "fileno() method, or an integer describing a file descriptor.";
 
 PyTypeObject PyHashes_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)

@@ -71,9 +71,8 @@ static PyObject *MetaIndexRepr(PyObject *Self)
 
 
 static const char *metaindex_doc =
-    "Represent a meta index, i.e. a Release file. This class provides\n"
-    "some information about those release files, e.g. whether they\n"
-    "are signed or not.";
+    "Provide information on meta-indexes (i.e. Release files), such as\n"
+    "whether they are trusted or their URI.";
     
 PyTypeObject PyMetaIndex_Type =
 {

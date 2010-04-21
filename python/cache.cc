@@ -85,6 +85,20 @@ static PyObject *CreateProvides(PyObject *Owner,pkgCache::PrvIterator I)
 
 // Cache Class								/*{{{*/
 // ---------------------------------------------------------------------
+
+static const char *cache_update_doc =
+    "update(progress, sources: SourceList, pulse_interval: int) -> bool\n\n"
+    "Update the index files used by the cache. A call to this method\n"
+    "does not affect the current Cache object; instead, a new one\n"
+    "should be created in order to use the changed index files.\n\n"
+    "The parameter 'progress' can be used to specify an\n"
+    "apt.progress.base.AcquireProgress() object , which will report\n"
+    "progress information while the index files are being fetched.\n"
+    "The parameter 'sources', if provided, is an apt_pkg.SourcesList\n"
+    "object listing the remote repositories to be used.\n"
+    "The 'pulse_interval' parameter indicates how long (in microseconds)\n"
+    "to wait between calls to the pulse() method of the 'progress' object.\n"
+    "The default is 500000 microseconds.";
 static PyObject *PkgCacheUpdate(PyObject *Self,PyObject *Args)
 {
    PyObject *pyFetchProgressInst = 0;
@@ -152,18 +166,7 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
 
 static PyMethodDef PkgCacheMethods[] =
 {
-   {"update",PkgCacheUpdate,METH_VARARGS,
-    "update(progress, sources: SourceList, pulse_interval: int) -> bool\n\n"
-    "Update the index files used by the cache. A call to this method\n"
-    "does not affect the current Cache object, instead a new one\n"
-    "should be created in order to use the changed index files.\n\n"
-    "The parameter 'progress' takes an apt.progress.base.AcquireProgress\n"
-    "object as its argument which will display the progress of fetching\n"
-    "the index files. The parameter 'sources' takes an apt_pkg.SourceList\n"
-    "object which lists the sources. The parameter 'progress' takes an\n"
-    "integer describing the interval (in microseconds) in which the\n"
-    "pulse() method of the 'progress' object will be called."
-    },
+   {"update",PkgCacheUpdate,METH_VARARGS,cache_update_doc},
 #ifdef COMPAT_0_7
    {"Open", PkgCacheOpen, METH_VARARGS,
     "Open the cache; deprecated and unsafe"},
@@ -231,7 +234,7 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {"packages",PkgCacheGetPackages,0,
     "A list of apt_pkg.Package objects stored in the cache."},
    {"provides_count",PkgCacheGetProvidesCount,0,
-    "The number of provided packages."},
+    "Number of Provides relations described in the cache."},
    {"ver_file_count",PkgCacheGetVerFileCount,0,
     "The number of (Version, PackageFile) relations."},
    {"version_count",PkgCacheGetVersionCount,0,
@@ -331,13 +334,17 @@ static Py_ssize_t CacheMapLen(PyObject *Self)
 }
 
 static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
-    "The cache provides access to the packages and other stuff.\n\n"
+    "The APT cache file contains a hash table mapping names of binary\n"
+    "packages to their metadata. A Cache object is the in-core\n"
+    "representation of the same. It provides access to APT’s idea of the\n"
+    "list of available packages.\n"
     "The optional parameter *progress* can be used to specify an \n"
-    "apt.progress.OpProgress() object (or similar) which displays\n"
-    "the opening progress. If not specified, the progress is\n"
-    "displayed in simple text form.\n\n"
-    "The cache can be used like a mapping of package names to Package\n"
-    "objects.";
+    "apt.progress.base.OpProgress() object (or similar) which reports\n"
+    "progress information while the cache is being opened.  If this\n"
+    "parameter is not supplied, the progress will be reported in simple,\n"
+    "human-readable text to standard output.\n\n"
+    "The cache can be used like a mapping from package names to Package\n"
+    "objects (although only getting items is supported).";
 static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};
 static PyMappingMethods CacheMap = {CacheMapLen,CacheMapOp,0};
 PyTypeObject PyCache_Type =
@@ -568,17 +575,17 @@ static PyGetSetDef PackageGetSet[] = {
     {"provides_list",PackageGetProvidesList,0,
      "A list of all packages providing this package. The list contains\n"
      "tuples in the format (providesname, providesver, version)\n"
-     "whereas 'version' is an apt_pkg.Version object."},
+     "where 'version' is an apt_pkg.Version object."},
     {"selected_state",PackageGetSelectedState,0,
-     "The state of the selection; can be compared against the constants\n"
+     "The state of the selection, which can be compared against the constants\n"
      "SELSTATE_DEINSTALL, SELSTATE_HOLD, SELSTATE_INSTALL, SELSTATE_PURGE,\n"
      "SELSTATE_UNKNOWN of the apt_pkg module."},
     {"inst_state",PackageGetInstState,0,
-     "The state of the install, can be compared against the constants\n"
+     "The state of the install, which be compared against the constants\n"
      "INSTSTATE_HOLD, INSTSTATE_HOLD_REINSTREQ, INSTSTATE_OK,\n"
      "INSTSTATE_REINSTREQ of the apt_pkg module."},
     {"current_state",PackageGetCurrentState,0,
-     "The current state, can be compared against the constants\n"
+     "The current state, which can be compared against the constants\n"
      "CURSTATE_CONFIG_FILES, CURSTATE_HALF_CONFIGURED,\n"
      "CURSTATE_HALF_INSTALLED, CURSTATE_INSTALLED, CURSTATE_NOT_INSTALLED,\n"
      "CURSTATE_UNPACKED of the apt_pkg module."},
@@ -591,7 +598,7 @@ static PyGetSetDef PackageGetSet[] = {
      "Boolean value determining whether the package is essential."},
     {"important",PackageGetImportant,0,
      "Boolean value determining whether the package has the 'important'\n"
-     "flag set ('Important: yes' in the Packages file). Not used anymore."},
+     "flag set ('Important: yes' in the Packages file). No longer used."},
     {"version_list",PackageGetVersionList,0,
      "A list of all apt_pkg.Version objects for this package."},
     {"current_ver",PackageGetCurrentVer,0,
@@ -949,12 +956,12 @@ static PyGetSetDef VersionGetSet[] = {
     "like 'a || b'."},
    {"depends_list_str",VersionGetDependsListStr,0,
     "Same as depends_list, except that the apt_pkg.Dependency objects\n"
-    "are 3-tuples of the form (name, version, operator); whereas operator\n"
+    "are 3-tuples of the form (name, version, operator); where operator\n"
     "is one of '<', '<=', '=', '>=', '>'."},
    {"downloadable",VersionGetDownloadable,0,
     "Whether the version can be downloaded."},
    {"file_list",VersionGetFileList,0,
-    "A list of tuples (pf: apt_pkg.PackageFile, index: int) for the\n"
+    "A list of tuples (packagefile: apt_pkg.PackageFile, index: int) for the\n"
     "PackageFile objects related to this package. The index can be used\n"
     "to retrieve the record of this package version."},
    {"hash",VersionGetHash,0,
@@ -966,13 +973,13 @@ static PyGetSetDef VersionGetSet[] = {
    {"parent_pkg",VersionGetParentPkg,0,
     "The parent package of this version."},
    {"priority",VersionGetPriority,0,
-    "The priority of the package as an integer, can be compared against\n"
+    "The priority of the package as an integer, which can be compared to\n"
     "the constants PRI_EXTRA, PRI_IMPORTANT, PRI_OPTIONAL, PRI_REQUIRED,\n"
     "PRI_STANDARD of the apt_pkg module."},
    {"priority_str",VersionGetPriorityStr,0,
     "The priority of the package, as a string."},
    {"provides_list",VersionGetProvidesList,0,
-    "A list of all packages provides by this version. See\n"
+    "A list of all packages provided by this version. See\n"
     "Package.provides_list for a description of the format."},
    {"section",VersionGetSection,0,
     "The section of this package version."},
@@ -1138,8 +1145,8 @@ static PyGetSetDef PackageFileGetSet[] = {
   {"not_automatic",PackageFile_GetNotAutomatic,0,
    "Whether the NotAutomatic flag is set in the Release file."},
   {"not_source",PackageFile_GetNotSource,0,
-   "Whether there is no source this file comes from; i.e. whether packages\n"
-   "listed in this file can not be downloaded." },
+   "Whether this package file lacks an active (sources.list) source;"
+   "packages listed in such a file cannot be downloaded."},
   {"origin",PackageFile_GetOrigin,0,
    "The origin set in the release file."},
   {"site",PackageFile_GetSite,0,
@@ -1147,7 +1154,7 @@ static PyGetSetDef PackageFileGetSet[] = {
   {"size",PackageFile_GetSize,0,
    "The size of the file."},
   {"version",PackageFile_GetVersion,0,
-   "The version set in the release file (e.g. '5.0.X' for lenny, where X is\n"
+   "The version set in the release file (e.g. '5.0.X' for lenny, where X\n"
    "is a point release)."},
   {}
 };
@@ -1320,7 +1327,7 @@ static PyGetSetDef DependencyGetSet[] = {
    {"comp_type",DependencyGetCompType,0,
     "The type of comparison, as a string (one of '<', '<=', '=', '>=', '>')."},
    {"dep_type",DependencyGetDepType,0,
-    "The type of the dependency, may be translated"},
+    "The type of the dependency; may be translated"},
    {"dep_type_untranslated",DependencyGetDepTypeUntranslated,0,
     "Same as dep_type, but guaranteed to be untranslated."},
    {"dep_type_enum",DependencyGetDepTypeEnum,0,

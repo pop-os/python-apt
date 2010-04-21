@@ -168,7 +168,7 @@ static PyMethodDef *methods = 0;
 
 
 static const char *apt_inst_doc =
-    "Functions for working with AR,tar archives and .deb packages.\n\n"
+    "Functions for working with ar/tar archives and .deb packages.\n\n"
     "This module provides useful classes and functions to work with\n"
     "archives, modelled after the 'TarFile' class in the 'tarfile' module.";
 #define ADDTYPE(mod,name,type) { \

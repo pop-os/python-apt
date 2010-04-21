@@ -51,7 +51,7 @@ static const char *doc_FindFile =
     "Same as find(), but for filenames. In the APT configuration, there\n"
     "is a special section Dir:: for storing filenames. find_file() locates\n"
     "the given key and then goes up and prepends the directory names to the\n"
-    "return value, e.g. for:\n"
+    "return value. For example, for:\n"
     "\n"
     "    apt_pkg.config['Dir'] = 'a'\n"
     "    apt_pkg.config['Dir::D'] = 'b'\n"
@@ -85,7 +85,7 @@ static PyObject *CnfFindDir(PyObject *Self,PyObject *Args)
 
 static const char *doc_FindI =
     "find_i(key: str[, default: int = 0]) -> int\n\n"
-    "Same as find, but only for integer values.";
+    "Same as find, but for integer values.";
 static PyObject *CnfFindI(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -97,7 +97,7 @@ static PyObject *CnfFindI(PyObject *Self,PyObject *Args)
 
 static const char *doc_FindB =
     "find_i(key: str[, default: bool = False]) -> bool\n\n"
-    "Same as find, but only for boolean values.";
+    "Same as find, but for boolean values; returns False on unknown values.";
 static PyObject *CnfFindB(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -110,7 +110,7 @@ static PyObject *CnfFindB(PyObject *Self,PyObject *Args)
 static const char *doc_Set =
     "set(key: str, value: str)\n\n"
     "Set the given key to the given value. To set int or bool values,\n"
-    "encode them using str(value). One can then use find_i()/find_b()\n"
+    "encode them using str(value) and then use find_i()/find_b()\n"
     "to retrieve their value again.";
 static PyObject *CnfSet(PyObject *Self,PyObject *Args)
 {
@@ -142,7 +142,7 @@ static int CnfContains(PyObject *Self,PyObject *Arg)
 
 static const char *doc_Clear = 
     "clear(key: str)\n\n"
-    "Unset the option at the given key and all sub options.";
+    "Remove the specified option and all sub-options.";
 static PyObject *CnfClear(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -158,8 +158,9 @@ static PyObject *CnfClear(PyObject *Self,PyObject *Args)
 // The amazing narrowing search ability!
 static const char *doc_SubTree =
     "sub_tree(key: str) -> apt_pkg.Configuration\n\n"
-    "Return a new apt_pkg.Configuration objects which starts at the\n"
-    "given option. Example:\n\n"
+    
+    "Return a new apt_pkg.Configuration object with the given option\n"
+    "as its root. Example:\n\n"
     "    apttree = config.subtree('APT')\n"
     "    apttree['Install-Suggests'] = config['APT::Install-Suggests']";
 static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
@@ -181,7 +182,12 @@ static PyObject *CnfSubTree(PyObject *Self,PyObject *Args)
 // Return a list of items at a specific level
 static char *doc_List =
     "list([root: str]) -> list\n\n"
-    "Return a list of all items at the given root.";
+    "Return a list of all items at the given root, using their full\n"
+    "name. For example, in a configuration object where the options A,\n"
+    "B, and B::C are set, the following expressions evaluate to True:\n\n"
+    "   conf.list() == ['A', 'B']\n"
+    "   conf.list('A') == ['']\n"
+    "   conf.list('B') == ['B::C']\n";
 static PyObject *CnfList(PyObject *Self,PyObject *Args)
 {
    char *RootName = 0;
@@ -324,8 +330,8 @@ static int CnfMapSet(PyObject *Self,PyObject *Arg,PyObject *Val)
 // Config file loaders							/*{{{*/
 char *doc_LoadConfig =
     "read_config_file(configuration: apt_pkg.Configuration, filename: str)\n\n"
-    "Read the configuration file given by filename and set the options\n"
-    "defined therein in the configuration object.";
+    "Read the configuration file 'filename' and set the appropriate\n"
+    "options in the configuration object.";
 PyObject *LoadConfig(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -403,7 +409,8 @@ char *doc_ParseCommandLine =
 "configuration option the result will be stored in and type is one of\n"
 "'HasArg', 'IntLevel', 'Boolean', 'InvBoolean', 'ConfigFile',\n"
 "'ArbItem'. The default type is 'Boolean'. Read the online documentation\n"
-"and the tutorial therin about writing an apt-cdrom clone for more details.";
+"in python-apt-doc and its tutorial on writing an apt-cdrom clone for more\n"
+"details.";
 PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
 {
    PyObject *POList;
@@ -531,11 +538,13 @@ static PyMappingMethods ConfigurationMap = {0,CnfMap,CnfMapSet};
 
 static const char *configuration_doc =
     "Configuration()\n\n"
-    "Configuration objects represent the configuration of apt. They map\n"
-    "keys to values and store configuration parsed from files like\n"
-    "/etc/apt/apt.conf. The most important object is apt_pkg.config\n"
-    "which points to the global configuration object. Additional objects\n"
-    "can be created, but this is normally not needed.";
+    "Represent the configuration of APT by mapping option keys to\n"
+    "values and storing configuration parsed from files like\n"
+    "/etc/apt/apt.conf. The most important Configuration object\n"
+    "is apt_pkg.config which points to the global configuration\n"
+    "object. Other top-level Configuration objects can be created\n"
+    "by calling the constructor, but there is usually no reason to.";
+
 PyTypeObject PyConfiguration_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)

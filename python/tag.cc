@@ -113,7 +113,7 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
 
 static char *doc_FindRaw =
     "find_raw(name: str[, default = None] -> str\n\n"
-    "Same as find(), but returns the complete key : value field; instead of\n"
+    "Same as find(), but returns the complete 'key: value' field; instead of\n"
     "just the value.";
 static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
 {
@@ -139,7 +139,7 @@ static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
 
 static char *doc_FindFlag =
     "find_flag(name: str) -> int\n\n"
-    "Return 1 if the value at the key is 'yes' or a similar value describing\n"
+    "Return 1 if the key's value is 'yes' or a similar value describing\n"
     "a boolean true. If the field does not exist, or does not have such a\n"
     "value, return 0.";
 static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
@@ -324,9 +324,9 @@ static PyObject *TagFileOffset(PyObject *Self,PyObject *Args)
 
 static char *doc_Jump =
     "jump(offset: int) -> bool\n\n"
-    "Jump to the given offset, returns True on success. Note that jumping to\n"
-    "an offset is not very reliable, and the 'section' attribute does not\n"
-    "always point to the section one would expect it to.";
+    "Jump to the given offset; return True on success. Note that jumping to\n"
+    "an offset is not very reliable, and the 'section' attribute may point\n"
+    "to an unexpected section.";
 static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 {
    int Offset;
@@ -431,7 +431,7 @@ char *doc_RewriteSection =
 "apt_pkg.REWRITE_PACKAGE_ORDER and apt_pkg.REWRITE_SOURCE_ORDER are two\n"
 "predefined lists for rewriting package and source sections, respectively\n\n"
 "The parameter 'rewrite_list' is a list of tuples of the form\n"
-"``(tag, newvalue[, renamed_to])``, whereas 'tag' describes the field which\n"
+"'(tag, newvalue[, renamed_to])', where 'tag' describes the field which\n"
 "should be changed, 'newvalue' the value which should be inserted or None\n"
 "to delete the field, and the optional renamed_to can be used to rename the\n"
 "field.";
@@ -511,8 +511,8 @@ PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 
 
 static char *doc_TagSec = "TagSection(text: str)\n\n"
-   "TagSection() objects provide methods to access rfc822-style formatted\n"
-   "header sections, like those in debian/control or Packages files.\n\n"
+   "Provide methods to access RFC822-style header sections, like those\n"
+   "found in debian/control or Packages files.\n\n"
    "TagSection() behave like read-only dictionaries and also provide access\n"
    "to the functions provided by the C++ class (e.g. find)";
 PyTypeObject PyTagSection_Type =
@@ -586,13 +586,14 @@ static PyGetSetDef TagFileGetSet[] = {
 
 
 static char *doc_TagFile = "TagFile(file)\n\n"
-   "TagFile() objects provide access to debian control files, which consists\n"
-   "of multiple RFC822-like formatted sections.\n\n"
+   "TagFile() objects provide access to debian control files, which consist\n"
+   "of multiple RFC822-style sections.\n\n"
    "To provide access to those sections, TagFile objects provide an iterator\n"
    "which yields TagSection objects for each section.\n\n"
    "TagFile objects also provide another API which uses a shared TagSection\n"
    "object in the 'section' member. The functions step() and jump() can be\n"
-   "used to navigate in the file; and offset() tells the current position.\n\n"
+   "used to navigate within the file; offset() returns the current\n"
+   "position.\n\n"
    "It is important to not mix the use of both APIs, because this can have\n"
    "unwanted effects.\n\n"
    "The parameter 'file' refers to an object providing a fileno() method or\n"

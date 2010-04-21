@@ -115,9 +115,9 @@ static PyObject *policy_read_pindir(PyObject *self, PyObject *arg) {
 static char *policy_create_pin_doc =
     "create_pin(type: str, pkg: str, data: str, priority: int)\n\n"
     "Create a pin for the policy. The parameter 'type' refers to one of the\n"
-    "following strings: 'Version', 'Release', 'Origin'. The argument 'pkg'\n"
-    "is the name of the package, the parameter 'data' refers to the value\n"
-    "e.g. unstable for type='Release' and the other possible options. \n"
+    "strings 'Version', 'Release', or 'Origin'. The argument 'pkg' is the\n"
+    "name of the package. The parameter 'data' refers to the value\n"
+    "(e.g. 'unstable' for type='Release') and the other possible options.\n"
     "The parameter 'priority' gives the priority of the pin.";
 
 static PyObject *policy_create_pin(PyObject *self, PyObject *args) {

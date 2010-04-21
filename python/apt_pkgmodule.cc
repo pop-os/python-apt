@@ -91,8 +91,8 @@ static char *doc_CheckDep =
     "Check that the given requirement is fulfilled; i.e. that the version\n"
     "string given by 'pkg_ver' matches the version string 'dep_ver' under\n"
     "the condition specified by the operator 'dep_op' (<,<=,=,>=,>).\n\n"
-    "This functions returns True if 'pkg_ver' matches 'dep_ver' under the\n"
-    "condition 'dep_op'; e.g. this returns True:\n\n"
+    "Return True if 'pkg_ver' matches 'dep_ver' under the\n"
+    "condition 'dep_op'; for example, this returns True:\n\n"
     "    apt_pkg.check_dep('1', '<=', '2')";
 static PyObject *CheckDep(PyObject *Self,PyObject *Args)
 {
@@ -163,19 +163,21 @@ static const char *doc_ParseDepends =
 "parse_depends(s: str) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
-"these lists represents one or more options for an or-dependency in the form\n"
-"of tuples ``(pkg, ver, comptype)``. In this tuple, the element 'pkg' is the\n"
-"name of the package, the element 'ver' the version [or '' if no version was\n"
-"requested. The element 'ver' is a comparison operator such as <,<=,=,>=,>.";
+"these lists represents one or more options for an 'or' dependency in\n"
+"the form of '(pkg, ver, comptype)' tuples. The tuple element 'pkg'\n"
+"is the name of the package; the element 'ver' is the version, or ''\n"
+"if no version was requested. The element 'ver' is a comparison\n"
+"operator ('<', '<=', '=', '>=', or '>').";
 
 static const char *parse_src_depends_doc =
 "parse_src_depends(s: str) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
-"these lists represents one or more options for an or-dependency in the form\n"
-"of tuples ``(pkg, ver, comptype)``. In this tuple, the element 'pkg' is the\n"
-"name of the package, the element 'ver' the version [or '' if no version was\n"
-"requested. The element 'ver' is a comparison operator such as <,<=,=,>=,>."
+"these lists represents one or more options for an 'or' dependency in\n"
+"the form of '(pkg, ver, comptype)' tuples. The tuple element 'pkg'\n"
+"is the name of the package; the element 'ver' is the version, or ''\n"
+"if no version was requested. The element 'ver' is a comparison\n"
+"operator ('<', '<=', '=', '>=', or '>')."
 "\n\n"
 "Dependencies may be restricted to certain architectures and the result\n"
 "only contains those dependencies for the architecture set in the\n"
@@ -392,7 +394,7 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
 // ---------------------------------------------------------------------
 static char *doc_Init =
 "init()\n\n"
-"Short hand for doing init_config() and init_system(). When working\n"
+"Shorthand for doing init_config() and init_system(). When working\n"
 "with command line arguments, first call init_config() then parse\n"
 "the command line and finally call init_system().";
 static PyObject *Init(PyObject *Self,PyObject *Args)
@@ -423,7 +425,7 @@ static PyObject *InitConfig(PyObject *Self,PyObject *Args)
 
 static char *doc_InitSystem =
 "init_system()\n\n"
-"Construct the underlying system.";
+"Construct the apt_pkg system.";
 static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -503,8 +505,8 @@ static PyMethodDef methods[] =
    // Internationalization.
    {"gettext",py_gettext,METH_VARARGS,
     "gettext(msg: str[, domain: str = 'python-apt']) -> str\n\n"
-    "Translate the given string. Much Faster than Python's version and only\n"
-    "does translations after setlocale() has been called."},
+    "Translate the given string. This is much faster than Python's version\n"
+    "and only does translations after setlocale() has been called."},
 
    // Tag File
    {"rewrite_section",RewriteSection,METH_VARARGS,doc_RewriteSection},
@@ -544,13 +546,13 @@ static PyMethodDef methods[] =
     "which would return True because alioth belongs to debian.org."},
    {"quote_string",StrQuoteString,METH_VARARGS,
     "quote_string(string: str, repl: str) -> str\n\n"
-    "Quote the string 'string' by encoding a standard set of characters\n"
-    "plus the characters given 'repl' using their HTTP value, e.g.\n"
-    "'%20' for ' '."},
+    "Escape the string 'string', replacing any character not allowed in a URL"
+    "or specified by 'repl' with its ASCII value preceded by a percent sign"
+    "(so for example ' ' becomes '%20')."},
    {"dequote_string",StrDeQuote,METH_VARARGS,
     "dequote_string(string: str) -> str\n\n"
     "Dequote the given string by replacing all HTTP encoded values such\n"
-    "as '%20' with their decoded value (e.g. ' ')."},
+    "as '%20' with their decoded value (in this case, ' ')."},
    {"size_to_str",StrSizeToStr,METH_VARARGS,
     "size_to_str(bytes: int) -> str\n\n"
     "Return a string describing the size in a human-readable manner using\n"
@@ -565,12 +567,12 @@ static PyMethodDef methods[] =
     "parts not suited for filenames (e.g. '/')."},
    {"base64_encode",StrBase64Encode,METH_VARARGS,
     "base64_encode(value: bytes) -> str\n\n"
-    "Encode the given bytestring using the Base64. The input may not\n"
-    "contain '\0' (use the base64 module for this)."},
+    "Encode the given bytestring into Base64. The input may not\n"
+    "contain a null byte character (use the base64 module for this)."},
    {"string_to_bool",StrStringToBool,METH_VARARGS,
     "string_to_bool(string: str) -> int\n\n"
     "Return 1 if the string is a value such as 'yes', 'true', '1';\n"
-    "0 if the string is a value such as 'no', 'false','0'; -1 if\n"
+    "0 if the string is a value such as 'no', 'false', '0'; -1 if\n"
     "the string is not recognized."},
    {"time_rfc1123",StrTimeRFC1123,METH_VARARGS,
     "time_rfc1123(unixtime: int) -> str\n\n"
@@ -578,7 +580,7 @@ static PyMethodDef methods[] =
     "RFC 1123."},
    {"str_to_time",StrStrToTime,METH_VARARGS,
     "str_to_time(rfc_time: str) -> int\n\n"
-    "Convert the given RFC 1123 formatted string to an Unix timestamp."},
+    "Convert the given RFC 1123 formatted string to a Unix timestamp."},
 
    // DEPRECATED
    #ifdef COMPAT_0_7
@@ -740,9 +742,9 @@ static struct _PyAptPkgAPIStruct API = {
 static const char *apt_pkg_doc =
     "Classes and functions wrapping the apt-pkg library.\n\n"
     "The apt_pkg module provides several classes and functions for accessing\n"
-    "the functionality provided by the apt-pkg library. It allows parsing of\n"
-    "index files, configuration files, installation/removal of packages and\n"
-    "much more";
+    "the functionality provided by the apt-pkg library. Typical uses might\n"
+    "include reading APT index files and configuration files and installing\n"
+    "or removing packages.";
 
 #if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef moduledef = {

@@ -46,9 +46,9 @@ static PyObject *indexrecords_load(PyObject *self,PyObject *args)
 
 static char *indexrecords_lookup_doc =
     "lookup(key: str) -> (HashString, int)\n\n"
-    "Lookup the filename given by 'key', return a tuple (hash, size),\n"
-    "whereas the first element 'hash' is an apt_pkg.HashString object\n"
-    "and the second element 'size' an int object.";
+    "Look up the filename given by 'key' and return a tuple (hash, size),\n"
+    "where the first element 'hash' is an apt_pkg.HashString object\n"
+    "and the second element 'size' is an int object.";
 static PyObject *indexrecords_lookup(PyObject *self,PyObject *args)
 {
     const char *keyname;

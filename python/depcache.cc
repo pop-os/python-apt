@@ -380,7 +380,6 @@ static PyObject *PkgDepCacheMarkAuto(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
-
 static PyObject *PkgDepCacheIsUpgradable(PyObject *Self,PyObject *Args)
 {
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
@@ -544,7 +543,8 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"init",PkgDepCacheInit,METH_VARARGS,
     "init(progress: apt.progress.base.OpProgress)\n\n"
-    "Initialize the depcache (done on construct automatically)"},
+    "Initialize the depcache (done automatically when constructing\n"
+    "the object)."},
    {"get_candidate_ver",PkgDepCacheGetCandidateVer,METH_VARARGS,
     "get_candidate_ver(pkg: apt_pkg.Package) -> apt_pkg.Version\n\n"
     "Return the candidate version for the package, normally the version\n"
@@ -574,7 +574,7 @@ static PyMethodDef PkgDepCacheMethods[] =
    // Manipulators
    {"mark_keep",PkgDepCacheMarkKeep,METH_VARARGS,
     "mark_keep(pkg: apt_pkg.Package)\n\n"
-    "Mark package for keep"},
+    "Mark package to be kept."},
    {"mark_delete",PkgDepCacheMarkDelete,METH_VARARGS,
     "mark_delete(pkg: apt_pkg.Package[, purge: bool = False])\n\n"
     "Mark package for deletion, and if 'purge' is True also for purging."},
@@ -590,7 +590,7 @@ static PyMethodDef PkgDepCacheMethods[] =
     "or as not automatically installed (if auto=False)."},
    {"set_reinstall",PkgDepCacheSetReInstall,METH_VARARGS,
     "set_reinstall(pkg: apt_pkg.Package, reinstall: bool)\n\n"
-    "Set if the package should be reinstalled (reinstall = True or False)."},
+    "Set whether the package should be reinstalled (reinstall = True or False)."},
    // state information
    {"is_upgradable",PkgDepCacheIsUpgradable,METH_VARARGS,
     "is_upgradable(pkg: apt_pkg.Package) -> bool\n\n"
@@ -684,7 +684,7 @@ static PyGetSetDef PkgDepCacheGetSet[] = {
     {"usr_size",PkgDepCacheGetUsrSize,0,
      "The amount of space required for installing/removing the packages,\n"
      "i.e. the Installed-Size of all packages marked for installation\n"
-     "minus the Installed-Size of all packages for for removal."},
+     "minus the Installed-Size of all packages for removal."},
     {"policy",PkgDepCacheGetPolicy,0,
      "The apt_pkg.Policy object used by this cache."},
     {}
@@ -967,7 +967,11 @@ PyTypeObject PyProblemResolver_Type =
 // pkgActionGroup Class						        /*{{{*/
 // ---------------------------------------------------------------------
 
-
+static const char *actiongroup_release_doc =
+    "release()\n\n"
+    "End the scope of this action group.  If this is the only action\n"
+    "group bound to the cache, this will cause any deferred cleanup\n"
+    "actions to be performed.";
 static PyObject *PkgActionGroupRelease(PyObject *Self,PyObject *Args)
 {
    pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
@@ -978,11 +982,19 @@ static PyObject *PkgActionGroupRelease(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static const char *actiongroup__enter__doc =
+    "__enter__() -> ActionGroup\n\n"
+    "A dummy action which just returns the object itself, so it can\n"
+    "be used as a context manager.";
 static PyObject *PkgActionGroupEnter(PyObject *Self,PyObject *Args) {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
     return Self;
 }
+
+static const char *actiongroup__exit__doc =
+    "__exit__(*excinfo) -> bool\n\n"
+    "Same as release(), but for use as a context manager.";
 static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
    pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
    ag->release();
@@ -991,11 +1003,9 @@ static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
 
 static PyMethodDef PkgActionGroupMethods[] =
 {
-   {"release", PkgActionGroupRelease, METH_VARARGS, "release()"},
-   {"__exit__", PkgActionGroupExit, METH_VARARGS, "__exit__(...) -> "
-               "Release the action group, for 'with' statement."},
-   {"__enter__", PkgActionGroupEnter, METH_VARARGS, "__enter__() -> "
-               "Enter, for the 'with' statement. Does nothing."},
+   {"release", PkgActionGroupRelease, METH_VARARGS, actiongroup_release_doc},
+   {"__enter__", PkgActionGroupEnter, METH_VARARGS, actiongroup__enter__doc},
+   {"__exit__", PkgActionGroupExit, METH_VARARGS, actiongroup__exit__doc},
    {}
 };
 

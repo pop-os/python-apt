@@ -130,24 +130,28 @@ static PyGetSetDef acquireitem_getset[] = {
     {"desc_uri",acquireitem_get_desc_uri,NULL,
      "A string describing the URI from which the item is acquired."},
     {"destfile",acquireitem_get_destfile,NULL,
-     "The path to the file where the item will be stored"},
+     "The path to the file where the item will be stored."},
     {"error_text",acquireitem_get_error_text,NULL,
      "If an error occured, a string describing the error; empty string\n"
-     "otherwise"},
+     "otherwise."},
     {"filesize",acquireitem_get_filesize,NULL,
-     "The size of the file. If unknown, it is set to 0."},
+     "The size of the file (number of bytes). If unknown, it is set to 0."},
     {"id",acquireitem_get_id,acquireitem_set_id,
      "The ID of the item. An integer which can be set by progress classes."},
     {"mode",acquireitem_get_mode,NULL,
-     "A string indicating the current mode e.g. 'Fetching'."},
+     "A localized string such as 'Fetching' which indicates the current\n"
+     "mode."},
     {"is_trusted",acquireitem_get_is_trusted,NULL,
-     "Whether the item is trusted or not."},
+     "Whether the item is trusted or not. Only True for packages\n"
+     "which come from a repository signed with one of the keys in\n"
+     "APT's keyring."},
     {"local",acquireitem_get_local,NULL,
      "Whether we are fetching a local item (copy:/) or not."},
     {"partialsize",acquireitem_get_partialsize,NULL,
-     "The amount of data which has already been fetched."},
+     "The amount of data which has already been fetched (number of bytes)."},
     {"status",acquireitem_get_status,NULL,
-     "The status of the item."},
+     "An integer representing the item's status which can be compared\n"
+     "against one of the STAT_* constants defined in this class."},
     {}
 };
 
@@ -172,9 +176,11 @@ static void acquireitem_dealloc(PyObject *self)
 }
 
 static const char *acquireitem_doc =
-    "Representation of an Acquire item. It is not possible to create\n"
-    "instances of this class, but it is possible to create instances\n"
-    "of the AcquireFile subclass.";
+    "Represent a single item to be fetched by an Acquire object.\n\n"
+    "It is not possible to construct instances of this class directly.\n"
+    "Prospective users should construct instances of a subclass such as\n"
+    "AcquireFile instead. It is not possible to create subclasses on the\n"
+    "Python level, only on the C++ level.";
 PyTypeObject PyAcquireItem_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireItem",         // tp_name
@@ -246,13 +252,18 @@ static char *acquirefile_doc =
     "destfile])\n\n"
     "Represent a file to be fetched. The parameter 'owner' points to\n"
     "an apt_pkg.Acquire object and the parameter 'uri' to the source\n"
-    "location. The destination can be specified by either 'destdir'\n"
-    "for specifying the destination directory or 'destfile' for\n"
-    "specifying the path to the destination file.\n"
+    "location. Normally, the file will be stored in the current directory\n"
+    "using the file name given in the URI. This directory can be changed\n"
+    "by passing the name of a directory to the 'destdir' parameter. It is\n"
+    "also possible to set a path to a file using the 'destfile' parameter,\n"
+    "but both cannot be specified together.\n"
     "\n"
     "The parameters 'short_descr' and 'descr' can be used to specify\n"
     "a short description and a longer description for the item. This\n"
-    "information is used by progress classes to refer to the item.\n"
+    "information is used by progress classes to refer to the item and\n"
+    "should be short, for example, package name as 'short_descr' and\n"
+    "and something like 'http://localhost sid/main python-apt 0.7.94.2'\n"
+    "as 'descr'."
     "\n"
     "The parameters 'md5' and 'size' are used to verify the resulting\n"
     "file. The parameter 'size' is also to calculate the total amount\n"

@@ -105,9 +105,9 @@ static PyMethodDef PkgManagerMethods[] =
     "do_install(status_fd: int) -> int\n\n"
     "Install the packages and return one of the class constants\n"
     "RESULT_COMPLETED, RESULT_FAILED, RESULT_INCOMPLETE. The argument\n"
-    "status_fd can be used to specify a file descriptor where APT will\n"
+    "status_fd can be used to specify a file descriptor that APT will\n"
     "write status information on (see README.progress-reporting in the\n"
-    "apt source code for information what is written there)."},
+    "apt source code for information on what will be written there)."},
    {"fix_missing",PkgManagerFixMissing,METH_VARARGS,
     "fix_missing() -> bool\n\n"
     "Fix the installation if a package could not be downloaded."},

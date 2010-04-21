@@ -36,9 +36,9 @@ struct PkgSrcRecordsStruct
 
 static char *doc_PkgSrcRecordsLookup =
     "lookup(name: str) -> bool\n\n"
-    "Lookup the source package with the given name. Each call moves\n"
+    "Look up the source package with the given name. Each call moves\n"
     "the position of the records parser forward. If there are no\n"
-    "records anymore, return None. If the lookup failed this way,\n"
+    "more records, return None. If the lookup failed this way,\n"
     "access to any of the attributes will result in an AttributeError.";
 static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
 {
@@ -231,7 +231,7 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"binaries",PkgSrcRecordsGetBinaries,0,
     "A list of the names of the binaries produced by this source package."},
    {"build_depends",PkgSrcRecordsGetBuildDepends,0,
-    "A dictionary describing the build-time dependencies of the package,\n"
+    "A dictionary describing the build-time dependencies of the package;\n"
     "the format is the same as used for apt_pkg.Version.depends_list_str."},
    {"files",PkgSrcRecordsGetFiles,0,
     "A list of tuples (md5: str, size: int, path: str, type: str), whereas\n"
