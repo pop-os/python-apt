@@ -539,6 +539,12 @@ static PyObject *PackageGetHasVersions(PyObject *Self,void*)
    return PyBool_FromLong(Pkg.VersionList().end() == false);
 }
 
+static PyObject *PackageGetHasProvides(PyObject *Self,void*)
+{
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+   return PyBool_FromLong(Pkg.ProvidesList().end() == false);
+}
+
 static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
@@ -592,6 +598,8 @@ static PyGetSetDef PackageGetSet[] = {
      "The version of the package currently installed or None."},
     {"has_versions",PackageGetHasVersions,0,
      "Whether the package has at least one version in the cache."},
+    {"has_provides",PackageGetHasProvides,0,
+     "Whether the package is provided by at least one other package."},
     {}
 };
 
