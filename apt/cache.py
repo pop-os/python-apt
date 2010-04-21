@@ -176,10 +176,14 @@ class Cache(object):
     def get_changes(self):
         """ Get the marked changes """
         changes = []
-        for pkg in self:
-            if (pkg.marked_upgrade or pkg.marked_install or pkg.marked_delete
-                or pkg.marked_downgrade or pkg.marked_reinstall):
-                changes.append(pkg)
+        marked_keep = self._depcache.marked_keep
+        for pkg in self._cache.packages:
+            if not marked_keep(pkg):
+                try:
+                    changes.append(self._weakref[pkg.name])
+                except KeyError:
+                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    changes.append(package)
         return changes
 
     @deprecated_args
