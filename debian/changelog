@@ -21,6 +21,8 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
   * python/generic.cc:
     - Fix a memory leak when using old attribute names.
     - Map ArchiveURI property to archive_uri
+  * python/progress.cc:
+    - Do not pass arguments to InstallProgress.wait_child().
   * debian/control:
     - Change priority to standard, keep -doc and -dev on optional.
   * utils/migrate-0.8.py:
