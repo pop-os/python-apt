@@ -1,5 +1,66 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: maverick
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 10.10 'Maverick Meerkat'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported Open Source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: maverick
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*10.10
+MatchURI: cdrom:\[Ubuntu.*10.10
+_Description: Cdrom with Ubuntu 10.10 'Maverick Meerkat'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: maverick-security
+ParentSuite: maverick
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: maverick-updates
+ParentSuite: maverick
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: maverick-proposed
+ParentSuite: maverick
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: maverick-backports
+ParentSuite: maverick
+RepositoryType: deb
+_Description: Unsupported updates
+
 Suite: lucid
 RepositoryType: deb
 BaseURI: http://ports.ubuntu.com/ubuntu-ports/
