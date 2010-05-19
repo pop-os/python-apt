@@ -9,6 +9,8 @@ python-apt (0.7.95) UNRELEASED; urgency=low
   * apt/package.py:
     - Decode using utf-8 in installed_files (LP: #407953).
     - Fix fetch_source() to work when source name = binary name (LP: #552400).
+    - Merge a patch from Sebastian Heinlein to make get_changelog() only
+      check sources where source version >= binary version (Closes: #581831).
   * python:
     - Return bool instead of int to Python where possible, looks better.
     - Document every class, function, property.

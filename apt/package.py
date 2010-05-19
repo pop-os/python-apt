@@ -1010,30 +1010,21 @@ class Package(object):
         # get the source version, start with the binaries version
         bin_ver = self.candidate.version
         src_ver = self.candidate.version
-        #print "bin: %s" % binver
         try:
-            # FIXME: This try-statement is too long ...
             # try to get the source version of the pkg, this differs
             # for some (e.g. libnspr4 on ubuntu)
             # this feature only works if the correct deb-src are in the
-            # sources.list
-            # otherwise we fall back to the binary version number
+            # sources.list otherwise we fall back to the binary version number
             src_records = apt_pkg.SourceRecords()
-            src_rec = src_records.lookup(src_pkg)
-            if src_rec:
-                src_ver = src_records.version
-                #if apt_pkg.VersionCompare(binver, srcver) > 0:
-                #    srcver = binver
-                if not src_ver:
-                    src_ver = bin_ver
-                #print "srcver: %s" % src_ver
-                section = src_records.section
-                #print "srcsect: %s" % section
-            else:
-                # fail into the error handler
-                raise SystemError
         except SystemError:
-            src_ver = bin_ver
+            pass
+        else:
+            while src_records.lookup(src_pkg):
+                if not src_records.version or \
+                   apt_pkg.version_compare(bin_ver, src_records.version) > 0:
+                    continue
+                src_ver = src_records.version
+                section = src_records.section
 
         section_split = section.split("/", 1)
         if len(section_split) > 1:
