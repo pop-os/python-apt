@@ -11,6 +11,8 @@ python-apt (0.7.95) UNRELEASED; urgency=low
     - Fix fetch_source() to work when source name = binary name (LP: #552400).
     - Merge a patch from Sebastian Heinlein to make get_changelog() only
       check sources where source version >= binary version (Closes: #581831).
+    - Add Version.source_version and enhance Sebastian's patch to make use
+      of it, in order to find the best changelog for the package.
   * python:
     - Return bool instead of int to Python where possible, looks better.
     - Document every class, function, property.

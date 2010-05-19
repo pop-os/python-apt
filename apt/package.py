@@ -379,6 +379,14 @@ class Version(object):
             return self.package.name
 
     @property
+    def source_version(self):
+        """Return the version of the source package."""
+        try:
+            return self._records.source_ver or self._cand.ver_str
+        except IndexError:
+            return self._cand.ver_str
+
+    @property
     def priority(self):
         """Return the priority of the package, as string."""
         return self._cand.priority_str
@@ -1006,10 +1014,10 @@ class Package(object):
         src_section = "main"
         # use the section of the candidate as a starting point
         section = self.candidate.section
-
-        # get the source version, start with the binaries version
-        bin_ver = self.candidate.version
-        src_ver = self.candidate.version
+        
+        # get the source version
+        src_ver = self.candidate.source_version
+                
         try:
             # try to get the source version of the pkg, this differs
             # for some (e.g. libnspr4 on ubuntu)
@@ -1020,11 +1028,17 @@ class Package(object):
             pass
         else:
             while src_records.lookup(src_pkg):
-                if not src_records.version or \
-                   apt_pkg.version_compare(bin_ver, src_records.version) > 0:
+                if not src_records.version:
                     continue
-                src_ver = src_records.version
-                section = src_records.section
+                if self.candidate.source_version == src_records.version:
+                    # Direct match, use it and do not do more lookups.
+                    src_ver = src_records.version
+                    section = src_records.section
+                    break
+                if apt_pkg.version_compare(src_records.version, src_ver) > 0:
+                    # The version is higher, it seems to match.
+                    src_ver = src_records.version
+                    section = src_records.section
 
         section_split = section.split("/", 1)
         if len(section_split) > 1:
