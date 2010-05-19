@@ -27,6 +27,8 @@ python-apt (0.7.95) UNRELEASED; urgency=low
     - Map ArchiveURI property to archive_uri
   * python/progress.cc:
     - Do not pass arguments to InstallProgress.wait_child().
+  * doc:
+    - Update the long documentation.
   * debian/control:
     - Change priority to standard, keep -doc and -dev on optional.
   * utils/migrate-0.8.py:
