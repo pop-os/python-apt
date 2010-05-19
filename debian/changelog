@@ -1,4 +1,4 @@
-python-apt (0.7.95) UNRELEASED; urgency=low
+python-apt (0.7.95) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * apt/cache.py:
@@ -46,7 +46,7 @@ python-apt (0.7.95) UNRELEASED; urgency=low
   * tests/test_apt_cache.py:
     - add simple test for basic cache/dependency iteration
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 15 Mar 2010 17:04:49 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 19 May 2010 15:43:09 +0200
 
 python-apt (0.7.94.2) unstable; urgency=low
 
