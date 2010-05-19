@@ -29,7 +29,6 @@ read files like :file:`/etc/apt/sources.list` and to modify them.
     apt.progress.base
     apt.progress.text
     apt.progress.gtk2
-    apt.progress.qt4
 
     aptsources.distinfo
     aptsources.distro

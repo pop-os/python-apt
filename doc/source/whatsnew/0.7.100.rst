@@ -160,8 +160,7 @@ developers to provide Python support in the libapt-pkg-using application.
 
 .. warning::
 
-    As of 0.7.93, those headers are still considered experimental and their
-    API may change without prior notice.
+    The ABI is not considered stable yet.
 
 Other changes
 -------------

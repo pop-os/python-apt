@@ -13,15 +13,8 @@ First of all, let's talk a bit about the bzr branches of python-apt. In the
 following parts, we will assume that you use bzr to create your changes and
 submit them.
 
-**mvo:** http://people.ubuntu.com/~mvo/bzr/python-apt/mvo
-    This is Michael Vogt's branch. Most of the development of apt happens here,
-    as he is the lead maintainer of python-apt.
-
-    This branch is also available from Launchpads super mirror, via
-    ``lp:python-apt``. Checkouts from Launchpad are generally faster and can
-    use the bzr protocoll.
-
-    VCS-Browser: https://code.launchpad.net/~mvo/python-apt/python-apt--mvo
+Distribution branches
+^^^^^^^^^^^^^^^^^^^^^
 
 **debian-sid:** http://bzr.debian.org/apt/python-apt/debian-sid
     This is the official Debian branch of python-apt. All code which will be
@@ -39,18 +32,33 @@ submit them.
 
     VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-experimental/changes
 
+**ubuntu:** ``lp:~ubuntu-core-dev/python-apt/ubuntu``
+    This is the official Ubuntu development branch. The same notes apply as
+    for the debian-sid branch above. For the Ubuntu release branches, replace
+    ``ubuntu`` with the version you want; for example, for lucid:
+    ``lp:~ubuntu-core-dev/python-apt/lucid``.
+
+    VCS-Browser: https://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
+
+
+Important Personal branches
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**mvo:** lp:~mvo/python-apt/mvo
+    This is Michael Vogt's branch. Most of the development of apt happens here,
+    as he is the lead maintainer of python-apt.
+
+    This branch is also available from Launchpads super mirror, via
+    ``lp:python-apt``. Checkouts from Launchpad are generally faster and can
+    use the bzr protocoll.
+
+    VCS-Browser: http://bazaar.launchpad.net/~mvo/python-apt/mvo/
+
 **jak:** http://bzr.debian.org/users/jak/python-apt/jak
     This is Julian Andres Klode's (the documentation author's) branch. This
     is the place where cleanup and documentation updates happen. It is based
-    off debian-sid or mvo.
+    off debian-sid. Most stuff happens in debian-sid now.
 
-    VCS-Browser: http://bzr.debian.org/loggerhead/users/jak/python-apt/jak/changes
-
-**ubuntu:** ``lp:~ubuntu-core-dev/python-apt/ubuntu``
-    This is the official Ubuntu development branch. The same notes apply as
-    for the debian-sid branch above.
-
-    VCS-Browser: https://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
+    VCS-Browser: http://bzr.debian.org/loggerhead/users/jak/python-apt/jak/
 
 
 .. highlightlang:: c
@@ -80,10 +88,7 @@ C++ dialect
 
 - Use ISO standard C++ (the 1998 version of the standard).
 
-- All function declarations and definitions must use full
-  prototypes (i.e. specify the types of all arguments).
-
-- Use C++ style // one-line comments where useful.
+- Use C++ style // one-line comments for single-line comments.
 
 - No compiler warnings with ``gcc -std=c++98 -Wall -Wno-write-strings``. There
   should also be no errors with ``-pedantic`` added.

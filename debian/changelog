@@ -1,4 +1,4 @@
-python-apt (0.7.94.3) UNRELEASED; urgency=low
+python-apt (0.7.95) UNRELEASED; urgency=low
 
   [ Julian Andres Klode ]
   * apt/cache.py:
