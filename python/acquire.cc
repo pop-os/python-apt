@@ -65,15 +65,25 @@ static PyObject *acquireworker_get_resumepoint(PyObject *self, void *closure)
 }
 
 static PyGetSetDef acquireworker_getset[] = {
-    {"current_item",acquireworker_get_current_item},
-    {"status",acquireworker_get_status},
-    {"current_size",acquireworker_get_current_size},
-    {"total_size",acquireworker_get_total_size},
-    {"resumepoint",acquireworker_get_resumepoint},
+    {"current_item",acquireworker_get_current_item,0,
+     "The item currently being fetched, as an apt_pkg.AcquireItemDesc object."},
+    {"status",acquireworker_get_status,0,
+     "The status of the worker, as a string."},
+    {"current_size",acquireworker_get_current_size,0,
+     "The amount of data fetched so far for the current item."},
+    {"total_size",acquireworker_get_total_size,0,
+     "The total size of the item."},
+    {"resumepoint",acquireworker_get_resumepoint,0,
+     "The amount of data which was already available when the download was\n"
+     "started."},
     {NULL}
 };
 
-
+static const char *acquireworker_doc =
+    "Represent a sub-process responsible for fetching files from\n"
+    "remote locations. This sub-process uses 'methods' located in\n"
+    "the directory specified by the configuration option\n"
+    "Dir::Bin::Methods.";
 PyTypeObject PyAcquireWorker_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireWorker",                // tp_name
@@ -97,7 +107,7 @@ PyTypeObject PyAcquireWorker_Type = {
     0,                                   // tp_as_buffer
     Py_TPFLAGS_DEFAULT|                  // tp_flags
     Py_TPFLAGS_HAVE_GC,
-    0,                 // tp_doc
+    acquireworker_doc,                 // tp_doc
     CppTraverse<pkgAcquire::Worker*>, // tp_traverse
     CppClear<pkgAcquire::Worker*>,   // tp_clear
     0,                                    // tp_richcompare
@@ -147,16 +157,21 @@ static PyObject *acquireitemdesc_get_owner(CppPyObject<pkgAcquire::ItemDesc*> *s
 }
 
 static PyGetSetDef acquireitemdesc_getset[] = {
-    {"uri",acquireitemdesc_get_uri,0,"The URI from which to download this item."},
-    {"description",acquireitemdesc_get_description},
-    {"shortdesc",acquireitemdesc_get_shortdesc},
-    {"owner",(getter)acquireitemdesc_get_owner},
+    {"uri",acquireitemdesc_get_uri,0,
+     "The URI from which this item would be downloaded."},
+    {"description",acquireitemdesc_get_description,0,
+     "A string describing the item."},
+    {"shortdesc",acquireitemdesc_get_shortdesc,0,
+     "A short string describing the item (e.g. package name)."},
+    {"owner",(getter)acquireitemdesc_get_owner,0,
+     "The owner of the item, an apt_pkg.AcquireItem object."},
     {NULL}
 };
 
 static char *acquireitemdesc_doc =
-    "Represent an AcquireItemDesc";
-
+    "Provide the description of an item and the URI the item is\n"
+    "fetched from. Progress classes make use of such objects to\n"
+    "retrieve description and other information about an item.";
 PyTypeObject PyAcquireItemDesc_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireItemDesc",                // tp_name
@@ -227,8 +242,17 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 
 
 static PyMethodDef PkgAcquireMethods[] = {
-    {"run",PkgAcquireRun,METH_VARARGS,"Run the fetcher"},
-    {"shutdown",PkgAcquireShutdown, METH_VARARGS,"Shutdown the fetcher"},
+    {"run",PkgAcquireRun,METH_VARARGS,
+     "run() -> int\n\nRun the fetcher and return one of RESULT_CANCELLED,\n"
+     "RESULT_CONTINUE, RESULT_FAILED. RESULT_CONTINUE means that all items\n"
+     "which where queued prior to calling run() have been fetched\n"
+     "successfully. RESULT_CANCELLED means that the process was canceled\n"
+     "by the progress class. And RESULT_FAILED means a generic failure."},
+    {"shutdown",PkgAcquireShutdown, METH_VARARGS,
+     "shutdown()\n\n"
+     "Shut the fetcher down, removing all items from it. Future access to\n"
+     "queued AcquireItem objects will cause a segfault. The partial result\n"
+     "is kept on the disk and not removed and APT might reuse it."},
     {}
 };
 
@@ -275,11 +299,18 @@ static PyObject *PkgAcquireGetItems(PyObject *Self,void*)
 }
 
 static PyGetSetDef PkgAcquireGetSet[] = {
-    {"fetch_needed",PkgAcquireGetFetchNeeded},
-    {"items",PkgAcquireGetItems},
-    {"workers",PkgAcquireGetWorkers},
-    {"partial_present",PkgAcquireGetPartialPresent},
-    {"total_needed",PkgAcquireGetTotalNeeded},
+    {"fetch_needed",PkgAcquireGetFetchNeeded,0,
+     "The total amount of data to be fetched (number of bytes)."},
+    {"items",PkgAcquireGetItems,0,
+     "A list of all items as apt_pkg.AcquireItem objects, including already\n"
+     "fetched ones and to be fetched ones."},
+    {"workers",PkgAcquireGetWorkers,0,
+     "A list of all active workers as apt_pkg.AcquireWorker objects."},
+    {"partial_present",PkgAcquireGetPartialPresent,0,
+     "The amount of data which is already available (number of bytes)."},
+    {"total_needed",PkgAcquireGetTotalNeeded,0,
+     "The amount of data that needs to fetched plus the amount of data\n"
+     "which has already been fetched (number of bytes)."},
     {}
 };
 
@@ -321,10 +352,11 @@ PyObject *PyAcquire_FromCpp(pkgAcquire *fetcher, bool Delete, PyObject *owner) {
 }
 
 static char *doc_PkgAcquire =
-    "Acquire(progress: apt_pkg.AcquireProgress) -> Acquire() object.\n\n"
-    "Create a new acquire object. The parameter *progress* can be used to\n"
-    "specify an apt_pkg.AcquireProgress() object, which will display the\n"
-    "progress of the fetching.";
+    "Acquire([progress: apt.progress.base.AcquireProgress])\n\n"
+    "Coordinate the retrieval of files via network or local file system\n"
+    "(using 'copy:/path/to/file' style URIs). The optional argument\n"
+    "'progress' takes an apt.progress.base.AcquireProgress object\n"
+    "which may report progress information.";
 
 PyTypeObject PyAcquire_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)

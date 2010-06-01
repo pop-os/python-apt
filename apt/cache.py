@@ -136,7 +136,7 @@ class Cache(object):
                 progress.update(i/float(size)*100)
                 last = i
             # drop stuff with no versions (cruft)
-            if len(pkg.version_list) > 0:
+            if pkg.has_versions:
                 self._set.add(pkg.name)
 
             i += 1
@@ -176,10 +176,14 @@ class Cache(object):
     def get_changes(self):
         """ Get the marked changes """
         changes = []
-        for pkg in self:
-            if (pkg.marked_upgrade or pkg.marked_install or pkg.marked_delete
-                or pkg.marked_downgrade or pkg.marked_reinstall):
-                changes.append(pkg)
+        marked_keep = self._depcache.marked_keep
+        for pkg in self._cache.packages:
+            if not marked_keep(pkg):
+                try:
+                    changes.append(self._weakref[pkg.name])
+                except KeyError:
+                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    changes.append(package)
         return changes
 
     @deprecated_args
@@ -211,10 +215,12 @@ class Cache(object):
     def req_reinstall_pkgs(self):
         """Return the packages not downloadable packages in reqreinst state."""
         reqreinst = set()
-        for pkg in self:
-            if (not pkg.candidate.downloadable and
-                (pkg._pkg.inst_state == apt_pkg.INSTSTATE_REINSTREQ or
-                 pkg._pkg.inst_state == apt_pkg.INSTSTATE_HOLD_REINSTREQ)):
+        get_candidate_ver = self._depcache.get_candidate_ver
+        states = frozenset((apt_pkg.INSTSTATE_REINSTREQ,
+                            apt_pkg.INSTSTATE_HOLD_REINSTREQ))
+        for pkg in self._cache.packages:
+            cand = get_candidate_ver(pkg)
+            if cand and not cand.downloadable and pkg.inst_state in states:
                 reqreinst.add(pkg.name)
         return reqreinst
 
@@ -269,29 +275,36 @@ class Cache(object):
         except KeyError:
             return False
         else:
-            return bool(pkg.provides_list and not pkg.version_list)
+            return bool(pkg.has_provides and not pkg.has_versions)
 
-    def get_providing_packages(self, virtual):
-        """
+    def get_providing_packages(self, virtual, candidate_only=True):
+        """Return a list of all packages providing a virtual package.
+        
         Return a list of packages which provide the virtual package of the
-        specified name
+        specified name. If 'candidate_only' is False, return all packages
+        with at least one version providing the virtual package. Otherwise,
+        return only those packages where the candidate version provides
+        the virtual package.
         """
-        providers = []
+        
+        providers = set()
+        get_candidate_ver = self._depcache.get_candidate_ver
         try:
             vp = self._cache[virtual]
-            if len(vp.version_list) != 0:
-                return providers
+            if vp.has_versions:
+                return list(providers)
         except KeyError:
-            return providers
-        for pkg in self:
-            v = self._depcache.get_candidate_ver(pkg._pkg)
-            if v is None:
-                continue
-            for p in v.provides_list:
-                if virtual == p[0]:
-                    # we found a pkg that provides this virtual pkg
-                    providers.append(pkg)
-        return providers
+            return list(providers)
+
+        for provides, providesver, version in vp.provides_list:
+            pkg = version.parent_pkg
+            if not candidate_only or (version == get_candidate_ver(pkg)):
+                try:
+                    providers.add(self._weakref[pkg.name])
+                except KeyError:
+                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    providers.add(package)
+        return list(providers)
 
     @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,

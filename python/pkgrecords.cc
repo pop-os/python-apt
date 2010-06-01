@@ -44,12 +44,14 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
    Struct.Last = &Struct.Records.Lookup(pkgCache::VerFileIterator(*Cache,Cache->VerFileP+Index));
 
    // always return true (to make it consistent with the pkgsrcrecords object
-   return Py_BuildValue("i", 1);
+   return PyBool_FromLong(1);
 }
 
 static PyMethodDef PkgRecordsMethods[] =
 {
-   {"lookup",PkgRecordsLookup,METH_VARARGS,"Changes to a new package"},
+   {"lookup",PkgRecordsLookup,METH_VARARGS,
+    "lookup((packagefile: apt_pkg.PackageFile, index: int)) -> bool\n\n"
+    "Changes to a new package"},
    {}
 };
 
@@ -117,18 +119,35 @@ static PyObject *PkgRecordsGetRecord(PyObject *Self,void*) {
    return PyString_FromStringAndSize(start,stop-start);
 }
 static PyGetSetDef PkgRecordsGetSet[] = {
-   {"filename",PkgRecordsGetFileName},
-   {"homepage",PkgRecordsGetHomepage},
-   {"long_desc",PkgRecordsGetLongDesc},
-   {"md5_hash",PkgRecordsGetMD5Hash},
-   {"maintainer",PkgRecordsGetMaintainer},
-   {"name",PkgRecordsGetName},
-   {"record",PkgRecordsGetRecord},
-   {"sha1_hash",PkgRecordsGetSHA1Hash},
-   {"sha256_hash",PkgRecordsGetSHA256Hash},
-   {"short_desc",PkgRecordsGetShortDesc},
-   {"source_pkg",PkgRecordsGetSourcePkg},
-   {"source_ver",PkgRecordsGetSourceVer},
+   {"filename",PkgRecordsGetFileName,0,
+    "The filename of the package, as stored in the 'Filename' field."},
+   {"homepage",PkgRecordsGetHomepage,0,
+    "The homepage of the package, as stored in the 'Homepage' field."},
+   {"long_desc",PkgRecordsGetLongDesc,0,
+    "The long description of the packages; i.e. all lines in the\n"
+    "'Description' field except for the first one."},
+   {"md5_hash",PkgRecordsGetMD5Hash,0,
+    "The MD5 hash value of the package, as stored in the 'MD5Sum' field."},
+   {"maintainer",PkgRecordsGetMaintainer,0,
+    "The maintainer of the package, as stored in the 'Maintainer' field."},
+   {"name",PkgRecordsGetName,0,
+    "The name of the package, as stored in the 'Package' field."},
+   {"record",PkgRecordsGetRecord,0,
+    "The raw record, suitable for parsing by apt_pkg.TagSection."},
+   {"sha1_hash",PkgRecordsGetSHA1Hash,0,
+    "The SHA1 hash value, as stored in the 'SHA1' field."},
+   {"sha256_hash",PkgRecordsGetSHA256Hash,0,
+    "The SHA256 hash value, as stored in the 'SHA256' field."},
+   {"short_desc",PkgRecordsGetShortDesc,0,
+    "The short description of the package, i.e. the first line of the\n"
+    "'Description' field."},
+   {"source_pkg",PkgRecordsGetSourcePkg,0,
+    "The name of the source package, if different from the name of the\n"
+    "binary package. This information is retrieved from the 'Source' field."},
+   {"source_ver",PkgRecordsGetSourceVer,0,
+    "The version of the source package, if it differs from the version\n"
+    "of the binary package. Just like 'source_pkg', this information\n"
+    "is retrieved from the 'Source' field."},
    {}
 };
 
@@ -143,6 +162,13 @@ static PyObject *PkgRecordsNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return HandleErrors(CppPyObject_NEW<PkgRecordsStruct>(Owner,type,
 							      GetCpp<pkgCache *>(Owner)));
 }
+
+static const char *packagerecords_doc =
+    "PackageRecords(cache: apt_pkg.Cache)\n\n"
+    "Package Records contain information about packages. Those objects\n"
+    "can be used to retrieve information such as maintainer or filename\n"
+    "of a package. They can also be used to retrieve the raw records\n"
+    "of the packages (i.e. those stanzas stored in Packages files).";
 
 PyTypeObject PyPackageRecords_Type =
 {
@@ -169,9 +195,9 @@ PyTypeObject PyPackageRecords_Type =
    (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_BASETYPE |
     Py_TPFLAGS_HAVE_GC),
-   "Records Object",                    // tp_doc
-   CppTraverse<PkgRecordsStruct>,  // tp_traverse
-   CppClear<PkgRecordsStruct>,     // tp_clear
+   packagerecords_doc,                  // tp_doc
+   CppTraverse<PkgRecordsStruct>,       // tp_traverse
+   CppClear<PkgRecordsStruct>,          // tp_clear
    0,                                   // tp_richcompare
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter

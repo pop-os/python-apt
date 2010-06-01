@@ -116,7 +116,7 @@ PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args)
    char *List = 0;
    if (PyArg_ParseTuple(Args,"ss",&Host,&List) == 0)
       return 0;
-   return Py_BuildValue("i",CheckDomainList(Host,List));
+   return PyBool_FromLong(CheckDomainList(Host,List));
 }
 
 									/*}}}*/

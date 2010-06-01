@@ -27,7 +27,9 @@ static PyObject *IndexFileArchiveURI(PyObject *Self,PyObject *Args)
 
 static PyMethodDef IndexFileMethods[] =
 {
-   {"archive_uri",IndexFileArchiveURI,METH_VARARGS,"Returns the ArchiveURI"},
+   {"archive_uri",IndexFileArchiveURI,METH_VARARGS,
+    "archive_uri(path: str) -> str\n\n"
+    "Return the URI to the given path in the archive."},
    {}
 };
 
@@ -39,16 +41,16 @@ static PyObject *IndexFileGetDescribe(PyObject *Self,void*) {
    return Safe_FromString(File->Describe().c_str());
 }
 static PyObject *IndexFileGetExists(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->Exists()));
+   return PyBool_FromLong((File->Exists()));
 }
 static PyObject *IndexFileGetHasPackages(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->HasPackages()));
+   return PyBool_FromLong((File->HasPackages()));
 }
 static PyObject *IndexFileGetSize(PyObject *Self,void*) {
    return Py_BuildValue("i",(File->Size()));
 }
 static PyObject *IndexFileGetIsTrusted(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->IsTrusted()));
+   return PyBool_FromLong((File->IsTrusted()));
 }
 #undef File
 
@@ -67,14 +69,25 @@ static PyObject *IndexFileRepr(PyObject *Self)
 #undef S
 
 static PyGetSetDef IndexFileGetSet[] = {
-    {"describe",IndexFileGetDescribe},
-    {"exists",IndexFileGetExists},
-    {"has_packages",IndexFileGetHasPackages},
-    {"is_trusted",IndexFileGetIsTrusted},
-    {"label",IndexFileGetLabel},
-    {"size",IndexFileGetSize},
+    {"describe",IndexFileGetDescribe,0,
+     "A string describing the index file."},
+    {"exists",IndexFileGetExists,0,
+     "A boolean value determining whether the index file exists."},
+    {"has_packages",IndexFileGetHasPackages,0,
+     "A boolean value determining whether the index file has packages."},
+    {"is_trusted",IndexFileGetIsTrusted,0,
+     "A boolean value determining whether the file can be trusted; e.g.\n"
+     "because it is from a source with a GPG signed Release file."},
+    {"label",IndexFileGetLabel,0,
+     "The label of the index file."},
+    {"size",IndexFileGetSize,0,
+     "The size of the files, measured in bytes."},
     {}
 };
+
+static const char *indexfile_doc =
+    "Represent an index file, i.e. package indexes, translation indexes,\n"
+    "and source indexes.";
 
 PyTypeObject PyIndexFile_Type =
 {
@@ -100,7 +113,7 @@ PyTypeObject PyIndexFile_Type =
    0,                                   // tp_setattro
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
-   "IndexFile Object",               // tp_doc
+   indexfile_doc,                       // tp_doc
    CppTraverse<pkgIndexFile*>,     // tp_traverse
    CppClear<pkgIndexFile*>,        // tp_clear
    0,                                   // tp_richcompare

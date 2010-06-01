@@ -41,12 +41,14 @@ static PyObject *indexrecords_load(PyObject *self,PyObject *args)
     if (PyArg_ParseTuple(args, "s", &filename) == 0)
         return 0;
     indexRecords *records = GetCpp<indexRecords*>(self);
-    return HandleErrors(Py_BuildValue("i", records->Load(filename)));
+    return HandleErrors(PyBool_FromLong(records->Load(filename)));
 }
 
-static char *indexrecords_lookup_doc = "lookup(metakey)\n\n"
-    "Lookup the filename given by metakey, return a tuple (hash, size).\n"
-    "The hash part is a HashString() object.";
+static char *indexrecords_lookup_doc =
+    "lookup(key: str) -> (HashString, int)\n\n"
+    "Look up the filename given by 'key' and return a tuple (hash, size),\n"
+    "where the first element 'hash' is an apt_pkg.HashString object\n"
+    "and the second element 'size' is an int object.";
 static PyObject *indexrecords_lookup(PyObject *self,PyObject *args)
 {
     const char *keyname;
@@ -74,15 +76,17 @@ static PyObject *indexrecords_get_dist(PyObject *self)
 
 static PyMethodDef indexrecords_methods[] = {
     {"load",indexrecords_load,METH_VARARGS,
-     "load(filename: str)\n\nLoad the file given by filename."},
+     "load(filename: str)\n\n"
+     "Load the file given by filename."},
     {"get_dist",(PyCFunction)indexrecords_get_dist,METH_NOARGS,
-     "get_dist() -> str\n\nReturn a distribution set in the release file."},
+     "get_dist() -> str\n\n"
+     "Return a distribution set in the release file."},
     {"lookup",indexrecords_lookup,METH_VARARGS,indexrecords_lookup_doc},
     {}
 };
 
 static char *indexrecords_doc = "IndexRecords()\n\n"
-    "Representation of a release file.";
+    "Representation of a Release file.";
 PyTypeObject PyIndexRecords_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.IndexRecords",              // tp_name

@@ -21,7 +21,10 @@
 // PkgsourceList Class							/*{{{*/
 // ---------------------------------------------------------------------
 
-static char *doc_PkgSourceListFindIndex = "xxx";
+static char *doc_PkgSourceListFindIndex =
+    "find_index(pkgfile: apt_pkg.PackageFile) -> apt_pkg.IndexFile\n\n"
+    "Return the index file for the given package file, or None if none\n"
+    "could be found.";
 static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
@@ -47,16 +50,23 @@ static PyObject *PkgSourceListFindIndex(PyObject *Self,PyObject *Args)
    return Py_None;
 }
 
-static char *doc_PkgSourceListReadMainList = "xxx";
+static char *doc_PkgSourceListReadMainList =
+    "read_main_list() -> bool\n\n"
+    "Read /etc/apt/sources.list and similar files to populate the list\n"
+    "of indexes.";
 static PyObject *PkgSourceListReadMainList(PyObject *Self,PyObject *Args)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    bool res = list->ReadMainList();
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
-static char *doc_PkgSourceListGetIndexes = "Load the indexes into the fetcher";
+static char *doc_PkgSourceListGetIndexes =
+    "get_indexes(acquire: apt_pkg.Acquire[, all: bool=False]) -> bool\n\n"
+    "Add all indexes (i.e. stuff like Release files, Packages files)\n"
+    "to the Acquire object 'acquire'. If 'all' is True, all indexes\n"
+    "will be added, otherwise only changed indexes will be added.";
 static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
@@ -69,7 +79,7 @@ static PyObject *PkgSourceListGetIndexes(PyObject *Self,PyObject *Args)
    pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyFetcher);
    bool res = list->GetIndexes(fetcher, all);
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyMethodDef PkgSourceListMethods[] =
@@ -110,6 +120,10 @@ static PyObject *PkgSourceListNew(PyTypeObject *type,PyObject *args,PyObject *kw
    return CppPyObject_NEW<pkgSourceList*>(NULL, type,new pkgSourceList());
 }
 
+static const char *sourcelist_doc =
+    "SourceList()\n\n"
+    "Represent the list of sources stored in /etc/apt/sources.list and\n"
+    "similar files.";
 PyTypeObject PySourceList_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -134,7 +148,7 @@ PyTypeObject PySourceList_Type =
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_BASETYPE),
-   "pkgSourceList Object",              // tp_doc
+   sourcelist_doc,                      // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare

@@ -37,8 +37,8 @@ static PyObject *policy_new(PyTypeObject *type,PyObject *Args,
     return CppPyObject_NEW<pkgPolicy*>(cache,&PyPolicy_Type,policy);
 }
 
-static char *policy_get_priority_doc = "get_priority(package: apt_pkg.Package)"
-    " -> int\n\n"
+static char *policy_get_priority_doc =
+    "get_priority(package: apt_pkg.Package) -> int\n\n"
     "Return the priority of the package.";
 
 PyObject *policy_get_priority(PyObject *self, PyObject *arg) {
@@ -52,8 +52,8 @@ PyObject *policy_get_priority(PyObject *self, PyObject *arg) {
     }
 }
 
-static char *policy_get_candidate_ver_doc = "get_match(package: apt_pkg.Package)"
-    " -> apt_pkg.Version\n\n"
+static char *policy_get_candidate_ver_doc =
+    "get_match(package: apt_pkg.Package) -> apt_pkg.Version\n\n"
     "Get the best package for the job.";
 
 PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
@@ -69,8 +69,8 @@ PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
     }
 }
 
-static char *policy_get_match_doc = "get_match(package: apt_pkg.Package) -> "
-    "apt_pkg.Version\n\n"
+static char *policy_get_match_doc =
+    "get_match(package: apt_pkg.Package) -> apt_pkg.Version\n\n"
     "Return a matching version for the given package.";
 
 static PyObject *policy_get_match(PyObject *self, PyObject *arg) {
@@ -84,9 +84,10 @@ static PyObject *policy_get_match(PyObject *self, PyObject *arg) {
     return CppPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
 }
 
-static char *policy_read_pinfile_doc = "read_pinfile(filename: str) -> bool\n\n"
-    "Read the pin file given by filename (e.g. '/etc/apt/preferences') and\n"
-    "add it to the policy.";
+static char *policy_read_pinfile_doc =
+    "read_pinfile(filename: str) -> bool\n\n"
+    "Read the pin file given by filename (e.g. '/etc/apt/preferences')\n"
+    "and add it to the policy.";
 
 static PyObject *policy_read_pinfile(PyObject *self, PyObject *arg) {
     if (!PyString_Check(arg))
@@ -97,9 +98,10 @@ static PyObject *policy_read_pinfile(PyObject *self, PyObject *arg) {
 }
 
 #if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
-static char *policy_read_pindir_doc = "read_pindir(dirname: str) -> bool\n\n"
-    "Read the pin files in the given dir (e.g. '/etc/apt/preferences.d') and\n"
-    "add them to the policy.";
+static char *policy_read_pindir_doc =
+    "read_pindir(dirname: str) -> bool\n\n"
+    "Read the pin files in the given dir (e.g. '/etc/apt/preferences.d')\n"
+    "and add them to the policy.";
 
 static PyObject *policy_read_pindir(PyObject *self, PyObject *arg) {
     if (!PyString_Check(arg))
@@ -110,12 +112,12 @@ static PyObject *policy_read_pindir(PyObject *self, PyObject *arg) {
 }
 #endif
 
-static char *policy_create_pin_doc = "create_pin(type: str, pkg: str, "
-    "data: str, priority: int)\n\n"
+static char *policy_create_pin_doc =
+    "create_pin(type: str, pkg: str, data: str, priority: int)\n\n"
     "Create a pin for the policy. The parameter 'type' refers to one of the\n"
-    "following strings: 'Version', 'Release', 'Origin'. The argument 'pkg'\n"
-    "is the name of the package, the parameter 'data' refers to the value\n"
-    "e.g. unstable for type='Release' and the other possible options. \n"
+    "strings 'Version', 'Release', or 'Origin'. The argument 'pkg' is the\n"
+    "name of the package. The parameter 'data' refers to the value\n"
+    "(e.g. 'unstable' for type='Release') and the other possible options.\n"
     "The parameter 'priority' gives the priority of the pin.";
 
 static PyObject *policy_create_pin(PyObject *self, PyObject *args) {
@@ -154,7 +156,8 @@ static PyMethodDef policy_methods[] = {
     {}
 };
 
-static char *policy_doc = "Policy(cache)\n\n"
+static char *policy_doc =
+    "Policy(cache)\n\n"
     "Representation of the policy of the Cache object given by cache. This\n"
     "provides a superset of policy-related functionality compared to the\n"
     "DepCache class. The DepCache can be used for most purposes, but there\n"

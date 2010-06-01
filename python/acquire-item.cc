@@ -124,17 +124,34 @@ static int acquireitem_set_id(PyObject *self, PyObject *value, void *closure)
 
 
 static PyGetSetDef acquireitem_getset[] = {
-    {"complete",acquireitem_get_complete},
-    {"desc_uri",acquireitem_get_desc_uri},
-    {"destfile",acquireitem_get_destfile},
-    {"error_text",acquireitem_get_error_text},
-    {"filesize",acquireitem_get_filesize},
-    {"id",acquireitem_get_id,acquireitem_set_id},
-    {"mode",acquireitem_get_mode},
-    {"is_trusted",acquireitem_get_is_trusted},
-    {"local",acquireitem_get_local},
-    {"partialsize",acquireitem_get_partialsize},
-    {"status",acquireitem_get_status},
+    {"complete",acquireitem_get_complete,0,
+     "A boolean value determining whether the item has been fetched\n"
+     "completely"},
+    {"desc_uri",acquireitem_get_desc_uri,NULL,
+     "A string describing the URI from which the item is acquired."},
+    {"destfile",acquireitem_get_destfile,NULL,
+     "The path to the file where the item will be stored."},
+    {"error_text",acquireitem_get_error_text,NULL,
+     "If an error occured, a string describing the error; empty string\n"
+     "otherwise."},
+    {"filesize",acquireitem_get_filesize,NULL,
+     "The size of the file (number of bytes). If unknown, it is set to 0."},
+    {"id",acquireitem_get_id,acquireitem_set_id,
+     "The ID of the item. An integer which can be set by progress classes."},
+    {"mode",acquireitem_get_mode,NULL,
+     "A localized string such as 'Fetching' which indicates the current\n"
+     "mode."},
+    {"is_trusted",acquireitem_get_is_trusted,NULL,
+     "Whether the item is trusted or not. Only True for packages\n"
+     "which come from a repository signed with one of the keys in\n"
+     "APT's keyring."},
+    {"local",acquireitem_get_local,NULL,
+     "Whether we are fetching a local item (copy:/) or not."},
+    {"partialsize",acquireitem_get_partialsize,NULL,
+     "The amount of data which has already been fetched (number of bytes)."},
+    {"status",acquireitem_get_status,NULL,
+     "An integer representing the item's status which can be compared\n"
+     "against one of the STAT_* constants defined in this class."},
     {}
 };
 
@@ -158,6 +175,12 @@ static void acquireitem_dealloc(PyObject *self)
     CppDeallocPtr<pkgAcquire::Item*>(self);
 }
 
+static const char *acquireitem_doc =
+    "Represent a single item to be fetched by an Acquire object.\n\n"
+    "It is not possible to construct instances of this class directly.\n"
+    "Prospective users should construct instances of a subclass such as\n"
+    "AcquireFile instead. It is not possible to create subclasses on the\n"
+    "Python level, only on the C++ level.";
 PyTypeObject PyAcquireItem_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
     "apt_pkg.AcquireItem",         // tp_name
@@ -181,7 +204,7 @@ PyTypeObject PyAcquireItem_Type = {
     0,                                   // tp_as_buffer
     Py_TPFLAGS_DEFAULT |
     Py_TPFLAGS_HAVE_GC,                  // tp_flags
-    "AcquireItem Object",                // tp_doc
+    acquireitem_doc,                // tp_doc
     CppTraverse<pkgAcquire::Item*>, // tp_traverse
     CppClear<pkgAcquire::Item*>,    // tp_clear
     0,                                   // tp_richcompare
@@ -226,9 +249,27 @@ static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * 
 
 static char *acquirefile_doc =
     "AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir,"
-    "destfile]) -> New AcquireFile() object\n\n"
-    "The parameter *owner* refers to an apt_pkg.Acquire() object. You can use\n"
-    "*destdir* OR *destfile* to specify the destination directory/file.";
+    "destfile])\n\n"
+    "Represent a file to be fetched. The parameter 'owner' points to\n"
+    "an apt_pkg.Acquire object and the parameter 'uri' to the source\n"
+    "location. Normally, the file will be stored in the current directory\n"
+    "using the file name given in the URI. This directory can be changed\n"
+    "by passing the name of a directory to the 'destdir' parameter. It is\n"
+    "also possible to set a path to a file using the 'destfile' parameter,\n"
+    "but both cannot be specified together.\n"
+    "\n"
+    "The parameters 'short_descr' and 'descr' can be used to specify\n"
+    "a short description and a longer description for the item. This\n"
+    "information is used by progress classes to refer to the item and\n"
+    "should be short, for example, package name as 'short_descr' and\n"
+    "and something like 'http://localhost sid/main python-apt 0.7.94.2'\n"
+    "as 'descr'."
+    "\n"
+    "The parameters 'md5' and 'size' are used to verify the resulting\n"
+    "file. The parameter 'size' is also to calculate the total amount\n"
+    "of data to be fetched and is useful for resuming a interrupted\n"
+    "download.\n\n"
+    "All parameters can be given by name (i.e. as keyword arguments).";
 
 PyTypeObject PyAcquireFile_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)

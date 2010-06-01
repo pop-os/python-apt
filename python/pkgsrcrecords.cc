@@ -34,7 +34,12 @@ struct PkgSrcRecordsStruct
 // PkgSrcRecords Class							/*{{{*/
 // ---------------------------------------------------------------------
 
-static char *doc_PkgSrcRecordsLookup = "xxx";
+static char *doc_PkgSrcRecordsLookup =
+    "lookup(name: str) -> bool\n\n"
+    "Look up the source package with the given name. Each call moves\n"
+    "the position of the records parser forward. If there are no\n"
+    "more records, return None. If the lookup failed this way,\n"
+    "access to any of the attributes will result in an AttributeError.";
 static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
 {
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
@@ -50,10 +55,13 @@ static PyObject *PkgSrcRecordsLookup(PyObject *Self,PyObject *Args)
       return HandleErrors(Py_None);
    }
 
-   return Py_BuildValue("i", 1);
+   return PyBool_FromLong(1);
 }
 
-static char *doc_PkgSrcRecordsRestart = "Start Lookup from the beginning";
+static char *doc_PkgSrcRecordsRestart =
+    "restart()\n\n"
+    "Restart the lookup process. This moves the parser to the first\n"
+    "package and lookups can now be made just like on a new object.";
 static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
 {
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
@@ -220,15 +228,27 @@ static PyObject *PkgSrcRecordsGetBuildDepends_old(PyObject *Self,void*) {
 #endif
 
 static PyGetSetDef PkgSrcRecordsGetSet[] = {
-   {"binaries",PkgSrcRecordsGetBinaries},
-   {"build_depends",PkgSrcRecordsGetBuildDepends},
-   {"files",PkgSrcRecordsGetFiles},
-   {"index",PkgSrcRecordsGetIndex},
-   {"maintainer",PkgSrcRecordsGetMaintainer},
-   {"package",PkgSrcRecordsGetPackage},
-   {"record",PkgSrcRecordsGetRecord},
-   {"section",PkgSrcRecordsGetSection},
-   {"version",PkgSrcRecordsGetVersion},
+   {"binaries",PkgSrcRecordsGetBinaries,0,
+    "A list of the names of the binaries produced by this source package."},
+   {"build_depends",PkgSrcRecordsGetBuildDepends,0,
+    "A dictionary describing the build-time dependencies of the package;\n"
+    "the format is the same as used for apt_pkg.Version.depends_list_str."},
+   {"files",PkgSrcRecordsGetFiles,0,
+    "A list of tuples (md5: str, size: int, path: str, type: str), whereas\n"
+    "'type' can be 'diff' (includes .debian.tar.gz), 'dsc', 'tar'."},
+   {"index",PkgSrcRecordsGetIndex,0,
+    "The index file associated with this record as a list of\n"
+    "apt_pkg.IndexFile objects."},
+   {"maintainer",PkgSrcRecordsGetMaintainer,0,
+    "The maintainer of the package."},
+   {"package",PkgSrcRecordsGetPackage,0,
+    "The name of the source package."},
+   {"record",PkgSrcRecordsGetRecord,0,
+    "The raw record, suitable for parsing using apt_pkg.TagSection."},
+   {"section",PkgSrcRecordsGetSection,0,
+    "The section of the source package."},
+   {"version",PkgSrcRecordsGetVersion,0,
+    "The version of the source package."},
 #ifdef COMPAT_0_7
    {"BuildDepends",PkgSrcRecordsGetBuildDepends_old,0,"Deprecated function and deprecated output format."},
 #endif
@@ -242,6 +262,11 @@ static PyObject *PkgSrcRecordsNew(PyTypeObject *type,PyObject *args,PyObject *kw
 
    return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(NULL, type));
 }
+
+static const char *sourcerecords_doc =
+    "SourceRecords()\n\n"
+    "Provide an easy way to look up the records of source packages and\n"
+    "provide easy attributes for some widely used fields of the record.";
 
 PyTypeObject PySourceRecords_Type =
 {
@@ -267,7 +292,7 @@ PyTypeObject PySourceRecords_Type =
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_BASETYPE),
-   "SourceRecords Object",              // tp_doc
+   sourcerecords_doc,                   // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare

@@ -501,9 +501,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       else
           method = PyObject_GetAttrString(callbackInst, "wait_child");
       //std::cerr << "custom waitChild found" << std::endl;
-      PyObject *arglist = Py_BuildValue("(i)",child_id);
-      PyObject *result = PyObject_CallObject(method, arglist);
-      Py_DECREF(arglist);
+      PyObject *result = PyObject_CallObject(method, NULL);
       if (result == NULL) {
 	 std::cerr << "waitChild method invalid" << std::endl;
 	 PyErr_Print();
