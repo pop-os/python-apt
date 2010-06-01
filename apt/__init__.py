@@ -19,8 +19,6 @@
 
 import os
 import warnings
-if not "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-    warnings.simplefilter('ignore', DeprecationWarning)
 
 # import the core of apt_pkg
 """High-Level Interface for working with apt."""
