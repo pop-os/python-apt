@@ -54,9 +54,8 @@ static PyObject *py_gettext(PyObject *self, PyObject *Args) {
 static char *doc_newConfiguration = "Construct a configuration instance";
 static PyObject *newConfiguration(PyObject *self,PyObject *args)
 {
-   if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
-      PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.newConfiguration() is "
-                  "deprecated. Use apt_pkg.Configuration() instead.", 1);
+   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.newConfiguration() is "
+                "deprecated. Use apt_pkg.Configuration() instead.", 1);
    return CppPyObject_NEW<Configuration*>(NULL, &PyConfiguration_Type, new Configuration());
 }
 #endif

@@ -1,8 +1,8 @@
-python-apt (0.7.95ubuntu1) maverick; urgency=low
+python-apt (0.7.95ubuntu1) UNRELEASEDmaverick; urgency=low
 
   * merge from debian bzr, remaining changes:
     - different mirror list
-
+  * revert commit 346 (this re-enable the deprecation warnings)
   * data/templates/gNewSense.info.in,
     data/templates/gNewSense.mirrors:
     - add gNewSense template and mirrors, thanks to Karl Goetz

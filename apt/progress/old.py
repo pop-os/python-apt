@@ -42,9 +42,8 @@ class OpProgress(base.OpProgress):
 
     def __init__(self):
         base.OpProgress.__init__(self)
-        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-            warnings.warn("apt.progress.OpProgress is deprecated.",
-                          DeprecationWarning, stacklevel=2)
+        warnings.warn("apt.progress.OpProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
     subOp = AttributeDeprecatedBy('subop')
     Op = AttributeDeprecatedBy('op')
@@ -55,9 +54,8 @@ class OpTextProgress(OpProgress, text.OpProgress):
 
     def __init__(self):
         text.OpProgress.__init__(self)
-        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-            warnings.warn("apt.progress.OpTextProgress is deprecated.",
-                          DeprecationWarning, stacklevel=2)
+        warnings.warn("apt.progress.OpTextProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
 
 class FetchProgress(object):
@@ -77,9 +75,8 @@ class FetchProgress(object):
         self.totalBytes = 0
         self.totalItems = 0
         self.currentCPS = 0
-        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-            warnings.warn("apt.progress.FetchProgress is deprecated.",
-                          DeprecationWarning, stacklevel=2)
+        warnings.warn("apt.progress.FetchProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
     def start(self):
         """Called when the fetching starts."""
@@ -178,9 +175,8 @@ class CdromProgress(object):
     """Report the cdrom add progress."""
 
     def __init__(self):
-        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-            warnings.warn("apt.progress.CdromProgress is deprecated.",
-                          DeprecationWarning, stacklevel=2)
+        warnings.warn("apt.progress.CdromProgress is deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
     def askCdromName(self):
         """Ask for a cdrom name"""
@@ -197,9 +193,8 @@ class DumbInstallProgress(base.InstallProgress):
 
     def __init__(self):
         base.InstallProgress.__init__(self)
-        if "PYTHON_APT_DEPRECATION_WARNINGS" in os.environ:
-            warnings.warn("apt.progress.*InstallProgress are deprecated.",
-                          DeprecationWarning, stacklevel=2)
+        warnings.warn("apt.progress.*InstallProgress are deprecated.",
+                      DeprecationWarning, stacklevel=2)
 
     def updateInterface(self):
         # *_stream were not available in the old progress reporting classes,

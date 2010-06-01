@@ -81,10 +81,9 @@ static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
 #ifdef COMPAT_0_7
 static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
 {
-    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
-       PyErr_WarnEx(PyExc_DeprecationWarning, "Method 'Ident' of the "
-                    "'apt_pkg.Cdrom' object is deprecated, use 'ident' instead.",
-                    1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "Method 'Ident' of the "
+                 "'apt_pkg.Cdrom' object is deprecated, use 'ident' instead.",
+                 1);
     pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
 
     PyObject *pyCdromProgressInst = 0;
@@ -169,9 +168,8 @@ PyTypeObject PyCdrom_Type = {
 #ifdef COMPAT_0_7
 PyObject *GetCdrom(PyObject *Self,PyObject *Args)
 {
-    if (getenv("PYTHON_APT_DEPRECATION_WARNINGS") != NULL)
-       PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
-                    "Please see apt_pkg.Cdrom() for the replacement.", 1);
+    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
+                 "Please see apt_pkg.Cdrom() for the replacement.", 1);
     return cdrom_new(&PyCdrom_Type,Args,0);
 }
 #endif

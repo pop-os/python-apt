@@ -31,7 +31,6 @@
 #include <string>
 #include <iostream>
 #include <new>
-#include <cstdlib>
 
 #if PYTHON_API_VERSION < 1013
 typedef int Py_ssize_t;
