@@ -1,3 +1,12 @@
+python-apt (0.7.96) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * data/templates/gNewSense.info.in,
+    data/templates/gNewSense.mirrors:
+    - add gNewSense template and mirrors, thanks to Karl Goetz
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
+
 python-apt (0.7.95) unstable; urgency=low
 
   [ Julian Andres Klode ]
