@@ -6,6 +6,8 @@ python-apt (0.7.95ubuntu1) UNRELEASEDmaverick; urgency=low
   * data/templates/gNewSense.info.in,
     data/templates/gNewSense.mirrors:
     - add gNewSense template and mirrors, thanks to Karl Goetz
+  * doc/source/conf.py:
+    - do not fail for non digit version numbers like 0.7.95ubuntu1
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 01 Jun 2010 17:06:49 +0200
 
