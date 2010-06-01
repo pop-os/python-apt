@@ -1,4 +1,4 @@
-python-apt (0.7.95ubuntu1) UNRELEASEDmaverick; urgency=low
+python-apt (0.7.95ubuntu1) maverick; urgency=low
 
   * merge from debian bzr, remaining changes:
     - different mirror list
@@ -9,7 +9,7 @@ python-apt (0.7.95ubuntu1) UNRELEASEDmaverick; urgency=low
   * doc/source/conf.py:
     - do not fail for non digit version numbers like 0.7.95ubuntu1
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 01 Jun 2010 17:06:49 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 01 Jun 2010 17:36:56 +0200
 
 python-apt (0.7.95) unstable; urgency=low
 
