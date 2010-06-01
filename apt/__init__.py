@@ -17,9 +17,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import os
-import warnings
-
 # import the core of apt_pkg
 """High-Level Interface for working with apt."""
 import apt_pkg
