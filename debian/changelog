@@ -4,6 +4,13 @@ python-apt (0.7.96) UNRELEASED; urgency=low
   * data/templates/gNewSense.info.in,
     data/templates/gNewSense.mirrors:
     - add gNewSense template and mirrors, thanks to Karl Goetz
+  * data/templates/Ubuntu.info.in, 
+    data/templates/Ubuntu.mirrors:
+    - updated for Ubuntu maverick
+  * doc/source/conf.py:
+    - do not fail on non-digits in the version number
+  * utils/get_debian_mirrors.py:
+    - ignore mirrors without a county
 
  -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
 
