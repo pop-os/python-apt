@@ -1,3 +1,10 @@
+python-apt (0.7.95ubuntu2) maverick; urgency=low
+
+  * apt/utils.py:
+    - fix end date calculation for releases in june
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 10 Jun 2010 11:50:21 +0200
+
 python-apt (0.7.95ubuntu1) maverick; urgency=low
 
   * merge from debian bzr, remaining changes:
