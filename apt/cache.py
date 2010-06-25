@@ -1,23 +1,23 @@
 # cache.py - apt cache abstraction
 #
-#  Copyright (c) 2005-2009 Canonical
+# Copyright (c) 2005-2010 Canonical, Ltd.
 #
-#  Author: Michael Vogt <michael.vogt@ubuntu.com>
+# Author: Michael Vogt <mvo@ubuntu.com>
 #
-#  This program is free software; you can redistribute it and/or
-#  modify it under the terms of the GNU General Public License as
-#  published by the Free Software Foundation; either version 2 of the
-#  License, or (at your option) any later version.
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 2 of the
+# License, or (at your option) any later version.
 #
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
 #
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
-#  USA
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+# USA
 
 import os
 import weakref
@@ -84,6 +84,11 @@ class Cache(object):
             # recognized (LP: #320665)
             apt_pkg.init_system()
         self.open(progress)
+        if progress:
+            self.op_progress = progress
+        else:
+            self.op_progress = apt.progress.base.OpProgress()
+
 
     def _check_and_create_required_dirs(self, rootdir):
         """
@@ -198,6 +203,16 @@ class Cache(object):
         self._depcache.upgrade(dist_upgrade)
         self.cache_post_change()
 
+    def downloadable(self, pkg, use_candidate=True):
+        """Check if the given package can be downloaded."""
+        if use_candidate:
+            ver = self._depcache.get_candidate_ver(pkg._pkg)
+        else:
+            ver = pkg._pkg.current_ver
+        if ver == None:
+            return False
+        return ver.downloadable
+
     @property
     def required_download(self):
         """Get the size of the packages that are required to download."""
@@ -305,6 +320,30 @@ class Cache(object):
                     package = self._weakref[pkg.name] = Package(self, pkg)
                     providers.add(package)
         return list(providers)
+
+    def get_providers_for(self, pkgname):
+        """Return a list of all packages providing a non-virtual package."""
+        providers = []
+        for pkg in self:
+            v = self._depcache.get_candidate_ver(pkg._pkg)
+            if v == None:
+                continue
+            for p in v.provides_list:
+                #print virtual_pkg
+                #print p[0]
+                if pkgname == p[0]:
+                    # we found a pkg that provides this virtual
+                    # pkg, check if the proivdes is any good
+                    providers.append(pkg)
+                    #cand = self._cache[pkg.name]
+                    #candver = self._cache._depcache.GetCandidateVer(cand._pkg)
+                    #instver = cand._pkg.CurrentVer
+                    #res = apt_pkg.CheckDep(candver.VerStr,oper,ver)
+                    #if res == True:
+                    #    self._dbg(1,"we can use %s" % pkg.name)
+                    #    or_found = True
+                    #    break
+        return providers
 
     @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,
@@ -474,6 +513,7 @@ class Cache(object):
         _fetchArchives = function_deprecated_by(_fetch_archives)
         isVirtualPackage = function_deprecated_by(is_virtual_package)
         getProvidingPackages = function_deprecated_by(get_providing_packages)
+        getProvidersFor = function_deprecated_by(get_providers_for)
         installArchives = function_deprecated_by(install_archives)
         cachePostChange = function_deprecated_by(cache_post_change)
         cachePreChange = function_deprecated_by(cache_pre_change)
