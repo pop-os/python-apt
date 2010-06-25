@@ -24,7 +24,6 @@ import os
 import sys
 
 from apt_pkg import gettext as _
-from debian.debfile import DebFile
 from StringIO import StringIO
 
 class NoDebArchiveException(IOError):
@@ -470,14 +469,18 @@ class DebPackage(object):
                 remove.append(pkg.name)
         return (install, remove, unauthenticated)
 
+    @property
     def control_filelist(self):
         """ return the list of files in control.tar.gt """
+        try:
+            from debian.debfile import DebFile
+        except:
+            raise Exception(_("Python-debian module not available"))
         content = []
         for name in DebFile(self.file).control:
             if name and name != ".":
                 content.append(name)
         return sorted(content)
-    control_filelist = property(control_filelist)
 
     def to_hex(self, in_data):
         hex = ""
@@ -515,6 +518,10 @@ class DebPackage(object):
 
     def control_content(self, name):
         """ return the content of a specific control.tar.gz file """
+        try:
+            from debian.debfile import DebFile
+        except:
+            raise Exception(_("Python-debian module not available"))
         control = DebFile(self.file).control
         if name in control:
             return self._get_content(control, name)
@@ -522,6 +529,10 @@ class DebPackage(object):
 
     def data_content(self, name):
         """ return the content of a specific control.tar.gz file """
+        try:
+            from debian.debfile import DebFile
+        except:
+            raise Exception(_("Python-debian module not available"))
         data = DebFile(self.file).data
         if name in data:
             return self._get_content(data, name)
