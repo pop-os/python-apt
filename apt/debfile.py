@@ -92,7 +92,7 @@ class DebPackage(object):
             # but only do that if there is no version required in the 
             # dependency (we do not supprot versionized dependencies)
             if not oper:
-                for ppkg in self._cache.get_providers_for(depname):
+                for ppkg in self._cache.get_providing_packages(depname):
                     if ppkg.is_installed:
                         self._dbg(3, "found installed '%s' that provides '%s'" % (ppkg.name, depname))
                         return True
@@ -653,7 +653,7 @@ def _test():
     cache = Cache()
 
     vp = "www-browser"
-    print "%s virtual: %s" % (vp, cache.is_virtual_pkg(vp))
+    print "%s virtual: %s" % (vp, cache.is_virtual_package(vp))
     providers = cache.get_providing_packages(vp)
     print "Providers for %s :" % vp
     for pkg in providers:

@@ -282,58 +282,56 @@ class Cache(object):
         else:
             return bool(pkg.has_provides and not pkg.has_versions)
 
-    def get_providing_packages(self, virtual, candidate_only=True):
-        """Return a list of all packages providing a virtual package.
+    def get_providing_packages(self, pkgname, candidate_only=True):
+        """Return a list of all packages providing a package.
         
-        Return a list of packages which provide the virtual package of the
-        specified name. If 'candidate_only' is False, return all packages
-        with at least one version providing the virtual package. Otherwise,
-        return only those packages where the candidate version provides
-        the virtual package.
+        Return a list of packages which provide the package of the specified
+        name. For virtual packages, if 'candidate_only' is False, return all
+        packages with at least one version providing the package. Otherwise,
+        return only those packages where the candidate version provides the
+        package.
         """
         
         providers = set()
-        get_candidate_ver = self._depcache.get_candidate_ver
-        try:
-            vp = self._cache[virtual]
-            if vp.has_versions:
+        virtual = self.is_virtual_package(pkgname)
+        if not virtual:
+            for pkg in self:
+                v = self._depcache.get_candidate_ver(pkg._pkg)
+                if v == None:
+                    continue
+                for p in v.provides_list:
+                    #print virtual_pkg
+                    #print p[0]
+                    if pkgname == p[0]:
+                        # we found a pkg that provides this virtual
+                        # pkg, check if the proivdes is any good
+                        providers.add(pkg)
+                        #cand = self._cache[pkg.name]
+                        #candver = self._cache._depcache.GetCandidateVer(cand._pkg)
+                        #instver = cand._pkg.CurrentVer
+                        #res = apt_pkg.CheckDep(candver.VerStr,oper,ver)
+                        #if res == True:
+                        #    self._dbg(1,"we can use %s" % pkg.name)
+                        #    or_found = True
+                        #    break
+        else:
+            get_candidate_ver = self._depcache.get_candidate_ver
+            try:
+                vp = self._cache[pkgname]
+                if vp.has_versions:
+                    return list(providers)
+            except KeyError:
                 return list(providers)
-        except KeyError:
-            return list(providers)
 
-        for provides, providesver, version in vp.provides_list:
-            pkg = version.parent_pkg
-            if not candidate_only or (version == get_candidate_ver(pkg)):
-                try:
-                    providers.add(self._weakref[pkg.name])
-                except KeyError:
-                    package = self._weakref[pkg.name] = Package(self, pkg)
-                    providers.add(package)
+            for provides, providesver, version in vp.provides_list:
+                pkg = version.parent_pkg
+                if not candidate_only or (version == get_candidate_ver(pkg)):
+                    try:
+                        providers.add(self._weakref[pkg.name])
+                    except KeyError:
+                        package = self._weakref[pkg.name] = Package(self, pkg)
+                        providers.add(package)
         return list(providers)
-
-    def get_providers_for(self, pkgname):
-        """Return a list of all packages providing a non-virtual package."""
-        providers = []
-        for pkg in self:
-            v = self._depcache.get_candidate_ver(pkg._pkg)
-            if v == None:
-                continue
-            for p in v.provides_list:
-                #print virtual_pkg
-                #print p[0]
-                if pkgname == p[0]:
-                    # we found a pkg that provides this virtual
-                    # pkg, check if the proivdes is any good
-                    providers.append(pkg)
-                    #cand = self._cache[pkg.name]
-                    #candver = self._cache._depcache.GetCandidateVer(cand._pkg)
-                    #instver = cand._pkg.CurrentVer
-                    #res = apt_pkg.CheckDep(candver.VerStr,oper,ver)
-                    #if res == True:
-                    #    self._dbg(1,"we can use %s" % pkg.name)
-                    #    or_found = True
-                    #    break
-        return providers
 
     @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,
@@ -503,7 +501,7 @@ class Cache(object):
         _fetchArchives = function_deprecated_by(_fetch_archives)
         isVirtualPackage = function_deprecated_by(is_virtual_package)
         getProvidingPackages = function_deprecated_by(get_providing_packages)
-        getProvidersFor = function_deprecated_by(get_providers_for)
+        getProvidersFor = function_deprecated_by(get_providing_packages)
         installArchives = function_deprecated_by(install_archives)
         cachePostChange = function_deprecated_by(cache_post_change)
         cachePreChange = function_deprecated_by(cache_pre_change)
