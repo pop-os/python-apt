@@ -64,6 +64,7 @@ class Cache(object):
         self._callbacks = {}
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
+        self._sorted_set = None
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -126,6 +127,7 @@ class Cache(object):
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
         self._set.clear()
+        self._sorted_set = None
         self._weakref.clear()
 
         progress.op = _("Building data structures")
@@ -157,7 +159,15 @@ class Cache(object):
                 raise KeyError('The cache has no package named %r' % key)
 
     def __iter__(self):
-        for pkgname in self._set:
+        # We iterate sorted over package names here. With this we read the
+        # package lists linearly if we need to access the package records,
+        # instead of having to do thousands of random seeks; the latter
+        # is disastrous if we use compressed package indexes, and slower than
+        # necessary for uncompressed indexes.
+        if self._sorted_set is None:
+            self._sorted_set = sorted(self._set)
+
+        for pkgname in self._sorted_set:
             yield self[pkgname]
         raise StopIteration
 

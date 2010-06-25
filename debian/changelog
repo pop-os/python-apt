@@ -18,6 +18,11 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     also that accessing it does not take an inordinate amount of time. This
     exposes a severe performance problem when using gzip compressed package
     indexes.
+  * apt/cache.py: When iterating over the cache, do so sorted by package name.
+    With this we read the the package lists linearly if we need to access the
+    package records, instead of having to do thousands of random seeks; the
+    latter is disastrous if we use compressed package indexes, and slower than
+    necessary for uncompressed indexes.
 
  -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
 
