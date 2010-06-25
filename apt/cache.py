@@ -203,16 +203,6 @@ class Cache(object):
         self._depcache.upgrade(dist_upgrade)
         self.cache_post_change()
 
-    def downloadable(self, pkg, use_candidate=True):
-        """Check if the given package can be downloaded."""
-        if use_candidate:
-            ver = self._depcache.get_candidate_ver(pkg._pkg)
-        else:
-            ver = pkg._pkg.current_ver
-        if ver == None:
-            return False
-        return ver.downloadable
-
     @property
     def required_download(self):
         """Get the size of the packages that are required to download."""
