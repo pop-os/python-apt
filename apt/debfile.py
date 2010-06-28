@@ -347,8 +347,10 @@ class DebPackage(object):
         if pkgname in self._cache:
             if use_installed and self._cache[pkgname].installed:
                 cachever = self._cache[pkgname].installed.version
-            else:
+            elif self._cache[pkgname].candidate:
                 cachever = self._cache[pkgname].candidate.version
+            else:
+                return self.VERSION_NONE
             if cachever is not None:
                 cmp = apt_pkg.version_compare(cachever, debver)
                 self._dbg(1, "CompareVersion(debver,instver): %s" % cmp)
