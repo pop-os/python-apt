@@ -261,19 +261,6 @@ class DebPackage(object):
         Check if the package conflicts with a existing or to be installed
         package. Return True if the pkg is OK.
         """
-        for [(con_name, con_ver, con_oper)] in self.conflicts:
-            for pro in self.provides:
-                if con_name == pro[0][0]:
-                    if con_ver:
-                        pro_ver = self._sections["Version"]
-                        if apt_pkg.check_dep(pro_ver, con_oper, con_ver):
-                            #print "Conflicts with provided pkg!"
-                            self._failure_string = "Conflicts with a provided package"
-                            return False
-                    else:
-                        #print "Conflicts with provided pkg!"
-                        self._failure_string = "Conflicts with a provided package"
-                        return False
         res = True
         for or_group in self.conflicts:
             if self._check_conflicts_or_group(or_group):
