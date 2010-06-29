@@ -27,7 +27,7 @@ static PyObject *MetaIndexGetDist(PyObject *Self,void*) {
 
 static PyObject *MetaIndexGetIsTrusted(PyObject *Self,void*) {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
-    return Py_BuildValue("i",(meta->IsTrusted()));
+    return PyBool_FromLong((meta->IsTrusted()));
 }
 
 static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {
@@ -48,10 +48,13 @@ static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {
 }
 
 static PyGetSetDef MetaIndexGetSet[] = {
-   {"dist",MetaIndexGetDist},
-   {"index_files",MetaIndexGetIndexFiles},
-   {"is_trusted",MetaIndexGetIsTrusted},
-   {"uri",MetaIndexGetURI},
+   {"dist",MetaIndexGetDist,0,"The distribution, as a string."},
+   {"index_files",MetaIndexGetIndexFiles,0,
+    "A list of all IndexFile objects associated with this meta index."},
+   {"is_trusted",MetaIndexGetIsTrusted,0,
+    "A boolean value determining whether the file can be trusted."},
+   {"uri",MetaIndexGetURI,0,
+    "The uri the meta index is located at."},
    {}
 };
 
@@ -66,6 +69,11 @@ static PyObject *MetaIndexRepr(PyObject *Self)
 }
 #undef S
 
+
+static const char *metaindex_doc =
+    "Provide information on meta-indexes (i.e. Release files), such as\n"
+    "whether they are trusted or their URI.";
+    
 PyTypeObject PyMetaIndex_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -89,7 +97,7 @@ PyTypeObject PyMetaIndex_Type =
    0,                                      // tp_setattro
    0,                                      // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                     // tp_flags
-   "apt_pkg.MetaIndex Object",             // tp_doc
+   metaindex_doc,                          // tp_doc
    0,                                      // tp_traverse
    0,                                      // tp_clear
    0,                                      // tp_richcompare

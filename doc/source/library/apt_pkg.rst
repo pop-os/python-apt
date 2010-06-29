@@ -30,11 +30,17 @@ be called without having run init*(), but will not return the expected value.
 
 Working with the cache
 ----------------------
-.. class:: Cache([progress])
+.. class:: Cache([progress: apt.progress.base.OpProgress])
 
-    Return a :class:`Cache()` object. The optional parameter *progress*
-    specifies an instance of :class:`apt.progress.OpProgress()` which will
-    display the open progress.
+    A Cache object represents the cache used by APT which contains information
+    about packages. The object itself provides no means to modify the cache or
+    the installed packages, see the classes :class:`DepCache` and
+    :class:`PackageManager` for such functionality.
+
+    The constructor takes an optional argument which must be a subclass of
+    :class:`apt.progress.base.OpProgress`. This object will then be used to
+    display information during the cache opening process (or possible creation
+    of the cache).
 
     .. describe:: cache[pkgname]
 
@@ -46,39 +52,32 @@ Working with the cache
         Check whether a package with the name given by *pkgname* exists in
         the cache.
 
-    .. method:: update(progress, list[, pulse_interval])
+    .. method:: update(progress, sources [, pulse_interval]) -> bool
 
-        Update the package cache.
+        Update the index files used by the cache. A call to this method
+        does not affect the current Cache object, instead a new one
+        should be created in order to use the changed index files.
 
-        The parameter *progress* points to an :class:`apt.progress.FetchProgress()`
-        object. The parameter *list* refers to a :class:`SourceList()` object.
-
-        The optional parameter *pulse_interval* describes the interval between
-        the calls to the :meth:`FetchProgress.pulse` method.
+        The parameter *progress* takes an
+        :class:`apt.progress.base.AcquireProgress` object which will display
+        the progress of fetching the index files. The parameter *sources* takes
+        a :class:`SourceList` object which lists the sources. The parameter
+        *progress* takes an integer describing the interval (in microseconds)
+        in which the pulse() method of the *progress* object will be called.
 
     .. attribute:: depends_count
 
-        The total number of dependencies.
+        The total number of dependencies stored in the cache.
+
+    .. attribute:: file_list
+
+        A list of all :class:`PackageFile` objects stored in the cache.
 
     .. attribute:: package_count
 
-        The total number of packages available in the cache.
-
-    .. attribute:: packages
-
-        A sequence of :class:`Package` objects.
-
-    .. attribute:: provides_count
-
-        The number of provided packages.
-
-    .. attribute:: ver_file_count
-
-        .. todo:: Seems to be some mixture of versions and pkgFile.
-
-    .. attribute:: version_count
-
-        The total number of package versions available in the cache.
+        The total number of packages available in the cache. This value is
+        equal to the length of the list provided by the :attr:`packages`
+        attribute.
 
     .. attribute:: package_file_count
 
@@ -86,149 +85,198 @@ Working with the cache
         listing the packages). This is the same as the length of the list in
         the attribute :attr:`file_list`.
 
-    .. attribute:: file_list
+    .. attribute:: packages
 
-        A list of :class:`PackageFile` objects.
+        A sequence of :class:`Package` objects, implemented as a
+        :class:`PackageList` object.
 
-.. class:: DepCache(cache)
+        .. class:: PackageList
 
-    Return a :class:`DepCache` object. The parameter *cache* specifies an
-    instance of :class:`Cache`.
+            A simple sequence-like object which only provides a length and
+            an implementation of ``__getitem__`` for accessing packages at
+            a certain index. Apart from being iterable, it can be used in
+            the following ways:
 
-    The DepCache object contains various methods to manipulate the cache,
-    to install packages, to remove them, and much more.
+            .. describe:: list[index]
 
-    .. method:: commit(fprogress, iprogress)
+                Get the :class:`Package` object for the package at the position
+                given by *index* in the PackageList *list*.
 
-        Apply all the changes made.
+            .. describe:: len(list)
 
-        The parameter *fprogress* has to be set to an instance of
-        apt.progress.FetchProgress or one of its subclasses.
+                Return the length of the PackageList object *list*.
 
-        The parameter *iprogress* has to be set to an instance of
-        apt.progress.InstallProgress or one of its subclasses.
+    .. attribute:: provides_count
 
-    .. method:: fix_broken()
+        The number of provided packages.
 
-        Try to fix all broken packages in the cache.
+    .. attribute:: ver_file_count
 
-    .. method:: get_candidate_ver(pkg)
+        The total number of ``(Version, PackageFile)`` relations stored in
+        the cache.
 
-        Return the candidate version of the package, ie. the version that
-        would be installed normally.
+    .. attribute:: version_count
 
-        The parameter *pkg* refers to an :class:`Package` object,
-        available using the :class:`pkgCache`.
+        The total number of package versions available in the cache.
 
-        This method returns a :class:`Version` object.
+Managing the cache with :class:`DepCache`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. class:: DepCache(cache: apt_pkg.Cache)
 
-    .. method:: set_candidate_ver(pkg, version)
+    A DepCache object provides access to more information about the
+    objects made available by the :class:`Cache` object as well as
+    means to mark packages for removal and installation, among other
+    actions.
 
-        The opposite of :meth:`pkgDepCache.get_candidate_ver`. Set the candidate
-        version of the :class:`Package` *pkg* to the :class:`Version`
-        *version*.
+    The constructor takes a single argument which specifies the
+    :class:`Cache` object the new object shall be related to. While
+    it is theoretically possible to create multiple DepCache objects
+    for the same cache, they will not be independent from each other
+    since they all access the same underlying C++ object.
 
-    .. method:: upgrade([dist_upgrade=False])
+    Objects of this type provide several methods. Most of those methods
+    are safe to use and should never raise any exception (all those
+    methods for requesting state information or marking changes). If a
+    method is expected to raise an exception, it will be stated in the
+    description.
 
-        Perform an upgrade. More detailed, this marks all the upgradable
-        packages for upgrade. You still need to call
-        :meth:`pkgDepCache.commit` for the changes to apply.
+    .. method:: commit(acquire_progress, install_progress)
 
-        To perform a dist-upgrade, the optional parameter *dist_upgrade* has
-        to be set to True.
+        Commit all marked changes, while reporting the progress of
+        fetching packages via the :class:`apt.progress.base.AcquireProgress`
+        object given by *acquire_progress* and reporting the installation
+        of the package using the :class:`apt.progress.base.InstallProgress`
+        object given by *install_progress*.
 
-    .. method:: fix_broken()
+        If this fails, an exception of the type :exc:`SystemError` will
+        be raised.
 
-        Fix broken packages.
+    .. method:: fix_broken() -> bool
 
-    .. method:: read_pinfile()
+        Try to fix all broken packages in the cache and return ``True`` in
+        case of success. If an error occurred, a :exc:`SystemError`
+        exception is raised.
 
-        Read the policy, eg. /etc/apt/preferences.
+    .. method:: get_candidate_ver(pkg: Package) -> Version
 
-    .. method:: minimize_upgrade()
+        Return the candidate version for the package given by the parameter
+        *pkg* as a :class:`Version` object. The default candidate for a
+        package is the version with the highest pin, although a different
+        one may be set using :meth:`set_candidate_ver`. If no candidate
+        can be found, return ``None`` instead.
 
-        Go over the entire set of packages and try to keep each package marked
-        for upgrade. If a conflict is generated then the package is restored.
+    .. method:: init(progress: apt.progress.base.OpProgress)
 
-        .. todo::
-            Explain better..
+        Initialize the DepCache. This is done automatically when the
+        cache is opened, but sometimes it may be useful to reinitialize
+        the DepCache. Like the constructor of :class:`Cache`, this
+        function takes a single :class:`apt.progress.base.OpProgress`
+        object to display progress information.
 
-    .. method:: mark_auto(pkg)
+    .. method:: read_pinfile(file: str)
+
+        A proxy function which calls the method :meth:`Policy.read_pinfile` of
+        the :class:`Policy` object used by this object. This method raises
+        a :exc:`SystemError` exception if the file could not be parsed.
+
+    .. method:: set_candidate_ver(pkg: Package, version: Version) -> bool
+
+        Set the candidate version of the package given by the :class:`Package`
+        object *pkg* to the version given by the :class:`Version` object
+        *version* and return ``True``. If odd things happen, this function
+        may raise a :exc:`SystemError` exception, but this should not
+        happen in normal usage. See :meth:`get_candidate_ver` for a way
+        to retrieve the candidate version of a package.
+
+    .. method:: upgrade([dist_upgrade=False]) -> bool
+
+        Mark the packages for upgrade under the same conditions
+        :program:`apt-get` does. If *dist_upgrade* is ``True``, also
+        allow packages to be upgraded if they require installation/removal
+        of other packages; just like apt-get dist-upgrade.
+
+        Despite returning a boolean value, this raises :exc:`SystemError` and
+        does not return ``False`` if an error occurred.
+
+    The following methods can mark a single package for installation,
+    removal, etc:
+
+    .. method:: mark_auto(pkg: Package)
 
         Mark the :class:`Package` *pkg* as automatically installed.
 
-    .. method:: mark_keep(pkg)
+    .. method:: mark_keep(pkg: Package)
 
         Mark the :class:`Package` *pkg* for keep.
 
-    .. method:: mark_delete(pkg[, purge])
+    .. method:: mark_delete(pkg: Package[, purge])
 
         Mark the :class:`Package` *pkg* for delete. If *purge* is True,
         the configuration files will be removed as well.
 
-    .. method:: mark_install(pkg[, auto_inst=True[, from_user=True]])
+    .. method:: mark_install(pkg: Package[, auto_inst=True[, from_user=True]])
 
-        Mark the :class:`Package` *pkg* for install.
+        Mark the :class:`Package` *pkg* for install, and, if *auto_inst*
+        is ``True``, its dependencies as well. If *from_user* is ``True``,
+        the package will **not** be marked as automatically installed.
 
-        If *auto_inst* is ``True``, the dependencies of the package will be
-        installed as well. This is the default.
-
-        If *from_user* is ``True``, the package will be marked as manually
-        installed. This is the default.
-
-    .. method:: set_reinstall(pkg)
+    .. method:: set_reinstall(pkg: Package)
 
         Set if the :class:`Package` *pkg* should be reinstalled.
 
-    .. method:: is_upgradable(pkg)
+    The following methods can be used to check the state of a package:
 
-        Return ``1`` if the package is upgradable.
+    .. method:: is_auto_installed(pkg: Package) -> bool
 
-        The package can be upgraded by calling :meth:`pkgDepCache.MarkInstall`.
+        Return ``True`` if the package is automatically installed, that
+        is, as a dependency of another package.
 
-    .. method:: is_now_broken(pkg)
+    .. method:: is_garbage(pkg: Package) -> bool
 
-        Return `1` if the package is broken now (including changes made, but
-        not committed).
+        Return ``True`` if the package is garbage, that is, if it was
+        automatically installed and no longer referenced by other packages.
 
-    .. method:: is_inst_broken(pkg)
+    .. method:: is_inst_broken(pkg: Package) -> bool
 
-        Return ``1`` if the package is broken on the current install. This
-        takes changes which have not been committed not into effect.
+        Return ``True`` if the package is broken on the current install. This
+        takes changes which have not been marked not into account.
 
-    .. method:: is_garbage(pkg)
+    .. method:: is_now_broken(pkg: Package) -> bool
 
-        Return ``1`` if the package is garbage, ie. if it is automatically
-        installed and no longer referenced by other packages.
+        Return ``True`` if the package is now broken, that is, if the package
+        is broken if the marked changes are applied.
+        
+    .. method:: is_upgradable(pkg: Package) -> bool
 
-    .. method:: is_auto_installed(pkg)
+        Return ``True`` if the package is upgradable, the package can then
+        be marked for upgrade by calling the method :meth:`mark_install`.
 
-        Return ``1``  if the package is automatically installed (eg. as the
-        dependency of another package).
+    .. method:: marked_delete(pkg: Package) -> bool
 
-    .. method:: marked_install(pkg)
+        Return ``True`` if the package is marked for delete.
 
-        Return ``1`` if the package is marked for install.
+    .. method:: marked_downgrade(pkg: Package) -> bool
 
-    .. method:: marked_upgrade(pkg)
+        Return ``True`` if the package should be downgraded.
 
-        Return ``1`` if the package is marked for upgrade.
+    .. method:: marked_install(pkg: Package) -> bool
 
-    .. method:: marked_delete(pkg)
+        Return ``True`` if the package is marked for install.
 
-        Return ``1`` if the package is marked for delete.
+    .. method:: marked_keep(pkg: Package) -> bool
 
-    .. method:: marked_keep(pkg)
+        Return ``True`` if the package is marked for keep.
 
-        Return ``1`` if the package is marked for keep.
+    .. method:: marked_reinstall(pkg: Package) -> bool
 
-    .. method:: marked_reinstall(pkg)
+        Return ``True`` if the package should be reinstalled.
 
-        Return ``1`` if the package should be installed.
+    .. method:: marked_upgrade(pkg: Package) -> bool
 
-    .. method:: marked_downgrade(pkg)
+        Return ``True`` if the package is marked for upgrade.
 
-        Return ``1`` if the package should be downgraded.
+    DepCache objects also provide several attributes containing information
+    on the marked changes:
 
     .. attribute:: keep_count
 
@@ -261,52 +309,55 @@ Working with the cache
         The underlying :class:`Policy` object used by the :class:`DepCache` to
         select candidate versions.
 
+Installing with :class:`PackageManager`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. class:: PackageManager(depcache)
 
-    Return a new :class:`PackageManager` object. The parameter *depcache*
-    specifies a :class:`DepCache` object.
+    Abstraction of a package manager. This object takes care of retrieving
+    packages, ordering the installation, and calling the package manager to
+    do the actual installation.
+    
+    .. method:: get_archives(fetcher, list, records) -> bool
 
-    :class:`PackageManager` objects provide several methods and attributes,
-    which will be listed here:
+        Add all packages marked for installation (or upgrade, anything
+        which needs a download) to the :class:`Acquire` object referenced
+        by *fetcher*.
 
-    .. method:: get_archives(fetcher, list, records)
+        The parameter *list* specifies a :class:`SourceList` object which
+        is used to retrieve the information about the archive URI for the
+        packages which will be fetched.
 
-        Add all the selected packages to the :class:`Acquire()` object
-        *fetcher*.
+        The parameter *records* takes a :class:`PackageRecords` object which
+        will be used to look up the file name of the package.
 
-        The parameter *list* refers to a :class:`SourceList()` object.
+    .. method:: do_install(status_fd: int) -> int
 
-        The parameter *records* refers to a :class:`PackageRecords()` object.
+        Install the packages and return one of the class constants
+        :attr:`RESULT_COMPLETED`, :attr:`RESULT_FAILED`,
+        :attr:`RESULT_INCOMPLETE`. The argument *status_fd* can be used
+        to specify a file descriptor that APT will write status information
+        on (see README.progress-reporting in the apt source code for
+        information on what will be written there).
 
-    .. method:: do_install()
-
-        Install the packages.
-
-    .. method:: fix_missing
+    .. method:: fix_missing() -> bool
 
         Fix the installation if a package could not be downloaded.
 
     .. attribute:: RESULT_COMPLETED
 
-        A constant for checking whether the the result is 'completed'.
-
-        Compare it against the return value of :meth:`PackageManager.get_archives`
-        or :meth:`PackageManager.do_install`.
+        A constant for checking whether the the result of the call to
+        :meth:`do_install` is 'failed'.
 
     .. attribute:: RESULT_FAILED
 
-        A constant for checking whether the the result is 'failed'.
-
-        Compare it against the return value of :meth:`PackageManager.get_archives`
-        or :meth:`PackageManager.do_install`.
+        A constant for checking whether the the result of the call to
+        :meth:`do_install` is 'failed'.
 
     .. attribute:: RESULT_INCOMPLETE
 
-        A constant for checking whether the the result is 'incomplete'.
-
-        Compare it against the return value of :meth:`PackageManager.get_archives`
-        or :meth:`PackageManager.do_install`.
+        A constant for checking whether the the result of the call to
+        :meth:`do_install` is 'incomplete'.
 
 Improve performance with :class:`ActionGroup`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -318,14 +369,10 @@ Improve performance with :class:`ActionGroup`
     :class:`ActionGroup()` objects make operations on the cache faster by
     delaying certain cleanup operations until the action group is released.
 
-    ActionGroup is also a context manager and therefore supports the
+    An action group is also a context manager and therefore supports the
     :keyword:`with` statement. But because it becomes active as soon as it
     is created, you should not create an ActionGroup() object before entering
-    the with statement.
-
-    If you want to use ActionGroup as a with statement (which is recommended
-    because it makes it easier to see when an actiongroup is active), always
-    use the following form::
+    the with statement. Thus, you should always use the following form::
 
         with apt_pkg.ActionGroup(depcache):
             ...
@@ -337,76 +384,90 @@ Improve performance with :class:`ActionGroup`
         ...
         actiongroup.release()
 
-    :class:`ActionGroup` provides the following method:
+    In addition to the methods required to implement the context
+    manager interface, :class:`ActionGroup` objects provide the
+    following method:
 
     .. method:: release()
 
         Release the ActionGroup. This will reactive the collection of package
         garbage.
 
-Resolving Dependencies
-^^^^^^^^^^^^^^^^^^^^^^
+Resolving Dependencies with :class:`ProblemResolver`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. class:: ProblemResolver(depcache)
+.. class:: ProblemResolver(depcache: DepCache)
 
-    Return a new :class:`ProblemResolver` object. The parameter *depcache*
-    specifies a :class:`pDepCache` object.
+    ProblemResolver objects take care of resolving problems with
+    dependencies. They mark packages for installation/removal and
+    try to satisfy all dependencies. The constructor takes a single
+    argument of the type :class:`apt_pkg.DepCache` to determine the
+    cache that shall be manipulated in order to resolve the problems.
 
-    The problem resolver helps when there are problems in the package
-    selection. An example is a package which conflicts with another, already
-    installed package.
+    .. method:: clear(pkg: Package)
 
-    .. method:: protect(pkg)
-
-        Protect the :class:`Package()` object given by the parameter *pkg*.
-
-        .. todo::
-
-            Really document it.
+        Revert the action of calling :meth:`protect` or :meth:`remove` on
+        a package, resetting it to the default state.
 
     .. method:: install_protect()
 
-        Protect all installed packages from being removed.
+        Mark all protected packages for installation.
 
-    .. method:: remove(pkg)
+    .. method:: protect(pkg: Package)
 
-        Remove the :class:`Package()` object given by the parameter *pkg*.
+        Mark the package given by *pkg* as protected; that is, its state
+        will not be changed.
 
-        .. todo::
+    .. method:: remove(pkg: Package)
 
-            Really document it.
+        Mark the package given by *pkg* for removal in the resolver.
 
-    .. method:: clear(pkg)
+    .. method:: resolve([fix_broken: bool = True]) -> bool
 
-        Reset the :class:`Package()` *pkg* to the default state.
+        Try to intelligently resolve problems by installing and removing
+        packages. If *fix_broken* is ``True``, apt will try to repair broken
+        dependencies of installed packages.
 
-        .. todo::
+    .. method:: resolve_by_keep() -> bool
 
-            Really document it.
-
-    .. method:: resolve()
-
-        Try to resolve problems by installing and removing packages.
-
-    .. method:: resolve_by_keep()
-
-        Try to resolve problems only by using keep.
+        Try to resolve the problems without installing or removing packages.
 
 
-:class:`Package`
-^^^^^^^^^^^^^^^^^
+:class:`Package` information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. class:: Package
 
-    The pkgCache::Package objects are an interface to package specific
-    features.
-
+   Represent a package. A package is uniquely identified by its name
+   and each package can have zero or more versions which can be
+   accessed via the :attr:`version_list` property. Packages can be
+   installed and removed by a :class:`DepCache` object.
 
     Attributes:
 
     .. attribute:: current_ver
 
-        The version currently installed, or None. This returns a
-        :class:`Version` object.
+        The version currently installed as a :class:`Version` object, or None
+        if the package is not installed.
+
+   .. attribute:: has_provides
+
+        A boolean value determining whether the list available via the
+        attribute :attr:`provides_list` has at least one element. This
+        value may be used in combination with :attr:`has_versions` to
+        check whether a package is virtual; that is, it has no versions
+        and is provided at least once::
+
+            pkg.has_provides and not pkg.has_versions
+
+   .. attribute:: has_versions
+
+        A boolean value determining whether the list available via the
+        attribute :attr:`version_list` has at least one element. This
+        value may be used in combination with :attr:`has_provides` to
+        check whether a package is virtual; that is, it has no versions
+        and is provided at least once::
+
+            pkg.has_provides and not pkg.has_versions
 
     .. attribute:: id
 
@@ -419,28 +480,43 @@ Resolving Dependencies
 
     .. attribute:: provides_list
 
-        A list of packages providing this package. More detailed, this is a
-        list of tuples (str:pkgname, ????, :class:`Version`).
-
-        If you want to check for check for virtual packages, the expression
-        ``pkg.provides_list and not pkg._version_list`` helps you. It detects if
-        the package is provided by something else and is not available as a
-        real package.
+        A list of all package versions providing this package. Each element
+        of the list is a triplet, where the first element is the name of the
+        provided package, the second element the provided version (empty
+        string), and the third element the version providing this package
+        as a :class:`Version` object.
 
     .. attribute:: rev_depends_list
 
         An iterator of :class:`Dependency` objects for dependencies on this
-        package.
+        package. The returned iterator is implemented by the class
+        :class:`DependencyList`:
+
+        .. class:: DependencyList
+
+            A simple list-like type for representing multiple dependency
+            objects in an efficient manner; without having to generate
+            all Dependency objects in advance.
+
+            .. describe:: list[index]
+
+                Return the item at the position *index* in the list.
+
+            .. method:: __len__()
+
+                The length of the list. This method should not be used
+                irectly, instead Python's built-in function :func:`len`
+                should be used.
 
     .. attribute:: section
 
         The section of the package, as specified in the record. The list of
-        possible sections is defined in the Policy.
+        possible sections is defined in the Policy. This is a string.
 
     .. attribute:: version_list
 
-        A list of :class:`Version` objects for all versions available in the
-        cache.
+        A list of :class:`Version` objects for all versions of this package
+        available in the cache.
 
     **States**:
 
@@ -467,16 +543,20 @@ Resolving Dependencies
 
     .. attribute:: auto
 
-        Whether the package was installed automatically as a dependency of
-        another package. (or marked otherwise as automatically installed)
+        This flag is here for compatibility purposes and does not appear to
+        be used anymore in APT. To find out whether a package is marked as
+        automatically installed, use :meth:`DepCache.is_auto_installed`
+        instead.
 
     .. attribute:: essential
 
-        Whether the package is essential.
+        Whether the package has the 'Essential' flag set; that is,
+        whether it has a field 'Essential: yes' in its record.
 
     .. attribute:: important
 
-        Whether the package is important.
+        Whether the package has the (obsolete) 'Important' flag set; that is,
+        whether it has a field 'Important: yes' in its record.
 
 Example:
 ~~~~~~~~~
@@ -491,23 +571,16 @@ Example:
     The version object contains all information related to a specific package
     version.
 
-    .. attribute:: ver_str
-
-        The version, as a string.
-
-    .. attribute:: section
-
-        The usual sections (eg. admin, net, etc.). Prefixed with the component
-        name for packages not in main (eg. non-free/admin).
-
     .. attribute:: arch
 
         The architecture of the package, eg. amd64 or all.
 
-    .. attribute:: file_list
+    .. attribute:: depends_list
 
-        A list of (:class:`PackageFile`, int: index) tuples for all Package
-        files containing this version of the package.
+        This is basically the same as :attr:`depends_list_str`,
+        but instead of the ('pkgname', 'version', 'relation') tuples,
+        it returns :class:`Dependency` objects, which can assist you with
+        useful functions.
 
     .. attribute:: depends_list_str
 
@@ -538,44 +611,40 @@ Example:
                         ]
             }
 
-    .. attribute:: depends_list
+        The comparison operators are not the Debian ones, but the standard
+        comparison operators as used in languages such as C and Python. This
+        means that '>' means "larger than" and '<' means "less than".
 
-        This is basically the same as :attr:`Version.DependsListStr`,
-        but instead of the ('pkgname', 'version', 'relation') tuples,
-        it returns :class:`Dependency` objects, which can assist you with
-        useful functions.
+    .. attribute:: downloadable
 
-    .. attribute:: parent_pkg
+        Whether this package can be downloaded from a remote site.
 
-        The :class:`Package` object this version belongs to.
+    .. attribute:: file_list
 
-    .. attribute:: provides_list
+        A list of (:class:`PackageFile`, int: index) tuples for all Package
+        files containing this version of the package.
 
-        This returns a list of all packages provided by this version. Like
-        :attr:`Package.provides_list`, it returns a list of tuples
-        of the form ('virtualpkgname', ???, :class:`Version`), where as the
-        last item is the same as the object itself.
+    .. attribute:: hash
 
-    .. attribute:: size
+        An integer hash value used for the internal storage.
 
-        The size of the .deb file, in bytes.
+    .. attribute:: id
+
+        A numeric identifier which uniquely identifies this version in all
+        versions in the cache.
 
     .. attribute:: installed_size
 
         The size of the package (in kilobytes), when unpacked on the disk.
 
-    .. attribute:: hash
+    .. attribute:: parent_pkg
 
-        An integer hash value.
-
-    .. attribute:: id
-
-        An integer id.
+        The :class:`Package` object this version belongs to.
 
     .. attribute:: priority
 
         The integer representation of the priority. This can be used to speed
-        up comparisons a lot, compared to :attr:`Version.priority_str`.
+        up comparisons a lot, compared to :attr:`priority_str`.
 
         The values are defined in the :mod:`apt_pkg` extension, see
         :ref:`Priorities` for more information.
@@ -585,13 +654,31 @@ Example:
         Return the priority of the package version, as a string, eg.
         "optional".
 
-    .. attribute:: downloadable
+    .. attribute:: provides_list
 
-        Whether this package can be downloaded from a remote site.
+        This returns a list of all packages provided by this version. Like
+        :attr:`Package.provides_list`, it returns a list of tuples
+        of the form ('virtualpkgname', '', :class:`Version`), where as the
+        last item is the same as the object itself.
+
+    .. attribute:: section
+
+        The usual sections (eg. admin, net, etc.). Prefixed with the component
+        name for packages not in main (eg. non-free/admin).
+
+    .. attribute:: size
+
+        The size of the .deb file, in bytes.
 
     .. attribute:: translated_description
 
-        Return a :class:`Description` object.
+        Return a :class:`Description` object for the translated description
+        of this package version.
+
+    .. attribute:: ver_str
+
+        The version, as a string.
+        
 
 
 :class:`Dependency`
@@ -616,25 +703,6 @@ Example:
         dependency and does not conflict with installed packages
         (the 'natural target').
 
-    .. attribute:: target_ver
-
-        The target version of the dependency, as string. Empty string if the
-        dependency is not versioned.
-
-    .. attribute:: target_pkg
-
-        The :class:`Package` object of the target package.
-
-    .. attribute:: parent_ver
-
-        The :class:`Version` object of the parent version, ie. the package
-        which declares the dependency.
-
-    .. attribute:: parent_pkg
-
-        The :class:`Package` object of the package which declares the
-        dependency. This is the same as using ParentVer.ParentPkg.
-
     .. attribute:: comp_type
 
         The type of comparison (>=, ==, >>, <=), as string.
@@ -655,6 +723,28 @@ Example:
     .. attribute:: id
 
         The ID of the package, as integer.
+
+    .. attribute:: parent_pkg
+
+        The :class:`Package` object of the package which declares the
+        dependency. This is the same as using ParentVer.ParentPkg.
+
+    .. attribute:: parent_ver
+
+        The :class:`Version` object of the parent version, ie. the package
+        which declares the dependency.
+
+    .. attribute:: target_pkg
+
+        The :class:`Package` object of the target package.
+
+    .. attribute:: target_ver
+
+        The target version of the dependency, as string. Empty string if the
+        dependency is not versioned.
+
+    The following constants describe all values the attribute *dep_type_enum*
+    can take:
 
     .. attribute:: TYPE_CONFLICTS
 
@@ -708,85 +798,146 @@ broken dependencies:
 
     .. attribute:: language_code
 
-        The language code of the description
+        The language code of the description; or, if the description
+        is untranslated, an empty string.
 
     .. attribute:: md5
 
-        The md5 hashsum of the description
+        The MD5 checksum of the description.
 
     .. attribute:: file_list
 
-        A list of tuples (:class:`PackageFile`, int: index).
+        A list of tuples ``(packagefile: PackageFile, index: int)``.
 
+Package Pinning with :class:`Policy`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. class:: Policy(cache: apt_pkg.Cache)
+
+    Representation of the policy of the :class:`Cache` object given by
+    *cache*. This provides a superset of policy-related functionality
+    compared to the *DepCache* class. The DepCache can be used for most
+    purposes, but there may be some cases where a special policy class
+    is needed.
+    
+    .. method:: create_pin(type: str, pkg: str, data: str, priority: int)
+
+        Create a pin for the policy. The parameter *type* refers to one of the
+        strings 'Version', 'Release', or 'Origin'. The argument *pkg* is the
+        name of the package. The parameter *data* refers to the value (such
+        as 'unstable' for type='Release') and the other possible options.
+        The parameter 'priority' gives the priority of the pin.
+        
+    .. method:: get_candidate_ver(package: apt_pkg.Package) -> apt_pkg.Version
+
+        Get the best package for the job; that is, the package with the
+        highest pin priority.
+
+    .. method:: get_match(package: apt_pkg.Package) -> apt_pkg.Version
+
+        Get a version for the package.
+
+    .. method:: get_priority(package: apt_pkg.Package) -> int
+
+        Get the pin priority of the package given by *package*.
+
+    .. method:: read_pindir(dirname: str) -> bool
+
+        Read the pin files in the given dir (e.g. '/etc/apt/preferences.d')
+        and add them to the policy.
+
+    .. method:: read_pinfile(filename: str) -> bool
+
+        Read the pin file given by *filename* (e.g. '/etc/apt/preferences')
+        and add it to the policy.
 
 
 Index Files
 -------------
 
-
-.. todo::
-
-    Complete them
-
 .. class:: MetaIndex
 
+   Represent a Release file as stored in the cache.
+
     .. attribute:: uri
+
+      The URI the meta index file is located at, as a string.
+      
     .. attribute:: dist
+
+      The distribution stored in the meta index, as a string.
+    
     .. attribute:: is_trusted
+
+      A boolean value determining whether the meta index can be trusted. This
+      is ``True`` for signed Release files.
+      
     .. attribute:: index_files
+
+      A list of all :class:`IndexFile` objects associated with this meta
+      index.
 
 
 .. class:: IndexFile
 
-    .. method:: archive_uri(path)
+    Represent an index file, that is, package indexes, translation indexes,
+    and source indexes.
 
-        Return the full url to path in the archive.
+    .. method:: archive_uri(path: str) -> str
+
+        Return the URI to the given path in the archive.
 
     .. attribute:: label
 
-        Return the Label.
+        The label of the index file.
 
     .. attribute:: describe
 
-        A description of the :class:`IndexFile`.
+        A string describing this object.
 
     .. attribute:: exists
 
-        Return whether the file exists.
+        A boolean value determining whether the index file exists.
 
     .. attribute:: has_packages
 
-        Return whether the file has packages.
+        A boolean value determining whether the index file has packages.
 
     .. attribute:: size
 
-        Size of the file
+        The size of the file, measured in bytes.
 
     .. attribute:: is_trusted
 
-        Whether we can trust the file.
+        A boolean value determining whether the file can be trusted; that is,
+        because it is from a source with a GPG signed Release file.
+
 
 
 .. class:: PackageFile
 
-    A :class:`PackageFile` represents a Packages file, eg.
-    /var/lib/dpkg/status.
+    Provide access to an index file stored in the cache, such as
+    :file:`/var/lib/dpkg/status`.
 
     .. attribute:: architecture
 
-        The architecture of the package file.
+        The architecture of the package file. This attribute normally
+        contains an empty string and is thus not very useful.
 
     .. attribute:: archive
 
-        The archive (eg. unstable)
+        The archive of the package file as set in the Release file via
+        the "Suite" field. If there is no Release file, this is an empty
+        string.
 
     .. attribute:: component
 
-        The component (eg. main)
+        The component of the package file, if it is provided by a repository
+        using the dists/ hierarchy. For other packages files, this property
+        is an empty string.
 
     .. attribute:: filename
 
-        The name of the file.
+        The path to the file on the local filesystem.
 
     .. attribute:: id
 
@@ -795,22 +946,26 @@ Index Files
 
     .. attribute:: index_type
 
-        The sort of the index file. In normal cases, this is
-        'Debian Package Index'.
+        A string describing the type of index. Known values are
+        "Debian Package Index", "Debian Translation Index", and
+        "Debian dpkg status file".
 
     .. attribute:: label
 
-        The Label, as set in the Release file
+        The label of the package file as set in the release file
+        via the 'Label' field. If there is no Release file, this
+        attribute is an empty string.
 
     .. attribute:: not_automatic
 
         Whether packages from this list will be updated automatically. The
-        default for eg. example is 0 (aka false).
+        default for example is False.
 
     .. attribute:: not_source
 
         Whether the file has no source from which it can be updated. In such a
-        case, the value is 1; else 0. /var/lib/dpkg/status is 0 for example.
+        case, the value is ``True``; else ``False``. For example, it is
+        ``False`` for :file:`/var/lib/dpkg/status`.
 
         Example::
 
@@ -835,30 +990,49 @@ Index Files
         The version, as set in the release file (eg. "4.0" for "Etch")
 
 
-
 The following example shows how to use PackageFile:
 
 .. literalinclude:: ../examples/cache-pkgfile.py
 
 
-Records
---------
+Records (Release files, Packages, Sources)
+------------------------------------------
 
-.. class:: PackageRecords(cache)
+.. class:: IndexRecords()
 
-    Create a new :class:`PackageRecords` object, for the packages in the cache
-    specified by the parameter *cache*.
+    Represent a Release file and provide means to read information from
+    the file. This class provides several methods:
 
-    Provide access to the packages records. This provides very useful
-    attributes for fast (convient) access to some fields of the record.
+    .. method:: get_dist() -> str
 
-    .. method:: lookup(verfile_iter)
+        Return the distribution set in the Release file.
+
+    .. method:: load(filename: str)
+
+        Load the file located at the path given by *filename*.
+
+    .. method:: lookup(key: str) -> (HashString, int)
+
+        Look up the filename given by *key* and return a tuple (hash, size),
+        where the first element *hash* is a :class:`HashString` object
+        and the second element *size* is an int object.
+
+
+.. class:: PackageRecords(cache: apt_pkg.Cache)
+
+    Provide further information about the packages in the :class:`Cache` object
+    *cache*. This efficiently parses the package files to provide information
+    not available in the cache, such as maintainer, hash sums, description,
+    and the file name of the package. It also provides the complete record
+    of the package.
+
+    .. method:: lookup(verfile_iter: (PackageFile, int)) -> bool
 
         Change the actual package to the package given by the verfile_iter.
 
         The parameter *verfile_iter* refers to a tuple consisting
         of (:class:`PackageFile()`, int: index), as returned by various
-        attributes, including :attr:`Version.file_list`.
+        ``file_list`` attributes such as :attr:`Version.file_list`.
 
         Example (shortened)::
 
@@ -891,11 +1065,14 @@ Records
 
     .. attribute:: source_pkg
 
-        Return the source package.
+        The name of the source package, if different from the name of the
+        binary package. This information is retrieved from the 'Source' field.
 
     .. attribute:: source_ver
 
-        Return the source version.
+        The version of the source package, if it differs from the version
+        of the binary package. Just like 'source_pkg', this information
+        is retrieved from the 'Source' field.
 
     .. attribute:: maintainer
 
@@ -934,9 +1111,9 @@ Records
 
 .. class:: SourceRecords
 
-    This represents the entries in the Sources files, ie. the dsc files of
-    the source packages.
-
+    Provide an easy way to look up the records of source packages and
+    provide easy attributes for some widely used fields of the record.
+    
     .. note::
 
         If the Lookup failed, because no package could be found, no error is
@@ -944,64 +1121,34 @@ Records
         anymore (same applies when no Lookup has been made, or when it has
         been restarted).
 
-    .. method:: lookup(pkgname)
+    .. method:: lookup(pkgname: str) -> bool
 
-        Lookup the record for the package named *pkgname*. To access all
-        available records, you need to call it multiple times.
+        Look up the source package with the given name. Each call moves
+        the position of the records parser forward. If there are no
+        more records, return None. If the lookup failed this way,
+        access to any of the attributes will result in an
+        :exc:`AttributeError`.
 
         Imagine a package P with two versions X, Y. The first ``lookup(P)``
         would set the record to version X and the second ``lookup(P)`` to
-        version Y.
+        version Y. A third call would return ``None`` and access to any
+        of the below attributes will result in an :exc:`AttributeError`
 
     .. method:: restart()
 
-        Restart the lookup.
+        Restart the lookup process. This moves the parser to the first
+        package and lookups can now be made just like on a new object.
 
         Imagine a package P with two versions X, Y. The first ``Lookup(P)``
         would set the record to version X and the second ``Lookup(P)`` to
-        version Y.
-
-        If you now call ``restart()``, the internal position will be cleared.
-        Now you can call ``lookup(P)`` again to move to X.
-
-    .. attribute:: package
-
-        The name of the source package.
-
-    .. attribute:: version
-
-        A string describing the version of the source package.
-
-    .. attribute:: maintainer
-
-        A string describing the name of the maintainer.
-
-    .. attribute:: section
-
-        A string describing the section.
-
-    .. attribute:: record
-
-        The whole record, as a string. You can use :func:`apt_pkg.ParseSection`
-        if you need to parse it.
-
-        You need to parse the record if you want to access fields not available
-        via the attributes, eg. 'Standards-Version'
+        version Y. If you now call ``restart()``, the internal position
+        will be cleared. Now you can call ``lookup(P)`` again to move to X.
 
     .. attribute:: binaries
 
         Return a list of strings describing the package names of the binaries
         created by the source package. This matches the 'Binary' field in the
         raw record.
-
-    .. attribute:: index
-
-        The index in the Sources files.
-
-    .. attribute:: files
-
-        The list of files. This returns a list of tuples with the contents
-        ``(str: md5, int: size, str: path, str:type)``.
 
     .. attribute:: build_depends
 
@@ -1010,6 +1157,38 @@ Records
         and possible keys being ``"Build-Depends"``, ``"Build-Depends-Indep"``,
         ``"Build-Conflicts"`` or ``"Build-Conflicts-Indep"``.
 
+    .. attribute:: files
+
+        The list of files. This returns a list of tuples with the contents
+        ``(str: md5, int: size, str: path, str:type)``, where
+        'type' can be 'diff' (includes .debian.tar.gz), 'dsc', 'tar'.
+
+    .. attribute:: index
+
+        A list of :class:`IndexFile` objects associated with this
+        source package record.
+
+    .. attribute:: maintainer
+
+        A string describing the name of the maintainer.
+
+    .. attribute:: package
+
+        The name of the source package.
+
+    .. attribute:: record
+
+        The whole record, as a string. You can use :func:`apt_pkg.ParseSection`
+        if you need to parse it. You need to parse the record  to access
+        fields not available via the attributes such as 'Standards-Version'
+
+    .. attribute:: section
+
+        A string describing the section.
+
+    .. attribute:: version
+
+        A string describing the version of the source package.
 
 The Acquire interface
 ----------------------
@@ -1021,119 +1200,187 @@ you to implement file downloading in your applications. Together with the
 :class:`PackageManager` class you can also fetch all the packages marked for
 installation.
 
+.. class:: Acquire([progress: apt.progress.base.AcquireProgress])
 
-.. class:: Acquire([progress])
+    Coordinate the retrieval of files via network or local file system
+    (using ``copy://path/to/file`` style URIs). Items can be added to
+    an Acquire object using various means such as creating instances
+    of :class:`AcquireFile` or the methods :meth:`SourceList.get_indexes`
+    and :meth:`PackageManager.get_archives`.
 
-    Return an :class:`Acquire` object. The parameter *progress* refers to
-    an :class:`apt.progress.FetchProgress()` object.
-
-    Acquire objects maintaing a list of items which will be fetched or have
+    Acquire objects maintain a list of items which will be fetched or have
     been fetched already during the lifetime of this object. To add new items
     to this list, you can create new :class:`AcquireFile` objects which allow
     you to add single files.
 
-    Acquire items have multiple methods and attributes:
+    The constructor takes an optional parameter *progress* which takes an
+    :class:`apt.progress.base.AcquireProgress` object. This object may then
+    report progress information (see :mod:`apt.progress.text` for reporting
+    progress to a I/O stream and :mod:`apt.progress.gtk2` for GTK+ progress
+    reporting).
+    
+    Acquire items have two methods to start and stop the fetching:
 
-    .. method:: run()
+    .. method:: run() -> int
 
-        Fetch all the items which have been added by :class:`AcquireFile`.
+        Fetch all the items which have been added by :class:`AcquireFile` and
+        return one of the constants :attr:`RESULT_CANCELLED`,
+        :attr:`RESULT_CONTINUE`, :attr:`RESULT_FAILED` to describe the
+        result of the run.
 
     .. method:: shutdown()
 
-        Shut the fetcher down.
+        Shut the fetcher down. This removes all items from the queue and
+        makes all :class:`AcquireItem`, :class:`AcquireWorker`,
+        :class:`AcquireItemDesc` objects useless. Accessing an object of one
+        of those types can cause a segfault then.
+
+        Removing an item does not mean that the already fetched data will
+        be removed from the destination. Instead, APT might use the partial
+        result and continue from thereon.
+
+    Furthermore, they provide three attributes which provide information
+    on how much data is already available and how much data still needs
+    to be fetched:
+
+    .. attribute:: fetch_needed
+
+        The amount of data that has to be fetched in order to fetch all
+        queued items.
+
+    .. attribute:: partial_present
+
+        The amount of data which is already available.
 
     .. attribute:: total_needed
 
         The total amount of bytes needed (including those of files which are
-        already present)
+        already present).
 
-    .. attribute:: fetch_needed
-
-        The total amount of bytes which need to be fetched.
-
-    .. attribute:: partial_present
-
-        Whether some files have been acquired already. (???)
+    They also provide two attributes representing the items being processed
+    and the workers fetching them:
 
     .. attribute:: items
 
         A list of :class:`AcquireItem` objects which are attached to the
-        queue of this object.
+        to this Acquire object. This includes all items ever attached to
+        this object (except if they were removed using, for example,
+        :meth:`shutdown()` or by deleting an :class:`AcquireFile` object.)
 
     .. attribute:: workers
 
         A list of :class:`AcquireWorker` objects which are currently active
         on this instance.
 
+    The Acquire class comes with three constants which represents the results
+    of the :meth:`run` method:
+
+    .. attribute:: RESULT_CANCELLED
+
+        The fetching has been aborted, e.g. due to a progress class returning
+        ``False`` in its :meth:`pulse()` method.
+
+    .. attribute:: RESULT_CONTINUE
+
+        All items have been fetched successfully and the process has not been
+        canceled.
+
+    .. attribute:: RESULT_FAILED
+
+        An item failed to fetch due to some reasons.
+
+
 .. class:: AcquireItem
 
-    The :class:`AcquireItem()` objects represent the items of a
-    :class:`Acquire` object. :class:`AcquireItem()` objects can not be created
-    by the user, they are solely available through the :attr:`Acquire.items`
-    list of an :class:`Acquire` object.
-
-    .. attribute:: id
-
-        The ID of the item.
+    An AcquireItem object represents a single item of an :class:`Acquire`
+    object. It is an abstract class to represent various types of items
+    which are implemented as subclasses. The only exported subclass is
+    :class:`AcquireFile` which can be used to fetch files.
 
     .. attribute:: complete
 
-        Is the item completely acquired?
-
-    .. attribute:: local
-
-        Is the item a local file?
-
-    .. attribute:: mode
-
-        A string indicating the current mode e.g. ``"Fetching"``.
-
-    .. attribute:: is_trusted
-
-        Can the file be trusted?
-
-    .. attribute:: filesize
-
-        The size of the file, in bytes.
-
-    .. attribute:: error_text
-
-        The error message. For example, when a file does not exist on a http
-        server, this will contain a 404 error message.
-
-    .. attribute:: destfile
-
-        The location the file is saved as.
+        A boolean value which is True only if the item has been
+        fetched successfully.
 
     .. attribute:: desc_uri
 
-        The source location.
+        An URI describing where the item is located at.
+
+    .. attribute:: destfile
+
+        The path to the local location where the fetched data will be
+        stored at.
+
+    .. attribute:: error_text
+
+        The error message. For example, when a file does not exist on a HTTP
+        server, this will contain a 404 error message.
+
+    .. attribute:: filesize
+
+        The size of the file, in bytes. If the size of the to be fetched file
+        is unknown, this attribute is set to ``0``.
+
+    .. attribute:: id
+
+        The ID of the item. This attribute is normally set to ``0``, users may
+        set a custom value here, for instance in an overridden
+        :meth:`apt.progress.base.AcquireProgress.fetch` method (the progress
+        class could keep a counter, increase it by one for every :meth:`fetch`
+        call and assign the current value to this attribute).
+
+    .. attribute:: is_trusted
+
+        A boolean value determining whether the file is trusted. Only ``True``
+        if the item represents a package coming from a repository which is
+        signed by one of the keys in APT's keyring.
+
+    .. attribute:: local
+
+        A boolean value determining whether this file is locally available
+        (``True``) or whether it has to be fetched from a remote source
+        (``False``).
+
+    .. attribute:: mode
+
+        A localized string indicating the current mode e.g. ``"Fetching"``,
+        it may be used as part of printing progress information.
 
     **Status**:
 
+    The following attribute represents the status of the item. This class
+    provides several constants for comparing against this value which are
+    listed here as well.
+
     .. attribute:: status
 
-        Integer, representing the status of the item.
-
-    .. attribute:: STAT_IDLE
-
-        Constant for comparing :attr:`AcquireItem.status`.
-
-    .. attribute:: STAT_FETCHING
-
-        Constant for comparing :attr:`AcquireItem.status`
-
-    .. attribute:: STAT_DONE
-
-        Constant for comparing :attr:`AcquireItem.status`
-
-    .. attribute:: STAT_ERROR
-
-        Constant for comparing :attr:`AcquireItem.status`
+        Integer, representing the status of the item. This attribute can be
+        compared against the following constants to gain useful information
+        on the item's status.
 
     .. attribute:: STAT_AUTH_ERROR
 
-        Constant for comparing :attr:`AcquireItem.status`
+        An authentication error occurred while trying to fetch the item.
+
+    .. attribute:: STAT_DONE
+
+        The item is completely fetched and there have been no problems
+        while fetching the item.
+
+    .. attribute:: STAT_ERROR
+
+        An error occurred while trying to fetch the item. This error is
+        normally not related to authentication problems, as thus are
+        dealt with using :attr:`STAT_AUTH_ERROR`.
+
+    .. attribute:: STAT_FETCHING
+
+        The item is being fetched currently.
+        
+    .. attribute:: STAT_IDLE
+
+        The item is yet to be fetched.
+
 
 .. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
 
@@ -1154,22 +1401,34 @@ installation.
     The parameter *size* can be used to specify the size of the package,
     which can then be used to calculate the progress and validate the download.
 
-    The parameter *descr* is a descripition of the download. It may be
+    The parameter *descr* is a description of the download. It may be
     used to describe the item in the progress class. *short_descr* is the
     short form of it.
 
-    You can use *destdir* to manipulate the directory where the file will
-    be saved in. Instead of *destdir*, you can also specify the full path to
-    the file using the parameter *destfile*. You can not combine both.
+    The parameters *descr* and *short_descr* can be used to specify
+    descriptions for the item. The string passed to *descr* should
+    describe the file and its origin (e.g. "http://localhost sid/main
+    python-apt 0.7.94.2") and the string passed to *short_descr* should
+    be one word such as the name of a package.
+
+    Normally, the file will be stored in the current directory using the
+    file name given in the URI. This directory can be changed by passing
+    the name of a directory to the *destdir* parameter. It is also possible
+    to set a path to a file using the *destfile* parameter, but both can
+    not be specified together.
 
     In terms of attributes, this class is a subclass of :class:`AcquireItem`
     and thus inherits all its attributes.
 
 .. class:: AcquireWorker
 
-    An :class:`AcquireWorker` object represents a subprocess responsible for
-    fetching files from remote locations. This class is not instanciable from
-    Python.
+    An :class:`AcquireWorker` object represents a sub-process responsible for
+    fetching files from remote locations. There is no possibility to create
+    instances of this class from within Python, but a list of objects of
+    currently active workers is provided by :attr:`Acquire.workers`.
+
+    Objects of this type provide several attributes which give information
+    about the worker's current activity.
 
     .. attribute:: current_item
 
@@ -1183,22 +1442,25 @@ installation.
 
     .. attribute:: resumepoint
 
-        The amount of the file that was already downloaded prior to starting
-        this worker.
+        The amount of data which was already available when the download was
+        started.
 
     .. attribute:: status
 
-        The most recent status string received from the subprocess.
+        The most recent (localized) status string received from the
+        sub-process.
 
     .. attribute:: total_size
 
-        The total number of bytes to be downloaded. Zero if the total size is
-        unknown.
+        The total number of bytes to be downloaded for the item. Zero if the
+        total size is unknown.
 
 .. class:: AcquireItemDesc
 
     An :class:`AcquireItemDesc` object stores information about the item which
-    can be used to describe the item.
+    can be used to describe the item. Objects of this class are used in the
+    progress classes, see the :class:`apt.progress.base.AcquireProgress`
+    documentation for information how.
 
     .. attribute:: description
 
@@ -1214,102 +1476,7 @@ installation.
 
     .. attribute:: uri
 
-        The URI from which to download this item.
-
-.. class:: AcquireProgress
-
-    A monitor object for downloads controlled by the Acquire class. This is
-    an mostly abstract class. You should subclass it and implement the
-    methods to get something useful.
-
-    Methods defined here:
-
-    .. method:: done(item: AcquireItemDesc)
-
-        Invoked when an item is successfully and completely fetched.
-
-    .. method:: fail(item: AcquireItemDesc)
-
-        Invoked when the process of fetching an item encounters a fatal error.
-
-    .. method:: fetch(item: AcquireItemDesc)
-
-        Invoked when some of an item's data is fetched.
-
-    .. method:: ims_hit(item: AcquireItemDesc)
-
-        Invoked when an item is confirmed to be up-to-date. For instance,
-        when an HTTP download is informed that the file on the server was
-        not modified.
-
-    .. method:: media_change(media: str, drive: str) -> bool
-
-        Invoked when the user should be prompted to change the inserted
-        removable media.
-
-        This method should not return until the user has confirmed to the user
-        interface that the media change is complete.
-
-        The parameter *media* is the name of the media type that should be
-        changed, the parameter *drive* is the identifying name of the drive
-        whose media should be changed.
-
-        Return True if the user confirms the media change, False if it is
-        cancelled.
-
-    .. method:: pulse(owner: Acquire) -> bool
-
-        Periodically invoked while the Acquire process is underway.
-
-        Return False if the user asked to cancel the whole Acquire process.
-
-    .. method:: start()
-
-        Invoked when the Acquire process starts running.
-
-    .. method:: stop()
-
-        Invoked when the Acquire process stops running.
-
-    There are also some data descriptors:
-
-    .. attribute:: current_bytes
-
-        The number of bytes fetched.
-
-    .. attribute:: current_cps
-
-        The current rate of download, in bytes per second.
-
-    .. attribute:: current_items
-
-        The number of items that have been successfully downloaded.
-
-    .. attribute:: elapsed_time
-
-        The amount of time that has elapsed since the download started.
-
-    .. attribute:: fetched_bytes
-
-        The total number of bytes accounted for by items that were
-        successfully fetched.
-
-    .. attribute:: last_bytes
-
-        The number of bytes fetched as of the previous call to pulse(),
-        including local items.
-
-    .. attribute:: total_bytes
-
-        The total number of bytes that need to be fetched. This member is
-        inaccurate, as new items might be enqueued while the download is
-        in progress!
-
-    .. attribute:: total_items
-
-        The total number of items that need to be fetched. This member is
-        inaccurate, as new items might be enqueued while the download is
-        in progress!
+        The URI from which this item would be downloaded.
 
 
 Hashes
@@ -1324,7 +1491,7 @@ generic hash support:
 .. class:: Hashes(object)
 
     Calculate all supported hashes of the object. *object* may either be a
-    string, in which cases the hashes of the string are calculated, or a
+    string, in which cases the hashes of the string are calculated; or a
     :class:`file()` object or file descriptor, in which case the hashes of
     its contents is calculated. The calculated hashes are then available via
     attributes:
@@ -1341,12 +1508,18 @@ generic hash support:
 
         The SHA256 hash of the data, as string.
 
-.. class:: HashString(type: str, hash: str)
+.. class:: HashString(type: str[, hash: str])
 
     HashString objects store the type of a hash and the corresponding hash.
     They are used by e.g :meth:`IndexRecords.lookup`. The first parameter,
-    *type* refers to one of MD5Sum, SHA1 and SHA256. The second parameter
+    *type* refers to one of "MD5Sum", "SHA1" and "SHA256". The second parameter
     *hash* is the corresponding hash.
+
+    You can also use a combined form by passing a string with type and hash
+    separated by a colon as the only argument. For example::
+
+        HashString("MD5Sum:d41d8cd98f00b204e9800998ecf8427e")
+    
 
     .. describe:: str(hashstring)
 
@@ -1355,12 +1528,13 @@ generic hash support:
 
     .. attribute:: hashtype
 
-        The type of the hash. This may be MD5Sum, SHA1 or SHA256.
+        The type of the hash, as a string. This may be "MD5Sum", "SHA1"
+        or "SHA256".
 
     .. method:: verify_file(filename: str) -> bool
 
-        Verify that the file given by the parameter *filename* matches the hash
-        stored in this object.
+        Verify that the file given by the parameter *filename* matches the
+        hash stored in this object.
 
 The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
 :func:`sha1sum` and :func:`sha256sum` for creating a single hash from a
@@ -1373,7 +1547,7 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
     object (or a file descriptor), in which case the md5sum of its contents is
     returned.
 
-    .. versionchanged:: 0.8.0
+    .. versionchanged:: 0.7.100
         Added support for using file descriptors.
 
 .. function:: sha1sum(object)
@@ -1383,7 +1557,7 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
     object (or a file descriptor), in which case the sha1sum of its contents
     is returned.
 
-    .. versionchanged:: 0.8.0
+    .. versionchanged:: 0.7.100
         Added support for using file descriptors.
 
 .. function:: sha256sum(object)
@@ -1393,7 +1567,7 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
     object  (or a file descriptor), in which case the sha256sum of its contents
     is returned.
 
-    .. versionchanged:: 0.8.0
+    .. versionchanged:: 0.7.100
         Added support for using file descriptors.
 
 Debian control files
@@ -1443,19 +1617,20 @@ section as a string.
         tagf.step()
         print tagf.section['Package']
 
-    .. method:: step
+    .. method:: step() -> bool
 
-        Step forward to the next section. This simply returns ``1`` if OK, and
-        ``0`` if there is no section.
+        Step forward to the next section. This simply returns ``True`` if OK,
+        and ``False`` if there is no section.
 
-    .. method:: offset
+    .. method:: offset() -> int
 
         Return the current offset (in bytes) from the beginning of the file.
 
-    .. method:: jump(offset)
+    .. method:: jump(offset) -> bool
 
         Jump back/forward to *offset*. Use ``jump(0)`` to jump to the
-        beginning of the file again.
+        beginning of the file again. Returns ``True`` if a section could
+        be parsed or ``False`` if not.
 
     .. attribute:: section
 
@@ -1476,24 +1651,29 @@ section as a string.
 
       .. versionadded:: 0.8.0
 
-    .. method:: bytes
+    .. method:: bytes() -> int
 
         The number of bytes in the section.
 
-    .. method:: find(key, default='')
+    .. method:: find(key: str, default: str = '') -> str
 
         Return the value of the field at the key *key* if available,
         else return *default*.
 
-    .. method:: find_flag(key)
+    .. method:: find_flag(key: str) -> bool
 
         Find a yes/no value for the key *key*. An example for such a
         field is 'Essential'.
 
-    .. method:: get(key, default='')
+    .. method:: find_raw(key: str, default: str = '') -> str
+
+        Similar to :meth:`find`, but instead of returning just the value,
+        it returns the complete field consisting of 'key: value'.
+
+    .. method:: get(key: str, default: str = '')
 
         Return the value of the field at the key *key* if available, else
-        return *default*.
+        return *default*. 
 
     .. method:: keys()
 
@@ -1511,7 +1691,7 @@ section as a string.
     package and source sections, respectively.
 
     The parameter *rewrite_list* is a list of tuples of the form
-    ``(tag, newvalue[, renamed_to])``, whereas *tag* describes the field which
+    ``(tag, newvalue[, renamed_to])``, where *tag* describes the field which
     should be changed, *newvalue* the value which should be inserted or
     ``None`` to delete the field, and the optional *renamed_to* can be used
     to rename the field.
@@ -1528,14 +1708,16 @@ section as a string.
 
 Dependencies
 ------------
-.. function:: check_dep(pkgver, op, depver)
+.. function:: check_dep(pkgver: str, op: str, depver: str) -> bool
 
-    Check that the dependency requirements consisting of op and depver can be
-    satisfied by the version pkgver.
+    Check that the given requirement is fulfilled; that is, that the version
+    string given by *pkg_ver* matches the version string *dep_ver* under
+    the condition specified by the operator 'dep_op' (<,<=,=,>=,>).
+        
+    Return True if *pkg_ver* matches *dep_ver* under the condition 'dep_op';
+    for example::
 
-    Example::
-
-        >>> bool(apt_pkg.check_dep("1.0", ">=", "1"))
+        >>> apt_pkg.check_dep("1.0", ">=", "1")
         True
 
 The following two functions provide the ability to parse dependencies. They
@@ -1589,18 +1771,31 @@ use the same format as :attr:`Version.depends_list_str`.
         is specified in control files.
 
 
-Configuration
--------------
+Configuration and Command-line parsing
+--------------------------------------
 
 .. class:: Configuration()
 
-    Configuration() objects store the configuration of apt, mostly created
-    from the contents of :file:`/etc/apt.conf` and the files in
-    :file:`/etc/apt.conf.d`.
+    Provide access to and manipulation of APT's configuration which is
+    used by many classes and functions in this module to define their
+    behavior. There are options to install recommends, change the root
+    directory and much more. For an (incomplete) list of available options,
+    see the :manpage:`apt.conf(5)` manual page.
+
+    The most important Configuration object is the one available by the
+    module's :attr:`apt_pkg.config` attribute. It stores the global
+    configuration which affects the behavior of most functions and is
+    initialized by a call to the function :func:`init_config`. While
+    possible, it is generally not needed to create other instances of
+    this class.
+
+    For accessing and manipulating the configuration space, objects
+    of this type provide an interface which resembles Python mapping
+    types like :class:`dict`.
 
     .. describe:: key in conf
 
-      Return ``True`` if *conf* has a key *key*, else ``False``.
+        Return ``True`` if *conf* has a key *key*, else ``False``.
 
     .. describe:: conf[key]
 
@@ -1611,115 +1806,184 @@ Configuration
 
         Set the option at *key* to *value*.
 
-    .. method:: find(key[, default=''])
+    .. describe del conf[key]
 
-        Return the value for the given key *key*. This is the same as
-        :meth:`Configuration.get`.
+        Delete the option with the name *key* in the configuration object
+        *conf*.
 
-        If *key* does not exist, return *default*.
+    .. method:: get(key[, default='']) -> str
 
-    .. method:: find_file(key[, default=''])
+        Find the value for the given key and return it. If the given key does
+        not exist, return *default* instead. 
 
-        Return the filename hold by the configuration at *key*. This formats the
-        filename correctly and supports the Dir:: stuff in the configuration.
+    In addition, they provide methods to resemble the interface provided
+    by the C++ class and some more mapping methods which have been enhanced
+    to support some more advanced configuration features:
 
-        If *key* does not exist, return *default*.
+    .. method:: clear(key: str)
 
-    .. method:: find_dir(key[, default='/'])
-
-        Return the absolute path to the directory specified in *key*. A
-        trailing slash is appended.
-
-        If *key* does not exist, return *default*.
-
-    .. method:: find_i(key[, default=0])
-
-        Return the integer value stored at *key*.
-
-        If *key* does not exist, return *default*.
-
-    .. method:: find_b(key[, default=0])
-
-        Return the boolean value stored at *key*. This returns an integer, but
-        it should be treated like True/False.
-
-        If *key* does not exist, return *default*.
-
-    .. method:: set(key, value)
-
-        Set the value of *key* to *value*.
+        Remove the option at *key* and all of its children.
 
     .. method:: exists(key)
 
-        Check whether the key *key* exists in the configuration.
+        Check whether an option named *key* exists in the configuration.
 
-    .. method:: subtree(key)
+    .. method:: find(key[, default='']) -> str
 
-        Return a sub tree starting at *key*. The resulting object can be used
-        like this one.
+        Return the value stored at the option named *key*, or the value
+        given by the string *default* if the option in question is not
+        set.
 
-    .. method:: list([key])
+    .. method:: find_b(key[, default=False]) -> bool
 
-        List all items at *key*. Normally, return the keys at the top level,
-        eg. APT, Dir, etc.
+        Return the boolean value stored at *key*, or the value given by
+        the :class:`bool` object *default* if the requested option is
+        not set.
 
-        Use *key* to specify a key of which the childs will be returned.
+    .. method:: find_file(key[, default='']) -> str
+                find_dir(key[, default='/']) -> str
 
-    .. method:: value_list([key])
+        Locate the given key using :meth:`find` and return the path to the
+        file/directory. This uses a special algorithms which moves upwards
+        in the configuration space and prepends the values of the options
+        to the result. These methods are generally used for the options
+        stored in the 'Dir' section of the configuration.
 
-        Same as :meth:`Configuration.list`, but this time for the values.
+        As an example of how this works, take a look at the following options
+        and their values:
 
-    .. method:: my_tag()
+        .. table::
 
-        Return the tag name of the current tree. Normally this is an empty
-        string, but for subtrees it is the key of the subtree.
+            ============== ===========================
+            Option         Value
+            ============== ===========================
+            Dir            /
+            Dir::Etc       etc/apt/
+            Dir::Etc::main apt.conf
+            ============== ===========================
 
-    .. method:: clear(key)
+        A call to :meth:`find_file` would now return ``/etc/apt/apt.conf``
+        because it prepends the values of "Dir::Etc" and "Dir" to the value
+        of "Dir::Etc::main"::
 
-        Clear the configuration. Remove all values and keys at *key*.
+            >>> apt_pkg.config.find_file("Dir::Etc::main")
+            '/etc/apt/apt.conf'
+
+        If the special configuration variable "RootDir" is set, this value
+        would be prepended to every return value, even if the path is already
+        absolute. If not, the function ends as soon as an absolute path is
+        created (once an option with a value starting with "/" is read).
+
+        The method :meth:`find_dir` does exactly the same thing as
+        :meth:`find_file`, but adds a trailing forward slash before
+        returning the value.
+
+    .. method:: find_i(key[, default=0]) -> int
+
+        Return the integer value stored at *key*, or the value given by
+        the integer *default* if the requested option is not set.
 
     .. method:: keys([key])
 
-        Return all the keys, recursive. If *key* is specified, ... (FIXME)
+        Return a recursive list of all configuration options or, if *key*
+        is given, a list of all its children. This method is comparable
+        to the **keys** method of a mapping object, but additionally
+        provides the parameter *key*.
+        
+    .. method:: list([key])
 
-    .. method:: get(key[, default=''])
+        Return a non-recursive list of all configuration options. If *key*
+        is not given, this returns a list of options like "Apt", "Dir", and
+        similar. If *key* is given, a list of the names of its child options
+        will be returned instead.
 
-        This behaves just like :meth:`dict.get` and :meth:`Configuration.find`,
-        it returns the value of key or if it does not exist, *default*.
+    .. method:: my_tag()
+
+        Return the tag name of the current tree. Normally (for
+        :data:`apt_pkg.config`) this is an empty string, but for
+        sub-trees it is the key of the sub-tree.
+
+    .. method:: set(key: str, value: str)
+
+        Set the option named *key* to the value given by the argument
+        *value*. It is possible to store objects of the types :class:`int`
+        and :class:`bool` by calling :func:`str` on them to convert them
+        to a string object. They can then be retrieved again by using the
+        methods :meth:`find_i` or :meth:`find_b`.
+
+    .. method:: subtree(key)
+
+        Return a new apt_pkg.Configuration object which starts at the
+        given option. Example::
+
+            apttree = config.subtree('APT')
+            apttree['Install-Suggests'] = config['APT::Install-Suggests']
+
+        The configuration space is shared with the main object which means
+        that all modifications in one object appear in the other one as
+        well.
+
+    .. method:: value_list([key])
+
+        This is the opposite of the :meth:`list` method in that it returns the
+        values instead of the option names.
 
 .. data:: config
 
-    A :class:`Configuration()` object with the default configuration. This
-    object is initialized by calling :func:`init_config`.
+    This variable contains the global configuration which is used by
+    all classes and functions in this module. After importing the
+    module, this object should be initialized by calling the module's
+    :func:`init_config` function.
 
+.. function:: read_config_file(configuration: Configuration, filename: str)
 
-.. function:: read_config_file(configuration, filename)
-
-    Read the configuration file specified by the parameter *filename* and add
-    the settings therein to the :class:`Configuration()` object specified by
-    the parameter *configuration*
+    Read the configuration file *filename* and set the appropriate
+    options in the configuration object *configuration*.
 
 .. function:: read_config_dir(configuration, dirname)
 
-    Read configuration files in the directory specified by the parameter
-    *dirname* and add the settings therein to the :class:`Configuration()`
-    object specified by the parameter *configuration*.
+    Read all configuration files in the dir given by 'dirname' in the
+    correct order.
+
 
 .. function:: read_config_file_isc(configuration, filename)
 
-    Read the configuration file specified by the parameter *filename* and add
-    the settings therein to the :class:`Configuration()` object specified by
-    the parameter *configuration*
+    Read the configuration file *filename* and set the appropriate
+    options in the configuration object *configuration*. This function
+    requires a slightly different format than APT configuration files,
+    if you are unsure, do not use it.
 
 .. function:: parse_commandline(configuration, options, argv)
 
-    This function is like getopt except it manipulates a configuration space.
-    output is a list of non-option arguments (filenames, etc). *options* is a
-    list of tuples of the form ``('c',"long-opt or None",
-    "Configuration::Variable","optional type")``.
+    Parse the command line in *argv* into the configuration space. The
+    list *options* contains a list of 3-tuples or 4-tuples in the form::
+        
+        (short_option: str, long_option: str, variable: str[, type: str])
+        
+    The element *short_option* is one character, the *long_option* element
+    is the name of the long option, the element *variable* the name of the
+    configuration option the result will be stored in and *type* is one of
+    'HasArg', 'IntLevel', 'Boolean', 'InvBoolean', 'ConfigFile',
+    'ArbItem'. The default type is 'Boolean'.
 
-    Where ``type`` may be one of HasArg, IntLevel, Boolean, InvBoolean,
-    ConfigFile, or ArbItem. The default is Boolean.
+    .. table:: Overview of all possible types
+
+        ===========     =====================================================
+        Type            What happens if the option is given
+        ===========     =====================================================
+        HasArg          The argument given to the option is stored in
+                        the target.
+        IntLevel        The integer value in the target is increased by one
+        Boolean         The target variable is set to True.
+        InvBoolean      The target variable is set to False.
+        ConfigFile      The file given as an argument to this option is read
+                        in and all configuration options are added to the
+                        configuration object (APT's '-c' option).
+        ArbItem         The option takes an argument *key*=*value*, and the
+                        configuration option at *key* is set to the value
+                        *value* (APT's '-o' option).
+        ===========     =====================================================
+
 
 Locking
 --------
@@ -1734,7 +1998,7 @@ locking the package system or file-based locking.
     __exit__() is called. If the lock can not be acquired or can not be
     released an exception is raised.
 
-    This should be used via the 'with' statement, e.g.::
+    This should be used via the 'with' statement. For example::
 
         with apt_pkg.SystemLock():
             ... # Do your stuff here.
@@ -1756,7 +2020,7 @@ locking the package system or file-based locking.
     __exit__() is called. If the lock can not be acquired or can not be
     released, an exception is raised.
 
-    This should be used via the 'with' statement, e.g.::
+    This should be used via the 'with' statement. For example::
 
         with apt_pkg.FileLock(filename):
             ...
@@ -1773,7 +2037,7 @@ locking the package system or file-based locking.
 For Python versions prior to 2.5, similar functionality is provided by the
 following three functions:
 
-.. function:: get_lock(filename, errors=False) -> int
+.. function:: get_lock(filename: str, errors=False) -> int
 
     Create an empty file at the path specified by the parameter *filename* and
     lock it. If this fails and *errors* is **True**, the function raises an
@@ -1800,35 +2064,56 @@ Other classes
 --------------
 .. class:: Cdrom()
 
-    Return a Cdrom object with the following methods:
+    A Cdrom object identifies Debian installation media and adds them to
+    :file:`/etc/apt/sources.list`. The C++ version of this class is used by
+    the apt-cdrom tool and using this class, you can re-implement apt-cdrom
+    in Python, see :doc:`../tutorials/apt-cdrom`.
 
-    .. method:: ident(progress)
+    The class :class:`apt.cdrom.Cdrom` is a subclass of this class and
+    provides some additional functionality for higher level use and some
+    shortcuts for setting some related configuration options.
 
-        Identify the cdrom. The parameter *progress* refers to an
-        :class:`apt.progress.CdromProgress()` object.
+    This class provides two functions which take an instance of
+    :class:`apt.progress.base.CdromProgress` as their argument.
 
-    .. method:: add(progress)
+    .. method:: add(progress: apt.progress.base.CdromProgress) -> bool
 
-        Add the cdrom to the sources.list file. The parameter *progress*
-        refers to an :class:`apt.progress.CdromProgress()` object.
+        Search for a Debian installation media and add it to the list of
+        sources stored in :file:`/etc/apt/sources.list`. On success, the
+        boolean value ``True`` is returned. If the process failed or was
+        canceled by the progress class, :exc:`SystemError` is raised or
+        ``False`` is returned.
+
+    .. method:: ident(progress: apt.progress.base.CdromProgress) -> str
+
+        Identify the installation media and return a string which describes
+        its identity. If no media could be identified, :exc:`SystemError` is
+        raised or ``None`` is returned.
 
 .. class:: SourceList
 
-    This is for :file:`/etc/apt/sources.list`.
+    Represent the list of sources stored in files such as
+    :file:`/etc/apt/sources.list`.
 
-    .. method:: find_index(pkgfile)
+    .. method:: find_index(pkgfile: PackageFile) -> IndexFile
 
-        Return a :class:`IndexFile` object for the :class:`PackageFile`
-        *pkgfile*.
+        Return the :class:`IndexFile` object for the :class:`PackageFile`
+        object given by the argument *pkgfile*. If no index could be found,
+        return ``None``.
 
-    .. method:: read_main_list
+    .. method:: get_indexes(acquire: Acquire[, all: bool = False]) -> bool
 
-        Read the main list.
+        Add all indexes to the :class:`Acquire` object given by the argument
+        *acquire*. If *all* is ``True``, all indexes will be added, otherwise
+        only the meta indexes (Release files) will be added and others are
+        fetched as needed.
 
-    .. method:: get_indexes(acq[, all])
+    .. method:: read_main_list() -> bool
 
-        Add the index files to the :class:`Acquire()` object *acq*. If *all* is
-        given and ``True``, all files are fetched.
+        Read the files configured in Dir::Etc::SourceList and
+        Dir::Etc::sourceparts; that is (on normal system),
+        :file:`/etc/apt/sources.list` and the files in
+        :file:`/etc/apt/sources.list.d`.
 
     .. attribute:: list
 
@@ -1836,20 +2121,26 @@ Other classes
 
 String functions
 ----------------
-.. function:: base64_encode(string)
+.. function:: base64_encode(value: bytes) -> str
 
-    Encode the given string using base64, e.g::
+    Encode the given bytes string (which may not contain a null byte)
+    using base64, for example, on Python 3 and newer::
 
-        >>> apt_pkg.base64_encode(u"A")
+        >>> apt_pkg.base64_encode(b"A")
         'QQ=='
+
+    on Python versions prior to 3, the 'b' before the string has to be
+    omitted.
 
 .. function:: check_domain_list(host, list)
 
-    See if Host is in a ',' separated list, e.g.::
+    See if the host name given by *host* is one of the domains given in the
+    comma-separated list *list* or a subdomain of one of them.
 
-        apt_pkg.check_domain_list("alioth.debian.org","debian.net,debian.org")
+        >>> apt_pkg.check_domain_list("alioth.debian.org","debian.net,debian.org")
+        True
 
-.. function:: dequote_string(string)
+.. function:: dequote_string(string: str)
 
     Dequote the string specified by the parameter *string*, e.g.::
 
@@ -1858,17 +2149,17 @@ String functions
 
 .. function:: quote_string(string, repl)
 
-    For every character listed in the string *repl*, replace all occurences in
-    the string *string* with the correct HTTP encoded value:
+    Escape the string *string*, replacing any character not allowed in a URL
+    or specified by *repl* with its ASCII value preceded by a percent sign
+    (so for example ' ' becomes '%20').
 
         >>> apt_pkg.quote_string("apt is cool","apt")
         '%61%70%74%20is%20cool'
 
-.. function:: size_to_str(size)
+.. function:: size_to_str(size: int)
 
-    Return a string presenting the human-readable version of the integer
-    *size*. When calculating the units (k,M,G,etc.) the size is divided by the
-    factor 1000.
+    Return a string describing the size in a human-readable manner using
+    SI prefix and base-10 units, e.g. '1k' for 1000, '1M' for 1000000, etc.
 
     Example::
 
@@ -1898,6 +2189,7 @@ String functions
         >>> apt_pkg.string_to_bool("not-recognized")
         -1
 
+
 .. function:: str_to_time(rfc_time)
 
     Convert the :rfc:`1123` conforming string *rfc_time* to the unix time, and
@@ -1908,7 +2200,7 @@ String functions
         >> apt_pkg.str_to_time('Thu, 01 Jan 1970 00:00:00 GMT')
         0
 
-.. function:: time_rfc1123(seconds)
+.. function:: time_rfc1123(seconds: int) -> str
 
     Format the unix time specified by the integer *seconds*, according to the
     requirements of :rfc:`1123`.
@@ -1919,7 +2211,7 @@ String functions
         'Thu, 01 Jan 1970 00:00:00 GMT'
 
 
-.. function:: time_to_str(seconds)
+.. function:: time_to_str(seconds: int) -> str
 
     Format a given duration in a human-readable manner. The parameter *seconds*
     refers to a number of seconds, given as an integer. The return value is a
@@ -1930,12 +2222,12 @@ String functions
         >>> apt_pkg.time_to_str(3601)
         '1h0min1s'
 
-.. function:: upstream_version(version)
+.. function:: upstream_version(version: str) -> str
 
-    Return the string *version*, eliminating everything following the last
-    '-'. Thus, this should be equivalent to ``version.rsplit('-', 1)[0]``.
+    Return the upstream version for the Debian package version given by
+    *version*.
 
-.. function:: uri_to_filename(uri)
+.. function:: uri_to_filename(uri: str) -> str
 
     Take a string *uri* as parameter and return a filename which can be used to
     store the file, based on the URI.
@@ -1946,10 +2238,11 @@ String functions
         'debian.org_index.html'
 
 
-.. function:: version_compare(a, b)
+.. function:: version_compare(a: str, b: str) -> int
 
     Compare two versions, *a* and *b*, and return an integer value which has
-    the same characteristic as the built-in :func:`cmp` function.
+    the same meaning as the built-in :func:`cmp` function's return value has,
+    see the following table for details.
 
     .. table:: Return values
 
@@ -1962,8 +2255,6 @@ String functions
         ===== =============================================
 
 
-
-
 Module Constants
 ----------------
 .. _CurStates:
@@ -1971,41 +2262,98 @@ Module Constants
 Package States
 ^^^^^^^^^^^^^^^
 .. data:: CURSTATE_CONFIG_FILES
+
+    Only the configuration files of the package exist on the system.
+
 .. data:: CURSTATE_HALF_CONFIGURED
+
+    The package is unpacked and configuration has been started, but not
+    yet completed.
+
 .. data:: CURSTATE_HALF_INSTALLED
+
+    The installation of the package has been started, but not completed.
+
 .. data:: CURSTATE_INSTALLED
+
+    The package is unpacked, configured and OK.
+
 .. data:: CURSTATE_NOT_INSTALLED
+
+    The package is not installed.
+
 .. data:: CURSTATE_UNPACKED
+
+    The package is unpacked, but not configured.
 
 .. _InstStates:
 
 Installed states
 ^^^^^^^^^^^^^^^^
 .. data:: INSTSTATE_HOLD
+
+    The package is put on hold.
+
 .. data:: INSTSTATE_HOLD_REINSTREQ
+
+    The package is put on hold, but broken and has to be reinstalled.
+    
 .. data:: INSTSTATE_OK
+
+    The package is OK.
+
 .. data:: INSTSTATE_REINSTREQ
+
+    The package is broken and has to be reinstalled.
 
 .. _Priorities:
 
 Priorities
 ^^^^^^^^^^^
 .. data:: PRI_EXTRA
+
+    The integer representation of the priority 'extra'.
+
 .. data:: PRI_IMPORTANT
+
+    The integer representation of the priority 'important'.
+    
 .. data:: PRI_OPTIONAL
+
+    The integer representation of the priority 'optional'.
+
 .. data:: PRI_REQUIRED
+
+    The integer representation of the priority 'required'.
+
 .. data:: PRI_STANDARD
+
+    The integer representation of the priority 'standard'.
 
 
 .. _SelStates:
 
-Select states
-^^^^^^^^^^^^^
+Package selection states
+^^^^^^^^^^^^^^^^^^^^^^^^
 .. data:: SELSTATE_DEINSTALL
+
+    The package is selected for deinstallation.
+
 .. data:: SELSTATE_HOLD
+
+    The package is marked to be on hold and will not be modified.
+
 .. data:: SELSTATE_INSTALL
+
+    The package is selected for installation.
+    
 .. data:: SELSTATE_PURGE
+
+    The package is selected to be purged.
+
 .. data:: SELSTATE_UNKNOWN
+
+    The package is in an unknown state.
 
 
 Build information

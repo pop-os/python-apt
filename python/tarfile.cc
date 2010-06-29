@@ -235,7 +235,7 @@ static PyMethodDef tarmember_methods[] = {
     {"ischr",tarmember_ischr,METH_NOARGS,
      "Determine whether the member is a character device."},
     {"isdev",tarmember_isdev,METH_NOARGS,
-     "Determine whether the member is a device (block,character or FIFO)."},
+     "Determine whether the member is a device (block, character or FIFO)."},
     {"isdir",tarmember_isdir,METH_NOARGS,
      "Determine whether the member is a directory."},
     {"isfifo",tarmember_isfifo,METH_NOARGS,
@@ -252,7 +252,7 @@ static PyMethodDef tarmember_methods[] = {
 };
 
 static PyGetSetDef tarmember_getset[] = {
-    {"gid",tarmember_get_gid,0,"The owner's group id"},
+    {"gid",tarmember_get_gid,0,"The owner's group ID."},
     {"linkname",tarmember_get_linkname,0,"The target of the link."},
     {"major",tarmember_get_major,0,"The major ID of the device."},
     {"minor",tarmember_get_minor,0,"The minor ID of the device."},
@@ -260,7 +260,7 @@ static PyGetSetDef tarmember_getset[] = {
     {"mtime",tarmember_get_mtime,0,"Last time of modification."},
     {"name",tarmember_get_name,0,"The name of the file."},
     {"size",tarmember_get_size,0,"The size of the file."},
-    {"uid",tarmember_get_uid,0,"The owner's user id."},
+    {"uid",tarmember_get_uid,0,"The owner's user ID."},
     {NULL}
 };
 
@@ -375,11 +375,11 @@ static PyObject *tarfile_extractall(PyObject *self, PyObject *args)
 
 static const char *tarfile_go_doc =
     "go(callback: callable[, member: str]) -> True\n\n"
-    "Go through the archive and call the callable callback for each\n"
+    "Go through the archive and call the callable 'callback' for each\n"
     "member with 2 arguments. The first argument is the TarMember and\n"
     "the second one is the data, as bytes.\n\n"
     "The optional parameter 'member' can be used to specify the member for\n"
-    "which call the callback. If not specified, it will be called for all\n"
+    "which to call the callback. If not specified, it will be called for all\n"
     "members. If specified and not found, LookupError will be raised.";
 static PyObject *tarfile_go(PyObject *self, PyObject *args)
 {

@@ -30,7 +30,7 @@
 
 static char *cdrom_add_doc =
     "add(progress: apt_pkg.CdromProgress) -> bool\n\n"
-    "Add the given CD-ROM to the sources.list. Returns True on success, may\n"
+    "Add the given CD-ROM to the sources.list. Return True on success;\n"
     "raise an error on failure or return False.";
 static PyObject *cdrom_add(PyObject *Self,PyObject *Args)
 {
@@ -51,8 +51,11 @@ static PyObject *cdrom_add(PyObject *Self,PyObject *Args)
 
 static char *cdrom_ident_doc =
     "ident(progress: apt_pkg.CdromProgress) -> str\n\n"
-    "Try to identify the CD-ROM and if successful return the identity as a\n"
-    "string. Otherwise, return None or raise an error.";
+    "Try to identify the CD-ROM and if successful return the hexadecimal\n"
+    "CDROM-ID (and a integer version suffix seperated by -) as a\n"
+    "string. Otherwise, return None or raise an error.\n\n"
+    "The ID is created by hashing all file and directory names on the\n"
+    "CD-ROM and appending the version.";
 static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
 {
     pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
@@ -94,7 +97,8 @@ static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
     string ident;
     bool res = Cdrom.Ident(ident, &progress);
 
-    PyObject *result = Py_BuildValue("(bs)", res, ident.c_str());
+    PyObject *boolres = PyBool_FromLong(res);
+    PyObject *result = Py_BuildValue("(Os)", boolres, ident.c_str());
 
     return HandleErrors(result);
 }

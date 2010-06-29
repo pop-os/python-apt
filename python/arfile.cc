@@ -82,12 +82,12 @@ static PyGetSetDef armember_getset[] = {
     {"size",armember_get_size,0,"The size of the files."},
     {"start",armember_get_start,0,
      "The offset in the archive where the file starts."},
-    {"uid",armember_get_uid,0,"The user id of the owner."},
+    {"uid",armember_get_uid,0,"The user ID of the owner."},
     {NULL}
 };
 
 static const char *armember_doc =
-    "An ArMember object represents a single file within an AR archive. For\n"
+    "Represent a single file within an AR archive. For\n"
     "Debian packages this can be e.g. control.tar.gz. This class provides\n"
     "information about this file, such as the mode and size.";
 PyTypeObject PyArMember_Type = {
@@ -141,7 +141,7 @@ struct PyArArchiveObject : public CppPyObject<PyARArchiveHack*> {
 
 static const char *ararchive_getmember_doc =
     "getmember(name: str) -> ArMember\n\n"
-    "Return a ArMember object for the member given by name. Raise\n"
+    "Return an ArMember object for the member given by 'name'. Raise\n"
     "LookupError if there is no ArMember with the given name.";
 static PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 {
@@ -238,11 +238,11 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
 
 static const char *ararchive_extract_doc =
     "extract(name: str[, target: str]) -> bool\n\n"
-    "Extract the member given by name into the directory given by target.\n"
-    "If the extraction failed, an error is raised. Otherwise, the method\n"
-    "returns True if the owner could be set or False if the owner could not\n"
-    "be changed. It may also raise LookupError if there is member with\n"
-    "the given name.";
+    "Extract the member given by 'name' into the directory given\n"
+    "by 'target'. If the extraction fails, raise OSError. In case\n"
+    "of success, return True if the file owner could be set or\n"
+    "False if this was not possible. If the requested member\n"
+    "does not exist, raise LookupError.";
 static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 {
     char *name = 0;
@@ -260,11 +260,10 @@ static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 }
 
 static const char *ararchive_extractall_doc =
-    "extract([target: str]) -> bool\n\n"
-    "Extract all into the directory given by target.\n"
-    "If the extraction failed, an error is raised. Otherwise, the method\n"
-    "returns True if the owner could be set or False if the owner could not\n"
-    "be changed.";
+    "extractall([target: str]) -> bool\n\n"
+    "Extract all archive contents into the directory given by 'target'. If\n"
+    "the extraction fails, raise an error. Otherwise, return True if the\n"
+    "owner could be set or False if the owner could not be changed.";
 
 static PyObject *ararchive_extractall(PyArArchiveObject *self, PyObject *args)
 {
@@ -311,7 +310,7 @@ static PyObject *ararchive_gettar(PyArArchiveObject *self, PyObject *args)
 
 static const char *ararchive_getmembers_doc =
     "getmembers() -> list\n\n"
-    "Return a list of all members in the AR archive.";
+    "Return a list of all members in the archive.";
 static PyObject *ararchive_getmembers(PyArArchiveObject *self)
 {
     PyObject *list = PyList_New(0);
@@ -329,7 +328,7 @@ static PyObject *ararchive_getmembers(PyArArchiveObject *self)
 
 static const char *ararchive_getnames_doc =
     "getnames() -> list\n\n"
-    "Return a list of the names of all members in the AR archive.";
+    "Return a list of the names of all members in the archive.";
 static PyObject *ararchive_getnames(PyArArchiveObject *self)
 {
     PyObject *list = PyList_New(0);
@@ -424,12 +423,12 @@ static PyMappingMethods ararchive_as_mapping = {
 
 static const char *ararchive_doc =
     "ArArchive(file: str/int/file)\n\n"
-    "An ArArchive object represents an archive in the 4.4 BSD AR format, \n"
+    "Represent an archive in the 4.4 BSD ar format,\n"
     "which is used for e.g. deb packages.\n\n"
     "The parameter 'file' may be a string specifying the path of a file, or\n"
     "a file-like object providing the fileno() method. It may also be an int\n"
     "specifying a file descriptor (returned by e.g. os.open()).\n"
-    "The recommended way is to pass in the path to the file.";
+    "The recommended way of using it is to pass in the path to the file.";
 
 PyTypeObject PyArArchive_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -599,10 +598,10 @@ static const char *debfile_doc =
     "The parameter 'file' may be a string specifying the path of a file, or\n"
     "a file-like object providing the fileno() method. It may also be an int\n"
     "specifying a file descriptor (returned by e.g. os.open()).\n"
-    "The recommended way is to pass in the path to the file.\n\n"
+    "The recommended way of using it is to pass in the path to the file.\n\n"
     "It differs from ArArchive by providing the members 'control', 'data'\n"
-    "and 'version' for accessing the control.tar.gz,data.tar.{gz,bz2,lzma}\n"
-    ",debian-binary members in the archive.";
+    "and 'version' for accessing the control.tar.gz, data.tar.{gz,bz2,lzma},\n"
+    "and debian-binary members in the archive.";
 
 PyTypeObject PyDebFile_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)

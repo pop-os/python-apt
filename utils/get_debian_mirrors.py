@@ -26,6 +26,8 @@ masterlist = urllib2.urlopen("http://cvs.debian.org/webwml/webwml/english/"
                              "mirror/Mirrors.masterlist?revision=HEAD")
 
 for mirror in deb822.Deb822.iter_paragraphs(masterlist):
+    if not "Country" in mirror:
+        continue
     country = mirror["Country"].split(None, 1)[0]
     site = mirror["Site"]
     for proto in 'http', 'ftp':

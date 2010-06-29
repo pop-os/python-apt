@@ -1,10 +1,70 @@
-python-apt (0.7.94.3) UNRELEASED; urgency=low
+python-apt (0.7.96) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * data/templates/gNewSense.info.in,
+    data/templates/gNewSense.mirrors:
+    - add gNewSense template and mirrors, thanks to Karl Goetz
+  * data/templates/Ubuntu.info.in, 
+    data/templates/Ubuntu.mirrors:
+    - updated for Ubuntu maverick
+  * doc/source/conf.py:
+    - do not fail on non-digits in the version number
+  * utils/get_debian_mirrors.py:
+    - ignore mirrors without a county
+
+  [ Martin Pitt ]
+  * tests/test_apt_cache.py: Test accessing the record of all packages during
+    iteration. This both ensures that it's well-formatted and structured, and
+    also that accessing it does not take an inordinate amount of time. This
+    exposes a severe performance problem when using gzip compressed package
+    indexes.
+  * apt/cache.py: When iterating over the cache, do so sorted by package name.
+    With this we read the the package lists linearly if we need to access the
+    package records, instead of having to do thousands of random seeks; the
+    latter is disastrous if we use compressed package indexes, and slower than
+    necessary for uncompressed indexes.
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
+
+python-apt (0.7.95) unstable; urgency=low
 
   [ Julian Andres Klode ]
+  * apt/cache.py:
+    - Make Cache.get_changes() much (~35x) faster (Closes: #578074).
+    - Make Cache.req_reinstall_pkgs much faster as well.
+    - Make Cache.get_providing_packages() about 1000 times faster.
+    - Use has_versions and has_provides from apt_pkg.Package where possible.
+  * apt/package.py:
+    - Decode using utf-8 in installed_files (LP: #407953).
+    - Fix fetch_source() to work when source name = binary name (LP: #552400).
+    - Merge a patch from Sebastian Heinlein to make get_changelog() only
+      check sources where source version >= binary version (Closes: #581831).
+    - Add Version.source_version and enhance Sebastian's patch to make use
+      of it, in order to find the best changelog for the package.
+  * python:
+    - Return bool instead of int to Python where possible, looks better.
+    - Document every class, function, property.
+  * python/cache.cc:
+    - Check that 2nd argument to Cache.update() really is a SourceList object.
+    - Fix PackageFile.not_automatic to use NotAutomatic instead of NotSource.
+    - Add Package.has_versions to see which packages have at least one version,
+      and Package.has_provides for provides.
+    - Add rich compare methods to the Version object.
   * python/generic.cc:
     - Fix a memory leak when using old attribute names.
+    - Map ArchiveURI property to archive_uri
+  * python/progress.cc:
+    - Do not pass arguments to InstallProgress.wait_child().
+  * doc:
+    - Update the long documentation.
   * debian/control:
     - Change priority to standard, keep -doc and -dev on optional.
+  * utils/migrate-0.8.py:
+    - Open files in universal newline support and pass filename to ast.parse.
+    - Add has_key to the list of deprecated functions.
+    - Don't abort if parsing failed.
+    - do not require files to end in .py if they are passed on the command
+      line or if they contain python somewhere in the shebang line.
 
   [ Michael Vogt ]
   * apt/cache.py:
@@ -13,13 +73,8 @@ python-apt (0.7.94.3) UNRELEASED; urgency=low
     - fix ports test-data
   * tests/test_apt_cache.py:
     - add simple test for basic cache/dependency iteration
-  * apt/__init__.py:
-    - only show deprecation warnings if PYTHON_APT_DEPRECATION_WARNINGS
-      is set in the environment
-  * python/indexfile.cc:
-    - add missing 0.7 compat indexfile.ArchiveURI method
-  
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Mar 2010 16:03:50 +0100
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 19 May 2010 15:43:09 +0200
 
 python-apt (0.7.94.2) unstable; urgency=low
 

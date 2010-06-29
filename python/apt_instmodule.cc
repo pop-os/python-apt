@@ -102,7 +102,7 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       if (_error->PendingError() == true) {
 	 if (Rootdir != NULL)
 	    chdir (cwd);
-	 return HandleErrors(Py_BuildValue("b",false));
+	 return HandleErrors();
       }
 
       // extracts relative to the current dir
@@ -112,9 +112,9 @@ static PyObject *debExtractArchive(PyObject *Self,PyObject *Args)
       if (Rootdir != NULL)
 	 chdir (cwd);
       if (res == false)
-	 return HandleErrors(Py_BuildValue("b",res));
+	 return HandleErrors(PyBool_FromLong(res));
    }
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 									/*}}}*/
 // arFindMember - Find member in AR archive              		/*{{{*/
@@ -136,12 +136,12 @@ static PyObject *arCheckMember(PyObject *Self,PyObject *Args)
    FileFd Fd(fileno,false);
    ARArchive AR(Fd);
    if (_error->PendingError() == true)
-      return HandleErrors(Py_BuildValue("b",res));
+      return HandleErrors();
 
    if(AR.FindMember(Member) != 0)
       res = true;
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 									/*}}}*/
 
@@ -168,7 +168,7 @@ static PyMethodDef *methods = 0;
 
 
 static const char *apt_inst_doc =
-    "Functions for working with AR,tar archives and .deb packages.\n\n"
+    "Functions for working with ar/tar archives and .deb packages.\n\n"
     "This module provides useful classes and functions to work with\n"
     "archives, modelled after the 'TarFile' class in the 'tarfile' module.";
 #define ADDTYPE(mod,name,type) { \

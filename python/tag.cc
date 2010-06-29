@@ -89,7 +89,10 @@ void TagFileFree(PyObject *Obj)
 									/*}}}*/
 
 // Tag Section Wrappers							/*{{{*/
-static char *doc_Find = "Find(Name) -> String/None";
+static char *doc_Find =
+    "find(name: str[, default = None]) -> str\n\n"
+    "Find the key given by 'name' and return the value. If the key can\n"
+    "not be found, return 'default'.";
 static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -108,7 +111,10 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
    return PyString_FromStringAndSize(Start,Stop-Start);
 }
 
-static char *doc_FindRaw = "FindRaw(Name) -> String/None";
+static char *doc_FindRaw =
+    "find_raw(name: str[, default = None] -> str\n\n"
+    "Same as find(), but returns the complete 'key: value' field; instead of\n"
+    "just the value.";
 static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -131,7 +137,11 @@ static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
    return PyString_FromStringAndSize(Start,Stop-Start);
 }
 
-static char *doc_FindFlag = "FindFlag(Name) -> integer/none";
+static char *doc_FindFlag =
+    "find_flag(name: str) -> int\n\n"
+    "Return 1 if the key's value is 'yes' or a similar value describing\n"
+    "a boolean true. If the field does not exist, or does not have such a\n"
+    "value, return 0.";
 static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -144,7 +154,7 @@ static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
       Py_INCREF(Py_None);
       return Py_None;
    }
-   return Py_BuildValue("i",Flag);
+   return PyBool_FromLong(Flag);
 }
 
 // Map access, operator []
@@ -175,7 +185,9 @@ static Py_ssize_t TagSecLength(PyObject *Self)
 }
 
 // Look like a mapping
-static char *doc_Keys = "keys() -> List";
+static char *doc_Keys =
+    "keys() -> list\n\n"
+    "Return a list of all keys.";
 static PyObject *TagSecKeys(PyObject *Self,PyObject *Args)
 {
    pkgTagSection &Tags = GetCpp<pkgTagSection>(Self);
@@ -200,7 +212,9 @@ static PyObject *TagSecKeys(PyObject *Self,PyObject *Args)
 }
 
 #if PY_MAJOR_VERSION < 3
-static char *doc_Exists = "Exists(Name) -> integer";
+static char *doc_Exists =
+    "has_key(name: str) -> bool\n\n"
+    "Return True if the key given by 'name' exists, False otherwise.";
 static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 {
    char *Name = 0;
@@ -209,9 +223,7 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 
    const char *Start;
    const char *Stop;
-   if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
-      return Py_BuildValue("i",0);
-   return Py_BuildValue("i",1);
+   return PyBool_FromLong(GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop));
 }
 #endif
 
@@ -227,7 +239,9 @@ static int TagSecContains(PyObject *Self,PyObject *Arg)
    return 1;
 }
 
-static char *doc_Bytes = "Bytes() -> integer";
+static char *doc_Bytes =
+    "bytes() -> int\n\n"
+    "Return the number of bytes this section is large.";
 static PyObject *TagSecBytes(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -245,7 +259,9 @@ static PyObject *TagSecStr(PyObject *Self)
 }
 									/*}}}*/
 // TagFile Wrappers							/*{{{*/
-static char *doc_Step = "Step() -> Integer\n0 means EOF.";
+static char *doc_Step =
+    "step() -> bool\n\n"
+    "Step forward in the file";
 static PyObject *TagFileStep(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -253,9 +269,9 @@ static PyObject *TagFileStep(PyObject *Self,PyObject *Args)
 
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Step(Obj.Section->Object) == false)
-      return HandleErrors(Py_BuildValue("i",0));
+      return HandleErrors(PyBool_FromLong(0));
 
-   return HandleErrors(Py_BuildValue("i",1));
+   return HandleErrors(PyBool_FromLong(1));
 }
 
 // TagFile Wrappers							/*{{{*/
@@ -296,7 +312,9 @@ static PyObject *TagFileIter(PyObject *Self) {
     return Self;
 }
 
-static char *doc_Offset = "Offset() -> Integer";
+static char *doc_Offset =
+    "offset() -> int\n\n"
+    "Return the current offset.";
 static PyObject *TagFileOffset(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -304,7 +322,11 @@ static PyObject *TagFileOffset(PyObject *Self,PyObject *Args)
    return Py_BuildValue("i",((TagFileData *)Self)->Object.Offset());
 }
 
-static char *doc_Jump = "Jump(Offset) -> Integer";
+static char *doc_Jump =
+    "jump(offset: int) -> bool\n\n"
+    "Jump to the given offset; return True on success. Note that jumping to\n"
+    "an offset is not very reliable, and the 'section' attribute may point\n"
+    "to an unexpected section.";
 static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 {
    int Offset;
@@ -313,9 +335,9 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 
    TagFileData &Obj = *(TagFileData *)Self;
    if (Obj.Object.Jump(Obj.Section->Object,Offset) == false)
-      return HandleErrors(Py_BuildValue("i",0));
+      return HandleErrors(PyBool_FromLong(0));
 
-   return HandleErrors(Py_BuildValue("i",1));
+   return HandleErrors(PyBool_FromLong(1));
 }
 									/*}}}*/
 // ParseSection - Parse a single section from a tag file		/*{{{*/
@@ -346,7 +368,7 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
 }
 
 #ifdef COMPAT_0_7
-char *doc_ParseSection ="ParseSection(Text) -> TagSection() object. Deprecated.";
+char *doc_ParseSection = "ParseSection(Text) -> TagSection()\n\nDeprecated.";
 PyObject *ParseSection(PyObject *self,PyObject *Args)
 {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseSection() is "
@@ -386,7 +408,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return HandleErrors(New);
 }
 #ifdef COMPAT_0_7
-char *doc_ParseTagFile = "ParseTagFile(File) -> TagFile() object. Deprecated.";
+char *doc_ParseTagFile = "ParseTagFile(file) -> TagFile()\n\nDeprecated.";
 PyObject *ParseTagFile(PyObject *self,PyObject *Args) {
    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.ParseTagFile() is "
                 "deprecated. Please see apt_pkg.TagFile() for the "
@@ -400,20 +422,19 @@ PyObject *ParseTagFile(PyObject *self,PyObject *Args) {
 /* An interesting future extension would be to add a user settable
    order list */
 char *doc_RewriteSection =
-"RewriteSection(Section,Order,RewriteList) -> String\n"
+"rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str\n"
 "\n"
-"The section rewriter allows a section to be taken in, have fields added,\n"
-"removed or changed and then put back out. During this process the fields\n"
-"within the section are sorted to corrispond to a proper order. Order is a\n"
-"list of field names with their proper capitialization.\n"
-"apt_pkg.RewritePackageOrder and apt_pkg.RewriteSourceOrder are two predefined\n"
-"orders.\n"
-"RewriteList is a list of tuples. Each tuple is of the form:\n"
-"  (Tag,NewValue[,RenamedTo])\n"
-"Tag specifies the tag in the source section. NewValue is the new value of\n"
-"that tag and the optional RenamedTo field can cause the tag to be changed.\n"
-"If NewValue is None then the tag is removed\n"
-"Ex. ('Source','apt','Package') is used for .dsc files.";
+"Rewrite the section given by 'section' using 'rewrite_list', and order the\n"
+"fields according to 'order'.\n\n"
+"The parameter 'order' is a list object containing the names of the fields\n"
+"in the order they should appear in the rewritten section.\n"
+"apt_pkg.REWRITE_PACKAGE_ORDER and apt_pkg.REWRITE_SOURCE_ORDER are two\n"
+"predefined lists for rewriting package and source sections, respectively\n\n"
+"The parameter 'rewrite_list' is a list of tuples of the form\n"
+"'(tag, newvalue[, renamed_to])', where 'tag' describes the field which\n"
+"should be changed, 'newvalue' the value which should be inserted or None\n"
+"to delete the field, and the optional renamed_to can be used to rename the\n"
+"field.";
 PyObject *RewriteSection(PyObject *self,PyObject *Args)
 {
    PyObject *Section;
@@ -489,11 +510,11 @@ PySequenceMethods TagSecSeqMeth = {0,0,0,0,0,0,0,TagSecContains,0,0};
 PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 
 
-static char *doc_TagSec = "TagSection(text) -> Create a new object.\n\n"
-   "TagSection() objects provide methods to access rfc822-style formatted\n"
-   "header sections, like those in debian/control or Packages files.\n\n"
+static char *doc_TagSec = "TagSection(text: str)\n\n"
+   "Provide methods to access RFC822-style header sections, like those\n"
+   "found in debian/control or Packages files.\n\n"
    "TagSection() behave like read-only dictionaries and also provide access\n"
-   "to the functions provided by the C++ class (e.g. Find)";
+   "to the functions provided by the C++ class (e.g. find)";
 PyTypeObject PyTagSection_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -558,22 +579,24 @@ static PyObject *TagFileGetSection(PyObject *Self,void*) {
 }
 
 static PyGetSetDef TagFileGetSet[] = {
-    {"section",TagFileGetSection,0,"Return a TagSection.",0},
+    {"section",TagFileGetSection,0,
+     "The current section, as a TagSection object.",0},
     {}
 };
 
 
-static char *doc_TagFile = "TagFile(file) -> TagFile() object. \n\n"
-   "TagFile() objects provide access to debian control files, which consists\n"
-   "of multiple RFC822-like formatted sections.\n\n"
+static char *doc_TagFile = "TagFile(file)\n\n"
+   "TagFile() objects provide access to debian control files, which consist\n"
+   "of multiple RFC822-style sections.\n\n"
    "To provide access to those sections, TagFile objects provide an iterator\n"
    "which yields TagSection objects for each section.\n\n"
    "TagFile objects also provide another API which uses a shared TagSection\n"
    "object in the 'section' member. The functions step() and jump() can be\n"
-   "used to navigate in the file; and offset() tells the current position.\n\n"
+   "used to navigate within the file; offset() returns the current\n"
+   "position.\n\n"
    "It is important to not mix the use of both APIs, because this can have\n"
    "unwanted effects.\n\n"
-   "The parameter *file* refers to an object providing a fileno() method or\n"
+   "The parameter 'file' refers to an object providing a fileno() method or\n"
    "a file descriptor (an integer)";
 
 // Type for a Tag File

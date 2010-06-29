@@ -123,7 +123,7 @@ deprecated_cpp_stuff = set([
     'SelStateHold', 'SelStateInstall', 'SelStatePurge', 'SelStateUnknown', 
     'SizeToStr', 'StrToTime', 'StringToBool', 'Time', 'TimeRFC1123', 
     'TimeToStr', 'URItoFileName', 'UpstreamVersion', 'VersionCompare', 
-    'newConfiguration'])
+    'newConfiguration', '.has_key'])
 
 def do_color(string, words):
     """Colorize (red) the given words in the given string."""
@@ -193,11 +193,19 @@ def find_deprecated_py():
 def find_occurences(all_old, files):
     """Find all ocurrences in the given Python files."""
     for fname in files:
-        if fname.endswith('setup3.py') or not fname.endswith('.py'):
+        if not os.path.exists(fname):
+            continue
+        if not (fname in sys.argv or fname.endswith('.py') or
+                re.match('^#.*python.*', open(fname).readline())):
             continue
 
         words = defaultdict(lambda: set())
-        for i in ast.walk(ast.parse(open(fname).read())):
+        try:
+            node = ast.parse(open(fname, "rU").read(), fname)
+        except Exception, e:
+            print >> sys.stderr, "Ignoring %s: %s" % (fname, e)
+            continue
+        for i in ast.walk(node):
             if isinstance(i, _ast.ImportFrom):
                 for alias in i.names:
                     if alias.name in all_old:

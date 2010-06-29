@@ -63,7 +63,10 @@ static PyObject *newConfiguration(PyObject *self,PyObject *args)
 
 // Version Wrappers							/*{{{*/
 // These are kind of legacy..
-static char *doc_VersionCompare = "VersionCompare(a,b) -> int";
+static char *doc_VersionCompare =
+    "version_compare(a: str, b: str) -> int\n\n"
+    "Compare the given versions; return -1 if 'a' is smaller than 'b',\n"
+    "0 if they are equal, and 2 if 'a' is larger than 'b'.";
 static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
 {
    char *A;
@@ -88,8 +91,8 @@ static char *doc_CheckDep =
     "Check that the given requirement is fulfilled; i.e. that the version\n"
     "string given by 'pkg_ver' matches the version string 'dep_ver' under\n"
     "the condition specified by the operator 'dep_op' (<,<=,=,>=,>).\n\n"
-    "This functions returns True if 'pkg_ver' matches 'dep_ver' under the\n"
-    "condition 'dep_op'; e.g. this returns True:\n\n"
+    "Return True if 'pkg_ver' matches 'dep_ver' under the\n"
+    "condition 'dep_op'; for example, this returns True:\n\n"
     "    apt_pkg.check_dep('1', '<=', '2')";
 static PyObject *CheckDep(PyObject *Self,PyObject *Args)
 {
@@ -145,7 +148,9 @@ static PyObject *CheckDepOld(PyObject *Self,PyObject *Args)
 }
 #endif
 
-static char *doc_UpstreamVersion = "UpstreamVersion(a) -> string";
+static char *doc_UpstreamVersion =
+    "upstream_version(ver: str) -> str\n\n"
+    "Return the upstream version for the package version given by 'ver'.";
 static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
 {
    char *Ver;
@@ -154,14 +159,29 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
    return CppPyString(_system->VS->UpstreamVersion(Ver));
 }
 
-static char *doc_ParseDepends =
-"ParseDepends(s) -> list of tuples\n"
+static const char *doc_ParseDepends =
+"parse_depends(s: str) -> list\n"
 "\n"
-"The resulting tuples are (Pkg,Ver,Operation). Each anded dependency is a\n"
-"list of or'd dependencies\n"
-"Source depends are evaluated against the curernt arch and only those that\n"
-"Match are returned.\n\n"
-"apt_pkg.Parse{,Src}Depends() are old forms which return >>,<< instead of >,<";
+"Parse the dependencies given by 's' and return a list of lists. Each of\n"
+"these lists represents one or more options for an 'or' dependency in\n"
+"the form of '(pkg, ver, comptype)' tuples. The tuple element 'pkg'\n"
+"is the name of the package; the element 'ver' is the version, or ''\n"
+"if no version was requested. The element 'ver' is a comparison\n"
+"operator ('<', '<=', '=', '>=', or '>').";
+
+static const char *parse_src_depends_doc =
+"parse_src_depends(s: str) -> list\n"
+"\n"
+"Parse the dependencies given by 's' and return a list of lists. Each of\n"
+"these lists represents one or more options for an 'or' dependency in\n"
+"the form of '(pkg, ver, comptype)' tuples. The tuple element 'pkg'\n"
+"is the name of the package; the element 'ver' is the version, or ''\n"
+"if no version was requested. The element 'ver' is a comparison\n"
+"operator ('<', '<=', '=', '>=', or '>')."
+"\n\n"
+"Dependencies may be restricted to certain architectures and the result\n"
+"only contains those dependencies for the architecture set in the\n"
+"configuration variable APT::Architecture";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
                                   bool ParseArchFlags, string name,
                                   bool debStyle=false)
@@ -237,7 +257,12 @@ static PyObject *ParseSrcDepends_old(PyObject *Self,PyObject *Args)
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
 // ---------------------------------------------------------------------
-static char *doc_md5sum = "md5sum(String) -> String or md5sum(File) -> String";
+static const char *doc_md5sum =
+    "md5sum(object) -> str\n\n"
+    "Return the md5sum of the object. 'object' may either be a string, in\n"
+    "which case the md5sum of the string is returned, or a file() object\n"
+    "(or file descriptor), in which case the md5sum of its contents is\n"
+    "returned.";
 static PyObject *md5sum(PyObject *Self,PyObject *Args)
 {
    PyObject *Obj;
@@ -277,7 +302,12 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
 									/*}}}*/
 // sha1sum - Compute the sha1sum of a file or string			/*{{{*/
 // ---------------------------------------------------------------------
-static char *doc_sha1sum = "sha1sum(String) -> String or sha1sum(File) -> String";
+static const char *doc_sha1sum =
+    "sha1sum(object) -> str\n\n"
+    "Return the sha1sum of the object. 'object' may either be a string, in\n"
+    "which case the sha1sum of the string is returned, or a file() object\n"
+    "(or file descriptor), in which case the sha1sum of its contents is\n"
+    "returned.";
 static PyObject *sha1sum(PyObject *Self,PyObject *Args)
 {
    PyObject *Obj;
@@ -317,7 +347,12 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
 									/*}}}*/
 // sha256sum - Compute the sha1sum of a file or string			/*{{{*/
 // ---------------------------------------------------------------------
-static char *doc_sha256sum = "sha256sum(String) -> String or sha256sum(File) -> String";
+static const char *doc_sha256sum =
+    "sha256sum(object) -> str\n\n"
+    "Return the sha256sum of the object. 'object' may either be a string, in\n"
+    "which case the sha256sum of the string is returned, or a file() object\n"
+    "(or file descriptor), in which case the sha256sum of its contents is\n"
+    "returned.";;
 static PyObject *sha256sum(PyObject *Self,PyObject *Args)
 {
    PyObject *Obj;
@@ -358,8 +393,10 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
 // init - 3 init functions						/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_Init =
-"init() -> None\n"
-"Legacy. Do InitConfig then parse the command line then do InitSystem\n";
+"init()\n\n"
+"Shorthand for doing init_config() and init_system(). When working\n"
+"with command line arguments, first call init_config() then parse\n"
+"the command line and finally call init_system().";
 static PyObject *Init(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -373,8 +410,8 @@ static PyObject *Init(PyObject *Self,PyObject *Args)
 }
 
 static char *doc_InitConfig =
-"initconfig() -> None\n"
-"Load the default configuration and the config file\n";
+"init_config()\n\n"
+"Load the default configuration and the config file.";
 static PyObject *InitConfig(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -387,8 +424,8 @@ static PyObject *InitConfig(PyObject *Self,PyObject *Args)
 }
 
 static char *doc_InitSystem =
-"initsystem() -> None\n"
-"Construct the underlying system\n";
+"init_system()\n\n"
+"Construct the apt_pkg system.";
 static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -404,11 +441,13 @@ static PyObject *InitSystem(PyObject *Self,PyObject *Args)
 // fileutils.cc: GetLock						/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_GetLock =
-"GetLock(string) -> int\n"
-"This will create an empty file of the given name and lock it. Once this"
-" is done all other calls to GetLock in any other process will fail with"
-" -1. The return result is the fd of the file, the call should call"
-" close at some time\n";
+"get_lock(file: str, errors: bool) -> int\n\n"
+"Create an empty file of the given name and lock it. If the locking\n"
+"succeeds, return the file descriptor of the lock file. Afterwards,\n"
+"locking the file from another process will fail and thus cause\n"
+"get_lock() to return -1 or raise an Error (if 'errors' is True).\n\n"
+"From Python 2.6 on, it is recommended to use the context manager\n"
+"provided by apt_pkg.FileLock instead using the with-statement.";
 static PyObject *GetLock(PyObject *Self,PyObject *Args)
 {
    const char *file;
@@ -418,12 +457,14 @@ static PyObject *GetLock(PyObject *Self,PyObject *Args)
 
    int fd = GetLock(file, errors);
 
-   return  HandleErrors(Py_BuildValue("i", fd));
+   return HandleErrors(Py_BuildValue("i", fd));
 }
 
 static char *doc_PkgSystemLock =
-"PkgSystemLock() -> boolean\n"
-"Get the global pkgsystem lock\n";
+"pkgsystem_lock() -> bool\n\n"
+"Acquire the global lock for the package system by using /var/lib/dpkg/lock\n"
+"to do the locking. From Python 2.6 on, the apt_pkg.SystemLock context\n"
+"manager is available and should be used instead.";
 static PyObject *PkgSystemLock(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -432,12 +473,12 @@ static PyObject *PkgSystemLock(PyObject *Self,PyObject *Args)
    bool res = _system->Lock();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static char *doc_PkgSystemUnLock =
-"PkgSystemUnLock() -> boolean\n"
-"Unset the global pkgsystem lock\n";
+"pkgsystem_unlock() -> bool\n\n"
+"Release the global lock for the package system.";
 static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -446,7 +487,7 @@ static PyObject *PkgSystemUnLock(PyObject *Self,PyObject *Args)
    bool res = _system->UnLock();
 
    Py_INCREF(Py_None);
-   return HandleErrors(Py_BuildValue("b", res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 									/*}}}*/
@@ -464,8 +505,8 @@ static PyMethodDef methods[] =
    // Internationalization.
    {"gettext",py_gettext,METH_VARARGS,
     "gettext(msg: str[, domain: str = 'python-apt']) -> str\n\n"
-    "Translate the given string. Much Faster than Python's version and only\n"
-    "does translations after setlocale() has been called."},
+    "Translate the given string. This is much faster than Python's version\n"
+    "and only does translations after setlocale() has been called."},
 
    // Tag File
    {"rewrite_section",RewriteSection,METH_VARARGS,doc_RewriteSection},
@@ -488,7 +529,7 @@ static PyMethodDef methods[] =
 
    // Depends
    {"parse_depends",ParseDepends,METH_VARARGS,doc_ParseDepends},
-   {"parse_src_depends",ParseSrcDepends,METH_VARARGS,doc_ParseDepends},
+   {"parse_src_depends",ParseSrcDepends,METH_VARARGS,parse_src_depends_doc},
 
    // Stuff
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
@@ -496,16 +537,50 @@ static PyMethodDef methods[] =
    {"sha256sum",sha256sum,METH_VARARGS,doc_sha256sum},
 
    // Strings
-   {"check_domain_list",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
-   {"quote_string",StrQuoteString,METH_VARARGS,"QuoteString(String,String) -> String"},
-   {"dequote_string",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
-   {"size_to_str",StrSizeToStr,METH_VARARGS,"SizeToStr(int) -> String"},
-   {"time_to_str",StrTimeToStr,METH_VARARGS,"TimeToStr(int) -> String"},
-   {"uri_to_filename",StrURItoFileName,METH_VARARGS,"URItoFileName(String) -> String"},
-   {"base64_encode",StrBase64Encode,METH_VARARGS,"Base64Encode(String) -> String"},
-   {"string_to_bool",StrStringToBool,METH_VARARGS,"StringToBool(String) -> int"},
-   {"time_rfc1123",StrTimeRFC1123,METH_VARARGS,"TimeRFC1123(int) -> String"},
-   {"str_to_time",StrStrToTime,METH_VARARGS,"StrToTime(String) -> Int"},
+   {"check_domain_list",StrCheckDomainList,METH_VARARGS,
+    "check_domain_list(host: str, domains: str) -> bool\n\n"
+    "Check if the host given by 'host' belongs to one of the domains\n"
+    "specified in the comma separated string 'domains'. An example\n"
+    "would be:\n\n"
+    "    check_domain_list('alioth.debian.org','debian.net,debian.org')\n\n"
+    "which would return True because alioth belongs to debian.org."},
+   {"quote_string",StrQuoteString,METH_VARARGS,
+    "quote_string(string: str, repl: str) -> str\n\n"
+    "Escape the string 'string', replacing any character not allowed in a URL"
+    "or specified by 'repl' with its ASCII value preceded by a percent sign"
+    "(so for example ' ' becomes '%20')."},
+   {"dequote_string",StrDeQuote,METH_VARARGS,
+    "dequote_string(string: str) -> str\n\n"
+    "Dequote the given string by replacing all HTTP encoded values such\n"
+    "as '%20' with their decoded value (in this case, ' ')."},
+   {"size_to_str",StrSizeToStr,METH_VARARGS,
+    "size_to_str(bytes: int) -> str\n\n"
+    "Return a string describing the size in a human-readable manner using\n"
+    "SI prefix and base-10 units, e.g. '1k' for 1000, '1M' for 1000000, etc."},
+   {"time_to_str",StrTimeToStr,METH_VARARGS,
+    "time_to_str(seconds: int) -> str\n\n"
+    "Return a string describing the number of seconds in a human\n"
+    "readable manner using days, hours, minutes and seconds."},
+   {"uri_to_filename",StrURItoFileName,METH_VARARGS,
+    "uri_to_filename(uri: str) -> str\n\n"
+    "Return a filename based on the given URI after replacing some\n"
+    "parts not suited for filenames (e.g. '/')."},
+   {"base64_encode",StrBase64Encode,METH_VARARGS,
+    "base64_encode(value: bytes) -> str\n\n"
+    "Encode the given bytestring into Base64. The input may not\n"
+    "contain a null byte character (use the base64 module for this)."},
+   {"string_to_bool",StrStringToBool,METH_VARARGS,
+    "string_to_bool(string: str) -> int\n\n"
+    "Return 1 if the string is a value such as 'yes', 'true', '1';\n"
+    "0 if the string is a value such as 'no', 'false', '0'; -1 if\n"
+    "the string is not recognized."},
+   {"time_rfc1123",StrTimeRFC1123,METH_VARARGS,
+    "time_rfc1123(unixtime: int) -> str\n\n"
+    "Format the given Unix time according to the requirements of\n"
+    "RFC 1123."},
+   {"str_to_time",StrStrToTime,METH_VARARGS,
+    "str_to_time(rfc_time: str) -> int\n\n"
+    "Convert the given RFC 1123 formatted string to a Unix timestamp."},
 
    // DEPRECATED
    #ifdef COMPAT_0_7
@@ -533,7 +608,8 @@ static PyMethodDef methods[] =
    {"ParseDepends",ParseDepends_old,METH_VARARGS,doc_ParseDepends},
    {"ParseSrcDepends",ParseSrcDepends_old,METH_VARARGS,doc_ParseDepends},
 
-   {"CheckDomainList",StrCheckDomainList,METH_VARARGS,"CheckDomainList(String,String) -> Bool"},
+   {"CheckDomainList",StrCheckDomainList,METH_VARARGS,
+    "CheckDomainList(String,String) -> Bool"},
    {"QuoteString",StrQuoteString,METH_VARARGS,"QuoteString(String,String) -> String"},
    {"DeQuoteString",StrDeQuote,METH_VARARGS,"DeQuoteString(String) -> String"},
    {"SizeToStr",StrSizeToStr,METH_VARARGS,"SizeToStr(int) -> String"},
@@ -663,12 +739,18 @@ static struct _PyAptPkgAPIStruct API = {
     PyModule_AddObject(mod,name,(PyObject *)type); }
 
 
+static const char *apt_pkg_doc =
+    "Classes and functions wrapping the apt-pkg library.\n\n"
+    "The apt_pkg module provides several classes and functions for accessing\n"
+    "the functionality provided by the apt-pkg library. Typical uses might\n"
+    "include reading APT index files and configuration files and installing\n"
+    "or removing packages.";
+
 #if PY_MAJOR_VERSION >= 3
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
         "apt_pkg",
-        "Classes and functions wrapping the apt-pkg library.\n\n"
-        "The apt_pkg module provides...",
+        apt_pkg_doc,
         -1,
         methods,
         0,
@@ -692,7 +774,7 @@ extern "C" void initapt_pkg()
    #if PY_MAJOR_VERSION >= 3
    PyObject *Module = PyModule_Create(&moduledef);
    #else
-   PyObject *Module = Py_InitModule("apt_pkg",methods);
+   PyObject *Module = Py_InitModule3("apt_pkg",methods, apt_pkg_doc);
    #endif
 
    // Global variable linked to the global configuration class

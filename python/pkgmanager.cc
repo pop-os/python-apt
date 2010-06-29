@@ -65,7 +65,7 @@ static PyObject *PkgManagerGetArchives(PyObject *Self,PyObject *Args)
    bool res = pm->GetArchives(s_fetcher, s_list,
 			      &s_records.Records);
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyObject *PkgManagerDoInstall(PyObject *Self,PyObject *Args)
@@ -92,18 +92,35 @@ static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)
 
    bool res = pm->FixMissing();
 
-   return HandleErrors(Py_BuildValue("b",res));
+   return HandleErrors(PyBool_FromLong(res));
 }
 
 static PyMethodDef PkgManagerMethods[] =
 {
-   {"get_archives",PkgManagerGetArchives,METH_VARARGS,"Load the selected archives into the fetcher"},
-   {"do_install",PkgManagerDoInstall,METH_VARARGS,"Do the actual install"},
-   {"fix_missing",PkgManagerFixMissing,METH_VARARGS,"Fix the install if a pkg couldn't be downloaded"},
+   {"get_archives",PkgManagerGetArchives,METH_VARARGS,
+    "get_archives(fetcher: Acquire, list: SourceList, recs: PackageRecords) -> bool\n\n"
+    "Download the packages marked for installation via the Acquire object\n"
+    "'fetcher', using the information found in 'list' and 'recs'."},
+   {"do_install",PkgManagerDoInstall,METH_VARARGS,
+    "do_install(status_fd: int) -> int\n\n"
+    "Install the packages and return one of the class constants\n"
+    "RESULT_COMPLETED, RESULT_FAILED, RESULT_INCOMPLETE. The argument\n"
+    "status_fd can be used to specify a file descriptor that APT will\n"
+    "write status information on (see README.progress-reporting in the\n"
+    "apt source code for information on what will be written there)."},
+   {"fix_missing",PkgManagerFixMissing,METH_VARARGS,
+    "fix_missing() -> bool\n\n"
+    "Fix the installation if a package could not be downloaded."},
    {}
 };
 
 
+static const char *packagemanager_doc =
+    "PackageManager(depcache: apt_pkg.DepCache)\n\n"
+    "PackageManager objects allow the fetching of packages marked for\n"
+    "installation and the installation of those packages. The parameter\n"
+    "'depcache' specifies an apt_pkg.DepCache object where information\n"
+    "about the package selections is retrieved from.";
 PyTypeObject PyPackageManager_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -128,7 +145,7 @@ PyTypeObject PyPackageManager_Type =
    0,                                   // tp_as_buffer
    (Py_TPFLAGS_DEFAULT |                // tp_flags
     Py_TPFLAGS_BASETYPE),
-   "PackageManager Object",             // tp_doc
+   packagemanager_doc,                  // tp_doc
    0,                                   // tp_traverse
    0,                                   // tp_clear
    0,                                   // tp_richcompare

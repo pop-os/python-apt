@@ -379,6 +379,14 @@ class Version(object):
             return self.package.name
 
     @property
+    def source_version(self):
+        """Return the version of the source package."""
+        try:
+            return self._records.source_ver or self._cand.ver_str
+        except IndexError:
+            return self._cand.ver_str
+
+    @property
     def priority(self):
         """Return the priority of the package, as string."""
         return self._cand.priority_str
@@ -536,13 +544,13 @@ class Version(object):
 
         dsc = None
         record = self._records
-        src.lookup(record.source_pkg)
+        source_name = record.source_pkg or self.package.name
         source_version = record.source_ver or self._cand.ver_str
+        source_lookup = src.lookup(source_name)
 
-        try:
-            while source_version != src.version:
-                src.lookup(record.source_pkg)
-        except AttributeError:
+        while source_lookup and source_version != src.version:
+            source_lookup = src.lookup(source_name)
+        if not source_lookup:
             raise ValueError("No source for %r" % self)
         files = list()
         for md5, size, path, type_ in src.files:
@@ -955,9 +963,9 @@ class Package(object):
         """
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
-            file_list = open(path)
+            file_list = open(path, "rb")
             try:
-                return file_list.read().decode().split("\n")
+                return file_list.read().decode("utf-8").split(u"\n")
             finally:
                 file_list.close()
         except EnvironmentError:
@@ -1006,34 +1014,31 @@ class Package(object):
         src_section = "main"
         # use the section of the candidate as a starting point
         section = self.candidate.section
-
-        # get the source version, start with the binaries version
-        bin_ver = self.candidate.version
-        src_ver = self.candidate.version
-        #print "bin: %s" % binver
+        
+        # get the source version
+        src_ver = self.candidate.source_version
+                
         try:
-            # FIXME: This try-statement is too long ...
             # try to get the source version of the pkg, this differs
             # for some (e.g. libnspr4 on ubuntu)
             # this feature only works if the correct deb-src are in the
-            # sources.list
-            # otherwise we fall back to the binary version number
+            # sources.list otherwise we fall back to the binary version number
             src_records = apt_pkg.SourceRecords()
-            src_rec = src_records.lookup(src_pkg)
-            if src_rec:
-                src_ver = src_records.version
-                #if apt_pkg.VersionCompare(binver, srcver) > 0:
-                #    srcver = binver
-                if not src_ver:
-                    src_ver = bin_ver
-                #print "srcver: %s" % src_ver
-                section = src_records.section
-                #print "srcsect: %s" % section
-            else:
-                # fail into the error handler
-                raise SystemError
         except SystemError:
-            src_ver = bin_ver
+            pass
+        else:
+            while src_records.lookup(src_pkg):
+                if not src_records.version:
+                    continue
+                if self.candidate.source_version == src_records.version:
+                    # Direct match, use it and do not do more lookups.
+                    src_ver = src_records.version
+                    section = src_records.section
+                    break
+                if apt_pkg.version_compare(src_records.version, src_ver) > 0:
+                    # The version is higher, it seems to match.
+                    src_ver = src_records.version
+                    section = src_records.section
 
         section_split = section.split("/", 1)
         if len(section_split) > 1:

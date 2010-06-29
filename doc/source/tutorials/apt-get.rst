@@ -22,9 +22,10 @@ First of all, we have to create the objects::
 
 Now we have to parse /etc/apt/sources.list and its friends, by using
 :meth:`apt_pkg.SourceList.read_main_list`::
+
     slist.read_main_list()
 
-Now the **slist** object knows about the location of the indexes. We now have
+The **slist** object now knows about the location of the indexes. We now have
 to load those indexes into the *acquire* object by calling
 :meth:`apt_pkg.SourceList.get_indexes`::
 

@@ -31,11 +31,11 @@ PyObject *HandleErrors(PyObject *Res)
       Py_DECREF(Res);
    }
 
-   std::string Err;
+   string Err;
    int errcnt = 0;
    while (_error->empty() == false)
    {
-      std::string Msg;
+      string Msg;
       bool Type = _error->PopMessage(Msg);
       if (errcnt > 0)
          Err.append(", ");
@@ -63,6 +63,7 @@ static PyObject *_PyApt_NewNameForAttribute(const char *attr) {
     if (strcasecmp(attr, "ReadPinFile") == 0) return PyString_FromString("read_pinfile");
     if (strcasecmp(attr, "SetReInstall") == 0) return PyString_FromString("set_reinstall");
     if (strcasecmp(attr, "URI") == 0) return PyString_FromString("uri");
+    if (strcasecmp(attr, "ArchiveURI") == 0) return PyString_FromString("archive_uri");
     if (strcasecmp(attr, "MD5Hash") == 0) return PyString_FromString("md5_hash");
     if (strcasecmp(attr, "SHA1Hash") == 0) return PyString_FromString("sha1_hash");
     if (strcasecmp(attr, "SHA256Hash") == 0) return PyString_FromString("sha256_hash");
