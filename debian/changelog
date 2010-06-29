@@ -11,6 +11,10 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     - do not fail on non-digits in the version number
   * utils/get_debian_mirrors.py:
     - ignore mirrors without a county
+  * apt/cache.py:
+    - add new "dpkg_journal_dirty" property that can be used to
+      detect a interrupted dpkg (the famous 
+     "E: dpkg was interrupted, you must manually run 'dpkg --configure -a'")
 
   [ Martin Pitt ]
   * tests/test_apt_cache.py: Test accessing the record of all packages during

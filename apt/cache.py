@@ -19,6 +19,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import fnmatch
 import os
 import weakref
 
@@ -453,6 +454,20 @@ class Cache(object):
         don't.
         """
         return apt_pkg.ActionGroup(self._depcache)
+
+    @property
+    def dpkg_journal_dirty(self):
+        """Return True if the dpkg was interrupted
+        
+        All dpkg operations will fail until this is fixed, the action to
+        fix the system if dpkg got interrupted is to run 
+        'dpkg --configure -a' as root.
+        """
+        dpkg_status_dir = os.path.dirname(apt_pkg.Config.find_file("Dir::State::status"))
+        for f in os.listdir(os.path.join(dpkg_status_dir, "updates")):
+            if fnmatch.fnmatch(f, "[0-9]*"):
+                return True
+        return False
 
     @property
     def broken_count(self):
