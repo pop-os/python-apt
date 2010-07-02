@@ -120,6 +120,7 @@ class Cache(object):
         """
         if progress is None:
             progress = apt.progress.base.OpProgress()
+        self.op_progress = progress
         self._run_callbacks("cache_pre_open")
 
         self._cache = apt_pkg.Cache(progress)
@@ -288,21 +289,28 @@ class Cache(object):
         else:
             return bool(pkg.has_provides and not pkg.has_versions)
 
-    def get_providing_packages(self, virtual, candidate_only=True):
-        """Return a list of all packages providing a virtual package.
+    def get_providing_packages(self, pkgname, candidate_only=True, 
+                               include_nonvirtual=False):
+        """Return a list of all packages providing a package.
         
         Return a list of packages which provide the virtual package of the
-        specified name. If 'candidate_only' is False, return all packages
-        with at least one version providing the virtual package. Otherwise,
-        return only those packages where the candidate version provides
-        the virtual package.
+        specified name. 
+
+        If 'candidate_only' is False, return all packages with at
+        least one version providing the virtual package. Otherwise,
+        return only those packages where the candidate version
+        provides the virtual package.
+
+        If 'include_nonvirtual' is True then it will search for all
+        packages providing pkgname, even if pkgname is not itself
+        a virtual pkg.
         """
         
         providers = set()
         get_candidate_ver = self._depcache.get_candidate_ver
         try:
-            vp = self._cache[virtual]
-            if vp.has_versions:
+            vp = self._cache[pkgname]
+            if vp.has_versions and not include_nonvirtual:
                 return list(providers)
         except KeyError:
             return list(providers)

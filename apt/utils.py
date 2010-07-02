@@ -33,6 +33,9 @@ def get_maintenance_end_date(release_date, m_months):
     support_end_year = (release_date.year + years +
                         (release_date.month + months)/12)
     support_end_month = (release_date.month + months) % 12
+    if support_end_month == 0:
+        support_end_month = 12
+        support_end_year -= 1
     return (support_end_year, support_end_month)
 
 
