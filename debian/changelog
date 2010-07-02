@@ -15,6 +15,9 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     - add new "dpkg_journal_dirty" property that can be used to
       detect a interrupted dpkg (the famous 
      "E: dpkg was interrupted, you must manually run 'dpkg --configure -a'")
+  * merged lp:~kiwinote/python-apt/merge-gdebi-changes, this port the
+    DebPackage class fixes from gdebi into python-apt so that gdebi can
+    use the class from python-apt directly
 
   [ Martin Pitt ]
   * tests/test_apt_cache.py: Test accessing the record of all packages during

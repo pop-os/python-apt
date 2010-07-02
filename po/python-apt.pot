@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-03 19:34+0100\n"
+"POT-Creation-Date: 2010-07-02 14:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,257 +23,267 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:12
+#: ../data/templates/Ubuntu.info.in:13
+msgid "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:31
+msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:74
 msgid "Ubuntu 10.04 'Lucid Lynx'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:30
+#: ../data/templates/Ubuntu.info.in:92
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:72
+#: ../data/templates/Ubuntu.info.in:135
 msgid "Ubuntu 9.10 'Karmic Koala'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:90
+#: ../data/templates/Ubuntu.info.in:153
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:132
+#: ../data/templates/Ubuntu.info.in:196
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:150
+#: ../data/templates/Ubuntu.info.in:214
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:192
+#: ../data/templates/Ubuntu.info.in:257
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:210
+#: ../data/templates/Ubuntu.info.in:275
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:253
+#: ../data/templates/Ubuntu.info.in:319
 msgid "Ubuntu 8.04 'Hardy Heron'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:271
+#: ../data/templates/Ubuntu.info.in:337
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:308
+#: ../data/templates/Ubuntu.info.in:382
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:326
+#: ../data/templates/Ubuntu.info.in:400
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:361
+#: ../data/templates/Ubuntu.info.in:445
 msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:379
+#: ../data/templates/Ubuntu.info.in:463
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:413
+#: ../data/templates/Ubuntu.info.in:505
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:418
+#: ../data/templates/Ubuntu.info.in:510
 msgid "Community-maintained"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:424
+#: ../data/templates/Ubuntu.info.in:516
 msgid "Restricted software"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:431
+#: ../data/templates/Ubuntu.info.in:523
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:465
+#: ../data/templates/Ubuntu.info.in:565
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:468
+#: ../data/templates/Ubuntu.info.in:568
 msgid "Canonical-supported Open Source software"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:470
+#: ../data/templates/Ubuntu.info.in:570
 msgid "Community-maintained (universe)"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:471
+#: ../data/templates/Ubuntu.info.in:571
 msgid "Community-maintained Open Source software"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:473
+#: ../data/templates/Ubuntu.info.in:573
 msgid "Non-free drivers"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:474
+#: ../data/templates/Ubuntu.info.in:574
 msgid "Proprietary drivers for devices"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:476
+#: ../data/templates/Ubuntu.info.in:576
 msgid "Restricted software (Multiverse)"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:477
+#: ../data/templates/Ubuntu.info.in:577
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:483
+#: ../data/templates/Ubuntu.info.in:583
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:495
+#: ../data/templates/Ubuntu.info.in:599
 msgid "Important security updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:500
+#: ../data/templates/Ubuntu.info.in:604
 msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:505
+#: ../data/templates/Ubuntu.info.in:609
 msgid "Pre-released updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:510
+#: ../data/templates/Ubuntu.info.in:614
 msgid "Unsupported updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:517
+#: ../data/templates/Ubuntu.info.in:625
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:531
+#: ../data/templates/Ubuntu.info.in:639
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:543
+#: ../data/templates/Ubuntu.info.in:655
 msgid "Ubuntu 5.10 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:548
+#: ../data/templates/Ubuntu.info.in:660
 msgid "Ubuntu 5.10 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:553
+#: ../data/templates/Ubuntu.info.in:665
 msgid "Ubuntu 5.10 Backports"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:560
+#: ../data/templates/Ubuntu.info.in:676
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:574
+#: ../data/templates/Ubuntu.info.in:690
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:577 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:693 ../data/templates/Debian.info.in:149
 msgid "Officially supported"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:586
+#: ../data/templates/Ubuntu.info.in:706
 msgid "Ubuntu 5.04 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:591
+#: ../data/templates/Ubuntu.info.in:711
 msgid "Ubuntu 5.04 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:596
+#: ../data/templates/Ubuntu.info.in:716
 msgid "Ubuntu 5.04 Backports"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:602
+#: ../data/templates/Ubuntu.info.in:722
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:608
+#: ../data/templates/Ubuntu.info.in:728
 msgid "Community-maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:610
+#: ../data/templates/Ubuntu.info.in:730
 msgid "Non-free (Multiverse)"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:616
+#: ../data/templates/Ubuntu.info.in:736
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:619
+#: ../data/templates/Ubuntu.info.in:739
 msgid "No longer officially supported"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:621
+#: ../data/templates/Ubuntu.info.in:741
 msgid "Restricted copyright"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:628
+#: ../data/templates/Ubuntu.info.in:748
 msgid "Ubuntu 4.10 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:633
+#: ../data/templates/Ubuntu.info.in:753
 msgid "Ubuntu 4.10 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:638
+#: ../data/templates/Ubuntu.info.in:758
 msgid "Ubuntu 4.10 Backports"
 msgstr ""
 
@@ -384,11 +394,11 @@ msgstr ""
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:999 ../apt/package.py:1105
+#: ../apt/package.py:1007 ../apt/package.py:1112
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1109
+#: ../apt/package.py:1118
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -397,52 +407,97 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1115
+#: ../apt/package.py:1125
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
 
-#: ../apt/debfile.py:73
-#, python-format
-msgid "List of files for '%s' could not be read"
-msgstr ""
-
-#: ../apt/debfile.py:141
+#: ../apt/debfile.py:142
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:165
+#: ../apt/debfile.py:163
 #, python-format
 msgid "Conflicts with the installed package '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:308
+#. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
+#: ../apt/debfile.py:297
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' dependency %(depname)s (%(deprelation)"
+"s %(depversion)s)"
+msgstr ""
+
+#. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
+#: ../apt/debfile.py:313
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %"
+"(targetver)s)"
+msgstr ""
+
+#: ../apt/debfile.py:359
+msgid "No Architecture field in the package"
+msgstr ""
+
+#: ../apt/debfile.py:364
 #, python-format
 msgid "Wrong architecture '%s'"
 msgstr ""
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:314
+#: ../apt/debfile.py:371
 msgid "A later version is already installed"
 msgstr ""
 
-#: ../apt/debfile.py:334
+#: ../apt/debfile.py:396
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
 
-#: ../apt/debfile.py:365
+#: ../apt/debfile.py:425
 #, python-format
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:472
+#: ../apt/debfile.py:467 ../apt/debfile.py:513 ../apt/debfile.py:524
+msgid "Python-debian module not available"
+msgstr ""
+
+#: ../apt/debfile.py:497
+msgid ""
+"Automatically decompressed:\n"
+"\n"
+msgstr ""
+
+#: ../apt/debfile.py:503
+msgid "Automatically converted to printable ascii:\n"
+msgstr ""
+
+#: ../apt/debfile.py:549
+msgid "List of files could not be read, please report this as a bug"
+msgstr ""
+
+#: ../apt/debfile.py:552
+#, python-format
+msgid "IOError during filelist read: %s"
+msgstr ""
+
+#. Translators: it's for missing entries in the deb package,
+#. e.g. a missing "Maintainer" field
+#: ../apt/debfile.py:559
+#, python-format
+msgid "%s is not available"
+msgstr ""
+
+#: ../apt/debfile.py:632
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:482
+#: ../apt/debfile.py:642
 msgid "An essential package would be removed"
 msgstr ""
 
@@ -493,6 +548,6 @@ msgstr ""
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:131
+#: ../apt/cache.py:135
 msgid "Building data structures"
 msgstr ""
