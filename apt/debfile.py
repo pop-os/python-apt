@@ -58,7 +58,7 @@ class DebPackage(object):
     def open(self, filename):
         """ open given debfile """
         self.filename = filename
-        self._debfile = apt_inst.DebFile(self.filename)
+        self._debfile = apt_inst.DebFile(open(self.filename))
         control = self._debfile.control.extractdata("control")
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
