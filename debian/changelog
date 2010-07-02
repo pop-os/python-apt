@@ -18,6 +18,9 @@ python-apt (0.7.96) UNRELEASED; urgency=low
   * merged lp:~kiwinote/python-apt/merge-gdebi-changes, this port the
     DebPackage class fixes from gdebi into python-apt so that gdebi can
     use the class from python-apt directly
+  * apt/debfile.py:
+    - check if the debfiles provides are in conflict with the systems
+      packages
 
   [ Martin Pitt ]
   * tests/test_apt_cache.py: Test accessing the record of all packages during

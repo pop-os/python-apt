@@ -301,6 +301,8 @@ class DebPackage(object):
         size = float(len(self._cache))
         steps = int(size/50)
         debver = self._sections["Version"]
+        # store what we provide so that we can later check against that
+        provides = [ x[0][0] for x in self.provides]
         for (i, pkg) in enumerate(self._cache):
             if i%steps == 0:
                 self._cache.op_progress.update(float(i)/size*100.0)
@@ -331,13 +333,22 @@ class DebPackage(object):
                             if apt_pkg.check_dep(debver, c_or.comp_type, c_or.target_ver):
                                 self._dbg(2, "would break (conflicts) %s" % pkg.name)
 				# TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
-                                self._failureString += _("Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %(targetver)s)") % {
+                                self._failure_string += _("Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %(targetver)s)") % {
                                     'pkgname' : pkg.name, 
                                     'targetpkg' : c_or.target_pkg.name, 
                                     'comptype' : c_or.comp_type, 
                                     'targetver' : c_or.target_ver }
                                 self._cache.op_progress.done()
                                 return False
+                        if c_or.target_pkg.name in provides:
+                            self._dbg(2, "would break (conflicts) %s" % provides)
+                            self._failure_string += _("Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But the '%(debfile)s' provides it via: '%(provides)s'") % {
+                                'provides' : ",".join(provides),
+                                'debfile'  : self.filename,
+                                'targetpkg' : c_or.target_pkg.name,
+                                'pkgname' : pkg.name }
+                            self._cache.op_progress.done()
+                            return False
         self._cache.op_progress.done()
         return True
 
