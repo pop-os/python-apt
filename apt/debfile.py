@@ -17,6 +17,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 """Classes for working with locally available Debian packages."""
+import apt
 import apt_inst
 import apt_pkg
 import gzip
@@ -44,19 +45,20 @@ class DebPackage(object):
     debug = 0
 
     def __init__(self, filename=None, cache=None):
+        if cache is None:
+            cache = apt.Cache()
         self._cache = cache
-        self._need_pkgs = []
         self._debfile = None
         self.pkgname = ""
-        self.filename = filename
         self._sections = {}
-        self._installed_conflicts = set()
-        self._failure_string = ""
         if filename:
             self.open(filename)
 
     def open(self, filename):
         """ open given debfile """
+        self._need_pkgs = []
+        self._installed_conflicts = set()
+        self._failure_string = ""
         self.filename = filename
         self._debfile = apt_inst.DebFile(open(self.filename))
         control = self._debfile.control.extractdata("control")
