@@ -10,9 +10,6 @@ import os
 import logging
 import unittest
 
-import sys
-sys.path.insert(0, "..")
-
 import apt.debfile
 
 
