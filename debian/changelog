@@ -36,6 +36,9 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     latter is disastrous if we use compressed package indexes, and slower than
     necessary for uncompressed indexes.
 
+  [ Julian Andres Klode ]
+  * Re-enable Python 3 support for latest python-default changes (hack).
+
  -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
 
 python-apt (0.7.95) unstable; urgency=low
