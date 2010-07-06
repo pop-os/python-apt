@@ -471,7 +471,8 @@ class Cache(object):
         fix the system if dpkg got interrupted is to run 
         'dpkg --configure -a' as root.
         """
-        dpkg_status_dir = os.path.dirname(apt_pkg.Config.find_file("Dir::State::status"))
+        dpkg_status_dir = os.path.dirname(
+            apt_pkg.config.find_file("Dir::State::status"))
         for f in os.listdir(os.path.join(dpkg_status_dir, "updates")):
             if fnmatch.fnmatch(f, "[0-9]*"):
                 return True
