@@ -24,6 +24,8 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     - fix py3 compatibility
   * tests/test_debs/*.deb, tests/test_debfile.py:
     - add automatic test based on the test debs from gdebi
+  * python/progress.cc:
+    - deal with missing return value from the acquire progress in pulse()
 
   [ Martin Pitt ]
   * tests/test_apt_cache.py: Test accessing the record of all packages during

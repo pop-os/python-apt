@@ -15,6 +15,9 @@ import os
 class TestAcquireProgress(apt.progress.base.AcquireProgress):
     def pulse(self, owner):
         self.pulsed = True
+        # there should be a return value here, either (True,False)
+        # but often this is forgoten (and causes odd error messages)
+        # so the lib supports it. we test the lack of support value here
 
 class TestProgress(unittest.TestCase):
 

@@ -300,7 +300,10 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       Py_INCREF(pyAcquire);
 
       if (RunSimpleCallback("pulse", TUPLEIZE(pyAcquire) , &result1)) {
-      if (result1 != NULL && PyArg_Parse(result1, "b", &res1) && res1 == false) {
+      if (result1 != NULL &&
+          result1 != Py_None &&
+          PyArg_Parse(result1, "b", &res1) && 
+          res1 == false) {
          // the user returned a explicit false here, stop
          PyCbObj_BEGIN_ALLOW_THREADS
          return false;
