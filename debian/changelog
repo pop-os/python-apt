@@ -21,6 +21,7 @@ python-apt (0.7.96) UNRELEASED; urgency=low
   * apt/debfile.py:
     - check if the debfiles provides are in conflict with the systems
       packages
+    - fix py3 compatibility
   * tests/test_debs/*.deb, tests/test_debfile.py:
     - add automatic test based on the test debs from gdebi
 
