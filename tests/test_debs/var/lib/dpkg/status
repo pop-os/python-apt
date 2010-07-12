@@ -1,0 +1,77 @@
+Package: apt
+Status: hold ok installed
+Priority: important
+Section: admin
+Installed-Size: 5456
+Maintainer: APT Development Team <deity@lists.debian.org>
+Architecture: i386
+Version: 0.7.25.3
+Replaces: libapt-pkg-dev (<< 0.3.7), libapt-pkg-doc (<< 0.3.7)
+Provides: libapt-pkg-libc6.10-6-4.8
+Suggests: aptitude | synaptic | wajig, dpkg-dev, apt-doc, bzip2, lzma, python-apt
+Conffiles:
+ /etc/cron.daily/apt 3528ddf873535d4c268d83e73e85dc79
+ /etc/apt/apt.conf.d/01autoremove 6154750d39a78704b5bbf6fafd65ada7
+ /etc/logrotate.d/apt 179f2ed4f85cbaca12fa3d69c2a4a1c3
+ /etc/apt/apt.conf.d/01ubuntu 078b96538a377743bee0f554eb5b2fc6 obsolete
+Description: Advanced front-end for dpkg
+ This is Debian's next generation front-end for the dpkg package manager.
+ It provides the apt-get utility and APT dselect method that provides a
+ simpler, safer way to install and upgrade packages.
+ .
+ APT features complete installation ordering, multiple source capability
+ and several other unique features, see the Users Guide in apt-doc.
+
+Package: postfix
+Status: install ok installed
+Priority: extra
+Section: mail
+Installed-Size: 3488
+Maintainer: LaMont Jones <lamont@debian.org>
+Architecture: i386
+Version: 2.7.0-1
+Replaces: mail-transport-agent, postfix-tls
+Provides: default-mta, mail-transport-agent, postfix-tls
+Recommends: python
+Suggests: procmail, postfix-mysql, postfix-pgsql, postfix-ldap, postfix-pcre, sasl2-bin, libsasl2-modules, resolvconf, postfix-cdb, mail-reader, ufw
+Conflicts: libnss-db (<< 2.2-3), mail-transport-agent, postfix-tls, smail
+Conffiles:
+ /etc/init.d/postfix e47d7ef0cbd2e212324812d74c409d77
+ /etc/ppp/ip-up.d/postfix fccc53fc4eeeab46941ebcc95a71e766
+ /etc/ppp/ip-down.d/postfix 52275dc23864f3bfca412c7558e28fe6
+ /etc/network/if-up.d/postfix fccc53fc4eeeab46941ebcc95a71e766
+ /etc/network/if-down.d/postfix 52275dc23864f3bfca412c7558e28fe6
+ /etc/postfix/postfix-script 0d01860b2f0778cf41951c801f538b30
+ /etc/postfix/post-install d53706c232f6497539fa0c99df674b33
+ /etc/postfix/postfix-files 47e63262ab84069c840556b469b0fb2f
+ /etc/rsyslog.d/postfix.conf d8a09827fff2a22311e4dd4a83e95c83
+ /etc/ufw/applications.d/postfix 6716a7729145a40bf7cb721c8dc6c3b0
+ /etc/resolvconf/update-libc.d/postfix 6c80adbe120bc46cbf42658a7364e17f
+Description: High-performance mail transport agent
+ Postfix is Wietse Venema's mail transport agent that started life as an
+  alternative to the widely-used Sendmail program.  Postfix attempts to
+  be fast, easy to administer, and secure, while at the same time being
+  sendmail compatible enough to not upset existing users. Thus, the outside
+  has a sendmail-ish flavor, but the inside is completely different.
+
+Package: debconf
+Status: install ok installed
+Priority: important
+Section: admin
+Installed-Size: 924
+Maintainer: Debconf Developers <debconf-devel@lists.alioth.debian.org>
+Architecture: all
+Version: 1.5.28
+Replaces: debconf-tiny
+Provides: debconf-2.0
+Recommends: apt-utils (>= 0.5.1)
+Suggests: debconf-doc, debconf-utils, whiptail | dialog | gnome-utils, libterm-readline-gnu-perl, libgnome2-perl, libnet-ldap-perl, perl
+Conflicts: apt (<< 0.3.12.1), cdebconf (<< 0.96), debconf-tiny, debconf-utils (<< 1.3.22), dialog (<< 0.9b-20020814-1), menu (<= 2.1.3-1), whiptail (<< 0.51.4-11), whiptail-utf8 (<= 0.50.17-13)
+Conffiles:
+ /etc/apt/apt.conf.d/70debconf 7e9d09d5801a42b4926b736b8eeabb73
+ /etc/bash_completion.d/debconf 8fa1862734fbe54d7178aaaa419f5a11
+ /etc/debconf.conf 8c0619be413824f1fc7698cee0f23811
+Description: Debian configuration management system
+ Debconf is a configuration management system for debian packages. Packages
+ use Debconf to ask questions when they are installed.
+Python-Version: 2.6, 3.1
