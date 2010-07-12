@@ -44,9 +44,11 @@ class TestDebfilee(unittest.TestCase):
     ]
 
     def setUp(self):
+        apt_pkg.init_config()
         apt_pkg.config.set("APT::Architecture","i386")
         apt_pkg.config.set("Dir::State::status", 
                            "./data/test_debs/var/lib/dpkg/status")
+        apt_pkg.init_system()
         self.cache = apt.Cache()
 
     def testDebFile(self):
