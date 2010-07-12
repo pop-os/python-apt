@@ -98,7 +98,7 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-        distro = aptsources.distro.get_distro()
+        distro = aptsources.distro.get_distro(id="Ubuntu")
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly
         dist_templates = set()
@@ -111,7 +111,7 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list.testDistribution")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-        distro = aptsources.distro.get_distro()
+        distro = aptsources.distro.get_distro(id="Ubuntu")
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly
         dist_templates = set()

@@ -3,6 +3,8 @@
 export DH_PYCENTRAL=nomove
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
+export PATH :=$(CURDIR)/utils:$(PATH)
+export SHELL = env PATH=$(PATH) sh
 
 %:
 	dh --with python-central $@

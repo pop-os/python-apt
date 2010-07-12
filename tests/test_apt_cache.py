@@ -62,13 +62,13 @@ class TestAptCache(unittest.TestCase):
 
     def test_dpkg_journal_dirty(self):
         # backup old value
-        old_status = apt_pkg.Config.find_file("Dir::State::status")
+        old_status = apt_pkg.config.find_file("Dir::State::status")
         # create tmp env
         tmpdir = tempfile.mkdtemp()
         dpkg_dir = os.path.join(tmpdir,"var","lib","dpkg")
         os.makedirs(os.path.join(dpkg_dir,"updates"))
         open(os.path.join(dpkg_dir,"status"), "w")
-        apt_pkg.Config.set("Dir::State::status",
+        apt_pkg.config.set("Dir::State::status",
                        os.path.join(dpkg_dir,"status"))
         cache = apt.Cache()
         # test empty
@@ -80,7 +80,7 @@ class TestAptCache(unittest.TestCase):
         open(os.path.join(dpkg_dir,"updates","000"), "w")
         self.assertTrue(cache.dpkg_journal_dirty)
         # reset config value
-        apt_pkg.Config.set("Dir::State::status", old_status)
+        apt_pkg.config.set("Dir::State::status", old_status)
         
 
 if __name__ == "__main__":

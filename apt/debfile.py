@@ -507,6 +507,7 @@ class DebPackage(object):
                 content.append(name)
         return sorted(content)
 
+    @staticmethod
     def to_hex(self, in_data):
         hex = ""
         for (i, c) in enumerate(in_data):
@@ -515,6 +516,7 @@ class DebPackage(object):
             hex += "%2.2x " % ord(c)
         return hex
 
+    @staticmethod
     def to_strish(self, in_data):
         s = ""
         for c in in_data:

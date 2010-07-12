@@ -1,4 +1,12 @@
-python-apt (0.7.96) UNRELEASED; urgency=low
+python-apt (0.7.96.1) UNRELEASED; urgency=low
+
+  * tests/test_debfile.py:
+   - properly setup fixture data to make debfile test pass 
+     (closes: #588796)
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 14:14:51 +0200
+
+python-apt (0.7.96) unstable; urgency=low
 
   [ Michael Vogt ]
   * data/templates/gNewSense.info.in,
@@ -21,8 +29,11 @@ python-apt (0.7.96) UNRELEASED; urgency=low
   * apt/debfile.py:
     - check if the debfiles provides are in conflict with the systems
       packages
+    - fix py3 compatibility
   * tests/test_debs/*.deb, tests/test_debfile.py:
     - add automatic test based on the test debs from gdebi
+  * python/progress.cc:
+    - deal with missing return value from the acquire progress in pulse()
 
   [ Martin Pitt ]
   * tests/test_apt_cache.py: Test accessing the record of all packages during
@@ -36,7 +47,10 @@ python-apt (0.7.96) UNRELEASED; urgency=low
     latter is disastrous if we use compressed package indexes, and slower than
     necessary for uncompressed indexes.
 
- -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
+  [ Julian Andres Klode ]
+  * Re-enable Python 3 support for latest python-default changes (hack).
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 08:58:42 +0200
 
 python-apt (0.7.95) unstable; urgency=low
 

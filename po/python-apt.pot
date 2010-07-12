@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-12 14:07+0200\n"
+"POT-Creation-Date: 2010-07-12 09:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -432,16 +433,16 @@ msgstr ""
 #: ../apt/debfile.py:323
 #, python-format
 msgid ""
-"Breaks existing package '%(pkgname)s' dependency %(depname)s (%(deprelation)"
-"s %(depversion)s)"
+"Breaks existing package '%(pkgname)s' dependency %(depname)s "
+"(%(deprelation)s %(depversion)s)"
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:339
 #, python-format
 msgid ""
-"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %"
-"(targetver)s)"
+"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
 msgstr ""
 
 #: ../apt/debfile.py:348
@@ -474,26 +475,26 @@ msgstr ""
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:503 ../apt/debfile.py:549 ../apt/debfile.py:560
+#: ../apt/debfile.py:503 ../apt/debfile.py:551 ../apt/debfile.py:562
 msgid "Python-debian module not available"
 msgstr ""
 
-#: ../apt/debfile.py:533
+#: ../apt/debfile.py:535
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
 
-#: ../apt/debfile.py:539
+#: ../apt/debfile.py:541
 msgid "Automatically converted to printable ascii:\n"
 msgstr ""
 
-#: ../apt/debfile.py:636
+#: ../apt/debfile.py:638
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:646
+#: ../apt/debfile.py:648
 msgid "An essential package would be removed"
 msgstr ""
 
