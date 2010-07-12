@@ -13,9 +13,8 @@ import unittest
 from test_all import get_library_dir
 import sys
 sys.path.insert(0, get_library_dir())
-
+import apt_pkg
 import apt.debfile
-
 
 class TestDebfilee(unittest.TestCase):
     """ test the apt cache """
@@ -44,13 +43,21 @@ class TestDebfilee(unittest.TestCase):
         ('gdebi-test10.deb', False),
     ]
 
+    def setUp(self):
+        apt_pkg.config.set("APT::Architecture","i386")
+        apt_pkg.config.set("Dir::State::status", 
+                           "./test_debs/var/lib/dpkg/status")
+        self.cache = apt.Cache()
+
     def testDebFile(self):
-        deb = apt.debfile.DebPackage()
+        deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
             logging.debug("testing %s, expecting %s" % (filename, expected_res))
             deb.open(os.path.join("test_debs", filename))
             res = deb.check()
-            self.assertEqual(res, expected_res)
+            self.assertEqual(res, expected_res,
+                "Unexpected result for package '%s' (got %s wanted %s)" % (
+                    filename, res, expected_res))
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

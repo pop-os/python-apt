@@ -302,7 +302,7 @@ class DebPackage(object):
         """
         # show progress information as this step may take some time
         size = float(len(self._cache))
-        steps = int(size/50)
+        steps = max(int(size/50), 1)
         debver = self._sections["Version"]
         # store what we provide so that we can later check against that
         provides = [ x[0][0] for x in self.provides]

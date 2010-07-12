@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-02 14:12+0200\n"
+"POT-Creation-Date: 2010-07-12 14:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -413,18 +413,23 @@ msgid ""
 "Please check your Internet connection."
 msgstr ""
 
-#: ../apt/debfile.py:142
+#: ../apt/debfile.py:79
+#, python-format
+msgid "List of files for '%s' could not be read"
+msgstr ""
+
+#: ../apt/debfile.py:164
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:163
+#: ../apt/debfile.py:185
 #, python-format
 msgid "Conflicts with the installed package '%s'"
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
-#: ../apt/debfile.py:297
+#: ../apt/debfile.py:323
 #, python-format
 msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s (%(deprelation)"
@@ -432,72 +437,63 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
-#: ../apt/debfile.py:313
+#: ../apt/debfile.py:339
 #, python-format
 msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %"
 "(targetver)s)"
 msgstr ""
 
-#: ../apt/debfile.py:359
+#: ../apt/debfile.py:348
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
+"the '%(debfile)s' provides it via: '%(provides)s'"
+msgstr ""
+
+#: ../apt/debfile.py:394
 msgid "No Architecture field in the package"
 msgstr ""
 
-#: ../apt/debfile.py:364
+#: ../apt/debfile.py:399
 #, python-format
 msgid "Wrong architecture '%s'"
 msgstr ""
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:371
+#: ../apt/debfile.py:406
 msgid "A later version is already installed"
 msgstr ""
 
-#: ../apt/debfile.py:396
+#: ../apt/debfile.py:431
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
 
-#: ../apt/debfile.py:425
+#: ../apt/debfile.py:461
 #, python-format
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:467 ../apt/debfile.py:513 ../apt/debfile.py:524
+#: ../apt/debfile.py:503 ../apt/debfile.py:549 ../apt/debfile.py:560
 msgid "Python-debian module not available"
 msgstr ""
 
-#: ../apt/debfile.py:497
+#: ../apt/debfile.py:533
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
 
-#: ../apt/debfile.py:503
+#: ../apt/debfile.py:539
 msgid "Automatically converted to printable ascii:\n"
 msgstr ""
 
-#: ../apt/debfile.py:549
-msgid "List of files could not be read, please report this as a bug"
-msgstr ""
-
-#: ../apt/debfile.py:552
-#, python-format
-msgid "IOError during filelist read: %s"
-msgstr ""
-
-#. Translators: it's for missing entries in the deb package,
-#. e.g. a missing "Maintainer" field
-#: ../apt/debfile.py:559
-#, python-format
-msgid "%s is not available"
-msgstr ""
-
-#: ../apt/debfile.py:632
+#: ../apt/debfile.py:636
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:642
+#: ../apt/debfile.py:646
 msgid "An essential package would be removed"
 msgstr ""
 
