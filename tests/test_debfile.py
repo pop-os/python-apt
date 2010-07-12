@@ -56,8 +56,8 @@ class TestDebfilee(unittest.TestCase):
             deb.open(os.path.join("data", "test_debs", filename))
             res = deb.check()
             self.assertEqual(res, expected_res,
-                "Unexpected result for package '%s' (got %s wanted %s)" % (
-                    filename, res, expected_res))
+                "Unexpected result for package '%s' (got %s wanted %s)\n%s" % (
+                    filename, res, expected_res, deb._failure_string))
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
