@@ -46,14 +46,14 @@ class TestDebfilee(unittest.TestCase):
     def setUp(self):
         apt_pkg.config.set("APT::Architecture","i386")
         apt_pkg.config.set("Dir::State::status", 
-                           "./test_debs/var/lib/dpkg/status")
+                           "./data/test_debs/var/lib/dpkg/status")
         self.cache = apt.Cache()
 
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
             logging.debug("testing %s, expecting %s" % (filename, expected_res))
-            deb.open(os.path.join("test_debs", filename))
+            deb.open(os.path.join("data", "test_debs", filename))
             res = deb.check()
             self.assertEqual(res, expected_res,
                 "Unexpected result for package '%s' (got %s wanted %s)" % (
