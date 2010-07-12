@@ -1,3 +1,11 @@
+python-apt (0.7.96.1) UNRELEASED; urgency=low
+
+  * tests/test_debfile.py:
+   - properly setup fixture data to make debfile test pass 
+     (closes: #588796)
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 14:14:51 +0200
+
 python-apt (0.7.96) unstable; urgency=low
 
   [ Michael Vogt ]
