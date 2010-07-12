@@ -1,4 +1,4 @@
-python-apt (0.7.96) UNRELEASED; urgency=low
+python-apt (0.7.96) unstable; urgency=low
 
   [ Michael Vogt ]
   * data/templates/gNewSense.info.in,
@@ -42,7 +42,7 @@ python-apt (0.7.96) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * Re-enable Python 3 support for latest python-default changes (hack).
 
- -- Michael Vogt <mvo@debian.org>  Tue, 01 Jun 2010 16:20:00 +0200
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 08:58:42 +0200
 
 python-apt (0.7.95) unstable; urgency=low
 
