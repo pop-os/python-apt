@@ -6,6 +6,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
   * doc/conf.py:
     - Correctly handle non-digit characters in version (ignore everything
       after them).
+  * python/apt_pkgmodule.cc:
+    - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
