@@ -1,3 +1,11 @@
+python-apt (0.7.97) UNRELEASED; urgency=low
+
+  * python/tag.cc:
+    - Support gzip compression for control files (Closes: #383617),
+      requires APT (>> 0.7.26~exp10) to work.
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
+
 python-apt (0.7.96.1) unstable; urgency=low
 
   * tests/test_debfile.py:
