@@ -3,6 +3,8 @@
 export DH_PYCENTRAL=nomove
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
 export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
+export PATH :=$(CURDIR)/utils:$(PATH)
+export SHELL = env PATH=$(PATH) sh
 
 %:
 	dh --with python-central $@
@@ -20,7 +22,7 @@ override_dh_installdocs:
 
 override_dh_strip:
 	dh_strip --dbg-package=python-apt-dbg
-
+	
 override_dh_compress:
 	dh_compress -X.js -X_static/* -X _sources/* -X_sources/*/* -X.inv
 

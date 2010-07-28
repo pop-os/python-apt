@@ -905,6 +905,8 @@ extern "C" void initapt_pkg()
                         Py_BuildValue("i", pkgAcquire::Item::StatFetching));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_DONE",
                         Py_BuildValue("i", pkgAcquire::Item::StatDone));
+   PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_TRANSIENT_NETWORK_ERROR",
+                        Py_BuildValue("i", pkgAcquire::Item::StatTransientNetworkError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_ERROR",
                         Py_BuildValue("i", pkgAcquire::Item::StatError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_AUTH_ERROR",

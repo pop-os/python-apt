@@ -1381,6 +1381,10 @@ installation.
 
         The item is yet to be fetched.
 
+    .. attribute:: STAT_TRANSIENT_NETWORK_ERROR
+
+        There was a network error.
+
 
 .. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
 

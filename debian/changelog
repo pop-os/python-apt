@@ -1,3 +1,75 @@
+python-apt (0.7.96.1ubuntu1) maverick; urgency=low
+
+  [ Julian Andres Klode ]
+  * python/tag.cc:
+    - Support gzip compression for control files (Closes: #383617),
+      requires APT (>> 0.7.26~exp10) to work.
+  * doc/conf.py:
+    - Correctly handle non-digit characters in version (ignore everything
+      after them).
+  * python/apt_pkgmodule.cc:
+    - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
+
+  [ Michael Vogt ]
+  * merge from debian-sid bzr branch, remaining changes:
+    - do not build for python2.5
+  
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Jul 2010 10:54:25 +0200
+
+python-apt (0.7.96.1) unstable; urgency=low
+
+  * tests/test_debfile.py:
+   - properly setup fixture data to make debfile test pass 
+     (closes: #588796)
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 14:14:51 +0200
+
+python-apt (0.7.96) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * data/templates/gNewSense.info.in,
+    data/templates/gNewSense.mirrors:
+    - add gNewSense template and mirrors, thanks to Karl Goetz
+  * data/templates/Ubuntu.info.in, 
+    data/templates/Ubuntu.mirrors:
+    - updated for Ubuntu maverick
+  * doc/source/conf.py:
+    - do not fail on non-digits in the version number
+  * utils/get_debian_mirrors.py:
+    - ignore mirrors without a county
+  * apt/cache.py:
+    - add new "dpkg_journal_dirty" property that can be used to
+      detect a interrupted dpkg (the famous 
+     "E: dpkg was interrupted, you must manually run 'dpkg --configure -a'")
+  * merged lp:~kiwinote/python-apt/merge-gdebi-changes, this port the
+    DebPackage class fixes from gdebi into python-apt so that gdebi can
+    use the class from python-apt directly
+  * apt/debfile.py:
+    - check if the debfiles provides are in conflict with the systems
+      packages
+    - fix py3 compatibility
+  * tests/test_debs/*.deb, tests/test_debfile.py:
+    - add automatic test based on the test debs from gdebi
+  * python/progress.cc:
+    - deal with missing return value from the acquire progress in pulse()
+
+  [ Martin Pitt ]
+  * tests/test_apt_cache.py: Test accessing the record of all packages during
+    iteration. This both ensures that it's well-formatted and structured, and
+    also that accessing it does not take an inordinate amount of time. This
+    exposes a severe performance problem when using gzip compressed package
+    indexes.
+  * apt/cache.py: When iterating over the cache, do so sorted by package name.
+    With this we read the the package lists linearly if we need to access the
+    package records, instead of having to do thousands of random seeks; the
+    latter is disastrous if we use compressed package indexes, and slower than
+    necessary for uncompressed indexes.
+
+  [ Julian Andres Klode ]
+  * Re-enable Python 3 support for latest python-default changes (hack).
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 08:58:42 +0200
+
 python-apt (0.7.95ubuntu2) maverick; urgency=low
 
   * apt/utils.py:
@@ -751,6 +823,9 @@ python-apt (0.7.11.0) unstable; urgency=low
       (LP: #372224)
   * python/progress.cc:
     - fix crash in RunSimpleCallback()
+  * apt/cache.py:
+    - when the cache is run with a alternative rootdir, create
+      required dirs/files automatically
 
  -- Michael Vogt <mvo@debian.org>  Mon, 20 Jul 2009 15:35:27 +0200
 
@@ -1026,7 +1101,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
   * Merge Ben Finney's do not use has_key() (Closes: #481878)
   * Do not use deprecated form of raise statement (Closes: #494259)
   * Add support for PkgRecords.SHA256Hash (Closes: #456113)
-  
+
   [ Michael Vogt ]
   * apt/package.py:
     - fix bug in candidateInstalledSize property
@@ -1036,7 +1111,7 @@ python-apt (0.7.9~exp2) experimental; urgency=low
     - only add nearest_server and server to the mirrors if
       they are defined
 
- -- Julian Andres Klode <jak@debian.org>  Sun, 11 Jan 2009 20:01:59 +0100
+ -- Michael Vogt <mvo@debian.org>  Fri, 16 Jan 2009 11:28:17 +0100
 
 python-apt (0.7.9~exp1) experimental; urgency=low
 
@@ -1227,7 +1302,7 @@ python-apt (0.7.7.1) unstable; urgency=low
   * aptsources/distinfo.py:
     - fix template matching for arch specific code (LP: #244093)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 25 Jul 2008 18:34:28 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 25 Jul 2008 18:13:53 +0200
 
 python-apt (0.7.7ubuntu2) intrepid; urgency=low
 
@@ -1266,7 +1341,7 @@ python-apt (0.7.7) unstable; urgency=low
   [ Michael Vogt ]
   * python/apt_pkgmodule.cc:
     - fix bug in hashsum calculation when the original string
-      contains \0 charackters (thanks to Celso Providelo and 
+      contains \0 charackters (thanks to Celso Providelo and
       Ryan Hass for the test-case) LP: #243630
   * tests/test_hashsums.py:
     - add tests for the hashsum code
@@ -1346,14 +1421,14 @@ python-apt (0.7.5) unstable; urgency=low
     - export the Homepage field
   * python/tar.cc:
     - fix .lzma extraction (thanks to bigjools)
-   * python/sourcelist.cc:
-     - support GetIndexes() GetAll argument to implement
-       something like --print-uris
-   * python/apt_pkgmodule.cc:
-     - add InstState{Ok,ReInstReq,Hold,HoldReInstReq} constants
-   * apt/cache.py:
-     - add reqReinstallPkgs property that lists all packages in
-       ReInstReq or HoldReInstReq
+  * python/sourcelist.cc:
+    - support GetIndexes() GetAll argument to implement
+      something like --print-uris
+  * python/apt_pkgmodule.cc:
+    - add InstState{Ok,ReInstReq,Hold,HoldReInstReq} constants
+  * apt/cache.py:
+    - add reqReinstallPkgs property that lists all packages in
+      ReInstReq or HoldReInstReq
 
  -- Michael Vogt <mvo@debian.org>  Tue, 19 Feb 2008 21:06:36 +0100
 

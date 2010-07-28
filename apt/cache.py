@@ -19,6 +19,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import fnmatch
 import os
 import weakref
 
@@ -64,6 +65,7 @@ class Cache(object):
         self._callbacks = {}
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
+        self._sorted_set = None
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -118,6 +120,7 @@ class Cache(object):
         """
         if progress is None:
             progress = apt.progress.base.OpProgress()
+        self.op_progress = progress
         self._run_callbacks("cache_pre_open")
 
         self._cache = apt_pkg.Cache(progress)
@@ -126,6 +129,7 @@ class Cache(object):
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
         self._set.clear()
+        self._sorted_set = None
         self._weakref.clear()
 
         progress.op = _("Building data structures")
@@ -157,7 +161,15 @@ class Cache(object):
                 raise KeyError('The cache has no package named %r' % key)
 
     def __iter__(self):
-        for pkgname in self._set:
+        # We iterate sorted over package names here. With this we read the
+        # package lists linearly if we need to access the package records,
+        # instead of having to do thousands of random seeks; the latter
+        # is disastrous if we use compressed package indexes, and slower than
+        # necessary for uncompressed indexes.
+        if self._sorted_set is None:
+            self._sorted_set = sorted(self._set)
+
+        for pkgname in self._sorted_set:
             yield self[pkgname]
         raise StopIteration
 
@@ -277,21 +289,28 @@ class Cache(object):
         else:
             return bool(pkg.has_provides and not pkg.has_versions)
 
-    def get_providing_packages(self, virtual, candidate_only=True):
-        """Return a list of all packages providing a virtual package.
+    def get_providing_packages(self, pkgname, candidate_only=True, 
+                               include_nonvirtual=False):
+        """Return a list of all packages providing a package.
         
         Return a list of packages which provide the virtual package of the
-        specified name. If 'candidate_only' is False, return all packages
-        with at least one version providing the virtual package. Otherwise,
-        return only those packages where the candidate version provides
-        the virtual package.
+        specified name. 
+
+        If 'candidate_only' is False, return all packages with at
+        least one version providing the virtual package. Otherwise,
+        return only those packages where the candidate version
+        provides the virtual package.
+
+        If 'include_nonvirtual' is True then it will search for all
+        packages providing pkgname, even if pkgname is not itself
+        a virtual pkg.
         """
         
         providers = set()
         get_candidate_ver = self._depcache.get_candidate_ver
         try:
-            vp = self._cache[virtual]
-            if vp.has_versions:
+            vp = self._cache[pkgname]
+            if vp.has_versions and not include_nonvirtual:
                 return list(providers)
         except KeyError:
             return list(providers)
@@ -443,6 +462,21 @@ class Cache(object):
         don't.
         """
         return apt_pkg.ActionGroup(self._depcache)
+
+    @property
+    def dpkg_journal_dirty(self):
+        """Return True if the dpkg was interrupted
+        
+        All dpkg operations will fail until this is fixed, the action to
+        fix the system if dpkg got interrupted is to run 
+        'dpkg --configure -a' as root.
+        """
+        dpkg_status_dir = os.path.dirname(
+            apt_pkg.config.find_file("Dir::State::status"))
+        for f in os.listdir(os.path.join(dpkg_status_dir, "updates")):
+            if fnmatch.fnmatch(f, "[0-9]*"):
+                return True
+        return False
 
     @property
     def broken_count(self):
