@@ -19,7 +19,7 @@
 
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/cmndline.h>
-
+#include <sstream>
 #include <Python.h>
 									/*}}}*/
 
@@ -253,6 +253,20 @@ static PyObject *CnfMyTag(PyObject *Self,PyObject *Args)
       return Py_BuildValue("s","");
    return CppPyString(Top->Parent->Tag);
 }
+
+static char *doc_Dump =
+    "dump() -> str\n\n"
+    "Return a string dump this Configuration object.";
+static PyObject *CnfDump(PyObject *Self,PyObject *Args)
+{
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+
+   stringstream ss;
+   GetSelf(Self).Dump(ss);
+   return CppPyString(ss.str());
+}
+
 
 // Look like a mapping
 static char *doc_Keys =
@@ -516,6 +530,7 @@ static PyMethodDef CnfMethods[] =
    {"value_list",CnfValueList,METH_VARARGS,doc_ValueList},
    {"my_tag",CnfMyTag,METH_VARARGS,doc_MyTag},
    {"clear",CnfClear,METH_VARARGS,doc_Clear},
+   {"dump",CnfDump,METH_VARARGS,doc_Dump},
    // Python Special
    {"keys",CnfKeys,METH_VARARGS,doc_Keys},
    #if PY_MAJOR_VERSION < 3
