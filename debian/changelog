@@ -3,6 +3,8 @@ python-apt (0.7.96.1) UNRELEASED; urgency=low
   * tests/test_debfile.py:
    - properly setup fixture data to make debfile test pass 
      (closes: #588796)
+  * python/configuration.cc:
+    - add binding for the "dump()" method to configruation objects
 
  -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 14:14:51 +0200
 
