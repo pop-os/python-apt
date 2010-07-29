@@ -1,5 +1,6 @@
 python-apt (0.7.97) UNRELEASED; urgency=low
 
+  [ Julian Andres Klode ]
   * python/tag.cc:
     - Support gzip compression for control files (Closes: #383617),
       requires APT (>> 0.7.26~exp10) to work.
@@ -8,6 +9,10 @@ python-apt (0.7.97) UNRELEASED; urgency=low
       after them).
   * python/apt_pkgmodule.cc:
     - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
+  
+  [ Michael Vogt ]
+  * python/configuration.cc:
+    - add binding for the "dump()" method to configruation objects
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
