@@ -9,6 +9,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
       after them).
   * python/apt_pkgmodule.cc:
     - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
+  * doc/library/apt_pkg.rst:
+    - Document Configuration.dump().
   
   [ Michael Vogt ]
   * python/configuration.cc:

@@ -1828,6 +1828,11 @@ Configuration and Command-line parsing
 
         Remove the option at *key* and all of its children.
 
+    .. method:: dump() -> str
+
+        Return a string containing the values in the configuration object,
+        in the standard :manpage:`apt.conf(5)` format.
+
     .. method:: exists(key)
 
         Check whether an option named *key* exists in the configuration.
