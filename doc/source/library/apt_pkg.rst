@@ -1381,6 +1381,10 @@ installation.
 
         The item is yet to be fetched.
 
+    .. attribute:: STAT_TRANSIENT_NETWORK_ERROR
+
+        There was a network error.
+
 
 .. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
 
@@ -1823,6 +1827,11 @@ Configuration and Command-line parsing
     .. method:: clear(key: str)
 
         Remove the option at *key* and all of its children.
+
+    .. method:: dump() -> str
+
+        Return a string containing the values in the configuration object,
+        in the standard :manpage:`apt.conf(5)` format.
 
     .. method:: exists(key)
 

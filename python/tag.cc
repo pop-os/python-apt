@@ -393,7 +393,12 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       return 0;
 
    TagFileData *New = (TagFileData*)type->tp_alloc(type, 0);
+#ifdef APT_HAS_GZIP
+   new (&New->Fd) FileFd();
+   New->Fd.OpenDescriptor(fileno, FileFd::ReadOnlyGzip, false);
+#else
    new (&New->Fd) FileFd(fileno,false);
+#endif
    New->Owner = File;
    Py_INCREF(New->Owner);
    new (&New->Object) pkgTagFile(&New->Fd);

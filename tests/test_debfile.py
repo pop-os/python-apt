@@ -44,9 +44,11 @@ class TestDebfilee(unittest.TestCase):
     ]
 
     def setUp(self):
+        apt_pkg.init_config()
         apt_pkg.config.set("APT::Architecture","i386")
         apt_pkg.config.set("Dir::State::status", 
                            "./data/test_debs/var/lib/dpkg/status")
+        apt_pkg.init_system()
         self.cache = apt.Cache()
 
     def testDscFile(self):
@@ -54,6 +56,12 @@ class TestDebfilee(unittest.TestCase):
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertTrue(deb.check())
+        missing = set(['debhelper', 'libnet1-dev', 'libpcap-dev', 'autotools-dev'])
+        self.assertEqual(set(deb.missing_deps), missing)
+        filename = "impossible-build-depends_2.5-1.dsc"
+        deb = apt.debfile.DscSrcPackage(cache=self.cache)
+        deb.open(os.path.join("data", "test_debs", filename))
+        self.assertFalse(deb.check())
 
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)

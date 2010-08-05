@@ -78,8 +78,13 @@ except KeyError:
     release = p2.communicate()[0]
 
 # Handle the alpha release scheme
-release_raw = release.split("~")[0].split(".")[2]
-if release_raw.isdigit() and int(release_raw) >= 90:
+release_raw = "0"
+for c in release.split("~")[0].split(".")[2]:
+    if not c.isdigit():
+        break
+    release_raw += c
+    
+if int(release_raw) >= 90:
     version_s = release.split("~")[0].split(".")[:3]
     # Set the version to 0.X.100 if the release is 0.X.9Y (0.7.90 => 0.7.100)
     # Use
