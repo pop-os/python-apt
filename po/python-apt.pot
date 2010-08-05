@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-05 22:40+0200\n"
+"POT-Creation-Date: 2010-08-05 23:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -432,16 +433,16 @@ msgstr ""
 #: ../apt/debfile.py:327
 #, python-format
 msgid ""
-"Breaks existing package '%(pkgname)s' dependency %(depname)s (%(deprelation)"
-"s %(depversion)s)"
+"Breaks existing package '%(pkgname)s' dependency %(depname)s "
+"(%(deprelation)s %(depversion)s)"
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:343
 #, python-format
 msgid ""
-"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %"
-"(targetver)s)"
+"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
 msgstr ""
 
 #: ../apt/debfile.py:352
