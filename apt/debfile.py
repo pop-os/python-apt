@@ -51,6 +51,7 @@ class DebPackage(object):
         self._debfile = None
         self.pkgname = ""
         self._sections = {}
+        self._need_pkgs = []
         if filename:
             self.open(filename)
 

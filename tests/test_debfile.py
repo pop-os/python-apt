@@ -49,6 +49,12 @@ class TestDebfilee(unittest.TestCase):
                            "./data/test_debs/var/lib/dpkg/status")
         self.cache = apt.Cache()
 
+    def testDscFile(self):
+        filename = "hello_2.5-1.dsc"
+        deb = apt.debfile.DscSrcPackage(cache=self.cache)
+        deb.open(os.path.join("data", "test_debs", filename))
+        self.assertTrue(deb.check())
+
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:

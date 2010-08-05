@@ -5,6 +5,8 @@ python-apt (0.7.96.1) UNRELEASED; urgency=low
      (closes: #588796)
   * python/configuration.cc:
     - add binding for the "dump()" method to configruation objects
+  * apt/debfile.py:
+    - fix crash in DscFile handling and add regression test
 
  -- Michael Vogt <mvo@debian.org>  Mon, 12 Jul 2010 14:14:51 +0200
 
