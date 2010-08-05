@@ -9,7 +9,7 @@ Version: 2.5-1
 Maintainer: Santiago Vila <sanvila@debian.org>
 Homepage: http://www.gnu.org/software/hello
 Standards-Version: 3.8.4
-Build-Depends: debhelper (>> 4.0.0), libnet1-dev (>= 1.1.2.1), libpcap-dev, autotools-dev
+Build-Depends: autotools-dev
 Checksums-Sha1: 
  dfaf92bfc8144141bcd5ffb4a30777cd57501bfa 582535 hello_2.5.orig.tar.gz
  a98ab19072b35295ded3560721662131933f7c05 5965 hello_2.5-1.diff.gz
