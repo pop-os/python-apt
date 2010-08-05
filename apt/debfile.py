@@ -52,6 +52,7 @@ class DebPackage(object):
         self.pkgname = ""
         self._sections = {}
         self._need_pkgs = []
+        self._failure_string = ""
         if filename:
             self.open(filename)
 
