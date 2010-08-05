@@ -58,6 +58,10 @@ class TestDebfilee(unittest.TestCase):
         self.assertTrue(deb.check())
         missing = set(['debhelper', 'libnet1-dev', 'libpcap-dev', 'autotools-dev'])
         self.assertEqual(set(deb.missing_deps), missing)
+        filename = "impossible-build-depends_2.5-1.dsc"
+        deb = apt.debfile.DscSrcPackage(cache=self.cache)
+        deb.open(os.path.join("data", "test_debs", filename))
+        self.assertFalse(deb.check())
 
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
