@@ -51,11 +51,13 @@ class DebPackage(object):
         self._debfile = None
         self.pkgname = ""
         self._sections = {}
+        self._need_pkgs = []
         if filename:
             self.open(filename)
 
     def open(self, filename):
         """ open given debfile """
+        self._dbg(3, "open '%s'" % filename)
         self._need_pkgs = []
         self._installed_conflicts = set()
         self._failure_string = ""
@@ -184,6 +186,7 @@ class DebPackage(object):
             self.replaces_real_pkg(pkgname, oper, ver)):
             self._failure_string += _("Conflicts with the installed package "
                                       "'%s'") % pkg.name
+            self._dbg(3, "conflicts with installed pkg '%s'" % pkg.name)
             return True
         return False
 
@@ -386,7 +389,7 @@ class DebPackage(object):
 
     def check(self):
         """Check if the package is installable."""
-        self._dbg(3, "check_depends")
+        self._dbg(3, "check")
 
         # check arch
         if not "Architecture" in self._sections:
