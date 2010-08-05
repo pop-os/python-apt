@@ -1,9 +1,9 @@
-python-apt (0.7.96.1ubuntu4) UNRELEASED; urgency=low
+python-apt (0.7.96.1ubuntu4) maverick; urgency=low
 
   * apt/debfile.py:
     - fix crash in DscFile handling and add regression test
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 05 Aug 2010 13:28:58 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 05 Aug 2010 23:36:53 +0200
 
 python-apt (0.7.96.1ubuntu3) maverick; urgency=low
 
