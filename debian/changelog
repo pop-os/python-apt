@@ -1,3 +1,12 @@
+python-apt (0.7.96.1ubuntu5) maverick; urgency=low
+
+  * python/acquire.cc:
+    - return long long when calling TotalNeeded(), FetchNeeded() and 
+      PartialPresent() from pkgAcquire(). This follows the change
+      in libapt.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 10 Aug 2010 11:08:14 +0200
+
 python-apt (0.7.96.1ubuntu4) maverick; urgency=low
 
   * apt/debfile.py:
