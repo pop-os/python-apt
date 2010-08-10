@@ -17,6 +17,10 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - add binding for the "dump()" method to configruation objects
   * apt/debfile.py:
     - fix crash in DscFile handling and add regression test
+  * python/acquire.cc:
+    - return long long when calling TotalNeeded(), FetchNeeded() and 
+      PartialPresent() from pkgAcquire(). This follows the change
+      in libapt.
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 

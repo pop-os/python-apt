@@ -259,15 +259,15 @@ static PyMethodDef PkgAcquireMethods[] = {
 #define fetcher (GetCpp<pkgAcquire*>(Self))
 static PyObject *PkgAcquireGetTotalNeeded(PyObject *Self,void*)
 {
-    return Py_BuildValue("d", fetcher->TotalNeeded());
+    return Py_BuildValue("L", fetcher->TotalNeeded());
 }
 static PyObject *PkgAcquireGetFetchNeeded(PyObject *Self,void*)
 {
-    return Py_BuildValue("d", fetcher->FetchNeeded());
+    return Py_BuildValue("L", fetcher->FetchNeeded());
 }
 static PyObject *PkgAcquireGetPartialPresent(PyObject *Self,void*)
 {
-    return Py_BuildValue("d", fetcher->PartialPresent());
+    return Py_BuildValue("L", fetcher->PartialPresent());
 }
 #undef fetcher
 
