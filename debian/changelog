@@ -17,6 +17,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - add binding for the "dump()" method to configruation objects
   * apt/debfile.py:
     - fix crash in DscFile handling and add regression test
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
