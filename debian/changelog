@@ -1,4 +1,4 @@
-python-apt (0.7.97) UNRELEASED; urgency=low
+python-apt (0.7.97) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * python/tag.cc:
@@ -25,7 +25,7 @@ python-apt (0.7.97) UNRELEASED; urgency=low
   * po/pt_BR.po:
     - updated, thanks to Sergio Cipolla (Closes: #593754)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 12:32:54 +0200
 
 python-apt (0.7.96.1) unstable; urgency=low
 
