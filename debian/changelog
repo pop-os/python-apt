@@ -11,6 +11,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
   * doc/library/apt_pkg.rst:
     - Document Configuration.dump().
+  * debian/control:
+    - Adapt to new Python 3 handling (Closes: #593042)
   
   [ Michael Vogt ]
   * python/configuration.cc:
