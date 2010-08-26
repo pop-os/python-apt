@@ -1,3 +1,10 @@
+python-apt (0.7.97.1) unstable; urgency=low
+
+  * tests/test_apt_cache.py:
+    - Do not insert ".." into sys.path, fixes FTBFS
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 14:08:01 +0200
+
 python-apt (0.7.97) unstable; urgency=low
 
   [ Julian Andres Klode ]

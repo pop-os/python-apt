@@ -10,8 +10,9 @@ import os
 import tempfile
 import unittest
 
+from test_all import get_library_dir
 import sys
-sys.path.insert(0, "..")
+sys.path.insert(0, get_library_dir())
 
 import apt
 import apt_pkg
