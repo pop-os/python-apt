@@ -13,6 +13,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - Document Configuration.dump().
   * debian/control:
     - Adapt to new Python 3 handling (Closes: #593042)
+    - Build-depend on APT >= 0.8 to get gzip compression enabled (optional,
+      can be reverted for backports)
   
   [ Michael Vogt ]
   * python/configuration.cc:
