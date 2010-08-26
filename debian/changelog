@@ -22,7 +22,7 @@ python-apt (0.7.97) UNRELEASED; urgency=low
   * apt/debfile.py:
     - fix crash in DscFile handling and add regression test
   * po/pt_BR.po:
-    - updated, thanks to Sergio Cipolla
+    - updated, thanks to Sergio Cipolla (Closes: #593754)
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
