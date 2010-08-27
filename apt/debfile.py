@@ -598,6 +598,7 @@ class DscSrcPackage(DebPackage):
         self.filename = filename
         self._depends = []
         self._conflicts = []
+        self._installed_conflicts = set()
         self.pkgname = ""
         self.binaries = []
         if self.filename is not None:

@@ -1,3 +1,10 @@
+python-apt (0.7.96.1ubuntu6) maverick; urgency=low
+
+  * apt/debfile.py:
+    - add missing init for _installed_conflicts (LP: #618597)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 27 Aug 2010 11:18:13 +0200
+
 python-apt (0.7.96.1ubuntu5) maverick; urgency=low
 
   * python/acquire.cc:
