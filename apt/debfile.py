@@ -512,7 +512,7 @@ class DebPackage(object):
         return sorted(content)
 
     @staticmethod
-    def to_hex(self, in_data):
+    def to_hex(in_data):
         hex = ""
         for (i, c) in enumerate(in_data):
             if i%80 == 0:
@@ -521,7 +521,7 @@ class DebPackage(object):
         return hex
 
     @staticmethod
-    def to_strish(self, in_data):
+    def to_strish(in_data):
         s = ""
         for c in in_data:
             if ord(c) < 10 or ord(c) > 127:

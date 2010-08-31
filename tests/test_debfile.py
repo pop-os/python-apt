@@ -86,8 +86,9 @@ class TestDebfilee(unittest.TestCase):
         # binary
         deb = apt.debfile.DebPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", "gdebi-test12.deb"))
-        self.assertEqual('#!/bin/sh\necho "test"\n',
-                         deb.data_content("usr/bin/binary"))
+        content = deb.data_content("usr/bin/binary")
+        self.assertTrue(content.startswith("Automatically converted to printable ascii:\n\x7fELF "))
+                  
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

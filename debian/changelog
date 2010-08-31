@@ -22,6 +22,8 @@ python-apt (0.7.97) UNRELEASED; urgency=low
       PartialPresent() from pkgAcquire(). This follows the change
       in libapt.
   * add "provides" property to the apt.Version objects
+  * apt/debfile.py:
+    - fix error when reading binary content and add regresion test
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
