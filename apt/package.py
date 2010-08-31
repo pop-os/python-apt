@@ -415,6 +415,11 @@ class Version(object):
         return depends_list
 
     @property
+    def provides(self):
+        """ Return a list of names that this version provides."""
+        return [p[0] for p in self._cand.provides_list]
+        
+    @property
     def enhances(self):
         """Return the list of enhances for the package version."""
         return self.get_dependencies("Enhances")

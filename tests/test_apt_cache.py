@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #
 # Copyright (C) 2010 Julian Andres Klode <jak@debian.org>
+#               2010 Michael Vogt <mvo@ubuntu.com>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -51,6 +52,7 @@ class TestAptCache(unittest.TestCase):
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
         self.assertTrue(len(l) > 0)
+        self.assertTrue("postfix" in [p.name for p in l])
         # this is a not virtual (transitional) package provided by another 
         l = cache.get_providing_packages("scrollkeeper")
         self.assertEqual(l, [])
@@ -59,6 +61,7 @@ class TestAptCache(unittest.TestCase):
         l = cache.get_providing_packages("scrollkeeper", 
                                          include_nonvirtual=True)
         self.assertTrue(len(l), 1)
+        self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
         
 
     def test_dpkg_journal_dirty(self):

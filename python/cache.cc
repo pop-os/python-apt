@@ -573,9 +573,8 @@ static PyGetSetDef PackageGetSet[] = {
     {"rev_depends_list",PackageGetRevDependsList,0,
      "An apt_pkg.DependencyList object of all reverse dependencies."},
     {"provides_list",PackageGetProvidesList,0,
-     "A list of all packages providing this package. The list contains\n"
-     "tuples in the format (providesname, providesver, version)\n"
-     "where 'version' is an apt_pkg.Version object."},
+     "Ignore it, it does nothing. You want to use\n"
+     "apt_pkg.Version.provides_list instead."},
     {"selected_state",PackageGetSelectedState,0,
      "The state of the selection, which can be compared against the constants\n"
      "SELSTATE_DEINSTALL, SELSTATE_HOLD, SELSTATE_INSTALL, SELSTATE_PURGE,\n"
@@ -979,8 +978,9 @@ static PyGetSetDef VersionGetSet[] = {
    {"priority_str",VersionGetPriorityStr,0,
     "The priority of the package, as a string."},
    {"provides_list",VersionGetProvidesList,0,
-    "A list of all packages provided by this version. See\n"
-    "Package.provides_list for a description of the format."},
+    "A list of all packages provided by this version. The list contains\n"
+    "tuples in the format (providesname, providesver, version)\n"
+    "where 'version' is an apt_pkg.Version object."},
    {"section",VersionGetSection,0,
     "The section of this package version."},
    {"size",VersionGetSize,0,
