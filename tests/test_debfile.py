@@ -78,10 +78,16 @@ class TestDebfilee(unittest.TestCase):
                     filename, res, expected_res, deb._failure_string))
 
     def testContent(self):
+        # normal
         deb = apt.debfile.DebPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", "gdebi-test11.deb"))
         self.assertEqual('#!/bin/sh\necho "test"\n',
                          deb.data_content("usr/bin/test"))
+        # binary
+        deb = apt.debfile.DebPackage(cache=self.cache)
+        deb.open(os.path.join("data", "test_debs", "gdebi-test12.deb"))
+        self.assertEqual('#!/bin/sh\necho "test"\n',
+                         deb.data_content("usr/bin/binary"))
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
