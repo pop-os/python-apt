@@ -1,6 +1,10 @@
 python-apt (0.7.97.2) UNRELEASED; urgency=low
 
   [ Michael Vogt ]
+  * python/acquire.cc:
+    - return long long when calling TotalNeeded(), FetchNeeded() and
+      PartialPresent() from pkgAcquire(). This follows the change
+      in libapt.
   * apt/debfile.py:
     - add missing init for _installed_conflicts (LP: #618597)
   * add "provides" property to the apt.Version objects
