@@ -77,6 +77,12 @@ class TestDebfilee(unittest.TestCase):
                 "Unexpected result for package '%s' (got %s wanted %s)\n%s" % (
                     filename, res, expected_res, deb._failure_string))
 
+    def testContent(self):
+        deb = apt.debfile.DebPackage(cache=self.cache)
+        deb.open(os.path.join("data", "test_debs", "gdebi-test11.deb"))
+        self.assertEqual('#!/bin/sh\necho "test"\n',
+                         deb.data_content("usr/bin/test"))
+
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
     unittest.main()
