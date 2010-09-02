@@ -1,10 +1,10 @@
-python-apt (0.7.96.1ubuntu7) UNRELEASED; urgency=low
+python-apt (0.7.96.1ubuntu7) maverick; urgency=low
 
   * cherry pick debfile fix from lp:~mvo/python-apt/mvo (402..405):
     * apt/debfile.py:
       - fix error when reading binary content and add regresion test
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 31 Aug 2010 15:21:08 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 02 Sep 2010 10:53:46 +0200
 
 python-apt (0.7.96.1ubuntu6) maverick; urgency=low
 
