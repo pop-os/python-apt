@@ -349,13 +349,16 @@ class Cache(object):
             apt_pkg.config.set("Dir::Etc::sourcelist", os.path.abspath(sources_list))
             apt_pkg.config.set("Dir::Etc::sourceparts", "xxx")
             apt_pkg.config.set("APT::List-Cleanup", "0")
-            self._list.read_main_list()
+            slist = apt_pkg.SourceList()
+            slist.read_main_list()
+        else:
+            slist = self._list
 
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.base.AcquireProgress()
             try:
-                res = self._cache.update(fetch_progress, self._list,
+                res = self._cache.update(fetch_progress, slist,
                                          pulse_interval)
             except SystemError, e:
                 raise FetchFailedException(e)
@@ -369,7 +372,6 @@ class Cache(object):
                 apt_pkg.config.set("Dir::Etc::sourcelist", old_sources_list)
                 apt_pkg.config.set("Dir::Etc::sourceparts", old_sources_list_d)
                 apt_pkg.config.set("APT::List-Cleanup", old_cleanup)
-                self._list.read_main_list()
 
     @deprecated_args
     def install_archives(self, pm, install_progress):
