@@ -1,3 +1,11 @@
+python-apt (0.7.96.1ubuntu8) maverick; urgency=low
+
+  * debian/control:
+    - add missing build-depends on python-debian (needed to run the
+      tests for apt.debfile.DebPackage()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 03 Sep 2010 18:33:50 +0200
+
 python-apt (0.7.96.1ubuntu7) maverick; urgency=low
 
   * cherry pick debfile fix from lp:~mvo/python-apt/mvo (402..405):
