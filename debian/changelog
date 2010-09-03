@@ -26,6 +26,9 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - fix error when reading binary content and add regresion test
   * merged patch from Samuel Lidén Borell to fix crash if there utf8 
     in the control file (LP: #624290) and add test
+  * apt/cache.py:
+    - add "sources_list" parameter to cache.update() to force updating
+      a single sources.list entry only
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 

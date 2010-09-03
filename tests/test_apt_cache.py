@@ -16,7 +16,7 @@ sys.path.insert(0, "..")
 
 import apt
 import apt_pkg
-
+import shutil
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -84,7 +84,43 @@ class TestAptCache(unittest.TestCase):
         self.assertTrue(cache.dpkg_journal_dirty)
         # reset config value
         apt_pkg.config.set("Dir::State::status", old_status)
+
+    def test_apt_update(self):
+        try:
+            os.makedirs("./data/tmp/var/lib/apt/lists/partial")
+        except OSError, e:
+            pass
+        apt_pkg.config.set("dir::state", "./data/tmp/var/lib/apt")
+
+        # test single sources.list fetching
+        sources_list = "./data/tmp/test.list"
+        f=open(sources_list,"w")
+        f.write("deb http://archive.ubuntu.com/ubuntu lucid restricted\n")
+        f.close()
+        self.assertTrue(os.path.exists(sources_list))
+        # write marker to ensure listcleaner is not run
+        open("./data/tmp/var/lib/apt/lists/marker","w")
+
+        # update a single sources.list
+        cache = apt.Cache()
+        cache.update(sources_list=sources_list)
+        # verify we just got a single source
+        files = filter(lambda f: not (f == "lock" or f == "partial"),
+                       os.listdir("./data/tmp/var/lib/apt/lists"))
+        self.assertTrue("archive.ubuntu.com_ubuntu_dists_lucid_Release" in files)
+        # ensure the listcleaner was not run
+        self.assertTrue("marker" in files)
+        # ensure we don't get additional stuff from /etc/apt/sources.list
+        self.assertTrue(len(files) < 5)
         
+        # now run update again and verify that we got the normal sources.list
+        cache.update()
+        full_update = filter(lambda f: not (f == "lock" or f == "partial"),
+                       os.listdir("./data/tmp/var/lib/apt/lists"))
+        self.assertTrue(len(files) < len(full_update))
+
+        # cleanup
+        shutil.rmtree("./data/tmp/")
 
 if __name__ == "__main__":
     unittest.main()
