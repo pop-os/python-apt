@@ -29,6 +29,9 @@ python-apt (0.7.97) UNRELEASED; urgency=low
   * apt/cache.py:
     - add "sources_list" parameter to cache.update() to force updating
       a single sources.list entry only
+  * debian/control:
+    - add missing build-depends on python-debian (needed to run the
+      tests for apt.debfile.DebPackage()
 
  -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
 
