@@ -94,20 +94,21 @@ class TestAptCache(unittest.TestCase):
 
         # test single sources.list fetching
         sources_list = "./data/tmp/test.list"
-        f=open(sources_list,"w")
-        f.write("deb http://archive.ubuntu.com/ubuntu lucid restricted\n")
+        f=open(sources_list, "w")
+        repo = os.path.abspath("./data/test-repo")
+        f.write("deb copy:%s /\n" % repo)
         f.close()
         self.assertTrue(os.path.exists(sources_list))
         # write marker to ensure listcleaner is not run
-        open("./data/tmp/var/lib/apt/lists/marker","w")
+        open("./data/tmp/var/lib/apt/lists/marker", "w")
 
         # update a single sources.list
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
         # verify we just got a single source
-        files = filter(lambda f: not (f == "lock" or f == "partial"),
+        files = filter(lambda f: f not in ("lock", "partial"),
                        os.listdir("./data/tmp/var/lib/apt/lists"))
-        self.assertTrue("archive.ubuntu.com_ubuntu_dists_lucid_Release" in files)
+        self.assertEqual(len([f for f in files if f.endswith("tests_data_test-repo_Packages")]), 1)
         # ensure the listcleaner was not run
         self.assertTrue("marker" in files)
         # ensure we don't get additional stuff from /etc/apt/sources.list
@@ -115,7 +116,7 @@ class TestAptCache(unittest.TestCase):
         
         # now run update again and verify that we got the normal sources.list
         cache.update()
-        full_update = filter(lambda f: not (f == "lock" or f == "partial"),
+        full_update = filter(lambda f: f not in ("lock", "partial"),
                        os.listdir("./data/tmp/var/lib/apt/lists"))
         self.assertTrue(len(files) < len(full_update))
 
