@@ -347,7 +347,8 @@ class DebPackage(object):
                                     'targetver' : c_or.target_ver }
                                 self._cache.op_progress.done()
                                 return False
-                        if c_or.target_pkg.name in provides:
+                        if (c_or.target_pkg.name in provides and
+                            self.pkgname != pkg.name):
                             self._dbg(2, "would break (conflicts) %s" % provides)
                             self._failure_string += _("Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But the '%(debfile)s' provides it via: '%(provides)s'") % {
                                 'provides' : ",".join(provides),
