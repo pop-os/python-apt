@@ -327,12 +327,14 @@ class Cache(object):
 
     @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,
-               raise_on_error=True):
+               raise_on_error=True, sources_list=None):
         """Run the equivalent of apt-get update.
 
         The first parameter *fetch_progress* may be set to an instance of
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
         .
+        sources_list -- Update a alternative sources.list than the default.
+         Note that the sources.list.d directory is ignored in this case
         """
         lockfile = apt_pkg.config.find_dir("Dir::State::Lists") + "lock"
         lock = apt_pkg.get_lock(lockfile)
@@ -340,11 +342,23 @@ class Cache(object):
         if lock < 0:
             raise LockFailedException("Failed to lock %s" % lockfile)
 
+        if sources_list:
+            old_sources_list = apt_pkg.config.find("Dir::Etc::sourcelist")
+            old_sources_list_d = apt_pkg.config.find("Dir::Etc::sourceparts")
+            old_cleanup = apt_pkg.config.find("APT::List-Cleanup")
+            apt_pkg.config.set("Dir::Etc::sourcelist", os.path.abspath(sources_list))
+            apt_pkg.config.set("Dir::Etc::sourceparts", "xxx")
+            apt_pkg.config.set("APT::List-Cleanup", "0")
+            slist = apt_pkg.SourceList()
+            slist.read_main_list()
+        else:
+            slist = self._list
+
         try:
             if fetch_progress is None:
                 fetch_progress = apt.progress.base.AcquireProgress()
             try:
-                res = self._cache.update(fetch_progress, self._list,
+                res = self._cache.update(fetch_progress, slist,
                                          pulse_interval)
             except SystemError, e:
                 raise FetchFailedException(e)
@@ -354,6 +368,10 @@ class Cache(object):
                 return res
         finally:
             os.close(lock)
+            if sources_list:
+                apt_pkg.config.set("Dir::Etc::sourcelist", old_sources_list)
+                apt_pkg.config.set("Dir::Etc::sourceparts", old_sources_list_d)
+                apt_pkg.config.set("APT::List-Cleanup", old_cleanup)
 
     @deprecated_args
     def install_archives(self, pm, install_progress):

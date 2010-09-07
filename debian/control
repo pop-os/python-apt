@@ -15,7 +15,8 @@ Build-Depends: apt-utils,
                python3-all-dbg (>= 3.1.2-6~),
                python-central (>= 0.5),
                python-distutils-extra (>= 2.0),
-               python-sphinx (>= 0.5)
+               python-sphinx (>= 0.5),
+               python-debian
 Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
