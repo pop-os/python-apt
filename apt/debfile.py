@@ -66,7 +66,7 @@ class DebPackage(object):
         self._debfile = apt_inst.DebFile(open(self.filename))
         control = self._debfile.control.extractdata("control")
         # hm, 'replace' is probably better but python2.6 test fail with that
-        self._sections = apt_pkg.TagSection(control.decode("UTF-8", 'ignore'))
+        self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
 
     def __getitem__(self, key):

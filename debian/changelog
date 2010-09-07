@@ -1,10 +1,23 @@
-python-apt (0.7.97.2) UNRELEASED; urgency=low
+python-apt (0.7.96ubuntu9) UNRELEASED; urgency=low
 
   [ Kiwinote ]
   * apt/debfile:
     - don't fail if we conflict with the pkgs we are reinstalling
 
- -- Michael Vogt <mvo@debian.org>  Fri, 27 Aug 2010 11:22:23 +0200
+  [ Michael Vogt ]
+  * add "provides" property to the apt.Version objects
+  * apt/debfile.py:
+    - fix error when reading binary content and add regresion test
+  * merged patch from Samuel Lidén Borell to fix crash if there utf8 
+    in the control file (LP: #624290) and add test
+  * apt/cache.py:
+    - add "sources_list" parameter to cache.update() to force updating
+      a single sources.list entry only
+  * debian/control:
+    - add missing build-depends on python-debian (needed to run the
+      tests for apt.debfile.DebPackage()
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Sep 2010 13:36:18 +0200
 
 python-apt (0.7.96.1ubuntu8) maverick; urgency=low
 

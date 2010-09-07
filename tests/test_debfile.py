@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2010 Michael Vogt <mvo@ubuntu.com>
 #
@@ -76,6 +77,12 @@ class TestDebfilee(unittest.TestCase):
             self.assertEqual(res, expected_res,
                 "Unexpected result for package '%s' (got %s wanted %s)\n%s" % (
                     filename, res, expected_res, deb._failure_string))
+
+    def test_utf8_sections(self):
+        deb = apt.debfile.DebPackage(cache=self.cache)
+        deb.open(os.path.join("data","test_debs","utf8-package_1.0-1_all.deb"))
+        self.assertEqual(deb["Maintainer"],
+                         "Samuel Lidén Borell <samuel@slbdata.se>")
 
     def testContent(self):
         # normal

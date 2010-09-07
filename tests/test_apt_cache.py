@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #
 # Copyright (C) 2010 Julian Andres Klode <jak@debian.org>
+#               2010 Michael Vogt <mvo@ubuntu.com>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -15,7 +16,7 @@ sys.path.insert(0, "..")
 
 import apt
 import apt_pkg
-
+import shutil
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -50,6 +51,7 @@ class TestAptCache(unittest.TestCase):
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
         self.assertTrue(len(l) > 0)
+        self.assertTrue("postfix" in [p.name for p in l])
         # this is a not virtual (transitional) package provided by another 
         l = cache.get_providing_packages("scrollkeeper")
         self.assertEqual(l, [])
@@ -58,6 +60,7 @@ class TestAptCache(unittest.TestCase):
         l = cache.get_providing_packages("scrollkeeper", 
                                          include_nonvirtual=True)
         self.assertTrue(len(l), 1)
+        self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
         
 
     def test_dpkg_journal_dirty(self):
@@ -81,7 +84,69 @@ class TestAptCache(unittest.TestCase):
         self.assertTrue(cache.dpkg_journal_dirty)
         # reset config value
         apt_pkg.config.set("Dir::State::status", old_status)
+
+    def test_apt_update(self):
+        rootdir = "./data/tmp"
+        shutil.rmtree(rootdir)
+        try:
+            os.makedirs(os.path.join(rootdir, "var/lib/apt/lists/partial"))
+        except OSError, e:
+            pass
+        state_dir = os.path.join(rootdir, "var/lib/apt")
+        lists_dir = os.path.join(rootdir, "var/lib/apt/lists")
+        apt_pkg.config.set("dir::state", state_dir)
+        # set a local sources.list that does not need the network
+        base_sources = os.path.abspath(os.path.join(rootdir, "sources.list"))
+        apt_pkg.config.set("dir::etc::sourcelist", base_sources)
+        apt_pkg.config.set("dir::etc::sourceparts", "xxx")
+        # main sources.list
+        sources_list = base_sources
+        f=open(sources_list, "w")
+        repo = os.path.abspath("./data/test-repo2")
+        f.write("deb copy:%s /\n" % repo)
+        f.close()
+
+        # test single sources.list fetching
+        sources_list = os.path.join(rootdir, "test.list")
+        f=open(sources_list, "w")
+        repo_dir = os.path.abspath("./data/test-repo")
+        f.write("deb copy:%s /\n" % repo_dir)
+        f.close()
+        self.assertTrue(os.path.exists(sources_list))
+        # write marker to ensure listcleaner is not run
+        open("./data/tmp/var/lib/apt/lists/marker", "w")
+
+        # update a single sources.list
+        cache = apt.Cache()
+        cache.update(sources_list=sources_list)
+        # verify we just got the excpected package file 
+        needle_packages = [f for f in os.listdir(lists_dir) 
+                           if f.endswith("tests_data_test-repo_Packages")]
+        self.assertEqual(len(needle_packages), 1)
+        # verify that we *only* got the Packages file from a single source
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(needle_packages, all_packages)
+        # verify that the listcleaner was not run and the marker file is
+        # still there
+        self.assertTrue("marker" in os.listdir(lists_dir))
         
+        # now run update again (without the "normal" sources.list that
+        # contains test-repo2 and verify that we got the normal sources.list
+        cache.update()
+        needle_packages = [f for f in os.listdir(lists_dir) 
+                  if f.endswith("tests_data_test-repo2_Packages")]
+        self.assertEqual(len(needle_packages), 1)
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(needle_packages, all_packages)
+
+        # and another update with a single source only
+        cache = apt.Cache()
+        cache.update(sources_list=sources_list)
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(len(all_packages), 2)
 
 if __name__ == "__main__":
     unittest.main()
