@@ -4,6 +4,10 @@ python-apt (0.7.97.2) UNRELEASED; urgency=low
   * apt/debfile:
     - don't fail if we conflict with the pkgs we are reinstalling
 
+  [ Michael Vogt ]
+  * apt/debfile.py:
+    - add missing init for _installed_conflicts (LP: #618597)
+
  -- Michael Vogt <mvo@debian.org>  Fri, 27 Aug 2010 11:22:23 +0200
 
 python-apt (0.7.97) UNRELEASED; urgency=low
