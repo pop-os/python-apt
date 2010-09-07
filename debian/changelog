@@ -1,4 +1,4 @@
-python-apt (0.7.96ubuntu9) UNRELEASED; urgency=low
+python-apt (0.7.96.1ubuntu9) maverick; urgency=low
 
   [ Kiwinote ]
   * apt/debfile:
@@ -17,7 +17,7 @@ python-apt (0.7.96ubuntu9) UNRELEASED; urgency=low
     - add missing build-depends on python-debian (needed to run the
       tests for apt.debfile.DebPackage()
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Sep 2010 13:36:18 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Sep 2010 13:47:03 +0200
 
 python-apt (0.7.96.1ubuntu8) maverick; urgency=low
 
