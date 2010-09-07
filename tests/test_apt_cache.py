@@ -21,6 +21,10 @@ import shutil
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
 
+    def setUp(self):
+        # reset any config manipulations done in the individual tests
+        apt_pkg.init_config()
+
     def testAptCache(self):
         """cache: iterate all packages and all dependencies """
         cache = apt.Cache()
