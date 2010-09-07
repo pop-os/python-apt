@@ -86,17 +86,31 @@ class TestAptCache(unittest.TestCase):
         apt_pkg.config.set("Dir::State::status", old_status)
 
     def test_apt_update(self):
+        rootdir = "./data/tmp"
+        shutil.rmtree(rootdir)
         try:
-            os.makedirs("./data/tmp/var/lib/apt/lists/partial")
+            os.makedirs(os.path.join(rootdir, "var/lib/apt/lists/partial"))
         except OSError, e:
             pass
-        apt_pkg.config.set("dir::state", "./data/tmp/var/lib/apt")
+        state_dir = os.path.join(rootdir, "var/lib/apt")
+        lists_dir = os.path.join(rootdir, "var/lib/apt/lists")
+        apt_pkg.config.set("dir::state", state_dir)
+        # set a local sources.list that does not need the network
+        base_sources = os.path.abspath(os.path.join(rootdir, "sources.list"))
+        apt_pkg.config.set("dir::etc::sourcelist", base_sources)
+        apt_pkg.config.set("dir::etc::sourceparts", "xxx")
+        # main sources.list
+        sources_list = base_sources
+        f=open(sources_list, "w")
+        repo = os.path.abspath("./data/test-repo2")
+        f.write("deb copy:%s /\n" % repo)
+        f.close()
 
         # test single sources.list fetching
-        sources_list = "./data/tmp/test.list"
+        sources_list = os.path.join(rootdir, "test.list")
         f=open(sources_list, "w")
-        repo = os.path.abspath("./data/test-repo")
-        f.write("deb copy:%s /\n" % repo)
+        repo_dir = os.path.abspath("./data/test-repo")
+        f.write("deb copy:%s /\n" % repo_dir)
         f.close()
         self.assertTrue(os.path.exists(sources_list))
         # write marker to ensure listcleaner is not run
@@ -105,23 +119,34 @@ class TestAptCache(unittest.TestCase):
         # update a single sources.list
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
-        # verify we just got a single source
-        files = filter(lambda f: f not in ("lock", "partial"),
-                       os.listdir("./data/tmp/var/lib/apt/lists"))
-        self.assertEqual(len([f for f in files if f.endswith("tests_data_test-repo_Packages")]), 1)
-        # ensure the listcleaner was not run
-        self.assertTrue("marker" in files)
-        # ensure we don't get additional stuff from /etc/apt/sources.list
-        self.assertTrue(len(files) < 5)
+        # verify we just got the excpected package file 
+        needle_packages = [f for f in os.listdir(lists_dir) 
+                           if f.endswith("tests_data_test-repo_Packages")]
+        self.assertEqual(len(needle_packages), 1)
+        # verify that we *only* got the Packages file from a single source
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(needle_packages, all_packages)
+        # verify that the listcleaner was not run and the marker file is
+        # still there
+        self.assertTrue("marker" in os.listdir(lists_dir))
         
-        # now run update again and verify that we got the normal sources.list
+        # now run update again (without the "normal" sources.list that
+        # contains test-repo2 and verify that we got the normal sources.list
         cache.update()
-        full_update = filter(lambda f: f not in ("lock", "partial"),
-                       os.listdir("./data/tmp/var/lib/apt/lists"))
-        self.assertTrue(len(files) < len(full_update))
+        needle_packages = [f for f in os.listdir(lists_dir) 
+                  if f.endswith("tests_data_test-repo2_Packages")]
+        self.assertEqual(len(needle_packages), 1)
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(needle_packages, all_packages)
 
-        # cleanup
-        shutil.rmtree("./data/tmp/")
+        # and another update with a single source only
+        cache = apt.Cache()
+        cache.update(sources_list=sources_list)
+        all_packages = [f for f in os.listdir(lists_dir) 
+                        if f.endswith("_Packages")]
+        self.assertEqual(len(all_packages), 2)
 
 if __name__ == "__main__":
     unittest.main()
