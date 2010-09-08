@@ -106,10 +106,10 @@ class TestAptCache(unittest.TestCase):
     def test_apt_update(self):
         rootdir = "./data/tmp"
         if os.path.exists(rootdir):
-	    shutil.rmtree(rootdir)
+            shutil.rmtree(rootdir)
         try:
             os.makedirs(os.path.join(rootdir, "var/lib/apt/lists/partial"))
-        except OSError, e:
+        except OSError:
             pass
         state_dir = os.path.join(rootdir, "var/lib/apt")
         lists_dir = os.path.join(rootdir, "var/lib/apt/lists")
