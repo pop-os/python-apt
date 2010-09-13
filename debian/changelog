@@ -1,4 +1,4 @@
-python-apt (0.7.96.1ubuntu10) UNRELEASED; urgency=low
+python-apt (0.7.96.1ubuntu10) maverick; urgency=low
 
   * data/templates/Ubuntu.info.in:
     - add extras.ubuntu.com and archvie.canonical.com to the
@@ -8,7 +8,7 @@ python-apt (0.7.96.1ubuntu10) UNRELEASED; urgency=low
   * python/tag.cc:
     - accept "byte" type as well in TacSecNew (for py3)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 13 Sep 2010 11:09:27 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 13 Sep 2010 11:28:24 +0200
 
 python-apt (0.7.96.1ubuntu9) maverick; urgency=low
 
