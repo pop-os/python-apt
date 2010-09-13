@@ -157,7 +157,7 @@ static PyObject *CnfClear(PyObject *Self,PyObject *Args)
 
 // The amazing narrowing search ability!
 static const char *doc_SubTree =
-    "sub_tree(key: str) -> apt_pkg.Configuration\n\n"
+    "subtree(key: str) -> apt_pkg.Configuration\n\n"
     
     "Return a new apt_pkg.Configuration object with the given option\n"
     "as its root. Example:\n\n"

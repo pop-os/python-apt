@@ -1,3 +1,15 @@
+python-apt (0.7.96.1ubuntu10) UNRELEASED; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - add extras.ubuntu.com and archvie.canonical.com to the
+      templates
+  * aptsources/distinfo.py, aptsources/distro.py:
+    - support non-official templates (like extras.ubuntu.com)
+  * python/tag.cc:
+    - accept "byte" type as well in TacSecNew (for py3)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 13 Sep 2010 11:09:27 +0200
+
 python-apt (0.7.96.1ubuntu9) maverick; urgency=low
 
   [ Kiwinote ]

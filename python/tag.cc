@@ -344,8 +344,12 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 // ---------------------------------------------------------------------
 static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    char *Data;
+   int Len;
    char *kwlist[] = {"text", 0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"s",kwlist,&Data) == 0)
+
+   // this allows reading "byte" types from python3 - but we don't
+   // make (much) use of it yet
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"s#",kwlist,&Data,&Len) == 0)
       return 0;
 
    // Create the object..

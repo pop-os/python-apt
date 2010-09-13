@@ -52,6 +52,7 @@ class Template(object):
         self.mirror_set = {}
         self.distribution = None
         self.available = True
+        self.official = True
 
     def has_component(self, comp):
         ''' Check if the distribution provides the given component '''
@@ -207,7 +208,9 @@ class DistInfo(object):
                         template.parents.append(nanny)
                         nanny.children.append(template)
             elif field == 'Available':
-                template.available = value
+                template.available = apt_pkg.string_to_bool(value)
+            elif field == 'Official':
+                template.official = apt_pkg.string_to_bool(value)
             elif field == 'RepositoryType':
                 template.type = value
             elif field == 'BaseURI' and not template.base_uri:
@@ -275,6 +278,9 @@ class DistInfo(object):
         if component and not template.has_component(component.name):
             template.components.append(component)
             component = None
+        # the official attribute is inherited
+        for t in template.parents:
+            template.official = t.official
         self.templates.append(template)
 
 
