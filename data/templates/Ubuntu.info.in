@@ -39,19 +39,19 @@ Suite: maverick
 Official: false
 RepositoryType: deb
 BaseURI: http://archive.canonical.com
-_Description: Canonical Partner Repository
+_Description: Canonical Partners
 Component: partner
-_CompDescription: Partner offered software
-_CompDescriptionLong: This software is not part of Ubuntu but offered by partners
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
 
 Suite: maverick
 Official: false
 RepositoryType: deb
 BaseURI: http://extras.ubuntu.com
-_Description: Independent Repository
+_Description: Independent
 Component: main
-_CompDescription: Third Party Software
-_CompDescriptionLong: Software offered by third party developers
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
 
 Suite: maverick-security
 ParentSuite: maverick
