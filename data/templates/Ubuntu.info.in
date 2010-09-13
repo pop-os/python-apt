@@ -39,6 +39,7 @@ Suite: maverick
 Official: false
 RepositoryType: deb
 BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
 _Description: Canonical Partners
 Component: partner
 _CompDescription: Software packaged by Canonical for their partners
@@ -48,6 +49,7 @@ Suite: maverick
 Official: false
 RepositoryType: deb
 BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
 _Description: Independent
 Component: main
 _CompDescription: Provided by third-party software developers
