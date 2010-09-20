@@ -100,6 +100,7 @@ class Distribution(object):
             if (source.invalid == False and
                 self.is_codename(source.dist) and
                 source.template and
+                source.template.official == True and
                 self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently

@@ -35,6 +35,26 @@ _CompDescription: Officially supported
 Component: restricted
 _CompDescription: Restricted copyright
 
+Suite: maverick
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: maverick
+Official: false
+RepositoryType: deb
+BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
+_Description: Independent
+Component: main
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
+
 Suite: maverick-security
 ParentSuite: maverick
 RepositoryType: deb
@@ -756,3 +776,4 @@ Suite: warty-backports
 ParentSuite: warty
 RepositoryType: deb
 _Description: Ubuntu 4.10 Backports
+

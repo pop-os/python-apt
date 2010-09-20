@@ -650,10 +650,10 @@ static PyObject *PkgDepCacheGetBrokenCount(PyObject *Self,void*) {
    return Py_BuildValue("l", depcache->BrokenCount());
 }
 static PyObject *PkgDepCacheGetUsrSize(PyObject *Self,void*) {
-   return Py_BuildValue("d", depcache->UsrSize());
+   return Py_BuildValue("L", depcache->UsrSize());
 }
 static PyObject *PkgDepCacheGetDebSize(PyObject *Self,void*) {
-   return Py_BuildValue("d", depcache->DebSize());
+   return Py_BuildValue("L", depcache->DebSize());
 }
 #undef depcache
 
