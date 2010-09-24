@@ -25,6 +25,11 @@ python-apt (0.7.98) UNRELEASED; urgency=low
     - support non-official templates (like extras.ubuntu.com)
   * fix return type of DebSize() and UsrSize(), thanks to
     Sebastian Heinlein, LP: #642936
+  * merge fix from Steven Chamberlain <steven@pyro.eu.org> for
+    crash in unattended-upgrades, many many thanks (closes: #596408)
+  * python/acquire-item.cc:
+    - fix two more int -> long long change to follow the changes
+      from libapt
 
   [ Kiwinote ]
   * apt/debfile:
