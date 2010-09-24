@@ -162,7 +162,7 @@ static PyObject *acquireitem_repr(PyObject *Self)
         return 0;
     return PyString_FromFormat("<%s object: "
                                "Status: %i Complete: %i Local: %i IsTrusted: %i "
-                               "FileSize: %lu DestFile:'%s' "
+                               "FileSize: %llu DestFile:'%s' "
                                "DescURI: '%s' ID:%lu ErrorText: '%s'>",
                                Self->ob_type->tp_name,
                                Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
