@@ -1,3 +1,13 @@
+python-apt (0.7.96.1ubuntu12) maverick; urgency=low
+
+  * merge fix from Steven Chamberlain <steven@pyro.eu.org> for
+    crash in unattended-upgrades, many many thanks (closes: #596408)
+  * python/acquire-item.cc:
+    - fix two more int -> long long change to follow the changes
+      from libapt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 24 Sep 2010 21:22:38 +0200
+
 python-apt (0.7.96.1ubuntu11) maverick; urgency=low
 
   * Fix return type of DebSize() and UsrSize(), its long long,
