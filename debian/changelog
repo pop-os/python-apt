@@ -30,6 +30,9 @@ python-apt (0.7.98) UNRELEASED; urgency=low
   * python/acquire-item.cc:
     - fix two more int -> long long change to follow the changes
       from libapt
+    - do use PyString_FromFormat(), in python versions below 2.7 it
+      does not support long long (%llu), use strprintf() from libapt
+      instead
 
   [ Kiwinote ]
   * apt/debfile:
