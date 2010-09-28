@@ -1,12 +1,23 @@
-python-apt (0.7.97.2) UNRELEASED; urgency=low
-
-  [ Kiwinote ]
-  * apt/debfile:
-    - don't fail if we conflict with the pkgs we are reinstalling
+python-apt (0.7.98) unstable; urgency=low
 
   [ Michael Vogt ]
+  * python/acquire.cc:
+    - return long long when calling TotalNeeded(), FetchNeeded() and
+      PartialPresent() from pkgAcquire(). This follows the change
+      in libapt.
   * apt/debfile.py:
     - add missing init for _installed_conflicts (LP: #618597)
+  * add "provides" property to the apt.Version objects
+  * apt/debfile.py:
+    - fix error when reading binary content and add regresion test
+  * merged patch from Samuel Lidén Borell to fix crash if there utf8 
+    in the control file (LP: #624290) and add test
+  * apt/cache.py:
+    - add "sources_list" parameter to cache.update() to force updating
+      a single sources.list entry only
+  * debian/control:
+    - add missing build-depends on python-debian (needed to run the
+      tests for apt.debfile.DebPackage()
   * data/templates/Ubuntu.info.in:
     - add extras.ubuntu.com and archvie.canonical.com to the
       templates
@@ -19,10 +30,24 @@ python-apt (0.7.97.2) UNRELEASED; urgency=low
   * python/acquire-item.cc:
     - fix two more int -> long long change to follow the changes
       from libapt
+    - do use PyString_FromFormat(), in python versions below 2.7 it
+      does not support long long (%llu), use strprintf() from libapt
+      instead
 
- -- Michael Vogt <mvo@debian.org>  Fri, 27 Aug 2010 11:22:23 +0200
+  [ Kiwinote ]
+  * apt/debfile:
+    - don't fail if we conflict with the pkgs we are reinstalling
 
-python-apt (0.7.97) UNRELEASED; urgency=low
+ -- Michael Vogt <mvo@debian.org>  Tue, 28 Sep 2010 15:47:51 +0200
+
+python-apt (0.7.97.1) unstable; urgency=low
+
+  * tests/test_apt_cache.py:
+    - Do not insert ".." into sys.path, fixes FTBFS
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 14:08:01 +0200
+
+python-apt (0.7.97) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * python/tag.cc:
@@ -35,29 +60,21 @@ python-apt (0.7.97) UNRELEASED; urgency=low
     - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
   * doc/library/apt_pkg.rst:
     - Document Configuration.dump().
+  * debian/control:
+    - Adapt to new Python 3 handling (Closes: #593042)
+    - Build-depend on APT >= 0.8 to get gzip compression enabled (optional,
+      can be reverted for backports)
+    - Set Standards-Version to 3.9.1
   
   [ Michael Vogt ]
   * python/configuration.cc:
     - add binding for the "dump()" method to configruation objects
   * apt/debfile.py:
     - fix crash in DscFile handling and add regression test
-  * python/acquire.cc:
-    - return long long when calling TotalNeeded(), FetchNeeded() and 
-      PartialPresent() from pkgAcquire(). This follows the change
-      in libapt.
-  * add "provides" property to the apt.Version objects
-  * apt/debfile.py:
-    - fix error when reading binary content and add regresion test
-  * merged patch from Samuel Lidén Borell to fix crash if there utf8 
-    in the control file (LP: #624290) and add test
-  * apt/cache.py:
-    - add "sources_list" parameter to cache.update() to force updating
-      a single sources.list entry only
-  * debian/control:
-    - add missing build-depends on python-debian (needed to run the
-      tests for apt.debfile.DebPackage()
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla (Closes: #593754)
 
- -- Julian Andres Klode <jak@debian.org>  Fri, 23 Jul 2010 16:14:39 +0200
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 12:32:54 +0200
 
 python-apt (0.7.96.1) unstable; urgency=low
 
