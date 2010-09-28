@@ -9,7 +9,7 @@ python-apt (0.7.96.1ubuntu12) maverick; urgency=low
       because PyString_FromFormat() does not support %llu in python
       versions below 2.7
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 24 Sep 2010 21:22:38 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 28 Sep 2010 16:01:21 +0200
 
 python-apt (0.7.96.1ubuntu11) maverick; urgency=low
 
