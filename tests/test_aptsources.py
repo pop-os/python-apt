@@ -20,6 +20,8 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
         if os.path.exists("./build/data/templates"):
             self.templates = os.path.abspath("./build/data/templates")
+        elif os.path.exists("../build/data/templates"):
+            self.templates = os.path.abspath("../build/data/templates")
         else:
             self.templates = "/usr/share/python-apt/templates/"
 

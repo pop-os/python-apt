@@ -1,4 +1,4 @@
-python-apt (0.7.98) UNRELEASED; urgency=low
+python-apt (0.7.98) unstable; urgency=low
 
   [ Michael Vogt ]
   * python/acquire.cc:
@@ -38,7 +38,7 @@ python-apt (0.7.98) UNRELEASED; urgency=low
   * apt/debfile:
     - don't fail if we conflict with the pkgs we are reinstalling
 
- -- Michael Vogt <mvo@debian.org>  Fri, 27 Aug 2010 11:22:23 +0200
+ -- Michael Vogt <mvo@debian.org>  Tue, 28 Sep 2010 15:47:51 +0200
 
 python-apt (0.7.97.1) unstable; urgency=low
 
