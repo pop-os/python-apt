@@ -1,3 +1,13 @@
+python-apt (0.7.98.1) unstable; urgency=low
+
+  [ Piotr Ozarowski ]
+  * Use dh_python3 to handle Python 3 files
+    - bump minimum required versions of python-central and python3-all-dev
+    - add new python3-apt, python3-apt-bdg and python-common binary packages
+  * Replace python-central with dh_python2
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 29 Sep 2010 20:38:25 +0200
+
 python-apt (0.7.98) unstable; urgency=low
 
   [ Michael Vogt ]
