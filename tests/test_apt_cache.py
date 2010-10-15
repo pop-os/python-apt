@@ -11,8 +11,9 @@ import os
 import tempfile
 import unittest
 
+from test_all import get_library_dir
 import sys
-sys.path.insert(0, "..")
+sys.path.insert(0, get_library_dir())
 
 import apt
 import apt_pkg
@@ -65,7 +66,20 @@ class TestAptCache(unittest.TestCase):
                                          include_nonvirtual=True)
         self.assertTrue(len(l), 1)
         self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
-        
+
+    def test_low_level_pkg_provides(self):
+        # low level cache provides list of the pkg
+        cache = apt_pkg.Cache()
+        l = cache["mail-transport-agent"].provides_list
+        # arbitrary number, just needs to be higher enough
+        self.assertTrue(len(l), 5)
+        for (providesname, providesver, version) in l:
+            self.assertEqual(providesname, "mail-transport-agent")
+            if version.parent_pkg.name == "postfix":
+                break
+        else:
+            self.assertNotReached()
+   
 
     def test_dpkg_journal_dirty(self):
         # backup old value
@@ -92,10 +106,10 @@ class TestAptCache(unittest.TestCase):
     def test_apt_update(self):
         rootdir = "./data/tmp"
         if os.path.exists(rootdir):
-	    shutil.rmtree(rootdir)
+            shutil.rmtree(rootdir)
         try:
             os.makedirs(os.path.join(rootdir, "var/lib/apt/lists/partial"))
-        except OSError, e:
+        except OSError:
             pass
         state_dir = os.path.join(rootdir, "var/lib/apt")
         lists_dir = os.path.join(rootdir, "var/lib/apt/lists")

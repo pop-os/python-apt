@@ -1,3 +1,98 @@
+python-apt (0.7.98.1ubuntu1) maverick; urgency=low
+
+  * merged from debian/sid, remaining changes:
+    - updated mirror list
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 15 Oct 2010 10:30:58 +0200
+
+python-apt (0.7.98.1) unstable; urgency=low
+
+  [ Piotr Ozarowski ]
+  * Use dh_python3 to handle Python 3 files
+    - bump minimum required versions of python-central and python3-all-dev
+    - add new python3-apt, python3-apt-bdg and python-common binary packages
+  * Replace python-central with dh_python2
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 29 Sep 2010 20:38:25 +0200
+
+python-apt (0.7.98) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * python/acquire.cc:
+    - return long long when calling TotalNeeded(), FetchNeeded() and
+      PartialPresent() from pkgAcquire(). This follows the change
+      in libapt.
+  * apt/debfile.py:
+    - add missing init for _installed_conflicts (LP: #618597)
+  * add "provides" property to the apt.Version objects
+  * apt/debfile.py:
+    - fix error when reading binary content and add regresion test
+  * merged patch from Samuel Lidén Borell to fix crash if there utf8 
+    in the control file (LP: #624290) and add test
+  * apt/cache.py:
+    - add "sources_list" parameter to cache.update() to force updating
+      a single sources.list entry only
+  * debian/control:
+    - add missing build-depends on python-debian (needed to run the
+      tests for apt.debfile.DebPackage()
+  * data/templates/Ubuntu.info.in:
+    - add extras.ubuntu.com and archvie.canonical.com to the
+      templates
+  * aptsources/distinfo.py, aptsources/distro.py:
+    - support non-official templates (like extras.ubuntu.com)
+  * fix return type of DebSize() and UsrSize(), thanks to
+    Sebastian Heinlein, LP: #642936
+  * merge fix from Steven Chamberlain <steven@pyro.eu.org> for
+    crash in unattended-upgrades, many many thanks (closes: #596408)
+  * python/acquire-item.cc:
+    - fix two more int -> long long change to follow the changes
+      from libapt
+    - do use PyString_FromFormat(), in python versions below 2.7 it
+      does not support long long (%llu), use strprintf() from libapt
+      instead
+
+  [ Kiwinote ]
+  * apt/debfile:
+    - don't fail if we conflict with the pkgs we are reinstalling
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 28 Sep 2010 15:47:51 +0200
+
+python-apt (0.7.97.1) unstable; urgency=low
+
+  * tests/test_apt_cache.py:
+    - Do not insert ".." into sys.path, fixes FTBFS
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 14:08:01 +0200
+
+python-apt (0.7.97) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * python/tag.cc:
+    - Support gzip compression for control files (Closes: #383617),
+      requires APT (>> 0.7.26~exp10) to work.
+  * doc/conf.py:
+    - Correctly handle non-digit characters in version (ignore everything
+      after them).
+  * python/apt_pkgmodule.cc:
+    - Bind pkgAcquire::Item::StatTransientNetworkError (Closes: #589010)
+  * doc/library/apt_pkg.rst:
+    - Document Configuration.dump().
+  * debian/control:
+    - Adapt to new Python 3 handling (Closes: #593042)
+    - Build-depend on APT >= 0.8 to get gzip compression enabled (optional,
+      can be reverted for backports)
+    - Set Standards-Version to 3.9.1
+  
+  [ Michael Vogt ]
+  * python/configuration.cc:
+    - add binding for the "dump()" method to configruation objects
+  * apt/debfile.py:
+    - fix crash in DscFile handling and add regression test
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla (Closes: #593754)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Aug 2010 12:32:54 +0200
+
 python-apt (0.7.96.1ubuntu12) maverick; urgency=low
 
   * merge fix from Steven Chamberlain <steven@pyro.eu.org> for
