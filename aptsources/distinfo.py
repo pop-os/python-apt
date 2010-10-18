@@ -22,11 +22,11 @@
 #  USA
 
 import errno
+import logging
 import os
 import gettext
 from os import getenv
 from subprocess import Popen, PIPE
-import ConfigParser
 import re
 
 import apt_pkg
@@ -166,9 +166,9 @@ class DistInfo(object):
             try:
                 dist = Popen(["lsb_release", "-i", "-s"],
                              stdout=PIPE).communicate()[0].strip()
-            except OSError, exc:
+            except OSError as exc:
                 if exc.errno != errno.ENOENT:
-                    print 'WARNING: lsb_release failed, using defaults:', exc
+                    logging.warn('lsb_release failed, using defaults:' % exc)
                 dist = "Debian"
 
         self.dist = dist
@@ -232,7 +232,7 @@ class DistInfo(object):
                         mirror_data = filter(match_mirror_line.match,
                                              [x.strip() for x in open(value)])
                     except Exception:
-                        print "WARNING: Failed to read mirror file"
+                        logging.warn("Failed to read mirror file")
                         mirror_data = []
                     for line in mirror_data:
                         if line.startswith("#LOC:"):
@@ -286,17 +286,17 @@ class DistInfo(object):
 
 if __name__ == "__main__":
     d = DistInfo("Ubuntu", "/usr/share/python-apt/templates")
-    print d.changelogs_uri
+    logging.info(d.changelogs_uri)
     for template in d.templates:
-        print "\nSuite: %s" % template.name
-        print "Desc: %s" % template.description
-        print "BaseURI: %s" % template.base_uri
-        print "MatchURI: %s" % template.match_uri
+        logging.info("\nSuite: %s" % template.name)
+        logging.info("Desc: %s" % template.description)
+        logging.info("BaseURI: %s" % template.base_uri)
+        logging.info("MatchURI: %s" % template.match_uri)
         if template.mirror_set != {}:
-            print "Mirrors: %s" % template.mirror_set.keys()
+            logging.info("Mirrors: %s" % template.mirror_set.keys())
         for comp in template.components:
-            print " %s -%s -%s" % (comp.name,
-                                   comp.description,
-                                   comp.description_long)
+            logging.info(" %s -%s -%s" % (comp.name,
+                                          comp.description,
+                                          comp.description_long))
         for child in template.children:
-            print "  %s" % child.description
+            logging.info("  %s" % child.description)

@@ -20,7 +20,7 @@ class TestUtils(unittest.TestCase):
         from apt.utils import get_maintenance_end_date
         months_of_support = 18
         # test historic releases, jaunty
-        release_date = datetime.datetime(2009, 04, 23)
+        release_date = datetime.datetime(2009, 4, 23)
         (end_year, end_month) = get_maintenance_end_date(release_date, months_of_support)
         self.assertEqual(end_year, 2010)
         self.assertEqual(end_month, 10)
@@ -28,25 +28,25 @@ class TestUtils(unittest.TestCase):
         release_date = datetime.datetime(2009, 10, 29)
         (end_year, end_month) = get_maintenance_end_date(release_date, months_of_support)
         self.assertEqual(end_year, 2011)
-        self.assertEqual(end_month, 04)
+        self.assertEqual(end_month, 4)
         # test maverick
         release_date = datetime.datetime(2010, 10, 10)
         (end_year, end_month) = get_maintenance_end_date(release_date, months_of_support)
         self.assertEqual(end_year, 2012)
-        self.assertEqual(end_month, 04)
+        self.assertEqual(end_month, 4)
 
         # test with modulo zero
-        release_date = datetime.datetime(2010, 06, 10)
+        release_date = datetime.datetime(2010, 6, 10)
         (end_year, end_month) = get_maintenance_end_date(release_date, months_of_support)
         self.assertEqual(end_year, 2011)
         self.assertEqual(end_month, 12)
 
         # test dapper
         months_of_support = 60
-        release_date = datetime.datetime(2008, 04, 24)
+        release_date = datetime.datetime(2008, 4, 24)
         (end_year, end_month) = get_maintenance_end_date(release_date, months_of_support)
         self.assertEqual(end_year, 2013)
-        self.assertEqual(end_month, 04)
+        self.assertEqual(end_month, 4)
         
         # what datetime says
         #d = datetime.timedelta(18*30)

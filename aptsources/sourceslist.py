@@ -25,6 +25,7 @@
 
 import gettext
 import glob
+import logging
 import os.path
 import re
 import shutil
@@ -346,7 +347,7 @@ class SourcesList(object):
                 source = SourceEntry(line, file)
                 self.list.append(source)
         except:
-            print "could not open file '%s'" % file
+            logging.error("could not open file '%s'" % file)
         else:
             f.close()
 
@@ -437,14 +438,14 @@ if __name__ == "__main__":
     sources = SourcesList()
 
     for entry in sources:
-        print entry.str()
+        logging.info("entry %s" % entry.str())
         #print entry.uri
 
     mirror = is_mirror("http://archive.ubuntu.com/ubuntu/",
                        "http://de.archive.ubuntu.com/ubuntu/")
-    print "is_mirror(): %s" % mirror
+    logging.info("is_mirror(): %s" % mirror)
 
-    print is_mirror("http://archive.ubuntu.com/ubuntu",
-                    "http://de.archive.ubuntu.com/ubuntu/")
-    print is_mirror("http://archive.ubuntu.com/ubuntu/",
-                    "http://de.archive.ubuntu.com/ubuntu")
+    logging.info(is_mirror("http://archive.ubuntu.com/ubuntu",
+                    "http://de.archive.ubuntu.com/ubuntu/"))
+    logging.info(is_mirror("http://archive.ubuntu.com/ubuntu/",
+                    "http://de.archive.ubuntu.com/ubuntu"))

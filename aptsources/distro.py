@@ -22,6 +22,7 @@
 #  USA
 
 import gettext
+import logging
 import re
 import os
 import sys
@@ -451,9 +452,9 @@ def _lsb_release():
         # Convert to unicode string, needed for Python 3.1
         out = out.decode("utf-8")
         result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)
-    except OSError, exc:
+    except OSError as exc:
         if exc.errno != errno.ENOENT:
-            print 'WARNING: lsb_release failed, using defaults:', exc
+            logging.warn('lsb_release failed, using defaults:' % exc)
     return result
 
 
