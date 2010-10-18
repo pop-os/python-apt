@@ -1,7 +1,12 @@
-python-apt (0.7.98.1ubuntu1) maverick; urgency=low
+python-apt (0.7.98.1ubuntu1) UNRELEASEDmaverick; urgency=low
 
+  [ Michael Vogt ]
   * merged from debian/sid, remaining changes:
     - updated mirror list
+
+  [ Jeremy Bicha ]
+  * data/templates/Ubuntu.info.in:
+   - add natty, LP:661578
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 15 Oct 2010 10:30:58 +0200
 
