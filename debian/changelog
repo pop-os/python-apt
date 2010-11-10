@@ -1,3 +1,11 @@
+python-apt (0.7.98.2) unstable; urgency=low
+
+  * apt/debfile.py:
+   - Replace (undocumented) use of python-debian debfile.DebFile API with
+     the equivalent apt_inst.DebFile API (Closes: #603043)
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 10 Nov 2010 17:38:24 +0100
+
 python-apt (0.7.98.1) unstable; urgency=low
 
   [ Piotr Ozarowski ]
