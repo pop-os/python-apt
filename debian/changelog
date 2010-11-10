@@ -1,3 +1,9 @@
+python-apt (0.7.98.1ubuntu2) natty; urgency=low
+
+  * rebuild for python2.7
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 10 Nov 2010 17:49:45 +0100
+
 python-apt (0.7.98.1ubuntu1) natty; urgency=low
 
   [ Michael Vogt ]
