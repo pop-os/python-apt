@@ -1170,7 +1170,7 @@ class Package(object):
 
     @deprecated_args
     def mark_delete(self, auto_fix=True, purge=False):
-        """Mark a package for install.
+        """Mark a package for deletion.
 
         If *auto_fix* is ``True``, the resolver will be run, trying to fix
         broken packages.  This is the default.
