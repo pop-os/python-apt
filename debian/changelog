@@ -7,6 +7,7 @@ python-apt (0.7.98.2) unstable; urgency=low
     - Fix docstring of Package.mark_delete() (Closes: #599042)
   * doc:
     - Various documentation updates.
+    - The C++ API/ABI is stable now.
   * po
     - Update sl.po (Closes: #603359)
 

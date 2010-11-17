@@ -162,10 +162,6 @@ C++ headers
 The 0.7.100 release introduces python-apt-dev which provides headers for
 developers to provide Python support in the libapt-pkg-using application.
 
-.. warning::
-
-    The ABI is not considered stable yet.
-
 Redesign of :mod:`apt_inst`
 ---------------------------
 The 0.7.100 series redesigns the :mod:`apt_inst` module to provide
