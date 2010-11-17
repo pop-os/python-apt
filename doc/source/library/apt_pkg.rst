@@ -1600,6 +1600,10 @@ section as a string.
         tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
         for section in tagfile:
             print section['Package']
+
+    .. versionchanged:: 0.7.100
+        Added support for using gzip files, via :class:`gzip.GzipFile` or any
+        file containing a compressed gzip stream.
         
     .. method:: next()
 
@@ -1653,7 +1657,7 @@ section as a string.
 
         Return ``True`` if *section* has a key *key*, else ``False``.
 
-      .. versionadded:: 0.8.0
+      .. versionadded:: 0.7.100
 
     .. method:: bytes() -> int
 
@@ -1832,6 +1836,8 @@ Configuration and Command-line parsing
 
         Return a string containing the values in the configuration object,
         in the standard :manpage:`apt.conf(5)` format.
+
+        .. versionadded:: 0.7.100
 
     .. method:: exists(key)
 

@@ -5,6 +5,8 @@ python-apt (0.7.98.2) unstable; urgency=low
       the equivalent apt_inst.DebFile API (Closes: #603043)
   * apt/package.py:
     - Fix docstring of Package.mark_delete() (Closes: #599042)
+  * doc:
+    - Various documentation updates.
   * po
     - Update sl.po (Closes: #603359)
 
