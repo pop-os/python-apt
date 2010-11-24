@@ -18,6 +18,7 @@ sys.path.insert(0, get_library_dir())
 import apt
 import apt_pkg
 import shutil
+import glob
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -139,12 +140,11 @@ class TestAptCache(unittest.TestCase):
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
         # verify we just got the excpected package file 
-        needle_packages = [f for f in os.listdir(lists_dir) 
-                           if f.endswith("tests_data_test-repo_Packages")]
+        needle_packages = glob.glob(
+            lists_dir+"/*tests_data_test-repo_Packages*")
         self.assertEqual(len(needle_packages), 1)
         # verify that we *only* got the Packages file from a single source
-        all_packages = [f for f in os.listdir(lists_dir) 
-                        if f.endswith("_Packages")]
+        all_packages = glob.glob(lists_dir+"/*_Packages*")
         self.assertEqual(needle_packages, all_packages)
         # verify that the listcleaner was not run and the marker file is
         # still there
@@ -153,18 +153,15 @@ class TestAptCache(unittest.TestCase):
         # now run update again (without the "normal" sources.list that
         # contains test-repo2 and verify that we got the normal sources.list
         cache.update()
-        needle_packages = [f for f in os.listdir(lists_dir) 
-                  if f.endswith("tests_data_test-repo2_Packages")]
+        needle_packages = glob.glob(lists_dir+"/*tests_data_test-repo2_Packages*")
         self.assertEqual(len(needle_packages), 1)
-        all_packages = [f for f in os.listdir(lists_dir) 
-                        if f.endswith("_Packages")]
+        all_packages = glob.glob(lists_dir+"/*_Packages*")
         self.assertEqual(needle_packages, all_packages)
 
         # and another update with a single source only
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
-        all_packages = [f for f in os.listdir(lists_dir) 
-                        if f.endswith("_Packages")]
+        all_packages = glob.glob(lists_dir+"/*_Packages*")
         self.assertEqual(len(all_packages), 2)
 
 if __name__ == "__main__":

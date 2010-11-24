@@ -33,6 +33,8 @@ python-apt (0.7.98) unstable; urgency=low
     - do use PyString_FromFormat(), in python versions below 2.7 it
       does not support long long (%llu), use strprintf() from libapt
       instead
+  * tests/test_apt_cache.py:
+    - fix tests to work if apt compressed indexes are enabled
 
   [ Kiwinote ]
   * apt/debfile:
