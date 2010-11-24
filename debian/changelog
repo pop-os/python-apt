@@ -1,6 +1,8 @@
 python-apt (0.7.100ubuntu1) UNRELEASED; urgency=low
 
   * re-merged from debian/sid
+  * tests/test_apt_cache.py:
+    - fix tests to work if apt compressed indexes are enabled
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 24 Nov 2010 10:18:13 +0100
 
