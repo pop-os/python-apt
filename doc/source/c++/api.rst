@@ -10,10 +10,7 @@ The C++ API names use the name of the class in apt_pkg and are prefixed with
 Py. For each supported class, there is a _Type object, a _Check() function,
 a _CheckExact() function, a _FromCpp() and a _ToCpp() function.
 
-.. note::
-
-    This API is experimental and should not be used in stable program
-    releases.
+.. versionadded:: 0.7.100
 
 Acquire (pkgAcquire)
 --------------------

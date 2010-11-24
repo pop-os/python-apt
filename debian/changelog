@@ -1,3 +1,25 @@
+python-apt (0.7.100ubuntu1) UNRELEASED; urgency=low
+
+  * re-merged from debian/sid
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 24 Nov 2010 10:18:13 +0100
+
+python-apt (0.7.100) unstable; urgency=low
+
+  * Final 0.7.100 release; targeted at Squeeze.
+  * apt/debfile.py:
+    - Replace (undocumented) use of python-debian debfile.DebFile API with
+      the equivalent apt_inst.DebFile API (Closes: #603043)
+  * apt/package.py:
+    - Fix docstring of Package.mark_delete() (Closes: #599042)
+  * doc:
+    - Various documentation updates.
+    - The C++ API/ABI is stable now.
+  * po
+    - Update sl.po (Closes: #603359)
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 17 Nov 2010 16:53:55 +0100
+
 python-apt (0.7.98.1ubuntu2) natty; urgency=low
 
   * rebuild for python2.7
