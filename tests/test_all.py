@@ -9,6 +9,14 @@ import os
 import unittest
 import sys
 
+# workaround for py3.2 that apparently does not have this anymore
+# it has "abiflags" 
+if not hasattr(sys, "pydebug"):
+    if sys.abiflags.startswith("d"):
+        sys.pydebug = True
+    else:
+        sys.pydebug = False
+
 def get_library_dir():
     # Find the path to the built apt_pkg and apt_inst extensions
     if not os.path.exists("../build"):
