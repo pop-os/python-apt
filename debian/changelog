@@ -1,3 +1,9 @@
+python-apt (0.7.100.1) UNRELEASED; urgency=low
+
+  * python/generic.h: Fix a memory leak (leaking on every unicode string).
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 07 Dec 2010 15:01:08 +0100
+
 python-apt (0.7.100) unstable; urgency=low
 
   * Final 0.7.100 release; targeted at Squeeze.
