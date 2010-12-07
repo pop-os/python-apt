@@ -1,3 +1,13 @@
+python-apt (0.7.100ubuntu2) UNRELEASED; urgency=low
+
+  * python/generic.h:
+    - set Object to NULL in CppDeallocPtr
+  * python/depcache.cc:
+    - don't run "actiongroup.release()" if the object was already
+      deallocated
+    
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
+
 python-apt (0.7.100ubuntu1) natty; urgency=low
 
   * re-merged from debian/sid
@@ -86,6 +96,8 @@ python-apt (0.7.98) unstable; urgency=low
     - do use PyString_FromFormat(), in python versions below 2.7 it
       does not support long long (%llu), use strprintf() from libapt
       instead
+  * tests/test_apt_cache.py:
+    - fix tests to work if apt compressed indexes are enabled
 
   [ Kiwinote ]
   * apt/debfile:

@@ -202,8 +202,10 @@ void CppDeallocPtr(PyObject *iObj)
    std::cerr << "=== DEALLOCATING " << iObj->ob_type->tp_name << "*+ ===\n";
    #endif
    CppPyObject<T> *Obj = (CppPyObject<T> *)iObj;
-   if (!((CppPyObject<T>*)Obj)->NoDelete)
+   if (!((CppPyObject<T>*)Obj)->NoDelete)  {
       delete Obj->Object;
+      Obj->Object = NULL;
+   }
    CppClear<T>(iObj);
    iObj->ob_type->tp_free(iObj);
 }
