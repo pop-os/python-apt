@@ -1,3 +1,13 @@
+python-apt (0.7.100.1) UNRELEASED; urgency=low
+
+  * python/generic.h:
+    - set Object to NULL in CppDeallocPtr
+  * python/depcache.cc:
+    - don't run "actiongroup.release()" if the object was already
+      deallocated
+    
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
+
 python-apt (0.7.100) unstable; urgency=low
 
   * Final 0.7.100 release; targeted at Squeeze.

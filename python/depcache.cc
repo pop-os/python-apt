@@ -997,7 +997,8 @@ static const char *actiongroup__exit__doc =
     "Same as release(), but for use as a context manager.";
 static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
    pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
-   ag->release();
+   if (ag != NULL)
+      ag->release();
    Py_RETURN_FALSE;
 }
 
