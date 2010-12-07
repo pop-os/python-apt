@@ -8,10 +8,14 @@ Despite the many changes made in python-apt 0.7.100, the release still provides
 backwards compatibility to the 0.7 series. This makes it possible to run your
 old applications.
 
+This documents describes the important changes introduced since the release
+of python-apt 0.7.10.3, starting with the first development release 0.7.90
+from April 2009.
+
 .. note::
 
     Applications using the old API should be updated to the new API because
-    the old ones will be dropped in the 0.8 release. To build a python-apt
+    the old ones will be dropped in a future release. To build a python-apt
     variant without the deprecated API, build it without the -DCOMPAT_0_7
     compiler flag.
 
@@ -158,9 +162,12 @@ C++ headers
 The 0.7.100 release introduces python-apt-dev which provides headers for
 developers to provide Python support in the libapt-pkg-using application.
 
-.. warning::
-
-    The ABI is not considered stable yet.
+Redesign of :mod:`apt_inst`
+---------------------------
+The 0.7.100 series redesigns the :mod:`apt_inst` module to provide
+more flexible classes replacing the older functions. The older functions
+are still available in Python 2 builds, but are deprecated and will be
+removed in the future.
 
 Other changes
 -------------
@@ -170,14 +177,20 @@ This release of python-apt also features several other, smaller changes:
       :class:`apt.Package()` object dynamically, instead of creating all of
       them during the cache initialization.
     * Support to set the candidate version in :class:`apt.package.Package`
+    * Support for reading gzip-compressed files in apt_pkg.TagFile.
+    * Various changes to :mod:`apt.debfile` have been merged from gdebi.
 
-Porting your applications to python-apt 0.8 API
-------------------------------------------------
-Porting your application to the new python-apt 0.8 API may be trivial. You
+There have been various other changes, see the changelog for a complete list
+of changes.
+
+
+Porting your applications to the new python-apt API
+----------------------------------------------------
+Porting your application to the new python-apt API may be trivial. You
 should download the source tarball of python-apt and run the tool
-utils/migrate-0.8 using Python 2.6 over your code::
+utils/migrate-0.8 over your code::
 
-    python2.6 utils/migrate-0.8.py -c myapp.py mypackage/
+    utils/migrate-0.8.py -c myapp.py mypackage/
 
 This will search your code for places where possibly deprecated names are
 used. Using the argument ``-c``, you can turn colorized output on.

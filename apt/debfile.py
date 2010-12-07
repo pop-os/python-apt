@@ -531,7 +531,7 @@ class DebPackage(object):
         return s
         
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
-        data = part.get_content(name)
+        data = part.extractdata(name)
         # check for zip content
         if name.endswith(".gz") and auto_decompress:
             io = StringIO(data)
@@ -550,24 +550,16 @@ class DebPackage(object):
     def control_content(self, name):
         """ return the content of a specific control.tar.gz file """
         try:
-            from debian.debfile import DebFile
-        except:
-            raise Exception(_("Python-debian module not available"))
-        control = DebFile(self.filename).control
-        if name in control:
-            return self._get_content(control, name)
-        return ""
+            return self._get_content(self._debfile.control, name)
+        except LookupError:
+            return ""
 
     def data_content(self, name):
         """ return the content of a specific control.tar.gz file """
         try:
-            from debian.debfile import DebFile
-        except:
-            raise Exception(_("Python-debian module not available"))
-        data = DebFile(self.filename).data
-        if name in data:
-            return self._get_content(data, name)
-        return ""
+            return self._get_content(self._debfile.data, name)
+        except LookupError:
+            return ""
 
     def _dbg(self, level, msg):
         """Write debugging output to sys.stderr."""

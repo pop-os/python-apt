@@ -9,11 +9,10 @@ X-Python3-Version: >= 3.1
 Build-Depends: apt-utils,
                debhelper (>= 7.3.5),
                libapt-pkg-dev (>= 0.8),
-               python-all-dev,
+               python-all-dev (>= 2.6.6-3~),
                python-all-dbg,
-               python3-all-dev (>= 3.1.2-6~),
+               python3-all-dev (>= 3.1.2-10~),
                python3-all-dbg (>= 3.1.2-6~),
-               python-central (>= 0.5),
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
                python-debian
@@ -22,10 +21,10 @@ Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
-Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
 Recommends: lsb-release, iso-codes, python2.6
-Breaks: debdelta (<< 0.28~), packagekit-backend-apt (<= 0.4.8-0ubuntu4)
-Provides: python3-apt, ${python:Provides}
+Breaks: debdelta (<< 0.28~), packagekit-backend-apt (<= 0.4.8-0ubuntu4), ${python:Breaks}
+Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte, python-apt-doc
 XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
@@ -82,3 +81,52 @@ Description: Python interface to libapt-pkg (development files)
  .
  This package contains the header files needed to use python-apt objects from
  C++ applications.
+
+Package: python-apt-common
+Priority: optional
+Architecture: all
+Depends: ${misc:Depends}, python | python3
+Enhances: python-apt, python3-apt
+Breaks: python-apt (<< 0.7.98+nmu1)
+Description: Python interface to libapt-pkg (locales)
+ The apt_pkg Python interface will provide full access to the internal
+ libapt-pkg structures allowing Python programs to easily perform a
+ variety of functions.
+ .
+ This package contains locales.
+
+Package: python3-apt
+Architecture: any
+Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
+Recommends: lsb-release, iso-codes
+Provides: ${python3:Provides}
+Suggests: python3-apt-dbg, python-apt-doc
+Breaks: python-apt (<< 0.7.98+nmu1)
+Replaces: python-apt (<< 0.7.98+nmu1)
+Description: Python 3 interface to libapt-pkg
+ The apt_pkg Python 3 interface will provide full access to the internal
+ libapt-pkg structures allowing Python 3 programs to easily perform a
+ variety of functions, such as:
+ .
+  - Access to the APT configuration system
+  - Access to the APT package information database
+  - Parsing of Debian package control files, and other files with a
+    similar structure
+ .
+ The included 'aptsources' Python interface provides an abstraction of
+ the sources.list configuration on the repository and the distro level.
+
+Package: python3-apt-dbg
+Priority: extra
+Architecture: any
+Section: debug
+Breaks: python-apt (<< 0.7.98+nmu1)
+Depends: python3-dbg, python3-apt (= ${binary:Version}), ${shlibs:Depends},
+         ${misc:Depends}
+Description: Python 3 interface to libapt-pkg (debug extension)
+ The apt_pkg Python 3 interface will provide full access to the internal
+ libapt-pkg structures allowing Python 3 programs to easily perform a
+ variety of functions.
+ .
+ This package contains the extension built for the Python debug interpreter.
+
