@@ -1,6 +1,8 @@
 python-apt (0.7.100.1) UNRELEASED; urgency=low
 
   * python/generic.h: Fix a memory leak (leaking on every unicode string).
+  * debian/control: add Replaces to python-apt-common, python3-apt; to
+    avoid file conflicts with files previously in python-apt (Closes: #605136).
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 07 Dec 2010 15:01:08 +0100
 
