@@ -15,6 +15,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 """Progress reporting for text interfaces."""
+import os
 import sys
 
 import apt_pkg
@@ -107,12 +108,13 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
 
     def _winch(self, *dummy):
         """Signal handler for window resize signals."""
-        import fcntl
-        import termios
-        import struct
-        buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * ' ')
-        dummy, col, dummy, dummy = struct.unpack('hhhh', buf)
-        self._width = col - 1 # 1 for the cursor
+        if hasattr(self._file, "fileno") and os.isatty(self._file.fileno()):
+            import fcntl
+            import termios
+            import struct
+            buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * ' ')
+            dummy, col, dummy, dummy = struct.unpack('hhhh', buf)
+            self._width = col - 1 # 1 for the cursor
 
     def ims_hit(self, item):
         """Called when an item is update (e.g. not modified on the server)."""

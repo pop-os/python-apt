@@ -5,6 +5,8 @@ python-apt (0.7.100.1) UNRELEASED; urgency=low
   * python/depcache.cc:
     - don't run "actiongroup.release()" if the object was already
       deallocated
+  * apt/progress/text.py:
+    - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
     
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
 
