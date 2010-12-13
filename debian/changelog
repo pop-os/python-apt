@@ -1,3 +1,10 @@
+python-apt (0.7.100.1) UNRELEASED; urgency=low
+
+  * apt/progress/text.py:
+    - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
+    
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
+
 python-apt (0.7.100ubuntu2) natty; urgency=low
 
   * python/generic.h:
