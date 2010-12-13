@@ -59,13 +59,13 @@ class TestAptCache(unittest.TestCase):
         self.assertTrue(len(l) > 0)
         self.assertTrue("postfix" in [p.name for p in l])
         # this is a not virtual (transitional) package provided by another 
-        l = cache.get_providing_packages("scrollkeeper")
+        l = cache.get_providing_packages("git-core")
         self.assertEqual(l, [])
         # now inlcude nonvirtual packages in the search (rarian-compat
         # provides scrollkeeper)
-        l = cache.get_providing_packages("scrollkeeper", 
+        l = cache.get_providing_packages("git-core",
                                          include_nonvirtual=True)
-        self.assertTrue(len(l), 1)
+        self.assertEqual([p.name for p in l], ["git"])
         self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
 
     def test_low_level_pkg_provides(self):
