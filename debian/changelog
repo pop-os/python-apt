@@ -1,6 +1,7 @@
-python-apt (0.7.100.1ubuntu1) UNRELEASEDnatty; urgency=low
+python-apt (0.7.100.1ubuntu1) natty; urgency=low
 
   * merged from debian
+  * dropped python2.6 recommends
   * apt/progress/text.py:
     - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
   * apt/debfile.py, tests/test_debfile.py:
