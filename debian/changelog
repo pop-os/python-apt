@@ -7,6 +7,9 @@ python-apt (0.7.100.1) UNRELEASED; urgency=low
       deallocated
   * apt/progress/text.py:
     - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
+  * apt/debfile.py, tests/test_debfile.py:
+    - strip "./" from _get_content and add tests, this fixes a control
+      file extraction bug in gdebi
     
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
 
