@@ -3,8 +3,11 @@ python-apt (0.7.100.1ubuntu1) UNRELEASEDnatty; urgency=low
   * merged from debian
   * apt/progress/text.py:
     - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
+  * apt/debfile.py, tests/test_debfile.py:
+    - strip "./" from _get_content and add tests, this fixes a control
+      file extraction bug in gdebi
     
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 21 Dec 2010 17:49:23 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 21 Dec 2010 18:18:59 +0100
 
 python-apt (0.7.100.1) unstable; urgency=low
 

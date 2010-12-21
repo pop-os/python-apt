@@ -100,7 +100,17 @@ class TestDebfilee(unittest.TestCase):
         deb.open(os.path.join("data", "test_debs", "gdebi-test12.deb"))
         content = deb.data_content("usr/bin/binary")
         self.assertTrue(content.startswith("Automatically converted to printable ascii:\n\x7fELF "))
-                  
+        # control file
+        needle = """Package: gdebi-test12
+Version: 1.0
+Architecture: all
+Description: testpackage for gdebi - contains usr/bin/binary for file reading
+ This tests the binary file reading for debfile.py
+"""
+        content = deb.control_content("./control")
+        self.assertEqual(content, needle)
+        content = deb.control_content("control")
+        self.assertEqual(content, needle)
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

@@ -531,6 +531,8 @@ class DebPackage(object):
         return s
         
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
+        if name.startswith("./"):
+            name = name[2:]
         data = part.extractdata(name)
         # check for zip content
         if name.endswith(".gz") and auto_decompress:
