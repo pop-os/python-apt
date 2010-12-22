@@ -989,7 +989,8 @@ static const char *actiongroup__enter__doc =
 static PyObject *PkgActionGroupEnter(PyObject *Self,PyObject *Args) {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-    return Self;
+   Py_INCREF(Self);
+   return Self;
 }
 
 static const char *actiongroup__exit__doc =
@@ -999,6 +1000,7 @@ static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
    pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
    if (ag != NULL)
       ag->release();
+   Py_DECREF(Self);
    Py_RETURN_FALSE;
 }
 
