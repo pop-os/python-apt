@@ -1000,7 +1000,6 @@ static PyObject *PkgActionGroupExit(PyObject *Self,PyObject *Args) {
    pkgDepCache::ActionGroup *ag = GetCpp<pkgDepCache::ActionGroup*>(Self);
    if (ag != NULL)
       ag->release();
-   Py_DECREF(Self);
    Py_RETURN_FALSE;
 }
 
