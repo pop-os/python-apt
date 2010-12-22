@@ -1,10 +1,5 @@
-python-apt (0.7.100.1) UNRELEASED; urgency=low
+python-apt (0.7.100.2) UNRELEASED; urgency=low
 
-  * python/generic.h:
-    - set Object to NULL in CppDeallocPtr
-  * python/depcache.cc:
-    - don't run "actiongroup.release()" if the object was already
-      deallocated
   * apt/progress/text.py:
     - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
   * apt/debfile.py, tests/test_debfile.py:
@@ -15,7 +10,25 @@ python-apt (0.7.100.1) UNRELEASED; urgency=low
       on enter and leave. this should fix the instablity issues
       that aptdaemon runs into (LP: #691134)
     
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 07 Dec 2010 13:41:07 +0100
+ -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
+
+python-apt (0.7.100.1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * python/generic.h: Fix a memory leak (leaking on every unicode string).
+  * debian/control: add Replaces to python-apt-common, python3-apt; to
+    avoid file conflicts with files previously in python-apt (Closes: #605136).
+
+  [ Michael Vogt ]
+  * python/generic.h:
+    - set Object to NULL in CppDeallocPtr
+  * python/depcache.cc:
+    - don't run "actiongroup.release()" if the object was already
+      deallocated
+  * tests/test_apt_cache.py:
+    - fix tests to work if apt compressed indexes are enabled
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 12 Dec 2010 14:30:33 +0100
 
 python-apt (0.7.100) unstable; urgency=low
 
@@ -78,8 +91,6 @@ python-apt (0.7.98) unstable; urgency=low
     - do use PyString_FromFormat(), in python versions below 2.7 it
       does not support long long (%llu), use strprintf() from libapt
       instead
-  * tests/test_apt_cache.py:
-    - fix tests to work if apt compressed indexes are enabled
 
   [ Kiwinote ]
   * apt/debfile:

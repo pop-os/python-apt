@@ -88,6 +88,7 @@ Architecture: all
 Depends: ${misc:Depends}, python | python3
 Enhances: python-apt, python3-apt
 Breaks: python-apt (<< 0.7.98+nmu1)
+Replaces: python-apt (<< 0.7.98+nmu1)
 Description: Python interface to libapt-pkg (locales)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -121,6 +122,7 @@ Priority: extra
 Architecture: any
 Section: debug
 Breaks: python-apt (<< 0.7.98+nmu1)
+Replaces: python-apt (<< 0.7.98+nmu1)
 Depends: python3-dbg, python3-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
 Description: Python 3 interface to libapt-pkg (debug extension)
