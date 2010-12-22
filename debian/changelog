@@ -1,4 +1,4 @@
-python-apt (0.7.100.1ubuntu2) UNRELEASEDnatty; urgency=low
+python-apt (0.7.100.1ubuntu2) natty; urgency=low
 
   * python/depcache.cc:
     - when using the actiongroup as a contextmanager incref/decref
@@ -7,7 +7,7 @@ python-apt (0.7.100.1ubuntu2) UNRELEASEDnatty; urgency=low
    * debian/control:
      - really dropped python2.6 recommends
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Dec 2010 10:52:50 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Dec 2010 11:03:07 +0100
 
 python-apt (0.7.100.1ubuntu1) natty; urgency=low
 
