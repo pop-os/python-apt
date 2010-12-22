@@ -1,3 +1,17 @@
+python-apt (0.7.100.2) UNRELEASED; urgency=low
+
+  * apt/progress/text.py:
+    - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
+  * apt/debfile.py, tests/test_debfile.py:
+    - strip "./" from _get_content and add tests, this fixes a control
+      file extraction bug in gdebi
+  * python/depcache.cc:
+    - when using the actiongroup as a contextmanager incref/decref
+      on enter and leave. this should fix the instablity issues
+      that aptdaemon runs into (LP: #691134)
+    
+ -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
+
 python-apt (0.7.100.1) unstable; urgency=low
 
   [ Julian Andres Klode ]
