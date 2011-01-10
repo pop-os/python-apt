@@ -211,7 +211,7 @@ class InstallProgress(object):
         """Update the interface."""
         try:
             line = self.status_stream.readline()
-        except IOError, err:
+        except IOError as err:
             # resource temporarly unavailable is ignored
             if err.errno != errno.EAGAIN and err.errno != errno.EWOULDBLOCK:
                 print err.strerror
@@ -266,7 +266,7 @@ class InstallProgress(object):
             try:
                 select.select([self.status_stream], [], [],
                               self.select_timeout)
-            except select.error, (errno_, _errstr):
+            except select.error as (errno_, _errstr):
                 if errno_ != errno.EINTR:
                     raise
 
@@ -275,7 +275,7 @@ class InstallProgress(object):
                 (pid, res) = os.waitpid(self.child_pid, os.WNOHANG)
                 if pid == self.child_pid:
                     break
-            except OSError, err:
+            except OSError as err:
                 if err.errno == errno.ECHILD:
                     break
                 if err.errno != errno.EINTR:

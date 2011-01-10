@@ -338,7 +338,7 @@ class Version(object):
             if not isinstance(dsc, unicode):
                 # Only convert where needed (i.e. Python 2.X)
                 dsc = unicode(dsc, "utf-8")
-        except UnicodeDecodeError, err:
+        except UnicodeDecodeError as err:
             return _("Invalid unicode in description for '%s' (%s). "
                   "Please report.") % (self.package.name, err)
 

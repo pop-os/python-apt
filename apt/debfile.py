@@ -461,7 +461,7 @@ class DebPackage(object):
         for pkg in self._need_pkgs:
             try:
                 self._cache[pkg].mark_install(from_user=False)
-            except SystemError, e:
+            except SystemError as e:
                 self._failure_string = _("Cannot install '%s'") % pkg
                 self._cache.clear()
                 return False
@@ -543,7 +543,7 @@ class DebPackage(object):
         # auto-convert to hex
         try:
             data = unicode(data, "utf-8")
-        except Exception, e:
+        except Exception as e:
             new_data = _("Automatically converted to printable ascii:\n")
             new_data += self.to_strish(data)
             return new_data
