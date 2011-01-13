@@ -1,15 +1,18 @@
-python-apt (0.7.100.2) UNRELEASED; urgency=low
-
-  [ Michael Vogt ]
-  * python/depcache.cc:
-    - remove unneeded DECREF
+python-apt (0.7.100.1ubunt4) UNRELEASED; urgency=low
 
   [ Michael Bienia ]
   * Use the new "except Exception as e" syntax from Python 2.6 (and later) to
     allow building with Python 3.2.
   * Bump XS-Python-Version to >= 2.6 therefor.   
-
+  
  -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
+
+python-apt (0.7.100.1ubuntu3) natty; urgency=low
+
+  * python/depcache.cc:
+    - fix another refcount problem
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 22 Dec 2010 16:39:49 +0100
 
 python-apt (0.7.100.1ubuntu2) natty; urgency=low
 
