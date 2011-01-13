@@ -1,4 +1,4 @@
-python-apt (0.7.100.1ubunt4) UNRELEASED; urgency=low
+python-apt (0.7.100.1ubunt4) natty; urgency=low
 
   [ Michael Bienia ]
   * Use the new "except Exception as e" syntax from Python 2.6 (and later) to
