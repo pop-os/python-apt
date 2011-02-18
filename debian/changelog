@@ -1,11 +1,11 @@
-python-apt (0.7.100.1ubuntu5) UNRELEASEDnatty; urgency=low
+python-apt (0.7.100.1ubuntu5) natty; urgency=low
 
   * python/depcache.cc:
     - provide bindings for new libapt SetCandidateRelease()
   * debian/control:
     - require new libapt-pkg-dev SetCandidateRelease()
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 18 Feb 2011 17:16:01 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 18 Feb 2011 17:26:47 +0100
 
 python-apt (0.7.100.1ubuntu4) natty; urgency=low
 
