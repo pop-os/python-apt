@@ -12,6 +12,10 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
   * debian/python3-apt.install:
     - fix py3 extension module install location (thanks to
       Barry)
+  * python/depcache.cc:
+    - provide bindings for new libapt SetCandidateRelease()
+  * debian/control:
+    - require new libapt-pkg-dev SetCandidateRelease()
 
  -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
 
