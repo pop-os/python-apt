@@ -184,6 +184,30 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static PyObject *PkgDepCacheSetCandidateRelease(PyObject *Self,PyObject *Args)
+{
+   bool Success;
+   PyObject *PackageObj;
+   PyObject *VersionObj;
+   const char *target_rel;
+   std::list<std::pair<pkgCache::VerIterator, pkgCache::VerIterator> > Changed;
+   if (PyArg_ParseTuple(Args,"O!O!s",
+			&PyPackage_Type, &PackageObj,
+                        &PyVersion_Type, &VersionObj,
+                        &target_rel) == 0)
+      return 0;
+
+   pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
+   pkgCache::VerIterator &I = GetCpp<pkgCache::VerIterator>(VersionObj);
+   if(I.end()) {
+      return HandleErrors(PyBool_FromLong(false));
+   }
+
+   Success = depcache->SetCandidateRelease(I, target_rel, Changed);
+
+   return HandleErrors(PyBool_FromLong(Success));
+}
+
 static PyObject *PkgDepCacheSetCandidateVer(PyObject *Self,PyObject *Args)
 {
    pkgDepCache *depcache = GetCpp<pkgDepCache *>(Self);
@@ -552,6 +576,12 @@ static PyMethodDef PkgDepCacheMethods[] =
    {"set_candidate_ver",PkgDepCacheSetCandidateVer,METH_VARARGS,
     "set_candidate_ver(pkg: apt_pkg.Package, ver: apt_pkg.Version) -> bool\n\n"
     "Set the candidate version of 'pkg' to 'ver'."},
+   {"set_candidate_release",PkgDepCacheSetCandidateRelease,METH_VARARGS,
+    "set_candidate_release(pkg: apt_pkg.Package, ver: apt_pkg.Version, rel: string) -> bool\n\n"
+    "Sets not only the candidate version 'ver' for package 'pkg', "
+    "but walks also down the dependency tree and checks if it is required "
+    "to set the candidate of the dependency to a version from the given "
+    "release string 'rel', too."},
 
    // global cache operations
    {"upgrade",PkgDepCacheUpgrade,METH_VARARGS,
