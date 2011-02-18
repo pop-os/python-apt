@@ -9,8 +9,18 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
     - when using the actiongroup as a contextmanager incref/decref
       on enter and leave. this should fix the instablity issues
       that aptdaemon runs into (LP: #691134)
-    
- -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
+  * debian/python3-apt.install:
+    - fix py3 extension module install location (thanks to
+      Barry)
+  * python/depcache.cc:
+    - provide bindings for new libapt SetCandidateRelease()
+  * debian/control:
+    - require new libapt-pkg-dev SetCandidateRelease()
+  * py3 compatible exception handline
+  * debian/control:
+    - bump minimal python version to >= 2.6
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 18 Feb 2011 22:34:09 +0100
 
 python-apt (0.7.100.1) unstable; urgency=low
 

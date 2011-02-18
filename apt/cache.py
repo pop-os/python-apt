@@ -360,7 +360,7 @@ class Cache(object):
             try:
                 res = self._cache.update(fetch_progress, slist,
                                          pulse_interval)
-            except SystemError, e:
+            except SystemError as e:
                 raise FetchFailedException(e)
             if not res and raise_on_error:
                 raise FetchFailedException()

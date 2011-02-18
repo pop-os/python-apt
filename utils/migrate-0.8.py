@@ -202,7 +202,7 @@ def find_occurences(all_old, files):
         words = defaultdict(lambda: set())
         try:
             node = ast.parse(open(fname, "rU").read(), fname)
-        except Exception, e:
+        except Exception as e:
             print >> sys.stderr, "Ignoring %s: %s" % (fname, e)
             continue
         for i in ast.walk(node):

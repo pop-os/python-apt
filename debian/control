@@ -4,11 +4,11 @@ Priority: standard
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.9.1
-XS-Python-Version: >= 2.5
+XS-Python-Version: >= 2.6
 X-Python3-Version: >= 3.1
 Build-Depends: apt-utils,
                debhelper (>= 7.3.5),
-               libapt-pkg-dev (>= 0.8),
+               libapt-pkg-dev (>= 0.8.11),
                python-all-dev (>= 2.6.6-3~),
                python-all-dbg,
                python3-all-dev (>= 3.1.2-10~),

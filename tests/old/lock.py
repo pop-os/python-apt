@@ -20,7 +20,7 @@ if __name__ == "__main__":
     if pid == 0:
         try:
             apt_pkg.PkgSystemLock()
-        except SystemError, s:
+        except SystemError as s:
             print "Can't get lock: (error text:\n%s)" % s
         sys.exit(0)
 

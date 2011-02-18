@@ -506,7 +506,7 @@ def _test():
     apt_progress.show_terminal(True)
     try:
         cache.commit(apt_progress.acquire, apt_progress.install)
-    except Exception, exc:
+    except Exception as exc:
         print >> sys.stderr, "Exception happened:", exc
     if len(sys.argv) > 1:
         deb = DebPackage(sys.argv[1], cache)
