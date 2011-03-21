@@ -1,3 +1,12 @@
+python-apt (0.7.100.3) UNRELEASED; urgency=low
+
+  * python/arfile.cc, apt/debfile.py:
+    - add support for .xz archives
+  * tests/test_debfile.py:
+    - add test for xz compression
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 15:46:50 +0100
+
 python-apt (0.7.100.2) unstable; urgency=low
 
   * apt/progress/text.py:
