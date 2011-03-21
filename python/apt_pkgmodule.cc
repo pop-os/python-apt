@@ -184,18 +184,19 @@ static const char *parse_src_depends_doc =
 "configuration variable APT::Architecture";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
                                   bool ParseArchFlags, string name,
-                                  bool debStyle=false,
-                                  bool StripMultiArch=true)
+                                  bool debStyle=false)
 {
    string Package;
    string Version;
    unsigned int Op;
+   bool StripMultiArch=true;
 
    const char *Start;
    const char *Stop;
    int Len;
 
-   if (PyArg_ParseTuple(Args,(char *)("s#:" + name).c_str(),&Start,&Len) == 0)
+   if (PyArg_ParseTuple(Args,(char *)("s#|b:" + name).c_str(), 
+                        &Start, &Len, &StripMultiArch) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);

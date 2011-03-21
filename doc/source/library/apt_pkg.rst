@@ -1731,7 +1731,7 @@ Dependencies
 The following two functions provide the ability to parse dependencies. They
 use the same format as :attr:`Version.depends_list_str`.
 
-.. function:: parse_depends(depends)
+.. function:: parse_depends(depends, strip_multiarch=True)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -1743,6 +1743,9 @@ use the same format as :attr:`Version.depends_list_str`.
         >>> apt_pkg.parse_depends("PkgA (>= VerA) | PkgB (>= VerB)")
         [[('PkgA', 'VerA', '>='), ('PkgB', 'VerB', '>=')]]
 
+    Note that multiarch dependency information is stripped off by default.
+    You can force the full dependency info (including the multiarch info)
+    by passing "False" as a additional parameter to this function.
 
     .. note::
 
