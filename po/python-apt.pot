@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 10:29+0100\n"
+"POT-Creation-Date: 2011-03-21 15:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -519,51 +519,51 @@ msgstr ""
 msgid "Python-debian module not available"
 msgstr ""
 
-#: ../apt/debfile.py:539
+#: ../apt/debfile.py:541
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
 
-#: ../apt/debfile.py:545
+#: ../apt/debfile.py:547
 msgid "Automatically converted to printable ascii:\n"
 msgstr ""
 
-#: ../apt/debfile.py:635
+#: ../apt/debfile.py:637
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:645
+#: ../apt/debfile.py:647
 msgid "An essential package would be removed"
 msgstr ""
 
-#: ../apt/progress/text.py:81
+#: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
 msgstr ""
 
-#: ../apt/progress/text.py:120
+#: ../apt/progress/text.py:122
 msgid "Hit "
 msgstr ""
 
-#: ../apt/progress/text.py:129
+#: ../apt/progress/text.py:131
 msgid "Ign "
 msgstr ""
 
-#: ../apt/progress/text.py:131
+#: ../apt/progress/text.py:133
 msgid "Err "
 msgstr ""
 
-#: ../apt/progress/text.py:142
+#: ../apt/progress/text.py:144
 msgid "Get:"
 msgstr ""
 
-#: ../apt/progress/text.py:202
+#: ../apt/progress/text.py:204
 msgid " [Working]"
 msgstr ""
 
-#: ../apt/progress/text.py:213
+#: ../apt/progress/text.py:215
 #, python-format
 msgid ""
 "Media change: please insert the disc labeled\n"
@@ -572,16 +572,16 @@ msgid ""
 msgstr ""
 
 #. Trick for getting a translation from apt
-#: ../apt/progress/text.py:222
+#: ../apt/progress/text.py:224
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
 msgstr ""
 
-#: ../apt/progress/text.py:238
+#: ../apt/progress/text.py:240
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
 msgstr ""
 
-#: ../apt/progress/text.py:254
+#: ../apt/progress/text.py:256
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 

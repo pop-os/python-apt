@@ -61,6 +61,14 @@ class TestDependencies(unittest.TestCase):
         self.assertFalse(apt_pkg.check_dep("1", ">>", "1"))
         self.assertTrue(apt_pkg.check_dep("2", ">>", "1"))
 
+    def test_parse_depends_multiarch(self):
+        # strip multiarch
+        deps = apt_pkg.parse_depends("po4a:native", True)
+        self.assertEqual(deps[0][0][0], "po4a")
+        # do not strip multiarch
+        deps = apt_pkg.parse_depends("po4a:native", False)
+        self.assertEqual(deps[0][0][0], "po4a:native")
+
     def test_parse_depends(self):
         """dependencies: Test apt_pkg.parse_depends()"""
         deps = apt_pkg.parse_depends("p1a (<< 1a) | p1b (>> 1b)")

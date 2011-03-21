@@ -1,3 +1,40 @@
+python-apt (0.7.100.2ubuntu1) UNRELEASEDnatty; urgency=low
+
+  * merged fix for parse_depends() in a multiarch environment
+    from debian/sid branch
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 21 Mar 2011 15:14:38 +0100
+
+python-apt (0.7.100.2) unstable; urgency=low
+
+  * apt/progress/text.py:
+    - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
+  * apt/debfile.py, tests/test_debfile.py:
+    - strip "./" from _get_content and add tests, this fixes a control
+      file extraction bug in gdebi
+  * python/depcache.cc:
+    - when using the actiongroup as a contextmanager incref/decref
+      on enter and leave. this should fix the instablity issues
+      that aptdaemon runs into (LP: #691134)
+  * debian/python3-apt.install:
+    - fix py3 extension module install location (thanks to
+      Barry)
+  * python/depcache.cc:
+    - provide bindings for new libapt SetCandidateRelease()
+  * debian/control:
+    - require new libapt-pkg-dev SetCandidateRelease()
+  * py3 compatible exception handline
+  * debian/control:
+    - bump minimal python version to >= 2.6
+  * python/apt_pkgmodule.cc:
+    - strip multiarch by default in RealParseDepends
+    - add optional parameter to allow parse_depends() to keep the
+      multiarch parameter
+  * tests/test_deps.py:
+    - add test forapt_pkg.parse_depends(strip_multiarch=True)
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 14:56:01 +0100
+
 python-apt (0.7.100.1ubuntu5) natty; urgency=low
 
   * python/depcache.cc:
