@@ -19,8 +19,14 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
   * py3 compatible exception handline
   * debian/control:
     - bump minimal python version to >= 2.6
+  * python/apt_pkgmodule.cc:
+    - strip multiarch by default in RealParseDepends
+    - add optional parameter to allow parse_depends() to keep the
+      multiarch parameter
+  * tests/test_deps.py:
+    - add test forapt_pkg.parse_depends(strip_multiarch=True)
 
- -- Michael Vogt <mvo@debian.org>  Fri, 18 Feb 2011 22:34:09 +0100
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 14:48:35 +0100
 
 python-apt (0.7.100.1) unstable; urgency=low
 

@@ -189,12 +189,14 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    string Package;
    string Version;
    unsigned int Op;
+   bool StripMultiArch=true;
 
    const char *Start;
    const char *Stop;
    int Len;
 
-   if (PyArg_ParseTuple(Args,(char *)("s#:" + name).c_str(),&Start,&Len) == 0)
+   if (PyArg_ParseTuple(Args,(char *)("s#|b:" + name).c_str(), 
+                        &Start, &Len, &StripMultiArch) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);
@@ -205,7 +207,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	 break;
 
       Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
-					  ParseArchFlags);
+					  ParseArchFlags, StripMultiArch);
       if (Start == 0)
       {
 	 PyErr_SetString(PyExc_ValueError,"Problem Parsing Dependency");
