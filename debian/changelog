@@ -16,6 +16,8 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
     - provide bindings for new libapt SetCandidateRelease()
   * debian/control:
     - require new libapt-pkg-dev SetCandidateRelease()
+  * python/apt_pkgmodule.cc:
+    - strip multiarch by default in RealParseDepends
 
  -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
 

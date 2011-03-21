@@ -184,7 +184,8 @@ static const char *parse_src_depends_doc =
 "configuration variable APT::Architecture";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
                                   bool ParseArchFlags, string name,
-                                  bool debStyle=false)
+                                  bool debStyle=false,
+                                  bool StripMultiArch=true)
 {
    string Package;
    string Version;
@@ -205,7 +206,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	 break;
 
       Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
-					  ParseArchFlags);
+					  ParseArchFlags, StripMultiArch);
       if (Start == 0)
       {
 	 PyErr_SetString(PyExc_ValueError,"Problem Parsing Dependency");
