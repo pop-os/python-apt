@@ -399,7 +399,9 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
    {
       // most of the time the user who subclasses the pulse()
       // method forgot to add a return {True,False} so we just
-      // assume he wants a True
+      // assume he wants a True.  There may be a Python exception on the stack
+      // that must be cleared.
+      PyErr_Clear();
       PyCbObj_BEGIN_ALLOW_THREADS
       return true;
    }
