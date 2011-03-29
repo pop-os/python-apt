@@ -1,4 +1,14 @@
-python-apt (0.7.100.2) UNRELEASED; urgency=low
+python-apt (0.7.100.3) UNRELEASED; urgency=low
+
+  * python/arfile.cc, apt/debfile.py:
+    - add support for .xz archives
+  * tests/test_debfile.py:
+    - add test for xz compression
+  * update priority of python3-apt to match the archive
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 15:46:50 +0100
+
+python-apt (0.7.100.2) unstable; urgency=low
 
   * apt/progress/text.py:
     - only run ioctl for termios.TIOCGWINSZ if the fd is a tty
@@ -16,6 +26,9 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
     - provide bindings for new libapt SetCandidateRelease()
   * debian/control:
     - require new libapt-pkg-dev SetCandidateRelease()
+  * py3 compatible exception handline
+  * debian/control:
+    - bump minimal python version to >= 2.6
   * python/apt_pkgmodule.cc:
     - strip multiarch by default in RealParseDepends
     - add optional parameter to allow parse_depends() to keep the
@@ -23,7 +36,7 @@ python-apt (0.7.100.2) UNRELEASED; urgency=low
   * tests/test_deps.py:
     - add test forapt_pkg.parse_depends(strip_multiarch=True)
 
- -- Michael Vogt <mvo@debian.org>  Tue, 07 Dec 2010 13:41:07 +0100
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 14:56:01 +0100
 
 python-apt (0.7.100.1) unstable; urgency=low
 
