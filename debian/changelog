@@ -1,5 +1,11 @@
 python-apt (0.7.100.3) UNRELEASED; urgency=low
 
+  [ Barry Warsaw ]
+  * PyFetchProgress::Pulse(): When ignoring a false return value from
+    PyArg_Parse() after running the simple callback pulse(), there can be
+    an exception on the stack, which must be cleared.  (LP: #711225)
+
+  [ Michael Vogt ]
   * python/arfile.cc, apt/debfile.py:
     - add support for .xz archives
   * tests/test_debfile.py:
