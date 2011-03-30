@@ -1,4 +1,4 @@
-python-apt (0.7.100.2ubuntu3) UNRELEASED; urgency=low
+python-apt (0.7.100.2ubuntu3) natty; urgency=low
 
   [ Michael Vogt ]
   * python/arfile.cc, apt/debfile.py:
@@ -7,7 +7,7 @@ python-apt (0.7.100.2ubuntu3) UNRELEASED; urgency=low
     - add test for xz compression
   * update priority of python3-apt to match the archive
 
- -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 15:46:50 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 30 Mar 2011 17:16:00 +0200
 
 python-apt (0.7.100.2ubuntu2) natty; urgency=low
 
