@@ -98,6 +98,7 @@ Description: Python interface to libapt-pkg (locales)
  This package contains locales.
 
 Package: python3-apt
+Priority: optional
 Architecture: any
 Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
 Recommends: lsb-release, iso-codes

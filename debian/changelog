@@ -1,3 +1,14 @@
+python-apt (0.7.100.2ubuntu3) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * python/arfile.cc, apt/debfile.py:
+    - add support for .xz archives
+  * tests/test_debfile.py:
+    - add test for xz compression
+  * update priority of python3-apt to match the archive
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 15:46:50 +0100
+
 python-apt (0.7.100.2ubuntu2) natty; urgency=low
 
   [ Barry Warsaw ]

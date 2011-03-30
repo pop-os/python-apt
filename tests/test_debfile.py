@@ -112,6 +112,11 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         content = deb.control_content("control")
         self.assertEqual(content, needle)
 
+    def test_xz_data(self):
+	deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
+        self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
+
+
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
     unittest.main()
