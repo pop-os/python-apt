@@ -113,7 +113,7 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         self.assertEqual(content, needle)
 
     def test_xz_data(self):
-	deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
+        deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
 
 
