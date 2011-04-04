@@ -20,6 +20,8 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
     - Change apt.Package.name to use get_fullname(pretty=True) (LP: #740072)
   * tests/test_debfile.py:
     - Disable multi-arch for the test, it fails when run via test_all.py
+  * tests/test_apt_cache.py:
+    - Package records 'Package' field now corresponds to shortname
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
 
