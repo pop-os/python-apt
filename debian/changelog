@@ -1,4 +1,4 @@
-python-apt (0.7.100.3) UNRELEASED; urgency=low
+python-apt (0.7.100.3) unstable; urgency=low
 
   [ Barry Warsaw ]
   * PyFetchProgress::Pulse(): When ignoring a false return value from
@@ -33,7 +33,7 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
   [ Scott Kitterman ]
    * Removed ${python:Breaks} - No longer used in dh_python2
 
- -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
+ -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 12:52:03 +0200
 
 python-apt (0.7.100.2) unstable; urgency=low
 
