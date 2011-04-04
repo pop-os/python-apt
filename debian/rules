@@ -11,14 +11,9 @@ export SHELL = env PATH=$(PATH) sh
 override_dh_auto_build:
 	dh_auto_build
 
-override_dh_auto_install:
-	for i in $(shell py3versions -r); do \
-	  $$i ./setup.py install --install-layout=deb --root $(CURDIR)/debian/python3-apt; \
-	done
-	for i in $(shell py3versions -r); do \
-          $$i-dbg ./setup.py install --install-layout=deb --root $(CURDIR)/debian/python3-apt-dbg; \
-        done
-	dh_auto_install
+override_dh_install:
+	dh_movefiles
+	dh_install
 
 override_dh_installdocs:
 	set -e; if [ -z $(filter -a,$(DH_INTERNAL_OPTIONS)) ]; then \

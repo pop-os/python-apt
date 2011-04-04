@@ -28,11 +28,9 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
   * debian/rules:
     - Support the nocheck build option and ignore test failures on hurd
       (Closes: #610448)
+    - Move Python 3 debug files before installing other files (Closes: #619528)
 
   [ Scott Kitterman ]
-   * Override override_dh_auto_install to install python3 extensions in the
-     correct locations (Closes: #619528)
-     - Drop .so files from python3-apt.install
    * Removed ${python:Breaks} - No longer used in dh_python2
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
