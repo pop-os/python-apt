@@ -23,6 +23,8 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
     - Fix mixed tab/spaces indentation in xz test
   * tests/test_apt_cache.py:
     - Package records 'Package' field now corresponds to shortname
+  * debian/python3-apt-dbg.install
+    - Do not try to install old-style debugging files.
 
   [ Scott Kitterman ]
    * Override override_dh_auto_install to install python3 extensions in the
