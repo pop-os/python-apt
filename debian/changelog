@@ -25,6 +25,9 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
     - Package records 'Package' field now corresponds to shortname
   * debian/python3-apt-dbg.install
     - Do not try to install old-style debugging files.
+  * debian/rules:
+    - Support the nocheck build option and ignore test failures on hurd
+      (Closes: #610448)
 
   [ Scott Kitterman ]
    * Override override_dh_auto_install to install python3 extensions in the
