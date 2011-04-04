@@ -437,17 +437,34 @@ Resolving Dependencies with :class:`ProblemResolver`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. class:: Package
 
-   Represent a package. A package is uniquely identified by its name
-   and each package can have zero or more versions which can be
+   Represent a package. A package is uniquely identified by its name and
+   architecture and each package can have zero or more versions which can be
    accessed via the :attr:`version_list` property. Packages can be
    installed and removed by a :class:`DepCache` object.
 
     Attributes:
 
+    .. attribute: architecture
+
+        The architecture of the package. This is relevant on multi-arch
+        systems only. Please note that if a package is Architecture: all,
+        this value is not "all", but the architecture of the package file
+        it comes from.
+
+        .. versionadded:: 0.7.100.3
+
     .. attribute:: current_ver
 
         The version currently installed as a :class:`Version` object, or None
         if the package is not installed.
+
+   .. method:: get_fullname([pretty: bool = False]) -> str
+
+        Get the full name of the package, including the architecture. If
+        *pretty* is ``True``, the architecture is omitted for native packages,
+        that is, an amd64 "apt" package on an amd64 system would give "apt".
+
+        .. versionadded:: 0.7.100.3
 
    .. attribute:: has_provides
 

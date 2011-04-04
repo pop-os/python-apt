@@ -65,6 +65,7 @@ class Cache(object):
         self._callbacks = {}
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
+        self._fullnameset = set()
         self._sorted_set = None
         if memonly:
             # force apt to build its caches in memory
@@ -129,8 +130,12 @@ class Cache(object):
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
         self._set.clear()
+        self._fullnameset.clear()
         self._sorted_set = None
         self._weakref.clear()
+
+        self._have_multi_arch = bool(apt_pkg.config.value_list("APT::" +
+                                                               "Architectures"))
 
         progress.op = _("Building data structures")
         i = last = 0
@@ -141,7 +146,9 @@ class Cache(object):
                 last = i
             # drop stuff with no versions (cruft)
             if pkg.has_versions:
-                self._set.add(pkg.name)
+                self._set.add(pkg.get_fullname(pretty=True))
+                if self._have_multi_arch:
+                    self._fullnameset.add(pkg.get_fullname(pretty=False))
 
             i += 1
 
@@ -153,7 +160,7 @@ class Cache(object):
         try:
             return self._weakref[key]
         except KeyError:
-            if key in self._set:
+            if key in self._set or key in self._fullnameset:
                 key = str(key)
                 pkg = self._weakref[key] = Package(self, self._cache[key])
                 return pkg
@@ -174,10 +181,10 @@ class Cache(object):
         raise StopIteration
 
     def has_key(self, key):
-        return (key in self._set)
+        return (key in self._set or key in self._fullnameset)
 
     def __contains__(self, key):
-        return (key in self._set)
+        return (key in self._set or key in self._fullnameset)
 
     def __len__(self):
         return len(self._set)
@@ -191,10 +198,11 @@ class Cache(object):
         marked_keep = self._depcache.marked_keep
         for pkg in self._cache.packages:
             if not marked_keep(pkg):
+                name = pkg.get_fullname(pretty=True)
                 try:
-                    changes.append(self._weakref[pkg.name])
+                    changes.append(self._weakref[name])
                 except KeyError:
-                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    package = self._weakref[name] = Package(self, pkg)
                     changes.append(package)
         return changes
 
@@ -233,7 +241,7 @@ class Cache(object):
         for pkg in self._cache.packages:
             cand = get_candidate_ver(pkg)
             if cand and not cand.downloadable and pkg.inst_state in states:
-                reqreinst.add(pkg.name)
+                reqreinst.add(pkg.get_fullname(pretty=True))
         return reqreinst
 
     def _run_fetcher(self, fetcher):
@@ -318,10 +326,11 @@ class Cache(object):
         for provides, providesver, version in vp.provides_list:
             pkg = version.parent_pkg
             if not candidate_only or (version == get_candidate_ver(pkg)):
+                name = pkg.get_fullname(pretty=True)
                 try:
-                    providers.add(self._weakref[pkg.name])
+                    providers.add(self._weakref[name])
                 except KeyError:
-                    package = self._weakref[pkg.name] = Package(self, pkg)
+                    package = self._weakref[name] = Package(self, pkg)
                     providers.add(package)
         return list(providers)
 

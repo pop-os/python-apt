@@ -1,3 +1,47 @@
+python-apt (0.7.100.3ubuntu1) natty; urgency=low
+
+  * merge fixes from debian-sid, most notably the fixes
+    to support multiarch (thanks to Julian Andres Klode)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 04 Apr 2011 16:15:15 +0200
+
+python-apt (0.7.100.3) unstable; urgency=low
+
+  [ Barry Warsaw ]
+  * PyFetchProgress::Pulse(): When ignoring a false return value from
+    PyArg_Parse() after running the simple callback pulse(), there can be
+    an exception on the stack, which must be cleared.  (LP: #711225)
+
+  [ Michael Vogt ]
+  * python/arfile.cc, apt/debfile.py:
+    - add support for .xz archives
+  * tests/test_debfile.py:
+    - add test for xz compression
+  * update priority of python3-apt to match the archive
+
+  [ Julian Andres Klode ]
+  * python/cache.cc:
+    - Add Package.get_fullname() and Package.architecture
+  * apt/cache.py, apt/package.py:
+    - Add architecture property to apt.Package (LP: #703472)
+    - Change apt.Package.name to use get_fullname(pretty=True) (LP: #740072)
+  * tests/test_debfile.py:
+    - Disable multi-arch for the test, it fails when run via test_all.py
+    - Fix mixed tab/spaces indentation in xz test
+  * tests/test_apt_cache.py:
+    - Package records 'Package' field now corresponds to shortname
+  * debian/python3-apt-dbg.install
+    - Do not try to install old-style debugging files.
+  * debian/rules:
+    - Support the nocheck build option and ignore test failures on hurd
+      (Closes: #610448)
+    - Move Python 3 debug files before installing other files (Closes: #619528)
+
+  [ Scott Kitterman ]
+   * Removed ${python:Breaks} - No longer used in dh_python2
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 12:52:03 +0200
+
 python-apt (0.7.100.2ubuntu4) natty; urgency=low
 
   * fix incorrect tab, this fixes a FTBFS

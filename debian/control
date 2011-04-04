@@ -24,7 +24,7 @@ Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
 Recommends: lsb-release, iso-codes
-Breaks: debdelta (<< 0.28~), packagekit-backend-apt (<= 0.4.8-0ubuntu4), ${python:Breaks}
+Breaks: debdelta (<< 0.28~), packagekit-backend-apt (<= 0.4.8-0ubuntu4)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte, python-apt-doc
 XB-Python-Version: ${python:Versions}

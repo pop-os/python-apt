@@ -47,10 +47,10 @@ class TestAptCache(unittest.TestCase):
                 # particular, when using compressed indexes, it should not use
                 # tons of seek operations
                 r = pkg.candidate.record
-                self.assertEqual(r['Package'], pkg.name)
+                self.assertEqual(r['Package'], pkg.shortname)
                 self.assert_('Version' in r)
                 self.assert_(len(r['Description']) > 0)
-                self.assert_(str(r).startswith('Package: %s\n' % pkg.name))
+                self.assert_(str(r).startswith('Package: %s\n' % pkg.shortname))
 
     def test_get_provided_packages(self):
         cache = apt.Cache()

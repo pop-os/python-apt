@@ -374,9 +374,9 @@ class Version(object):
     def source_name(self):
         """Return the name of the source package."""
         try:
-            return self._records.source_pkg or self.package.name
+            return self._records.source_pkg or self.package.shortname
         except IndexError:
-            return self.package.name
+            return self.package.shortname
 
     @property
     def source_version(self):
@@ -549,7 +549,7 @@ class Version(object):
 
         dsc = None
         record = self._records
-        source_name = record.source_pkg or self.package.name
+        source_name = record.source_pkg or self.package.shortname
         source_version = record.source_ver or self._cand.ver_str
         source_lookup = src.lookup(source_name)
 
@@ -674,7 +674,8 @@ class Package(object):
         self._changelog = ""            # Cached changelog
 
     def __repr__(self):
-        return '<Package: name:%r id:%r>' % (self._pkg.name, self._pkg.id)
+        return '<Package: name:%r architecture=%r id:%r>' % (self._pkg.name,
+                 self._pkg.architecture, self._pkg.id)
 
     def candidate(self):
         """Return the candidate version of the package.
@@ -706,7 +707,30 @@ class Package(object):
 
     @property
     def name(self):
-        """Return the name of the package."""
+        """Return the name of the package, possibly including architecture.
+
+        If the package is not part of the system's preferred architecture,
+        return the same as :attr:`fullname`, otherwise return the same
+        as :attr:`shortname`
+
+        .. versionchanged:: 0.7.100.3
+        As part of multi-arch, this field now may include architecture
+        information.
+        """
+        return self._pkg.get_fullname(True)
+
+    @property
+    def fullname(self):
+        """Return the name of the package, including architecture.
+
+        .. versionadded:: 0.7.100.3"""
+        return self._pkg.get_fullname(False)
+
+    @property
+    def shortname(self):
+        """Return the name of the package, without architecture.
+
+        .. versionadded:: 0.7.100.3"""
         return self._pkg.name
 
     @property
@@ -757,13 +781,15 @@ class Package(object):
         """
         return getattr(self.installed, 'dependencies', [])
 
-    @DeprecatedProperty
     def architecture(self):
         """Return the Architecture of the package.
 
-        .. deprecated:: 0.7.9
+        .. versionchanged:: 0.7.100.3
+            This is now the package's architecture in the multi-arch sense,
+            previously it was the architecture of the candidate version
+            and deprecated.
         """
-        return getattr(self.candidate, "architecture", None)
+        return self._pkg.architecture
 
     @DeprecatedProperty
     def candidateDownloadable(self):  #pylint: disable-msg=C0103
