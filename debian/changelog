@@ -23,6 +23,12 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
   * tests/test_apt_cache.py:
     - Package records 'Package' field now corresponds to shortname
 
+  [ Scott Kitterman ]
+   * Override override_dh_auto_install to install python3 extensions in the
+     correct locations (Closes: #619528)
+     - Drop .so files from python3-apt.install
+   * Removed ${python:Breaks} - No longer used in dh_python2
+
  -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
 
 python-apt (0.7.100.2) unstable; urgency=low
