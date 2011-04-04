@@ -18,6 +18,8 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
   * apt/cache.py, apt/package.py:
     - Add architecture property to apt.Package (LP: #703472)
     - Change apt.Package.name to use get_fullname(pretty=True) (LP: #740072)
+  * tests/test_debfile.py:
+    - Disable multi-arch for the test, it fails when run via test_all.py
 
  -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
 

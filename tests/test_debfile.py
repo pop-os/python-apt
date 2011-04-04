@@ -47,6 +47,9 @@ class TestDebfilee(unittest.TestCase):
     def setUp(self):
         apt_pkg.init_config()
         apt_pkg.config.set("APT::Architecture","i386")
+        # FIXME: When run via test_all.py, the tests fail without this if it
+        # is set in the system.
+        apt_pkg.config.clear("APT::Architectures")
         apt_pkg.config.set("Dir::State::status", 
                            "./data/test_debs/var/lib/dpkg/status")
         apt_pkg.config.set("Dir::State::lists", 
