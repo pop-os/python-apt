@@ -509,6 +509,7 @@ PyTypeObject PyPackageList_Type =
 }
 
 MkGet(PackageGetName,PyString_FromString(Pkg.Name()))
+MkGet(PackageGetArch,PyString_FromString(Pkg.Arch()))
 MkGet(PackageGetSection,Safe_FromString(Pkg.Section()))
 MkGet(PackageGetRevDependsList,CppPyObject_NEW<RDepListStruct>(Owner,
                                &PyDependencyList_Type, Pkg.RevDependsList()))
@@ -523,6 +524,25 @@ MkGet(PackageGetEssential,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Essentia
 MkGet(PackageGetImportant,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Important) != 0))
 #undef MkGet
 #undef Owner
+
+static const char PackageGetFullName_doc[] =
+    "get_fullname([pretty: bool = False]) -> str\n\n"
+    "Get the full name of the package, including the architecture. If\n"
+    "'pretty' is True, the architecture is omitted for native packages,\n"
+    "that is, and amd64 apt package on an amd64 system would give 'apt'.";
+static PyObject *PackageGetFullName(PyObject *Self,PyObject *Args,PyObject *kwds)
+{
+   pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+   char pretty = 0;
+   char *kwlist[] = {"pretty", 0};
+
+   if (PyArg_ParseTupleAndKeywords(Args, kwds, "|b", kwlist,
+                                   &pretty) == 0)
+      return 0;
+
+   
+   return CppPyString(Pkg.FullName(pretty));
+}
 
 static PyObject *PackageGetVersionList(PyObject *Self,void*)
 {
@@ -565,9 +585,18 @@ static PyObject *PackageGetCurrentVer(PyObject *Self,void*)
 							 Pkg.CurrentVer());
 }
 
+
+static PyMethodDef PackageMethods[] =
+{
+   {"get_fullname",(PyCFunction)PackageGetFullName,METH_VARARGS|METH_KEYWORDS,
+    PackageGetFullName_doc},
+   {}
+};
+
 static PyGetSetDef PackageGetSet[] = {
     {"name",PackageGetName,0,
      "The name of the package."},
+    {"architecture",PackageGetArch,0, "The architecture of the package."},
     {"section",PackageGetSection,0,
      "The section of the package."},
     {"rev_depends_list",PackageGetRevDependsList,0,
@@ -656,7 +685,7 @@ PyTypeObject PyPackage_Type =
    0,                                   // tp_weaklistoffset
    0,                                   // tp_iter
    0,                                   // tp_iternext
-   0,                                   // tp_methods
+   PackageMethods,                      // tp_methods
    0,                                   // tp_members
    PackageGetSet,                       // tp_getset
 };
