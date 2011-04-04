@@ -12,7 +12,11 @@ python-apt (0.7.100.3) UNRELEASED; urgency=low
     - add test for xz compression
   * update priority of python3-apt to match the archive
 
- -- Michael Vogt <mvo@debian.org>  Mon, 21 Mar 2011 15:46:50 +0100
+  [ Julian Andres Klode ]
+  * python/cache.cc:
+    - Add Package.get_fullname() and Package.architecture
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 04 Apr 2011 09:48:10 +0200
 
 python-apt (0.7.100.2) unstable; urgency=low
 
