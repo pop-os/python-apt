@@ -132,6 +132,9 @@ class Cache(object):
         self._sorted_set = None
         self._weakref.clear()
 
+        self._have_multi_arch = bool(apt_pkg.config.value_list("APT::" +
+                                                               "Architectures"))
+
         progress.op = _("Building data structures")
         i = last = 0
         size = len(self._cache.packages)
@@ -141,7 +144,10 @@ class Cache(object):
                 last = i
             # drop stuff with no versions (cruft)
             if pkg.has_versions:
-                self._set.add(pkg.name)
+                self._set.add(pkg.get_fullname(pretty=True))
+                assert self._cache[pkg.get_fullname(pretty=True)] is not None
+                if self._have_multi_arch:
+                    self._set.add(pkg.get_fullname(pretty=False))
 
             i += 1
 
