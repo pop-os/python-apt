@@ -815,6 +815,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"Package",&PyPackage_Type); // NO __new__()
    ADDTYPE(Module,"Version",&PyVersion_Type); // NO __new__()
    ADDTYPE(Module,"Group", &PyGroup_Type);
+   ADDTYPE(Module,"GroupList", &PyGroupList_Type);
    /* ============================ cdrom.cc ============================ */
    ADDTYPE(Module,"Cdrom",&PyCdrom_Type);
    /* ========================= configuration.cc ========================= */

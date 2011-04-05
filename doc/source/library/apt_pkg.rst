@@ -95,6 +95,32 @@ Working with the cache
 
         A list of all :class:`PackageFile` objects stored in the cache.
 
+    .. attribute:: group_count
+
+        The number of groups in the cache.
+
+    .. attribute:: groups
+
+        A sequence of :class:`Group` objects, implemented as a
+        :class:`GroupList` object.
+
+        .. class:: GroupList
+
+            A simple sequence-like object which only provides a length and
+            an implementation of ``__getitem__`` for accessing groups at
+            a certain index. Apart from being iterable, it can be used in
+            the following ways:
+
+            .. describe:: list[index]
+
+                Get the :class:`Group` object for the group at the position
+                given by *index* in the GroupList *list*.
+
+            .. describe:: len(list)
+
+                Return the length of the GroupList object *list*.
+
+
     .. attribute:: is_multi_arch
 
         An attribute determining whether the cache supports multi-arch.

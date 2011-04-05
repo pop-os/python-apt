@@ -71,6 +71,7 @@ extern PyTypeObject PyCacheFile_Type;
 extern PyTypeObject PyPackageList_Type;
 extern PyTypeObject PyDescription_Type;
 extern PyTypeObject PyGroup_Type;
+extern PyTypeObject PyGroupList_Type; /* internal */
 extern PyTypeObject PyPackage_Type;
 extern PyTypeObject PyPackageFile_Type;
 extern PyTypeObject PyDependency_Type;

@@ -39,13 +39,57 @@ const char *UntranslatedDepTypes[] =
 };
 
 									/*}}}*/
-struct PkgListStruct
+
+template<typename T> struct IterListStruct
 {
-   pkgCache::PkgIterator Iter;
+   T Iter;
    unsigned long LastIndex;
 
-   PkgListStruct(pkgCache::PkgIterator const &I) : Iter(I), LastIndex(0) {}
-   PkgListStruct() {abort();};  // G++ Bug..
+   IterListStruct(T const &I) : Iter(I), LastIndex(0) {}
+   IterListStruct() {};
+
+   bool move(unsigned long Index) {
+       if (Index < 0 || (unsigned)Index >= Count())
+       {
+          PyErr_SetNone(PyExc_IndexError);
+          return false;
+       }
+
+       if ((unsigned)Index < LastIndex)
+       {
+          LastIndex = 0;
+          Iter = Begin();
+       }
+
+       while ((unsigned)Index > LastIndex)
+       {
+          LastIndex++;
+          Iter++;
+          if (Iter.end() == true)
+          {
+         PyErr_SetNone(PyExc_IndexError);
+         return false;
+          }
+       }
+       return true;
+    }
+
+    virtual unsigned Count() = 0;
+    virtual T Begin() = 0;
+
+};
+
+struct PkgListStruct : public IterListStruct<pkgCache::PkgIterator> {
+    unsigned Count() { return Iter.Cache()->HeaderP->PackageCount; }
+    pkgCache::PkgIterator Begin() { return Iter.Cache()->PkgBegin(); }
+
+    PkgListStruct(pkgCache::PkgIterator const &I) { Iter = I; }
+};
+
+struct GrpListStruct : public IterListStruct<pkgCache::GrpIterator> {
+    unsigned Count() { return Iter.Cache()->HeaderP->GroupCount; }
+    pkgCache::GrpIterator Begin() { return Iter.Cache()->GrpBegin(); }
+    GrpListStruct(pkgCache::GrpIterator const &I) { Iter = I; }
 };
 
 struct RDepListStruct
@@ -175,6 +219,16 @@ static PyMethodDef PkgCacheMethods[] =
    {}
 };
 
+static PyObject *PkgCacheGetGroupCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return Py_BuildValue("i",Cache->HeaderP->GroupCount);
+}
+
+static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return CppPyObject_NEW<GrpListStruct>(Self,&PyGroupList_Type,Cache->GrpBegin());
+}
+
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
    return CppPyObject_NEW<PkgListStruct>(Self,&PyPackageList_Type,Cache->PkgBegin());
@@ -232,6 +286,9 @@ static PyGetSetDef PkgCacheGetSet[] = {
     "The number of apt_pkg.Dependency objects stored in the cache."},
    {"file_list",PkgCacheGetFileList,0,
     "A list of apt_pkg.PackageFile objects stored in the cache."},
+   {"group_count",PkgCacheGetGroupCount,0,
+    "The number of apt_pkg.Group objects stored in the cache."},
+   {"groups",  PkgCacheGetGroups, 0, "A list of Group objects in the cache"},
    {"is_multi_arch", PkgCacheGetIsMultiArch, 0,
     "Whether the cache supports multi-arch."},
    {"package_count",PkgCacheGetPackageCount,0,
@@ -442,7 +499,7 @@ PyTypeObject PyCacheFile_Type =
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
 };
-									/*}}}*/
+
 // Package List Class							/*{{{*/
 // ---------------------------------------------------------------------
 static Py_ssize_t PkgListLen(PyObject *Self)
@@ -453,29 +510,9 @@ static Py_ssize_t PkgListLen(PyObject *Self)
 static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
 {
    PkgListStruct &Self = GetCpp<PkgListStruct>(iSelf);
-   if (Index < 0 || (unsigned)Index >= Self.Iter.Cache()->HeaderP->PackageCount)
-   {
-      PyErr_SetNone(PyExc_IndexError);
+
+   if (!Self.move(Index))
       return 0;
-   }
-
-   if ((unsigned)Index < Self.LastIndex)
-   {
-      Self.LastIndex = 0;
-      Self.Iter = Self.Iter.Cache()->PkgBegin();
-   }
-
-   while ((unsigned)Index > Self.LastIndex)
-   {
-      Self.LastIndex++;
-      Self.Iter++;
-      if (Self.Iter.end() == true)
-      {
-	 PyErr_SetNone(PyExc_IndexError);
-	 return 0;
-      }
-   }
-
    return CppPyObject_NEW<pkgCache::PkgIterator>(GetOwner<PkgListStruct>(iSelf),&PyPackage_Type,
 						      Self.Iter);
 }
@@ -524,6 +561,68 @@ PyTypeObject PyPackageList_Type =
    CppTraverse<PkgListStruct>,     // tp_traverse
    CppClear<PkgListStruct>,        // tp_clear
 };
+
+/* The same for groups */
+static Py_ssize_t GrpListLen(PyObject *Self)
+{
+   return GetCpp<GrpListStruct>(Self).Iter.Cache()->HeaderP->GroupCount;
+}
+
+static PyObject *GrpListItem(PyObject *iSelf,Py_ssize_t Index)
+{
+   GrpListStruct &Self = GetCpp<GrpListStruct>(iSelf);
+
+   if (!Self.move(Index))
+      return 0;
+   return CppPyObject_NEW<pkgCache::GrpIterator>(GetOwner<GrpListStruct>(iSelf),&PyGroup_Type,
+						      Self.Iter);
+}
+
+static PySequenceMethods GrpListSeq =
+{
+   GrpListLen,
+   0,                // concat
+   0,                // repeat
+   GrpListItem,
+   0,                // slice
+   0,                // assign item
+   0                 // assign slice
+};
+
+static const char *grouplist_doc =
+    "A GroupList is an internally used structure to represent\n"
+    "the 'groups' attribute of apt_pkg.Cache objects in a more\n"
+    "efficient manner by creating Group objects only when they\n"
+    "are accessed.";
+
+PyTypeObject PyGroupList_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.GroupList",               // tp_name
+   sizeof(CppPyObject<GrpListStruct>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<GrpListStruct>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   &GrpListSeq,                         // tp_as_sequence
+   0,			                // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
+   grouplist_doc,                     // tp_doc
+   CppTraverse<GrpListStruct>,     // tp_traverse
+   CppClear<GrpListStruct>,        // tp_clear
+};
+
 
 #define Owner (GetOwner<pkgCache::PkgIterator>(Self))
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
