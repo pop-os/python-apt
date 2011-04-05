@@ -73,6 +73,10 @@ Working with the cache
 
         A list of all :class:`PackageFile` objects stored in the cache.
 
+    .. attribute:: is_multi_arch
+
+        An attribute determining whether the cache supports multi-arch.
+
     .. attribute:: package_count
 
         The total number of packages available in the cache. This value is

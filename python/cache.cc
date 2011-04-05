@@ -222,11 +222,18 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
    return List;
 }
 
+static PyObject *PkgCacheGetIsMultiArch(PyObject *Self, void*) {
+    pkgCache *Cache = GetCpp<pkgCache *>(Self);
+    PyBool_FromLong(Cache->MultiArchCache());
+} 
+
 static PyGetSetDef PkgCacheGetSet[] = {
    {"depends_count",PkgCacheGetDependsCount,0,
     "The number of apt_pkg.Dependency objects stored in the cache."},
    {"file_list",PkgCacheGetFileList,0,
     "A list of apt_pkg.PackageFile objects stored in the cache."},
+   {"is_multi_arch", PkgCacheGetIsMultiArch, 0,
+    "Whether the cache supports multi-arch."},
    {"package_count",PkgCacheGetPackageCount,0,
     "The number of apt_pkg.Package objects stored in the cache."},
    {"package_file_count",PkgCacheGetPackageFileCount,0,
