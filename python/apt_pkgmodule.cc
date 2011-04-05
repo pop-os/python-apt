@@ -732,6 +732,9 @@ static struct _PyAptPkgAPIStruct API = {
    &PyVersion_Type,           // version_type
    &PyVersion_FromCpp,          // version_tocpp
    &PyVersion_ToCpp,          // version_tocpp
+   &PyGroup_Type,             // group_type
+   &PyGroup_FromCpp,          // group_fromcpp
+   &PyGroup_ToCpp             // group_tocpp
 };
 
 
@@ -811,6 +814,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"DependencyList",&PyDependencyList_Type); // NO __new__(), internal
    ADDTYPE(Module,"Package",&PyPackage_Type); // NO __new__()
    ADDTYPE(Module,"Version",&PyVersion_Type); // NO __new__()
+   ADDTYPE(Module,"Group", &PyGroup_Type);
    /* ============================ cdrom.cc ============================ */
    ADDTYPE(Module,"Cdrom",&PyCdrom_Type);
    /* ========================= configuration.cc ========================= */

@@ -70,6 +70,7 @@ extern PyTypeObject PyCache_Type;
 extern PyTypeObject PyCacheFile_Type;
 extern PyTypeObject PyPackageList_Type;
 extern PyTypeObject PyDescription_Type;
+extern PyTypeObject PyGroup_Type;
 extern PyTypeObject PyPackage_Type;
 extern PyTypeObject PyPackageFile_Type;
 extern PyTypeObject PyDependency_Type;
@@ -149,6 +150,7 @@ extern PyTypeObject PyFileLock_Type;
 # define PyDependency_ToCpp        GetCpp<pkgCache::DepIterator>
 # define PyDependencyList_ToCpp    GetCpp<RDepListStruct> // TODO
 # define PyDescription_ToCpp       GetCpp<pkgCache::DescIterator>
+# define PyGroup_ToCpp             GetCpp<pkgCache::GrpIterator>
 # define PyHashes_ToCpp            GetCpp<Hashes>
 # define PyHashString_ToCpp        GetCpp<HashString*>
 # define PyIndexRecords_ToCpp      GetCpp<indexRecords*>
@@ -186,6 +188,7 @@ PyObject* PyHashString_FromCpp(HashString* const &obj, bool Delete, PyObject *Ow
 PyObject* PyIndexRecords_FromCpp(indexRecords* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyMetaIndex_FromCpp(metaIndex* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyPackage_FromCpp(pkgCache::PkgIterator const &obj, bool Delete, PyObject *Owner);
+PyObject* PyGroup_FromCpp(pkgCache::GrpIterator const &obj, bool Delete, PyObject *Owner);
 PyObject* PyIndexFile_FromCpp(pkgIndexFile* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyPackageFile_FromCpp(pkgCache::PkgFileIterator const &obj, bool Delete, PyObject *Owner);
 //PyObject* PyPackageList_FromCpp(PkgListStruct const &obj, bool Delete, PyObject *Owner);

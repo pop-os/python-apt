@@ -436,6 +436,47 @@ Resolving Dependencies with :class:`ProblemResolver`
 
         Try to resolve the problems without installing or removing packages.
 
+:class:`Group` of packages with the same name
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. class:: Group(cache: Cache, name: str)
+
+    .. versionadded:: 0.8.0
+
+    A collection of packages in which all packages have the same name. Groups
+    are used in multi-arch environments, where two or more packages have the
+    same name, but different architectures.
+
+    Group objects provide the following parts for sequential access:
+
+    .. describe:: group[index]
+
+        Get the package at the given **index** in the group.
+
+        .. note::
+            Groups are internally implemented using a linked list. The object
+            keeps a pointer to the current object and the first object, so
+            access to the first element, or accesses in order have a
+            complexity of O(1). Random-access complexity is ranges from
+            O(1) to O(n).
+
+    Group objects also provide special methods to find single packages:
+
+    .. method:: find_package(architecture: str) -> Package
+
+        Find a package with the groups name and the architecture given
+        in the argument *architecture*. If no such package exists, return
+        ``None``.
+
+    .. method:: find_preferred_package(prefer_nonvirtual: bool = True) -> Package
+
+        Find the preferred package. This is the package of the native
+        architecture (specified in ``APT::Architecture``) if available,
+        or the package from the first foreign architecture. If no package
+        could be found, return ``None``
+
+        If **prefer_nonvirtual** is ``True``, the preferred package
+        will be a non-virtual package, if one exists.
+        
 
 :class:`Package` information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

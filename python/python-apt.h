@@ -167,6 +167,9 @@ struct _PyAptPkgAPIStruct {
     PyObject* (*version_fromcpp)(pkgCache::VerIterator const &obj, bool Delete, PyObject *Owner);
     pkgCache::VerIterator& (*version_tocpp)(PyObject *self);
 
+    PyTypeObject *group_type;
+    PyObject* (*group_fromcpp)(pkgCache::GrpIterator const &obj, bool Delete, PyObject *Owner);
+    pkgCache::GrpIterator& (*group_tocpp)(PyObject *self);
 };
 
 // Checking macros.
@@ -184,6 +187,7 @@ struct _PyAptPkgAPIStruct {
 # define PyDependency_Check(op)       PyObject_TypeCheck(op, &PyDependency_Type)
 # define PyDependencyList_Check(op)   PyObject_TypeCheck(op, &PyDependencyList_Type)
 # define PyDescription_Check(op)      PyObject_TypeCheck(op, &PyDescription_Type)
+# define PyGroup_Check(op)            PyObject_TypeCheck(op, &PyGroup_Type)
 # define PyHashes_Check(op)           PyObject_TypeCheck(op, &PyHashes_Type)
 # define PyHashString_Check(op)       PyObject_TypeCheck(op, &PyHashString_Type)
 # define PyIndexRecords_Check(op)     PyObject_TypeCheck(op, &PyIndexRecords_Type)
@@ -217,6 +221,7 @@ struct _PyAptPkgAPIStruct {
 # define PyDependencyList_CheckExact(op)   (op->op_type == &PyDependencyList_Type)
 # define PyDescription_CheckExact(op)      (op->op_type == &PyDescription_Type)
 # define PyHashes_CheckExact(op)           (op->op_type == &PyHashes_Type)
+# define PyGroup_CheckExact(op)            (op->op_type == &PyGroup_Type)
 # define PyHashString_CheckExact(op)       (op->op_type == &PyHashString_Type)
 # define PyIndexRecords_CheckExact(op)     (op->op_type == &PyIndexRecords_Type)
 # define PyMetaIndex_CheckExact(op)        (op->op_type == &PyMetaIndex_Type)
@@ -260,6 +265,7 @@ static int import_apt_pkg(void) {
 #  define PyDependency_Type        *(_PyAptPkg_API->dependency_type)
 #  define PyDependencyList_Type    *(_PyAptPkg_API->dependencylist_type)
 #  define PyDescription_Type       *(_PyAptPkg_API->description_type)
+#  define PyGroup_Type             *(_PyAptPkg_API->group_type)
 #  define PyHashes_Type            *(_PyAptPkg_API->hashes_type)
 #  define PyHashString_Type        *(_PyAptPkg_API->hashstring_type)
 #  define PyIndexRecords_Type      *(_PyAptPkg_API->indexrecords_type)
@@ -292,6 +298,7 @@ static int import_apt_pkg(void) {
 #  define PyDependency_ToCpp       _PyAptPkg_API->dependency_tocpp
 #  define PyDependencyList_ToCpp   _PyAptPkg_API->dependencylist_tocpp // NULL
 #  define PyDescription_ToCpp      _PyAptPkg_API->description_tocpp
+#  define PyGroup_ToCpp            _PyAptPkg_API->group_tocpp
 #  define PyHashes_ToCpp           _PyAptPkg_API->hashes_tocpp
 #  define PyHashString_ToCpp       _PyAptPkg_API->hashstring_tocpp
 #  define PyIndexRecords_ToCpp     _PyAptPkg_API->indexrecords_tocpp
@@ -324,6 +331,7 @@ static int import_apt_pkg(void) {
 #  define PyDependency_FromCpp       _PyAptPkg_API->dependency_fromcpp
 #  define PyDependencyList_FromCpp   _PyAptPkg_API->dependencylist_fromcpp // NULL
 #  define PyDescription_FromCpp      _PyAptPkg_API->description_fromcpp
+#  define PyGroup_FromCpp            _PyAptPkg_API->group_fromcpp
 #  define PyHashes_FromCpp           _PyAptPkg_API->hashes_fromcpp
 #  define PyHashString_FromCpp       _PyAptPkg_API->hashstring_fromcpp
 #  define PyIndexRecords_FromCpp     _PyAptPkg_API->indexrecords_fromcpp

@@ -389,6 +389,36 @@ Description (pkgCache::DescIterator)
     Return the :ctype:`pkgCache::DescIterator` reference contained in the
     Python object *object*.
 
+
+Group (pkgCache::GrpIterator)
+----------------------------------
+.. cvar:: PyTypeObject PyGroup_Type
+
+    The type object for :class:`apt_pkg.Group` objects.
+
+.. cfunction:: int PyGroup_Check(PyObject *object)
+
+    Check that the object *object* is an :class:`apt_pkg.Group` object, or
+    a subclass thereof.
+
+.. cfunction:: int PyGroup_CheckExact(PyObject *object)
+
+    Check that the object *object* is an :class:`apt_pkg.Group` object
+    and no subclass thereof.
+
+.. cfunction:: PyObject* PyGroup_FromCpp(pkgCache::GrpIterator &cpp, bool delete, PyObject *owner)
+
+    Create a new :class:`apt_pkg.Group` object from the :ctype:`pkgCache::GrpIterator`
+    reference given by the parameter *cpp*. If the parameter *delete* is
+    true, *cpp* will be deleted when the reference
+    count of the returned object reaches 0. The parameter *owner* should be
+    a PyObject of the type :cdata:`PyCache_Type`.
+
+.. cfunction:: pkgCache::GrpIterator& PyGroup_ToCpp(PyObject *object)
+
+    Return the :ctype:`pkgCache::GrpIterator` reference contained in the
+    Python object *object*.
+
 Hashes (Hashes)
 ----------------------------------
 .. cvar:: PyTypeObject PyHashes_Type
