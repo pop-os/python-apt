@@ -392,6 +392,8 @@ Description (pkgCache::DescIterator)
 
 Group (pkgCache::GrpIterator)
 ----------------------------------
+.. versionadded:: 0.8.0
+
 .. cvar:: PyTypeObject PyGroup_Type
 
     The type object for :class:`apt_pkg.Group` objects.

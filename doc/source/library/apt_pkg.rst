@@ -63,6 +63,8 @@ Working with the cache
         Return the :class:`Package()` object for the package with the given
         name and architecture.
 
+        .. versionadded: 0.8.0
+
     .. describe:: pkgname in cache
 
         Check whether a package with the name given by *pkgname* exists in
@@ -73,6 +75,8 @@ Working with the cache
 
         Check whether a package with the given name and architecture exists
         in the cache.
+
+        .. versionadded: 0.8.0
 
     .. method:: update(progress, sources [, pulse_interval]) -> bool
 
@@ -99,10 +103,14 @@ Working with the cache
 
         The number of groups in the cache.
 
+        .. versionadded: 0.8.0
+
     .. attribute:: groups
 
         A sequence of :class:`Group` objects, implemented as a
         :class:`GroupList` object.
+
+        .. versionadded: 0.8.0
 
         .. class:: GroupList
 
@@ -110,6 +118,8 @@ Working with the cache
             an implementation of ``__getitem__`` for accessing groups at
             a certain index. Apart from being iterable, it can be used in
             the following ways:
+
+            .. versionadded: 0.8.0
 
             .. describe:: list[index]
 
@@ -124,6 +134,8 @@ Working with the cache
     .. attribute:: is_multi_arch
 
         An attribute determining whether the cache supports multi-arch.
+
+        .. versionadded: 0.8.0
 
     .. attribute:: package_count
 
