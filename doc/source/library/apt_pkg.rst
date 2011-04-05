@@ -43,15 +43,36 @@ Working with the cache
     of the cache). It may also be ``None``, in which case no progress will
     be emitted. If not given, progress will be printed to standard output.
 
+    .. note::
+
+        The cache supports colon-seperated name:architecture pairs. For
+        normal architectures, they are equal to a (name, architecture)
+        tuple. For the the "any" architecture behavior is different, as
+        "name:any" is equivalent to ("name:any", "any"). This is done so
+        that "name:any" matches all packages with that name which have
+        Multi-Arch: allowed set.
+
     .. describe:: cache[pkgname]
 
         Return the :class:`Package()` object for the package name given by
-        *pkgname*.
+        *pkgname*. If *pkgname* includes a colon, the part after the colon
+        is used as the architecture.
+
+    .. describe:: cache[name, architecture]
+
+        Return the :class:`Package()` object for the package with the given
+        name and architecture.
 
     .. describe:: pkgname in cache
 
         Check whether a package with the name given by *pkgname* exists in
-        the cache.
+        the cache for the native architecture. If *pkgname* includes a
+        colon, the part after the colon is used as the architecture.
+
+    .. describe:: (name, architecture) in cache
+
+        Check whether a package with the given name and architecture exists
+        in the cache.
 
     .. method:: update(progress, sources [, pulse_interval]) -> bool
 

@@ -249,24 +249,37 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {}
 };
 
+// Helper to call FindPkg(name) or FindPkg(name, architecture)
+static pkgCache::PkgIterator CacheFindPkg(PyObject *self, PyObject *arg)
+{
+    const char *name;
+    const char *architecture;
+    pkgCache *cache = GetCpp<pkgCache *>(self);
 
+    name = PyObject_AsString(arg);
+
+    if (name != NULL)
+        return cache->FindPkg(name);
+
+    PyErr_Clear();
+
+    if (PyArg_ParseTuple(arg, "ss", &name, &architecture) == 0) {
+        PyErr_Clear();
+        PyErr_Format(PyExc_TypeError, "Expected a string or a pair of strings");
+        return pkgCache::PkgIterator();
+    }
+
+    return cache->FindPkg(name, architecture);
+}
 
 // Map access, operator []
 static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 {
-   pkgCache *Cache = GetCpp<pkgCache *>(Self);
-
-   // Get the name of the package, unicode and normal strings.
-   const char *Name = PyObject_AsString(Arg);
-   if (Name == NULL)
-      return 0;
-
-
-   // Search for the package
-   pkgCache::PkgIterator Pkg = Cache->FindPkg(Name);
+   pkgCache::PkgIterator Pkg = CacheFindPkg(Self, Arg);
    if (Pkg.end() == true)
    {
-      PyErr_SetString(PyExc_KeyError,Name);
+      if (!PyErr_Occurred())
+        PyErr_SetObject(PyExc_KeyError,Arg);
       return 0;
    }
 
@@ -276,11 +289,9 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 // Check whether the cache contains a package with a given name.
 static int CacheContains(PyObject *Self,PyObject *Arg)
 {
-   // Get the name of the package, unicode and normal strings.
-   const char *Name = PyObject_AsString(Arg);
-   if (Name == NULL)
-      return 0;
-   return (GetCpp<pkgCache *>(Self)->FindPkg(Name).end() == false);
+   bool res = (CacheFindPkg(Self, Arg).end() == false);
+   PyErr_Clear();
+   return res;
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
@@ -356,7 +367,8 @@ static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "human-readable text to standard output. If it is None, no output\n"
     "will be made.\n\n"
     "The cache can be used like a mapping from package names to Package\n"
-    "objects (although only getting items is supported).";
+    "objects (although only getting items is supported). Instead of a name,\n"
+    "a tuple of a name and an architecture may be used.";
 static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};
 static PyMappingMethods CacheMap = {CacheMapLen,CacheMapOp,0};
 PyTypeObject PyCache_Type =
