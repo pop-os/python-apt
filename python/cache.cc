@@ -299,7 +299,11 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    pkgCacheFile *Cache = new pkgCacheFile();
 
-   if(pyCallbackInst != 0) {
+   if (pyCallbackInst == Py_None) {
+      OpProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	     return HandleErrors();
+   } else if(pyCallbackInst != 0) {
       // sanity check for the progress object, see #497049
       if (PyObject_HasAttrString(pyCallbackInst, "done") != true) {
         PyErr_SetString(PyExc_ValueError,
@@ -349,7 +353,8 @@ static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "apt.progress.base.OpProgress() object (or similar) which reports\n"
     "progress information while the cache is being opened.  If this\n"
     "parameter is not supplied, the progress will be reported in simple,\n"
-    "human-readable text to standard output.\n\n"
+    "human-readable text to standard output. If it is None, no output\n"
+    "will be made.\n\n"
     "The cache can be used like a mapping from package names to Package\n"
     "objects (although only getting items is supported).";
 static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};

@@ -7,7 +7,7 @@ class TestGroup(unittest.TestCase):
 
     def setUp(self):
         apt_pkg.init()
-        self.cache = apt_pkg.Cache()
+        self.cache = apt_pkg.Cache(progress=None)
 
     def test_pkgingroup(self):
         """Check that each package belongs to the corresponding group"""

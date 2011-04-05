@@ -70,7 +70,7 @@ class TestAptCache(unittest.TestCase):
 
     def test_low_level_pkg_provides(self):
         # low level cache provides list of the pkg
-        cache = apt_pkg.Cache()
+        cache = apt_pkg.Cache(progress=None)
         l = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
         self.assertTrue(len(l), 5)

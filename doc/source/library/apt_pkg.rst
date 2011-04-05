@@ -40,7 +40,8 @@ Working with the cache
     The constructor takes an optional argument which must be a subclass of
     :class:`apt.progress.base.OpProgress`. This object will then be used to
     display information during the cache opening process (or possible creation
-    of the cache).
+    of the cache). It may also be ``None``, in which case no progress will
+    be emitted. If not given, progress will be printed to standard output.
 
     .. describe:: cache[pkgname]
 
