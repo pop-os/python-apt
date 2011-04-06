@@ -82,6 +82,7 @@ class SourceEntry(object):
         self.invalid = False            # is the source entry valid
         self.disabled = False           # is it disabled ('#' in front)
         self.type = ""                  # what type (deb, deb-src)
+        self.architectures = []         # architectures
         self.uri = ""                   # base-uri
         self.dist = ""                  # distribution (dapper, edgy, etc)
         self.comps = []                 # list of available componetns
@@ -114,7 +115,7 @@ class SourceEntry(object):
         p_found = False
         space_found = False
         for i in range(len(line)):
-            if line[i] == "[":
+            if line[i] == "[" and not space_found:
                 p_found=True
                 tmp += line[i]
             elif line[i] == "]":
@@ -170,6 +171,20 @@ class SourceEntry(object):
         if self.type not in ("deb", "deb-src", "rpm", "rpm-src"):
             self.invalid = True
             return
+
+        if pieces[1].strip()[0] == "[":
+            options = pieces.pop(1).strip("[]").split(";")
+            for option in options:
+                try:
+                    key, value = option.split("=", 1)
+                except Exception:
+                    self.invalid = True
+                else:
+                    if key == "arch":
+                        self.architectures = value.split(",")
+                    else:
+                        self.invalid = True
+            
         # URI
         self.uri = pieces[1].strip()
         if len(self.uri) < 1:
@@ -205,7 +220,12 @@ class SourceEntry(object):
         line = ""
         if self.disabled:
             line = "# "
-        line += "%s %s %s" % (self.type, self.uri, self.dist)
+
+        line += self.type
+
+        if self.architectures:
+            line += " [arch=%s]" % ",".join(self.architectures)
+        line += " %s %s" % (self.uri, self.dist)
         if len(self.comps) > 0:
             line += " " + " ".join(self.comps)
         if self.comment != "":
@@ -256,12 +276,14 @@ class SourcesList(object):
             yield entry
         raise StopIteration
 
-    def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None):
+    def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None, architectures=[]):
         """
         Add a new source to the sources.list.
         The method will search for existing matching repos and will try to
         reuse them as far as possible
         """
+
+        architectures = set(architectures)
         # create a working copy of the component list so that
         # we can modify it later
         comps = orig_comps[:]
@@ -269,7 +291,8 @@ class SourcesList(object):
         for source in self.list:
             if not source.disabled and not source.invalid and \
                source.type == type and uri == source.uri and \
-               source.dist == dist:
+               source.dist == dist and \
+               set(source.architectures) == architectures:
                 for new_comp in comps:
                     if new_comp in source.comps:
                         # we have this component already, delete it
@@ -282,19 +305,25 @@ class SourcesList(object):
             # components
             if not source.disabled and not source.invalid and \
                source.type == type and uri == source.uri and \
-               source.dist == dist:
+               source.dist == dist and \
+               set(source.architectures) == architectures:
                 comps = uniq(source.comps + comps)
                 source.comps = comps
                 return source
             # if there is a corresponding repo which is disabled, enable it
             elif source.disabled and not source.invalid and \
                  source.type == type and uri == source.uri and \
+                 set(source.architectures) == architectures and \
                  source.dist == dist and \
                  len(set(source.comps) & set(comps)) == len(comps):
                 source.disabled = False
                 return source
         # there isn't any matching source, so create a new line and parse it
-        line = "%s %s %s" % (type, uri, dist)
+
+        line = type
+        if architectures:
+            line += " [arch=%s]" % ",".join(architectures)
+        line += " %s %s" % (uri, dist)
         for c in comps:
             line = line + " " + c
         if comment != "":

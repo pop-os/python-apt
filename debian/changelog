@@ -1,3 +1,14 @@
+python-apt (0.7.100.3ubuntu2) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * cherry pick multiarch support for aptsources from debian
+  
+  [ Julian Andres Klode ]
+  * aptsources: Parse multi-arch sources.list files correctly
+  * aptsources: Allow insertion of new multi-arch entries
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 06 Apr 2011 16:59:07 +0200
+
 python-apt (0.7.100.3ubuntu1) natty; urgency=low
 
   * merge fixes from debian-sid, most notably the fixes
