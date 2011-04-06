@@ -82,10 +82,15 @@ class TestHashString(unittest.TestCase):
 
     def setUp(self):
         """Prepare the test by reading the file."""
-        self.hashes = apt_pkg.Hashes(open(apt_pkg.__file__))
+        self.file = open(apt_pkg.__file__)
+        self.hashes = apt_pkg.Hashes(self.file)
         self.md5 = apt_pkg.HashString("MD5Sum", self.hashes.md5)
         self.sha1 = apt_pkg.HashString("SHA1", self.hashes.sha1)
         self.sha256 = apt_pkg.HashString("SHA256", self.hashes.sha256)
+
+    def tearDown(self):
+        """Cleanup, Close the file object used for the tests."""
+        self.file.close()        
 
     def test_md5(self):
         """hashes: Test apt_pkg.HashString().md5"""

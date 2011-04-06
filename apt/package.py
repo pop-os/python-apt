@@ -50,9 +50,9 @@ __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
 
 def _file_is_same(path, size, md5):
     """Return ``True`` if the file is the same."""
-    if (os.path.exists(path) and os.path.getsize(path) == size and
-        apt_pkg.md5sum(open(path)) == md5):
-        return True
+    if os.path.exists(path) and os.path.getsize(path) == size:
+        with open(path) as fobj:
+            return apt_pkg.md5sum(fobj) == md5
 
 
 class FetchError(Exception):
@@ -994,11 +994,8 @@ class Package(object):
         """
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
-            file_list = open(path, "rb")
-            try:
+            with open(path, "rb") as file_list:
                 return file_list.read().decode("utf-8").split(u"\n")
-            finally:
-                file_list.close()
         except EnvironmentError:
             return []
 
@@ -1104,6 +1101,7 @@ class Package(object):
                 # Check if the download was canceled
                 if cancel_lock and cancel_lock.isSet():
                     return u""
+                # FIXME: python3.2: Should be closed manually
                 changelog_file = urllib2.urlopen(uri)
                 # do only get the lines that are new
                 changelog = u""

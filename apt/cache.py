@@ -107,7 +107,7 @@ class Cache(object):
                 os.makedirs(rootdir + d)
         for f in files:
             if not os.path.exists(rootdir + f):
-                open(rootdir + f, "w")
+                open(rootdir + f, "w").close()
 
     def _run_callbacks(self, name):
         """ internal helper to run a callback """

@@ -368,15 +368,12 @@ class SourcesList(object):
     def load(self, file):
         """ (re)load the current sources """
         try:
-            f = open(file, "r")
-            lines = f.readlines()
-            for line in lines:
-                source = SourceEntry(line, file)
-                self.list.append(source)
+            with open(file, "r") as f:
+                for line in f:
+                    source = SourceEntry(line, file)
+                    self.list.append(source)
         except:
             print "could not open file '%s'" % file
-        else:
-            f.close()
 
     def save(self):
         """ save the current sources """
@@ -388,14 +385,19 @@ class SourcesList(object):
                 "## See sources.list(5) for more information, especialy\n"
                 "# Remember that you can only use http, ftp or file URIs\n"
                 "# CDROMs are managed through the apt-cdrom tool.\n")
-            open(path, "w").write(header)
+
+            with open(path, "w") as f:
+                f.write(header)
             return
-        for source in self.list:
-            if source.file not in files:
-                files[source.file] = open(source.file, "w")
-            files[source.file].write(source.str())
-        for f in files:
-            files[f].close()
+
+        try:
+            for source in self.list:
+                if source.file not in files:
+                    files[source.file] = open(source.file, "w")
+                files[source.file].write(source.str())
+        finally:
+            for f in files:
+                files[f].close()
 
     def check_for_relations(self, sources_list):
         """get all parent and child channels in the sources list"""
