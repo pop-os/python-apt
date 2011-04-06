@@ -48,9 +48,9 @@ class TestAptCache(unittest.TestCase):
                 # tons of seek operations
                 r = pkg.candidate.record
                 self.assertEqual(r['Package'], pkg.shortname)
-                self.assert_('Version' in r)
-                self.assert_(len(r['Description']) > 0)
-                self.assert_(str(r).startswith('Package: %s\n' % pkg.shortname))
+                self.assertTrue('Version' in r)
+                self.assertTrue(len(r['Description']) > 0)
+                self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
 
     def test_get_provided_packages(self):
         cache = apt.Cache()
