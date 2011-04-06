@@ -62,6 +62,14 @@ class TestAptSources(unittest.TestCase):
                     "edgy",
                     ["restricted"])
         self.assertTrue(sources.list == before.list)
+
+        before = copy.deepcopy(sources)
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
+                    "natty",
+                    ["main"], architectures=["amd64", "i386"])
+        self.assertTrue(sources.list == before.list)
+
+        
         # test to add something new: multiverse
         sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
@@ -72,6 +80,34 @@ class TestAptSources(unittest.TestCase):
                 entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
                 entry.dist == "edgy" and
                 "multiverse" in entry.comps):
+                found = True
+        self.assertTrue(found)
+
+        # add a new natty entry without architecture specification
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
+                    "natty",
+                    ["multiverse"])
+        found = False
+        for entry in sources:
+            if (entry.type == "deb" and
+                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                entry.dist == "natty" and
+                entry.architectures == [] and
+                "multiverse" in entry.comps):
+                found = True
+        self.assertTrue(found)
+
+        # Add universe to existing multi-arch line
+        sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
+                    "natty",
+                    ["universe"], architectures=["i386", "amd64"])
+        found = False
+        for entry in sources:
+            if (entry.type == "deb" and
+                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                entry.dist == "natty" and
+                set(entry.architectures) == set(["amd64", "i386"]) and
+                set(entry.comps) == set(["main", "universe"])):
                 found = True
         self.assertTrue(found)
         # test to add something new: multiverse *and*
