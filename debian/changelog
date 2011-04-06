@@ -1,4 +1,4 @@
-python-apt (0.7.100.3ubuntu3) UNRELEASED; urgency=low
+python-apt (0.7.100.3ubuntu3) natty; urgency=low
 
   [ Michael Vogt ]
   * cherry pick multiarch support for aptsources from debian
