@@ -17,8 +17,8 @@ Build-Depends: apt-utils,
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
                python-debian
-Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
-Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
+XS-Debian-Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
+XS-Debian-Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
