@@ -39,11 +39,11 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-        self.assertEqual(len(sources.list), 6)
+        self.assertEqual(len(sources.list), 9)
         # test load
         sources.list = []
         sources.load("data/aptsources/sources.list")
-        self.assertEqual(len(sources.list), 6)
+        self.assertEqual(len(sources.list), 9)
 
     def testSourcesListAdding(self):
         """aptsources: Test additions to sources.list"""
@@ -107,6 +107,21 @@ class TestAptSources(unittest.TestCase):
         for s in sources:
             if not s.template:
                 self.fail("source entry '%s' has no matcher" % s)
+
+    def testMultiArch(self):
+        """aptsources: Test multi-arch parsing"""
+
+        apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
+                           "sources.list")
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+
+        assert sources.list[8].invalid == False
+        assert sources.list[8].type == "deb"
+        assert sources.list[8].architectures == ["amd64", "i386"]
+        assert sources.list[8].uri == "http://de.archive.ubuntu.com/ubuntu/"
+        assert sources.list[8].dist == "natty"
+        assert sources.list[8].comps == ["main"]
+        assert sources.list[8].line.strip() == str(sources.list[8])
 
     def testDistribution(self):
         """aptsources: Test distribution detection."""
