@@ -28,11 +28,11 @@ PyObject *Python(PyObject *Self,PyObject *Args) \
    return CppPyString(CFunc(Str)); \
 }
 
-#define MkInt(Python,CFunc) \
+#define MkInt(Python,CFunc, ctype, pytype) \
 PyObject *Python(PyObject *Self,PyObject *Args) \
 { \
-   int Val = 0; \
-   if (PyArg_ParseTuple(Args,"i",&Val) == 0) \
+   ctype Val = 0; \
+   if (PyArg_ParseTuple(Args,pytype,&Val) == 0) \
       return 0; \
    return CppPyString(CFunc(Val)); \
 }
@@ -56,8 +56,8 @@ PyObject *StrBase64Encode(PyObject *Self,PyObject *Args) {
 MkStr(StrURItoFileName,URItoFileName);
 
 //MkFloat(StrSizeToStr,SizeToStr);
-MkInt(StrTimeToStr,TimeToStr);
-MkInt(StrTimeRFC1123,TimeRFC1123);
+MkInt(StrTimeToStr,TimeToStr, unsigned long, "k");
+MkInt(StrTimeRFC1123,TimeRFC1123, long long, "L");
 									/*}}}*/
 
 // Other String functions						/*{{{*/
