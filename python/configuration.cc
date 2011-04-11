@@ -438,6 +438,10 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
       return 0;
    }
 
+   if (PySequence_Length(Pargv) < 1) {
+      PyErr_SetString(PyExc_ValueError,"argv is an empty sequence");
+      return 0;
+   }
    // Convert the option list
    int Length = PySequence_Length(POList);
    CommandLine::Args *OList = new CommandLine::Args[Length+1];
