@@ -10,6 +10,7 @@ python-apt (0.8.0~exp2) UNRELEASED; urgency=low
     (time_to_str accepts unsigned long, time_rfc1123 long long, y2k31-correct).
   * apt.progress: Use long for ETA, natural type for size (LP: #377375)
   * aptsources/sourceslist.py: s/aptsource.py/sourceslist.py/ (LP: #309603)
+  * doc/examples: Add example on how to get architecture names (LP: #194374)
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 06 Apr 2011 09:46:52 +0200
 
