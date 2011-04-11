@@ -1,4 +1,4 @@
-#  aptsource.py - Provide an abstraction of the sources.list
+#  sourceslist.py - Provide an abstraction of the sources.list
 #
 #  Copyright (c) 2004-2009 Canonical Ltd.
 #  Copyright (c) 2004 Michiel Sikkes
