@@ -149,10 +149,11 @@ class TextFetchProgress(FetchProgress):
         Return True to continue or False to cancel.
         """
         FetchProgress.pulse(self)
+
         if self.currentCPS > 0:
             s = "[%2.f%%] %sB/s %s" % (self.percent,
-                                    apt_pkg.size_to_str(int(self.currentCPS)),
-                                    apt_pkg.time_to_str(int(self.eta)))
+                                    apt_pkg.size_to_str(self.currentCPS),
+                                    apt_pkg.time_to_str(long(self.eta)))
         else:
             s = "%2.f%% [Working]" % (self.percent)
         print "\r%s" % (s),
