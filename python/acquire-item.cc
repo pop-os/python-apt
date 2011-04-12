@@ -65,13 +65,13 @@ static PyObject *acquireitem_get_error_text(PyObject *self, void *closure)
 static PyObject *acquireitem_get_filesize(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? Py_BuildValue("K", item->FileSize) : 0;
+    return item ? MkPyNumber(item->FileSize) : 0;
 }
 
 static PyObject *acquireitem_get_id(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? Py_BuildValue("k", item->ID) : 0;
+    return item ? MkPyNumber(item->ID) : 0;
 }
 
 static PyObject *acquireitem_get_mode(PyObject *self, void *closure)
@@ -95,13 +95,13 @@ static PyObject *acquireitem_get_local(PyObject *self, void *closure)
 static PyObject *acquireitem_get_partialsize(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? Py_BuildValue("K", item->PartialSize) : 0;
+    return item ? MkPyNumber(item->PartialSize) : 0;
 }
 
 static PyObject *acquireitem_get_status(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? Py_BuildValue("i", item->Status) : 0;
+    return item ? MkPyNumber(item->Status) : 0;
 }
 
 static int acquireitem_set_id(PyObject *self, PyObject *value, void *closure)
@@ -110,7 +110,7 @@ static int acquireitem_set_id(PyObject *self, PyObject *value, void *closure)
     if (Itm == 0)
         return -1;
     if (PyLong_Check(value)) {
-        Itm->ID = PyLong_AsLong(value);
+        Itm->ID = PyLong_AsUnsignedLong(value);
     }
     else if (PyInt_Check(value)) {
         Itm->ID = PyInt_AsLong(value);

@@ -92,7 +92,7 @@ static PyObject *CnfFindI(PyObject *Self,PyObject *Args)
    int Default = 0;
    if (PyArg_ParseTuple(Args,"s|i",&Name,&Default) == 0)
       return 0;
-   return Py_BuildValue("i",GetSelf(Self).FindI(Name,Default));
+   return MkPyNumber(GetSelf(Self).FindI(Name,Default));
 }
 
 static const char *doc_FindB =

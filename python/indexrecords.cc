@@ -63,7 +63,7 @@ static PyObject *indexrecords_lookup(PyObject *self,PyObject *args)
     // Copy the HashString(), to prevent crashes and to not require the
     // indexRecords object to exist.
     PyObject *py_hash = PyHashString_FromCpp(new HashString(result->Hash), true, NULL);
-    PyObject *value = Py_BuildValue("(Oi)",py_hash,result->Size);
+    PyObject *value = Py_BuildValue("(ON)",py_hash,MkPyNumber(result->Size));
     Py_DECREF(py_hash);
     return value;
 }

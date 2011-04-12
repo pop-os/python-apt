@@ -79,7 +79,7 @@ static PyObject *PkgManagerDoInstall(PyObject *Self,PyObject *Args)
 
    pkgPackageManager::OrderResult res = pm->DoInstall(status_fd);
 
-   return HandleErrors(Py_BuildValue("i",res));
+   return HandleErrors(MkPyNumber(res));
 }
 
 static PyObject *PkgManagerFixMissing(PyObject *Self,PyObject *Args)

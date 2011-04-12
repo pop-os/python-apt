@@ -83,7 +83,7 @@ static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
       return 0;
    }
 
-   return Py_BuildValue("i",_system->VS->DoCmpVersion(A,A+LenA,B,B+LenB));
+   return MkPyNumber(_system->VS->DoCmpVersion(A,A+LenA,B,B+LenB));
 }
 
 static char *doc_CheckDep =
@@ -459,7 +459,7 @@ static PyObject *GetLock(PyObject *Self,PyObject *Args)
 
    int fd = GetLock(file, errors);
 
-   return HandleErrors(Py_BuildValue("i", fd));
+   return HandleErrors(MkPyNumber(fd));
 }
 
 static char *doc_PkgSystemLock =
@@ -854,82 +854,82 @@ extern "C" void initapt_pkg()
    // Acquire constants.
    // some constants
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_CANCELLED",
-                        Py_BuildValue("i", pkgAcquire::Cancelled));
+                        MkPyNumber(pkgAcquire::Cancelled));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_CONTINUE",
-                        Py_BuildValue("i", pkgAcquire::Continue));
+                        MkPyNumber(pkgAcquire::Continue));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "RESULT_FAILED",
-                        Py_BuildValue("i", pkgAcquire::Failed));
+                        MkPyNumber(pkgAcquire::Failed));
 #ifdef COMPAT_0_7
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultCancelled",
-                        Py_BuildValue("i", pkgAcquire::Cancelled));
+                        MkPyNumber(pkgAcquire::Cancelled));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultContinue",
-                        Py_BuildValue("i", pkgAcquire::Continue));
+                        MkPyNumber(pkgAcquire::Continue));
    PyDict_SetItemString(PyAcquire_Type.tp_dict, "ResultFailed",
-                        Py_BuildValue("i", pkgAcquire::Failed));
+                        MkPyNumber(pkgAcquire::Failed));
 #endif
     // Dependency constants
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_DEPENDS",
-                        Py_BuildValue("i", pkgCache::Dep::Depends));
+                        MkPyNumber(pkgCache::Dep::Depends));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_PREDEPENDS",
-                        Py_BuildValue("i", pkgCache::Dep::PreDepends));
+                        MkPyNumber(pkgCache::Dep::PreDepends));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_SUGGESTS",
-                        Py_BuildValue("i", pkgCache::Dep::Suggests));
+                        MkPyNumber(pkgCache::Dep::Suggests));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_RECOMMENDS",
-                        Py_BuildValue("i", pkgCache::Dep::Suggests));
+                        MkPyNumber(pkgCache::Dep::Suggests));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_CONFLICTS",
-                        Py_BuildValue("i", pkgCache::Dep::Conflicts));
+                        MkPyNumber(pkgCache::Dep::Conflicts));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_REPLACES",
-                        Py_BuildValue("i", pkgCache::Dep::Replaces));
+                        MkPyNumber(pkgCache::Dep::Replaces));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_OBSOLETES",
-                        Py_BuildValue("i", pkgCache::Dep::Obsoletes));
+                        MkPyNumber(pkgCache::Dep::Obsoletes));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_DPKG_BREAKS",
-                        Py_BuildValue("i", pkgCache::Dep::DpkgBreaks));
+                        MkPyNumber(pkgCache::Dep::DpkgBreaks));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_ENHANCES",
-                        Py_BuildValue("i", pkgCache::Dep::Enhances));
+                        MkPyNumber(pkgCache::Dep::Enhances));
 
 
    // PackageManager constants
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_COMPLETED",
-                        Py_BuildValue("i", pkgPackageManager::Completed));
+                        MkPyNumber(pkgPackageManager::Completed));
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_FAILED",
-                        Py_BuildValue("i", pkgPackageManager::Failed));
+                        MkPyNumber(pkgPackageManager::Failed));
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_INCOMPLETE",
-                        Py_BuildValue("i", pkgPackageManager::Incomplete));
+                        MkPyNumber(pkgPackageManager::Incomplete));
 
 #ifdef COMPAT_0_7
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultCompleted",
-                        Py_BuildValue("i", pkgPackageManager::Completed));
+                        MkPyNumber(pkgPackageManager::Completed));
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultFailed",
-                        Py_BuildValue("i", pkgPackageManager::Failed));
+                        MkPyNumber(pkgPackageManager::Failed));
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "ResultIncomplete",
-                        Py_BuildValue("i", pkgPackageManager::Incomplete));
+                        MkPyNumber(pkgPackageManager::Incomplete));
 #endif
 
    // AcquireItem Constants.
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_IDLE",
-                        Py_BuildValue("i", pkgAcquire::Item::StatIdle));
+                        MkPyNumber(pkgAcquire::Item::StatIdle));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_FETCHING",
-                        Py_BuildValue("i", pkgAcquire::Item::StatFetching));
+                        MkPyNumber(pkgAcquire::Item::StatFetching));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_DONE",
-                        Py_BuildValue("i", pkgAcquire::Item::StatDone));
+                        MkPyNumber(pkgAcquire::Item::StatDone));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_TRANSIENT_NETWORK_ERROR",
-                        Py_BuildValue("i", pkgAcquire::Item::StatTransientNetworkError));
+                        MkPyNumber(pkgAcquire::Item::StatTransientNetworkError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_ERROR",
-                        Py_BuildValue("i", pkgAcquire::Item::StatError));
+                        MkPyNumber(pkgAcquire::Item::StatError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_AUTH_ERROR",
-                        Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
+                        MkPyNumber(pkgAcquire::Item::StatAuthError));
 
 #ifdef COMPAT_0_7
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatIdle",
-                        Py_BuildValue("i", pkgAcquire::Item::StatIdle));
+                        MkPyNumber(pkgAcquire::Item::StatIdle));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatFetching",
-                        Py_BuildValue("i", pkgAcquire::Item::StatFetching));
+                        MkPyNumber(pkgAcquire::Item::StatFetching));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatDone",
-                        Py_BuildValue("i", pkgAcquire::Item::StatDone));
+                        MkPyNumber(pkgAcquire::Item::StatDone));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatError",
-                        Py_BuildValue("i", pkgAcquire::Item::StatError));
+                        MkPyNumber(pkgAcquire::Item::StatError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "StatAuthError",
-                        Py_BuildValue("i", pkgAcquire::Item::StatAuthError));
+                        MkPyNumber(pkgAcquire::Item::StatAuthError));
 #endif
 
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 1

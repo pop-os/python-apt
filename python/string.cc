@@ -91,7 +91,7 @@ PyObject *StrStringToBool(PyObject *Self,PyObject *Args)
    char *Str = 0;
    if (PyArg_ParseTuple(Args,"s",&Str) == 0)
       return 0;
-   return Py_BuildValue("i",StringToBool(Str));
+   return MkPyNumber(StringToBool(Str));
 }
 
 PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
@@ -107,7 +107,7 @@ PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
       return Py_None;
    }
 
-   return Py_BuildValue("i",Result);
+   return MkPyNumber(Result);
 }
 
 PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args)

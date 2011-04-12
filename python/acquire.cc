@@ -51,17 +51,17 @@ static PyObject *acquireworker_get_status(PyObject *self, void *closure)
 
 static PyObject *acquireworker_get_current_size(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k",GetCpp<pkgAcquire::Worker*>(self)->CurrentSize);
+    return MkPyNumber(GetCpp<pkgAcquire::Worker*>(self)->CurrentSize);
 }
 
 static PyObject *acquireworker_get_total_size(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k",GetCpp<pkgAcquire::Worker*>(self)->TotalSize);
+    return MkPyNumber(GetCpp<pkgAcquire::Worker*>(self)->TotalSize);
 }
 
 static PyObject *acquireworker_get_resumepoint(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k",GetCpp<pkgAcquire::Worker*>(self)->ResumePoint);
+    return MkPyNumber(GetCpp<pkgAcquire::Worker*>(self)->ResumePoint);
 }
 
 static PyGetSetDef acquireworker_getset[] = {
@@ -225,7 +225,7 @@ static PyObject *PkgAcquireRun(PyObject *Self,PyObject *Args)
 
     pkgAcquire::RunResult run = fetcher->Run(pulseInterval);
 
-    return HandleErrors(Py_BuildValue("i",run));
+    return HandleErrors(MkPyNumber(run));
 }
 
 
@@ -259,15 +259,15 @@ static PyMethodDef PkgAcquireMethods[] = {
 #define fetcher (GetCpp<pkgAcquire*>(Self))
 static PyObject *PkgAcquireGetTotalNeeded(PyObject *Self,void*)
 {
-    return Py_BuildValue("L", fetcher->TotalNeeded());
+    return MkPyNumber(fetcher->TotalNeeded());
 }
 static PyObject *PkgAcquireGetFetchNeeded(PyObject *Self,void*)
 {
-    return Py_BuildValue("L", fetcher->FetchNeeded());
+    return MkPyNumber(fetcher->FetchNeeded());
 }
 static PyObject *PkgAcquireGetPartialPresent(PyObject *Self,void*)
 {
-    return Py_BuildValue("L", fetcher->PartialPresent());
+    return MkPyNumber(fetcher->PartialPresent());
 }
 #undef fetcher
 

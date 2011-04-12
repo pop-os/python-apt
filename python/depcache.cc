@@ -668,22 +668,22 @@ static PyMethodDef PkgDepCacheMethods[] =
 
 #define depcache (GetCpp<pkgDepCache *>(Self))
 static PyObject *PkgDepCacheGetKeepCount(PyObject *Self,void*) {
-   return Py_BuildValue("l", depcache->KeepCount());
+   return MkPyNumber(depcache->KeepCount());
 }
 static PyObject *PkgDepCacheGetInstCount(PyObject *Self,void*) {
-   return Py_BuildValue("l", depcache->InstCount());
+   return MkPyNumber(depcache->InstCount());
 }
 static PyObject *PkgDepCacheGetDelCount(PyObject *Self,void*) {
-   return Py_BuildValue("l", depcache->DelCount());
+   return MkPyNumber(depcache->DelCount());
 }
 static PyObject *PkgDepCacheGetBrokenCount(PyObject *Self,void*) {
-   return Py_BuildValue("l", depcache->BrokenCount());
+   return MkPyNumber(depcache->BrokenCount());
 }
 static PyObject *PkgDepCacheGetUsrSize(PyObject *Self,void*) {
-   return Py_BuildValue("L", depcache->UsrSize());
+   return MkPyNumber(depcache->UsrSize());
 }
 static PyObject *PkgDepCacheGetDebSize(PyObject *Self,void*) {
-   return Py_BuildValue("L", depcache->DebSize());
+   return MkPyNumber(depcache->DebSize());
 }
 #undef depcache
 

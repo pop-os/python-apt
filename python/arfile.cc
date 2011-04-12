@@ -39,32 +39,32 @@ static PyObject *armember_get_name(PyObject *self, void *closure)
 
 static PyObject *armember_get_mtime(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->MTime);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->MTime);
 }
 
 static PyObject *armember_get_uid(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->UID);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->UID);
 }
 
 static PyObject *armember_get_gid(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->GID);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->GID);
 }
 
 static PyObject *armember_get_mode(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Mode);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->Mode);
 }
 
 static PyObject *armember_get_size(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Size);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->Size);
 }
 
 static PyObject *armember_get_start(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<ARArchive::Member*>(self)->Start);
+    return MkPyNumber(GetCpp<ARArchive::Member*>(self)->Start);
 }
 
 static PyObject *armember_repr(PyObject *self)
