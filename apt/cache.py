@@ -298,6 +298,8 @@ class Cache(object):
         The return value of the function is undefined. If an error occured,
         an exception of type :class:`FetchFailedException` or
         :class:`FetchCancelledException` is raised.
+
+        .. versionadded:: 0.8.0
         """
         if progress is not None and fetcher is not None:
             raise ValueError("Takes a progress or a an Acquire object")
