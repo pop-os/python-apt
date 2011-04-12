@@ -337,6 +337,9 @@ class Distribution(object):
             for source in sources:
                 add_component_only_once(source, comps_per_dist)
 
+            for source in self.source_code_sources:
+                add_component_only_once(source, comps_per_sdist)
+
         # check if there is a main source code source at all
         if self.get_source_code == True:
             if len(self.source_code_sources) < 1:
