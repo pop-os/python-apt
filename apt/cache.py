@@ -288,6 +288,28 @@ class Cache(object):
         finally:
             os.close(lock)
 
+    def fetch_archives(self, progress=None, fetcher=None):
+        """Fetch the archives for all packages marked for install/upgrade.
+
+        You can specify either an :class:`apt.progress.base.AcquireProgress()`
+        object for the parameter *progress*, or specify an already
+        existing :class:`apt_pkg.Acquire` object for the parameter *fetcher*.
+
+        The return value of the function is undefined. If an error occured,
+        an exception of type :class:`FetchFailedException` or
+        :class:`FetchCancelledException` is raised.
+        """
+        if progress is not None and fetcher is not None:
+            raise ValueError("Takes a progress or a an Acquire object")
+        if progress is None:
+            progress = apt.progress.text.AcquireProgress()
+        if fetcher is None:
+            fetcher = apt_pkg.Acquire(progress)
+
+        
+        return self._fetch_archives(fetcher,
+                                    apt_pkg.PackageManager(self._depcache))
+
     def is_virtual_package(self, pkgname):
         """Return whether the package is a virtual package."""
         try:
