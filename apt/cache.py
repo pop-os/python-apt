@@ -339,6 +339,10 @@ class Cache(object):
                raise_on_error=True, sources_list=None):
         """Run the equivalent of apt-get update.
 
+        You probably want to call open() afterwards, in order to utilise the
+        new cache. Otherwise, the old cache will be used which can lead to
+        strange bugs.
+
         The first parameter *fetch_progress* may be set to an instance of
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
         .
