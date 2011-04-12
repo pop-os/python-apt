@@ -1,3 +1,10 @@
+python-apt (0.8.0~exp3) UNRELEASED; urgency=low
+
+  [ Stéphane Graber ]
+  * Update enable_component to also apply to -src entries (LP: #758732)
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 12 Apr 2011 17:19:49 +0200
+
 python-apt (0.8.0~exp2) experimental; urgency=low
 
   * aptsources: Parse multi-arch sources.list files correctly
