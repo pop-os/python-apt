@@ -1,3 +1,11 @@
+python-apt (0.7.100.3ubuntu5) natty; urgency=low
+
+  [ Stéphane Graber ]
+  * fix enable_components for deb-src entries on ports.ubuntu.com
+    (LP: #760035)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 20 Apr 2011 18:05:51 +0200
+
 python-apt (0.7.100.3ubuntu4) natty; urgency=low
 
   * Update enable_component to also apply to -src entries (LP: #758732)

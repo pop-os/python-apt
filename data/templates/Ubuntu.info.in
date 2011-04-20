@@ -25,6 +25,13 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: natty
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+
+Suite: natty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*11.04
 MatchURI: cdrom:\[Ubuntu.*11.04
@@ -66,9 +73,23 @@ BaseURI-i386: http://security.ubuntu.com/ubuntu/
 MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
 _Description: Important security updates
 
+Suite: natty-security
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
 Suite: natty-updates
 ParentSuite: natty
 RepositoryType: deb
+_Description: Recommended updates
+
+Suite: natty-updates
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
 _Description: Recommended updates
 
 Suite: natty-proposed
@@ -76,9 +97,23 @@ ParentSuite: natty
 RepositoryType: deb
 _Description: Pre-released updates
 
+Suite: natty-proposed
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
 Suite: natty-backports
 ParentSuite: natty
 RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: natty-backports
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
 _Description: Unsupported updates
 
 Suite: maverick
@@ -106,6 +141,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: maverick
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*10.10
 MatchURI: cdrom:\[Ubuntu.*10.10
@@ -187,6 +223,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: lucid
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*10.04
 MatchURI: cdrom:\[Ubuntu.*10.04
@@ -248,6 +285,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: karmic
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*9.10
 MatchURI: cdrom:\[Ubuntu.*9.10
@@ -309,6 +347,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: jaunty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*9.04
 MatchURI: cdrom:\[Ubuntu.*9.04
@@ -370,6 +409,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: intrepid
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.10
 MatchURI: cdrom:\[Ubuntu.*8.10
@@ -432,6 +472,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: hardy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.04
 MatchURI: cdrom:\[Ubuntu.*8.04
@@ -495,6 +536,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: gutsy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.10
 MatchURI: cdrom:\[Ubuntu.*7.10
@@ -558,6 +600,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: feisty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.04
 MatchURI: cdrom:\[Ubuntu.*7.04
@@ -618,6 +661,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: edgy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.10
 MatchURI: cdrom:\[Ubuntu.*6.10
@@ -678,6 +722,7 @@ _CompDescription: Restricted software (Multiverse)
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: dapper
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.06
 MatchURI: cdrom:\[Ubuntu.*6.06
@@ -734,6 +779,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: breezy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.10
 MatchURI: cdrom:\[Ubuntu.*5.10
@@ -785,6 +831,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: hoary
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.04
 MatchURI: cdrom:\[Ubuntu.*5.04
@@ -831,6 +878,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: warty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*4.10
 MatchURI: cdrom:\[Ubuntu.*4.10

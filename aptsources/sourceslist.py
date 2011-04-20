@@ -449,7 +449,10 @@ class SourceEntryMatcher(object):
         found = False
         for template in self.templates:
             if (re.search(template.match_uri, source.uri) and
-                re.match(template.match_name, source.dist)):
+                re.match(template.match_name, source.dist) and
+                # deb is a valid fallback for deb-src (if that is not
+                # definied, see #760035
+                (source.type == template.type or template.type == "deb")):
                 found = True
                 source.template = template
                 break
