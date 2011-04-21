@@ -1047,6 +1047,11 @@ static PyObject *VersionGetTranslatedDescription(PyObject *Self, void*) {
                     Ver.TranslatedDescription());
 }
 
+static PyObject *VersionGetMultiArch(PyObject *Self, void*)
+{
+	return MkPyNumber(Version_GetVer(Self)->MultiArch);
+}
+
 #if 0 // FIXME: enable once pkgSourceList is stored somewhere
 static PyObject *VersionGetIsTrusted(PyObject *Self, void*) {
    else if (strcmp("IsTrusted", Name) == 0)
@@ -1122,6 +1127,9 @@ static PyGetSetDef VersionGetSet[] = {
     "The numeric ID of the package."},
    {"installed_size",VersionGetInstalledSize,0,
     "The installed size of this package version."},
+   {"multi_arch",VersionGetMultiArch,0,
+    "Multi-arch state of this package, as an integer. See\n"
+    "the various MULTI_ARCH_* members."},
    {"parent_pkg",VersionGetParentPkg,0,
     "The parent package of this version."},
    {"priority",VersionGetPriority,0,

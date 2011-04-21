@@ -2,6 +2,9 @@ python-apt (0.8.0~exp3) UNRELEASED; urgency=low
 
   [ Stéphane Graber ]
   * Update enable_component to also apply to -src entries (LP: #758732)
+  
+  [ Julian Andres Klode ]
+  * apt_pkg: Add apt_pkg.Version.multi_arch and friends
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 12 Apr 2011 17:19:49 +0200
 

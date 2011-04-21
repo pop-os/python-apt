@@ -905,6 +905,20 @@ extern "C" void initapt_pkg()
                         MkPyNumber(pkgPackageManager::Incomplete));
 #endif
 
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NONE",
+                        MkPyNumber(pkgCache::Version::None));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL",
+                        MkPyNumber(pkgCache::Version::All));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_FOREIGN",
+                        MkPyNumber(pkgCache::Version::Foreign));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_SAME",
+                        MkPyNumber(pkgCache::Version::Same));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALLOWED",
+                        MkPyNumber(pkgCache::Version::Allowed));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL_FOREIGN",
+                        MkPyNumber(pkgCache::Version::AllForeign));
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL_ALLOWED",
+                        MkPyNumber(pkgCache::Version::AllAllowed));
    // AcquireItem Constants.
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_IDLE",
                         MkPyNumber(pkgAcquire::Item::StatIdle));

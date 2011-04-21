@@ -758,6 +758,49 @@ Example:
     .. attribute:: installed_size
 
         The size of the package (in kilobytes), when unpacked on the disk.
+        
+    .. attribute:: multi_arch
+    
+		The multi-arch state of the package. Can be one of the following
+		attributes.
+		
+			.. attribute:: MULTI_ARCH_NONE
+			
+				No multi-arch
+				
+			.. attribute:: MULTI_ARCH_ALL
+			
+				An ``Architecture: all`` package
+				
+			
+			.. attribute:: MULTI_ARCH_FOREIGN
+			
+				Can satisfy dependencies of foreign-architecture
+				packages
+				
+			.. attribute:: MULTI_ARCH_ALL_FOREIGN
+			
+				:attr:`MULTI_ARCH_FOREIGN` for ``Architecture: all``
+				packages.
+				
+			.. attribute:: MULTI_ARCH_SAME
+			
+				Multiple versions from different architectures may be
+				installed in parallel, but may only satisfy dependencies
+				of packages from the same architecture
+				
+			.. attribute:: MULTI_ARCH_ALLOWED
+			
+				Installation in parallel and satisfying ``pkg:any``
+				style dependencies is allowed.
+				
+			.. attribute:: MULTI_ARCH_ALL_ALLOWED
+			
+				:attr:`MULTI_ARCH_ALLOWED` for ``Architecture: all``
+				packages.
+				
+				
+			
 
     .. attribute:: parent_pkg
 
