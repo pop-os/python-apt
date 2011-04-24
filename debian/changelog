@@ -1,3 +1,10 @@
+python-apt (0.7.100.3ubuntu6) natty; urgency=low
+
+  * Add missing _Description entry to Ubuntu.info for new deb-src entries.
+    (LP: #768363)
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Sun, 24 Apr 2011 13:24:53 -0400
+
 python-apt (0.7.100.3ubuntu5) natty; urgency=low
 
   [ Stéphane Graber ]

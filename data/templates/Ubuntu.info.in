@@ -29,6 +29,7 @@ ParentSuite: natty
 RepositoryType: deb-src
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 11.04 'Natty Narwhal'
 
 Suite: natty
 RepositoryType: deb
