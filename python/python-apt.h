@@ -170,6 +170,10 @@ struct _PyAptPkgAPIStruct {
     PyTypeObject *group_type;
     PyObject* (*group_fromcpp)(pkgCache::GrpIterator const &obj, bool Delete, PyObject *Owner);
     pkgCache::GrpIterator& (*group_tocpp)(PyObject *self);
+    
+    PyTypeObject *orderlist_type;
+    PyObject* (*orderlist_fromcpp)(pkgOrderList* const &obj, bool Delete, PyObject *Owner);
+    pkgOrderList*& (*orderlist_tocpp)(PyObject *self);
 };
 
 // Checking macros.
@@ -228,6 +232,7 @@ struct _PyAptPkgAPIStruct {
 # define PyPackage_CheckExact(op)          (op->op_type == &PyPackage_Type)
 # define PyPackageFile_CheckExact(op)      (op->op_type == &PyPackageFile_Type)
 # define PyIndexFile_CheckExact(op)        (op->op_type == &PyIndexFile_Type)
+# define PyOrderList_CheckExact(op)        (op->op_type == &PyOrderList_Type)
 # define PyPackageList_CheckExact(op)      (op->op_type == &PyPackageList_Type)
 # define PyPackageManager_CheckExact(op)   (op->op_type == &PyPackageManager_Type)
 # define PyPackageRecords_CheckExact(op)   (op->op_type == &PyPackageRecords_Type)
@@ -273,6 +278,7 @@ static int import_apt_pkg(void) {
 #  define PyPackage_Type           *(_PyAptPkg_API->package_type)
 #  define PyPackageFile_Type       *(_PyAptPkg_API->packagefile_type)
 #  define PyIndexFile_Type         *(_PyAptPkg_API->packageindexfile_type)
+#  define PyOrderList_Type         *(_PyAptPkg_API->orderlist_type)
 #  define PyPackageList_Type       *(_PyAptPkg_API->packagelist_type)
 #  define PyPackageManager_Type    *(_PyAptPkg_API->packagemanager_type)
 #  define PyPackageRecords_Type    *(_PyAptPkg_API->packagerecords_type)
@@ -306,6 +312,7 @@ static int import_apt_pkg(void) {
 #  define PyPackage_ToCpp          _PyAptPkg_API->package_tocpp
 #  define PyPackageFile_ToCpp      _PyAptPkg_API->packagefile_tocpp
 #  define PyIndexFile_ToCpp        _PyAptPkg_API->packageindexfile_tocpp
+#  define PyOrderList_ToCpp        _PyAptPkg_API->orderlist_tocpp // NULL
 #  define PyPackageList_ToCpp      _PyAptPkg_API->packagelist_tocpp // NULL
 #  define PyPackageManager_ToCpp   _PyAptPkg_API->packagemanager_tocpp
 #  define PyPackageRecords_ToCpp   _PyAptPkg_API->packagerecords_tocpp
@@ -339,6 +346,7 @@ static int import_apt_pkg(void) {
 #  define PyPackage_FromCpp          _PyAptPkg_API->package_fromcpp
 #  define PyPackageFile_FromCpp      _PyAptPkg_API->packagefile_fromcpp
 #  define PyIndexFile_FromCpp        _PyAptPkg_API->packageindexfile_fromcpp
+#  define PyOrderList_FromCpp        _PyAptPkg_API->orderlist_fromcpp // NULL
 #  define PyPackageList_FromCpp      _PyAptPkg_API->packagelist_fromcpp // NULL
 #  define PyPackageManager_FromCpp   _PyAptPkg_API->packagemanager_fromcpp
 #  define PyPackageRecords_FromCpp   _PyAptPkg_API->packagerecords_fromcpp

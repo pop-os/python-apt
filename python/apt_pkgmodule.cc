@@ -24,6 +24,7 @@
 #include <apt-pkg/sha256.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
+#include <apt-pkg/orderlist.h>
 
 #include <sys/stat.h>
 #include <libintl.h>
@@ -734,7 +735,10 @@ static struct _PyAptPkgAPIStruct API = {
    &PyVersion_ToCpp,          // version_tocpp
    &PyGroup_Type,             // group_type
    &PyGroup_FromCpp,          // group_fromcpp
-   &PyGroup_ToCpp             // group_tocpp
+   &PyGroup_ToCpp,            // group_tocpp
+   &PyOrderList_Type,         // orderlist_type
+   &PyOrderList_FromCpp,      // orderlist_fromcpp
+   &PyOrderList_ToCpp         // orderlist_tocpp
 };
 
 
@@ -843,6 +847,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"AcquireItemDesc",&PyAcquireItemDesc_Type);
    ADDTYPE(Module,"SystemLock",&PySystemLock_Type);
    ADDTYPE(Module,"FileLock",&PyFileLock_Type);
+   ADDTYPE(Module,"OrderList",&PyOrderList_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));
@@ -850,6 +855,16 @@ extern "C" void initapt_pkg()
    PyModule_AddObject(Module,"REWRITE_SOURCE_ORDER",
                       CharCharToList(TFRewriteSourceOrder));
 
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_ADDED", MkPyNumber(pkgOrderList::Added));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_ADD_PENDIG", MkPyNumber(pkgOrderList::AddPending));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_IMMEDIATE", MkPyNumber(pkgOrderList::Immediate));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_LOOP", MkPyNumber(pkgOrderList::Loop));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_UNPACKED", MkPyNumber(pkgOrderList::UnPacked));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_CONFIGURED", MkPyNumber(pkgOrderList::Configured));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_REMOVED", MkPyNumber(pkgOrderList::Removed));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_IN_LIST", MkPyNumber(pkgOrderList::InList));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_AFTER", MkPyNumber(pkgOrderList::After));
+   PyDict_SetItemString(PyOrderList_Type.tp_dict, "FLAG_STATES_MASK", MkPyNumber(pkgOrderList::States));
 
    // Acquire constants.
    // some constants
@@ -982,6 +997,7 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"INSTSTATE_REINSTREQ",pkgCache::State::ReInstReq);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD",pkgCache::State::Hold);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
+
 
    // DEPRECATED API
    #ifdef COMPAT_0_7

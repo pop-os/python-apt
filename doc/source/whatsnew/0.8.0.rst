@@ -23,6 +23,8 @@ This release of python-apt also features several other, smaller changes:
 
     * apt_pkg.Cache() now takes None for the progress parameter, preventing
       progress reporting.
+    * A new class :class:`apt_pkg.OrderList` has been added on request
+      of the mancoosi project.
 
 There have been various other changes, see the changelog for a complete list
 of changes.

@@ -1,3 +1,9 @@
+python-apt (0.8.0~exp4) UNRELEASED; urgency=low
+
+  * apt_pkg: Add OrderList, wanted for mancoosi (Closes: #623485)
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 27 Apr 2011 12:55:59 +0200
+
 python-apt (0.8.0~exp3) experimental; urgency=low
 
   [ Stéphane Graber ]

@@ -622,6 +622,34 @@ IndexFile (pkgIndexFile)
     Return the :ctype:`pkgIndexFile` pointer contained in the Python object
     *object*.
 
+OrderList (pkgOrderList)
+---------------------------
+.. cvar:: PyTypeObject PyOrderList_Type
+
+    The type object for :class:`apt_pkg.OrderList` objects.
+
+.. cfunction:: int PyOrderList_Check(PyObject *object)
+
+    Check that the object *object* is an :class:`apt_pkg.OrderList` object, or
+    a subclass thereof.
+
+.. cfunction:: int PyOrderList_CheckExact(PyObject *object)
+
+    Check that the object *object* is an :class:`apt_pkg.OrderList` object
+    and no subclass thereof.
+
+.. cfunction:: PyObject* PyOrderList_FromCpp(pkgOrderList *cpp, bool delete, PyObject *owner)
+
+    Create a new :class:`apt_pkg.OrderList` object from the :ctype:`pkgOrderList`
+    pointer given by the parameter *cpp*. If the parameter *delete* is
+    true, the object pointed to by *cpp* will be deleted when the reference
+    count of the returned object reaches 0. The owner must be a
+    :class:`apt_pkg.DepCache` object.
+
+.. cfunction:: pkgOrderList* PyOrderList_ToCpp(PyObject *object)
+
+    Return the :ctype:`pkgOrderList` pointer contained in the Python object
+    *object*.
 
 PackageManager (pkgPackageManager)
 ----------------------------------
