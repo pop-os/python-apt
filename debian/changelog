@@ -1,3 +1,10 @@
+python-apt (0.7.100.3ubuntu7) UNRELEASEDoneiric; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - add oneiric templates
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 28 Apr 2011 11:49:32 +0200
+
 python-apt (0.7.100.3ubuntu6) natty; urgency=low
 
   * Add missing _Description entry to Ubuntu.info for new deb-src entries.
