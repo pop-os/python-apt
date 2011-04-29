@@ -423,6 +423,65 @@ Installing with :class:`PackageManager`
         A constant for checking whether the the result of the call to
         :meth:`do_install` is 'incomplete'.
         
+    All instances of this class also support the following methods:
+    
+    .. note::
+        
+        This methods are provided mainly for subclassing purposes
+        and should not be used in most programs. This class is a
+        subclass of an internal :class:`_PackageManager` which does
+        not provide that methods. As the public C++ API creates such
+        an object without those methods, you should not rely on those
+        methods to be available unless you used the constructor of
+        :class:`PackageManager` to create the object.
+    
+    .. method:: configure(pkg: Package) -> bool 
+
+        Notify the package manager that the :class:`Package` given
+        by *pkg* is to be configured. Must return a ``True`` value
+        or ``None`` to continue, or a value which is ``False`` if
+        evaluated as boolean to abort.
+        
+        .. versionadded:: 0.8.0
+
+    .. method:: install(pkg: Package, filename: str) -> bool 
+
+        Notify the package manager that the :class:`Package` given
+        by *pkg* is to be installed from the .deb located at
+        *filename*. Must return a ``True`` value or ``None`` to
+        continue, or a value which is ``False`` if evaluated as
+        boolean to abort.
+        
+        
+        .. versionadded:: 0.8.0
+
+    .. method:: remove(pkg: Package, purge: bool) -> bool 
+
+        Notify the package manager that the :class:`Package` given
+        by *pkg* is to be removed. If *purge* is ``True``, the package
+        shall be purged. Must return a ``True`` value or ``None`` to
+        continue, or a value which is ``False`` if evaluated as boolean
+        to abort.
+        
+        
+        .. versionadded:: 0.8.0
+ 
+    .. method:: go(status_fd: int) -> bool  
+        
+        Start dpkg, writing status information to the file descriptor
+        given by *status_fd*. Must return a ``True`` value or ``None`` to
+        continue, or a value which is ``False`` if evaluated as boolean
+        to abort.
+        
+        .. versionadded:: 0.8.0
+
+    .. method:: reset()
+
+        Reset the package manager for a new round.
+        
+        .. versionadded:: 0.8.0
+
+        
 Installation ordering with :class:`OrderList`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

@@ -1,6 +1,7 @@
 python-apt (0.8.0~exp4) UNRELEASED; urgency=low
 
   * apt_pkg: Add OrderList, wanted for mancoosi (Closes: #623485)
+  * apt_pkg: Add subclassing fun to PackageManager, for #623485 as well
   * apt.cache: Emit change signals in ProblemResolver
   * apt.Cache: Add a _changes_count member for later use
 

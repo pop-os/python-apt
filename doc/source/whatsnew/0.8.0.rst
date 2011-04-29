@@ -16,6 +16,16 @@ This version of python-apt introduces multi-arch support:
     * A new class, :class:`apt_pkg.Group` has been added.
     * :class:`apt_pkg.Cache` can now be indexed by ``(name, architecture)``
       tuples
+      
+Features for mancoosi
+----------------------
+Several new features related to ordering have been added on request
+of the mancoosi project:
+
+    * A new class :class:`apt_pkg.OrderList` has been added
+    * The :class:`apt_pkg.PackageManager` class now provides new methods
+      for registering install/remove/configure actions which can be
+      subclassed to check ordering.
 
 Other changes
 -------------
@@ -23,8 +33,6 @@ This release of python-apt also features several other, smaller changes:
 
     * apt_pkg.Cache() now takes None for the progress parameter, preventing
       progress reporting.
-    * A new class :class:`apt_pkg.OrderList` has been added on request
-      of the mancoosi project.
 
 There have been various other changes, see the changelog for a complete list
 of changes.

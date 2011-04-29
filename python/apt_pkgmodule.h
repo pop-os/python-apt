@@ -102,6 +102,7 @@ PyObject *GetPkgAcqFile(PyObject *Self, PyObject *Args, PyObject *kwds);
 
 // packagemanager
 extern PyTypeObject PyPackageManager_Type;
+extern PyTypeObject PyPackageManager2_Type;
 PyObject *GetPkgManager(PyObject *Self,PyObject *Args);
 
 

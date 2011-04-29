@@ -833,7 +833,8 @@ extern "C" void initapt_pkg()
    /* ========================= metaindex.cc ========================= */
    ADDTYPE(Module,"MetaIndex",&PyMetaIndex_Type); // NO __new__()
    /* ========================= pkgmanager.cc ========================= */
-   ADDTYPE(Module,"PackageManager",&PyPackageManager_Type);
+   ADDTYPE(Module,"_PackageManager",&PyPackageManager_Type);
+   ADDTYPE(Module,"PackageManager",&PyPackageManager2_Type);
    /* ========================= pkgrecords.cc ========================= */
    ADDTYPE(Module,"PackageRecords",&PyPackageRecords_Type);
    /* ========================= pkgsrcrecords.cc ========================= */
