@@ -2,6 +2,7 @@ python-apt (0.8.0~exp4) UNRELEASED; urgency=low
 
   * apt_pkg: Add OrderList, wanted for mancoosi (Closes: #623485)
   * apt.cache: Emit change signals in ProblemResolver
+  * apt.Cache: Add a _changes_count member for later use
 
  -- Julian Andres Klode <jak@debian.org>  Wed, 27 Apr 2011 12:55:59 +0200
 

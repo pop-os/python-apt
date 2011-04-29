@@ -66,7 +66,11 @@ class Cache(object):
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
         self._fullnameset = set()
+        self._changes_count = -1
         self._sorted_set = None
+        
+        self.connect("cache_post_open", self._inc_changes_count)
+        self.connect("cache_post_change", self._inc_changes_count)
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -87,6 +91,11 @@ class Cache(object):
             # recognized (LP: #320665)
             apt_pkg.init_system()
         self.open(progress)
+        
+
+    def _inc_changes_count(self):
+        """Increase the number of changes"""
+        self._changes_count += 1
 
     def _check_and_create_required_dirs(self, rootdir):
         """
