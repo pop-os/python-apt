@@ -576,6 +576,7 @@ class ProblemResolver(object):
 
     def __init__(self, cache):
         self._resolver = apt_pkg.ProblemResolver(cache._depcache)
+        self._cache = cache
 
     def clear(self, package):
         """Reset the package to the default state."""
@@ -595,11 +596,15 @@ class ProblemResolver(object):
 
     def resolve(self):
         """Resolve dependencies, try to remove packages where needed."""
+        self._cache.cache_pre_change()
         self._resolver.resolve()
+        self._cache.cache_post_change()
 
     def resolve_by_keep(self):
         """Resolve dependencies, do not try to remove packages."""
+        self._cache.cache_pre_change()
         self._resolver.resolve_by_keep()
+        self._cache.cache_post_change()
 
 
 # ----------------------------- experimental interface
