@@ -50,7 +50,7 @@ Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         ubuntu-dev-tools (<< 0.93debian1),
         unattended-upgrades (<< 0.42debian2),
         update-manager (<< 0.200.2-1),
-        update-notifier (<< 0.99.3debian1),
+        update-notifier (<< 0.99.3debian9),
         wajig (<< 2.0.46)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte, python-apt-doc
