@@ -247,7 +247,7 @@ static PyObject *TagSecBytes(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   return Py_BuildValue("i",GetCpp<pkgTagSection>(Self).size());
+   return MkPyNumber(GetCpp<pkgTagSection>(Self).size());
 }
 
 static PyObject *TagSecStr(PyObject *Self)
@@ -319,7 +319,8 @@ static PyObject *TagFileOffset(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   return Py_BuildValue("i",((TagFileData *)Self)->Object.Offset());
+   return MkPyNumber(((TagFileData *)Self)->Object.Offset());
+   
 }
 
 static char *doc_Jump =

@@ -157,11 +157,10 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
 
         shown = False
         tval = '%i%%' % percent
-
         end = ""
         if self.current_cps:
-            eta = int(float(self.total_bytes - self.current_bytes) /
-                      self.current_cps)
+            eta = long(float(self.total_bytes - self.current_bytes) /
+                        self.current_cps)
             end = " %sB/s %s" % (apt_pkg.size_to_str(self.current_cps),
                                  apt_pkg.time_to_str(eta))
 

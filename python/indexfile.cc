@@ -47,7 +47,7 @@ static PyObject *IndexFileGetHasPackages(PyObject *Self,void*) {
    return PyBool_FromLong((File->HasPackages()));
 }
 static PyObject *IndexFileGetSize(PyObject *Self,void*) {
-   return Py_BuildValue("i",(File->Size()));
+   return MkPyNumber((File->Size()));
 }
 static PyObject *IndexFileGetIsTrusted(PyObject *Self,void*) {
    return PyBool_FromLong((File->IsTrusted()));

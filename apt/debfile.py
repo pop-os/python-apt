@@ -64,7 +64,7 @@ class DebPackage(object):
         self._installed_conflicts = set()
         self._failure_string = ""
         self.filename = filename
-        self._debfile = apt_inst.DebFile(open(self.filename))
+        self._debfile = apt_inst.DebFile(self.filename)
         control = self._debfile.control.extractdata("control")
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]

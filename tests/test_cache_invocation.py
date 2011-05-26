@@ -14,7 +14,7 @@ class TestCache(unittest.TestCase):
 
     def test_wrong_invocation(self):
         """cache_invocation: Test wrong invocation."""
-        apt_cache = apt_pkg.Cache(apt.progress.base.OpProgress())
+        apt_cache = apt_pkg.Cache(progress=None)
 
         self.assertRaises(ValueError, apt_pkg.Cache, apt_cache)
         self.assertRaises(ValueError, apt_pkg.Cache,
@@ -23,7 +23,7 @@ class TestCache(unittest.TestCase):
 
     def test_proper_invocation(self):
         """cache_invocation: Test correct invocation."""
-        apt_cache = apt_pkg.Cache(apt.progress.base.OpProgress())
+        apt_cache = apt_pkg.Cache(progress=None)
         apt_depcache = apt_pkg.DepCache(apt_cache)
 
 if __name__ == "__main__":

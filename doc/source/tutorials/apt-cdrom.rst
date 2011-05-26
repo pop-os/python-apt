@@ -98,7 +98,7 @@ it is a boolean argument. Afterwards you could use
 location of the mount pint. ``('c',"config-file","","ConfigFile")`` shows how
 to include configuration files. This option takes a parameter which points to
 a configuration file which will be added to the configuration space.
-('o',"option","","ArbItem") is yet another type of option, which allows users
+``('o',"option","","ArbItem")`` is yet another type of option, which allows users
 to set configuration options on the commandline.
 
 Now we have to check whether help or version is specified, and print a message

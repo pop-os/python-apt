@@ -39,13 +39,57 @@ const char *UntranslatedDepTypes[] =
 };
 
 									/*}}}*/
-struct PkgListStruct
+
+template<typename T> struct IterListStruct
 {
-   pkgCache::PkgIterator Iter;
+   T Iter;
    unsigned long LastIndex;
 
-   PkgListStruct(pkgCache::PkgIterator const &I) : Iter(I), LastIndex(0) {}
-   PkgListStruct() {abort();};  // G++ Bug..
+   IterListStruct(T const &I) : Iter(I), LastIndex(0) {}
+   IterListStruct() {};
+
+   bool move(unsigned long Index) {
+       if (Index < 0 || (unsigned)Index >= Count())
+       {
+          PyErr_SetNone(PyExc_IndexError);
+          return false;
+       }
+
+       if ((unsigned)Index < LastIndex)
+       {
+          LastIndex = 0;
+          Iter = Begin();
+       }
+
+       while ((unsigned)Index > LastIndex)
+       {
+          LastIndex++;
+          Iter++;
+          if (Iter.end() == true)
+          {
+         PyErr_SetNone(PyExc_IndexError);
+         return false;
+          }
+       }
+       return true;
+    }
+
+    virtual unsigned Count() = 0;
+    virtual T Begin() = 0;
+
+};
+
+struct PkgListStruct : public IterListStruct<pkgCache::PkgIterator> {
+    unsigned Count() { return Iter.Cache()->HeaderP->PackageCount; }
+    pkgCache::PkgIterator Begin() { return Iter.Cache()->PkgBegin(); }
+
+    PkgListStruct(pkgCache::PkgIterator const &I) { Iter = I; }
+};
+
+struct GrpListStruct : public IterListStruct<pkgCache::GrpIterator> {
+    unsigned Count() { return Iter.Cache()->HeaderP->GroupCount; }
+    pkgCache::GrpIterator Begin() { return Iter.Cache()->GrpBegin(); }
+    GrpListStruct(pkgCache::GrpIterator const &I) { Iter = I; }
 };
 
 struct RDepListStruct
@@ -175,6 +219,16 @@ static PyMethodDef PkgCacheMethods[] =
    {}
 };
 
+static PyObject *PkgCacheGetGroupCount(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return MkPyNumber(Cache->HeaderP->GroupCount);
+}
+
+static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
+   pkgCache *Cache = GetCpp<pkgCache *>(Self);
+   return CppPyObject_NEW<GrpListStruct>(Self,&PyGroupList_Type,Cache->GrpBegin());
+}
+
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
    return CppPyObject_NEW<PkgListStruct>(Self,&PyPackageList_Type,Cache->PkgBegin());
@@ -182,31 +236,31 @@ static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
 
 static PyObject *PkgCacheGetPackageCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->PackageCount);
+   return MkPyNumber((int)Cache->HeaderP->PackageCount);
 }
 
 static PyObject *PkgCacheGetVersionCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->VersionCount);
+   return MkPyNumber(Cache->HeaderP->VersionCount);
 }
 static PyObject *PkgCacheGetDependsCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->DependsCount);
+   return MkPyNumber(Cache->HeaderP->DependsCount);
 }
 
 static PyObject *PkgCacheGetPackageFileCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->PackageFileCount);
+   return MkPyNumber(Cache->HeaderP->PackageFileCount);
 }
 
 static PyObject *PkgCacheGetVerFileCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->VerFileCount);
+   return MkPyNumber(Cache->HeaderP->VerFileCount);
 }
 
 static PyObject *PkgCacheGetProvidesCount(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
-   return Py_BuildValue("i",Cache->HeaderP->ProvidesCount);
+   return MkPyNumber(Cache->HeaderP->ProvidesCount);
 }
 
 static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
@@ -222,11 +276,21 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
    return List;
 }
 
+static PyObject *PkgCacheGetIsMultiArch(PyObject *Self, void*) {
+    pkgCache *Cache = GetCpp<pkgCache *>(Self);
+    PyBool_FromLong(Cache->MultiArchCache());
+} 
+
 static PyGetSetDef PkgCacheGetSet[] = {
    {"depends_count",PkgCacheGetDependsCount,0,
     "The number of apt_pkg.Dependency objects stored in the cache."},
    {"file_list",PkgCacheGetFileList,0,
     "A list of apt_pkg.PackageFile objects stored in the cache."},
+   {"group_count",PkgCacheGetGroupCount,0,
+    "The number of apt_pkg.Group objects stored in the cache."},
+   {"groups",  PkgCacheGetGroups, 0, "A list of Group objects in the cache"},
+   {"is_multi_arch", PkgCacheGetIsMultiArch, 0,
+    "Whether the cache supports multi-arch."},
    {"package_count",PkgCacheGetPackageCount,0,
     "The number of apt_pkg.Package objects stored in the cache."},
    {"package_file_count",PkgCacheGetPackageFileCount,0,
@@ -242,24 +306,37 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {}
 };
 
+// Helper to call FindPkg(name) or FindPkg(name, architecture)
+static pkgCache::PkgIterator CacheFindPkg(PyObject *self, PyObject *arg)
+{
+    const char *name;
+    const char *architecture;
+    pkgCache *cache = GetCpp<pkgCache *>(self);
 
+    name = PyObject_AsString(arg);
+
+    if (name != NULL)
+        return cache->FindPkg(name);
+
+    PyErr_Clear();
+
+    if (PyArg_ParseTuple(arg, "ss", &name, &architecture) == 0) {
+        PyErr_Clear();
+        PyErr_Format(PyExc_TypeError, "Expected a string or a pair of strings");
+        return pkgCache::PkgIterator();
+    }
+
+    return cache->FindPkg(name, architecture);
+}
 
 // Map access, operator []
 static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 {
-   pkgCache *Cache = GetCpp<pkgCache *>(Self);
-
-   // Get the name of the package, unicode and normal strings.
-   const char *Name = PyObject_AsString(Arg);
-   if (Name == NULL)
-      return 0;
-
-
-   // Search for the package
-   pkgCache::PkgIterator Pkg = Cache->FindPkg(Name);
+   pkgCache::PkgIterator Pkg = CacheFindPkg(Self, Arg);
    if (Pkg.end() == true)
    {
-      PyErr_SetString(PyExc_KeyError,Name);
+      if (!PyErr_Occurred())
+        PyErr_SetObject(PyExc_KeyError,Arg);
       return 0;
    }
 
@@ -269,11 +346,9 @@ static PyObject *CacheMapOp(PyObject *Self,PyObject *Arg)
 // Check whether the cache contains a package with a given name.
 static int CacheContains(PyObject *Self,PyObject *Arg)
 {
-   // Get the name of the package, unicode and normal strings.
-   const char *Name = PyObject_AsString(Arg);
-   if (Name == NULL)
-      return 0;
-   return (GetCpp<pkgCache *>(Self)->FindPkg(Name).end() == false);
+   bool res = (CacheFindPkg(Self, Arg).end() == false);
+   PyErr_Clear();
+   return res;
 }
 
 static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
@@ -292,7 +367,11 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    pkgCacheFile *Cache = new pkgCacheFile();
 
-   if(pyCallbackInst != 0) {
+   if (pyCallbackInst == Py_None) {
+      OpProgress Prog;
+      if (Cache->Open(Prog,false) == false)
+	     return HandleErrors();
+   } else if(pyCallbackInst != 0) {
       // sanity check for the progress object, see #497049
       if (PyObject_HasAttrString(pyCallbackInst, "done") != true) {
         PyErr_SetString(PyExc_ValueError,
@@ -342,9 +421,11 @@ static char *doc_PkgCache = "Cache([progress]) -> Cache() object.\n\n"
     "apt.progress.base.OpProgress() object (or similar) which reports\n"
     "progress information while the cache is being opened.  If this\n"
     "parameter is not supplied, the progress will be reported in simple,\n"
-    "human-readable text to standard output.\n\n"
+    "human-readable text to standard output. If it is None, no output\n"
+    "will be made.\n\n"
     "The cache can be used like a mapping from package names to Package\n"
-    "objects (although only getting items is supported).";
+    "objects (although only getting items is supported). Instead of a name,\n"
+    "a tuple of a name and an architecture may be used.";
 static PySequenceMethods CacheSeq = {0,0,0,0,0,0,0,CacheContains,0,0};
 static PyMappingMethods CacheMap = {CacheMapLen,CacheMapOp,0};
 PyTypeObject PyCache_Type =
@@ -418,7 +499,7 @@ PyTypeObject PyCacheFile_Type =
    0,                                   // tp_as_buffer
    Py_TPFLAGS_DEFAULT,                  // tp_flags
 };
-									/*}}}*/
+
 // Package List Class							/*{{{*/
 // ---------------------------------------------------------------------
 static Py_ssize_t PkgListLen(PyObject *Self)
@@ -429,29 +510,9 @@ static Py_ssize_t PkgListLen(PyObject *Self)
 static PyObject *PkgListItem(PyObject *iSelf,Py_ssize_t Index)
 {
    PkgListStruct &Self = GetCpp<PkgListStruct>(iSelf);
-   if (Index < 0 || (unsigned)Index >= Self.Iter.Cache()->HeaderP->PackageCount)
-   {
-      PyErr_SetNone(PyExc_IndexError);
+
+   if (!Self.move(Index))
       return 0;
-   }
-
-   if ((unsigned)Index < Self.LastIndex)
-   {
-      Self.LastIndex = 0;
-      Self.Iter = Self.Iter.Cache()->PkgBegin();
-   }
-
-   while ((unsigned)Index > Self.LastIndex)
-   {
-      Self.LastIndex++;
-      Self.Iter++;
-      if (Self.Iter.end() == true)
-      {
-	 PyErr_SetNone(PyExc_IndexError);
-	 return 0;
-      }
-   }
-
    return CppPyObject_NEW<pkgCache::PkgIterator>(GetOwner<PkgListStruct>(iSelf),&PyPackage_Type,
 						      Self.Iter);
 }
@@ -501,6 +562,68 @@ PyTypeObject PyPackageList_Type =
    CppClear<PkgListStruct>,        // tp_clear
 };
 
+/* The same for groups */
+static Py_ssize_t GrpListLen(PyObject *Self)
+{
+   return GetCpp<GrpListStruct>(Self).Iter.Cache()->HeaderP->GroupCount;
+}
+
+static PyObject *GrpListItem(PyObject *iSelf,Py_ssize_t Index)
+{
+   GrpListStruct &Self = GetCpp<GrpListStruct>(iSelf);
+
+   if (!Self.move(Index))
+      return 0;
+   return CppPyObject_NEW<pkgCache::GrpIterator>(GetOwner<GrpListStruct>(iSelf),&PyGroup_Type,
+						      Self.Iter);
+}
+
+static PySequenceMethods GrpListSeq =
+{
+   GrpListLen,
+   0,                // concat
+   0,                // repeat
+   GrpListItem,
+   0,                // slice
+   0,                // assign item
+   0                 // assign slice
+};
+
+static const char *grouplist_doc =
+    "A GroupList is an internally used structure to represent\n"
+    "the 'groups' attribute of apt_pkg.Cache objects in a more\n"
+    "efficient manner by creating Group objects only when they\n"
+    "are accessed.";
+
+PyTypeObject PyGroupList_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.GroupList",               // tp_name
+   sizeof(CppPyObject<GrpListStruct>),   // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<GrpListStruct>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   &GrpListSeq,                         // tp_as_sequence
+   0,			                // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_GC, // tp_flags
+   grouplist_doc,                     // tp_doc
+   CppTraverse<GrpListStruct>,     // tp_traverse
+   CppClear<GrpListStruct>,        // tp_clear
+};
+
+
 #define Owner (GetOwner<pkgCache::PkgIterator>(Self))
 #define MkGet(PyFunc,Ret) static PyObject *PyFunc(PyObject *Self,void*) \
 { \
@@ -514,10 +637,10 @@ MkGet(PackageGetSection,Safe_FromString(Pkg.Section()))
 MkGet(PackageGetRevDependsList,CppPyObject_NEW<RDepListStruct>(Owner,
                                &PyDependencyList_Type, Pkg.RevDependsList()))
 MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()))
-MkGet(PackageGetSelectedState,Py_BuildValue("i",Pkg->SelectedState))
-MkGet(PackageGetInstState,Py_BuildValue("i",Pkg->InstState))
-MkGet(PackageGetCurrentState,Py_BuildValue("i",Pkg->CurrentState))
-MkGet(PackageGetID,Py_BuildValue("i",Pkg->ID))
+MkGet(PackageGetSelectedState,MkPyNumber(Pkg->SelectedState))
+MkGet(PackageGetInstState,MkPyNumber(Pkg->InstState))
+MkGet(PackageGetCurrentState,MkPyNumber(Pkg->CurrentState))
+MkGet(PackageGetID,MkPyNumber(Pkg->ID))
 #
 MkGet(PackageGetAuto,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Auto) != 0))
 MkGet(PackageGetEssential,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Essential) != 0))
@@ -714,7 +837,7 @@ static PyObject *DescriptionGetFileList(PyObject *Self,void*)
       PyObject *DescFile;
       PyObject *Obj;
       DescFile = CppPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PyPackageFile_Type,I.File());
-      Obj = Py_BuildValue("Nl",DescFile,I.Index());
+      Obj = Py_BuildValue("NN",DescFile,MkPyNumber(I.Index()));
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
    }
@@ -869,7 +992,7 @@ static PyObject *VersionGetFileList(PyObject *Self, void*) {
       PyObject *PkgFile;
       PyObject *Obj;
       PkgFile = CppPyObject_NEW<pkgCache::PkgFileIterator>(Owner,&PyPackageFile_Type,I.File());
-      Obj = Py_BuildValue("Nl",PkgFile,I.Index());
+      Obj = Py_BuildValue("NN",PkgFile,MkPyNumber(I.Index()));
       PyList_Append(List,Obj);
       Py_DECREF(Obj);
    }
@@ -896,19 +1019,19 @@ static PyObject *VersionGetProvidesList(PyObject *Self, void*) {
    return CreateProvides(Owner,Version_GetVer(Self).ProvidesList());
 }
 static PyObject *VersionGetSize(PyObject *Self, void*) {
-   return Py_BuildValue("i", Version_GetVer(Self)->Size);
+   return MkPyNumber(Version_GetVer(Self)->Size);
 }
 static PyObject *VersionGetInstalledSize(PyObject *Self, void*) {
-   return Py_BuildValue("i", Version_GetVer(Self)->InstalledSize);
+   return MkPyNumber(Version_GetVer(Self)->InstalledSize);
 }
 static PyObject *VersionGetHash(PyObject *Self, void*) {
-   return Py_BuildValue("i", Version_GetVer(Self)->Hash);
+   return MkPyNumber(Version_GetVer(Self)->Hash);
 }
 static PyObject *VersionGetID(PyObject *Self, void*) {
-   return Py_BuildValue("i", Version_GetVer(Self)->ID);
+   return MkPyNumber(Version_GetVer(Self)->ID);
 }
 static PyObject *VersionGetPriority(PyObject *Self, void*) {
-   return Py_BuildValue("i",Version_GetVer(Self)->Priority);
+   return MkPyNumber(Version_GetVer(Self)->Priority);
 }
 static PyObject *VersionGetPriorityStr(PyObject *Self, void*) {
    return Safe_FromString(Version_GetVer(Self).PriorityType());
@@ -922,6 +1045,11 @@ static PyObject *VersionGetTranslatedDescription(PyObject *Self, void*) {
    return CppPyObject_NEW<pkgCache::DescIterator>(Owner,
                     &PyDescription_Type,
                     Ver.TranslatedDescription());
+}
+
+static PyObject *VersionGetMultiArch(PyObject *Self, void*)
+{
+	return MkPyNumber(Version_GetVer(Self)->MultiArch);
 }
 
 #if 0 // FIXME: enable once pkgSourceList is stored somewhere
@@ -999,6 +1127,9 @@ static PyGetSetDef VersionGetSet[] = {
     "The numeric ID of the package."},
    {"installed_size",VersionGetInstalledSize,0,
     "The installed size of this package version."},
+   {"multi_arch",VersionGetMultiArch,0,
+    "Multi-arch state of this package, as an integer. See\n"
+    "the various MULTI_ARCH_* members."},
    {"parent_pkg",VersionGetParentPkg,0,
     "The parent package of this version."},
    {"priority",VersionGetPriority,0,
@@ -1118,7 +1249,7 @@ static PyObject *PackageFile_GetIndexType(PyObject *Self,void*)
 static PyObject *PackageFile_GetSize(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Py_BuildValue("i",File->Size);
+    return MkPyNumber(File->Size);
 }
 
 static PyObject *PackageFile_GetNotSource(PyObject *Self,void*)
@@ -1135,7 +1266,7 @@ static PyObject *PackageFile_GetNotAutomatic(PyObject *Self,void*)
 static PyObject *PackageFile_GetID(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Py_BuildValue("i",File->ID);
+    return MkPyNumber(File->ID);
 }
 
 #define S(s) (s == NULL ? "" : s)
@@ -1344,13 +1475,13 @@ static PyObject *DependencyGetDepTypeUntranslated(PyObject *Self,void*)
 static PyObject *DependencyGetDepTypeEnum(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return Py_BuildValue("i", Dep->Type);
+   return MkPyNumber(Dep->Type);
 }
 
 static PyObject *DependencyGetID(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return Py_BuildValue("i",Dep->ID);
+   return MkPyNumber(Dep->ID);
 }
 
 static PyGetSetDef DependencyGetSet[] = {

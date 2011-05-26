@@ -189,35 +189,35 @@ static PyObject *tarmember_get_linkname(PyObject *self, void *closure)
 
 static PyObject *tarmember_get_mode(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).Mode);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).Mode);
 }
 
 static PyObject *tarmember_get_uid(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).UID);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).UID);
 }
 static PyObject *tarmember_get_gid(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).GID);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).GID);
 }
 static PyObject *tarmember_get_size(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).Size);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).Size);
 }
 
 static PyObject *tarmember_get_mtime(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).MTime);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).MTime);
 }
 
 static PyObject *tarmember_get_major(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).Major);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).Major);
 }
 
 static PyObject *tarmember_get_minor(PyObject *self, void *closure)
 {
-    return Py_BuildValue("k", GetCpp<pkgDirStream::Item>(self).Minor);
+    return MkPyNumber(GetCpp<pkgDirStream::Item>(self).Minor);
 }
 
 static PyObject *tarmember_repr(PyObject *self)

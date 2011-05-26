@@ -147,9 +147,9 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
 
    PyObject *v;
    for(unsigned int i=0;i<f.size();i++) {
-      v = Py_BuildValue("(siss)",
+      v = Py_BuildValue("(sNss)",
 			f[i].MD5Hash.c_str(),
-			f[i].Size,
+			MkPyNumber(f[i].Size),
 			f[i].Path.c_str(),
 			f[i].Type.c_str());
       PyList_Append(List, v);
@@ -218,8 +218,10 @@ static PyObject *PkgSrcRecordsGetBuildDepends_old(PyObject *Self,void*) {
 
    PyObject *v;
    for(unsigned int i=0;i<bd.size();i++) {
-      v = Py_BuildValue("(ssii)", bd[i].Package.c_str(),
-			bd[i].Version.c_str(), bd[i].Op, bd[i].Type);
+      v = Py_BuildValue("(ssNN)", bd[i].Package.c_str(),
+			bd[i].Version.c_str(),
+			MkPyNumber(bd[i].Op),
+			MkPyNumber(bd[i].Type));
       PyList_Append(List, v);
       Py_DECREF(v);
    }

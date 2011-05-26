@@ -48,9 +48,9 @@ class TestAptCache(unittest.TestCase):
                 # tons of seek operations
                 r = pkg.candidate.record
                 self.assertEqual(r['Package'], pkg.shortname)
-                self.assert_('Version' in r)
-                self.assert_(len(r['Description']) > 0)
-                self.assert_(str(r).startswith('Package: %s\n' % pkg.shortname))
+                self.assertTrue('Version' in r)
+                self.assertTrue(len(r['Description']) > 0)
+                self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
 
     def test_get_provided_packages(self):
         cache = apt.Cache()
@@ -70,7 +70,7 @@ class TestAptCache(unittest.TestCase):
 
     def test_low_level_pkg_provides(self):
         # low level cache provides list of the pkg
-        cache = apt_pkg.Cache()
+        cache = apt_pkg.Cache(progress=None)
         l = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
         self.assertTrue(len(l), 5)
@@ -89,17 +89,17 @@ class TestAptCache(unittest.TestCase):
         tmpdir = tempfile.mkdtemp()
         dpkg_dir = os.path.join(tmpdir,"var","lib","dpkg")
         os.makedirs(os.path.join(dpkg_dir,"updates"))
-        open(os.path.join(dpkg_dir,"status"), "w")
+        open(os.path.join(dpkg_dir,"status"), "w").close()
         apt_pkg.config.set("Dir::State::status",
                        os.path.join(dpkg_dir,"status"))
         cache = apt.Cache()
         # test empty
         self.assertFalse(cache.dpkg_journal_dirty)
         # that is ok, only [0-9] are dpkg jounral entries
-        open(os.path.join(dpkg_dir,"updates","xxx"), "w")
+        open(os.path.join(dpkg_dir,"updates","xxx"), "w").close()
         self.assertFalse(cache.dpkg_journal_dirty)        
         # that is a dirty journal
-        open(os.path.join(dpkg_dir,"updates","000"), "w")
+        open(os.path.join(dpkg_dir,"updates","000"), "w").close()
         self.assertTrue(cache.dpkg_journal_dirty)
         # reset config value
         apt_pkg.config.set("Dir::State::status", old_status)
@@ -121,20 +121,19 @@ class TestAptCache(unittest.TestCase):
         apt_pkg.config.set("dir::etc::sourceparts", "xxx")
         # main sources.list
         sources_list = base_sources
-        f=open(sources_list, "w")
-        repo = os.path.abspath("./data/test-repo2")
-        f.write("deb copy:%s /\n" % repo)
-        f.close()
+        with open(sources_list, "w") as f:
+            repo = os.path.abspath("./data/test-repo2")
+            f.write("deb copy:%s /\n" % repo)
 
         # test single sources.list fetching
         sources_list = os.path.join(rootdir, "test.list")
-        f=open(sources_list, "w")
-        repo_dir = os.path.abspath("./data/test-repo")
-        f.write("deb copy:%s /\n" % repo_dir)
-        f.close()
+        with open(sources_list, "w") as f:
+            repo_dir = os.path.abspath("./data/test-repo")
+            f.write("deb copy:%s /\n" % repo_dir)
+
         self.assertTrue(os.path.exists(sources_list))
         # write marker to ensure listcleaner is not run
-        open("./data/tmp/var/lib/apt/lists/marker", "w")
+        open("./data/tmp/var/lib/apt/lists/marker", "w").close()
 
         # update a single sources.list
         cache = apt.Cache()
