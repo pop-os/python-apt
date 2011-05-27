@@ -343,7 +343,7 @@ class Version(object):
     def description(self):
         """Return the formatted long description.
 
-        Return the formated long description according to the Debian policy
+        Return the formatted long description according to the Debian policy
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
@@ -892,7 +892,7 @@ class Package(object):
     def description(self):
         """Return the formatted long description.
 
-        Return the formated long description according to the Debian policy
+        Return the formatted long description according to the Debian policy
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
@@ -1360,8 +1360,8 @@ def _test():
     print "SourcePkg: %s " % pkg.candidate.source_name
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.candidate.summary
-    print "Description (formated) :\n%s" % pkg.candidate.description
-    print "Description (unformated):\n%s" % pkg.candidate.raw_description
+    print "Description (formatted) :\n%s" % pkg.candidate.description
+    print "Description (unformatted):\n%s" % pkg.candidate.raw_description
     print "InstalledSize: %s " % pkg.candidate.installed_size
     print "PackageSize: %s " % pkg.candidate.size
     print "Dependencies: %s" % pkg.installed.dependencies
