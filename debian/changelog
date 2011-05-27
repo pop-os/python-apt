@@ -7,6 +7,7 @@ python-apt (0.8.0~exp5) UNRELEASED; urgency=low
   * Fix Lintian overrides
   * Fix spelling errors reported by Lintian (sep[a->e]rated, overrid[d]en)
   * po/urd.po: Remove, ur.po is the correct file
+  * debian/source/format: Add, set it to "3.0 (native)"
 
   [ Tshepang Lekhonkhobe ]
   * Fix get_changelog in Python 3 (Closes: #626532)
