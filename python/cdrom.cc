@@ -52,7 +52,7 @@ static PyObject *cdrom_add(PyObject *Self,PyObject *Args)
 static char *cdrom_ident_doc =
     "ident(progress: apt_pkg.CdromProgress) -> str\n\n"
     "Try to identify the CD-ROM and if successful return the hexadecimal\n"
-    "CDROM-ID (and a integer version suffix seperated by -) as a\n"
+    "CDROM-ID (and a integer version suffix separated by -) as a\n"
     "string. Otherwise, return None or raise an error.\n\n"
     "The ID is created by hashing all file and directory names on the\n"
     "CD-ROM and appending the version.";

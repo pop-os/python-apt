@@ -295,24 +295,24 @@ static PyMethodDef PkgManager2Methods[] =
 {
    {"install",PkgManagerInstall,METH_VARARGS,   
     "install(pkg: Package, filename: str) -> bool \n\n"
-    "Add a install action. Can be overriden in subclasses.\n\n"
+    "Add a install action. Can be overridden in subclasses.\n\n"
     "New in version 0.8.0."},
    {"configure",PkgManagerConfigure,METH_VARARGS,
     "configure(pkg: Package) -> bool \n\n"
-    "Add a configure action. Can be overriden in subclasses.\n\n"
+    "Add a configure action. Can be overridden in subclasses.\n\n"
     "New in version 0.8.0."},
    {"remove",PkgManagerRemove,METH_VARARGS,
     "remove(pkg: Package, purge: bool) -> bool \n\n"
-    "Add a removal action. Can be overriden in subclasses.\n\n"
+    "Add a removal action. Can be overridden in subclasses.\n\n"
     "New in version 0.8.0."},
    {"go",PkgManagerGo,METH_VARARGS,
     "go(status_fd: int) -> bool \n\n"
-    "Start dpkg. Can be overriden in subclasses.\n\n"
+    "Start dpkg. Can be overridden in subclasses.\n\n"
     "New in version 0.8.0."},
    {"reset",PkgManagerReset,METH_VARARGS,
     "reset()\n\n"
     "Reset the package manager for a new round.\n"
-    "Can be overriden in subclasses.\n\n"
+    "Can be overridden in subclasses.\n\n"
     "New in version 0.8.0."},
    {}
 };
@@ -323,7 +323,7 @@ static const char *packagemanager2_doc =
     "installation and the installation of those packages. The parameter\n"
     "'depcache' specifies an apt_pkg.DepCache object where information\n"
     "about the package selections is retrieved from.\n\n"
-    "Methods in this class can be overriden in sub classes\n"
+    "Methods in this class can be overridden in sub classes\n"
     "to implement behavior different from APT's dpkg implementation.";
 PyTypeObject PyPackageManager2_Type =
 {

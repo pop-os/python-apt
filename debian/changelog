@@ -5,6 +5,7 @@ python-apt (0.8.0~exp5) UNRELEASED; urgency=low
   * utils/get_debian_mirrors.py: Adjust for new Alioth SCM urls
   * debian/control: Standards-Version 3.9.2
   * Fix Lintian overrides
+  * Fix spelling errors reported by Lintian (sep[a->e]rated, overrid[d]en)
 
   [ Tshepang Lekhonkhobe ]
   * Fix get_changelog in Python 3 (Closes: #626532)

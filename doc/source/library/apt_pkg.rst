@@ -45,7 +45,7 @@ Working with the cache
 
     .. note::
 
-        The cache supports colon-seperated name:architecture pairs. For
+        The cache supports colon-separated name:architecture pairs. For
         normal architectures, they are equal to a (name, architecture)
         tuple. For the the "any" architecture behavior is different, as
         "name:any" is equivalent to ("name:any", "any"). This is done so
