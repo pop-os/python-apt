@@ -23,7 +23,7 @@ from debian_bundle import deb822
 
 mirrors = collections.defaultdict(set)
 masterlist = urllib2.urlopen("http://anonscm.debian.org/viewvc/"
-                             "webml/webwml/english/"
+                             "webwml/webwml/english/"
                              "mirror/Mirrors.masterlist?revision=HEAD")
 
 for mirror in deb822.Deb822.iter_paragraphs(masterlist):
