@@ -1,8 +1,12 @@
 python-apt (0.8.0~exp5) UNRELEASED; urgency=low
 
+  [ Julian Andres Klode ]
   * Increase Breaks for update-notifier to 0.99.3debian9
   * utils/get_debian_mirrors.py: Adjust for new Alioth SCM urls
   * debian/control: Standards-Version 3.9.2
+
+  [ Tshepang Lekhonkhobe ]
+  * Fix get_changelog in Python 3 (Closes: #626532)
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 26 May 2011 18:01:57 +0200
 

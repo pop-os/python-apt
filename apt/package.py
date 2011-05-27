@@ -1142,7 +1142,7 @@ class Package(object):
                         return u""
                     # Read changelog line by line
                     line_raw = changelog_file.readline()
-                    if line_raw == "":
+                    if not line_raw:
                         break
                     # The changelog is encoded in utf-8, but since there isn't
                     # any http header, urllib2 seems to treat it as ascii
