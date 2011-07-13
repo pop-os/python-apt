@@ -25,6 +25,8 @@
 #include <apt-pkg/arfile.h>
 #include <apt-pkg/error.h>
 #include <apt-pkg/sptr.h>
+#include <apt-pkg/aptconfiguration.h>
+#include <apt-pkg/configuration.h>
 #include <utime.h>
 
 #include <unistd.h>
@@ -477,8 +479,8 @@ PyTypeObject PyArArchive_Type = {
  * Representation of a Debian package.
  *
  * This does not resemble debDebFile in apt-inst, but instead is a subclass
- * of ArFile which adds properties for the control.tar.{xz,lzma,bz2,gz} and
- * data.tar.{xz,lzma,bz2,gz} members which return TarFile objects. It also adds
+ * of ArFile which adds properties for the control.tar.$compression and
+ * data.tar.$compression members which return TarFile objects. It also adds
  * a descriptor 'version' which returns the content of 'debian-binary'.
  *
  * We are using it this way as it seems more natural to represent this special
@@ -532,21 +534,28 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
         return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
                             "control.tar.gz");
 
-    self->data = _gettar(self, self->Object->FindMember("data.tar.gz"),
-                         "gzip");
-    if (!self->data)
-        self->data = _gettar(self, self->Object->FindMember("data.tar.bz2"),
-                             "bzip2");
-    if (!self->data)
-        self->data = _gettar(self, self->Object->FindMember("data.tar.lzma"),
-                             "lzma");
-    if (!self->data)
-        self->data = _gettar(self, self->Object->FindMember("data.tar.xz"),
-                             "xz");
-    if (!self->data)
-        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
-                            "data.tar.gz or data.tar.bz2 or data.tar.lzma "
-			    "or data.tar.xz");
+    // try all compression types
+    std::vector<std::string> types = APT::Configuration::getCompressionTypes();
+    for (std::vector<std::string>::const_iterator t = types.begin(); 
+         t != types.end(); ++t) 
+    {
+       string member = string("data.tar.").append(*t);
+       string comp = _config->Find(string("Acquire::CompressionTypes::").append(*t));
+       self->data = _gettar(self, self->Object->FindMember(member.c_str()),
+                            comp.c_str());
+       if (self->data)
+          break;
+    }
+    // no data found, we need to 
+    if (!self->data) {
+       string error;
+       for (std::vector<std::string>::const_iterator t = types.begin(); 
+            t != types.end(); ++t) 
+          error.append(*t + ",");
+        return PyErr_Format(PyExc_SystemError, 
+                            "No debian archive, missing data.tar.{%s}", 
+                            error.c_str());
+    }
 
 
     const ARArchive::Member *member = self->Object->FindMember("debian-binary");
@@ -590,7 +599,9 @@ static PyGetSetDef debfile_getset[] = {
     {"control",(getter)debfile_get_control,0,
      "The TarFile object associated with the control.tar.gz member."},
     {"data",(getter)debfile_get_data,0,
-     "The TarFile object associated with the data.tar.{gz,bz2,lzma,xz}) member."},
+     "The TarFile object associated with the data.tar.$compression member. "
+     "All apt compression methods are supported. "
+    },
     {"debian_binary",(getter)debfile_get_debian_binary,0,
      "The package version, as contained in debian-binary."},
     {NULL}
@@ -604,8 +615,9 @@ static const char *debfile_doc =
     "specifying a file descriptor (returned by e.g. os.open()).\n"
     "The recommended way of using it is to pass in the path to the file.\n\n"
     "It differs from ArArchive by providing the members 'control', 'data'\n"
-    "and 'version' for accessing the control.tar.gz, data.tar.{gz,bz2,lzma,xz},\n"
-    "and debian-binary members in the archive.";
+    "and 'version' for accessing the control.tar.gz, data.tar.$compression \n"
+    "(all apt compression methods are supported), and debian-binary members \n"
+    "in the archive.";
 
 PyTypeObject PyDebFile_Type = {
     PyVarObject_HEAD_INIT(&PyType_Type, 0)
