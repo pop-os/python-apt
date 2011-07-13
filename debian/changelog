@@ -1,3 +1,10 @@
+python-apt (0.8.0~exp4ubuntu2) UNRELEASED; urgency=low
+
+  * add missing bits for the xz compression support for the 
+    0.7 API, thanks to Colin Watson for the fix! (LP: #805389)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 13 Jul 2011 11:51:47 +0200
+
 python-apt (0.8.0~exp4ubuntu1) oneiric; urgency=low
 
   * Merged from debian/experimental, remaining changes:
@@ -681,6 +688,34 @@ python-apt (0.7.94.2ubuntu7) maverick; urgency=low
     - add maverick
 
  -- Colin Watson <cjwatson@ubuntu.com>  Sun, 09 May 2010 13:17:03 +0200
+
+python-apt (0.7.94.2ubuntu6.3) lucid-proposed; urgency=low
+
+  * backport xz compression support the debian-sid bzr branch
+    (LP: #805389)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 07 Jul 2011 10:59:49 +0200
+
+python-apt (0.7.94.2ubuntu6.2) lucid-proposed; urgency=low
+
+  * apt/utils.py:
+    - fix end date calculation for releases in june (LP: #602469)
+
+ -- Jean-Baptiste Lallement <jeanbaptiste.lallement@gmail.com>  Tue, 06 Jul 2010 23:46:49 +0200
+
+python-apt (0.7.94.2ubuntu6.1) lucid-proposed; urgency=low
+
+  [ Sebastian Heinlein ]
+  * apt/package.py:
+    - Fix the changelog downloading if there are several source package
+      versions available which provide the binary (LP: #377535).
+      See http://bugs.debian.org/581831 for further details
+
+  [ Michael Vogt ]
+  * debian/control:
+    - update Vcs-Bzr location
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 17 May 2010 15:37:44 +0200
 
 python-apt (0.7.94.2ubuntu6) lucid; urgency=low
 

@@ -134,8 +134,8 @@ Debian Packages
 
     .. attribute:: data
 
-        The :class:`TarFile` object associated with the data.tar.{gz,bz2,lzma}
-        member.
+        The :class:`TarFile` object associated with the
+        data.tar.{gz,bz2,lzma,xz} member.
 
     .. attribute:: debian_binary
 
@@ -307,7 +307,7 @@ function can be replaced.
     Call the function *func* for each member of the tar file *file*.
 
     The parameter *comp* is a string determining the compressor used. Possible
-    options are "lzma", "bzip2" and "gzip". The parameter *file* may be
+    options are "xz", "lzma", "bzip2" and "gzip". The parameter *file* may be
     a :class:`file()` object, a file descriptor, or anything implementing
     a :meth:`fileno` method.
 
