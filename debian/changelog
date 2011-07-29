@@ -9,6 +9,9 @@ python-apt (0.8.1) UNRELEASED; urgency=low
       the supported methods here
   * tests/test_debfile.py:
     - add test for raise on unknown data.tar.xxx
+  * tests/test_aptsources_ports.py, tests/test_aptsources.py:
+    - use tmpdir during the tests to fix test failure with apt from
+      experimental
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
 
