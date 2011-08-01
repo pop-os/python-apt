@@ -1,15 +1,11 @@
-python-apt (0.8.1ubuntu1) UNRELEASED; urgency=low
-
-  * merged from the debian/sid bzr branch
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Aug 2011 09:29:06 +0200
-
-python-apt (0.8.1) UNRELEASED; urgency=low
+python-apt (0.8.0ubuntu1) UNRELEASED; urgency=low
 
   [ Julian Andres Klode ]
   * Breaks: debsecan (<< 0.4.15) [not only << 0.4.14] (Closes: #629512)
   
   [ Michael Vogt ]
+  *  merged from the debian-sid bzr branch
+  
   * python/arfile.cc:
     - use APT::Configuration::getCompressionTypes() instead of duplicating
       the supported methods here

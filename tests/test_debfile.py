@@ -121,10 +121,14 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 
     def test_no_supported_data_tar(self):
         # ensure that a unknown data.tar.xxx raises a exception
-        with self.assertRaises(SystemError):
+        raised = False
+        try:
             deb = apt.debfile.DebPackage("./data/test_debs/data-tar-broken.deb")
-
-
+        except SystemError:
+            raised = True
+	# with self.assertRaises(SystemError): is more elegant above, but
+	# we need to support python2.6
+        self.assertTrue(raised)
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

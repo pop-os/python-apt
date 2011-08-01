@@ -2392,7 +2392,7 @@ following three functions:
 .. function:: pkgsystem_unlock()
 
     Unlock the global pkgsystem. This reverts the effect of
-    :func:`pkgsystem_unlock`.
+    :func:`pkgsystem_lock`.
 
 
 Other classes
