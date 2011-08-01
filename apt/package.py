@@ -50,9 +50,9 @@ __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
 
 def _file_is_same(path, size, md5):
     """Return ``True`` if the file is the same."""
-    if (os.path.exists(path) and os.path.getsize(path) == size and
-        apt_pkg.md5sum(open(path)) == md5):
-        return True
+    if os.path.exists(path) and os.path.getsize(path) == size:
+        with open(path) as fobj:
+            return apt_pkg.md5sum(fobj) == md5
 
 
 class FetchError(Exception):
@@ -162,10 +162,23 @@ class Origin(object):
 
 
 class Record(Mapping):
-    """Represent a pkgRecord.
+    """Record in a Packages file
 
-    It can be accessed like a dictionary and can also give the original package
-    record if accessed as a string.
+    Represent a record as stored in a Packages file. You can use this like
+    a dictionary mapping the field names of the record to their values::
+
+        >>> record = Record("Package: python-apt\\nVersion: 0.8.0\\n\\n")
+        >>> record["Package"]
+        'python-apt'
+        >>> record["Version"]
+        '0.8.0'
+
+    For example, to get the tasks of a package from a cache, you could do::
+
+        package.candidate.record["Tasks"].split()
+
+    Of course, you can also use the :attr:`Version.tasks` property.
+
     """
 
     def __init__(self, record_str):
@@ -208,6 +221,9 @@ class Record(Mapping):
 
 class Version(object):
     """Representation of a package version.
+
+    The Version class contains all information related to a
+    specific package version.
 
     .. versionadded:: 0.7.9
     """
@@ -327,7 +343,7 @@ class Version(object):
     def description(self):
         """Return the formatted long description.
 
-        Return the formated long description according to the Debian policy
+        Return the formatted long description according to the Debian policy
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
@@ -393,7 +409,11 @@ class Version(object):
 
     @property
     def record(self):
-        """Return a Record() object for this version."""
+        """Return a Record() object for this version.
+
+        Return a Record() object for this version which provides access
+        to the raw attributes of the candidate version
+        """
         return Record(self._records.record)
 
     def get_dependencies(self, *types):
@@ -473,6 +493,16 @@ class Version(object):
         .. versionadded:: 0.7.10
         """
         return self._records.sha256_hash
+
+    @property
+    def tasks(self):
+        """Get the tasks of the package.
+
+        A set of the names of the tasks this package belongs to.
+
+        .. versionadded:: 0.8.0
+        """
+        return set(self.record["Task"].split())
 
     def _uris(self):
         """Return an iterator over all available urls.
@@ -862,7 +892,7 @@ class Package(object):
     def description(self):
         """Return the formatted long description.
 
-        Return the formated long description according to the Debian policy
+        Return the formatted long description according to the Debian policy
         (Chapter 5.6.13).
         See http://www.debian.org/doc/debian-policy/ch-controlfields.html
         for more information.
@@ -994,11 +1024,8 @@ class Package(object):
         """
         path = "/var/lib/dpkg/info/%s.list" % self.name
         try:
-            file_list = open(path, "rb")
-            try:
+            with open(path, "rb") as file_list:
                 return file_list.read().decode("utf-8").split(u"\n")
-            finally:
-                file_list.close()
         except EnvironmentError:
             return []
 
@@ -1104,6 +1131,7 @@ class Package(object):
                 # Check if the download was canceled
                 if cancel_lock and cancel_lock.isSet():
                     return u""
+                # FIXME: python3.2: Should be closed manually
                 changelog_file = urllib2.urlopen(uri)
                 # do only get the lines that are new
                 changelog = u""
@@ -1114,7 +1142,7 @@ class Package(object):
                         return u""
                     # Read changelog line by line
                     line_raw = changelog_file.readline()
-                    if line_raw == "":
+                    if not line_raw:
                         break
                     # The changelog is encoded in utf-8, but since there isn't
                     # any http header, urllib2 seems to treat it as ascii
@@ -1332,8 +1360,8 @@ def _test():
     print "SourcePkg: %s " % pkg.candidate.source_name
     print "Section: %s " % pkg.section
     print "Summary: %s" % pkg.candidate.summary
-    print "Description (formated) :\n%s" % pkg.candidate.description
-    print "Description (unformated):\n%s" % pkg.candidate.raw_description
+    print "Description (formatted) :\n%s" % pkg.candidate.description
+    print "Description (unformatted):\n%s" % pkg.candidate.raw_description
     print "InstalledSize: %s " % pkg.candidate.installed_size
     print "PackageSize: %s " % pkg.candidate.size
     print "Dependencies: %s" % pkg.installed.dependencies

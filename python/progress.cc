@@ -92,12 +92,12 @@ void PyOpProgress::Update()
    setattr(callbackInst, "op", "s", Op.c_str());
    setattr(callbackInst, "subop", "s", SubOp.c_str());
    setattr(callbackInst, "major_change", "b", MajorChange);
-   setattr(callbackInst, "percent", "f", Percent);
+   setattr(callbackInst, "percent", "N", MkPyNumber(Percent));
 #ifdef COMPAT_0_7
    setattr(callbackInst, "Op", "s", Op.c_str());
    setattr(callbackInst, "subOp", "s", SubOp.c_str());
    setattr(callbackInst, "majorChange", "b", MajorChange);
-   PyObject *arglist = Py_BuildValue("(f)", Percent);
+   PyObject *arglist = Py_BuildValue("(N)", MkPyNumber(Percent));
    RunSimpleCallback("update", arglist);
 #else
    RunSimpleCallback("update");
@@ -156,19 +156,19 @@ void PyFetchProgress::UpdateStatus(pkgAcquire::ItemDesc &Itm, int status)
    // Added object file size and object partial size to
    // parameters that are passed to updateStatus.
    // -- Stephan
-   PyObject *arglist = Py_BuildValue("(sssikk)", Itm.URI.c_str(),
+   PyObject *arglist = Py_BuildValue("(sssNNN)", Itm.URI.c_str(),
 				     Itm.Description.c_str(),
 				     Itm.ShortDesc.c_str(),
-				     status,
-				     Itm.Owner->FileSize,
-				     Itm.Owner->PartialSize);
+				     MkPyNumber(status),
+				     MkPyNumber(Itm.Owner->FileSize),
+				     MkPyNumber(Itm.Owner->PartialSize));
 
    RunSimpleCallback("update_status_full", arglist);
 
    // legacy version of the interface
 
-   arglist = Py_BuildValue("(sssi)", Itm.URI.c_str(), Itm.Description.c_str(),
-                           Itm.ShortDesc.c_str(), status);
+   arglist = Py_BuildValue("(sssN)", Itm.URI.c_str(), Itm.Description.c_str(),
+                           Itm.ShortDesc.c_str(), MkPyNumber(status));
 
    if(PyObject_HasAttrString(callbackInst, "updateStatus"))
       RunSimpleCallback("updateStatus", arglist);
@@ -240,11 +240,11 @@ void PyFetchProgress::Start()
    pkgAcquireStatus::Start();
 
 #ifdef COMPAT_0_7
-   setattr(callbackInst, "currentCPS", "d", 0);
-   setattr(callbackInst, "currentBytes", "d", 0);
-   setattr(callbackInst, "currentItems", "k", 0);
-   setattr(callbackInst, "totalItems", "k", 0);
-   setattr(callbackInst, "totalBytes", "d", 0);
+   setattr(callbackInst, "currentCPS", "N", MkPyNumber(0));
+   setattr(callbackInst, "currentBytes", "N", MkPyNumber(0));
+   setattr(callbackInst, "currentItems", "N", MkPyNumber(0));
+   setattr(callbackInst, "totalItems", "N", MkPyNumber(0));
+   setattr(callbackInst, "totalBytes", "N", MkPyNumber(0));
 #endif
 
    RunSimpleCallback("start");
@@ -280,14 +280,14 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       return false;
    }
 
-   setattr(callbackInst, "last_bytes", "d", LastBytes);
-   setattr(callbackInst, "current_cps", "d", CurrentCPS);
-   setattr(callbackInst, "current_bytes", "d", CurrentBytes);
-   setattr(callbackInst, "total_bytes", "d", TotalBytes);
-   setattr(callbackInst, "fetched_bytes", "d", FetchedBytes);
-   setattr(callbackInst, "elapsed_time", "k", ElapsedTime);
-   setattr(callbackInst, "current_items", "k", CurrentItems);
-   setattr(callbackInst, "total_items", "k", TotalItems);
+   setattr(callbackInst, "last_bytes", "N", MkPyNumber(LastBytes));
+   setattr(callbackInst, "current_cps", "N", MkPyNumber(CurrentCPS));
+   setattr(callbackInst, "current_bytes", "N", MkPyNumber(CurrentBytes));
+   setattr(callbackInst, "total_bytes", "N", MkPyNumber(TotalBytes));
+   setattr(callbackInst, "fetched_bytes", "N", MkPyNumber(FetchedBytes));
+   setattr(callbackInst, "elapsed_time", "N", MkPyNumber(ElapsedTime));
+   setattr(callbackInst, "current_items", "N", MkPyNumber(CurrentItems));
+   setattr(callbackInst, "total_items", "N", MkPyNumber(TotalItems));
 
    // New style
    if (!PyObject_HasAttrString(callbackInst, "updateStatus")) {
@@ -313,12 +313,12 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
      return true;
    }
 #ifdef COMPAT_0_7
-   setattr(callbackInst, "currentCPS", "d", CurrentCPS);
-   setattr(callbackInst, "currentBytes", "d", CurrentBytes);
-   setattr(callbackInst, "totalBytes", "d", TotalBytes);
-   setattr(callbackInst, "fetchedBytes", "d", FetchedBytes);
-   setattr(callbackInst, "currentItems", "k", CurrentItems);
-   setattr(callbackInst, "totalItems", "k", TotalItems);
+   setattr(callbackInst, "currentCPS", "N", MkPyNumber(CurrentCPS));
+   setattr(callbackInst, "currentBytes", "N", MkPyNumber(CurrentBytes));
+   setattr(callbackInst, "totalBytes", "N", MkPyNumber(TotalBytes));
+   setattr(callbackInst, "fetchedBytes", "N", MkPyNumber(FetchedBytes));
+   setattr(callbackInst, "currentItems", "N", MkPyNumber(CurrentItems));
+   setattr(callbackInst, "totalItems", "N", MkPyNumber(TotalItems));
    // Go through the list of items and add active items to the
    // activeItems vector.
    map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
@@ -351,11 +351,11 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
        pkgAcquire::Worker *worker = iter->first;
        pkgAcquire::ItemDesc *itm = iter->second;
 
-       PyObject *itmTuple = Py_BuildValue("(ssskk)", itm->URI.c_str(),
+       PyObject *itmTuple = Py_BuildValue("(sssNN)", itm->URI.c_str(),
 					  itm->Description.c_str(),
 					  itm->ShortDesc.c_str(),
-					  worker->TotalSize,
-					  worker->CurrentSize);
+					  MkPyNumber(worker->TotalSize),
+					  MkPyNumber(worker->CurrentSize));
        PyTuple_SetItem(itemsTuple, tuplePos, itmTuple);
      }
 

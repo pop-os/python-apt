@@ -1,4 +1,4 @@
-#  aptsource.py - Provide an abstraction of the sources.list
+#  sourceslist.py - Provide an abstraction of the sources.list
 #
 #  Copyright (c) 2004-2009 Canonical Ltd.
 #  Copyright (c) 2004 Michiel Sikkes
@@ -275,6 +275,12 @@ class SourcesList(object):
             yield entry
         raise StopIteration
 
+    def __find(self, *predicates, **attrs):
+        for source in self.list:
+            if (all(getattr(source, key) == attrs[key] for key in attrs) and
+                all(predicate(source) for predicate in predicates)):
+                yield source
+
     def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None, architectures=[]):
         """
         Add a new source to the sources.list.
@@ -286,39 +292,32 @@ class SourcesList(object):
         # create a working copy of the component list so that
         # we can modify it later
         comps = orig_comps[:]
+        sources = self.__find(lambda s: set(s.architectures) == architectures,
+                              disabled=False, invalid=False, type=type, uri=uri,
+                              dist=dist)
         # check if we have this source already in the sources.list
-        for source in self.list:
-            if not source.disabled and not source.invalid and \
-               source.type == type and uri == source.uri and \
-               source.dist == dist and \
-               set(source.architectures) == architectures:
-                for new_comp in comps:
-                    if new_comp in source.comps:
-                        # we have this component already, delete it
-                        # from the new_comps list
-                        del comps[comps.index(new_comp)]
-                        if len(comps) == 0:
-                            return source
-        for source in self.list:
+        for source in sources:
+            for new_comp in comps:
+                if new_comp in source.comps:
+                    # we have this component already, delete it
+                    # from the new_comps list
+                    del comps[comps.index(new_comp)]
+                    if len(comps) == 0:
+                        return source
+
+        sources = self.__find(lambda s: set(s.architectures) == architectures,
+                              invalid=False, type=type, uri=uri, dist=dist)
+                                 
+        for source in sources:
             # if there is a repo with the same (type, uri, dist) just add the
             # components
-            if not source.disabled and not source.invalid and \
-               source.type == type and uri == source.uri and \
-               source.dist == dist and \
-               set(source.architectures) == architectures:
-                comps = uniq(source.comps + comps)
-                source.comps = comps
-                return source
-            # if there is a corresponding repo which is disabled, enable it
-            elif source.disabled and not source.invalid and \
-                 source.type == type and uri == source.uri and \
-                 set(source.architectures) == architectures and \
-                 source.dist == dist and \
-                 len(set(source.comps) & set(comps)) == len(comps):
+            if source.disabled and set(source.comps) == comps:
                 source.disabled = False
                 return source
+            elif not source.disabled:
+                source.comps = uniq(source.comps + comps)
+                return source
         # there isn't any matching source, so create a new line and parse it
-
         line = type
         if architectures:
             line += " [arch=%s]" % ",".join(architectures)
@@ -369,15 +368,12 @@ class SourcesList(object):
     def load(self, file):
         """ (re)load the current sources """
         try:
-            f = open(file, "r")
-            lines = f.readlines()
-            for line in lines:
-                source = SourceEntry(line, file)
-                self.list.append(source)
+            with open(file, "r") as f:
+                for line in f:
+                    source = SourceEntry(line, file)
+                    self.list.append(source)
         except:
             print "could not open file '%s'" % file
-        else:
-            f.close()
 
     def save(self):
         """ save the current sources """
@@ -389,14 +385,19 @@ class SourcesList(object):
                 "## See sources.list(5) for more information, especialy\n"
                 "# Remember that you can only use http, ftp or file URIs\n"
                 "# CDROMs are managed through the apt-cdrom tool.\n")
-            open(path, "w").write(header)
+
+            with open(path, "w") as f:
+                f.write(header)
             return
-        for source in self.list:
-            if source.file not in files:
-                files[source.file] = open(source.file, "w")
-            files[source.file].write(source.str())
-        for f in files:
-            files[f].close()
+
+        try:
+            for source in self.list:
+                if source.file not in files:
+                    files[source.file] = open(source.file, "w")
+                files[source.file].write(source.str())
+        finally:
+            for f in files:
+                files[f].close()
 
     def check_for_relations(self, sources_list):
         """get all parent and child channels in the sources list"""

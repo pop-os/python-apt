@@ -66,7 +66,11 @@ class Cache(object):
         self._weakref = weakref.WeakValueDictionary()
         self._set = set()
         self._fullnameset = set()
+        self._changes_count = -1
         self._sorted_set = None
+        
+        self.connect("cache_post_open", self._inc_changes_count)
+        self.connect("cache_post_change", self._inc_changes_count)
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -87,6 +91,11 @@ class Cache(object):
             # recognized (LP: #320665)
             apt_pkg.init_system()
         self.open(progress)
+        
+
+    def _inc_changes_count(self):
+        """Increase the number of changes"""
+        self._changes_count += 1
 
     def _check_and_create_required_dirs(self, rootdir):
         """
@@ -107,7 +116,7 @@ class Cache(object):
                 os.makedirs(rootdir + d)
         for f in files:
             if not os.path.exists(rootdir + f):
-                open(rootdir + f, "w")
+                open(rootdir + f, "w").close()
 
     def _run_callbacks(self, name):
         """ internal helper to run a callback """
@@ -288,6 +297,30 @@ class Cache(object):
         finally:
             os.close(lock)
 
+    def fetch_archives(self, progress=None, fetcher=None):
+        """Fetch the archives for all packages marked for install/upgrade.
+
+        You can specify either an :class:`apt.progress.base.AcquireProgress()`
+        object for the parameter *progress*, or specify an already
+        existing :class:`apt_pkg.Acquire` object for the parameter *fetcher*.
+
+        The return value of the function is undefined. If an error occured,
+        an exception of type :class:`FetchFailedException` or
+        :class:`FetchCancelledException` is raised.
+
+        .. versionadded:: 0.8.0
+        """
+        if progress is not None and fetcher is not None:
+            raise ValueError("Takes a progress or a an Acquire object")
+        if progress is None:
+            progress = apt.progress.text.AcquireProgress()
+        if fetcher is None:
+            fetcher = apt_pkg.Acquire(progress)
+
+        
+        return self._fetch_archives(fetcher,
+                                    apt_pkg.PackageManager(self._depcache))
+
     def is_virtual_package(self, pkgname):
         """Return whether the package is a virtual package."""
         try:
@@ -338,6 +371,10 @@ class Cache(object):
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
         """Run the equivalent of apt-get update.
+
+        You probably want to call open() afterwards, in order to utilise the
+        new cache. Otherwise, the old cache will be used which can lead to
+        strange bugs.
 
         The first parameter *fetch_progress* may be set to an instance of
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
@@ -548,6 +585,7 @@ class ProblemResolver(object):
 
     def __init__(self, cache):
         self._resolver = apt_pkg.ProblemResolver(cache._depcache)
+        self._cache = cache
 
     def clear(self, package):
         """Reset the package to the default state."""
@@ -567,11 +605,15 @@ class ProblemResolver(object):
 
     def resolve(self):
         """Resolve dependencies, try to remove packages where needed."""
+        self._cache.cache_pre_change()
         self._resolver.resolve()
+        self._cache.cache_post_change()
 
     def resolve_by_keep(self):
         """Resolve dependencies, do not try to remove packages."""
+        self._cache.cache_pre_change()
         self._resolver.resolve_by_keep()
+        self._cache.cache_post_change()
 
 
 # ----------------------------- experimental interface

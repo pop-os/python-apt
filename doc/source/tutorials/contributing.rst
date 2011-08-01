@@ -232,12 +232,12 @@ The coding style for all code written in python is :PEP:`8`. Exceptions from
 this rule are the documentation, where code is sometimes formatted differently
 to explain aspects, and functions provided for 0.7 compatibility purposes.
 
-When writing code, use tools like pylint, pyflakes, pychecker and pep8.py from
-http://svn.browsershots.org/trunk/devtools/pep8/ to verify that your code is
+When writing code, use tools like pylint, pyflakes, pychecker and pep8.py
+(all available from Debian/Ubuntu) to verify that your code is
 OK. Fix all the problems which seem reasonable, and mention the unfixed issues
 when asking for merge.
 
-In order to make the automatic generation of Python 3 code using 2to possible,
+In order to make the automatic generation of Python 3 code using 2to3 possible,
 code written in Python may not utilize any functionality unsupported by 2to3 or
 deprecated as of Python 2.6.
 

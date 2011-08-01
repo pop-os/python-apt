@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #  get_debian_mirrors.py - Parse Mirrors.masterlist and create a mirror list.
 #
-#  Copyright (c) 2010 Julian Andres Klode <jak@debian.org>
+#  Copyright (c) 2010-2011 Julian Andres Klode <jak@debian.org>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as
@@ -22,7 +22,8 @@ import urllib2
 from debian_bundle import deb822
 
 mirrors = collections.defaultdict(set)
-masterlist = urllib2.urlopen("http://cvs.debian.org/webwml/webwml/english/"
+masterlist = urllib2.urlopen("http://anonscm.debian.org/viewvc/"
+                             "webwml/webwml/english/"
                              "mirror/Mirrors.masterlist?revision=HEAD")
 
 for mirror in deb822.Deb822.iter_paragraphs(masterlist):

@@ -79,9 +79,10 @@ class Cdrom(apt_pkg.Cdrom):
         src.append(apt_pkg.config.find_file("Dir::Etc::sourcelist"))
         # Check each file
         for fname in src:
-            for line in open(fname):
-                if not line.lstrip().startswith("#") and cd_id in line:
-                    return True
+            with open(fname) as fobj:
+                for line in fobj:
+                    if not line.lstrip().startswith("#") and cd_id in line:
+                        return True
         return False
 
     if apt_pkg._COMPAT_0_7:

@@ -34,7 +34,7 @@ Dependency Information
 
     .. attribute:: relation
 
-        The relation (>>,>=,==,<<,<=,)
+        The relation (>,>=,==,<,<=,)
 
     .. attribute:: version
 
@@ -89,6 +89,35 @@ Origin Information
        Boolean value whether this is trustworthy. An origin can be trusted, if
        it provides a GPG-signed Release file and the GPG-key used is in the
        keyring used by apt (see apt-key).
+
+
+
+The Record class
+-----------------
+.. autoclass:: Record
+    :members:
+
+    .. note::
+        .. versionchanged:: 0.7.100
+            This class is a subclass of :class:`collections.Mapping` when used
+            in Python 2.6 or newer.
+
+    .. describe:: record[name]
+
+        Return the value of the field with the name *name*.
+
+    .. describe:: name in record
+
+        Return whether a field *name* exists in record.
+
+    .. describe:: len(record)
+
+        The number of fields in the record
+
+    .. describe:: str(record)
+
+        Display the record as a string
+
 
 Examples
 ---------

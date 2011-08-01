@@ -57,6 +57,7 @@ typedef int Py_ssize_t;
 #define PyString_Type PyUnicode_Type
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
+#define PyInt_FromLong PyLong_FromLong
 // Force 0.7 compatibility to be off in Python 3 builds
 #undef COMPAT_0_7
 #else
@@ -230,6 +231,21 @@ PyObject *HandleErrors(PyObject *Res = 0);
 // Convert a list of strings to a char **
 const char **ListToCharChar(PyObject *List,bool NullTerm = false);
 PyObject *CharCharToList(const char **List,unsigned long Size = 0);
+
+/* Happy number conversion, thanks to overloading */
+inline PyObject *MkPyNumber(unsigned long long o) { return PyLong_FromUnsignedLongLong(o); }
+inline PyObject *MkPyNumber(unsigned long o) { return PyLong_FromUnsignedLong(o); }
+inline PyObject *MkPyNumber(unsigned int o) { return PyLong_FromUnsignedLong(o); }
+inline PyObject *MkPyNumber(unsigned short o) { return PyInt_FromLong(o); }
+inline PyObject *MkPyNumber(unsigned char o) { return PyInt_FromLong(o); }
+
+inline PyObject *MkPyNumber(long long o) { return PyLong_FromLongLong(o); }
+inline PyObject *MkPyNumber(long o) { return PyInt_FromLong(o); }
+inline PyObject *MkPyNumber(int o) { return PyInt_FromLong(o); }
+inline PyObject *MkPyNumber(short o) { return PyInt_FromLong(o); }
+inline PyObject *MkPyNumber(char o) { return PyInt_FromLong(o); }
+
+inline PyObject *MkPyNumber(double o) { return PyFloat_FromDouble(o); }
 
 # ifdef COMPAT_0_7
 PyObject *_PyAptObject_getattro(PyObject *self, PyObject *attr);

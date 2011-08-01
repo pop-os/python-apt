@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 # Should be include-links, but that somehow fails.
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
-export CFLAGS=-Wno-write-strings -DCOMPAT_0_7
-export PATH :=$(CURDIR)/utils:$(PATH)
-export SHELL = env PATH=$(PATH) sh
+# For compatibility, add -DCOMPAT_0_7
+export CFLAGS=-Wno-write-strings
+export PATH := $(CURDIR)/utils:$(PATH)
+export pyversions := $(CURDIR)/utils/pyversions
 
 %:
 	dh --with python2,python3 $@
@@ -35,7 +36,7 @@ override_dh_compress:
 # We ignore failures on hurd, since its locking is broken
 override_dh_auto_test:
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-	set -e; for python in $(shell pyversions -r); do \
+	set -e; for python in $(shell $(pyversions) -r); do \
 		$$python tests/test_all.py -q || [ "$(DEB_BUILD_ARCH_OS)" = "hurd" ]; \
 	done;
 else

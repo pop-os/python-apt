@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import unittest
-
+import tempfile
 
 import apt_pkg
 import aptsources.sourceslist
@@ -17,7 +17,7 @@ class TestAptSourcesPorts(unittest.TestCase):
         apt_pkg.config.set("APT::Architecture", "powerpc")
         apt_pkg.config.set("Dir::Etc",
                            os.path.abspath("data/aptsources_ports"))
-        apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
+        apt_pkg.config.set("Dir::Etc::sourceparts", tempfile.mkdtemp())
         if os.path.exists("../build/data/templates"):
             self.templates = os.path.abspath("../build/data/templates")
         else:

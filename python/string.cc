@@ -28,11 +28,11 @@ PyObject *Python(PyObject *Self,PyObject *Args) \
    return CppPyString(CFunc(Str)); \
 }
 
-#define MkInt(Python,CFunc) \
+#define MkInt(Python,CFunc, ctype, pytype) \
 PyObject *Python(PyObject *Self,PyObject *Args) \
 { \
-   int Val = 0; \
-   if (PyArg_ParseTuple(Args,"i",&Val) == 0) \
+   ctype Val = 0; \
+   if (PyArg_ParseTuple(Args,pytype,&Val) == 0) \
       return 0; \
    return CppPyString(CFunc(Val)); \
 }
@@ -56,8 +56,8 @@ PyObject *StrBase64Encode(PyObject *Self,PyObject *Args) {
 MkStr(StrURItoFileName,URItoFileName);
 
 //MkFloat(StrSizeToStr,SizeToStr);
-MkInt(StrTimeToStr,TimeToStr);
-MkInt(StrTimeRFC1123,TimeRFC1123);
+MkInt(StrTimeToStr,TimeToStr, unsigned long, "k");
+MkInt(StrTimeRFC1123,TimeRFC1123, long long, "L");
 									/*}}}*/
 
 // Other String functions						/*{{{*/
@@ -91,7 +91,7 @@ PyObject *StrStringToBool(PyObject *Self,PyObject *Args)
    char *Str = 0;
    if (PyArg_ParseTuple(Args,"s",&Str) == 0)
       return 0;
-   return Py_BuildValue("i",StringToBool(Str));
+   return MkPyNumber(StringToBool(Str));
 }
 
 PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
@@ -107,7 +107,7 @@ PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
       return Py_None;
    }
 
-   return Py_BuildValue("i",Result);
+   return MkPyNumber(Result);
 }
 
 PyObject *StrCheckDomainList(PyObject *Self,PyObject *Args)
