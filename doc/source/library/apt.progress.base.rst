@@ -233,7 +233,7 @@ InstallProgress
     
         (Abstract) Called when a error is detected during the install.
 
-    The following method should be overriden to implement progress reporting
+    The following method should be overridden to implement progress reporting
     for dpkg-based runs i.e. calls to :meth:`run` with a filename:
 
     .. method:: processing(pkg, stage)
@@ -252,7 +252,7 @@ InstallProgress
         file (:file:`/var/lib/dpkg/status`) and documented
         in :manpage:`dpkg(1)`.
 
-    The following methods should be overriden to implement progress reporting
+    The following methods should be overridden to implement progress reporting
     for  :meth:`run` calls with an :class:`apt_pkg.PackageManager` object as
     their parameter:
 
@@ -274,7 +274,7 @@ InstallProgress
         This method is called when all changes have been applied.
 
     There are also several methods which are fully implemented and should not
-    be overriden by subclasses unless the subclass has very special needs:
+    be overridden by subclasses unless the subclass has very special needs:
 
     .. method:: fork() -> int
     

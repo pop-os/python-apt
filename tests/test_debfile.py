@@ -119,6 +119,12 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
 
+    def test_no_supported_data_tar(self):
+        # ensure that a unknown data.tar.xxx raises a exception
+        with self.assertRaises(SystemError):
+            deb = apt.debfile.DebPackage("./data/test_debs/data-tar-broken.deb")
+
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

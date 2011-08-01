@@ -1,3 +1,50 @@
+python-apt (0.8.1ubuntu1) UNRELEASED; urgency=low
+
+  * merged from the debian/sid bzr branch
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Aug 2011 09:29:06 +0200
+
+python-apt (0.8.1) UNRELEASED; urgency=low
+
+  [ Julian Andres Klode ]
+  * Breaks: debsecan (<< 0.4.15) [not only << 0.4.14] (Closes: #629512)
+  
+  [ Michael Vogt ]
+  * python/arfile.cc:
+    - use APT::Configuration::getCompressionTypes() instead of duplicating
+      the supported methods here
+  * tests/test_debfile.py:
+    - add test for raise on unknown data.tar.xxx
+  * tests/test_aptsources_ports.py, tests/test_aptsources.py:
+    - use tmpdir during the tests to fix test failure with apt from
+      experimental
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
+
+python-apt (0.8.0) unstable; urgency=low
+
+  * Upload to unstable
+
+  [ Julian Andres Klode ]
+  * Increase Breaks for update-notifier to 0.99.3debian9
+  * utils/get_debian_mirrors.py: Adjust for new Alioth SCM urls
+  * debian/control: Standards-Version 3.9.2
+  * Fix Lintian overrides
+  * Fix spelling errors reported by Lintian (sep[a->e]rated, overrid[d]en)
+  * po/urd.po: Remove, ur.po is the correct file
+  * debian/source/format: Add, set it to "3.0 (native)"
+
+  [ Tshepang Lekhonkhobe ]
+  * Fix get_changelog in Python 3 (Closes: #626532)
+  * apt/package.py: fix a few typos [formated->formatted] (Closes: #597054)
+  * doc/source/tutorials/contributing.rst: minor improvements (Closes: #625225)
+    - one typo [2to => 2to3], one broken link [pep8.py link]
+
+  [ Translation updates ]
+  * Esperanto (Closes: #626430)
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 27 May 2011 16:12:46 +0200
+
 python-apt (0.8.0~exp4ubuntu2) UNRELEASED; urgency=low
 
   * add missing bits for the xz compression support for the 

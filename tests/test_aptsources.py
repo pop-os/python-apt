@@ -3,6 +3,7 @@
 import unittest
 import os
 import copy
+import tempfile
 
 import apt_pkg
 import aptsources.sourceslist
@@ -17,7 +18,7 @@ class TestAptSources(unittest.TestCase):
         if apt_pkg.config["APT::Architecture"] not in ('i386', 'amd64'):
             apt_pkg.config.set("APT::Architecture", "i386")
         apt_pkg.config.set("Dir::Etc", os.getcwd())
-        apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
+        apt_pkg.config.set("Dir::Etc::sourceparts", tempfile.mkdtemp())
         if os.path.exists("./build/data/templates"):
             self.templates = os.path.abspath("./build/data/templates")
         elif os.path.exists("../build/data/templates"):
