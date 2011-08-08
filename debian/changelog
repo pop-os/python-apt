@@ -12,6 +12,8 @@ python-apt (0.8.1) UNRELEASED; urgency=low
   * tests/test_aptsources_ports.py, tests/test_aptsources.py:
     - use tmpdir during the tests to fix test failure with apt from
       experimental
+  * tests/test_apt_cache.py:
+    - fix test by providing proper fixture data
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
 
