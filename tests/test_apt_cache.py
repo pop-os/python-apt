@@ -27,7 +27,7 @@ class TestAptCache(unittest.TestCase):
         # reset any config manipulations done in the individual tests
         apt_pkg.init_config()
 
-    def testAptCache(self):
+    def test_apt_cache(self):
         """cache: iterate all packages and all dependencies """
         cache = apt.Cache()
         # number is not meaningful and just need to be "big enough",
@@ -74,7 +74,7 @@ class TestAptCache(unittest.TestCase):
         cache = apt_pkg.Cache(progress=None)
         l = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
-        self.assertTrue(len(l), 5)
+        self.assertTrue(len(l) > 5)
         for (providesname, providesver, version) in l:
             self.assertEqual(providesname, "mail-transport-agent")
             if version.parent_pkg.name == "postfix":
@@ -115,9 +115,12 @@ class TestAptCache(unittest.TestCase):
             pass
         state_dir = os.path.join(rootdir, "var/lib/apt")
         lists_dir = os.path.join(rootdir, "var/lib/apt/lists")
+        old_state = apt_pkg.config.find("dir::state")
         apt_pkg.config.set("dir::state", state_dir)
         # set a local sources.list that does not need the network
         base_sources = os.path.abspath(os.path.join(rootdir, "sources.list"))
+        old_source_list = apt_pkg.config.find("dir::etc::sourcelist")
+        old_source_parts = apt_pkg.config.find("dir::etc::sourceparts")
         apt_pkg.config.set("dir::etc::sourcelist", base_sources)
         apt_pkg.config.set("dir::etc::sourceparts", "xxx")
         # main sources.list
@@ -163,6 +166,9 @@ class TestAptCache(unittest.TestCase):
         cache.update(sources_list=sources_list)
         all_packages = glob.glob(lists_dir+"/*_Packages*")
         self.assertEqual(len(all_packages), 2)
+        apt_pkg.config.set("dir::state", old_state)
+        apt_pkg.config.set("dir::etc::sourcelist", old_source_list)
+        apt_pkg.config.set("dir::etc::sourceparts", old_source_parts)
 
 if __name__ == "__main__":
     unittest.main()
