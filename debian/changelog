@@ -1,3 +1,9 @@
+python-apt (0.8.0ubuntu2) oneiric; urgency=low
+
+  * disable tests if /etc/apt/sources.list is not readable
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 08 Aug 2011 18:51:50 +0200
+
 python-apt (0.8.0ubuntu1) oneiric; urgency=low
 
   [ Julian Andres Klode ]
