@@ -1,3 +1,10 @@
+python-apt (0.8.0ubuntu6) UNRELEASED; urgency=low
+
+  * debian/control:
+    - remove recommends of python2.6
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 09 Aug 2011 16:39:06 +0200
+
 python-apt (0.8.0ubuntu5) oneiric; urgency=low
 
   * setup.py:
