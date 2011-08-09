@@ -17,9 +17,17 @@ sys.path.insert(0, get_library_dir())
 
 import apt
 import apt_pkg
-import copy
 import shutil
 import glob
+import logging
+
+def if_sources_list_is_readable(f):
+    def wrapper(*args, **kwargs):
+        if os.access("/etc/apt/sources.list", os.R_OK):
+            f(*args, **kwargs)
+        else:
+            logging.warn("skipping '%s' because sources.list is not readable" % f)
+    return wrapper
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -36,6 +44,7 @@ class TestAptCache(unittest.TestCase):
         for item in self._cnf:
             apt_pkg.config.set(item, self._cnf[item])
 
+    @if_sources_list_is_readable
     def test_apt_cache(self):
         """cache: iterate all packages and all dependencies """
         cache = apt.Cache()
@@ -79,7 +88,7 @@ class TestAptCache(unittest.TestCase):
         cache = highlevel_cache._cache
         l = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
-        self.assertTrue(len(l) > 5)
+        self.assertEqual(len(l), 2)
         for (providesname, providesver, version) in l:
             self.assertEqual(providesname, "mail-transport-agent")
             if version.parent_pkg.name == "postfix":
@@ -87,7 +96,7 @@ class TestAptCache(unittest.TestCase):
         else:
             self.assertNotReached()
    
-
+    @if_sources_list_is_readable
     def test_dpkg_journal_dirty(self):
         # create tmp env
         tmpdir = tempfile.mkdtemp()
@@ -106,6 +115,7 @@ class TestAptCache(unittest.TestCase):
         open(os.path.join(dpkg_dir,"updates","000"), "w").close()
         self.assertTrue(cache.dpkg_journal_dirty)
 
+    @if_sources_list_is_readable
     def test_apt_update(self):
         rootdir = "./data/tmp"
         if os.path.exists(rootdir):
