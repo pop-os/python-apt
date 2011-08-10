@@ -43,6 +43,7 @@ if __name__ == '__main__':
     if dirname:
         os.chdir(dirname)
     library_dir = get_library_dir()
+    sys.stderr.write("Using library_dir: '%s'" % library_dir)
     if library_dir:
         sys.path.insert(0, os.path.abspath(library_dir))
 
