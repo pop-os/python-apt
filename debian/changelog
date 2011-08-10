@@ -1,9 +1,12 @@
-python-apt (0.8.0ubuntu6) UNRELEASED; urgency=low
+python-apt (0.8.0ubuntu6) oneiric; urgency=low
 
   * debian/control:
     - remove recommends of python2.6
+  * tests/test_all.py:
+    - print library dir during the tests to hunt down mysterious build
+      failure on amd64
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 09 Aug 2011 16:39:06 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 10 Aug 2011 06:12:30 +0200
 
 python-apt (0.8.0ubuntu5) oneiric; urgency=low
 
