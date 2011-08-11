@@ -1,3 +1,10 @@
+python-apt (0.8.0ubuntu7) UNRELEASED; urgency=low
+
+  * aptsources/distinfo.py:
+    - make mirror a valid protocol name
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 11 Aug 2011 15:31:55 +0200
+
 python-apt (0.8.0ubuntu6) oneiric; urgency=low
 
   * debian/control:
