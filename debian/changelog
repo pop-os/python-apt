@@ -1,4 +1,4 @@
-python-apt (0.8.0ubuntu7) UNRELEASED; urgency=low
+python-apt (0.8.0ubuntu7) oneiric; urgency=low
 
   * aptsources/distinfo.py:
     - make mirror a valid protocol name
@@ -6,7 +6,7 @@ python-apt (0.8.0ubuntu7) UNRELEASED; urgency=low
     - add "mirror://mirrors.ubuntu.com/mirrors.txt" to the 
       default mirror list
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 11 Aug 2011 15:31:55 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 11 Aug 2011 15:38:06 +0200
 
 python-apt (0.8.0ubuntu6) oneiric; urgency=low
 
