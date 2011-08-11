@@ -158,7 +158,7 @@ class DistInfo(object):
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
         match_mirror_line = re.compile(
-            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://"
+            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(mirror)|(https))://"
             r"[A-Za-z0-9/\.:\-_@]+)$")
         #match_mirror_line = re.compile(r".+")
 

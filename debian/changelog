@@ -18,6 +18,8 @@ python-apt (0.8.1) UNRELEASED; urgency=low
       PPA buildds)
   * tests/test_all.py:
     - print library dir to hunt down build failure on amd64
+  * aptsources/distinfo.py:
+    - make mirror a valid protocol name
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
 
