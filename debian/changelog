@@ -1,10 +1,10 @@
-python-apt (0.8.0ubuntu8) UNRELEASEDoneiric; urgency=low
+python-apt (0.8.0ubuntu8) oneiric; urgency=low
 
   * add concept of "ParentComponent" for e.g. ubuntu/multiverse
     that needs universe enabled as well (plus add test)
     LP: #829284
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Sep 2011 15:48:23 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 28 Sep 2011 16:27:20 +0200
 
 python-apt (0.8.0ubuntu7) oneiric; urgency=low
 
