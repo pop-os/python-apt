@@ -20,6 +20,8 @@ python-apt (0.8.1) UNRELEASED; urgency=low
     - print library dir to hunt down build failure on amd64
   * aptsources/distinfo.py:
     - make mirror a valid protocol name
+  * apt/package.py:
+    - packages in marked_install state can also be auto-removable
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
 
