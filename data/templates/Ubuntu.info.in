@@ -21,6 +21,7 @@ Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
+ParentComponent: universe
 _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
@@ -139,6 +140,7 @@ Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
+ParentComponent: universe
 _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
@@ -256,6 +258,7 @@ Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
+ParentComponent: universe
 _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
@@ -338,6 +341,7 @@ Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
 Component: multiverse
+ParentComponent: universe
 _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 

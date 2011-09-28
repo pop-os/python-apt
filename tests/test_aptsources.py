@@ -160,6 +160,29 @@ class TestAptSources(unittest.TestCase):
         assert sources.list[8].comps == ["main"]
         assert sources.list[8].line.strip() == str(sources.list[8])
 
+    def test_enable_component(self):
+        from subprocess import Popen, PIPE
+        target = "./data/aptsources/sources.list.enable_comps"
+        line = "deb http://archive.ubuntu.com/ubuntu lucid main\n"
+        open(target, "w").write(line)
+        apt_pkg.config.set("Dir::Etc::sourcelist", target)
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+        distro = aptsources.distro.get_distro(id="Ubuntu")
+        # make sure we are using the right distro
+        distro.codename = "lucid"
+        distro.id = "Ubuntu"
+        distro.release = "10.04"
+        # and get the sources
+        distro.get_sources(sources)
+        # test enable_component
+        comp = "multiverse"
+        distro.enable_component(comp)
+        comps = set()
+        for entry in sources:
+            comps = comps.union(set(entry.comps))
+        self.assertTrue("multiverse" in comps)
+        self.assertTrue("universe" in comps)
+        
     def testDistribution(self):
         """aptsources: Test distribution detection."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"

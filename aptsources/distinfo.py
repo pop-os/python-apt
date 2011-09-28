@@ -69,10 +69,17 @@ class Template(object):
 
 class Component(object):
 
-    def __init__(self, name, desc=None, long_desc=None):
+    def __init__(self, name, desc=None, long_desc=None, parent_component=None):
         self.name = name
         self.description = desc
         self.description_long = long_desc
+        self.parent_component = parent_component
+
+    def get_parent_component(self):
+        return self.parent_component
+
+    def set_parent_component(self, parent):
+        self.parent_component = parent
 
     def get_description(self):
         if self.description_long is not None:
@@ -257,6 +264,8 @@ class DistInfo(object):
                     component.set_description(_(value))
                 elif field == 'CompDescriptionLong':
                     component.set_description_long(_(value))
+                elif field == 'ParentComponent':
+                    component.set_parent_component(value)
             self.finish_template(template, component)
             template=None
             component=None
