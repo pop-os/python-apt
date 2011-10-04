@@ -290,6 +290,16 @@ class Distribution(object):
 
         comp:         the component that should be enabled
         """
+        comps = set([comp])
+        # look for parent components that we may have to add
+        for source in self.main_sources:
+            for c in source.template.components:
+                if c.name == comp and c.parent_component:
+                    comps.add(c.parent_component)
+        for c in comps:
+            self._enable_component(c)
+
+    def _enable_component(self, comp):
 
         def add_component_only_once(source, comps_per_dist):
             """
@@ -297,12 +307,12 @@ class Distribution(object):
             a repository could be splitted into different apt lines. If not
             add the component
             """
-            # if we don't that distro, just reutnr (can happen for e.g.
+            # if we don't have that distro, just return (can happen for e.g.
             # dapper-update only in deb-src
             if source.dist not in comps_per_dist:
                 return
             # if we have seen this component already for this distro,
-            # return (nothing to do
+            # return (nothing to do)
             if comp in comps_per_dist[source.dist]:
                 return
             # add it

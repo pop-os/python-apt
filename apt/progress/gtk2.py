@@ -34,6 +34,7 @@ except ImportError:
     import gobject as glib
 import gobject
 import pango
+import time
 import vte
 
 import apt_pkg
@@ -127,16 +128,15 @@ class GInstallProgress(gobject.GObject, base.InstallProgress):
         self.apt_status = -1
         self.time_last_update = time.time()
         self.term = term
-        reaper = vte.reaper_get()
-        reaper.connect("child-exited", self.child_exited)
+        self.term.connect("child-exited", self.child_exited)
         self.env = ["VTE_PTY_KEEP_FD=%s" % self.writefd,
                     "DEBIAN_FRONTEND=gnome",
                     "APT_LISTCHANGES_FRONTEND=gtk"]
         self._context = glib.main_context_default()
 
-    def child_exited(self, term, pid, status):
+    def child_exited(self, term):
         """Called when a child process exits"""
-        self.apt_status = os.WEXITSTATUS(status)
+        self.apt_status = term.get_child_exit_status()
         self.finished = True
 
     def error(self, pkg, errormsg):
@@ -204,6 +204,7 @@ class GInstallProgress(gobject.GObject, base.InstallProgress):
         """Wait for the child process to exit."""
         while not self.finished:
             self.update_interface()
+            time.sleep(0.02)
         return self.apt_status
 
     if apt_pkg._COMPAT_0_7:

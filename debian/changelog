@@ -21,6 +21,11 @@ python-apt (0.8.1) UNRELEASED; urgency=low
   * tests/test_all.py:
     - skip all tests if sources.list is not readable (as is the case on
       some builds)
+    - packages in marked_install state can also be auto-removable
+  * add concept of "ParentComponent" for e.g. ubuntu/multiverse
+    that needs universe enabled as well (plus add test)
+  * apt/progress/gtk2.py:
+    - update to the latest vte API for child-exited (LP: #865388)
 
  -- Michael Vogt <mvo@debian.org>  Tue, 09 Aug 2011 09:16:40 +0200
 
