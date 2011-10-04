@@ -1,3 +1,10 @@
+python-apt (0.8.0ubuntu9) oneiric; urgency=low
+
+  * apt/progress/gtk2.py:
+    - update to the latest vte API for child-exited (LP: #865388)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 04 Oct 2011 16:35:52 +0200
+
 python-apt (0.8.0ubuntu8) oneiric; urgency=low
 
   * add concept of "ParentComponent" for e.g. ubuntu/multiverse
