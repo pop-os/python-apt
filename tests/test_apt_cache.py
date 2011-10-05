@@ -181,5 +181,16 @@ class TestAptCache(unittest.TestCase):
         apt_pkg.config.set("dir::etc::sourcelist", old_source_list)
         apt_pkg.config.set("dir::etc::sourceparts", old_source_parts)
 
+    def test_package_cmp(self):
+        cache = apt.Cache()
+        l = []
+        l.append(cache["libc6"])
+        l.append(cache["xterm"])
+        l.append(cache["apt"])
+        l.sort()
+        self.assertEqual([p.name for p in l],
+                         ["apt", "libc6", "xterm"])
+
+
 if __name__ == "__main__":
     unittest.main()
