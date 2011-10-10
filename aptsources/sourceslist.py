@@ -33,7 +33,7 @@ import sys
 import time
 
 import apt_pkg
-from aptsources.distinfo import DistInfo
+from distinfo import DistInfo
 from apt.deprecation import function_deprecated_by
 
 
