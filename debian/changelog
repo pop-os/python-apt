@@ -4,6 +4,8 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - use logging instead of print
     - update distro template Ubuntu.info.in
     - add xz compression support
+  * po/python-apt.pot:
+    - refreshed
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 19 Oct 2011 18:03:42 +0200
 
