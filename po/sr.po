@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-19 15:59+0200\n"
 "PO-Revision-Date: 2006-10-16 04:17+0000\n"
-"Last-Translator: Vladimir Samardzic <vladosam@hotmail.com>\n"
+"Last-Translator: Nikola Nenadic <nikola.nenadic@gmail.com>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,319 +22,319 @@ msgstr ""
 #: ../data/templates/Ubuntu.info.in.h:4
 #, no-c-format
 msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:13
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr ""
+msgstr "Ubuntu 9.10 'Karmic Koala'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:31
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 9.10 'Karmic Koala'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:74
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr ""
+msgstr "Ubuntu 9.04 'Jaunty Jackalope"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:92
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 9.04 'Jaunty Jackalope"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:135
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr ""
+msgstr "Ubuntu 8.10 'Intrepid Ibex'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:153
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 8.10 'Intrepid Ibex'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:197
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr ""
+msgstr "Ubuntu 8.04 'Hardy Heron'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:215
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 8.04 'Hardy Heron'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:252
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr ""
+msgstr "Ubuntu 7.10 'Gutsy Gibbon'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:270
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 7.10 'Gutsy Gibbon'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:305
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr ""
+msgstr "Ubuntu 7.04 'Feisty Fawn'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:323
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 7.04 'Feisty Fawn'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:357
 msgid "Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
+msgstr "Ubuntu 6.10 'Edgy Eft'"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:362
 msgid "Community-maintained"
-msgstr ""
+msgstr "Одржаван од стране заједнице"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:368
 msgid "Restricted software"
-msgstr ""
+msgstr "Ограничени софтвер"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:375
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 6.10 'Edgy Eft'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:409
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr ""
+msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:412
 msgid "Canonical-supported Open Source software"
-msgstr ""
+msgstr "Canonical-подржава софтвер отвореног кода"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:414
 msgid "Community-maintained (universe)"
-msgstr ""
+msgstr "Одржаван од стране заједнице"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:415
 msgid "Community-maintained Open Source software"
-msgstr ""
+msgstr "Заједница урећује софтвер отвореног кода"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:417
 msgid "Non-free drivers"
-msgstr ""
+msgstr "Не слободни драјвери"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:418
 msgid "Proprietary drivers for devices"
-msgstr ""
+msgstr "Власнички драјвери за уређаје"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:420
 msgid "Restricted software (Multiverse)"
-msgstr ""
+msgstr "Ограничени софтвер"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:421
 msgid "Software restricted by copyright or legal issues"
-msgstr ""
+msgstr "Софтвер ограничен ауторским правом или правним регулативама"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:427
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:439
 msgid "Important security updates"
-msgstr ""
+msgstr "Важне сигурносне исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:444
 msgid "Recommended updates"
-msgstr ""
+msgstr "Препоручено ажурирање"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:449
 msgid "Pre-released updates"
-msgstr ""
+msgstr "Унапријед објављене исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:454
 msgid "Unsupported updates"
-msgstr ""
+msgstr "Некомпитабилна ажурирања"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:461
 msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
+msgstr "Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:475
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:487
 msgid "Ubuntu 5.10 Security Updates"
-msgstr ""
+msgstr "Ubuntu 5.10 сигурносне исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:492
 msgid "Ubuntu 5.10 Updates"
-msgstr ""
+msgstr "Ubuntu 5.10 исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:497
 msgid "Ubuntu 5.10 Backports"
-msgstr ""
+msgstr "Ubuntu 5.10 Backports"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:504
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
+msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:521 ../data/templates/Debian.info.in:148
 msgid "Officially supported"
-msgstr ""
+msgstr "Званично подржани"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Ubuntu 5.04 Security Updates"
-msgstr ""
+msgstr "Ubuntu 5.04 Security Updates"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:535
 msgid "Ubuntu 5.04 Updates"
-msgstr ""
+msgstr "Ubuntu 5.04 Исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:540
 msgid "Ubuntu 5.04 Backports"
-msgstr ""
+msgstr "Ubuntu 5.04 Backports"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:546
 msgid "Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Ubuntu 4.10 'Warty Warthog"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:552
 msgid "Community-maintained (Universe)"
-msgstr ""
+msgstr "Одржаван од стране заједнице"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:554
 msgid "Non-free (Multiverse)"
-msgstr ""
+msgstr "Не слободни драјвери"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:560
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Оптички диск са Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:563
 msgid "No longer officially supported"
-msgstr ""
+msgstr "Званично није више подржано"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:565
 msgid "Restricted copyright"
-msgstr ""
+msgstr "Ограничена права"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:572
 msgid "Ubuntu 4.10 Security Updates"
-msgstr ""
+msgstr "Ubuntu 4.10 сигурносне исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:577
 msgid "Ubuntu 4.10 Updates"
-msgstr ""
+msgstr "Ubuntu 4.10 Исправке"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:582
 msgid "Ubuntu 4.10 Backports"
-msgstr ""
+msgstr "Ubuntu 4.10 Backports"
 
 #. ChangelogURI
 #: ../data/templates/Debian.info.in.h:4
 #, no-c-format
 msgid "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
-msgstr ""
+msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 6.0 'Squeeze' "
-msgstr ""
+msgid "Debian 6.0 'Squeeze'"
+msgstr "Debian 6.0 'Squeeze'"
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-msgid "Debian 5.0 'Lenny' "
-msgstr ""
+msgid "Debian 5.0 'Lenny'"
+msgstr "Debian 5.0 'Lenny'"
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 msgid "Debian 4.0 'Etch'"
-msgstr ""
+msgstr "Debian 4.0 'Etch'"
 
 #. Description
 #: ../data/templates/Debian.info.in:83
 msgid "Debian 3.1 'Sarge'"
-msgstr ""
+msgstr "Debian 3.1 'Sarge'"
 
 #. Description
 #: ../data/templates/Debian.info.in:94
 msgid "Proposed updates"
-msgstr ""
+msgstr "Предложене исправке (ажурирања)"
 
 #. Description
 #: ../data/templates/Debian.info.in:101
 msgid "Security updates"
-msgstr ""
+msgstr "Сигурносне исправке"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
 msgid "Debian current stable release"
-msgstr ""
+msgstr "Дебиан-тренутно стабилно издање"
 
 #. Description
 #: ../data/templates/Debian.info.in:121
 msgid "Debian testing"
-msgstr ""
+msgstr "Дебиан-тестирање"
 
 #. Description
 #: ../data/templates/Debian.info.in:146
 msgid "Debian 'Sid' (unstable)"
-msgstr ""
+msgstr "Debian 'Sid' (нестабилно)"
 
 #. CompDescription
 #: ../data/templates/Debian.info.in:150
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr ""
+msgstr "DFSG-компитабилан са не слободним софтвером"
 
 #. CompDescription
 #: ../data/templates/Debian.info.in:152
 msgid "Non-DFSG-compatible Software"
-msgstr ""
+msgstr "Непостоји-DFSG компитабилног софтвера"
 
 #. TRANSLATORS: %s is a country
 #: ../aptsources/distro.py:208 ../aptsources/distro.py:423
 #, python-format
 msgid "Server for %s"
-msgstr ""
+msgstr "Сервер за %s"
 
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
@@ -342,21 +342,21 @@ msgstr ""
 #: ../aptsources/distro.py:226 ../aptsources/distro.py:232
 #: ../aptsources/distro.py:248
 msgid "Main server"
-msgstr ""
+msgstr "Главни сервер"
 
 #: ../aptsources/distro.py:252
 msgid "Custom servers"
-msgstr ""
+msgstr "Прилагођени сервер"
 
 #: ../apt/progress/gtk2.py:259
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
-msgstr ""
+msgstr "Преужимам фајл %(current)li од %(total)li са %(speed)s/s"
 
 #: ../apt/progress/gtk2.py:265
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
-msgstr ""
+msgstr "Преужимам фајл %(current)li од %(total)li"
 
 #. Setup some child widgets
 #: ../apt/progress/gtk2.py:285
@@ -365,20 +365,20 @@ msgstr "Детаљи"
 
 #: ../apt/progress/gtk2.py:367
 msgid "Starting..."
-msgstr ""
+msgstr "Покретање..."
 
 #: ../apt/progress/gtk2.py:373
 msgid "Complete"
-msgstr ""
+msgstr "Крај"
 
 #: ../apt/package.py:301
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
-msgstr ""
+msgstr "Неважећи unicode у опису за '%s' (%s). Молим извјештај"
 
 #: ../apt/package.py:937 ../apt/package.py:1043
 msgid "The list of changes is not available"
-msgstr ""
+msgstr "Листа промјена није доступна"
 
 #: ../apt/package.py:1047
 #, python-format
@@ -388,85 +388,91 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Листа промјена није још доступна.\n"
+"Молимо искористите http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"док промјене не постану доступне или покушајте поново касније."
+
 
 #: ../apt/package.py:1053
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
+"Преузиманје листе промјена неуспјешно. \n"
+"Молимо провјерите своју конекцију са интернетом."
 
 #: ../apt/debfile.py:56
 #, python-format
 msgid "This is not a valid DEB archive, missing '%s' member"
-msgstr ""
+msgstr "Ово није валидна DEB архива, недостаје '% с' члан"
 
 #: ../apt/debfile.py:81
 #, python-format
-msgid "List of files for '%s'could not be read"
-msgstr ""
+msgid "List of files for '%s' could not be read"
+msgstr "Листа фајлова за '%s' не може да се прочита"
 
 #: ../apt/debfile.py:149
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Зависнот није задовољена: %s\n"
 
 #: ../apt/debfile.py:173
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Сукоби међу инсталираним пакетима"
 
 #: ../apt/debfile.py:319
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Погрешна архитектура '%s'"
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:325
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Новија верзија је већ инсталирана"
 
 #: ../apt/debfile.py:345
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Није успео да задовољи све зависности (грешка у кешу)"
 
 #: ../apt/debfile.py:376
 #, fuzzy, python-format
 msgid "Cannot install '%s'"
-msgstr "Инсталирај %s"
+msgstr "Не могу да се инсталирају %s"
 
 #: ../apt/debfile.py:484
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
-msgstr ""
+msgstr "Инсталирајте Build-Dependencies за кодни пакет '%s' који гради %s\n"
 
 #: ../apt/debfile.py:494
 msgid "An essential package would be removed"
-msgstr ""
+msgstr "Битан пакет би био уклоњен"
 
 #: ../apt/progress/text.py:81
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... Крај"
 
 #: ../apt/progress/text.py:118
 msgid "Hit "
-msgstr ""
+msgstr "Погодак"
 
 #: ../apt/progress/text.py:126
 msgid "Ign "
-msgstr ""
+msgstr "Игнорисано"
 
 #: ../apt/progress/text.py:128
 msgid "Err "
-msgstr ""
+msgstr "Грешка"
 
 #: ../apt/progress/text.py:138
 msgid "Get:"
-msgstr ""
+msgstr "УзимамЧ"
 
 #: ../apt/progress/text.py:198
 msgid " [Working]"
-msgstr ""
+msgstr "[Радим]"
 
 #: ../apt/progress/text.py:208
 #, python-format
@@ -475,21 +481,23 @@ msgid ""
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Молимо вас да убаците означени диск\n "
+"у оптички диск '%s' и притиснете enter\n"
 
 #. Trick for getting a translation from apt
 #: ../apt/progress/text.py:216
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Преузето %sB in %s (%sB/s)\n"
 
 #: ../apt/progress/text.py:229
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
-msgstr ""
+msgstr "Молимо обезбједите име за диск, као нпр. 'Debian 2.1r1 Disk 1'"
 
 #: ../apt/progress/text.py:241
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Молимо Вас да убаците диск у оптички уређај и притиснете enter"
 
 #: ../apt/cache.py:96
 msgid "Building data structures"
-msgstr ""
+msgstr "Изградња структуре података"
