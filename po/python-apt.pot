@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-28 16:23+0200\n"
+"POT-Creation-Date: 2011-10-19 16:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,26 +397,26 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:260 ../apt/progress/gtk2.py:316
+#: ../apt/progress/gtk2.py:261 ../apt/progress/gtk2.py:317
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:266 ../apt/progress/gtk2.py:322
+#: ../apt/progress/gtk2.py:267 ../apt/progress/gtk2.py:323
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:342
+#: ../apt/progress/gtk2.py:343
 msgid "Details"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:430
+#: ../apt/progress/gtk2.py:431
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/progress/gtk2.py:436
+#: ../apt/progress/gtk2.py:437
 msgid "Complete"
 msgstr ""
 

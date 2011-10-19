@@ -133,7 +133,7 @@ class TestAptCache(unittest.TestCase):
         old_source_list = apt_pkg.config.find("dir::etc::sourcelist")
         old_source_parts = apt_pkg.config.find("dir::etc::sourceparts")
         apt_pkg.config.set("dir::etc::sourcelist", base_sources)
-        apt_pkg.config.set("dir::etc::sourceparts", "xxx")
+        apt_pkg.config.set("dir::etc::sourceparts", "/tmp")
         # main sources.list
         sources_list = base_sources
         with open(sources_list, "w") as f:

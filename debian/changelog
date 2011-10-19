@@ -1,4 +1,4 @@
-python-apt (0.8.1) UNRELEASED; urgency=low
+python-apt (0.8.1) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * Breaks: debsecan (<< 0.4.15) [not only << 0.4.14] (Closes: #629512)
@@ -27,7 +27,7 @@ python-apt (0.8.1) UNRELEASED; urgency=low
   * apt/progress/gtk2.py:
     - update to the latest vte API for child-exited (LP: #865388)
 
- -- Michael Vogt <mvo@debian.org>  Tue, 09 Aug 2011 09:16:40 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 16:39:13 +0200
 
 python-apt (0.8.0) unstable; urgency=low
 

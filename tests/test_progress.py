@@ -27,7 +27,7 @@ class TestProgress(unittest.TestCase):
         apt_pkg.init()
         apt_pkg.config.set("APT::Architecture", "amd64")
         apt_pkg.config.set("Dir::Etc", basedir)
-        apt_pkg.config.set("Dir::Etc::sourceparts", "/xxx")
+        apt_pkg.config.set("Dir::Etc::sourceparts", "/tmp")
         # setup lists dir
         if not os.path.exists("./tmp/partial"):
             os.makedirs("./tmp/partial")
