@@ -973,8 +973,8 @@ class Package(object):
         another package, and if no packages depend on it anymore, the package
         is no longer required.
         """
-        return self.is_installed and \
-               self._pcache._depcache.is_garbage(self._pkg)
+        return ((self.is_installed or self.marked_install) and
+                self._pcache._depcache.is_garbage(self._pkg))
 
     @property
     def is_auto_installed(self):
