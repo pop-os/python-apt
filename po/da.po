@@ -1,21 +1,23 @@
-# Danish translation for update-manager
-# Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
-# This file is distributed under the same license as the update-manager package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
+# Danish translation python-apt.
+# Copyright (C) 2011 python-apt & nedenstående oversætttere.
+# This file is distributed under the same license as the python-apt package.
+# Mads Bille Lundby <lundbymads@gmail.com>, 2009.
+# AJenbo <anders@jenbo.dk>, 2011.
+# Ask, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: update-manager\n"
+"Project-Id-Version: python-apt\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-07-19 15:59+0200\n"
-"PO-Revision-Date: 2006-10-16 15:55+0000\n"
-"Last-Translator: Lasse Bang Mikkelsen <lbm@fatalerror.dk>\n"
-"Language-Team: Danish <da@li.org>\n"
+"PO-Revision-Date: 2011-06-22 14:44+0200\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org> \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -25,75 +27,63 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:13
-#, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.10 \"Karmic Koala\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:31
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr "Cd-rom med Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Cd-rom med Ubuntu 9.10 \"Karmic Koala\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:74
-#, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.04 \"Jaunty Jackalope\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:92
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Cd-rom med Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Cd-rom med Ubuntu 9.04 \"Jaunty Jackalope\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:135
-#, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.10 \"Intrepid Ibex\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:153
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Cd-rom med Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Cd-rom med Ubuntu 8.10 \"Intrepid Ibex\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:197
-#, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.04 \"Hardy Heron\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:215
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr "Cd-rom med Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Cd-rom med Ubuntu 8.04 \"Hardy Heron\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:252
-#, fuzzy
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Ubuntu 5.04 sikkerhedsopdateringer"
+msgstr "Ubuntu 7.10 \"Gutsy Gibbon\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:270
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Cd-rom med Ubuntu 5.10 \"Breezy Badger\""
+msgstr "Cd-rom med Ubuntu 7.10 \"Gutsy Gibbon\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:305
-#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Ubuntu 5.04 sikkerhedsopdateringer"
+msgstr "Ubuntu 7.04 \"Feisty Fawn\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:323
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Cd-rom med Ubuntu 5.10 \"Breezy Badger\""
+msgstr "Cd-rom med Ubuntu 7.04 \"Feisty Fawn\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:357
@@ -102,7 +92,6 @@ msgstr "Ubuntu 6.10 \"Edgy Eft\""
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:362
-#, fuzzy
 msgid "Community-maintained"
 msgstr "Vedligeholdt af fællesskabet"
 
@@ -123,21 +112,18 @@ msgstr "Ubuntu 6.06 LTS \"Dapper Drake\""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:412
-#, fuzzy
 msgid "Canonical-supported Open Source software"
-msgstr "Fri software understøttet af Canonical"
+msgstr "Canonical-understøttet software med åben kildekode"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:414
-#, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Vedligeholdt af fællesskabet (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:415
-#, fuzzy
 msgid "Community-maintained Open Source software"
-msgstr "Fri software vedligeholdt af fællesskabet"
+msgstr "Software med åben kildekode vedligeholdt af fællesskabet"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:417
@@ -176,15 +162,13 @@ msgstr "Anbefalede opdateringer"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:449
-#, fuzzy
 msgid "Pre-released updates"
-msgstr "Foreslåede opdateringer"
+msgstr "Ikke-frigivne opdateringer"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:454
-#, fuzzy
 msgid "Unsupported updates"
-msgstr "Tilbageporterede opdateringer"
+msgstr "Ikke-understøttede opdateringer"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:461
@@ -248,9 +232,8 @@ msgstr "Ubuntu 4.10 \"Warty Warthog\""
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:552
-#, fuzzy
 msgid "Community-maintained (Universe)"
-msgstr "Vedligeholdt af fællesskabet (universe)"
+msgstr "Vedligeholdt af fællesskabet (Universe)"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:554
@@ -295,25 +278,21 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
 msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 6.0 \"Squeeze\" "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-#, fuzzy
 msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 5.0 \"Lenny\" "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-#, fuzzy
 msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 4.0 \"Etch\""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
-#, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
 
@@ -324,26 +303,23 @@ msgstr "Foreslåede opdateringer"
 
 #. Description
 #: ../data/templates/Debian.info.in:101
-#, fuzzy
 msgid "Security updates"
-msgstr "Vigtige sikkerhedsopdateringer"
+msgstr "Sikkerhedsopdateringer"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
 msgid "Debian current stable release"
-msgstr ""
+msgstr "Debian aktuel stabil udgivelse"
 
 #. Description
 #: ../data/templates/Debian.info.in:121
-#, fuzzy
 msgid "Debian testing"
-msgstr "Debian \"Etch\" (testing)"
+msgstr "Debian tester"
 
 #. Description
 #: ../data/templates/Debian.info.in:146
-#, fuzzy
 msgid "Debian 'Sid' (unstable)"
-msgstr "Debian \"Sid\" (unstable)"
+msgstr "Debian \"Sid\" (ustabil)"
 
 #. CompDescription
 #: ../data/templates/Debian.info.in:150
@@ -390,16 +366,16 @@ msgstr "Detaljer"
 
 #: ../apt/progress/gtk2.py:367
 msgid "Starting..."
-msgstr ""
+msgstr "Starter..."
 
 #: ../apt/progress/gtk2.py:373
 msgid "Complete"
-msgstr ""
+msgstr "Færdig"
 
 #: ../apt/package.py:301
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
-msgstr ""
+msgstr "Ugyldig unicode i beskrivelsen af \"%s\" (%s). Se venligst rapport."
 
 #: ../apt/package.py:937 ../apt/package.py:1043
 msgid "The list of changes is not available"
@@ -413,6 +389,10 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Listen over ændringer er ikke tilgængelig endnu\n"
+"\n"
+"Se venligst http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"indtil ændringerne bliver tilgængelige eller prøv igen senere."
 
 #: ../apt/package.py:1053
 msgid ""
@@ -425,76 +405,75 @@ msgstr ""
 #: ../apt/debfile.py:56
 #, python-format
 msgid "This is not a valid DEB archive, missing '%s' member"
-msgstr ""
+msgstr "Dette er ikke et gyldigt DEB-arkiv, mangler \"%s-medlem\""
 
 #: ../apt/debfile.py:81
 #, python-format
 msgid "List of files for '%s'could not be read"
-msgstr ""
+msgstr "Listen over filer for \"%s\" kunne ikke læses"
 
 #: ../apt/debfile.py:149
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Afhængighed kan ikke opfyldes; %s\n"
 
 #: ../apt/debfile.py:173
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "I konflikt med den installerede pakke \"%s\""
 
 #: ../apt/debfile.py:319
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Forkert arkitektur \"%s\""
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:325
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Der er allerede installeret en senere version"
 
 #: ../apt/debfile.py:345
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Kunne ikke opfylde alle afhængigheder (beskadiget cache)"
 
 #: ../apt/debfile.py:376
-#, fuzzy, python-format
+#, python-format
 msgid "Cannot install '%s'"
 msgstr "Kan ikke installere \"%s\""
 
 #: ../apt/debfile.py:484
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
-msgstr ""
+msgstr "Installér bygge-afhængigheder til kildepakke \"%s\" der bygger %s\n"
 
 #: ../apt/debfile.py:494
-#, fuzzy
 msgid "An essential package would be removed"
-msgstr "Det ville være nødvendigt at fjerne en vital pakke"
+msgstr "En nødvendig pakke vil blive fjernet"
 
 #: ../apt/progress/text.py:81
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... Færdig"
 
 #: ../apt/progress/text.py:118
 msgid "Hit "
-msgstr ""
+msgstr "Tjekkede "
 
 #: ../apt/progress/text.py:126
 msgid "Ign "
-msgstr ""
+msgstr "Ign "
 
 #: ../apt/progress/text.py:128
 msgid "Err "
-msgstr ""
+msgstr "Fejl "
 
 #: ../apt/progress/text.py:138
 msgid "Get:"
-msgstr ""
+msgstr "Henter:"
 
 #: ../apt/progress/text.py:198
 msgid " [Working]"
-msgstr ""
+msgstr " [Arbejder]"
 
 #: ../apt/progress/text.py:208
 #, python-format
@@ -503,21 +482,26 @@ msgid ""
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Medieskift: Indsæt disken med navnet\n"
+" '%s'\n"
+"i drevet '%s' og tryk retur\n"
 
 #. Trick for getting a translation from apt
 #: ../apt/progress/text.py:216
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Hentede %sB på %s (%sB/s)\n"
 
 #: ../apt/progress/text.py:229
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
-msgstr ""
+msgstr "Angiv et navn for denne disk, som f.eks. 'Debian 2.1r1 Disk 1'"
 
 #: ../apt/progress/text.py:241
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Indsæt en disk i drevet og tryk retur"
 
 #: ../apt/cache.py:96
 msgid "Building data structures"
-msgstr ""
+msgstr "Opbygger datastrukturer"
+
+

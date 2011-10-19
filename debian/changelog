@@ -8,6 +8,8 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - refreshed
   * po/pt_BR.po:
     - updated, thanks to Sergio Cipolla (closes: #628398)
+  * po/da.po:
+    - updated, thanks to Joe Dalton (closes: #631309)
 
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
 
