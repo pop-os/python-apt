@@ -1,5 +1,360 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: precise
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 12.04 'Precise Pangolin'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported Open Source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+ParentComponent: universe
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: precise
+ParentSuite: precise
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 12.04 'Precise Pangolin'
+
+Suite: precise
+RepositoryType: deb
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*12.04
+MatchURI: cdrom:\[Ubuntu.*12.04
+_Description: Cdrom with Ubuntu 12.04 'Precise Pangolin'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: precise
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: precise
+Official: false
+RepositoryType: deb
+BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
+_Description: Independent
+Component: main
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
+
+Suite: precise-security
+ParentSuite: precise
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: precise-security
+ParentSuite: precise
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
+Suite: precise-updates
+ParentSuite: precise
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: precise-updates
+ParentSuite: precise
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Recommended updates
+
+Suite: precise-proposed
+ParentSuite: precise
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: precise-proposed
+ParentSuite: precise
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
+Suite: precise-backports
+ParentSuite: precise
+RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: precise-backports
+ParentSuite: precise
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Unsupported updates
+
+Suite: oneiric
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 11.10 'Oneiric Ocelot'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported Open Source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+ParentComponent: universe
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: oneiric
+ParentSuite: oneiric
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 11.10 'Oneiric Ocelot'
+
+Suite: oneiric
+RepositoryType: deb
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*11.10
+MatchURI: cdrom:\[Ubuntu.*11.10
+_Description: Cdrom with Ubuntu 11.10 'Oneiric Ocelot'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: oneiric
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: oneiric
+Official: false
+RepositoryType: deb
+BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
+_Description: Independent
+Component: main
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
+
+Suite: oneiric-security
+ParentSuite: oneiric
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: oneiric-security
+ParentSuite: oneiric
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
+Suite: oneiric-updates
+ParentSuite: oneiric
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: oneiric-updates
+ParentSuite: oneiric
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Recommended updates
+
+Suite: oneiric-proposed
+ParentSuite: oneiric
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: oneiric-proposed
+ParentSuite: oneiric
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
+Suite: oneiric-backports
+ParentSuite: oneiric
+RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: oneiric-backports
+ParentSuite: oneiric
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Unsupported updates
+
+
+Suite: natty
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 11.04 'Natty Narwhal'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported Open Source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained Open Source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+ParentComponent: universe
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: natty
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 11.04 'Natty Narwhal'
+
+Suite: natty
+RepositoryType: deb
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*11.04
+MatchURI: cdrom:\[Ubuntu.*11.04
+_Description: Cdrom with Ubuntu 11.04 'Natty Narwhal'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: natty
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: natty
+Official: false
+RepositoryType: deb
+BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
+_Description: Independent
+Component: main
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
+
+Suite: natty-security
+ParentSuite: natty
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: natty-security
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
+Suite: natty-updates
+ParentSuite: natty
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: natty-updates
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Recommended updates
+
+Suite: natty-proposed
+ParentSuite: natty
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: natty-proposed
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
+Suite: natty-backports
+ParentSuite: natty
+RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: natty-backports
+ParentSuite: natty
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Unsupported updates
+
 Suite: maverick
 RepositoryType: deb
 BaseURI: http://ports.ubuntu.com/ubuntu-ports/
@@ -26,6 +381,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: maverick
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*10.10
 MatchURI: cdrom:\[Ubuntu.*10.10
@@ -108,6 +464,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: lucid
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*10.04
 MatchURI: cdrom:\[Ubuntu.*10.04
@@ -170,6 +527,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: karmic
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*9.10
 MatchURI: cdrom:\[Ubuntu.*9.10
@@ -231,6 +589,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: jaunty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*9.04
 MatchURI: cdrom:\[Ubuntu.*9.04
@@ -293,6 +652,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: intrepid
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.10
 MatchURI: cdrom:\[Ubuntu.*8.10
@@ -356,6 +716,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: hardy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*8.04
 MatchURI: cdrom:\[Ubuntu.*8.04
@@ -419,6 +780,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: gutsy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.10
 MatchURI: cdrom:\[Ubuntu.*7.10
@@ -482,6 +844,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: feisty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*7.04
 MatchURI: cdrom:\[Ubuntu.*7.04
@@ -542,6 +905,7 @@ _CompDescription: Restricted software
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: edgy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.10
 MatchURI: cdrom:\[Ubuntu.*6.10
@@ -602,6 +966,7 @@ _CompDescription: Restricted software (Multiverse)
 _CompDescriptionLong: Software restricted by copyright or legal issues
 
 Suite: dapper
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*6.06
 MatchURI: cdrom:\[Ubuntu.*6.06
@@ -658,6 +1023,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: breezy
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.10
 MatchURI: cdrom:\[Ubuntu.*5.10
@@ -709,6 +1075,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: hoary
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*5.04
 MatchURI: cdrom:\[Ubuntu.*5.04
@@ -755,6 +1122,7 @@ Component: multiverse
 _CompDescription: Non-free (Multiverse)
 
 Suite: warty
+RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*4.10
 MatchURI: cdrom:\[Ubuntu.*4.10

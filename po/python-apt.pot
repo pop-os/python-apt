@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-19 16:45+0200\n"
+"POT-Creation-Date: 2011-08-01 09:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,297 +24,317 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:13
-msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr ""
-
-#. Description
 #: ../data/templates/Ubuntu.info.in:32
-msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
+msgid "Ubuntu 11.10 'Oneiric Ocelot'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:44
-msgid "Canonical Partners"
-msgstr ""
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:46
-msgid "Software packaged by Canonical for their partners"
-msgstr ""
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:47
-msgid "This software is not part of Ubuntu."
+#: ../data/templates/Ubuntu.info.in:39
+msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:54
-msgid "Independent"
-msgstr ""
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:56
-msgid "Provided by third-party software developers"
-msgstr ""
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:57
-msgid "Software offered by third party developers."
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:95
-msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:114
-msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
+#: ../data/templates/Ubuntu.info.in:150
+msgid "Ubuntu 11.04 'Natty Narwhal'"
 msgstr ""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:157
+msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:248
+msgid "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:267
+msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:279
+msgid "Canonical Partners"
+msgstr ""
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:281
+msgid "Software packaged by Canonical for their partners"
+msgstr ""
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:282
+msgid "This software is not part of Ubuntu."
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:289
+msgid "Independent"
+msgstr ""
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:291
+msgid "Provided by third-party software developers"
+msgstr ""
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:292
+msgid "Software offered by third party developers."
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:330
+msgid "Ubuntu 10.04 'Lucid Lynx'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:349
+msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:392
 msgid "Ubuntu 9.10 'Karmic Koala'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:176
+#: ../data/templates/Ubuntu.info.in:411
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:219
+#: ../data/templates/Ubuntu.info.in:454
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:237
+#: ../data/templates/Ubuntu.info.in:473
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:280
+#: ../data/templates/Ubuntu.info.in:516
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:299
+#: ../data/templates/Ubuntu.info.in:535
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:343
+#: ../data/templates/Ubuntu.info.in:579
 msgid "Ubuntu 8.04 'Hardy Heron'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:362
+#: ../data/templates/Ubuntu.info.in:598
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:407
+#: ../data/templates/Ubuntu.info.in:643
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:425
+#: ../data/templates/Ubuntu.info.in:662
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:470
+#: ../data/templates/Ubuntu.info.in:707
 msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:488
+#: ../data/templates/Ubuntu.info.in:726
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:530
+#: ../data/templates/Ubuntu.info.in:768
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:535
+#: ../data/templates/Ubuntu.info.in:773
 msgid "Community-maintained"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:541
+#: ../data/templates/Ubuntu.info.in:779
 msgid "Restricted software"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:548
+#: ../data/templates/Ubuntu.info.in:787
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:590
+#: ../data/templates/Ubuntu.info.in:829
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:593
+#: ../data/templates/Ubuntu.info.in:832
 msgid "Canonical-supported Open Source software"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:595
+#: ../data/templates/Ubuntu.info.in:834
 msgid "Community-maintained (universe)"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:596
+#: ../data/templates/Ubuntu.info.in:835
 msgid "Community-maintained Open Source software"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:598
+#: ../data/templates/Ubuntu.info.in:837
 msgid "Non-free drivers"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:599
+#: ../data/templates/Ubuntu.info.in:838
 msgid "Proprietary drivers for devices"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:601
+#: ../data/templates/Ubuntu.info.in:840
 msgid "Restricted software (Multiverse)"
 msgstr ""
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:602
+#: ../data/templates/Ubuntu.info.in:841
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:608
+#: ../data/templates/Ubuntu.info.in:848
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:624
+#: ../data/templates/Ubuntu.info.in:864
 msgid "Important security updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:629
+#: ../data/templates/Ubuntu.info.in:869
 msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:634
+#: ../data/templates/Ubuntu.info.in:874
 msgid "Pre-released updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:639
+#: ../data/templates/Ubuntu.info.in:879
 msgid "Unsupported updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:650
+#: ../data/templates/Ubuntu.info.in:890
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:664
+#: ../data/templates/Ubuntu.info.in:905
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:680
+#: ../data/templates/Ubuntu.info.in:921
 msgid "Ubuntu 5.10 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:685
+#: ../data/templates/Ubuntu.info.in:926
 msgid "Ubuntu 5.10 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:690
+#: ../data/templates/Ubuntu.info.in:931
 msgid "Ubuntu 5.10 Backports"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:701
+#: ../data/templates/Ubuntu.info.in:942
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:715
+#: ../data/templates/Ubuntu.info.in:957
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:718 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:960 ../data/templates/Debian.info.in:149
 msgid "Officially supported"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:731
+#: ../data/templates/Ubuntu.info.in:973
 msgid "Ubuntu 5.04 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:736
+#: ../data/templates/Ubuntu.info.in:978
 msgid "Ubuntu 5.04 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:741
+#: ../data/templates/Ubuntu.info.in:983
 msgid "Ubuntu 5.04 Backports"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:747
+#: ../data/templates/Ubuntu.info.in:989
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:753
+#: ../data/templates/Ubuntu.info.in:995
 msgid "Community-maintained (Universe)"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:755
+#: ../data/templates/Ubuntu.info.in:997
 msgid "Non-free (Multiverse)"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:761
+#: ../data/templates/Ubuntu.info.in:1004
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:764
+#: ../data/templates/Ubuntu.info.in:1007
 msgid "No longer officially supported"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:766
+#: ../data/templates/Ubuntu.info.in:1009
 msgid "Restricted copyright"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:773
+#: ../data/templates/Ubuntu.info.in:1016
 msgid "Ubuntu 4.10 Security Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:778
+#: ../data/templates/Ubuntu.info.in:1021
 msgid "Ubuntu 4.10 Updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:783
+#: ../data/templates/Ubuntu.info.in:1026
 msgid "Ubuntu 4.10 Backports"
 msgstr ""
 
@@ -380,7 +400,7 @@ msgid "Non-DFSG-compatible Software"
 msgstr ""
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:209 ../aptsources/distro.py:437
+#: ../aptsources/distro.py:210 ../aptsources/distro.py:428
 #, python-format
 msgid "Server for %s"
 msgstr ""
@@ -388,35 +408,35 @@ msgstr ""
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:227 ../aptsources/distro.py:233
-#: ../aptsources/distro.py:249
+#: ../aptsources/distro.py:228 ../aptsources/distro.py:234
+#: ../aptsources/distro.py:250
 msgid "Main server"
 msgstr ""
 
-#: ../aptsources/distro.py:253
+#: ../aptsources/distro.py:254
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:261 ../apt/progress/gtk2.py:317
+#: ../apt/progress/gtk2.py:260 ../apt/progress/gtk2.py:316
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:267 ../apt/progress/gtk2.py:323
+#: ../apt/progress/gtk2.py:266 ../apt/progress/gtk2.py:322
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:343
+#: ../apt/progress/gtk2.py:342
 msgid "Details"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:431
+#: ../apt/progress/gtk2.py:430
 msgid "Starting..."
 msgstr ""
 
-#: ../apt/progress/gtk2.py:437
+#: ../apt/progress/gtk2.py:436
 msgid "Complete"
 msgstr ""
 

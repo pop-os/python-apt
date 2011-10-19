@@ -1,3 +1,12 @@
+python-apt (0.8.2) UNRELEASED; urgency=low
+
+  * merged from ubuntu:
+    - use logging instead of print
+    - update distro template Ubuntu.info.in
+    - add xz compression support
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 19 Oct 2011 18:03:42 +0200
+
 python-apt (0.8.1) unstable; urgency=low
 
   [ Julian Andres Klode ]
