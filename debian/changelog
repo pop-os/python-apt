@@ -2,6 +2,8 @@ python-apt (0.8.0ubuntu10) UNRELEASEDoneiric-updates; urgency=low
 
   * aptsources/sourceslist.py:
     - import distinfo from the same dir (LP: #871007)
+  * data/templates/Ubuntu.info.in:
+    - add precise
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 10 Oct 2011 11:13:20 +0200
 
