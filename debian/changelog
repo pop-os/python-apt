@@ -1,5 +1,6 @@
 python-apt (0.8.2) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * merged from ubuntu:
     - use logging instead of print
     - update distro template Ubuntu.info.in
@@ -10,6 +11,9 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - updated, thanks to Sergio Cipolla (closes: #628398)
   * po/da.po:
     - updated, thanks to Joe Dalton (closes: #631309)
+  
+  [ Tshepang Lekhonkhobe ]
+  * rm usage of camelcase in cache.py doc (closes: #626617)
 
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
 
