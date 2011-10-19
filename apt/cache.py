@@ -46,8 +46,7 @@ class LockFailedException(IOError):
 class Cache(object):
     """Dictionary-like package cache.
 
-    This class has all the packages that are available in it's
-    dictionary.
+    The dictionary of this class contains all available packages.
 
     Keyword arguments:
     progress -- a OpProgress object
