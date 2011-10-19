@@ -472,7 +472,7 @@ class DebPackage(object):
     def missing_deps(self):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
-        if self._need_pkgs is None:
+        if not self._need_pkgs:
             self.check()
         return self._need_pkgs
 
@@ -485,6 +485,8 @@ class DebPackage(object):
         install = []
         remove = []
         unauthenticated = []
+        if not self._cache:
+            self.check()
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
