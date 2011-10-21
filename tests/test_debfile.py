@@ -17,8 +17,8 @@ sys.path.insert(0, get_library_dir())
 import apt_pkg
 import apt.debfile
 
-class TestDebfilee(unittest.TestCase):
-    """ test the apt cache """
+class TestDebfile(unittest.TestCase):
+    """ test the debfile """
 
     TEST_DEBS = [
         # conflicts with apt
@@ -87,7 +87,7 @@ class TestDebfilee(unittest.TestCase):
         self.assertEqual(deb["Maintainer"],
                          "Samuel Lidén Borell <samuel@slbdata.se>")
 
-    def testContent(self):
+    def test_content(self):
         # no python-debian for python3 yet, so fail gracefully
         try:
             import debian
@@ -129,6 +129,8 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 	# with self.assertRaises(SystemError): is more elegant above, but
 	# we need to support python2.6
         self.assertTrue(raised)
+
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
