@@ -399,7 +399,8 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
 static const char *doc_GetArchitectures =
     "get_architectures() -> list\n\n"
     "Return the list of supported architectures on this system. On a \n"
-    "multiarch system this can be more than one.";;
+    "multiarch system this can be more than one. The main architectures\n"
+    "is the first item in the list.";;
 static PyObject *GetArchitectures(PyObject *Self,PyObject *Args)
 {
    PyObject *Obj;
