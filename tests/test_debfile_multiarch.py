@@ -35,7 +35,11 @@ class TestDebfileMultiarch(unittest.TestCase):
         cache = apt.Cache()
         # WARNING: this assumes that lib3ds-1-3 is a non-multiarch lib
         # use "lib3ds-1-3" as a test to see if non-multiach lib conflicts work
-        cache["lib3ds-1-3"].mark_install()
+        canary = "lib3ds-1-3"
+        if not canary in cache:
+            logging.warn("skipping test because %s is missing" % canary)
+            return
+        cache[canary].mark_install()
         deb = apt.debfile.DebPackage(
             "./data/test_debs/multiarch-test1_i386.deb", cache=cache)
         # this deb should now not be installable
