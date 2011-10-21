@@ -1,4 +1,29 @@
-python-apt (0.8.1) UNRELEASED; urgency=low
+python-apt (0.8.2) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * merged from ubuntu:
+    - use logging instead of print
+    - update distro template Ubuntu.info.in
+    - add xz compression support
+  * po/python-apt.pot:
+    - refreshed
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla (closes: #628398)
+  * po/da.po:
+    - updated, thanks to Joe Dalton (closes: #631309)
+  * po/sr.po:
+    - updated, thanks to Nikola Nenadic (closes: #638308)
+  
+  [ Tshepang Lekhonkhobe ]
+  * rm usage of camelcase in cache.py doc (closes: #626617)
+  * grammar fix in the cache.py doc (closes: #626610)
+  * apt/debfile.py: Remove the need to explcitly call check() in order
+    to get output from require_changes and missing_deps
+    (closes: #624379)
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
+
+python-apt (0.8.1) unstable; urgency=low
 
   [ Julian Andres Klode ]
   * Breaks: debsecan (<< 0.4.15) [not only << 0.4.14] (Closes: #629512)
@@ -16,11 +41,11 @@ python-apt (0.8.1) UNRELEASED; urgency=low
     - fix test by providing proper fixture data
     - fix test if sources.list is not readable (as is the case on some
       PPA buildds)
-  * tests/test_all.py:
-    - print library dir to hunt down build failure on amd64
-  * aptsources/distinfo.py:
-    - make mirror a valid protocol name
   * apt/package.py:
+    - fix py3 compatiblity with print
+  * tests/test_all.py:
+    - skip all tests if sources.list is not readable (as is the case on
+      some builds)
     - packages in marked_install state can also be auto-removable
   * add concept of "ParentComponent" for e.g. ubuntu/multiverse
     that needs universe enabled as well (plus add test)
@@ -35,7 +60,7 @@ python-apt (0.8.1) UNRELEASED; urgency=low
   * debian/control:
     - add recommends to xz-lzma to ensure we have the unlzma command
 
- -- Julian Andres Klode <jak@debian.org>  Tue, 07 Jun 2011 14:00:22 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 16:39:13 +0200
 
 python-apt (0.8.0) unstable; urgency=low
 

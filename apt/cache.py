@@ -46,8 +46,7 @@ class LockFailedException(IOError):
 class Cache(object):
     """Dictionary-like package cache.
 
-    This class has all the packages that are available in it's
-    dictionary.
+    The dictionary of this class contains all available packages.
 
     Keyword arguments:
     progress -- a OpProgress object
@@ -507,7 +506,7 @@ class Cache(object):
         self._callbacks[name].append(callback)
 
     def actiongroup(self):
-        """Return an ActionGroup() object for the current cache.
+        """Return an action group object for the current cache.
 
         Action groups can be used to speedup actions. The action group is
         active as soon as it is created, and disabled when the object is
@@ -520,7 +519,7 @@ class Cache(object):
                 for package in my_selected_packages:
                     package.mark_install()
 
-        This way, the ActionGroup is automatically released as soon as the
+        This way, the action group is automatically released as soon as the
         with statement block is left. It also has the benefit of making it
         clear which parts of the code run with a action group and which
         don't.

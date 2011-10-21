@@ -42,6 +42,7 @@ for entry in d.entries:
 
 keys = countries.keys()
 keys.sort()
+print "mirror://mirrors.ubuntu.com/mirrors.txt"
 for country in keys:
     print "#LOC:%s" % country
     print "\n".join(sorted(countries[country]))
