@@ -181,7 +181,7 @@ PyObject *debExtract(PyObject *Self,PyObject *Args)
       if (strcmp(".bz2", &Chunk[strlen(Chunk)-4]) == 0)
 	      Comp = "bzip2";
       else if(strcmp(".lzma", &Chunk[strlen(Chunk)-5]) == 0)
-	      Comp = "lzma";
+	      Comp = "unlzma";
       ExtractTar Tar(Deb.GetFile(),Member->Size,Comp);
       ProcessTar Proc(Function);
       if (Tar.Go(Proc) == false)
