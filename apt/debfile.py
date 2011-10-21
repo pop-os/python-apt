@@ -85,12 +85,33 @@ class DebPackage(object):
         return files
 
     # helper that will return a pkgname with a multiarch suffix if needed
-    def _maybe_append_multiarch_suffix(self, pkgname):
-        if (self._multiarch and 
-            not self._cache.is_virtual_package(pkgname) and
-            self._cache[pkgname].candidate.architecture != "all"):
-            return "%s:%s" % (pkgname, self._multiarch)
-        return pkgname
+    def _maybe_append_multiarch_suffix(self, pkgname, 
+                                       in_conflict_checking=False):
+        # trivial cases
+        if not self._multiarch:
+            return pkgname
+        elif self._cache.is_virtual_package(pkgname):
+            return pkgname
+        elif self._cache[pkgname].candidate == "all":
+            return pkgname
+        # now do the real multiarch checking
+        multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
+        # the upper layers will handle this
+        if not multiarch_pkgname in self._cache:
+            return multiarch_pkgname
+        # now check the multiarch state
+        cand = self._cache[multiarch_pkgname].candidate._cand
+        #print pkgname, multiarch_pkgname, cand.multi_arch
+        # the default is to add the suffix, unless its a pkg that can satify
+        # foreign dependencies
+        if cand.multi_arch & cand.MULTI_ARCH_FOREIGN:
+            return pkgname
+        # for conflicts we need a special case here, any not multiarch enabled
+        # package has a implicit conflict
+        if (in_conflict_checking and 
+            not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
+            return pkgname
+        return multiarch_pkgname
 
     def _is_or_group_satisfied(self, or_group):
         """Return True if at least one dependency of the or-group is satisfied.
@@ -220,7 +241,8 @@ class DebPackage(object):
 
             # FIXME: is this good enough? i.e. will apt always populate
             #        the cache with conflicting pkgnames for our arch?
-            depname = self._maybe_append_multiarch_suffix(depname)
+            depname = self._maybe_append_multiarch_suffix(
+                depname, in_conflict_checking=True)
 
             # check conflicts with virtual pkgs
             if not depname in self._cache:
