@@ -92,7 +92,7 @@ class DebPackage(object):
             return pkgname
         elif self._cache.is_virtual_package(pkgname):
             return pkgname
-        elif self._cache[pkgname].candidate == "all":
+        elif self._cache[pkgname].candidate.architecture == "all":
             return pkgname
         # now do the real multiarch checking
         multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
