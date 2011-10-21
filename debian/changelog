@@ -13,6 +13,8 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - updated, thanks to Joe Dalton (closes: #631309)
   * po/sr.po:
     - updated, thanks to Nikola Nenadic (closes: #638308)
+  * python/apt_pkgmodule.cc:
+    - add apt_pkg.get_architectures() call
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)

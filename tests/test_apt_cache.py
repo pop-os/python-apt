@@ -191,6 +191,11 @@ class TestAptCache(unittest.TestCase):
         self.assertEqual([p.name for p in l],
                          ["apt", "libc6", "xterm"])
 
+    def test_get_architectures(self):
+        main_arch = apt.apt_pkg.config.get("APT::Architecture")
+        arches = apt_pkg.get_architectures()
+        self.assertTrue(main_arch in arches)
+
 
 if __name__ == "__main__":
     unittest.main()
