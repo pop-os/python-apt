@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-19 18:07+0200\n"
+"POT-Creation-Date: 2011-10-21 10:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,11 +455,11 @@ msgstr ""
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:1065 ../apt/package.py:1171
+#: ../apt/package.py:1068 ../apt/package.py:1174
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1177
+#: ../apt/package.py:1180
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -468,7 +468,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1184
+#: ../apt/package.py:1187
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
@@ -535,26 +535,26 @@ msgstr ""
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:508
+#: ../apt/debfile.py:510
 msgid "Python-debian module not available"
 msgstr ""
 
-#: ../apt/debfile.py:542
+#: ../apt/debfile.py:544
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
 
-#: ../apt/debfile.py:548
+#: ../apt/debfile.py:550
 msgid "Automatically converted to printable ascii:\n"
 msgstr ""
 
-#: ../apt/debfile.py:638
+#: ../apt/debfile.py:640
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:648
+#: ../apt/debfile.py:650
 msgid "An essential package would be removed"
 msgstr ""
 
@@ -605,6 +605,6 @@ msgstr ""
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:149
+#: ../apt/cache.py:148
 msgid "Building data structures"
 msgstr ""

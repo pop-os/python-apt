@@ -13,6 +13,15 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - updated, thanks to Joe Dalton (closes: #631309)
   * po/sr.po:
     - updated, thanks to Nikola Nenadic (closes: #638308)
+  * python/apt_pkgmodule.cc:
+    - add apt_pkg.get_architectures() call
+  * apt/cache.py:
+    - remove "print" when creating dirs in apt.Cache(rootdir=dir),
+      thanks to Martin Pitt
+    - add __cmp__ to apt.Package so that sort() sorts by name
+      on list of package objects
+  * debian/control:
+    - add recommends to xz-lzma to ensure we have the unlzma command
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)
@@ -51,6 +60,7 @@ python-apt (0.8.1) unstable; urgency=low
     that needs universe enabled as well (plus add test)
   * apt/progress/gtk2.py:
     - update to the latest vte API for child-exited (LP: #865388)
+  * tests/test_apt_cache.py:
 
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 16:39:13 +0200
 

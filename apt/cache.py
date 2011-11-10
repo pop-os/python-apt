@@ -111,7 +111,7 @@ class Cache(object):
                ]
         for d in dirs:
             if not os.path.exists(rootdir + d):
-                print "creating: ", rootdir + d
+                #print "creating: ", rootdir + d
                 os.makedirs(rootdir + d)
         for f in files:
             if not os.path.exists(rootdir + f):

@@ -25,6 +25,7 @@
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/orderlist.h>
+#include <apt-pkg/aptconfiguration.h>
 
 #include <sys/stat.h>
 #include <libintl.h>
@@ -393,6 +394,30 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
    return 0;
 }
 									/*}}}*/
+// get_architectures - return the list of architectures			/*{{{*/
+// ---------------------------------------------------------------------
+static const char *doc_GetArchitectures =
+    "get_architectures() -> list\n\n"
+    "Return the list of supported architectures on this system. On a \n"
+    "multiarch system this can be more than one. The main architectures\n"
+    "is the first item in the list.";;
+static PyObject *GetArchitectures(PyObject *Self,PyObject *Args)
+{
+   PyObject *Obj;
+   if (PyArg_ParseTuple(Args,"",&Obj) == 0)
+      return 0;
+
+   PyObject *List = PyList_New(0);
+   vector<string> arches = APT::Configuration::getArchitectures();
+   vector<string>::const_iterator I;
+   for (I = arches.begin(); I != arches.end(); I++) 
+   {
+      PyList_Append(List, CppPyString(*I));
+   }
+
+   return List;
+}
+									/*}}}*/
 // init - 3 init functions						/*{{{*/
 // ---------------------------------------------------------------------
 static char *doc_Init =
@@ -538,6 +563,9 @@ static PyMethodDef methods[] =
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
    {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
    {"sha256sum",sha256sum,METH_VARARGS,doc_sha256sum},
+
+   // multiarch
+   {"get_architectures", GetArchitectures, METH_VARARGS, doc_GetArchitectures},
 
    // Strings
    {"check_domain_list",StrCheckDomainList,METH_VARARGS,

@@ -22,7 +22,7 @@ Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
-Recommends: lsb-release, iso-codes, python2.6
+Recommends: lsb-release, iso-codes, python2.6, xz-lzma
 Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         computer-janitor (<< 1.14.1-1+),
         debdelta (<< 0.41+),
