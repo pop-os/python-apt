@@ -15,6 +15,9 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - updated, thanks to Nikola Nenadic (closes: #638308)
   * python/apt_pkgmodule.cc:
     - add apt_pkg.get_architectures() call
+  * apt/cache.py:
+    - remove "print" when creating dirs in apt.Cache(rootdir=dir),
+      thanks to Martin Pitt
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)
