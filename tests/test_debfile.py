@@ -87,7 +87,7 @@ class TestDebfilee(unittest.TestCase):
         self.assertEqual(deb["Maintainer"],
                          "Samuel Lidén Borell <samuel@slbdata.se>")
 
-    def testContent(self):
+    def test_content(self):
         # no python-debian for python3 yet, so fail gracefully
         try:
             import debian
@@ -129,6 +129,17 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 	# with self.assertRaises(SystemError): is more elegant above, but
 	# we need to support python2.6
         self.assertTrue(raised)
+
+    def test_multiarch_deb(self):
+        print apt_pkg.get_architectures() 
+        if apt_pkg.get_architectures() != ["amd64", "i386"]:
+            logging.warn("skipping test because running on a non-multiarch system")
+            return
+        deb = apt.debfile.DebPackage("./data/test_debs/multiarch-test1_i386.deb")
+        print deb.missing_deps()
+        
+
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)

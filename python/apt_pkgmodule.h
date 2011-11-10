@@ -24,6 +24,7 @@
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/cdrom.h>
 #include <apt-pkg/algorithms.h>
+#include <apt-pkg/metaindex.h>
 #include "generic.h"
 
 // Configuration Stuff

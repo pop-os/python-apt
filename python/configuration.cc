@@ -262,7 +262,7 @@ static PyObject *CnfDump(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   stringstream ss;
+   std::stringstream ss;
    GetSelf(Self).Dump(ss);
    return CppPyString(ss.str());
 }

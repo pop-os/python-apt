@@ -26,6 +26,7 @@
 #include "apt_pkgmodule.h"
 
 #include <apt-pkg/tagfile.h>
+#include <apt-pkg/fileutl.h>
 
 #include <stdio.h>
 #include <iostream>

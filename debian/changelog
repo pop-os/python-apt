@@ -18,6 +18,7 @@ python-apt (0.8.2) UNRELEASED; urgency=low
   * apt/cache.py:
     - remove "print" when creating dirs in apt.Cache(rootdir=dir),
       thanks to Martin Pitt
+  * fix build against apt in experimental
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)
