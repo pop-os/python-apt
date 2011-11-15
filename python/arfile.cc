@@ -204,7 +204,7 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
     if (!Fd.Seek(member->Start))
         return HandleErrors();
 
-    string outfile_str = flCombine(dir,member->Name);
+    std::string outfile_str = flCombine(dir,member->Name);
     char *outfile = (char*)outfile_str.c_str();
 
     // We are not using FileFd here, because we want to raise OSErrror with
@@ -539,8 +539,8 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     for (std::vector<std::string>::const_iterator t = types.begin(); 
          t != types.end(); ++t) 
     {
-       string member = string("data.tar.").append(*t);
-       string comp = _config->Find(string("Acquire::CompressionTypes::").append(*t));
+       std::string member = std::string("data.tar.").append(*t);
+       std::string comp = _config->Find(std::string("Acquire::CompressionTypes::").append(*t));
        self->data = _gettar(self, self->Object->FindMember(member.c_str()),
                             comp.c_str());
        if (self->data)
@@ -548,7 +548,7 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     }
     // no data found, we need to 
     if (!self->data) {
-       string error;
+       std::string error;
        for (std::vector<std::string>::const_iterator t = types.begin(); 
             t != types.end(); ++t) 
           error.append(*t + ",");

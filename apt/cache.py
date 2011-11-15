@@ -83,6 +83,10 @@ class Cache(object):
             apt_pkg.config.set("Dir", rootdir)
             apt_pkg.config.set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
+            # also set dpkg to the rootdir path so that its called for the
+            # --print-foreign-architectures call
+            apt_pkg.config.set("Dir::bin::dpkg", 
+                               os.path.join(rootdir, "usr", "bin", "dpkg"))
             # create required dirs/files when run with special rootdir
             # automatically
             self._check_and_create_required_dirs(rootdir)

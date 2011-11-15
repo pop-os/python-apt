@@ -22,6 +22,7 @@
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/pkgrecords.h>
 #include <apt-pkg/acquire-item.h>
+#include <apt-pkg/fileutl.h>
 #include <Python.h>
 
 #include <iostream>

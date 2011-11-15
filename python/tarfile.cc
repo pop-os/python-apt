@@ -348,7 +348,7 @@ static const char *tarfile_extractall_doc =
     "can be used to change the target directory.";
 static PyObject *tarfile_extractall(PyObject *self, PyObject *args)
 {
-    string cwd = SafeGetCWD();
+    std::string cwd = SafeGetCWD();
     char *rootdir = 0;
     if (PyArg_ParseTuple(args,"|s:extractall",&rootdir) == 0)
         return 0;

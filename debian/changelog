@@ -22,6 +22,10 @@ python-apt (0.8.2) UNRELEASED; urgency=low
       on list of package objects
   * debian/control:
     - add recommends to xz-lzma to ensure we have the unlzma command
+  * apt/cache.py:
+    - set Dir::bin::dpkg if a alternate rootdir is given
+      (LP: #885895)
+  * build fixes for the apt in experimental
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)

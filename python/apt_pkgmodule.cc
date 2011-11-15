@@ -26,6 +26,7 @@
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/orderlist.h>
 #include <apt-pkg/aptconfiguration.h>
+#include <apt-pkg/fileutl.h>
 
 #include <sys/stat.h>
 #include <libintl.h>
@@ -185,11 +186,11 @@ static const char *parse_src_depends_doc =
 "only contains those dependencies for the architecture set in the\n"
 "configuration variable APT::Architecture";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
-                                  bool ParseArchFlags, string name,
+                                  bool ParseArchFlags, std::string name,
                                   bool debStyle=false)
 {
-   string Package;
-   string Version;
+   std::string Package;
+   std::string Version;
    unsigned int Op;
    bool StripMultiArch=true;
 
@@ -408,8 +409,8 @@ static PyObject *GetArchitectures(PyObject *Self,PyObject *Args)
       return 0;
 
    PyObject *List = PyList_New(0);
-   vector<string> arches = APT::Configuration::getArchitectures();
-   vector<string>::const_iterator I;
+   std::vector<std::string> arches = APT::Configuration::getArchitectures();
+   std::vector<std::string>::const_iterator I;
    for (I = arches.begin(); I != arches.end(); I++) 
    {
       PyList_Append(List, CppPyString(*I));

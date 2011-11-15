@@ -67,7 +67,7 @@ static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
     PyCdromProgress progress;
     progress.setCallbackInst(pyCdromProgressInst);
 
-    string ident;
+    std::string ident;
     bool res = Cdrom.Ident(ident, &progress);
 
     if (res)
@@ -94,7 +94,7 @@ static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
     PyCdromProgress progress;
     progress.setCallbackInst(pyCdromProgressInst);
 
-    string ident;
+    std::string ident;
     bool res = Cdrom.Ident(ident, &progress);
 
     PyObject *boolres = PyBool_FromLong(res);
