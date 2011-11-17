@@ -107,6 +107,9 @@ class Dependency(object):
     def __repr__(self):
         return repr(self.or_dependencies)
 
+    def __iter__(self):
+        return self.or_dependencies.__iter__()
+
 
 class DeprecatedProperty(property):
     """A property which gives DeprecationWarning on access.
