@@ -27,7 +27,9 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - allow Dependency object to be iteratable, this allows to write
       code like:
       for or_dep_group in pkg.candidate.dependencies:
-          for dep in or_dep_group: do_something()
+          for dep in or_dep_group: 
+              do_something()
+      (thanks to Christop Groth)
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)

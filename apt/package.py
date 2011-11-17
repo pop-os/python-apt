@@ -94,7 +94,7 @@ class BaseDependency(object):
         preDepend = AttributeDeprecatedBy('pre_depend')
 
 
-class Dependency(object):
+class Dependency(list):
     """Represent an Or-group of dependencies.
 
     Attributes defined here:
@@ -102,14 +102,12 @@ class Dependency(object):
     """
 
     def __init__(self, alternatives):
-        self.or_dependencies = alternatives
+        super(Dependency, self).__init__()
+        self.extend(alternatives)
 
-    def __repr__(self):
-        return repr(self.or_dependencies)
-
-    def __iter__(self):
-        return self.or_dependencies.__iter__()
-
+    @property
+    def or_dependencies(self):
+        return self
 
 class DeprecatedProperty(property):
     """A property which gives DeprecationWarning on access.
