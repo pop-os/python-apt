@@ -455,6 +455,11 @@ class Version(object):
         return self.get_dependencies("Recommends")
 
     @property
+    def suggests(self):
+        """Return the suggests of the package version."""
+        return self.get_dependencies("Suggests")
+
+    @property
     def origins(self):
         """Return a list of origins for the package version."""
         origins = []
