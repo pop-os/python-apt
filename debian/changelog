@@ -18,7 +18,7 @@ python-apt (0.8.2) UNRELEASED; urgency=low
   * apt/cache.py:
     - remove "print" when creating dirs in apt.Cache(rootdir=dir),
       thanks to Martin Pitt
-    - add __cmp__ to apt.Package so that sort() sorts by name
+    - add __lt__ to apt.Package so that sort() sorts by name
       on list of package objects
   * debian/control:
     - add recommends to xz-lzma to ensure we have the unlzma command

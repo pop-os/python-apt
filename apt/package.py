@@ -707,8 +707,8 @@ class Package(object):
         return '<Package: name:%r architecture=%r id:%r>' % (self._pkg.name,
                  self._pkg.architecture, self._pkg.id)
 
-    def __cmp__(self, other):
-        return cmp(self.name, other.name)
+    def __lt__(self, other):
+        return self.name < other.name
 
     def candidate(self):
         """Return the candidate version of the package.
