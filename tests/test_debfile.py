@@ -137,7 +137,7 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
             logging.warn("skipping test because running on a non-multiarch system")
             return
         deb = apt.debfile.DebPackage("./data/test_debs/multiarch-test1_i386.deb")
-        print deb.missing_deps()
+        #print deb.missing_deps()
         
 
 
