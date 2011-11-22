@@ -116,7 +116,7 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 
     def test_check_exception(self):
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
-        with self.assertRaises(ValueError):
+        with self.assertRaises(AttributeError):
             deb.missing_deps
         deb.check()
         deb.missing_deps
