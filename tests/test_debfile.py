@@ -133,7 +133,7 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         self.assertTrue(raised)
 
     def test_multiarch_deb(self):
-        print apt_pkg.get_architectures() 
+        #print apt_pkg.get_architectures() 
         if apt_pkg.get_architectures() != ["amd64", "i386"]:
             logging.warn("skipping test because running on a non-multiarch system")
             return
