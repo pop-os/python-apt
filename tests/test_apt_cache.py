@@ -182,7 +182,7 @@ class TestAptCache(unittest.TestCase):
         apt_pkg.config.set("dir::etc::sourceparts", old_source_parts)
 
     def test_package_cmp(self):
-        cache = apt.Cache()
+        cache = apt.Cache(rootdir="/")
         l = []
         l.append(cache["libc6"])
         l.append(cache["xterm"])
