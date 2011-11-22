@@ -88,11 +88,6 @@ class TestDebfilee(unittest.TestCase):
                          "Samuel Lidén Borell <samuel@slbdata.se>")
 
     def test_content(self):
-        # no python-debian for python3 yet, so fail gracefully
-        try:
-            import debian
-        except ImportError:
-            return
         # normal
         deb = apt.debfile.DebPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", "gdebi-test11.deb"))
@@ -118,6 +113,13 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
     def test_xz_data(self):
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
+
+    def test_check_exception(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
+        with self.assertRaises(ValueError):
+            deb.missing_deps
+        deb.check()
+        deb.missing_deps
 
     def test_no_supported_data_tar(self):
         # ensure that a unknown data.tar.xxx raises a exception

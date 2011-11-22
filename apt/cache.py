@@ -46,7 +46,13 @@ class LockFailedException(IOError):
 class Cache(object):
     """Dictionary-like package cache.
 
-    The dictionary of this class contains all available packages.
+     The APT cache file contains a hash table mapping names of binary
+     packages to their metadata. A Cache object is the in-core
+     representation of the same. It provides access to APTs idea of the
+     list of available packages.
+     
+     The cache can be used like a mapping from package names to Package
+     objects (although only getting items is supported). 
 
     Keyword arguments:
     progress -- a OpProgress object
@@ -510,7 +516,7 @@ class Cache(object):
         self._callbacks[name].append(callback)
 
     def actiongroup(self):
-        """Return an action group object for the current cache.
+        """Return an `ActionGroup` object for the current cache.
 
         Action groups can be used to speedup actions. The action group is
         active as soon as it is created, and disabled when the object is

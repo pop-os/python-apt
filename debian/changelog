@@ -26,13 +26,13 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - set Dir::bin::dpkg if a alternate rootdir is given
       (LP: #885895)
   * build fixes for the apt in experimental
+  * apt/debfile.py: raise error when accessing require_changes and 
+    missing_deps without calling check() before, thanks to 
+    Tshepang Lekhonkhobe (closes: #624379)
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)
   * grammar fix in the cache.py doc (closes: #626610)
-  * apt/debfile.py: Remove the need to explcitly call check() in order
-    to get output from require_changes and missing_deps
-    (closes: #624379)
 
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
 
