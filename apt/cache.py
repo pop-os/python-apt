@@ -46,13 +46,13 @@ class LockFailedException(IOError):
 class Cache(object):
     """Dictionary-like package cache.
 
-     The APT cache file contains a hash table mapping names of binary
-     packages to their metadata. A Cache object is the in-core
-     representation of the same. It provides access to APTs idea of the
-     list of available packages.
-     
-     The cache can be used like a mapping from package names to Package
-     objects (although only getting items is supported). 
+    The APT cache file contains a hash table mapping names of binary
+    packages to their metadata. A Cache object is the in-core
+    representation of the same. It provides access to APTs idea of the
+    list of available packages.
+
+    The cache can be used like a mapping from package names to Package
+    objects (although only getting items is supported). 
 
     Keyword arguments:
     progress -- a OpProgress object

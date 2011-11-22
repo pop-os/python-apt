@@ -477,7 +477,7 @@ class DebPackage(object):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
         if not self._check_was_run:
-            raise ValueError("property only available after check() was run")
+            raise AttributeError("property only available after check() was run")
         return self._need_pkgs
 
     @property
@@ -490,7 +490,7 @@ class DebPackage(object):
         remove = []
         unauthenticated = []
         if not self._check_was_run:
-            raise ValueError("property only available after check() was run")
+            raise AttributeError("property only available after check() was run")
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
