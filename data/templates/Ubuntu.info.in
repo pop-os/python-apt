@@ -13,10 +13,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 12.04 'Precise Pangolin'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -131,10 +131,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 11.10 'Oneiric Ocelot'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -250,10 +250,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 11.04 'Natty Narwhal'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -368,10 +368,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 10.10 'Maverick Meerkat'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -451,10 +451,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 10.04 'Lucid Lynx'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -514,10 +514,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.10 'Karmic Koala'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -577,10 +577,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 9.04 'Jaunty Jackalope'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -639,10 +639,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.10 'Intrepid Ibex'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -703,10 +703,10 @@ MirrorsFile-i386: Ubuntu.mirrors
 _Description: Ubuntu 8.04 'Hardy Heron'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -768,10 +768,10 @@ MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 7.10 'Gutsy Gibbon'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -832,10 +832,10 @@ MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 7.04 'Feisty Fawn'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -893,10 +893,10 @@ MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 6.10 'Edgy Eft'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices
@@ -954,10 +954,10 @@ MirrorsFile: Ubuntu.mirrors
 _Description: Ubuntu 6.06 LTS 'Dapper Drake'
 Component: main
 _CompDescription: Officially supported
-_CompDescriptionLong: Canonical-supported Open Source software
+_CompDescriptionLong: Canonical-supported free and open-source software
 Component: universe
 _CompDescription: Community-maintained (universe)
-_CompDescriptionLong: Community-maintained Open Source software
+_CompDescriptionLong: Community-maintained free and open-source software
 Component: restricted
 _CompDescription: Non-free drivers
 _CompDescriptionLong: Proprietary drivers for devices

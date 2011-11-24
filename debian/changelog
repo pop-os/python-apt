@@ -38,6 +38,10 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     to get output from require_changes and missing_deps
     (closes: #624379)
 
+  [ Nikola Pavlović ]
+  * fixed a typo, changed "Open Source software" to 
+    "free and open-source software"  (LP: #500940)
+
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
 
 python-apt (0.8.1) unstable; urgency=low
