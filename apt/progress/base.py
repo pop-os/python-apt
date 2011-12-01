@@ -192,14 +192,12 @@ class InstallProgress(object):
             # and the execution continues in the
             # parent code leading to very confusing bugs
             try:
-                raise Exception("foo")
                 os._exit(obj.do_install(self.write_stream.fileno()))
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.write_stream.fileno()), "-i",
                                     obj))
             except Exception as e:
-                os.write(self.writefd, "pmerror:::%s" % e)
                 sys.stderr.write("%s\n" % e)
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
