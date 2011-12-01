@@ -55,8 +55,8 @@ class TestAptCache(unittest.TestCase):
         # that is possible and does not crash
         for pkg in cache:
             if pkg.candidate:
-                for or_dep in pkg.candidate.dependencies:
-                    for dep in or_dep.or_dependencies:
+                for or_deps in pkg.candidate.dependencies:
+                    for dep in or_deps:
                         self.assertTrue(dep.name)
                         self.assertTrue(isinstance(dep.relation, str))
                         self.assertTrue(dep.pre_depend in (True, False))

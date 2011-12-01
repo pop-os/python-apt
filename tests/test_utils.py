@@ -7,7 +7,6 @@
 # notice and this notice are preserved.
 
 import sys
-sys.path.insert(0, "..")
 import apt_pkg
 import apt.utils
 import datetime

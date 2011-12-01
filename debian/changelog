@@ -26,13 +26,30 @@ python-apt (0.8.2) UNRELEASED; urgency=low
     - set Dir::bin::dpkg if a alternate rootdir is given
       (LP: #885895)
   * build fixes for the apt in experimental
-  * apt/debfile.py: raise error when accessing require_changes and 
-    missing_deps without calling check() before, thanks to 
-    Tshepang Lekhonkhobe (closes: #624379)
+  * apt/debfile.py: 
+    - raise error when accessing require_changes and 
+      missing_deps without calling check() before, thanks to 
+      Tshepang Lekhonkhobe (closes: #624379)
+  * apt/package.py:
+    - add new "suggests" property, thanks to Christop Groth
+    - allow Dependency object to be iteratable, this allows to write
+      code like:
+      for or_dep_group in pkg.candidate.dependencies:
+          for dep in or_dep_group: 
+              do_something()
+      (thanks to Christop Groth)
+  * apt/progress/base.py:
+    - write exception text to stderr to avoid hidding exceptions
+      like "pre-configure failed" from libapt (thanks to Jean-Baptiste
+      Lallement)
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)
   * grammar fix in the cache.py doc (closes: #626610)
+
+  [ Nikola Pavlović ]
+  * fixed a typo, changed "Open Source software" to 
+    "free and open-source software"  (LP: #500940)
 
  -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 18:03:42 +0200
 
