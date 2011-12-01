@@ -30,6 +30,10 @@ python-apt (0.8.2) UNRELEASED; urgency=low
           for dep in or_dep_group: 
               do_something()
       (thanks to Christop Groth)
+  * apt/progress/base.py:
+    - write exception text to stderr to avoid hidding exceptions
+      like "pre-configure failed" from libapt (thanks to Jean-Baptiste
+      Lallement)
   
   [ Tshepang Lekhonkhobe ]
   * rm usage of camelcase in cache.py doc (closes: #626617)

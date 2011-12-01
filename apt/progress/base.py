@@ -27,6 +27,7 @@ import fcntl
 import os
 import re
 import select
+import sys
 
 import apt_pkg
 
@@ -196,7 +197,8 @@ class InstallProgress(object):
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.write_stream.fileno()), "-i",
                                     obj))
-            except Exception:
+            except Exception as e:
+                sys.stderr.write("%s\n" % e)
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
         self.child_pid = pid
