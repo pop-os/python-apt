@@ -88,11 +88,6 @@ class TestDebfilee(unittest.TestCase):
                          "Samuel Lidén Borell <samuel@slbdata.se>")
 
     def test_content(self):
-        # no python-debian for python3 yet, so fail gracefully
-        try:
-            import debian
-        except ImportError:
-            return
         # normal
         deb = apt.debfile.DebPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", "gdebi-test11.deb"))
