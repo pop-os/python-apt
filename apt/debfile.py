@@ -525,19 +525,21 @@ class DebPackage(object):
 
     @staticmethod
     def to_strish(in_data):
-        # helper for py3 compat, in_data is str in py2 and bytes in py3
-        def my_ord(c):
-            if type(c) == int:
-                return c
-            else:
-                return ord(c)
-        # convert
         s = ""
-        for c in in_data:
-            if my_ord(c) < 10 or my_ord(c) > 127:
-                s += " "
-            else:
-                s += chr(c)
+        # py2 compat, in_data is type string
+        if type(in_data) == str:
+            for c in in_data:
+                if ord(c) < 10 or ord(c) > 127:
+                    s += " "
+                else:
+                    s += c
+        # py3 compat, in_data is type bytes
+        else:
+            for b in in_data:
+                if b < 10 or b > 127:
+                    s += " "
+                else:
+                    s += chr(b)
         return s
         
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
