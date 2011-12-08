@@ -17,8 +17,8 @@ sys.path.insert(0, get_library_dir())
 import apt_pkg
 import apt.debfile
 
-class TestDebfilee(unittest.TestCase):
-    """ test the apt cache """
+class TestDebfile(unittest.TestCase):
+    """ test the debfile """
 
     TEST_DEBS = [
         # conflicts with apt
@@ -130,15 +130,6 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 	# with self.assertRaises(SystemError): is more elegant above, but
 	# we need to support python2.6
         self.assertTrue(raised)
-
-    def test_multiarch_deb(self):
-        if apt_pkg.get_architectures() != ["amd64", "i386"]:
-            logging.warn("skipping test because running on a non-multiarch system")
-            return
-        deb = apt.debfile.DebPackage("./data/test_debs/multiarch-test1_i386.deb")
-        res = deb.check()
-        # FIXME: do something sensible with the multiarch test
-
 
 
 if __name__ == "__main__":
