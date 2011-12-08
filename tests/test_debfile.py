@@ -114,6 +114,12 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
 
+    def test_check_exception(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
+        self.assertRaises(AttributeError, lambda: deb.missing_deps)
+        deb.check()
+        deb.missing_deps
+
     def test_no_supported_data_tar(self):
         # ensure that a unknown data.tar.xxx raises a exception
         raised = False
@@ -132,7 +138,6 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         deb = apt.debfile.DebPackage("./data/test_debs/multiarch-test1_i386.deb")
         res = deb.check()
         # FIXME: do something sensible with the multiarch test
-        
 
 
 

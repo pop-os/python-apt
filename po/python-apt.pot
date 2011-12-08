@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-10 17:20+0100\n"
+"POT-Creation-Date: 2011-12-01 13:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,7 +190,7 @@ msgstr ""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:957
-msgid "Canonical-supported Open Source software"
+msgid "Canonical-supported free and open-source software"
 msgstr ""
 
 #. CompDescription
@@ -200,7 +200,7 @@ msgstr ""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:960
-msgid "Community-maintained Open Source software"
+msgid "Community-maintained free and open-source software"
 msgstr ""
 
 #. CompDescription
@@ -450,16 +450,16 @@ msgstr ""
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:358
+#: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:1068 ../apt/package.py:1174
+#: ../apt/package.py:1074 ../apt/package.py:1180
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1180
+#: ../apt/package.py:1186
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -468,29 +468,29 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1187
+#: ../apt/package.py:1193
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
 
-#: ../apt/debfile.py:82
+#: ../apt/debfile.py:84
 #, python-format
 msgid "List of files for '%s' could not be read"
 msgstr ""
 
-#: ../apt/debfile.py:167
+#: ../apt/debfile.py:169
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:188
+#: ../apt/debfile.py:190
 #, python-format
 msgid "Conflicts with the installed package '%s'"
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
-#: ../apt/debfile.py:327
+#: ../apt/debfile.py:329
 #, python-format
 msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
@@ -498,63 +498,63 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
-#: ../apt/debfile.py:343
+#: ../apt/debfile.py:345
 #, python-format
 msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
 
-#: ../apt/debfile.py:353
+#: ../apt/debfile.py:355
 #, python-format
 msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
 
-#: ../apt/debfile.py:399
+#: ../apt/debfile.py:403
 msgid "No Architecture field in the package"
 msgstr ""
 
-#: ../apt/debfile.py:404
+#: ../apt/debfile.py:408
 #, python-format
 msgid "Wrong architecture '%s'"
 msgstr ""
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:411
+#: ../apt/debfile.py:415
 msgid "A later version is already installed"
 msgstr ""
 
-#: ../apt/debfile.py:436
+#: ../apt/debfile.py:440
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
 
-#: ../apt/debfile.py:466
+#: ../apt/debfile.py:470
 #, python-format
 msgid "Cannot install '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:510
+#: ../apt/debfile.py:514
 msgid "Python-debian module not available"
 msgstr ""
 
-#: ../apt/debfile.py:544
+#: ../apt/debfile.py:557
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
 
-#: ../apt/debfile.py:550
+#: ../apt/debfile.py:563
 msgid "Automatically converted to printable ascii:\n"
 msgstr ""
 
-#: ../apt/debfile.py:640
+#: ../apt/debfile.py:653
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:650
+#: ../apt/debfile.py:664
 msgid "An essential package would be removed"
 msgstr ""
 
@@ -605,6 +605,6 @@ msgstr ""
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:148
+#: ../apt/cache.py:158
 msgid "Building data structures"
 msgstr ""

@@ -53,6 +53,7 @@ class DebPackage(object):
         self.pkgname = ""
         self._sections = {}
         self._need_pkgs = []
+        self._check_was_run = False
         self._failure_string = ""
         if filename:
             self.open(filename)
@@ -68,7 +69,8 @@ class DebPackage(object):
         control = self._debfile.control.extractdata("control")
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
-
+        self._check_was_run = False
+        
     def __getitem__(self, key):
         return self._sections[key]
 
@@ -393,6 +395,8 @@ class DebPackage(object):
         """Check if the package is installable."""
         self._dbg(3, "check")
 
+        self._check_was_run = True
+
         # check arch
         if not "Architecture" in self._sections:
             self._dbg(1, "ERROR: no architecture field")
@@ -472,8 +476,8 @@ class DebPackage(object):
     def missing_deps(self):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
-        if not self._need_pkgs:
-            self.check()
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         return self._need_pkgs
 
     @property
@@ -485,8 +489,8 @@ class DebPackage(object):
         install = []
         remove = []
         unauthenticated = []
-        if not self._cache:
-            self.check()
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
@@ -650,7 +654,8 @@ class DscSrcPackage(DebPackage):
               "source package '%s' that builds %s\n") % (self.pkgname,
               " ".join(self.binaries))
         self._sections["Description"] = s
-
+        self._check_was_run = False
+        
     def check(self):
         """Check if the package is installable.."""
         if not self.check_conflicts():
@@ -658,6 +663,8 @@ class DscSrcPackage(DebPackage):
                 if self._cache[pkgname]._pkg.essential:
                     raise Exception(_("An essential package would be removed"))
                 self._cache[pkgname].mark_delete()
+        # properties are ok now
+        self._check_was_run = True
         # FIXME: a additional run of the check_conflicts()
         #        after _satisfy_depends() should probably be done
         return self._satisfy_depends(self.depends)
