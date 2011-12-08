@@ -1,9 +1,21 @@
-python-apt (0.8.3) UNRELEASED; urgency=low
+python-apt (0.8.3ubuntu1) precise; urgency=low
+
+  * merged from debian/sid
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 08 Dec 2011 20:44:30 +0100
+
+python-apt (0.8.3) unstable; urgency=low
 
   [ Alexey Feldgendler ] 
   * handle architecture-specific conflicts correctly (LP: #829138)
+  
+  [ Michael Vogt ]
+  * lp:~mvo/python-apt/debfile-multiarch:
+    - add multiarch support to the debfile.py code
+  * tests/test_apt_cache.py:
+    - add additional check if provides test can actually be run
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 08 Dec 2011 17:26:37 +0100
+ -- Michael Vogt <mvo@debian.org>  Thu, 08 Dec 2011 20:31:52 +0100
 
 python-apt (0.8.2) unstable; urgency=low
 

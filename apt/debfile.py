@@ -55,6 +55,7 @@ class DebPackage(object):
         self._need_pkgs = []
         self._check_was_run = False
         self._failure_string = ""
+        self._multiarch = None
         if filename:
             self.open(filename)
 
@@ -85,6 +86,35 @@ class DebPackage(object):
                           self.filename)]
         return files
 
+    # helper that will return a pkgname with a multiarch suffix if needed
+    def _maybe_append_multiarch_suffix(self, pkgname, 
+                                       in_conflict_checking=False):
+        # trivial cases
+        if not self._multiarch:
+            return pkgname
+        elif self._cache.is_virtual_package(pkgname):
+            return pkgname
+        elif self._cache[pkgname].candidate.architecture == "all":
+            return pkgname
+        # now do the real multiarch checking
+        multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
+        # the upper layers will handle this
+        if not multiarch_pkgname in self._cache:
+            return multiarch_pkgname
+        # now check the multiarch state
+        cand = self._cache[multiarch_pkgname].candidate._cand
+        #print pkgname, multiarch_pkgname, cand.multi_arch
+        # the default is to add the suffix, unless its a pkg that can satify
+        # foreign dependencies
+        if cand.multi_arch & cand.MULTI_ARCH_FOREIGN:
+            return pkgname
+        # for conflicts we need a special case here, any not multiarch enabled
+        # package has a implicit conflict
+        if (in_conflict_checking and 
+            not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
+            return pkgname
+        return multiarch_pkgname
+
     def _is_or_group_satisfied(self, or_group):
         """Return True if at least one dependency of the or-group is satisfied.
 
@@ -97,6 +127,9 @@ class DebPackage(object):
             depname = dep[0]
             ver = dep[1]
             oper = dep[2]
+
+            # multiarch
+            depname = self._maybe_append_multiarch_suffix(depname)
 
             # check for virtual pkgs
             if not depname in self._cache:
@@ -132,6 +165,9 @@ class DebPackage(object):
 
         for dep in or_group:
             depname, ver, oper = dep
+
+            # multiarch
+            depname = self._maybe_append_multiarch_suffix(depname)
 
             # if we don't have it in the cache, it may be virtual
             if not depname in self._cache:
@@ -204,6 +240,11 @@ class DebPackage(object):
             depname = dep[0]
             ver = dep[1]
             oper = dep[2]
+
+            # FIXME: is this good enough? i.e. will apt always populate
+            #        the cache with conflicting pkgnames for our arch?
+            depname = self._maybe_append_multiarch_suffix(
+                depname, in_conflict_checking=True)
 
             # check conflicts with virtual pkgs
             if not depname in self._cache:
@@ -405,9 +446,14 @@ class DebPackage(object):
             return False
         arch = self._sections["Architecture"]
         if  arch != "all" and arch != apt_pkg.config.find("APT::Architecture"):
-            self._dbg(1, "ERROR: Wrong architecture dude!")
-            self._failure_string = _("Wrong architecture '%s'") % arch
-            return False
+            if arch in apt_pkg.get_architectures():
+                self._multiarch = arch
+                self.pkgname = "%s:%s" % (self.pkgname, self._multiarch)
+                self._dbg(1, "Found multiarch arch: '%s'" % arch)
+            else:
+                self._dbg(1, "ERROR: Wrong architecture dude!")
+                self._failure_string = _("Wrong architecture '%s'") % arch
+                return False
 
         # check version
         if self.compare_to_version_in_cache() == self.VERSION_OUTDATED:
@@ -673,7 +719,7 @@ class DscSrcPackage(DebPackage):
 def _test():
     """Test function"""
     from apt.cache import Cache
-    from apt.progress import DpkgInstallProgress
+    from apt.progress.base import InstallProgress
 
     cache = Cache()
 
@@ -695,7 +741,7 @@ def _test():
     print d.filelist
 
     print "Installing ..."
-    ret = d.install(DpkgInstallProgress())
+    ret = d.install(InstallProgress())
     print ret
 
     #s = DscSrcPackage(cache, "../tests/3ddesktop_0.2.9-6.dsc")
