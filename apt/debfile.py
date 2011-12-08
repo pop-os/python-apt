@@ -310,6 +310,7 @@ class DebPackage(object):
         size = float(len(self._cache))
         steps = max(int(size/50), 1)
         debver = self._sections["Version"]
+        debarch = self._sections["Architecture"]
         # store what we provide so that we can later check against that
         provides = [ x[0][0] for x in self.provides]
         for (i, pkg) in enumerate(self._cache):
@@ -338,7 +339,7 @@ class DebPackage(object):
             if "Conflicts" in ver.depends_list:
                 for conflicts_ver_list in ver.depends_list["Conflicts"]:
                     for c_or in conflicts_ver_list:
-                        if c_or.target_pkg.name == self.pkgname:
+                        if c_or.target_pkg.name == self.pkgname and c_or.target_pkg.architecture == debarch:
                             if apt_pkg.check_dep(debver, c_or.comp_type, c_or.target_ver):
                                 self._dbg(2, "would break (conflicts) %s" % pkg.name)
 				# TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
