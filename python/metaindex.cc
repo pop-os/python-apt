@@ -33,8 +33,8 @@ static PyObject *MetaIndexGetIsTrusted(PyObject *Self,void*) {
 static PyObject *MetaIndexGetIndexFiles(PyObject *Self,void*) {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
     PyObject *List = PyList_New(0);
-    vector<pkgIndexFile *> *indexFiles = meta->GetIndexFiles();
-    for (vector<pkgIndexFile *>::const_iterator I = indexFiles->begin();
+    std::vector<pkgIndexFile *> *indexFiles = meta->GetIndexFiles();
+    for (std::vector<pkgIndexFile *>::const_iterator I = indexFiles->begin();
         I != indexFiles->end(); I++)
     {
         CppPyObject<pkgIndexFile*> *Obj;

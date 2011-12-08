@@ -46,8 +46,13 @@ class LockFailedException(IOError):
 class Cache(object):
     """Dictionary-like package cache.
 
-    This class has all the packages that are available in it's
-    dictionary.
+    The APT cache file contains a hash table mapping names of binary
+    packages to their metadata. A Cache object is the in-core
+    representation of the same. It provides access to APTs idea of the
+    list of available packages.
+
+    The cache can be used like a mapping from package names to Package
+    objects (although only getting items is supported). 
 
     Keyword arguments:
     progress -- a OpProgress object
@@ -84,6 +89,10 @@ class Cache(object):
             apt_pkg.config.set("Dir", rootdir)
             apt_pkg.config.set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
+            # also set dpkg to the rootdir path so that its called for the
+            # --print-foreign-architectures call
+            apt_pkg.config.set("Dir::bin::dpkg", 
+                               os.path.join(rootdir, "usr", "bin", "dpkg"))
             # create required dirs/files when run with special rootdir
             # automatically
             self._check_and_create_required_dirs(rootdir)
@@ -112,7 +121,7 @@ class Cache(object):
                ]
         for d in dirs:
             if not os.path.exists(rootdir + d):
-                print "creating: ", rootdir + d
+                #print "creating: ", rootdir + d
                 os.makedirs(rootdir + d)
         for f in files:
             if not os.path.exists(rootdir + f):
@@ -507,7 +516,7 @@ class Cache(object):
         self._callbacks[name].append(callback)
 
     def actiongroup(self):
-        """Return an ActionGroup() object for the current cache.
+        """Return an `ActionGroup` object for the current cache.
 
         Action groups can be used to speedup actions. The action group is
         active as soon as it is created, and disabled when the object is
@@ -520,7 +529,7 @@ class Cache(object):
                 for package in my_selected_packages:
                     package.mark_install()
 
-        This way, the ActionGroup is automatically released as soon as the
+        This way, the action group is automatically released as soon as the
         with statement block is left. It also has the benefit of making it
         clear which parts of the code run with a action group and which
         don't.

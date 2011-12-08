@@ -1,3 +1,65 @@
+python-apt (0.8.3) UNRELEASED; urgency=low
+
+  [ Alexey Feldgendler ] 
+  * handle architecture-specific conflicts correctly (LP: #829138)
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 08 Dec 2011 17:26:37 +0100
+
+python-apt (0.8.2) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * merged from ubuntu:
+    - use logging instead of print
+    - update distro template Ubuntu.info.in
+    - add xz compression support
+  * po/python-apt.pot:
+    - refreshed
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla (closes: #628398)
+  * po/da.po:
+    - updated, thanks to Joe Dalton (closes: #631309)
+  * po/sr.po:
+    - updated, thanks to Nikola Nenadic (closes: #638308)
+  * python/apt_pkgmodule.cc:
+    - add apt_pkg.get_architectures() call
+  * apt/cache.py:
+    - remove "print" when creating dirs in apt.Cache(rootdir=dir),
+      thanks to Martin Pitt
+    - add __lt__ to apt.Package so that sort() sorts by name
+      on list of package objects
+  * debian/control:
+    - add recommends to xz-lzma to ensure we have the unlzma command
+  * apt/cache.py:
+    - set Dir::bin::dpkg if a alternate rootdir is given
+      (LP: #885895)
+  * build fixes for the apt in experimental
+  * apt/debfile.py: 
+    - raise error when accessing require_changes and 
+      missing_deps without calling check() before, thanks to 
+      Tshepang Lekhonkhobe (closes: #624379)
+  * apt/package.py:
+    - add new "suggests" property, thanks to Christop Groth
+    - allow Dependency object to be iteratable, this allows to write
+      code like:
+      for or_dep_group in pkg.candidate.dependencies:
+          for dep in or_dep_group: 
+              do_something()
+      (thanks to Christop Groth)
+  * apt/progress/base.py:
+    - write exception text to stderr to avoid hidding exceptions
+      like "pre-configure failed" from libapt (thanks to Jean-Baptiste
+      Lallement)
+  
+  [ Tshepang Lekhonkhobe ]
+  * rm usage of camelcase in cache.py doc (closes: #626617)
+  * grammar fix in the cache.py doc (closes: #626610)
+
+  [ Nikola Pavlović ]
+  * fixed a typo, changed "Open Source software" to 
+    "free and open-source software"  (LP: #500940)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 01 Dec 2011 14:14:42 +0100
+
 python-apt (0.8.1ubuntu1) precise; urgency=low
 
   * aptsources/sourceslist.py:

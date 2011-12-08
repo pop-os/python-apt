@@ -53,6 +53,7 @@ class DebPackage(object):
         self.pkgname = ""
         self._sections = {}
         self._need_pkgs = []
+        self._check_was_run = False
         self._failure_string = ""
         if filename:
             self.open(filename)
@@ -68,7 +69,8 @@ class DebPackage(object):
         control = self._debfile.control.extractdata("control")
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
-
+        self._check_was_run = False
+        
     def __getitem__(self, key):
         return self._sections[key]
 
@@ -308,6 +310,7 @@ class DebPackage(object):
         size = float(len(self._cache))
         steps = max(int(size/50), 1)
         debver = self._sections["Version"]
+        debarch = self._sections["Architecture"]
         # store what we provide so that we can later check against that
         provides = [ x[0][0] for x in self.provides]
         for (i, pkg) in enumerate(self._cache):
@@ -336,7 +339,7 @@ class DebPackage(object):
             if "Conflicts" in ver.depends_list:
                 for conflicts_ver_list in ver.depends_list["Conflicts"]:
                     for c_or in conflicts_ver_list:
-                        if c_or.target_pkg.name == self.pkgname:
+                        if c_or.target_pkg.name == self.pkgname and c_or.target_pkg.architecture == debarch:
                             if apt_pkg.check_dep(debver, c_or.comp_type, c_or.target_ver):
                                 self._dbg(2, "would break (conflicts) %s" % pkg.name)
 				# TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
@@ -392,6 +395,8 @@ class DebPackage(object):
     def check(self):
         """Check if the package is installable."""
         self._dbg(3, "check")
+
+        self._check_was_run = True
 
         # check arch
         if not "Architecture" in self._sections:
@@ -472,8 +477,8 @@ class DebPackage(object):
     def missing_deps(self):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
-        if self._need_pkgs is None:
-            self.check()
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         return self._need_pkgs
 
     @property
@@ -485,6 +490,8 @@ class DebPackage(object):
         install = []
         remove = []
         unauthenticated = []
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
@@ -524,11 +531,20 @@ class DebPackage(object):
     @staticmethod
     def to_strish(in_data):
         s = ""
-        for c in in_data:
-            if ord(c) < 10 or ord(c) > 127:
-                s += " "
-            else:
-                s += c
+        # py2 compat, in_data is type string
+        if type(in_data) == str:
+            for c in in_data:
+                if ord(c) < 10 or ord(c) > 127:
+                    s += " "
+                else:
+                    s += c
+        # py3 compat, in_data is type bytes
+        else:
+            for b in in_data:
+                if b < 10 or b > 127:
+                    s += " "
+                else:
+                    s += chr(b)
         return s
         
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
@@ -639,7 +655,8 @@ class DscSrcPackage(DebPackage):
               "source package '%s' that builds %s\n") % (self.pkgname,
               " ".join(self.binaries))
         self._sections["Description"] = s
-
+        self._check_was_run = False
+        
     def check(self):
         """Check if the package is installable.."""
         if not self.check_conflicts():
@@ -647,6 +664,8 @@ class DscSrcPackage(DebPackage):
                 if self._cache[pkgname]._pkg.essential:
                     raise Exception(_("An essential package would be removed"))
                 self._cache[pkgname].mark_delete()
+        # properties are ok now
+        self._check_was_run = True
         # FIXME: a additional run of the check_conflicts()
         #        after _satisfy_depends() should probably be done
         return self._satisfy_depends(self.depends)

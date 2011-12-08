@@ -9,7 +9,7 @@ XS-Python-Version: >= 2.6
 X-Python3-Version: >= 3.1
 Build-Depends: apt-utils,
                debhelper (>= 7.3.5),
-               libapt-pkg-dev (>= 0.8.16~exp5),
+               libapt-pkg-dev (>= 0.8.11),
                python-all-dev (>= 2.6.6-3~),
                python-all-dbg,
                python3-all-dev (>= 3.1.2-10~),
@@ -17,13 +17,14 @@ Build-Depends: apt-utils,
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
                python-debian
+Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
 XS-Debian-Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 XS-Debian-Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 
 Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
-Recommends: lsb-release, iso-codes
+Recommends: lsb-release, iso-codes, python2.6, xz-lzma
 Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         computer-janitor (<< 1.14.1-1+),
         debdelta (<< 0.41+),
