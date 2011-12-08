@@ -1,3 +1,16 @@
+python-apt (0.8.3) unstable; urgency=low
+
+  [ Alexey Feldgendler ] 
+  * handle architecture-specific conflicts correctly (LP: #829138)
+  
+  [ Michael Vogt ]
+  * lp:~mvo/python-apt/debfile-multiarch:
+    - add multiarch support to the debfile.py code
+  * tests/test_apt_cache.py:
+    - add additional check if provides test can actually be run
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 08 Dec 2011 20:31:52 +0100
+
 python-apt (0.8.2) unstable; urgency=low
 
   [ Michael Vogt ]
