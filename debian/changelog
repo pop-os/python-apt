@@ -11,7 +11,7 @@ python-apt (0.8.3) unstable; urgency=low
   
   [ Michael Vogt ]
   * lp:~mvo/python-apt/debfile-multiarch:
-    - add multiarch support to the debfile.py code
+    - add multiarch support to the debfile.py code (LP: #854839)
   * tests/test_apt_cache.py:
     - add additional check if provides test can actually be run
 
