@@ -1,3 +1,10 @@
+python-apt (0.8.3.1) UNRELEASED; urgency=low
+
+  * tests/test_apt_cache.py:
+    - fix tests on kfreebsd/ia64
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 09 Dec 2011 09:23:16 +0100
+
 python-apt (0.8.3) unstable; urgency=low
 
   [ Alexey Feldgendler ] 

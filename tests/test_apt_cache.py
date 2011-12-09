@@ -190,12 +190,12 @@ class TestAptCache(unittest.TestCase):
     def test_package_cmp(self):
         cache = apt.Cache(rootdir="/")
         l = []
-        l.append(cache["libc6"])
+        l.append(cache["intltool"])
         l.append(cache["python3"])
         l.append(cache["apt"])
         l.sort()
         self.assertEqual([p.name for p in l],
-                         ["apt", "libc6", "python3"])
+                         ["apt", "intltool", "python3"])
 
     def test_get_architectures(self):
         main_arch = apt.apt_pkg.config.get("APT::Architecture")
