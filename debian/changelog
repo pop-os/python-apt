@@ -8,6 +8,8 @@ python-apt (0.8.3) unstable; urgency=low
     - add multiarch support to the debfile.py code
   * tests/test_apt_cache.py:
     - add additional check if provides test can actually be run
+  * apt/debfile.py: 
+    - fix crash in dep multiarch handling
 
  -- Michael Vogt <mvo@debian.org>  Thu, 08 Dec 2011 20:31:52 +0100
 
