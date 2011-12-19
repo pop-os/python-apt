@@ -24,17 +24,13 @@
 import errno
 import logging
 import os
-import gettext
 from os import getenv
 from subprocess import Popen, PIPE
 import re
 
 import apt_pkg
 
-
-def _(s):
-    return gettext.dgettext("python-apt", s)
-
+from apt_pkg import gettext as _
 
 class Template(object):
 

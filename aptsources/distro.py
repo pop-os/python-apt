@@ -30,9 +30,7 @@ import sys
 from xml.etree.ElementTree import ElementTree
 import gettext
 
-
-def _(s):
-    return gettext.dgettext("python-apt", s)
+from apt_pkg import gettext as _
 
 
 class NoDistroTemplateException(Exception):

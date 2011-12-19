@@ -22,9 +22,6 @@
 #  USA
 """GObject-powered progress classes and a GTK+ status widget."""
 
-import os
-import time
-
 import pygtk
 pygtk.require('2.0')
 import gtk
