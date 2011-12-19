@@ -94,7 +94,8 @@ class DebPackage(object):
             return pkgname
         elif self._cache.is_virtual_package(pkgname):
             return pkgname
-        elif self._cache[pkgname].candidate.architecture == "all":
+        elif (pkgname in self._cache and 
+              self._cache[pkgname].candidate.architecture == "all"):
             return pkgname
         # now do the real multiarch checking
         multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
@@ -159,10 +160,6 @@ class DebPackage(object):
 
     def _satisfy_or_group(self, or_group):
         """Try to satisfy the or_group."""
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname, ver, oper = dep
 
@@ -232,10 +229,6 @@ class DebPackage(object):
     def _check_conflicts_or_group(self, or_group):
         """Check the or-group for conflicts with installed pkgs."""
         self._dbg(2, "_check_conflicts_or_group(): %s " % (or_group))
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname = dep[0]
             ver = dep[1]
@@ -513,7 +506,7 @@ class DebPackage(object):
         for pkg in self._need_pkgs:
             try:
                 self._cache[pkg].mark_install(from_user=False)
-            except SystemError as e:
+            except SystemError:
                 self._failure_string = _("Cannot install '%s'") % pkg
                 self._cache.clear()
                 return False
@@ -606,7 +599,7 @@ class DebPackage(object):
         # auto-convert to hex
         try:
             data = unicode(data, "utf-8")
-        except Exception as e:
+        except Exception:
             new_data = _("Automatically converted to printable ascii:\n")
             new_data += self.to_strish(data)
             return new_data

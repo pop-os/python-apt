@@ -23,7 +23,6 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import gettext
 import glob
 import logging
 import os.path
@@ -35,6 +34,7 @@ import time
 import apt_pkg
 from distinfo import DistInfo
 from apt.deprecation import function_deprecated_by
+from apt_pkg import gettext as _
 
 
 # some global helpers
@@ -446,7 +446,6 @@ class SourceEntryMatcher(object):
 
     def match(self, source):
         """Add a matching template to the source"""
-        _ = gettext.gettext
         found = False
         for template in self.templates:
             if (re.search(template.match_uri, source.uri) and
