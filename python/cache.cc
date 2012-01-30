@@ -229,6 +229,12 @@ static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
    return CppPyObject_NEW<GrpListStruct>(Self,&PyGroupList_Type,Cache->GrpBegin());
 }
 
+static PyObject *PkgCacheGetPolicy(PyObject *Self, void*) {
+   pkgCacheFile *CacheFile = GetCpp<pkgCacheFile *>(Self);
+   std::cerr << "policy: " << CacheFile->Policy << std::endl;
+   return CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,CacheFile->Policy);
+}
+
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
    return CppPyObject_NEW<PkgListStruct>(Self,&PyPackageList_Type,Cache->PkgBegin());
@@ -289,6 +295,7 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {"group_count",PkgCacheGetGroupCount,0,
     "The number of apt_pkg.Group objects stored in the cache."},
    {"groups",  PkgCacheGetGroups, 0, "A list of Group objects in the cache"},
+   {"policy",  PkgCacheGetPolicy, 0, "The PkgPolicy for the cache"},
    {"is_multi_arch", PkgCacheGetIsMultiArch, 0,
     "Whether the cache supports multi-arch."},
    {"package_count",PkgCacheGetPackageCount,0,
