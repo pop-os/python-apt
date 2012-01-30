@@ -11,7 +11,7 @@ import unittest
 
 class TestAptPolicy(unittest.TestCase):
 
-    def test_apt_policy(self):
+    def test_apt_policy_lowlevel(self):
         # get a policy
         cache = apt.Cache()
         policy = cache._depcache.policy
@@ -23,9 +23,15 @@ class TestAptPolicy(unittest.TestCase):
         for ver in pkg.versions:
             lowlevel_ver = ver._cand
             for pkgfile, i in lowlevel_ver.file_list:
-                #print verfile, i, policy.get_priority(pkgfile)
+                print pkgfile, i, policy.get_priority(pkgfile)
                 self.assertTrue(policy.get_priority(pkgfile) > 1)
                 self.assertTrue(policy.get_priority(pkgfile) < 1001)
+
+    def test_apt_policy_highlevel(self):
+        cache = apt.Cache()
+        pkg = cache["apt"]
+        self.assertTrue(pkg.candidate.policy_priority > 1 and
+                        pkg.candidate.policy_priority < 1001)
 
 
 if __name__ == "__main__":
