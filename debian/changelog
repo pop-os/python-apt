@@ -1,3 +1,9 @@
+python-apt (0.8.3ubuntu3) precise; urgency=low
+
+  * rebuild against latest libapt
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 30 Jan 2012 10:56:44 +0100
+
 python-apt (0.8.3ubuntu2) precise; urgency=low
 
   * debian/control: Drop unnecessary Recommends: python2.6 again.
