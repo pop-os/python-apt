@@ -50,7 +50,7 @@ PyObject *policy_get_priority(PyObject *self, PyObject *arg) {
         pkgCache::PkgFileIterator pkgfile = GetCpp<pkgCache::PkgFileIterator>(arg);
         return MkPyNumber(policy->GetPriority(pkgfile));
     } else {
-        PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
+        PyErr_SetString(PyExc_TypeError,"Argument must be of Package() or PackageFile().");
         return 0;
     }
 }
