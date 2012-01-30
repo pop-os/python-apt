@@ -19,12 +19,13 @@ class TestAptPolicy(unittest.TestCase):
         # basic tests
         pkg = cache["apt"]
         self.assertEqual(policy.get_priority(pkg._pkg), 0)
-        # get verfile
-        ver = pkg.candidate._cand
-        verfile_list = ver.file_list
-        for verfile in verfile_list:
-            print verfile
-            self.assertEqual(policy.get_priority(verfile), 500)
+        # get priority for all pkgfiles
+        for ver in pkg.versions:
+            lowlevel_ver = ver._cand
+            for pkgfile, i in lowlevel_ver.file_list:
+                #print verfile, i, policy.get_priority(pkgfile)
+                self.assertTrue(policy.get_priority(pkgfile) > 1)
+                self.assertTrue(policy.get_priority(pkgfile) < 1001)
 
 
 if __name__ == "__main__":
