@@ -7,6 +7,5 @@ if [ -n "$https_proxy" ]; then
 fi
 utils/get_ubuntu_mirrors_from_lp.py > data/templates/Ubuntu.mirrors
 
-# debian svn down so temporarely disabled
-#echo "updating Debian mirror list"
-#utils/get_debian_mirrors.py > data/templates/Debian.mirrors
+echo "updating Debian mirror list"
+utils/get_debian_mirrors.py > data/templates/Debian.mirrors
