@@ -40,13 +40,6 @@ class DebPackage(object):
      VERSION_SAME, 
      VERSION_NEWER) = range(4)
 
-    _supported_data_members = (
-        "data.tar.gz", 
-        "data.tar.bz2", 
-        "data.tar.lzma",
-        "data.tar.xz",
-        )
-
     debug = 0
 
     def __init__(self, filename=None, cache=None):
