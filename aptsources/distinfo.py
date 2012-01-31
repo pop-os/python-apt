@@ -24,7 +24,6 @@
 import errno
 import logging
 import os
-from os import getenv
 from subprocess import Popen, PIPE
 import re
 

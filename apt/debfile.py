@@ -40,9 +40,6 @@ class DebPackage(object):
      VERSION_SAME, 
      VERSION_NEWER) = range(4)
 
-    _supported_data_members = ("data.tar.gz", "data.tar.bz2", "data.tar.lzma",
-                               "data.tar.xz")
-
     debug = 0
 
     def __init__(self, filename=None, cache=None):
@@ -82,9 +79,21 @@ class DebPackage(object):
         try:
             self._debfile.data.go(lambda item, data: files.append(item.name))
         except SystemError:
-            return [_("List of files for '%s' could not be read" %
-                          self.filename)]
+            return [_("List of files for '%s' could not be read") %
+                    self.filename]
         return files
+
+    @property
+    def control_filelist(self):
+        """ return the list of files in control.tar.gt """
+        control = []
+        try:
+            self._debfile.control.go(lambda item, data: control.append(item.name))
+        except SystemError:
+            return [_("List of control files for '%s' could not be read") %
+                    self.filename]
+        return sorted(control)
+
 
     # helper that will return a pkgname with a multiarch suffix if needed
     def _maybe_append_multiarch_suffix(self, pkgname, 
@@ -544,19 +553,6 @@ class DebPackage(object):
             if pkg.marked_delete:
                 remove.append(pkg.name)
         return (install, remove, unauthenticated)
-
-    @property
-    def control_filelist(self):
-        """ return the list of files in control.tar.gt """
-        try:
-            from debian.debfile import DebFile
-        except:
-            raise Exception(_("Python-debian module not available"))
-        content = []
-        for name in DebFile(self.filename).control:
-            if name and name != ".":
-                content.append(name)
-        return sorted(content)
 
     @staticmethod
     def to_hex(in_data):

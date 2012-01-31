@@ -1,30 +1,12 @@
 #!/usr/bin/python
 # this is a example how to access the build dependencies of a package
 
+import apt
 import apt_pkg
 import sys
 
-
-def get_source_pkg(pkg, records, depcache):
-    """ get the source package name of a given package """
-    version = depcache.GetCandidateVer(pkg)
-    if not version:
-        return None
-    file, index = version.FileList.pop(0)
-    records.Lookup((file, index))
-    if records.SourcePkg != "":
-        srcpkg = records.SourcePkg
-    else:
-        srcpkg = pkg.Name
-    return srcpkg
-
-
 # main
-apt_pkg.init()
-cache = apt_pkg.Cache()
-depcache = apt_pkg.DepCache(cache)
-depcache.Init()
-records = apt_pkg.PackageRecords(cache)
+cache = apt.Cache()
 srcrecords = apt_pkg.SourceRecords()
 
 # base package that we use for build-depends calculation
@@ -39,7 +21,7 @@ except KeyError:
 all_build_depends = set()
 
 # get the build depdends for the package itself
-srcpkg_name = get_source_pkg(base, records, depcache)
+srcpkg_name = base.candidate.source_name
 print "srcpkg_name: %s " % srcpkg_name
 if not srcpkg_name:
     print "Can't find source package for '%s'" % pkg.Name
@@ -53,21 +35,22 @@ if srcrec:
         all_build_depends.add(b[0])
 
 # calculate the build depends for all dependencies
-depends = depcache.GetCandidateVer(base).DependsList
-for dep in depends["Depends"]: # FIXME: do we need to consider PreDepends?
-    pkg = dep[0].TargetPkg
-    srcpkg_name = get_source_pkg(pkg, records, depcache)
-    if not srcpkg_name:
-        print "Can't find source package for '%s'" % pkg.Name
-        continue
-    srcrec = srcrecords.Lookup(srcpkg_name)
-    if srcrec:
-        #print srcrecords.Package
-        #print srcrecords.Binaries
-        bd = srcrecords.BuildDepends
-        #print "%s: %s " % (srcpkg_name, bd)
-        for b in bd:
-            all_build_depends.add(b[0])
+depends = base.candidate.dependencies
+for or_dep in depends:
+    for dep in or_dep.or_dependencies:
+        pkg = cache[dep.name]
+        srcpkg_name = pkg.candidate.source_name
+        if not srcpkg_name:
+            print "Can't find source package for '%s'" % pkg.Name
+            continue
+        srcrec = srcrecords.Lookup(srcpkg_name)
+        if srcrec:
+            #print srcrecords.Package
+            #print srcrecords.Binaries
+            bd = srcrecords.BuildDepends
+            #print "%s: %s " % (srcpkg_name, bd)
+            for b in bd:
+                all_build_depends.add(b[0])
 
 
 print "\n".join(all_build_depends)
