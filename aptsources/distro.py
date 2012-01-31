@@ -25,14 +25,10 @@ import gettext
 import logging
 import re
 import os
-import sys
 
 from xml.etree.ElementTree import ElementTree
-import gettext
 
-
-def _(s):
-    return gettext.dgettext("python-apt", s)
+from apt_pkg import gettext as _
 
 
 class NoDistroTemplateException(Exception):
@@ -96,7 +92,7 @@ class Distribution(object):
         comps = []
         cdrom_comps = []
         enabled_comps = []
-        source_code = []
+        #source_code = []
         for source in self.sourceslist.list:
             if (source.invalid == False and
                 self.is_codename(source.dist) and

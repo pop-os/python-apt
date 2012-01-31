@@ -40,9 +40,6 @@ class DebPackage(object):
      VERSION_SAME, 
      VERSION_NEWER) = range(4)
 
-    _supported_data_members = ("data.tar.gz", "data.tar.bz2", "data.tar.lzma",
-                               "data.tar.xz")
-
     debug = 0
 
     def __init__(self, filename=None, cache=None):
@@ -82,9 +79,21 @@ class DebPackage(object):
         try:
             self._debfile.data.go(lambda item, data: files.append(item.name))
         except SystemError:
-            return [_("List of files for '%s' could not be read" %
-                          self.filename)]
+            return [_("List of files for '%s' could not be read") %
+                    self.filename]
         return files
+
+    @property
+    def control_filelist(self):
+        """ return the list of files in control.tar.gt """
+        control = []
+        try:
+            self._debfile.control.go(lambda item, data: control.append(item.name))
+        except SystemError:
+            return [_("List of control files for '%s' could not be read") %
+                    self.filename]
+        return sorted(control)
+
 
     # helper that will return a pkgname with a multiarch suffix if needed
     def _maybe_append_multiarch_suffix(self, pkgname, 
@@ -94,7 +103,8 @@ class DebPackage(object):
             return pkgname
         elif self._cache.is_virtual_package(pkgname):
             return pkgname
-        elif self._cache[pkgname].candidate.architecture == "all":
+        elif (pkgname in self._cache and 
+              self._cache[pkgname].candidate.architecture == "all"):
             return pkgname
         # now do the real multiarch checking
         multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
@@ -159,10 +169,6 @@ class DebPackage(object):
 
     def _satisfy_or_group(self, or_group):
         """Try to satisfy the or_group."""
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname, ver, oper = dep
 
@@ -232,10 +238,6 @@ class DebPackage(object):
     def _check_conflicts_or_group(self, or_group):
         """Check the or-group for conflicts with installed pkgs."""
         self._dbg(2, "_check_conflicts_or_group(): %s " % (or_group))
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname = dep[0]
             ver = dep[1]
@@ -513,7 +515,7 @@ class DebPackage(object):
         for pkg in self._need_pkgs:
             try:
                 self._cache[pkg].mark_install(from_user=False)
-            except SystemError as e:
+            except SystemError:
                 self._failure_string = _("Cannot install '%s'") % pkg
                 self._cache.clear()
                 return False
@@ -551,19 +553,6 @@ class DebPackage(object):
             if pkg.marked_delete:
                 remove.append(pkg.name)
         return (install, remove, unauthenticated)
-
-    @property
-    def control_filelist(self):
-        """ return the list of files in control.tar.gt """
-        try:
-            from debian.debfile import DebFile
-        except:
-            raise Exception(_("Python-debian module not available"))
-        content = []
-        for name in DebFile(self.filename).control:
-            if name and name != ".":
-                content.append(name)
-        return sorted(content)
 
     @staticmethod
     def to_hex(in_data):
@@ -606,7 +595,7 @@ class DebPackage(object):
         # auto-convert to hex
         try:
             data = unicode(data, "utf-8")
-        except Exception as e:
+        except Exception:
             new_data = _("Automatically converted to printable ascii:\n")
             new_data += self.to_strish(data)
             return new_data
