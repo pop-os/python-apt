@@ -7,6 +7,7 @@
 # notice and this notice are preserved.
 """Unit tests for verifying the correctness of apt_pkg.TagFile"""
 
+import os
 import unittest
 
 from test_all import get_library_dir
@@ -19,13 +20,19 @@ class TestTagFile(unittest.TestCase):
     """ test the apt_pkg.TagFile """
 
     def test_tag_file(self):
-        tagfile = apt_pkg.TagFile(open("./data/tagfile/history.log"))
+        basepath = os.path.dirname(__file__)
+        tagfilepath = os.path.join(
+            basepath, "./data/tagfile/history.log")
+        tagfile = apt_pkg.TagFile(open(tagfilepath))
         for i, stanza in enumerate(tagfile):
             pass
         self.assertEqual(i, 2)
 
     def test_tag_file_compressed(self):
-        tagfile = apt_pkg.TagFile(open("./data/tagfile/history.1.log.gz"))
+        basepath = os.path.dirname(__file__)
+        tagfilepath = os.path.join(
+            basepath, "./data/tagfile/history.1.log.gz")
+        tagfile = apt_pkg.TagFile(open(tagfilepath))
         for i, stanza in enumerate(tagfile):
             #print stanza
             pass
