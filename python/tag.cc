@@ -390,24 +390,50 @@ PyObject *ParseSection(PyObject *self,PyObject *Args)
 
 static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
+   TagFileData *New;
    PyObject *File;
+
    char *kwlist[] = {"file", 0};
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"O",kwlist,&File) == 0)
       return 0;
-   int fileno = PyObject_AsFileDescriptor(File);
-   if (fileno == -1)
-      return 0;
 
-   TagFileData *New = (TagFileData*)type->tp_alloc(type, 0);
+   // check if we got a filename or a file object
+   int fileno = -1;
+   const char *filename = NULL;
+   if (PyString_Check(File))
+      filename = PyObject_AsString(File);
+   else
+      fileno = PyObject_AsFileDescriptor(File);
+
+   // handle invalid arguments
+   if (fileno == -1 && filename == NULL)
+   {
+      PyErr_SetString(PyExc_TypeError, 
+                      "Argument must be string, fd or have a fileno() method");
+      return 0;
+   }
+
+   if (fileno > 0)
+   {
+      New = (TagFileData*)type->tp_alloc(type, 0);
 #ifdef APT_HAS_GZIP
-   new (&New->Fd) FileFd();
-   New->Fd.OpenDescriptor(fileno, FileFd::ReadOnlyGzip, false);
+      new (&New->Fd) FileFd();
+      New->Fd.OpenDescriptor(fileno, FileFd::ReadOnlyGzip, false);
 #else
-   new (&New->Fd) FileFd(fileno,false);
+      new (&New->Fd) FileFd(fileno,false);
 #endif
-   New->Owner = File;
-   Py_INCREF(New->Owner);
-   new (&New->Object) pkgTagFile(&New->Fd);
+      New->Owner = File;
+      Py_INCREF(New->Owner);
+      new (&New->Object) pkgTagFile(&New->Fd);
+   }
+   else 
+   {
+      New = (TagFileData*)type->tp_alloc(type, 0);
+      new (&New->Fd) FileFd(filename, FileFd::ReadOnly, FileFd::Extension, false);
+      New->Owner = File;
+      Py_INCREF(New->Owner);
+      new (&New->Object) pkgTagFile(&New->Fd);
+   } 
 
    // Create the section
    New->Section = (TagSecData*)(&PyTagSection_Type)->tp_alloc(&PyTagSection_Type, 0);

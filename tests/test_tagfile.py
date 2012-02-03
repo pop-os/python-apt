@@ -7,6 +7,7 @@
 # notice and this notice are preserved.
 """Unit tests for verifying the correctness of apt_pkg.TagFile"""
 
+import glob
 import os
 import unittest
 
@@ -21,22 +22,21 @@ class TestTagFile(unittest.TestCase):
 
     def test_tag_file(self):
         basepath = os.path.dirname(__file__)
-        tagfilepath = os.path.join(
-            basepath, "./data/tagfile/history.log")
-        tagfile = apt_pkg.TagFile(open(tagfilepath))
-        for i, stanza in enumerate(tagfile):
-            pass
-        self.assertEqual(i, 2)
+        tagfilepath = os.path.join(basepath, "./data/tagfile/*")
+        # test once for compressed and uncompressed
+        for testfile in glob.glob(tagfilepath):
+            # test once using the open() method and once using the path
+            for f in [testfile, open(testfile)]:
+                tagfile = apt_pkg.TagFile(f)
+                for i, stanza in enumerate(tagfile):
+                    pass
+                self.assertEqual(i, 2)
 
-    def test_tag_file_compressed(self):
-        basepath = os.path.dirname(__file__)
-        tagfilepath = os.path.join(
-            basepath, "./data/tagfile/history.1.log.gz")
-        tagfile = apt_pkg.TagFile(open(tagfilepath))
-        for i, stanza in enumerate(tagfile):
-            #print stanza
-            pass
-        self.assertEqual(i, 2)
+    def test_errors(self):
+        # Raises SystemError via lbiapt
+        self.assertRaises(SystemError, apt_pkg.TagFile, "not-there-no-no")
+        # Raises Type error
+        self.assertRaises(TypeError, apt_pkg.TagFile, object())
 
 if __name__ == "__main__":
     unittest.main()
