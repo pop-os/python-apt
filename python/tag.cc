@@ -425,7 +425,12 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    }
    else 
    {
+      // FileFd::Extension got added in this revision
+#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 12)
       new (&New->Fd) FileFd(filename, FileFd::ReadOnly, FileFd::Extension, false);
+#else
+      new (&New->Fd) FileFd(filename, FileFd::ReadOnly, false);
+#endif
    } 
    New->Owner = File;
    Py_INCREF(New->Owner);
