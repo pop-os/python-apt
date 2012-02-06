@@ -413,27 +413,23 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       return 0;
    }
 
+   New = (TagFileData*)type->tp_alloc(type, 0);
    if (fileno > 0)
    {
-      New = (TagFileData*)type->tp_alloc(type, 0);
 #ifdef APT_HAS_GZIP
       new (&New->Fd) FileFd();
       New->Fd.OpenDescriptor(fileno, FileFd::ReadOnlyGzip, false);
 #else
       new (&New->Fd) FileFd(fileno,false);
 #endif
-      New->Owner = File;
-      Py_INCREF(New->Owner);
-      new (&New->Object) pkgTagFile(&New->Fd);
    }
    else 
    {
-      New = (TagFileData*)type->tp_alloc(type, 0);
       new (&New->Fd) FileFd(filename, FileFd::ReadOnly, FileFd::Extension, false);
-      New->Owner = File;
-      Py_INCREF(New->Owner);
-      new (&New->Object) pkgTagFile(&New->Fd);
    } 
+   New->Owner = File;
+   Py_INCREF(New->Owner);
+   new (&New->Object) pkgTagFile(&New->Fd);
 
    // Create the section
    New->Section = (TagSecData*)(&PyTagSection_Type)->tp_alloc(&PyTagSection_Type, 0);
