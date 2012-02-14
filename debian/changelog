@@ -1,4 +1,4 @@
-python-apt (0.8.3ubuntu4) UNRELEASED; urgency=low
+python-apt (0.8.3ubuntu4) precise; urgency=low
 
   * doc/examples/build-deps.py:
     - update the build-deps.py example to use the apt API more
@@ -18,7 +18,7 @@ python-apt (0.8.3ubuntu4) UNRELEASED; urgency=low
   * apt/debfile.py: 
     - fix crash in dep multiarch handling
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 09 Dec 2011 09:23:16 +0100
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 14 Feb 2012 09:37:18 +0100
 
 python-apt (0.8.3ubuntu3) precise; urgency=low
 
