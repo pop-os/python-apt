@@ -920,7 +920,7 @@ extern "C" void initapt_pkg()
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_SUGGESTS",
                         MkPyNumber(pkgCache::Dep::Suggests));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_RECOMMENDS",
-                        MkPyNumber(pkgCache::Dep::Suggests));
+                        MkPyNumber(pkgCache::Dep::Recommends));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_CONFLICTS",
                         MkPyNumber(pkgCache::Dep::Conflicts));
    PyDict_SetItemString(PyDependency_Type.tp_dict, "TYPE_REPLACES",

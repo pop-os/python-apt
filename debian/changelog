@@ -1,3 +1,15 @@
+python-apt (0.8.3ubuntu5) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * apt/package.py:
+    - if there is no Version.uri return None
+
+  [ Julian Andres Klode ]
+  * python/apt_pkgmodule.cc:
+    - Fix apt_pkg.Dependency.TYPE_RECOMMENDS, had Suggests value previously
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 27 Mar 2012 13:34:19 +0200
+
 python-apt (0.8.3ubuntu4) precise; urgency=low
 
   * doc/examples/build-deps.py:
