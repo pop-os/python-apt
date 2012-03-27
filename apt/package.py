@@ -545,7 +545,10 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        return iter(self._uris()).next()
+        try:
+            return iter(self._uris()).next()
+        except StopIteration:
+            return None
 
     def fetch_binary(self, destdir='', progress=None):
         """Fetch the binary version of the package.
