@@ -152,8 +152,7 @@ class Cache(object):
         self._sorted_set = None
         self._weakref.clear()
 
-        self._have_multi_arch = bool(apt_pkg.config.value_list("APT::" +
-                                                               "Architectures"))
+        self._have_multi_arch = len(apt_pkg.get_architectures()) > 1
 
         progress.op = _("Building data structures")
         i = last = 0

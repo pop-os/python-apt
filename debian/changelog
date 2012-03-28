@@ -16,6 +16,8 @@ python-apt (0.8.4) UNRELEASED; urgency=low
       to the file object currently supported)
   * apt/package.py:
     - if there is no Version.uri return None
+  * apt/cache.py:
+    - fix _have_multi_arch flag (thanks to Sebastian Heinlein)
 
   [Julian Andres Klode ]
   * python/apt_pkgmodule.cc:
