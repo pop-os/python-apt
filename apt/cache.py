@@ -144,6 +144,7 @@ class Cache(object):
 
         self._cache = apt_pkg.Cache(progress)
         self._depcache = apt_pkg.DepCache(self._cache)
+        self._depcache.init(progress)
         self._records = apt_pkg.PackageRecords(self._cache)
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
