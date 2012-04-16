@@ -24,7 +24,7 @@ class TestAptPolicy(unittest.TestCase):
             lowlevel_ver = ver._cand
             for pkgfile, i in lowlevel_ver.file_list:
                 #print pkgfile, i, policy.get_priority(pkgfile)
-                self.assertTrue(policy.get_priority(pkgfile) > 1)
+                self.assertTrue(policy.get_priority(pkgfile) >= 1)
                 self.assertTrue(policy.get_priority(pkgfile) < 1001)
 
     def test_apt_policy_highlevel(self):
