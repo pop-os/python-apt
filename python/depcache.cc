@@ -568,8 +568,7 @@ static PyMethodDef PkgDepCacheMethods[] =
 {
    {"init",PkgDepCacheInit,METH_VARARGS,
     "init(progress: apt.progress.base.OpProgress)\n\n"
-    "Initialize the depcache (done automatically when constructing\n"
-    "the object)."},
+    "Initialize the depcache."},
    {"get_candidate_ver",PkgDepCacheGetCandidateVer,METH_VARARGS,
     "get_candidate_ver(pkg: apt_pkg.Package) -> apt_pkg.Version\n\n"
     "Return the candidate version for the package, normally the version\n"
