@@ -25,14 +25,14 @@ python-apt (0.8.4) UNRELEASED; urgency=low
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 04 Jan 2012 12:07:48 +0100
 
-python-apt (0.8.3.1) UNRELEASED; urgency=low
+python-apt (0.8.4~exp1) experimental; urgency=low
 
   * tests/test_apt_cache.py:
     - fix tests on kfreebsd/ia64
   * apt/debfile.py: 
     - fix crash in dep multiarch handling
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 09 Dec 2011 09:23:16 +0100
+ -- Michael Vogt <mvo@debian.org>  Tue, 24 Jan 2012 14:02:46 +0100
 
 python-apt (0.8.3) unstable; urgency=low
 
