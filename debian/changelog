@@ -1,4 +1,4 @@
-python-apt (0.8.4) UNRELEASED; urgency=low
+python-apt (0.8.4) unstable; urgency=low
 
   [ Michael Vogt ]
   * doc/examples/build-deps.py:
@@ -18,12 +18,13 @@ python-apt (0.8.4) UNRELEASED; urgency=low
     - if there is no Version.uri return None
   * apt/cache.py:
     - fix _have_multi_arch flag (thanks to Sebastian Heinlein)
+  * build against apt 0.9.0
 
   [Julian Andres Klode ]
   * python/apt_pkgmodule.cc:
     - Fix apt_pkg.Dependency.TYPE_RECOMMENDS, had Suggests value previously
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Wed, 04 Jan 2012 12:07:48 +0100
+ -- Michael Vogt <mvo@debian.org>  Mon, 16 Apr 2012 19:06:48 +0200
 
 python-apt (0.8.4~exp1) experimental; urgency=low
 
