@@ -1,3 +1,21 @@
+python-apt (0.8.4ubuntu5) precise; urgency=low
+
+  [ Michael Vogt ]
+  * python/cache.cc:
+    - ensure that pkgApplyStatus is called when the cache is opened
+      (thanks to Sebastian Heinlein for finding this bug), LP: #659438
+  * apt/package.py:
+    - if there is no Version.uri return None
+  * apt/cache.py:
+    - fix _have_multi_arch flag (thanks to Sebastian Heinlein)
+  * build against apt 0.9.0
+
+  [Julian Andres Klode ]
+  * python/apt_pkgmodule.cc:
+    - Fix apt_pkg.Dependency.TYPE_RECOMMENDS, had Suggests value previously
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 16 Apr 2012 19:06:48 +0200
+
 python-apt (0.8.3ubuntu6) precise; urgency=low
 
   * apt/cache.py:
