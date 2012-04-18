@@ -65,7 +65,8 @@ Version: 3.6.9+build1+nobinonly-0ubuntu1""")
 
     def test_survive_reqreinst(self):
         """Test that we survive a package in require reinstallation state"""
-        self.assertEqual(self.cache.required_download, 82324L)
+        # this should be 82324L but python3.2 gets unhappy about the "L"
+        self.assertEqual(self.cache.required_download, 82324)
 
 if __name__ == "__main__":
     unittest.main()
