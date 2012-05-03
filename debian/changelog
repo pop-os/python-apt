@@ -1,3 +1,10 @@
+python-apt (0.8.3ubuntu8) quantal; urgency=low
+
+  * data/templates/Ubuntu.info.in:
+    - add quantal
+
+ -- Stéphane Graber <stgraber@ubuntu.com>  Wed, 02 May 2012 21:09:05 -0400
+
 python-apt (0.8.3ubuntu7) precise; urgency=low
 
   [ Michael Vogt ]
