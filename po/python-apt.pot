@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-06 14:56+0100\n"
+"POT-Creation-Date: 2012-04-17 21:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,11 +455,11 @@ msgstr ""
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:1085 ../apt/package.py:1191
+#: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1197
+#: ../apt/package.py:1200
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -468,7 +468,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1204
+#: ../apt/package.py:1207
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
@@ -606,6 +606,6 @@ msgstr ""
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:158
+#: ../apt/cache.py:157
 msgid "Building data structures"
 msgstr ""

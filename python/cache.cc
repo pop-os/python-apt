@@ -198,10 +198,12 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
    }
 
    //std::cout << "new cache is " << (pkgCache*)(*Cache) << std::endl;
+   
+   // ensure that the states are correct (LP: #659438)
+   pkgApplyStatus(*Cache);
 
    // update the cache pointer after the cache was rebuild
    ((CppPyObject<pkgCache*> *)Self)->Object = (pkgCache*)(*Cache);
-
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
@@ -400,6 +402,9 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       if (Cache->Open(Prog,false) == false)
 	     return HandleErrors();
    }
+
+   // ensure that the states are correct (LP: #659438)
+   pkgApplyStatus(*Cache);
 
    CppPyObject<pkgCacheFile*> *CacheFileObj =
 	   CppPyObject_NEW<pkgCacheFile*>(0,&PyCacheFile_Type, Cache);
