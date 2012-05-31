@@ -153,8 +153,8 @@ def add_key(content, wait=True):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT,
                             universal_newlines=True)
-    proc = subprocess.Popen(cmd)
     proc.stdin.write(content)
+    proc.stdin.close()
     if wait:
         _wait_and_raise(proc)
     else:
