@@ -1,9 +1,12 @@
-# dialog_apt_key.py.in - edit the apt keys
-#  
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# auth - authentication key management
+#
 #  Copyright (c) 2004 Canonical
-#  
+#
 #  Author: Michael Vogt <mvo@debian.org>
-# 
+#          Sebastian Heinlein <devel@glatzor.de>
+#
 #  This program is free software; you can redistribute it and/or 
 #  modify it under the terms of the GNU General Public License as 
 #  published by the Free Software Foundation; either version 2 of the
@@ -13,86 +16,193 @@
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
-# 
+#
 #  You should have received a copy of the GNU General Public License
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
+"""Handle GnuPG keys used to trust signed repositories."""
 
 import atexit
-import gettext
+import glob
 import os
+import os.path
 import shutil
 import subprocess
 import tempfile
 
-from subprocess import PIPE
+import apt_pkg
+from apt_pkg import gettext as _
 
-# gettext convenient
-_ = gettext.gettext
-def dummy(e): return e
-N_ = dummy
+# Create a temporary dir to store secret keying and trust database.
+# APT doesn't use a secrect key ring but GnuPG fails without it.
+_TMPDIR = tempfile.mkdtemp()
+atexit.register(shutil.rmtree, _TMPDIR)
 
-# some known keys
-N_("Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>")
-N_("Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>")
 
-class AptAuth:
-    def __init__(self, rootdir="/"):
-        self.gpg = ["/usr/bin/gpg"]
-        self.base_opt = self.gpg + [
-            "--no-options", 
-            "--no-default-keyring",
-            "--no-auto-check-trustdb",
-            "--trust-model", "always",
-            "--keyring", os.path.join(rootdir, "etc/apt/trusted.gpg"),
-            ]
-        self.tmpdir = tempfile.mkdtemp()
-        self.base_opt += ["--secret-keyring", 
-                          os.path.join(self.tmpdir, "secring.gpg")]
-        self.base_opt += ["--trustdb-name", 
-                          os.path.join(self.tmpdir, "trustdb.gpg")]
-        self.list_opt = self.base_opt + ["--with-colons",
-                                         "--batch",
-                                         "--list-keys"]
-        self.rm_opt = self.base_opt + ["--quiet",
-                                       "--batch",
-                                       "--delete-key",
-                                       "--yes"]
-        self.add_opt = self.base_opt + ["--quiet", 
-                                        "--batch",
-                                        "--import"]
-        atexit.register(self._cleanup_tmpdir)
+class TrustedKey(object):
 
-    def _cleanup_tmpdir(self):
-        shutil.rmtree(self.tmpdir)
-       
-    def list(self):
-        res = []
-        #print self.list_opt
-        p = subprocess.Popen(self.list_opt,stdout=PIPE).stdout
-        for line in p.readlines():
-            fields = line.split(":")
-            if fields[0] == "pub":
-                name = fields[9]
-                res.append("%s %s\n%s" %((fields[4])[-8:],fields[5], _(name)))
-        return res
+    """Represents a trusted key."""
 
-    def add(self, filename):
-        #print "request to add " + filename
-        cmd = self.add_opt[:]
-        cmd.append(filename)
-        p = subprocess.Popen(cmd)
-        return (p.wait() == 0)
-        
-    def update(self):
-        cmd = ["/usr/bin/apt-key", "update"]
-        p = subprocess.Popen(cmd)
-        return (p.wait() == 0)
+    def __init__(self, name, keyid, date):
+        self.raw_name = name
+        # Allow to translated some known keys
+        self.name = _(name)
+        self.keyid = keyid
+        self.date = date
 
-    def rm(self, key):
-        #print "request to remove " + key
-        cmd = self.rm_opt[:]
-        cmd.append(key)
-        p = subprocess.Popen(cmd)
-        return (p.wait() == 0)
+    def __str__(self):
+        return "%s\n%s %s" % (self.name, self.keyid, self.date)
+
+
+def _get_gpg_command(keyring=None):
+    """Return the gpg command"""
+    cmd = [apt_pkg.config.find_file("Dir::Bin::Gpg", "/usr/bin/gpg"),
+           "--ignore-time-conflict",
+           "--no-default-keyring",
+           "--trust-model", "always",
+           "--no-options",
+           "--secret-keyring", os.path.join(_TMPDIR, "secring.gpg")]
+    if keyring is None:
+        # Add the public keyring
+        cmd.extend(["--keyring",
+                    apt_pkg.config.find_file("Dir::Etc::Trusted"),
+                    "--primary-keyring",
+                    apt_pkg.config.find_file("Dir::Etc::Trusted")])
+        # Add the public keyring parts
+        trusted_parts_dir = apt_pkg.config.find_dir("Dir::Etc::TrustedParts")
+        for part_name in glob.glob(os.path.join(trusted_parts_dir, "*.gpg")):
+            part_path = os.path.join(trusted_parts_dir, part_name)
+            if os.access(part_path, os.R_OK):
+                cmd.extend(["--keyring", part_path])
+        # TrustDB
+        trustdb_path = os.path.join(apt_pkg.config.find_dir("Dir::Etc"),
+                                    "trustdb.gpg")
+        cmd.extend(["--trustdb-name", trustdb_path])
+    else:
+        cmd.extend(["--keyring", os.path.abspath(keyring),
+                    "--primary-keyring", os.path.abspath(keyring),
+                    "--trustdb-name", os.path.join(_TMPDIR, "trustdb.gpg")])
+    return cmd
+
+def _wait_and_raise(proc):
+    """Wait until the given subprocess is completed and raise a
+    SystemError if it failed.
+    """
+    if proc.wait() != 0:
+        output = proc.stdout.read()
+        raise SystemError("GnuPG command failed: %s" % output)
+
+def add_key_from_file(filename, wait=True):
+    """Import a GnuPG key file to trust repositores signed by it.
+
+    Keyword arguments:
+    filename -- the absolute path to the public GnuPG key file
+    wait -- if the system should be blocked until the internal GnuPG call is
+            completed. Otherwise the subprocess.Popen() instance will be
+            returned. By default the call will be blocking.
+    """
+    if not os.path.abspath(filename):
+        raise SystemError("An absolute path is required: %s" % filename)
+    if not os.access(os.R_OK):
+        raise SystemError("Key file cannot be accessed: %s" % filename)
+    cmd = _get_gpg_command()
+    cmd.extend(["--quiet", "--batch", "--import", filename])
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    if wait:
+        _wait_and_raise(proc)
+    else:
+        return proc
+
+def add_key_from_keyserver(keyid, keyserver, wait=True):
+    """Import a GnuPG key file to trust repositores signed by it.
+
+    Keyword arguments:
+    keyid -- the identifier of the key, e.g. 0x0EB12DSA
+    keyserver -- the URL or hostname of the key server
+    wait -- if the system should be blocked until the internal GnuPG call is
+            completed. Otherwise the subprocess.Popen() instance will be
+            returned. By default the call will be blocking.
+    """
+    cmd = _get_gpg_command()
+    cmd.extend(["--quiet", "--batch",
+                "--keyserver", keyserver,
+                "--recv", keyid])
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    if wait:
+        _wait_and_raise(proc)
+    else:
+        return proc
+
+def add_key(content, wait=True):
+    """Import a GnuPG key to trust repositores signed by it.
+
+    Keyword arguments:
+    content -- the content of the GnuPG public key
+    wait -- if the system should be blocked until the internal GnuPG call is
+            completed. Otherwise the subprocess.Popen() instance will be
+            returned. By default the call will be blocking.
+    """
+    cmd = _get_gpg_command()
+    cmd.extend(["--quiet", "--batch", "--import", "-"])
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    proc = subprocess.Popen(cmd)
+    proc.stdin.write(content)
+    if wait:
+        _wait_and_raise(proc)
+    else:
+        return proc
+
+def remove_key(fingerprint, wait=True):
+    """Remove a GnuPG key to no longer trust repositores signed by it.
+
+    Keyword arguments:
+    fingerprint -- the fingerprint identifying the key
+    wait -- if the system should be blocked until the internal GnuPG is
+            completed. Otherwise the subprocess.Popen() instance will be
+            returned. By default the call will be blocking.
+    """
+    cmd = _get_gpg_command()
+    cmd.extend(["--quiet", "--batch", "--delete-key", "--yes", fingerprint])
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    if wait:
+        _wait_and_raise(proc)
+    else:
+        return proc
+
+def list_keys():
+    """Returns a list of TrustedKey instances for each key which is
+    used to trust repositories.
+    """
+    cmd = _get_gpg_command()
+    cmd.extend(["--with-colons", "--batch", "--list-keys"])
+    res = []
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    _wait_and_raise(proc)
+    for line in proc.stdout.readlines():
+        fields = line.split(":")
+        if fields[0] == "pub":
+            key = TrustedKey(fields[9], fields[4][-8:], fields[5])
+            res.append(key)
+    return res
+
+if __name__ == "__main__":
+    # Add some known keys we would like to see translated so that they get
+    # picked up by gettext
+    lambda: _("Ubuntu Archive Automatic Signing Key <ftpmaster@ubuntu.com>")
+    lambda: _("Ubuntu CD Image Automatic Signing Key <cdimage@ubuntu.com>")
+
+    apt_pkg.init()
+    for trusted_key in list_keys():
+        print(trusted_key)
