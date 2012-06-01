@@ -60,7 +60,6 @@ def _get_gpg_command(keyring=None):
     cmd = [apt_pkg.config.find_file("Dir::Bin::Gpg", "/usr/bin/gpg"),
            "--ignore-time-conflict",
            "--no-default-keyring",
-           "--trust-model", "always",
            "--no-options",
            "--secret-keyring", os.path.join(_TMPDIR, "secring.gpg")]
     if keyring is None:
