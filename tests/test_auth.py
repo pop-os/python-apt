@@ -14,9 +14,6 @@ else:
     from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as HTTPRequestHandler
 
-from test_all import get_library_dir
-sys.path.insert(0, get_library_dir())
-
 import apt_pkg
 import apt.auth
 
