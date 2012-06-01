@@ -194,7 +194,7 @@ def export_key(fingerprint, wait=True):
                             universal_newlines=True)
     if wait:
         _wait_and_raise(proc)
-        return proc.stdout.read()
+        return proc.stdout.read().strip()
     else:
         return proc
 
