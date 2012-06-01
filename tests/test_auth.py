@@ -11,7 +11,7 @@ if sys.version_info.major > 2:
     from http.server import HTTPServer
     from http.server import SimpleHTTPRequestHandler as HTTPRequestHandler
 else:
-    from SimpleHTTPServer import BaseHTTPServer as HTTPServer
+    from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as HTTPRequestHandler
 
 from test_all import get_library_dir
@@ -111,16 +111,26 @@ class TestAuthKeys(unittest.TestCase):
     """Test handling of keys for signed repositories."""
 
     def setUp(self):
+        # reset any config manipulations done in the individual tests
+        apt_pkg.init_config()
+        # save the apt config to restore later
+        cnf = {}
+        for item in apt_pkg.config.keys():
+            cnf[item] = apt_pkg.config.find(item)
+        self.addCleanup(self._restore_apt_config, cnf)
+
         self.tmpdir = tempfile.mkdtemp()
-        apt_pkg.init()
+        self.addCleanup(shutil.rmtree, self.tmpdir)
         apt_pkg.config.set("Dir", self.tmpdir)
         apt_pkg.config.set("Dir::Etc", "etc/apt/")
         trustedparts_dir = apt_pkg.config.find_dir("Dir::Etc::Trustedparts")
         self.assertTrue(trustedparts_dir.startswith(self.tmpdir))
         os.makedirs(trustedparts_dir)
 
-    def cleanUp(self):
-        shutil.rmtree(self.tmpdir)
+    def _restore_apt_config(self, cnf):
+       """Restore previous apt configuration."""
+       for item in cnf:
+           apt_pkg.config.set(item, cnf[item])
 
     def testAddAndExportKey(self):
         """Add an example key."""
@@ -146,7 +156,7 @@ class TestAuthKeys(unittest.TestCase):
         """Test adding a key from file."""
         keyfd, keyname = tempfile.mkstemp()
         self.addCleanup(os.close, keyfd)
-        os.write(keyfd, WHEEZY_KEY)
+        os.write(keyfd, WHEEZY_KEY.encode("UTF-8"))
 
         apt.auth.add_key_from_file(keyname)
 
@@ -190,8 +200,7 @@ class TestAuthKeys(unittest.TestCase):
             # quiesce server log
             os.dup2(os.open('/dev/null', os.O_WRONLY), sys.stderr.fileno())
             os.chdir(dir)
-            httpd = HTTPServer.HTTPServer(('localhost', 19191),
-                                          HTTPRequestHandler)
+            httpd = HTTPServer(('localhost', 19191), HTTPRequestHandler)
             httpd.serve_forever()
             os._exit(0)
 
