@@ -103,7 +103,7 @@ def add_key_from_file(filename, wait=True):
     """
     if not os.path.abspath(filename):
         raise SystemError("An absolute path is required: %s" % filename)
-    if not os.access(os.R_OK):
+    if not os.access(filename, os.R_OK):
         raise SystemError("Key file cannot be accessed: %s" % filename)
     cmd = _get_gpg_command()
     cmd.extend(["--quiet", "--batch", "--import", filename])
