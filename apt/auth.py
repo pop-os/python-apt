@@ -179,6 +179,26 @@ def remove_key(fingerprint, wait=True):
     else:
         return proc
 
+def export_key(fingerprint, wait=True):
+    """Return the GnuPG key in text format.
+
+    Keyword arguments:
+    fingerprint -- the fingerprint identifying the key
+    wait -- if the system should be blocked until the internal GnuPG is
+            completed. Otherwise the subprocess.Popen() instance will be
+            returned. By default the call will be blocking.
+    """
+    cmd = _get_gpg_command()
+    cmd.extend(["--armor", "--export", fingerprint])
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True)
+    if wait:
+        _wait_and_raise(proc)
+        return proc.stdout.read()
+    else:
+        return proc
+
 def list_keys():
     """Returns a list of TrustedKey instances for each key which is
     used to trust repositories.
