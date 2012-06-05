@@ -36,8 +36,7 @@ from apt_pkg import gettext as _
 
 # Create a temporary dir to store secret keying and trust database.
 # APT doesn't use a secrect key ring but GnuPG fails without it.
-_TMPDIR = tempfile.mkdtemp()
-atexit.register(shutil.rmtree, _TMPDIR)
+_TMPDIR = None
 
 
 class TrustedKey(object):
@@ -57,6 +56,10 @@ class TrustedKey(object):
 
 def _get_gpg_command(keyring=None):
     """Return the gpg command"""
+    global _TMPDIR
+    if _TMPDIR is None:
+        _TMPDIR = tempfile.mkdtemp()
+        atexit.register(shutil.rmtree, _TMPDIR)
     cmd = [apt_pkg.config.find_file("Dir::Bin::Gpg", "/usr/bin/gpg"),
            "--ignore-time-conflict",
            "--no-default-keyring",
