@@ -125,9 +125,9 @@ class TestAuthKeys(unittest.TestCase):
         os.makedirs(trustedparts_dir)
 
     def _restore_apt_config(self, cnf):
-       """Restore previous apt configuration."""
-       for item in cnf:
-           apt_pkg.config.set(item, cnf[item])
+        """Restore previous apt configuration."""
+        for item in cnf:
+            apt_pkg.config.set(item, cnf[item])
 
     def testAddAndExportKey(self):
         """Add an example key."""

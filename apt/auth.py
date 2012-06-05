@@ -7,11 +7,11 @@
 #  Author: Michael Vogt <mvo@debian.org>
 #          Sebastian Heinlein <devel@glatzor.de>
 #
-#  This program is free software; you can redistribute it and/or 
-#  modify it under the terms of the GNU General Public License as 
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License as
 #  published by the Free Software Foundation; either version 2 of the
 #  License, or (at your option) any later version.
-# 
+#
 #  This program is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -36,8 +36,7 @@ from apt_pkg import gettext as _
 
 # Create a temporary dir to store secret keying and trust database.
 # APT doesn't use a secrect key ring but GnuPG fails without it.
-_TMPDIR = tempfile.mkdtemp()
-atexit.register(shutil.rmtree, _TMPDIR)
+_TMPDIR = None
 
 
 class TrustedKey(object):
@@ -57,6 +56,10 @@ class TrustedKey(object):
 
 def _get_gpg_command(keyring=None):
     """Return the gpg command"""
+    global _TMPDIR
+    if _TMPDIR is None:
+        _TMPDIR = tempfile.mkdtemp()
+        atexit.register(shutil.rmtree, _TMPDIR)
     cmd = [apt_pkg.config.find_file("Dir::Bin::Gpg", "/usr/bin/gpg"),
            "--ignore-time-conflict",
            "--no-default-keyring",
@@ -84,6 +87,7 @@ def _get_gpg_command(keyring=None):
                     "--trustdb-name", os.path.join(_TMPDIR, "trustdb.gpg")])
     return cmd
 
+
 def _wait_and_raise(proc):
     """Wait until the given subprocess is completed and raise a
     SystemError if it failed.
@@ -91,6 +95,7 @@ def _wait_and_raise(proc):
     if proc.wait() != 0:
         output = proc.stdout.read()
         raise SystemError("GnuPG command failed: %s" % output)
+
 
 def add_key_from_file(filename, wait=True):
     """Import a GnuPG key file to trust repositores signed by it.
@@ -115,6 +120,7 @@ def add_key_from_file(filename, wait=True):
     else:
         return proc
 
+
 def add_key_from_keyserver(keyid, keyserver, wait=True):
     """Import a GnuPG key file to trust repositores signed by it.
 
@@ -136,6 +142,7 @@ def add_key_from_keyserver(keyid, keyserver, wait=True):
         _wait_and_raise(proc)
     else:
         return proc
+
 
 def add_key(content, wait=True):
     """Import a GnuPG key to trust repositores signed by it.
@@ -159,6 +166,7 @@ def add_key(content, wait=True):
     else:
         return proc
 
+
 def remove_key(fingerprint, wait=True):
     """Remove a GnuPG key to no longer trust repositores signed by it.
 
@@ -177,6 +185,7 @@ def remove_key(fingerprint, wait=True):
         _wait_and_raise(proc)
     else:
         return proc
+
 
 def export_key(fingerprint, wait=True):
     """Return the GnuPG key in text format.
@@ -198,6 +207,7 @@ def export_key(fingerprint, wait=True):
     else:
         return proc
 
+
 def list_keys():
     """Returns a list of TrustedKey instances for each key which is
     used to trust repositories.
@@ -215,6 +225,7 @@ def list_keys():
             key = TrustedKey(fields[9], fields[4][-8:], fields[5])
             res.append(key)
     return res
+
 
 if __name__ == "__main__":
     # Add some known keys we would like to see translated so that they get
