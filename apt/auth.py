@@ -52,8 +52,6 @@ def _call_apt_key_script(*args, **kwargs):
     """Run the apt-key script with the given arguments."""
     cmd = [apt_pkg.config.find_file("Dir::Bin::Apt-Key", "/usr/bin/apt-key")]
     cmd.extend(args)
-    if os.getuid() != 0:
-        cmd.insert(0, "fakeroot")
     env = os.environ.copy()
     env["LANG"] = "C"
     if apt_pkg.config.find_dir("Dir") != "/":
