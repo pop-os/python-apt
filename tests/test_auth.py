@@ -136,8 +136,11 @@ class TestAuthKeys(unittest.TestCase):
     def testAddAndExportKey(self):
         """Add an example key."""
         apt.auth.add_key(WHEEZY_KEY)
-        self.assertEqual(apt.auth.export_key("46925553"),
-                         WHEEZY_KEY)
+        # Strip the headers from the keys to avoid test errors because
+        # the exported key used a differenct GnuPG version than the
+        # original example key
+        self.assertEqual(apt.auth.export_key("46925553").split("\n")[2:],
+                         WHEEZY_KEY.split("\n")[2:])
 
     def testAddAndListKey(self):
         """Add an example key and test if it is correctly returned by
