@@ -130,6 +130,24 @@ def export_key(fingerprint):
     """
     return _call_apt_key_script("export", fingerprint)
 
+def update():
+    """Update the local keyring with the archive keyring and remove from
+    the local keyring the archive keys which are no longer valid. The
+    archive keyring is shipped in the archive-keyring package of your
+    distribution, e.g. the debian-archive-keyring package in Debian.
+    """
+    return _call_apt_key_script("update")
+
+def net_update():
+    """Work similar to the update command above, but get the archive
+    keyring from an URI instead and validate it against a master key.
+    This requires an installed wget(1) and an APT build configured to
+    have a server to fetch from and a master keyring to validate. APT
+    in Debian does not support this command and relies on update
+    instead, but Ubuntu's APT does.
+    """
+    return _call_apt_key_script("net-update")
+
 def list_keys():
     """Returns a list of TrustedKey instances for each key which is
     used to trust repositories.
