@@ -3,6 +3,7 @@
 # auth - authentication key management
 #
 #  Copyright (c) 2004 Canonical
+#  Copyright (c) 2012 Sebastian Heinlein
 #
 #  Author: Michael Vogt <mvo@debian.org>
 #          Sebastian Heinlein <devel@glatzor.de>
