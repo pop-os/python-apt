@@ -85,14 +85,11 @@ def _call_apt_key_script(*args, **kwargs):
                           "%s\n%s" % (return_code, " ".join(cmd), output))
     return output.strip()
 
-def add_key_from_file(filename, wait=True):
+def add_key_from_file(filename):
     """Import a GnuPG key file to trust repositores signed by it.
 
     Keyword arguments:
     filename -- the absolute path to the public GnuPG key file
-    wait -- if the system should be blocked until the internal GnuPG call is
-            completed. Otherwise the subprocess.Popen() instance will be
-            returned. By default the call will be blocking.
     """
     if not os.path.abspath(filename):
         raise SystemError("An absolute path is required: %s" % filename)
@@ -100,50 +97,38 @@ def add_key_from_file(filename, wait=True):
         raise SystemError("Key file cannot be accessed: %s" % filename)
     _call_apt_key_script("add", filename)
 
-def add_key_from_keyserver(keyid, keyserver, wait=True):
+def add_key_from_keyserver(keyid, keyserver):
     """Import a GnuPG key file to trust repositores signed by it.
 
     Keyword arguments:
     keyid -- the identifier of the key, e.g. 0x0EB12DSA
     keyserver -- the URL or hostname of the key server
-    wait -- if the system should be blocked until the internal GnuPG call is
-            completed. Otherwise the subprocess.Popen() instance will be
-            returned. By default the call will be blocking.
     """
     _call_apt_key_script("adv", "--quiet", "--keyserver", keyserver,
                          "--recv", keyid)
 
-def add_key(content, wait=True):
+def add_key(content):
     """Import a GnuPG key to trust repositores signed by it.
 
     Keyword arguments:
     content -- the content of the GnuPG public key
-    wait -- if the system should be blocked until the internal GnuPG call is
-            completed. Otherwise the subprocess.Popen() instance will be
-            returned. By default the call will be blocking.
     """
     _call_apt_key_script("adv", "--quiet", "--batch",
                          "--import", "-", stdin=content)
 
-def remove_key(fingerprint, wait=True):
+def remove_key(fingerprint):
     """Remove a GnuPG key to no longer trust repositores signed by it.
 
     Keyword arguments:
     fingerprint -- the fingerprint identifying the key
-    wait -- if the system should be blocked until the internal GnuPG is
-            completed. Otherwise the subprocess.Popen() instance will be
-            returned. By default the call will be blocking.
     """
     _call_apt_key_script("rm", fingerprint)
 
-def export_key(fingerprint, wait=True):
+def export_key(fingerprint):
     """Return the GnuPG key in text format.
 
     Keyword arguments:
     fingerprint -- the fingerprint identifying the key
-    wait -- if the system should be blocked until the internal GnuPG is
-            completed. Otherwise the subprocess.Popen() instance will be
-            returned. By default the call will be blocking.
     """
     return _call_apt_key_script("export", fingerprint)
 
