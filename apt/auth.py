@@ -24,19 +24,13 @@
 """Handle GnuPG keys used to trust signed repositories."""
 
 import atexit
-import glob
 import os
 import os.path
-import shutil
 import subprocess
 import tempfile
 
 import apt_pkg
 from apt_pkg import gettext as _
-
-# Create a temporary dir to store secret keying and trust database.
-# APT doesn't use a secrect key ring but GnuPG fails without it.
-_TMPDIR = None
 
 
 class TrustedKey(object):
@@ -54,48 +48,42 @@ class TrustedKey(object):
         return "%s\n%s %s" % (self.name, self.keyid, self.date)
 
 
-def _get_gpg_command(keyring=None):
-    """Return the gpg command"""
-    global _TMPDIR
-    if _TMPDIR is None:
-        _TMPDIR = tempfile.mkdtemp()
-        atexit.register(shutil.rmtree, _TMPDIR)
-    cmd = [apt_pkg.config.find_file("Dir::Bin::Gpg", "/usr/bin/gpg"),
-           "--ignore-time-conflict",
-           "--no-default-keyring",
-           "--no-options",
-           "--secret-keyring", os.path.join(_TMPDIR, "secring.gpg")]
-    if keyring is None:
-        # Add the public keyring
-        cmd.extend(["--keyring",
-                    apt_pkg.config.find_file("Dir::Etc::Trusted"),
-                    "--primary-keyring",
-                    apt_pkg.config.find_file("Dir::Etc::Trusted")])
-        # Add the public keyring parts
-        trusted_parts_dir = apt_pkg.config.find_dir("Dir::Etc::TrustedParts")
-        for part_name in glob.glob(os.path.join(trusted_parts_dir, "*.gpg")):
-            part_path = os.path.join(trusted_parts_dir, part_name)
-            if os.access(part_path, os.R_OK):
-                cmd.extend(["--keyring", part_path])
-        # TrustDB
-        trustdb_path = os.path.join(apt_pkg.config.find_dir("Dir::Etc"),
-                                    "trustdb.gpg")
-        cmd.extend(["--trustdb-name", trustdb_path])
-    else:
-        cmd.extend(["--keyring", os.path.abspath(keyring),
-                    "--primary-keyring", os.path.abspath(keyring),
-                    "--trustdb-name", os.path.join(_TMPDIR, "trustdb.gpg")])
-    return cmd
-
-
-def _wait_and_raise(proc):
-    """Wait until the given subprocess is completed and raise a
-    SystemError if it failed.
-    """
-    if proc.wait() != 0:
-        output = proc.stdout.read()
-        raise SystemError("GnuPG command failed: %s" % output)
-
+def _call_apt_key_script(*args, **kwargs):
+    """Run the apt-key script with the given arguments."""
+    cmd = [apt_pkg.config.find_file("Dir::Bin::Apt-Key", "/usr/bin/apt-key")]
+    cmd.extend(args)
+    if os.getuid() != 0:
+        cmd.insert(0, "fakeroot")
+    env = os.environ.copy()
+    env["LANG"] = "C"
+    if apt_pkg.config.find_dir("Dir") != "/":
+        # If the key is to be installed into a chroot we have to export the
+        # configuration from the chroot to the apt-key script by using
+        # a temporary APT_CONFIG file. The apt-key script uses apt-config shell
+        # internally
+        conf_fd, conf_name = tempfile.mkstemp(prefix="apt-key", suffix="conf")
+        atexit.register(os.remove, conf_name)
+        try:
+            os.write(conf_fd, apt_pkg.config.dump().encode("UTF-8"))
+        finally:
+            os.close(conf_fd)
+        env["APT_CONFIG"] = conf_name
+    proc = subprocess.Popen(cmd, env=env, universal_newlines=True,
+                            stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+    try:
+        proc.stdin.write(kwargs["stdin"])
+    except KeyError:
+        pass
+    finally:
+        proc.stdin.close()
+    return_code = proc.wait()
+    output = proc.stdout.read()
+    if return_code:
+        raise SystemError("The apt-key script failed with return code %s:\n"
+                          "%s\n%s" % (return_code, " ".join(cmd), output))
+    return output.strip()
 
 def add_key_from_file(filename, wait=True):
     """Import a GnuPG key file to trust repositores signed by it.
@@ -110,16 +98,7 @@ def add_key_from_file(filename, wait=True):
         raise SystemError("An absolute path is required: %s" % filename)
     if not os.access(filename, os.R_OK):
         raise SystemError("Key file cannot be accessed: %s" % filename)
-    cmd = _get_gpg_command()
-    cmd.extend(["--quiet", "--batch", "--import", filename])
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    if wait:
-        _wait_and_raise(proc)
-    else:
-        return proc
-
+    _call_apt_key_script("add", filename)
 
 def add_key_from_keyserver(keyid, keyserver, wait=True):
     """Import a GnuPG key file to trust repositores signed by it.
@@ -131,18 +110,8 @@ def add_key_from_keyserver(keyid, keyserver, wait=True):
             completed. Otherwise the subprocess.Popen() instance will be
             returned. By default the call will be blocking.
     """
-    cmd = _get_gpg_command()
-    cmd.extend(["--quiet", "--batch",
-                "--keyserver", keyserver,
-                "--recv", keyid])
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    if wait:
-        _wait_and_raise(proc)
-    else:
-        return proc
-
+    _call_apt_key_script("adv", "--quiet", "--keyserver", keyserver,
+                         "--recv", keyid)
 
 def add_key(content, wait=True):
     """Import a GnuPG key to trust repositores signed by it.
@@ -153,19 +122,8 @@ def add_key(content, wait=True):
             completed. Otherwise the subprocess.Popen() instance will be
             returned. By default the call will be blocking.
     """
-    cmd = _get_gpg_command()
-    cmd.extend(["--quiet", "--batch", "--import", "-"])
-    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    proc.stdin.write(content)
-    proc.stdin.close()
-    if wait:
-        _wait_and_raise(proc)
-    else:
-        return proc
-
+    _call_apt_key_script("adv", "--quiet", "--batch",
+                         "--import", "-", stdin=content)
 
 def remove_key(fingerprint, wait=True):
     """Remove a GnuPG key to no longer trust repositores signed by it.
@@ -176,16 +134,7 @@ def remove_key(fingerprint, wait=True):
             completed. Otherwise the subprocess.Popen() instance will be
             returned. By default the call will be blocking.
     """
-    cmd = _get_gpg_command()
-    cmd.extend(["--quiet", "--batch", "--delete-key", "--yes", fingerprint])
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    if wait:
-        _wait_and_raise(proc)
-    else:
-        return proc
-
+    _call_apt_key_script("rm", fingerprint)
 
 def export_key(fingerprint, wait=True):
     """Return the GnuPG key in text format.
@@ -196,36 +145,23 @@ def export_key(fingerprint, wait=True):
             completed. Otherwise the subprocess.Popen() instance will be
             returned. By default the call will be blocking.
     """
-    cmd = _get_gpg_command()
-    cmd.extend(["--armor", "--export", fingerprint])
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    if wait:
-        _wait_and_raise(proc)
-        return proc.stdout.read().strip()
-    else:
-        return proc
-
+    return _call_apt_key_script("export", fingerprint)
 
 def list_keys():
     """Returns a list of TrustedKey instances for each key which is
     used to trust repositories.
     """
-    cmd = _get_gpg_command()
-    cmd.extend(["--with-colons", "--batch", "--list-keys"])
+    # The output of `apt-key list` is difficult to parse since the
+    # --with-colons parameter isn't user
+    output = _call_apt_key_script("adv", "--with-colons", "--batch",
+                                  "--list-keys")
     res = []
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT,
-                            universal_newlines=True)
-    _wait_and_raise(proc)
-    for line in proc.stdout.readlines():
+    for line in output.split("\n"):
         fields = line.split(":")
         if fields[0] == "pub":
             key = TrustedKey(fields[9], fields[4][-8:], fields[5])
             res.append(key)
     return res
-
 
 if __name__ == "__main__":
     # Add some known keys we would like to see translated so that they get
