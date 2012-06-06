@@ -121,8 +121,10 @@ class TestAuthKeys(unittest.TestCase):
         apt_pkg.config.set("Dir", self.tmpdir)
         apt_pkg.config.set("Dir::Etc", "etc/apt/")
         trustedparts_dir = apt_pkg.config.find_dir("Dir::Etc::Trustedparts")
+        confparts_dir = apt_pkg.config.find_dir("Dir::Etc::parts")
         self.assertTrue(trustedparts_dir.startswith(self.tmpdir))
         os.makedirs(trustedparts_dir)
+        os.makedirs(confparts_dir)
 
     def _restore_apt_config(self, cnf):
         """Restore previous apt configuration."""
