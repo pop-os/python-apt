@@ -12,11 +12,19 @@ import apt.utils
 import datetime
 import unittest
 
+from apt.utils import (
+    get_maintenance_end_date,
+    get_release_date_from_release_file,
+    )
+
 class TestUtils(unittest.TestCase):
 
+    def test_get_release_date_from_release_file(self):
+        t = get_release_date_from_release_file("./tests/data/misc/foo_Release")
+        self.assertEqual(str(datetime.datetime.utcfromtimestamp(t)),
+                         "2012-04-25 22:49:23")
 
     def test_maintenance_time(self):
-        from apt.utils import get_maintenance_end_date
         months_of_support = 18
         # test historic releases, jaunty
         release_date = datetime.datetime(2009, 4, 23)
