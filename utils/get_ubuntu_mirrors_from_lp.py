@@ -40,7 +40,7 @@ for entry in d.entries:
         countries[countrycode].add(link.href)
 
 
-keys = sorted(countries.keys())
+keys = sorted(countries)
 print("mirror://mirrors.ubuntu.com/mirrors.txt")
 for country in keys:
     print("#LOC:%s" % country)
