@@ -11,6 +11,9 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   
   [ Steve Langasek ]
   * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
+  * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
+    source-build-dependencies; this may save someone else an hour down the
+    line scratching their head over gratuitous test-suite failures...
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
