@@ -9,6 +9,9 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * data/templates/Ubuntu.info.in:
     - add quantal
   
+  [ Steve Langasek ]
+  * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
+
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
 python-apt (0.8.4) unstable; urgency=low
