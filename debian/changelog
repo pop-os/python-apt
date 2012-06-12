@@ -43,6 +43,12 @@ python-apt (0.8.4~exp1) experimental; urgency=low
 
  -- Michael Vogt <mvo@debian.org>  Tue, 24 Jan 2012 14:02:46 +0100
 
+python-apt (0.8.3ubuntu9) UNRELEASED; urgency=low
+
+  * Don't leak file descriptors.
+
+ -- Evan Dandrea <ev@ubuntu.com>  Mon, 11 Jun 2012 17:00:37 +0100
+
 python-apt (0.8.3) unstable; urgency=low
 
   [ Alexey Feldgendler ] 
