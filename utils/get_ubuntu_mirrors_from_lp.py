@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 #  get_ubuntu_lp_mirrors.py
 #
@@ -40,9 +40,8 @@ for entry in d.entries:
         countries[countrycode].add(link.href)
 
 
-keys = countries.keys()
-keys.sort()
-print "mirror://mirrors.ubuntu.com/mirrors.txt"
+keys = sorted(countries)
+print("mirror://mirrors.ubuntu.com/mirrors.txt")
 for country in keys:
-    print "#LOC:%s" % country
-    print "\n".join(sorted(countries[country]))
+    print("#LOC:%s" % country)
+    print("\n".join(sorted(countries[country])))
