@@ -17,6 +17,11 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
     source-build-dependencies; this may save someone else an hour down the
     line scratching their head over gratuitous test-suite failures...
+  
+  [ Sebastian Heinlein ]
+  * lp:~glatzor/python-apt/auth:
+    - this is a port of the software-properties AptAuth module to python-apt
+      with some cleanups. It provides a wrapper API for the apt-key command
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
