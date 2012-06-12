@@ -5,6 +5,9 @@ python-apt (0.8.5~ubuntu1) UNRELEASED; urgency=low
     - build with COMPAT_0_7, which might still be needed by some code in the
       Ubuntu archive.  We need to scan the archive for this, add liberal
       Breaks, and analyze the dist-upgrader case before disabling.
+  * Revert change from lp:~ev/python-apt/dont-leak-fds; as discussed on IRC
+    during the Python3 porting sprint, the cure here is worse than the
+    disease.
 
   [ Colin Watson ]
   * aptsources/*.py, setup.py: Make aptsources modules work directly in

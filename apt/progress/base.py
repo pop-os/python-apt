@@ -146,10 +146,6 @@ class InstallProgress(object):
         self.status_stream = os.fdopen(self.statusfd, "r")
         fcntl.fcntl(self.statusfd, fcntl.F_SETFL, os.O_NONBLOCK)
 
-    def __del__(self):
-        self.write_stream.close()
-        self.status_stream.close()
-
     def start_update(self):
         """(Abstract) Start update."""
 
