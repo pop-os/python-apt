@@ -1,10 +1,21 @@
 python-apt (0.8.5) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * python/cache.cc:
     - ensure that pkgApplyStatus is called when the cache is opened
       (thanks to Sebastian Heinlein for finding this bug), LP: #659438
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 17 Apr 2012 14:09:24 +0200
+  [ Stéphane Graber ]
+  * data/templates/Ubuntu.info.in:
+    - add quantal
+  
+  [ Steve Langasek ]
+  * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
+  * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
+    source-build-dependencies; this may save someone else an hour down the
+    line scratching their head over gratuitous test-suite failures...
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
 python-apt (0.8.4) unstable; urgency=low
 
