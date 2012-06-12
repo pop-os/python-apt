@@ -8,7 +8,10 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   [ Stéphane Graber ]
   * data/templates/Ubuntu.info.in:
     - add quantal
-  
+
+  [ Evan Dandrea ]
+  * Don't leak file descriptors.
+
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
 python-apt (0.8.4) unstable; urgency=low
