@@ -56,7 +56,14 @@ python-apt (0.8.4~exp1) experimental; urgency=low
 
 python-apt (0.8.3ubuntu9) UNRELEASED; urgency=low
 
+  [ Steve Langasek ]
   * Don't leak file descriptors.
+
+  [ Colin Watson ]
+  * aptsources/*.py, setup.py: Make aptsources modules work directly in
+    either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
+    doesn't need to modify them.  This makes life a little easier for the
+    strange tricks update-manager plays with its dist-upgrader tarball.
 
  -- Evan Dandrea <ev@ubuntu.com>  Mon, 11 Jun 2012 17:00:37 +0100
 
