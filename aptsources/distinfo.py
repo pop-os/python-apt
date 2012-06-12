@@ -21,6 +21,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from __future__ import print_function
+
 import errno
 import logging
 import os
@@ -51,7 +53,7 @@ class Template(object):
 
     def has_component(self, comp):
         ''' Check if the distribution provides the given component '''
-        return comp in map(lambda c: c.name, self.components)
+        return comp in (c.name for c in self.components)
 
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
@@ -107,7 +109,7 @@ class Mirror(object):
         self.repositories.append(Repository(proto, dir))
 
     def get_repositories_for_proto(self, proto):
-        return filter(lambda r: r.proto == proto, self.repositories)
+        return [r for r in self.repositories if r.proto == proto]
 
     def has_repository(self, proto, dir):
         if dir is None:
@@ -118,7 +120,7 @@ class Mirror(object):
         return False
 
     def get_repo_urls(self):
-        return map(lambda r: r.get_url(self.hostname), self.repositories)
+        return [r.get_url(self.hostname) for r in self.repositories]
 
     def get_location(self):
         return self.location
@@ -230,11 +232,11 @@ class DistInfo(object):
                         mirror_set = {}
                         try:
                             with open(value) as value_f:
-                                mirror_data = filter(match_mirror_line.match,
-                                                     [x.strip() for x in
-                                                      value_f])
+                                mirror_data = list(filter(
+                                    match_mirror_line.match,
+                                    [x.strip() for x in value_f]))
                         except Exception:
-                            print "WARNING: Failed to read mirror file"
+                            print("WARNING: Failed to read mirror file")
                             mirror_data = []
                         for line in mirror_data:
                             if line.startswith("#LOC:"):
@@ -298,7 +300,7 @@ if __name__ == "__main__":
         logging.info("BaseURI: %s" % template.base_uri)
         logging.info("MatchURI: %s" % template.match_uri)
         if template.mirror_set != {}:
-            logging.info("Mirrors: %s" % template.mirror_set.keys())
+            logging.info("Mirrors: %s" % list(template.mirror_set.keys()))
         for comp in template.components:
             logging.info(" %s -%s -%s" % (comp.name,
                                           comp.description,

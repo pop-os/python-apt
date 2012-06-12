@@ -23,6 +23,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from __future__ import absolute_import
+
 import glob
 import logging
 import os.path
@@ -31,7 +33,7 @@ import shutil
 import time
 
 import apt_pkg
-from distinfo import DistInfo
+from .distinfo import DistInfo
 from apt.deprecation import function_deprecated_by
 #from apt_pkg import gettext as _
 

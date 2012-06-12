@@ -1,9 +1,16 @@
 python-apt (0.8.3ubuntu9) UNRELEASED; urgency=low
 
+  [ Steve Langasek ]
   * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
   * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
     source-build-dependencies; this may save someone else an hour down the
     line scratching their head over gratuitous test-suite failures...
+
+  [ Colin Watson ]
+  * aptsources/*.py, setup.py: Make aptsources modules work directly in
+    either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
+    doesn't need to modify them.  This makes life a little easier for the
+    strange tricks update-manager plays with its dist-upgrader tarball.
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 11 Jun 2012 13:48:06 -0700
 
