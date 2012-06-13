@@ -29,6 +29,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * po/pt_BR.po: Brazilian translation updated by Sérgio Cipolla
   * po/sk.po: Slovak translation updated by Ivan Masár (closes: #676973)
   * po/sl.po: Slovenian translation updated by Matej Urbančič
+  * po/tl.po: Tagalog translation updated by Ariel S. Betan
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
