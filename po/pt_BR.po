@@ -1,13 +1,13 @@
 # Brazilian Portuguese translation for python-apt.
 # This file is distributed under the same licence as the update-manager package.
-# Sérgio Cipolla <secipolla@gmail.com>, 2010, 2011.
+# Sérgio Cipolla <secipolla@gmail.com>, 2010 - 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-12 10:44+0200\n"
-"PO-Revision-Date: 2011-05-28 13:25-0300\n"
+"PO-Revision-Date: 2012-06-10 15:53-0300\n"
 "Last-Translator: Sérgio Cipolla <secipolla@gmail.com>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -26,45 +26,33 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
-#| msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "CD-ROM com o Ubuntu 7.04 'Feisty Fawn'"
+msgstr "CD-ROM com o Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
-#| msgid "Ubuntu 10.10 'Maverick Meerkat'"
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "CD-ROM com o Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "CD-ROM com o Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "CD-ROM com o Ubuntu 4.10 'Warty Warthog'"
+msgstr "CD-ROM com o Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
@@ -203,10 +191,8 @@ msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
-#| msgid "Canonical-supported Open Source software"
 msgid "Canonical-supported free and open-source software"
-msgstr "Aplicativo de código aberto suportado pela Canonical"
+msgstr "Aplicativos livres de código aberto suportados pela Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
@@ -215,10 +201,8 @@ msgstr "Mantido pela comunidade (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
-#| msgid "Community-maintained Open Source software"
 msgid "Community-maintained free and open-source software"
-msgstr "Aplicativo de código aberto mantido pela comunidade"
+msgstr "Aplicativos livres de código aberto mantidos pela comunidade"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
@@ -503,10 +487,9 @@ msgid "List of files for '%s' could not be read"
 msgstr "A lista de arquivos de '%s' não pôde ser lida"
 
 #: ../apt/debfile.py:93
-#, fuzzy, python-format
-#| msgid "List of files for '%s' could not be read"
+#, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr "A lista de arquivos de '%s' não pôde ser lida"
+msgstr "A lista de arquivos de controle de '%s' não pôde ser lida"
 
 #: ../apt/debfile.py:211
 #, python-format

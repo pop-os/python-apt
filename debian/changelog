@@ -24,6 +24,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * po/*.po: update PO files against current POT file
   * po/fr.po: French translation updated (closes: #567765)
   * po/nl.po: Dutch translation updated by Jeroen Schot (closes: #652335)
+  * po/pt_BR.po: Brazilian translation updated by Sérgio Cipolla
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
