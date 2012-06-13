@@ -2,16 +2,16 @@
 # Copyright (C) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the update-manager package.
 # Peter Chabada <sk-i18n_chabada_sk>, 2006.
-#
+# Ivan Masár <helix84@centrum.sk>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-12 10:44+0200\n"
-"PO-Revision-Date: 2006-10-16 04:17+0000\n"
-"Last-Translator: Peter Chabada <ubuntu@chabada.sk>\n"
-"Language-Team: Slovak <sk-i18n@linux.sk>\n"
+"PO-Revision-Date: 2012-06-10 23:28+0100\n"
+"Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
+"Language-Team: Slovak <debian-l10n-slovak@lists.debian.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,264 +26,228 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Ubuntu 12.04 „Precise Pangolin“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "CD-ROM s Ubuntu 12.04 „Precise Pangolin“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 11.10 „Oneiric Ocelot“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 11.10 „Oneiric Ocelot“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 11.04 „Natty Narwhal“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 11.04 „Natty Narwhal“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
-#, fuzzy
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 10.10 „Maverick Meerkat“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 10.10 „Maverick Meerkat“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Partneri Canonicalu"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Balíky softvéru, ktoré pripravil Canonical pre svojich partnerov"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Tento softvér nie je súčasťou Ubuntu."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Nezávislé"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Poskytované vývojármi tretích strán"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Softvér, ktorý ponúkajú vývojári tretích strán."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
-#, fuzzy
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 10.04 „Lucid Lynx“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "CD-ROM s Ubuntu 10.04 „Lucid Lynx“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
-#, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.10 „Karmic Koala“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:652
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 9.10 „Karmic Koala“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:695
-#, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.04 „Jaunty Jackalope“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:714
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 9.04 „Jaunty Jackalope“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:757
-#, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.10 „Intrepid Ibex“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:777
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Disk s Ubuntu 5.04 „Hoary Hedgehog“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:821
-#, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.04 „Hardy Heron“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:841
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "CD-ROM s Ubuntu 8.04 „Hardy Heron“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:886
-#, fuzzy
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Ubuntu 7.10 „Gutsy Gibbon“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:905
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "CD-ROM s Ubuntu 7.10 „Gutsy Gibbon“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:950
-#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Ubuntu 7.04 „Feisty Fawn“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:969
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "CD-ROM s Ubuntu 7.04 „Feisty Fawn“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1011
-#, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
-msgstr "Ubuntu 5.10 - aktualizácie"
+msgstr "Ubuntu 6.10 „Edgy Eft“"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1016
-#, fuzzy
 msgid "Community-maintained"
-msgstr "Udržiavané komunitou (Universe)"
+msgstr "Udržiavané komunitou"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1022
-#, fuzzy
 msgid "Restricted software"
-msgstr "Softvér závislý na neslobornom softvéri"
+msgstr "Softvér závislý na neslobodnom softvéri"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1030
-#, fuzzy
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 6.10 „Edgy Eft“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1072
-#, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "Ubuntu 6.06 LTS „Dapper Drake“"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
 msgid "Canonical-supported free and open-source software"
-msgstr "Udržiavané komunitou (Universe)"
+msgstr "Slobodný a open source softvér, ktorý podporuje Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
-#, fuzzy
 msgid "Community-maintained (universe)"
-msgstr "Udržiavané komunitou (Universe)"
+msgstr "Udržiavané komunitou (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
 msgid "Community-maintained free and open-source software"
-msgstr "Udržiavané komunitou (Universe)"
+msgstr "Slobodný a open source softvér udržiavaný komunitou"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
-#, fuzzy
 msgid "Non-free drivers"
-msgstr "Neslobodné (Multiverse)"
+msgstr "Neslobodné ovládače"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1081
 msgid "Proprietary drivers for devices"
-msgstr ""
+msgstr "Proprietárne ovládače zariadení"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1083
-#, fuzzy
 msgid "Restricted software (Multiverse)"
-msgstr "Neslobodné (Multiverse)"
+msgstr "Neslobodný softvér (Multiverse)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1084
 msgid "Software restricted by copyright or legal issues"
-msgstr ""
+msgstr "Softvér obmedzený autorskými právami alebo právnymi otázkami"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1091
-#, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "Ubuntu 6.06 'Dapper Drake'"
+msgstr "CD-ROM s Ubuntu 6.06 LTS „Dapper Drake“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1107
-#, fuzzy
 msgid "Important security updates"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Dôležité bezpečnostné aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1112
 msgid "Recommended updates"
-msgstr ""
+msgstr "Odporúčané aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1117
-#, fuzzy
 msgid "Pre-released updates"
-msgstr "Nainštalovať _aktualizácie"
+msgstr "Aktualizácie pred vydaním"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1122
-#, fuzzy
 msgid "Unsupported updates"
-msgstr "Nainštalovať _aktualizácie"
+msgstr "Nepodporované aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1133
@@ -292,9 +256,8 @@ msgstr "Ubuntu 5.10 'Breezy Badger'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1148
-#, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr "Ubuntu 5.10 'Breezy Badger'"
+msgstr "CD-ROM s Ubuntu 5.10 „Breezy Badger“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1164
@@ -313,15 +276,13 @@ msgstr "Ubuntu 5.10 - backporty"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1185
-#, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 5.04 „Hoary Hedgehog“"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1200
-#, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr "Disk s Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "CD-ROM s Ubuntu 5.04 „Hoary Hedgehog“"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
@@ -330,31 +291,26 @@ msgstr "Oficiálne podporované"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1216
-#, fuzzy
 msgid "Ubuntu 5.04 Security Updates"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Ubuntu 5.04 - bezpečnostné aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1221
-#, fuzzy
 msgid "Ubuntu 5.04 Updates"
-msgstr "Ubuntu 5.10 - aktualizácie"
+msgstr "Ubuntu 5.04 - aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1226
-#, fuzzy
 msgid "Ubuntu 5.04 Backports"
-msgstr "Ubuntu 5.10 - backporty"
+msgstr "Ubuntu 5.04 - backporty"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1232
-#, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 4.10 „Warty Warthog“"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1238
-#, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Udržiavané komunitou (Universe)"
 
@@ -365,15 +321,13 @@ msgstr "Neslobodné (Multiverse)"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1247
-#, fuzzy
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr "Disk s Ubuntu 4.10 \"Warty Warthog\""
+msgstr "CD-ROM s Ubuntu 4.10 „Warty Warthog“"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1250
-#, fuzzy
 msgid "No longer officially supported"
-msgstr "Niektoré programy už nie sú viac oficiálne podporované"
+msgstr "Už nie sú oficiálne podporované"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1252
@@ -392,9 +346,8 @@ msgstr "Ubuntu 4.10 aktualizácie"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1269
-#, fuzzy
 msgid "Ubuntu 4.10 Backports"
-msgstr "Ubuntu 5.10 - backporty"
+msgstr "Ubuntu 4.10 - backporty"
 
 #. ChangelogURI
 #: ../data/templates/Debian.info.in.h:4
@@ -404,57 +357,48 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
 msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 6.0 „Squeeze“ "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-#, fuzzy
 msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 5.0 „Lenny“ "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-#, fuzzy
 msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 4.0 „Etch“"
 
 #. Description
 #: ../data/templates/Debian.info.in:83
-#, fuzzy
 msgid "Debian 3.1 'Sarge'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 3.1 „Sarge“"
 
 #. Description
 #: ../data/templates/Debian.info.in:94
-#, fuzzy
 msgid "Proposed updates"
-msgstr "Nainštalovať _aktualizácie"
+msgstr "Navrhované aktualizácie"
 
 #. Description
 #: ../data/templates/Debian.info.in:101
-#, fuzzy
 msgid "Security updates"
-msgstr "Ubuntu 5.10 - bezpečnostné aktualizácie"
+msgstr "Bezpečnostné aktualizácie"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
-#, fuzzy
 msgid "Debian current stable release"
-msgstr "Debian Unstable \"Sid\""
+msgstr "Aktuálne vydanie Debian stable"
 
 #. Description
 #: ../data/templates/Debian.info.in:121
-#, fuzzy
 msgid "Debian testing"
-msgstr "Debian \"Etch\" (testing)"
+msgstr "Debian testing"
 
 #. Description
 #: ../data/templates/Debian.info.in:147
-#, fuzzy
 msgid "Debian 'Sid' (unstable)"
-msgstr "Debian \"Sid\" (unstable)"
+msgstr "Debian „Sid“ (nestabilné)"
 
 #. CompDescription
 #: ../data/templates/Debian.info.in:151
@@ -477,24 +421,22 @@ msgstr "Server pre %s"
 #. append a list of all used servers
 #: ../aptsources/distro.py:224 ../aptsources/distro.py:230
 #: ../aptsources/distro.py:246
-#, fuzzy
 msgid "Main server"
-msgstr "Najbližší server"
+msgstr "Hlavný server"
 
 #: ../aptsources/distro.py:250
-#, fuzzy
 msgid "Custom servers"
-msgstr "Najbližší server"
+msgstr "Vlastné servery"
 
 #: ../apt/progress/gtk2.py:258 ../apt/progress/gtk2.py:314
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
-msgstr "Sťahovanie súboru %li z %li pri %s/s"
+msgstr "Sťahuje sa súbor %(current)li z %(total)li pri %(speed)s/s"
 
 #: ../apt/progress/gtk2.py:264 ../apt/progress/gtk2.py:320
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading file %(current)li of %(total)li"
-msgstr "Sťahovanie súboru %li z %li pri %s/s"
+msgstr "Sťahuje sa súbor %(current)li z %(total)li"
 
 #. Setup some child widgets
 #: ../apt/progress/gtk2.py:340
@@ -502,23 +444,21 @@ msgid "Details"
 msgstr "Podrobnosti"
 
 #: ../apt/progress/gtk2.py:428
-#, fuzzy
 msgid "Starting..."
-msgstr "Nastavenia"
+msgstr "Spúšťa sa..."
 
 #: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr ""
+msgstr "Hotovo"
 
 #: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
-msgstr ""
+msgstr "Neplatný Unicode v pospise „%s“ (%s). Nahláste to, prosím."
 
 #: ../apt/package.py:1088 ../apt/package.py:1194
-#, fuzzy
 msgid "The list of changes is not available"
-msgstr "Zoznam zmien ešte nie je k dispozícii. Skúste neskôr."
+msgstr "Zoznam zmien nie je k dispozícii"
 
 #: ../apt/package.py:1200
 #, python-format
@@ -528,35 +468,38 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Zoznam zmien zatiaľ nie je dostupný.\n"
+"\n"
+"Prosím, použite http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"pokým zmeny nebudú dostupné alebo to skúste znova neskôr."
 
 #: ../apt/package.py:1207
-#, fuzzy
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
-"Zlyhalo získavanie zoznamu zmien. Skontrolujte si svoje internetové "
-"pripojenie."
+"Nepodarilo sa stiahnuť zoznam zmien. \n"
+"Prosím, skontrolujte si svoje pripojenie k internetu."
 
 #: ../apt/debfile.py:82
 #, python-format
 msgid "List of files for '%s' could not be read"
-msgstr ""
+msgstr "Zoznam súborov „%s“ nebolo možné načítať"
 
 #: ../apt/debfile.py:93
 #, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr ""
+msgstr "Zoznam riadiacich súborov „%s“ nebolo možné načítať"
 
 #: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Závislosť nemožno uspokojiť: %s\n"
 
 #: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Je v konflikte s nainštalovaným balíkom „%s“"
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
 #: ../apt/debfile.py:373
@@ -565,6 +508,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"Kazí závislosť %(depname)s (%(deprelation)s %(depversion)s) existujúceho "
+"balíka „'%(pkgname)s“"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -573,6 +518,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Kazí konflikt %(targetpkg)s (%(comptype)s %(targetver)s) existujúceho balíka "
+"„'%(pkgname)s“"
 
 #: ../apt/debfile.py:399
 #, python-format
@@ -580,74 +527,81 @@ msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
+"Kazí existujúci balík „'%(pkgname)s“, ktorý je v konflikte s: "
+"„'%(targetpkg)s“. Ale „'%(debfile)s“ ho poskytuje prostredníctvom "
+"„'%(provides)s“"
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "Balíku chýba pole Architecture (architektúra)"
 
 #: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Nesprávna architektúra „%s“"
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:464
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Novšia verzia už je nainštalovaná"
 
 #: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
+"Nepodarilo sa uspokojiť všetky závislosti (poškodená vyrovnávacia pamäť)"
 
 #: ../apt/debfile.py:519
-#, fuzzy, python-format
+#, python-format
 msgid "Cannot install '%s'"
-msgstr "Nemôžem inštalovať '%s'"
+msgstr "Nie je možné bainštalovať „%s“"
 
 #: ../apt/debfile.py:593
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
+"Automaticky rozbalené:\n"
+"\n"
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr ""
+msgstr "Automaticky prevedené na tlačiteľné znaky ASCII:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
+"Nainštalovať závislosti zostavenia zdrojového balíka „%s“, ktorý zostavuje "
+"%s\n"
 
 #: ../apt/debfile.py:700
-#, fuzzy
 msgid "An essential package would be removed"
-msgstr "Musel by byť odstránený dôležitý balík"
+msgstr "Bol by odstránený nevyhnutný balík"
 
 #: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... Hotovo"
 
 #: ../apt/progress/text.py:122
 msgid "Hit "
-msgstr ""
+msgstr "Stiah "
 
 #: ../apt/progress/text.py:131
 msgid "Ign "
-msgstr ""
+msgstr "Ignor "
 
 #: ../apt/progress/text.py:133
 msgid "Err "
-msgstr ""
+msgstr "Chyba "
 
 #: ../apt/progress/text.py:144
 msgid "Get:"
-msgstr ""
+msgstr "Získať:"
 
 #: ../apt/progress/text.py:203
 msgid " [Working]"
-msgstr ""
+msgstr " [Pracuje sa]"
 
 #: ../apt/progress/text.py:214
 #, python-format
@@ -656,21 +610,24 @@ msgid ""
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Výmena média: prosím, vložte disk s označením\n"
+" „%s“\n"
+"do mechaniky „%s“ a stlačte Enter\n"
 
 #. Trick for getting a translation from apt
 #: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Stiahnutých %sB za %s (%sB/s)\n"
 
 #: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
-msgstr ""
+msgstr "Prosím, zadajte názov tohto disku. Napr. „Debian 2.1r1 Disk 1“"
 
 #: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Prosím, vložte disk do mechaniky a stlačte Enter"
 
 #: ../apt/cache.py:157
 msgid "Building data structures"
-msgstr ""
+msgstr "Zostavujú sa údajové štruktúry"
