@@ -23,6 +23,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   [ David Prévot ]
   * po/*.po: update PO files against current POT file
   * po/eo.po: Esperanto translation by Kristjan Schmidt and Michael Moroni
+  * po/fi.po: Finnish translation updated by Timo Jyrinki
   * po/fr.po: French translation updated (closes: #567765)
   * po/id.po: Indonesian translation by Andika Triwidada (closes: #676960)
   * po/nl.po: Dutch translation updated by Jeroen Schot (closes: #652335)

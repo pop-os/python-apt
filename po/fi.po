@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-12 10:44+0200\n"
-"PO-Revision-Date: 2006-10-23 12:24+0000\n"
+"PO-Revision-Date: 2012-06-11 08:55+0300\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
 "Language: fi\n"
@@ -25,167 +25,143 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+msgstr "Ubuntu 12.04 \"Precise PAngolin\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 5.10 \"Breezy Badger\" -CD-levy"
+msgstr "Ubuntu 12.04 \"Precise Pangolin\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 11.10 \"Oneiric Ocelot\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\" -CD-levy"
+msgstr "Ubuntu 11.10 \"Oneiric Ocelot\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 11.04 \"Natty Narwhal\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\" -CD-levy"
+msgstr "Ubuntu 11.04 \"Natty Narwhal\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
-#, fuzzy
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 10.10 \"Maverick Meerkat\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\" -CD-levy"
+msgstr "Ubuntu 10.10 \"Maverick Meerkat\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Canonicalin partnerit"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Canonicalin pakkaamia partnereiden sovelluksia"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Tämä ohjelma ei ole osa Ubuntua."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Riippumaton"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Muiden kehittäjien sovelluksia"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Kolmansien osapuolien tarjoamia sovelluksia."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
-#, fuzzy
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 10.04 \"Lucid Lynx\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\" -CD-levy"
+msgstr "Ubuntu 10.04 \"Lucid Lynx\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
-#, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.10 \"Karmic Koala\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:652
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\" -CD-levy"
+msgstr "Ubuntu 9.10 \"Karmic Koala\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:695
-#, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 9.04 \"Jaunty Jackalope\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:714
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\" -CD-levy"
+msgstr "Ubuntu 9.04 \"Jaunty Jackalope\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:757
-#, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.10 \"Intrepid Ibex\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:777
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\" -CD-levy"
+msgstr "Ubuntu 8.10 \"Intrepid Ibex\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:821
-#, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\""
+msgstr "Ubuntu 8.04 \"Hardy Heron\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:841
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr "Ubuntu 5.04 \"Hoary Hedgehog\" -CD-levy"
+msgstr "Ubuntu 8.04 \"Hardy Heron\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:886
-#, fuzzy
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+msgstr "Ubuntu 7.10 \"Gutsy Gibbon\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:905
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Ubuntu 5.10 \"Breezy Badger\" -CD-levy"
+msgstr "Ubuntu 7.10 \"Gutsy Gibbon\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:950
-#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Ubuntu 5.04 turvallisuuspäivitykset"
+msgstr "Ubuntu 7.04 \"Feisty Fawn\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:969
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Ubuntu 5.10 \"Breezy Badger\" -CD-levy"
+msgstr "Ubuntu 7.04 \"Feisty Fawn\" -CD-levy"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1011
@@ -194,7 +170,6 @@ msgstr "Ubuntu 6.10 \"Edgy Eft\""
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1016
-#, fuzzy
 msgid "Community-maintained"
 msgstr "Yhteisön ylläpitämät"
 
@@ -215,21 +190,18 @@ msgstr "Ubuntu 6.06 LTS \"Dapper Drake\""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
 msgid "Canonical-supported free and open-source software"
-msgstr "Canonicalin tukemat avoimen lähdekoodin ohjelmistot"
+msgstr "Canonicalin tukemat vapaat ja avoimen lähdekoodin ohjelmistot"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
-#, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Yhteisön ylläpitämät (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
 msgid "Community-maintained free and open-source software"
-msgstr "Yhteisön ylläpitämät avoimen lähdekoodin ohjelmistot"
+msgstr "Yhteisön ylläpitämät vapaat ja avoimen lähdekoodin ohjelmistot"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
@@ -268,15 +240,13 @@ msgstr "Suositellut päivitykset"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1117
-#, fuzzy
 msgid "Pre-released updates"
-msgstr "Ehdotetut päivitykset"
+msgstr "Esijulkaistut päivitykset"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1122
-#, fuzzy
 msgid "Unsupported updates"
-msgstr "Takaisinsovitetut päivitykset"
+msgstr "Tukemattomat päivitykset"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1133
@@ -340,7 +310,6 @@ msgstr "Ubuntu 4.10 \"Warty Warthog\""
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1238
-#, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Yhteisön ylläpitämät (universe)"
 
@@ -387,25 +356,21 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
 msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 6.0 \"Squeeze\" "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-#, fuzzy
 msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 5.0 \"Lenny\" "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-#, fuzzy
 msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 4.0 \"Etch\""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
-#, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
 
@@ -416,24 +381,21 @@ msgstr "Ehdotetut päivitykset"
 
 #. Description
 #: ../data/templates/Debian.info.in:101
-#, fuzzy
 msgid "Security updates"
-msgstr "Tärkeät turvallisuuspäivitykset"
+msgstr "Turvallisuuspäivitykset"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
 msgid "Debian current stable release"
-msgstr ""
+msgstr "Debian stable (tämänhetkinen vakaa julkaisu)"
 
 #. Description
 #: ../data/templates/Debian.info.in:121
-#, fuzzy
 msgid "Debian testing"
-msgstr "Debian \"Etch\" (testattava)"
+msgstr "Debian testing (testattava)"
 
 #. Description
 #: ../data/templates/Debian.info.in:147
-#, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian \"Sid\" (epävakaa)"
 
@@ -482,18 +444,19 @@ msgid "Details"
 msgstr "Yksityiskohdat"
 
 #: ../apt/progress/gtk2.py:428
-#, fuzzy
 msgid "Starting..."
-msgstr "Asetukset"
+msgstr "Käynnistetään..."
 
 #: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr ""
+msgstr "Valmis"
 
 #: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
+"\"%s\":n kuvauksessa virheellinen unicode-merkki %s. Ole hyvä ja raportoi "
+"virheestä kehittäjille."
 
 #: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
@@ -507,6 +470,10 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Muutosluettelo ei ole vielä saatavilla.\n"
+"\n"
+"Käytä osoitetta http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"kunnes muutokset tulevat saataville, tai yritä myöhemmin uudelleen."
 
 #: ../apt/package.py:1207
 msgid ""
@@ -519,22 +486,22 @@ msgstr ""
 #: ../apt/debfile.py:82
 #, python-format
 msgid "List of files for '%s' could not be read"
-msgstr ""
+msgstr "Kohteen \"%s\" tiedostoluetteloa ei voi lukea"
 
 #: ../apt/debfile.py:93
 #, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr ""
+msgstr "Kohteen \"%s\" hallintatiedostoja ei voi lukea"
 
 #: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Riippuvuus ei täytettävissä: %s\n"
 
 #: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Ristiriidassa asennetun paketin \"%s\" kanssa"
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
 #: ../apt/debfile.py:373
@@ -543,6 +510,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"Rikkoo olemassa olevan paketin '%(pkgname)s', riippuvuus %(depname)s "
+"(%(deprelation)s %(depversion)s)"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -551,6 +520,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Rikkoo olemassa olevan paketin '%(pkgname)s', ristiriita: %(targetpkg)s "
+"(%(comptype)s %(targetver)s)"
 
 #: ../apt/debfile.py:399
 #, python-format
@@ -558,74 +529,80 @@ msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
+"Rikkoo olemassa olevan paketin '%(pkgname)s', joka on ristiriidassa "
+"seuraavien kanssa: '%(targetpkg)s'. Mutta '%(debfile)s' tarjoaa sen "
+"seuraavasti: '%(provides)s'"
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "Ei Architecture-kenttää paketissa"
 
 #: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Väärä arkkitehtuuri \"%s\""
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:464
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Myöhempi versio on jo asennettu"
 
 #: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Kaikkia riippuvuuksia ei voi täyttää (rikkinäinen välimuisti)"
 
 #: ../apt/debfile.py:519
-#, fuzzy, python-format
+#, python-format
 msgid "Cannot install '%s'"
-msgstr "Ei voitu asentaa pakettia \"%s\""
+msgstr "Ei voi asentaa \"%s\""
 
 #: ../apt/debfile.py:593
 msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
+"Purettu automaattisesti:\n"
+"\n"
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr ""
+msgstr "Automaattisesti muunnettu tulostettavaksi asciiksi:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
+"Asenna käännösriippuvuudet (Build-Dependencies) lähdepaketille \"%s\", josta "
+"%s rakennetaan\n"
 
 #: ../apt/debfile.py:700
-#, fuzzy
 msgid "An essential package would be removed"
 msgstr "Välttämätön paketti jouduttaisiin poistamaan"
 
 #: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... valmis"
 
 #: ../apt/progress/text.py:122
 msgid "Hit "
-msgstr ""
+msgstr "Osuma "
 
 #: ../apt/progress/text.py:131
 msgid "Ign "
-msgstr ""
+msgstr "Ohi "
 
 #: ../apt/progress/text.py:133
 msgid "Err "
-msgstr ""
+msgstr "Vir "
 
 #: ../apt/progress/text.py:144
 msgid "Get:"
-msgstr ""
+msgstr "Hae:"
 
 #: ../apt/progress/text.py:203
 msgid " [Working]"
-msgstr ""
+msgstr " [Työskennellään]"
 
 #: ../apt/progress/text.py:214
 #, python-format
@@ -634,21 +611,24 @@ msgid ""
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Tallennusvälineen vaihto: syötä levy \n"
+"\"%s\"\n"
+"asemaan ”%s” ja paina Enter\n"
 
 #. Trick for getting a translation from apt
 #: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Noudettu %sB in %s (%sB/s)\n"
 
 #: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
-msgstr ""
+msgstr "Syötä nimi tälle levylle, esimerkiksi \"Debian 6.0r2 levy 1\""
 
 #: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Syötä levy asemaan ja paina Enter"
 
 #: ../apt/cache.py:157
 msgid "Building data structures"
-msgstr ""
+msgstr "Kasataan tietorakenteita"
