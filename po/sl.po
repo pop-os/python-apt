@@ -1,22 +1,28 @@
 # Slovenian translation for python-apt-rosetta.
 # Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
 # This file is distributed under the same license as the python-apt-rosetta package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2006 - 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: python-apt-rosetta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-12 10:44+0200\n"
-"PO-Revision-Date: 2010-09-01 08:08+0200\n"
+"PO-Revision-Date: 2012-06-10 22:24+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-30 17:55+0000\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
+"X-Launchpad-Export-Date: 2010-12-03 00:21+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -26,45 +32,33 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
-#| msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 7.04 'Feisty Fawn'"
+msgstr "xUbuntu 7.04 'Feisty Fawn'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Nosilec CD z Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Nosilec CD z Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
-#| msgid "Ubuntu 10.10 'Maverick Meerkat'"
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "xUbuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Nosilec CD z Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "Nosilec CD z Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "xUbuntu 4.10 'Warty Warthog'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Nosilec CD z Ubuntu 4.10 'Warty Warthog'"
+msgstr "Nosilec CD z Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
@@ -79,32 +73,32 @@ msgstr "Nosilec CD z Ubuntu 10.10 'Maverick Meerkat'"
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Partnerske ustanove Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Programska oprema Canonical za partnerske ustanove"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Programska opreme ni del distribucije Ubuntu."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Neodvisno"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Programska oprema, ki jo objavljajo razvijalci skupnosti"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Programska oprema tretje roke."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
@@ -203,8 +197,6 @@ msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
-#| msgid "Canonical-supported Open Source software"
 msgid "Canonical-supported free and open-source software"
 msgstr "Odprtokodna programska oprema podprta s strani Canonical Ltd"
 
@@ -215,8 +207,6 @@ msgstr "Paketi skupnosti (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
-#| msgid "Community-maintained Open Source software"
 msgid "Community-maintained free and open-source software"
 msgstr "Programska oprema, ki jo vzdržuje odprtokodna skupnost"
 
@@ -450,13 +440,12 @@ msgstr "Strežniki po meri"
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
-"Prejemanje %(current)li. datoteke od skupno %(total)li s hitrostjo %(speed)s/"
-"s"
+"Prejemanje datoteke %(current)li od skupno %(total)li s hitrostjo %(speed)s/s"
 
 #: ../apt/progress/gtk2.py:264 ../apt/progress/gtk2.py:320
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
-msgstr "Prejemanje %(current)li. datoteke od skupno %(total)li."
+msgstr "Prejemanje datoteke %(current)li od skupno %(total)li."
 
 #. Setup some child widgets
 #: ../apt/progress/gtk2.py:340
@@ -475,7 +464,7 @@ msgstr "Končano"
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
-"Neveljaven unicode znak v opisu za '%s' (%s). Pošljite poročilo o napaki."
+"Neveljaven znak unikod v opisu za '%s' (%s). Pošljite poročilo o napaki."
 
 #: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
@@ -499,7 +488,7 @@ msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
 msgstr ""
-"Prjemanje seznama sprememb je spodletelo.\n"
+"Prejemanje seznama sprememb je spodletelo.\n"
 "Preverite internetno povezavo."
 
 #: ../apt/debfile.py:82
@@ -508,10 +497,9 @@ msgid "List of files for '%s' could not be read"
 msgstr "Seznama datotek za '%s' ni mogoče prebrati"
 
 #: ../apt/debfile.py:93
-#, fuzzy, python-format
-#| msgid "List of files for '%s' could not be read"
+#, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr "Seznama datotek za '%s' ni mogoče prebrati"
+msgstr "Nadzornega seznama datotek za '%s' ni mogoče prebrati"
 
 #: ../apt/debfile.py:211
 #, python-format
@@ -549,12 +537,12 @@ msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
-"Pokvari obstoječi paket '%(pkgname)s', ki je v sporu z: '%(targetpkg)s'. "
-"Toda '%(debfile)s' ga zagotavlja preko: '%(provides)s'"
+"Pokvari obstoječi paket '%(pkgname)s', ki je v sporu s paketom: "
+"'%(targetpkg)s'. Paket '%(debfile)s' ga zagotavlja preko: '%(provides)s'"
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr "Ni polja določila arhitekture sistema v paketu"
+msgstr "V paketu ni polja določila arhitekture sistema"
 
 #: ../apt/debfile.py:457
 #, python-format
@@ -585,7 +573,7 @@ msgstr ""
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr "Samodejno pretvorjeno v zapis ascii:\n"
+msgstr "Samodejno pretvorjeno v zapis ASCII:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
@@ -601,7 +589,7 @@ msgstr "Z dejanjem bi bil odstranjen sistemski paket"
 #: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr "%c%s... Končano."
+msgstr "%c%s ... Končano."
 
 #: ../apt/progress/text.py:122
 msgid "Hit "
