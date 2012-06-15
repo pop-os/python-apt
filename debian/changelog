@@ -35,6 +35,11 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * po/sl.po: Slovenian translation updated by Matej Urbančič
   * po/tl.po: Tagalog translation updated by Ariel S. Betan
 
+  [ Julian Andres Klode ]
+  * Merge patch from Colin Watson to handle non-UTF8 tag files in
+    Python 3, by using bytes instead of str when requested; and
+    document this in the RST documentation (Closes: #656288)
+
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
 python-apt (0.8.4) unstable; urgency=low
