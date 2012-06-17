@@ -47,6 +47,8 @@ python-apt (0.8.5) UNRELEASED; urgency=low
     - Handle the use of "del" on configuration values. Those are represented
       by calling the setter with NULL, which we did not handle before, causing
       a segmentation fault (Closes: #661062)
+  * python/tag.cc:
+    - Correctly handle file descriptor 0 aka stdin (Closes: #669458)
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 

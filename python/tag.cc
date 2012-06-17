@@ -461,7 +461,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    }
 
    New = (TagFileData*)type->tp_alloc(type, 0);
-   if (fileno > 0)
+   if (fileno != -1)
    {
 #ifdef APT_HAS_GZIP
       new (&New->Fd) FileFd();
@@ -483,7 +483,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    New->Owner = File;
    Py_INCREF(New->Owner);
 #if PY_MAJOR_VERSION >= 3
-   if (fileno > 0) {
+   if (fileno != -1) {
       New->Encoding = PyObject_GetAttr(File, PyUnicode_FromString("encoding"));
       if (New->Encoding && !PyUnicode_Check(New->Encoding))
          New->Encoding = 0;
