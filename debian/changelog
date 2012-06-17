@@ -42,6 +42,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
     document this in the RST documentation (Closes: #656288)
   * debian/control:
     - Drop Recommends on python2.6 (Closes: #645970)
+    - Replace xz-lzma Recommends by xz-utils (Closes: #677934)
   * python/configuration.cc:
     - Handle the use of "del" on configuration values. Those are represented
       by calling the setter with NULL, which we did not handle before, causing
