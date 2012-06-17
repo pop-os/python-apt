@@ -22,6 +22,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
 
   [ David Prévot ]
   * po/*.po: update PO files against current POT file
+  * po/de.po: German translation updated by Holger Wansing (closes: #677916)
   * po/el.po: Greek translation updated by Thomas Vasileiou (closes: #677331)
   * po/en_GB.po: Remove useless file <20120610190618.GA1387@burratino>
   * po/eo.po: Esperanto translation by Kristjan Schmidt and Michael Moroni
