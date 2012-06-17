@@ -39,6 +39,8 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * Merge patch from Colin Watson to handle non-UTF8 tag files in
     Python 3, by using bytes instead of str when requested; and
     document this in the RST documentation (Closes: #656288)
+  * debian/control:
+    - Drop Recommends on python2.6 (Closes: #645970)
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
