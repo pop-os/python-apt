@@ -35,6 +35,9 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * po/sk.po: Slovak translation updated by Ivan Masár (closes: #676973)
   * po/sl.po: Slovenian translation updated by Matej Urbančič
   * po/tl.po: Tagalog translation updated by Ariel S. Betan
+  * po/am.po po/be.po po/br.po po/et.po po/eu.po po/fa.po po/fur.po po/hi.po
+    po/mr.po po/ms.po po/nn.po po/pa.po po/ps.po po/qu.po po/rw.po po/ta.po
+    po/ur.po po/xh.po: remove useless (empty) translations
 
   [ Julian Andres Klode ]
   * Merge patch from Colin Watson to handle non-UTF8 tag files in
