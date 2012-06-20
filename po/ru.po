@@ -29,141 +29,141 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #: ../data/templates/Ubuntu.info.in:151
 #, fuzzy
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Обновления безопасности Ubuntu 5.04"
+msgstr "Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
 #, fuzzy
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "CD с Ubuntu 5.10 'Breezy Badger'"
+msgstr "Диск с Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
 #, fuzzy
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
 #, fuzzy
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "CD с Ubuntu 4.10 'Warty Warthog'"
+msgstr "Диск с Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
 #, fuzzy
 #| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "CD с Ubuntu 4.10 'Warty Warthog'"
+msgstr "Диск с Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
 #, fuzzy
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
 #, fuzzy
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "CD с Ubuntu 4.10 'Warty Warthog'"
+msgstr "Диск с Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Партнеры Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Програмное обеспечение упаковано Canonical для партнеров"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Это програмное обеспечение не является частью Ubuntu."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Независимый"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Предоставлено сторонними разработчиками."
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Програмное обеспечение предлагается  сторонними разработчиками."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
 #, fuzzy
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 10.04 'Lucid Lynx'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
 #, fuzzy
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "CD с Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Диск с Ubuntu 10.04 'Lucid Lynx'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
 #, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 9.10 'Karmic Koala'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:652
 #, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr "CD с Ubuntu 4.10 'Warty Warthog'"
+msgstr "Диск с Ubuntu 9.10 'Karmic Koala'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:695
 #, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Ubuntu 4.10 'Warty Warthog'"
+msgstr "Ubuntu 9.04 'Jaunty Jackalope'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:714
 #, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "CD с Ubuntu 4.10 'Warty Warthog'"
+msgstr "Диск с Ubuntu 9.04 'Jaunty Jackalope'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:757
 #, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 8.10 'Intrepid Ibex'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:777
 #, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "CD с Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Диск с Ubuntu 8.10 'Intrepid Ibex'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:821
 #, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 8.04 'Hardy Heron'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:841
 #, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr "CD с Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Диск с Ubuntu 8.04 'Hardy Heron'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:886
@@ -175,19 +175,19 @@ msgstr "Обновления безопасности Ubuntu 5.04"
 #: ../data/templates/Ubuntu.info.in:905
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "CD с Ubuntu 5.10 'Breezy Badger'"
+msgstr "Диск с Ubuntu 7.10 'Gutsy Gibbon'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:950
 #, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Обновления безопасности Ubuntu 5.04"
+msgstr "Ubuntu 7.04 'Feisty Fawn'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:969
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr "CD с Ubuntu 5.10 'Breezy Badger'"
+msgstr "Диск с Ubuntu 7.04 'Feisty Fawn'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1011
@@ -272,13 +272,13 @@ msgstr "Рекомендованые обновления"
 #: ../data/templates/Ubuntu.info.in:1117
 #, fuzzy
 msgid "Pre-released updates"
-msgstr "Предлагаемые обновления"
+msgstr "Пред-релизные обновления"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1122
 #, fuzzy
 msgid "Unsupported updates"
-msgstr "Обновления в бэкпортах"
+msgstr "Не поддерживаемые обновления"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1133
@@ -391,25 +391,25 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
 msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 6.0 'Squeeze' "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
 #, fuzzy
 msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 5.0 'Lenny' "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 #, fuzzy
 msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 4.0 'Etch'"
 
 #. Description
 #: ../data/templates/Debian.info.in:83
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
-msgstr "Debian 3.1 \"Sarge\""
+msgstr "Debian 3.1 'Sarge'"
 
 #. Description
 #: ../data/templates/Debian.info.in:94
@@ -420,24 +420,24 @@ msgstr "Предлагаемые обновления"
 #: ../data/templates/Debian.info.in:101
 #, fuzzy
 msgid "Security updates"
-msgstr "Важные обновления безопасности"
+msgstr "Обновления безопасности"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
 msgid "Debian current stable release"
-msgstr ""
+msgstr "Текущий стабильный релиз Debian"
 
 #. Description
 #: ../data/templates/Debian.info.in:121
 #, fuzzy
 msgid "Debian testing"
-msgstr "Debian \"Etch\" (testing)"
+msgstr "Debian testing"
 
 #. Description
 #: ../data/templates/Debian.info.in:147
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
-msgstr "Debian \"Sid\" (unstable)"
+msgstr "Debian 'Sid' (unstable)"
 
 #. CompDescription
 #: ../data/templates/Debian.info.in:151
@@ -484,16 +484,16 @@ msgstr "Подробности"
 
 #: ../apt/progress/gtk2.py:428
 msgid "Starting..."
-msgstr ""
+msgstr "Начинаем..."
 
 #: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr ""
+msgstr "Завершено"
 
 #: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
-msgstr ""
+msgstr "Неправильный unicode в описании '%s' (%s). Пожалуйста, сообщите."
 
 #: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
@@ -507,6 +507,10 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Список изменений еще недоступен.\n"
+"\n"
+"Пожалуйста используйте http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"до тех пор, пока изменения не станут доступны или попробуйте позже."
 
 #: ../apt/package.py:1207
 msgid ""
@@ -519,22 +523,22 @@ msgstr ""
 #: ../apt/debfile.py:82
 #, python-format
 msgid "List of files for '%s' could not be read"
-msgstr ""
+msgstr "Список файлов для '%s' не может быть прочтен"
 
 #: ../apt/debfile.py:93
 #, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr ""
+msgstr "Список контролирующих файлов для '%s' не может быть прочтен"
 
 #: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Неразрешимая зависимость: %s\n"
 
 #: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Конфликт с установленым пакетом '%s'"
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
 #: ../apt/debfile.py:373
@@ -543,6 +547,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"Ломает в существующем пакете '%(pkgname)s' зависимость %(depname)s "
+"(%(deprelation)s %(depversion)s)"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -551,6 +557,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Ломает существующий пакет '%(pkgname)s' конфликтует с: %(targetpkg)s "
+"(%(comptype)s %(targetver)s)"
 
 #: ../apt/debfile.py:399
 #, python-format
@@ -561,21 +569,21 @@ msgstr ""
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "Нет указания архитектуры в пакете"
 
 #: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Неправильная архитектура '%s'"
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:464
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Более поздняя версия уже установлена"
 
 #: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Неудалось определить все зависимости (broken cache)"
 
 #: ../apt/debfile.py:519
 #, fuzzy, python-format
