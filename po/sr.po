@@ -30,100 +30,100 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #, fuzzy
 #| msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Оптички диск са Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Оптички диск са Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
 #, fuzzy
 #| msgid "Ubuntu 9.10 'Karmic Koala'"
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 9.10 'Karmic Koala'"
+msgstr "Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Оптички диск са Ubuntu 9.10 'Karmic Koala'"
+msgstr "Оптички диск са 11.10 'Oneiric Ocelot'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
 #, fuzzy
 #| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 'Warty Warthog"
+msgstr "Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Оптички диск са Ubuntu 4.10 'Warty Warthog'"
+msgstr "Оптички диск са Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
 #, fuzzy
 #| msgid "Ubuntu 9.10 'Karmic Koala'"
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 9.10 'Karmic Koala'"
+msgstr "Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Оптички диск са Ubuntu 9.10 'Karmic Koala'"
+msgstr "Оптички диск са Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Canonical партнери"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Софтвер упакован од Canonical за њихове партнере"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Овај софтвер није дио Ubuntu"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Независан"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Обезбјеђен од независних програмера софтвера"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Софтвер је понуђен од независних програмера софтвера"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
 #, fuzzy
 #| msgid "Ubuntu 8.04 'Hardy Heron'"
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 8.04 'Hardy Heron'"
+msgstr "Ubuntu 10.04 'Lucid Lynx'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
 #, fuzzy
 #| msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Оптички диск са Ubuntu 8.04 'Hardy Heron'"
+msgstr "Оптички диск са Ubuntu 10.04 'Lucid Lynx'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
@@ -215,7 +215,7 @@ msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
 #, fuzzy
 #| msgid "Canonical-supported Open Source software"
 msgid "Canonical-supported free and open-source software"
-msgstr "Canonical-подржава софтвер отвореног кода"
+msgstr "Canonical-подржава слободан софтвер и софтвер отвореног кода"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
@@ -227,12 +227,12 @@ msgstr "Одржаван од стране заједнице"
 #, fuzzy
 #| msgid "Community-maintained Open Source software"
 msgid "Community-maintained free and open-source software"
-msgstr "Заједница урећује софтвер отвореног кода"
+msgstr "Заједница одржава слободан софтвер и софтвер отвореног кода"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
 msgid "Non-free drivers"
-msgstr "Не слободни драјвери"
+msgstr "Комерцијални драјвери"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1081
@@ -342,7 +342,7 @@ msgstr "Одржаван од стране заједнице"
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1240
 msgid "Non-free (Multiverse)"
-msgstr "Не слободни драјвери"
+msgstr "Не слободн драјвери"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1247
@@ -460,12 +460,12 @@ msgstr "Прилагођени сервер"
 #: ../apt/progress/gtk2.py:258 ../apt/progress/gtk2.py:314
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
-msgstr "Преужимам фајл %(current)li од %(total)li са %(speed)s/s"
+msgstr "Преузимам фајл %(current)li од %(total)li са %(speed)s/s"
 
 #: ../apt/progress/gtk2.py:264 ../apt/progress/gtk2.py:320
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
-msgstr "Преужимам фајл %(current)li од %(total)li"
+msgstr "Преузимам фајл %(current)li од %(total)li"
 
 #. Setup some child widgets
 #: ../apt/progress/gtk2.py:340
@@ -478,7 +478,7 @@ msgstr "Покретање..."
 
 #: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr "Крај"
+msgstr "Завршено"
 
 #: ../apt/package.py:359
 #, python-format
@@ -528,7 +528,7 @@ msgstr "Зависнот није задовољена: %s\n"
 #: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr "Сукоби међу инсталираним пакетима"
+msgstr "Сукоби међу инсталираним пакетима '%s'"
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
 #: ../apt/debfile.py:373
@@ -537,6 +537,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"Прекид постојања пакета '%(pkgname)s' зависи од %(depname)s (%(deprelation)s "
+"%(depversion)s)"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -545,17 +547,24 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Прекид постојања пакета '%(pkgname)s' конфликт: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
 
 #: ../apt/debfile.py:399
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
+#| "the '%(targetpkg)s' provides it via: '%(provides)s'"
 msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
+"Прекид посојања пакета '%(pkgname)s' који је иѕаѕвао конфликт: "
+"'%(targetpkg)s'. Али '%(targetpkg)s' га даје преко: '%(provides)s'"
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "Нема поља архитектуре у пакету"
 
 #: ../apt/debfile.py:457
 #, python-format
@@ -580,11 +589,11 @@ msgstr "Не могу да се инсталирају %s"
 msgid ""
 "Automatically decompressed:\n"
 "\n"
-msgstr ""
+msgstr "Аутомацка декомпресија:\n"
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr ""
+msgstr "Аутомацко пребацивање за штампање ascii:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
@@ -614,7 +623,7 @@ msgstr "Грешка"
 
 #: ../apt/progress/text.py:144
 msgid "Get:"
-msgstr "УзимамЧ"
+msgstr "Узимам:"
 
 #: ../apt/progress/text.py:203
 msgid " [Working]"
