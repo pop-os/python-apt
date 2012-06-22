@@ -58,6 +58,8 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * python/acquire.cc:
     - Use pkgAcquire::Setup() to setup the acquire class and handle errors
       from this (Closes: #629624)
+  * debian/control:
+    - Set Standards-Version to 3.9.3
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
