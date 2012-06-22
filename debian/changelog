@@ -60,6 +60,8 @@ python-apt (0.8.5) UNRELEASED; urgency=low
       from this (Closes: #629624)
   * debian/control:
     - Set Standards-Version to 3.9.3
+  * utils/get_ubuntu_mirrors_from_lp.py:
+    - Revert move to Python 3, python3-feedparser is not in the archive yet
 
  -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
 
