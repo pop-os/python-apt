@@ -1,4 +1,4 @@
-python-apt (0.8.5) UNRELEASED; urgency=low
+python-apt (0.8.5) unstable; urgency=low
 
   [ Michael Vogt ]
   * python/cache.cc:
@@ -65,7 +65,7 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * tests:
     - Fix new tests from Sebastian to work with Python 2.6
 
- -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
+ -- Julian Andres Klode <jak@debian.org>  Fri, 22 Jun 2012 10:37:23 +0200
 
 python-apt (0.8.4) unstable; urgency=low
 
