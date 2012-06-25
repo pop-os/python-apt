@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:42+0200\n"
 "PO-Revision-Date: 2006-10-18 09:11+0000\n"
 "Last-Translator: Igor Zubarev <igor4u@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -52,14 +52,12 @@ msgstr "Диск с Ubuntu 11.10 'Oneiric Ocelot'"
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
 #, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
 msgstr "Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
 #, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
 msgstr "Диск с Ubuntu 11.04 'Natty Narwhal'"
 
@@ -316,7 +314,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD с Ubuntu 5.04 'Hoary Hedgehog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "Официально поддерживается"
 
@@ -389,63 +387,68 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
+msgid "Debian 7.0 'Wheezy' "
+msgstr "Debian 7.0 'Wheezy' "
+
+#. Description
+#: ../data/templates/Debian.info.in:33
 #, fuzzy
 msgid "Debian 6.0 'Squeeze' "
 msgstr "Debian 6.0 'Squeeze' "
 
 #. Description
-#: ../data/templates/Debian.info.in:33
+#: ../data/templates/Debian.info.in:58
 #, fuzzy
 msgid "Debian 5.0 'Lenny' "
 msgstr "Debian 5.0 'Lenny' "
 
 #. Description
-#: ../data/templates/Debian.info.in:58
+#: ../data/templates/Debian.info.in:83
 #, fuzzy
 msgid "Debian 4.0 'Etch'"
 msgstr "Debian 4.0 'Etch'"
 
 #. Description
-#: ../data/templates/Debian.info.in:83
+#: ../data/templates/Debian.info.in:108
 #, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 'Sarge'"
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "Предлагаемые обновления"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 #, fuzzy
 msgid "Security updates"
 msgstr "Обновления безопасности"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr "Текущий стабильный релиз Debian"
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 #, fuzzy
 msgid "Debian testing"
 msgstr "Debian testing"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian 'Sid' (unstable)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-совместимое ПО с зависимостями от несвободного ПО"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "Не-DFSG-совместимое ПО"
 

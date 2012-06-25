@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:42+0200\n"
 "PO-Revision-Date: 2012-06-11 08:55+0300\n"
 "Last-Translator: Timo Jyrinki <timo.jyrinki@iki.fi>\n"
 "Language-Team: Finnish <ubuntu-fi@lists.ubuntu.com>\n"
@@ -284,7 +284,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 \"Hoary Hedgehog\" -CD-levy"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "Virallisesti tuettu"
 
@@ -356,57 +356,62 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
+msgid "Debian 7.0 'Wheezy' "
+msgstr "Debian 7.0 \"Wheezy\" "
+
+#. Description
+#: ../data/templates/Debian.info.in:33
 msgid "Debian 6.0 'Squeeze' "
 msgstr "Debian 6.0 \"Squeeze\" "
 
 #. Description
-#: ../data/templates/Debian.info.in:33
+#: ../data/templates/Debian.info.in:58
 msgid "Debian 5.0 'Lenny' "
 msgstr "Debian 5.0 \"Lenny\" "
 
 #. Description
-#: ../data/templates/Debian.info.in:58
+#: ../data/templates/Debian.info.in:83
 msgid "Debian 4.0 'Etch'"
 msgstr "Debian 4.0 \"Etch\""
 
 #. Description
-#: ../data/templates/Debian.info.in:83
+#: ../data/templates/Debian.info.in:108
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "Ehdotetut päivitykset"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 msgid "Security updates"
 msgstr "Turvallisuuspäivitykset"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr "Debian stable (tämänhetkinen vakaa julkaisu)"
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 msgid "Debian testing"
 msgstr "Debian testing (testattava)"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian \"Sid\" (epävakaa)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 "DFSG-yhteensopivat ohjelmistot joilla riippuvuuksia epävapaisiin ohjelmiin"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG-epäyhteensopivat ohjelmistot"
 
