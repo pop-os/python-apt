@@ -5,6 +5,10 @@ python-apt (0.8.6) UNRELEASED; urgency=low
     - add build-dep for apt (>= 0.9.6) to make test_auth.py test
       work reliable
 
+  [ Julian Andres Klode ]
+  * apt/auth.py:
+    - Use tempfile.NamedTemporaryFile to create temporary file
+
  -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
 
 python-apt (0.8.5) unstable; urgency=low
