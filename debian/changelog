@@ -13,6 +13,8 @@ python-apt (0.8.6) UNRELEASED; urgency=low
     - exec apt-key, otherwise we ignore the return value
   * debian/control:
     - Build-depend on fakeroot, needed for the apt.auth tests
+  * data/templates/Debian.info.in:
+    - Add wheezy
 
  -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
 
