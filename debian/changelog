@@ -8,6 +8,7 @@ python-apt (0.8.6) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * apt/auth.py:
     - Use tempfile.NamedTemporaryFile to create temporary file
+    - Use Popen.communicate() instead of stdin, stdout
 
  -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
 
