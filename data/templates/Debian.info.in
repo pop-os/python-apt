@@ -25,6 +25,11 @@ MatchURI: security\.debian\.org
 ParentSuite: wheezy
 _Description: Security updates
 
+Suite: wheezy-updates
+RepositoryType: deb
+ParentSuite: wheezy
+_Description: Recommended updates
+
 Suite: squeeze
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/

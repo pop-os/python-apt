@@ -15,6 +15,7 @@ python-apt (0.8.6) UNRELEASED; urgency=low
     - Build-depend on fakeroot, needed for the apt.auth tests
   * data/templates/Debian.info.in:
     - Add wheezy
+    - Add wheezy-updates as Recommended Updates
   * po:
     - Fixup the translations for wheezy again
 
