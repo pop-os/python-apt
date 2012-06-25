@@ -9,6 +9,8 @@ python-apt (0.8.6) UNRELEASED; urgency=low
   * apt/auth.py:
     - Use tempfile.NamedTemporaryFile to create temporary file
     - Use Popen.communicate() instead of stdin, stdout
+  * tests/fakeroot-apt-key:
+    - exec apt-key, otherwise we ignore the return value
 
  -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
 
