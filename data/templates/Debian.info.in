@@ -13,11 +13,6 @@ _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
 
-Suite: wheezy-proposed-updates
-RepositoryType: deb
-ParentSuite: wheezy
-_Description: Proposed updates
-
 Suite: wheezy/updates
 RepositoryType: deb
 BaseURI: http://security.debian.org/
@@ -29,6 +24,11 @@ Suite: wheezy-updates
 RepositoryType: deb
 ParentSuite: wheezy
 _Description: Recommended updates
+
+Suite: wheezy-proposed-updates
+RepositoryType: deb
+ParentSuite: wheezy
+_Description: Proposed updates
 
 Suite: squeeze
 RepositoryType: deb

@@ -16,6 +16,7 @@ python-apt (0.8.6) UNRELEASED; urgency=low
   * data/templates/Debian.info.in:
     - Add wheezy
     - Add wheezy-updates as Recommended Updates
+    - Order wheezy-proposed-updates after wheezy/updates and wheezy-updates
   * po:
     - Fixup the translations for wheezy again
 
