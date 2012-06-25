@@ -2,8 +2,8 @@ python-apt (0.8.6) UNRELEASED; urgency=low
 
   [ Michael Vogt ]
   * debian/control:
-    - increase build-dep for apt-utils to make tests during
-      build for test_auth.py
+    - add build-dep for apt (>= 0.9.6) to make test_auth.py test
+      work reliable
 
  -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
 
