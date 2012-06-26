@@ -328,18 +328,17 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
         // FIXME: memleak?
         progress = new PyFetchProgress();
         progress->setCallbackInst(pyFetchProgressInst);
-        fetcher = new pkgAcquire(progress);
     }
-    else {
-        fetcher = new pkgAcquire();
-    }
+
+    fetcher = new pkgAcquire();
+    fetcher->Setup(progress);
 
     PyObject *FetcherObj = CppPyObject_NEW<pkgAcquire*>(NULL, type, fetcher);
 
     if (progress != 0)
         progress->setPyAcquire(FetcherObj);
     // prepare our map of items.
-    return FetcherObj;
+    return HandleErrors(FetcherObj);
 }
 
 /**

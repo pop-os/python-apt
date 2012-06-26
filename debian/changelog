@@ -1,3 +1,33 @@
+python-apt (0.8.6) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * debian/control:
+    - add build-dep for apt (>= 0.9.6) to make test_auth.py test
+      work reliable
+
+  [ Colin Watson ]
+  * aptsources/*.py, setup.py: Make aptsources modules work directly in
+    either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
+    doesn't need to modify them.  This makes life a little easier for the
+    strange tricks update-manager plays with its dist-upgrader tarball.
+
+  [ Julian Andres Klode ]
+  * apt/auth.py:
+    - Use tempfile.NamedTemporaryFile to create temporary file
+    - Use Popen.communicate() instead of stdin, stdout
+  * tests/fakeroot-apt-key:
+    - exec apt-key, otherwise we ignore the return value
+  * debian/control:
+    - Build-depend on fakeroot, needed for the apt.auth tests
+  * data/templates/Debian.info.in:
+    - Add wheezy
+    - Add wheezy-updates as Recommended Updates
+    - Order wheezy-proposed-updates after wheezy/updates and wheezy-updates
+  * po:
+    - Fixup the translations for wheezy again
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
+
 python-apt (0.8.5~ubuntu2) quantal; urgency=low
 
   * xz-lzma has been rolled into xz-utils, as of 5.1.1alpha+20120614-1
@@ -17,7 +47,7 @@ python-apt (0.8.5~ubuntu1) quantal-proposed; urgency=low
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 12 Jun 2012 08:23:06 -0700
 
-python-apt (0.8.5) UNRELEASED; urgency=low
+python-apt (0.8.5) unstable; urgency=low
 
   [ Michael Vogt ]
   * python/cache.cc:
@@ -28,9 +58,6 @@ python-apt (0.8.5) UNRELEASED; urgency=low
   * data/templates/Ubuntu.info.in:
     - add quantal
 
-  [ Evan Dandrea ]
-  * Don't leak file descriptors.
-  
   [ Steve Langasek ]
   * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
   * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
@@ -42,13 +69,52 @@ python-apt (0.8.5) UNRELEASED; urgency=low
     - this is a port of the software-properties AptAuth module to python-apt
       with some cleanups. It provides a wrapper API for the apt-key command
 
-  [ Colin Watson ]
-  * aptsources/*.py, setup.py: Make aptsources modules work directly in
-    either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
-    doesn't need to modify them.  This makes life a little easier for the
-    strange tricks update-manager plays with its dist-upgrader tarball.
+  [ David Prévot ]
+  * po/*.po: update PO files against current POT file
+  * po/be.po: Belarusian translation by Viktar Siarheichyk (closes: #678286)
+  * po/de.po: German translation updated by Holger Wansing (closes: #677916)
+  * po/el.po: Greek translation updated by Thomas Vasileiou (closes: #677331)
+  * po/en_GB.po: Remove useless file <20120610190618.GA1387@burratino>
+  * po/eo.po: Esperanto translation by Kristjan Schmidt and Michael Moroni
+  * po/fi.po: Finnish translation updated by Timo Jyrinki
+  * po/fr.po: French translation updated (closes: #567765)
+  * po/hu.po: Hungarian translation updated by Gabor Kelemen
+  * po/id.po: Indonesian translation by Andika Triwidada (closes: #676960)
+  * po/nl.po: Dutch translation updated by Jeroen Schot (closes: #652335)
+  * po/pt_BR.po: Brazilian translation updated by Sérgio Cipolla
+  * po/ru.po: incomplete Russian translation updated by Andrey
+  * po/sk.po: Slovak translation updated by Ivan Masár (closes: #676973)
+  * po/sl.po: Slovenian translation updated by Matej Urbančič
+  * po/sr.po: incomplete Serbian translation updated by Nikola Nenadic
+  * po/tl.po: Tagalog translation updated by Ariel S. Betan
+  * po/am.po po/br.po po/et.po po/eu.po po/fa.po po/fur.po po/hi.po
+    po/mr.po po/ms.po po/nn.po po/pa.po po/ps.po po/qu.po po/rw.po po/ta.po
+    po/ur.po po/xh.po: remove useless (empty) translations
 
- -- Michael Vogt <mvo@debian.org>  Tue, 17 Apr 2012 14:09:24 +0200
+  [ Julian Andres Klode ]
+  * Merge patch from Colin Watson to handle non-UTF8 tag files in
+    Python 3, by using bytes instead of str when requested; and
+    document this in the RST documentation (Closes: #656288)
+  * debian/control:
+    - Drop Recommends on python2.6 (Closes: #645970)
+    - Replace xz-lzma Recommends by xz-utils (Closes: #677934)
+  * python/configuration.cc:
+    - Handle the use of "del" on configuration values. Those are represented
+      by calling the setter with NULL, which we did not handle before, causing
+      a segmentation fault (Closes: #661062)
+  * python/tag.cc:
+    - Correctly handle file descriptor 0 aka stdin (Closes: #669458)
+  * python/acquire.cc:
+    - Use pkgAcquire::Setup() to setup the acquire class and handle errors
+      from this (Closes: #629624)
+  * debian/control:
+    - Set Standards-Version to 3.9.3
+  * utils/get_ubuntu_mirrors_from_lp.py:
+    - Revert move to Python 3, python3-feedparser is not in the archive yet
+  * tests:
+    - Fix new tests from Sebastian to work with Python 2.6
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 22 Jun 2012 10:37:23 +0200
 
 python-apt (0.8.3ubuntu8) quantal; urgency=low
 

@@ -7,7 +7,7 @@ import tempfile
 import time
 import unittest
 
-if sys.version_info.major > 2:
+if sys.version_info[0] > 2:
     from http.server import HTTPServer
     from http.server import SimpleHTTPRequestHandler as HTTPRequestHandler
 else:
@@ -106,6 +106,18 @@ DHcut3Yey8o=
 class TestAuthKeys(unittest.TestCase):
 
     """Test handling of keys for signed repositories."""
+
+    if sys.version_info[0] == 2 and sys.version_info[1] < 7:
+        def addCleanup(self, function, *args, **kwds):
+            try:
+                self.cleanup.append(lambda: function(*args, **kwds))
+            except AttributeError:
+                self.cleanup = [lambda: function(*args, **kwds)]
+
+        def tearDown(self):
+            for f in self.cleanup:
+                f()
+            self.cleanup = []
 
     def setUp(self):
         # reset any config manipulations done in the individual tests

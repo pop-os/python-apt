@@ -1,2 +1,2 @@
 #!/bin/sh
-fakeroot /usr/bin/apt-key $*
+exec fakeroot /usr/bin/apt-key $*
