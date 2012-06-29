@@ -38,6 +38,10 @@ using namespace std;
 struct TagSecData : public CppPyObject<pkgTagSection>
 {
    char *Data;
+   bool Bytes;
+#if PY_MAJOR_VERSION >= 3
+   PyObject *Encoding;
+#endif
 };
 
 // The owner of the TagFile is a Python file object.
@@ -45,6 +49,10 @@ struct TagFileData : public CppPyObject<pkgTagFile>
 {
    TagSecData *Section;
    FileFd Fd;
+   bool Bytes;
+#if PY_MAJOR_VERSION >= 3
+   PyObject *Encoding;
+#endif
 };
 
 // Traversal and Clean for owned objects
@@ -59,6 +67,35 @@ int TagFileClear(PyObject *self) {
     Py_CLEAR(((TagFileData *)self)->Owner);
     return 0;
 }
+
+// Helpers to return Unicode or bytes as appropriate.
+#if PY_MAJOR_VERSION < 3
+#define TagSecString_FromStringAndSize(self, v, len) \
+    PyString_FromStringAndSize((v), (len))
+#define TagSecString_FromString(self, v) PyString_FromString(v)
+#else
+PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
+	 				 Py_ssize_t len) {
+   TagSecData *Self = (TagSecData *)self;
+   if (Self->Bytes)
+      return PyBytes_FromStringAndSize(v, len);
+   else if (Self->Encoding)
+      return PyUnicode_Decode(v, len, PyUnicode_AsString(Self->Encoding), 0);
+   else
+      return PyUnicode_FromStringAndSize(v, len);
+}
+
+PyObject *TagSecString_FromString(PyObject *self, const char *v) {
+   TagSecData *Self = (TagSecData *)self;
+   if (Self->Bytes)
+      return PyBytes_FromString(v);
+   else if (Self->Encoding)
+      return PyUnicode_Decode(v, strlen(v),
+			      PyUnicode_AsString(Self->Encoding), 0);
+   else
+      return PyUnicode_FromString(v);
+}
+#endif
 
 
 									/*}}}*/
@@ -107,9 +144,9 @@ static PyObject *TagSecFind(PyObject *Self,PyObject *Args)
    {
       if (Default == 0)
 	 Py_RETURN_NONE;
-      return PyString_FromString(Default);
+      return TagSecString_FromString(Self,Default);
    }
-   return PyString_FromStringAndSize(Start,Stop-Start);
+   return TagSecString_FromStringAndSize(Self,Start,Stop-Start);
 }
 
 static char *doc_FindRaw =
@@ -128,14 +165,14 @@ static PyObject *TagSecFindRaw(PyObject *Self,PyObject *Args)
    {
       if (Default == 0)
 	 Py_RETURN_NONE;
-      return PyString_FromString(Default);
+      return TagSecString_FromString(Self,Default);
    }
 
    const char *Start;
    const char *Stop;
    GetCpp<pkgTagSection>(Self).Get(Start,Stop,Pos);
 
-   return PyString_FromStringAndSize(Start,Stop-Start);
+   return TagSecString_FromStringAndSize(Self,Start,Stop-Start);
 }
 
 static char *doc_FindFlag =
@@ -161,21 +198,18 @@ static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
 // Map access, operator []
 static PyObject *TagSecMap(PyObject *Self,PyObject *Arg)
 {
-   if (PyString_Check(Arg) == 0)
-   {
-      PyErr_SetNone(PyExc_TypeError);
+   const char *Name = PyObject_AsString(Arg);
+   if (Name == 0)
       return 0;
-   }
-
    const char *Start;
    const char *Stop;
-   if (GetCpp<pkgTagSection>(Self).Find(PyString_AsString(Arg),Start,Stop) == false)
+   if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
    {
-      PyErr_SetString(PyExc_KeyError,PyString_AsString(Arg));
+      PyErr_SetString(PyExc_KeyError,Name);
       return 0;
    }
 
-   return PyString_FromStringAndSize(Start,Stop-Start);
+   return TagSecString_FromStringAndSize(Self,Start,Stop-Start);
 }
 
 // len() operation
@@ -230,9 +264,9 @@ static PyObject *TagSecExists(PyObject *Self,PyObject *Args)
 
 static int TagSecContains(PyObject *Self,PyObject *Arg)
 {
-   if (PyString_Check(Arg) == 0)
-       return 0;
-   const char *Name = PyString_AsString(Arg);
+   const char *Name = PyObject_AsString(Arg);
+   if (Name == 0)
+      return 0;
    const char *Start;
    const char *Stop;
    if (GetCpp<pkgTagSection>(Self).Find(Name,Start,Stop) == false)
@@ -256,7 +290,7 @@ static PyObject *TagSecStr(PyObject *Self)
    const char *Start;
    const char *Stop;
    GetCpp<pkgTagSection>(Self).GetSection(Start,Stop);
-   return PyString_FromStringAndSize(Start,Stop-Start);
+   return TagSecString_FromStringAndSize(Self,Start,Stop-Start);
 }
 									/*}}}*/
 // TagFile Wrappers							/*{{{*/
@@ -286,6 +320,12 @@ static PyObject *TagFileNext(PyObject *Self)
    Obj.Section->Owner = Self;
    Py_INCREF(Obj.Section->Owner);
    Obj.Section->Data = 0;
+   Obj.Section->Bytes = Obj.Bytes;
+#if PY_MAJOR_VERSION >= 3
+   // We don't need to incref Encoding as the previous Section object already
+   // held a reference to it.
+   Obj.Section->Encoding = Obj.Encoding;
+#endif
    if (Obj.Object.Step(Obj.Section->Object) == false)
       return HandleErrors(NULL);
 
@@ -347,11 +387,12 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    char *Data;
    int Len;
-   char *kwlist[] = {"text", 0};
+   char Bytes = 0;
+   char *kwlist[] = {"text", "bytes", 0};
 
    // this allows reading "byte" types from python3 - but we don't
    // make (much) use of it yet
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"s#",kwlist,&Data,&Len) == 0)
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"s#|b",kwlist,&Data,&Len,&Bytes) == 0)
       return 0;
 
    // Create the object..
@@ -359,6 +400,10 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    new (&New->Object) pkgTagSection();
    New->Data = new char[strlen(Data)+2];
    snprintf(New->Data,strlen(Data)+2,"%s\n",Data);
+   New->Bytes = Bytes;
+#if PY_MAJOR_VERSION >= 3
+   New->Encoding = 0;
+#endif
 
    if (New->Object.Scan(New->Data,strlen(New->Data)) == false)
    {
@@ -391,19 +436,21 @@ PyObject *ParseSection(PyObject *self,PyObject *Args)
 static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
    TagFileData *New;
-   PyObject *File;
+   PyObject *File = 0;
+   char Bytes = 0;
 
-   char *kwlist[] = {"file", 0};
-   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O",kwlist,&File) == 0)
+   char *kwlist[] = {"file", "bytes", 0};
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"O|b",kwlist,&File,&Bytes) == 0)
       return 0;
 
    // check if we got a filename or a file object
    int fileno = -1;
    const char *filename = NULL;
-   if (PyString_Check(File))
-      filename = PyObject_AsString(File);
-   else
+   filename = PyObject_AsString(File);
+   if (filename == NULL) {
+      PyErr_Clear();
       fileno = PyObject_AsFileDescriptor(File);
+   }
 
    // handle invalid arguments
    if (fileno == -1 && filename == NULL)
@@ -414,7 +461,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    }
 
    New = (TagFileData*)type->tp_alloc(type, 0);
-   if (fileno > 0)
+   if (fileno != -1)
    {
 #ifdef APT_HAS_GZIP
       new (&New->Fd) FileFd();
@@ -432,8 +479,18 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       new (&New->Fd) FileFd(filename, FileFd::ReadOnly, false);
 #endif
    } 
+   New->Bytes = Bytes;
    New->Owner = File;
    Py_INCREF(New->Owner);
+#if PY_MAJOR_VERSION >= 3
+   if (fileno != -1) {
+      New->Encoding = PyObject_GetAttr(File, PyUnicode_FromString("encoding"));
+      if (New->Encoding && !PyUnicode_Check(New->Encoding))
+         New->Encoding = 0;
+   } else
+      New->Encoding = 0;
+   Py_XINCREF(New->Encoding);
+#endif
    new (&New->Object) pkgTagFile(&New->Fd);
 
    // Create the section
@@ -442,6 +499,11 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    New->Section->Owner = New;
    Py_INCREF(New->Section->Owner);
    New->Section->Data = 0;
+   New->Section->Bytes = Bytes;
+#if PY_MAJOR_VERSION >= 3
+   New->Section->Encoding = New->Encoding;
+   Py_XINCREF(New->Section->Encoding);
+#endif
 
    return HandleErrors(New);
 }
@@ -519,7 +581,7 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
    }
 
    // Return the string
-   PyObject *ResObj = PyString_FromStringAndSize(bp,size);
+   PyObject *ResObj = TagSecString_FromStringAndSize(Section,bp,size);
    free(bp);
    return HandleErrors(ResObj);
 }
@@ -548,11 +610,15 @@ PySequenceMethods TagSecSeqMeth = {0,0,0,0,0,0,0,TagSecContains,0,0};
 PyMappingMethods TagSecMapMeth = {TagSecLength,TagSecMap,0};
 
 
-static char *doc_TagSec = "TagSection(text: str)\n\n"
+static char *doc_TagSec = "TagSection(text: str, [bytes: bool = False])\n\n"
    "Provide methods to access RFC822-style header sections, like those\n"
    "found in debian/control or Packages files.\n\n"
    "TagSection() behave like read-only dictionaries and also provide access\n"
-   "to the functions provided by the C++ class (e.g. find)";
+   "to the functions provided by the C++ class (e.g. find).\n\n"
+   "By default, text read from files is treated as strings (binary data in\n"
+   "Python 2, Unicode strings in Python 3). Use bytes=True to cause all\n"
+   "header values read from this TagSection to be bytes even in Python 3.\n"
+   "Header names are always treated as Unicode.";
 PyTypeObject PyTagSection_Type =
 {
    PyVarObject_HEAD_INIT(&PyType_Type, 0)
@@ -623,7 +689,7 @@ static PyGetSetDef TagFileGetSet[] = {
 };
 
 
-static char *doc_TagFile = "TagFile(file)\n\n"
+static char *doc_TagFile = "TagFile(file, [bytes: bool = False])\n\n"
    "TagFile() objects provide access to debian control files, which consist\n"
    "of multiple RFC822-style sections.\n\n"
    "To provide access to those sections, TagFile objects provide an iterator\n"
@@ -635,7 +701,11 @@ static char *doc_TagFile = "TagFile(file)\n\n"
    "It is important to not mix the use of both APIs, because this can have\n"
    "unwanted effects.\n\n"
    "The parameter 'file' refers to an object providing a fileno() method or\n"
-   "a file descriptor (an integer)";
+   "a file descriptor (an integer).\n\n"
+   "By default, text read from files is treated as strings (binary data in\n"
+   "Python 2, Unicode strings in Python 3). Use bytes=True to cause all\n"
+   "header values read from this TagFile to be bytes even in Python 3.\n"
+   "Header names are always treated as Unicode.";
 
 // Type for a Tag File
 PyTypeObject PyTagFile_Type =

@@ -1904,7 +1904,7 @@ thereof and provides a function :func:`RewriteSection` which takes a
 :class:`TagSection()` object and sorting information and outputs a sorted
 section as a string.
 
-.. class:: TagFile(file)
+.. class:: TagFile(file, bytes: bool = False)
 
     An object which represents a typical debian control file. Can be used for
     Packages, Sources, control, Release, etc. Such an object provides two
@@ -1921,6 +1921,10 @@ section as a string.
     .. versionchanged:: 0.7.100
         Added support for using gzip files, via :class:`gzip.GzipFile` or any
         file containing a compressed gzip stream.
+
+    .. versionadded:: 0.8.5
+
+        Added support for using bytes instead of str in Python 3
         
     .. method:: next()
 

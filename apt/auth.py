@@ -51,38 +51,42 @@ class TrustedKey(object):
 
 def _call_apt_key_script(*args, **kwargs):
     """Run the apt-key script with the given arguments."""
+    conf = None
     cmd = [apt_pkg.config.find_file("Dir::Bin::Apt-Key", "/usr/bin/apt-key")]
     cmd.extend(args)
     env = os.environ.copy()
     env["LANG"] = "C"
-    if apt_pkg.config.find_dir("Dir") != "/":
-        # If the key is to be installed into a chroot we have to export the
-        # configuration from the chroot to the apt-key script by using
-        # a temporary APT_CONFIG file. The apt-key script uses apt-config shell
-        # internally
-        conf_fd, conf_name = tempfile.mkstemp(prefix="apt-key", suffix="conf")
-        atexit.register(os.remove, conf_name)
-        try:
-            os.write(conf_fd, apt_pkg.config.dump().encode("UTF-8"))
-        finally:
-            os.close(conf_fd)
-        env["APT_CONFIG"] = conf_name
-    proc = subprocess.Popen(cmd, env=env, universal_newlines=True,
-                            stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
     try:
-        proc.stdin.write(kwargs["stdin"])
-    except KeyError:
-        pass
+        if apt_pkg.config.find_dir("Dir") != "/":
+            # If the key is to be installed into a chroot we have to export the
+            # configuration from the chroot to the apt-key script by using
+            # a temporary APT_CONFIG file. The apt-key script uses apt-config
+            # shell internally
+            conf = tempfile.NamedTemporaryFile(prefix="apt-key", suffix=".conf")
+            conf.write(apt_pkg.config.dump().encode("UTF-8"))
+            conf.flush()
+            env["APT_CONFIG"] = conf.name
+        proc = subprocess.Popen(cmd, env=env, universal_newlines=True,
+                                stdin=subprocess.PIPE,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT)
+
+        content = kwargs.get("stdin", None)
+        if isinstance(content, unicode):
+            content = content.encode("utf-8")
+
+        output, stderr = proc.communicate(content)
+
+        assert stderr == None
+
+        if proc.returncode:
+            raise SystemError("The apt-key script failed with return code %s:\n"
+                              "%s\n%s" % (proc.returncode, " ".join(cmd),
+                                          output))
+        return output.strip()
     finally:
-        proc.stdin.close()
-    return_code = proc.wait()
-    output = proc.stdout.read()
-    if return_code:
-        raise SystemError("The apt-key script failed with return code %s:\n"
-                          "%s\n%s" % (return_code, " ".join(cmd), output))
-    return output.strip()
+        if conf is not None:
+            conf.close()
 
 def add_key_from_file(filename):
     """Import a GnuPG key file to trust repositores signed by it.

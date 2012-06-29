@@ -39,8 +39,7 @@ class RegressionTestCase(unittest.TestCase):
 
     def setUp(self):
         apt_pkg.init_config()
-        chroot_path = tempfile.mkdtemp()
-        self.addCleanup(lambda: shutil.rmtree(chroot_path))
+        self.chroot_path = chroot_path = tempfile.mkdtemp()
         # Create a damaged status file
         self.cache = apt.cache.Cache(rootdir=chroot_path)
         with open(apt_pkg.config.find_file("Dir::State::status"),
@@ -62,6 +61,7 @@ Version: 3.6.9+build1+nobinonly-0ubuntu1""")
         # this resets the rootdir apt_pkg.config to ensure it does not
         # "pollute" the later tests
         cache = apt.cache.Cache(rootdir="/")
+        shutil.rmtree(self.chroot_path)
 
     def test_survive_reqreinst(self):
         """Test that we survive a package in require reinstallation state"""
