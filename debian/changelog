@@ -1,4 +1,10 @@
-python-apt (0.8.6) UNRELEASED; urgency=low
+python-apt (0.8.6ubuntu1) quantal; urgency=low
+
+  * merged from the debian-sid branch
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 29 Jun 2012 16:05:52 +0200
+
+python-apt (0.8.6) unstable; urgency=low
 
   [ Michael Vogt ]
   * debian/control:
@@ -26,7 +32,7 @@ python-apt (0.8.6) UNRELEASED; urgency=low
   * po:
     - Fixup the translations for wheezy again
 
- -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 29 Jun 2012 15:57:20 +0200
 
 python-apt (0.8.5~ubuntu2) quantal; urgency=low
 
