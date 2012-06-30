@@ -1,3 +1,9 @@
+python-apt (0.8.7) UNRELEASED; urgency=low
+
+  * po/es.po: Spanish translation updated by Omar Campagne (closes: #679285)
+
+ -- David Prévot <taffit@debian.org>  Sat, 30 Jun 2012 16:50:03 -0400
+
 python-apt (0.8.6) unstable; urgency=low
 
   [ Michael Vogt ]
