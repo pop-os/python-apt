@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
 "PO-Revision-Date: 2006-10-08 04:10+0000\n"
 "Last-Translator: Michôł Òstrowsczi <ostrowski.michal@gmail.com>\n"
 "Language-Team: Kashubian <csb@li.org>\n"
@@ -287,7 +287,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr ""
 
@@ -359,57 +359,62 @@ msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 6.0 'Squeeze' "
+msgid "Debian 7.0 'Wheezy' "
 msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-msgid "Debian 5.0 'Lenny' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-msgid "Debian 4.0 'Etch'"
+msgid "Debian 5.0 'Lenny' "
 msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
+msgid "Debian 4.0 'Etch'"
+msgstr ""
+
+#. Description
+#: ../data/templates/Debian.info.in:108
 msgid "Debian 3.1 'Sarge'"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 #, fuzzy
 msgid "Security updates"
 msgstr "%s aktualizacëji"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 msgid "Debian testing"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 msgid "Debian 'Sid' (unstable)"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr ""
 

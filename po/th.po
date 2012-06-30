@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
 "PO-Revision-Date: 2006-10-16 04:17+0000\n"
 "Last-Translator: Roys Hengwatanakul <roysheng@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
@@ -314,7 +314,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "ซีดีรอมที่มีอูบันตู 5.04 'Hoary Hedgehog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "สนับสนุนอย่างเป็นทางการ"
 
@@ -388,62 +388,68 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
-msgid "Debian 6.0 'Squeeze' "
+msgid "Debian 7.0 'Wheezy' "
 msgstr "เดเบียน 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:33
 #, fuzzy
-msgid "Debian 5.0 'Lenny' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr "เดเบียน 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 #, fuzzy
-msgid "Debian 4.0 'Etch'"
+msgid "Debian 5.0 'Lenny' "
 msgstr "เดเบียน 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
 #, fuzzy
+msgid "Debian 4.0 'Etch'"
+msgstr "เดเบียน 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:108
+#, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "เดเบียน 3.1 \"Sarge\""
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "การปรับปรุงที่เสนอให้ทำ"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 #, fuzzy
 msgid "Security updates"
 msgstr "ปรับปรุงด้านความปลอดภัยที่สำคัญ"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 #, fuzzy
 msgid "Debian testing"
 msgstr "เดเบียน \"Etch\" (กำลังทดสอบ)"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "เดเบียน  \"Sid\" (ผันผวน)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "เข้ากับ DFSG ซอฟแวร์แต่ขึ้นอยู่กับไม่ฟรี"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "ไม่เข้ากับ DFSG ซอฟแวร์"
 

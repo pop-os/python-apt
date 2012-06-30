@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: python-apt 0.7.3.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
 "PO-Revision-Date: 2007-12-04 22:51+0900\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Ubuntu Japanese Team <ubuntu-ja-users@freeml.com>\n"
@@ -315,7 +315,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "Ubuntu 5.04 'Hoary Hedgehog' のCD-ROM"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "公式なサポート対象"
 
@@ -388,58 +388,64 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
-msgid "Debian 6.0 'Squeeze' "
+msgid "Debian 7.0 'Wheezy' "
 msgstr "Debian 4.0 'Etch' "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
 #, fuzzy
-msgid "Debian 5.0 'Lenny' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr "Debian 4.0 'Etch' "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 #, fuzzy
-msgid "Debian 4.0 'Etch'"
+msgid "Debian 5.0 'Lenny' "
 msgstr "Debian 4.0 'Etch' "
 
 #. Description
 #: ../data/templates/Debian.info.in:83
+#, fuzzy
+msgid "Debian 4.0 'Etch'"
+msgstr "Debian 4.0 'Etch' "
+
+#. Description
+#: ../data/templates/Debian.info.in:108
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 'Sarge'"
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "提案されたアップデート"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 msgid "Security updates"
 msgstr "セキュリティアップデート"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr "Debian の現安定版"
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 msgid "Debian testing"
 msgstr "Debian テスト版"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian 'Sid' (不安定版)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "フリーではないものに依存関係のあるDFSG適合ソフトウェア"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSGに適合しないソフトウェア"
 
