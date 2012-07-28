@@ -1,7 +1,11 @@
 python-apt (0.8.7) UNRELEASED; urgency=low
 
+  [ Translation updates ]
   * po/es.po: Spanish translation updated by Omar Campagne (closes: #679285)
   * po/ja.po: Japanese translation updated by Kenshi Muto (closes: #679652)
+
+  [ Jakub Wilk ]
+  * Fix typos: the the -> the (closes: #679432)
 
  -- David Prévot <taffit@debian.org>  Sat, 30 Jun 2012 16:50:03 -0400
 
