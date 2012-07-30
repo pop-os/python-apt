@@ -8,7 +8,9 @@ python-apt (0.8.7) UNRELEASED; urgency=low
   * Fix typos: the the -> the (closes: #679432)
 
   [ Julian Andres Klode ]
-  * apt/auth.py: Do not merge stdout and stderr (Closes: #678706)
+  * apt/auth.py:
+    - Do not merge stdout and stderr (Closes: #678706)
+    - Forward stderr from apt-key to our stderr if non-empty
 
  -- David Prévot <taffit@debian.org>  Sat, 30 Jun 2012 16:50:03 -0400
 

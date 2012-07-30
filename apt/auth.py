@@ -28,6 +28,7 @@ import atexit
 import os
 import os.path
 import subprocess
+import sys
 import tempfile
 
 import apt_pkg
@@ -83,6 +84,9 @@ def _call_apt_key_script(*args, **kwargs):
                               "stdout: %s\n"
                               "stderr: %s" % (proc.returncode, " ".join(cmd),
                                           output,stderr))
+        elif stderr:
+            sys.stderr.write(stderr)    # Forward stderr
+
         return output.strip()
     finally:
         if conf is not None:
