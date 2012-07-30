@@ -69,7 +69,7 @@ def _call_apt_key_script(*args, **kwargs):
         proc = subprocess.Popen(cmd, env=env, universal_newlines=True,
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                                stderr=subprocess.PIPE)
 
         content = kwargs.get("stdin", None)
         if isinstance(content, unicode):
@@ -77,12 +77,12 @@ def _call_apt_key_script(*args, **kwargs):
 
         output, stderr = proc.communicate(content)
 
-        assert stderr == None
-
         if proc.returncode:
             raise SystemError("The apt-key script failed with return code %s:\n"
-                              "%s\n%s" % (proc.returncode, " ".join(cmd),
-                                          output))
+                              "%s\n"
+                              "stdout: %s\n"
+                              "stderr: %s" % (proc.returncode, " ".join(cmd),
+                                          output,stderr))
         return output.strip()
     finally:
         if conf is not None:

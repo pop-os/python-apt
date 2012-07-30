@@ -7,6 +7,9 @@ python-apt (0.8.7) UNRELEASED; urgency=low
   [ Jakub Wilk ]
   * Fix typos: the the -> the (closes: #679432)
 
+  [ Julian Andres Klode ]
+  * apt/auth.py: Do not merge stdout and stderr (Closes: #678706)
+
  -- David Prévot <taffit@debian.org>  Sat, 30 Jun 2012 16:50:03 -0400
 
 python-apt (0.8.6) unstable; urgency=low
