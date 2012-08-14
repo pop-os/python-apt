@@ -4,6 +4,8 @@ python-apt (0.8.6) unstable; urgency=low
   * debian/control:
     - add build-dep for apt (>= 0.9.6) to make test_auth.py test
       work reliable
+  * python/cache.cc:
+    - add "Codename" to PackageFile object
 
   [ Julian Andres Klode ]
   * apt/auth.py:
