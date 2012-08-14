@@ -3,6 +3,10 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   [ Program translation updates ]
   * po/pl.po: Polish (Michał Kułach) (closes: #684308)
 
+  [ Michael Vogt ]
+  * python/cache.cc:
+    - add "Codename" to PackageFile object
+  
  -- David Prévot <taffit@debian.org>  Wed, 08 Aug 2012 12:05:52 -0400
 
 python-apt (0.8.7) unstable; urgency=low

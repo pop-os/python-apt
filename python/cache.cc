@@ -1247,6 +1247,12 @@ static PyObject *PackageFile_GetArchitecture(PyObject *Self,void*)
     return Safe_FromString(File.Architecture());
 }
 
+static PyObject *PackageFile_GetCodename(PyObject *Self,void*)
+{
+    pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
+    return Safe_FromString(File.Codename());
+}
+
 static PyObject *PackageFile_GetSite(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
@@ -1305,6 +1311,8 @@ static PyGetSetDef PackageFileGetSet[] = {
    "The archive of the package file (i.e. 'Suite' in the Release file)."},
   {"component",PackageFile_GetComponent,0,
    "The component of this package file (e.g. 'main')."},
+  {"codename",PackageFile_GetCodename,0,
+   "The codename of this package file (e.g. squeeze-updates)."},
   {"filename",PackageFile_GetFileName,0,
    "The path to the file."},
   {"id",PackageFile_GetID,0,
