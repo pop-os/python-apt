@@ -51,7 +51,7 @@ AcquireProgress
         is called whenever a media change is needed to ask the user to insert
         the needed media.
  
-        The parameter *media* decribes the name of the the media type that
+        The parameter *media* decribes the name of the media type that
         should be changed, whereas the parameter *drive* should be the
         identifying name of the drive whose media should be changed.
 

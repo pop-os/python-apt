@@ -1,4 +1,27 @@
-python-apt (0.8.6) UNRELEASED; urgency=low
+python-apt (0.8.8) UNRELEASED; urgency=low
+
+  [ Program translation updates ]
+  * po/pl.po: Polish (Michał Kułach) (closes: #684308)
+
+ -- David Prévot <taffit@debian.org>  Wed, 08 Aug 2012 12:05:52 -0400
+
+python-apt (0.8.7) unstable; urgency=low
+
+  [ Translation updates ]
+  * po/es.po: Spanish translation updated by Omar Campagne (closes: #679285)
+  * po/ja.po: Japanese translation updated by Kenshi Muto (closes: #679652)
+
+  [ Jakub Wilk ]
+  * Fix typos: the the -> the (closes: #679432)
+
+  [ Julian Andres Klode ]
+  * apt/auth.py:
+    - Do not merge stdout and stderr (Closes: #678706)
+    - Forward stderr from apt-key to our stderr if non-empty
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 30 Jul 2012 13:29:17 +0200
+
+python-apt (0.8.6) unstable; urgency=low
 
   [ Michael Vogt ]
   * debian/control:
@@ -20,7 +43,7 @@ python-apt (0.8.6) UNRELEASED; urgency=low
   * po:
     - Fixup the translations for wheezy again
 
- -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 29 Jun 2012 15:57:20 +0200
 
 python-apt (0.8.5) unstable; urgency=low
 

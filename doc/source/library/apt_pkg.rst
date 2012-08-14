@@ -47,7 +47,7 @@ Working with the cache
 
         The cache supports colon-separated name:architecture pairs. For
         normal architectures, they are equal to a (name, architecture)
-        tuple. For the the "any" architecture behavior is different, as
+        tuple. For the "any" architecture behavior is different, as
         "name:any" is equivalent to ("name:any", "any"). This is done so
         that "name:any" matches all packages with that name which have
         Multi-Arch: allowed set.
@@ -410,17 +410,17 @@ Installing with :class:`PackageManager`
 
     .. attribute:: RESULT_COMPLETED
 
-        A constant for checking whether the the result of the call to
+        A constant for checking whether the result of the call to
         :meth:`do_install` is 'failed'.
 
     .. attribute:: RESULT_FAILED
 
-        A constant for checking whether the the result of the call to
+        A constant for checking whether the result of the call to
         :meth:`do_install` is 'failed'.
 
     .. attribute:: RESULT_INCOMPLETE
 
-        A constant for checking whether the the result of the call to
+        A constant for checking whether the result of the call to
         :meth:`do_install` is 'incomplete'.
         
     All instances of this class also support the following methods:

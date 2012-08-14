@@ -1,24 +1,47 @@
-# translation of update-manager to Spanish
-# This file is distributed under the same license as the update-manager package.
-#  Copyright (c) 2004 Canonical
-#                2004 Michiel Sikkes
-# Jorge Bernal <koke@amedias.org>, 2005.
-# Jorge Bernal <koke@sindominio.net>, 2005.
+# python-apt po translation to Spanish
+# Copyright (C) 2004 - 2012 Software in the Public Interest
+# This file is distributed under the same license as the python-apt package.
+#
+# Changes:
+#   - Initial translation
+# 	 2004 Michiel Sikkes
+# 	 Jorge Bernal <koke@amedias.org>, 2005.   
+# 	 Jorge Bernal <koke@sindominio.net>, 2005.
+#   - Updates
+#       Omar Campagne <ocampagne@gmail.com>, 2012.
+#
+# Traductores, si no conocen el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+#       info -n '(gettext)PO Files'
+#       info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+#   - El proyecto de traducción de Debian al español
+#     http://www.debian.org/intl/spanish/
+#     especialmente las notas y normas de traducción en
+#     http://www.debian.org/intl/spanish/notas
+#
+#   - La guía de traducción de po's de debconf:
+#     /usr/share/doc/po-debconf/README-trans
+#     o http://www.debian.org/intl/l10n/po-debconf/README-trans
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: python-apt 0.8.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
-"PO-Revision-Date: 2006-10-16 04:15+0000\n"
-"Last-Translator: Ricardo Pérez López <ricardo@iesdonana.org>\n"
-"Language-Team: Spanish <traductores@gnome.org>\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
+"PO-Revision-Date: 2012-06-27 17:24+0200\n"
+"Last-Translator: Omar Campagne <ocampagne@gmail.com>\n"
+"Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
 
 #. ChangelogURI
 #: ../data/templates/Ubuntu.info.in.h:4
@@ -28,167 +51,143 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+msgstr "Ubuntu 12.04 «Precise Pangolin»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "CD-ROM con Ubuntu 5.10 «Breezy Badger»"
+msgstr "Cdrom con Ubuntu 12.04 «Precise Pangolin»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 4.10 «Warty Warthog»"
+msgstr "Ubuntu 11.10 «Oneiric Ocelot»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 11.10 «Oneiric Ocelot»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 «Warty Warthog»"
+msgstr "Ubuntu 11.04 «Natty Narwhal»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 11.04 «Natty Narwhal»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
-#, fuzzy
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 4.10 «Warty Warthog»"
+msgstr "Ubuntu 10.10 «Maverick Meerkat»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 10.10 «Maverick Meerkat»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Socios de Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Software empaquetado por Canonical para sus socios"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Este software no es parte de Ubuntu."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Independiente"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Proporcionado por desarrolladores de software externos"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Software proporcionado por desarrolladores externos."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
-#, fuzzy
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Ubuntu 10.04 «Lucid Lynx»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
-#, fuzzy
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "CD-ROM con Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Cdrom con Ubuntu 10.04 «Lucid Lynx»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
-#, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr "Ubuntu 4.10 «Warty Warthog»"
+msgstr "Ubuntu 9.10 «Karmic Koala»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:652
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 9.10 «Karmic Koala»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:695
-#, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "Ubuntu 4.10 «Warty Warthog»"
+msgstr "Ubuntu 9.04 «Jaunty Jackalope»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:714
-#, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 9.04 «Jaunty Jackalope»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:757
-#, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Ubuntu 8.10 «Intrepid Ibex»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:777
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr "CD-ROM con Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Cdrom con Ubuntu 8.10 «Intrepid Ibex»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:821
-#, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr "Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Ubuntu 8.04 «Hardy Heron»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:841
-#, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr "CD-ROM con Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Cdrom con Ubuntu 8.04 «Hardy Heron»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:886
-#, fuzzy
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+msgstr "Ubuntu 7.10 «Gutsy Gibbon»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:905
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr "CD-ROM con Ubuntu 5.10 «Breezy Badger»"
+msgstr "Cdrom con Ubuntu 7.10 «Gutsy Gibbon»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:950
-#, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr "Actualizaciones de seguridad de Ubuntu 5.04"
+msgstr "Ubuntu 7.04 «Feisty Fawn»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:969
-#, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr "CD-ROM con Ubuntu 5.10 «Breezy Badger»"
+msgstr "Cdrom con Ubuntu 7.04 «Feisty Fawn»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1011
@@ -197,7 +196,6 @@ msgstr "Ubuntu 6.10 «Edgy Eft»"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1016
-#, fuzzy
 msgid "Community-maintained"
 msgstr "Mantenido por la comunidad"
 
@@ -209,7 +207,7 @@ msgstr "Software restringido"
 #. Description
 #: ../data/templates/Ubuntu.info.in:1030
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr "CD-ROM con Ubuntu 6.10 «Edgy Eft»"
+msgstr "Cdrom con Ubuntu 6.10 «Edgy Eft»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1072
@@ -218,21 +216,18 @@ msgstr "Ubuntu 6.06 LTS «Dapper Drake»"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
 msgid "Canonical-supported free and open-source software"
-msgstr "Software libre soportado por Canonical"
+msgstr "Software libre y abierto mantenido por Canonical"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
-#, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Mantenido por la comunidad (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
 msgid "Community-maintained free and open-source software"
-msgstr "Software libre mantenido por la comunidad"
+msgstr "Software libre y abierto mantenido por la comunidad"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
@@ -257,7 +252,7 @@ msgstr "Software restringido por copyright o cuestiones legales"
 #. Description
 #: ../data/templates/Ubuntu.info.in:1091
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr "CD-ROM con Ubuntu 6.06 LTS «Dapper Drake»"
+msgstr "Cdrom con Ubuntu 6.06 LTS «Dapper Drake»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1107
@@ -271,15 +266,13 @@ msgstr "Actualizaciones recomendadas"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1117
-#, fuzzy
 msgid "Pre-released updates"
-msgstr "Actualizaciones propuestas"
+msgstr "Actualizaciones previas a la publicación"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1122
-#, fuzzy
 msgid "Unsupported updates"
-msgstr "Actualizaciones «backport»"
+msgstr "Actualizaciones de paquetes no oficiales"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1133
@@ -289,7 +282,7 @@ msgstr "Ubuntu 5.10 «Breezy Badger»"
 #. Description
 #: ../data/templates/Ubuntu.info.in:1148
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr "CD-ROM con Ubuntu 5.10 «Breezy Badger»"
+msgstr "Cdrom con Ubuntu 5.10 «Breezy Badger»"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:1164
@@ -314,10 +307,10 @@ msgstr "Ubuntu 5.04 «Hoary Hedgehog»"
 #. Description
 #: ../data/templates/Ubuntu.info.in:1200
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr "CD-ROM con Ubuntu 5.04 «Hoary Hedgehog»"
+msgstr "Cdrom con Ubuntu 5.04 «Hoary Hedgehog»"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "Soportado oficialmente"
 
@@ -343,7 +336,6 @@ msgstr "Ubuntu 4.10 «Warty Warthog»"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1238
-#, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Mantenido por la comunidad (Universe)"
 
@@ -355,7 +347,7 @@ msgstr "Software no libre (Multiverse)"
 #. Description
 #: ../data/templates/Ubuntu.info.in:1247
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr "CD-ROM con Ubuntu 4.10 «Warty Warthog»"
+msgstr "Cdrom con Ubuntu 4.10 «Warty Warthog»"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1250
@@ -390,65 +382,63 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
-msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 «Sarge»"
+msgid "Debian 7.0 'Wheezy' "
+msgstr "Debian 7.0 «Wheezy» "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-#, fuzzy
-msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 «Sarge»"
+msgid "Debian 6.0 'Squeeze' "
+msgstr "Debian 6.0 «Squeeze» "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-#, fuzzy
-msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 «Sarge»"
+msgid "Debian 5.0 'Lenny' "
+msgstr "Debian 5.0 «Lenny» "
 
 #. Description
 #: ../data/templates/Debian.info.in:83
-#, fuzzy
+msgid "Debian 4.0 'Etch'"
+msgstr "Debian 4.0 «Etch»"
+
+#. Description
+#: ../data/templates/Debian.info.in:108
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 «Sarge»"
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "Actualizaciones propuestas"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
-#, fuzzy
+#: ../data/templates/Debian.info.in:126
 msgid "Security updates"
-msgstr "Actualizaciones importantes de seguridad"
+msgstr "Actualizaciones de seguridad"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
-msgstr ""
+msgstr "Publicación estable actual de Debian"
 
 #. Description
-#: ../data/templates/Debian.info.in:121
-#, fuzzy
+#: ../data/templates/Debian.info.in:146
 msgid "Debian testing"
-msgstr "Debian «Etch» (pruebas)"
+msgstr "Debian testing («en pruebas»)"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
-#, fuzzy
+#: ../data/templates/Debian.info.in:172
 msgid "Debian 'Sid' (unstable)"
-msgstr "Debian «Sid» (inestable)"
+msgstr "Debian «Sid» («inestable»)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
-msgstr "Software compatible con la DFSG con dependencias no libres"
+msgstr "Software compatible con las «DFSG» con dependencias no libres"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
-msgstr "Software no compatible con la DFSG"
+msgstr "Software no compatible con las «DFSG»"
 
 #. TRANSLATORS: %s is a country
 #: ../aptsources/distro.py:206 ../aptsources/distro.py:436
@@ -484,18 +474,19 @@ msgid "Details"
 msgstr "Detalles"
 
 #: ../apt/progress/gtk2.py:428
-#, fuzzy
 msgid "Starting..."
-msgstr "Preferencias"
+msgstr "Iniciando..."
 
 #: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr ""
+msgstr "Completo"
 
 #: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
+"Unicode inválido en la descripción de «%s» (%s). Le rogamos que informe de "
+"ello."
 
 #: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
@@ -509,6 +500,10 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"La lista de cambios aún no está disponible.\n"
+"\n"
+"Utilice «http://launchpad.net/ubuntu/+source/%s/%s/+changelog»\n"
+"hasta que la lista esté disponible o inténtelo en otro momento."
 
 #: ../apt/package.py:1207
 msgid ""
@@ -521,22 +516,22 @@ msgstr ""
 #: ../apt/debfile.py:82
 #, python-format
 msgid "List of files for '%s' could not be read"
-msgstr ""
+msgstr "No se ha podido leer la lista de ficheros de «%s»"
 
 #: ../apt/debfile.py:93
 #, python-format
 msgid "List of control files for '%s' could not be read"
-msgstr ""
+msgstr "No se ha podido leer la lista de ficheros de control de «%s»"
 
 #: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "No se puede satisfacer la dependencia: %s\n"
 
 #: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Conflictos con el paquete instalado «%s»"
 
 #. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
 #: ../apt/debfile.py:373
@@ -545,6 +540,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"La dependencia «%(depname)s» rompe el paquete «%(pkgname)s» (%(deprelation)s "
+"%(depversion)s)"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -553,6 +550,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Conflicto con el paquete «%(pkgname)s»: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
 
 #: ../apt/debfile.py:399
 #, python-format
@@ -560,27 +559,29 @@ msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
+"Conflicto con el paquete «%(pkgname)s»: «%(targetpkg)s». Pero «%(debfile)s» "
+"lo proporciona mediante «%(provides)s»"
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "El paquete no contiene un campo «Architecture»"
 
 #: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Arquitectura no válida  «%s»"
 
 #. the deb is older than the installed
 #: ../apt/debfile.py:464
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Una versión posterior ya está instalada"
 
 #: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Fallo al satisfacer todas las dependencias (caché corrupto)"
 
 #: ../apt/debfile.py:519
-#, fuzzy, python-format
+#, python-format
 msgid "Cannot install '%s'"
 msgstr "No se ha podido instalar «%s»"
 
@@ -589,45 +590,48 @@ msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
+"Descomprimido automáticamente:\n"
+"\n"
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr ""
+msgstr "Convertido de forma automática a ASCII imprimible:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
+"Instale las dependencias de construcción del paquete fuente «%s», que "
+"construye «%s»\n"
 
 #: ../apt/debfile.py:700
-#, fuzzy
 msgid "An essential package would be removed"
-msgstr "Se ha tenido que desinstalar un paquete esencial"
+msgstr "Se desinstalaría un paquete esencial"
 
 #: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... Finalizado"
 
 #: ../apt/progress/text.py:122
 msgid "Hit "
-msgstr ""
+msgstr "Conexión"
 
 #: ../apt/progress/text.py:131
 msgid "Ign "
-msgstr ""
+msgstr "Ignorado"
 
 #: ../apt/progress/text.py:133
 msgid "Err "
-msgstr ""
+msgstr "Error"
 
 #: ../apt/progress/text.py:144
 msgid "Get:"
-msgstr ""
+msgstr "Obtener:"
 
 #: ../apt/progress/text.py:203
 msgid " [Working]"
-msgstr ""
+msgstr " [En funcionamiento]"
 
 #: ../apt/progress/text.py:214
 #, python-format
@@ -636,21 +640,24 @@ msgid ""
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Cambio de dispositivo: introduzca el disco denominado\n"
+"«%s»\n"
+"en el dispositivo «%s» y pulse Intro\n"
 
 #. Trick for getting a translation from apt
 #: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Obtenidos %sB en %s (%sB/s)\n"
 
 #: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
-msgstr ""
+msgstr "Proporcione un nombre para este disco, como «Debian 2.1r1 Disco 1»"
 
 #: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Introduzca un disco en el dispositivo y pulse Intro"
 
 #: ../apt/cache.py:157
 msgid "Building data structures"
-msgstr ""
+msgstr "Generando estructuras de datos"

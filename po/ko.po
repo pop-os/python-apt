@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Eungkyu Song <eungkyu@gmail.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -314,7 +314,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "우분투 5.04 'Hoary Hedgehog' 씨디롬"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "공식적으로 지원함"
 
@@ -388,62 +388,68 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
-msgid "Debian 6.0 'Squeeze' "
+msgid "Debian 7.0 'Wheezy' "
 msgstr "데비안 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:33
 #, fuzzy
-msgid "Debian 5.0 'Lenny' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr "데비안 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 #, fuzzy
-msgid "Debian 4.0 'Etch'"
+msgid "Debian 5.0 'Lenny' "
 msgstr "데비안 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
 #, fuzzy
+msgid "Debian 4.0 'Etch'"
+msgstr "데비안 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:108
+#, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "데비안 3.1 \"Sarge\""
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 msgid "Proposed updates"
 msgstr "제안하는 업데이트"
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 #, fuzzy
 msgid "Security updates"
 msgstr "중요한 보안 업데이트"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 msgid "Debian current stable release"
 msgstr ""
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 #, fuzzy
 msgid "Debian testing"
 msgstr "데비안 \"Etch\" (testing)"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "데비안 \"Sid\" (unstable)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG 호환이 되지만 비자유 소프트웨어에 의존하는 소프트웨어"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "DFSG와 호환이 되지 않는 소프트웨어"
 
