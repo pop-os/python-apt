@@ -1,4 +1,7 @@
 #!/bin/sh
+set -e
+
+dpkg-checkbuilddeps -d 'python-debian, python-feedparser'
 
 echo "updating Ubuntu mirror list from launchpad"
 if [ -n "$https_proxy" ]; then

@@ -34,11 +34,16 @@ def get_library_dir():
     return os.path.abspath(library_dir)
 
 if __name__ == '__main__':
+    if not os.access("/etc/apt/sources.list", os.R_OK):
+        sys.stderr.write("[tests] Skipping because sources.list is not readable\n")
+        sys.exit(0)
+
     sys.stderr.write("[tests] Running on %s\n" % sys.version.replace("\n", ""))
     dirname = os.path.dirname(__file__)
     if dirname:
         os.chdir(dirname)
     library_dir = get_library_dir()
+    sys.stderr.write("Using library_dir: '%s'" % library_dir)
     if library_dir:
         sys.path.insert(0, os.path.abspath(library_dir))
 

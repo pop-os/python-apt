@@ -3,11 +3,13 @@ Section: python
 Priority: standard
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 XS-Python-Version: >= 2.6
 X-Python3-Version: >= 3.1
-Build-Depends: apt-utils,
+Build-Depends: apt (>= 0.9.6),
+               apt-utils,
                debhelper (>= 7.3.5),
+               fakeroot,
                libapt-pkg-dev (>= 0.8.11),
                python-all-dev (>= 2.6.6-3~),
                python-all-dbg,
@@ -22,12 +24,11 @@ Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
 Package: python-apt
 Architecture: any
 Depends: ${python:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
-Recommends: lsb-release, iso-codes, python2.6
+Recommends: lsb-release, iso-codes, xz-utils
 Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         computer-janitor (<< 1.14.1-1+),
         debdelta (<< 0.41+),
         python-dogtail (<< 0.6.1-3.1+),
-        python-debian (<< 0.1.18+),
         python-software-properties (<< 0.70.debian-1+),
         aptdaemon (<< 0.11+bzr343-1~),
         apt-forktracer (<< 0.3),
@@ -38,7 +39,7 @@ Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         bcfg2 (<< 1.0.1),
         bzr-builddeb (<< 2.4),
         debpartial-mirror (<< 0.2.98),
-        debsecan (<< 0.4.14),
+        debsecan (<< 0.4.15),
         gdebi (<< 0.6.1),
         germinate (<< 1.21),
         gnome-codec-install (<< 0.4.5),

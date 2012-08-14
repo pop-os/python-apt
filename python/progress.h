@@ -72,7 +72,7 @@ struct PyFetchProgress : public pkgAcquireStatus, public PyCallbackObj
 
    void UpdateStatus(pkgAcquire::ItemDesc & Itm, int status);
 
-   virtual bool MediaChange(string Media, string Drive);
+   virtual bool MediaChange(std::string Media, std::string Drive);
 
    void setPyAcquire(PyObject *o) {
       Py_CLEAR(pyAcquire);
@@ -107,11 +107,11 @@ struct PyInstallProgress : public PyCallbackObj
 struct PyCdromProgress : public pkgCdromStatus, public PyCallbackObj
 {
    // update steps, will be called regularly as a "pulse"
-   virtual void Update(string text="", int current=0);
+   virtual void Update(std::string text="", int current=0);
    // ask for cdrom insert
    virtual bool ChangeCdrom();
    // ask for cdrom name
-   virtual bool AskCdromName(string &Name);
+   virtual bool AskCdromName(std::string &Name);
 
    PyCdromProgress() : PyCallbackObj() {};
 };

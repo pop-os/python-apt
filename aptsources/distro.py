@@ -22,16 +22,13 @@
 #  USA
 
 import gettext
+import logging
 import re
 import os
-import sys
 
 from xml.etree.ElementTree import ElementTree
-import gettext
 
-
-def _(s):
-    return gettext.dgettext("python-apt", s)
+from apt_pkg import gettext as _
 
 
 class NoDistroTemplateException(Exception):
@@ -95,7 +92,7 @@ class Distribution(object):
         comps = []
         cdrom_comps = []
         enabled_comps = []
-        source_code = []
+        #source_code = []
         for source in self.sourceslist.list:
             if (source.invalid == False and
                 self.is_codename(source.dist) and
@@ -290,6 +287,16 @@ class Distribution(object):
 
         comp:         the component that should be enabled
         """
+        comps = set([comp])
+        # look for parent components that we may have to add
+        for source in self.main_sources:
+            for c in source.template.components:
+                if c.name == comp and c.parent_component:
+                    comps.add(c.parent_component)
+        for c in comps:
+            self._enable_component(c)
+
+    def _enable_component(self, comp):
 
         def add_component_only_once(source, comps_per_dist):
             """
@@ -297,12 +304,12 @@ class Distribution(object):
             a repository could be splitted into different apt lines. If not
             add the component
             """
-            # if we don't that distro, just reutnr (can happen for e.g.
+            # if we don't have that distro, just return (can happen for e.g.
             # dapper-update only in deb-src
             if source.dist not in comps_per_dist:
                 return
             # if we have seen this component already for this distro,
-            # return (nothing to do
+            # return (nothing to do)
             if comp in comps_per_dist[source.dist]:
                 return
             # add it
@@ -320,12 +327,14 @@ class Distribution(object):
             if s.type == self.binary_type:
                 if s.dist not in comps_per_dist:
                     comps_per_dist[s.dist] = set()
-                map(comps_per_dist[s.dist].add, s.comps)
+                for c in s.comps:
+                    comps_per_dist[s.dist].add(c)
         for s in self.source_code_sources:
             if s.type == self.source_type:
                 if s.dist not in comps_per_sdist:
                     comps_per_sdist[s.dist] = set()
-                map(comps_per_sdist[s.dist].add, s.comps)
+                for c in s.comps:
+                    comps_per_sdist[s.dist].add(c)
 
         # check if there is a main source at all
         if len(self.main_sources) < 1:
@@ -454,9 +463,9 @@ def _lsb_release():
         # Convert to unicode string, needed for Python 3.1
         out = out.decode("utf-8")
         result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)
-    except OSError, exc:
+    except OSError as exc:
         if exc.errno != errno.ENOENT:
-            print 'WARNING: lsb_release failed, using defaults:', exc
+            logging.warn('lsb_release failed, using defaults:' % exc)
     return result
 
 

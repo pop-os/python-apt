@@ -262,7 +262,7 @@ static PyObject *CnfDump(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   stringstream ss;
+   std::stringstream ss;
    GetSelf(Self).Dump(ss);
    return CppPyString(ss.str());
 }
@@ -331,13 +331,16 @@ static PyObject *CnfMap(PyObject *Self,PyObject *Arg)
 // Assignment with operator []
 static int CnfMapSet(PyObject *Self,PyObject *Arg,PyObject *Val)
 {
-   if (PyString_Check(Arg) == 0 || PyString_Check(Val) == 0)
+   if (PyString_Check(Arg) == 0 || (Val != NULL && PyString_Check(Val) == 0))
    {
       PyErr_SetNone(PyExc_TypeError);
       return -1;
    }
 
-   GetSelf(Self).Set(PyString_AsString(Arg),PyString_AsString(Val));
+   if (Val == NULL)
+      GetSelf(Self).Clear(PyString_AsString(Arg));
+   else
+      GetSelf(Self).Set(PyString_AsString(Arg),PyString_AsString(Val));
    return 0;
 }
 									/*}}}*/

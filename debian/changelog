@@ -1,3 +1,245 @@
+python-apt (0.8.6) UNRELEASED; urgency=low
+
+  [ Michael Vogt ]
+  * debian/control:
+    - add build-dep for apt (>= 0.9.6) to make test_auth.py test
+      work reliable
+
+  [ Julian Andres Klode ]
+  * apt/auth.py:
+    - Use tempfile.NamedTemporaryFile to create temporary file
+    - Use Popen.communicate() instead of stdin, stdout
+  * tests/fakeroot-apt-key:
+    - exec apt-key, otherwise we ignore the return value
+  * debian/control:
+    - Build-depend on fakeroot, needed for the apt.auth tests
+  * data/templates/Debian.info.in:
+    - Add wheezy
+    - Add wheezy-updates as Recommended Updates
+    - Order wheezy-proposed-updates after wheezy/updates and wheezy-updates
+  * po:
+    - Fixup the translations for wheezy again
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 25 Jun 2012 13:41:02 +0200
+
+python-apt (0.8.5) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * python/cache.cc:
+    - ensure that pkgApplyStatus is called when the cache is opened
+      (thanks to Sebastian Heinlein for finding this bug), LP: #659438
+
+  [ Stéphane Graber ]
+  * data/templates/Ubuntu.info.in:
+    - add quantal
+
+  [ Steve Langasek ]
+  * utils/get_ubuntu_mirrors_from_lp.py: move this script to python3
+  * pre-build.sh: call dpkg-checkbuilddeps with the list of our 
+    source-build-dependencies; this may save someone else an hour down the
+    line scratching their head over gratuitous test-suite failures...
+  
+  [ Sebastian Heinlein ]
+  * lp:~glatzor/python-apt/auth:
+    - this is a port of the software-properties AptAuth module to python-apt
+      with some cleanups. It provides a wrapper API for the apt-key command
+
+  [ David Prévot ]
+  * po/*.po: update PO files against current POT file
+  * po/be.po: Belarusian translation by Viktar Siarheichyk (closes: #678286)
+  * po/de.po: German translation updated by Holger Wansing (closes: #677916)
+  * po/el.po: Greek translation updated by Thomas Vasileiou (closes: #677331)
+  * po/en_GB.po: Remove useless file <20120610190618.GA1387@burratino>
+  * po/eo.po: Esperanto translation by Kristjan Schmidt and Michael Moroni
+  * po/fi.po: Finnish translation updated by Timo Jyrinki
+  * po/fr.po: French translation updated (closes: #567765)
+  * po/hu.po: Hungarian translation updated by Gabor Kelemen
+  * po/id.po: Indonesian translation by Andika Triwidada (closes: #676960)
+  * po/nl.po: Dutch translation updated by Jeroen Schot (closes: #652335)
+  * po/pt_BR.po: Brazilian translation updated by Sérgio Cipolla
+  * po/ru.po: incomplete Russian translation updated by Andrey
+  * po/sk.po: Slovak translation updated by Ivan Masár (closes: #676973)
+  * po/sl.po: Slovenian translation updated by Matej Urbančič
+  * po/sr.po: incomplete Serbian translation updated by Nikola Nenadic
+  * po/tl.po: Tagalog translation updated by Ariel S. Betan
+  * po/am.po po/br.po po/et.po po/eu.po po/fa.po po/fur.po po/hi.po
+    po/mr.po po/ms.po po/nn.po po/pa.po po/ps.po po/qu.po po/rw.po po/ta.po
+    po/ur.po po/xh.po: remove useless (empty) translations
+
+  [ Julian Andres Klode ]
+  * Merge patch from Colin Watson to handle non-UTF8 tag files in
+    Python 3, by using bytes instead of str when requested; and
+    document this in the RST documentation (Closes: #656288)
+  * debian/control:
+    - Drop Recommends on python2.6 (Closes: #645970)
+    - Replace xz-lzma Recommends by xz-utils (Closes: #677934)
+  * python/configuration.cc:
+    - Handle the use of "del" on configuration values. Those are represented
+      by calling the setter with NULL, which we did not handle before, causing
+      a segmentation fault (Closes: #661062)
+  * python/tag.cc:
+    - Correctly handle file descriptor 0 aka stdin (Closes: #669458)
+  * python/acquire.cc:
+    - Use pkgAcquire::Setup() to setup the acquire class and handle errors
+      from this (Closes: #629624)
+  * debian/control:
+    - Set Standards-Version to 3.9.3
+  * utils/get_ubuntu_mirrors_from_lp.py:
+    - Revert move to Python 3, python3-feedparser is not in the archive yet
+  * tests:
+    - Fix new tests from Sebastian to work with Python 2.6
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 22 Jun 2012 10:37:23 +0200
+
+python-apt (0.8.4) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * doc/examples/build-deps.py:
+    - update the build-deps.py example to use the apt API more
+  * add support for apt_pkg.Policy.get_priority(PkgFileIterator)
+  * apt/debfile.py:
+    - use apt_inst for reading the control_filelist
+  * debian/control:
+    - remove no longer needed dependency on python-debian
+  * tests/test_tagfile.py:
+    - add test for apt_pkg.TagFile() both for compressed/uncompressed
+      files
+  * python/tag.cc, tests/test_tagfile.py:
+    - add support a filename argument in apt_pkg.TagFile() (in addition
+      to the file object currently supported)
+  * apt/package.py:
+    - if there is no Version.uri return None
+  * apt/cache.py:
+    - fix _have_multi_arch flag (thanks to Sebastian Heinlein)
+  * build against apt 0.9.0
+
+  [Julian Andres Klode ]
+  * python/apt_pkgmodule.cc:
+    - Fix apt_pkg.Dependency.TYPE_RECOMMENDS, had Suggests value previously
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 16 Apr 2012 19:06:48 +0200
+
+python-apt (0.8.4~exp1) experimental; urgency=low
+
+  * tests/test_apt_cache.py:
+    - fix tests on kfreebsd/ia64
+  * apt/debfile.py: 
+    - fix crash in dep multiarch handling
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 24 Jan 2012 14:02:46 +0100
+
+python-apt (0.8.3ubuntu9) UNRELEASED; urgency=low
+
+  [ Steve Langasek ]
+  * Don't leak file descriptors.
+
+  [ Colin Watson ]
+  * aptsources/*.py, setup.py: Make aptsources modules work directly in
+    either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
+    doesn't need to modify them.  This makes life a little easier for the
+    strange tricks update-manager plays with its dist-upgrader tarball.
+
+ -- Evan Dandrea <ev@ubuntu.com>  Mon, 11 Jun 2012 17:00:37 +0100
+
+python-apt (0.8.3) unstable; urgency=low
+
+  [ Alexey Feldgendler ] 
+  * handle architecture-specific conflicts correctly (LP: #829138)
+  
+  [ Michael Vogt ]
+  * lp:~mvo/python-apt/debfile-multiarch:
+    - add multiarch support to the debfile.py code
+  * tests/test_apt_cache.py:
+    - add additional check if provides test can actually be run
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 08 Dec 2011 20:31:52 +0100
+
+python-apt (0.8.2) unstable; urgency=low
+
+  [ Michael Vogt ]
+  * merged from ubuntu:
+    - use logging instead of print
+    - update distro template Ubuntu.info.in
+    - add xz compression support
+  * po/python-apt.pot:
+    - refreshed
+  * po/pt_BR.po:
+    - updated, thanks to Sergio Cipolla (closes: #628398)
+  * po/da.po:
+    - updated, thanks to Joe Dalton (closes: #631309)
+  * po/sr.po:
+    - updated, thanks to Nikola Nenadic (closes: #638308)
+  * python/apt_pkgmodule.cc:
+    - add apt_pkg.get_architectures() call
+  * apt/cache.py:
+    - remove "print" when creating dirs in apt.Cache(rootdir=dir),
+      thanks to Martin Pitt
+    - add __lt__ to apt.Package so that sort() sorts by name
+      on list of package objects
+  * debian/control:
+    - add recommends to xz-lzma to ensure we have the unlzma command
+  * apt/cache.py:
+    - set Dir::bin::dpkg if a alternate rootdir is given
+      (LP: #885895)
+  * build fixes for the apt in experimental
+  * apt/debfile.py: 
+    - raise error when accessing require_changes and 
+      missing_deps without calling check() before, thanks to 
+      Tshepang Lekhonkhobe (closes: #624379)
+  * apt/package.py:
+    - add new "suggests" property, thanks to Christop Groth
+    - allow Dependency object to be iteratable, this allows to write
+      code like:
+      for or_dep_group in pkg.candidate.dependencies:
+          for dep in or_dep_group: 
+              do_something()
+      (thanks to Christop Groth)
+  * apt/progress/base.py:
+    - write exception text to stderr to avoid hidding exceptions
+      like "pre-configure failed" from libapt (thanks to Jean-Baptiste
+      Lallement)
+  
+  [ Tshepang Lekhonkhobe ]
+  * rm usage of camelcase in cache.py doc (closes: #626617)
+  * grammar fix in the cache.py doc (closes: #626610)
+
+  [ Nikola Pavlović ]
+  * fixed a typo, changed "Open Source software" to 
+    "free and open-source software"  (LP: #500940)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 01 Dec 2011 14:14:42 +0100
+
+python-apt (0.8.1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * Breaks: debsecan (<< 0.4.15) [not only << 0.4.14] (Closes: #629512)
+  
+  [ Michael Vogt ]
+  * python/arfile.cc:
+    - use APT::Configuration::getCompressionTypes() instead of duplicating
+      the supported methods here
+  * tests/test_debfile.py:
+    - add test for raise on unknown data.tar.xxx
+  * tests/test_aptsources_ports.py, tests/test_aptsources.py:
+    - use tmpdir during the tests to fix test failure with apt from
+      experimental
+  * tests/test_apt_cache.py:
+    - fix test by providing proper fixture data
+    - fix test if sources.list is not readable (as is the case on some
+      PPA buildds)
+  * apt/package.py:
+    - fix py3 compatiblity with print
+  * tests/test_all.py:
+    - skip all tests if sources.list is not readable (as is the case on
+      some builds)
+    - packages in marked_install state can also be auto-removable
+  * add concept of "ParentComponent" for e.g. ubuntu/multiverse
+    that needs universe enabled as well (plus add test)
+  * apt/progress/gtk2.py:
+    - update to the latest vte API for child-exited (LP: #865388)
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 19 Oct 2011 16:39:13 +0200
+
 python-apt (0.8.0) unstable; urgency=low
 
   * Upload to unstable

@@ -23,17 +23,19 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
-import gettext
+from __future__ import absolute_import
+
 import glob
+import logging
 import os.path
 import re
 import shutil
-import sys
 import time
 
 import apt_pkg
-from aptsources.distinfo import DistInfo
+from .distinfo import DistInfo
 from apt.deprecation import function_deprecated_by
+#from apt_pkg import gettext as _
 
 
 # some global helpers
@@ -373,7 +375,7 @@ class SourcesList(object):
                     source = SourceEntry(line, file)
                     self.list.append(source)
         except:
-            print "could not open file '%s'" % file
+            logging.warn("could not open file '%s'\n" % file)
 
     def save(self):
         """ save the current sources """
@@ -445,11 +447,13 @@ class SourceEntryMatcher(object):
 
     def match(self, source):
         """Add a matching template to the source"""
-        _ = gettext.gettext
         found = False
         for template in self.templates:
             if (re.search(template.match_uri, source.uri) and
-                re.match(template.match_name, source.dist)):
+                re.match(template.match_name, source.dist) and
+                # deb is a valid fallback for deb-src (if that is not
+                # definied, see #760035
+                (source.type == template.type or template.type == "deb")):
                 found = True
                 source.template = template
                 break
@@ -467,14 +471,14 @@ if __name__ == "__main__":
     sources = SourcesList()
 
     for entry in sources:
-        print entry.str()
+        logging.info("entry %s" % entry.str())
         #print entry.uri
 
     mirror = is_mirror("http://archive.ubuntu.com/ubuntu/",
                        "http://de.archive.ubuntu.com/ubuntu/")
-    print "is_mirror(): %s" % mirror
+    logging.info("is_mirror(): %s" % mirror)
 
-    print is_mirror("http://archive.ubuntu.com/ubuntu",
-                    "http://de.archive.ubuntu.com/ubuntu/")
-    print is_mirror("http://archive.ubuntu.com/ubuntu/",
-                    "http://de.archive.ubuntu.com/ubuntu")
+    logging.info(is_mirror("http://archive.ubuntu.com/ubuntu",
+                    "http://de.archive.ubuntu.com/ubuntu/"))
+    logging.info(is_mirror("http://archive.ubuntu.com/ubuntu/",
+                    "http://de.archive.ubuntu.com/ubuntu"))

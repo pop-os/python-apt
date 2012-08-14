@@ -19,6 +19,15 @@ import apt
 import apt_pkg
 import shutil
 import glob
+import logging
+
+def if_sources_list_is_readable(f):
+    def wrapper(*args, **kwargs):
+        if os.access("/etc/apt/sources.list", os.R_OK):
+            f(*args, **kwargs)
+        else:
+            logging.warn("skipping '%s' because sources.list is not readable" % f)
+    return wrapper
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -26,8 +35,17 @@ class TestAptCache(unittest.TestCase):
     def setUp(self):
         # reset any config manipulations done in the individual tests
         apt_pkg.init_config()
+        # save/restore the apt config
+        self._cnf = {}
+        for item in apt_pkg.config.keys():
+            self._cnf[item] = apt_pkg.config.find(item)
 
-    def testAptCache(self):
+    def tearDown(self):
+        for item in self._cnf:
+            apt_pkg.config.set(item, self._cnf[item])
+
+    @if_sources_list_is_readable
+    def test_apt_cache(self):
         """cache: iterate all packages and all dependencies """
         cache = apt.Cache()
         # number is not meaningful and just need to be "big enough",
@@ -37,8 +55,8 @@ class TestAptCache(unittest.TestCase):
         # that is possible and does not crash
         for pkg in cache:
             if pkg.candidate:
-                for or_dep in pkg.candidate.dependencies:
-                    for dep in or_dep.or_dependencies:
+                for or_deps in pkg.candidate.dependencies:
+                    for dep in or_deps:
                         self.assertTrue(dep.name)
                         self.assertTrue(isinstance(dep.relation, str))
                         self.assertTrue(dep.pre_depend in (True, False))
@@ -53,27 +71,30 @@ class TestAptCache(unittest.TestCase):
                 self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
 
     def test_get_provided_packages(self):
-        cache = apt.Cache()
+        apt.apt_pkg.config.set("Apt::architecture", "i386")
+        cache = apt.Cache(rootdir="./data/test-provides/")
+        cache.open()
+        if len(cache) == 0:
+            logging.warn("skipping test_get_provided_packages, cache empty?!?")
+            return
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
         self.assertTrue(len(l) > 0)
         self.assertTrue("postfix" in [p.name for p in l])
-        # this is a not virtual (transitional) package provided by another 
-        l = cache.get_providing_packages("git-core")
-        self.assertEqual(l, [])
-        # now inlcude nonvirtual packages in the search (rarian-compat
-        # provides scrollkeeper)
-        l = cache.get_providing_packages("git-core",
-                                         include_nonvirtual=True)
-        self.assertEqual([p.name for p in l], ["git"])
         self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
 
     def test_low_level_pkg_provides(self):
+        apt.apt_pkg.config.set("Apt::architecture", "i386")
+        # create highlevel cache and get the lowlevel one from it
+        highlevel_cache = apt.Cache(rootdir="./data/test-provides")
+        if len(highlevel_cache) == 0:
+            logging.warn("skipping test_log_level_pkg_provides, cache empty?!?")
+            return
         # low level cache provides list of the pkg
-        cache = apt_pkg.Cache(progress=None)
+        cache = highlevel_cache._cache
         l = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
-        self.assertTrue(len(l), 5)
+        self.assertEqual(len(l), 2)
         for (providesname, providesver, version) in l:
             self.assertEqual(providesname, "mail-transport-agent")
             if version.parent_pkg.name == "postfix":
@@ -81,10 +102,8 @@ class TestAptCache(unittest.TestCase):
         else:
             self.assertNotReached()
    
-
+    @if_sources_list_is_readable
     def test_dpkg_journal_dirty(self):
-        # backup old value
-        old_status = apt_pkg.config.find_file("Dir::State::status")
         # create tmp env
         tmpdir = tempfile.mkdtemp()
         dpkg_dir = os.path.join(tmpdir,"var","lib","dpkg")
@@ -101,9 +120,8 @@ class TestAptCache(unittest.TestCase):
         # that is a dirty journal
         open(os.path.join(dpkg_dir,"updates","000"), "w").close()
         self.assertTrue(cache.dpkg_journal_dirty)
-        # reset config value
-        apt_pkg.config.set("Dir::State::status", old_status)
 
+    @if_sources_list_is_readable
     def test_apt_update(self):
         rootdir = "./data/tmp"
         if os.path.exists(rootdir):
@@ -114,11 +132,14 @@ class TestAptCache(unittest.TestCase):
             pass
         state_dir = os.path.join(rootdir, "var/lib/apt")
         lists_dir = os.path.join(rootdir, "var/lib/apt/lists")
+        old_state = apt_pkg.config.find("dir::state")
         apt_pkg.config.set("dir::state", state_dir)
         # set a local sources.list that does not need the network
         base_sources = os.path.abspath(os.path.join(rootdir, "sources.list"))
+        old_source_list = apt_pkg.config.find("dir::etc::sourcelist")
+        old_source_parts = apt_pkg.config.find("dir::etc::sourceparts")
         apt_pkg.config.set("dir::etc::sourcelist", base_sources)
-        apt_pkg.config.set("dir::etc::sourceparts", "xxx")
+        apt_pkg.config.set("dir::etc::sourceparts", "/tmp")
         # main sources.list
         sources_list = base_sources
         with open(sources_list, "w") as f:
@@ -162,6 +183,25 @@ class TestAptCache(unittest.TestCase):
         cache.update(sources_list=sources_list)
         all_packages = glob.glob(lists_dir+"/*_Packages*")
         self.assertEqual(len(all_packages), 2)
+        apt_pkg.config.set("dir::state", old_state)
+        apt_pkg.config.set("dir::etc::sourcelist", old_source_list)
+        apt_pkg.config.set("dir::etc::sourceparts", old_source_parts)
+
+    def test_package_cmp(self):
+        cache = apt.Cache(rootdir="/")
+        l = []
+        l.append(cache["intltool"])
+        l.append(cache["python3"])
+        l.append(cache["apt"])
+        l.sort()
+        self.assertEqual([p.name for p in l],
+                         ["apt", "intltool", "python3"])
+
+    def test_get_architectures(self):
+        main_arch = apt.apt_pkg.config.get("APT::Architecture")
+        arches = apt_pkg.get_architectures()
+        self.assertTrue(main_arch in arches)
+
 
 if __name__ == "__main__":
     unittest.main()

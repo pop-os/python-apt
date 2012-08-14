@@ -94,7 +94,7 @@ class BaseDependency(object):
         preDepend = AttributeDeprecatedBy('pre_depend')
 
 
-class Dependency(object):
+class Dependency(list):
     """Represent an Or-group of dependencies.
 
     Attributes defined here:
@@ -102,11 +102,12 @@ class Dependency(object):
     """
 
     def __init__(self, alternatives):
-        self.or_dependencies = alternatives
+        super(Dependency, self).__init__()
+        self.extend(alternatives)
 
-    def __repr__(self):
-        return repr(self.or_dependencies)
-
+    @property
+    def or_dependencies(self):
+        return self
 
 class DeprecatedProperty(property):
     """A property which gives DeprecationWarning on access.
@@ -408,6 +409,17 @@ class Version(object):
         return self._cand.priority_str
 
     @property
+    def policy_priority(self):
+        """Return the internal policy priority as a number.
+           See apt_preferences(5) for more information about what it means.
+        """
+        priority = 0
+        policy = self.package._pcache._depcache.policy
+        for (packagefile, _) in self._cand.file_list:
+            priority = max(priority, policy.get_priority(packagefile))
+        return priority
+
+    @property
     def record(self):
         """Return a Record() object for this version.
 
@@ -453,6 +465,11 @@ class Version(object):
     def recommends(self):
         """Return the recommends of the package version."""
         return self.get_dependencies("Recommends")
+
+    @property
+    def suggests(self):
+        """Return the suggests of the package version."""
+        return self.get_dependencies("Suggests")
 
     @property
     def origins(self):
@@ -528,7 +545,10 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        return iter(self._uris()).next()
+        try:
+            return iter(self._uris()).next()
+        except StopIteration:
+            return None
 
     def fetch_binary(self, destdir='', progress=None):
         """Fetch the binary version of the package.
@@ -545,8 +565,8 @@ class Version(object):
         base = os.path.basename(self._records.filename)
         destfile = os.path.join(destdir, base)
         if _file_is_same(destfile, self.size, self._records.md5_hash):
-            print 'Ignoring already existing file:', destfile
-            return
+            print('Ignoring already existing file: %s' % destfile)
+            return os.path.abspath(destfile)
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
         acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,
                                       self.size, base, destfile=destfile)
@@ -555,7 +575,7 @@ class Version(object):
         if acqfile.status != acqfile.STAT_DONE:
             raise FetchError("The item %r could not be fetched: %s" %
                              (acqfile.destfile, acqfile.error_text))
-        print self._records.filename
+
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):
@@ -594,7 +614,7 @@ class Version(object):
             if type_ == 'dsc':
                 dsc = destfile
             if _file_is_same(destfile, size, md5):
-                print 'Ignoring already existing file:', destfile
+                print('Ignoring already existing file: %s' % destfile)
                 continue
             files.append(apt_pkg.AcquireFile(acq, src.index.archive_uri(path),
                          md5, size, base, destfile=destfile))
@@ -706,6 +726,9 @@ class Package(object):
     def __repr__(self):
         return '<Package: name:%r architecture=%r id:%r>' % (self._pkg.name,
                  self._pkg.architecture, self._pkg.id)
+
+    def __lt__(self, other):
+        return self.name < other.name
 
     def candidate(self):
         """Return the candidate version of the package.
@@ -973,8 +996,8 @@ class Package(object):
         another package, and if no packages depend on it anymore, the package
         is no longer required.
         """
-        return self.is_installed and \
-               self._pcache._depcache.is_garbage(self._pkg)
+        return ((self.is_installed or self.marked_install) and
+                self._pcache._depcache.is_garbage(self._pkg))
 
     @property
     def is_auto_installed(self):

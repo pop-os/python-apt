@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the update-manager package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: update-manager\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-19 15:59+0200\n"
-"PO-Revision-Date: 2006-09-16 15:44+0000\n"
+"POT-Creation-Date: 2012-06-25 14:42+0200\n"
+"PO-Revision-Date: 2012-06-11 11:13+0800\n"
 "Last-Translator: Ariel S. Betan <ariel.betan@up.edu.ph>\n"
 "Language-Team: Tagalog <tl@li.org>\n"
+"Language: tl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,255 +24,330 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:13
-msgid "Ubuntu 9.10 'Karmic Koala'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:151
+msgid "Ubuntu 12.04 'Precise Pangolin'"
+msgstr "Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:31
-msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:158
+msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
+msgstr "Cdrom na may Ubuntu 12.04 'Precise Pangolin'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:74
-msgid "Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:269
+msgid "Ubuntu 11.10 'Oneiric Ocelot'"
+msgstr "Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:92
-msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:276
+msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
+msgstr "Cdrom na may Ubuntu 11.10 'Oneiric Ocelot'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:135
-msgid "Ubuntu 8.10 'Intrepid Ibex'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:388
+msgid "Ubuntu 11.04 'Natty Narwhal'"
+msgstr "Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:153
-msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:395
+msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
+msgstr "Cdrom na may Ubuntu 11.04 'Natty Narwhal'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:197
-msgid "Ubuntu 8.04 'Hardy Heron'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:486
+msgid "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:215
-msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:252
-msgid "Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:270
-msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:305
-msgid "Ubuntu 7.04 'Feisty Fawn'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:323
-msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:357
-msgid "Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:362
-#, fuzzy
-msgid "Community-maintained"
-msgstr "Inaalagaan ng kumunidad (Universe)"
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:368
-msgid "Restricted software"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:375
-msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:409
-msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr ""
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:412
-msgid "Canonical-supported Open Source software"
-msgstr ""
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:414
-#, fuzzy
-msgid "Community-maintained (universe)"
-msgstr "Inaalagaan ng kumunidad (Universe)"
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:415
-#, fuzzy
-msgid "Community-maintained Open Source software"
-msgstr "Inaalagaan ng kumunidad (Universe)"
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:417
-msgid "Non-free drivers"
-msgstr ""
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:418
-msgid "Proprietary drivers for devices"
-msgstr ""
-
-#. CompDescription
-#: ../data/templates/Ubuntu.info.in:420
-msgid "Restricted software (Multiverse)"
-msgstr ""
-
-#. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:421
-msgid "Software restricted by copyright or legal issues"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:427
-msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:439
-msgid "Important security updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:444
-msgid "Recommended updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:449
-#, fuzzy
-msgid "Pre-released updates"
-msgstr "Release Notes"
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:454
-#, fuzzy
-msgid "Unsupported updates"
-msgstr "Mga updates mula sa Internet"
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:461
-msgid "Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:475
-msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:487
-msgid "Ubuntu 5.10 Security Updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:492
-msgid "Ubuntu 5.10 Updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:497
-msgid "Ubuntu 5.10 Backports"
-msgstr ""
-
-#. Description
-#: ../data/templates/Ubuntu.info.in:504
-msgid "Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
+#: ../data/templates/Ubuntu.info.in:506
+msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "Cdrom na may Ubuntu 10.10 'Maverick Meerkat'"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
-msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
-msgstr ""
+msgid "Canonical Partners"
+msgstr "Mga Kasama ng Canonical"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:521 ../data/templates/Debian.info.in:148
+#: ../data/templates/Ubuntu.info.in:520
+msgid "Software packaged by Canonical for their partners"
+msgstr "Software na pinakete ng Canonical para sa kanilang mga kasama"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:521
+msgid "This software is not part of Ubuntu."
+msgstr "Ang software na ito ay hindi bahagi ng Ubuntu."
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:528
+msgid "Independent"
+msgstr "Malaya"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:530
+msgid "Provided by third-party software developers"
+msgstr "Ipinamahagi ng mga third-party software developers"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:531
+msgid "Software offered by third party developers."
+msgstr "Software na ibinigay mga third party developers "
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:569
+msgid "Ubuntu 10.04 'Lucid Lynx'"
+msgstr "Ubuntu 10.04 'Lucid Lynx'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:589
+msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
+msgstr "Cdrom na may Ubuntu 10.04 'Lucid Lynx'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:632
+msgid "Ubuntu 9.10 'Karmic Koala'"
+msgstr "Ubuntu 9.10 'Karmic Koala'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:652
+msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
+msgstr "Cdrom na may Ubuntu 9.10 'Karmic Koala'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:695
+msgid "Ubuntu 9.04 'Jaunty Jackalope'"
+msgstr "Ubuntu 9.04 'Jaunty Jackalope'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:714
+msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
+msgstr "Cdrom na may Ubuntu 9.04 'Jaunty Jackalope'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:757
+msgid "Ubuntu 8.10 'Intrepid Ibex'"
+msgstr "Ubuntu 8.10 'Intrepid Ibex'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:777
+msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
+msgstr "Cdrom na may Ubuntu 8.10 'Intrepid Ibex'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:821
+msgid "Ubuntu 8.04 'Hardy Heron'"
+msgstr "Ubuntu 8.04 'Hardy Heron'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:841
+msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
+msgstr "Cdrom na may Ubuntu 8.04 'Hardy Heron'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:886
+msgid "Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "Ubuntu 7.10 'Gutsy Gibbon'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:905
+msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
+msgstr "Cdrom na may Ubuntu 7.10 'Gutsy Gibbon'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:950
+msgid "Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Ubuntu 7.04 'Feisty Fawn'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:969
+msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
+msgstr "Cdrom na may Ubuntu 7.04 'Feisty Fawn'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1011
+msgid "Ubuntu 6.10 'Edgy Eft'"
+msgstr "Ubuntu 6.10 'Edgy Eft'"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1016
+msgid "Community-maintained"
+msgstr "Inaalagaan ng kumunidad"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1022
+msgid "Restricted software"
+msgstr "Software na may mahigpit na gamit"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1030
+msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
+msgstr "Cdrom na may Ubuntu 6.10 'Edgy Eft'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1072
+msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Ubuntu 6.06 LTS 'Dapper Drake'"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:1075
+msgid "Canonical-supported free and open-source software"
+msgstr "Malaya at bukas na software suportado ng Canonical"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1077
+msgid "Community-maintained (universe)"
+msgstr "Inaalagaan ng kumunidad (universe)"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:1078
+msgid "Community-maintained free and open-source software"
+msgstr "Malaya at bukas na software suportado ng Canonical"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1080
+msgid "Non-free drivers"
+msgstr "Hindi malayang drivers"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:1081
+msgid "Proprietary drivers for devices"
+msgstr "Proprietary drivers para sa mga devices"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1083
+msgid "Restricted software (Multiverse)"
+msgstr "Software na may mahigpit na gamit (Multiverse)"
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:1084
+msgid "Software restricted by copyright or legal issues"
+msgstr ""
+"Software na may mahigpit na gamit dahil sa copyright o mga legal issues"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1091
+msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
+msgstr "Cdrom na may Ubuntu 6.06 LTS 'Dapper Drake'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1107
+msgid "Important security updates"
+msgstr "Mga mahalagang updates pang-seguridad"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1112
+msgid "Recommended updates"
+msgstr "Mga mungkahing updates"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1117
+msgid "Pre-released updates"
+msgstr "Mga updates bago ma-released"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1122
+msgid "Unsupported updates"
+msgstr "Mga hindi suportadong updates"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1133
+msgid "Ubuntu 5.10 'Breezy Badger'"
+msgstr "Ubuntu 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1148
+msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
+msgstr "Cdrom na may Ubuntu 5.10 'Breezy Badger'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1164
+msgid "Ubuntu 5.10 Security Updates"
+msgstr "Ubuntu 5.10 Security Updates"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1169
+msgid "Ubuntu 5.10 Updates"
+msgstr "Ubuntu 5.10 Updates"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1174
+msgid "Ubuntu 5.10 Backports"
+msgstr "Ubuntu 5.10 Backports"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1185
+msgid "Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Ubuntu 5.04 'Hoary Hedgehog'"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:1200
+msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
+msgstr "Cdrom na may Ubuntu 5.04 'Hoary Hedgehog'"
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "Opisyal na sinusuportahan"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:530
+#: ../data/templates/Ubuntu.info.in:1216
 msgid "Ubuntu 5.04 Security Updates"
-msgstr ""
+msgstr "Ubuntu 5.04 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:535
+#: ../data/templates/Ubuntu.info.in:1221
 msgid "Ubuntu 5.04 Updates"
-msgstr ""
+msgstr "Ubuntu 5.04 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:540
+#: ../data/templates/Ubuntu.info.in:1226
 msgid "Ubuntu 5.04 Backports"
-msgstr ""
+msgstr "Ubuntu 5.04 Backports"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:546
+#: ../data/templates/Ubuntu.info.in:1232
 msgid "Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:552
-#, fuzzy
+#: ../data/templates/Ubuntu.info.in:1238
 msgid "Community-maintained (Universe)"
 msgstr "Inaalagaan ng kumunidad (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:554
+#: ../data/templates/Ubuntu.info.in:1240
 msgid "Non-free (Multiverse)"
 msgstr "Di-malaya (Multiverse)"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:560
+#: ../data/templates/Ubuntu.info.in:1247
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
-msgstr ""
+msgstr "Cdrom na may Ubuntu 4.10 'Warty Warthog'"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:563
+#: ../data/templates/Ubuntu.info.in:1250
 msgid "No longer officially supported"
-msgstr ""
+msgstr "Hindi na opisyal na sinusuportahan"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:565
+#: ../data/templates/Ubuntu.info.in:1252
 msgid "Restricted copyright"
 msgstr "Mahigpit na copyright"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:572
+#: ../data/templates/Ubuntu.info.in:1259
 msgid "Ubuntu 4.10 Security Updates"
-msgstr ""
+msgstr "Ubuntu 4.10 Security Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:577
+#: ../data/templates/Ubuntu.info.in:1264
 msgid "Ubuntu 4.10 Updates"
-msgstr ""
+msgstr "Ubuntu 4.10 Updates"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:582
+#: ../data/templates/Ubuntu.info.in:1269
 msgid "Ubuntu 4.10 Backports"
-msgstr ""
+msgstr "Ubuntu 4.10 Backports"
 
 #. ChangelogURI
 #: ../data/templates/Debian.info.in.h:4
@@ -282,117 +357,116 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
-msgid "Debian 6.0 'Squeeze' "
-msgstr "Debian 3.1 \"Sarge\""
+msgid "Debian 7.0 'Wheezy' "
+msgstr "Debian 7.0 'Wheezy' "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
-#, fuzzy
-msgid "Debian 5.0 'Lenny' "
-msgstr "Debian 3.1 \"Sarge\""
+msgid "Debian 6.0 'Squeeze' "
+msgstr "Debian 6.0 'Squeeze' "
 
 #. Description
 #: ../data/templates/Debian.info.in:58
-#, fuzzy
-msgid "Debian 4.0 'Etch'"
-msgstr "Debian 3.1 \"Sarge\""
+msgid "Debian 5.0 'Lenny' "
+msgstr "Debian 5.0 'Lenny' "
 
 #. Description
 #: ../data/templates/Debian.info.in:83
-#, fuzzy
-msgid "Debian 3.1 'Sarge'"
-msgstr "Debian 3.1 \"Sarge\""
-
-#. Description
-#: ../data/templates/Debian.info.in:94
-msgid "Proposed updates"
-msgstr ""
-
-#. Description
-#: ../data/templates/Debian.info.in:101
-#, fuzzy
-msgid "Security updates"
-msgstr "Mga updates mula sa Internet"
+msgid "Debian 4.0 'Etch'"
+msgstr "Debian 4.0 'Etch'"
 
 #. Description
 #: ../data/templates/Debian.info.in:108
-msgid "Debian current stable release"
-msgstr ""
+msgid "Debian 3.1 'Sarge'"
+msgstr "Debian 3.1 'Sarge'"
 
 #. Description
-#: ../data/templates/Debian.info.in:121
-#, fuzzy
-msgid "Debian testing"
-msgstr "Debian \"Etch\" (testing)"
+#: ../data/templates/Debian.info.in:119
+msgid "Proposed updates"
+msgstr "Mga mungkahing updates"
+
+#. Description
+#: ../data/templates/Debian.info.in:126
+msgid "Security updates"
+msgstr "Mga updates pang-seguridad"
+
+#. Description
+#: ../data/templates/Debian.info.in:133
+msgid "Debian current stable release"
+msgstr "Kasalukuyang stable release ng Debian"
 
 #. Description
 #: ../data/templates/Debian.info.in:146
-#, fuzzy
+msgid "Debian testing"
+msgstr "Debian testing"
+
+#. Description
+#: ../data/templates/Debian.info.in:172
 msgid "Debian 'Sid' (unstable)"
-msgstr "Debian \"Sid\" (unstable)"
+msgstr "Debian 'Sid' (unstable)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:150
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "Software na DFSG-compatible na may Di-Malayang mga Dependensiya"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:152
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "Software na Di-DFSG-compatible"
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:208 ../aptsources/distro.py:423
+#: ../aptsources/distro.py:206 ../aptsources/distro.py:436
 #, python-format
 msgid "Server for %s"
-msgstr ""
+msgstr "Server para sa %s"
 
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:226 ../aptsources/distro.py:232
-#: ../aptsources/distro.py:248
+#: ../aptsources/distro.py:224 ../aptsources/distro.py:230
+#: ../aptsources/distro.py:246
 msgid "Main server"
-msgstr ""
+msgstr "Pangunahing server"
 
-#: ../aptsources/distro.py:252
+#: ../aptsources/distro.py:250
 msgid "Custom servers"
-msgstr ""
+msgstr "Pasadyang mga servers"
 
-#: ../apt/progress/gtk2.py:259
+#: ../apt/progress/gtk2.py:258 ../apt/progress/gtk2.py:314
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
-msgstr ""
+msgstr "Downloading file %(current)li of %(total)li with %(speed)s/s"
 
-#: ../apt/progress/gtk2.py:265
+#: ../apt/progress/gtk2.py:264 ../apt/progress/gtk2.py:320
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
-msgstr ""
+msgstr "Downloading file %(current)li of %(total)li"
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:285
+#: ../apt/progress/gtk2.py:340
 msgid "Details"
 msgstr "Mga Detalye"
 
-#: ../apt/progress/gtk2.py:367
+#: ../apt/progress/gtk2.py:428
 msgid "Starting..."
-msgstr ""
+msgstr "Nagsisimula..."
 
-#: ../apt/progress/gtk2.py:373
+#: ../apt/progress/gtk2.py:434
 msgid "Complete"
-msgstr ""
+msgstr "Kumpleto"
 
-#: ../apt/package.py:301
+#: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
+"Invalidong unicode sa deskripsyon para '%s' (%s). Mangyaring ipagbigay alam."
 
-#: ../apt/package.py:937 ../apt/package.py:1043
+#: ../apt/package.py:1088 ../apt/package.py:1194
 msgid "The list of changes is not available"
-msgstr ""
+msgstr "Ang talaan ng mga pagbabago ay wala"
 
-#: ../apt/package.py:1047
+#: ../apt/package.py:1200
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -400,110 +474,166 @@ msgid ""
 "Please use http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
 "until the changes become available or try again later."
 msgstr ""
+"Ang talaan ng mga pagbabago ay wala pa.\n"
+"\n"
+"Mangyaring gamitin http://launchpad.net/ubuntu/+source/%s/%s/+changelog\n"
+"hanggang mayroon ng mga pagbabago o subukang muli mamaya."
 
-#: ../apt/package.py:1053
-#, fuzzy
+#: ../apt/package.py:1207
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
-msgstr "Mangyaring suriin ang inyong internet connection"
-
-#: ../apt/debfile.py:56
-#, python-format
-msgid "This is not a valid DEB archive, missing '%s' member"
 msgstr ""
+"Bigo sa pag-download ng talaan ng mga pagbabago. \n"
+"Mangyaring suriin ang inyong koneksyon sa internet."
 
-#: ../apt/debfile.py:81
+#: ../apt/debfile.py:82
 #, python-format
-msgid "List of files for '%s'could not be read"
-msgstr ""
+msgid "List of files for '%s' could not be read"
+msgstr "Ang talaan ng mga files para sa '%s' ay hindi mabasa"
 
-#: ../apt/debfile.py:149
+#: ../apt/debfile.py:93
+#, python-format
+msgid "List of control files for '%s' could not be read"
+msgstr "Ang talaan ng mga files na pang-kontrol para sa '%s' ay hindi mabasa"
+
+#: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
-msgstr ""
+msgstr "Ang Dependensiya ay hindi sapat: %s\n"
 
-#: ../apt/debfile.py:173
+#: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
-msgstr ""
+msgstr "Mga mga conflicts sa na-install na paketeng '%s'"
 
-#: ../apt/debfile.py:319
+#. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
+#: ../apt/debfile.py:373
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' dependency %(depname)s "
+"(%(deprelation)s %(depversion)s)"
+msgstr ""
+"Binabasag ang umiiral na paketeng '%(pkgname)s' dependency %(depname)s "
+"(%(deprelation)s %(depversion)s)"
+
+#. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
+#: ../apt/debfile.py:389
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
+msgstr ""
+"Binabasag ang umiiral na paketeng '%(pkgname)s' conflict: %(targetpkg)s "
+"(%(comptype)s %(targetver)s)"
+
+#: ../apt/debfile.py:399
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
+"the '%(debfile)s' provides it via: '%(provides)s'"
+msgstr ""
+"Binabasag ang umiiral na paketeng '%(pkgname)s' na may conflict sa: "
+"'%(targetpkg)s'. Ngunit ang '%(debfile)s' ay nagbibigay nito sa pamamagitan "
+"ng: '%(provides)s'"
+
+#: ../apt/debfile.py:447
+msgid "No Architecture field in the package"
+msgstr "Walang Architecture field sa loob ng pakete"
+
+#: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
-msgstr ""
+msgstr "Maling architecture '%s'"
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:325
+#: ../apt/debfile.py:464
 msgid "A later version is already installed"
-msgstr ""
+msgstr "Mas naunang bersiyon ang kasalukuyang naka-install"
 
-#: ../apt/debfile.py:345
+#: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
-msgstr ""
+msgstr "Bigo na maging sapat ang lahat ng dependensiya (broken cache)"
 
-#: ../apt/debfile.py:376
-#, fuzzy, python-format
+#: ../apt/debfile.py:519
+#, python-format
 msgid "Cannot install '%s'"
 msgstr "Hindi ma-install '%s'"
 
-#: ../apt/debfile.py:484
+#: ../apt/debfile.py:593
+msgid ""
+"Automatically decompressed:\n"
+"\n"
+msgstr ""
+"Automatikong na decompressed:\n"
+"\n"
+
+#: ../apt/debfile.py:599
+msgid "Automatically converted to printable ascii:\n"
+msgstr "Automatikong na-convert sa printable ascii:\n"
+
+#: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
+"Install Build-Dependencies para sa pinagmulang pakete '%s' na nag-build ng "
+"%s\n"
 
-#: ../apt/debfile.py:494
-#, fuzzy
+#: ../apt/debfile.py:700
 msgid "An essential package would be removed"
-msgstr "Isang esensiyal na pakete ang kailangang tanggalin"
+msgstr "Isang kinakailangang pakete ang kailangang tanggalin"
 
-#: ../apt/progress/text.py:81
+#: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr ""
+msgstr "%c%s... Tapos na"
 
-#: ../apt/progress/text.py:118
+#: ../apt/progress/text.py:122
 msgid "Hit "
-msgstr ""
+msgstr "Hit "
 
-#: ../apt/progress/text.py:126
+#: ../apt/progress/text.py:131
 msgid "Ign "
-msgstr ""
+msgstr "Ign "
 
-#: ../apt/progress/text.py:128
+#: ../apt/progress/text.py:133
 msgid "Err "
-msgstr ""
+msgstr "Err "
 
-#: ../apt/progress/text.py:138
+#: ../apt/progress/text.py:144
 msgid "Get:"
-msgstr ""
+msgstr "Kunin:"
 
-#: ../apt/progress/text.py:198
+#: ../apt/progress/text.py:203
 msgid " [Working]"
-msgstr ""
+msgstr " [Nagtatrabaho]"
 
-#: ../apt/progress/text.py:208
+#: ../apt/progress/text.py:214
 #, python-format
 msgid ""
 "Media change: please insert the disc labeled\n"
 " '%s'\n"
 "in the drive '%s' and press enter\n"
 msgstr ""
+"Bagong media: magyaring ipasok ang disc na may label na\n"
+" '%s'\n"
+"sa drive '%s' at pindutin ang enter\n"
 
 #. Trick for getting a translation from apt
-#: ../apt/progress/text.py:216
+#: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
-msgstr ""
+msgstr "Kinuha %sB sa %s (%sB/s)\n"
 
-#: ../apt/progress/text.py:229
+#: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
 msgstr ""
+"Mangyaring magbigay ng pangalan para sa Disc, tulad ng 'Debian 2.1r1 Disk 1'"
 
-#: ../apt/progress/text.py:241
+#: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
-msgstr ""
+msgstr "Mangyaring magpasok ng Disc sa drive at pindutin ang enter"
 
-#: ../apt/cache.py:96
+#: ../apt/cache.py:157
 msgid "Building data structures"
-msgstr ""
+msgstr "Nagbubuo ng data structures"

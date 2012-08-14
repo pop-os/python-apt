@@ -27,6 +27,7 @@ import fcntl
 import os
 import re
 import select
+import sys
 
 import apt_pkg
 
@@ -141,6 +142,7 @@ class InstallProgress(object):
 
     def __init__(self):
         (self.statusfd, self.writefd) = os.pipe()
+        # These will leak fds, but fixing this safely requires API changes.
         self.write_stream = os.fdopen(self.writefd, "w")
         self.status_stream = os.fdopen(self.statusfd, "r")
         fcntl.fcntl(self.statusfd, fcntl.F_SETFL, os.O_NONBLOCK)
@@ -196,7 +198,8 @@ class InstallProgress(object):
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.write_stream.fileno()), "-i",
                                     obj))
-            except Exception:
+            except Exception as e:
+                sys.stderr.write("%s\n" % e)
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
 
         self.child_pid = pid

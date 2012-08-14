@@ -21,20 +21,17 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from __future__ import print_function
+
 import errno
+import logging
 import os
-import gettext
-from os import getenv
 from subprocess import Popen, PIPE
-import ConfigParser
 import re
 
 import apt_pkg
 
-
-def _(s):
-    return gettext.dgettext("python-apt", s)
-
+from apt_pkg import gettext as _
 
 class Template(object):
 
@@ -56,7 +53,7 @@ class Template(object):
 
     def has_component(self, comp):
         ''' Check if the distribution provides the given component '''
-        return comp in map(lambda c: c.name, self.components)
+        return comp in (c.name for c in self.components)
 
     def is_mirror(self, url):
         ''' Check if a given url of a repository is a valid mirror '''
@@ -69,10 +66,17 @@ class Template(object):
 
 class Component(object):
 
-    def __init__(self, name, desc=None, long_desc=None):
+    def __init__(self, name, desc=None, long_desc=None, parent_component=None):
         self.name = name
         self.description = desc
         self.description_long = long_desc
+        self.parent_component = parent_component
+
+    def get_parent_component(self):
+        return self.parent_component
+
+    def set_parent_component(self, parent):
+        self.parent_component = parent
 
     def get_description(self):
         if self.description_long is not None:
@@ -105,7 +109,7 @@ class Mirror(object):
         self.repositories.append(Repository(proto, dir))
 
     def get_repositories_for_proto(self, proto):
-        return filter(lambda r: r.proto == proto, self.repositories)
+        return [r for r in self.repositories if r.proto == proto]
 
     def has_repository(self, proto, dir):
         if dir is None:
@@ -116,7 +120,7 @@ class Mirror(object):
         return False
 
     def get_repo_urls(self):
-        return map(lambda r: r.get_url(self.hostname), self.repositories)
+        return [r.get_url(self.hostname) for r in self.repositories]
 
     def get_location(self):
         return self.location
@@ -158,7 +162,7 @@ class DistInfo(object):
         location = None
         match_loc = re.compile(r"^#LOC:(.+)$")
         match_mirror_line = re.compile(
-            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(https))://"
+            r"^(#LOC:.+)|(((http)|(ftp)|(rsync)|(file)|(mirror)|(https))://"
             r"[A-Za-z0-9/\.:\-_@]+)$")
         #match_mirror_line = re.compile(r".+")
 
@@ -166,9 +170,9 @@ class DistInfo(object):
             try:
                 dist = Popen(["lsb_release", "-i", "-s"],
                              stdout=PIPE).communicate()[0].strip()
-            except OSError, exc:
+            except OSError as exc:
                 if exc.errno != errno.ENOENT:
-                    print 'WARNING: lsb_release failed, using defaults:', exc
+                    logging.warn('lsb_release failed, using defaults:' % exc)
                 dist = "Debian"
 
         self.dist = dist
@@ -177,9 +181,6 @@ class DistInfo(object):
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
         with open(dist_fname) as dist_file:
-
-
-
             template = None
             component = None
             for line in dist_file:
@@ -231,11 +232,11 @@ class DistInfo(object):
                         mirror_set = {}
                         try:
                             with open(value) as value_f:
-                                mirror_data = filter(match_mirror_line.match,
-                                                     [x.strip() for x in
-                                                      value_f])
+                                mirror_data = list(filter(
+                                    match_mirror_line.match,
+                                    [x.strip() for x in value_f]))
                         except Exception:
-                            print "WARNING: Failed to read mirror file"
+                            print("WARNING: Failed to read mirror file")
                             mirror_data = []
                         for line in mirror_data:
                             if line.startswith("#LOC:"):
@@ -260,6 +261,8 @@ class DistInfo(object):
                     component.set_description(_(value))
                 elif field == 'CompDescriptionLong':
                     component.set_description_long(_(value))
+                elif field == 'ParentComponent':
+                    component.set_parent_component(value)
             self.finish_template(template, component)
             template=None
             component=None
@@ -290,17 +293,17 @@ class DistInfo(object):
 
 if __name__ == "__main__":
     d = DistInfo("Ubuntu", "/usr/share/python-apt/templates")
-    print d.changelogs_uri
+    logging.info(d.changelogs_uri)
     for template in d.templates:
-        print "\nSuite: %s" % template.name
-        print "Desc: %s" % template.description
-        print "BaseURI: %s" % template.base_uri
-        print "MatchURI: %s" % template.match_uri
+        logging.info("\nSuite: %s" % template.name)
+        logging.info("Desc: %s" % template.description)
+        logging.info("BaseURI: %s" % template.base_uri)
+        logging.info("MatchURI: %s" % template.match_uri)
         if template.mirror_set != {}:
-            print "Mirrors: %s" % template.mirror_set.keys()
+            logging.info("Mirrors: %s" % list(template.mirror_set.keys()))
         for comp in template.components:
-            print " %s -%s -%s" % (comp.name,
-                                   comp.description,
-                                   comp.description_long)
+            logging.info(" %s -%s -%s" % (comp.name,
+                                          comp.description,
+                                          comp.description_long))
         for child in template.children:
-            print "  %s" % child.description
+            logging.info("  %s" % child.description)

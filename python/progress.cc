@@ -127,7 +127,7 @@ PyObject *PyFetchProgress::GetDesc(pkgAcquire::ItemDesc *item) {
     return pyDesc;
 }
 
-bool PyFetchProgress::MediaChange(string Media, string Drive)
+bool PyFetchProgress::MediaChange(std::string Media, std::string Drive)
 {
    PyCbObj_END_ALLOW_THREADS
    //std::cout << "MediaChange" << std::endl;
@@ -485,7 +485,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       PyObject *v = PyObject_GetAttrString(callbackInst, "writefd");
       if(v) {
 	 int fd = PyObject_AsFileDescriptor(v);
-	 cout << "got fd: " << fd << endl;
+         std::cout << "got fd: " << fd << std::endl;
 	 res = pm->DoInstall(fd);
       } else {
 	 res = pm->DoInstall();
@@ -542,7 +542,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
 //-----------------------------------------------------------------------------
 // apt-cdrom interface
 
-void PyCdromProgress::Update(string text, int current)
+void PyCdromProgress::Update(std::string text, int current)
 {
    PyObject *arglist = Py_BuildValue("(si)", text.c_str(), current);
    setattr(callbackInst, "total_steps", "i", totalSteps);
@@ -569,7 +569,7 @@ bool PyCdromProgress::ChangeCdrom()
 }
 
 
-bool PyCdromProgress::AskCdromName(string &Name)
+bool PyCdromProgress::AskCdromName(std::string &Name)
 {
    PyObject *arglist = Py_BuildValue("()");
    const char *new_name;
@@ -582,7 +582,7 @@ bool PyCdromProgress::AskCdromName(string &Name)
       if(!PyArg_Parse(result, "(bs)", &res, &new_name))
          std::cerr << "AskCdromName: result could not be parsed" << std::endl;
       // set the new name
-      Name = string(new_name);
+      Name =std:: string(new_name);
       return res;
    }
    // New style: String on success, None on failure.
@@ -593,7 +593,7 @@ bool PyCdromProgress::AskCdromName(string &Name)
         if(!PyArg_Parse(result, "s", &new_name))
             std::cerr << "ask_cdrom_name: result could not be parsed" << std::endl;
         else
-            Name = string(new_name);
-            return true;
+           Name = std::string(new_name);
+        return true;
   }
 }

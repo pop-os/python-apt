@@ -40,9 +40,6 @@ class DebPackage(object):
      VERSION_SAME, 
      VERSION_NEWER) = range(4)
 
-    _supported_data_members = ("data.tar.gz", "data.tar.bz2", "data.tar.lzma",
-                               "data.tar.xz")
-
     debug = 0
 
     def __init__(self, filename=None, cache=None):
@@ -53,7 +50,9 @@ class DebPackage(object):
         self.pkgname = ""
         self._sections = {}
         self._need_pkgs = []
+        self._check_was_run = False
         self._failure_string = ""
+        self._multiarch = None
         if filename:
             self.open(filename)
 
@@ -68,7 +67,8 @@ class DebPackage(object):
         control = self._debfile.control.extractdata("control")
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
-
+        self._check_was_run = False
+        
     def __getitem__(self, key):
         return self._sections[key]
 
@@ -79,9 +79,51 @@ class DebPackage(object):
         try:
             self._debfile.data.go(lambda item, data: files.append(item.name))
         except SystemError:
-            return [_("List of files for '%s' could not be read" %
-                          self.filename)]
+            return [_("List of files for '%s' could not be read") %
+                    self.filename]
         return files
+
+    @property
+    def control_filelist(self):
+        """ return the list of files in control.tar.gt """
+        control = []
+        try:
+            self._debfile.control.go(lambda item, data: control.append(item.name))
+        except SystemError:
+            return [_("List of control files for '%s' could not be read") %
+                    self.filename]
+        return sorted(control)
+
+
+    # helper that will return a pkgname with a multiarch suffix if needed
+    def _maybe_append_multiarch_suffix(self, pkgname, 
+                                       in_conflict_checking=False):
+        # trivial cases
+        if not self._multiarch:
+            return pkgname
+        elif self._cache.is_virtual_package(pkgname):
+            return pkgname
+        elif (pkgname in self._cache and 
+              self._cache[pkgname].candidate.architecture == "all"):
+            return pkgname
+        # now do the real multiarch checking
+        multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
+        # the upper layers will handle this
+        if not multiarch_pkgname in self._cache:
+            return multiarch_pkgname
+        # now check the multiarch state
+        cand = self._cache[multiarch_pkgname].candidate._cand
+        #print pkgname, multiarch_pkgname, cand.multi_arch
+        # the default is to add the suffix, unless its a pkg that can satify
+        # foreign dependencies
+        if cand.multi_arch & cand.MULTI_ARCH_FOREIGN:
+            return pkgname
+        # for conflicts we need a special case here, any not multiarch enabled
+        # package has a implicit conflict
+        if (in_conflict_checking and 
+            not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
+            return pkgname
+        return multiarch_pkgname
 
     def _is_or_group_satisfied(self, or_group):
         """Return True if at least one dependency of the or-group is satisfied.
@@ -95,6 +137,9 @@ class DebPackage(object):
             depname = dep[0]
             ver = dep[1]
             oper = dep[2]
+
+            # multiarch
+            depname = self._maybe_append_multiarch_suffix(depname)
 
             # check for virtual pkgs
             if not depname in self._cache:
@@ -124,12 +169,11 @@ class DebPackage(object):
 
     def _satisfy_or_group(self, or_group):
         """Try to satisfy the or_group."""
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname, ver, oper = dep
+
+            # multiarch
+            depname = self._maybe_append_multiarch_suffix(depname)
 
             # if we don't have it in the cache, it may be virtual
             if not depname in self._cache:
@@ -194,14 +238,15 @@ class DebPackage(object):
     def _check_conflicts_or_group(self, or_group):
         """Check the or-group for conflicts with installed pkgs."""
         self._dbg(2, "_check_conflicts_or_group(): %s " % (or_group))
-
-        or_found = False
-        virtual_pkg = None
-
         for dep in or_group:
             depname = dep[0]
             ver = dep[1]
             oper = dep[2]
+
+            # FIXME: is this good enough? i.e. will apt always populate
+            #        the cache with conflicting pkgnames for our arch?
+            depname = self._maybe_append_multiarch_suffix(
+                depname, in_conflict_checking=True)
 
             # check conflicts with virtual pkgs
             if not depname in self._cache:
@@ -308,6 +353,7 @@ class DebPackage(object):
         size = float(len(self._cache))
         steps = max(int(size/50), 1)
         debver = self._sections["Version"]
+        debarch = self._sections["Architecture"]
         # store what we provide so that we can later check against that
         provides = [ x[0][0] for x in self.provides]
         for (i, pkg) in enumerate(self._cache):
@@ -336,7 +382,7 @@ class DebPackage(object):
             if "Conflicts" in ver.depends_list:
                 for conflicts_ver_list in ver.depends_list["Conflicts"]:
                     for c_or in conflicts_ver_list:
-                        if c_or.target_pkg.name == self.pkgname:
+                        if c_or.target_pkg.name == self.pkgname and c_or.target_pkg.architecture == debarch:
                             if apt_pkg.check_dep(debver, c_or.comp_type, c_or.target_ver):
                                 self._dbg(2, "would break (conflicts) %s" % pkg.name)
 				# TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
@@ -393,6 +439,8 @@ class DebPackage(object):
         """Check if the package is installable."""
         self._dbg(3, "check")
 
+        self._check_was_run = True
+
         # check arch
         if not "Architecture" in self._sections:
             self._dbg(1, "ERROR: no architecture field")
@@ -400,9 +448,14 @@ class DebPackage(object):
             return False
         arch = self._sections["Architecture"]
         if  arch != "all" and arch != apt_pkg.config.find("APT::Architecture"):
-            self._dbg(1, "ERROR: Wrong architecture dude!")
-            self._failure_string = _("Wrong architecture '%s'") % arch
-            return False
+            if arch in apt_pkg.get_architectures():
+                self._multiarch = arch
+                self.pkgname = "%s:%s" % (self.pkgname, self._multiarch)
+                self._dbg(1, "Found multiarch arch: '%s'" % arch)
+            else:
+                self._dbg(1, "ERROR: Wrong architecture dude!")
+                self._failure_string = _("Wrong architecture '%s'") % arch
+                return False
 
         # check version
         if self.compare_to_version_in_cache() == self.VERSION_OUTDATED:
@@ -462,7 +515,7 @@ class DebPackage(object):
         for pkg in self._need_pkgs:
             try:
                 self._cache[pkg].mark_install(from_user=False)
-            except SystemError as e:
+            except SystemError:
                 self._failure_string = _("Cannot install '%s'") % pkg
                 self._cache.clear()
                 return False
@@ -472,8 +525,8 @@ class DebPackage(object):
     def missing_deps(self):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
-        if self._need_pkgs is None:
-            self.check()
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         return self._need_pkgs
 
     @property
@@ -485,6 +538,8 @@ class DebPackage(object):
         install = []
         remove = []
         unauthenticated = []
+        if not self._check_was_run:
+            raise AttributeError("property only available after check() was run")
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
@@ -499,19 +554,6 @@ class DebPackage(object):
                 remove.append(pkg.name)
         return (install, remove, unauthenticated)
 
-    @property
-    def control_filelist(self):
-        """ return the list of files in control.tar.gt """
-        try:
-            from debian.debfile import DebFile
-        except:
-            raise Exception(_("Python-debian module not available"))
-        content = []
-        for name in DebFile(self.filename).control:
-            if name and name != ".":
-                content.append(name)
-        return sorted(content)
-
     @staticmethod
     def to_hex(in_data):
         hex = ""
@@ -524,11 +566,20 @@ class DebPackage(object):
     @staticmethod
     def to_strish(in_data):
         s = ""
-        for c in in_data:
-            if ord(c) < 10 or ord(c) > 127:
-                s += " "
-            else:
-                s += c
+        # py2 compat, in_data is type string
+        if type(in_data) == str:
+            for c in in_data:
+                if ord(c) < 10 or ord(c) > 127:
+                    s += " "
+                else:
+                    s += c
+        # py3 compat, in_data is type bytes
+        else:
+            for b in in_data:
+                if b < 10 or b > 127:
+                    s += " "
+                else:
+                    s += chr(b)
         return s
         
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
@@ -544,7 +595,7 @@ class DebPackage(object):
         # auto-convert to hex
         try:
             data = unicode(data, "utf-8")
-        except Exception as e:
+        except Exception:
             new_data = _("Automatically converted to printable ascii:\n")
             new_data += self.to_strish(data)
             return new_data
@@ -639,7 +690,8 @@ class DscSrcPackage(DebPackage):
               "source package '%s' that builds %s\n") % (self.pkgname,
               " ".join(self.binaries))
         self._sections["Description"] = s
-
+        self._check_was_run = False
+        
     def check(self):
         """Check if the package is installable.."""
         if not self.check_conflicts():
@@ -647,6 +699,8 @@ class DscSrcPackage(DebPackage):
                 if self._cache[pkgname]._pkg.essential:
                     raise Exception(_("An essential package would be removed"))
                 self._cache[pkgname].mark_delete()
+        # properties are ok now
+        self._check_was_run = True
         # FIXME: a additional run of the check_conflicts()
         #        after _satisfy_depends() should probably be done
         return self._satisfy_depends(self.depends)
@@ -654,7 +708,7 @@ class DscSrcPackage(DebPackage):
 def _test():
     """Test function"""
     from apt.cache import Cache
-    from apt.progress import DpkgInstallProgress
+    from apt.progress.base import InstallProgress
 
     cache = Cache()
 
@@ -676,7 +730,7 @@ def _test():
     print d.filelist
 
     print "Installing ..."
-    ret = d.install(DpkgInstallProgress())
+    ret = d.install(InstallProgress())
     print ret
 
     #s = DscSrcPackage(cache, "../tests/3ddesktop_0.2.9-6.dsc")

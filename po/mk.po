@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-19 15:59+0200\n"
+"POT-Creation-Date: 2012-06-12 10:44+0200\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
+"Language: mk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,283 +25,373 @@ msgid "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:13
+#: ../data/templates/Ubuntu.info.in:151
+#, fuzzy
+msgid "Ubuntu 12.04 'Precise Pangolin'"
+msgstr "Безбедносни надградби за Убунту 5.04"
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:158
+#, fuzzy
+msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
+msgstr "CD диск со Убунту 5.10 \"Breezy Badger\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:269
+#, fuzzy
+msgid "Ubuntu 11.10 'Oneiric Ocelot'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:276
+#, fuzzy
+msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:388
+#, fuzzy
+msgid "Ubuntu 11.04 'Natty Narwhal'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:395
+#, fuzzy
+msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:486
+#, fuzzy
+msgid "Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:506
+#, fuzzy
+msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
+msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:518
+msgid "Canonical Partners"
+msgstr ""
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:520
+msgid "Software packaged by Canonical for their partners"
+msgstr ""
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:521
+msgid "This software is not part of Ubuntu."
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:528
+msgid "Independent"
+msgstr ""
+
+#. CompDescription
+#: ../data/templates/Ubuntu.info.in:530
+msgid "Provided by third-party software developers"
+msgstr ""
+
+#. CompDescriptionLong
+#: ../data/templates/Ubuntu.info.in:531
+msgid "Software offered by third party developers."
+msgstr ""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:569
+#, fuzzy
+msgid "Ubuntu 10.04 'Lucid Lynx'"
+msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:589
+#, fuzzy
+msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
+msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
+
+#. Description
+#: ../data/templates/Ubuntu.info.in:632
 #, fuzzy
 msgid "Ubuntu 9.10 'Karmic Koala'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:31
+#: ../data/templates/Ubuntu.info.in:652
 #, fuzzy
 msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:74
+#: ../data/templates/Ubuntu.info.in:695
 #, fuzzy
 msgid "Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:92
+#: ../data/templates/Ubuntu.info.in:714
 #, fuzzy
 msgid "Cdrom with Ubuntu 9.04 'Jaunty Jackalope'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:135
+#: ../data/templates/Ubuntu.info.in:757
 #, fuzzy
 msgid "Ubuntu 8.10 'Intrepid Ibex'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:153
+#: ../data/templates/Ubuntu.info.in:777
 #, fuzzy
 msgid "Cdrom with Ubuntu 8.10 'Intrepid Ibex'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:197
+#: ../data/templates/Ubuntu.info.in:821
 #, fuzzy
 msgid "Ubuntu 8.04 'Hardy Heron'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:215
+#: ../data/templates/Ubuntu.info.in:841
 #, fuzzy
 msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:252
+#: ../data/templates/Ubuntu.info.in:886
 #, fuzzy
 msgid "Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr "Безбедносни надградби за Убунту 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:270
+#: ../data/templates/Ubuntu.info.in:905
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.10 'Gutsy Gibbon'"
 msgstr "CD диск со Убунту 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:305
+#: ../data/templates/Ubuntu.info.in:950
 #, fuzzy
 msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgstr "Безбедносни надградби за Убунту 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:323
+#: ../data/templates/Ubuntu.info.in:969
 #, fuzzy
 msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgstr "CD диск со Убунту 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:357
+#: ../data/templates/Ubuntu.info.in:1011
 #, fuzzy
 msgid "Ubuntu 6.10 'Edgy Eft'"
 msgstr "Надградби за Убунту 5.10"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:362
+#: ../data/templates/Ubuntu.info.in:1016
 #, fuzzy
 msgid "Community-maintained"
 msgstr "Оддржувано од заедницата (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:368
+#: ../data/templates/Ubuntu.info.in:1022
 #, fuzzy
 msgid "Restricted software"
 msgstr "Додатен софтвер"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:375
+#: ../data/templates/Ubuntu.info.in:1030
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.10 'Edgy Eft'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:409
+#: ../data/templates/Ubuntu.info.in:1072
 #, fuzzy
 msgid "Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Надградби за Убунту 5.04"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:412
+#: ../data/templates/Ubuntu.info.in:1075
 #, fuzzy
-msgid "Canonical-supported Open Source software"
+msgid "Canonical-supported free and open-source software"
 msgstr "Оддржувано од заедницата (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:414
+#: ../data/templates/Ubuntu.info.in:1077
 #, fuzzy
 msgid "Community-maintained (universe)"
 msgstr "Оддржувано од заедницата (Universe)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:415
+#: ../data/templates/Ubuntu.info.in:1078
 #, fuzzy
-msgid "Community-maintained Open Source software"
+msgid "Community-maintained free and open-source software"
 msgstr "Оддржувано од заедницата (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:417
+#: ../data/templates/Ubuntu.info.in:1080
 #, fuzzy
 msgid "Non-free drivers"
 msgstr "Неслободно (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:418
+#: ../data/templates/Ubuntu.info.in:1081
 msgid "Proprietary drivers for devices"
 msgstr ""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:420
+#: ../data/templates/Ubuntu.info.in:1083
 #, fuzzy
 msgid "Restricted software (Multiverse)"
 msgstr "Неслободно (Multiverse)"
 
 #. CompDescriptionLong
-#: ../data/templates/Ubuntu.info.in:421
+#: ../data/templates/Ubuntu.info.in:1084
 msgid "Software restricted by copyright or legal issues"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:427
+#: ../data/templates/Ubuntu.info.in:1091
 #, fuzzy
 msgid "Cdrom with Ubuntu 6.06 LTS 'Dapper Drake'"
 msgstr "Надградби за Убунту 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:439
+#: ../data/templates/Ubuntu.info.in:1107
 #, fuzzy
 msgid "Important security updates"
 msgstr "Безбедносни надградби за Debian Stable"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:444
+#: ../data/templates/Ubuntu.info.in:1112
 msgid "Recommended updates"
 msgstr ""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:449
+#: ../data/templates/Ubuntu.info.in:1117
 #, fuzzy
 msgid "Pre-released updates"
 msgstr "Инсталирам надградби..."
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:454
+#: ../data/templates/Ubuntu.info.in:1122
 #, fuzzy
 msgid "Unsupported updates"
 msgstr "Инсталирам надградби..."
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:461
+#: ../data/templates/Ubuntu.info.in:1133
 #, fuzzy
 msgid "Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD диск со Убунту 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:475
+#: ../data/templates/Ubuntu.info.in:1148
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.10 'Breezy Badger'"
 msgstr "CD диск со Убунту 5.10 \"Breezy Badger\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:487
+#: ../data/templates/Ubuntu.info.in:1164
 msgid "Ubuntu 5.10 Security Updates"
 msgstr "Безбедносни надградби за Убунту 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:492
+#: ../data/templates/Ubuntu.info.in:1169
 msgid "Ubuntu 5.10 Updates"
 msgstr "Надградби за Убунту 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:497
+#: ../data/templates/Ubuntu.info.in:1174
 #, fuzzy
 msgid "Ubuntu 5.10 Backports"
 msgstr "Надградби за Убунту 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:504
+#: ../data/templates/Ubuntu.info.in:1185
 #, fuzzy
 msgid "Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:518
+#: ../data/templates/Ubuntu.info.in:1200
 #, fuzzy
 msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:521 ../data/templates/Debian.info.in:148
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
 msgid "Officially supported"
 msgstr "Официјално поддржано"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:530
+#: ../data/templates/Ubuntu.info.in:1216
 msgid "Ubuntu 5.04 Security Updates"
 msgstr "Безбедносни надградби за Убунту 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:535
+#: ../data/templates/Ubuntu.info.in:1221
 msgid "Ubuntu 5.04 Updates"
 msgstr "Надградби за Убунту 5.04"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:540
+#: ../data/templates/Ubuntu.info.in:1226
 #, fuzzy
 msgid "Ubuntu 5.04 Backports"
 msgstr "Надградби за Убунту 5.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:546
+#: ../data/templates/Ubuntu.info.in:1232
 #, fuzzy
 msgid "Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:552
+#: ../data/templates/Ubuntu.info.in:1238
 #, fuzzy
 msgid "Community-maintained (Universe)"
 msgstr "Оддржувано од заедницата (Universe)"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:554
+#: ../data/templates/Ubuntu.info.in:1240
 msgid "Non-free (Multiverse)"
 msgstr "Неслободно (Multiverse)"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:560
+#: ../data/templates/Ubuntu.info.in:1247
 #, fuzzy
 msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgstr "CD диск со Убунту 4.10 \"Warty Warthog\""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:563
+#: ../data/templates/Ubuntu.info.in:1250
 #, fuzzy
 msgid "No longer officially supported"
 msgstr "Официјално поддржано"
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:565
+#: ../data/templates/Ubuntu.info.in:1252
 msgid "Restricted copyright"
 msgstr "Restricted copyright"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:572
+#: ../data/templates/Ubuntu.info.in:1259
 msgid "Ubuntu 4.10 Security Updates"
 msgstr "Безбедносни надградби за Убунту 4.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:577
+#: ../data/templates/Ubuntu.info.in:1264
 msgid "Ubuntu 4.10 Updates"
 msgstr "Надградби за Убунту 4.10"
 
 #. Description
-#: ../data/templates/Ubuntu.info.in:582
+#: ../data/templates/Ubuntu.info.in:1269
 #, fuzzy
 msgid "Ubuntu 4.10 Backports"
 msgstr "Надградби за Убунту 5.10"
@@ -360,23 +451,23 @@ msgid "Debian testing"
 msgstr "Debian Testing"
 
 #. Description
-#: ../data/templates/Debian.info.in:146
+#: ../data/templates/Debian.info.in:147
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian Non-US (Unstable)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:150
+#: ../data/templates/Debian.info.in:151
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-компатибилен софтвер со неслободни зависности"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:152
+#: ../data/templates/Debian.info.in:153
 msgid "Non-DFSG-compatible Software"
 msgstr "Не-DFSG-компатибилен софтвер"
 
 #. TRANSLATORS: %s is a country
-#: ../aptsources/distro.py:208 ../aptsources/distro.py:423
+#: ../aptsources/distro.py:206 ../aptsources/distro.py:436
 #, python-format
 msgid "Server for %s"
 msgstr ""
@@ -384,51 +475,51 @@ msgstr ""
 #. More than one server is used. Since we don't handle this case
 #. in the user interface we set "custom servers" to true and
 #. append a list of all used servers
-#: ../aptsources/distro.py:226 ../aptsources/distro.py:232
-#: ../aptsources/distro.py:248
+#: ../aptsources/distro.py:224 ../aptsources/distro.py:230
+#: ../aptsources/distro.py:246
 msgid "Main server"
 msgstr ""
 
-#: ../aptsources/distro.py:252
+#: ../aptsources/distro.py:250
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:259
+#: ../apt/progress/gtk2.py:258 ../apt/progress/gtk2.py:314
 #, python-format
 msgid "Downloading file %(current)li of %(total)li with %(speed)s/s"
 msgstr ""
 
-#: ../apt/progress/gtk2.py:265
+#: ../apt/progress/gtk2.py:264 ../apt/progress/gtk2.py:320
 #, python-format
 msgid "Downloading file %(current)li of %(total)li"
 msgstr ""
 
 #. Setup some child widgets
-#: ../apt/progress/gtk2.py:285
+#: ../apt/progress/gtk2.py:340
 #, fuzzy
 msgid "Details"
 msgstr "<b>Детали</b>"
 
-#: ../apt/progress/gtk2.py:367
+#: ../apt/progress/gtk2.py:428
 #, fuzzy
 msgid "Starting..."
 msgstr "Поставувања"
 
-#: ../apt/progress/gtk2.py:373
+#: ../apt/progress/gtk2.py:434
 msgid "Complete"
 msgstr ""
 
-#: ../apt/package.py:301
+#: ../apt/package.py:359
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:937 ../apt/package.py:1043
+#: ../apt/package.py:1088 ../apt/package.py:1194
 #, fuzzy
 msgid "The list of changes is not available"
 msgstr "Достапна е нова верзија на Убунту!"
 
-#: ../apt/package.py:1047
+#: ../apt/package.py:1200
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -437,7 +528,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1053
+#: ../apt/package.py:1207
 #, fuzzy
 msgid ""
 "Failed to download the list of changes. \n"
@@ -446,81 +537,118 @@ msgstr ""
 "Не успеав да ги преземам промените. Ве молам проверете дали Вашата интернет "
 "врска е активна."
 
-#: ../apt/debfile.py:56
+#: ../apt/debfile.py:82
 #, python-format
-msgid "This is not a valid DEB archive, missing '%s' member"
+msgid "List of files for '%s' could not be read"
 msgstr ""
 
-#: ../apt/debfile.py:81
+#: ../apt/debfile.py:93
 #, python-format
-msgid "List of files for '%s'could not be read"
+msgid "List of control files for '%s' could not be read"
 msgstr ""
 
-#: ../apt/debfile.py:149
+#: ../apt/debfile.py:211
 #, python-format
 msgid "Dependency is not satisfiable: %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:173
+#: ../apt/debfile.py:232
 #, python-format
 msgid "Conflicts with the installed package '%s'"
 msgstr ""
 
-#: ../apt/debfile.py:319
+#. TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
+#: ../apt/debfile.py:373
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' dependency %(depname)s "
+"(%(deprelation)s %(depversion)s)"
+msgstr ""
+
+#. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
+#: ../apt/debfile.py:389
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
+msgstr ""
+
+#: ../apt/debfile.py:399
+#, python-format
+msgid ""
+"Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
+"the '%(debfile)s' provides it via: '%(provides)s'"
+msgstr ""
+
+#: ../apt/debfile.py:447
+msgid "No Architecture field in the package"
+msgstr ""
+
+#: ../apt/debfile.py:457
 #, python-format
 msgid "Wrong architecture '%s'"
 msgstr ""
 
 #. the deb is older than the installed
-#: ../apt/debfile.py:325
+#: ../apt/debfile.py:464
 msgid "A later version is already installed"
 msgstr ""
 
-#: ../apt/debfile.py:345
+#: ../apt/debfile.py:489
 msgid "Failed to satisfy all dependencies (broken cache)"
 msgstr ""
 
-#: ../apt/debfile.py:376
+#: ../apt/debfile.py:519
 #, fuzzy, python-format
 msgid "Cannot install '%s'"
 msgstr "Не може да се инсталира %s'"
 
-#: ../apt/debfile.py:484
+#: ../apt/debfile.py:593
+msgid ""
+"Automatically decompressed:\n"
+"\n"
+msgstr ""
+
+#: ../apt/debfile.py:599
+msgid "Automatically converted to printable ascii:\n"
+msgstr ""
+
+#: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
 msgstr ""
 
-#: ../apt/debfile.py:494
+#: ../apt/debfile.py:700
 #, fuzzy
 msgid "An essential package would be removed"
 msgstr "Важен пакет мора да се отстрани"
 
-#: ../apt/progress/text.py:81
+#: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
 msgstr ""
 
-#: ../apt/progress/text.py:118
+#: ../apt/progress/text.py:122
 msgid "Hit "
 msgstr ""
 
-#: ../apt/progress/text.py:126
+#: ../apt/progress/text.py:131
 msgid "Ign "
 msgstr ""
 
-#: ../apt/progress/text.py:128
+#: ../apt/progress/text.py:133
 msgid "Err "
 msgstr ""
 
-#: ../apt/progress/text.py:138
+#: ../apt/progress/text.py:144
 msgid "Get:"
 msgstr ""
 
-#: ../apt/progress/text.py:198
+#: ../apt/progress/text.py:203
 msgid " [Working]"
 msgstr ""
 
-#: ../apt/progress/text.py:208
+#: ../apt/progress/text.py:214
 #, python-format
 msgid ""
 "Media change: please insert the disc labeled\n"
@@ -529,19 +657,19 @@ msgid ""
 msgstr ""
 
 #. Trick for getting a translation from apt
-#: ../apt/progress/text.py:216
+#: ../apt/progress/text.py:223
 #, python-format
 msgid "Fetched %sB in %s (%sB/s)\n"
 msgstr ""
 
-#: ../apt/progress/text.py:229
+#: ../apt/progress/text.py:239
 msgid "Please provide a name for this Disc, such as 'Debian 2.1r1 Disk 1'"
 msgstr ""
 
-#: ../apt/progress/text.py:241
+#: ../apt/progress/text.py:255
 msgid "Please insert a Disc in the drive and press enter"
 msgstr ""
 
-#: ../apt/cache.py:96
+#: ../apt/cache.py:157
 msgid "Building data structures"
 msgstr ""

@@ -198,10 +198,12 @@ static PyObject *PkgCacheOpen(PyObject *Self,PyObject *Args)
    }
 
    //std::cout << "new cache is " << (pkgCache*)(*Cache) << std::endl;
+   
+   // ensure that the states are correct (LP: #659438)
+   pkgApplyStatus(*Cache);
 
    // update the cache pointer after the cache was rebuild
    ((CppPyObject<pkgCache*> *)Self)->Object = (pkgCache*)(*Cache);
-
 
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
@@ -227,6 +229,12 @@ static PyObject *PkgCacheGetGroupCount(PyObject *Self, void*) {
 static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
    pkgCache *Cache = GetCpp<pkgCache *>(Self);
    return CppPyObject_NEW<GrpListStruct>(Self,&PyGroupList_Type,Cache->GrpBegin());
+}
+
+static PyObject *PkgCacheGetPolicy(PyObject *Self, void*) {
+   pkgCacheFile *CacheFile = GetCpp<pkgCacheFile *>(Self);
+   std::cerr << "policy: " << CacheFile->Policy << std::endl;
+   return CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,CacheFile->Policy);
 }
 
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
@@ -289,6 +297,7 @@ static PyGetSetDef PkgCacheGetSet[] = {
    {"group_count",PkgCacheGetGroupCount,0,
     "The number of apt_pkg.Group objects stored in the cache."},
    {"groups",  PkgCacheGetGroups, 0, "A list of Group objects in the cache"},
+   {"policy",  PkgCacheGetPolicy, 0, "The PkgPolicy for the cache"},
    {"is_multi_arch", PkgCacheGetIsMultiArch, 0,
     "Whether the cache supports multi-arch."},
    {"package_count",PkgCacheGetPackageCount,0,
@@ -393,6 +402,9 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       if (Cache->Open(Prog,false) == false)
 	     return HandleErrors();
    }
+
+   // ensure that the states are correct (LP: #659438)
+   pkgApplyStatus(*Cache);
 
    CppPyObject<pkgCacheFile*> *CacheFileObj =
 	   CppPyObject_NEW<pkgCacheFile*>(0,&PyCacheFile_Type, Cache);
