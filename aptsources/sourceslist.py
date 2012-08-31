@@ -313,7 +313,7 @@ class SourcesList(object):
         for source in sources:
             # if there is a repo with the same (type, uri, dist) just add the
             # components
-            if source.disabled and set(source.comps) == comps:
+            if source.disabled and set(source.comps) == set(comps):
                 source.disabled = False
                 return source
             elif not source.disabled:
