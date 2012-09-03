@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-12 10:44+0200\n"
+"POT-Creation-Date: 2012-06-25 14:31+0200\n"
 "PO-Revision-Date: 2006-10-16 04:04+0000\n"
 "Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
@@ -326,7 +326,7 @@ msgid "Cdrom with Ubuntu 5.04 'Hoary Hedgehog'"
 msgstr "CD диск со Убунту 5.04 \"Hoary Hedgehog\""
 
 #. CompDescription
-#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:149
+#: ../data/templates/Ubuntu.info.in:1203 ../data/templates/Debian.info.in:174
 msgid "Officially supported"
 msgstr "Официјално поддржано"
 
@@ -405,64 +405,70 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 #. Description
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
-msgid "Debian 6.0 'Squeeze' "
+msgid "Debian 7.0 'Wheezy' "
 msgstr "Debian 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:33
 #, fuzzy
-msgid "Debian 5.0 'Lenny' "
+msgid "Debian 6.0 'Squeeze' "
 msgstr "Debian 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:58
 #, fuzzy
-msgid "Debian 4.0 'Etch'"
+msgid "Debian 5.0 'Lenny' "
 msgstr "Debian 3.1 \"Sarge\""
 
 #. Description
 #: ../data/templates/Debian.info.in:83
 #, fuzzy
+msgid "Debian 4.0 'Etch'"
+msgstr "Debian 3.1 \"Sarge\""
+
+#. Description
+#: ../data/templates/Debian.info.in:108
+#, fuzzy
 msgid "Debian 3.1 'Sarge'"
 msgstr "Debian 3.1 \"Sarge\""
 
 #. Description
-#: ../data/templates/Debian.info.in:94
+#: ../data/templates/Debian.info.in:119
 #, fuzzy
 msgid "Proposed updates"
 msgstr "Инсталирам надградби..."
 
 #. Description
-#: ../data/templates/Debian.info.in:101
+#: ../data/templates/Debian.info.in:126
 #, fuzzy
 msgid "Security updates"
 msgstr "Безбедносни надградби за Debian Stable"
 
 #. Description
-#: ../data/templates/Debian.info.in:108
+#: ../data/templates/Debian.info.in:133
 #, fuzzy
 msgid "Debian current stable release"
 msgstr "Debian Unstable \"Sid\""
 
 #. Description
-#: ../data/templates/Debian.info.in:121
+#: ../data/templates/Debian.info.in:146
 #, fuzzy
 msgid "Debian testing"
 msgstr "Debian Testing"
 
 #. Description
-#: ../data/templates/Debian.info.in:147
+#: ../data/templates/Debian.info.in:172
 #, fuzzy
 msgid "Debian 'Sid' (unstable)"
 msgstr "Debian Non-US (Unstable)"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:151
+#: ../data/templates/Debian.info.in:176
 msgid "DFSG-compatible Software with Non-Free Dependencies"
 msgstr "DFSG-компатибилен софтвер со неслободни зависности"
 
 #. CompDescription
-#: ../data/templates/Debian.info.in:153
+#: ../data/templates/Debian.info.in:178
 msgid "Non-DFSG-compatible Software"
 msgstr "Не-DFSG-компатибилен софтвер"
 
