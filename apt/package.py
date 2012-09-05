@@ -1109,11 +1109,12 @@ class Package(object):
             fixer.resolve(True)
         self._pcache.cache_post_change()
 
-    def mark_upgrade(self):
+    def mark_upgrade(self, from_user=True):
         """Mark a package for upgrade."""
         if self.is_upgradable:
-            from_user = not self._pcache._depcache.is_auto_installed(self._pkg)
+            auto = self.is_auto_installed
             self.mark_install(from_user=from_user)
+            self.mark_auto(auto)
         else:
             # FIXME: we may want to throw a exception here
             sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
