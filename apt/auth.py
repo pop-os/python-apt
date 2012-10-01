@@ -35,6 +35,10 @@ import apt_pkg
 from apt_pkg import gettext as _
 
 
+class AptKeyError(Exception):
+    pass
+
+
 class TrustedKey(object):
 
     """Represents a trusted key."""
@@ -79,7 +83,7 @@ def _call_apt_key_script(*args, **kwargs):
         output, stderr = proc.communicate(content)
 
         if proc.returncode:
-            raise SystemError("The apt-key script failed with return code %s:\n"
+            raise AptKeyError("The apt-key script failed with return code %s:\n"
                               "%s\n"
                               "stdout: %s\n"
                               "stderr: %s" % (proc.returncode, " ".join(cmd),
@@ -99,9 +103,9 @@ def add_key_from_file(filename):
     filename -- the absolute path to the public GnuPG key file
     """
     if not os.path.abspath(filename):
-        raise SystemError("An absolute path is required: %s" % filename)
+        raise AptKeyError("An absolute path is required: %s" % filename)
     if not os.access(filename, os.R_OK):
-        raise SystemError("Key file cannot be accessed: %s" % filename)
+        raise AptKeyError("Key file cannot be accessed: %s" % filename)
     _call_apt_key_script("add", filename)
 
 def add_key_from_keyserver(keyid, keyserver):
@@ -111,6 +115,8 @@ def add_key_from_keyserver(keyid, keyserver):
     keyid -- the identifier of the key, e.g. 0x0EB12DSA
     keyserver -- the URL or hostname of the key server
     """
+    if len(keyid) < 160/8:
+        raise AptKeyError("Only v4 keyids (160bit) are supported")
     _call_apt_key_script("adv", "--quiet", "--keyserver", keyserver,
                          "--recv", keyid)
 
