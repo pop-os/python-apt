@@ -8,7 +8,11 @@ python-apt (0.8.8) UNRELEASED; urgency=low
     disabled sources.list entries instead of duplicating them.
     Thanks to "sampo555", LP: #1042916
 
- -- David Prévot <taffit@debian.org>  Wed, 08 Aug 2012 12:05:52 -0400
+  [ James Hunt ]
+  * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
+    value rather than a random one.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:30:53 +0200
 
 python-apt (0.8.7) unstable; urgency=low
 
