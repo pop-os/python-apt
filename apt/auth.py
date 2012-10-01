@@ -123,8 +123,7 @@ def add_key_from_keyserver(keyid, keyserver):
     except:
         raise
     finally:
-        print tmp_keyring_dir
-        shutil.rmtree(tmp_keyring_dir)
+        shutil.rmtree(tmp_keyring_dir)        
 
 def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     if len(keyid) < 160/8:
