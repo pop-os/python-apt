@@ -27,6 +27,7 @@
 import atexit
 import os
 import os.path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -112,13 +113,76 @@ def add_key_from_keyserver(keyid, keyserver):
     """Import a GnuPG key file to trust repositores signed by it.
 
     Keyword arguments:
-    keyid -- the identifier of the key, e.g. 0x0EB12DSA
+    keyid -- the long keyid (fingerprint) of the key, e.g.
+             A1BD8E9D78F7FE5C3E65D8AF8B48AD6246925553
     keyserver -- the URL or hostname of the key server
     """
+    tmp_keyring_dir = tempfile.mkdtemp()
+    try:
+        _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir)
+    except:
+        raise
+    finally:
+        print tmp_keyring_dir
+        shutil.rmtree(tmp_keyring_dir)
+
+def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     if len(keyid) < 160/8:
-        raise AptKeyError("Only v4 keyids (160bit) are supported")
-    _call_apt_key_script("adv", "--quiet", "--keyserver", keyserver,
-                         "--recv", keyid)
+        raise AptKeyError("Only long keyids (v4, 160bit) are supported")
+    # create a temp keyring dir
+    tmp_secret_keyring = os.path.join(tmp_keyring_dir, "secring.gpg")
+    tmp_keyring = os.path.join(tmp_keyring_dir, "pubring.gpg")
+    # default options for gpg
+    gpg_default_options = [
+        "gpg",
+        "--no-default-keyring", "--no-options",
+        "--homedir", tmp_keyring_dir,
+        ]
+    # download the key to a temp keyring first
+    res = subprocess.call(gpg_default_options + [
+        "--secret-keyring", tmp_secret_keyring,
+        "--keyring", tmp_keyring,
+        "--keyserver", keyserver,
+        "--recv", keyid,
+        ])
+    if res != 0:
+        raise AptKeyError("recv from '%s' failed for '%s'" % (
+            keyserver, keyid))
+    # now export again using the long key id (to ensure that there is
+    # really only this one key in our keyring) and not someone MITM us
+    tmp_export_keyring = os.path.join(tmp_keyring_dir, "export-keyring.gpg")
+    res = subprocess.call(gpg_default_options + [
+        "--keyring", tmp_keyring,
+        "--output", tmp_export_keyring,
+        "--export", keyid,
+        ])
+    if res != 0:
+        raise AptKeyError("export of '%s' failed", keyid)
+    # now verify the fingerprint, this is probably redundant as we
+    # exported by the fingerprint in the previous command but its
+    # still good paranoia
+    output = subprocess.Popen(
+        gpg_default_options + [
+            "--keyring", tmp_export_keyring,
+            "--fingerprint",
+            "--batch",
+            "--with-colons",
+            ],
+            stdout=subprocess.PIPE,
+            universal_newlines=True).communicate()[0]
+    got_fingerprint=None
+    for line in output.splitlines():
+        if line.startswith("fpr:"):
+            got_fingerprint = line.split(":")[9]
+            # stop after the first to ensure no subkey trickery
+            break
+    signing_key_fingerprint = keyid
+    if got_fingerprint != signing_key_fingerprint:
+        raise AptKeyError(
+            "Fingerprints do not match, not importing: '%s' != '%s'" % (
+                signing_key_fingerprint, got_fingerprint))
+    # finally add it
+    add_key_from_file(tmp_export_keyring)
 
 def add_key(content):
     """Import a GnuPG key to trust repositores signed by it.
