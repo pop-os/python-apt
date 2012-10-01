@@ -1,4 +1,4 @@
-python-apt (0.8.7ubuntu1) UNRELEASEDquantal; urgency=low
+python-apt (0.8.7ubuntu1) quantal; urgency=low
 
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
@@ -7,7 +7,7 @@ python-apt (0.8.7ubuntu1) UNRELEASEDquantal; urgency=low
   [ Michael Vogt ]
   * merged fixes from the debian-sid branch
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:36:04 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:47:43 +0200
 
 python-apt (0.8.8) UNRELEASED; urgency=low
 
