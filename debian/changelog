@@ -7,6 +7,8 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
     disabled sources.list entries instead of duplicating them.
     Thanks to "sampo555", LP: #1042916
+  * lp:~mvo/python-apt/fix-debfile-crash:
+    - fix crash on missing candidates in the multiarch check
 
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
