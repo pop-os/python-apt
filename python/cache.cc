@@ -286,7 +286,7 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
 
 static PyObject *PkgCacheGetIsMultiArch(PyObject *Self, void*) {
     pkgCache *Cache = GetCpp<pkgCache *>(Self);
-    PyBool_FromLong(Cache->MultiArchCache());
+    return PyBool_FromLong(Cache->MultiArchCache());
 } 
 
 static PyGetSetDef PkgCacheGetSet[] = {
