@@ -185,12 +185,29 @@ class TestAuthKeys(unittest.TestCase):
         self.assertEqual(key.keyid, "46925553")
         self.assertEqual(key.date, "2012-04-27")
 
+    def test_add_key_from_keyserver_too_short(self):
+        """Ensure that short keyids are not imported"""
+        with self.assertRaises(apt.auth.AptKeyError):
+            apt.auth.add_key_from_keyserver("46925553", "hkp://localhost:19191")
+
+    def test_add_key_from_server_mitm(self):
+        """Verify that the key fingerprint is verified after download"""
+        self._start_keyserver()
+        self.addCleanup(self._stop_keyserver)
+        with self.assertRaises(apt.auth.AptKeyError) as cm:
+            apt.auth.add_key_from_keyserver(
+                "0101010178F7FE5C3E65D8AF8B48AD6246925553",
+                "hkp://localhost:19191")
+        self.assertTrue(
+            str(cm.exception).startswith("Fingerprints do not match"))
+
     def testAddKeyFromServer(self):
         """Install a GnuPG key from a remote server."""
         self._start_keyserver()
         self.addCleanup(self._stop_keyserver)
 
-        apt.auth.add_key_from_keyserver("46925553", "hkp://localhost:19191")
+        apt.auth.add_key_from_keyserver(
+            "A1BD8E9D78F7FE5C3E65D8AF8B48AD6246925553", "hkp://localhost:19191")
 
         ret = apt.auth.list_keys()
         self.assertEqual(len(ret), 1)

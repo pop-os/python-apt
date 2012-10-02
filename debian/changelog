@@ -9,6 +9,10 @@ python-apt (0.8.8) UNRELEASED; urgency=low
     Thanks to "sampo555", LP: #1042916
   * lp:~mvo/python-apt/fix-debfile-crash:
     - fix crash on missing candidates in the multiarch check
+  * lp:~mvo/python-apt/recv-key-lp1016643:
+    - Only support long (v4) keyids when downloading keys and
+      check the keys fingerprint before importing. This avoids
+      man-in-the-middle attacks (LP: #1016643)
 
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
