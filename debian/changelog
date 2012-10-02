@@ -1,4 +1,4 @@
-python-apt (0.8.7ubuntu2) UNRELEASEDquantal; urgency=low
+python-apt (0.8.7ubuntu3) quantal; urgency=low
 
   * lp:~mvo/python-apt/recv-key-lp1016643:
     - Only support long (v4) keyids when downloading keys and
@@ -8,6 +8,17 @@ python-apt (0.8.7ubuntu2) UNRELEASEDquantal; urgency=low
     - fix crash on missing candidates in the multiarch check
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 02 Oct 2012 11:24:21 +0200
+
+python-apt (0.8.7ubuntu2) quantal; urgency=low
+
+  * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
+    1) it first checks for PyLong-ness so that in Python 3 on i386, it
+    will be able to convert larger numbers (via doubles rather than ints);
+    2) before doing the conversions through the apt API, check to see if a
+    Python exception occurred, e.g. OverflowError, and return an error
+    condition in that case instead of masking it.  (LP: #1030278)
+
+ -- Barry Warsaw <barry@ubuntu.com>  Mon, 01 Oct 2012 18:04:35 -0400
 
 python-apt (0.8.7ubuntu1) quantal; urgency=low
 
@@ -29,6 +40,14 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
     disabled sources.list entries instead of duplicating them.
     Thanks to "sampo555", LP: #1042916
+
+  [ Barry Warsaw ]
+  * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
+    1) it first checks for PyLong-ness so that in Python 3 on i386, it
+    will be able to convert larger numbers (via doubles rather than ints);
+    2) before doing the conversions through the apt API, check to see if a
+    Python exception occurred, e.g. OverflowError, and return an error
+    condition in that case instead of masking it.  (LP: #1030278)
 
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
