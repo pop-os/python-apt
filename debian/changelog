@@ -1,12 +1,14 @@
-python-apt (0.8.5ubuntu2) UNRELEASED; urgency=low
+python-apt (0.8.5ubuntu3) UNRELEASED; urgency=low
 
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
     value rather than a random one.
   * python/progress.cc:
     - setattr(): Check return from Py_BuildValue().
     - PyFetchProgress:Pulse(): Check return from setattr().
+  * tests/test_apt_pkg.py: New test, currently only for
+    size_to_str() method. 
 
- -- James Hunt <james.hunt@ubuntu.com>  Tue, 02 Oct 2012 09:22:42 +0100
+ -- James Hunt <james.hunt@ubuntu.com>  Tue, 02 Oct 2012 09:25:45 +0100
 
 python-apt (0.8.5) unstable; urgency=low
 
