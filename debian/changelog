@@ -14,6 +14,14 @@ python-apt (0.8.8) UNRELEASED; urgency=low
       check the keys fingerprint before importing. This avoids
       man-in-the-middle attacks (LP: #1016643)
 
+  [ Barry Warsaw ]
+  * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
+    1) it first checks for PyLong-ness so that in Python 3 on i386, it
+    will be able to convert larger numbers (via doubles rather than ints);
+    2) before doing the conversions through the apt API, check to see if a
+    Python exception occurred, e.g. OverflowError, and return an error
+    condition in that case instead of masking it.  (LP: #1030278)
+
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
     value rather than a random one.

@@ -64,17 +64,29 @@ MkInt(StrTimeRFC1123,TimeRFC1123, long long, "L");
 PyObject *StrSizeToStr(PyObject *Self,PyObject *Args)
 {
    PyObject *Obj;
+   double value;
+
    if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
       return 0;
-   if (PyInt_Check(Obj))
-      return CppPyString(SizeToStr(PyInt_AsLong(Obj)));
+   // In Python 3, PyInt_Check is aliased to PyLong_Check and PyInt_AsLong is
+   // aliased to PyLong_AsLong.  Therefore we do the actual long checks first
+   // so that if it is a long in Python 3, the value will be converted to a
+   // double rather than a long.  This avoids OverflowError regressions in
+   // Python 3.  LP: #1030278
    if (PyLong_Check(Obj))
-      return CppPyString(SizeToStr(PyLong_AsDouble(Obj)));
-   if (PyFloat_Check(Obj))
-      return CppPyString(SizeToStr(PyFloat_AsDouble(Obj)));
-
-   PyErr_SetString(PyExc_TypeError,"Only understand integers and floats");
-   return 0;
+      value = PyLong_AsDouble(Obj);
+   else if (PyInt_Check(Obj))
+      value = PyInt_AsLong(Obj);
+   else if (PyFloat_Check(Obj))
+      value = PyFloat_AsDouble(Obj);
+   else {
+      PyErr_SetString(PyExc_TypeError,"Only understand integers and floats");
+      return 0;
+   }
+   // Check for OverflowErrors or other exceptions during conversion.
+   if (PyErr_Occurred())
+      return 0;
+   return CppPyString(SizeToStr(value));
 }
 
 PyObject *StrQuoteString(PyObject *Self,PyObject *Args)
