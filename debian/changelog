@@ -13,6 +13,8 @@ python-apt (0.8.8) UNRELEASED; urgency=low
     - Only support long (v4) keyids when downloading keys and
       check the keys fingerprint before importing. This avoids
       man-in-the-middle attacks (LP: #1016643)
+  * consolidate tests/test_lp1030278.py into the new 
+    tests/test_size_to_str.py
 
   [ Barry Warsaw ]
   * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
@@ -25,6 +27,8 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   [ James Hunt ]
   * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
     value rather than a random one.
+  * lp:~jamesodhunt/python-apt/test-for-size_to_str:
+    - add test for size_to_str() to help with finding LP: #1030278
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:30:53 +0200
 
