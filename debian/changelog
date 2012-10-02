@@ -7,7 +7,7 @@ python-apt (0.8.7ubuntu3) quantal; urgency=low
   * lp:~mvo/python-apt/fix-debfile-crash:
     - fix crash on missing candidates in the multiarch check
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 02 Oct 2012 11:24:21 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 02 Oct 2012 11:35:02 +0200
 
 python-apt (0.8.7ubuntu2) quantal; urgency=low
 
