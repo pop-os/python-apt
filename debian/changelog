@@ -1,3 +1,14 @@
+python-apt (0.8.7ubuntu2) UNRELEASEDquantal; urgency=low
+
+  * lp:~mvo/python-apt/recv-key-lp1016643:
+    - Only support long (v4) keyids when downloading keys and
+      check the keys fingerprint before importing. This avoids
+      man-in-the-middle attacks (LP: #1016643)
+  * lp:~mvo/python-apt/fix-debfile-crash:
+    - fix crash on missing candidates in the multiarch check
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 02 Oct 2012 11:24:21 +0200
+
 python-apt (0.8.7ubuntu1) quantal; urgency=low
 
   [ James Hunt ]
@@ -18,6 +29,10 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
     disabled sources.list entries instead of duplicating them.
     Thanks to "sampo555", LP: #1042916
+
+  [ James Hunt ]
+  * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
+    value rather than a random one.
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:30:53 +0200
 
