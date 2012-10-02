@@ -28,6 +28,8 @@ inline bool setattr(PyObject *object, const char *attr, const char *fmt, T arg)
     if (!object)
         return false;
     PyObject *value = Py_BuildValue(fmt, arg);
+    if (! value)
+        return false;
 
     int result = PyObject_SetAttrString(object, attr, value);
     Py_DECREF(value);
@@ -280,14 +282,22 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
       return false;
    }
 
-   setattr(callbackInst, "last_bytes", "N", MkPyNumber(LastBytes));
-   setattr(callbackInst, "current_cps", "N", MkPyNumber(CurrentCPS));
-   setattr(callbackInst, "current_bytes", "N", MkPyNumber(CurrentBytes));
-   setattr(callbackInst, "total_bytes", "N", MkPyNumber(TotalBytes));
-   setattr(callbackInst, "fetched_bytes", "N", MkPyNumber(FetchedBytes));
-   setattr(callbackInst, "elapsed_time", "N", MkPyNumber(ElapsedTime));
-   setattr(callbackInst, "current_items", "N", MkPyNumber(CurrentItems));
-   setattr(callbackInst, "total_items", "N", MkPyNumber(TotalItems));
+   if (! setattr(callbackInst, "last_bytes", "N", MkPyNumber(LastBytes)))
+       return false;
+   if (! setattr(callbackInst, "current_cps", "N", MkPyNumber(CurrentCPS)))
+       return false;
+   if (! setattr(callbackInst, "current_bytes", "N", MkPyNumber(CurrentBytes)))
+       return false;
+   if (! setattr(callbackInst, "total_bytes", "N", MkPyNumber(TotalBytes)))
+       return false;
+   if (! setattr(callbackInst, "fetched_bytes", "N", MkPyNumber(FetchedBytes)))
+       return false;
+   if (! setattr(callbackInst, "elapsed_time", "N", MkPyNumber(ElapsedTime)))
+       return false;
+   if (! setattr(callbackInst, "current_items", "N", MkPyNumber(CurrentItems)))
+       return false;
+   if (! setattr(callbackInst, "total_items", "N", MkPyNumber(TotalItems)))
+       return false;
 
    // New style
    if (!PyObject_HasAttrString(callbackInst, "updateStatus")) {
@@ -313,12 +323,19 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
      return true;
    }
 #ifdef COMPAT_0_7
-   setattr(callbackInst, "currentCPS", "N", MkPyNumber(CurrentCPS));
-   setattr(callbackInst, "currentBytes", "N", MkPyNumber(CurrentBytes));
-   setattr(callbackInst, "totalBytes", "N", MkPyNumber(TotalBytes));
-   setattr(callbackInst, "fetchedBytes", "N", MkPyNumber(FetchedBytes));
-   setattr(callbackInst, "currentItems", "N", MkPyNumber(CurrentItems));
-   setattr(callbackInst, "totalItems", "N", MkPyNumber(TotalItems));
+   if (! setattr(callbackInst, "currentCPS", "N", MkPyNumber(CurrentCPS)))
+       return false;
+   if (! setattr(callbackInst, "currentBytes", "N", MkPyNumber(CurrentBytes)))
+       return false;
+   if (! setattr(callbackInst, "totalBytes", "N", MkPyNumber(TotalBytes)))
+       return false;
+   if (! setattr(callbackInst, "fetchedBytes", "N", MkPyNumber(FetchedBytes)))
+       return false;
+   if (! setattr(callbackInst, "currentItems", "N", MkPyNumber(CurrentItems)))
+       return false;
+   if (! setattr(callbackInst, "totalItems", "N", MkPyNumber(TotalItems)))
+       return false;
+
    // Go through the list of items and add active items to the
    // activeItems vector.
    map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
