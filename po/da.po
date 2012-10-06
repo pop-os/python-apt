@@ -1,20 +1,20 @@
 # Danish translation python-apt.
-# Copyright (C) 2011 python-apt & nedenstående oversætttere.
+# Copyright (C) 2012 python-apt & nedenstående oversætttere.
 # This file is distributed under the same license as the python-apt package.
 # Mads Bille Lundby <lundbymads@gmail.com>, 2009.
 # AJenbo <anders@jenbo.dk>, 2011.
 # Ask, 2011.
-# Joe Hansen <joedalton2@yahoo.dk>, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: python-apt\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-25 14:31+0200\n"
-"PO-Revision-Date: 2011-06-22 14:44+0200\n"
+"PO-Revision-Date: 2012-10-06 14:44+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish <debian-l10n-danish@lists.debian.org> \n"
-"Language: \n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,103 +27,83 @@ msgstr "http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:151
-#, fuzzy
-#| msgid "Ubuntu 7.04 'Feisty Fawn'"
 msgid "Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Ubuntu 7.04 \"Feisty Fawn\""
+msgstr "Ubuntu 12.04 \"Precise Pangolin\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:158
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 7.04 'Feisty Fawn'"
 msgid "Cdrom with Ubuntu 12.04 'Precise Pangolin'"
-msgstr "Cd-rom med Ubuntu 7.04 \"Feisty Fawn\""
+msgstr "Cd-rom med Ubuntu 12.04 \"Precise Pangolin\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:269
-#, fuzzy
-#| msgid "Ubuntu 9.10 'Karmic Koala'"
 msgid "Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Ubuntu 9.10 \"Karmic Koala\""
+msgstr "Ubuntu 11.10 \"Oneiric Ocelot\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:276
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgid "Cdrom with Ubuntu 11.10 'Oneiric Ocelot'"
-msgstr "Cd-rom med Ubuntu 9.10 \"Karmic Koala\""
+msgstr "Cd-rom med Ubuntu 11.10 \"Oneiric Ocelot\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:388
-#, fuzzy
-#| msgid "Ubuntu 4.10 'Warty Warthog'"
 msgid "Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Ubuntu 11.04 \"Natty Narwhal\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:395
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 4.10 'Warty Warthog'"
 msgid "Cdrom with Ubuntu 11.04 'Natty Narwhal'"
-msgstr "Cd-rom med Ubuntu 4.10 \"Warty Warthog\""
+msgstr "Cd-rom med Ubuntu 11.04 \"Natty Narwhal\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:486
-#, fuzzy
-#| msgid "Ubuntu 9.10 'Karmic Koala'"
 msgid "Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Ubuntu 9.10 \"Karmic Koala\""
+msgstr "Ubuntu 10.10 \"Maverick Meerkat\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:506
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 9.10 'Karmic Koala'"
 msgid "Cdrom with Ubuntu 10.10 'Maverick Meerkat'"
-msgstr "Cd-rom med Ubuntu 9.10 \"Karmic Koala\""
+msgstr "Cd-rom med Ubuntu 10.10 \"Maverick Meerkat\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:518
 msgid "Canonical Partners"
-msgstr ""
+msgstr "Canonicalpartnere"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:520
 msgid "Software packaged by Canonical for their partners"
-msgstr ""
+msgstr "Programmer pakket af Canonical for deres partnere"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:521
 msgid "This software is not part of Ubuntu."
-msgstr ""
+msgstr "Dette program er ikke en del af Ubuntu."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:528
 msgid "Independent"
-msgstr ""
+msgstr "Uafhængigt"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:530
 msgid "Provided by third-party software developers"
-msgstr ""
+msgstr "Tilbudt af tredjepartsprogramudviklere"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:531
 msgid "Software offered by third party developers."
-msgstr ""
+msgstr "Programmer tilbudt af tredjepartsudviklere."
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:569
-#, fuzzy
-#| msgid "Ubuntu 8.04 'Hardy Heron'"
 msgid "Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Ubuntu 8.04 \"Hardy Heron\""
+msgstr "Ubuntu 10.04 \"Lucid Lynx\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:589
-#, fuzzy
-#| msgid "Cdrom with Ubuntu 8.04 'Hardy Heron'"
 msgid "Cdrom with Ubuntu 10.04 'Lucid Lynx'"
-msgstr "Cd-rom med Ubuntu 8.04 \"Hardy Heron\""
+msgstr "Cd-rom med Ubuntu 10.04 \"Lucid Lynx\""
 
 #. Description
 #: ../data/templates/Ubuntu.info.in:632
@@ -212,10 +192,8 @@ msgstr "Ubuntu 6.06 LTS \"Dapper Drake\""
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1075
-#, fuzzy
-#| msgid "Canonical-supported Open Source software"
 msgid "Canonical-supported free and open-source software"
-msgstr "Canonical-understøttet software med åben kildekode"
+msgstr "Canonical-understøttede frie programmer med åben kildekode"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1077
@@ -224,10 +202,8 @@ msgstr "Vedligeholdt af fællesskabet (universe)"
 
 #. CompDescriptionLong
 #: ../data/templates/Ubuntu.info.in:1078
-#, fuzzy
-#| msgid "Community-maintained Open Source software"
 msgid "Community-maintained free and open-source software"
-msgstr "Software med åben kildekode vedligeholdt af fællesskabet"
+msgstr "Fællesskabsvedligeholdt frie programmer med åben kildekode"
 
 #. CompDescription
 #: ../data/templates/Ubuntu.info.in:1080
@@ -382,10 +358,8 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-#, fuzzy
-#| msgid "Debian 6.0 'Squeeze' "
 msgid "Debian 7.0 'Wheezy' "
-msgstr "Debian 6.0 \"Squeeze\" "
+msgstr "Debian 7.0 \"Wheezy\" "
 
 #. Description
 #: ../data/templates/Debian.info.in:33
@@ -514,14 +488,12 @@ msgstr ""
 "Undersøg venligst din internetforbindelse."
 
 #: ../apt/debfile.py:82
-#, fuzzy, python-format
-#| msgid "List of files for '%s'could not be read"
+#, python-format
 msgid "List of files for '%s' could not be read"
 msgstr "Listen over filer for \"%s\" kunne ikke læses"
 
 #: ../apt/debfile.py:93
-#, fuzzy, python-format
-#| msgid "List of files for '%s'could not be read"
+#, python-format
 msgid "List of control files for '%s' could not be read"
 msgstr "Listen over filer for \"%s\" kunne ikke læses"
 
@@ -542,6 +514,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' dependency %(depname)s "
 "(%(deprelation)s %(depversion)s)"
 msgstr ""
+"Ødelægger eksisterende pakke \"%(pkgname)s\" afhængighed %(depname)s "
+"(%(deprelation)s %(depversion)s)"
 
 #. TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
 #: ../apt/debfile.py:389
@@ -550,6 +524,8 @@ msgid ""
 "Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s "
 "%(targetver)s)"
 msgstr ""
+"Ødelægger eksisterende pakke \"%(pkgname)s\" konflikt %(targetpkg)s (%(comptype)s "
+"%(targetver)s)"
 
 #: ../apt/debfile.py:399
 #, python-format
@@ -557,10 +533,12 @@ msgid ""
 "Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But "
 "the '%(debfile)s' provides it via: '%(provides)s'"
 msgstr ""
+"Ødelægger eksisterende pakke \"%(pkgname)s\" som er i konflikt: \"%(targetpkg)s\". "
+"Men \"%(debfile)s\" tilbyder den via: \"%(provides)s\""
 
 #: ../apt/debfile.py:447
 msgid "No Architecture field in the package"
-msgstr ""
+msgstr "Intet arkitekturfelt i pakken"
 
 #: ../apt/debfile.py:457
 #, python-format
@@ -586,15 +564,17 @@ msgid ""
 "Automatically decompressed:\n"
 "\n"
 msgstr ""
+"Automatisk pakket ud:\n"
+"\n"
 
 #: ../apt/debfile.py:599
 msgid "Automatically converted to printable ascii:\n"
-msgstr ""
+msgstr "Automatisk konverteret til udskrivbar ascii:\n"
 
 #: ../apt/debfile.py:689
 #, python-format
 msgid "Install Build-Dependencies for source package '%s' that builds %s\n"
-msgstr "Installér bygge-afhængigheder til kildepakke \"%s\" der bygger %s\n"
+msgstr "Installer byggeafhængigheder for kildepakken \"%s\" der bygger %s\n"
 
 #: ../apt/debfile.py:700
 msgid "An essential package would be removed"
@@ -603,7 +583,7 @@ msgstr "En nødvendig pakke vil blive fjernet"
 #: ../apt/progress/text.py:82
 #, python-format
 msgid "%c%s... Done"
-msgstr "%c%s... Færdig"
+msgstr "%c%s ... Færdig"
 
 #: ../apt/progress/text.py:122
 msgid "Hit "
@@ -654,5 +634,4 @@ msgstr "Indsæt en disk i drevet og tryk retur"
 msgid "Building data structures"
 msgstr "Opbygger datastrukturer"
 
-#~ msgid "This is not a valid DEB archive, missing '%s' member"
-#~ msgstr "Dette er ikke et gyldigt DEB-arkiv, mangler \"%s-medlem\""
+

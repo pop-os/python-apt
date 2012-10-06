@@ -2,6 +2,7 @@ python-apt (0.8.8) UNRELEASED; urgency=low
 
   [ Program translation updates ]
   * po/pl.po: Polish (Michał Kułach) (closes: #684308)
+  * po/da.po: Danish (Joe Hansen) (closes: #689827)
   
   [ Michael Vogt ]
   * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
