@@ -175,7 +175,9 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
             got_fingerprint = line.split(":")[9]
             # stop after the first to ensure no subkey trickery
             break
-    signing_key_fingerprint = keyid
+    # strip the leading "0x" is there is one and uppercase (as this is
+    # what gnupg is using)
+    signing_key_fingerprint = keyid.replace("0x", "").upper()
     if got_fingerprint != signing_key_fingerprint:
         raise AptKeyError(
             "Fingerprints do not match, not importing: '%s' != '%s'" % (

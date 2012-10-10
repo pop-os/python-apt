@@ -207,7 +207,8 @@ class TestAuthKeys(unittest.TestCase):
         self.addCleanup(self._stop_keyserver)
 
         apt.auth.add_key_from_keyserver(
-            "A1BD8E9D78F7FE5C3E65D8AF8B48AD6246925553", "hkp://localhost:19191")
+            "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
+            "hkp://localhost:19191")
 
         ret = apt.auth.list_keys()
         self.assertEqual(len(ret), 1)
