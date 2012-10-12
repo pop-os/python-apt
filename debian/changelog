@@ -1,3 +1,10 @@
+python-apt (0.8.7ubuntu5) UNRELEASED; urgency=low
+
+  * add dep8 style autopkgtest support
+  * add "codename" to the PackageFile object
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Fri, 12 Oct 2012 11:02:03 +0200
+
 python-apt (0.8.7ubuntu4) quantal; urgency=low
 
   * apt/auth.py:
@@ -90,13 +97,13 @@ python-apt (0.8.6) unstable; urgency=low
   * debian/control:
     - add build-dep for apt (>= 0.9.6) to make test_auth.py test
       work reliable
-
+  * python/cache.cc:
   [ Colin Watson ]
   * aptsources/*.py, setup.py: Make aptsources modules work directly in
     either Python 2 or 3, and exclude the "future" 2to3 fixer so that 2to3
     doesn't need to modify them.  This makes life a little easier for the
     strange tricks update-manager plays with its dist-upgrader tarball.
-
+    - Use Popen.communicate() instead of stdin, stdout
   [ Julian Andres Klode ]
   * apt/auth.py:
     - Use tempfile.NamedTemporaryFile to create temporary file

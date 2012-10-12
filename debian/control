@@ -22,6 +22,7 @@ Build-Depends: apt (>= 0.9.6),
 Vcs-Bzr: http://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
 XS-Debian-Vcs-Bzr: http://bzr.debian.org/apt/python-apt/debian-sid
 XS-Debian-Vcs-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
+XS-Testsuite: autopkgtest
 
 Package: python-apt
 Architecture: any
