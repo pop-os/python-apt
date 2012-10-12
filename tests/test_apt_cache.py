@@ -19,6 +19,7 @@ import apt
 import apt_pkg
 import shutil
 import glob
+import os
 import logging
 
 def if_sources_list_is_readable(f):
@@ -28,6 +29,14 @@ def if_sources_list_is_readable(f):
         else:
             logging.warn("skipping '%s' because sources.list is not readable" % f)
     return wrapper
+
+def get_open_file_descriptors():
+    try:
+        fds = os.listdir("/proc/self/fd")
+    except OSError:
+        logging.warn("failed to list /proc/self/fd")
+        return set([])
+    return set(map(int, fds))
 
 class TestAptCache(unittest.TestCase):
     """ test the apt cache """
@@ -69,6 +78,16 @@ class TestAptCache(unittest.TestCase):
                 self.assertTrue('Version' in r)
                 self.assertTrue(len(r['Description']) > 0)
                 self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
+
+    @if_sources_list_is_readable
+    def test_closeable_cache(self):
+        fd_0 = get_open_file_descriptors()
+        cache = apt.Cache()
+        opened_fd = get_open_file_descriptors().difference(fd_0)
+        cache.close()
+        fd_1 = get_open_file_descriptors()
+        unclosed_fd = opened_fd.intersection(fd_1)
+        self.assertEqual(unclosed_fd, set())
 
     def test_get_provided_packages(self):
         apt.apt_pkg.config.set("Apt::architecture", "i386")
