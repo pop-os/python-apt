@@ -14,6 +14,13 @@ else:
     from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as HTTPRequestHandler
 
+
+if sys.version_info[0] == 2 and sys.version_info[1] == 6:
+    from unittest2 import TestCase
+else:
+    from unittest import TestCase
+
+
 import apt_pkg
 import apt.auth
 
@@ -103,7 +110,7 @@ DHcut3Yey8o=
 -----END PGP PUBLIC KEY BLOCK-----"""
 
 
-class TestAuthKeys(unittest.TestCase):
+class TestAuthKeys(TestCase):
 
     """Test handling of keys for signed repositories."""
 

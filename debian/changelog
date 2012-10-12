@@ -1,4 +1,4 @@
-python-apt (0.8.8) UNRELEASED; urgency=low
+python-apt (0.8.8) UNRELEASEDunstable; urgency=low
 
   [ Program translation updates ]
   * po/pl.po: Polish (Michał Kułach) (closes: #684308)
@@ -18,6 +18,9 @@ python-apt (0.8.8) UNRELEASED; urgency=low
     tests/test_size_to_str.py
   * apt/auth.py:
     - support importing long keyids with leading 0x and mixed case
+  * debian/control:
+    - build-depend on python-unittest2 to get "with TestCase.assertRaises"
+      support in python2.6
 
   [ Barry Warsaw ]
   * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
@@ -33,7 +36,7 @@ python-apt (0.8.8) UNRELEASED; urgency=low
   * lp:~jamesodhunt/python-apt/test-for-size_to_str:
     - add test for size_to_str() to help with finding LP: #1030278
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 01 Oct 2012 13:30:53 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 12 Oct 2012 09:31:47 +0200
 
 python-apt (0.8.7) unstable; urgency=low
 
