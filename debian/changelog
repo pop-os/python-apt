@@ -1,5 +1,8 @@
 python-apt (0.8.8ubuntu1) UNRELEASED; urgency=low
 
+  NOTE: THIS is intended for R, use lp:~ubuntu-core-dev/python-apt/quantal
+        for quantal (and remove this note on the first R upload ;)
+
   * merged from the debian-sid branch:
     - do not build-depend on python-unittest2, only needed for python2.6
   * add dep8 style autopkgtest support
