@@ -16,6 +16,8 @@ python-apt (0.8.8) UNRELEASED; urgency=low
       man-in-the-middle attacks (LP: #1016643)
   * consolidate tests/test_lp1030278.py into the new 
     tests/test_size_to_str.py
+  * apt/auth.py:
+    - support importing long keyids with leading 0x and mixed case
 
   [ Barry Warsaw ]
   * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
