@@ -1,2 +1,2 @@
 Tests: run-tests
-Depends: @, apt, apt-utils, python-debian
+Depends: @, apt-utils, python-debian, fakeroot, intltool
