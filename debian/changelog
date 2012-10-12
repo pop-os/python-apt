@@ -1,4 +1,4 @@
-python-apt (0.8.8) UNRELEASEDunstable; urgency=low
+python-apt (0.8.8) unstable; urgency=low
 
   [ Program translation updates ]
   * po/pl.po: Polish (Michał Kułach) (closes: #684308)
@@ -36,7 +36,7 @@ python-apt (0.8.8) UNRELEASEDunstable; urgency=low
   * lp:~jamesodhunt/python-apt/test-for-size_to_str:
     - add test for size_to_str() to help with finding LP: #1030278
 
- -- Michael Vogt <mvo@debian.org>  Fri, 12 Oct 2012 09:31:47 +0200
+ -- Michael Vogt <mvo@debian.org>  Fri, 12 Oct 2012 10:47:11 +0200
 
 python-apt (0.8.7) unstable; urgency=low
 
