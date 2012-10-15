@@ -74,7 +74,7 @@ int TagFileClear(PyObject *self) {
     PyString_FromStringAndSize((v), (len))
 #define TagSecString_FromString(self, v) PyString_FromString(v)
 #else
-PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
+static PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
 	 				 Py_ssize_t len) {
    TagSecData *Self = (TagSecData *)self;
    if (Self->Bytes)
@@ -85,7 +85,7 @@ PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
       return PyUnicode_FromStringAndSize(v, len);
 }
 
-PyObject *TagSecString_FromString(PyObject *self, const char *v) {
+static PyObject *TagSecString_FromString(PyObject *self, const char *v) {
    TagSecData *Self = (TagSecData *)self;
    if (Self->Bytes)
       return PyBytes_FromString(v);
