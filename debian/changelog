@@ -1,11 +1,16 @@
 python-apt (0.8.8.1) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * python/tag.cc:
     - make TagSecString_FromStringAndSize, TagSecString_FromString
       static, thanks to jcristau
   * python/cache.cc:
     - add "Codename" to PackageFile object
   * add dep8 style autopkgtest support
+  
+  [ Jason Conti ]
+  * lp:~jconti/python-apt/closeable-cache:
+    - add apt.Cache.close() method
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Oct 2012 10:03:21 +0200
 
