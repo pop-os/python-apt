@@ -142,6 +142,8 @@ class Cache(object):
         """
         if progress is None:
             progress = apt.progress.base.OpProgress()
+        # close old cache on (re)open
+        self.close()
         self.op_progress = progress
         self._run_callbacks("cache_pre_open")
 
