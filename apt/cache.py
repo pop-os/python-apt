@@ -179,6 +179,7 @@ class Cache(object):
 
     def close(self):
         """ Close the package cache """
+        # explicitely free the FDs that _records has open
         del self._records
         self._records = None
 
