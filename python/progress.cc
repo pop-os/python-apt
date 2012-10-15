@@ -28,6 +28,8 @@ inline bool setattr(PyObject *object, const char *attr, const char *fmt, T arg)
     if (!object)
         return false;
     PyObject *value = Py_BuildValue(fmt, arg);
+    if (value == NULL)
+       return false;
 
     int result = PyObject_SetAttrString(object, attr, value);
     Py_DECREF(value);

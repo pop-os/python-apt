@@ -65,7 +65,7 @@ class AcquireProgress(object):
     def media_change(self, media, drive):
         """Prompt the user to change the inserted removable media.
 
-        The parameter 'media' decribes the name of the the media type that
+        The parameter 'media' decribes the name of the media type that
         should be changed, whereas the parameter 'drive' should be the
         identifying name of the drive whose media should be changed.
 

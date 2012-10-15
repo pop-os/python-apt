@@ -1,3 +1,67 @@
+python-apt (0.8.8.1) UNRELEASED; urgency=low
+
+  * python/tag.cc:
+    - make TagSecString_FromStringAndSize, TagSecString_FromString
+      static, thanks to jcristau
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Oct 2012 10:03:21 +0200
+
+python-apt (0.8.8) unstable; urgency=low
+
+  [ Program translation updates ]
+  * po/pl.po: Polish (Michał Kułach) (closes: #684308)
+  * po/da.po: Danish (Joe Hansen) (closes: #689827)
+  
+  [ Michael Vogt ]
+  * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
+    disabled sources.list entries instead of duplicating them.
+    Thanks to "sampo555", LP: #1042916
+  * lp:~mvo/python-apt/fix-debfile-crash:
+    - fix crash on missing candidates in the multiarch check
+  * lp:~mvo/python-apt/recv-key-lp1016643:
+    - Only support long (v4) keyids when downloading keys and
+      check the keys fingerprint before importing. This avoids
+      man-in-the-middle attacks (LP: #1016643)
+  * consolidate tests/test_lp1030278.py into the new 
+    tests/test_size_to_str.py
+  * apt/auth.py:
+    - support importing long keyids with leading 0x and mixed case
+  * debian/control:
+    - build-depend on python-unittest2 to get "with TestCase.assertRaises"
+      support in python2.6
+
+  [ Barry Warsaw ]
+  * python/string.cc, tests/test_lp1030278.py: Fix StrSizeToStr() so that
+    1) it first checks for PyLong-ness so that in Python 3 on i386, it
+    will be able to convert larger numbers (via doubles rather than ints);
+    2) before doing the conversions through the apt API, check to see if a
+    Python exception occurred, e.g. OverflowError, and return an error
+    condition in that case instead of masking it.  (LP: #1030278)
+
+  [ James Hunt ]
+  * python/cache.cc: PkgCacheGetIsMultiArch(): Return calculated
+    value rather than a random one.
+  * lp:~jamesodhunt/python-apt/test-for-size_to_str:
+    - add test for size_to_str() to help with finding LP: #1030278
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 12 Oct 2012 10:47:11 +0200
+
+python-apt (0.8.7) unstable; urgency=low
+
+  [ Translation updates ]
+  * po/es.po: Spanish translation updated by Omar Campagne (closes: #679285)
+  * po/ja.po: Japanese translation updated by Kenshi Muto (closes: #679652)
+
+  [ Jakub Wilk ]
+  * Fix typos: the the -> the (closes: #679432)
+
+  [ Julian Andres Klode ]
+  * apt/auth.py:
+    - Do not merge stdout and stderr (Closes: #678706)
+    - Forward stderr from apt-key to our stderr if non-empty
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 30 Jul 2012 13:29:17 +0200
+
 python-apt (0.8.6) unstable; urgency=low
 
   [ Michael Vogt ]
