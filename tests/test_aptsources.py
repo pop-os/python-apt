@@ -233,6 +233,20 @@ class TestAptSources(unittest.TestCase):
         for key in found:
             self.assertEqual(found[key], 1)
 
+    def test_enable_disabled(self):
+        """LP: #1042916: Test enabling disabled entry."""
+        apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
+                           "sources.list")
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+        disabled = sources.add("deb", "http://fi.archive.ubuntu.com/ubuntu/",
+                    "precise",
+                    ["main"])
+        disabled.set_enabled(False)
+        enabled = sources.add("deb", "http://fi.archive.ubuntu.com/ubuntu/",
+                    "precise",
+                    ["main"])
+        self.assertEqual(disabled, enabled)
+        self.assertFalse(disabled.disabled)
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
