@@ -7,19 +7,27 @@
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.
 """Unit tests for verifying the correctness of check_dep, etc in apt_pkg."""
+
+import glob
+import logging
 import os
+import shutil
+import sys
 import tempfile
 import unittest
 
+if sys.version_info[0] == 2 and sys.version_info[1] == 6:
+    from unittest2 import TestCase
+else:
+    from unittest import TestCase
+
+
 from test_all import get_library_dir
-import sys
 sys.path.insert(0, get_library_dir())
 
 import apt
 import apt_pkg
-import shutil
-import glob
-import logging
+
 
 def if_sources_list_is_readable(f):
     def wrapper(*args, **kwargs):
@@ -29,7 +37,17 @@ def if_sources_list_is_readable(f):
             logging.warn("skipping '%s' because sources.list is not readable" % f)
     return wrapper
 
-class TestAptCache(unittest.TestCase):
+
+def get_open_file_descriptors():
+    try:
+        fds = os.listdir("/proc/self/fd")
+    except OSError:
+        logging.warn("failed to list /proc/self/fd")
+        return set([])
+    return set(map(int, fds))
+
+
+class TestAptCache(TestCase):
     """ test the apt cache """
 
     def setUp(self):
@@ -68,7 +86,34 @@ class TestAptCache(unittest.TestCase):
                 self.assertEqual(r['Package'], pkg.shortname)
                 self.assertTrue('Version' in r)
                 self.assertTrue(len(r['Description']) > 0)
-                self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
+                self.assertTrue(
+                    str(r).startswith('Package: %s\n' % pkg.shortname))
+
+    @if_sources_list_is_readable
+    def test_cache_close_leak_fd(self):
+        fds_before_open = get_open_file_descriptors()
+        cache = apt.Cache()
+        opened_fd = get_open_file_descriptors().difference(fds_before_open)
+        cache.close()
+        fds_after_close = get_open_file_descriptors()
+        unclosed_fd = opened_fd.intersection(fds_after_close)
+        self.assertEqual(fds_before_open, fds_after_close)
+        self.assertEqual(unclosed_fd, set())
+
+    def test_cache_open_twice_leaks_fds(self):
+        cache = apt.Cache()
+        fds_before_open = get_open_file_descriptors()
+        cache.open()
+        fds_after_open_twice = get_open_file_descriptors()
+        self.assertEqual(fds_before_open, fds_after_open_twice)
+
+    @if_sources_list_is_readable
+    def test_cache_close_download_fails(self):
+        cache = apt.Cache()
+        self.assertEqual(cache.required_download, 0)
+        cache.close()
+        with self.assertRaises(apt.cache.CacheClosedException):
+            cache.required_download
 
     def test_get_provided_packages(self):
         apt.apt_pkg.config.set("Apt::architecture", "i386")
