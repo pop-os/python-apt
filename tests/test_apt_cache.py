@@ -108,16 +108,6 @@ class TestAptCache(TestCase):
         self.assertEqual(fds_before_open, fds_after_open_twice)
 
     @if_sources_list_is_readable
-    def test_cache_delete_leasks_fds(self):
-        fds_before_open = get_open_file_descriptors()
-        cache = apt.Cache()
-        del cache
-        import gc
-        gc.collect()
-        fds_after_delete = get_open_file_descriptors()
-        self.assertEqual(fds_before_open, fds_after_delete)
-
-    @if_sources_list_is_readable
     def test_cache_close_download_fails(self):
         cache = apt.Cache()
         self.assertEqual(cache.required_download, 0)
