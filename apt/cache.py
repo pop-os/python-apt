@@ -42,6 +42,9 @@ class FetchFailedException(IOError):
 class LockFailedException(IOError):
     """Exception that is thrown when locking fails."""
 
+class CacheClosedException(Exception):
+    """Exception that is thrown when the cache is used after close()."""
+
 
 class Cache(object):
     """Dictionary-like package cache.
@@ -139,6 +142,8 @@ class Cache(object):
         """
         if progress is None:
             progress = apt.progress.base.OpProgress()
+        # close old cache on (re)open
+        self.close()
         self.op_progress = progress
         self._run_callbacks("cache_pre_open")
 
@@ -171,6 +176,20 @@ class Cache(object):
 
         progress.done()
         self._run_callbacks("cache_post_open")
+
+    def close(self):
+        """ Close the package cache """
+        # explicitely free the FDs that _records has open
+        del self._records
+        self._records = None
+
+    def __enter__(self):
+        """ Enter the with statement """
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """ Exit the with statement """
+        self.close()
 
     def __getitem__(self, key):
         """ look like a dictionary (get key) """
@@ -238,6 +257,8 @@ class Cache(object):
     @property
     def required_download(self):
         """Get the size of the packages that are required to download."""
+        if self._records is None:
+            raise CacheClosedException("Cache object used after close() called")
         pm = apt_pkg.PackageManager(self._depcache)
         fetcher = apt_pkg.Acquire()
         pm.get_archives(fetcher, self._list, self._records)
@@ -288,6 +309,8 @@ class Cache(object):
 
     def _fetch_archives(self, fetcher, pm):
         """ fetch the needed archives """
+        if self._records is None:
+            raise CacheClosedException("Cache object used after close() called")
 
         # get lock
         lockfile = apt_pkg.config.find_dir("Dir::Cache::Archives") + "lock"
