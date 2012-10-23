@@ -1,4 +1,4 @@
-python-apt (0.8.8ubuntu1) UNRELEASEDraring; urgency=low
+python-apt (0.8.8ubuntu1) raring; urgency=low
 
   [ Michael Vogt ]
   * merged from the debian-sid branch:
@@ -18,7 +18,7 @@ python-apt (0.8.8ubuntu1) UNRELEASEDraring; urgency=low
   * lp:~jconti/python-apt/closeable-cache:
     - add apt.Cache.close() method
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Oct 2012 12:49:21 +0200
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 23 Oct 2012 12:58:13 +0200
   
 python-apt (0.8.8) unstable; urgency=low
 
