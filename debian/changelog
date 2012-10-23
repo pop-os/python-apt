@@ -7,6 +7,7 @@ python-apt (0.8.8.1~exp1) UNRELEASED; urgency=low
   * python/cache.cc:
     - add "Codename" to PackageFile object
   * add dep8 style autopkgtest support
+  * build fixes for python3.3
   
   [ Jason Conti ]
   * lp:~jconti/python-apt/closeable-cache:
