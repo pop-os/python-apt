@@ -1,9 +1,9 @@
-python-apt (0.8.8ubuntu2) UNRELEASED; urgency=low
+python-apt (0.8.8ubuntu2) raring; urgency=low
 
   * data/templates/Ubuntu.info.in:
     - Fix descriptions of quantal and raring.
 
- -- Colin Watson <cjwatson@ubuntu.com>  Wed, 07 Nov 2012 13:13:08 +0000
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 07 Nov 2012 13:16:33 +0000
 
 python-apt (0.8.8ubuntu1) raring; urgency=low
 
