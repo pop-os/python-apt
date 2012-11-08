@@ -1,3 +1,11 @@
+python-apt (0.8.8ubuntu3) UNRELEASED; urgency=low
+
+  * tests/test_lp659438.py:
+    - Add an Architecture: line to the test Packages file so that apt
+      doesn't get upset with it.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 08 Nov 2012 15:02:21 +0000
+
 python-apt (0.8.8ubuntu2) raring; urgency=low
 
   * data/templates/Ubuntu.info.in:

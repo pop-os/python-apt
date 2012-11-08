@@ -48,7 +48,8 @@ class RegressionTestCase(unittest.TestCase):
 Status: install reinstreq half-installed
 Priority: optional
 Section: admin
-Version: 3.6.9+build1+nobinonly-0ubuntu1""")
+Version: 3.6.9+build1+nobinonly-0ubuntu1
+Architecture: all""")
         sources_list_path = apt_pkg.config.find_file("Dir::Etc::sourcelist")
         repo_path = os.path.abspath("./data/test-repo")
         with open(sources_list_path, "w") as sources_list:
