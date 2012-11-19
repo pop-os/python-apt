@@ -13,6 +13,8 @@ python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
   * tests/test_debfile_multiarch.py:
     - Don't log warnings when skipping tests; the resulting stderr output
       causes autopkgtest to fail.
+  * tests/test_all.py:
+    - Write general test status output to stdout, not stderr.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
 
