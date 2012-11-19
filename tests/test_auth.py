@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
 import contextlib
+import errno
+import itertools
 import os
 import shutil
 import sys
@@ -221,7 +225,7 @@ class TestAuthKeys(TestCase):
             with self._discard_stderr():
                 apt.auth.add_key_from_keyserver(
                     "0101010178F7FE5C3E65D8AF8B48AD6246925553",
-                    "hkp://localhost:19191")
+                    "hkp://localhost:%d" % self.keyserver_port)
         self.assertTrue(
             str(cm.exception).startswith("Fingerprints do not match"))
 
@@ -233,7 +237,7 @@ class TestAuthKeys(TestCase):
         with self._discard_stderr():
             apt.auth.add_key_from_keyserver(
                 "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
-                "hkp://localhost:19191")
+                "hkp://localhost:%d" % self.keyserver_port)
 
         ret = apt.auth.list_keys()
         self.assertEqual(len(ret), 1)
@@ -246,6 +250,8 @@ class TestAuthKeys(TestCase):
 
     def _start_keyserver(self):
         """Start a fake keyserver on http://localhost:19191
+        If port 19191 is unavailable, try successive ports until one is.
+        Store the port actually in use in self.keyserver_port.
         Thanks pitti.
         """
         dir = tempfile.mkdtemp()
@@ -254,14 +260,30 @@ class TestAuthKeys(TestCase):
         with open(os.path.join(dir, "pks", "lookup"), "w") as key_file:
             key_file.write(WHEEZY_KEY)
 
+        keyserver_pipe = os.pipe()
         self.keyserver_pid = os.fork()
         if self.keyserver_pid == 0:
+            os.close(keyserver_pipe[0])
             # quiesce server log
             os.dup2(os.open('/dev/null', os.O_WRONLY), sys.stderr.fileno())
             os.chdir(dir)
-            httpd = HTTPServer(('localhost', 19191), HTTPRequestHandler)
+            for port in itertools.count(19191):
+                try:
+                    httpd = HTTPServer(('localhost', port), HTTPRequestHandler)
+                    break
+                except IOError as e:
+                    if e.errno != errno.EADDRINUSE:
+                        raise
+            keyserver_write = os.fdopen(keyserver_pipe[1], 'w')
+            print(port, file=keyserver_write)
+            keyserver_write.close()
             httpd.serve_forever()
             os._exit(0)
+
+        os.close(keyserver_pipe[1])
+        keyserver_read = os.fdopen(keyserver_pipe[0])
+        self.keyserver_port = int(keyserver_read.readline())
+        keyserver_read.close()
 
         # wait a bit until server is ready
         time.sleep(0.5)

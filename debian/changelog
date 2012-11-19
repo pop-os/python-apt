@@ -6,6 +6,7 @@ python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
       avoid pollution from the host system.
   * tests/test_auth.py:
     - Discard stderr from gpg.
+    - Try successive keyserver ports if 19191 is already in use.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
 
