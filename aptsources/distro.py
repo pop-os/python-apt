@@ -465,7 +465,7 @@ def _lsb_release():
         result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)
     except OSError as exc:
         if exc.errno != errno.ENOENT:
-            logging.warn('lsb_release failed, using defaults:' % exc)
+            logging.warning('lsb_release failed, using defaults:' % exc)
     return result
 
 

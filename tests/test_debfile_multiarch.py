@@ -23,7 +23,7 @@ class TestDebfileMultiarch(unittest.TestCase):
 
     def test_multiarch_deb_check(self):
         if apt_pkg.get_architectures() != ["amd64", "i386"]:
-            logging.warn("skipping test because running on a non-multiarch system")
+            logging.warning("skipping test because running on a non-multiarch system")
             return
         deb = apt.debfile.DebPackage(
             "./data/test_debs/multiarch-test1_i386.deb")
@@ -37,7 +37,7 @@ class TestDebfileMultiarch(unittest.TestCase):
         # use "lib3ds-1-3" as a test to see if non-multiach lib conflicts work
         canary = "lib3ds-1-3"
         if not canary in cache:
-            logging.warn("skipping test because %s is missing" % canary)
+            logging.warning("skipping test because %s is missing" % canary)
             return
         cache[canary].mark_install()
         deb = apt.debfile.DebPackage(

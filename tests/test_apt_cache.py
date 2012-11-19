@@ -34,7 +34,7 @@ def if_sources_list_is_readable(f):
         if os.access("/etc/apt/sources.list", os.R_OK):
             f(*args, **kwargs)
         else:
-            logging.warn("skipping '%s' because sources.list is not readable" % f)
+            logging.warning("skipping '%s' because sources.list is not readable" % f)
     return wrapper
 
 
@@ -42,7 +42,7 @@ def get_open_file_descriptors():
     try:
         fds = os.listdir("/proc/self/fd")
     except OSError:
-        logging.warn("failed to list /proc/self/fd")
+        logging.warning("failed to list /proc/self/fd")
         return set([])
     return set(map(int, fds))
 
@@ -122,7 +122,7 @@ class TestAptCache(TestCase):
         cache = apt.Cache(rootdir="./data/test-provides/")
         cache.open()
         if len(cache) == 0:
-            logging.warn("skipping test_get_provided_packages, cache empty?!?")
+            logging.warning("skipping test_get_provided_packages, cache empty?!?")
             return
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
@@ -135,7 +135,7 @@ class TestAptCache(TestCase):
         # create highlevel cache and get the lowlevel one from it
         highlevel_cache = apt.Cache(rootdir="./data/test-provides")
         if len(highlevel_cache) == 0:
-            logging.warn("skipping test_log_level_pkg_provides, cache empty?!?")
+            logging.warning("skipping test_log_level_pkg_provides, cache empty?!?")
             return
         # low level cache provides list of the pkg
         cache = highlevel_cache._cache
