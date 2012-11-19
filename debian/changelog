@@ -1,4 +1,4 @@
-python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
+python-apt (0.8.8ubuntu4) raring; urgency=low
 
   * tests/test_apt_cache.py, tests/test_lp659438.py, tests/test_progress.py:
     - Clear out APT::Update::Post-Invoke and
@@ -18,7 +18,7 @@ python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
   * tests/test_aptsources.py:
     - Clean up file object in test_enable_component.
 
- -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 14:17:02 +0000
 
 python-apt (0.8.8ubuntu3) raring; urgency=low
 
