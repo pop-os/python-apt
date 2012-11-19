@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import contextlib
 import os
 import shutil
 import sys
@@ -152,6 +153,21 @@ class TestAuthKeys(TestCase):
         for item in cnf:
             apt_pkg.config.set(item, cnf[item])
 
+    @contextlib.contextmanager
+    def _discard_stderr(self):
+        stderr_fd = sys.stderr.fileno()
+        stderr_save = os.dup(stderr_fd)
+        try:
+            devnull = os.open('/dev/null', os.O_WRONLY)
+            try:
+                os.dup2(devnull, stderr_fd)
+                yield
+            finally:
+                os.close(devnull)
+        finally:
+            os.dup2(stderr_save, stderr_fd)
+            os.close(stderr_save)
+
     def testAddAndExportKey(self):
         """Add an example key."""
         apt.auth.add_key(WHEEZY_KEY)
@@ -202,9 +218,10 @@ class TestAuthKeys(TestCase):
         self._start_keyserver()
         self.addCleanup(self._stop_keyserver)
         with self.assertRaises(apt.auth.AptKeyError) as cm:
-            apt.auth.add_key_from_keyserver(
-                "0101010178F7FE5C3E65D8AF8B48AD6246925553",
-                "hkp://localhost:19191")
+            with self._discard_stderr():
+                apt.auth.add_key_from_keyserver(
+                    "0101010178F7FE5C3E65D8AF8B48AD6246925553",
+                    "hkp://localhost:19191")
         self.assertTrue(
             str(cm.exception).startswith("Fingerprints do not match"))
 
@@ -213,9 +230,10 @@ class TestAuthKeys(TestCase):
         self._start_keyserver()
         self.addCleanup(self._stop_keyserver)
 
-        apt.auth.add_key_from_keyserver(
-            "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
-            "hkp://localhost:19191")
+        with self._discard_stderr():
+            apt.auth.add_key_from_keyserver(
+                "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
+                "hkp://localhost:19191")
 
         ret = apt.auth.list_keys()
         self.assertEqual(len(ret), 1)

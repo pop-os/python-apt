@@ -4,6 +4,8 @@ python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
     - Clear out APT::Update::Post-Invoke and
       APT::Update::Post-Invoke-Success in tests that call cache.update to
       avoid pollution from the host system.
+  * tests/test_auth.py:
+    - Discard stderr from gpg.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
 
