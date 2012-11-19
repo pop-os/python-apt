@@ -10,6 +10,9 @@ python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
   * aptsources/distinfo.py, aptsources/distro.py, aptsources/sourceslist.py,
     tests/test_apt_cache.py, tests/test_debfile_multiarch.py:
     - Use logging.warning rather than the deprecated logging.warn.
+  * tests/test_debfile_multiarch.py:
+    - Don't log warnings when skipping tests; the resulting stderr output
+      causes autopkgtest to fail.
 
  -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
 
