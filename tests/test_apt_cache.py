@@ -57,6 +57,8 @@ class TestAptCache(TestCase):
         self._cnf = {}
         for item in apt_pkg.config.keys():
             self._cnf[item] = apt_pkg.config.find(item)
+        apt_pkg.config.clear("APT::Update::Post-Invoke")
+        apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
 
     def tearDown(self):
         for item in self._cnf:

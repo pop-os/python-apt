@@ -1,3 +1,12 @@
+python-apt (0.8.8ubuntu4) UNRELEASED; urgency=low
+
+  * tests/test_apt_cache.py, tests/test_lp659438.py, tests/test_progress.py:
+    - Clear out APT::Update::Post-Invoke and
+      APT::Update::Post-Invoke-Success in tests that call cache.update to
+      avoid pollution from the host system.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Nov 2012 11:57:28 +0000
+
 python-apt (0.8.8ubuntu3) raring; urgency=low
 
   * tests/test_lp659438.py:

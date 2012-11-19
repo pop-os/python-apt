@@ -37,6 +37,8 @@ class TestProgress(unittest.TestCase):
         with open("fetch_sources.list","w") as fobj:
             fobj.write(deb_line)
         apt_pkg.config.set("Dir::Etc::sourcelist", "fetch_sources.list")
+        apt_pkg.config.clear("APT::Update::Post-Invoke")
+        apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
 
     def test_acquire_progress(self):
         progress = TestAcquireProgress()

@@ -39,6 +39,8 @@ class RegressionTestCase(unittest.TestCase):
 
     def setUp(self):
         apt_pkg.init_config()
+        apt_pkg.config.clear("APT::Update::Post-Invoke")
+        apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
         self.chroot_path = chroot_path = tempfile.mkdtemp()
         # Create a damaged status file
         self.cache = apt.cache.Cache(rootdir=chroot_path)
