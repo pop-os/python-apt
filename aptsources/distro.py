@@ -163,7 +163,7 @@ class Distribution(object):
         fname = "/usr/share/xml/iso-codes/iso_3166.xml"
         if os.path.exists(fname):
             et = ElementTree(file=fname)
-            it = et.getiterator('iso_3166_entry')
+            it = et.iter('iso_3166_entry')
             for elm in it:
                 try:
                     descr = elm.attrib["common_name"]
