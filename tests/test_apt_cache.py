@@ -23,7 +23,9 @@ else:
 
 
 from test_all import get_library_dir
-sys.path.insert(0, get_library_dir())
+libdir = get_library_dir()
+if libdir:
+    sys.path.insert(0, libdir)
 
 import apt
 import apt_pkg
