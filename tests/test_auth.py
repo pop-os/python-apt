@@ -227,7 +227,7 @@ class TestAuthKeys(TestCase):
                     "0101010178F7FE5C3E65D8AF8B48AD6246925553",
                     "hkp://localhost:%d" % self.keyserver_port)
         self.assertTrue(
-            str(cm.exception).startswith("Fingerprints do not match"))
+            str(cm.exception).startswith("Fingerprints do not match"), cm.exception)
 
     def testAddKeyFromServer(self):
         """Install a GnuPG key from a remote server."""
