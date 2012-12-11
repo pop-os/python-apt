@@ -375,7 +375,7 @@ class SourcesList(object):
                     source = SourceEntry(line, file)
                     self.list.append(source)
         except:
-            logging.warn("could not open file '%s'\n" % file)
+            logging.warning("could not open file '%s'\n" % file)
 
     def save(self):
         """ save the current sources """

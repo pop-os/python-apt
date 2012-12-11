@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
+
+import contextlib
+import errno
+import itertools
 import os
 import shutil
 import sys
@@ -152,6 +157,21 @@ class TestAuthKeys(TestCase):
         for item in cnf:
             apt_pkg.config.set(item, cnf[item])
 
+    @contextlib.contextmanager
+    def _discard_stderr(self):
+        stderr_fd = sys.stderr.fileno()
+        stderr_save = os.dup(stderr_fd)
+        try:
+            devnull = os.open('/dev/null', os.O_WRONLY)
+            try:
+                os.dup2(devnull, stderr_fd)
+                yield
+            finally:
+                os.close(devnull)
+        finally:
+            os.dup2(stderr_save, stderr_fd)
+            os.close(stderr_save)
+
     def testAddAndExportKey(self):
         """Add an example key."""
         apt.auth.add_key(WHEEZY_KEY)
@@ -202,20 +222,22 @@ class TestAuthKeys(TestCase):
         self._start_keyserver()
         self.addCleanup(self._stop_keyserver)
         with self.assertRaises(apt.auth.AptKeyError) as cm:
-            apt.auth.add_key_from_keyserver(
-                "0101010178F7FE5C3E65D8AF8B48AD6246925553",
-                "hkp://localhost:19191")
+            with self._discard_stderr():
+                apt.auth.add_key_from_keyserver(
+                    "0101010178F7FE5C3E65D8AF8B48AD6246925553",
+                    "hkp://localhost:%d" % self.keyserver_port)
         self.assertTrue(
-            str(cm.exception).startswith("Fingerprints do not match"))
+            str(cm.exception).startswith("Fingerprints do not match"), cm.exception)
 
     def testAddKeyFromServer(self):
         """Install a GnuPG key from a remote server."""
         self._start_keyserver()
         self.addCleanup(self._stop_keyserver)
 
-        apt.auth.add_key_from_keyserver(
-            "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
-            "hkp://localhost:19191")
+        with self._discard_stderr():
+            apt.auth.add_key_from_keyserver(
+                "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
+                "hkp://localhost:%d" % self.keyserver_port)
 
         ret = apt.auth.list_keys()
         self.assertEqual(len(ret), 1)
@@ -228,6 +250,8 @@ class TestAuthKeys(TestCase):
 
     def _start_keyserver(self):
         """Start a fake keyserver on http://localhost:19191
+        If port 19191 is unavailable, try successive ports until one is.
+        Store the port actually in use in self.keyserver_port.
         Thanks pitti.
         """
         dir = tempfile.mkdtemp()
@@ -236,14 +260,38 @@ class TestAuthKeys(TestCase):
         with open(os.path.join(dir, "pks", "lookup"), "w") as key_file:
             key_file.write(WHEEZY_KEY)
 
+        keyserver_pipe = os.pipe()
         self.keyserver_pid = os.fork()
         if self.keyserver_pid == 0:
+            os.close(keyserver_pipe[0])
             # quiesce server log
             os.dup2(os.open('/dev/null', os.O_WRONLY), sys.stderr.fileno())
             os.chdir(dir)
-            httpd = HTTPServer(('localhost', 19191), HTTPRequestHandler)
+            for port in itertools.count(19191):
+                try:
+                    httpd = HTTPServer(('localhost', port), HTTPRequestHandler)
+                    break
+                except IOError as e:
+                    if e.errno != errno.EADDRINUSE:
+                        raise
+            keyserver_write = os.fdopen(keyserver_pipe[1], 'w')
+            print(port, file=keyserver_write)
+            keyserver_write.close()
             httpd.serve_forever()
             os._exit(0)
+
+        os.close(keyserver_pipe[1])
+        keyserver_read = os.fdopen(keyserver_pipe[0])
+        self.keyserver_port = int(keyserver_read.readline())
+        keyserver_read.close()
+
+        # temporarily disable proxy, as gnupg does not get along with that
+        # (LP #789049)
+        self.orig_proxy = os.environ.get('http_proxy')
+        try:
+            del os.environ['http_proxy']
+        except KeyError:
+            pass
 
         # wait a bit until server is ready
         time.sleep(0.5)
@@ -255,6 +303,9 @@ class TestAuthKeys(TestCase):
         os.kill(self.keyserver_pid, 15)
         os.wait()
 
+        # restore proxy
+        if self.orig_proxy is not None:
+            os.environ['http_proxy'] = self.orig_proxy
 
 if __name__ == "__main__":
     unittest.main()

@@ -164,7 +164,8 @@ class TestAptSources(unittest.TestCase):
         from subprocess import Popen, PIPE
         target = "./data/aptsources/sources.list.enable_comps"
         line = "deb http://archive.ubuntu.com/ubuntu lucid main\n"
-        open(target, "w").write(line)
+        with open(target, "w") as target_file:
+            target_file.write(line)
         apt_pkg.config.set("Dir::Etc::sourcelist", target)
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
         distro = aptsources.distro.get_distro(id="Ubuntu")
