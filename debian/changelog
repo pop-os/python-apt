@@ -1,4 +1,4 @@
-python-apt (0.8.8.1~exp1) UNRELEASED; urgency=low
+python-apt (0.8.9~exp1) UNRELEASED; urgency=low
 
   [ Michael Vogt ]
   * python/tag.cc:
@@ -15,7 +15,24 @@ python-apt (0.8.8.1~exp1) UNRELEASED; urgency=low
   * lp:~jconti/python-apt/closeable-cache:
     - add apt.Cache.close() method
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Mon, 15 Oct 2012 10:03:21 +0200
+ -- Michael Vogt <mvo@debian.org>  Mon, 15 Oct 2012 10:03:21 +0200
+
+python-apt (0.8.8.2) UNRELEASED; urgency=low
+
+  * po/no.po: Remove useless translation (superseded by nb.po)
+
+ -- David Prévot <taffit@debian.org>  Wed, 28 Nov 2012 21:37:17 -0400
+
+python-apt (0.8.8.1) unstable; urgency=low
+
+  * python/tag.cc:
+    - make TagSecString_FromStringAndSize, TagSecString_FromString
+      static, thanks to jcristau
+  * tests/test_lp659438.py:
+    - fix missing architecture to make the tests pass again during
+      build with the latest apt
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 15 Nov 2012 09:55:24 +0100
 
 python-apt (0.8.8) unstable; urgency=low
 
