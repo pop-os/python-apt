@@ -1,4 +1,4 @@
-python-apt (0.8.9~exp1) UNRELEASED; urgency=low
+python-apt (0.8.9~exp1) experimental; urgency=low
 
   [ Michael Vogt ]
   * python/tag.cc:
@@ -10,6 +10,8 @@ python-apt (0.8.9~exp1) UNRELEASED; urgency=low
   * build fixes for python3.3
   * data/templates/Ubuntu.info.in:
     - add raring
+  * tests/test_all.py, aptsources/distro.py:
+    - python2.6 compat fixes
   
   [ Jason Conti ]
   * lp:~jconti/python-apt/closeable-cache:
@@ -50,7 +52,7 @@ python-apt (0.8.9~exp1) UNRELEASED; urgency=low
   * data/templates/Ubuntu.info.in:
     - Fix descriptions of quantal and raring.
   
- -- Michael Vogt <mvo@debian.org>  Mon, 15 Oct 2012 10:03:21 +0200
+ -- Michael Vogt <mvo@debian.org>  Wed, 13 Mar 2013 18:36:37 +0100
 
 python-apt (0.8.8.2) UNRELEASED; urgency=low
 
