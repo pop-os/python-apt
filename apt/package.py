@@ -1050,12 +1050,10 @@ class Package(object):
             try:
                 with open(path, "rb") as file_list:
                     return file_list.read().decode("utf-8").split(u"\n")
-            except OSError as error:
-                continue
             except EnvironmentError:
-                return []
+                continue
 
-        raise error
+        return []
 
     def get_changelog(self, uri=None, cancel_lock=None):
         """
