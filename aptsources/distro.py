@@ -163,6 +163,10 @@ class Distribution(object):
         fname = "/usr/share/xml/iso-codes/iso_3166.xml"
         if os.path.exists(fname):
             et = ElementTree(file=fname)
+            # python2.6 compat, the next two lines can get removed
+            # once we do not use py2.6 anymore
+            if getattr(et, "iter", None) is None:
+                et.iter = et.getiterator
             it = et.iter('iso_3166_entry')
             for elm in it:
                 try:
