@@ -1,6 +1,11 @@
 python-apt (0.8.8.2) UNRELEASED; urgency=low
 
+  [ David Prévot ]
   * po/no.po: Remove useless translation (superseded by nb.po)
+
+  [ Julian Andres Klode ]
+  * apt/package.py: Try both filenames for package file lists
+    (Closes: #700715)
 
  -- David Prévot <taffit@debian.org>  Wed, 28 Nov 2012 21:37:17 -0400
 
