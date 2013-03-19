@@ -137,6 +137,7 @@ class Origin(object):
         component - The component (eg. main)
         label     - The Label, as set in the Release file
         origin    - The Origin, as set in the Release file
+        codename  - The Codename, as set in the Release file
         site      - The hostname of the site.
         trusted   - Boolean value whether this is trustworthy.
     """
@@ -146,6 +147,7 @@ class Origin(object):
         self.component = packagefile.component
         self.label = packagefile.label
         self.origin = packagefile.origin
+        self.codename = packagefile.codename
         self.site = packagefile.site
         self.not_automatic = packagefile.not_automatic
         # check the trust
