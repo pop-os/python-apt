@@ -1,10 +1,10 @@
-python-apt (0.8.9~exp2) UNRELEASEDexperimental; urgency=low
+python-apt (0.8.9~exp2) experimental; urgency=low
 
   * apt/package.py:
     - export codename in apt.package.Origin as well
       (closes: #703401)
 
- -- Michael Vogt <mvo@debian.org>  Tue, 19 Mar 2013 16:50:55 +0100
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Mar 2013 16:57:40 +0100
 
 python-apt (0.8.9~exp1) experimental; urgency=low
 
