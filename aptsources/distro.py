@@ -84,8 +84,9 @@ class Distribution(object):
                 self.source_template = template
                 break
         if self.source_template is None:
-            raise NoDistroTemplateException("Error: could not find a "
-                                                "distribution template")
+            raise NoDistroTemplateException(
+                "Error: could not find a distribution template for %s/%s" % 
+                (self.id, self.codename))
 
         # find main and child sources
         media = []

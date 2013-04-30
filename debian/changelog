@@ -1,3 +1,11 @@
+python-apt (0.8.8.3) UNRELEASED; urgency=low
+
+  * aptsources/distro.py:
+    - include the missing ID in the NoDistroTemplateException() error,
+      thanks to Brian Murray
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 30 Apr 2013 18:37:24 +0200
+
 python-apt (0.8.8.2) unstable; urgency=low
 
   [ David Prévot ]
