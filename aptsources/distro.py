@@ -164,7 +164,11 @@ class Distribution(object):
         fname = "/usr/share/xml/iso-codes/iso_3166.xml"
         if os.path.exists(fname):
             et = ElementTree(file=fname)
-            it = et.getiterator('iso_3166_entry')
+            # python2.6 compat, the next two lines can get removed
+            # once we do not use py2.6 anymore
+            if getattr(et, "iter", None) is None:
+                et.iter = et.getiterator
+            it = et.iter('iso_3166_entry')
             for elm in it:
                 try:
                     descr = elm.attrib["common_name"]
@@ -466,7 +470,7 @@ def _lsb_release():
         result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)
     except OSError as exc:
         if exc.errno != errno.ENOENT:
-            logging.warn('lsb_release failed, using defaults:' % exc)
+            logging.warning('lsb_release failed, using defaults:' % exc)
     return result
 
 

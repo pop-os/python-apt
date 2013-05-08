@@ -7,29 +7,49 @@
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.
 """Unit tests for verifying the correctness of check_dep, etc in apt_pkg."""
+
+import glob
+import logging
 import os
+import shutil
+import sys
 import tempfile
 import unittest
 
+if sys.version_info[0] == 2 and sys.version_info[1] == 6:
+    from unittest2 import TestCase
+else:
+    from unittest import TestCase
+
+
 from test_all import get_library_dir
-import sys
-sys.path.insert(0, get_library_dir())
+libdir = get_library_dir()
+if libdir:
+    sys.path.insert(0, libdir)
 
 import apt
 import apt_pkg
-import shutil
-import glob
-import logging
+
 
 def if_sources_list_is_readable(f):
     def wrapper(*args, **kwargs):
         if os.access("/etc/apt/sources.list", os.R_OK):
             f(*args, **kwargs)
         else:
-            logging.warn("skipping '%s' because sources.list is not readable" % f)
+            logging.warning("skipping '%s' because sources.list is not readable" % f)
     return wrapper
 
-class TestAptCache(unittest.TestCase):
+
+def get_open_file_descriptors():
+    try:
+        fds = os.listdir("/proc/self/fd")
+    except OSError:
+        logging.warning("failed to list /proc/self/fd")
+        return set([])
+    return set(map(int, fds))
+
+
+class TestAptCache(TestCase):
     """ test the apt cache """
 
     def setUp(self):
@@ -39,6 +59,8 @@ class TestAptCache(unittest.TestCase):
         self._cnf = {}
         for item in apt_pkg.config.keys():
             self._cnf[item] = apt_pkg.config.find(item)
+        apt_pkg.config.clear("APT::Update::Post-Invoke")
+        apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
 
     def tearDown(self):
         for item in self._cnf:
@@ -68,14 +90,41 @@ class TestAptCache(unittest.TestCase):
                 self.assertEqual(r['Package'], pkg.shortname)
                 self.assertTrue('Version' in r)
                 self.assertTrue(len(r['Description']) > 0)
-                self.assertTrue(str(r).startswith('Package: %s\n' % pkg.shortname))
+                self.assertTrue(
+                    str(r).startswith('Package: %s\n' % pkg.shortname))
+
+    @if_sources_list_is_readable
+    def test_cache_close_leak_fd(self):
+        fds_before_open = get_open_file_descriptors()
+        cache = apt.Cache()
+        opened_fd = get_open_file_descriptors().difference(fds_before_open)
+        cache.close()
+        fds_after_close = get_open_file_descriptors()
+        unclosed_fd = opened_fd.intersection(fds_after_close)
+        self.assertEqual(fds_before_open, fds_after_close)
+        self.assertEqual(unclosed_fd, set())
+
+    def test_cache_open_twice_leaks_fds(self):
+        cache = apt.Cache()
+        fds_before_open = get_open_file_descriptors()
+        cache.open()
+        fds_after_open_twice = get_open_file_descriptors()
+        self.assertEqual(fds_before_open, fds_after_open_twice)
+
+    @if_sources_list_is_readable
+    def test_cache_close_download_fails(self):
+        cache = apt.Cache()
+        self.assertEqual(cache.required_download, 0)
+        cache.close()
+        with self.assertRaises(apt.cache.CacheClosedException):
+            cache.required_download
 
     def test_get_provided_packages(self):
         apt.apt_pkg.config.set("Apt::architecture", "i386")
         cache = apt.Cache(rootdir="./data/test-provides/")
         cache.open()
         if len(cache) == 0:
-            logging.warn("skipping test_get_provided_packages, cache empty?!?")
+            logging.warning("skipping test_get_provided_packages, cache empty?!?")
             return
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
@@ -88,7 +137,7 @@ class TestAptCache(unittest.TestCase):
         # create highlevel cache and get the lowlevel one from it
         highlevel_cache = apt.Cache(rootdir="./data/test-provides")
         if len(highlevel_cache) == 0:
-            logging.warn("skipping test_log_level_pkg_provides, cache empty?!?")
+            logging.warning("skipping test_log_level_pkg_provides, cache empty?!?")
             return
         # low level cache provides list of the pkg
         cache = highlevel_cache._cache

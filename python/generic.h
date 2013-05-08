@@ -80,10 +80,14 @@ typedef int Py_ssize_t;
 
 static inline const char *PyUnicode_AsString(PyObject *op) {
     // Convert to bytes object, using the default encoding.
+#if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 3
+    return PyUnicode_AsUTF8(op);
+#else
     // Use Python-internal API, there is no other way to do this
     // without a memory leak.
     PyObject *bytes = _PyUnicode_AsDefaultEncodedString(op, 0);
     return bytes ? PyBytes_AS_STRING(bytes) : 0;
+#endif
 }
 
 // Convert any type of string based object to a const char.

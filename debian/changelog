@@ -1,3 +1,73 @@
+python-apt (0.8.9) unstable; urgency=low
+
+  * upload previous experimental upload to sid
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 08 May 2013 18:23:36 +0200
+
+python-apt (0.8.9~exp2) experimental; urgency=low
+
+  * apt/package.py:
+    - export codename in apt.package.Origin as well
+      (closes: #703401)
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 19 Mar 2013 16:57:40 +0100
+
+python-apt (0.8.9~exp1) experimental; urgency=low
+
+  [ Michael Vogt ]
+  * python/tag.cc:
+    - make TagSecString_FromStringAndSize, TagSecString_FromString
+      static, thanks to jcristau
+  * python/cache.cc:
+    - add "Codename" to PackageFile object
+  * add dep8 style autopkgtest support
+  * build fixes for python3.3
+  * data/templates/Ubuntu.info.in:
+    - add raring
+  * tests/test_all.py, aptsources/distro.py:
+    - python2.6 compat fixes
+  
+  [ Jason Conti ]
+  * lp:~jconti/python-apt/closeable-cache:
+    - add apt.Cache.close() method
+  
+  [ Martin Pitt ]
+  * tests/*.py: Do not prepend None to sys.path, Python 3.3 redeems that with
+    an unintelligible crash.
+  * tests/test_auth.py: In test_add_key_from_server_mitm(), show the exception
+    if it does not match the expectation, so that this becomes possible to
+    debug.
+  * aptsources/distro.py: Replace the deprecated getiterator() ElementTree
+    method with iter(), to avoid raising a PendingDeprecationWarning.
+  * tests/test_auth.py: Temporarily disable $http_proxy for the tests, as
+    gnupg does not get along with proxies (LP #789049)
+
+  [ Colin Watson ]
+  * tests/test_apt_cache.py, tests/test_lp659438.py, tests/test_progress.py:
+    - Clear out APT::Update::Post-Invoke and
+      APT::Update::Post-Invoke-Success in tests that call cache.update to
+      avoid pollution from the host system.
+  * tests/test_auth.py:
+    - Discard stderr from gpg.
+    - Try successive keyserver ports if 19191 is already in use.
+  * aptsources/distinfo.py, aptsources/distro.py, aptsources/sourceslist.py,
+    tests/test_apt_cache.py, tests/test_debfile_multiarch.py:
+    - Use logging.warning rather than the deprecated logging.warn.
+  * tests/test_debfile_multiarch.py:
+    - Don't log warnings when skipping tests; the resulting stderr output
+      causes autopkgtest to fail.
+  * tests/test_all.py:
+    - Write general test status output to stdout, not stderr.
+  * tests/test_aptsources.py:
+    - Clean up file object in test_enable_component.
+  * tests/test_lp659438.py:
+    - Add an Architecture: line to the test Packages file so that apt
+      doesn't get upset with it.
+  * data/templates/Ubuntu.info.in:
+    - Fix descriptions of quantal and raring.
+  
+ -- Michael Vogt <mvo@debian.org>  Wed, 13 Mar 2013 18:36:37 +0100
+
 python-apt (0.8.8.3) UNRELEASED; urgency=low
 
   * aptsources/distro.py:
@@ -33,7 +103,7 @@ python-apt (0.8.8) unstable; urgency=low
   [ Program translation updates ]
   * po/pl.po: Polish (Michał Kułach) (closes: #684308)
   * po/da.po: Danish (Joe Hansen) (closes: #689827)
-  
+
   [ Michael Vogt ]
   * merged lp:~sampo555/python-apt/fix_1042916 reuse existing but
     disabled sources.list entries instead of duplicating them.

@@ -172,7 +172,8 @@ class DistInfo(object):
                              stdout=PIPE).communicate()[0].strip()
             except OSError as exc:
                 if exc.errno != errno.ENOENT:
-                    logging.warn('lsb_release failed, using defaults:' % exc)
+                    logging.warning(
+                        'lsb_release failed, using defaults:' % exc)
                 dist = "Debian"
 
         self.dist = dist
