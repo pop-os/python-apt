@@ -1,9 +1,14 @@
 python-apt (0.8.9.1) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * debian/control:
     - updated Vcs field to point to 
       http://git.debian.org/git/apt/python-apt.git
   * replace .bzr-builddeb/default.conf with debian/gbp.conf
+
+  [ Julian Andres Klode ]
+  * Update the Vcs fields to use Vcs-Git with git protocol, and gitweb
+    for Vcs-Browser
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 16 May 2013 16:46:24 +0200
 

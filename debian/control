@@ -19,8 +19,8 @@ Build-Depends: apt (>= 0.9.6),
                python-sphinx (>= 0.5),
                python-debian,
 	       python-unittest2
-Vcs-Bzr: http://git.debian.org/apt/python-apt.git
-Vcs-Browser: http://git.debian.org/apt/python-apt.git
+Vcs-Git: git://anonscm.debian.org/apt/python-apt.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=apt/python-apt.git
 XS-Testsuite: autopkgtest
 
 Package: python-apt
