@@ -9,6 +9,9 @@ python-apt (0.8.9.1) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * Update the Vcs fields to use Vcs-Git with git protocol, and gitweb
     for Vcs-Browser
+  
+  [ Colin Watson ]
+  * add support for "key in apt.debfile.DebPackage" (closes: #710541)
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 16 May 2013 16:46:24 +0200
 

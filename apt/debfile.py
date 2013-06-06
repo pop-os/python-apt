@@ -72,6 +72,9 @@ class DebPackage(object):
     def __getitem__(self, key):
         return self._sections[key]
 
+    def __contains__(self, key):
+        return key in self._sections
+
     @property
     def filelist(self):
         """return the list of files in the deb."""

@@ -133,6 +133,10 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
 	# we need to support python2.6
         self.assertTrue(raised)
 
+    def test_contains(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
+        self.assertTrue("Package" in deb)
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
