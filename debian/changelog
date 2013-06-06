@@ -1,4 +1,4 @@
-python-apt (0.8.9.1) UNRELEASED; urgency=low
+python-apt (0.8.9.1) unstable; urgency=low
 
   [ Michael Vogt ]
   * debian/control:
@@ -13,7 +13,7 @@ python-apt (0.8.9.1) UNRELEASED; urgency=low
   [ Colin Watson ]
   * add support for "key in apt.debfile.DebPackage" (closes: #710541)
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 16 May 2013 16:46:24 +0200
+ -- Michael Vogt <mvo@debian.org>  Thu, 06 Jun 2013 18:32:14 +0200
 
 python-apt (0.8.9) unstable; urgency=low
 
