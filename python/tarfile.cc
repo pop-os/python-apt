@@ -56,7 +56,7 @@ public:
                          unsigned long Size,unsigned long Pos);
 
     PyDirStream(PyObject *callback, const char *member=0) : callback(callback),
-        py_data(0), member(member), error(false), copy(0)
+        py_data(0), member(member), error(false), copy(0), copy_size(0)
     {
         Py_XINCREF(callback);
     }

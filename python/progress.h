@@ -46,7 +46,7 @@ class PyCallbackObj {
    bool RunSimpleCallback(const char *method, PyObject *arglist=NULL,
 			  PyObject **result=NULL);
 
-   PyCallbackObj() : callbackInst(0) {};
+   PyCallbackObj() : callbackInst(0), _save(0) {};
    ~PyCallbackObj()  {Py_DECREF(callbackInst); };
 };
 

@@ -46,7 +46,7 @@ template<typename T> struct IterListStruct
    unsigned long LastIndex;
 
    IterListStruct(T const &I) : Iter(I), LastIndex(0) {}
-   IterListStruct() {};
+   IterListStruct() : LastIndex(0) {};
 
    bool move(unsigned long Index) {
        if (Index < 0 || (unsigned)Index >= Count())
