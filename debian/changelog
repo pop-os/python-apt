@@ -1,3 +1,9 @@
+python-apt (0.8.9.2) UNRELEASED; urgency=low
+
+  * some fixes from a coverity scan run
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 05 Aug 2013 22:55:02 +0200
+
 python-apt (0.8.9.1) unstable; urgency=low
 
   [ Michael Vogt ]
