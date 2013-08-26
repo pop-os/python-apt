@@ -536,24 +536,23 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 
     // try all compression types
     std::vector<std::string> types = APT::Configuration::getCompressionTypes();
-    for (std::vector<std::string>::const_iterator t = types.begin(); 
-         t != types.end(); ++t) 
-    {
-       std::string member = std::string("data.tar.").append(*t);
-       std::string comp = _config->Find(std::string("Acquire::CompressionTypes::").append(*t));
-       self->data = _gettar(self, self->Object->FindMember(member.c_str()),
-                            comp.c_str());
-       if (self->data)
-          break;
+    for (std::vector<std::string>::const_iterator t = types.begin();
+         t != types.end(); ++t) {
+        std::string member = std::string("data.tar.").append(*t);
+        std::string comp = _config->Find(std::string("Acquire::CompressionTypes::").append(*t));
+        self->data = _gettar(self, self->Object->FindMember(member.c_str()),
+                             comp.c_str());
+        if (self->data)
+            break;
     }
-    // no data found, we need to 
+    // no data found, we need to
     if (!self->data) {
-       std::string error;
-       for (std::vector<std::string>::const_iterator t = types.begin(); 
-            t != types.end(); ++t) 
-          error.append(*t + ",");
-        return PyErr_Format(PyExc_SystemError, 
-                            "No debian archive, missing data.tar.{%s}", 
+        std::string error;
+        for (std::vector<std::string>::const_iterator t = types.begin();
+             t != types.end(); ++t)
+            error.append(*t + ",");
+        return PyErr_Format(PyExc_SystemError,
+                            "No debian archive, missing data.tar.{%s}",
                             error.c_str());
     }
 
