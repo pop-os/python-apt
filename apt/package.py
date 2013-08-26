@@ -41,8 +41,6 @@ except ImportError:
 import apt_pkg
 import apt.progress.text
 from apt_pkg import gettext as _
-from apt.deprecation import (function_deprecated_by, AttributeDeprecatedBy,
-                             deprecated_args)
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version', 'VersionList')
@@ -90,9 +88,6 @@ class BaseDependency(object):
         return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
                 % (self.name, self.relation, self.version, self.pre_depend))
 
-    if apt_pkg._COMPAT_0_7:
-        preDepend = AttributeDeprecatedBy('pre_depend')
-
 
 class Dependency(list):
     """Represent an Or-group of dependencies.
@@ -108,25 +103,6 @@ class Dependency(list):
     @property
     def or_dependencies(self):
         return self
-
-class DeprecatedProperty(property):
-    """A property which gives DeprecationWarning on access.
-
-    This is only used for providing the properties in Package, which have been
-    replaced by the ones in Version.
-    """
-
-    def __init__(self, fget=None, fset=None, fdel=None, doc=None):
-        property.__init__(self, fget, fset, fdel, doc)
-        self.__doc__ = (doc or fget.__doc__ or '')
-
-    def __get__(self, obj, type_=None):
-        if obj is not None:
-            warnings.warn("Accessed deprecated property %s.%s, please see the "
-                          "Version class for alternatives." %
-                           ((obj.__class__.__name__ or type_.__name__),
-                           self.fget.__name__), DeprecationWarning, 2)
-        return property.__get__(self, obj, type_)
 
 
 class Origin(object):
@@ -806,36 +782,6 @@ class Package(object):
         """Return True if the package is an essential part of the system."""
         return self._pkg.essential
 
-    @DeprecatedProperty
-    def installedVersion(self): #pylint: disable-msg=C0103
-        """Return the installed version as string.
-
-        .. deprecated:: 0.7.9"""
-        return getattr(self.installed, 'version', None)
-
-    @DeprecatedProperty
-    def candidateVersion(self): #pylint: disable-msg=C0103
-        """Return the candidate version as string.
-
-        .. deprecated:: 0.7.9"""
-        return getattr(self.candidate, "version", None)
-
-    @DeprecatedProperty
-    def candidateDependencies(self): #pylint: disable-msg=C0103
-        """Return a list of candidate dependencies.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "dependencies", None)
-
-    @DeprecatedProperty
-    def installedDependencies(self):  #pylint: disable-msg=C0103
-        """Return a list of installed dependencies.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.installed, 'dependencies', [])
-
     def architecture(self):
         """Return the Architecture of the package.
 
@@ -846,106 +792,10 @@ class Package(object):
         """
         return self._pkg.architecture
 
-    @DeprecatedProperty
-    def candidateDownloadable(self):  #pylint: disable-msg=C0103
-        """Return ``True`` if the candidate is downloadable.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "downloadable", None)
-
-    @DeprecatedProperty
-    def installedDownloadable(self):  #pylint: disable-msg=C0103
-        """Return ``True`` if the installed version is downloadable.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.installed, 'downloadable', False)
-
-    @DeprecatedProperty
-    def sourcePackageName(self):  #pylint: disable-msg=C0103
-        """Return the source package name as string.
-
-        .. deprecated:: 0.7.9
-        """
-        try:
-            return self.candidate._records.source_pkg or self._pkg.name
-        except AttributeError:
-            try:
-                return self.installed._records.source_pkg or self._pkg.name
-            except AttributeError:
-                return self._pkg.name
-
-    @DeprecatedProperty
-    def homepage(self):
-        """Return the homepage field as string.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "homepage", None)
-
     @property
     def section(self):
         """Return the section of the package."""
         return self._pkg.section
-
-    @DeprecatedProperty
-    def priority(self):
-        """Return the priority (of the candidate version).
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "priority", None)
-
-    @DeprecatedProperty
-    def installedPriority(self):  #pylint: disable-msg=C0103
-        """Return the priority (of the installed version).
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.installed, 'priority', None)
-
-    @DeprecatedProperty
-    def summary(self):
-        """Return the short description (one line summary).
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "summary", None)
-
-    @DeprecatedProperty
-    def description(self):
-        """Return the formatted long description.
-
-        Return the formatted long description according to the Debian policy
-        (Chapter 5.6.13).
-        See http://www.debian.org/doc/debian-policy/ch-controlfields.html
-        for more information.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "description", None)
-
-    @DeprecatedProperty
-    def rawDescription(self):  #pylint: disable-msg=C0103
-        """return the long description (raw).
-
-        .. deprecated:: 0.7.9"""
-        return getattr(self.candidate, "raw_description", None)
-
-    @DeprecatedProperty
-    def candidateRecord(self):  #pylint: disable-msg=C0103
-        """Return the Record of the candidate version of the package.
-
-        .. deprecated:: 0.7.9"""
-        return getattr(self.candidate, "record", None)
-
-    @DeprecatedProperty
-    def installedRecord(self):  #pylint: disable-msg=C0103
-        """Return the Record of the candidate version of the package.
-
-        .. deprecated:: 0.7.9"""
-        return getattr(self.installed, 'record', '')
 
     # depcache states
 
@@ -1006,39 +856,6 @@ class Package(object):
         """Return whether the package is marked as automatically installed."""
         return self._pcache._depcache.is_auto_installed(self._pkg)
     # sizes
-
-    @DeprecatedProperty
-    def packageSize(self):  #pylint: disable-msg=C0103
-        """Return the size of the candidate deb package.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "size", None)
-
-    @DeprecatedProperty
-    def installedPackageSize(self):  #pylint: disable-msg=C0103
-        """Return the size of the installed deb package.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.installed, 'size', 0)
-
-    @DeprecatedProperty
-    def candidateInstalledSize(self):  #pylint: disable-msg=C0103
-        """Return the size of the candidate installed package.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "installed_size", None)
-
-    @DeprecatedProperty
-    def installedSize(self):  #pylint: disable-msg=C0103
-        """Return the size of the currently installed package.
-
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.installed, 'installed_size', 0)
 
     @property
     def installed_files(self):
@@ -1216,14 +1033,6 @@ class Package(object):
             socket.setdefaulttimeout(timeout)
         return self._changelog
 
-    @DeprecatedProperty
-    def candidateOrigin(self):  #pylint: disable-msg=C0103
-        """Return a list of `Origin()` objects for the candidate version.
-
-        .. deprecated:: 0.7.9
-        """
-        return getattr(self.candidate, "origins", None)
-
     @property
     def versions(self):
         """Return a VersionList() object for all available versions.
@@ -1250,7 +1059,6 @@ class Package(object):
         self._pcache._depcache.mark_keep(self._pkg)
         self._pcache.cache_post_change()
 
-    @deprecated_args
     def mark_delete(self, auto_fix=True, purge=False):
         """Mark a package for deletion.
 
@@ -1272,7 +1080,6 @@ class Package(object):
             fix.resolve()
         self._pcache.cache_post_change()
 
-    @deprecated_args
     def mark_install(self, auto_fix=True, auto_inst=True, from_user=True):
         """Mark a package for install.
 
@@ -1326,47 +1133,6 @@ class Package(object):
         found in apt.progress.base.
         """
         self._pcache._depcache.commit(fprogress, iprogress)
-
-
-    if not apt_pkg._COMPAT_0_7:
-        del installedVersion
-        del candidateVersion
-        del candidateDependencies
-        del installedDependencies
-        del architecture
-        del candidateDownloadable
-        del installedDownloadable
-        del sourcePackageName
-        del homepage
-        del priority
-        del installedPriority
-        del summary
-        del description
-        del rawDescription
-        del candidateRecord
-        del installedRecord
-        del packageSize
-        del installedPackageSize
-        del candidateInstalledSize
-        del installedSize
-        del candidateOrigin
-    else:
-        markedInstalled = AttributeDeprecatedBy('marked_installed')
-        markedInstall = AttributeDeprecatedBy('marked_install')
-        markedUpgrade = AttributeDeprecatedBy('marked_upgrade')
-        markedDelete = AttributeDeprecatedBy('marked_delete')
-        markedKeep = AttributeDeprecatedBy('marked_keep')
-        markedDowngrade = AttributeDeprecatedBy('marked_downgrade')
-        markedReinstall = AttributeDeprecatedBy('marked_reinstall')
-        isInstalled = AttributeDeprecatedBy('is_installed')
-        isUpgradable = AttributeDeprecatedBy('is_upgradable')
-        isAutoRemovable = AttributeDeprecatedBy('is_auto_removable')
-        installedFiles = AttributeDeprecatedBy('installed_files')
-        getChangelog = function_deprecated_by(get_changelog)
-        markDelete = function_deprecated_by(mark_delete)
-        markInstall = function_deprecated_by(mark_install)
-        markKeep = function_deprecated_by(mark_keep)
-        markUpgrade = function_deprecated_by(mark_upgrade)
 
 
 def _test():

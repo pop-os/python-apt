@@ -36,11 +36,7 @@ import vte
 
 import apt_pkg
 from apt_pkg import gettext as _
-from apt.deprecation import function_deprecated_by, AttributeDeprecatedBy
 from apt.progress import base
-
-if apt_pkg._COMPAT_0_7:
-    from apt.progress import old
 
 
 __all__ = ['GAcquireProgress', 'GInstallProgress', 'GOpProgress',
@@ -90,9 +86,6 @@ class GOpProgress(gobject.GObject, base.OpProgress):
         base.OpProgress.done(self)
         self.emit("status-finished")
 
-    if apt_pkg._COMPAT_0_7:
-        subOp = AttributeDeprecatedBy('subop')
-        Op = AttributeDeprecatedBy('op')
 
 
 class GInstallProgress(gobject.GObject, base.InstallProgress):
@@ -204,14 +197,6 @@ class GInstallProgress(gobject.GObject, base.InstallProgress):
             time.sleep(0.02)
         return self.apt_status
 
-    if apt_pkg._COMPAT_0_7:
-        updateInterface = function_deprecated_by(update_interface)
-        startUpdate = function_deprecated_by(start_update)
-        finishUpdate = function_deprecated_by(finish_update)
-        statusChange = function_deprecated_by(status_change)
-        waitChild = function_deprecated_by(wait_child)
-        childExited = function_deprecated_by(child_exited)
-
 
 GDpkgInstallProgress = GInstallProgress
 
@@ -271,59 +256,6 @@ class GAcquireProgress(gobject.GObject, base.AcquireProgress):
         while self._context.pending():
             self._context.iteration()
         return self._continue
-
-if apt_pkg._COMPAT_0_7:
-
-    class GFetchProgress(gobject.GObject, old.FetchProgress):
-        """A Fetch Progress with GObject signals.
-
-        Signals:
-
-            * status-changed(str: description, int: percent)
-            * status-started()
-            * status-finished()
-
-        DEPRECATED.
-        """
-
-        __gsignals__ = {"status-changed": mksig((str, int)),
-                        "status-started": mksig(),
-                        "status-finished": mksig()}
-
-        def __init__(self):
-            old.FetchProgress.__init__(self)
-            gobject.GObject.__init__(self)
-            self._continue = True
-            self._context = glib.main_context_default()
-
-        def start(self):
-            self.emit("status-started")
-
-        def stop(self):
-            self.emit("status-finished")
-
-        def cancel(self):
-            self._continue = False
-
-        def pulse(self):
-            old.FetchProgress.pulse(self)
-            current_item = self.currentItems + 1
-            if current_item > self.totalItems:
-                current_item = self.totalItems
-            if self.current_cps > 0:
-                text = (_("Downloading file %(current)li of %(total)li with "
-                          "%(speed)s/s") % \
-                          {"current": current_item,
-                           "total": self.totalItems,
-                           "speed": apt_pkg.size_to_str(self.currentCPS)})
-            else:
-                text = (_("Downloading file %(current)li of %(total)li") % \
-                          {"current": current_item,
-                           "total": self.totalItems})
-            self.emit("status-changed", text, self.percent)
-            while self._context.pending():
-                self._context.iteration()
-            return self._continue
 
 
 class GtkAptProgress(gtk.VBox):
@@ -402,21 +334,6 @@ class GtkAptProgress(gtk.VBox):
     def dpkg_install(self):
         """Return the install progress handler for dpkg."""
         return self._progress_install
-
-    if apt_pkg._COMPAT_0_7:
-
-        @property
-        def fetch(self):
-            """Return the fetch progress handler."""
-            if self._progress_fetch is None:
-                self._progress_fetch = GFetchProgress()
-                self._progress_fetch.connect("status-changed",
-                                            self._on_status_changed)
-                self._progress_fetch.connect("status-started",
-                                            self._on_status_started)
-                self._progress_fetch.connect("status-finished",
-                                            self._on_status_finished)
-            return self._progress_fetch
 
     @property
     def acquire(self):

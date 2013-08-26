@@ -26,10 +26,3 @@ import apt_pkg
 
 
 __all__ = []
-
-
-if apt_pkg._COMPAT_0_7:
-    from apt.progress.old import (CdromProgress, DpkgInstallProgress,
-                                  DumbInstallProgress, FetchProgress,
-                                  InstallProgress, OpProgress,
-                                  OpTextProgress, TextFetchProgress)

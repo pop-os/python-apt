@@ -903,8 +903,6 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
 
 
-   // DEPRECATED API
-   PyModule_AddIntConstant(Module,"_COMPAT_0_7",0);
    #if PY_MAJOR_VERSION >= 3
    return Module;
    #endif

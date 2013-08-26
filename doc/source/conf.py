@@ -32,8 +32,6 @@ if os.path.exists("../../build"):
             sys.path.pop(0)
         else:
             sys.stdout.write('I: Found apt_pkg.so in %s\n' % sys.path[0])
-            # Hack: Disable compatibility mode
-            apt_pkg._COMPAT_0_7 = 0
             break
 
 

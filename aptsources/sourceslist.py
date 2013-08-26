@@ -34,7 +34,6 @@ import time
 
 import apt_pkg
 from .distinfo import DistInfo
-from apt.deprecation import function_deprecated_by
 #from apt_pkg import gettext as _
 
 
@@ -351,9 +350,6 @@ class SourcesList(object):
         for file in glob.glob("%s/*.list" % partsdir):
             if os.path.exists(file+backup_ext):
                 shutil.copy(file+backup_ext, file)
-
-    if apt_pkg._COMPAT_0_7:
-        restoreBackup = function_deprecated_by(restore_backup)
 
     def backup(self, backup_ext=None):
         """ make a backup of the current source files, if no backup extension

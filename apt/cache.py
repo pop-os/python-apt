@@ -26,8 +26,6 @@ import weakref
 import apt_pkg
 from apt import Package
 from apt_pkg import gettext as _
-from apt.deprecation import (AttributeDeprecatedBy, function_deprecated_by,
-                             deprecated_args)
 import apt.progress.text
 
 
@@ -242,7 +240,6 @@ class Cache(object):
                     changes.append(package)
         return changes
 
-    @deprecated_args
     def upgrade(self, dist_upgrade=False):
         """Upgrade all packages.
 
@@ -398,7 +395,6 @@ class Cache(object):
                     providers.add(package)
         return list(providers)
 
-    @deprecated_args
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
         """Run the equivalent of apt-get update.
@@ -450,7 +446,6 @@ class Cache(object):
                 apt_pkg.config.set("Dir::Etc::sourceparts", old_sources_list_d)
                 apt_pkg.config.set("APT::List-Cleanup", old_cleanup)
 
-    @deprecated_args
     def install_archives(self, pm, install_progress):
         """
         The first parameter *pm* refers to an object returned by
@@ -471,7 +466,6 @@ class Cache(object):
             install_progress.finish_update()
         return res
 
-    @deprecated_args
     def commit(self, fetch_progress=None, install_progress=None):
         """Apply the marked changes to the cache.
 
@@ -592,20 +586,6 @@ class Cache(object):
     def keep_count(self):
         """Return the number of packages marked as keep."""
         return self._depcache.keep_count
-
-    if apt_pkg._COMPAT_0_7:
-        _runCallbacks = function_deprecated_by(_run_callbacks)
-        getChanges = function_deprecated_by(get_changes)
-        requiredDownload = AttributeDeprecatedBy('required_download')
-        additionalRequiredSpace = AttributeDeprecatedBy('required_space')
-        reqReinstallPkgs = AttributeDeprecatedBy('req_reinstall_pkgs')
-        _runFetcher = function_deprecated_by(_run_fetcher)
-        _fetchArchives = function_deprecated_by(_fetch_archives)
-        isVirtualPackage = function_deprecated_by(is_virtual_package)
-        getProvidingPackages = function_deprecated_by(get_providing_packages)
-        installArchives = function_deprecated_by(install_archives)
-        cachePostChange = function_deprecated_by(cache_post_change)
-        cachePreChange = function_deprecated_by(cache_pre_change)
 
 
 class ProblemResolver(object):
@@ -735,12 +715,6 @@ class FilteredCache(object):
         """we try to look exactly like a real cache."""
         #print "getattr: %s " % key
         return getattr(self.cache, key)
-
-    if apt_pkg._COMPAT_0_7:
-        _reapplyFilter = function_deprecated_by(_reapply_filter)
-        setFilter = function_deprecated_by(set_filter)
-        filterCachePostChange = function_deprecated_by(\
-                                                    filter_cache_post_change)
 
 
 def cache_pre_changed():

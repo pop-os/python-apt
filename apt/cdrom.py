@@ -23,7 +23,6 @@
 import glob
 
 import apt_pkg
-from apt.deprecation import AttributeDeprecatedBy
 from apt.progress.base import CdromProgress
 
 
@@ -84,6 +83,3 @@ class Cdrom(apt_pkg.Cdrom):
                     if not line.lstrip().startswith("#") and cd_id in line:
                         return True
         return False
-
-    if apt_pkg._COMPAT_0_7:
-        inSourcesList = AttributeDeprecatedBy('in_sources_list')
