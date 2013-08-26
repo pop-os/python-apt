@@ -1,9 +1,13 @@
-python-apt (0.8.9.2) UNRELEASED; urgency=low
+python-apt (0.9.0) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * some fixes from the "coverity" scan
   * merge from Ubuntu:
     - data/templates/Ubuntu.info.in: add "Saucy Salamander" to 
     - debian/control: add "Multi-Arch: allowed"
+
+  [ Julian Andres Klode ]
+  * Completely remove all old-API support code
 
  -- Michael Vogt <mvo@debian.org>  Mon, 05 Aug 2013 22:55:02 +0200
 
