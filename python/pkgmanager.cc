@@ -225,15 +225,6 @@ static PyObject *PkgManagerNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    return PkgManagerObj;
 }
 
-#ifdef COMPAT_0_7
-PyObject *GetPkgManager(PyObject *Self,PyObject *Args)
-{
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPackageManager() is "
-                 "deprecated. Please see apt_pkg.PackageManager() for the "
-                 "replacement.", 1);
-    return PkgManagerNew(&PyPackageManager2_Type,Args,0);
-}
-#endif
 
 static PyObject *PkgManagerInstall(PyObject *Self,PyObject *Args)
 {

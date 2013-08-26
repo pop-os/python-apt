@@ -205,29 +205,6 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    return Dict;
 }
 
-#ifdef COMPAT_0_7
-static PyObject *PkgSrcRecordsGetBuildDepends_old(PyObject *Self,void*) {
-   PkgSrcRecordsStruct &Struct = GetStruct(Self,"BuildDepends");
-   if (Struct.Last == 0)
-      return 0;
-   PyObject *List = PyList_New(0);
-
-   vector<pkgSrcRecords::Parser::BuildDepRec> bd;
-   if(!Struct.Last->BuildDepends(bd, false /* arch-only*/))
-      return NULL; // error
-
-   PyObject *v;
-   for(unsigned int i=0;i<bd.size();i++) {
-      v = Py_BuildValue("(ssNN)", bd[i].Package.c_str(),
-			bd[i].Version.c_str(),
-			MkPyNumber(bd[i].Op),
-			MkPyNumber(bd[i].Type));
-      PyList_Append(List, v);
-      Py_DECREF(v);
-   }
-   return List;
-}
-#endif
 
 static PyGetSetDef PkgSrcRecordsGetSet[] = {
    {"binaries",PkgSrcRecordsGetBinaries,0,
@@ -251,9 +228,6 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
     "The section of the source package."},
    {"version",PkgSrcRecordsGetVersion,0,
     "The version of the source package."},
-#ifdef COMPAT_0_7
-   {"BuildDepends",PkgSrcRecordsGetBuildDepends_old,0,"Deprecated function and deprecated output format."},
-#endif
    {}
 };
 
@@ -316,15 +290,3 @@ PyTypeObject PySourceRecords_Type =
 
 									/*}}}*/
 
-#ifdef COMPAT_0_7
-PyObject *GetPkgSrcRecords(PyObject *Self,PyObject *Args)
-{
-   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgSrcRecords() is "
-                "deprecated. Please see apt_pkg.SourceRecords() for the "
-                "replacement.", 1);
-   if (PyArg_ParseTuple(Args,"") == 0)
-      return 0;
-
-   return HandleErrors(CppPyObject_NEW<PkgSrcRecordsStruct>(NULL, &PySourceRecords_Type));
-}
-#endif

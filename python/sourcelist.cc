@@ -168,12 +168,3 @@ PyTypeObject PySourceList_Type =
    PkgSourceListNew,                    // tp_new
 };
 
-#ifdef COMPAT_0_7
-PyObject *GetPkgSourceList(PyObject *Self,PyObject *Args)
-{
-   PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgSourceList() is "
-                "deprecated. Please see apt_pkg.SourceList() for the "
-                "replacement.", 1);
-   return PkgSourceListNew(&PySourceList_Type,Args,0);
-}
-#endif

@@ -95,15 +95,7 @@ void PyOpProgress::Update()
    setattr(callbackInst, "subop", "s", SubOp.c_str());
    setattr(callbackInst, "major_change", "b", MajorChange);
    setattr(callbackInst, "percent", "N", MkPyNumber(Percent));
-#ifdef COMPAT_0_7
-   setattr(callbackInst, "Op", "s", Op.c_str());
-   setattr(callbackInst, "subOp", "s", SubOp.c_str());
-   setattr(callbackInst, "majorChange", "b", MajorChange);
-   PyObject *arglist = Py_BuildValue("(N)", MkPyNumber(Percent));
-   RunSimpleCallback("update", arglist);
-#else
    RunSimpleCallback("update");
-#endif
 }
 
 void PyOpProgress::Done()
@@ -241,13 +233,6 @@ void PyFetchProgress::Start()
    //std::cout << "Start" << std::endl;
    pkgAcquireStatus::Start();
 
-#ifdef COMPAT_0_7
-   setattr(callbackInst, "currentCPS", "N", MkPyNumber(0));
-   setattr(callbackInst, "currentBytes", "N", MkPyNumber(0));
-   setattr(callbackInst, "currentItems", "N", MkPyNumber(0));
-   setattr(callbackInst, "totalItems", "N", MkPyNumber(0));
-   setattr(callbackInst, "totalBytes", "N", MkPyNumber(0));
-#endif
 
    RunSimpleCallback("start");
    /* After calling the start method we can safely allow
@@ -314,106 +299,7 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
      PyCbObj_BEGIN_ALLOW_THREADS
      return true;
    }
-#ifdef COMPAT_0_7
-   setattr(callbackInst, "currentCPS", "N", MkPyNumber(CurrentCPS));
-   setattr(callbackInst, "currentBytes", "N", MkPyNumber(CurrentBytes));
-   setattr(callbackInst, "totalBytes", "N", MkPyNumber(TotalBytes));
-   setattr(callbackInst, "fetchedBytes", "N", MkPyNumber(FetchedBytes));
-   setattr(callbackInst, "currentItems", "N", MkPyNumber(CurrentItems));
-   setattr(callbackInst, "totalItems", "N", MkPyNumber(TotalItems));
-   // Go through the list of items and add active items to the
-   // activeItems vector.
-   map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *> activeItemMap;
-
-   for(pkgAcquire::Worker *Worker = Owner->WorkersBegin();
-       Worker != 0; Worker = Owner->WorkerStep(Worker)) {
-
-     if (Worker->CurrentItem == 0) {
-       // Ignore workers with no item running
-       continue;
-     }
-     activeItemMap.insert(std::make_pair(Worker, Worker->CurrentItem));
-   }
-
-   // Create the tuple that is passed as argument to pulse().
-   // This tuple contains activeItemMap.size() item tuples.
-   PyObject *arglist;
-
-   if (((int)activeItemMap.size()) > 0) {
-     PyObject *itemsTuple = PyTuple_New((Py_ssize_t) activeItemMap.size());
-
-     // Go through activeItems, create an item tuple in the form
-     // (URI, Description, ShortDesc, FileSize, PartialSize) and
-     // add that tuple to itemsTuple.
-     map<pkgAcquire::Worker *, pkgAcquire::ItemDesc *>::iterator iter;
-     int tuplePos;
-
-     for(tuplePos = 0, iter = activeItemMap.begin();
-         iter != activeItemMap.end(); ++iter, tuplePos++) {
-       pkgAcquire::Worker *worker = iter->first;
-       pkgAcquire::ItemDesc *itm = iter->second;
-
-       PyObject *itmTuple = Py_BuildValue("(sssNN)", itm->URI.c_str(),
-					  itm->Description.c_str(),
-					  itm->ShortDesc.c_str(),
-					  MkPyNumber(worker->TotalSize),
-					  MkPyNumber(worker->CurrentSize));
-       PyTuple_SetItem(itemsTuple, tuplePos, itmTuple);
-     }
-
-     // Now our itemsTuple is ready for being passed to pulse().
-     // pulse() is going to receive a single argument, being the
-     // tuple of items, which again contains one tuple with item
-     // information per item.
-     //
-     // Python Example:
-     //
-     // class MyFetchProgress(FetchProgress):
-     //   def pulse(self, items):
-     //     for itm in items:
-     //       uri, desc, shortdesc, filesize, partialsize = itm
-     //
-     arglist = PyTuple_Pack(1, itemsTuple);
-   }
-   else {
-     arglist = Py_BuildValue("(())");
-   }
-
-   PyObject *result;
-   bool res = true;
-
-   if (RunSimpleCallback("pulse_items", arglist, &result)) {
-      if (result != NULL && PyArg_Parse(result, "b", &res) && res == false) {
-         // the user returned a explicit false here, stop
-         PyCbObj_BEGIN_ALLOW_THREADS
-         return false;
-      }
-   }
-
-
-   arglist = Py_BuildValue("()");
-   if (!RunSimpleCallback("pulse", arglist, &result)) {
-     PyCbObj_BEGIN_ALLOW_THREADS
-     return true;
-   }
-
-   if((result == NULL) || (!PyArg_Parse(result, "b", &res)))
-   {
-      // most of the time the user who subclasses the pulse()
-      // method forgot to add a return {True,False} so we just
-      // assume he wants a True.  There may be a Python exception on the stack
-      // that must be cleared.
-      PyErr_Clear();
-      PyCbObj_BEGIN_ALLOW_THREADS
-      return true;
-   }
-
-   PyCbObj_BEGIN_ALLOW_THREADS
-   // fetching can be canceld by returning false
-   return res;
-#else
    return false;
-#endif
 }
 
 
@@ -548,9 +434,6 @@ void PyCdromProgress::Update(std::string text, int current)
 {
    PyObject *arglist = Py_BuildValue("(si)", text.c_str(), current);
    setattr(callbackInst, "total_steps", "i", totalSteps);
-   #ifdef COMPAT_0_7
-   setattr(callbackInst, "totalSteps", "i", totalSteps);
-   #endif
    RunSimpleCallback("update", arglist);
 }
 

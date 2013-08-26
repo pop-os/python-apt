@@ -400,12 +400,4 @@ PyTypeObject PyAcquire_Type = {
     PkgAcquireNew,                       // tp_new
 };
 
-#ifdef COMPAT_0_7
-PyObject *GetAcquire(PyObject *Self,PyObject *Args)
-{
-    PyErr_WarnEx(PyExc_DeprecationWarning,"apt_pkg.GetAcquire() is deprecated."
-                 " Please see apt_pkg.Acquire() for the replacement.", 1);
-    return PkgAcquireNew(&PyAcquire_Type,Args,0);
-}
-#endif
 

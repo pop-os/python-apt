@@ -218,12 +218,3 @@ PyTypeObject PyPackageRecords_Type =
 									/*}}}*/
 
 
-#ifdef COMPAT_0_7
-PyObject *GetPkgRecords(PyObject *Self,PyObject *Args)
-{
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetPkgRecords() is "
-                 "deprecated. Please see apt_pkg.Records() for the "
-                 "replacement.", 1);
-    return PkgRecordsNew(&PyPackageRecords_Type,Args,0);
-}
-#endif

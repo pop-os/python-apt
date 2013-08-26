@@ -78,38 +78,10 @@ static PyObject *cdrom_ident(PyObject *Self,PyObject *Args)
     }
 }
 
-#ifdef COMPAT_0_7
-static PyObject *cdrom_ident_old(PyObject *Self,PyObject *Args)
-{
-    PyErr_WarnEx(PyExc_DeprecationWarning, "Method 'Ident' of the "
-                 "'apt_pkg.Cdrom' object is deprecated, use 'ident' instead.",
-                 1);
-    pkgCdrom &Cdrom = GetCpp<pkgCdrom>(Self);
-
-    PyObject *pyCdromProgressInst = 0;
-    if (PyArg_ParseTuple(Args, "O", &pyCdromProgressInst) == 0) {
-        return 0;
-    }
-
-    PyCdromProgress progress;
-    progress.setCallbackInst(pyCdromProgressInst);
-
-    std::string ident;
-    bool res = Cdrom.Ident(ident, &progress);
-
-    PyObject *boolres = PyBool_FromLong(res);
-    PyObject *result = Py_BuildValue("(Os)", boolres, ident.c_str());
-
-    return HandleErrors(result);
-}
-#endif
 
 static PyMethodDef cdrom_methods[] = {
     {"add",cdrom_add,METH_VARARGS,cdrom_add_doc},
     {"ident",cdrom_ident,METH_VARARGS,cdrom_ident_doc},
-#ifdef COMPAT_0_7
-    {"Ident",cdrom_ident_old,METH_VARARGS,"DEPRECATED. DO NOT USE"},
-#endif
     {}
 };
 
@@ -165,11 +137,3 @@ PyTypeObject PyCdrom_Type = {
     cdrom_new,                           // tp_new
 };
 
-#ifdef COMPAT_0_7
-PyObject *GetCdrom(PyObject *Self,PyObject *Args)
-{
-    PyErr_WarnEx(PyExc_DeprecationWarning, "apt_pkg.GetCdrom() is deprecated. "
-                 "Please see apt_pkg.Cdrom() for the replacement.", 1);
-    return cdrom_new(&PyCdrom_Type,Args,0);
-}
-#endif
