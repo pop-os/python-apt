@@ -1,5 +1,124 @@
 _ChangelogURI: http://changelogs.ubuntu.com/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: saucy
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 13.10 'Saucy Salamander'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported free and open-source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained free and open-source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+ParentComponent: universe
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: saucy
+ParentSuite: saucy
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 13.10 'Saucy Salamander'
+
+Suite: saucy
+RepositoryType: deb
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*13.10
+MatchURI: cdrom:\[Ubuntu.*13.10
+_Description: Cdrom with Ubuntu 13.10 'Saucy Salamander'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: saucy
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: saucy
+Official: false
+RepositoryType: deb
+BaseURI: http://extras.ubuntu.com
+MatchURI: extras.ubuntu.com
+_Description: Independent
+Component: main
+_CompDescription: Provided by third-party software developers
+_CompDescriptionLong: Software offered by third party developers.
+
+Suite: saucy-security
+ParentSuite: saucy
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: saucy-security
+ParentSuite: saucy
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
+Suite: saucy-updates
+ParentSuite: saucy
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: saucy-updates
+ParentSuite: saucy
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Recommended updates
+
+Suite: saucy-proposed
+ParentSuite: saucy
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: saucy-proposed
+ParentSuite: saucy
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
+Suite: saucy-backports
+ParentSuite: saucy
+RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: saucy-backports
+ParentSuite: saucy
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Unsupported updates
+
+
 Suite: raring
 RepositoryType: deb
 BaseURI: http://ports.ubuntu.com/ubuntu-ports/

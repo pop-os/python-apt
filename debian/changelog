@@ -1,6 +1,9 @@
 python-apt (0.8.9.2) UNRELEASED; urgency=low
 
-  * some fixes from a coverity scan run
+  * some fixes from the "coverity" scan
+  * merge from Ubuntu:
+    - data/templates/Ubuntu.info.in: add "Saucy Salamander" to 
+    - debian/control: add "Multi-Arch: allowed"
 
  -- Michael Vogt <mvo@debian.org>  Mon, 05 Aug 2013 22:55:02 +0200
 
@@ -90,14 +93,6 @@ python-apt (0.8.9~exp1) experimental; urgency=low
     - Fix descriptions of quantal and raring.
   
  -- Michael Vogt <mvo@debian.org>  Wed, 13 Mar 2013 18:36:37 +0100
-
-python-apt (0.8.8.3) UNRELEASED; urgency=low
-
-  * aptsources/distro.py:
-    - include the missing ID in the NoDistroTemplateException() error,
-      thanks to Brian Murray
-
- -- Michael Vogt <michael.vogt@ubuntu.com>  Tue, 30 Apr 2013 18:37:24 +0200
 
 python-apt (0.8.8.2) unstable; urgency=low
 
