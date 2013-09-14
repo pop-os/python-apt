@@ -9,6 +9,9 @@ python-apt (0.9.0) UNRELEASED; urgency=low
   [ Julian Andres Klode ]
   * Completely remove all old-API support code
 
+  [ Jeremy Bicha ]
+  * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
+
  -- Michael Vogt <mvo@debian.org>  Mon, 05 Aug 2013 22:55:02 +0200
 
 python-apt (0.8.9.1) unstable; urgency=low
