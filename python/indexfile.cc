@@ -18,9 +18,9 @@
 static PyObject *IndexFileArchiveURI(PyObject *Self,PyObject *Args)
 {
    pkgIndexFile *File = GetCpp<pkgIndexFile*>(Self);
-   char *path;
+   PyApt_Filename path;
 
-   if (PyArg_ParseTuple(Args, "s",&path) == 0)
+   if (PyArg_ParseTuple(Args, "O&", PyApt_Filename::Converter, &path) == 0)
       return 0;
    return HandleErrors(Safe_FromString(File->ArchiveURI(path).c_str()));
 }

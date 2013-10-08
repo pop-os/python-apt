@@ -183,9 +183,10 @@ static PyObject *filelock_exit(filelock_object *self, PyObject *args)
 
 static PyObject *filelock_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
-    char *filename = 0;
+    PyApt_Filename filename;
     char *kwlist[] = {"filename",  NULL};
-    if (PyArg_ParseTupleAndKeywords(args, kwds, "s:__init__", kwlist,
+    if (PyArg_ParseTupleAndKeywords(args, kwds, "O&:__init__", kwlist,
+                                    PyApt_Filename::Converter,
                                     &filename) == 0) {
         return NULL;
     }

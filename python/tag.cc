@@ -435,9 +435,8 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    // check if we got a filename or a file object
    int fileno = -1;
-   const char *filename = NULL;
-   filename = PyObject_AsString(File);
-   if (filename == NULL) {
+   PyApt_Filename filename;
+   if (!filename.init(File)) {
       PyErr_Clear();
       fileno = PyObject_AsFileDescriptor(File);
    }

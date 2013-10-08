@@ -351,8 +351,8 @@ char *doc_LoadConfig =
     "options in the configuration object.";
 PyObject *LoadConfig(PyObject *Self,PyObject *Args)
 {
-   char *Name = 0;
-   if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
+   PyApt_Filename Name;
+   if (PyArg_ParseTuple(Args,"OO&",&Self,PyApt_Filename::Converter, &Name) == 0)
       return 0;
    if (PyConfiguration_Check(Self)== 0)
    {
@@ -373,8 +373,8 @@ char *doc_LoadConfigISC =
     "configuration files.";
 PyObject *LoadConfigISC(PyObject *Self,PyObject *Args)
 {
-   char *Name = 0;
-   if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
+   PyApt_Filename Name;
+   if (PyArg_ParseTuple(Args,"OO&",&Self,PyApt_Filename::Converter, &Name) == 0)
       return 0;
    if (PyConfiguration_Check(Self)== 0)
    {
@@ -394,8 +394,8 @@ char *doc_LoadConfigDir =
     "correct order.";
 PyObject *LoadConfigDir(PyObject *Self,PyObject *Args)
 {
-   char *Name = 0;
-   if (PyArg_ParseTuple(Args,"Os",&Self,&Name) == 0)
+   PyApt_Filename Name;
+   if (PyArg_ParseTuple(Args,"OO&",&Self,PyApt_Filename::Converter, &Name) == 0)
       return 0;
    if (PyConfiguration_Check(Self)== 0)
    {

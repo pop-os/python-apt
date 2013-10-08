@@ -230,9 +230,9 @@ static PyObject *PkgManagerInstall(PyObject *Self,PyObject *Args)
 {
    PyPkgManager *pm = GetCpp<PyPkgManager*>(Self);
    PyObject *pkg;
-   const char *file;
+   PyApt_Filename file;
 
-   if (PyArg_ParseTuple(Args, "O!s", &PyPackage_Type,&pkg, &file) == 0)
+   if (PyArg_ParseTuple(Args, "O!O&", &PyPackage_Type,&pkg, PyApt_Filename::Converter, &file) == 0)
       return 0;
 
    return HandleErrors(PyBool_FromLong(pm->callInstall(PyPackage_ToCpp(pkg), file)));

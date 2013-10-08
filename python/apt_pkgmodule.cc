@@ -434,9 +434,9 @@ static char *doc_GetLock =
 "provided by apt_pkg.FileLock instead using the with-statement.";
 static PyObject *GetLock(PyObject *Self,PyObject *Args)
 {
-   const char *file;
+   PyApt_Filename file;
    char errors = false;
-   if (PyArg_ParseTuple(Args,"s|b",&file,&errors) == 0)
+   if (PyArg_ParseTuple(Args,"O&|b",PyApt_Filename::Converter, &file,&errors) == 0)
       return 0;
 
    int fd = GetLock(file, errors);

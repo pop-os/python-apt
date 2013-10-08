@@ -224,7 +224,8 @@ PyTypeObject PyAcquireItem_Type = {
 static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * kwds)
 {
     PyObject *pyfetcher;
-    char *uri, *md5, *descr, *shortDescr, *destDir, *destFile;
+    const char *uri, *md5, *descr, *shortDescr;
+    PyApt_Filename destDir, destFile;
     int size = 0;
     uri = md5 = descr = shortDescr = destDir = destFile = "";
 
@@ -232,9 +233,11 @@ static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * 
                       "destdir", "destfile", NULL
                      };
 
-    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissss", kwlist,
+    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissO&O&", kwlist,
                                     &PyAcquire_Type, &pyfetcher, &uri, &md5,
-                                    &size, &descr, &shortDescr, &destDir, &destFile) == 0)
+                                    &size, &descr, &shortDescr,
+                                    PyApt_Filename::Converter, &destDir,
+                                    PyApt_Filename::Converter, &destFile) == 0)
         return 0;
 
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);

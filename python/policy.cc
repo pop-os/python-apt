@@ -93,11 +93,12 @@ static char *policy_read_pinfile_doc =
     "and add it to the policy.";
 
 static PyObject *policy_read_pinfile(PyObject *self, PyObject *arg) {
-    if (!PyString_Check(arg))
+    PyApt_Filename name;
+    if (!name.init(arg))
         return 0;
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
 
-    return PyBool_FromLong(ReadPinFile(*policy, PyString_AsString(arg)));
+    return PyBool_FromLong(ReadPinFile(*policy, name));
 }
 
 #if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
@@ -107,11 +108,12 @@ static char *policy_read_pindir_doc =
     "and add them to the policy.";
 
 static PyObject *policy_read_pindir(PyObject *self, PyObject *arg) {
-    if (!PyString_Check(arg))
+    PyApt_Filename name;
+    if (!name.init(arg))
         return 0;
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
 
-    return PyBool_FromLong(ReadPinDir(*policy, PyString_AsString(arg)));
+    return PyBool_FromLong(ReadPinDir(*policy, name));
 }
 #endif
 
