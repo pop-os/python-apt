@@ -306,8 +306,8 @@ public:
       return path;
    }
 
-   void operator=(const char *path) {
-      this->path = path;
+   const char *operator=(const char *path) {
+      return this->path = path;
    }
 };
 
