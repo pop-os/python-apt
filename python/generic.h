@@ -251,4 +251,64 @@ inline PyObject *MkPyNumber(double o) { return PyFloat_FromDouble(o); }
 
 #  define _PyAptObject_getattro 0
 
+
+/**
+ * Magic class for file name handling
+ *
+ * This manages decoding file names from Python objects; bytes and unicode
+ * objects. On Python 2, this does the same conversion as PyObject_AsString,
+ * on Python3, it uses PyUnicode_EncodeFSDefault for unicode objects.
+ */
+class PyApt_Filename {
+public:
+   PyObject *object;
+   const char *path;
+
+   PyApt_Filename() {
+      object = NULL;
+      path = NULL;
+   }
+
+   int init(PyObject *object) {
+      this->object = NULL;
+      this->path = NULL;
+
+#if PY_MAJOR_VERSION < 3 || (PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION < 2)
+      this->path = PyObject_AsString(object);
+      return this->path ? 1 : 0;
+#else
+      if (PyUnicode_Check(object)) {
+         object = PyUnicode_EncodeFSDefault(object);
+      } else if (PyBytes_Check(object)) {
+         Py_INCREF(object);
+      } else {
+         return 0;
+      }
+
+      this->object = object;
+      this->path = PyBytes_AS_STRING(this->object);
+      return 1;
+#endif
+   }
+
+   ~PyApt_Filename() {
+      Py_XDECREF(object);
+   }
+
+   static int Converter(PyObject *object, void *out) {
+      return static_cast<PyApt_Filename *>(out)->init(object);
+   }
+
+   operator const char *() {
+      return path;
+   }
+   operator const std::string() {
+      return path;
+   }
+
+   void operator=(const char *path) {
+      this->path = path;
+   }
+};
+
 #endif
