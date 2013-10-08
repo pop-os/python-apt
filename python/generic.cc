@@ -93,3 +93,26 @@ PyObject *CharCharToList(const char **List,unsigned long Size)
    return PList;
 }
 									/*}}}*/
+
+int PyApt_Filename::init(PyObject *object)
+{
+   this->object = NULL;
+   this->path = NULL;
+
+#if PY_MAJOR_VERSION < 3 || (PY_MAJOR_VERSION == 3 && PY_MINOR_VERSION < 2)
+   this->path = PyObject_AsString(object);
+   return this->path ? 1 : 0;
+#else
+   if (PyUnicode_Check(object)) {
+      object = PyUnicode_EncodeFSDefault(object);
+   } else if (PyBytes_Check(object)) {
+      Py_INCREF(object);
+   } else {
+      return 0;
+   }
+
+   this->object = object;
+   this->path = PyBytes_AS_STRING(this->object);
+   return 1;
+#endif
+}
