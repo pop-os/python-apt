@@ -8,6 +8,7 @@ python-apt (0.9.0) UNRELEASED; urgency=low
 
   [ Julian Andres Klode ]
   * Completely remove all old-API support code
+  * Accept bytes object for file names (Closes: #680971)
   * aptsources/sourceslist.py
     - Document correct use of uniq and hide it using __all__ (Closes: #723815)
   * python/apt_pkgmodule.cc:
