@@ -309,7 +309,7 @@ static PyObject *tarfile_new(PyTypeObject *type,PyObject *args,PyObject *kwds)
 {
     PyObject *file;
     PyTarFileObject *self;
-    char *filename;
+    PyApt_Filename filename;
     int fileno;
     int min = 0;
     int max = 0xFFFFFFFF;
@@ -323,8 +323,8 @@ static PyObject *tarfile_new(PyTypeObject *type,PyObject *args,PyObject *kwds)
     self = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(file,type);
 
     // We receive a filename.
-    if ((filename = (char*)PyObject_AsString(file)))
-        new (&self->Fd) FileFd(filename,FileFd::ReadOnly);
+    if (filename.init(file))
+        new (&self->Fd) FileFd((const char *) filename,FileFd::ReadOnly);
     else if ((fileno = PyObject_AsFileDescriptor(file)) != -1) {
         // clear the error set by PyObject_AsString().
         PyErr_Clear();
@@ -349,8 +349,8 @@ static const char *tarfile_extractall_doc =
 static PyObject *tarfile_extractall(PyObject *self, PyObject *args)
 {
     std::string cwd = SafeGetCWD();
-    char *rootdir = 0;
-    if (PyArg_ParseTuple(args,"|s:extractall",&rootdir) == 0)
+    PyApt_Filename rootdir;
+    if (PyArg_ParseTuple(args,"|O&:extractall", PyApt_Filename::Converter, &rootdir) == 0)
         return 0;
 
     if (rootdir) {
@@ -384,8 +384,8 @@ static const char *tarfile_go_doc =
 static PyObject *tarfile_go(PyObject *self, PyObject *args)
 {
     PyObject *callback;
-    char *member = 0;
-    if (PyArg_ParseTuple(args,"O|s",&callback,&member) == 0)
+    PyApt_Filename member;
+    if (PyArg_ParseTuple(args,"O|O&",&callback, PyApt_Filename::Converter, &member) == 0)
         return 0;
     if (member && strcmp(member, "") == 0)
         member = 0;
@@ -397,7 +397,7 @@ static PyObject *tarfile_go(PyObject *self, PyObject *args)
         return 0;
     if (member && !stream.py_data)
         return PyErr_Format(PyExc_LookupError, "There is no member named '%s'",
-                            member);
+                            member.path);
     return HandleErrors(PyBool_FromLong(res));
 }
 
@@ -407,8 +407,8 @@ static const char *tarfile_extractdata_doc =
     "LookupError if there is no member with the given name.";
 static PyObject *tarfile_extractdata(PyObject *self, PyObject *args)
 {
-    const char *member;
-    if (PyArg_ParseTuple(args,"s",&member) == 0)
+    PyApt_Filename member;
+    if (PyArg_ParseTuple(args,"O&", PyApt_Filename::Converter, &member) == 0)
         return 0;
     PyDirStream stream(NULL, member);
     ((PyTarFileObject*)self)->Fd.Seek(((PyTarFileObject*)self)->min);
@@ -417,7 +417,7 @@ static PyObject *tarfile_extractdata(PyObject *self, PyObject *args)
 
     if (!stream.py_data)
         return PyErr_Format(PyExc_LookupError, "There is no member named '%s'",
-                            member);
+                            member.path);
     if (stream.error) {
         return 0;
     }

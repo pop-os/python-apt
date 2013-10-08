@@ -147,14 +147,14 @@ static const char *ararchive_getmember_doc =
     "LookupError if there is no ArMember with the given name.";
 static PyObject *ararchive_getmember(PyArArchiveObject *self, PyObject *arg)
 {
-    const char *name;
+    PyApt_Filename name;
     CppPyObject<ARArchive::Member*> *ret;
-    if (! (name = PyObject_AsString(arg)))
+    if (!name.init(arg))
         return 0;
 
     const ARArchive::Member *member = self->Object->FindMember(name);
     if (!member) {
-        PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
+        PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
 
@@ -171,12 +171,12 @@ static const char *ararchive_extractdata_doc =
     "LookupError if there is no ArMember with the given name.";
 static PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
 {
-    char *name = 0;
-    if (PyArg_ParseTuple(args, "s:extractdata", &name) == 0)
+    PyApt_Filename name;
+    if (PyArg_ParseTuple(args, "O&:extractdata", PyApt_Filename::Converter, &name) == 0)
         return 0;
     const ARArchive::Member *member = self->Object->FindMember(name);
     if (!member) {
-        PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
+        PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
     if (!self->Fd.Seek(member->Start))
@@ -247,15 +247,17 @@ static const char *ararchive_extract_doc =
     "does not exist, raise LookupError.";
 static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
 {
-    char *name = 0;
-    char *target = "";
-    if (PyArg_ParseTuple(args, "s|s:extract", &name, &target) == 0)
+    PyApt_Filename name;
+    PyApt_Filename target;
+
+    target = "";
+    if (PyArg_ParseTuple(args, "O&|O&:extract", PyApt_Filename::Converter, &name, PyApt_Filename::Converter, &target) == 0)
         return 0;
 
     const ARArchive::Member *member = self->Object->FindMember(name);
 
     if (!member) {
-        PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
+        PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
     return _extract(self->Fd, member, target);
@@ -269,8 +271,9 @@ static const char *ararchive_extractall_doc =
 
 static PyObject *ararchive_extractall(PyArArchiveObject *self, PyObject *args)
 {
-    char *target = "";
-    if (PyArg_ParseTuple(args, "|s:extractall", &target) == 0)
+    PyApt_Filename target;
+    target = "";
+    if (PyArg_ParseTuple(args, "|O&:extractall", PyApt_Filename::Converter, &target) == 0)
         return 0;
 
     const ARArchive::Member *member = self->Object->Members();
@@ -292,14 +295,14 @@ static const char *ararchive_gettar_doc =
     "It just opens a new TarFile on the given position in the stream.";
 static PyObject *ararchive_gettar(PyArArchiveObject *self, PyObject *args)
 {
-    const char *name;
+    PyApt_Filename name;
     const char *comp;
-    if (PyArg_ParseTuple(args, "ss:gettar", &name, &comp) == 0)
+    if (PyArg_ParseTuple(args, "O&s:gettar", PyApt_Filename::Converter, &name, &comp) == 0)
         return 0;
 
     const ARArchive::Member *member = self->Object->FindMember(name);
     if (!member) {
-        PyErr_Format(PyExc_LookupError,"No member named '%s'",name);
+        PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
 
@@ -374,13 +377,13 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
 {
     PyObject *file;
     PyArArchiveObject *self;
-    char *filename = 0;
+    PyApt_Filename filename;
     int fileno;
     if (PyArg_ParseTuple(args,"O:__new__",&file) == 0)
         return 0;
 
     // We receive a filename.
-    if ((filename = (char*)PyObject_AsString(file))) {
+    if (filename.init(file)) {
         self = (PyArArchiveObject *)CppPyObject_NEW<ARArchive*>(0,type);
         new (&self->Fd) FileFd(filename,FileFd::ReadOnly);
     }
@@ -409,8 +412,8 @@ static void ararchive_dealloc(PyObject *self)
 // Return bool or -1 (exception).
 static int ararchive_contains(PyObject *self, PyObject *arg)
 {
-    const char *name = PyObject_AsString(arg);
-    if (!name)
+    PyApt_Filename name;
+    if (!name.init(arg))
         return -1;
     return (GetCpp<ARArchive*>(self)->FindMember(name) != 0);
 }
