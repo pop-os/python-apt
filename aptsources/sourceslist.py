@@ -39,6 +39,9 @@ from .distinfo import DistInfo
 
 # some global helpers
 
+__all__ = ['is_mirror', 'SourceEntry', 'NullMatcher', 'SourcesList',
+           'SourceEntryMatcher']
+
 
 def is_mirror(master_uri, compare_uri):
     """ check if the given add_url is idential or a mirror of orig_uri
@@ -71,7 +74,12 @@ def is_mirror(master_uri, compare_uri):
 
 
 def uniq(s):
-    """ simple and efficient way to return uniq list """
+    """ simple and efficient way to return uniq collection
+
+    This is not intended for use with a SourceList. It is provided
+    for internal use only. It does not have a leading underscore to
+    not break any old code that uses it; but it should not be used
+    in new code (and is not listed in __all__)."""
     return list(set(s))
 
 
