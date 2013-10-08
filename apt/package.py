@@ -1051,6 +1051,11 @@ class Package(object):
         """Return True if the installed package is broken."""
         return self._pcache._depcache.is_now_broken(self._pkg)
 
+    @property
+    def has_config_files(self):
+        """Checks whether the package is is the config-files state."""
+        return self. _pkg.current_state == apt_pkg.CURSTATE_CONFIG_FILES
+
     # depcache actions
 
     def mark_keep(self):
