@@ -14,6 +14,9 @@ python-apt (0.9.0) UNRELEASED; urgency=low
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
 
+  [ Jakub Wilk ]
+  * python-apt: formatting error in library/index.rst (Closes: #692484)
+
  -- Michael Vogt <mvo@debian.org>  Mon, 05 Aug 2013 22:55:02 +0200
 
 python-apt (0.8.9.1) unstable; urgency=low

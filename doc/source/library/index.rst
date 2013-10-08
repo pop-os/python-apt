@@ -10,7 +10,7 @@ When going through the library, the first two modules are :mod:`apt_pkg` and
 apt-pkg and apt-inst libraries and the base for the rest of python-apt.
 
 Going forward, the :mod:`apt` package appears. This package is using
-:mod:`apt_pkg` and :mod`apt_inst` to provide easy to use ways to manipulate
+:mod:`apt_pkg` and :mod:`apt_inst` to provide easy to use ways to manipulate
 the cache, fetch packages, or install new packages. It also provides useful
 progress classes, for text and GTK+ interfaces. The last package is
 :mod:`aptsources`. The aptsources package provides classes and functions to
