@@ -59,8 +59,9 @@ static PyObject *py_gettext(PyObject *self, PyObject *Args) {
 // These are kind of legacy..
 static char *doc_VersionCompare =
     "version_compare(a: str, b: str) -> int\n\n"
-    "Compare the given versions; return -1 if 'a' is smaller than 'b',\n"
-    "0 if they are equal, and 2 if 'a' is larger than 'b'.";
+    "Compare the given versions; return a strictly negative value if 'a' is \n"
+    "smaller than 'b', 0 if they are equal, and a strictly positive value if\n"
+    "'a' is larger than 'b'.";
 static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
 {
    char *A;
