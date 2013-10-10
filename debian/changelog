@@ -15,6 +15,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Fix documentation of version_compare (Closes: #680891)
   * apt/package.py:
     - Add a Package.has_config_files property (Closes: #712749)
+  * tests:
+    - Do not set dir::etc::sourceparts to /tmp
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
