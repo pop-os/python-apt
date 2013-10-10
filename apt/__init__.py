@@ -25,7 +25,9 @@ from apt.package import Package
 from apt.cache import Cache, ProblemResolver
 from apt.cdrom import Cdrom
 
-# init the package system
-apt_pkg.init()
+# init the package system, but do not re-initialize config
+if "APT" not in apt_pkg.config:
+    apt_pkg.init_config()
+apt_pkg.init_system()
 
 __all__ = ['Cache', 'Cdrom', 'Package']

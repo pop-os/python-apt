@@ -17,6 +17,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Add a Package.has_config_files property (Closes: #712749)
   * tests:
     - Do not set dir::etc::sourceparts to /tmp
+  * apt, aptsources:
+    - Only call init_config() if not already initialized (Closes: #686403)
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
