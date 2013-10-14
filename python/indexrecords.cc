@@ -37,8 +37,8 @@ static PyObject *indexrecords_new(PyTypeObject *type,PyObject *Args,
 
 static PyObject *indexrecords_load(PyObject *self,PyObject *args)
 {
-    const char *filename;
-    if (PyArg_ParseTuple(args, "s", &filename) == 0)
+    PyApt_Filename filename;
+    if (PyArg_ParseTuple(args, "O&", PyApt_Filename::Converter, &filename) == 0)
         return 0;
     indexRecords *records = GetCpp<indexRecords*>(self);
     return HandleErrors(PyBool_FromLong(records->Load(filename)));
