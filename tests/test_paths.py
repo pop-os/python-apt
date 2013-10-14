@@ -25,6 +25,7 @@ class TestPath(unittest.TestCase):
         os.mkdir(self.dir_bytes)
 
     def tearDown(self):
+        apt_pkg.config["dir"] = "/"
         shutil.rmtree(self.dir_bytes)
 
     def test_acquire(self):
@@ -75,8 +76,7 @@ class TestPath(unittest.TestCase):
         apt_pkg.read_config_dir(apt_pkg.config, b"/etc/apt/apt.conf.d")
 
     def test_index_file(self):
-        apt_pkg.config["rootdir"] = "data/test_debs"
-        cache = apt_pkg.Cache(None)
+        apt_pkg.config["dir"] = "data/test_debs"
         slist = apt_pkg.SourceList()
         slist.read_main_list()
 
@@ -108,7 +108,7 @@ class TestPath(unittest.TestCase):
             pass
 
     def test_policy(self):
-        apt_pkg.config["rootdir"] = "data/test_debs"
+        apt_pkg.config["dir"] = "data/test_debs"
         cache = apt_pkg.Cache(None)
         policy = apt_pkg.Policy(cache)
         file_unicode = os.path.join(self.dir_unicode, u"test.prefs")
