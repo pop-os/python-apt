@@ -129,17 +129,19 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
 }
 
 static const char *doc_ParseDepends =
-"parse_depends(s: str) -> list\n"
+"parse_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
 "the form of '(pkg, ver, comptype)' tuples. The tuple element 'pkg'\n"
 "is the name of the package; the element 'ver' is the version, or ''\n"
 "if no version was requested. The element 'ver' is a comparison\n"
-"operator ('<', '<=', '=', '>=', or '>').";
+"operator ('<', '<=', '=', '>=', or '>').\n\n"
+"If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
+"will be stripped from the full package name";
 
 static const char *parse_src_depends_doc =
-"parse_src_depends(s: str) -> list\n"
+"parse_src_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -150,7 +152,9 @@ static const char *parse_src_depends_doc =
 "\n\n"
 "Dependencies may be restricted to certain architectures and the result\n"
 "only contains those dependencies for the architecture set in the\n"
-"configuration variable APT::Architecture";
+"configuration variable APT::Architecture\n\n"
+"If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
+"will be stripped from the full package name";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
                                   bool ParseArchFlags, std::string name,
                                   bool debStyle=false)
