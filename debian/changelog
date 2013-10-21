@@ -25,6 +25,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Pass strip_multi_arch=False to parse_depends. Patch by Michael, tests
       derived from the ones provided by the reporter.
       Closes: #717859. Closes: #717861.
+  * doc/source/examples/dpkg-info.py:
+    - Use apt_inst.DebFile (Closes: #671784)
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
