@@ -7,15 +7,15 @@ import sys
 
 def get_source_pkg(pkg, records, depcache):
     """ get the source package name of a given package """
-    version = depcache.GetCandidateVer(pkg)
+    version = depcache.get_candidate_ver(pkg)
     if not version:
         return None
-    file, index = version.FileList.pop(0)
-    records.Lookup((file, index))
-    if records.SourcePkg != "":
-        srcpkg = records.SourcePkg
+    file, index = version.file_list.pop(0)
+    records.lookup((file, index))
+    if records.source_pkg != "":
+        srcpkg = records.source_pkg
     else:
-        srcpkg = pkg.Name
+        srcpkg = pkg.name
     return srcpkg
 
 
@@ -23,7 +23,7 @@ def get_source_pkg(pkg, records, depcache):
 apt_pkg.init()
 cache = apt_pkg.Cache()
 depcache = apt_pkg.DepCache(cache)
-depcache.Init()
+depcache.init()
 records = apt_pkg.PackageRecords(cache)
 srcrecords = apt_pkg.SourceRecords()
 
@@ -42,29 +42,29 @@ all_build_depends = set()
 srcpkg_name = get_source_pkg(base, records, depcache)
 print "srcpkg_name: %s " % srcpkg_name
 if not srcpkg_name:
-    print "Can't find source package for '%s'" % pkg.Name
-srcrec = srcrecords.Lookup(srcpkg_name)
+    print "Can't find source package for '%s'" % pkg.mame
+srcrec = srcrecords.lookup(srcpkg_name)
 if srcrec:
     print "Files:"
-    print srcrecords.Files
-    bd = srcrecords.BuildDepends
+    print srcrecords.files
+    bd = srcrecords.build_depends
     print "build-depends of the package: %s " % bd
     for b in bd:
         all_build_depends.add(b[0])
 
 # calculate the build depends for all dependencies
-depends = depcache.GetCandidateVer(base).DependsList
+depends = depcache.get_candidate_ver(base).depends_list
 for dep in depends["Depends"]: # FIXME: do we need to consider PreDepends?
-    pkg = dep[0].TargetPkg
+    pkg = dep[0].target_pkg
     srcpkg_name = get_source_pkg(pkg, records, depcache)
     if not srcpkg_name:
-        print "Can't find source package for '%s'" % pkg.Name
+        print "Can't find source package for '%s'" % pkg.name
         continue
-    srcrec = srcrecords.Lookup(srcpkg_name)
+    srcrec = srcrecords.lookup(srcpkg_name)
     if srcrec:
         #print srcrecords.Package
         #print srcrecords.Binaries
-        bd = srcrecords.BuildDepends
+        bd = srcrecords.build_depends
         #print "%s: %s " % (srcpkg_name, bd)
         for b in bd:
             all_build_depends.add(b[0])

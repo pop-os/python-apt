@@ -15,11 +15,11 @@ print cdrom
 
 progress = TextCdromProgress()
 
-(res, ident) = cdrom.Ident(progress)
+(res, ident) = cdrom.ident(progress)
 print "ident result is: %s (%s) " % (res, ident)
 
-apt_pkg.Config.Set("APT::CDROM::Rename", "True")
-cdrom.Add(progress)
+apt_pkg.config["APT::CDROM::Rename"] = "True"
+cdrom.add(progress)
 
 print "Exiting"
 sys.exit(0)

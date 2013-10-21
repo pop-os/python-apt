@@ -24,12 +24,12 @@ all_build_depends = set()
 srcpkg_name = base.candidate.source_name
 print "srcpkg_name: %s " % srcpkg_name
 if not srcpkg_name:
-    print "Can't find source package for '%s'" % pkg.Name
-srcrec = srcrecords.Lookup(srcpkg_name)
+    print "Can't find source package for '%s'" % pkg.name
+srcrec = srcrecords.lookup(srcpkg_name)
 if srcrec:
     print "Files:"
-    print srcrecords.Files
-    bd = srcrecords.BuildDepends
+    print srcrecords.files
+    bd = srcrecords.build_depends
     print "build-depends of the package: %s " % bd
     for b in bd:
         all_build_depends.add(b[0])
@@ -41,13 +41,13 @@ for or_dep in depends:
         pkg = cache[dep.name]
         srcpkg_name = pkg.candidate.source_name
         if not srcpkg_name:
-            print "Can't find source package for '%s'" % pkg.Name
+            print "Can't find source package for '%s'" % pkg.name
             continue
-        srcrec = srcrecords.Lookup(srcpkg_name)
+        srcrec = srcrecords.lookup(srcpkg_name)
         if srcrec:
             #print srcrecords.Package
             #print srcrecords.Binaries
-            bd = srcrecords.BuildDepends
+            bd = srcrecords.build_depends
             #print "%s: %s " % (srcpkg_name, bd)
             for b in bd:
                 all_build_depends.add(b[0])

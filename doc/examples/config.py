@@ -26,9 +26,9 @@ Cnf = apt_pkg.Configuration()
 print "Command line is", sys.argv
 
 # Load the default configuration file, InitConfig() does this better..
-Cnf.Set("config-file", "/etc/apt/apt.conf")  # or Cnf["config-file"] = ".."
-if posixpath.exists(Cnf.FindFile("config-file")):
-    apt_pkg.ReadConfigFile(Cnf, "/etc/apt/apt.conf")
+Cnf.set("config-file", "/etc/apt/apt.conf")  # or Cnf["config-file"] = ".."
+if posixpath.exists(Cnf.find_file("config-file")):
+    apt_pkg.read_config_file(Cnf, "/etc/apt/apt.conf")
 
 # Merge the command line arguments into the configuration space
 Arguments = [('h', "help", "help"),
@@ -36,17 +36,17 @@ Arguments = [('h', "help", "help"),
              ('q', "quiet", "quiet", "IntLevel"),
              ('c', "config-file", "", "ConfigFile"),
              ('o', "option", "", "ArbItem")]
-print "FileNames", apt_pkg.ParseCommandLine(Cnf, Arguments, sys.argv)
+print "FileNames", apt_pkg.parse_commandline(Cnf, Arguments, sys.argv)
 
-print "Quiet level selected is", Cnf.FindI("quiet", 0)
+print "Quiet level selected is", Cnf.find_i("quiet", 0)
 
 # Do some stuff with it
-if Cnf.FindB("version", 0) == 1:
+if Cnf.find_b("version", 0) == 1:
     print "Version selected - 1.1"
 
-if Cnf.FindB("help", 0) == 1:
-    print "python-apt", apt_pkg.Version, \
-          "compiled on", apt_pkg.Date, apt_pkg.Time
+if Cnf.find_b("help", 0) == 1:
+    print "python-apt", apt_pkg.VERSION, \
+          "compiled on", apt_pkg.DATE, apt_pkg.TIME
     print "Hi, I am the help text for this program"
     sys.exit(0)
 

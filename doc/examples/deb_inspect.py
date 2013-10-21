@@ -7,10 +7,10 @@ import sys
 import os.path
 
 
-def Callback(What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
+def Callback(member, data):
     """ callback for debExtract """
-    print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u" \
-          % (What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
+    print "'%s','%s',%u,%u,%u,%u,%u,%u,%u" \
+          % (member.name, member.linkname, member.mode, member.uid, member.gid, member.size, member.mtime, member.major, member.minor)
 
 
 if __name__ == "__main__":
@@ -21,10 +21,10 @@ if __name__ == "__main__":
 
     print "Working on: %s" % file
     print "Displaying data.tar.gz:"
-    apt_inst.debExtract(open(file), Callback, "data.tar.gz")
+    apt_inst.DebFile(open(file)).data.go(Callback)
 
     print "Now extracting the control file:"
-    control = apt_inst.debExtractControl(open(file))
+    control = apt_inst.DebFile(open(file)).control.extractdata("control")
     sections = apt_pkg.TagSection(control)
 
     print "Maintainer is: "
@@ -33,13 +33,13 @@ if __name__ == "__main__":
     print
     print "DependsOn: "
     depends = sections["Depends"]
-    print apt_pkg.ParseDepends(depends)
+    print apt_pkg.parse_depends(depends)
 
 
     print "extracting archive"
     dir = "/tmp/deb"
     os.mkdir(dir)
-    apt_inst.debExtractArchive(open(file), dir)
+    apt_inst.DebFile(open(file)).data.extractall(dir)
 
     def visit(arg, dirname, names):
         print "%s/" % dirname

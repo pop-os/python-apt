@@ -9,27 +9,27 @@ import apt_pkg
 apt_pkg.init()
 
 cache = apt_pkg.Cache()
-packages = cache.Packages
+packages = cache.packages
 
 uninstalled, updated, upgradable = {}, {}, {}
 
 for package in packages:
-    versions = package.VersionList
+    versions = package.version_list
     if not versions:
         continue
     version = versions[0]
     for other_version in versions:
-        if apt_pkg.VersionCompare(version.VerStr, other_version.VerStr)<0:
+        if apt_pkg.version_compare(version.ver_str, other_version.ver_str)<0:
             version = other_version
-    if package.CurrentVer:
-        current = package.CurrentVer
-        if apt_pkg.VersionCompare(current.VerStr, version.VerStr)<0:
-            upgradable[package.Name] = version
+    if package.current_ver:
+        current = package.current_ver
+        if apt_pkg.version_compare(current.ver_str, version.ver_str)<0:
+            upgradable[package.name] = version
             break
         else:
-            updated[package.Name] = current
+            updated[package.name] = current
     else:
-        uninstalled[package.Name] = version
+        uninstalled[package.name] = version
 
 
 for l in (uninstalled, updated, upgradable):

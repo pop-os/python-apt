@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import apt
+import apt.progress.text
 import apt_pkg
 import os
 
@@ -8,8 +9,8 @@ def get_file(fetcher, uri, destfile):
     # get the file
     af = apt_pkg.AcquireFile(fetcher, uri=uri, descr="sample descr",
                                destfile=destfile)
-    res = fetcher.Run()
-    if res != fetcher.ResultContinue:
+    res = fetcher.run()
+    if res != fetcher.RESULT_CONTINUE:
         return False
     return True
 
@@ -24,30 +25,30 @@ depcache = apt_pkg.DepCache(cache)
 
 recs = apt_pkg.PackageRecords(cache)
 list = apt_pkg.SourceList()
-list.ReadMainList()
+list.read_main_list()
 
 # show the amount fetch needed for a dist-upgrade
-depcache.Upgrade(True)
-progress = apt.progress.TextFetchProgress()
+depcache.upgrade(True)
+progress = apt.progress.text.AcquireProgress()
 fetcher = apt_pkg.Acquire(progress)
 pm = apt_pkg.PackageManager(depcache)
-pm.GetArchives(fetcher, list, recs)
-print "%s (%s)" % (apt_pkg.SizeToStr(fetcher.FetchNeeded), fetcher.FetchNeeded)
+pm.get_archives(fetcher, list, recs)
+print "%s (%s)" % (apt_pkg.size_to_str(fetcher.fetch_needed), fetcher.fetch_needed)
 actiongroup = apt_pkg.ActionGroup(depcache)
-for pkg in cache.Packages:
-    depcache.MarkKeep(pkg)
+for pkg in cache.packages:
+    depcache.mark_keep(pkg)
 
 try:
     os.mkdir("/tmp/pyapt-test")
     os.mkdir("/tmp/pyapt-test/partial")
 except OSError:
     pass
-apt_pkg.Config.Set("Dir::Cache::archives", "/tmp/pyapt-test")
+apt_pkg.config.set("Dir::Cache::archives", "/tmp/pyapt-test")
 
 pkg = cache["3ddesktop"]
-depcache.MarkInstall(pkg)
+depcache.mark_install(pkg)
 
-progress = apt.progress.TextFetchProgress()
+progress = apt.progress.text.AcquireProgress()
 fetcher = apt_pkg.Acquire(progress)
 #fetcher = apt_pkg.Acquire()
 pm = apt_pkg.PackageManager(depcache)
@@ -57,20 +58,20 @@ print fetcher
 
 get_file(fetcher, "ftp://ftp.debian.org/debian/dists/README", "/tmp/lala")
 
-pm.GetArchives(fetcher, list, recs)
+pm.get_archives(fetcher, list, recs)
 
-for item in fetcher.Items:
+for item in fetcher.items:
     print item
-    if item.Status == item.StatError:
-        print "Some error ocured: '%s'" % item.ErrorText
-    if item.Complete == False:
-        print "No error, still nothing downloaded (%s)" % item.ErrorText
+    if item.status == item.STAT_ERROR:
+        print "Some error ocured: '%s'" % item.error_text
+    if item.complete == False:
+        print "No error, still nothing downloaded (%s)" % item.error_text
     print
 
 
-res = fetcher.Run()
+res = fetcher.run()
 print "fetcher.Run() returned: %s" % res
 
 print "now runing pm.DoInstall()"
-res = pm.DoInstall(1)
+res = pm.do_install(1)
 print "pm.DoInstall() returned: %s"% res

@@ -11,14 +11,14 @@
 import apt_pkg
 import sys
 
-ConfigFile = apt_pkg.ParseCommandLine(apt_pkg.Config, [], sys.argv)
+ConfigFile = apt_pkg.parse_commandLine(apt_pkg.config, [], sys.argv)
 
 if len(ConfigFile) != 1:
     print "Must have exactly 1 file name"
     sys.exit(0)
 
 Cnf = apt_pkg.Configuration()
-apt_pkg.ReadConfigFileISC(Cnf, ConfigFile[0])
+apt_pkg.read_config_file_isc(Cnf, ConfigFile[0])
 
 # Print the configuration space
 #print "The Configuration space looks like:"
@@ -26,18 +26,18 @@ apt_pkg.ReadConfigFileISC(Cnf, ConfigFile[0])
 #   print "%s \"%s\";" % (I, Cnf[I])
 
 # bind8 config file..
-if Cnf.Exists("Zone"):
-    print "Zones: ", Cnf.SubTree("zone").List()
-    for I in Cnf.List("zone"):
-        SubCnf = Cnf.SubTree(I)
-        if SubCnf.Find("type") == "slave":
+if "Zone" in Cnf:
+    print "Zones: ", Cnf.sub_tree("zone").list()
+    for I in Cnf.list("zone"):
+        SubCnf = Cnf.sub_tree(I)
+        if SubCnf.find("type") == "slave":
             print "Masters for %s: %s" % (
-                SubCnf.MyTag(), SubCnf.ValueList("masters"))
+                SubCnf.my_tag(), SubCnf.value_list("masters"))
 else:
     print "Tree definitions:"
-    for I in Cnf.List("tree"):
-        SubCnf = Cnf.SubTree(I)
+    for I in Cnf.list("tree"):
+        SubCnf = Cnf.sub_tree(I)
         # This could use Find which would eliminate the possibility of
         # exceptions.
         print "Subtree %s with sections '%s' and architectures '%s'" % (
-            SubCnf.MyTag(), SubCnf["Sections"], SubCnf["Architectures"])
+            SubCnf.my_tag(), SubCnf["Sections"], SubCnf["Architectures"])

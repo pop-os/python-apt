@@ -6,19 +6,19 @@ import apt
 
 def dependencies(cache, pkg, deps, key="Depends"):
     #print "pkg: %s (%s)" % (pkg.name, deps)
-    candver = cache._depcache.GetCandidateVer(pkg._pkg)
+    candver = cache._depcache.get_candidate_ver(pkg._pkg)
     if candver is None:
         return deps
-    dependslist = candver.DependsList
+    dependslist = candver.depends_list
     if key in dependslist:
         for depVerList in dependslist[key]:
             for dep in depVerList:
-                if dep.TargetPkg.Name in cache:
-                    if pkg.name != dep.TargetPkg.Name and \
-                        not dep.TargetPkg.Name in deps:
-                        deps.add(dep.TargetPkg.Name)
+                if dep.target_pkg.name in cache:
+                    if pkg.name != dep.target_pkg.name and \
+                        not dep.target_pkg.name in deps:
+                        deps.add(dep.target_pkg.name)
                         dependencies(
-                            cache, cache[dep.TargetPkg.Name], deps, key)
+                            cache, cache[dep.target_pkg.name], deps, key)
     return deps
 
 
