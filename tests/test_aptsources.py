@@ -40,11 +40,11 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                                                    "sources.list")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-        self.assertEqual(len(sources.list), 9)
+        self.assertEqual(len(sources.list), 10)
         # test load
         sources.list = []
         sources.load("data/aptsources/sources.list")
-        self.assertEqual(len(sources.list), 9)
+        self.assertEqual(len(sources.list), 10)
 
     def testSourcesListAdding(self):
         """aptsources: Test additions to sources.list"""
@@ -159,6 +159,23 @@ class TestAptSources(unittest.TestCase):
         assert sources.list[8].dist == "natty"
         assert sources.list[8].comps == ["main"]
         assert sources.list[8].line.strip() == str(sources.list[8])
+        assert sources.list[8].trusted is None
+
+    def testMultipleOptions(self):
+        """aptsources: Test multi-arch parsing"""
+
+        apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
+                           "sources.list")
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+
+        assert sources.list[9].invalid == False
+        assert sources.list[9].type == "deb"
+        assert sources.list[9].architectures == ["amd64", "i386"]
+        self.assertEqual( sources.list[9].uri, "http://de.archive.ubuntu.com/ubuntu/")
+        assert sources.list[9].dist == "natty"
+        assert sources.list[9].comps == ["main"]
+        assert sources.list[9].trusted
+        assert sources.list[9].line.strip() == str(sources.list[9])
 
     def test_enable_component(self):
         from subprocess import Popen, PIPE

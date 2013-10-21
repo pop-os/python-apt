@@ -11,6 +11,7 @@ python-apt (0.9.0) UNRELEASED; urgency=low
   * Accept bytes object for file names (Closes: #680971)
   * aptsources/sourceslist.py
     - Document correct use of uniq and hide it using __all__ (Closes: #723815)
+    - Correctly parse multiple options (LP: #1103200)
   * python/apt_pkgmodule.cc:
     - Fix documentation of version_compare (Closes: #680891)
   * python/cache.cc:

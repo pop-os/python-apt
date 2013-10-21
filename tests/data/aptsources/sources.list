@@ -7,3 +7,4 @@ deb http://de.archive.ubuntu.com/ubuntu/ edgy universe
 
 # multi-arch
 deb [arch=amd64,i386] http://de.archive.ubuntu.com/ubuntu/ natty main
+deb [arch=amd64,i386 trusted=yes] http://de.archive.ubuntu.com/ubuntu/ natty main
