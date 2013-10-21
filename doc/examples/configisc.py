@@ -11,7 +11,7 @@
 import apt_pkg
 import sys
 
-ConfigFile = apt_pkg.parse_commandLine(apt_pkg.config, [], sys.argv)
+ConfigFile = apt_pkg.parse_commandline(apt_pkg.config, [], sys.argv)
 
 if len(ConfigFile) != 1:
     print "Must have exactly 1 file name"

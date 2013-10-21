@@ -28,6 +28,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
       Closes: #717859. Closes: #717861.
   * doc/source/examples/dpkg-info.py:
     - Use apt_inst.DebFile (Closes: #671784)
+  * doc/examples/*.py:
+    - Update examples to the new API (Closes: #639022)
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)

@@ -36,12 +36,12 @@ iprogress = TextInstallProgress()
 pkg = cache["3dchess"]
 
 # install or remove, the importend thing is to keep us busy :)
-if pkg.isInstalled:
+if pkg.is_installed:
     print "Going to delete %s" % pkg.name
-    pkg.markDelete()
+    pkg.mark_delete()
 else:
     print "Going to install %s" % pkg.name
-    pkg.markInstall()
+    pkg.mark_install()
 res = cache.commit(fprogress, iprogress)
 print res
 

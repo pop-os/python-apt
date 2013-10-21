@@ -3,10 +3,12 @@
 import sys
 import time
 
+import apt_pkg
 import apt
+import apt.progress.base
 
 
-class TextProgress(apt.OpProgress):
+class TextProgress(apt.progress.base.OpProgress):
 
     def __init__(self):
         self.last=0.0
@@ -23,7 +25,7 @@ class TextProgress(apt.OpProgress):
         print "\rDone                      "
 
 
-class TextFetchProgress(apt.FetchProgress):
+class TextFetchProgress(apt.progress.base.AcquireProgress):
 
     def __init__(self):
         pass
@@ -34,60 +36,49 @@ class TextFetchProgress(apt.FetchProgress):
     def stop(self):
         pass
 
-    def updateStatus(self, uri, descr, shortDescr, status):
-        print "UpdateStatus: '%s' '%s' '%s' '%i' " % (
-            uri, descr, shortDescr, status)
+    def fail(self, item):
+        print 'fail', item
 
-    def update_status_full(self, uri, descr, shortDescr, status, fileSize, 
-                           partialSize):
-        print "update_status_full: '%s' '%s' '%s' '%i' '%d/%d'" % (
-            uri, descr, shortDescr, status, partialSize, fileSize)
+    def fetch(self, item):
+        print 'fetch', item
 
-    def pulse(self):
-        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
-            apt.SizeToStr(self.currentCPS), apt.SizeToStr(self.currentBytes),
-            apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
+    def ims_hit(self, item):
+        print 'ims_hit', item
+
+    def pulse(self, owner):
+        print "pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
+            apt_pkg.size_to_str(self.current_cps), apt_pkg.size_to_str(self.current_bytes),
+            apt_pkg.size_to_str(self.total_bytes), self.current_items, self.total_items)
         return True
 
-    def pulse_items(self, items):
-        print "Pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
-            apt.SizeToStr(self.currentCPS), apt.SizeToStr(self.currentBytes),
-            apt.SizeToStr(self.totalBytes), self.currentItems, self.totalItems)
-        print "Pulse-Items: "
-        for itm in items:
-            uri, descr, shortDescr, fileSize, partialSize = itm
-            print " - '%s' '%s' '%s' '%d/%d'" % (
-                uri, descr, shortDescr, partialSize, fileSize)
-        return True
-
-    def mediaChange(self, medium, drive):
+    def media_change(self, medium, drive):
         print "Please insert medium %s in drive %s" % (medium, drive)
         sys.stdin.readline()
         #return False
 
 
-class TextInstallProgress(apt.InstallProgress):
+class TextInstallProgress(apt.progress.base.InstallProgress):
 
     def __init__(self):
-        apt.InstallProgress.__init__(self)
+        apt.progress.base.InstallProgress.__init__(self)
         pass
 
-    def startUpdate(self):
-        print "StartUpdate"
+    def start_update(self):
+        print "start_update"
 
-    def finishUpdate(self):
-        print "FinishUpdate"
+    def finish_update(self):
+        print "finish_update"
 
-    def statusChange(self, pkg, percent, status):
+    def status_change(self, pkg, percent, status):
         print "[%s] %s: %s" % (percent, pkg, status)
 
-    def updateInterface(self):
-        apt.InstallProgress.updateInterface(self)
+    def update_interface(self):
+        apt.progress.base.InstallProgress.update_interface(self)
         # usefull to e.g. redraw a GUI
         time.sleep(0.1)
 
 
-class TextCdromProgress(apt.CdromProgress):
+class TextCdromProgress(apt.progress.base.CdromProgress):
 
     def __init__(self):
         pass
@@ -99,12 +90,12 @@ class TextCdromProgress(apt.CdromProgress):
         if text != "":
             print "Update: %s %s" % (text.strip(), step)
 
-    def askCdromName(self):
+    def ask_cdrom_name(self):
         print "Please enter cd-name: ",
         cd_name = sys.stdin.readline()
         return (True, cd_name.strip())
 
-    def changeCdrom(self):
+    def change_cdrom(self):
         print "Please insert cdrom and press <ENTER>"
         answer = sys.stdin.readline()
         return True
@@ -113,10 +104,10 @@ class TextCdromProgress(apt.CdromProgress):
 if __name__ == "__main__":
     c = apt.Cache()
     pkg = c["3dchess"]
-    if pkg.isInstalled:
-        pkg.markDelete()
+    if pkg.is_installed:
+        pkg.mark_delete()
     else:
-        pkg.markInstall()
+        pkg.mark_install()
 
     res = c.commit(TextFetchProgress(), TextInstallProgress())
 

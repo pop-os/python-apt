@@ -8,9 +8,9 @@ apt_pkg.init()
 #sources = apt_pkg.SourceRecords(cache)
 
 sources = apt_pkg.SourceRecords()
-sources.Restart()
-while sources.Lookup('hello'):
-    print sources.Package, sources.Version, sources.Maintainer, \
-        sources.Section, `sources.Binaries`
-    print sources.Files
-    print sources.Index.ArchiveURI(sources.Files[0][2])
+sources.restart()
+while sources.lookup('hello'):
+    print sources.package, sources.version, sources.maintainer, \
+        sources.section, `sources.binaries`
+    print sources.files
+    print sources.index.archive_uri(sources.files[0][2])

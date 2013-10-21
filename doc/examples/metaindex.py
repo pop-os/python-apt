@@ -5,12 +5,12 @@ import apt_pkg
 apt_pkg.init()
 
 sources = apt_pkg.SourceList()
-sources.ReadMainList()
+sources.read_main_list()
 
 
-for metaindex in sources.List:
+for metaindex in sources.list:
     print metaindex
-    print "URI: ", metaindex.URI
-    print "Dist: ", metaindex.Dist
-    print "IndexFiles: ", "\n".join([str(i) for i in metaindex.IndexFiles])
+    print "uri: ", metaindex.uri
+    print "dist: ", metaindex.dist
+    print "index_files: ", "\n".join([str(i) for i in metaindex.index_files])
     print

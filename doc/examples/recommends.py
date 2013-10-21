@@ -16,21 +16,21 @@ class Wanted:
 
 wanted = {}
 
-for package in cache.Packages:
-    current = package.CurrentVer
+for package in cache.packages:
+    current = package.current_ver
     if not current:
         continue
-    depends = current.DependsList
+    depends = current.depends_list
     for (key, attr) in (('Suggests', 'suggested'),
                         ('Recommends', 'recommended')):
         list = depends.get(key, [])
         for dependency in list:
-            name = dependency[0].TargetPkg.Name
+            name = dependency[0].target_pkg.name
             dep = cache[name]
-            if dep.CurrentVer:
+            if dep.current_ver:
                 continue
             getattr(wanted.setdefault(name, Wanted(name)),
-                    attr).append(package.Name)
+                    attr).append(package.name)
 
 ks = wanted.keys()
 ks.sort()

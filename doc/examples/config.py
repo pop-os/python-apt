@@ -18,14 +18,14 @@ import sys
 import posixpath
 
 # Create a new empty Configuration object - there is also the system global
-# configuration object apt_pkg.Config which is used interally by apt-pkg
+# configuration object apt_pkg.config which is used interally by apt-pkg
 # routines to control unusual situations. I recommend using the sytem global
 # whenever possible..
 Cnf = apt_pkg.Configuration()
 
 print "Command line is", sys.argv
 
-# Load the default configuration file, InitConfig() does this better..
+# Load the default configuration file, init_config() does this better..
 Cnf.set("config-file", "/etc/apt/apt.conf")  # or Cnf["config-file"] = ".."
 if posixpath.exists(Cnf.find_file("config-file")):
     apt_pkg.read_config_file(Cnf, "/etc/apt/apt.conf")

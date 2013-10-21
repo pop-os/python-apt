@@ -4,22 +4,22 @@ import apt_pkg
 
 apt_pkg.init()
 
-apt_pkg.Config.Set("APT::Acquire::Translation", "de")
+apt_pkg.config.set("APT::Acquire::Translation", "de")
 
 cache = apt_pkg.Cache()
 depcache = apt_pkg.DepCache(cache)
 
 pkg = cache["gcc"]
-cand = depcache.GetCandidateVer(pkg)
+cand = depcache.get_candidate_ver(pkg)
 print cand
 
 desc = cand.TranslatedDescription
 print desc
-print desc.FileList
-(f, index) = desc.FileList.pop(0)
+print desc.file_list
+(f, index) = desc.file_list.pop(0)
 
 records = apt_pkg.PackageRecords(cache)
-records.Lookup((f, index))
-desc = records.LongDesc
+records.lookup((f, index))
+desc = records.long_desc
 print len(desc)
 print desc

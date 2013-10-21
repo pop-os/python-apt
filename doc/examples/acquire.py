@@ -16,9 +16,9 @@ def get_file(fetcher, uri, destfile):
 
 apt_pkg.init()
 
-#apt_pkg.Config.Set("Debug::pkgDPkgPM","1");
-#apt_pkg.Config.Set("Debug::pkgPackageManager","1");
-#apt_pkg.Config.Set("Debug::pkgDPkgProgressReporting","1");
+#apt_pkg.config.set("Debug::pkgDPkgPM","1");
+#apt_pkg.config.set("Debug::pkgPackageManager","1");
+#apt_pkg.config.set("Debug::pkgDPkgProgressReporting","1");
 
 cache = apt_pkg.Cache()
 depcache = apt_pkg.DepCache(cache)

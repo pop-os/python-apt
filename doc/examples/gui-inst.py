@@ -18,10 +18,10 @@ if __name__ == "__main__":
     win.show()
 
     cache = apt.cache.Cache(progress.open)
-    if cache["2vcard"].isInstalled:
-        cache["2vcard"].markDelete()
+    if cache["2vcard"].is_installed:
+        cache["2vcard"].mark_delete()
     else:
-        cache["2vcard"].markInstall()
+        cache["2vcard"].mark_install()
     progress.show_terminal(expanded=True)
     cache.commit(progress.fetch, progress.install)
     gtk.main()
