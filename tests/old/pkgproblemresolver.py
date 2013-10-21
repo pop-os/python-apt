@@ -11,58 +11,58 @@ def main():
     apt_pkg.init()
     cache = apt_pkg.Cache()
     depcache = apt_pkg.DepCache(cache)
-    depcache.Init()
+    depcache.init()
     i=0
-    all=cache.PackageCount
+    all=cache.package_count
     print "Running DepCache test on all packages"
     print "(trying to install each and then mark it keep again):"
     # first, get all pkgs
-    for pkg in cache.Packages:
+    for pkg in cache.packages:
         i += 1
-        x = pkg.Name
+        x = pkg.name
         # then get each version
-        ver =depcache.GetCandidateVer(pkg)
+        ver =depcache.get_candidate_ver(pkg)
         if ver is not None:
-            depcache.MarkInstall(pkg)
-            if depcache.BrokenCount > 0:
+            depcache.mark_install(pkg)
+            if depcache.broken_count > 0:
                 fixer = apt_pkg.ProblemResolver(depcache)
-                fixer.Clear(pkg)
-                fixer.Protect(pkg)
+                fixer.clear(pkg)
+                fixer.protect(pkg)
                 # we first try to resolve the problem
                 # with the package that should be installed
                 # protected
                 try:
-                    fixer.Resolve(True)
+                    fixer.resolve(True)
                 except SystemError:
                     # the pkg seems to be broken, the
                     # returns a exception
-                    fixer.Clear(pkg)
-                    fixer.Resolve(True)
-                    if not depcache.MarkedInstall(pkg):
-                        print "broken in archive: %s " % pkg.Name
+                    fixer.clear(pkg)
+                    fixer.resolve(True)
+                    if not depcache.marked_install(pkg):
+                        print "broken in archive: %s " % pkg.name
                 fixer = None
-            if depcache.InstCount == 0:
-                if depcache.IsUpgradable(pkg):
+            if depcache.inst_count == 0:
+                if depcache.is_upgradable(pkg):
                     print "Error marking %s for install" % x
-            for p in cache.Packages:
-                if depcache.MarkedInstall(p) or depcache.MarkedUpgrade(p):
-                    depcache.MarkKeep(p)
-            if depcache.InstCount != 0:
+            for p in cache.packages:
+                if depcache.marked_install(p) or depcache.marked_upgrade(p):
+                    depcache.mark_keep(p)
+            if depcache.inst_count != 0:
                 print "Error undoing the selection for %s" % x
         print "\r%i/%i=%.3f%%    " % (i, all, (float(i) / float(all) * 100)),
 
     print
-    print "Trying Upgrade:"
-    depcache.Upgrade()
-    print "To install: %s " % depcache.InstCount
-    print "To remove: %s " % depcache.DelCount
-    print "Kept back: %s " % depcache.KeepCount
+    print "Trying upgrade:"
+    depcache.upgrade()
+    print "To install: %s " % depcache.inst_count
+    print "To remove: %s " % depcache.del_count
+    print "Kept back: %s " % depcache.keep_count
 
     print "Trying DistUpgrade:"
-    depcache.Upgrade(True)
-    print "To install: %s " % depcache.InstCount
-    print "To remove: %s " % depcache.DelCount
-    print "Kept back: %s " % depcache.KeepCount
+    depcache.upgrade(True)
+    print "To install: %s " % depcache.inst_count
+    print "To remove: %s " % depcache.del_count
+    print "Kept back: %s " % depcache.keep_count
 
 
 if __name__ == "__main__":

@@ -33,11 +33,11 @@ for i in range(100):
     depcache = apt_pkg.DepCache(cache)
     records = apt_pkg.PackageRecords(cache)
     list = apt_pkg.SourceList()
-    list.ReadMainList()
+    list.read_main_list()
     dict = {}
-    for pkg in cache.Packages:
-        if len(pkg.VersionList) > 0:
-            dict[pkg.Name] = apt.Package(cache, depcache,
+    for pkg in cache.packages:
+        if len(pkg.version_list) > 0:
+            dict[pkg.name] = apt.package(cache, depcache,
                                          records, list, None, pkg)
 
     print cache["apt"]

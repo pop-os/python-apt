@@ -11,22 +11,22 @@ def main():
     apt_pkg.init()
     cache = apt_pkg.Cache()
     depcache = apt_pkg.DepCache(cache)
-    depcache.Init()
+    depcache.init()
     i=0
-    all=cache.PackageCount
+    all=cache.package_count
     print "Running Cache test on all packages:"
     # first, get all pkgs
-    for pkg in cache.Packages:
+    for pkg in cache.packages:
         i += 1
-        x = pkg.Name
+        x = pkg.name
         # then get each version
-        for ver in pkg.VersionList:
+        for ver in pkg.version_list:
             # get some version information
-            a = ver.FileList
-            b = ver.VerStr
-            c = ver.Arch
-            d = ver.DependsListStr
-            dl = ver.DependsList
+            a = ver.file_list
+            b = ver.ver_str
+            c = ver.arch
+            d = ver.depends_listStr
+            dl = ver.depends_list
             # get all dependencies (a dict of string->list,
             # e.g. "depends:" -> [ver1,ver2,..]
             for dep in dl.keys():
@@ -35,12 +35,12 @@ def main():
                     for z in depVerList:
                         # get all TargetVersions of
                         # the dependency object
-                        for j in z.AllTargets():
-                            f = j.FileList
-                            g = ver.VerStr
-                            h = ver.Arch
-                            k = ver.DependsListStr
-                            j = ver.DependsList
+                        for j in z.all_targets():
+                            f = j.file_list
+                            g = ver.ver_str
+                            h = ver.arch
+                            k = ver.depends_listStr
+                            j = ver.depends_list
                             pass
 
         print "\r%i/%i=%.3f%%    " % (i, all, (float(i) / float(all) * 100)),

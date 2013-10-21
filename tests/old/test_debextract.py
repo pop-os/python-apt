@@ -4,9 +4,9 @@ import sys
 import apt_inst
 
 
-def Callback(What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor):
+def Callback(What, name, Link, Mode, UID, GID, size, MTime, Major, Minor):
     print "%s '%s','%s',%u,%u,%u,%u,%u,%u,%u" % (
-        What, Name, Link, Mode, UID, GID, Size, MTime, Major, Minor)
+        What, name, Link, Mode, UID, GID, size, MTime, Major, Minor)
 
 
 def main():
