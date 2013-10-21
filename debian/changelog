@@ -32,6 +32,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Update examples to the new API (Closes: #639022)
   * tests/old/*.py:
     - Update to new API as well
+  * data/templates/Ubuntu.info.in:
+    - Add "Trusty Thar"
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)
