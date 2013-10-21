@@ -180,8 +180,12 @@ static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
 
 static PyObject *PkgCacheGetPolicy(PyObject *Self, void*) {
    pkgCacheFile *CacheFile = GetCpp<pkgCacheFile *>(Self);
-   std::cerr << "policy: " << CacheFile->Policy << std::endl;
-   return CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,CacheFile->Policy);
+   CppPyObject<pkgPolicy*> *obj;
+
+   obj = CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,CacheFile->Policy);
+   obj->NoDelete = true;
+
+   return obj;
 }
 
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {

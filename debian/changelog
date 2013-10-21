@@ -13,6 +13,8 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Document correct use of uniq and hide it using __all__ (Closes: #723815)
   * python/apt_pkgmodule.cc:
     - Fix documentation of version_compare (Closes: #680891)
+  * python/cache.cc:
+    - Set NoDelete=true when creating Policy, fixes segfault in destructor
   * apt/package.py:
     - Add a Package.has_config_files property (Closes: #712749)
   * tests:
