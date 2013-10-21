@@ -117,7 +117,7 @@ BaseURI-i386: http://archive.ubuntu.com/ubuntu
 MatchURI-i386: archive.ubuntu.com/ubuntu
 MirrorsFile-amd64: Ubuntu.mirrors
 MirrorsFile-i386: Ubuntu.mirrors
-_Description: Ubuntu 14.04 'Trusty Thar'
+_Description: Ubuntu 14.04 'Trusty Tahr'
 Component: main
 _CompDescription: Officially supported
 _CompDescriptionLong: Canonical-supported free and open-source software
@@ -137,14 +137,14 @@ ParentSuite: trusty
 RepositoryType: deb-src
 BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
-_Description: Ubuntu 14.04 'Trusty Thar'
+_Description: Ubuntu 14.04 'Trusty Tahr'
 
 Suite: trusty
 RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*14.04
 MatchURI: cdrom:\[Ubuntu.*14.04
-_Description: Cdrom with Ubuntu 14.04 'Trusty Thar'
+_Description: Cdrom with Ubuntu 14.04 'Trusty Tahr'
 Available: False
 Component: main
 _CompDescription: Officially supported
