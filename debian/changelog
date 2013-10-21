@@ -19,6 +19,10 @@ python-apt (0.9.0) UNRELEASED; urgency=low
     - Do not set dir::etc::sourceparts to /tmp
   * apt, aptsources:
     - Only call init_config() if not already initialized (Closes: #686403)
+  * apt/debfile.py:
+    - Pass strip_multi_arch=False to parse_depends. Patch by Michael, tests
+      derived from the ones provided by the reporter.
+      Closes: #717859. Closes: #717861.
 
   [ Jeremy Bicha ]
   * data/templates/Ubuntu.info.in: add 'devel' series (Closes: #722961)

@@ -102,6 +102,8 @@ class DebPackage(object):
     def _maybe_append_multiarch_suffix(self, pkgname, 
                                        in_conflict_checking=False):
         # trivial cases
+        if ":" in pkgname:
+            return pkgname
         if not self._multiarch:
             return pkgname
         elif self._cache.is_virtual_package(pkgname):
@@ -276,7 +278,7 @@ class DebPackage(object):
         """List of package names conflicting with this package."""
         key = "Conflicts"
         try:
-            return apt_pkg.parse_depends(self._sections[key])
+            return apt_pkg.parse_depends(self._sections[key], False)
         except KeyError:
             return []
 
@@ -287,7 +289,7 @@ class DebPackage(object):
         # find depends
         for key in "Depends", "Pre-Depends":
             try:
-                depends.extend(apt_pkg.parse_depends(self._sections[key]))
+                depends.extend(apt_pkg.parse_depends(self._sections[key], False))
             except KeyError:
                 pass
         return depends
@@ -297,7 +299,7 @@ class DebPackage(object):
         """List of virtual packages which are provided by this package."""
         key = "Provides"
         try:
-            return apt_pkg.parse_depends(self._sections[key])
+            return apt_pkg.parse_depends(self._sections[key], False)
         except KeyError:
             return []
 
@@ -306,7 +308,7 @@ class DebPackage(object):
         """List of packages which are replaced by this package."""
         key = "Replaces"
         try:
-            return apt_pkg.parse_depends(self._sections[key])
+            return apt_pkg.parse_depends(self._sections[key], False)
         except KeyError:
             return []
 
@@ -499,7 +501,7 @@ class DebPackage(object):
 
     def satisfy_depends_str(self, dependsstr):
         """Satisfy the dependencies in the given string."""
-        return self._satisfy_depends(apt_pkg.parse_depends(dependsstr))
+        return self._satisfy_depends(apt_pkg.parse_depends(dependsstr, False))
 
     def _satisfy_depends(self, depends):
         """Satisfy the dependencies."""
@@ -744,7 +746,7 @@ def _test():
 
     s = DscSrcPackage(cache=cache)
     d = "libc6 (>= 2.3.2), libaio (>= 0.3.96) | libaio1 (>= 0.3.96)"
-    print s._satisfy_depends(apt_pkg.parse_depends(d))
+    print s._satisfy_depends(apt_pkg.parse_depends(d, False))
 
 if __name__ == "__main__":
     _test()

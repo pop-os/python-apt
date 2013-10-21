@@ -51,3 +51,42 @@ Description: Debian configuration management system
  Debconf is a configuration management system for debian packages. Packages
  use Debconf to ask questions when they are installed.
 Python-Version: 2.6, 3.1
+
+Package: testdep-same
+Status: install ok installed
+Source: testdep
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Francois Gouget <fgouget@codeweavers.com>
+Installed-Size: 25
+Provides: testdep-virtual-same
+Section: unknown
+Priority: extra
+Multi-Arch: same
+Description: Multi-arch = same package, no dependency
+ This is a multiarch package that can only satisfy dependencies for the same
+ architecture. But multiple instances of this package can be co-installed,
+ one for each architecture.
+ .
+ Library and development packages typically fall into this category.
+
+Package: testdep-allowed
+Status: install ok installed
+Source: testdep
+Version: 1.0-1
+Architecture: amd64
+Maintainer: Francois Gouget <fgouget@codeweavers.com>
+Installed-Size: 25
+Provides: testdep-virtual-allowed
+Section: unknown
+Priority: extra
+Multi-Arch: allowed
+Description: Multi-arch = allowed package, no dependency
+ This is a multiarch package. By default it can only satisfy dependencies for
+ packages of the same architecture but that can be changed with ':any'
+ dependencies.
+ .
+ It can only be installed for one architecture at a time. Trying to install the
+ same package for another architecture will remove the first one.
+ .
+ Packages providing tools or shells typically fall into this category.

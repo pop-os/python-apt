@@ -137,6 +137,23 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertTrue("Package" in deb)
 
+    def test_multi_arch_allowed(self):
+        apt_pkg.config["APT::Architectures::"] = "i386"
+        apt_pkg.config["APT::Architectures::"] = "amd64"
+        apt_pkg.config["APT::Architecture"] = "amd64"
+        apt_pkg.init_system()
+
+        allowed_any = apt.debfile.DebPackage("./data/test_debs/testdep-allowed-any_1.0-1_i386.deb")
+        self.assertTrue(allowed_any.check(), allowed_any._failure_string)
+
+    def test_multi_arch_same(self):
+        apt_pkg.config["APT::Architectures::"] = "i386"
+        apt_pkg.config["APT::Architectures::"] = "amd64"
+        apt_pkg.config["APT::Architecture"] = "amd64"
+        apt_pkg.init_system()
+        same = apt.debfile.DebPackage("./data/test_debs/testdep-same-arch_1.0-1_i386.deb")
+        self.assertTrue(same.check(), same._failure_string)
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
