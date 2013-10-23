@@ -232,7 +232,8 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
             return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
         size -= read;
     }
-    utimbuf time = {member->MTime, member->MTime};
+    utimbuf time = {static_cast<time_t>(member->MTime),
+                    static_cast<time_t>(member->MTime)};
     if (utime(outfile,&time) == -1)
         return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
     Py_RETURN_TRUE;
