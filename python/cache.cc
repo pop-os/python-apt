@@ -49,7 +49,7 @@ template<typename T> struct IterListStruct
    IterListStruct() : LastIndex(0) {};
 
    bool move(unsigned long Index) {
-       if (Index < 0 || (unsigned)Index >= Count())
+       if ((unsigned)Index >= Count())
        {
           PyErr_SetNone(PyExc_IndexError);
           return false;
