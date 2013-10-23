@@ -111,7 +111,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
       bool Transient = false;
 
       if (Fetcher.Run() == pkgAcquire::Failed)
-	 return false;
+	 return HandleErrors();
 
       // Print out errors
       bool Failed = false;
