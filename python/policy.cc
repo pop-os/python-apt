@@ -134,9 +134,9 @@ static PyObject *policy_create_pin(PyObject *self, PyObject *args) {
     pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
     if (strcmp(type,"Version") == 0 || strcmp(type, "version") == 0)
         match_type = pkgVersionMatch::Version;
-    if (strcmp(type,"Release") == 0 || strcmp(type, "release") == 0)
+    else if (strcmp(type,"Release") == 0 || strcmp(type, "release") == 0)
         match_type = pkgVersionMatch::Release;
-    if (strcmp(type,"Origin") == 0 || strcmp(type, "origin") == 0)
+    else if (strcmp(type,"Origin") == 0 || strcmp(type, "origin") == 0)
         match_type = pkgVersionMatch::Origin;
     else
         match_type = pkgVersionMatch::None;
