@@ -1,3 +1,22 @@
+python-apt (0.9.1) unstable; urgency=low
+
+  * data/templates/Ubuntu.info.in: It's 'Tahr', not 'Thar'
+  * data/templates/Debian.info.in: Add jessie
+  * data/templates/Debian.info.in: Change wheezy version from 7.0 to 7
+  * python/*.cc: Get rid of the easy-to-replace deprecated APT functions
+  * python/{depcache.cc,string.cc}: Ignore deprecation warnings for some calls
+  * python/depcache.cc: Add more error handling to PkgDepCacheCommit
+  * python/cache.cc: Remove a check for an unsigned long value < 0
+  * python/arfile.cc: (C++11) Explicitly cast unsigned long to time_t in {}
+  * python/apt_instmodule.cc: Make RETURN(x) be return on Python 2
+  * python/policy.cc: (scan-build): Fix a dead assignment
+  * python/progress.cc: (scan-build): Fix some uninitialized values
+  * debian: Upgrade to debhelper 9 (and dpkg-buildflags)
+  * debian/python-apt-doc.links: Replace bundled underscore.js by symlink
+  * po: Update the template
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 23 Oct 2013 20:32:40 +0200
+
 python-apt (0.9.0) unstable; urgency=low
 
   [ Michael Vogt ]
