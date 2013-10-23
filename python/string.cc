@@ -113,8 +113,10 @@ PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
       return 0;
 
    time_t Result;
+   PY_APT_BEGIN_DEPRECATED;
    if (StrToTime(Str,Result) == false)
    {
+      PY_APT_END_DEPRECATED;
       Py_INCREF(Py_None);
       return Py_None;
    }

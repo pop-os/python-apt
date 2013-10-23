@@ -75,6 +75,11 @@ typedef int Py_ssize_t;
 #define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
 #endif
 
+#define PY_APT_BEGIN_DEPRECATED { \
+   _Pragma("GCC diagnostic push"); \
+   _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\""); }
+#define PY_APT_END_DEPRECATED  _Pragma("GCC diagnostic pop")
+
 
 static inline const char *PyUnicode_AsString(PyObject *op) {
     // Convert to bytes object, using the default encoding.
