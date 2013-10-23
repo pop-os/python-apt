@@ -8,7 +8,7 @@ XS-Python-Version: >= 2.6
 X-Python3-Version: >= 3.1
 Build-Depends: apt (>= 0.9.6),
                apt-utils,
-               debhelper (>= 7.3.5),
+               debhelper (>= 9),
                fakeroot,
                libapt-pkg-dev (>= 0.8.11),
                python-all-dev (>= 2.6.6-3~),
