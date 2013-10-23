@@ -21,7 +21,7 @@
 #include <apt-pkg/tagfile.h>
 #include <apt-pkg/md5.h>
 #include <apt-pkg/sha1.h>
-#include <apt-pkg/sha256.h>
+#include <apt-pkg/sha2.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/orderlist.h>

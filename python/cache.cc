@@ -329,7 +329,7 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 
    if (pyCallbackInst == Py_None) {
       OpProgress Prog;
-      if (Cache->Open(Prog,false) == false)
+      if (Cache->Open(&Prog,false) == false)
 	     return HandleErrors();
    } else if(pyCallbackInst != 0) {
       // sanity check for the progress object, see #497049
@@ -345,12 +345,12 @@ static PyObject *PkgCacheNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       }
       PyOpProgress progress;
       progress.setCallbackInst(pyCallbackInst);
-      if (Cache->Open(progress,false) == false)
+      if (Cache->Open(&progress,false) == false)
          return HandleErrors();
    }
    else {
       OpTextProgress Prog;
-      if (Cache->Open(Prog,false) == false)
+      if (Cache->Open(&Prog,false) == false)
 	     return HandleErrors();
    }
 

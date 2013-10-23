@@ -89,9 +89,11 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
 
-   pkgAcquire Fetcher(&progress);
+   pkgAcquire Fetcher;
    pkgPackageManager *PM;
    PM = _system->CreatePM(depcache);
+
+   Fetcher.Setup(&progress);
    if(PM->GetArchives(&Fetcher, &List, &Recs) == false ||
       _error->PendingError() == true) {
       std::cerr << "Error in GetArchives" << std::endl;
