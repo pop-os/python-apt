@@ -126,7 +126,7 @@ bool PyFetchProgress::MediaChange(std::string Media, std::string Drive)
    PyCbObj_END_ALLOW_THREADS
    //std::cout << "MediaChange" << std::endl;
    PyObject *arglist = Py_BuildValue("(ss)", Media.c_str(), Drive.c_str());
-   PyObject *result;
+   PyObject *result = NULL;
 
    if(PyObject_HasAttrString(callbackInst, "mediaChange"))
       RunSimpleCallback("mediaChange", arglist, &result);
@@ -440,7 +440,7 @@ void PyCdromProgress::Update(std::string text, int current)
 bool PyCdromProgress::ChangeCdrom()
 {
    PyObject *arglist = Py_BuildValue("()");
-   PyObject *result;
+   PyObject *result = NULL;
    if (PyObject_HasAttrString(callbackInst, "changeCdrom"))
       RunSimpleCallback("changeCdrom", arglist, &result);
    else
@@ -459,7 +459,7 @@ bool PyCdromProgress::AskCdromName(std::string &Name)
    PyObject *arglist = Py_BuildValue("()");
    const char *new_name;
    bool res;
-   PyObject *result;
+   PyObject *result = NULL;
 
    // Old style: (True, name) on success, (False, name) on failure.
    if (PyObject_HasAttrString(callbackInst, "askAdromName")) {
