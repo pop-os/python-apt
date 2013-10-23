@@ -52,7 +52,7 @@ static struct PyModuleDef moduledef = {
 extern "C" PyObject * PyInit_apt_inst()
 #else
 extern "C" void initapt_inst()
-#define RETURN(x)
+#define RETURN(x) return
 #endif
 {
 #if PY_MAJOR_VERSION >= 3
