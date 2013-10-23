@@ -357,8 +357,8 @@ msgstr "http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog"
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 7.0 'Wheezy' "
-msgstr "Debian 7.0 „Wheezy“ "
+msgid "Debian 7 'Wheezy' "
+msgstr "Debian 7 „Wheezy“ "
 
 #. Description
 #: ../data/templates/Debian.info.in:33

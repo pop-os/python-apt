@@ -410,7 +410,7 @@ msgstr ""
 #. Description
 #: ../data/templates/Debian.info.in:8
 #, fuzzy
-msgid "Debian 7.0 'Wheezy' "
+msgid "Debian 7 'Wheezy' "
 msgstr "डेबियन अचल सुरक्षा अद्यावधिकहरु"
 
 #. Description

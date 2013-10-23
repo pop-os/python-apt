@@ -366,7 +366,7 @@ msgstr ""
 
 #. Description
 #: ../data/templates/Debian.info.in:8
-msgid "Debian 7.0 'Wheezy' "
+msgid "Debian 7 'Wheezy' "
 msgstr ""
 
 #. Description
