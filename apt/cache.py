@@ -81,6 +81,7 @@ class Cache(object):
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
         if rootdir:
+            rootdir = os.path.abspath(rootdir)
             if os.path.exists(rootdir+"/etc/apt/apt.conf"):
                 apt_pkg.read_config_file(apt_pkg.config,
                                        rootdir + "/etc/apt/apt.conf")
