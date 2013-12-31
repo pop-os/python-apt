@@ -9,6 +9,7 @@
 import apt
 import unittest
 
+
 class TestAptPolicy(unittest.TestCase):
 
     def test_apt_policy_lowlevel(self):
@@ -32,7 +33,6 @@ class TestAptPolicy(unittest.TestCase):
         pkg = cache["apt"]
         self.assertTrue(pkg.candidate.policy_priority > 1 and
                         pkg.candidate.policy_priority < 1001)
-
 
 
 if __name__ == "__main__":

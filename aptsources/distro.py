@@ -85,7 +85,7 @@ class Distribution(object):
                 break
         if self.source_template is None:
             raise NoDistroTemplateException(
-                "Error: could not find a distribution template for %s/%s" % 
+                "Error: could not find a distribution template for %s/%s" %
                 (self.id, self.codename))
 
         # find main and child sources
@@ -95,40 +95,40 @@ class Distribution(object):
         enabled_comps = []
         #source_code = []
         for source in self.sourceslist.list:
-            if (source.invalid == False and
+            if (source.invalid is False and
                 self.is_codename(source.dist) and
                 source.template and
-                source.template.official == True and
+                source.template.official is True and
                 self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently
                 if (source.uri.startswith("cdrom:") and
-                    source.disabled == False):
+                    source.disabled is False):
                     self.cdrom_sources.append(source)
                     cdrom_comps.extend(source.comps)
                 elif (source.uri.startswith("cdrom:") and
-                      source.disabled == True):
+                      source.disabled is True):
                     self.cdrom_sources.append(source)
                 elif (source.type == self.binary_type and
-                      source.disabled == False):
+                      source.disabled is False):
                     self.main_sources.append(source)
                     comps.extend(source.comps)
                     media.append(source.uri)
                 elif (source.type == self.binary_type and
-                      source.disabled == True):
+                      source.disabled is True):
                     self.disabled_sources.append(source)
                 elif (source.type == self.source_type
-                        and source.disabled == False):
+                        and source.disabled is False):
                     self.source_code_sources.append(source)
                 elif (source.type == self.source_type and
-                      source.disabled == True):
+                      source.disabled is True):
                     self.disabled_sources.append(source)
-            if (source.invalid == False and
+            if (source.invalid is False and
                 source.template in self.source_template.children):
-                if (source.disabled == False
+                if (source.disabled is False
                     and source.type == self.binary_type):
                     self.child_sources.append(source)
-                elif (source.disabled == False
+                elif (source.disabled is False
                       and source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
@@ -189,7 +189,7 @@ class Distribution(object):
         z = locale.find(".")
         if z == -1:
             z = len(locale)
-        country_code = locale[a+1:z].lower()
+        country_code = locale[a + 1:z].lower()
 
         if mirror_template:
             self.nearest_server = mirror_template % country_code
@@ -205,7 +205,7 @@ class Distribution(object):
         i = server.find("://")
         l = server.find(".archive.ubuntu.com")
         if i != -1 and l != -1:
-            country = server[i+len("://"):l]
+            country = server[i + len("://"):l]
         if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % self.countries[country]
@@ -280,10 +280,11 @@ class Distribution(object):
         new_source = self.sourceslist.add(type, uri, dist, comps, comment)
         # if source code is enabled add a deb-src line after the new
         # source
-        if self.get_source_code == True and type == self.binary_type:
-            self.sourceslist.add(self.source_type, uri, dist, comps, comment,
-                                 file=new_source.file,
-                                 pos=self.sourceslist.list.index(new_source)+1)
+        if self.get_source_code is True and type == self.binary_type:
+            self.sourceslist.add(
+                self.source_type, uri, dist, comps, comment,
+                file=new_source.file,
+                pos=self.sourceslist.list.index(new_source) + 1)
 
     def enable_component(self, comp):
         """
@@ -344,7 +345,7 @@ class Distribution(object):
         # check if there is a main source at all
         if len(self.main_sources) < 1:
             # create a new main source
-            self.add_source(comps=["%s"%comp])
+            self.add_source(comps=["%s" % comp])
         else:
             # add the comp to all main, child and source code sources
             for source in sources:
@@ -354,10 +355,10 @@ class Distribution(object):
                 add_component_only_once(source, comps_per_sdist)
 
         # check if there is a main source code source at all
-        if self.get_source_code == True:
+        if self.get_source_code is True:
             if len(self.source_code_sources) < 1:
                 # create a new main source
-                self.add_source(type=self.source_type, comps=["%s"%comp])
+                self.add_source(type=self.source_type, comps=["%s" % comp])
             else:
                 # add the comp to all main, child and source code sources
                 for source in self.source_code_sources:
@@ -435,7 +436,7 @@ class DebianDistribution(Distribution):
         i = server.find("://ftp.")
         l = server.find(".debian.org")
         if i != -1 and l != -1:
-            country = server[i+len("://ftp."):l]
+            country = server[i + len("://ftp."):l]
         if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % gettext.dgettext(

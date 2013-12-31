@@ -54,7 +54,7 @@ if srcrec:
 
 # calculate the build depends for all dependencies
 depends = depcache.get_candidate_ver(base).depends_list
-for dep in depends["Depends"]: # FIXME: do we need to consider PreDepends?
+for dep in depends["Depends"]:  # FIXME: do we need to consider PreDepends?
     pkg = dep[0].target_pkg
     srcpkg_name = get_source_pkg(pkg, records, depcache)
     if not srcpkg_name:

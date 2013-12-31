@@ -12,8 +12,8 @@ def main():
     cache = apt_pkg.Cache()
     depcache = apt_pkg.DepCache(cache)
     depcache.init()
-    i=0
-    all=cache.package_count
+    i = 0
+    all = cache.package_count
     print "Running DepCache test on all packages"
     print "(trying to install each and then mark it keep again):"
     # first, get all pkgs
@@ -21,7 +21,7 @@ def main():
         i += 1
         x = pkg.name
         # then get each version
-        ver =depcache.get_candidate_ver(pkg)
+        ver = depcache.get_candidate_ver(pkg)
         if ver is not None:
             depcache.mark_install(pkg)
             if depcache.inst_count == 0:

@@ -12,12 +12,14 @@ import apt
 import apt_pkg
 import os
 
+
 class TestAcquireProgress(apt.progress.base.AcquireProgress):
     def pulse(self, owner):
         self.pulsed = True
         # there should be a return value here, either (True,False)
         # but often this is forgoten (and causes odd error messages)
         # so the lib supports it. we test the lack of support value here
+
 
 class TestProgress(unittest.TestCase):
 
@@ -35,7 +37,7 @@ class TestProgress(unittest.TestCase):
         apt_pkg.config.set("Dir::state::lists", "./tmp")
         # create artifical line
         deb_line = "deb file:%s/data/fake-packages/ /\n" % basedir
-        with open("fetch_sources.list","w") as fobj:
+        with open("fetch_sources.list", "w") as fobj:
             fobj.write(deb_line)
         apt_pkg.config.set("Dir::Etc::sourcelist", "fetch_sources.list")
         apt_pkg.config.clear("APT::Update::Post-Invoke")
@@ -46,6 +48,7 @@ class TestProgress(unittest.TestCase):
         cache = apt.Cache()
         cache.update(progress)
         self.assertTrue(progress.pulsed)
+
 
 if __name__ == "__main__":
     unittest.main()

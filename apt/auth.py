@@ -67,7 +67,8 @@ def _call_apt_key_script(*args, **kwargs):
             # configuration from the chroot to the apt-key script by using
             # a temporary APT_CONFIG file. The apt-key script uses apt-config
             # shell internally
-            conf = tempfile.NamedTemporaryFile(prefix="apt-key", suffix=".conf")
+            conf = tempfile.NamedTemporaryFile(
+                prefix="apt-key", suffix=".conf")
             conf.write(apt_pkg.config.dump().encode("UTF-8"))
             conf.flush()
             env["APT_CONFIG"] = conf.name
@@ -84,11 +85,12 @@ def _call_apt_key_script(*args, **kwargs):
         output, stderr = proc.communicate(content)
 
         if proc.returncode:
-            raise AptKeyError("The apt-key script failed with return code %s:\n"
-                              "%s\n"
-                              "stdout: %s\n"
-                              "stderr: %s" % (proc.returncode, " ".join(cmd),
-                                          output,stderr))
+            raise AptKeyError(
+                "The apt-key script failed with return code %s:\n"
+                "%s\n"
+                "stdout: %s\n"
+                "stderr: %s" % (
+                    proc.returncode, " ".join(cmd), output, stderr))
         elif stderr:
             sys.stderr.write(stderr)    # Forward stderr
 
@@ -96,6 +98,7 @@ def _call_apt_key_script(*args, **kwargs):
     finally:
         if conf is not None:
             conf.close()
+
 
 def add_key_from_file(filename):
     """Import a GnuPG key file to trust repositores signed by it.
@@ -108,6 +111,7 @@ def add_key_from_file(filename):
     if not os.access(filename, os.R_OK):
         raise AptKeyError("Key file cannot be accessed: %s" % filename)
     _call_apt_key_script("add", filename)
+
 
 def add_key_from_keyserver(keyid, keyserver):
     """Import a GnuPG key file to trust repositores signed by it.
@@ -125,8 +129,9 @@ def add_key_from_keyserver(keyid, keyserver):
     finally:
         shutil.rmtree(tmp_keyring_dir)
 
+
 def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
-    if len(keyid) < 160/8:
+    if len(keyid) < (160 / 8):
         raise AptKeyError("Only long keyids (v4, 160bit) are supported")
     # create a temp keyring dir
     tmp_secret_keyring = os.path.join(tmp_keyring_dir, "secring.gpg")
@@ -136,14 +141,14 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
         "gpg",
         "--no-default-keyring", "--no-options",
         "--homedir", tmp_keyring_dir,
-        ]
+    ]
     # download the key to a temp keyring first
     res = subprocess.call(gpg_default_options + [
         "--secret-keyring", tmp_secret_keyring,
         "--keyring", tmp_keyring,
         "--keyserver", keyserver,
         "--recv", keyid,
-        ])
+    ])
     if res != 0:
         raise AptKeyError("recv from '%s' failed for '%s'" % (
             keyserver, keyid))
@@ -154,7 +159,7 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
         "--keyring", tmp_keyring,
         "--output", tmp_export_keyring,
         "--export", keyid,
-        ])
+    ])
     if res != 0:
         raise AptKeyError("export of '%s' failed", keyid)
     # now verify the fingerprint, this is probably redundant as we
@@ -166,10 +171,10 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
             "--fingerprint",
             "--batch",
             "--with-colons",
-            ],
-            stdout=subprocess.PIPE,
-            universal_newlines=True).communicate()[0]
-    got_fingerprint=None
+        ],
+        stdout=subprocess.PIPE,
+        universal_newlines=True).communicate()[0]
+    got_fingerprint = None
     for line in output.splitlines():
         if line.startswith("fpr:"):
             got_fingerprint = line.split(":")[9]
@@ -185,6 +190,7 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     # finally add it
     add_key_from_file(tmp_export_keyring)
 
+
 def add_key(content):
     """Import a GnuPG key to trust repositores signed by it.
 
@@ -194,6 +200,7 @@ def add_key(content):
     _call_apt_key_script("adv", "--quiet", "--batch",
                          "--import", "-", stdin=content)
 
+
 def remove_key(fingerprint):
     """Remove a GnuPG key to no longer trust repositores signed by it.
 
@@ -201,6 +208,7 @@ def remove_key(fingerprint):
     fingerprint -- the fingerprint identifying the key
     """
     _call_apt_key_script("rm", fingerprint)
+
 
 def export_key(fingerprint):
     """Return the GnuPG key in text format.
@@ -210,6 +218,7 @@ def export_key(fingerprint):
     """
     return _call_apt_key_script("export", fingerprint)
 
+
 def update():
     """Update the local keyring with the archive keyring and remove from
     the local keyring the archive keys which are no longer valid. The
@@ -217,6 +226,7 @@ def update():
     distribution, e.g. the debian-archive-keyring package in Debian.
     """
     return _call_apt_key_script("update")
+
 
 def net_update():
     """Work similar to the update command above, but get the archive
@@ -227,6 +237,7 @@ def net_update():
     instead, but Ubuntu's APT does.
     """
     return _call_apt_key_script("net-update")
+
 
 def list_keys():
     """Returns a list of TrustedKey instances for each key which is

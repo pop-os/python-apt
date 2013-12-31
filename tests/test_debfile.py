@@ -19,6 +19,7 @@ if libdir:
 import apt_pkg
 import apt.debfile
 
+
 class TestDebfile(unittest.TestCase):
     """ test the debfile """
 
@@ -32,31 +33,31 @@ class TestDebfile(unittest.TestCase):
         # Conflicts: apt (<= 0.1)
         ('gdebi-test4.deb', True),
         # Conflicts: apt (>= 0.1)
-        ('gdebi-test5.deb', False), 
+        ('gdebi-test5.deb', False),
         # invalid unicode  in descr
         ('gdebi-test6.deb', True),
         # provides/conflicts against "foobarbaz"
         ('gdebi-test7.deb', True),
         # provides/conflicts/replaces against "mail-transport-agent"
         # (should fails if mail-transport-agent is installed)
-        ('gdebi-test8.deb', False), 
+        ('gdebi-test8.deb', False),
         # provides/conflicts against real pkg
         ('gdebi-test9.deb', True),
-        # provides debconf-tiny and the real debconf conflicts with 
+        # provides debconf-tiny and the real debconf conflicts with
         ('gdebi-test10.deb', False),
     ]
 
     def setUp(self):
         apt_pkg.init_config()
-        apt_pkg.config.set("APT::Architecture","i386")
+        apt_pkg.config.set("APT::Architecture", "i386")
         # FIXME: When run via test_all.py, the tests fail without this if it
         # is set in the system.
         apt_pkg.config.clear("APT::Architectures")
-        apt_pkg.config.set("Dir::State::status", 
+        apt_pkg.config.set("Dir::State::status",
                            "./data/test_debs/var/lib/dpkg/status")
-        apt_pkg.config.set("Dir::State::lists", 
+        apt_pkg.config.set("Dir::State::lists",
                            "./data/test_debs/var/lib/apt/lists")
-        apt_pkg.config.set("Dir::Etc::sourcelist", 
+        apt_pkg.config.set("Dir::Etc::sourcelist",
                            "./data/test_debs/etc/apt/sources.list")
         apt_pkg.init_system()
         self.cache = apt.Cache()
@@ -76,7 +77,8 @@ class TestDebfile(unittest.TestCase):
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
-            logging.debug("testing %s, expecting %s" % (filename, expected_res))
+            logging.debug("testing %s, expecting %s" % (
+                filename, expected_res))
             deb.open(os.path.join("data", "test_debs", filename))
             res = deb.check()
             self.assertEqual(res, expected_res,
@@ -85,7 +87,8 @@ class TestDebfile(unittest.TestCase):
 
     def test_utf8_sections(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
-        deb.open(os.path.join("data","test_debs","utf8-package_1.0-1_all.deb"))
+        deb.open(
+            os.path.join("data", "test_debs", "utf8-package_1.0-1_all.deb"))
         self.assertEqual(deb["Maintainer"],
                          "Samuel Lidén Borell <samuel@slbdata.se>")
 
@@ -99,7 +102,8 @@ class TestDebfile(unittest.TestCase):
         deb = apt.debfile.DebPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", "gdebi-test12.deb"))
         content = deb.data_content("usr/bin/binary")
-        self.assertTrue(content.startswith("Automatically converted to printable ascii:\n\x7fELF "))
+        self.assertTrue(content.startswith(
+            "Automatically converted to printable ascii:\n\x7fELF "))
         # control file
         needle = """Package: gdebi-test12
 Version: 1.0
@@ -136,7 +140,8 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         apt_pkg.config["APT::Architecture"] = "amd64"
         apt_pkg.init_system()
 
-        allowed_any = apt.debfile.DebPackage("./data/test_debs/testdep-allowed-any_1.0-1_i386.deb")
+        allowed_any = apt.debfile.DebPackage(
+            "./data/test_debs/testdep-allowed-any_1.0-1_i386.deb")
         self.assertTrue(allowed_any.check(), allowed_any._failure_string)
 
     def test_multi_arch_same(self):
@@ -144,7 +149,8 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         apt_pkg.config["APT::Architectures::"] = "amd64"
         apt_pkg.config["APT::Architecture"] = "amd64"
         apt_pkg.init_system()
-        same = apt.debfile.DebPackage("./data/test_debs/testdep-same-arch_1.0-1_i386.deb")
+        same = apt.debfile.DebPackage(
+            "./data/test_debs/testdep-same-arch_1.0-1_i386.deb")
         self.assertTrue(same.check(), same._failure_string)
 
 

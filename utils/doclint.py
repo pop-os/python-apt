@@ -35,19 +35,22 @@ def handle(filename):
                     continue
                 for member in objects.get(modname + '.' + modmember):
                     if not member in dir(module.__dict__[modmember]):
-                        print 'W: Unknown', modname + '.' + modmember + '.' + member
-
-                    assert(types[objects[modname+"."+modmember][member][1]] in ('method', 'attribute'))
+                        print ('W: Unknown', modname + '.' + modmember +
+                               '.' + member)
+                    t = types[objects[modname + "." + modmember][member][1]]
+                    assert(t in ('method', 'attribute'))
 
         all = getattr(module, '__all__', [])
         for modmember in dir(module):
-            if getattr(module.__dict__[modmember], "__module__", modname) != modname:
+            if (getattr(module.__dict__[modmember], "__module__", modname) !=
+                modname):
                 continue
             if isinstance(module.__dict__[modmember], type(module)):
                 continue
             if modmember.startswith("_"):
                 continue
-            if not modmember in objects[modname] and (not all or modmember in all):
+            if (not modmember in objects[modname] and
+                (not all or modmember in all)):
                 print 'E: Missing', modname + '.' + modmember
             elif not modmember in objects[modname]:
                 print 'W: Missing', modname + '.' + modmember
@@ -64,14 +67,16 @@ def handle(filename):
                             continue
                     except:
                         pass
-                    if not member in objects.get(modname + '.' + modmember, ""):
-                        print 'E: Missing', modname + '.' + modmember + '.' + member
+                    if not member in objects.get(
+                            modname + '.' + modmember, ""):
+                        print('E: Missing', modname + '.' + modmember + '.' +
+                              member)
 
 
 if __name__ == '__main__':
     scriptdir = os.path.dirname(__file__)
     parentdir = os.path.join(scriptdir, "..")
-    directory = os.path.join(parentdir,  "doc", "build", "pickle")
+    directory = os.path.join(parentdir, "doc", "build", "pickle")
     directory = os.path.normpath(directory)
     sys.path.insert(0, os.path.abspath(parentdir))
     handle(os.path.join(directory, "searchindex.pickle"))

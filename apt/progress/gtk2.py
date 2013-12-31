@@ -27,6 +27,7 @@ pygtk.require('2.0')
 import gtk
 try:
     import glib
+    glib  # pyflakes
 except ImportError:
     import gobject as glib
 import gobject
@@ -85,7 +86,6 @@ class GOpProgress(gobject.GObject, base.OpProgress):
         """Called when all operation have finished."""
         base.OpProgress.done(self)
         self.emit("status-finished")
-
 
 
 class GInstallProgress(gobject.GObject, base.InstallProgress):
@@ -241,12 +241,12 @@ class GAcquireProgress(gobject.GObject, base.AcquireProgress):
             current_item = self.total_items
         if self.current_cps > 0:
             text = (_("Downloading file %(current)li of %(total)li with "
-                      "%(speed)s/s") % \
+                      "%(speed)s/s") %
                       {"current": current_item,
                        "total": self.total_items,
                        "speed": apt_pkg.size_to_str(self.current_cps)})
         else:
-            text = (_("Downloading file %(current)li of %(total)li") % \
+            text = (_("Downloading file %(current)li of %(total)li") %
                       {"current": current_item,
                        "total": self.total_items})
 
@@ -358,7 +358,7 @@ class GtkAptProgress(gtk.VBox):
         if percent is None or percent == -1:
             self._progressbar.pulse()
         else:
-            self._progressbar.set_fraction(percent/100.0)
+            self._progressbar.set_fraction(percent / 100.0)
         while gtk.events_pending():
             gtk.main_iteration()
 

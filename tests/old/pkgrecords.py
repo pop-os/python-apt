@@ -13,7 +13,7 @@ def main():
     cache = apt_pkg.Cache()
     depcache = apt_pkg.DepCache(cache)
     depcache.init()
-    i=0
+    i = 0
     print "Running PkgRecords test on all packages:"
     for pkg in cache.packages:
         i += 1

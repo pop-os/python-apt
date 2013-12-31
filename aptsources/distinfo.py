@@ -33,6 +33,7 @@ import apt_pkg
 
 from apt_pkg import gettext as _
 
+
 class Template(object):
 
     def __init__(self):
@@ -152,9 +153,7 @@ def split_url(url):
 
 class DistInfo(object):
 
-    def __init__(self,
-                 dist = None,
-                 base_dir = "/usr/share/python-apt/templates"):
+    def __init__(self, dist=None, base_dir="/usr/share/python-apt/templates"):
         self.metarelease_uri = ''
         self.templates = []
         self.arch = apt_pkg.config.find("APT::Architecture")
@@ -196,7 +195,7 @@ class DistInfo(object):
                     self.metarelease_uri = value
                 elif field == 'Suite':
                     self.finish_template(template, component)
-                    component=None
+                    component = None
                     template = Template()
                     template.name = value
                     template.distribution = dist
@@ -265,8 +264,8 @@ class DistInfo(object):
                 elif field == 'ParentComponent':
                     component.set_parent_component(value)
             self.finish_template(template, component)
-            template=None
-            component=None
+            template = None
+            component = None
 
     def finish_template(self, template, component):
         " finish the current tempalte "

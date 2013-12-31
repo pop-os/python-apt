@@ -47,7 +47,7 @@ class TextProgress(object):
         # Fill remaining stuff with whitespace
         if self._width > len(msg):
             self._file.write((self._width - len(msg)) * ' ')
-        elif maximize: # Needed for OpProgress.
+        elif maximize:  # Needed for OpProgress.
             self._width = max(self._width, len(msg))
         if newline:
             self._file.write("\n")
@@ -114,7 +114,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
             import struct
             buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * ' ')
             dummy, col, dummy, dummy = struct.unpack('hhhh', buf)
-            self._width = col - 1 # 1 for the cursor
+            self._width = col - 1  # 1 for the cursor
 
     def ims_hit(self, item):
         """Called when an item is update (e.g. not modified on the server)."""
@@ -188,8 +188,9 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
 
             # Add the total size and percent
             if worker.total_size and not worker.current_item.owner.complete:
-                val += "/%sB %i%%" % (apt_pkg.size_to_str(worker.total_size),
-                                worker.current_size*100.0/worker.total_size)
+                val += "/%sB %i%%" % (
+                    apt_pkg.size_to_str(worker.total_size),
+                    worker.current_size * 100.0 / worker.total_size)
 
             val += ']'
 

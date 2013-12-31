@@ -18,6 +18,7 @@ import unittest
 
 if sys.version_info[0] == 2 and sys.version_info[1] == 6:
     from unittest2 import TestCase
+    TestCase  # pyflakes
 else:
     from unittest import TestCase
 
@@ -36,7 +37,8 @@ def if_sources_list_is_readable(f):
         if os.access("/etc/apt/sources.list", os.R_OK):
             f(*args, **kwargs)
         else:
-            logging.warning("skipping '%s' because sources.list is not readable" % f)
+            logging.warning(
+                "skipping '%s' because sources.list is not readable" % f)
     return wrapper
 
 
@@ -124,20 +126,23 @@ class TestAptCache(TestCase):
         cache = apt.Cache(rootdir="./data/test-provides/")
         cache.open()
         if len(cache) == 0:
-            logging.warning("skipping test_get_provided_packages, cache empty?!?")
+            logging.warning(
+                "skipping test_get_provided_packages, cache empty?!?")
             return
         # a true virtual pkg
         l = cache.get_providing_packages("mail-transport-agent")
         self.assertTrue(len(l) > 0)
         self.assertTrue("postfix" in [p.name for p in l])
-        self.assertTrue("mail-transport-agent" in cache["postfix"].candidate.provides)
+        self.assertTrue(
+            "mail-transport-agent" in cache["postfix"].candidate.provides)
 
     def test_low_level_pkg_provides(self):
         apt.apt_pkg.config.set("Apt::architecture", "i386")
         # create highlevel cache and get the lowlevel one from it
         highlevel_cache = apt.Cache(rootdir="./data/test-provides")
         if len(highlevel_cache) == 0:
-            logging.warning("skipping test_log_level_pkg_provides, cache empty?!?")
+            logging.warning(
+                "skipping test_log_level_pkg_provides, cache empty?!?")
             return
         # low level cache provides list of the pkg
         cache = highlevel_cache._cache
@@ -150,24 +155,24 @@ class TestAptCache(TestCase):
                 break
         else:
             self.assertNotReached()
-   
+
     @if_sources_list_is_readable
     def test_dpkg_journal_dirty(self):
         # create tmp env
         tmpdir = tempfile.mkdtemp()
-        dpkg_dir = os.path.join(tmpdir,"var","lib","dpkg")
-        os.makedirs(os.path.join(dpkg_dir,"updates"))
-        open(os.path.join(dpkg_dir,"status"), "w").close()
+        dpkg_dir = os.path.join(tmpdir, "var", "lib", "dpkg")
+        os.makedirs(os.path.join(dpkg_dir, "updates"))
+        open(os.path.join(dpkg_dir, "status"), "w").close()
         apt_pkg.config.set("Dir::State::status",
-                       os.path.join(dpkg_dir,"status"))
+                           os.path.join(dpkg_dir, "status"))
         cache = apt.Cache()
         # test empty
         self.assertFalse(cache.dpkg_journal_dirty)
         # that is ok, only [0-9] are dpkg jounral entries
-        open(os.path.join(dpkg_dir,"updates","xxx"), "w").close()
-        self.assertFalse(cache.dpkg_journal_dirty)        
+        open(os.path.join(dpkg_dir, "updates", "xxx"), "w").close()
+        self.assertFalse(cache.dpkg_journal_dirty)
         # that is a dirty journal
-        open(os.path.join(dpkg_dir,"updates","000"), "w").close()
+        open(os.path.join(dpkg_dir, "updates", "000"), "w").close()
         self.assertTrue(cache.dpkg_journal_dirty)
 
     @if_sources_list_is_readable
@@ -209,29 +214,29 @@ class TestAptCache(TestCase):
         # update a single sources.list
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
-        # verify we just got the excpected package file 
+        # verify we just got the excpected package file
         needle_packages = glob.glob(
-            lists_dir+"/*tests_data_test-repo_Packages*")
+            lists_dir + "/*tests_data_test-repo_Packages*")
         self.assertEqual(len(needle_packages), 1)
         # verify that we *only* got the Packages file from a single source
-        all_packages = glob.glob(lists_dir+"/*_Packages*")
+        all_packages = glob.glob(lists_dir + "/*_Packages*")
         self.assertEqual(needle_packages, all_packages)
         # verify that the listcleaner was not run and the marker file is
         # still there
         self.assertTrue("marker" in os.listdir(lists_dir))
-        
         # now run update again (without the "normal" sources.list that
         # contains test-repo2 and verify that we got the normal sources.list
         cache.update()
-        needle_packages = glob.glob(lists_dir+"/*tests_data_test-repo2_Packages*")
+        needle_packages = glob.glob(
+            lists_dir + "/*tests_data_test-repo2_Packages*")
         self.assertEqual(len(needle_packages), 1)
-        all_packages = glob.glob(lists_dir+"/*_Packages*")
+        all_packages = glob.glob(lists_dir + "/*_Packages*")
         self.assertEqual(needle_packages, all_packages)
 
         # and another update with a single source only
         cache = apt.Cache()
         cache.update(sources_list=sources_list)
-        all_packages = glob.glob(lists_dir+"/*_Packages*")
+        all_packages = glob.glob(lists_dir + "/*_Packages*")
         self.assertEqual(len(all_packages), 2)
         apt_pkg.config.set("dir::state", old_state)
         apt_pkg.config.set("dir::etc::sourcelist", old_source_list)

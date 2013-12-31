@@ -61,7 +61,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
     for template in glob.glob('data/templates/*.mirrors'):
         import shutil
         shutil.copy(template, os.path.join("build", template))
-        
+
 
 setup(name="python-apt",
       description="Python bindings for APT",
@@ -70,10 +70,10 @@ setup(name="python-apt",
       author_email="deity@lists.debian.org",
       ext_modules=[apt_pkg, apt_inst],
       packages=['apt', 'apt.progress', 'aptsources'],
-      data_files = [('share/python-apt/templates',
-                    glob.glob('build/data/templates/*.info')),
-                    ('share/python-apt/templates',
-                    glob.glob('data/templates/*.mirrors'))],
-      cmdclass = cmdclass,
-      license = 'GNU GPL',
-      platforms = 'posix')
+      data_files=[('share/python-apt/templates',
+                   glob.glob('build/data/templates/*.info')),
+                  ('share/python-apt/templates',
+                   glob.glob('data/templates/*.mirrors'))],
+      cmdclass=cmdclass,
+      license='GNU GPL',
+      platforms='posix')

@@ -90,7 +90,7 @@ class TestHashString(unittest.TestCase):
 
     def tearDown(self):
         """Cleanup, Close the file object used for the tests."""
-        self.file.close()        
+        self.file.close()
 
     def test_md5(self):
         """hashes: Test apt_pkg.HashString().md5"""

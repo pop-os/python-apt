@@ -37,7 +37,7 @@ req = urllib2.Request("https://wiki.ubuntu.com/Archive?action=raw")
 
 try:
     print "Downloading mirrors list from the Ubuntu wiki..."
-    uri=urllib2.urlopen(req)
+    uri = urllib2.urlopen(req)
     p = re.compile('^.*((http|ftp):\/\/[A-Za-z0-9-.:\/_]+).*\n*$')
     for line in uri.readlines():
         if r"[[Anchor(dvd-images)]]" in line:

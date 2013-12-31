@@ -62,12 +62,12 @@ def is_mirror(master_uri, compare_uri):
         compare_srv = compare_uri.split("//")[1]
         master_srv = master_uri.split("//")[1]
         #print "%s == %s " % (add_srv, orig_srv)
-    except IndexError: # ok, somethings wrong here
+    except IndexError:  # ok, somethings wrong here
         #print "IndexError"
         return False
     # remove the leading "<country>." (if any) and see if that helps
     if "." in compare_srv and \
-           compare_srv[compare_srv.index(".")+1:] == master_srv:
+           compare_srv[compare_srv.index(".") + 1:] == master_srv:
         #print "Mirror"
         return True
     return False
@@ -100,7 +100,7 @@ class SourceEntry(object):
         self.line = line                # the original sources.list line
         if file is None:
             file = apt_pkg.config.find_dir(
-                "Dir::Etc")+apt_pkg.config.find("Dir::Etc::sourcelist")
+                "Dir::Etc") + apt_pkg.config.find("Dir::Etc::sourcelist")
         self.file = file               # the file that the entry is located in
         self.parse(line)
         self.template = None           # type DistInfo.Suite
@@ -131,10 +131,10 @@ class SourceEntry(object):
                     pieces.append(tmp)
                     tmp = line[i]
                 else:
-                    p_found=True
+                    p_found = True
                     tmp += line[i]
             elif line[i] == "]":
-                p_found=False
+                p_found = False
                 tmp += line[i]
             elif space_found and not line[i].isspace():
                 # we skip one or more space
@@ -157,7 +157,7 @@ class SourceEntry(object):
         line = self.line.strip()
         #print line
         # check if the source is enabled/disabled
-        if line == "" or line == "#": # empty line
+        if line == "" or line == "#":  # empty line
             self.invalid = True
             return
         if line[0] == "#":
@@ -172,7 +172,7 @@ class SourceEntry(object):
         # check for another "#" in the line (this is treated as a comment)
         i = line.find("#")
         if i > 0:
-            self.comment = line[i+1:]
+            self.comment = line[i + 1:]
             line = line[:i]
         # source is ok, split it and see what we have
         pieces = self.mysplit(line)
@@ -201,7 +201,7 @@ class SourceEntry(object):
                         self.trusted = apt_pkg.string_to_bool(value)
                     else:
                         self.invalid = True
-            
+
         # URI
         self.uri = pieces[1].strip()
         if len(self.uri) < 1:
@@ -241,7 +241,8 @@ class SourceEntry(object):
         line += self.type
 
         if self.architectures and self.trusted is not None:
-            line += " [arch=%s trusted=%s]" % (",".join(self.architectures), "yes" if self.trusted else "no")
+            line += " [arch=%s trusted=%s]" % (
+                ",".join(self.architectures), "yes" if self.trusted else "no")
         elif self.trusted is not None:
             line += " [trusted=%s]" % ("yes" if self.trusted else "no")
         elif self.architectures:
@@ -250,7 +251,7 @@ class SourceEntry(object):
         if len(self.comps) > 0:
             line += " " + " ".join(self.comps)
         if self.comment != "":
-            line += " #"+self.comment
+            line += " #" + self.comment
         line += "\n"
         return line
 
@@ -303,7 +304,8 @@ class SourcesList(object):
                 all(predicate(source) for predicate in predicates)):
                 yield source
 
-    def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None, architectures=[]):
+    def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None,
+            architectures=[]):
         """
         Add a new source to the sources.list.
         The method will search for existing matching repos and will try to
@@ -315,8 +317,8 @@ class SourcesList(object):
         # we can modify it later
         comps = orig_comps[:]
         sources = self.__find(lambda s: set(s.architectures) == architectures,
-                              disabled=False, invalid=False, type=type, uri=uri,
-                              dist=dist)
+                              disabled=False, invalid=False, type=type,
+                              uri=uri, dist=dist)
         # check if we have this source already in the sources.list
         for source in sources:
             for new_comp in comps:
@@ -329,7 +331,6 @@ class SourcesList(object):
 
         sources = self.__find(lambda s: set(s.architectures) == architectures,
                               invalid=False, type=type, uri=uri, dist=dist)
-                                 
         for source in sources:
             # if there is a repo with the same (type, uri, dist) just add the
             # components
@@ -363,14 +364,13 @@ class SourcesList(object):
     def restore_backup(self, backup_ext):
         " restore sources.list files based on the backup extension "
         file = apt_pkg.config.find_file("Dir::Etc::sourcelist")
-        if os.path.exists(file+backup_ext) and \
-            os.path.exists(file):
-            shutil.copy(file+backup_ext, file)
+        if os.path.exists(file + backup_ext) and os.path.exists(file):
+            shutil.copy(file + backup_ext, file)
         # now sources.list.d
         partsdir = apt_pkg.config.find_dir("Dir::Etc::sourceparts")
         for file in glob.glob("%s/*.list" % partsdir):
-            if os.path.exists(file+backup_ext):
-                shutil.copy(file+backup_ext, file)
+            if os.path.exists(file + backup_ext):
+                shutil.copy(file + backup_ext, file)
 
     def backup(self, backup_ext=None):
         """ make a backup of the current source files, if no backup extension

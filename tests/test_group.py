@@ -22,7 +22,6 @@ class TestGroup(unittest.TestCase):
 
             list(group) == list(group)
 
-
     def test_cache_groups(self):
         """group: Iterate over all groups"""
         assert len(list(self.cache.groups)) == self.cache.group_count

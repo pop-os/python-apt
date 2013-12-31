@@ -20,7 +20,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 # Licensed under the GNU General Public License Version 2
 
-__author__  = "Sebastian Heinlein <devel@glatzor.de>"
+__author__ = "Sebastian Heinlein <devel@glatzor.de>"
 
 import os
 import shutil

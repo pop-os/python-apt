@@ -70,7 +70,6 @@ class TestAptSources(unittest.TestCase):
                     ["main"], architectures=["amd64", "i386"])
         self.assertTrue(sources.list == before.list)
 
-        
         # test to add something new: multiverse
         sources.add("deb", "http://de.archive.ubuntu.com/ubuntu/",
                     "edgy",
@@ -150,8 +149,7 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-
-        assert sources.list[8].invalid == False
+        assert sources.list[8].invalid is False
         assert sources.list[8].type == "deb"
         assert sources.list[8].architectures == ["amd64", "i386"]
         assert sources.list[8].uri == "http://de.archive.ubuntu.com/ubuntu/"
@@ -166,11 +164,11 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-
-        assert sources.list[9].invalid == False
+        assert sources.list[9].invalid is False
         assert sources.list[9].type == "deb"
         assert sources.list[9].architectures == ["amd64", "i386"]
-        self.assertEqual( sources.list[9].uri, "http://de.archive.ubuntu.com/ubuntu/")
+        self.assertEqual(
+            sources.list[9].uri, "http://de.archive.ubuntu.com/ubuntu/")
         assert sources.list[9].dist == "natty"
         assert sources.list[9].comps == ["main"]
         assert sources.list[9].trusted
@@ -198,7 +196,7 @@ class TestAptSources(unittest.TestCase):
             comps = comps.union(set(entry.comps))
         self.assertTrue("multiverse" in comps)
         self.assertTrue("universe" in comps)
-        
+
     def testDistribution(self):
         """aptsources: Test distribution detection."""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"

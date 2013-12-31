@@ -27,17 +27,19 @@ import sys
 from apt_pkg import gettext as _
 from StringIO import StringIO
 
+
 class NoDebArchiveException(IOError):
     """Exception which is raised if a file is no Debian archive."""
+
 
 class DebPackage(object):
     """A Debian Package (.deb file)."""
 
     # Constants for comparing the local package file with the version
     # in the cache
-    (VERSION_NONE, 
-     VERSION_OUTDATED, 
-     VERSION_SAME, 
+    (VERSION_NONE,
+     VERSION_OUTDATED,
+     VERSION_SAME,
      VERSION_NEWER) = range(4)
 
     debug = 0
@@ -68,7 +70,7 @@ class DebPackage(object):
         self._sections = apt_pkg.TagSection(control)
         self.pkgname = self._sections["Package"]
         self._check_was_run = False
-        
+
     def __getitem__(self, key):
         return self._sections[key]
 
@@ -91,15 +93,15 @@ class DebPackage(object):
         """ return the list of files in control.tar.gt """
         control = []
         try:
-            self._debfile.control.go(lambda item, data: control.append(item.name))
+            self._debfile.control.go(
+                lambda item, data: control.append(item.name))
         except SystemError:
             return [_("List of control files for '%s' could not be read") %
                     self.filename]
         return sorted(control)
 
-
     # helper that will return a pkgname with a multiarch suffix if needed
-    def _maybe_append_multiarch_suffix(self, pkgname, 
+    def _maybe_append_multiarch_suffix(self, pkgname,
                                        in_conflict_checking=False):
         # trivial cases
         if ":" in pkgname:
@@ -108,7 +110,7 @@ class DebPackage(object):
             return pkgname
         elif self._cache.is_virtual_package(pkgname):
             return pkgname
-        elif (pkgname in self._cache and 
+        elif (pkgname in self._cache and
               self._cache[pkgname].candidate and
               self._cache[pkgname].candidate.architecture == "all"):
             return pkgname
@@ -126,7 +128,7 @@ class DebPackage(object):
             return pkgname
         # for conflicts we need a special case here, any not multiarch enabled
         # package has a implicit conflict
-        if (in_conflict_checking and 
+        if (in_conflict_checking and
             not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
             return pkgname
         return multiarch_pkgname
@@ -150,7 +152,9 @@ class DebPackage(object):
             # check for virtual pkgs
             if not depname in self._cache:
                 if self._cache.is_virtual_package(depname):
-                    self._dbg(3, "_is_or_group_satisfied(): %s is virtual dep" % depname)
+                    self._dbg(
+                        3, "_is_or_group_satisfied(): %s is virtual dep" %
+                        depname)
                     for pkg in self._cache.get_providing_packages(depname):
                         if pkg.is_installed:
                             return True
@@ -163,13 +167,15 @@ class DebPackage(object):
             # if no real dependency is installed, check if there is
             # a package installed that provides this dependency
             # (e.g. scrollkeeper dependecies are provided by rarian-compat)
-            # but only do that if there is no version required in the 
+            # but only do that if there is no version required in the
             # dependency (we do not supprot versionized dependencies)
             if not oper:
                 for ppkg in self._cache.get_providing_packages(
                     depname, include_nonvirtual=True):
                     if ppkg.is_installed:
-                        self._dbg(3, "found installed '%s' that provides '%s'" % (ppkg.name, depname))
+                        self._dbg(
+                            3, "found installed '%s' that provides '%s'" % (
+                                ppkg.name, depname))
                         return True
         return False
 
@@ -212,16 +218,19 @@ class DebPackage(object):
             or_str += dep[0]
             if ver and oper:
                 or_str += " (%s %s)" % (dep[2], dep[1])
-            if dep != or_group[len(or_group)-1]:
+            if dep != or_group[len(or_group) - 1]:
                 or_str += "|"
-        self._failure_string += _("Dependency is not satisfiable: %s\n") % or_str
+        self._failure_string += _(
+            "Dependency is not satisfiable: %s\n") % or_str
         return False
 
     def _check_single_pkg_conflict(self, pkgname, ver, oper):
         """Return True if a pkg conflicts with a real installed/marked pkg."""
         # FIXME: deal with conflicts against its own provides
         #        (e.g. Provides: ftp-server, Conflicts: ftp-server)
-        self._dbg(3, "_check_single_pkg_conflict() pkg='%s' ver='%s' oper='%s'" % (pkgname, ver, oper))
+        self._dbg(
+            3, "_check_single_pkg_conflict() pkg='%s' ver='%s' oper='%s'" % (
+                pkgname, ver, oper))
         pkg = self._cache[pkgname]
         if pkg.is_installed:
             pkgver = pkg.installed.version
@@ -265,8 +274,8 @@ class DebPackage(object):
                         if self.pkgname == pkg.name:
                             self._dbg(3, "conflict on self, ignoring")
                             continue
-                        if self._check_single_pkg_conflict(pkg.name, ver, 
-                                                           oper):
+                        if self._check_single_pkg_conflict(
+                                pkg.name, ver, oper):
                             self._installed_conflicts.add(pkg.name)
                 continue
             if self._check_single_pkg_conflict(depname, ver, oper):
@@ -289,7 +298,8 @@ class DebPackage(object):
         # find depends
         for key in "Depends", "Pre-Depends":
             try:
-                depends.extend(apt_pkg.parse_depends(self._sections[key], False))
+                depends.extend(
+                    apt_pkg.parse_depends(self._sections[key], False))
             except KeyError:
                 pass
         return depends
@@ -349,22 +359,22 @@ class DebPackage(object):
         return res
 
     def check_breaks_existing_packages(self):
-        """ 
-        check if installing the package would break exsisting 
+        """
+        check if installing the package would break exsisting
         package on the system, e.g. system has:
         smc depends on smc-data (= 1.4)
         and user tries to installs smc-data 1.6
         """
         # show progress information as this step may take some time
         size = float(len(self._cache))
-        steps = max(int(size/50), 1)
+        steps = max(int(size / 50), 1)
         debver = self._sections["Version"]
         debarch = self._sections["Architecture"]
         # store what we provide so that we can later check against that
-        provides = [ x[0][0] for x in self.provides]
+        provides = [x[0][0] for x in self.provides]
         for (i, pkg) in enumerate(self._cache):
-            if i%steps == 0:
-                self._cache.op_progress.update(float(i)/size*100.0)
+            if i % steps == 0:
+                self._cache.op_progress.update(float(i) / size * 100.0)
             if not pkg.is_installed:
                 continue
             # check if the exising dependencies are still satisfied
@@ -373,14 +383,21 @@ class DebPackage(object):
             for dep_or in pkg.installed.dependencies:
                 for dep in dep_or.or_dependencies:
                     if dep.name == self.pkgname:
-                        if not apt_pkg.check_dep(debver, dep.relation, dep.version):
+                        if not apt_pkg.check_dep(
+                                debver, dep.relation, dep.version):
                             self._dbg(2, "would break (depends) %s" % pkg.name)
-                            # TRANSLATORS: the first '%s' is the package that breaks, the second the dependency that makes it break, the third the relation (e.g. >=) and the latest the version for the releation
-                            self._failure_string += _("Breaks existing package '%(pkgname)s' dependency %(depname)s (%(deprelation)s %(depversion)s)") % {
-                                'pkgname' : pkg.name, 
-                                'depname' : dep.name, 
-                                'deprelation' : dep.relation, 
-                                'depversion' : dep.version}
+                            # TRANSLATORS: the first '%s' is the package that
+                            # breaks, the second the dependency that makes it
+                            # break, the third the relation (e.g. >=) and the
+                            # latest the version for the releation
+                            self._failure_string += _(
+                                "Breaks existing package '%(pkgname)s' "
+                                "dependency %(depname)s "
+                                "(%(deprelation)s %(depversion)s)") % {
+                                    'pkgname': pkg.name,
+                                    'depname': dep.name,
+                                    'deprelation': dep.relation,
+                                    'depversion': dep.version}
                             self._cache.op_progress.done()
                             return False
             # now check if there are conflicts against this package on
@@ -388,25 +405,41 @@ class DebPackage(object):
             if "Conflicts" in ver.depends_list:
                 for conflicts_ver_list in ver.depends_list["Conflicts"]:
                     for c_or in conflicts_ver_list:
-                        if c_or.target_pkg.name == self.pkgname and c_or.target_pkg.architecture == debarch:
-                            if apt_pkg.check_dep(debver, c_or.comp_type, c_or.target_ver):
-                                self._dbg(2, "would break (conflicts) %s" % pkg.name)
-				# TRANSLATORS: the first '%s' is the package that conflicts, the second the packagename that it conflicts with (so the name of the deb the user tries to install), the third is the relation (e.g. >=) and the last is the version for the relation
-                                self._failure_string += _("Breaks existing package '%(pkgname)s' conflict: %(targetpkg)s (%(comptype)s %(targetver)s)") % {
-                                    'pkgname' : pkg.name, 
-                                    'targetpkg' : c_or.target_pkg.name, 
-                                    'comptype' : c_or.comp_type, 
-                                    'targetver' : c_or.target_ver }
+                        if (c_or.target_pkg.name == self.pkgname and
+                                c_or.target_pkg.architecture == debarch):
+                            if apt_pkg.check_dep(
+                                    debver, c_or.comp_type, c_or.target_ver):
+                                self._dbg(
+                                    2, "would break (conflicts) %s" % pkg.name)
+                                # TRANSLATORS: the first '%s' is the package
+                                # that conflicts, the second the packagename
+                                # that it conflicts with (so the name of the
+                                # deb the user tries to install), the third is
+                                # the relation (e.g. >=) and the last is the
+                                # version for the relation
+                                self._failure_string += _(
+                                    "Breaks existing package '%(pkgname)s' "
+                                    "conflict: %(targetpkg)s "
+                                    "(%(comptype)s %(targetver)s)") % {
+                                        'pkgname': pkg.name,
+                                        'targetpkg': c_or.target_pkg.name,
+                                        'comptype': c_or.comp_type,
+                                        'targetver': c_or.target_ver}
                                 self._cache.op_progress.done()
                                 return False
                         if (c_or.target_pkg.name in provides and
                             self.pkgname != pkg.name):
-                            self._dbg(2, "would break (conflicts) %s" % provides)
-                            self._failure_string += _("Breaks existing package '%(pkgname)s' that conflict: '%(targetpkg)s'. But the '%(debfile)s' provides it via: '%(provides)s'") % {
-                                'provides' : ",".join(provides),
-                                'debfile'  : self.filename,
-                                'targetpkg' : c_or.target_pkg.name,
-                                'pkgname' : pkg.name }
+                            self._dbg(
+                                2, "would break (conflicts) %s" % provides)
+                            self._failure_string += _(
+                                "Breaks existing package '%(pkgname)s' "
+                                "that conflict: '%(targetpkg)s'. But the "
+                                "'%(debfile)s' provides it via: "
+                                "'%(provides)s'") % {
+                                    'provides': ",".join(provides),
+                                    'debfile': self.filename,
+                                    'targetpkg': c_or.target_pkg.name,
+                                    'pkgname': pkg.name}
                             self._cache.op_progress.done()
                             return False
         self._cache.op_progress.done()
@@ -453,7 +486,7 @@ class DebPackage(object):
             self._failure_string = _("No Architecture field in the package")
             return False
         arch = self._sections["Architecture"]
-        if  arch != "all" and arch != apt_pkg.config.find("APT::Architecture"):
+        if arch != "all" and arch != apt_pkg.config.find("APT::Architecture"):
             if arch in apt_pkg.get_architectures():
                 self._multiarch = arch
                 self.pkgname = "%s:%s" % (self.pkgname, self._multiarch)
@@ -467,7 +500,8 @@ class DebPackage(object):
         if self.compare_to_version_in_cache() == self.VERSION_OUTDATED:
             if self._cache[self.pkgname].installed:
                 # the deb is older than the installed
-                self._failure_string = _("A later version is already installed")
+                self._failure_string = _(
+                    "A later version is already installed")
                 return False
 
         # FIXME: this sort of error handling sux
@@ -477,7 +511,7 @@ class DebPackage(object):
         if not self.check_conflicts():
             return False
 
-        # check if installing it would break anything on the 
+        # check if installing it would break anything on the
         # current system
         if not self.check_breaks_existing_packages():
             return False
@@ -513,8 +547,6 @@ class DebPackage(object):
             pass
         # check depends
         for or_group in depends:
-            #print "or_group: %s" % or_group
-            #print "or_group satified: %s" % self._is_or_group_satisfied(or_group)
             if not self._is_or_group_satisfied(or_group):
                 if not self._satisfy_or_group(or_group):
                     return False
@@ -533,7 +565,8 @@ class DebPackage(object):
         """Return missing dependencies."""
         self._dbg(1, "Installing: %s" % self._need_pkgs)
         if not self._check_was_run:
-            raise AttributeError("property only available after check() was run")
+            raise AttributeError(
+                "property only available after check() was run")
         return self._need_pkgs
 
     @property
@@ -546,7 +579,8 @@ class DebPackage(object):
         remove = []
         unauthenticated = []
         if not self._check_was_run:
-            raise AttributeError("property only available after check() was run")
+            raise AttributeError(
+                "property only available after check() was run")
         for pkg in self._cache:
             if pkg.marked_install or pkg.marked_upgrade:
                 install.append(pkg.name)
@@ -565,7 +599,7 @@ class DebPackage(object):
     def to_hex(in_data):
         hex = ""
         for (i, c) in enumerate(in_data):
-            if i%80 == 0:
+            if i % 80 == 0:
                 hex += "\n"
             hex += "%2.2x " % ord(c)
         return hex
@@ -588,7 +622,7 @@ class DebPackage(object):
                 else:
                     s += chr(b)
         return s
-        
+
     def _get_content(self, part, name, auto_decompress=True, auto_hex=True):
         if name.startswith("./"):
             name = name[2:]
@@ -642,6 +676,7 @@ class DebPackage(object):
             except AttributeError:
                 install_progress.finishUpdate()
             return res
+
 
 class DscSrcPackage(DebPackage):
     """A locally available source package."""
@@ -698,7 +733,7 @@ class DscSrcPackage(DebPackage):
               " ".join(self.binaries))
         self._sections["Description"] = s
         self._check_was_run = False
-        
+
     def check(self):
         """Check if the package is installable.."""
         if not self.check_conflicts():
@@ -711,6 +746,7 @@ class DscSrcPackage(DebPackage):
         # FIXME: a additional run of the check_conflicts()
         #        after _satisfy_depends() should probably be done
         return self._satisfy_depends(self.depends)
+
 
 def _test():
     """Test function"""

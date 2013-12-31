@@ -26,16 +26,8 @@ import re
 import socket
 import subprocess
 import urllib2
-try:
-    from collections import Mapping, Sequence
-except ImportError:
-    # (for Python < 2.6) pylint: disable-msg=C0103
-    Sequence = Mapping = object
 
-try:
-    from collections import Sequence
-except ImportError:
-    Sequence = object
+from collections import Mapping, Sequence
 
 import apt_pkg
 import apt.progress.text

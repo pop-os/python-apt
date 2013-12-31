@@ -31,7 +31,7 @@ depcache.init(progress)
 
 
 # get a canidate version
-ver= depcache.get_candidate_ver(iter)
+ver = depcache.get_candidate_ver(iter)
 print "Candidate version: %s " % ver
 
 print "\n\nQuerry interface"

@@ -11,7 +11,7 @@ import apt.progress.base
 class TextProgress(apt.progress.base.OpProgress):
 
     def __init__(self):
-        self.last=0.0
+        self.last = 0.0
 
     def update(self, percent):
         if (self.last + 1.0) <= percent:
@@ -47,8 +47,11 @@ class TextFetchProgress(apt.progress.base.AcquireProgress):
 
     def pulse(self, owner):
         print "pulse: CPS: %s/s; Bytes: %s/%s; Item: %s/%s" % (
-            apt_pkg.size_to_str(self.current_cps), apt_pkg.size_to_str(self.current_bytes),
-            apt_pkg.size_to_str(self.total_bytes), self.current_items, self.total_items)
+            apt_pkg.size_to_str(self.current_cps),
+            apt_pkg.size_to_str(self.current_bytes),
+            apt_pkg.size_to_str(self.total_bytes),
+            self.current_items,
+            self.total_items)
         return True
 
     def media_change(self, medium, drive):

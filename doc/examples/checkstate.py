@@ -19,11 +19,11 @@ for package in packages:
         continue
     version = versions[0]
     for other_version in versions:
-        if apt_pkg.version_compare(version.ver_str, other_version.ver_str)<0:
+        if apt_pkg.version_compare(version.ver_str, other_version.ver_str) < 0:
             version = other_version
     if package.current_ver:
         current = package.current_ver
-        if apt_pkg.version_compare(current.ver_str, version.ver_str)<0:
+        if apt_pkg.version_compare(current.ver_str, version.ver_str) < 0:
             upgradable[package.name] = version
             break
         else:

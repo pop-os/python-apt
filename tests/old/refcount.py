@@ -1,14 +1,13 @@
 #!/usr/bin/python-dbg
 
-from pprint import pprint, pformat
+from pprint import pprint
 import apt
 import sys
 import gc
-import difflib
 
 # get initial cache
 print sys.gettotalrefcount()
-progress= apt.progress.OpTextProgress()
+progress = apt.progress.OpTextProgress()
 c = apt.Cache(progress)
 print "refcount after first cache instance: ", sys.gettotalrefcount()
 

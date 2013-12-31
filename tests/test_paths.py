@@ -30,8 +30,10 @@ class TestPath(unittest.TestCase):
     def test_acquire(self):
         apt_pkg.AcquireFile(apt_pkg.Acquire(), "http://example.com",
                             destdir=self.file_bytes, destfile=self.file_bytes)
-        apt_pkg.AcquireFile(apt_pkg.Acquire(), "http://example.com",
-                            destdir=self.file_unicode, destfile=self.file_unicode)
+        apt_pkg.AcquireFile(apt_pkg.Acquire(),
+                            "http://example.com",
+                            destdir=self.file_unicode,
+                            destfile=self.file_unicode)
 
     def test_ararchive(self):
         archive = apt_inst.ArArchive(u"data/test_debs/data-tar-xz.deb")
@@ -65,7 +67,7 @@ class TestPath(unittest.TestCase):
         apt_inst.TarFile(os.path.join(self.dir_bytes, b"control.tar.gz"))
 
     def test_configuration(self):
-        with open(self.file_unicode, 'w' ) as config:
+        with open(self.file_unicode, 'w') as config:
             config.write("Hello { World 1; };")
         apt_pkg.read_config_file(apt_pkg.config, self.file_bytes)
         apt_pkg.read_config_file(apt_pkg.config, self.file_unicode)
@@ -95,7 +97,7 @@ class TestPath(unittest.TestCase):
         self.assertEqual(size1, size2)
         self.assertEqual(str(hash1), str(hash2))
         self.assertEqual(str(hash1), ("SHA256:fefed230e286d832ab6eb0fb7b72"
-                                      + "442165b50df23a68402ae6e9d265a31920a2"))
+                                      "442165b50df23a68402ae6e9d265a31920a2"))
 
     def test_lock(self):
         apt_pkg.get_lock(self.file_unicode, True)

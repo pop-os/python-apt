@@ -27,6 +27,7 @@ if libdir:
 
 import apt_pkg
 
+
 class TestTagFile(unittest.TestCase):
     """ test the apt_pkg.TagFile """
 

@@ -12,8 +12,8 @@ def main():
     cache = apt_pkg.Cache()
     depcache = apt_pkg.DepCache(cache)
     depcache.init()
-    i=0
-    all=cache.package_count
+    i = 0
+    all = cache.package_count
     print "Running Cache test on all packages:"
     # first, get all pkgs
     for pkg in cache.packages:

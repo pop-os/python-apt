@@ -11,7 +11,7 @@ import sys
 def main():
     apt_pkg.init()
     cache = apt_pkg.Cache()
-    i=0
+    i = 0
     print "Running PkgSrcRecords test on all packages:"
     for x in cache.packages:
         i += 1

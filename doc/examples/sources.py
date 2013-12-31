@@ -11,6 +11,6 @@ sources = apt_pkg.SourceRecords()
 sources.restart()
 while sources.lookup('hello'):
     print sources.package, sources.version, sources.maintainer, \
-        sources.section, `sources.binaries`
+        sources.section, repr(sources.binaries)
     print sources.files
     print sources.index.archive_uri(sources.files[0][2])

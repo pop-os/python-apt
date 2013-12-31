@@ -18,13 +18,15 @@ import apt
 import apt_pkg
 import apt.debfile
 
+
 class TestDebfileMultiarch(unittest.TestCase):
     """ test the multiarch debfile """
 
     def test_multiarch_deb_check(self):
         if apt_pkg.get_architectures() != ["amd64", "i386"]:
             # TODO: use unittest.skip
-            #logging.warning("skipping test because running on a non-multiarch system")
+            #logging.warning("skipping test because running on a "
+            #                "non-multiarch system")
             return
         deb = apt.debfile.DebPackage(
             "./data/test_debs/multiarch-test1_i386.deb")
@@ -48,9 +50,8 @@ class TestDebfileMultiarch(unittest.TestCase):
         installable = deb.check()
         #print deb._failure_string
         self.assertFalse(installable)
-        self.assertEqual(deb._failure_string, 
+        self.assertEqual(deb._failure_string,
                          "Conflicts with the installed package 'lib3ds-1-3'")
-
 
 
 if __name__ == "__main__":

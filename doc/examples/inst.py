@@ -17,7 +17,7 @@ class TextInstallProgress(InstallProgress):
         InstallProgress.updateInterface(self)
         if self.last >= self.percent:
             return
-        sys.stdout.write("\r[%s] %s\n" %(self.percent, self.status))
+        sys.stdout.write("\r[%s] %s\n" % (self.percent, self.status))
         sys.stdout.flush()
         self.last = self.percent
 

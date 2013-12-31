@@ -15,6 +15,8 @@ import unittest
 if sys.version_info[0] > 2:
     from http.server import HTTPServer
     from http.server import SimpleHTTPRequestHandler as HTTPRequestHandler
+    HTTPServer  # pyflakes
+    HTTPRequestHandler  # pyflakes
 else:
     from BaseHTTPServer import HTTPServer
     from SimpleHTTPServer import SimpleHTTPRequestHandler as HTTPRequestHandler
@@ -22,6 +24,7 @@ else:
 
 if sys.version_info[0] == 2 and sys.version_info[1] == 6:
     from unittest2 import TestCase
+    TestCase  # pyflakes
 else:
     from unittest import TestCase
 
@@ -215,7 +218,8 @@ class TestAuthKeys(TestCase):
     def test_add_key_from_keyserver_too_short(self):
         """Ensure that short keyids are not imported"""
         with self.assertRaises(apt.auth.AptKeyError):
-            apt.auth.add_key_from_keyserver("46925553", "hkp://localhost:19191")
+            apt.auth.add_key_from_keyserver(
+                "46925553", "hkp://localhost:19191")
 
     def test_add_key_from_server_mitm(self):
         """Verify that the key fingerprint is verified after download"""
@@ -227,7 +231,8 @@ class TestAuthKeys(TestCase):
                     "0101010178F7FE5C3E65D8AF8B48AD6246925553",
                     "hkp://localhost:%d" % self.keyserver_port)
         self.assertTrue(
-            str(cm.exception).startswith("Fingerprints do not match"), cm.exception)
+            str(cm.exception).startswith("Fingerprints do not match"),
+            cm.exception)
 
     def testAddKeyFromServer(self):
         """Install a GnuPG key from a remote server."""
@@ -236,7 +241,7 @@ class TestAuthKeys(TestCase):
 
         with self._discard_stderr():
             apt.auth.add_key_from_keyserver(
-                "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553", 
+                "0xa1bD8E9D78F7FE5C3E65D8AF8B48AD6246925553",
                 "hkp://localhost:%d" % self.keyserver_port)
 
         ret = apt.auth.list_keys()
