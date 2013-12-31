@@ -5,7 +5,7 @@ Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.9.4
 XS-Python-Version: >= 2.6
-X-Python3-Version: >= 3.1
+X-Python3-Version: >= 3.3
 Build-Depends: apt (>= 0.9.6),
                apt-utils,
                debhelper (>= 9),
@@ -13,8 +13,8 @@ Build-Depends: apt (>= 0.9.6),
                libapt-pkg-dev (>= 0.8.11),
                python-all-dev (>= 2.6.6-3~),
                python-all-dbg,
-               python3-all-dev (>= 3.1.2-10~),
-               python3-all-dbg (>= 3.1.2-6~),
+               python3-all-dev (>= 3.3),
+               python3-all-dbg (>= 3.3),
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
                python-debian,
