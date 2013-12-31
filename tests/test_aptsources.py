@@ -140,7 +140,6 @@ class TestAptSources(unittest.TestCase):
         distro = aptsources.distro.get_distro(id="Ubuntu")
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly
-        dist_templates = set()
         for s in sources:
             if not s.template:
                 self.fail("source entry '%s' has no matcher" % s)
@@ -178,7 +177,6 @@ class TestAptSources(unittest.TestCase):
         assert sources.list[9].line.strip() == str(sources.list[9])
 
     def test_enable_component(self):
-        from subprocess import Popen, PIPE
         target = "./data/aptsources/sources.list.enable_comps"
         line = "deb http://archive.ubuntu.com/ubuntu lucid main\n"
         with open(target, "w") as target_file:

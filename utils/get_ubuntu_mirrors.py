@@ -26,8 +26,6 @@
 
 import urllib2
 import re
-import os
-import commands
 import sys
 
 # the list of official Ubuntu servers

@@ -9,6 +9,7 @@ def get_file(fetcher, uri, destfile):
     # get the file
     af = apt_pkg.AcquireFile(fetcher, uri=uri, descr="sample descr",
                                destfile=destfile)
+    print "desc_uri: %s -> %s" % (af.desc_uri, af.destfile)
     res = fetcher.run()
     if res != fetcher.RESULT_CONTINUE:
         return False
@@ -45,7 +46,7 @@ except OSError:
     pass
 apt_pkg.config.set("Dir::Cache::archives", "/tmp/pyapt-test")
 
-pkg = cache["3ddesktop"]
+pkg = cache["2vcard"]
 depcache.mark_install(pkg)
 
 progress = apt.progress.text.AcquireProgress()

@@ -508,6 +508,7 @@ class DebPackage(object):
         # turn off MarkAndSweep via a action group (if available)
         try:
             _actiongroup = apt_pkg.ActionGroup(self._cache._depcache)
+            _actiongroup  # pyflakes
         except AttributeError:
             pass
         # check depends

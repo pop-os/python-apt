@@ -44,7 +44,7 @@ class TestProgress(unittest.TestCase):
     def test_acquire_progress(self):
         progress = TestAcquireProgress()
         cache = apt.Cache()
-        res = cache.update(progress)
+        cache.update(progress)
         self.assertTrue(progress.pulsed)
 
 if __name__ == "__main__":

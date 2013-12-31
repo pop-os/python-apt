@@ -25,7 +25,6 @@
 #  USA
 
 import feedparser
-import sys
 
 d = feedparser.parse("https://launchpad.net/ubuntu/+archivemirrors-rss")
 #d = feedparser.parse(open("+archivemirrors-rss"))

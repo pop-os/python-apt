@@ -63,7 +63,7 @@ Architecture: all""")
     def tearDown(self):
         # this resets the rootdir apt_pkg.config to ensure it does not
         # "pollute" the later tests
-        cache = apt.cache.Cache(rootdir="/")
+        apt.cache.Cache(rootdir="/")
         shutil.rmtree(self.chroot_path)
 
     def test_survive_reqreinst(self):

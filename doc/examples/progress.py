@@ -98,6 +98,7 @@ class TextCdromProgress(apt.progress.base.CdromProgress):
     def change_cdrom(self):
         print "Please insert cdrom and press <ENTER>"
         answer = sys.stdin.readline()
+        print answer
         return True
 
 

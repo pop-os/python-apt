@@ -25,6 +25,7 @@ class TestCache(unittest.TestCase):
         """cache_invocation: Test correct invocation."""
         apt_cache = apt_pkg.Cache(progress=None)
         apt_depcache = apt_pkg.DepCache(apt_cache)
+        self.assertNotEqual(apt_depcache, None)
 
 if __name__ == "__main__":
     unittest.main()

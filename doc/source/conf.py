@@ -26,6 +26,7 @@ if os.path.exists("../../build"):
         sys.path.insert(0, os.path.abspath(os.path.dirname(apt_pkg_path)))
         try:
             import apt_pkg
+            apt_pkg  # pyflakes
         except ImportError as exc:
             # Not the correct version
             sys.stderr.write('W: Ignoring error %s\n' % exc)

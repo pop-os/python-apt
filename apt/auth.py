@@ -24,7 +24,6 @@
 #  USA
 """Handle GnuPG keys used to trust signed repositories."""
 
-import atexit
 import os
 import os.path
 import shutil

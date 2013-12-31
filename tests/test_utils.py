@@ -8,11 +8,7 @@
 
 import datetime
 import os
-import sys
 import unittest
-
-import apt_pkg
-import apt.utils
 
 from apt.utils import (
     get_maintenance_end_date,

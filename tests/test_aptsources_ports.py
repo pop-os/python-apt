@@ -31,7 +31,6 @@ class TestAptSourcesPorts(unittest.TestCase):
                                               "8.04")
         distro.get_sources(sources)
         # test if all suits of the current distro were detected correctly
-        dist_templates = set()
         for s in sources:
             if not s.line.strip() or s.line.startswith("#"):
                 continue
