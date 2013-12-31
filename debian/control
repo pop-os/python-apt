@@ -18,7 +18,9 @@ Build-Depends: apt (>= 0.9.6),
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
                python-debian,
-	       python-unittest2
+	       python-unittest2,
+               pep8,
+               pyflakes
 Vcs-Git: git://anonscm.debian.org/apt/python-apt.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=apt/python-apt.git
 XS-Testsuite: autopkgtest
