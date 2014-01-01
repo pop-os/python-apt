@@ -40,6 +40,7 @@ class FetchFailedException(IOError):
 class LockFailedException(IOError):
     """Exception that is thrown when locking fails."""
 
+
 class CacheClosedException(Exception):
     """Exception that is thrown when the cache is used after close()."""
 
@@ -53,7 +54,7 @@ class Cache(object):
     list of available packages.
 
     The cache can be used like a mapping from package names to Package
-    objects (although only getting items is supported). 
+    objects (although only getting items is supported).
 
     Keyword arguments:
     progress -- a OpProgress object
@@ -74,7 +75,7 @@ class Cache(object):
         self._fullnameset = set()
         self._changes_count = -1
         self._sorted_set = None
-        
+
         self.connect("cache_post_open", self._inc_changes_count)
         self.connect("cache_post_change", self._inc_changes_count)
         if memonly:
@@ -86,17 +87,17 @@ class Cache(object):
             apt_pkg.config.clear("APT")
             apt_pkg.config.set("Dir", rootdir)
             apt_pkg.init_config()
-            if os.path.exists(rootdir+"/etc/apt/apt.conf"):
+            if os.path.exists(rootdir + "/etc/apt/apt.conf"):
                 apt_pkg.read_config_file(apt_pkg.config,
-                                       rootdir + "/etc/apt/apt.conf")
-            if os.path.isdir(rootdir+"/etc/apt/apt.conf.d"):
+                                         rootdir + "/etc/apt/apt.conf")
+            if os.path.isdir(rootdir + "/etc/apt/apt.conf.d"):
                 apt_pkg.read_config_dir(apt_pkg.config,
-                                      rootdir + "/etc/apt/apt.conf.d")
+                                        rootdir + "/etc/apt/apt.conf.d")
             apt_pkg.config.set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
             # also set dpkg to the rootdir path so that its called for the
             # --print-foreign-architectures call
-            apt_pkg.config.set("Dir::bin::dpkg", 
+            apt_pkg.config.set("Dir::bin::dpkg",
                                os.path.join(rootdir, "usr", "bin", "dpkg"))
             # create required dirs/files when run with special rootdir
             # automatically
@@ -105,7 +106,6 @@ class Cache(object):
             # recognized (LP: #320665)
             apt_pkg.init_system()
         self.open(progress)
-        
 
     def _inc_changes_count(self):
         """Increase the number of changes"""
@@ -118,12 +118,12 @@ class Cache(object):
         """
         files = ["/var/lib/dpkg/status",
                  "/etc/apt/sources.list",
-                ]
+                 ]
         dirs = ["/var/lib/dpkg",
                 "/etc/apt/",
                 "/var/cache/apt/archives/partial",
                 "/var/lib/apt/lists/partial",
-               ]
+                ]
         for d in dirs:
             if not os.path.exists(rootdir + d):
                 #print "creating: ", rootdir + d
@@ -165,8 +165,8 @@ class Cache(object):
         i = last = 0
         size = len(self._cache.packages)
         for pkg in self._cache.packages:
-            if progress is not None and last+100 < i:
-                progress.update(i/float(size)*100)
+            if progress is not None and last + 100 < i:
+                progress.update(i / float(size) * 100)
                 last = i
             # drop stuff with no versions (cruft)
             if pkg.has_versions:
@@ -259,7 +259,8 @@ class Cache(object):
     def required_download(self):
         """Get the size of the packages that are required to download."""
         if self._records is None:
-            raise CacheClosedException("Cache object used after close() called")
+            raise CacheClosedException(
+                "Cache object used after close() called")
         pm = apt_pkg.PackageManager(self._depcache)
         fetcher = apt_pkg.Acquire()
         pm.get_archives(fetcher, self._list, self._records)
@@ -289,16 +290,14 @@ class Cache(object):
 
         # now check the result (this is the code from apt-get.cc)
         failed = False
-        transient = False
         err_msg = ""
         for item in fetcher.items:
             if item.status == item.STAT_DONE:
                 continue
             if item.STAT_IDLE:
-                transient = True
                 continue
             err_msg += "Failed to fetch %s %s\n" % (item.desc_uri,
-                                                   item.error_text)
+                                                    item.error_text)
             failed = True
 
         # we raise a exception if the download failed or it was cancelt
@@ -311,7 +310,8 @@ class Cache(object):
     def _fetch_archives(self, fetcher, pm):
         """ fetch the needed archives """
         if self._records is None:
-            raise CacheClosedException("Cache object used after close() called")
+            raise CacheClosedException(
+                "Cache object used after close() called")
 
         # get lock
         lockfile = apt_pkg.config.find_dir("Dir::Cache::Archives") + "lock"
@@ -349,7 +349,6 @@ class Cache(object):
         if fetcher is None:
             fetcher = apt_pkg.Acquire(progress)
 
-        
         return self._fetch_archives(fetcher,
                                     apt_pkg.PackageManager(self._depcache))
 
@@ -362,12 +361,12 @@ class Cache(object):
         else:
             return bool(pkg.has_provides and not pkg.has_versions)
 
-    def get_providing_packages(self, pkgname, candidate_only=True, 
+    def get_providing_packages(self, pkgname, candidate_only=True,
                                include_nonvirtual=False):
         """Return a list of all packages providing a package.
-        
+
         Return a list of packages which provide the virtual package of the
-        specified name. 
+        specified name.
 
         If 'candidate_only' is False, return all packages with at
         least one version providing the virtual package. Otherwise,
@@ -378,7 +377,7 @@ class Cache(object):
         packages providing pkgname, even if pkgname is not itself
         a virtual pkg.
         """
-        
+
         providers = set()
         get_candidate_ver = self._depcache.get_candidate_ver
         try:
@@ -423,7 +422,8 @@ class Cache(object):
             old_sources_list = apt_pkg.config.find("Dir::Etc::sourcelist")
             old_sources_list_d = apt_pkg.config.find("Dir::Etc::sourceparts")
             old_cleanup = apt_pkg.config.find("APT::List-Cleanup")
-            apt_pkg.config.set("Dir::Etc::sourcelist", os.path.abspath(sources_list))
+            apt_pkg.config.set("Dir::Etc::sourcelist",
+                               os.path.abspath(sources_list))
             apt_pkg.config.set("Dir::Etc::sourceparts", "xxx")
             apt_pkg.config.set("APT::List-Cleanup", "0")
             slist = apt_pkg.SourceList()
@@ -559,9 +559,9 @@ class Cache(object):
     @property
     def dpkg_journal_dirty(self):
         """Return True if the dpkg was interrupted
-        
+
         All dpkg operations will fail until this is fixed, the action to
-        fix the system if dpkg got interrupted is to run 
+        fix the system if dpkg got interrupted is to run
         'dpkg --configure -a' as root.
         """
         dpkg_status_dir = os.path.dirname(
@@ -711,7 +711,6 @@ class FilteredCache(object):
         #print "filterCachePostChange()"
         self._reapply_filter()
 
-
 #    def connect(self, name, callback):
 #        self.cache.connect(name, callback)
 
@@ -749,8 +748,6 @@ def _test():
     print len(changes)
     for pkg in changes:
         assert pkg.name
-
-
 
     # see if fetching works
     for dirname in ["/tmp/pytest", "/tmp/pytest/partial"]:

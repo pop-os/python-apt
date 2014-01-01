@@ -1,8 +1,17 @@
 python-apt (0.9.2) UNRELEASED; urgency=low
 
+  [ Michael Vogt ]
   * apt/cache.py:
     - when using apt.Cache(rootdir=/some/dir) only read the APT
       configuration from this rootdir instead of /etc (closes: #728274)
+
+  [ Michael Schaller]
+  * apt/cache.py:
+    - Fixed PEP8 issues
+    - Fixed pyflakes issue: Removed unused local variable 'transient'
+  * apt/package.py:
+    - Fixed PEP8 issues
+    - Fixed pyflakes issue: Removed unused import 'warnings'
 
  -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 23 Nov 2013 08:49:51 +0100
 

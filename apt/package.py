@@ -26,7 +26,6 @@ import re
 import socket
 import subprocess
 import urllib2
-import warnings
 try:
     from collections import Mapping, Sequence
 except ImportError:
@@ -335,7 +334,7 @@ class Version(object):
                 dsc = unicode(dsc, "utf-8")
         except UnicodeDecodeError as err:
             return _("Invalid unicode in description for '%s' (%s). "
-                  "Please report.") % (self.package.name, err)
+                     "Please report.") % (self.package.name, err)
 
         lines = iter(dsc.split("\n"))
         # Skip the first line, since its a duplication of the summary
@@ -416,8 +415,8 @@ class Version(object):
                     base_deps = []
                     for dep_or in dep_ver_list:
                         base_deps.append(BaseDependency(dep_or.target_pkg.name,
-                                        dep_or.comp_type, dep_or.target_ver,
-                                        (type_ == "PreDepends"),
+                                         dep_or.comp_type, dep_or.target_ver,
+                                         (type_ == "PreDepends"),
                                          rawtype=type_))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
@@ -428,7 +427,7 @@ class Version(object):
     def provides(self):
         """ Return a list of names that this version provides."""
         return [p[0] for p in self._cand.provides_list]
-        
+
     @property
     def enhances(self):
         """Return the list of enhances for the package version."""
@@ -601,7 +600,7 @@ class Version(object):
         for item in acq.items:
             if item.status != item.STAT_DONE:
                 raise FetchError("The item %r could not be fetched: %s" %
-                                    (item.destfile, item.error_text))
+                                 (item.destfile, item.error_text))
 
         if unpack:
             outdir = src.package + '-' + apt_pkg.upstream_version(src.version)
@@ -633,8 +632,8 @@ class VersionList(Sequence):
     """
 
     def __init__(self, package, slice_=None):
-        self._package = package # apt.package.Package()
-        self._versions = package._pkg.version_list # [apt_pkg.Version(), ...]
+        self._package = package  # apt.package.Package()
+        self._versions = package._pkg.version_list  # [apt_pkg.Version(), ...]
         if slice_:
             self._versions = self._versions[slice_]
 
@@ -659,7 +658,7 @@ class VersionList(Sequence):
         return (Version(self._package, ver) for ver in self._versions)
 
     def __contains__(self, item):
-        if isinstance(item, Version): # Sequence interface
+        if isinstance(item, Version):  # Sequence interface
             item = item.version
         # Dictionary interface.
         for ver in self._versions:
@@ -702,8 +701,8 @@ class Package(object):
         self._changelog = ""            # Cached changelog
 
     def __repr__(self):
-        return '<Package: name:%r architecture=%r id:%r>' % (self._pkg.name,
-                 self._pkg.architecture, self._pkg.id)
+        return '<Package: name:%r architecture=%r id:%r>' % (
+            self._pkg.name, self._pkg.architecture, self._pkg.id)
 
     def __lt__(self, other):
         return self.name < other.name
@@ -917,10 +916,10 @@ class Package(object):
         src_section = "main"
         # use the section of the candidate as a starting point
         section = self.candidate.section
-        
+
         # get the source version
         src_ver = self.candidate.source_version
-                
+
         try:
             # try to get the source version of the pkg, this differs
             # for some (e.g. libnspr4 on ubuntu)
@@ -1006,7 +1005,7 @@ class Package(object):
                             changelog_ver = changelog_ver.split(":", 1)[1]
 
                         if (installed and apt_pkg.version_compare(
-                                          changelog_ver, installed) <= 0):
+                                changelog_ver, installed) <= 0):
                             break
                     # EOF (shouldn't really happen)
                     changelog += line
@@ -1020,14 +1019,14 @@ class Package(object):
 
             except urllib2.HTTPError:
                 res = _("The list of changes is not available yet.\n\n"
-                         "Please use http://launchpad.net/ubuntu/+source/%s/"
-                         "%s/+changelog\n"
-                         "until the changes become available or try again "
-                         "later.") % (src_pkg, src_ver)
+                        "Please use http://launchpad.net/ubuntu/+source/%s/"
+                        "%s/+changelog\n"
+                        "until the changes become available or try again "
+                        "later.") % (src_pkg, src_ver)
                 return res if isinstance(res, unicode) else res.decode("utf-8")
             except (IOError, httplib.BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
-                         "check your Internet connection.")
+                        "check your Internet connection.")
                 return res if isinstance(res, unicode) else res.decode("utf-8")
         finally:
             socket.setdefaulttimeout(timeout)
@@ -1168,11 +1167,10 @@ def _test():
     print "Recommends: %s" % pkg.installed.recommends
     for dep in pkg.candidate.dependencies:
         print ",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
-                        o.pre_depend) for o in dep.or_dependencies)
+                       o.pre_depend) for o in dep.or_dependencies)
     print "arch: %s" % pkg.candidate.architecture
     print "homepage: %s" % pkg.candidate.homepage
     print "rec: ", pkg.candidate.record
-
 
     print cache["2vcard"].get_changelog()
     for i in True, False:
