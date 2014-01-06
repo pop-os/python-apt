@@ -6,16 +6,9 @@
 # notice and this notice are preserved.
 """Run all available unit tests."""
 import os
+import unittest.runner
+import unittest
 import sys
-
-try:
-    import unittest.runner
-    import unittest
-    unittest  # pyflakes
-except ImportError:
-    # py2.6 compat
-    import unittest2 as unittest
-
 
 # workaround for py3.2 that apparently does not have this anymore
 # it has "abiflags"
