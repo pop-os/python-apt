@@ -10,8 +10,7 @@ import unittest.runner
 import unittest
 import sys
 
-# workaround for py3.2 that apparently does not have this anymore
-# it has "abiflags"
+# Python 3 only provides abiflags since 3.2
 if not hasattr(sys, "pydebug"):
     if sys.abiflags.startswith("d"):
         sys.pydebug = True
@@ -27,12 +26,8 @@ def get_library_dir():
     from distutils.sysconfig import get_python_version
     # Set the path to the build directory.
     plat_specifier = ".%s-%s" % (get_platform(), get_python_version())
-    if sys.version_info[0] >= 3 or sys.version_info[1] >= 6:
-        library_dir = "../build/lib%s%s" % (plat_specifier,
-                                            (sys.pydebug and "-pydebug" or ""))
-    else:
-        library_dir = "../build/lib%s%s" % ((sys.pydebug and "_d" or ""),
-                                            plat_specifier)
+    library_dir = "../build/lib%s%s" % (plat_specifier,
+                                        (sys.pydebug and "-pydebug" or ""))
     return os.path.abspath(library_dir)
 
 

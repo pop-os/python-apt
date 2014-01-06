@@ -2,19 +2,12 @@
 
 __author__ = "Barry Warsaw <barry@ubuntu.com>, James Hunt, Michael Vogt"
 
-import sys
 import unittest
 
 import apt_pkg
 
-if sys.version_info[0] == 2 and sys.version_info[1] == 6:
-    from unittest2 import TestCase
-    TestCase  # pyflakes
-else:
-    from unittest import TestCase
 
-
-class SizeToStrTestCase(TestCase):
+class SizeToStrTestCase(unittest.TestCase):
     """Test apt_pkg.size_to_str"""
 
     DATA = {
