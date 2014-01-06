@@ -34,7 +34,7 @@ Dependency Information
 
     .. attribute:: relation
 
-        The relation (>,>=,==,<,<=,)
+        The relation (>,>=,=,!=,<,<=,)
 
     .. attribute:: version
 

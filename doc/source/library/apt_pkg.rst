@@ -1022,7 +1022,7 @@ Example:
 
     .. attribute:: comp_type
 
-        The type of comparison (>=, ==, >>, <=), as string.
+        The type of comparison (>=, =, !=, >, <=), as string.
 
     .. attribute:: dep_type
 
