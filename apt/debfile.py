@@ -27,7 +27,7 @@ import os
 import sys
 
 from apt_pkg import gettext as _
-from StringIO import StringIO
+from io import StringIO
 
 
 class NoDebArchiveException(IOError):
@@ -637,7 +637,7 @@ class DebPackage(object):
             data += gz.read()
         # auto-convert to hex
         try:
-            data = unicode(data, "utf-8")
+            data = data.decode("utf-8")
         except Exception:
             new_data = _("Automatically converted to printable ascii:\n")
             new_data += self.to_strish(data)

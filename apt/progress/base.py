@@ -271,7 +271,8 @@ class InstallProgress(object):
             try:
                 select.select([self.status_stream], [], [],
                               self.select_timeout)
-            except select.error as (errno_, _errstr):
+            except select.error as error:
+                (errno_, _errstr) = error.args
                 if errno_ != errno.EINTR:
                     raise
 

@@ -81,7 +81,7 @@ def _call_apt_key_script(*args, **kwargs):
 
         content = kwargs.get("stdin", None)
         # py2 needs this encoded, py3.3 will crash if it is
-        if isinstance(content, unicode) and sys.version_info[:2] < (3, 3):
+        if sys.version_info.major < 3 and isinstance(content, unicode):
             content = content.encode("utf-8")
 
         output, stderr = proc.communicate(content)

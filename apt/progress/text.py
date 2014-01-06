@@ -25,6 +25,11 @@ from apt.progress import base
 
 __all__ = ['AcquireProgress', 'CdromProgress', 'OpProgress']
 
+if sys.version_info.major < 3:
+    input = raw_input
+else:
+    long = int
+
 
 def _(msg):
     """Translate the message, also try apt if translation is missing."""
@@ -93,7 +98,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         base.AcquireProgress.__init__(self)
         self._signal = None
         self._width = 80
-        self._id = 1
+        self._id = long(1)
 
     def start(self):
         """Start an Acquire progress.
@@ -106,7 +111,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         self._signal = signal.signal(signal.SIGWINCH, self._winch)
         # Get the window size.
         self._winch()
-        self._id = 1L
+        self._id = long(1)
 
     def _winch(self, *dummy):
         """Signal handler for window resize signals."""
@@ -217,7 +222,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         self._write(_("Media change: please insert the disc labeled\n"
                       " '%s'\n"
                       "in the drive '%s' and press enter\n") % (medium, drive))
-        return raw_input() not in ('c', 'C')
+        return input() not in ('c', 'C')
 
     def stop(self):
         """Invoked when the Acquire process stops running."""
@@ -242,7 +247,7 @@ class CdromProgress(base.CdromProgress, TextProgress):
         self._write(_("Please provide a name for this Disc, such as "
                       "'Debian 2.1r1 Disk 1'"), False)
         try:
-            return raw_input(":")
+            return input(":")
         except KeyboardInterrupt:
             return
 
@@ -258,6 +263,6 @@ class CdromProgress(base.CdromProgress, TextProgress):
         self._write(_("Please insert a Disc in the drive and press enter"),
                     False)
         try:
-            return (raw_input() == '')
+            return (input() == '')
         except KeyboardInterrupt:
             return False

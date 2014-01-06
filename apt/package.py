@@ -21,13 +21,20 @@
 """Functionality related to packages."""
 from __future__ import print_function
 
-import httplib
+
 import os
 import sys
 import re
 import socket
 import subprocess
-import urllib2
+
+try:
+    from http.client import BadStatusLine
+    from urllib.error import HTTPError
+    from urllib.request import urlopen
+except ImportError:
+    from httplib import BadStatusLine
+    from urllib2 import HTTPError, urlopen
 
 from collections import Mapping, Sequence
 
@@ -37,6 +44,9 @@ from apt_pkg import gettext as _
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version', 'VersionList')
+
+if sys.version_info.major >= 3:
+    unicode = str
 
 
 def _file_is_same(path, size, md5):
@@ -325,14 +335,14 @@ class Version(object):
         try:
             if not isinstance(dsc, unicode):
                 # Only convert where needed (i.e. Python 2.X)
-                dsc = unicode(dsc, "utf-8")
+                dsc = dsc.decode("utf-8")
         except UnicodeDecodeError as err:
             return _("Invalid unicode in description for '%s' (%s). "
                      "Please report.") % (self.package.name, err)
 
         lines = iter(dsc.split("\n"))
         # Skip the first line, since its a duplication of the summary
-        lines.next()
+        next(lines)
         for raw_line in lines:
             if raw_line.strip() == ".":
                 # The line is just line break
@@ -517,7 +527,7 @@ class Version(object):
         .. versionadded:: 0.7.10
         """
         try:
-            return iter(self._uris()).next()
+            return next(iter(self._uris()))
         except StopIteration:
             return None
 
@@ -970,7 +980,7 @@ class Package(object):
                 if cancel_lock and cancel_lock.isSet():
                     return u""
                 # FIXME: python3.2: Should be closed manually
-                changelog_file = urllib2.urlopen(uri)
+                changelog_file = urlopen(uri)
                 # do only get the lines that are new
                 changelog = u""
                 regexp = "^%s \((.*)\)(.*)$" % (re.escape(src_pkg))
@@ -1011,14 +1021,14 @@ class Package(object):
                         changelog = changelog.decode("utf-8")
                 self._changelog = changelog
 
-            except urllib2.HTTPError:
+            except HTTPError:
                 res = _("The list of changes is not available yet.\n\n"
                         "Please use http://launchpad.net/ubuntu/+source/%s/"
                         "%s/+changelog\n"
                         "until the changes become available or try again "
                         "later.") % (src_pkg, src_ver)
                 return res if isinstance(res, unicode) else res.decode("utf-8")
-            except (IOError, httplib.BadStatusLine):
+            except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
                         "check your Internet connection.")
                 return res if isinstance(res, unicode) else res.decode("utf-8")
