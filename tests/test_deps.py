@@ -9,6 +9,7 @@
 import unittest
 
 import apt_pkg
+import apt.package
 
 
 class TestDependencies(unittest.TestCase):
@@ -109,6 +110,33 @@ class TestDependencies(unittest.TestCase):
 
         self.assertEqual(len(depends_this), len(depends_this_too), 1)
         self.assertEqual(len(depends_other), len(depends_other_too), 0)
+
+    def test_dstr(self):
+        """Test apt.package.BaseDependency.__dstr"""
+        dstr = apt.package.BaseDependency._BaseDependency__dstr
+        self.assertEqual(dstr("<"), "<<")
+        self.assertEqual(dstr("<"), "<")
+        self.assertEqual("<<", dstr("<"))
+        self.assertEqual("<", dstr("<"))
+        self.assertEqual(dstr(">"), ">>")
+        self.assertEqual(dstr(">"), ">")
+        self.assertEqual(">>", dstr(">"))
+        self.assertEqual(">", dstr(">"))
+        self.assertNotEqual(dstr(">"), "<")
+        self.assertNotEqual(dstr(">"), "<=")
+        self.assertNotEqual(dstr(">"), "<<")
+        self.assertNotEqual(dstr(">"), "!=")
+        self.assertNotEqual(dstr(">"), "=")
+        self.assertNotEqual(dstr(">"), "<")
+        self.assertNotEqual(dstr(">"), "<=")
+        self.assertNotEqual(dstr(">"), "<<")
+        self.assertNotEqual(dstr(">"), "!=")
+        self.assertNotEqual(dstr(">"), "=")
+        self.assertFalse(dstr("<") != "<")
+        self.assertFalse(dstr("<") != "<<")
+        self.assertFalse(dstr(">") != ">")
+        self.assertFalse(dstr(">") != ">>")
+
 
     def testParseDepends(self):
         """dependencies: Test apt_pkg.ParseDepends()."""
