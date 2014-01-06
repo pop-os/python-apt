@@ -149,14 +149,14 @@ class TestAptSources(unittest.TestCase):
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
                            "sources.list")
         sources = aptsources.sourceslist.SourcesList(True, self.templates)
-        assert sources.list[8].invalid is False
+        assert not sources.list[8].invalid
         assert sources.list[8].type == "deb"
         assert sources.list[8].architectures == ["amd64", "i386"]
         assert sources.list[8].uri == "http://de.archive.ubuntu.com/ubuntu/"
         assert sources.list[8].dist == "natty"
         assert sources.list[8].comps == ["main"]
         assert sources.list[8].line.strip() == str(sources.list[8])
-        assert sources.list[8].trusted is None
+        assert not sources.list[8].trusted
 
     def testMultipleOptions(self):
         """aptsources: Test multi-arch parsing"""

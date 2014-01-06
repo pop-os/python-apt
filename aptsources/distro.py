@@ -95,40 +95,40 @@ class Distribution(object):
         enabled_comps = []
         #source_code = []
         for source in self.sourceslist.list:
-            if (source.invalid is False and
+            if (not source.invalid and
                 self.is_codename(source.dist) and
                 source.template and
-                source.template.official is True and
+                source.template.official and
                 self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently
                 if (source.uri.startswith("cdrom:") and
-                    source.disabled is False):
+                    not source.disabled):
                     self.cdrom_sources.append(source)
                     cdrom_comps.extend(source.comps)
                 elif (source.uri.startswith("cdrom:") and
-                      source.disabled is True):
+                      source.disabled):
                     self.cdrom_sources.append(source)
                 elif (source.type == self.binary_type and
-                      source.disabled is False):
+                      not source.disabled):
                     self.main_sources.append(source)
                     comps.extend(source.comps)
                     media.append(source.uri)
                 elif (source.type == self.binary_type and
-                      source.disabled is True):
+                      source.disabled):
                     self.disabled_sources.append(source)
                 elif (source.type == self.source_type
-                        and source.disabled is False):
+                        and not source.disabled):
                     self.source_code_sources.append(source)
                 elif (source.type == self.source_type and
-                      source.disabled is True):
+                      source.disabled):
                     self.disabled_sources.append(source)
-            if (source.invalid is False and
+            if (not source.invalid and
                 source.template in self.source_template.children):
-                if (source.disabled is False
+                if (not source.disabled
                     and source.type == self.binary_type):
                     self.child_sources.append(source)
-                elif (source.disabled is False
+                elif (not source.disabled
                       and source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
@@ -280,7 +280,7 @@ class Distribution(object):
         new_source = self.sourceslist.add(type, uri, dist, comps, comment)
         # if source code is enabled add a deb-src line after the new
         # source
-        if self.get_source_code is True and type == self.binary_type:
+        if self.get_source_code and type == self.binary_type:
             self.sourceslist.add(
                 self.source_type, uri, dist, comps, comment,
                 file=new_source.file,
@@ -355,7 +355,7 @@ class Distribution(object):
                 add_component_only_once(source, comps_per_sdist)
 
         # check if there is a main source code source at all
-        if self.get_source_code is True:
+        if self.get_source_code:
             if len(self.source_code_sources) < 1:
                 # create a new main source
                 self.add_source(type=self.source_type, comps=["%s" % comp])

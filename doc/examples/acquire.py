@@ -66,7 +66,7 @@ for item in fetcher.items:
     print item
     if item.status == item.STAT_ERROR:
         print "Some error ocured: '%s'" % item.error_text
-    if item.complete is False:
+    if not item.complete:
         print "No error, still nothing downloaded (%s)" % item.error_text
     print
 
