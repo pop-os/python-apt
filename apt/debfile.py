@@ -17,6 +17,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 """Classes for working with locally available Debian packages."""
+from __future__ import print_function
+
 import apt
 import apt_inst
 import apt_pkg
@@ -659,7 +661,7 @@ class DebPackage(object):
     def _dbg(self, level, msg):
         """Write debugging output to sys.stderr."""
         if level <= self.debug:
-            print >> sys.stderr, msg
+            print(msg, file=sys.stderr)
 
     def install(self, install_progress=None):
         """Install the package."""
@@ -756,25 +758,25 @@ def _test():
     cache = Cache()
 
     vp = "www-browser"
-    print "%s virtual: %s" % (vp, cache.is_virtual_package(vp))
+    print("%s virtual: %s" % (vp, cache.is_virtual_package(vp)))
     providers = cache.get_providing_packages(vp)
-    print "Providers for %s :" % vp
+    print("Providers for %s :" % vp)
     for pkg in providers:
-        print " %s" % pkg.name
+        print(" %s" % pkg.name)
 
     d = DebPackage(sys.argv[1], cache)
-    print "Deb: %s" % d.pkgname
+    print("Deb: %s" % d.pkgname)
     if not d.check():
-        print "can't be satified"
-        print d._failure_string
-    print "missing deps: %s" % d.missing_deps
-    print d.required_changes
+        print("can't be satified")
+        print(d._failure_string)
+    print("missing deps: %s" % d.missing_deps)
+    print(d.required_changes)
 
-    print d.filelist
+    print(d.filelist)
 
-    print "Installing ..."
+    print("Installing ...")
     ret = d.install(InstallProgress())
-    print ret
+    print(ret)
 
     #s = DscSrcPackage(cache, "../tests/3ddesktop_0.2.9-6.dsc")
     #s.check_dep()
@@ -783,7 +785,7 @@ def _test():
 
     s = DscSrcPackage(cache=cache)
     d = "libc6 (>= 2.3.2), libaio (>= 0.3.96) | libaio1 (>= 0.3.96)"
-    print s._satisfy_depends(apt_pkg.parse_depends(d, False))
+    print(s._satisfy_depends(apt_pkg.parse_depends(d, False)))
 
 if __name__ == "__main__":
     _test()

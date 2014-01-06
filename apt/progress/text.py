@@ -15,6 +15,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 """Progress reporting for text interfaces."""
+from __future__ import print_function
+
 import os
 import sys
 

@@ -22,6 +22,8 @@
 Custom progress classes should inherit from these classes. They can also be
 used as dummy progress classes which simply do nothing.
 """
+from __future__ import print_function
+
 import errno
 import fcntl
 import os
@@ -217,7 +219,7 @@ class InstallProgress(object):
         except IOError as err:
             # resource temporarly unavailable is ignored
             if err.errno != errno.EAGAIN and err.errno != errno.EWOULDBLOCK:
-                print err.strerror
+                print(err.strerror)
             return
 
         pkgname = status = status_str = percent = base = ""

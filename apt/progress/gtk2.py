@@ -22,6 +22,8 @@
 #  USA
 """GObject-powered progress classes and a GTK+ status widget."""
 
+from __future__ import print_function
+
 import pygtk
 pygtk.require('2.0')
 import gtk
@@ -422,7 +424,7 @@ def _test():
     try:
         cache.commit(apt_progress.acquire, apt_progress.install)
     except Exception as exc:
-        print >> sys.stderr, "Exception happened:", exc
+        print("Exception happened:", exc, file=sys.stderr)
     if len(sys.argv) > 1:
         deb = DebPackage(sys.argv[1], cache)
         deb.install(apt_progress.dpkg_install)

@@ -19,6 +19,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 """Functionality related to packages."""
+from __future__ import print_function
+
 import httplib
 import os
 import sys
@@ -534,7 +536,7 @@ class Version(object):
         base = os.path.basename(self._records.filename)
         destfile = os.path.join(destdir, base)
         if _file_is_same(destfile, self.size, self._records.md5_hash):
-            print('Ignoring already existing file: %s' % destfile)
+            print(('Ignoring already existing file: %s' % destfile))
             return os.path.abspath(destfile)
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
         acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,
@@ -583,7 +585,7 @@ class Version(object):
             if type_ == 'dsc':
                 dsc = destfile
             if _file_is_same(destfile, size, md5):
-                print('Ignoring already existing file: %s' % destfile)
+                print(('Ignoring already existing file: %s' % destfile))
                 continue
             files.append(apt_pkg.AcquireFile(acq, src.index.archive_uri(path),
                          md5, size, base, destfile=destfile))
@@ -1134,59 +1136,59 @@ class Package(object):
 
 def _test():
     """Self-test."""
-    print "Self-test for the Package modul"
+    print("Self-test for the Package modul")
     import random
     apt_pkg.init()
     progress = apt.progress.text.OpProgress()
     cache = apt.Cache(progress)
     pkg = cache["apt-utils"]
-    print "Name: %s " % pkg.name
-    print "ID: %s " % pkg.id
-    print "Priority (Candidate): %s " % pkg.candidate.priority
-    print "Priority (Installed): %s " % pkg.installed.priority
-    print "Installed: %s " % pkg.installed.version
-    print "Candidate: %s " % pkg.candidate.version
-    print "CandidateDownloadable: %s" % pkg.candidate.downloadable
-    print "CandidateOrigins: %s" % pkg.candidate.origins
-    print "SourcePkg: %s " % pkg.candidate.source_name
-    print "Section: %s " % pkg.section
-    print "Summary: %s" % pkg.candidate.summary
-    print "Description (formatted) :\n%s" % pkg.candidate.description
-    print "Description (unformatted):\n%s" % pkg.candidate.raw_description
-    print "InstalledSize: %s " % pkg.candidate.installed_size
-    print "PackageSize: %s " % pkg.candidate.size
-    print "Dependencies: %s" % pkg.installed.dependencies
-    print "Recommends: %s" % pkg.installed.recommends
+    print("Name: %s " % pkg.name)
+    print("ID: %s " % pkg.id)
+    print("Priority (Candidate): %s " % pkg.candidate.priority)
+    print("Priority (Installed): %s " % pkg.installed.priority)
+    print("Installed: %s " % pkg.installed.version)
+    print("Candidate: %s " % pkg.candidate.version)
+    print("CandidateDownloadable: %s" % pkg.candidate.downloadable)
+    print("CandidateOrigins: %s" % pkg.candidate.origins)
+    print("SourcePkg: %s " % pkg.candidate.source_name)
+    print("Section: %s " % pkg.section)
+    print("Summary: %s" % pkg.candidate.summary)
+    print("Description (formatted) :\n%s" % pkg.candidate.description)
+    print("Description (unformatted):\n%s" % pkg.candidate.raw_description)
+    print("InstalledSize: %s " % pkg.candidate.installed_size)
+    print("PackageSize: %s " % pkg.candidate.size)
+    print("Dependencies: %s" % pkg.installed.dependencies)
+    print("Recommends: %s" % pkg.installed.recommends)
     for dep in pkg.candidate.dependencies:
-        print ",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
-                       o.pre_depend) for o in dep.or_dependencies)
-    print "arch: %s" % pkg.candidate.architecture
-    print "homepage: %s" % pkg.candidate.homepage
-    print "rec: ", pkg.candidate.record
+        print(",".join("%s (%s) (%s) (%s)" % (o.name, o.version, o.relation,
+                       o.pre_depend) for o in dep.or_dependencies))
+    print("arch: %s" % pkg.candidate.architecture)
+    print("homepage: %s" % pkg.candidate.homepage)
+    print("rec: ", pkg.candidate.record)
 
-    print cache["2vcard"].get_changelog()
+    print(cache["2vcard"].get_changelog())
     for i in True, False:
-        print "Running install on random upgradable pkgs with AutoFix: %s " % i
+        print("Running install on random upgradable pkgs with AutoFix: ", i)
         for pkg in cache:
             if pkg.is_upgradable:
                 if random.randint(0, 1) == 1:
                     pkg.mark_install(i)
-        print "Broken: %s " % cache._depcache.broken_count
-        print "InstCount: %s " % cache._depcache.inst_count
+        print("Broken: %s " % cache._depcache.broken_count)
+        print("InstCount: %s " % cache._depcache.inst_count)
 
-    print
+    print()
     # get a new cache
     for i in True, False:
-        print "Randomly remove some packages with AutoFix: %s" % i
+        print("Randomly remove some packages with AutoFix: %s" % i)
         cache = apt.Cache(progress)
         for name in cache.keys():
             if random.randint(0, 1) == 1:
                 try:
                     cache[name].mark_delete(i)
                 except SystemError:
-                    print "Error trying to remove: %s " % name
-        print "Broken: %s " % cache._depcache.broken_count
-        print "DelCount: %s " % cache._depcache.del_count
+                    print("Error trying to remove: %s " % name)
+        print("Broken: %s " % cache._depcache.broken_count)
+        print("DelCount: %s " % cache._depcache.del_count)
 
 # self-test
 if __name__ == "__main__":

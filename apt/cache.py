@@ -19,6 +19,8 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+from __future__ import print_function
+
 import fnmatch
 import os
 import weakref
@@ -721,31 +723,31 @@ class FilteredCache(object):
 
 
 def cache_pre_changed():
-    print "cache pre changed"
+    print("cache pre changed")
 
 
 def cache_post_changed():
-    print "cache post changed"
+    print("cache post changed")
 
 
 def _test():
     """Internal test code."""
-    print "Cache self test"
+    print("Cache self test")
     apt_pkg.init()
     cache = Cache(apt.progress.text.OpProgress())
     cache.connect("cache_pre_change", cache_pre_changed)
     cache.connect("cache_post_change", cache_post_changed)
-    print ("aptitude" in cache)
+    print(("aptitude" in cache))
     pkg = cache["aptitude"]
-    print pkg.name
-    print len(cache)
+    print(pkg.name)
+    print(len(cache))
 
     for pkgname in cache.keys():
         assert cache[pkgname].name == pkgname
 
     cache.upgrade()
     changes = cache.get_changes()
-    print len(changes)
+    print(len(changes))
     for pkg in changes:
         assert pkg.name
 
@@ -759,28 +761,28 @@ def _test():
     cache._fetch_archives(fetcher, pm)
     #sys.exit(1)
 
-    print "Testing filtered cache (argument is old cache)"
+    print("Testing filtered cache (argument is old cache)")
     filtered = FilteredCache(cache)
     filtered.cache.connect("cache_pre_change", cache_pre_changed)
     filtered.cache.connect("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
-    print len(filtered)
+    print(len(filtered))
     for pkgname in filtered.keys():
         assert pkgname == filtered[pkg].name
 
-    print len(filtered)
+    print(len(filtered))
 
-    print "Testing filtered cache (no argument)"
+    print("Testing filtered cache (no argument)")
     filtered = FilteredCache(progress=apt.progress.base.OpProgress())
     filtered.cache.connect("cache_pre_change", cache_pre_changed)
     filtered.cache.connect("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
-    print len(filtered)
+    print(len(filtered))
     for pkgname in filtered.keys():
         assert pkgname == filtered[pkgname].name
 
-    print len(filtered)
+    print(len(filtered))
 if __name__ == '__main__':
     _test()

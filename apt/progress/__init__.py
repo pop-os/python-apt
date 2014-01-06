@@ -23,5 +23,7 @@ This package provides progress reporting for the python-apt package. The module
 GTK+ applications, and the module 'text' provides classes for terminals, etc.
 """
 
+from __future__ import print_function
+
 
 __all__ = []
