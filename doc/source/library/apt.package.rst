@@ -34,7 +34,8 @@ Dependency Information
 
     .. attribute:: relation
 
-        The relation (>,>=,=,!=,<,<=,)
+        The relation (<,<=,=,!=,>=,>,), as string. Note that the empty string
+        is a valid string as well, if no version is specified.
 
     .. attribute:: version
 

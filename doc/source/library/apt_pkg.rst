@@ -1022,7 +1022,8 @@ Example:
 
     .. attribute:: comp_type
 
-        The type of comparison (>=, =, !=, >, <=), as string.
+        The type of comparison (<,<=,=,!=,>=,>,), as string. Note that the
+        empty string is a valid string as well, if no version is specified.
 
     .. attribute:: dep_type
 

@@ -1457,7 +1457,8 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 
 static PyGetSetDef DependencyGetSet[] = {
    {"comp_type",DependencyGetCompType,0,
-    "The type of comparison, as a string (one of '<', '<=', '=', '>=', '>')."},
+    "The type of comparison, as a string, namely one of:\n"
+    "'<', '<=', '=', '!=', '>=', '>', ''."},
    {"dep_type",DependencyGetDepType,0,
     "The type of the dependency; may be translated"},
    {"dep_type_untranslated",DependencyGetDepTypeUntranslated,0,
