@@ -137,7 +137,6 @@ class TestDependencies(unittest.TestCase):
         self.assertFalse(dstr(">") != ">")
         self.assertFalse(dstr(">") != ">>")
 
-
     def testParseDepends(self):
         """dependencies: Test apt_pkg.ParseDepends()."""
         if not hasattr(apt_pkg, 'ParseDepends'):
