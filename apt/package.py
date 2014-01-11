@@ -72,17 +72,32 @@ class BaseDependency(object):
     """
 
     class __dstr(str):
-        """Helper to make > match >> and < match <<"""
+        """Compare helper for compatibility with old third-party code.
+
+        Old third-party code might still compare the relation with the
+        previously used relations (<<,<=,==,!=,>=,>>,) instead of the curently
+        used ones (<,<=,=,!=,>=,>,). This compare helper lets < match to <<,
+        > match to >> and = match to ==.
+        """
 
         def __eq__(self, other):
-            return str.__eq__(self, other) or str.__eq__(2 * self, other)
+            if str.__eq__(self, other):
+                return True
+            elif str.__eq__(self, '<'):
+                return str.__eq__('<<', other)
+            elif str.__eq__(self, '>'):
+                return str.__eq__('>>', other)
+            elif str.__eq__(self, '='):
+                return str.__eq__('==', other)
+            else:
+                return False
 
         def __ne__(self, other):
             return not self.__eq__(other)
 
     def __init__(self, name, rel, ver, pre, rawtype=None):
         self.name = name
-        self.relation = len(rel) == 1 and self.__dstr(rel) or rel
+        self.relation = self.__dstr(rel)
         self.version = ver
         self.pre_depend = pre
         self.rawtype = rawtype
