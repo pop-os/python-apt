@@ -191,7 +191,7 @@ class PyPkgManager : public pkgDPkgPM {
 		                               StatusFd));
 	}
 	virtual void Reset() {
-		CppPyRef(PyObject_CallMethod(pyinst, "reset", NULL));
+		Py_XDECREF(PyObject_CallMethod(pyinst, "reset", NULL));
 	}
 	
 public:
