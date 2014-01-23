@@ -156,7 +156,7 @@ class TestAptSources(unittest.TestCase):
         assert sources.list[8].dist == "natty"
         assert sources.list[8].comps == ["main"]
         assert sources.list[8].line.strip() == str(sources.list[8])
-        assert not sources.list[8].trusted
+        assert sources.list[8].trusted is None
 
     def testMultipleOptions(self):
         """aptsources: Test multi-arch parsing"""
