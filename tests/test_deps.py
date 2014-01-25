@@ -6,6 +6,7 @@
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.
 """Unit tests for verifying the correctness of check_dep, etc in apt_pkg."""
+import itertools
 import unittest
 
 import apt_pkg
@@ -114,28 +115,18 @@ class TestDependencies(unittest.TestCase):
     def test_dstr(self):
         """Test apt.package.BaseDependency.__dstr"""
         dstr = apt.package.BaseDependency._BaseDependency__dstr
-        self.assertEqual(dstr("<"), "<<")
-        self.assertEqual(dstr("<"), "<")
-        self.assertEqual("<<", dstr("<"))
-        self.assertEqual("<", dstr("<"))
-        self.assertEqual(dstr(">"), ">>")
-        self.assertEqual(dstr(">"), ">")
-        self.assertEqual(">>", dstr(">"))
-        self.assertEqual(">", dstr(">"))
-        self.assertNotEqual(dstr(">"), "<")
-        self.assertNotEqual(dstr(">"), "<=")
-        self.assertNotEqual(dstr(">"), "<<")
-        self.assertNotEqual(dstr(">"), "!=")
-        self.assertNotEqual(dstr(">"), "=")
-        self.assertNotEqual(dstr(">"), "<")
-        self.assertNotEqual(dstr(">"), "<=")
-        self.assertNotEqual(dstr(">"), "<<")
-        self.assertNotEqual(dstr(">"), "!=")
-        self.assertNotEqual(dstr(">"), "=")
-        self.assertFalse(dstr("<") != "<")
-        self.assertFalse(dstr("<") != "<<")
-        self.assertFalse(dstr(">") != ">")
-        self.assertFalse(dstr(">") != ">>")
+        equal = {"<": {"<<", "<"},
+                 "=": {"==", "="},
+                 ">": {">>", ">"}}
+        operators = ["<<", "<", "<=", "!=", "=", "==", ">=", ">", ">>"]
+
+        for a, b in itertools.product(equal.keys(), operators):
+            if b in equal[a]:
+                self.assertEqual(dstr(a), b)
+                self.assertEqual(b, dstr(a))
+            else:
+                self.assertNotEqual(dstr(a), b)
+                self.assertNotEqual(b, dstr(a))
 
     def testParseDepends(self):
         """dependencies: Test apt_pkg.ParseDepends()."""
