@@ -76,7 +76,7 @@ Package: python-apt-doc
 Priority: optional
 Architecture: all
 Section: doc
-Depends: libjs-jquery, libjs-underscore, ${misc:Depends}
+Depends: libjs-jquery, libjs-underscore, ${misc:Depends}, ${sphinxdoc:Depends}
 Enhances: python-apt
 Replaces: python-apt (<< 0.7.94)
 Description: Python interface to libapt-pkg (API documentation)

@@ -6,7 +6,7 @@ export PATH := $(CURDIR)/utils:$(PATH)
 export pyversions := $(CURDIR)/utils/pyversions
 
 %:
-	dh $@ --with python2,python3
+	dh $@ --with python2,python3,sphinxdoc
 
 override_dh_auto_build:
 	dh_auto_build
