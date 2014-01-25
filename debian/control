@@ -17,8 +17,6 @@ Build-Depends: apt (>= 0.9.6),
                python3-all-dbg (>= 3.3),
                python-distutils-extra (>= 2.0),
                python-sphinx (>= 0.5),
-               python-debian,
-               python-unittest2,
                pep8,
                pyflakes
 Vcs-Git: git://anonscm.debian.org/apt/python-apt.git
