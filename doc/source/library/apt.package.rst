@@ -23,27 +23,8 @@ The Version class
 
 Dependency Information
 ----------------------
-.. class:: BaseDependency
-
-    The :class:`BaseDependency` class defines various attributes for accessing
-    the parts of a dependency. The attributes are as follows:
-
-    .. attribute:: name
-
-        The name of the dependency
-
-    .. attribute:: relation
-
-        The relation (<,<=,=,!=,>=,>,), as string. Note that the empty string
-        is a valid string as well, if no version is specified.
-
-    .. attribute:: version
-
-        The version or None.
-
-    .. attribute:: pre_depend
-
-        Boolean value whether this is a pre-dependency.
+.. autoclass:: BaseDependency
+    :members:
 
 .. class:: Dependency
 

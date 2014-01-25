@@ -61,15 +61,7 @@ class FetchError(Exception):
 
 
 class BaseDependency(object):
-    """A single dependency.
-
-    Attributes defined here:
-        name       - The name of the dependency
-        relation   - The relation (<,<=,=,!=,>=,>,)
-        version    - The version depended on
-        rawtype   - The type of the dependendy (e.g. 'Recommends')
-        pre_depend - Boolean value whether this is a pre-dependency.
-    """
+    """A single dependency."""
 
     class __dstr(str):
         """Compare helper for compatibility with old third-party code.
@@ -95,12 +87,45 @@ class BaseDependency(object):
         def __ne__(self, other):
             return not self.__eq__(other)
 
-    def __init__(self, name, rel, ver, pre, rawtype=None):
-        self.name = name
-        self.relation = self.__dstr(rel)
-        self.version = ver
-        self.pre_depend = pre
-        self.rawtype = rawtype
+    def __init__(self, dep):
+        self._dep = dep  # apt_pkg.Dependency
+
+    @property
+    def name(self):
+        """The name of the target package."""
+        return self._dep.target_pkg.name
+
+    @property
+    def relation(self):
+        """The relation (<, <=, !=, =, >=, >, ).
+
+        Note that the empty string is a valid string as well, if no version
+        is specified.
+        """
+        return self.__dstr(self._dep.comp_type)
+
+    @property
+    def version(self):
+        """The target version or None.
+
+        It is None if and only if relation is the empty string."""
+        return self._dep.target_ver
+
+    @property
+    def rawtype(self):
+        """Type of the dependency.
+
+        This should be one of 'Breaks', 'Conflicts', 'Depends', 'Enhances',
+        'PreDepends', 'Recommends', 'Replaces', 'Suggests'.
+
+        Additional types might be added in the future.
+        """
+        return self._dep.dep_type_untranslated
+
+    @property
+    def pre_depend(self):
+        """Whether this is a PreDepends."""
+        return self._dep.dep_type_untranslated == 'PreDepends'
 
     def __repr__(self):
         return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
@@ -433,10 +458,7 @@ class Version(object):
                 for dep_ver_list in depends[type_]:
                     base_deps = []
                     for dep_or in dep_ver_list:
-                        base_deps.append(BaseDependency(dep_or.target_pkg.name,
-                                         dep_or.comp_type, dep_or.target_ver,
-                                         (type_ == "PreDepends"),
-                                         rawtype=type_))
+                        base_deps.append(BaseDependency(dep_or))
                     depends_list.append(Dependency(base_deps))
             except KeyError:
                 pass
