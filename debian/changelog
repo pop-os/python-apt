@@ -1,15 +1,18 @@
-python-apt (0.9.2) UNRELEASED; urgency=low
+python-apt (0.9.2) unstable; urgency=medium
 
   [ Michael Vogt ]
   * apt/cache.py:
     - when using apt.Cache(rootdir=/some/dir) only read the APT
       configuration from this rootdir instead of /etc (closes: #728274)
+  * make pep8 test part of the unittests
+  * add pyflakes test
+  * add .travis.yml & update python3 dependency to 3.3
 
   [ Barry Warsaw ]
   * debian/tests/control: Add python-all and python3-all as Depends for the
     autopkgtests so all the supported Python versions are pulled in.
     (closes: #734500)
-  
+
   [ Michael Schaller]
   * apt/cache.py:
     - Fixed PEP8 issues
@@ -19,7 +22,31 @@ python-apt (0.9.2) UNRELEASED; urgency=low
     - Fixed pyflakes issue: Removed unused import 'warnings'
     - Improved readability and documentation of BaseDependency.__dstr().
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Sat, 23 Nov 2013 08:49:51 +0100
+  [ Julian Andres Klode ]
+  * apt/cache.py: Call os.path.abspath() on a supplied rootdir (LP: #792295)
+  * apt/package.py: Fix BaseDependency.__dstr.__ne__()
+  * apt/package.py: Pass an apt_pkg.Dependency to BaseDependency
+  * tests: Add back test_hashsums from old and update
+  * Style fixes:
+    - Style fix: Do not use "is True" / "is False"
+    - debian/control: Replace a tab with spaces
+    - tests/test_deps.py: Remove an invalid blank line
+  * Use a single code base for Python 2 and 3
+    - Use print_function everywhere
+    - Drop support for Python 2.6
+    - tests: Remove checks for Python older than 2.7
+  * Documentation fixes:
+    - apt, doc: Fix the list of comp_type values
+    - Unify list of comparison type values everywhere
+  * Static analysis fixes:
+    - (cppcheck) python/pkgmanager.cc: Do not create temporary CppPyRef
+  * Packaging changes:
+    - debian/README.source: Drop it, it's useless bzr
+    - debian/gbp.conf: Set sign-tags = True
+    - debian/control: Set Standards-Version to 3.9.5
+    - debian/control: Drop python-{unittest2,debian} build deps
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 25 Jan 2014 18:18:38 +0100
 
 python-apt (0.9.1) unstable; urgency=low
 
