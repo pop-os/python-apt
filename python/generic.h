@@ -250,7 +250,7 @@ inline PyObject *MkPyNumber(long long o) { return PyLong_FromLongLong(o); }
 inline PyObject *MkPyNumber(long o) { return PyInt_FromLong(o); }
 inline PyObject *MkPyNumber(int o) { return PyInt_FromLong(o); }
 inline PyObject *MkPyNumber(short o) { return PyInt_FromLong(o); }
-inline PyObject *MkPyNumber(char o) { return PyInt_FromLong(o); }
+inline PyObject *MkPyNumber(signed char o) { return PyInt_FromLong(o); }
 
 inline PyObject *MkPyNumber(double o) { return PyFloat_FromDouble(o); }
 
