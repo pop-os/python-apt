@@ -13,7 +13,7 @@ import unittest
 class TestAptPolicy(unittest.TestCase):
 
     def test_apt_policy_lowlevel(self):
-        return # TODO: Make tests independent of system state
+        return  # TODO: Make tests independent of system state
         # get a policy
         cache = apt.Cache()
         policy = cache._depcache.policy
@@ -30,7 +30,7 @@ class TestAptPolicy(unittest.TestCase):
                 self.assertTrue(policy.get_priority(pkgfile) < 1001)
 
     def test_apt_policy_highlevel(self):
-        return # TODO: Make tests independent of system state
+        return  # TODO: Make tests independent of system state
         cache = apt.Cache()
         pkg = cache["apt"]
         self.assertTrue(pkg.candidate.policy_priority > 1 and
