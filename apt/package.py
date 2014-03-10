@@ -452,7 +452,14 @@ class Version(object):
         return Record(self._records.record)
 
     def get_dependencies(self, *types):
-        """Return a list of Dependency objects for the given types."""
+        """Return a list of Dependency objects for the given types.
+
+        Multiple types can be specified. Possible types are:
+        'Breaks', 'Conflicts', 'Depends', 'Enhances', 'PreDepends',
+        'Recommends', 'Replaces', 'Suggests'
+
+        Additional types might be added in the future.
+        """
         depends_list = []
         depends = self._cand.depends_list
         for type_ in types:
