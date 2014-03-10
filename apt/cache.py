@@ -85,16 +85,13 @@ class Cache(object):
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
         if rootdir:
             rootdir = os.path.abspath(rootdir)
-            # clear old config first (Bug#728274)
-            apt_pkg.config.clear("APT")
-            apt_pkg.config.set("Dir", rootdir)
-            apt_pkg.init_config()
             if os.path.exists(rootdir + "/etc/apt/apt.conf"):
                 apt_pkg.read_config_file(apt_pkg.config,
                                          rootdir + "/etc/apt/apt.conf")
             if os.path.isdir(rootdir + "/etc/apt/apt.conf.d"):
                 apt_pkg.read_config_dir(apt_pkg.config,
                                         rootdir + "/etc/apt/apt.conf.d")
+            apt_pkg.config.set("Dir", rootdir)
             apt_pkg.config.set("Dir::State::status",
                                rootdir + "/var/lib/dpkg/status")
             # also set dpkg to the rootdir path so that its called for the
