@@ -106,9 +106,11 @@ class BaseDependency(object):
 
     @property
     def version(self):
-        """The target version or None.
+        """The target version or an empty string.
 
-        It is None if and only if relation is the empty string."""
+        Note that the version is only an empty string in case of an unversioned
+        dependency. In this case the relation is also an empty string.
+        """
         return self._dep.target_ver
 
     @property
