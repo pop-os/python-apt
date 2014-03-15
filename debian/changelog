@@ -1,3 +1,16 @@
+python-apt (0.9.3.3) unstable; urgency=medium
+
+  [ Steve Langasek ]
+  * aptsources/sourceslist.py: ensure that our sources are opened with UTF-8
+    encoding, regardless of the current locale, and handle the sources lines
+    as Unicode internally for consistency between python2 and python3.
+    LP: #1069019.
+
+  [ Brian Murray ]
+  * Fix pep8 error.
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 15 Mar 2014 18:53:58 +0100
+
 python-apt (0.9.3.2) unstable; urgency=high
 
   * Revert "* apt/cache.py:" (rootdir change) (Closes: #741251) (LP: #1288171)
