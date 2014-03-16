@@ -308,24 +308,21 @@ bool PyFetchProgress::Pulse(pkgAcquire * Owner)
 
 void PyInstallProgress::StartUpdate()
 {
-   if (!RunSimpleCallback("startUpdate"))
-       RunSimpleCallback("start_update");
+   RunSimpleCallback("start_update");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::UpdateInterface()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("updateInterface"))
-       RunSimpleCallback("update_interface");
+   RunSimpleCallback("update_interface");
    PyCbObj_BEGIN_ALLOW_THREADS
 }
 
 void PyInstallProgress::FinishUpdate()
 {
    PyCbObj_END_ALLOW_THREADS
-   if (!RunSimpleCallback("finishUpdate"))
-       RunSimpleCallback("finish_update");
+   RunSimpleCallback("finish_update");
 }
 
 pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
