@@ -362,6 +362,9 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       child_id = fork();
    }
 
+   PyObject *child_o = PyLong_FromLong(child_id);
+   PyObject_SetAttrString(callbackInst, "child_pid", child_o);
+   Py_DECREF(child_o);
 
 #if 0 // FIXME: this needs to be merged into apt to support medium swaping
    if (child_id == 0) {
