@@ -17,7 +17,9 @@
 #  along with this program; if not, write to the Free Software
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
+from __future__ import print_function
 import collections
+import sys
 import urllib2
 from debian_bundle import deb822
 
@@ -36,6 +38,10 @@ for mirror in deb822.Deb822.iter_paragraphs(masterlist):
             mirrors[country].add("%s://%s%s" % (proto, site,
                                                 mirror["Archive-%s" % proto]))
 
+if len(mirrors) == 0:
+    print("E: Could not read the mirror list due to some unknown issue",
+          file=sys.stderr)
+    sys.exit(1)
 for country in sorted(mirrors):
-    print "#LOC:%s" % country
-    print "\n".join(sorted(mirrors[country]))
+    print("#LOC:%s" % country)
+    print("\n".join(sorted(mirrors[country])))

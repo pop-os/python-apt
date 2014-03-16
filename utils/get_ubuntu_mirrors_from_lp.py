@@ -24,6 +24,7 @@
 #  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 #  USA
 
+import sys
 import feedparser
 
 d = feedparser.parse("https://launchpad.net/ubuntu/+archivemirrors-rss")
@@ -40,6 +41,12 @@ for entry in d.entries:
 
 
 keys = sorted(countries)
+
+if len(keys) == 0:
+    print("E: Could not read the mirror list due to some issue"
+          " -- status code: %s" % d.status, file=sys.stderr)
+    sys.exit(1)
+
 print("mirror://mirrors.ubuntu.com/mirrors.txt")
 for country in keys:
     print("#LOC:%s" % country)
