@@ -39,8 +39,8 @@ for mirror in deb822.Deb822.iter_paragraphs(masterlist):
                                                 mirror["Archive-%s" % proto]))
 
 if len(mirrors) == 0:
-    print("E: Could not read the mirror list due to some unknown issue",
-          file=sys.stderr)
+    sys.stderr.write("E: Could not read the mirror list due to "
+                     "some unknown issue\n")
     sys.exit(1)
 for country in sorted(mirrors):
     print("#LOC:%s" % country)

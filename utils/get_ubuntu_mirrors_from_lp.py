@@ -43,8 +43,8 @@ for entry in d.entries:
 keys = sorted(countries)
 
 if len(keys) == 0:
-    print("E: Could not read the mirror list due to some issue"
-          " -- status code: %s" % d.status, file=sys.stderr)
+    sys.stderr.write("E: Could not read the mirror list due to some issue"
+                     " -- status code: %s\n" % d.status)
     sys.exit(1)
 
 print("mirror://mirrors.ubuntu.com/mirrors.txt")
