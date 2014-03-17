@@ -120,6 +120,12 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
 
+    @unittest.skipIf(apt_pkg.version_compare(apt_pkg.VERSION, "0.9.15.4~") < 0,
+                     "APT too old for uncompressed control.tar/data.tar")
+    def test_uncompressed_data(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/data-tar.deb")
+        self.assertEqual(deb.filelist, ["./", "usr/", "usr/bin/"])
+
     def test_check_exception(self):
         deb = apt.debfile.DebPackage("./data/test_debs/data-tar-xz.deb")
         self.assertRaises(AttributeError, lambda: deb.missing_deps)

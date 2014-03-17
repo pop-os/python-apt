@@ -53,8 +53,8 @@ class TestPath(unittest.TestCase):
         self.assertTrue(archive[b"debian-binary"])
         self.assertTrue(archive[u"debian-binary"])
 
-        tar = archive.gettar(u"control.tar.gz", "gzip")
-        tar = archive.gettar(b"control.tar.gz", "gzip")
+        tar = archive.gettar(u"control.tar.xz", "xz")
+        tar = archive.gettar(b"control.tar.xz", "xz")
 
         tar.extractall(self.dir_unicode)
         tar.extractall(self.dir_bytes)
@@ -63,8 +63,8 @@ class TestPath(unittest.TestCase):
         tar.extractdata(b"control")
         tar.extractdata(u"control")
 
-        apt_inst.TarFile(os.path.join(self.dir_unicode, u"control.tar.gz"))
-        apt_inst.TarFile(os.path.join(self.dir_bytes, b"control.tar.gz"))
+        apt_inst.TarFile(os.path.join(self.dir_unicode, u"control.tar.xz"))
+        apt_inst.TarFile(os.path.join(self.dir_bytes, b"control.tar.xz"))
 
     def test_configuration(self):
         with open(self.file_unicode, 'w') as config:

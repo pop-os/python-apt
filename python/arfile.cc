@@ -523,6 +523,45 @@ static PyObject *_gettar(PyDebFileObject *self, const ARArchive::Member *m,
     return tarfile;
 }
 
+/*
+ * Mostly copy-paste from APT
+ */
+static PyObject *debfile_get_tar(PyDebFileObject *self, const char *Name)
+{
+    // Get the archive member
+    const ARArchive::Member *Member = NULL;
+    const ARArchive &AR = *self->Object;
+    std::string Compressor;
+
+    std::vector<APT::Configuration::Compressor> compressor =
+        APT::Configuration::getCompressors();
+    for (std::vector<APT::Configuration::Compressor>::const_iterator c =
+         compressor.begin(); c != compressor.end(); ++c) {
+        Member = AR.FindMember(std::string(Name).append(c->Extension).c_str());
+        if (Member == NULL)
+            continue;
+        Compressor = c->Binary;
+        break;
+    }
+
+    if (Member == NULL)
+        Member = AR.FindMember(std::string(Name).c_str());
+
+    if (Member == NULL) {
+        std::string ext = std::string(Name) + ".{";
+        for (std::vector<APT::Configuration::Compressor>::const_iterator c =
+             compressor.begin(); c != compressor.end(); ++c) {
+            if (!c->Extension.empty())
+                ext.append(c->Extension.substr(1));
+        }
+        ext.append("}");
+        _error->Error(("Internal error, could not locate member %s"),
+                      ext.c_str());
+        return HandleErrors();
+    }
+
+    return _gettar(self, Member, Compressor.c_str());
+}
 
 
 static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
@@ -532,34 +571,13 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
         return NULL;
 
     // DebFile
-    self->control = _gettar(self, self->Object->FindMember("control.tar.gz"),
-                            "gzip");
-    if (!self->control)
-        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
-                            "control.tar.gz");
+    self->control = debfile_get_tar(self, "control.tar");
+    if (self->control == NULL)
+        return NULL;
 
-    // try all compression types
-    std::vector<std::string> types = APT::Configuration::getCompressionTypes();
-    for (std::vector<std::string>::const_iterator t = types.begin();
-         t != types.end(); ++t) {
-        std::string member = std::string("data.tar.").append(*t);
-        std::string comp = _config->Find(std::string("Acquire::CompressionTypes::").append(*t));
-        self->data = _gettar(self, self->Object->FindMember(member.c_str()),
-                             comp.c_str());
-        if (self->data)
-            break;
-    }
-    // no data found, we need to
-    if (!self->data) {
-        std::string error;
-        for (std::vector<std::string>::const_iterator t = types.begin();
-             t != types.end(); ++t)
-            error.append(*t + ",");
-        return PyErr_Format(PyExc_SystemError,
-                            "No debian archive, missing data.tar.{%s}",
-                            error.c_str());
-    }
-
+    self->data = debfile_get_tar(self, "data.tar");
+    if (self->data == NULL)
+        return NULL;
 
     const ARArchive::Member *member = self->Object->FindMember("debian-binary");
     if (!member)
