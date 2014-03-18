@@ -31,7 +31,6 @@ import os.path
 import re
 import shutil
 import time
-import io
 
 import apt_pkg
 from .distinfo import DistInfo
@@ -235,26 +234,25 @@ class SourceEntry(object):
         """ return the current line as string """
         if self.invalid:
             return self.line
-        line = u""
+        line = ""
         if self.disabled:
-            line = u"# "
+            line = "# "
 
         line += self.type
 
         if self.architectures and self.trusted is not None:
-            line += u" [arch=%s trusted=%s]" % (
-                u",".join(self.architectures),
-                u"yes" if self.trusted else u"no")
+            line += " [arch=%s trusted=%s]" % (
+                ",".join(self.architectures), "yes" if self.trusted else "no")
         elif self.trusted is not None:
-            line += u" [trusted=%s]" % (u"yes" if self.trusted else u"no")
+            line += " [trusted=%s]" % ("yes" if self.trusted else "no")
         elif self.architectures:
-            line += u" [arch=%s]" % u",".join(self.architectures)
-        line += u" %s %s" % (self.uri, self.dist)
+            line += " [arch=%s]" % ",".join(self.architectures)
+        line += " %s %s" % (self.uri, self.dist)
         if len(self.comps) > 0:
-            line += u" " + u" ".join(self.comps)
+            line += " " + " ".join(self.comps)
         if self.comment != "":
-            line += u" #" + self.comment
-        line += u"\n"
+            line += " #" + self.comment
+        line += "\n"
         return line
 
 
@@ -345,13 +343,13 @@ class SourcesList(object):
         # there isn't any matching source, so create a new line and parse it
         line = type
         if architectures:
-            line += u" [arch=%s]" % u",".join(architectures)
-        line += u" %s %s" % (uri, dist)
+            line += " [arch=%s]" % ",".join(architectures)
+        line += " %s %s" % (uri, dist)
         for c in comps:
-            line = line + u" " + c
+            line = line + " " + c
         if comment != "":
-            line = u"%s #%s\n" % (line, comment)
-        line = line + u"\n"
+            line = "%s #%s\n" % (line, comment)
+        line = line + "\n"
         new_entry = SourceEntry(line)
         if file is not None:
             new_entry.file = file
@@ -389,7 +387,7 @@ class SourcesList(object):
     def load(self, file):
         """ (re)load the current sources """
         try:
-            with io.open(file, "r", encoding="utf-8") as f:
+            with open(file, "r") as f:
                 for line in f:
                     source = SourceEntry(line, file)
                     self.list.append(source)
@@ -407,15 +405,14 @@ class SourcesList(object):
                 "# Remember that you can only use http, ftp or file URIs\n"
                 "# CDROMs are managed through the apt-cdrom tool.\n")
 
-            with io.open(path, "w", encoding="utf-8") as f:
+            with open(path, "w") as f:
                 f.write(header)
             return
 
         try:
             for source in self.list:
                 if source.file not in files:
-                    files[source.file] = io.open(source.file, "w",
-                                                 encoding="utf-8")
+                    files[source.file] = open(source.file, "w")
                 files[source.file].write(source.str())
         finally:
             for f in files:
