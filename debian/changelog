@@ -1,3 +1,15 @@
+python-apt (0.9.3.4) unstable; urgency=medium
+
+  * python/progress.cc: Fix InstallProgress to set child_pid (LP: #1177720)
+  * python/progress.cc: Remove invalid checks for mixedCase methods
+  * utils/get_*_mirrors*.py: Ensure failure if no mirrors were read
+  * utils/get_*_mirrors*.py: Use sys.stderr.write instead of print
+  * Support all compressors for data.tar/control.tar (Closes: #718330)
+  * Revert "aptsources/sourceslist.py: ensure that our sources are opened with UTF-8"
+    (Closes: #742118)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 20 Mar 2014 16:48:12 +0100
+
 python-apt (0.9.3.3) unstable; urgency=medium
 
   [ Steve Langasek ]
