@@ -16,12 +16,6 @@ import sys
 import tempfile
 import unittest
 
-if sys.version_info[0] == 2 and sys.version_info[1] == 6:
-    from unittest2 import TestCase
-    TestCase  # pyflakes
-else:
-    from unittest import TestCase
-
 
 from test_all import get_library_dir
 libdir = get_library_dir()
@@ -51,7 +45,7 @@ def get_open_file_descriptors():
     return set(map(int, fds))
 
 
-class TestAptCache(TestCase):
+class TestAptCache(unittest.TestCase):
     """ test the apt cache """
 
     def setUp(self):
