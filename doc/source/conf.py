@@ -213,8 +213,8 @@ htmlhelp_basename = 'python-aptdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source index, target name, title, author, document class [howto/manual]).
 latex_documents = [
-    ('contents', 'python-apt.tex', ur'python-apt Documentation',
-     ur'Julian Andres Klode <jak@debian.org>', 'manual'),
+    ('contents', 'python-apt.tex', u'python-apt Documentation',
+     u'Julian Andres Klode <jak@debian.org>', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
