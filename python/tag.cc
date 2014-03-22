@@ -474,6 +474,8 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 #if PY_MAJOR_VERSION >= 3
    if (fileno != -1) {
       New->Encoding = PyObject_GetAttr(File, PyUnicode_FromString("encoding"));
+      if (!New->Encoding)
+         PyErr_Clear();
       if (New->Encoding && !PyUnicode_Check(New->Encoding))
          New->Encoding = 0;
    } else
