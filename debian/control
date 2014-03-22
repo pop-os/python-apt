@@ -4,7 +4,7 @@ Priority: standard
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.9.5
-XS-Python-Version: >= 2.7
+X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.3
 Build-Depends: apt (>= 0.9.6),
                apt-utils,
@@ -58,7 +58,6 @@ Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         wajig (<< 2.0.46)
 Provides: ${python:Provides}
 Suggests: python-apt-dbg, python-gtk2, python-vte, python-apt-doc
-XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -93,7 +92,6 @@ Multi-Arch: allowed
 Section: debug
 Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
-XB-Python-Version: ${python:Versions}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
