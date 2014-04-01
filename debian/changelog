@@ -1,3 +1,15 @@
+python-apt (0.9.3.5) unstable; urgency=medium
+
+  * utils/get_ubuntu_mirrors.py: Drop, its unused and broken
+  * doc/source/conf.py: Do not use 'u' and 'r' prefixes together
+  * tests: Drop some more Python 2.6 cruft
+  * debian/control: Drop X{B,S}-Python-Version and use X-Python-Version
+  * debian/pycompat: Drop, it's not used anymore
+  * python/tag.cc: Ignore missing 'encoding' attribute in file objects
+  * apt/package.py: Do not shadow _
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 02 Apr 2014 00:37:27 +0200
+
 python-apt (0.9.3.4) unstable; urgency=medium
 
   * python/progress.cc: Fix InstallProgress to set child_pid (LP: #1177720)
