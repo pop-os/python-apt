@@ -436,7 +436,7 @@ class Version(object):
         """
         priority = 0
         policy = self.package._pcache._depcache.policy
-        for (packagefile, _) in self._cand.file_list:
+        for (packagefile, _unused) in self._cand.file_list:
             priority = max(priority, policy.get_priority(packagefile))
         return priority
 
@@ -493,7 +493,7 @@ class Version(object):
     def origins(self):
         """Return a list of origins for the package version."""
         origins = []
-        for (packagefile, _) in self._cand.file_list:
+        for (packagefile, _unused) in self._cand.file_list:
             origins.append(Origin(self.package, packagefile))
         return origins
 
@@ -544,7 +544,7 @@ class Version(object):
 
         .. versionadded:: 0.7.10
         """
-        for (packagefile, _) in self._cand.file_list:
+        for (packagefile, _unused) in self._cand.file_list:
             indexfile = self.package._pcache._list.find_index(packagefile)
             if indexfile:
                 yield indexfile.archive_uri(self._records.filename)
