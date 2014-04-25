@@ -1,3 +1,16 @@
+python-apt (0.9.3.6) unstable; urgency=medium
+
+  [ Johannes Schauer ]
+  * Add support for build profiles (Closes: 744243)
+
+  [ Michael Vogt ]
+  * debian/control: 
+    - update build-depends on libapt-pkg-dev for build-profile support
+  * data/templates/Ubuntu.info.in:
+    - add ubuntu utopic
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 25 Apr 2014 13:00:08 +0200
+
 python-apt (0.9.3.5) unstable; urgency=medium
 
   * utils/get_ubuntu_mirrors.py: Drop, its unused and broken
