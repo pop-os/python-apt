@@ -156,8 +156,8 @@ static const char *parse_src_depends_doc =
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
 "will be stripped from the full package name";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
-                                  bool ParseArchFlags, std::string name,
-                                  bool debStyle=false)
+                                  bool ParseArchFlags, bool ParseRestrictionsList,
+                                  std::string name, bool debStyle=false)
 {
    std::string Package;
    std::string Version;
@@ -180,7 +180,8 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 	 break;
 
       Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
-					  ParseArchFlags, StripMultiArch);
+					  ParseArchFlags, StripMultiArch,
+                                          ParseRestrictionsList);
       if (Start == 0)
       {
 	 PyErr_SetString(PyExc_ValueError,"Problem Parsing Dependency");
@@ -213,11 +214,11 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
 }
 static PyObject *ParseDepends(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self, Args, false, "parse_depends");
+   return RealParseDepends(Self, Args, false, false, "parse_depends");
 }
 static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
 {
-   return RealParseDepends(Self, Args, true, "parse_src_depends");
+   return RealParseDepends(Self, Args, true, true, "parse_src_depends");
 }
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
