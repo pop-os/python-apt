@@ -75,13 +75,13 @@ static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
-static char *doc_PkgSrcRecordsNext =
-    "next() -> bool\n\n"
-    "Go to the source package. Each call moves\n"
+static char *doc_PkgSrcRecordsStep =
+    "step() -> bool\n\n"
+    "Step to the next source package. Each call moves\n"
     "the position of the records parser forward. If there are no\n"
     "more records, return None. If the lookup failed this way,\n"
     "access to any of the attributes will result in an AttributeError.";
-static PyObject *PkgSrcRecordsNext(PyObject *Self,PyObject *Args)
+static PyObject *PkgSrcRecordsStep(PyObject *Self,PyObject *Args)
 {
    PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
 
@@ -102,7 +102,7 @@ static PyMethodDef PkgSrcRecordsMethods[] =
 {
    {"lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
-   {"next",PkgSrcRecordsNext,METH_VARARGS,doc_PkgSrcRecordsNext},
+   {"step",PkgSrcRecordsStep,METH_VARARGS,doc_PkgSrcRecordsStep},
    {}
 };
 
