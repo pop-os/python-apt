@@ -88,7 +88,7 @@ static PyObject *PkgSrcRecordsStep(PyObject *Self,PyObject *Args)
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
 
-   Struct.Last = (pkgSrcRecords::Parser*)Struct.Records->Next();
+   Struct.Last = (pkgSrcRecords::Parser*)Struct.Records->Step();
    if (Struct.Last == 0) {
       Struct.Records->Restart();
       Py_INCREF(Py_None);
@@ -102,7 +102,7 @@ static PyMethodDef PkgSrcRecordsMethods[] =
 {
    {"lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
-   {"step",PkgSrcRecordsNext,METH_VARARGS,doc_PkgSrcRecordsNext},
+   {"step",PkgSrcRecordsStep,METH_VARARGS,doc_PkgSrcRecordsStep},
    {}
 };
 
