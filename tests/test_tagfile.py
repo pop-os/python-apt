@@ -132,5 +132,29 @@ class TestTagFile(unittest.TestCase):
             self.assertEqual(
                 value.encode("ISO-8859-1"), tagfile.section["Maintainer"])
 
+    @unittest.skipIf(not os.path.exists("/proc/self/fd"), "need /proc/self/fd")
+    def test_leak(self):
+        # clenaup gc first
+        import gc
+        gc.collect()
+        # see what fds we have
+        fds = os.listdir("/proc/self/fd")
+        testfile = __file__
+        tagf = apt_pkg.TagFile(testfile)
+        tagf.step()
+        print("1", tagf.section)
+        sec = tagf.section
+        print("2", sec)
+        print(gc.get_referrers(sec))
+        self.assertTrue(str(tagf.section).startswith("#!/usr/bin/python"))
+        del tagf
+        print(gc.get_referrers(sec))
+        # sec is still ok
+        print("42", sec)
+        self.assertTrue(str(sec).startswith("#!/usr/bin/python"))
+        # ensure fd is closed
+        self.assertEqual(fds, os.listdir("/proc/self/fd"))
+
+
 if __name__ == "__main__":
     unittest.main()
