@@ -1,3 +1,13 @@
+python-apt (0.9.3.7) UNRELEASED; urgency=medium
+
+  * Include "Blankon" template (Closes: #747498)
+  * Add apt_pkg.SourceRecords.step() to step through all SrcRecords
+  * debian/control:
+    - update build-dependency for libapt-pkg-dev to 1.0.4 for
+      pkgSourceRecords::Step()
+
+ -- Michael Vogt <mvo@debian.org>  Tue, 10 Jun 2014 18:23:33 +0200
+
 python-apt (0.9.3.6) unstable; urgency=medium
 
   [ Johannes Schauer ]
