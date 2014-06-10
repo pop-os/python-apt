@@ -290,8 +290,6 @@ static PyObject *TagSecStr(PyObject *Self)
    const char *Start;
    const char *Stop;
    GetCpp<pkgTagSection>(Self).GetSection(Start,Stop);
-   printf("%x\n", &GetCpp<pkgTagSection>(Self));
-   std::cerr << Start << std::endl;
    return TagSecString_FromStringAndSize(Self,Start,Stop-Start);
 }
 									/*}}}*/
@@ -490,6 +488,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    New->Section = (TagSecData*)(&PyTagSection_Type)->tp_alloc(&PyTagSection_Type, 0);
    new (&New->Section->Object) pkgTagSection();
    New->Section->Owner = New;
+   Py_INCREF(New->Section->Owner);
    New->Section->Data = 0;
    New->Section->Bytes = Bytes;
 #if PY_MAJOR_VERSION >= 3
