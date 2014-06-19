@@ -338,11 +338,14 @@ static PyObject *TagFileNext(PyObject *Self)
    const char *Start;
    const char *Stop;
    Obj.Section->Object.GetSection(Start,Stop);
-   // Duplicate the data
-   Obj.Section->Data = new char[Stop-Start];
-   strncpy(Obj.Section->Data, Start, Stop-Start);
+   // Duplicate the data and
+   //  append a \n because GetSection() will only give us a single \n
+   //  but Scan() needs \n\n to work
+   Obj.Section->Data = new char[Stop-Start+2];
+   snprintf(Obj.Section->Data, Stop-Start+2, "%s\n", Start);
    // Rescan it
-   Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start);
+   if(Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start) == false)
+      return HandleErrors(NULL);
 
    Py_INCREF(Obj.Section);
    return HandleErrors(Obj.Section);
