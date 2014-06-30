@@ -1,3 +1,10 @@
+python-apt (0.9.3.8) unstable; urgency=medium
+
+  * pep8 fixes to fix autopkgtest failure with the most recent
+    pep8 package
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 30 Jun 2014 13:31:29 +0200
+
 python-apt (0.9.3.7) unstable; urgency=medium
 
   * Include "Blankon" template (Closes: #747498)
