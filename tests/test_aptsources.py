@@ -77,9 +77,9 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy" and
-                "multiverse" in entry.comps):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    entry.dist == "edgy" and
+                    "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
 
@@ -90,10 +90,10 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "natty" and
-                entry.architectures == [] and
-                "multiverse" in entry.comps):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    entry.dist == "natty" and
+                    entry.architectures == [] and
+                    "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
 
@@ -104,10 +104,10 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "natty" and
-                set(entry.architectures) == set(["amd64", "i386"]) and
-                set(entry.comps) == set(["main", "universe"])):
+                   entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                   entry.dist == "natty" and
+                   set(entry.architectures) == set(["amd64", "i386"]) and
+                   set(entry.comps) == set(["main", "universe"])):
                 found = True
         self.assertTrue(found)
         # test to add something new: multiverse *and*
@@ -120,8 +120,8 @@ class TestAptSources(unittest.TestCase):
         found_something = 0
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy"):
+                   entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                   entry.dist == "edgy"):
                 for c in entry.comps:
                     if c == "universe":
                         found_universe += 1
@@ -219,11 +219,11 @@ class TestAptSources(unittest.TestCase):
         found = {}
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                "edgy" in entry.dist):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        if not entry.dist in found:
+                        if entry.dist not in found:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
@@ -236,11 +236,11 @@ class TestAptSources(unittest.TestCase):
         found = {}
         for entry in sources:
             if (entry.type == "deb" and
-                entry.template and
-                entry.template.name == "edgy"):
+                    entry.template and
+                    entry.template.name == "edgy"):
                 for c in entry.comps:
                     if c == comp:
-                        if not entry.dist in found.has_key:
+                        if entry.dist not in found.has_key:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])

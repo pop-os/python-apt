@@ -119,7 +119,7 @@ class DebPackage(object):
         # now do the real multiarch checking
         multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
         # the upper layers will handle this
-        if not multiarch_pkgname in self._cache:
+        if multiarch_pkgname not in self._cache:
             return multiarch_pkgname
         # now check the multiarch state
         cand = self._cache[multiarch_pkgname].candidate._cand
@@ -131,7 +131,7 @@ class DebPackage(object):
         # for conflicts we need a special case here, any not multiarch enabled
         # package has a implicit conflict
         if (in_conflict_checking and
-            not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
+                not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
             return pkgname
         return multiarch_pkgname
 
@@ -152,7 +152,7 @@ class DebPackage(object):
             depname = self._maybe_append_multiarch_suffix(depname)
 
             # check for virtual pkgs
-            if not depname in self._cache:
+            if depname not in self._cache:
                 if self._cache.is_virtual_package(depname):
                     self._dbg(
                         3, "_is_or_group_satisfied(): %s is virtual dep" %
@@ -190,7 +190,7 @@ class DebPackage(object):
             depname = self._maybe_append_multiarch_suffix(depname)
 
             # if we don't have it in the cache, it may be virtual
-            if not depname in self._cache:
+            if depname not in self._cache:
                 if not self._cache.is_virtual_package(depname):
                     continue
                 providers = self._cache.get_providing_packages(depname)
@@ -245,7 +245,7 @@ class DebPackage(object):
         #print "pkgver: %s " % pkgver
         #print "oper: %s " % oper
         if (apt_pkg.check_dep(pkgver, oper, ver) and not
-            self.replaces_real_pkg(pkgname, oper, ver)):
+                self.replaces_real_pkg(pkgname, oper, ver)):
             self._failure_string += _("Conflicts with the installed package "
                                       "'%s'") % pkg.name
             self._dbg(3, "conflicts with installed pkg '%s'" % pkg.name)
@@ -266,7 +266,7 @@ class DebPackage(object):
                 depname, in_conflict_checking=True)
 
             # check conflicts with virtual pkgs
-            if not depname in self._cache:
+            if depname not in self._cache:
                 # FIXME: we have to check for virtual replaces here as
                 #        well (to pass tests/gdebi-test8.deb)
                 if self._cache.is_virtual_package(depname):
@@ -430,7 +430,7 @@ class DebPackage(object):
                                 self._cache.op_progress.done()
                                 return False
                         if (c_or.target_pkg.name in provides and
-                            self.pkgname != pkg.name):
+                                self.pkgname != pkg.name):
                             self._dbg(
                                 2, "would break (conflicts) %s" % provides)
                             self._failure_string += _(
@@ -483,7 +483,7 @@ class DebPackage(object):
         self._check_was_run = True
 
         # check arch
-        if not "Architecture" in self._sections:
+        if "Architecture" not in self._sections:
             self._dbg(1, "ERROR: no architecture field")
             self._failure_string = _("No Architecture field in the package")
             return False
@@ -713,11 +713,11 @@ class DscSrcPackage(DebPackage):
         try:
             for sec in tagfile:
                 for tag in depends_tags:
-                    if not tag in sec:
+                    if tag not in sec:
                         continue
                     self._depends.extend(apt_pkg.parse_src_depends(sec[tag]))
                 for tag in conflicts_tags:
-                    if not tag in sec:
+                    if tag not in sec:
                         continue
                     self._conflicts.extend(apt_pkg.parse_src_depends(sec[tag]))
                 if 'Source' in sec:

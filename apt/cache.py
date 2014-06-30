@@ -530,7 +530,7 @@ class Cache(object):
     def connect(self, name, callback):
         """ connect to a signal, currently only used for
             cache_{post,pre}_{changed,open} """
-        if not name in self._callbacks:
+        if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
 

@@ -34,7 +34,7 @@ countries = {}
 
 for entry in d.entries:
     countrycode = entry.mirror_countrycode
-    if not countrycode in countries:
+    if countrycode not in countries:
         countries[countrycode] = set()
     for link in entry.links:
         countries[countrycode].add(link.href)

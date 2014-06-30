@@ -87,23 +87,22 @@ class SourceEntry(object):
     """ single sources.list entry """
 
     def __init__(self, line, file=None):
-        self.invalid = False            # is the source entry valid
-        self.disabled = False           # is it disabled ('#' in front)
-        self.type = ""                  # what type (deb, deb-src)
-        self.architectures = []         # architectures
-        self.trusted = None             # Trusted
-        self.uri = ""                   # base-uri
-        self.dist = ""                  # distribution (dapper, edgy, etc)
-        self.comps = []                 # list of available componetns
-                                        # (may empty)
-        self.comment = ""               # (optional) comment
-        self.line = line                # the original sources.list line
+        self.invalid = False         # is the source entry valid
+        self.disabled = False        # is it disabled ('#' in front)
+        self.type = ""               # what type (deb, deb-src)
+        self.architectures = []      # architectures
+        self.trusted = None          # Trusted
+        self.uri = ""                # base-uri
+        self.dist = ""               # distribution (dapper, edgy, etc)
+        self.comps = []              # list of available componetns (may empty)
+        self.comment = ""            # (optional) comment
+        self.line = line             # the original sources.list line
         if file is None:
             file = apt_pkg.config.find_dir(
                 "Dir::Etc") + apt_pkg.config.find("Dir::Etc::sourcelist")
-        self.file = file               # the file that the entry is located in
+        self.file = file             # the file that the entry is located in
         self.parse(line)
-        self.template = None           # type DistInfo.Suite
+        self.template = None         # type DistInfo.Suite
         self.children = []
 
     def __eq__(self, other):
@@ -301,7 +300,7 @@ class SourcesList(object):
     def __find(self, *predicates, **attrs):
         for source in self.list:
             if (all(getattr(source, key) == attrs[key] for key in attrs) and
-                all(predicate(source) for predicate in predicates)):
+                    all(predicate(source) for predicate in predicates)):
                 yield source
 
     def add(self, type, uri, dist, orig_comps, comment="", pos=-1, file=None,
@@ -379,8 +378,8 @@ class SourcesList(object):
         if backup_ext is None:
             backup_ext = time.strftime("%y%m%d.%H%M")
         for source in self.list:
-            if not source.file in already_backuped \
-                and os.path.exists(source.file):
+            if (source.file not in already_backuped
+                    and os.path.exists(source.file)):
                 shutil.copy(source.file, "%s%s" % (source.file, backup_ext))
         return backup_ext
 
@@ -467,15 +466,15 @@ class SourceEntryMatcher(object):
         found = False
         for template in self.templates:
             if (re.search(template.match_uri, source.uri) and
-                re.match(template.match_name, source.dist) and
-                # deb is a valid fallback for deb-src (if that is not
-                # definied, see #760035
-                (source.type == template.type or template.type == "deb")):
+                    re.match(template.match_name, source.dist) and
+                    # deb is a valid fallback for deb-src (if that is not
+                    # definied, see #760035
+                    (source.type == template.type or template.type == "deb")):
                 found = True
                 source.template = template
                 break
             elif (template.is_mirror(source.uri) and
-                re.match(template.match_name, source.dist)):
+                      re.match(template.match_name, source.dist)):
                 found = True
                 source.template = template
                 break

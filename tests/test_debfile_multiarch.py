@@ -39,7 +39,7 @@ class TestDebfileMultiarch(unittest.TestCase):
         # WARNING: this assumes that lib3ds-1-3 is a non-multiarch lib
         # use "lib3ds-1-3" as a test to see if non-multiach lib conflicts work
         canary = "lib3ds-1-3"
-        if not canary in cache:
+        if canary not in cache:
             # TODO: use unittest.skip
             #logging.warning("skipping test because %s is missing" % canary)
             return

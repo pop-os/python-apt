@@ -254,8 +254,8 @@ class DistInfo(object):
                     template.description = _(value)
                 elif field == 'Component':
                     if (component and not
-                        template.has_component(component.name)):
-                        template.components.append(component)
+                            template.has_component(component.name)):
+                            template.components.append(component)
                     component = Component(value)
                 elif field == 'CompDescription':
                     component.set_description(_(value))

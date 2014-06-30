@@ -43,7 +43,7 @@ def main():
             # Check every version
             for pfile, _ in version.file_list:
                 if (pfile.origin == "Debian" and pfile.component == "main" and
-                    pfile.archive == "unstable"):
+                        pfile.archive == "unstable"):
                     # We only want packages from Debian unstable main.
                     check_version(version)
                     break

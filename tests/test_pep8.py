@@ -16,7 +16,8 @@ class PackagePep8TestCase(unittest.TestCase):
              # E126 continuation line over-indented for hanging indent
              # E127 continuation line over-indented for visual indent
              # E128 continuation line under-indented for visual indent
-             "--ignore=E125,E126,E127,E128",
+             # E265 block comment should start with '# '
+             "--ignore=E125,E126,E127,E128,E265",
              "--exclude", "build,tests/old",
              "--repeat", py_dir])
         if res != 0:

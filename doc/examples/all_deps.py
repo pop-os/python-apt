@@ -14,8 +14,8 @@ def dependencies(cache, pkg, deps, key="Depends"):
         for depVerList in dependslist[key]:
             for dep in depVerList:
                 if dep.target_pkg.name in cache:
-                    if pkg.name != dep.target_pkg.name and \
-                        not dep.target_pkg.name in deps:
+                    if (pkg.name != dep.target_pkg.name and
+                            dep.target_pkg.name not in deps):
                         deps.add(dep.target_pkg.name)
                         dependencies(
                             cache, cache[dep.target_pkg.name], deps, key)

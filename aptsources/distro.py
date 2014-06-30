@@ -77,7 +77,7 @@ class Distribution(object):
         # find the distro template
         for template in self.sourceslist.matcher.templates:
             if (self.is_codename(template.name) and
-                template.distribution == self.id):
+                    template.distribution == self.id):
                 #print "yeah! found a template for %s" % self.description
                 #print template.description, template.base_uri, \
                 #    template.components
@@ -96,40 +96,40 @@ class Distribution(object):
         #source_code = []
         for source in self.sourceslist.list:
             if (not source.invalid and
-                self.is_codename(source.dist) and
-                source.template and
-                source.template.official and
-                self.is_codename(source.template.name)):
+                    self.is_codename(source.dist) and
+                    source.template and
+                    source.template.official and
+                    self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently
                 if (source.uri.startswith("cdrom:") and
-                    not source.disabled):
-                    self.cdrom_sources.append(source)
-                    cdrom_comps.extend(source.comps)
+                        not source.disabled):
+                        self.cdrom_sources.append(source)
+                        cdrom_comps.extend(source.comps)
                 elif (source.uri.startswith("cdrom:") and
-                      source.disabled):
+                          source.disabled):
                     self.cdrom_sources.append(source)
                 elif (source.type == self.binary_type and
-                      not source.disabled):
+                          not source.disabled):
                     self.main_sources.append(source)
                     comps.extend(source.comps)
                     media.append(source.uri)
                 elif (source.type == self.binary_type and
-                      source.disabled):
+                          source.disabled):
                     self.disabled_sources.append(source)
-                elif (source.type == self.source_type
-                        and not source.disabled):
+                elif (source.type == self.source_type and
+                          not source.disabled):
                     self.source_code_sources.append(source)
                 elif (source.type == self.source_type and
-                      source.disabled):
+                          source.disabled):
                     self.disabled_sources.append(source)
             if (not source.invalid and
-                source.template in self.source_template.children):
+                    source.template in self.source_template.children):
                 if (not source.disabled
-                    and source.type == self.binary_type):
-                    self.child_sources.append(source)
+                        and source.type == self.binary_type):
+                        self.child_sources.append(source)
                 elif (not source.disabled
-                      and source.type == self.source_type):
+                          and source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
                     self.disabled_sources.append(source)
@@ -256,9 +256,9 @@ class Distribution(object):
             for server in self.used_servers:
                 mirror_entry = [self._get_mirror_name(server), server, False]
                 if (compare_mirrors(server, self.nearest_server) or
-                    compare_mirrors(server, self.main_server)):
+                        compare_mirrors(server, self.main_server)):
                     continue
-                elif not mirror_entry in mirrors:
+                elif mirror_entry not in mirrors:
                     mirrors.append(mirror_entry)
 
         return mirrors
@@ -405,7 +405,7 @@ class Distribution(object):
         for source in self.child_sources:
             # Do not change the forces server of a child source
             if (source.template.base_uri is None or
-                source.template.base_uri != source.uri):
+                    source.template.base_uri != source.uri):
                 change_server_of_source(source, uri, seen_binary)
         for source in self.source_code_sources:
             change_server_of_source(source, uri, seen_source)
