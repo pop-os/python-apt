@@ -11,7 +11,7 @@ by the :command:`apt-get` command.
 Printing the URIs of all index files
 ------------------------------------
 We all now that we can print the URIs of all our index files by running a
-simple ``apt-get -s --print-uris update``. We can do the same. Responsible for
+simple ``apt-get --print-uris update``. We can do the same. Responsible for
 the source entries is the class :class:`apt_pkg.SourceList`, which can be
 combined with an :class:`apt_pkg.Acquire` object using :meth:`get_indexes`.
 
