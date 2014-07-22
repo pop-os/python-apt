@@ -13,3 +13,9 @@ WARNING: the API of this module is not stable yet
 
 apt - high level python interface build on top of apt_pkg, apt_inst
 
+
+Running the tests:
+------------------
+
+Run: 
+python tests/test_all.py
