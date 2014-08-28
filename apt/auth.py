@@ -154,6 +154,12 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     if res != 0:
         raise AptKeyError("recv from '%s' failed for '%s'" % (
             keyserver, keyid))
+    # FIXME:
+    # - with gnupg 1.4.18 the downloaded key is actually checked(!),
+    #   i.e. gnupg will not import anything that the server sends
+    #   into the keyring, so the below checks are now redundant *if*
+    #   gnupg 1.4.18 is used
+
     # now export again using the long key id (to ensure that there is
     # really only this one key in our keyring) and not someone MITM us
     tmp_export_keyring = os.path.join(tmp_keyring_dir, "export-keyring.gpg")
