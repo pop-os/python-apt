@@ -73,6 +73,7 @@ class TestDebfile(unittest.TestCase):
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertFalse(deb.check())
+        self.assertEqual(deb["Version"], "2.5-1")
 
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)

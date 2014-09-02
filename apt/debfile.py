@@ -726,6 +726,9 @@ class DscSrcPackage(DebPackage):
                     self.binaries = sec['Binary'].split(', ')
                 if 'Version' in sec:
                     self._sections['Version'] = sec['Version']
+                # we are done
+                if 'Format' in sec:
+                    break
         finally:
             del tagfile
             fobj.close()
