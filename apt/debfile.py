@@ -704,6 +704,12 @@ class DscSrcPackage(DebPackage):
         """Return the dependencies of the package"""
         return self._conflicts
 
+    @property
+    def filelist(self):
+        """Return the list of files associated with this dsc file"""
+        # Files stanza looks like (hash, size, filename, ...)
+        return self._sections['Files'].split()[2::3]
+
     def open(self, file):
         """Open the package."""
         depends_tags = ["Build-Depends", "Build-Depends-Indep"]
@@ -724,9 +730,12 @@ class DscSrcPackage(DebPackage):
                     self.pkgname = sec['Source']
                 if 'Binary' in sec:
                     self.binaries = sec['Binary'].split(', ')
-                if 'Version' in sec:
-                    self._sections['Version'] = sec['Version']
-                # we are done
+                # read some more tags
+                for tag in ('Version', 'Files', 'Checksum-Sha1'):
+                    if tag in sec:
+                        self._sections[tag] = sec[tag]
+                # we only care about the stanza with the "Format:" tag, the
+                # rest is gpg signature noise
                 if 'Format' in sec:
                     break
         finally:

@@ -75,6 +75,10 @@ class TestDebfile(unittest.TestCase):
         self.assertFalse(deb.check())
         self.assertEqual(deb["Version"], "2.5-1")
 
+        self.maxDiff = None
+        self.assertEqual(deb.filelist, ["hello_2.5.orig.tar.gz",
+                                        "hello_2.5-1.diff.gz"])
+
     def testDebFile(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
