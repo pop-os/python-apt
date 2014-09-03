@@ -718,6 +718,11 @@ class DscSrcPackage(DebPackage):
         tagfile = apt_pkg.TagFile(fobj)
         try:
             for sec in tagfile:
+                # we only care about the stanza with the "Format:" tag, the
+                # rest is gpg signature noise. we should probably have
+                # bindings for apts OpenMaybeClearsignedFile()
+                if not "Format" in sec:
+                    continue
                 for tag in depends_tags:
                     if tag not in sec:
                         continue
@@ -730,14 +735,9 @@ class DscSrcPackage(DebPackage):
                     self.pkgname = sec['Source']
                 if 'Binary' in sec:
                     self.binaries = sec['Binary'].split(', ')
-                # read some more tags
-                for tag in ('Version', 'Files', 'Checksum-Sha1'):
+                for tag in sec.keys():
                     if tag in sec:
                         self._sections[tag] = sec[tag]
-                # we only care about the stanza with the "Format:" tag, the
-                # rest is gpg signature noise
-                if 'Format' in sec:
-                    break
         finally:
             del tagfile
             fobj.close()

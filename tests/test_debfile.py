@@ -62,24 +62,38 @@ class TestDebfile(unittest.TestCase):
         apt_pkg.init_system()
         self.cache = apt.Cache()
 
-    def testDscFile(self):
+    def test_dsc_file(self):
         filename = "hello_2.5-1.dsc"
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertTrue(deb.check(), "got failure '%s'" % deb._failure_string)
         missing = set(['autotools-dev'])
         self.assertEqual(set(deb.missing_deps), missing)
+        # specialized properties
+        self.assertEqual(deb.pkgname, "hello")
+        self.assertEqual(deb.binaries, ["hello"])
+        self.assertEqual(deb.filelist, ["hello_2.5.orig.tar.gz",
+                                        "hello_2.5-1.diff.gz"])
+        self.assertEqual(deb.depends, [[("autotools-dev", "", "")]])
+        # tag fields are available as a dict
+        self.assertEqual(deb["Format"], "1.0")
+        self.assertEqual(deb["Source"], "hello")
+        self.assertEqual(deb["Binary"], "hello")
+        self.assertEqual(deb["Architecture"], "any")
+        self.assertEqual(deb["Version"], "2.5-1")
+        self.assertEqual(
+            deb["Maintainer"], "Santiago Vila <sanvila@debian.org>")
+        self.assertEqual(deb["Homepage"], "http://www.gnu.org/software/hello")
+        self.assertEqual(deb["Standards-Version"], "3.8.4")
+
+    def test_dsc_file_with_impossible_build_dep(self):
         filename = "impossible-build-depends_2.5-1.dsc"
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertFalse(deb.check())
-        self.assertEqual(deb["Version"], "2.5-1")
+        self.assertEqual(deb.depends, [[("debhelper", "101", ">")]])
 
-        self.maxDiff = None
-        self.assertEqual(deb.filelist, ["hello_2.5.orig.tar.gz",
-                                        "hello_2.5-1.diff.gz"])
-
-    def testDebFile(self):
+    def test_deb_file(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
             logging.debug("testing %s, expecting %s" % (
