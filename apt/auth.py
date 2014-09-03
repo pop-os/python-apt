@@ -192,9 +192,11 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     # what gnupg is using)
     signing_key_fingerprint = keyid.replace("0x", "").upper()
     if got_fingerprint != signing_key_fingerprint:
+        # make the error match what gnupg >= 1.4.18 will output when
+        # it checks the key itself before importing it
         raise AptKeyError(
-            "Fingerprints do not match, not importing: '%s' != '%s'" % (
-                signing_key_fingerprint, got_fingerprint))
+            "recv from '%s' failed for '%s'" % (
+                keyserver, signing_key_fingerprint))
     # finally add it
     add_key_from_file(tmp_export_keyring)
 

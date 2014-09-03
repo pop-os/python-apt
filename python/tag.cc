@@ -344,7 +344,7 @@ static PyObject *TagFileNext(PyObject *Self)
    Obj.Section->Data = new char[Stop-Start+2];
    snprintf(Obj.Section->Data, Stop-Start+2, "%s\n", Start);
    // Rescan it
-   if(Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start) == false)
+   if(Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start+2) == false)
       return HandleErrors(NULL);
 
    Py_INCREF(Obj.Section);
