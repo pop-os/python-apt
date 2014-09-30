@@ -1,7 +1,13 @@
 #!/usr/bin/make -f
 # Should be include-links, but that somehow fails.
 export DEBVER=$(shell dpkg-parsechangelog | sed -n -e 's/^Version: //p')
-export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings
+export DATETIME:=$(shell dpkg-parsechangelog | sed -n -e 's/^Date: //p')
+export DATE_CMD:=env TZ=UTC LC_ALL=C.UTF-8 date
+export DATE:=$(shell $(DATE_CMD) --date="$(DATETIME)" "+%b %_d %Y")
+export TIME:=$(shell $(DATE_CMD) --date="$(DATETIME)" "+%H:%M:%S")
+export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings \
+                               -DDATE=\""$(DATE)"\" \
+                               -DTIME=\""$(TIME)"\"
 export PATH := $(CURDIR)/utils:$(PATH)
 export pyversions := $(CURDIR)/utils/pyversions
 

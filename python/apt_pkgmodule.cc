@@ -880,8 +880,13 @@ extern "C" void initapt_pkg()
    // Version..
    PyModule_AddStringConstant(Module,"VERSION",(char *)pkgVersion);
    PyModule_AddStringConstant(Module,"LIB_VERSION",(char *)pkgLibVersion);
-   PyModule_AddStringConstant(Module,"DATE",__DATE__);
-   PyModule_AddStringConstant(Module,"TIME",__TIME__);
+#ifdef DATE
+   PyModule_AddStringConstant(Module,"DATE",DATE);
+   PyModule_AddStringConstant(Module,"TIME",TIME);
+#else
+   PyModule_AddStringConstant(Module,"DATE", "Jan  1 1970");
+   PyModule_AddStringConstant(Module,"TIME", "00:00:00");
+#endif
 
    // My constants
    PyModule_AddIntConstant(Module,"PRI_IMPORTANT",pkgCache::State::Important);
