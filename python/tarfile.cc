@@ -52,9 +52,13 @@ public:
 
     virtual bool DoItem(Item &Itm,int &Fd);
     virtual bool FinishedFile(Item &Itm,int Fd);
+#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 14)
+    virtual bool Process(Item &Itm,const unsigned char *Data,
+                         unsigned long long Size,unsigned long long Pos);
+#else
     virtual bool Process(Item &Itm,const unsigned char *Data,
                          unsigned long Size,unsigned long Pos);
-
+#endif
     PyDirStream(PyObject *callback, const char *member=0) : callback(callback),
         py_data(0), member(member), error(false), copy(0), copy_size(0)
     {
@@ -84,8 +88,13 @@ bool PyDirStream::DoItem(Item &Itm, int &Fd)
     return true;
 }
 
+#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 14)
+bool PyDirStream::Process(Item &Itm,const unsigned char *Data,
+                          unsigned long long Size,unsigned long long Pos)
+#else
 bool PyDirStream::Process(Item &Itm,const unsigned char *Data,
                           unsigned long Size,unsigned long Pos)
+#endif
 {
     memcpy(copy + Pos, Data,Size);
     return true;
