@@ -1,11 +1,20 @@
-python-apt (0.9.3.11) UNRELEASED; urgency=low
+python-apt (0.9.3.11) unstable; urgency=low
 
   [ Colin Watson ]
   * Add template for the "Ubuntu-RTM" derived distribution.
   * Detect whether a system is running Ubuntu-RTM by way of
     "system-image-cli -i".  Not perfect but close enough.
 
- -- Michael Vogt <mvo@debian.org>  Wed, 24 Sep 2014 11:36:00 +0200
+  [ Julian Andres Klode ]
+  * Embed changelog entry date and time instead of build date and time
+    (Closes: #762674)
+
+  [ Michael Vogt ]
+  * python/tarfile.cc: use long long in Process() for APT >= 4.14
+  * Merged UbuntuRTMDistribution detection from ubuntu
+  * Add Ubuntu 15.04 (Vivid Vervet) to the template
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Oct 2014 10:16:01 -0400
 
 python-apt (0.9.3.10) unstable; urgency=medium
 
