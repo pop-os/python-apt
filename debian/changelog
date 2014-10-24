@@ -1,3 +1,12 @@
+python-apt (0.9.3.11) UNRELEASED; urgency=low
+
+  [ Colin Watson ]
+  * Add template for the "Ubuntu-RTM" derived distribution.
+  * Detect whether a system is running Ubuntu-RTM by way of
+    "system-image-cli -i".  Not perfect but close enough.
+
+ -- Michael Vogt <mvo@debian.org>  Wed, 24 Sep 2014 11:36:00 +0200
+
 python-apt (0.9.3.10) unstable; urgency=medium
 
   * python/tag.cc: ensure that the final \n is there when 

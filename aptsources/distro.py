@@ -457,6 +457,13 @@ class UbuntuDistribution(Distribution):
             self, mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 
+class UbuntuRTMDistribution(UbuntuDistribution):
+    ''' Class to support specific Ubuntu RTM features '''
+
+    def get_mirrors(self):
+        self.main_server = self.source_template.base_uri
+
+
 def _lsb_release():
     """Call lsb_release --idrc and return a mapping."""
     from subprocess import Popen, PIPE
@@ -475,6 +482,24 @@ def _lsb_release():
     return result
 
 
+def _system_image_channel():
+    """Get the current channel from system-image-cli -i if possible."""
+    from subprocess import Popen, PIPE
+    import errno
+    try:
+        out = Popen(
+            ['system-image-cli', '-i'], stdout=PIPE,
+            universal_newlines=True).communicate()[0]
+        for l in out.splitlines():
+            if l.startswith('channel: '):
+                return l.split(': ', 1)[1]
+    except OSError as exc:
+        if exc.errno != errno.ENOENT:
+            logging.warning(
+                'system-image-cli failed, using defaults: %s' % exc)
+    return None
+
+
 def get_distro(id=None, codename=None, description=None, release=None):
     """
     Check the currently used distribution and return the corresponding
@@ -490,8 +515,17 @@ def get_distro(id=None, codename=None, description=None, release=None):
         codename = result['Codename']
         description = result['Description']
         release = result['Release']
+        if id == "Ubuntu":
+            channel = _system_image_channel()
+            if channel is not None and "ubuntu-rtm/" in channel:
+                id = "Ubuntu-RTM"
+                codename = channel.rsplit("/", 1)[1].split("-", 1)[0]
+                description = codename
+                release = codename
     if id == "Ubuntu":
         return UbuntuDistribution(id, codename, description, release)
+    if id == "Ubuntu-RTM":
+        return UbuntuRTMDistribution(id, codename, description, release)
     elif id == "Debian":
         return DebianDistribution(id, codename, description, release)
     else:
