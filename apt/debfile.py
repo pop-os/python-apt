@@ -714,7 +714,8 @@ class DscSrcPackage(DebPackage):
         """Open the package."""
         depends_tags = ["Build-Depends", "Build-Depends-Indep"]
         conflicts_tags = ["Build-Conflicts", "Build-Conflicts-Indep"]
-        fobj = open(file)
+        fd = apt_pkg.open_maybe_clear_signed_file(file)
+        fobj = os.fdopen(fd)
         tagfile = apt_pkg.TagFile(fobj)
         try:
             for sec in tagfile:
