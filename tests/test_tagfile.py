@@ -35,7 +35,7 @@ class TestOpenMaybeClearSigned(unittest.TestCase):
         fd = apt_pkg.open_maybe_clear_signed_file(
             os.path.join(basepath, "./data/test_debs/hello_2.5-1.dsc"))
         f = os.fdopen(fd)
-        data = f.read().encode("utf-8")
+        data = f.read()
         self.assertTrue(data.startswith("Format: 1.0\n"))
 
     def test_open_normal(self):
@@ -43,7 +43,7 @@ class TestOpenMaybeClearSigned(unittest.TestCase):
         fd = apt_pkg.open_maybe_clear_signed_file(
             os.path.join(basepath, "./data/misc/foo_Release"))
         f = os.fdopen(fd)
-        data = f.read().encode("utf-8")
+        data = f.read()
         self.assertTrue(data.startswith("Origin: Ubuntu\n"))
 
     def xtest_open_does_not_exit(self):
