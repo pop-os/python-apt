@@ -1,0 +1,10 @@
+What's New In python-apt 0.9.3
+============================
+Python-apt 0.9.3 is a maintenance update.
+
+Maintenance
+-----------
+
+    * Support for python2.6 got dropped
+    * Documentation improvements
+    * Lots of bugfixes
