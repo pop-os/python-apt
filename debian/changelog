@@ -1,10 +1,21 @@
-python-apt (0.9.3.12) UNRELEASED; urgency=medium
+python-apt (0.9.4) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * add apt_pkg.sha512sum()
+  * Add binding for apt_pkg.maybe_open_clear_signed_file()
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+  * Update doc/example/action.py for py3 and latest API (closes: #782335)
+  * Add MULTI_ARCH_NO constant and deprecate MULTI_ARCH_NONE (closes: #782802)
+  * Fix dead links in python-apt documentation (Closes: #779426)
 
   [ Martin Pitt ]
   * ./data/templates/Ubuntu.info.in: Add Wily template. Don't copy extras.u.c.
     stanza as that's gone since 15.04.
 
- -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 07 May 2015 16:42:53 +0200
+  [ von ]
+  * Update the print_uris.py example to use the new API (Closes: #779217)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 07 May 2015 18:18:29 +0200
 
 python-apt (0.9.3.11) unstable; urgency=low
 
