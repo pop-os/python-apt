@@ -1,3 +1,11 @@
+python-apt (0.9.3.12) UNRELEASED; urgency=medium
+
+  [ Martin Pitt ]
+  * ./data/templates/Ubuntu.info.in: Add Wily template. Don't copy extras.u.c.
+    stanza as that's gone since 15.04.
+
+ -- Michael Vogt <michael.vogt@ubuntu.com>  Thu, 07 May 2015 16:42:53 +0200
+
 python-apt (0.9.3.11) unstable; urgency=low
 
   [ Colin Watson ]
