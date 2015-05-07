@@ -6,5 +6,5 @@
 import apt
 
 for pkg in apt.Cache():
-  if pkg.is_upgradable:
-    print pkg.candidate.uri
+    if pkg.is_upgradable:
+        print pkg.candidate.uri
