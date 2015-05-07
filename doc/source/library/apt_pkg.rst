@@ -916,7 +916,7 @@ Example:
 		The multi-arch state of the package. Can be one of the following
 		attributes.
 		
-			.. attribute:: MULTI_ARCH_NONE
+			.. attribute:: MULTI_ARCH_NO
 			
 				No multi-arch
 				

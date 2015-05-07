@@ -910,7 +910,9 @@ extern "C" void initapt_pkg()
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_INCOMPLETE",
                         MkPyNumber(pkgPackageManager::Incomplete));
 
-
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NO",
+                        MkPyNumber(pkgCache::Version::None));
+   // NONE is deprecated (#782802)
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NONE",
                         MkPyNumber(pkgCache::Version::None));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL",
