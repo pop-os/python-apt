@@ -59,11 +59,11 @@ class Cache(object):
     objects (although only getting items is supported).
 
     Keyword arguments:
-    progress -- a OpProgress object
-    rootdir -- a alternative root directory. if that is given
-               the system sources.list and system lists/ files are
-               not read, only files relative to the given rootdir
-    memonly -- build the cache in memory only
+    progress -- a OpProgress object,
+    rootdir  -- an alternative root directory. if that is given the system
+    sources.list and system lists/files are not read, only file relative
+    to the given rootdir,
+    memonly  -- build the cache in memory only.
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
@@ -409,7 +409,7 @@ class Cache(object):
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
         .
         sources_list -- Update a alternative sources.list than the default.
-         Note that the sources.list.d directory is ignored in this case
+        Note that the sources.list.d directory is ignored in this case
         """
         lockfile = apt_pkg.config.find_dir("Dir::State::Lists") + "lock"
         lock = apt_pkg.get_lock(lockfile)

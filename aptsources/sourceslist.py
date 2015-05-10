@@ -44,10 +44,10 @@ __all__ = ['is_mirror', 'SourceEntry', 'NullMatcher', 'SourcesList',
 
 
 def is_mirror(master_uri, compare_uri):
-    """ check if the given add_url is idential or a mirror of orig_uri
-        e.g. master_uri = archive.ubuntu.com
-            compare_uri = de.archive.ubuntu.com
-            -> True
+    """ check if the given add_url is idential or a mirror of orig_uri e.g.:
+        master_uri = archive.ubuntu.com
+        compare_uri = de.archive.ubuntu.com
+        -> True
     """
     # remove traling spaces and "/"
     compare_uri = compare_uri.rstrip("/ ")

@@ -785,6 +785,7 @@ class Package(object):
         as :attr:`shortname`
 
         .. versionchanged:: 0.7.100.3
+
         As part of multi-arch, this field now may include architecture
         information.
         """
