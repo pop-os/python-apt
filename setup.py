@@ -6,6 +6,7 @@ import os
 import sys
 
 from distutils.core import setup, Extension
+from distutils import sysconfig
 cmdclass = {}
 
 try:
@@ -54,6 +55,12 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
         import shutil
         shutil.copy(template, os.path.join("build", template))
 
+# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
+# See http://bugs.python.org/issue9031 and http://bugs.python.org/issue1222585
+cfg_vars = sysconfig.get_config_vars()
+for key, value in cfg_vars.items():
+    if type(value) == str:
+        cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
 
 setup(name="python-apt",
       description="Python bindings for APT",
