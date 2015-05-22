@@ -1704,7 +1704,7 @@ installation.
         There was a network error.
 
 
-.. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
+.. class:: AcquireFile(owner, uri[, hash, size, descr, short_descr, destdir, destfile])
 
     Create a new :class:`AcquireFile()` object and register it with *acquire*,
     so it will be fetched. You must always keep around a reference to the
@@ -1717,8 +1717,9 @@ installation.
     The parameter *uri* refers to the location of the file, any protocol
     of apt is supported.
 
-    The parameter *md5* refers to the md5sum of the file. This can be used
-    for checking the file.
+    The parameter *hash* refers to the hash of the file. If this is set
+    libapt will check the file after downloading. See :class:`HashString`
+    for the combined form string format description.
 
     The parameter *size* can be used to specify the size of the package,
     which can then be used to calculate the progress and validate the download.
@@ -1850,8 +1851,8 @@ generic hash support:
 
     .. attribute:: hashtype
 
-        The type of the hash, as a string. This may be "MD5Sum", "SHA1"
-        or "SHA256".
+        The type of the hash, as a string. This may be "MD5Sum", "SHA1",
+        "SHA256" or "SHA512".
 
     .. method:: verify_file(filename: str) -> bool
 
