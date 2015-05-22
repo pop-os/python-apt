@@ -35,6 +35,20 @@ class TestPath(unittest.TestCase):
                             destdir=self.file_unicode,
                             destfile=self.file_unicode)
 
+    def test_acquire_file_md5_keyword_backward_compat(self):
+        """
+        Ensure that both "md5" and "hash" is supported as keyword for
+        AcquireFile
+        """
+        apt_pkg.AcquireFile(
+            apt_pkg.Acquire(), "http://example.com",
+            destfile=self.file_bytes,
+            md5="abcdef")
+        apt_pkg.AcquireFile(
+            apt_pkg.Acquire(), "http://example.com",
+            destfile=self.file_bytes,
+            hash="sha1:41050ed528554fdd6c6c9a086ddd6bdba5857b21")
+
     def test_ararchive(self):
         archive = apt_inst.ArArchive(u"data/test_debs/data-tar-xz.deb")
 

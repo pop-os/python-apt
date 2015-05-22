@@ -224,26 +224,43 @@ PyTypeObject PyAcquireItem_Type = {
 static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * kwds)
 {
     PyObject *pyfetcher;
-    const char *uri, *md5, *descr, *shortDescr;
+    const char *uri, *hash, *md5, *descr, *shortDescr;
     PyApt_Filename destDir, destFile;
     int size = 0;
-    uri = md5 = descr = shortDescr = destDir = destFile = "";
+    uri = hash = md5 = descr = shortDescr = destDir = destFile = "";
 
-    char *kwlist[] = {"owner","uri", "md5", "size", "descr", "short_descr",
-                      "destdir", "destfile", NULL
+    // "md5" is only in this list for backward compatiblity, everyone should
+    // use "hash"
+    char *kwlist[] = {"owner", "uri", "hash", "size", "descr", "short_descr",
+                      "destdir", "destfile", "md5", NULL
                      };
-
-    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissO&O&", kwlist,
-                                    &PyAcquire_Type, &pyfetcher, &uri, &md5,
+#if PY_MAJOR_VERSION >= 3
+    const char *fmt = "O!s|sissO&O&$s";
+#else
+    // no "$" support to indicate that the remaining args are keyword only
+    // in py2.x :/
+    const char *fmt = "O!s|sissO&O&s";
+#endif
+    if (PyArg_ParseTupleAndKeywords(Args, kwds, fmt, kwlist,
+                                    &PyAcquire_Type, &pyfetcher, &uri, &hash,
                                     &size, &descr, &shortDescr,
                                     PyApt_Filename::Converter, &destDir,
-                                    PyApt_Filename::Converter, &destFile) == 0)
+                                    PyApt_Filename::Converter, &destFile,
+                                    &md5) == 0)
         return 0;
+    // issue deprecation warning for md5
+    if (strlen(md5) > 0) {
+       PyErr_Warn(PyExc_DeprecationWarning,
+                  "Using the md5 keyword is deprecated, please use 'hash' instead");
+    }
+    // support "md5" keyword for backward compatiblity
+    if (strlen(hash) == 0 && strlen(md5) != 0)
+       hash = md5;
 
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);
     pkgAcqFile *af = new pkgAcqFile(fetcher,  // owner
                                     uri, // uri
-                                    md5,  // md5
+                                    hash,  // hash
                                     size,   // size
                                     descr, // descr
                                     shortDescr,
