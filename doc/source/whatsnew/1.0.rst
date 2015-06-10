@@ -7,7 +7,8 @@ New features
 ------------
 * :class:`apt_pkg.AcquireFile` can now take a hash string that is not an
   md5 value, using the new `hash` argument.
-
+* A new a :meth:`apt_pkg.TagFile.close` method was added
+* :class:`apt_pkg.TagFile` is now a context manager
 
 
 Deprecated

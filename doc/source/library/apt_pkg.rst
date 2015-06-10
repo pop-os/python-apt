@@ -1916,16 +1916,38 @@ section as a string.
 .. class:: TagFile(file, bytes: bool = False)
 
     An object which represents a typical debian control file. Can be used for
-    Packages, Sources, control, Release, etc. Such an object provides two
-    kinds of API which should not be used together:
+    Packages, Sources, control, Release, etc.
+
+    The *file* argument shall be a path name or an open file object. The
+    argument *bytes* specifies whether the file shall be represented using
+    bytes (``True``) or unicode (``False``) strings.
+
+    It is a context manager that can be used with a with statement or the
+    :meth:`close` method.
+
+    .. describe:: with TagFile(...) as ...:
+
+        Use the :class:`TagFile` as a context manager. This will automatically
+        close the file after the body finished execution.
+
+        .. versionadded:: 1.0
+
+    .. method:: close()
+
+        Close the file. It's recommended to use the context manager
+        instead (that is, the `with` statement).
+
+        .. versionadded:: 1.0
+
+    It provides two kinds of API which should not be used together:
 
     The first API implements the iterator protocol and should be used whenever
     possible because it has less side effects than the other one. It may be
     used e.g. with a for loop::
 
-        tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
-        for section in tagfile:
-            print section['Package']
+        with apt_pkg.TagFile('/var/lib/dpkg/status') as tagfile:
+            for section in tagfile:
+                print section['Package']
 
     .. versionchanged:: 0.7.100
         Added support for using gzip files, via :class:`gzip.GzipFile` or any
@@ -1951,9 +1973,9 @@ section as a string.
     use less memory, but is not recommended because it works by modifying
     one object. It can be used like this::
 
-        tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
-        tagf.step()
-        print tagf.section['Package']
+        with apt_pkg.TagFile('/var/lib/dpkg/status') as tagf:
+            tagf.step()
+            print tagf.section['Package']
 
     .. method:: step() -> bool
 
