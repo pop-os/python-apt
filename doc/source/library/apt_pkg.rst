@@ -715,7 +715,7 @@ Resolving Dependencies with :class:`ProblemResolver`
         The version currently installed as a :class:`Version` object, or None
         if the package is not installed.
 
-   .. method:: get_fullname([pretty: bool = False]) -> str
+    .. method:: get_fullname([pretty: bool = False]) -> str
 
         Get the full name of the package, including the architecture. If
         *pretty* is ``True``, the architecture is omitted for native packages,
@@ -723,7 +723,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
         .. versionadded:: 0.7.100.3
 
-   .. attribute:: has_provides
+    .. attribute:: has_provides
 
         A boolean value determining whether the list available via the
         attribute :attr:`provides_list` has at least one element. This
@@ -733,7 +733,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
             pkg.has_provides and not pkg.has_versions
 
-   .. attribute:: has_versions
+    .. attribute:: has_versions
 
         A boolean value determining whether the list available via the
         attribute :attr:`version_list` has at least one element. This
