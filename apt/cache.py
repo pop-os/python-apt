@@ -67,9 +67,9 @@ class Cache(object):
 
     .. versionchanged:: 1.0
 
-        The cache now supports package names with special architecture qualifiers
-        such as :all and :native. It does not export them in :meth:`keys()`,
-        though, to keep :meth:`keys()` a unique set.
+        The cache now supports package names with special architecture
+        qualifiers such as :all and :native. It does not export them
+        in :meth:`keys()`, though, to keep :meth:`keys()` a unique set.
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):

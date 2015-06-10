@@ -24,7 +24,7 @@ The following features are deprecated, starting with this release:
 
 Removed
 -------
-* The module :mod:`apt.progress.gtk2' has been removed. There were no
+* The module :mod:`apt.progress.gtk2` has been removed. There were no
   users in the Debian archive, its last update was in 2013, and it was buggy
   already. Apart from that, it suggested that it is OK to run a graphical
   application as root, and used the unmaintained GTK+ 2 version.
