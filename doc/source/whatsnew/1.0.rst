@@ -29,6 +29,8 @@ Removed
 
   Therefore, there is no replacement, please use PackageKit or aptdaemon
   for installation in graphical environments.
+* The attribute :attr:`apt_pkg.Package.auto` was not set anymore, and thus
+  removed.
 
 Maintenance
 -----------

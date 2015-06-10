@@ -820,13 +820,6 @@ Resolving Dependencies with :class:`ProblemResolver`
 
     **Flags**:
 
-    .. attribute:: auto
-
-        This flag is here for compatibility purposes and does not appear to
-        be used anymore in APT. To find out whether a package is marked as
-        automatically installed, use :meth:`DepCache.is_auto_installed`
-        instead.
-
     .. attribute:: essential
 
         Whether the package has the 'Essential' flag set; that is,

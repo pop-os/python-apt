@@ -614,7 +614,6 @@ MkGet(PackageGetInstState,MkPyNumber(Pkg->InstState))
 MkGet(PackageGetCurrentState,MkPyNumber(Pkg->CurrentState))
 MkGet(PackageGetID,MkPyNumber(Pkg->ID))
 #
-MkGet(PackageGetAuto,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Auto) != 0))
 MkGet(PackageGetEssential,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Essential) != 0))
 MkGet(PackageGetImportant,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Important) != 0))
 #undef MkGet
@@ -715,9 +714,6 @@ static PyGetSetDef PackageGetSet[] = {
      "CURSTATE_UNPACKED of the apt_pkg module."},
     {"id",PackageGetID,0,
      "The numeric ID of the package"},
-    {"auto",PackageGetAuto,0,
-     "Ignore it, it does nothing. You want to use\n"
-     "DepCache.is_auto_installed instead."},
     {"essential",PackageGetEssential,0,
      "Boolean value determining whether the package is essential."},
     {"important",PackageGetImportant,0,
