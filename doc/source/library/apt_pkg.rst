@@ -487,7 +487,7 @@ Installation ordering with :class:`OrderList`
 
 .. class:: OrderList(depcache: DepCache)
 
-	Represent a :ctype:`pkgOrderList`, used for installation
+	Represent a :c:type:`pkgOrderList`, used for installation
 	ordering. This class provides several methods and attributes,
 	is complicated and should not be used by normal programs.
 	

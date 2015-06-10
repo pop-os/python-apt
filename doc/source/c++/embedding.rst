@@ -12,7 +12,7 @@ To use the python-apt C++ bindings, first include the
     #include <python-apt/python-apt.h>
 
 Now, the module needs to be initialized. This is done by calling the function
-:cfunc:`import_apt_pkg`. This function returns 0 on success and a negative
+:c:func:`import_apt_pkg`. This function returns 0 on success and a negative
 value in case of failure::
 
     if (import_apt_pkg() < 0)
