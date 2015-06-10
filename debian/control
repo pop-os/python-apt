@@ -91,8 +91,9 @@ Priority: extra
 Architecture: any
 Multi-Arch: allowed
 Section: debug
-Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
+Depends: ${python:Depends}, python-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
+Provides: ${python:Provides}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -158,8 +159,9 @@ Multi-Arch: allowed
 Section: debug
 Breaks: python-apt (<< 0.7.98+nmu1)
 Replaces: python-apt (<< 0.7.98+nmu1)
-Depends: python3-dbg, python3-apt (= ${binary:Version}), ${shlibs:Depends},
+Depends: ${python3:Depends}, python3-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
+Provides: ${python3:Provides}
 Description: Python 3 interface to libapt-pkg (debug extension)
  The apt_pkg Python 3 interface will provide full access to the internal
  libapt-pkg structures allowing Python 3 programs to easily perform a
