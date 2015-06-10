@@ -244,10 +244,11 @@ static PyObject *PkgAcquireShutdown(PyObject *Self,PyObject *Args)
 static PyMethodDef PkgAcquireMethods[] = {
     {"run",PkgAcquireRun,METH_VARARGS,
      "run() -> int\n\nRun the fetcher and return one of RESULT_CANCELLED,\n"
-     "RESULT_CONTINUE, RESULT_FAILED. RESULT_CONTINUE means that all items\n"
-     "which where queued prior to calling run() have been fetched\n"
-     "successfully. RESULT_CANCELLED means that the process was canceled\n"
-     "by the progress class. And RESULT_FAILED means a generic failure."},
+     "RESULT_CONTINUE, RESULT_FAILED.\n\n"
+     "RESULT_CONTINUE means that all items which where queued prior to\n"
+     "calling run() have been fetched successfully or failed transiently.\n\n"
+     "RESULT_CANCELLED means canceled by the progress class.\n\n"
+     "RESULT_FAILED means a generic failure."},
     {"shutdown",PkgAcquireShutdown, METH_VARARGS,
      "shutdown()\n\n"
      "Shut the fetcher down, removing all items from it. Future access to\n"

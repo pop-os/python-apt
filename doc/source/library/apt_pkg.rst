@@ -1599,8 +1599,12 @@ installation.
 
     .. attribute:: RESULT_CONTINUE
 
-        All items have been fetched successfully and the process has not been
-        canceled.
+        All items have been fetched successfully or failed transiently
+        and the process has not been canceled.
+
+        You need to look at the status of each item and check if it has not
+        failed transiently to discover errors like a Not Found when acquiring
+        packages.
 
     .. attribute:: RESULT_FAILED
 
