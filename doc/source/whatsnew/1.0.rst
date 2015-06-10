@@ -10,6 +10,8 @@ New features
 * A new a :meth:`apt_pkg.TagFile.close` method was added
 * :class:`apt_pkg.TagFile` is now a context manager
 
+* The high-level cache class, :class:`apt.cache.Cache` now supports package
+  names with special architecture qualifiers such as :all and :native.
 
 Deprecated
 ----------
