@@ -1,0 +1,26 @@
+What's New In python-apt 1.0
+==============================
+Python-Apt 1.0 fixes several issues and use of deprecated methods. Most
+importantly, it introduces large file support
+
+New features
+------------
+* :class:`apt_pkg.AcquireFile` can now take a hash string that is not an
+  md5 value, using the new `hash` argument.
+
+
+
+Deprecated
+----------
+The following features are deprecated, starting with this release:
+
+* The `section` member of :class:`apt_pkg.Package`
+* The `files` member of of :class:`apt_pkg.SourceRecords`
+* The `md5` argument to :class:`apt_pkg.AcquireFile`, it is replaced by
+  the `hash` argument.
+
+Maintenance
+-----------
+
+* :mod:`apt_inst` now supports ar and tar archives that are larger than 4 GiB
+* Various smaller bug fixes

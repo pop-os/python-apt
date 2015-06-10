@@ -787,6 +787,11 @@ Resolving Dependencies with :class:`ProblemResolver`
         The section of the package, as specified in the record. The list of
         possible sections is defined in the Policy. This is a string.
 
+        .. deprecated:: 1.0
+
+            A package can have multiple versions with different sections, so
+            the section information should be accessed from the version class.
+
     .. attribute:: version_list
 
         A list of :class:`Version` objects for all versions of this package
@@ -1480,6 +1485,8 @@ Records (Release files, Packages, Sources)
         The list of files. This returns a list of tuples with the contents
         ``(str: md5, int: size, str: path, str:type)``, where
         'type' can be 'diff' (includes .debian.tar.gz), 'dsc', 'tar'.
+
+        .. deprecated: 1.0
 
     .. attribute:: index
 
