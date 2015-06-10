@@ -458,10 +458,6 @@ class DebPackage(object):
         pkgname = self._sections["Package"]
         architecture = self._sections["Architecture"]
 
-        # Architecture all gets mapped to the native architecture internally
-        if architecture == 'all':
-            architecture = apt_pkg.config.find("APT::Architecture")
-
         # Arch qualify the package name
         pkgname = ":".join([pkgname, architecture])
 
