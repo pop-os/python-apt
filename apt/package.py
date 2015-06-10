@@ -1060,11 +1060,15 @@ class Package(object):
                 self._changelog = changelog
 
             except HTTPError:
-                res = _("The list of changes is not available yet.\n\n"
-                        "Please use http://launchpad.net/ubuntu/+source/%s/"
-                        "%s/+changelog\n"
-                        "until the changes become available or try again "
-                        "later.") % (src_pkg, src_ver)
+                if self.candidate.origins[0].origin == "Ubuntu":
+                    res = _("The list of changes is not available yet.\n\n"
+                            "Please use "
+                            "http://launchpad.net/ubuntu/+source/%s/"
+                            "%s/+changelog\n"
+                            "until the changes become available or try again "
+                            "later.") % (src_pkg, src_ver)
+                else:
+                    res = _("The list of changes is not available")
                 return res if isinstance(res, unicode) else res.decode("utf-8")
             except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
