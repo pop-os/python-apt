@@ -596,7 +596,16 @@ PyTypeObject PyGroupList_Type =
 
 MkGet(PackageGetName,PyString_FromString(Pkg.Name()))
 MkGet(PackageGetArch,PyString_FromString(Pkg.Arch()))
-MkGet(PackageGetSection,Safe_FromString(Pkg.Section()))
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+static PyObject *PackageGetSection(PyObject *Self,void*)
+{
+    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+    if (PyErr_WarnEx(PyExc_DeprecationWarning, "Package.section is deprecated, use Version.section instead", 1) == -1)
+      return NULL;
+    return Safe_FromString(Pkg.Section());
+}
+#pragma GCC diagnostic pop
 MkGet(PackageGetRevDependsList,CppPyObject_NEW<RDepListStruct>(Owner,
                                &PyDependencyList_Type, Pkg.RevDependsList()))
 MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()))
@@ -728,11 +737,8 @@ static PyGetSetDef PackageGetSet[] = {
 static PyObject *PackageRepr(PyObject *Self)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
-
-   return PyString_FromFormat("<%s object: name:'%s' section: "
-                              "'%s' id:%u>", Self->ob_type->tp_name,
-                              Pkg.Name(), (Pkg.Section() ? Pkg.Section() : ""),
-                              Pkg->ID);
+   return PyString_FromFormat("<%s object: name:'%s' id:%u>", Self->ob_type->tp_name,
+                              Pkg.Name(), Pkg->ID);
 }
 
 static const char *package_doc =
