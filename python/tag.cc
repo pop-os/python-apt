@@ -384,6 +384,61 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 
    return HandleErrors(PyBool_FromLong(1));
 }
+
+static char *doc_Close =
+    "close()\n\n"
+    "Close the file.";
+static PyObject *TagFileClose(PyObject *self, PyObject *args)
+{
+    if (args != NULL && !PyArg_ParseTuple(args, ""))
+        return NULL;
+
+   TagFileData &Obj = *(TagFileData *) self;
+
+   Obj.Fd.Close();
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+static PyObject *TagFileExit(PyObject *self, PyObject *args)
+{
+
+   PyObject *exc_type = 0;
+   PyObject *exc_value = 0;
+   PyObject *traceback = 0;
+   if (!PyArg_UnpackTuple(args, "__exit__", 3, 3, &exc_type, &exc_value,
+                          &traceback)) {
+       return 0;
+   }
+
+   PyObject *res = TagFileClose(self, NULL);
+
+   if (res == NULL) {
+      // The close failed. If no exception happened within the suite, we
+      // will raise an error here. Otherwise, we just display the error, so
+      // Python can handle the original exception instead.
+      if (exc_type == Py_None)
+         return NULL;
+
+      PyErr_WriteUnraisable(self);
+   } else {
+      Py_DECREF(res);
+   }
+   // Return False, as required by the context manager protocol.
+   Py_RETURN_FALSE;
+}
+
+static PyObject *TagFileEnter(PyObject *self, PyObject *args)
+{
+   if (!PyArg_ParseTuple(args, ""))
+      return NULL;
+
+   Py_INCREF(self);
+
+   return self;
+}
+
 									/*}}}*/
 // ParseSection - Parse a single section from a tag file		/*{{{*/
 // ---------------------------------------------------------------------
@@ -656,6 +711,9 @@ static PyMethodDef TagFileMethods[] =
    {"step",TagFileStep,METH_VARARGS,doc_Step},
    {"offset",TagFileOffset,METH_VARARGS,doc_Offset},
    {"jump",TagFileJump,METH_VARARGS,doc_Jump},
+   {"close",TagFileClose,METH_VARARGS,doc_Close},
+   {"__enter__",TagFileEnter,METH_VARARGS,"Context manager entry, return self."},
+   {"__exit__",TagFileExit,METH_VARARGS,"Context manager exit, calls close."},
 
    {}
 };
