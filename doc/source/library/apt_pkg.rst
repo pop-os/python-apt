@@ -1541,8 +1541,7 @@ installation.
     The constructor takes an optional parameter *progress* which takes an
     :class:`apt.progress.base.AcquireProgress` object. This object may then
     report progress information (see :mod:`apt.progress.text` for reporting
-    progress to a I/O stream and :mod:`apt.progress.gtk2` for GTK+ progress
-    reporting).
+    progress to a I/O stream).
     
     Acquire items have two methods to start and stop the fetching:
 

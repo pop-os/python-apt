@@ -12,7 +12,7 @@ apt-pkg and apt-inst libraries and the base for the rest of python-apt.
 Going forward, the :mod:`apt` package appears. This package is using
 :mod:`apt_pkg` and :mod:`apt_inst` to provide easy to use ways to manipulate
 the cache, fetch packages, or install new packages. It also provides useful
-progress classes, for text and GTK+ interfaces. The last package is
+progress classes, currently only for text interfaces. The last package is
 :mod:`aptsources`. The aptsources package provides classes and functions to
 read files like :file:`/etc/apt/sources.list` and to modify them.
 
@@ -28,7 +28,6 @@ read files like :file:`/etc/apt/sources.list` and to modify them.
     apt.package
     apt.progress.base
     apt.progress.text
-    apt.progress.gtk2
 
     aptsources.distinfo
     aptsources.distro
