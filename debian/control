@@ -6,7 +6,7 @@ Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Standards-Version: 3.9.6
 X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.3
-Build-Depends: apt (>= 0.9.6),
+Build-Depends: apt (>= 1.0.9.4),
                apt-utils,
                debhelper (>= 9),
                dh-python,
