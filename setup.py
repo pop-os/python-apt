@@ -24,6 +24,24 @@ try:
 except ImportError:
     print('W: [python%s] Sphinx import error.' % sys.version[:3])
 
+
+def get_version():
+    """Get a PEP 0440 compatible version string"""
+    version = os.environ.get('DEBVER')
+    version = version.replace("~alpha", ".a")
+    version = version.replace("~beta", ".b")
+    version = version.replace("~rc", ".rc")
+    version = version.replace("~exp", ".dev")
+    version = version.replace("ubuntu", "+ubuntu")
+    version = version.replace("tanglu", "+tanglu")
+    version = version.split("build")[0]
+
+    if "~" in version:
+        raise ValueError("Invalid version")
+
+    return version
+
+
 # The apt_pkg module.
 files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
          'configuration.cc', 'depcache.cc', 'generic.cc', 'hashes.cc',
@@ -64,7 +82,7 @@ for key, value in cfg_vars.items():
 
 setup(name="python-apt",
       description="Python bindings for APT",
-      version=os.environ.get('DEBVER'),
+      version=get_version(),
       author="APT Development Team",
       author_email="deity@lists.debian.org",
       ext_modules=[apt_pkg, apt_inst],
