@@ -36,9 +36,6 @@ def get_version():
     version = version.replace("tanglu", "+tanglu")
     version = version.split("build")[0]
 
-    if "~" in version:
-        raise ValueError("Invalid version")
-
     return version
 
 
