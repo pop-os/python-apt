@@ -1,3 +1,60 @@
+python-apt (1.0.0~beta1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * tests/test_tagfile.py: Close files we opened to prevent leakage
+    (Closes: #785337)
+  * doc/source/c++/api.rst: Upgrade syntax to use the new domain stuff
+  * doc/source/library/apt_pkg.rst: Fix indentation (Closes: #736119)
+  * sphinx docs: Fix remaining instances of old C syntax to use domains
+  * python/cache.cc: Handle deprecation of pkgCache::PkgIterator::Section()
+  * doc: Prepare for 1.0 release
+  * TagFile: Provide close() and context manager (Closes: #748922)
+  * doc: Document apt_pkg.TagFile additions
+  * doc: templates: layout: Remove invalid icon links
+  * debian/control: Build-Depend on dh-python
+  * Do not link documentation from Architecture: all to Architecture: any
+  * Use ${python:Depends} and friends for the debug packages
+  * apt.debfile: Fix splitting of multi-lines Binary fields in dsc files
+    (Closes: #751770)
+  * Remove apt.progress.gtk2
+  * apt_pkg.Package: Drop the unset 'auto' attribute (Closes: #565364)
+  * Update POTFILES.in and the pot
+  * apt/cache.py: Work around a cyclic reference from Cache to its methods
+    (Closes: #745487)
+  * apt/debfile.py: Arch-qualify in compare_to_version_in_cache()
+    (Closes: #750189)
+  * apt.package: Only reference Launchpad for missing changelogs on Ubuntu
+    (Closes: #781270)
+  * apt/cache.py: Support :all and other special architecture specifies
+  * apt/debfile: Stop special-casing all when looking for a package in the cache
+  * apt/debfile.py: Allow downgrading packages in check() with a parameter
+    (Closes: #613974)
+  * Acquire: Document that items may have transient errors on run() success
+    (Closes: #680997)
+  * Large file support (Closes: #742885)
+    - python/arfile.cc: Do not allow files larger than SIZE_MAX to be mapped
+    - python/arfile.cc: LFS: Use long long instead of long for file sizes
+    - python/tarfile.cc: LFS: Handle too large file
+  * setup.py: Translate version number from Debian to PEP0440 (LP: #1445949)
+
+  [ Michael Vogt ]
+  * apt_pkg.rst: improve documentation for AcquireFile() hash and add
+    sha512 to the documentation
+  * rename "md5" keyword argument in AcquireFile() to "hash" and add
+    backward compatiblity
+  * Fix apt.Package.installed_files for multi-arch packages (LP: #1313699)
+
+  [ von ]
+  * Remove the "-Wstrict-prototypes" compiler option (Closes: #785261)
+  * Set Standards-Version to 3.9.6 (Closes: #785431)
+  * Fix indentation and docstring problems (Closes: #784910)
+
+  [ Michael Schaller ]
+  * Fixed docstring of BaseDependency.version property.
+  * Improved docstring of the Version.get_dependencies method.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 11 Jun 2015 22:38:31 +0200
+
 python-apt (0.9.4) unstable; urgency=medium
 
   [ Michael Vogt ]
