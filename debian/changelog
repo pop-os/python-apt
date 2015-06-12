@@ -1,3 +1,10 @@
+python-apt (1.0.0~beta2) unstable; urgency=low
+
+  * debian/control: Build-Depend on apt (>= 1.0.9.4) for Files2()
+  * Handle the symlink to directory transition correctly (Closes: #788571)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 13 Jun 2015 00:41:30 +0200
+
 python-apt (1.0.0~beta1) unstable; urgency=low
 
   [ Julian Andres Klode ]
