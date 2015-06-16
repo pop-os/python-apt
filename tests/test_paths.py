@@ -42,10 +42,10 @@ class TestPath(unittest.TestCase):
         AcquireFile
         """
         with warnings.catch_warnings(record=True) as caught_warnings:
-                apt_pkg.AcquireFile(
-                        apt_pkg.Acquire(), "http://example.com",
-                        destfile=self.file_bytes,
-                        md5="abcdef")
+            apt_pkg.AcquireFile(
+                apt_pkg.Acquire(), "http://example.com",
+                destfile=self.file_bytes,
+                md5="abcdef")
 
         assert len(caught_warnings) == 1
         assert issubclass(caught_warnings[0].category, DeprecationWarning)
