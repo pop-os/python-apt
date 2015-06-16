@@ -4,6 +4,7 @@
 import os
 import shutil
 import unittest
+import warnings
 
 import apt_inst
 import apt_pkg
@@ -40,10 +41,15 @@ class TestPath(unittest.TestCase):
         Ensure that both "md5" and "hash" is supported as keyword for
         AcquireFile
         """
-        apt_pkg.AcquireFile(
-            apt_pkg.Acquire(), "http://example.com",
-            destfile=self.file_bytes,
-            md5="abcdef")
+        with warnings.catch_warnings(record=True) as caught_warnings:
+                apt_pkg.AcquireFile(
+                        apt_pkg.Acquire(), "http://example.com",
+                        destfile=self.file_bytes,
+                        md5="abcdef")
+
+        assert len(caught_warnings) == 1
+        assert issubclass(caught_warnings[0].category, DeprecationWarning)
+
         apt_pkg.AcquireFile(
             apt_pkg.Acquire(), "http://example.com",
             destfile=self.file_bytes,
