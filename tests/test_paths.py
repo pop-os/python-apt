@@ -42,13 +42,17 @@ class TestPath(unittest.TestCase):
         AcquireFile
         """
         with warnings.catch_warnings(record=True) as caught_warnings:
+            warnings.simplefilter("always")
             apt_pkg.AcquireFile(
                 apt_pkg.Acquire(), "http://example.com",
                 destfile=self.file_bytes,
                 md5="abcdef")
 
-        assert len(caught_warnings) == 1
-        assert issubclass(caught_warnings[0].category, DeprecationWarning)
+        self.assertEqual(len(caught_warnings), 1)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
+        self.assertIn("md5", str(caught_warnings[0].message))
+        self.assertIn("hash", str(caught_warnings[0].message))
 
         apt_pkg.AcquireFile(
             apt_pkg.Acquire(), "http://example.com",
