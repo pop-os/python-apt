@@ -23,6 +23,7 @@ from __future__ import print_function
 
 import fnmatch
 import os
+import warnings
 import weakref
 
 import apt_pkg
@@ -544,8 +545,16 @@ class Cache(object):
         self._run_callbacks("cache_pre_change")
 
     def connect(self, name, callback):
-        """ connect to a signal, currently only used for
-            cache_{post,pre}_{changed,open} """
+        """Connect to a signal.
+
+        .. deprecated:: 1.0
+
+            Please use connect2() instead, as this function is very
+            likely to cause a memory leak.
+        """
+        if callback != '_inc_changes_count':
+            warnings.warn("connect() likely causes a reference"
+                          " cycle, use connect2() instead", RuntimeWarning, 2)
         if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
@@ -771,11 +780,11 @@ class FilteredCache(object):
         return getattr(self.cache, key)
 
 
-def cache_pre_changed():
+def cache_pre_changed(cache):
     print("cache pre changed")
 
 
-def cache_post_changed():
+def cache_post_changed(cache):
     print("cache post changed")
 
 
@@ -784,8 +793,8 @@ def _test():
     print("Cache self test")
     apt_pkg.init()
     cache = Cache(apt.progress.text.OpProgress())
-    cache.connect("cache_pre_change", cache_pre_changed)
-    cache.connect("cache_post_change", cache_post_changed)
+    cache.connect2("cache_pre_change", cache_pre_changed)
+    cache.connect2("cache_post_change", cache_post_changed)
     print(("aptitude" in cache))
     pkg = cache["aptitude"]
     print(pkg.name)
@@ -812,8 +821,8 @@ def _test():
 
     print("Testing filtered cache (argument is old cache)")
     filtered = FilteredCache(cache)
-    filtered.cache.connect("cache_pre_change", cache_pre_changed)
-    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.connect2("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect2("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
     print(len(filtered))
@@ -824,8 +833,8 @@ def _test():
 
     print("Testing filtered cache (no argument)")
     filtered = FilteredCache(progress=apt.progress.base.OpProgress())
-    filtered.cache.connect("cache_pre_change", cache_pre_changed)
-    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.connect2("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect2("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
     print(len(filtered))
