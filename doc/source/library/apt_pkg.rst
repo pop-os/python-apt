@@ -1352,10 +1352,10 @@ Records (Release files, Packages, Sources)
 
         Example (shortened)::
 
-            cand = depcache.GetCandidateVer(cache['python-apt'])
-            records.Lookup(cand.FileList[0])
+            cand = depcache.get_candidate_ver(cache['python-apt'])
+            records.lookup(cand.file_list[0])
             # Now you can access the record
-            print records.SourcePkg # == python-apt
+            print records.source_pkg # == python-apt
 
     .. attribute:: filename
 
