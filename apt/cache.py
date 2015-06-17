@@ -78,6 +78,7 @@ class Cache(object):
         self._records = None
         self._list = None
         self._callbacks = {}
+        self._callbacks2 = {}
         self._weakref = weakref.WeakValueDictionary()
         self._changes_count = -1
         self._sorted_set = None
@@ -143,6 +144,10 @@ class Cache(object):
                     self._inc_changes_count()
                 else:
                     callback()
+
+        if name in self._callbacks2:
+            for callback, args, kwds in self._callbacks2[name]:
+                    callback(self, *args, **kwds)
 
     def open(self, progress=None):
         """ Open the package cache, after that it can be used like
@@ -544,6 +549,26 @@ class Cache(object):
         if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
+
+    def connect2(self, name, callback, *args, **kwds):
+        """Connect to a signal.
+
+        The callback will be passed the cache as an argument, and
+        any arguments passed to this function. Make sure that, if you
+        pass a method of a class as your callback, your class does not
+        contain a reference to the cache.
+
+        Cyclic references to the cache can cause issues if the Cache object
+        is replaced by a new one, because the cache keeps a lot of objects and
+        tens of open file descriptors.
+
+        currently only used for cache_{post,pre}_{changed,open}.
+
+        .. versionadded:: 1.0
+        """
+        if name not in self._callbacks2:
+            self._callbacks2[name] = []
+        self._callbacks2[name].append((callback, args, kwds))
 
     def actiongroup(self):
         """Return an `ActionGroup` object for the current cache.
