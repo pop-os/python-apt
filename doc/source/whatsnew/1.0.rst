@@ -10,8 +10,13 @@ New features
 * A new a :meth:`apt_pkg.TagFile.close` method was added
 * :class:`apt_pkg.TagFile` is now a context manager
 
-* The high-level cache class, :class:`apt.cache.Cache` now supports package
+* The high-level cache class, :class:`apt.cache.Cache` and it's companion
+  :class:`apt.cache.FilteredCache` now support package
   names with special architecture qualifiers such as :all and :native.
+
+* The method :meth:`apt.cache.Cache.connect2` allows connecting callbacks on
+  cache changes that take the cache as their first argument, reducing the
+  potential for reference cycles.
 
 Deprecated
 ----------
@@ -21,6 +26,9 @@ The following features are deprecated, starting with this release:
 * The `files` member of of :class:`apt_pkg.SourceRecords`
 * The `md5` argument to :class:`apt_pkg.AcquireFile`, it is replaced by
   the `hash` argument.
+* The method :meth:`apt.cache.Cache.connect` has been deprecated. It is
+  replaced by :meth:`apt.cache.Cache.connect2` which is more flexible and
+  less prone to reference cycles.
 
 Removed
 -------
@@ -36,6 +44,10 @@ Removed
 
 Maintenance
 -----------
+* The classes :class:`apt.cache.Cache` and :class:`apt.cache.FilteredCache` no
+  longer store cyclic references to/between them. This fixes a huge issue,
+  because a cache can have tens of open file descriptors, causing the maximum
+  of file descriptors to be reached easily.
 
 * :mod:`apt_inst` now supports ar and tar archives that are larger than 4 GiB
 * Various smaller bug fixes
