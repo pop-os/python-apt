@@ -689,6 +689,38 @@ class MarkedChangesFilter(Filter):
             return False
 
 
+class _FilteredCacheHelper(object):
+    """Helper class for FilteredCache to break a reference cycle."""
+
+    def __init__(self, cache):
+        # Do not keep a reference to the cache, or you have a cycle!
+
+        self._filtered = {}
+        self._filters = {}
+        cache.connect2("cache_post_change", self.filter_cache_post_change)
+        cache.connect2("cache_post_open", self.filter_cache_post_change)
+
+    def _reapply_filter(self, cache):
+        " internal helper to refilter "
+        # Do not keep a reference to the cache, or you have a cycle!
+        self._filtered = {}
+        for pkg in cache:
+            for f in self._filters:
+                if f.apply(pkg):
+                    self._filtered[pkg.name] = 1
+                    break
+
+    def set_filter(self, filter):
+        """Set the current active filter."""
+        self._filters = []
+        self._filters.append(filter)
+
+    def filter_cache_post_change(self, cache):
+        """Called internally if the cache changes, emit a signal then."""
+        # Do not keep a reference to the cache, or you have a cycle!
+        self._reapply_filter(cache)
+
+
 class FilteredCache(object):
     """ A package cache that is filtered.
 
@@ -700,23 +732,20 @@ class FilteredCache(object):
             self.cache = Cache(progress)
         else:
             self.cache = cache
-        self.cache.connect("cache_post_change", self.filter_cache_post_change)
-        self.cache.connect("cache_post_open", self.filter_cache_post_change)
-        self._filtered = {}
-        self._filters = []
+        self._helper = _FilteredCacheHelper(self.cache)
 
     def __len__(self):
-        return len(self._filtered)
+        return len(self._helper._filtered)
 
     def __getitem__(self, key):
         return self.cache[key]
 
     def __iter__(self):
-        for pkgname in self._filtered:
+        for pkgname in self._helper._filtered:
             yield self.cache[pkgname]
 
     def keys(self):
-        return self._filtered.keys()
+        return self._helper._filtered.keys()
 
     def has_key(self, key):
         return key in self
@@ -724,38 +753,21 @@ class FilteredCache(object):
     def __contains__(self, key):
         try:
             # Normalize package name for multi arch
-            return self.cache[key].name in self._filtered
+            return self.cache[key].name in self._helper._filtered
         except KeyError:
             return False
 
-    def _reapply_filter(self):
-        " internal helper to refilter "
-        self._filtered = {}
-        for pkg in self.cache:
-            for f in self._filters:
-                if f.apply(pkg):
-                    self._filtered[pkg.name] = 1
-                    break
-
     def set_filter(self, filter):
         """Set the current active filter."""
-        self._filters = []
-        self._filters.append(filter)
-        #self._reapplyFilter()
-        # force a cache-change event that will result in a refiltering
+        self._helper.set_filter(filter)
         self.cache.cache_post_change()
 
     def filter_cache_post_change(self):
         """Called internally if the cache changes, emit a signal then."""
-        #print "filterCachePostChange()"
-        self._reapply_filter()
-
-#    def connect(self, name, callback):
-#        self.cache.connect(name, callback)
+        self._helper.filter_cache_post_change(self.cache)
 
     def __getattr__(self, key):
         """we try to look exactly like a real cache."""
-        #print "getattr: %s " % key
         return getattr(self.cache, key)
 
 
