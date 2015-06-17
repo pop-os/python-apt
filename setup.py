@@ -28,6 +28,9 @@ except ImportError:
 def get_version():
     """Get a PEP 0440 compatible version string"""
     version = os.environ.get('DEBVER')
+    if not version:
+        return version
+
     version = version.replace("~alpha", ".a")
     version = version.replace("~beta", ".b")
     version = version.replace("~rc", ".rc")
