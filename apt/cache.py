@@ -694,10 +694,14 @@ class FilteredCache(object):
         return self._filtered.keys()
 
     def has_key(self, key):
-        return (key in self._filtered)
+        return key in self
 
     def __contains__(self, key):
-        return (key in self._filtered)
+        try:
+            # Normalize package name for multi arch
+            return self.cache[key].name in self._filtered
+        except KeyError:
+            return False
 
     def _reapply_filter(self):
         " internal helper to refilter "
