@@ -27,7 +27,7 @@ import os
 import sys
 
 from apt_pkg import gettext as _
-from io import StringIO
+from io import BytesIO
 
 
 class NoDebArchiveException(IOError):
@@ -637,9 +637,9 @@ class DebPackage(object):
         data = part.extractdata(name)
         # check for zip content
         if name.endswith(".gz") and auto_decompress:
-            io = StringIO(data)
+            io = BytesIO(data)
             gz = gzip.GzipFile(fileobj=io)
-            data = _("Automatically decompressed:\n\n")
+            data = _("Automatically decompressed:\n\n").encode("utf-8")
             data += gz.read()
         # auto-convert to hex
         try:

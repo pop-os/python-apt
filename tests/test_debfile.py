@@ -178,6 +178,11 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
             "./data/test_debs/testdep-same-arch_1.0-1_i386.deb")
         self.assertTrue(same.check(), same._failure_string)
 
+    def test_get_content_gzip_data(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/gdebi-test13.deb")
+        data = deb.data_content("./lala.gz")
+        self.assertEqual(data, "Automatically decompressed:\n\nlala\n")
+
 
 if __name__ == "__main__":
     #logging.basicConfig(level=logging.DEBUG)
