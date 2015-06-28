@@ -130,8 +130,8 @@ class BaseDependency(object):
         return self._dep.dep_type_untranslated == 'PreDepends'
 
     def __repr__(self):
-        return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
-                % (self.name, self.relation, self.version, self.pre_depend))
+        return ('<BaseDependency: name:%r relation:%r version:%r rawtype:%r>'
+                % (self.name, self.relation, self.version, self.rawtype))
 
 
 class Dependency(list):
