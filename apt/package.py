@@ -139,15 +139,29 @@ class Dependency(list):
 
     Attributes defined here:
         or_dependencies - The possible choices
+        rawtype - The type of the dependencies in the Or-group
     """
 
-    def __init__(self, alternatives):
-        super(Dependency, self).__init__()
-        self.extend(alternatives)
+    def __init__(self, base_deps, rawtype):
+        super(Dependency, self).__init__(base_deps)
+        self._rawtype = rawtype
 
     @property
     def or_dependencies(self):
         return self
+
+    @property
+    def rawtype(self):
+        """Type of the Or-group of dependency.
+
+        This should be one of 'Breaks', 'Conflicts', 'Depends', 'Enhances',
+        'PreDepends', 'Recommends', 'Replaces', 'Suggests'.
+
+        Additional types might be added in the future.
+
+        .. versionadded:: 1.0.0
+        """
+        return self._rawtype
 
 
 class Origin(object):
@@ -468,7 +482,7 @@ class Version(object):
                     base_deps = []
                     for dep_or in dep_ver_list:
                         base_deps.append(BaseDependency(dep_or))
-                    depends_list.append(Dependency(base_deps))
+                    depends_list.append(Dependency(base_deps, type_))
             except KeyError:
                 pass
         return depends_list
