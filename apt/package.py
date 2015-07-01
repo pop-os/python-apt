@@ -97,12 +97,24 @@ class BaseDependency(object):
 
     @property
     def relation(self):
-        """The relation (<, <=, !=, =, >=, >, ).
+        """The relation (<, <=, =, !=, >=, >, '') in mathematical notation.
 
-        Note that the empty string is a valid string as well, if no version
-        is specified.
+        The empty string will be returned in case of an unversioned dependency.
         """
         return self.__dstr(self._dep.comp_type)
+
+    @property
+    def relation_deb(self):
+        """The relation (<<, <=, =, !=, >=, >>, '') in Debian notation.
+
+        The empty string will be returned in case of an unversioned dependency.
+        For more details see the Debian Policy Manual on the syntax of
+        relationship fields:
+        https://www.debian.org/doc/debian-policy/ch-relationships.html#s-depsyntax  # noqa
+
+        .. versionadded:: 1.0.0
+        """
+        return self._dep.comp_type_deb
 
     @property
     def version(self):

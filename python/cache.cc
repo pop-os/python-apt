@@ -238,7 +238,7 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
 static PyObject *PkgCacheGetIsMultiArch(PyObject *Self, void*) {
     pkgCache *Cache = GetCpp<pkgCache *>(Self);
     return PyBool_FromLong(Cache->MultiArchCache());
-} 
+}
 
 static PyGetSetDef PkgCacheGetSet[] = {
    {"depends_count",PkgCacheGetDependsCount,0,
@@ -634,7 +634,7 @@ static PyObject *PackageGetFullName(PyObject *Self,PyObject *Args,PyObject *kwds
                                    &pretty) == 0)
       return 0;
 
-   
+
    return CppPyString(Pkg.FullName(pretty));
 }
 
@@ -1433,6 +1433,12 @@ static PyObject *DependencyGetCompType(PyObject *Self,void*)
    return PyString_FromString(Dep.CompType());
 }
 
+static PyObject *DependencyGetCompTypeDeb(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return PyString_FromString(pkgCache::CompTypeDeb(Dep->CompareOp));
+}
+
 static PyObject *DependencyGetDepType(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
@@ -1459,8 +1465,17 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 
 static PyGetSetDef DependencyGetSet[] = {
    {"comp_type",DependencyGetCompType,0,
-    "The type of comparison, as a string, namely one of:\n"
-    "'<', '<=', '=', '!=', '>=', '>', ''."},
+    "The type of comparison in mathematical notation, as a string, namely one "
+    "of:\n"
+    "'<', '<=', '=', '!=', '>=', '>', ''.\n"
+    "The empty string will be returned in case of an unversioned dependency."},
+   {"comp_type_deb",DependencyGetCompTypeDeb,0,
+    "The type of comparison in Debian notation, as a string, namely one of:\n"
+    "'<<', '<=', '=', '!=', '>=', '>>', ''.\n"
+    "The empty string will be returned in case of an unversioned dependency.\n"
+    "For details see the Debian Policy Manual on the syntax of relationship "
+    "fields:\n"
+    "https://www.debian.org/doc/debian-policy/ch-relationships.html#s-depsyntax"},
    {"dep_type",DependencyGetDepType,0,
     "The type of the dependency; may be translated"},
    {"dep_type_untranslated",DependencyGetDepTypeUntranslated,0,
