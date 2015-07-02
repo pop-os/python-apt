@@ -309,7 +309,7 @@ Managing the cache with :class:`DepCache`
 
         Return ``True`` if the package is now broken, that is, if the package
         is broken if the marked changes are applied.
-        
+
     .. method:: is_upgradable(pkg: Package) -> bool
 
         Return ``True`` if the package is upgradable, the package can then
@@ -381,7 +381,7 @@ Installing with :class:`PackageManager`
     Abstraction of a package manager. This object takes care of retrieving
     packages, ordering the installation, and calling the package manager to
     do the actual installation.
-    
+
     .. method:: get_archives(fetcher, list, records) -> bool
 
         Add all packages marked for installation (or upgrade, anything
@@ -422,11 +422,11 @@ Installing with :class:`PackageManager`
 
         A constant for checking whether the result of the call to
         :meth:`do_install` is 'incomplete'.
-        
+
     All instances of this class also support the following methods:
-    
+
     .. note::
-        
+
         This methods are provided mainly for subclassing purposes
         and should not be used in most programs. This class is a
         subclass of an internal :class:`_PackageManager` which does
@@ -434,54 +434,54 @@ Installing with :class:`PackageManager`
         an object without those methods, you should not rely on those
         methods to be available unless you used the constructor of
         :class:`PackageManager` to create the object.
-    
-    .. method:: configure(pkg: Package) -> bool 
+
+    .. method:: configure(pkg: Package) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be configured. Must return a ``True`` value
         or ``None`` to continue, or a value which is ``False`` if
         evaluated as boolean to abort.
-        
+
         .. versionadded:: 0.8.0
 
-    .. method:: install(pkg: Package, filename: str) -> bool 
+    .. method:: install(pkg: Package, filename: str) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be installed from the .deb located at
         *filename*. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as
         boolean to abort.
-        
-        
+
+
         .. versionadded:: 0.8.0
 
-    .. method:: remove(pkg: Package, purge: bool) -> bool 
+    .. method:: remove(pkg: Package, purge: bool) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be removed. If *purge* is ``True``, the package
         shall be purged. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as boolean
         to abort.
-        
-        
+
+
         .. versionadded:: 0.8.0
- 
-    .. method:: go(status_fd: int) -> bool  
-        
+
+    .. method:: go(status_fd: int) -> bool
+
         Start dpkg, writing status information to the file descriptor
         given by *status_fd*. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as boolean
         to abort.
-        
+
         .. versionadded:: 0.8.0
 
     .. method:: reset()
 
         Reset the package manager for a new round.
-        
+
         .. versionadded:: 0.8.0
 
-        
+
 Installation ordering with :class:`OrderList`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -490,38 +490,38 @@ Installation ordering with :class:`OrderList`
 	Represent a :c:type:`pkgOrderList`, used for installation
 	ordering. This class provides several methods and attributes,
 	is complicated and should not be used by normal programs.
-	
+
 	.. versionadded:: 0.8.0
-	
+
 	This class is a sequence and supports the following operations:
-	
+
 	.. describe:: list[index]
-	
+
 		Get the package at the given index in the list. Negative
 		index is supported.
-		
+
 	.. describe:: len(list)
-	
+
 		The length of the list.
-		
+
 	It also supports the append() method from :class:`list`:
-	
+
 	.. method:: append(pkg: Package)
-	
+
 		Append a new package to the end of the list. Please note that
 		you may not append a package twice, as only as much packages
 		as in the cache can be added.
-		
+
 	The class also defines several specific attributes and methods,
 	to be described hereinafter.
-		
+
 	.. method:: score(pkg: Package)
-	
+
 		Return the score of the package. Packages are basically
 		ordered by descending score.
-		
+
 	This class allows flags to be set on packages. Those flags are:
-	
+
 	.. attribute:: FLAG_ADDED
 	.. attribute:: FLAG_ADD_PENDING
 	.. attribute:: FLAG_IMMEDIATE
@@ -530,27 +530,27 @@ Installation ordering with :class:`OrderList`
 	.. attribute:: FLAG_CONFIGURED
 	.. attribute:: FLAG_REMOVED
 	.. attribute:: FLAG_STATES_MASK
-	
+
 		Same as ``FLAG_UNPACKED | FLAG_CONFIGURED | FLAG_REMOVED``
-		
+
 	.. attribute:: FLAG_IN_LIST
 	.. attribute:: FLAG_AFTER
-	
+
 	The methods to work with those flags are:
-		
+
 	.. method:: flag(pkg: Package, flag: int[, unset_flags: int])
 
 		Flag a package. Sets the flags given in *flag* and unsets
 		any flags given in *unset_flags*.
-		
+
 	.. method:: is_flag(pkg: Package, flag: int)
-	
+
 		Check whether the flags in *flag* are set for the package.
-		
+
 	.. method:: wipe_flags(flags: int)
-	
+
 		Remove the flags in *flags* from all packages.
-	
+
 	.. method:: is_missing(pkg: Package)
 
 		Check if the package is missing (not really usable right now)
@@ -558,21 +558,21 @@ Installation ordering with :class:`OrderList`
 	.. method:: is_now(pkg: Package)
 
 		Check if the package is flagged for any state but removal.
-		
+
 	The following methods for ordering are provided:
-	
+
 	.. method:: order_critical()
-	
+
 		Order the packages for critical unpacking; that is, only
 		respect pre-dependencies.
-	
+
 	.. method:: order_unpack()
-	
+
 		Order the packages for unpacking, repecting Pre-Depends and
 		Conflicts.
-	
+
 	.. method:: order_configure()
-	
+
 		Order the packages for configuration, respecting Depends.
 
 Improve performance with :class:`ActionGroup`
@@ -688,7 +688,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
         If **prefer_nonvirtual** is ``True``, the preferred package
         will be a non-virtual package, if one exists.
-        
+
 
 :class:`Package` information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -908,49 +908,49 @@ Example:
     .. attribute:: installed_size
 
         The size of the package (in kilobytes), when unpacked on the disk.
-        
+
     .. attribute:: multi_arch
-    
+
 		The multi-arch state of the package. Can be one of the following
 		attributes.
-		
+
 			.. attribute:: MULTI_ARCH_NO
-			
+
 				No multi-arch
-				
+
 			.. attribute:: MULTI_ARCH_ALL
-			
+
 				An ``Architecture: all`` package
-				
-			
+
+
 			.. attribute:: MULTI_ARCH_FOREIGN
-			
+
 				Can satisfy dependencies of foreign-architecture
 				packages
-				
+
 			.. attribute:: MULTI_ARCH_ALL_FOREIGN
-			
+
 				:attr:`MULTI_ARCH_FOREIGN` for ``Architecture: all``
 				packages.
-				
+
 			.. attribute:: MULTI_ARCH_SAME
-			
+
 				Multiple versions from different architectures may be
 				installed in parallel, but may only satisfy dependencies
 				of packages from the same architecture
-				
+
 			.. attribute:: MULTI_ARCH_ALLOWED
-			
+
 				Installation in parallel and satisfying ``pkg:any``
 				style dependencies is allowed.
-				
+
 			.. attribute:: MULTI_ARCH_ALL_ALLOWED
-			
+
 				:attr:`MULTI_ARCH_ALLOWED` for ``Architecture: all``
 				packages.
-				
-				
-			
+
+
+
 
     .. attribute:: parent_pkg
 
@@ -993,7 +993,7 @@ Example:
     .. attribute:: ver_str
 
         The version, as a string.
-        
+
 
 
 :class:`Dependency`
@@ -1085,15 +1085,15 @@ Example:
     .. attribute:: TYPE_PREDEPENDS
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_RECOMMENDS
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_REPLACES
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_SUGGESTS
 
         Constant for checking against dep_type_enum
@@ -1134,7 +1134,7 @@ Package Pinning with :class:`Policy`
     compared to the *DepCache* class. The DepCache can be used for most
     purposes, but there may be some cases where a special policy class
     is needed.
-    
+
     .. method:: create_pin(type: str, pkg: str, data: str, priority: int)
 
         Create a pin for the policy. The parameter *type* refers to one of the
@@ -1142,7 +1142,7 @@ Package Pinning with :class:`Policy`
         name of the package. The parameter *data* refers to the value (such
         as 'unstable' for type='Release') and the other possible options.
         The parameter 'priority' gives the priority of the pin.
-        
+
     .. method:: get_candidate_ver(package: apt_pkg.Package) -> apt_pkg.Version
 
         Get the best package for the job; that is, the package with the
@@ -1177,16 +1177,16 @@ Index Files
     .. attribute:: uri
 
       The URI the meta index file is located at, as a string.
-      
+
     .. attribute:: dist
 
       The distribution stored in the meta index, as a string.
-    
+
     .. attribute:: is_trusted
 
       A boolean value determining whether the meta index can be trusted. This
       is ``True`` for signed Release files.
-      
+
     .. attribute:: index_files
 
       A list of all :class:`IndexFile` objects associated with this meta
@@ -1429,7 +1429,7 @@ Records (Release files, Packages, Sources)
 
     Provide an easy way to look up the records of source packages and
     provide easy attributes for some widely used fields of the record.
-    
+
     .. note::
 
         If the Lookup failed, because no package could be found, no error is
@@ -1535,7 +1535,7 @@ installation.
     :class:`apt.progress.base.AcquireProgress` object. This object may then
     report progress information (see :mod:`apt.progress.text` for reporting
     progress to a I/O stream).
-    
+
     Acquire items have two methods to start and stop the fetching:
 
     .. method:: run() -> int
@@ -1697,7 +1697,7 @@ installation.
     .. attribute:: STAT_FETCHING
 
         The item is being fetched currently.
-        
+
     .. attribute:: STAT_IDLE
 
         The item is yet to be fetched.
@@ -1845,7 +1845,7 @@ generic hash support:
     separated by a colon as the only argument. For example::
 
         HashString("MD5Sum:d41d8cd98f00b204e9800998ecf8427e")
-    
+
 
     .. describe:: str(hashstring)
 
@@ -1952,7 +1952,7 @@ section as a string.
     .. versionadded:: 0.8.5
 
         Added support for using bytes instead of str in Python 3
-        
+
     .. method:: next()
 
         A TagFile is its own iterator. This method is part of the iterator
@@ -2029,7 +2029,7 @@ section as a string.
     .. method:: get(key: str, default: str = '')
 
         Return the value of the field at the key *key* if available, else
-        return *default*. 
+        return *default*.
 
     .. method:: keys()
 
@@ -2069,7 +2069,7 @@ Dependencies
     Check that the given requirement is fulfilled; that is, that the version
     string given by *pkg_ver* matches the version string *dep_ver* under
     the condition specified by the operator 'dep_op' (<,<=,=,>=,>).
-        
+
     Return True if *pkg_ver* matches *dep_ver* under the condition 'dep_op';
     for example::
 
@@ -2173,7 +2173,7 @@ Configuration and Command-line parsing
     .. method:: get(key[, default='']) -> str
 
         Find the value for the given key and return it. If the given key does
-        not exist, return *default* instead. 
+        not exist, return *default* instead.
 
     In addition, they provide methods to resemble the interface provided
     by the C++ class and some more mapping methods which have been enhanced
@@ -2255,7 +2255,7 @@ Configuration and Command-line parsing
         is given, a list of all its children. This method is comparable
         to the **keys** method of a mapping object, but additionally
         provides the parameter *key*.
-        
+
     .. method:: list([key])
 
         Return a non-recursive list of all configuration options. If *key*
@@ -2323,9 +2323,9 @@ Configuration and Command-line parsing
 
     Parse the command line in *argv* into the configuration space. The
     list *options* contains a list of 3-tuples or 4-tuples in the form::
-        
+
         (short_option: str, long_option: str, variable: str[, type: str])
-        
+
     The element *short_option* is one character, the *long_option* element
     is the name of the long option, the element *variable* the name of the
     configuration option the result will be stored in and *type* is one of
@@ -2663,7 +2663,7 @@ Installed states
 .. data:: INSTSTATE_HOLD_REINSTREQ
 
     The package is put on hold, but broken and has to be reinstalled.
-    
+
 .. data:: INSTSTATE_OK
 
     The package is OK.
@@ -2683,7 +2683,7 @@ Priorities
 .. data:: PRI_IMPORTANT
 
     The integer representation of the priority 'important'.
-    
+
 .. data:: PRI_OPTIONAL
 
     The integer representation of the priority 'optional'.
@@ -2712,7 +2712,7 @@ Package selection states
 .. data:: SELSTATE_INSTALL
 
     The package is selected for installation.
-    
+
 .. data:: SELSTATE_PURGE
 
     The package is selected to be purged.
