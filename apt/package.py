@@ -90,6 +90,13 @@ class BaseDependency(object):
     def __init__(self, dep):
         self._dep = dep  # apt_pkg.Dependency
 
+    def __str__(self):
+        return '%s: %s' % (self.rawtype, self.rawstr)
+
+    def __repr__(self):
+        return ('<BaseDependency: name:%r relation:%r version:%r rawtype:%r>'
+                % (self.name, self.relation, self.version, self.rawtype))
+
     @property
     def name(self):
         """The name of the target package."""
@@ -126,6 +133,27 @@ class BaseDependency(object):
         return self._dep.target_ver
 
     @property
+    def rawstr(self):
+        """String represenation of the dependency.
+
+        Returns the string representation of the dependency as it would be
+        written in the debian/control file.  The string representation does not
+        include the type of the dependency.
+
+        Example for an unversioned dependency:
+          python3
+
+        Example for a versioned dependency:
+          python3 >= 3.2
+
+        .. versionadded:: 1.0.0
+        """
+        if self.version:
+            return '%s %s %s' % (self.name, self.relation_deb, self.version)
+        else:
+            return self.name
+
+    @property
     def rawtype(self):
         """Type of the dependency.
 
@@ -141,16 +169,13 @@ class BaseDependency(object):
         """Whether this is a PreDepends."""
         return self._dep.dep_type_untranslated == 'PreDepends'
 
-    def __repr__(self):
-        return ('<BaseDependency: name:%r relation:%r version:%r rawtype:%r>'
-                % (self.name, self.relation, self.version, self.rawtype))
-
 
 class Dependency(list):
     """Represent an Or-group of dependencies.
 
     Attributes defined here:
         or_dependencies - The possible choices
+        rawstr - String represenation of the Or-group of dependencies
         rawtype - The type of the dependencies in the Or-group
     """
 
@@ -158,9 +183,30 @@ class Dependency(list):
         super(Dependency, self).__init__(base_deps)
         self._rawtype = rawtype
 
+    def __str__(self):
+        return '%s: %s' % (self.rawtype, self.rawstr)
+
+    def __repr__(self):
+        return '<Dependency: [%s]>' % (', '.join(repr(bd) for bd in self))
+
     @property
     def or_dependencies(self):
         return self
+
+    @property
+    def rawstr(self):
+        """String represenation of the Or-group of dependencies.
+
+        Returns the string representation of the Or-group of dependencies as it
+        would be written in the debian/control file.  The string representation
+        does not include the type of the Or-group of dependencies.
+
+        Example:
+          python2 >= 2.7 | python3
+
+        .. versionadded:: 1.0.0
+        """
+        return ' | '.join(bd.rawstr for bd in self)
 
     @property
     def rawtype(self):
@@ -326,6 +372,9 @@ class Version(object):
 
     def __hash__(self):
         return self._cand.hash
+
+    def __str__(self):
+        return '%s=%s' % (self.package.name, self.version)
 
     def __repr__(self):
         return '<Version: package:%r version:%r>' % (self.package.name,
@@ -726,6 +775,9 @@ class VersionList(Sequence):
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
+    def __str__(self):
+        return '[%s]' % (', '.join(str(ver) for ver in self))
+
     def __repr__(self):
         return '<VersionList: %r>' % self.keys()
 
@@ -775,6 +827,9 @@ class Package(object):
         self._pkg = pkgiter
         self._pcache = pcache           # python cache in cache.py
         self._changelog = ""            # Cached changelog
+
+    def __str__(self):
+        return self.name
 
     def __repr__(self):
         return '<Package: name:%r architecture=%r id:%r>' % (
