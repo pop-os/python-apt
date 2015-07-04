@@ -1004,13 +1004,8 @@ Example:
 
     .. method:: all_targets
 
-        A list of :class:`Version` objects which satisfy the dependency,
-        and do not conflict with already installed ones.
-
-        From my experience, if you use this method to select the target
-        version, it is the best to select the last item unless any of the
-        other candidates is already installed. This leads to results being
-        very close to the normal package installation.
+        A list of all possible target :class:`Version` objects which satisfy
+        this dependency.
 
     .. method:: smart_target_pkg
 

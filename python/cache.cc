@@ -1388,7 +1388,8 @@ static PyMethodDef DependencyMethods[] =
     "of the target package."},
    {"all_targets",DepAllTargets,METH_VARARGS,
     "all_targets() -> list\n\n"
-    "A list of all apt_pkg.Version objects satisfying the dependency."},
+    "A list of all possible apt_pkg.Version objects which satisfy this\n"
+    "dependency."},
    {}
 };
 
