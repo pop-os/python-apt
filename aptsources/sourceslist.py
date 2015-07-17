@@ -295,7 +295,6 @@ class SourcesList(object):
             types """
         for entry in self.list:
             yield entry
-        raise StopIteration
 
     def __find(self, *predicates, **attrs):
         for source in self.list:

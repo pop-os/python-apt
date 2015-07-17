@@ -221,7 +221,6 @@ class Cache(object):
         # necessary for uncompressed indexes.
         for pkgname in self.keys():
             yield self[pkgname]
-        raise StopIteration
 
     def __is_real_pkg(self, rawpkg):
         """Check if the apt_pkg.Package provided is a real package."""
