@@ -1,3 +1,25 @@
+python-apt (1.0.0~beta3.1) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * fix py3 issue with auto .gz decompression and add test
+  * updated for the gcc5 transition
+
+  [ Julian Andres Klode ]
+  * doc/source/conf.py: Reproducibility: Set html_last_updated_fmt = None
+
+  [ Michael Schaller ]
+  * BaseDependency.__repr__: Replace pre_depend with rawtype
+  * apt/package.py: Add rawtype property to Dependency class
+  * Add dependency comparison (aka. relation) type in Debian notation
+  * apt/package.py: Add missing __str__ and __repr__ methods
+  * doc/source/library/apt_pkg.rst: Remove trailing whitespace
+  * apt_pkg.Dependency.all_targets: Fix the documentation
+
+  [ Barry Warsaw ]
+  * python-apt: Python 3.5 and PEP 479 support (Closes: #792606)
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Jul 2015 17:51:25 +0200
+
 python-apt (1.0.0~beta3) unstable; urgency=medium
 
   * tests/test_paths.py: Catch and assert the DeprecationWarning
