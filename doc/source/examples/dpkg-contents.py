@@ -15,12 +15,14 @@ def format_mode(what, mode):
     s_mode = dict(DIR="d", HARDLINK="h", FILE="-").get(what)
     s_mode += ((mode & stat.S_IRUSR) and "r" or "-")
     s_mode += ((mode & stat.S_IWUSR) and "w" or "-")
-    s_mode += ((mode & stat.S_IXUSR) and (mode & stat.S_ISUID and "s" or "x")
-                                      or (mode & stat.S_ISUID and "S" or "-"))
+    s_mode += ((mode & stat.S_IXUSR) and
+               (mode & stat.S_ISUID and "s" or "x") or
+               (mode & stat.S_ISUID and "S" or "-"))
     s_mode += ((mode & stat.S_IRGRP) and "r" or "-")
     s_mode += ((mode & stat.S_IWGRP) and "w" or "-")
-    s_mode += ((mode & stat.S_IXGRP) and (mode & stat.S_ISGID and "s" or "x")
-                                      or (mode & stat.S_ISGID and "S" or "-"))
+    s_mode += ((mode & stat.S_IXGRP) and
+               (mode & stat.S_ISGID and "s" or "x") or
+               (mode & stat.S_ISGID and "S" or "-"))
     s_mode += ((mode & stat.S_IROTH) and "r" or "-")
     s_mode += ((mode & stat.S_IWOTH) and "w" or "-")
     s_mode += ((mode & stat.S_IXOTH) and "x" or "-")

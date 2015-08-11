@@ -125,11 +125,11 @@ class Distribution(object):
                     self.disabled_sources.append(source)
             if (not source.invalid and
                     source.template in self.source_template.children):
-                if (not source.disabled
-                        and source.type == self.binary_type):
+                if (not source.disabled and
+                    source.type == self.binary_type):
                         self.child_sources.append(source)
-                elif (not source.disabled
-                          and source.type == self.source_type):
+                elif (not source.disabled and
+                      source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
                     self.disabled_sources.append(source)
