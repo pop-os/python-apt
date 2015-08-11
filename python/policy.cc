@@ -101,7 +101,7 @@ static PyObject *policy_read_pinfile(PyObject *self, PyObject *arg) {
     return PyBool_FromLong(ReadPinFile(*policy, name));
 }
 
-#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
+#if (APT_PKG_MAJOR > 4 || (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8))
 static char *policy_read_pindir_doc =
     "read_pindir(dirname: str) -> bool\n\n"
     "Read the pin files in the given dir (e.g. '/etc/apt/preferences.d')\n"
@@ -152,7 +152,7 @@ static PyMethodDef policy_methods[] = {
      policy_get_candidate_ver_doc},
     {"read_pinfile",(PyCFunction)policy_read_pinfile,METH_O,
      policy_read_pinfile_doc},
-#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8)
+#if (APT_PKG_MAJOR > 4 || (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 8))
     {"read_pindir",(PyCFunction)policy_read_pindir,METH_O,
      policy_read_pindir_doc},
 #endif

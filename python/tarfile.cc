@@ -53,7 +53,7 @@ public:
 
     virtual bool DoItem(Item &Itm,int &Fd);
     virtual bool FinishedFile(Item &Itm,int Fd);
-#if (APT_PKG_MAJOR >= 5 && APT_PKG_MINOR >= 0)
+#if (APT_PKG_MAJOR >= 5)
     virtual bool Process(Item &Itm,const unsigned char *Data,
                          unsigned long long Size,unsigned long long Pos);
 #else
@@ -106,7 +106,7 @@ to_large:
     return true;
 }
 
-#if (APT_PKG_MAJOR >= 5 && APT_PKG_MINOR >= 0)
+#if (APT_PKG_MAJOR >= 5)
 bool PyDirStream::Process(Item &Itm,const unsigned char *Data,
                           unsigned long long Size,unsigned long long Pos)
 #else
