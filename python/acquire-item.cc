@@ -77,7 +77,7 @@ static PyObject *acquireitem_get_id(PyObject *self, void *closure)
 static PyObject *acquireitem_get_active_subprocess(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-#if APT_PKG_MAJOR > 5
+#if APT_PKG_MAJOR >= 5
     return item ? Py_BuildValue("s", item->ActiveSubProcess.c_str()) : 0;
 #else
     return item ? Py_BuildValue("s", item->Mode) : 0;
