@@ -23,6 +23,7 @@
 #include <apt-pkg/pkgrecords.h>
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/fileutl.h>
+#include <apt-pkg/upgrade.h>
 #include <Python.h>
 
 #include <iostream>
@@ -262,9 +263,10 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 
    Py_BEGIN_ALLOW_THREADS
    if(distUpgrade)
-      res = pkgDistUpgrade(*depcache);
+      res = APT::Upgrade::Upgrade(*depcache, 0);
    else
-      res = pkgAllUpgrade(*depcache);
+      res = APT::Upgrade::Upgrade(*depcache, APT::Upgrade::FORBID_REMOVE_PACKAGES |
+                                             APT::Upgrade::FORBID_INSTALL_NEW_PACKAGES);
    Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
