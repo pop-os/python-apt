@@ -1367,9 +1367,9 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
 
-   SPtr<pkgCache::Version *> Vers = Dep.AllTargets();
+   std::unique_ptr<pkgCache::Version *[]> Vers(Dep.AllTargets());
    PyObject *List = PyList_New(0);
-   for (pkgCache::Version **I = Vers; *I != 0; I++)
+   for (pkgCache::Version **I = Vers.get(); *I != 0; I++)
    {
       PyObject *Obj;
       Obj = CppPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,

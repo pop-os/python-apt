@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <array>
 
 static PyObject *armember_get_name(PyObject *self, void *closure)
 {
@@ -232,15 +233,15 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
 
     // Read 4 KiB from the file, until all of the file is read. Deallocated
     // automatically when the function returns.
-    SPtrArray<char> value = new char[4096];
+    std::array<char, 4096> value;
     unsigned long long size = member->Size;
     unsigned long long read = 4096;
     while (size > 0) {
         if (size < read)
             read = size;
-        if (!Fd.Read(value, read, true))
+        if (!Fd.Read(value.data(), read, true))
             return HandleErrors();
-        if (write(outfd, value, read) != (signed long long)read)
+        if (write(outfd, value.data(), read) != (signed long long)read)
             return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
         size -= read;
     }
