@@ -188,8 +188,8 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
                                     worker.current_item.shortdesc)
             else:
                 val += ' [%s' % worker.current_item.description
-            if worker.current_item.owner.mode:
-                val += ' %s' % worker.current_item.owner.mode
+            if worker.current_item.owner.active_subprocess:
+                val += ' %s' % worker.current_item.owner.active_subprocess
 
             val += ' %sB' % apt_pkg.size_to_str(worker.current_size)
 

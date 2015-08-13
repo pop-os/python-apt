@@ -1659,8 +1659,15 @@ installation.
 
     .. attribute:: mode
 
-        A localized string indicating the current mode e.g. ``"Fetching"``,
-        it may be used as part of printing progress information.
+        Old name for active_subprocess
+
+        .. deprecated:: 1.0
+
+    .. attribute:: active_subprocess
+
+        The name of the active subprocess (for instance, 'gzip', 'rred' or 'gpgv').
+
+        .. versionadded:: 1.0
 
     **Status**:
 
