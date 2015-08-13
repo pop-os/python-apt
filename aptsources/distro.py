@@ -487,8 +487,13 @@ def _system_image_channel():
     from subprocess import Popen, PIPE
     import errno
     try:
+        from subprocess import DEVNULL
+    except ImportError:
+        # no DEVNULL in 2.7
+        DEVNULL = os.open(os.devnull, os.O_RDWR)
+    try:
         out = Popen(
-            ['system-image-cli', '-i'], stdout=PIPE,
+            ['system-image-cli', '-i'], stdout=PIPE, stderr=DEVNULL,
             universal_newlines=True).communicate()[0]
         for l in out.splitlines():
             if l.startswith('channel: '):
