@@ -51,12 +51,14 @@ files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
          'lock.cc', 'acquire-item.cc', 'python-apt-helpers.cc',
          'cachegroup.cc', 'orderlist.cc']
 files = sorted(['python/' + fname for fname in files], key=lambda s: s[:-3])
-apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"])
+apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"],
+                    extra_compile_args=['-std=c++11', '-Wno-write-strings'])
 
 # The apt_inst module
 files = ["python/apt_instmodule.cc", "python/generic.cc",
          "python/arfile.cc", "python/tarfile.cc"]
-apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"])
+apt_inst = Extension("apt_inst", files, libraries=["apt-pkg", "apt-inst"],
+                     extra_compile_args=['-std=c++11', '-Wno-write-strings'])
 
 # Replace the leading _ that is used in the templates for translation
 if len(sys.argv) > 1 and sys.argv[1] == "build":
