@@ -1,3 +1,9 @@
+python-apt (1.1.0~alpha2) experimental; urgency=medium
+
+  * Fix a typo in a member access.
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2015 15:25:13 +0200
+
 python-apt (1.1.0~alpha1) experimental; urgency=medium
 
   [ Michael Vogt ]
