@@ -107,10 +107,6 @@ struct _PyAptPkgAPIStruct {
     PyObject* (*hashstring_fromcpp)(HashString* const &obj, bool Delete, PyObject *Owner);
     HashString*& (*hashstring_tocpp)(PyObject *self);
     
-    PyTypeObject *indexrecords_type;
-    PyObject* (*indexrecords_fromcpp)(indexRecords* const &obj, bool Delete, PyObject *Owner);
-    indexRecords*& (*indexrecords_tocpp)(PyObject *self);
-    
     PyTypeObject *metaindex_type;
     PyObject* (*metaindex_fromcpp)(metaIndex* const &obj, bool Delete, PyObject *Owner);
     metaIndex*& (*metaindex_tocpp)(PyObject *self);

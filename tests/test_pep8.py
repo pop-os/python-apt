@@ -19,7 +19,8 @@ class PackagePep8TestCase(unittest.TestCase):
              # E129 continuation line does not distinguish itself from
              #      next logical line
              # E265 block comment should start with '# '
-             "--ignore=E125,E126,E127,E128,E129,E265",
+             # E402 module level import not at top of file (breaks tests)
+             "--ignore=E125,E126,E127,E128,E129,E265,E402",
              "--exclude", "build,tests/old",
              "--repeat", py_dir])
         if res != 0:

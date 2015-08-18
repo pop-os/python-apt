@@ -3,12 +3,13 @@ Section: python
 Priority: standard
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
-Standards-Version: 3.9.5
+Standards-Version: 3.9.6
 X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.3
-Build-Depends: apt (>= 0.9.6),
+Build-Depends: apt (>= 1.0.9.4),
                apt-utils,
                debhelper (>= 9),
+               dh-python,
                fakeroot,
                libapt-pkg-dev (>= 1.0.4~),
                python-all-dev (>= 2.7),
@@ -57,7 +58,7 @@ Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         update-notifier (<< 0.99.3debian9),
         wajig (<< 2.0.46)
 Provides: ${python:Provides}
-Suggests: python-apt-dbg, python-gtk2, python-vte, python-apt-doc
+Suggests: python-apt-dbg, python-apt-doc
 Description: Python interface to libapt-pkg
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -90,8 +91,9 @@ Priority: extra
 Architecture: any
 Multi-Arch: allowed
 Section: debug
-Depends: python-dbg, python-apt (= ${binary:Version}), ${shlibs:Depends},
+Depends: ${python:Depends}, python-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
+Provides: ${python:Provides}
 Description: Python interface to libapt-pkg (debug extension)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -157,8 +159,9 @@ Multi-Arch: allowed
 Section: debug
 Breaks: python-apt (<< 0.7.98+nmu1)
 Replaces: python-apt (<< 0.7.98+nmu1)
-Depends: python3-dbg, python3-apt (= ${binary:Version}), ${shlibs:Depends},
+Depends: ${python3:Depends}, python3-apt (= ${binary:Version}), ${shlibs:Depends},
          ${misc:Depends}
+Provides: ${python3:Provides}
 Description: Python 3 interface to libapt-pkg (debug extension)
  The apt_pkg Python 3 interface will provide full access to the internal
  libapt-pkg structures allowing Python 3 programs to easily perform a

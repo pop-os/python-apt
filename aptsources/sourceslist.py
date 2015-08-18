@@ -44,10 +44,10 @@ __all__ = ['is_mirror', 'SourceEntry', 'NullMatcher', 'SourcesList',
 
 
 def is_mirror(master_uri, compare_uri):
-    """ check if the given add_url is idential or a mirror of orig_uri
-        e.g. master_uri = archive.ubuntu.com
-            compare_uri = de.archive.ubuntu.com
-            -> True
+    """ check if the given add_url is idential or a mirror of orig_uri e.g.:
+        master_uri = archive.ubuntu.com
+        compare_uri = de.archive.ubuntu.com
+        -> True
     """
     # remove traling spaces and "/"
     compare_uri = compare_uri.rstrip("/ ")
@@ -295,7 +295,6 @@ class SourcesList(object):
             types """
         for entry in self.list:
             yield entry
-        raise StopIteration
 
     def __find(self, *predicates, **attrs):
         for source in self.list:
@@ -378,8 +377,8 @@ class SourcesList(object):
         if backup_ext is None:
             backup_ext = time.strftime("%y%m%d.%H%M")
         for source in self.list:
-            if (source.file not in already_backuped
-                    and os.path.exists(source.file)):
+            if (source.file not in already_backuped and
+                os.path.exists(source.file)):
                 shutil.copy(source.file, "%s%s" % (source.file, backup_ext))
         return backup_ext
 

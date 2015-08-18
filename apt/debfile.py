@@ -27,7 +27,7 @@ import os
 import sys
 
 from apt_pkg import gettext as _
-from io import StringIO
+from io import BytesIO
 
 
 class NoDebArchiveException(IOError):
@@ -456,6 +456,11 @@ class DebPackage(object):
         """
         self._dbg(3, "compare_to_version_in_cache")
         pkgname = self._sections["Package"]
+        architecture = self._sections["Architecture"]
+
+        # Arch qualify the package name
+        pkgname = ":".join([pkgname, architecture])
+
         debver = self._sections["Version"]
         self._dbg(1, "debver: %s" % debver)
         if pkgname in self._cache:
@@ -476,7 +481,7 @@ class DebPackage(object):
                     return self.VERSION_OUTDATED
         return self.VERSION_NONE
 
-    def check(self):
+    def check(self, allow_downgrade=False):
         """Check if the package is installable."""
         self._dbg(3, "check")
 
@@ -499,7 +504,8 @@ class DebPackage(object):
                 return False
 
         # check version
-        if self.compare_to_version_in_cache() == self.VERSION_OUTDATED:
+        if (not allow_downgrade and
+            self.compare_to_version_in_cache() == self.VERSION_OUTDATED):
             if self._cache[self.pkgname].installed:
                 # the deb is older than the installed
                 self._failure_string = _(
@@ -631,9 +637,9 @@ class DebPackage(object):
         data = part.extractdata(name)
         # check for zip content
         if name.endswith(".gz") and auto_decompress:
-            io = StringIO(data)
+            io = BytesIO(data)
             gz = gzip.GzipFile(fileobj=io)
-            data = _("Automatically decompressed:\n\n")
+            data = _("Automatically decompressed:\n\n").encode("utf-8")
             data += gz.read()
         # auto-convert to hex
         try:
@@ -735,7 +741,8 @@ class DscSrcPackage(DebPackage):
                 if 'Source' in sec:
                     self.pkgname = sec['Source']
                 if 'Binary' in sec:
-                    self.binaries = sec['Binary'].split(', ')
+                    self.binaries = [b.strip() for b in
+                                     sec['Binary'].split(',')]
                 for tag in sec.keys():
                     if tag in sec:
                         self._sections[tag] = sec[tag]

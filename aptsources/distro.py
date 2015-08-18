@@ -125,11 +125,11 @@ class Distribution(object):
                     self.disabled_sources.append(source)
             if (not source.invalid and
                     source.template in self.source_template.children):
-                if (not source.disabled
-                        and source.type == self.binary_type):
+                if (not source.disabled and
+                    source.type == self.binary_type):
                         self.child_sources.append(source)
-                elif (not source.disabled
-                          and source.type == self.source_type):
+                elif (not source.disabled and
+                      source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
                     self.disabled_sources.append(source)
@@ -487,8 +487,13 @@ def _system_image_channel():
     from subprocess import Popen, PIPE
     import errno
     try:
+        from subprocess import DEVNULL
+    except ImportError:
+        # no DEVNULL in 2.7
+        DEVNULL = os.open(os.devnull, os.O_RDWR)
+    try:
         out = Popen(
-            ['system-image-cli', '-i'], stdout=PIPE,
+            ['system-image-cli', '-i'], stdout=PIPE, stderr=DEVNULL,
             universal_newlines=True).communicate()[0]
         for l in out.splitlines():
             if l.startswith('channel: '):

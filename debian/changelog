@@ -1,3 +1,121 @@
+python-apt (1.0.0~beta3.1) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * fix py3 issue with auto .gz decompression and add test
+  * updated for the gcc5 transition
+
+  [ Julian Andres Klode ]
+  * doc/source/conf.py: Reproducibility: Set html_last_updated_fmt = None
+
+  [ Michael Schaller ]
+  * BaseDependency.__repr__: Replace pre_depend with rawtype
+  * apt/package.py: Add rawtype property to Dependency class
+  * Add dependency comparison (aka. relation) type in Debian notation
+  * apt/package.py: Add missing __str__ and __repr__ methods
+  * doc/source/library/apt_pkg.rst: Remove trailing whitespace
+  * apt_pkg.Dependency.all_targets: Fix the documentation
+
+  [ Barry Warsaw ]
+  * python-apt: Python 3.5 and PEP 479 support (Closes: #792606)
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Jul 2015 17:51:25 +0200
+
+python-apt (1.0.0~beta3) unstable; urgency=medium
+
+  * tests/test_paths.py: Catch and assert the DeprecationWarning
+  * setup.py: If no version is in the environment, return None
+  * doc/source/library/apt_pkg.rst: Fix an example from old API to new API
+  * apt.cache.FilteredCache: Fix multi-arch package lookups
+  * apt.Cache: Introduce a connect2() callback connector
+  * Break the FilteredCache <-> Cache reference cycle
+  * apt.Cache: Issue a RuntimeWarning in connect()
+  * doc: whatsnew: Document what's new in beta3
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 17 Jun 2015 18:28:44 +0200
+
+python-apt (1.0.0~beta2) unstable; urgency=low
+
+  * debian/control: Build-Depend on apt (>= 1.0.9.4) for Files2()
+  * Handle the symlink to directory transition correctly (Closes: #788571)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 13 Jun 2015 00:41:30 +0200
+
+python-apt (1.0.0~beta1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * tests/test_tagfile.py: Close files we opened to prevent leakage
+    (Closes: #785337)
+  * doc/source/c++/api.rst: Upgrade syntax to use the new domain stuff
+  * doc/source/library/apt_pkg.rst: Fix indentation (Closes: #736119)
+  * sphinx docs: Fix remaining instances of old C syntax to use domains
+  * python/cache.cc: Handle deprecation of pkgCache::PkgIterator::Section()
+  * doc: Prepare for 1.0 release
+  * TagFile: Provide close() and context manager (Closes: #748922)
+  * doc: Document apt_pkg.TagFile additions
+  * doc: templates: layout: Remove invalid icon links
+  * debian/control: Build-Depend on dh-python
+  * Do not link documentation from Architecture: all to Architecture: any
+  * Use ${python:Depends} and friends for the debug packages
+  * apt.debfile: Fix splitting of multi-lines Binary fields in dsc files
+    (Closes: #751770)
+  * Remove apt.progress.gtk2
+  * apt_pkg.Package: Drop the unset 'auto' attribute (Closes: #565364)
+  * Update POTFILES.in and the pot
+  * apt/cache.py: Work around a cyclic reference from Cache to its methods
+    (Closes: #745487)
+  * apt/debfile.py: Arch-qualify in compare_to_version_in_cache()
+    (Closes: #750189)
+  * apt.package: Only reference Launchpad for missing changelogs on Ubuntu
+    (Closes: #781270)
+  * apt/cache.py: Support :all and other special architecture specifies
+  * apt/debfile: Stop special-casing all when looking for a package in the cache
+  * apt/debfile.py: Allow downgrading packages in check() with a parameter
+    (Closes: #613974)
+  * Acquire: Document that items may have transient errors on run() success
+    (Closes: #680997)
+  * Large file support (Closes: #742885)
+    - python/arfile.cc: Do not allow files larger than SIZE_MAX to be mapped
+    - python/arfile.cc: LFS: Use long long instead of long for file sizes
+    - python/tarfile.cc: LFS: Handle too large file
+  * setup.py: Translate version number from Debian to PEP0440 (LP: #1445949)
+
+  [ Michael Vogt ]
+  * apt_pkg.rst: improve documentation for AcquireFile() hash and add
+    sha512 to the documentation
+  * rename "md5" keyword argument in AcquireFile() to "hash" and add
+    backward compatiblity
+  * Fix apt.Package.installed_files for multi-arch packages (LP: #1313699)
+
+  [ von ]
+  * Remove the "-Wstrict-prototypes" compiler option (Closes: #785261)
+  * Set Standards-Version to 3.9.6 (Closes: #785431)
+  * Fix indentation and docstring problems (Closes: #784910)
+
+  [ Michael Schaller ]
+  * Fixed docstring of BaseDependency.version property.
+  * Improved docstring of the Version.get_dependencies method.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 11 Jun 2015 22:38:31 +0200
+
+python-apt (0.9.4) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * add apt_pkg.sha512sum()
+  * Add binding for apt_pkg.maybe_open_clear_signed_file()
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+  * Update doc/example/action.py for py3 and latest API (closes: #782335)
+  * Add MULTI_ARCH_NO constant and deprecate MULTI_ARCH_NONE (closes: #782802)
+  * Fix dead links in python-apt documentation (Closes: #779426)
+
+  [ Martin Pitt ]
+  * ./data/templates/Ubuntu.info.in: Add Wily template. Don't copy extras.u.c.
+    stanza as that's gone since 15.04.
+
+  [ von ]
+  * Update the print_uris.py example to use the new API (Closes: #779217)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 07 May 2015 18:18:29 +0200
+
 python-apt (0.9.3.11) unstable; urgency=low
 
   [ Colin Watson ]
