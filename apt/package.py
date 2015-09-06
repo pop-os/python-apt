@@ -87,7 +87,8 @@ class BaseDependency(object):
         def __ne__(self, other):
             return not self.__eq__(other)
 
-    def __init__(self, dep):
+    def __init__(self, version, dep):
+        self._version = version  # apt.package.Version
         self._dep = dep  # apt_pkg.Dependency
 
     def __str__(self):
@@ -131,6 +132,22 @@ class BaseDependency(object):
         dependency. In this case the relation is also an empty string.
         """
         return self._dep.target_ver
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this dependency.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        _tvers = self._dep.all_targets()  # [apt_pkg.Version, ...]
+        for _tver in _tvers:  # apt_pkg.Version
+            _pkg = _tver.parent_pkg  # apt_pkg.Package
+            cache = self._version.package._pcache  # apt.cache.Cache
+            pkg = cache._rawpkg_to_pkg(_pkg)  # apt.package.Package
+            tver = Version(pkg, _tver)  # apt.package.Version
+            tvers.append(tver)
+        return tvers
 
     @property
     def rawstr(self):
@@ -177,10 +194,12 @@ class Dependency(list):
         or_dependencies - The possible choices
         rawstr - String represenation of the Or-group of dependencies
         rawtype - The type of the dependencies in the Or-group
+        target_version - A list of Versions which satisfy this Or-group of deps
     """
 
-    def __init__(self, base_deps, rawtype):
+    def __init__(self, version, base_deps, rawtype):
         super(Dependency, self).__init__(base_deps)
+        self._version = version  # apt.package.Version
         self._rawtype = rawtype
 
     def __str__(self):
@@ -220,6 +239,19 @@ class Dependency(list):
         .. versionadded:: 1.0.0
         """
         return self._rawtype
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this Or-group of deps.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        for bd in self:  # apt.package.Dependency
+            for tver in bd.target_versions:  # apt.package.Version
+                if tver not in tvers:
+                    tvers.append(tver)
+        return tvers
 
 
 class Origin(object):
@@ -550,8 +582,8 @@ class Version(object):
                 for dep_ver_list in depends[type_]:
                     base_deps = []
                     for dep_or in dep_ver_list:
-                        base_deps.append(BaseDependency(dep_or))
-                    depends_list.append(Dependency(base_deps, type_))
+                        base_deps.append(BaseDependency(self, dep_or))
+                    depends_list.append(Dependency(self, base_deps, type_))
             except KeyError:
                 pass
         return depends_list
