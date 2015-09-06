@@ -695,6 +695,16 @@ class MarkedChangesFilter(Filter):
             return False
 
 
+class InstalledFilter(Filter):
+    """Filter that returns all installed packages.
+
+    .. versionadded:: 1.0.0
+    """
+
+    def apply(self, pkg):
+        return pkg.is_installed
+
+
 class _FilteredCacheHelper(object):
     """Helper class for FilteredCache to break a reference cycle."""
 

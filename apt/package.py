@@ -150,6 +150,14 @@ class BaseDependency(object):
         return tvers
 
     @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
+
+    @property
     def rawstr(self):
         """String represenation of the dependency.
 
@@ -252,6 +260,14 @@ class Dependency(list):
                 if tver not in tvers:
                     tvers.append(tver)
         return tvers
+
+    @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
 
 
 class Origin(object):
@@ -457,6 +473,15 @@ class Version(object):
     def downloadable(self):
         """Return whether the version of the package is downloadable."""
         return bool(self._cand.downloadable)
+
+    @property
+    def is_installed(self):
+        """Return wether this version of the package is currently installed.
+
+        .. versionadded:: 1.0.0
+        """
+        inst_ver = self.package.installed
+        return inst_ver and inst_ver._cand.id == self._cand.id
 
     @property
     def version(self):
