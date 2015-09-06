@@ -329,40 +329,48 @@ class Version(object):
         self._cand = cand
 
     def _cmp(self, other):
+        """Compares against another apt.Version object or a version string.
+
+        This method behaves like Python 2's cmp builtin and returns an integer
+        according to the outcome.  The return value is negative in case of
+        self < other, zero if self == other and positive if self > other.
+
+        The comparison includes the package name and architecture if other is
+        an apt.Version object.  If other isn't an apt.Version object it'll be
+        assumed that other is a version string (without package name/arch).
+
+        .. versionchanged:: 1.0.0
+        """
+        # Assume that other is an apt.Version object.
         try:
+            self_name = self.package.fullname
+            other_name = other.package.fullname
+            if self_name < other_name:
+                return -1
+            elif self_name > other_name:
+                return 1
             return apt_pkg.version_compare(self._cand.ver_str, other.version)
         except AttributeError:
-            return apt_pkg.version_compare(self._cand.ver_str, other)
+            # Assume that other is a string that only contains the version.
+            try:
+                return apt_pkg.version_compare(self._cand.ver_str, other)
+            except TypeError:
+                return NotImplemented
 
     def __eq__(self, other):
-        try:
-            return self._cmp(other) == 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) == 0
 
     def __ge__(self, other):
-        try:
-            return self._cmp(other) >= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) >= 0
 
     def __gt__(self, other):
-        try:
-            return self._cmp(other) > 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) > 0
 
     def __le__(self, other):
-        try:
-            return self._cmp(other) <= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) <= 0
 
     def __lt__(self, other):
-        try:
-            return self._cmp(other) < 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) < 0
 
     def __ne__(self, other):
         try:
