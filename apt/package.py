@@ -87,7 +87,8 @@ class BaseDependency(object):
         def __ne__(self, other):
             return not self.__eq__(other)
 
-    def __init__(self, dep):
+    def __init__(self, version, dep):
+        self._version = version  # apt.package.Version
         self._dep = dep  # apt_pkg.Dependency
 
     def __str__(self):
@@ -131,6 +132,30 @@ class BaseDependency(object):
         dependency. In this case the relation is also an empty string.
         """
         return self._dep.target_ver
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this dependency.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        _tvers = self._dep.all_targets()  # [apt_pkg.Version, ...]
+        for _tver in _tvers:  # apt_pkg.Version
+            _pkg = _tver.parent_pkg  # apt_pkg.Package
+            cache = self._version.package._pcache  # apt.cache.Cache
+            pkg = cache._rawpkg_to_pkg(_pkg)  # apt.package.Package
+            tver = Version(pkg, _tver)  # apt.package.Version
+            tvers.append(tver)
+        return tvers
+
+    @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
 
     @property
     def rawstr(self):
@@ -177,10 +202,12 @@ class Dependency(list):
         or_dependencies - The possible choices
         rawstr - String represenation of the Or-group of dependencies
         rawtype - The type of the dependencies in the Or-group
+        target_version - A list of Versions which satisfy this Or-group of deps
     """
 
-    def __init__(self, base_deps, rawtype):
+    def __init__(self, version, base_deps, rawtype):
         super(Dependency, self).__init__(base_deps)
+        self._version = version  # apt.package.Version
         self._rawtype = rawtype
 
     def __str__(self):
@@ -220,6 +247,27 @@ class Dependency(list):
         .. versionadded:: 1.0.0
         """
         return self._rawtype
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this Or-group of deps.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        for bd in self:  # apt.package.Dependency
+            for tver in bd.target_versions:  # apt.package.Version
+                if tver not in tvers:
+                    tvers.append(tver)
+        return tvers
+
+    @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
 
 
 class Origin(object):
@@ -329,40 +377,48 @@ class Version(object):
         self._cand = cand
 
     def _cmp(self, other):
+        """Compares against another apt.Version object or a version string.
+
+        This method behaves like Python 2's cmp builtin and returns an integer
+        according to the outcome.  The return value is negative in case of
+        self < other, zero if self == other and positive if self > other.
+
+        The comparison includes the package name and architecture if other is
+        an apt.Version object.  If other isn't an apt.Version object it'll be
+        assumed that other is a version string (without package name/arch).
+
+        .. versionchanged:: 1.0.0
+        """
+        # Assume that other is an apt.Version object.
         try:
+            self_name = self.package.fullname
+            other_name = other.package.fullname
+            if self_name < other_name:
+                return -1
+            elif self_name > other_name:
+                return 1
             return apt_pkg.version_compare(self._cand.ver_str, other.version)
         except AttributeError:
-            return apt_pkg.version_compare(self._cand.ver_str, other)
+            # Assume that other is a string that only contains the version.
+            try:
+                return apt_pkg.version_compare(self._cand.ver_str, other)
+            except TypeError:
+                return NotImplemented
 
     def __eq__(self, other):
-        try:
-            return self._cmp(other) == 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) == 0
 
     def __ge__(self, other):
-        try:
-            return self._cmp(other) >= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) >= 0
 
     def __gt__(self, other):
-        try:
-            return self._cmp(other) > 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) > 0
 
     def __le__(self, other):
-        try:
-            return self._cmp(other) <= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) <= 0
 
     def __lt__(self, other):
-        try:
-            return self._cmp(other) < 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) < 0
 
     def __ne__(self, other):
         try:
@@ -417,6 +473,15 @@ class Version(object):
     def downloadable(self):
         """Return whether the version of the package is downloadable."""
         return bool(self._cand.downloadable)
+
+    @property
+    def is_installed(self):
+        """Return wether this version of the package is currently installed.
+
+        .. versionadded:: 1.0.0
+        """
+        inst_ver = self.package.installed
+        return inst_ver and inst_ver._cand.id == self._cand.id
 
     @property
     def version(self):
@@ -542,8 +607,8 @@ class Version(object):
                 for dep_ver_list in depends[type_]:
                     base_deps = []
                     for dep_or in dep_ver_list:
-                        base_deps.append(BaseDependency(dep_or))
-                    depends_list.append(Dependency(base_deps, type_))
+                        base_deps.append(BaseDependency(self, dep_or))
+                    depends_list.append(Dependency(self, base_deps, type_))
             except KeyError:
                 pass
         return depends_list
