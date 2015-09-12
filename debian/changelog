@@ -1,3 +1,29 @@
+python-apt (1.0.0) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * Fix pep8 1.6.2 issues
+  * setup.py: Pass -std=c++11 and -Wno-write-strings to the compiler
+  * Convert from SPtr and SPtrArray to unique_ptr and array
+  * Replace pkgDistUpgrade and friend with APT::Upgrade::Upgrade
+  * AcquireItem: Deprecate mode and introduce active_subprocess
+  * APT 1.1: Fix a typo in a member access.
+  * Deprecate IndexRecords
+  * Document the new additions in 1.0
+  * doc/source/conf.py: Do not set html_style, broken with recent sphinx
+  * Revert the temporary build-deps on APT 1.0.10 and the new gcc,
+    as they are not needed anymore.
+
+  [ John R. Lenton ]
+  * Discard stderr when calling system-image-cli (LP: #267935)
+
+  [ Michael Schaller ]
+  * apt.Cache: Add Cache._rawpkg_to_pkg method to consolidate duplicated code
+  * apt.Version: Compare against package name and version (if available)
+  * apt/package.py: Add target_versions method to [Base]Dependency
+  * Add helpers/filters for installed packages/versions
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 12 Sep 2015 14:35:27 +0200
+
 python-apt (1.0.0~beta3.1) unstable; urgency=medium
 
   [ Michael Vogt ]
