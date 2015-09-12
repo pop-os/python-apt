@@ -45,7 +45,7 @@ def get_version():
 # The apt_pkg module.
 files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
          'configuration.cc', 'depcache.cc', 'generic.cc', 'hashes.cc',
-         'hashstring.cc', 'indexfile.cc', 'metaindex.cc',
+         'hashstring.cc', 'indexfile.cc', 'indexrecords.cc', 'metaindex.cc',
          'pkgmanager.cc', 'pkgrecords.cc', 'pkgsrcrecords.cc', 'policy.cc',
          'progress.cc', 'sourcelist.cc', 'string.cc', 'tag.cc',
          'lock.cc', 'acquire-item.cc', 'python-apt-helpers.cc',

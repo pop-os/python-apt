@@ -44,9 +44,6 @@ Removed
 * The attribute :attr:`apt_pkg.Package.auto` was not set anymore, and thus
   removed.
 
-* The class :class:`apt_pkg.IndexRecords` has been removed, as it was removed
-  in APT 1.1
-
 Maintenance
 -----------
 * The classes :class:`apt.cache.Cache` and :class:`apt.cache.FilteredCache` no
