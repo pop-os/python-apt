@@ -698,9 +698,6 @@ static struct _PyAptPkgAPIStruct API = {
    &PyHashString_Type,        // hashstring_type
    &PyHashString_FromCpp,     // hashstring_fromcpp
    &PyHashString_ToCpp,       // hashstring_tocpp
-   &PyIndexRecords_Type,      // indexrecords_type
-   &PyIndexRecords_FromCpp,     // indexrecords_tocpp
-   &PyIndexRecords_ToCpp,     // indexrecords_tocpp
    &PyMetaIndex_Type,         // metaindex_type
    &PyMetaIndex_FromCpp,        // metaindex_tocpp
    &PyMetaIndex_ToCpp,        // metaindex_tocpp
@@ -847,7 +844,6 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"SourceRecords",&PySourceRecords_Type);
    /* ========================= sourcelist.cc ========================= */
    ADDTYPE(Module,"SourceList",&PySourceList_Type);
-   ADDTYPE(Module,"IndexRecords",&PyIndexRecords_Type);
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
