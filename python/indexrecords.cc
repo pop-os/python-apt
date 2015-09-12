@@ -29,6 +29,8 @@ static PyObject *indexrecords_new(PyTypeObject *type,PyObject *Args,
     char * kwlist[] = {NULL};
     if (PyArg_ParseTupleAndKeywords(Args, kwds, "", kwlist) == 0)
         return 0;
+    if (PyErr_WarnEx(PyExc_DeprecationWarning, "IndexRecords is deprecated and will be removed in 1.1", 1) == -1)
+      return NULL;
     indexRecords *records = new indexRecords();
     CppPyObject<indexRecords*> *New = CppPyObject_NEW<indexRecords*>(NULL, type,
                                       records);
