@@ -18,6 +18,24 @@ New features
   cache changes that take the cache as their first argument, reducing the
   potential for reference cycles.
 
+* The property :attr:`apt.package.Version.is_installed` was added.
+* The properties :attr:`apt.package.BaseDependency.installed_target_versions`
+  and :attr:`apt.package.Dependency.installed_target_versions` were added.
+
+* The property :class:`apt.Dependency.rawtype` was added to give the raw type
+  of a dependency, such as 'Depends'.
+
+* The attribute :attr:`apt_pkg.Dependency.comp_type_deb` and the property
+  :attr:`apt.Dependency.relation_deb` were added, they return a Debian-style
+  comparison operator instead of a mathematical-style one.
+
+* A new filter for filtered caches is provided, :class:`apt.cache.InstalledFilter`.
+
+Backward-incompatible changes
+-----------------------------
+* :class:`apt.Version` now compares package names in addition to version only
+  when checking for equality. This was broken previously.
+
 Deprecated
 ----------
 The following features are deprecated, starting with this release:
@@ -31,6 +49,8 @@ The following features are deprecated, starting with this release:
   less prone to reference cycles.
 * The attribute :attr:`apt_pkg.AcquireItem.mode` has been replaced by
   :attr:`apt_pkg.AcquireItem.active_subprocess`
+* The class :class:`apt_pkg.IndexRecords` has been deprecated and will
+  be removed in the next release.
 
 Removed
 -------
@@ -43,9 +63,6 @@ Removed
   for installation in graphical environments.
 * The attribute :attr:`apt_pkg.Package.auto` was not set anymore, and thus
   removed.
-
-* The class :class:`apt_pkg.IndexRecords` has been removed, as it was removed
-  in APT 1.1
 
 Maintenance
 -----------

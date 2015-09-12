@@ -203,15 +203,23 @@ class Cache(object):
             if not self.__is_real_pkg(rawpkg):
                 raise KeyError('The cache has no package named %r' % key)
 
-            # Check if we already know the package using the normalized name
-            name = rawpkg.get_fullname(pretty=False)
-            try:
-                return self._weakref[name]
-            except KeyError:
-                pkg = Package(self, rawpkg)
-                self._weakref[key] = self._weakref[name] = pkg
+            pkg = self._rawpkg_to_pkg(rawpkg)
+            self._weakref[key] = pkg
 
             return pkg
+
+    def _rawpkg_to_pkg(self, rawpkg):
+        """Returns the apt.Package object for an apt_pkg.Package object.
+
+        .. versionadded:: 1.0.0
+        """
+        fullname = rawpkg.get_fullname(pretty=False)
+        try:
+            pkg = self._weakref[fullname]
+        except KeyError:
+            pkg = Package(self, rawpkg)
+            self._weakref[fullname] = pkg
+        return pkg
 
     def __iter__(self):
         # We iterate sorted over package names here. With this we read the
@@ -249,14 +257,9 @@ class Cache(object):
         """ Get the marked changes """
         changes = []
         marked_keep = self._depcache.marked_keep
-        for pkg in self._cache.packages:
-            if not marked_keep(pkg):
-                name = pkg.get_fullname(pretty=True)
-                try:
-                    changes.append(self._weakref[name])
-                except KeyError:
-                    package = self._weakref[name] = Package(self, pkg)
-                    changes.append(package)
+        for rawpkg in self._cache.packages:
+            if not marked_keep(rawpkg):
+                changes.append(self._rawpkg_to_pkg(rawpkg))
         return changes
 
     def upgrade(self, dist_upgrade=False):
@@ -403,14 +406,9 @@ class Cache(object):
             return list(providers)
 
         for provides, providesver, version in vp.provides_list:
-            pkg = version.parent_pkg
-            if not candidate_only or (version == get_candidate_ver(pkg)):
-                name = pkg.get_fullname(pretty=True)
-                try:
-                    providers.add(self._weakref[name])
-                except KeyError:
-                    package = self._weakref[name] = Package(self, pkg)
-                    providers.add(package)
+            rawpkg = version.parent_pkg
+            if not candidate_only or (version == get_candidate_ver(rawpkg)):
+                providers.add(self._rawpkg_to_pkg(rawpkg))
         return list(providers)
 
     def update(self, fetch_progress=None, pulse_interval=0,
@@ -695,6 +693,16 @@ class MarkedChangesFilter(Filter):
             return True
         else:
             return False
+
+
+class InstalledFilter(Filter):
+    """Filter that returns all installed packages.
+
+    .. versionadded:: 1.0.0
+    """
+
+    def apply(self, pkg):
+        return pkg.is_installed
 
 
 class _FilteredCacheHelper(object):
