@@ -160,7 +160,8 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         Return False if the user asked to cancel the whole Acquire process."""
         base.AcquireProgress.pulse(self, owner)
         # only show progress on a tty to not clutter log files etc
-        if hasattr(self._file, "fileno") and not os.isatty(self._file.fileno()):
+        if (hasattr(self._file, "fileno") and
+                not os.isatty(self._file.fileno())):
             return True
 
         # calculate progress
