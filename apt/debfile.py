@@ -725,11 +725,6 @@ class DscSrcPackage(DebPackage):
         tagfile = apt_pkg.TagFile(fobj)
         try:
             for sec in tagfile:
-                # we only care about the stanza with the "Format:" tag, the
-                # rest is gpg signature noise. we should probably have
-                # bindings for apts OpenMaybeClearsignedFile()
-                if "Format" not in sec:
-                    continue
                 for tag in depends_tags:
                     if tag not in sec:
                         continue

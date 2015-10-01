@@ -40,6 +40,17 @@ python-apt (1.1.0~alpha1) experimental; urgency=medium
 
  -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2015 14:44:51 +0200
 
+python-apt (1.0.1) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * Do not show pulse progress when the output is not a tty
+  * Fix build-dependencies parsing from debian/control
+
+  [ Julian Andres Klode ]
+  * test_paths.py: Catch the IndexRecords warning (Closes: #800624)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 01 Oct 2015 22:10:22 +0200
+
 python-apt (1.0.0) unstable; urgency=medium
 
   [ Julian Andres Klode ]
