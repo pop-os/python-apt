@@ -111,7 +111,13 @@ class TestPath(unittest.TestCase):
                 index.archive_uri(self.file_unicode)
 
     def test_index_records(self):
-        index = apt_pkg.IndexRecords()
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            warnings.simplefilter("always")
+            index = apt_pkg.IndexRecords()
+
+        self.assertEqual(len(caught_warnings), 1)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
         index.load(u"./data/misc/foo_Release")
         index.load(b"./data/misc/foo_Release")
 
