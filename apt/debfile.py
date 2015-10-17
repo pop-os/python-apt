@@ -92,7 +92,7 @@ class DebPackage(object):
 
     @property
     def control_filelist(self):
-        """ return the list of files in control.tar.gt """
+        """ return the list of files in control.tar.gz """
         control = []
         try:
             self._debfile.control.go(
