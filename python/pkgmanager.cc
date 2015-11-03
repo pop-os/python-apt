@@ -172,7 +172,7 @@ class PyPkgManager : public pkgDPkgPM {
 	}
 
 	/* Call through to Python */
-	virtual bool Install(PkgIterator Pkg,string File) {
+	virtual bool Install(PkgIterator Pkg,std::string File) {
 		return res(PyObject_CallMethod(pyinst, "install", "(NN)", 
 		                               GetPyPkg(Pkg),
 		                               CppPyString(File)));
@@ -196,7 +196,7 @@ class PyPkgManager : public pkgDPkgPM {
 	
 public:
 	/* Those call the protected functions from the parent class */
-	bool callInstall(PkgIterator Pkg,string File) { return pkgDPkgPM::Install(Pkg, File); }
+	bool callInstall(PkgIterator Pkg,std::string File) { return pkgDPkgPM::Install(Pkg, File); }
 	bool callRemove(PkgIterator Pkg, bool Purge) { return pkgDPkgPM::Remove(Pkg, Purge); }
 	bool callGo(int StatusFd=-1) { return pkgDPkgPM::Go(StatusFd); }
 	void callReset() { return pkgDPkgPM::Reset(); }

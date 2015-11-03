@@ -21,6 +21,7 @@
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/algorithms.h>
+#include <apt-pkg/update.h>
 
 #include <Python.h>
 #include "progress.h"
