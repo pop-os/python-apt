@@ -6,13 +6,13 @@ import apt
 
 
 def show_help():
-    print ("apt %s compiled on %s %s" % (apt_pkg.VERSION,
+    print("apt %s compiled on %s %s" % (apt_pkg.VERSION,
                     apt_pkg.DATE, apt_pkg.TIME))
     if apt_pkg.config.find_b("version"):
         return 0
 
     # Copied from apt-cdrom
-    print ("Usage: apt-cdrom [options] command\n"
+    print("Usage: apt-cdrom [options] command\n"
            "\n"
            "apt-cdrom is a tool to add CDROM's to APT's source list. The\n"
            "CDROM mount point and device information is taken from apt.conf\n"
