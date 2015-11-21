@@ -907,10 +907,10 @@ extern "C" void initapt_pkg()
                         MkPyNumber(pkgPackageManager::Incomplete));
 
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NO",
-                        MkPyNumber(pkgCache::Version::None));
+                        MkPyNumber(pkgCache::Version::No));
    // NONE is deprecated (#782802)
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NONE",
-                        MkPyNumber(pkgCache::Version::None));
+                        MkPyNumber(pkgCache::Version::No));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL",
                         MkPyNumber(pkgCache::Version::All));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_FOREIGN",
