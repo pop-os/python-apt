@@ -49,13 +49,13 @@ def get_release_date_from_release_file(path):
     if not path or not os.path.exists(path):
         return None
 
-    data = os.fdopen(apt_pkg.open_maybe_clear_signed_file(path))
-    tag = apt_pkg.TagFile(data)
-    section = next(tag)
-    if "Date" not in section:
-        return None
-    date = section["Date"]
-    return apt_pkg.str_to_time(date)
+    with os.fdopen(apt_pkg.open_maybe_clear_signed_file(path)) as data:
+        tag = apt_pkg.TagFile(data)
+        section = next(tag)
+        if "Date" not in section:
+            return None
+        date = section["Date"]
+        return apt_pkg.str_to_time(date)
 
 
 def get_release_filename_for_pkg(cache, pkgname, label, release):
