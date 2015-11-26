@@ -45,14 +45,17 @@ def get_version():
 # The apt_pkg module.
 files = ['apt_pkgmodule.cc', 'acquire.cc', 'cache.cc', 'cdrom.cc',
          'configuration.cc', 'depcache.cc', 'generic.cc', 'hashes.cc',
-         'hashstring.cc', 'indexfile.cc', 'indexrecords.cc', 'metaindex.cc',
+         'hashstring.cc', 'indexfile.cc', 'metaindex.cc',
          'pkgmanager.cc', 'pkgrecords.cc', 'pkgsrcrecords.cc', 'policy.cc',
          'progress.cc', 'sourcelist.cc', 'string.cc', 'tag.cc',
          'lock.cc', 'acquire-item.cc', 'python-apt-helpers.cc',
          'cachegroup.cc', 'orderlist.cc']
 files = sorted(['python/' + fname for fname in files], key=lambda s: s[:-3])
 apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"],
-                    extra_compile_args=['-std=c++11', '-Wno-write-strings'])
+                    extra_compile_args=['-std=c++11', '-Wno-write-strings',
+                                        '-DAPT_8_CLEANER_HEADERS',
+                                        '-DAPT_9_CLEANER_HEADERS',
+                                        '-DAPT_10_CLEANER_HEADERS'])
 
 # The apt_inst module
 files = ["python/apt_instmodule.cc", "python/generic.cc",

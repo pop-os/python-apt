@@ -698,9 +698,6 @@ static struct _PyAptPkgAPIStruct API = {
    &PyHashString_Type,        // hashstring_type
    &PyHashString_FromCpp,     // hashstring_fromcpp
    &PyHashString_ToCpp,       // hashstring_tocpp
-   &PyIndexRecords_Type,      // indexrecords_type
-   &PyIndexRecords_FromCpp,     // indexrecords_tocpp
-   &PyIndexRecords_ToCpp,     // indexrecords_tocpp
    &PyMetaIndex_Type,         // metaindex_type
    &PyMetaIndex_FromCpp,        // metaindex_tocpp
    &PyMetaIndex_ToCpp,        // metaindex_tocpp
@@ -847,7 +844,6 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"SourceRecords",&PySourceRecords_Type);
    /* ========================= sourcelist.cc ========================= */
    ADDTYPE(Module,"SourceList",&PySourceList_Type);
-   ADDTYPE(Module,"IndexRecords",&PyIndexRecords_Type);
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
@@ -911,10 +907,10 @@ extern "C" void initapt_pkg()
                         MkPyNumber(pkgPackageManager::Incomplete));
 
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NO",
-                        MkPyNumber(pkgCache::Version::None));
+                        MkPyNumber(pkgCache::Version::No));
    // NONE is deprecated (#782802)
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NONE",
-                        MkPyNumber(pkgCache::Version::None));
+                        MkPyNumber(pkgCache::Version::No));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL",
                         MkPyNumber(pkgCache::Version::All));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_FOREIGN",

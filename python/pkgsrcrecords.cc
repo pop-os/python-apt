@@ -165,7 +165,7 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
       return 0;
    PyObject *List = PyList_New(0);
 
-   vector<pkgSrcRecords::File> f;
+   std::vector<pkgSrcRecords::File> f;
    if(!Struct.Last->Files(f))
       return NULL; // error
 
@@ -192,7 +192,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    PyObject *LastDep = 0;
    PyObject *OrGroup = 0;
    
-   vector<pkgSrcRecords::Parser::BuildDepRec> bd;
+   std::vector<pkgSrcRecords::Parser::BuildDepRec> bd;
    if(!Struct.Last->BuildDepends(bd, false /* arch-only*/))
       return NULL; // error
    

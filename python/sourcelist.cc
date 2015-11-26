@@ -94,7 +94,7 @@ static PyObject *PkgSourceListGetList(PyObject *Self,void*)
 {
    pkgSourceList *list = GetCpp<pkgSourceList*>(Self);
    PyObject *List = PyList_New(0);
-   for (vector<metaIndex *>::const_iterator I = list->begin();
+   for (std::vector<metaIndex *>::const_iterator I = list->begin();
         I != list->end(); I++)
    {
       CppPyObject<metaIndex*> *Obj;
