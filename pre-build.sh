@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+echo "Running PEP 8 test"
+python3 tests/testmanual_pep8.py
+
 dpkg-checkbuilddeps -d 'python-debian, python3-feedparser'
 
 echo "updating Ubuntu mirror list from launchpad"
