@@ -53,7 +53,8 @@ if __name__ == '__main__':
         sys.path.insert(0, os.path.abspath(library_dir))
 
     for path in os.listdir('.'):
-        if path.endswith('.py') and os.path.isfile(path):
+        if (path.endswith('.py') and os.path.isfile(path) and
+            path.startswith("test_")):
             exec('from %s import *' % path[:-3])
 
     unittest.main(testRunner=MyTestRunner)
