@@ -1834,25 +1834,8 @@ of the ones provides in Python's :mod:`hashlib` module.
 The module provides the two classes :class:`Hashes` and :class:`HashString` for
 generic hash support:
 
-.. class:: Hashes(object)
-
-    Calculate all supported hashes of the object. *object* may either be a
-    string, in which cases the hashes of the string are calculated; or a
-    :class:`file()` object or file descriptor, in which case the hashes of
-    its contents is calculated. The calculated hashes are then available via
-    attributes:
-
-    .. attribute:: md5
-
-        The MD5 hash of the data, as string.
-
-    .. attribute:: sha1
-
-        The SHA1 hash of the data, as string.
-
-    .. attribute:: sha256
-
-        The SHA256 hash of the data, as string.
+.. autoclass:: Hashes
+    :members:
 
 .. class:: HashString(type: str[, hash: str])
 

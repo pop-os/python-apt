@@ -12,6 +12,7 @@ functions like md5sum."""
 import unittest
 import hashlib
 import sys
+import warnings
 
 import apt_pkg
 
@@ -53,15 +54,39 @@ class TestHashes(unittest.TestCase):
 
     def test_bytes(self):
         """hashes: Test apt_pkg.Hashes(bytes)"""
-        self.assertEqual(self.hashes.md5, self.md5)
-        self.assertEqual(self.hashes.sha1, self.sha1)
-        self.assertEqual(self.hashes.sha256, self.sha256)
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            self.assertEqual(self.hashes.md5, self.md5)
+            self.assertEqual(self.hashes.sha1, self.sha1)
+            self.assertEqual(self.hashes.sha256, self.sha256)
+
+        self.assertEqual(len(caught_warnings), 3)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[1].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[2].category,
+                                   DeprecationWarning))
 
     def test_file(self):
         """hashes: Test apt_pkg.Hashes(file)."""
-        self.assertEqual(self.hashes.md5, self.fhashes.md5)
-        self.assertEqual(self.hashes.sha1, self.fhashes.sha1)
-        self.assertEqual(self.hashes.sha256, self.fhashes.sha256)
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            self.assertEqual(self.hashes.md5, self.fhashes.md5)
+            self.assertEqual(self.hashes.sha1, self.fhashes.sha1)
+            self.assertEqual(self.hashes.sha256, self.fhashes.sha256)
+
+        self.assertEqual(len(caught_warnings), 6)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[1].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[2].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[3].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[4].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[5].category,
+                                   DeprecationWarning))
 
     def test_unicode(self):
         """hashes: Test apt_pkg.Hashes(unicode)."""
@@ -84,9 +109,18 @@ class TestHashString(unittest.TestCase):
         """Prepare the test by reading the file."""
         self.file = open(apt_pkg.__file__)
         self.hashes = apt_pkg.Hashes(self.file)
-        self.md5 = apt_pkg.HashString("MD5Sum", self.hashes.md5)
-        self.sha1 = apt_pkg.HashString("SHA1", self.hashes.sha1)
-        self.sha256 = apt_pkg.HashString("SHA256", self.hashes.sha256)
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            self.md5 = apt_pkg.HashString("MD5Sum", self.hashes.md5)
+            self.sha1 = apt_pkg.HashString("SHA1", self.hashes.sha1)
+            self.sha256 = apt_pkg.HashString("SHA256", self.hashes.sha256)
+
+        self.assertEqual(len(caught_warnings), 3)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[1].category,
+                                   DeprecationWarning))
+        self.assertTrue(issubclass(caught_warnings[2].category,
+                                   DeprecationWarning))
 
     def tearDown(self):
         """Cleanup, Close the file object used for the tests."""
@@ -94,17 +128,21 @@ class TestHashString(unittest.TestCase):
 
     def test_md5(self):
         """hashes: Test apt_pkg.HashString().md5"""
-        self.assertEqual("MD5Sum:%s" % self.hashes.md5, str(self.md5))
+        with warnings.catch_warnings(record=True):
+            self.assertEqual("MD5Sum:%s" % self.hashes.md5, str(self.md5))
         self.assertTrue(self.md5.verify_file(apt_pkg.__file__))
 
     def test_sha1(self):
         """hashes: Test apt_pkg.HashString().sha1"""
-        self.assertEqual("SHA1:%s" % self.hashes.sha1, str(self.sha1))
+        with warnings.catch_warnings(record=True):
+            self.assertEqual("SHA1:%s" % self.hashes.sha1, str(self.sha1))
         self.assertTrue(self.sha1.verify_file(apt_pkg.__file__))
 
     def test_sha256(self):
         """hashes: Test apt_pkg.HashString().sha256"""
-        self.assertEqual("SHA256:%s" % self.hashes.sha256, str(self.sha256))
+        with warnings.catch_warnings(record=True):
+            self.assertEqual("SHA256:%s" % self.hashes.sha256,
+                             str(self.sha256))
         self.assertTrue(self.sha256.verify_file(apt_pkg.__file__))
 
     def test_wrong(self):
@@ -167,8 +205,9 @@ class TestHashStringList(unittest.TestCase):
     def test_verify_file(self):
         with open(apt_pkg.__file__) as fobj:
             hashes = apt_pkg.Hashes(fobj)
-            sha1 = apt_pkg.HashString("SHA1", hashes.sha1)
-            sha256 = apt_pkg.HashString("SHA256", hashes.sha256)
+            with warnings.catch_warnings(record=True):
+                sha1 = apt_pkg.HashString("SHA1", hashes.sha1)
+                sha256 = apt_pkg.HashString("SHA256", hashes.sha256)
 
         hsl = apt_pkg.HashStringList()
         hsl.append(sha1)
@@ -181,6 +220,11 @@ class TestHashStringList(unittest.TestCase):
         hsl.append(md5sum)
 
         self.assertFalse(hsl.verify_file(apt_pkg.__file__))
+
+        hsl2 = hashes.hashes
+        self.assertIsInstance(hsl2, apt_pkg.HashStringList)
+        self.assertGreater(len(hsl2), 0)
+        self.assertTrue(hsl2.verify_file(apt_pkg.__file__))
 
 if __name__ == "__main__":
     unittest.main()
