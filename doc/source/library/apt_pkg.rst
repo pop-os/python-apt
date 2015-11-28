@@ -1357,15 +1357,29 @@ Records (Release files, Packages, Sources)
         Return the field 'Filename' of the record. This is the path to the
         package, relative to the base path of the archive.
 
+    .. attribute:: hashes
+
+        A :class:`apt_pkg.HashStringList` of all hashes.
+
+        .. versionadded:: 1.1
+
     .. attribute:: md5_hash
 
         Return the MD5 hashsum of the package This refers to the field
         'MD5Sum' in the raw record.
 
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
+
     .. attribute:: sha1_hash
 
         Return the SHA1 hashsum of the package. This refers to the field 'SHA1'
         in the raw record.
+
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
 
     .. attribute:: sha256_hash
 
@@ -1373,6 +1387,10 @@ Records (Release files, Packages, Sources)
         'SHA256' in the raw record.
 
         .. versionadded:: 0.7.9
+
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
 
     .. attribute:: source_pkg
 
