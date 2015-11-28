@@ -564,30 +564,41 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 char *doc_RewriteSection =
 "rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str\n"
 "\n"
-"Rewrite the section given by 'section' using 'rewrite_list', and order the\n"
-"fields according to 'order'.\n\n"
-"The parameter 'order' is a list object containing the names of the fields\n"
-"in the order they should appear in the rewritten section.\n"
-"apt_pkg.REWRITE_PACKAGE_ORDER and apt_pkg.REWRITE_SOURCE_ORDER are two\n"
-"predefined lists for rewriting package and source sections, respectively\n\n"
-"The parameter 'rewrite_list' is a list of tuples of the form\n"
-"'(tag, newvalue[, renamed_to])', where 'tag' describes the field which\n"
-"should be changed, 'newvalue' the value which should be inserted or None\n"
-"to delete the field, and the optional renamed_to can be used to rename the\n"
-"field.";
+"Rewrite the section given by *section* using *rewrite_list*, and order the\n"
+"fields according to *order*.\n"
+"\n"
+"The parameter *order* is a :class:`list` object containing the names of the\n"
+"fields in the order they should appear in the rewritten section.\n"
+":data:`apt_pkg.REWRITE_PACKAGE_ORDER` and\n"
+":data:`apt_pkg.REWRITE_SOURCE_ORDER` are two predefined lists for rewriting\n"
+"package and source sections, respectively.\n"
+"\n"
+"The parameter *rewrite_list* is a list of tuples of the form\n"
+"``(tag, newvalue[, renamed_to])``, where *tag* describes the field which\n"
+"should be changed, *newvalue* the value which should be inserted or\n"
+"``None`` to delete the field, and the optional *renamed_to* can be used\n"
+"to rename the field.\n\n"
+".. deprecated:: 1.1\n\n"
+"    Replaced by :meth:`TagSection.write`";
 PyObject *RewriteSection(PyObject *self,PyObject *Args)
 {
    PyObject *Section;
    PyObject *Order;
    PyObject *Rewrite;
+
    if (PyArg_ParseTuple(Args,"O!O!O!",&PyTagSection_Type,&Section,
 			&PyList_Type,&Order,&PyList_Type,&Rewrite) == 0)
+      return 0;
+
+   if (PyErr_WarnEx(PyExc_DeprecationWarning,
+                    "apt_pkg.rewrite_section() is deprecated. Use TagSection.write instead", 1) == -1)
       return 0;
 
    // Convert the order list
    const char **OrderList = ListToCharChar(Order,true);
 
    // Convert the Rewrite list.
+APT_IGNORE_DEPRECATED_PUSH
    TFRewriteData *List = new TFRewriteData[PySequence_Length(Rewrite)+1];
    memset(List,0,sizeof(*List)*(PySequence_Length(Rewrite)+1));
    for (int I = 0; I != PySequence_Length(Rewrite); I++)
@@ -601,15 +612,17 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
 	 return 0;
       }
    }
-
+APT_IGNORE_DEPRECATED_POP
    /* This is a glibc extension.. If not running on glibc I'd just take
       this whole function out, it is probably infrequently used */
    char *bp = 0;
    size_t size;
    FILE *F = open_memstream (&bp, &size);
 
+APT_IGNORE_DEPRECATED_PUSH
    // Do the rewrite
    bool Res = TFRewrite(F,GetCpp<pkgTagSection>(Section),OrderList,List);
+APT_IGNORE_DEPRECATED_POP
    delete [] OrderList;
    delete [] List;
    fclose(F);

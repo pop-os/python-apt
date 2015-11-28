@@ -2049,22 +2049,7 @@ section as a string.
 
         Return a list of keys in the section.
 
-.. function:: rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str
-
-    Rewrite the section given by *section* using *rewrite_list*, and order the
-    fields according to *order*.
-
-    The parameter *order* is a :class:`list` object containing the names of the
-    fields in the order they should appear in the rewritten section.
-    :data:`apt_pkg.REWRITE_PACKAGE_ORDER` and
-    :data:`apt_pkg.REWRITE_SOURCE_ORDER` are two predefined lists for rewriting
-    package and source sections, respectively.
-
-    The parameter *rewrite_list* is a list of tuples of the form
-    ``(tag, newvalue[, renamed_to])``, where *tag* describes the field which
-    should be changed, *newvalue* the value which should be inserted or
-    ``None`` to delete the field, and the optional *renamed_to* can be used
-    to rename the field.
+.. autofunction:: rewrite_section
 
 .. data:: REWRITE_PACKAGE_ORDER
 
