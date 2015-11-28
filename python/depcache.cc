@@ -75,6 +75,7 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 
    pkgAcquire Fetcher;
    if (Fetcher.GetLock(_config->FindDir("Dir::Cache::Archives")) == false) {
+      Py_INCREF(Py_None);
       return HandleErrors(Py_None);
    }
 
