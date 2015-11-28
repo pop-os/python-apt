@@ -332,7 +332,7 @@ static PyObject *PkgAcquireNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
     }
 
     fetcher = new pkgAcquire();
-    fetcher->Setup(progress);
+    fetcher->SetLog(progress);
 
     PyObject *FetcherObj = CppPyObject_NEW<pkgAcquire*>(NULL, type, fetcher);
 
