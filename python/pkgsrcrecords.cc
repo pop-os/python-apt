@@ -165,15 +165,15 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
       return 0;
    PyObject *List = PyList_New(0);
 
-   std::vector<pkgSrcRecords::File> f;
-   if(!Struct.Last->Files(f))
+   std::vector<pkgSrcRecords::File2> f;
+   if(!Struct.Last->Files2(f))
       return NULL; // error
 
    PyObject *v;
    for(unsigned int i=0;i<f.size();i++) {
       v = Py_BuildValue("(sNss)",
 			f[i].MD5Hash.c_str(),
-			MkPyNumber(f[i].Size),
+			MkPyNumber(f[i].FileSize),
 			f[i].Path.c_str(),
 			f[i].Type.c_str());
       PyList_Append(List, v);
