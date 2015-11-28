@@ -6,3 +6,16 @@ Removed
 -------
 * The class :class:`apt_pkg.IndexRecords` has been removed, as it was removed
   in APT 1.1
+
+
+Added
+------
+* The class :class:`apt_pkg.HashStringList` has been added.
+
+
+Deprecated
+----------
+* :attr:`apt_pkg.PackageRecords.md5_hash`,
+  :attr:`apt_pkg.PackageRecords.sha1_hash`, and
+  :attr:`apt_pkg.PackageRecords.sha256_hash`
+  are replaced by :attr:`apt_pkg.PackageRecords.hashes`.
