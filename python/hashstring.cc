@@ -48,13 +48,13 @@ static PyObject *hashstring_repr(PyObject *self)
 
 static PyObject *hashstring_str(PyObject *self)
 {
-    HashString *hash = GetCpp<HashString*>(self);
+    const HashString *hash = GetCpp<HashString*>(self);
     return CppPyString(hash->toStr());
 }
 
 static PyObject *hashstring_get_hashtype(PyObject *self)
 {
-    HashString *hash = GetCpp<HashString*>(self);
+    const HashString *hash = GetCpp<HashString*>(self);
     return CppPyString(hash->HashType());
 }
 
@@ -64,7 +64,7 @@ static char *hashstring_verify_file_doc =
 
 static PyObject *hashstring_verify_file(PyObject *self,PyObject *args)
 {
-    HashString *hash = GetCpp<HashString*>(self);
+    const HashString *hash = GetCpp<HashString*>(self);
     char *filename;
     if (PyArg_ParseTuple(args, "s:verify_file", &filename) == 0)
         return 0;
