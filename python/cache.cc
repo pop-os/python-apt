@@ -595,8 +595,8 @@ PyTypeObject PyGroupList_Type =
     return Ret; \
 }
 
-MkGet(PackageGetName,PyString_FromString(Pkg.Name()))
-MkGet(PackageGetArch,PyString_FromString(Pkg.Arch()))
+MkGet(PackageGetName,CppPyString(Pkg.Name()))
+MkGet(PackageGetArch,CppPyString(Pkg.Arch()))
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 static PyObject *PackageGetSection(PyObject *Self,void*)
@@ -785,7 +785,7 @@ PyTypeObject PyPackage_Type =
        return Ret; }
 
 Description_MkGet(DescriptionGetLanguageCode,
-                  PyString_FromString(Desc.LanguageCode()))
+                  CppPyString(Desc.LanguageCode()))
 Description_MkGet(DescriptionGetMd5,CppPyString(Desc.md5()))
 #undef Description_MkGet
 
@@ -888,7 +888,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 PyObject *Dep = PyString_FromString(UntranslatedDepTypes[Start->Type]);
+	 PyObject *Dep = CppPyString(UntranslatedDepTypes[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -941,7 +941,7 @@ static inline pkgCache::VerIterator Version_GetVer(PyObject *Self) {
 
 // Version attributes.
 static PyObject *VersionGetVerStr(PyObject *Self, void*) {
-   return PyString_FromString(Version_GetVer(Self).VerStr());
+   return CppPyString(Version_GetVer(Self).VerStr());
 }
 static PyObject *VersionGetSection(PyObject *Self, void*) {
    return CppPyString(Version_GetVer(Self).Section());
@@ -1401,8 +1401,8 @@ static PyObject *DependencyGetTargetVer(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    if (Dep->Version == 0)
-      return PyString_FromString("");
-   return PyString_FromString(Dep.TargetVer());
+      return CppPyString("");
+   return CppPyString(Dep.TargetVer());
 }
 
 static PyObject *DependencyGetTargetPkg(PyObject *Self,void*)
@@ -1432,25 +1432,25 @@ static PyObject *DependencyGetParentPkg(PyObject *Self,void*)
 static PyObject *DependencyGetCompType(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(Dep.CompType());
+   return CppPyString(Dep.CompType());
 }
 
 static PyObject *DependencyGetCompTypeDeb(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(pkgCache::CompTypeDeb(Dep->CompareOp));
+   return CppPyString(pkgCache::CompTypeDeb(Dep->CompareOp));
 }
 
 static PyObject *DependencyGetDepType(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(Dep.DepType());
+   return CppPyString(Dep.DepType());
 }
 
 static PyObject *DependencyGetDepTypeUntranslated(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(UntranslatedDepTypes[Dep->Type]);
+   return CppPyString(UntranslatedDepTypes[Dep->Type]);
 }
 
 static PyObject *DependencyGetDepTypeEnum(PyObject *Self,void*)

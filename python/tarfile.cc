@@ -215,7 +215,7 @@ static PyObject *tarmember_get_name(PyObject *self, void *closure)
 #if PY_MAJOR_VERSION >= 3
     return PyUnicode_DecodeFSDefault(GetCpp<pkgDirStream::Item>(self).Name);
 #else
-    return PyString_FromString(GetCpp<pkgDirStream::Item>(self).Name);
+    return CppPyString(GetCpp<pkgDirStream::Item>(self).Name);
 #endif
 }
 
@@ -224,7 +224,7 @@ static PyObject *tarmember_get_linkname(PyObject *self, void *closure)
 #if PY_MAJOR_VERSION >= 3
     return PyUnicode_DecodeFSDefault(GetCpp<pkgDirStream::Item>(self).LinkTarget);
 #else
-    return PyString_FromString(GetCpp<pkgDirStream::Item>(self).LinkTarget);
+    return CppPyString(GetCpp<pkgDirStream::Item>(self).LinkTarget);
 #endif
 }
 

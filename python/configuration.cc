@@ -509,7 +509,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
       List = PyList_New(Length);
       for (int I = 0; CmdL.FileList[I] != 0; I++)
       {
-	 PyList_SetItem(List,I,PyString_FromString(CmdL.FileList[I]));
+	 PyList_SetItem(List,I,CppPyString(CmdL.FileList[I]));
       }
    }
 

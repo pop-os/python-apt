@@ -49,7 +49,7 @@ static PyObject *py_gettext(PyObject *self, PyObject *Args) {
     if (PyArg_ParseTuple(Args,"s|s:gettext",&msg, &domain) == 0)
         return 0;
 
-    return PyString_FromString(dgettext(domain, msg));
+    return CppPyString(dgettext(domain, msg));
 }
 
 // newConfiguration - Build a new configuration class			/*{{{*/

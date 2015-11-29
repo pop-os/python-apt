@@ -72,7 +72,7 @@ int TagFileClear(PyObject *self) {
 #if PY_MAJOR_VERSION < 3
 #define TagSecString_FromStringAndSize(self, v, len) \
     PyString_FromStringAndSize((v), (len))
-#define TagSecString_FromString(self, v) PyString_FromString(v)
+#define TagSecString_FromString(self, v) CppPyString(v)
 #else
 static PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
 	 				 Py_ssize_t len) {

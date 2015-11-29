@@ -199,7 +199,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    PyObject *v;
    for(unsigned int i=0;i<bd.size();i++) {
      
-     Dep = PyString_FromString(pkgSrcRecords::Parser::BuildDepType(bd[i].Type));
+     Dep = CppPyString(pkgSrcRecords::Parser::BuildDepType(bd[i].Type));
      
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)

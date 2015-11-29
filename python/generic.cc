@@ -88,7 +88,7 @@ PyObject *CharCharToList(const char **List,unsigned long Size)
    // Convert the whole configuration space into a list
    PyObject *PList = PyList_New(Size);
    for (unsigned long I = 0; I != Size; I++, List++)
-      PyList_SetItem(PList,I,PyString_FromString(*List));
+      PyList_SetItem(PList,I,CppPyString(*List));
 
    return PList;
 }
