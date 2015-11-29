@@ -58,21 +58,6 @@ typedef int Py_ssize_t;
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
 #define PyInt_FromLong PyLong_FromLong
-#else
-// Compatibility for Python 2.5 and previous.
-#if (PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 5)
-#define PyBytes_Check PyString_Check
-#define PyBytes_AS_STRING PyString_AS_STRING
-#define PyBytes_AsString PyString_AsString
-#define PyBytes_AsStringAndSize PyString_AsStringAndSize
-#define PyBytes_FromStringAndSize PyString_FromStringAndSize
-#define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
-#endif
-#endif
-
-// Hacks to make Python 2.4 build.
-#if PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 4
-#define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
 #endif
 
 #define PY_APT_BEGIN_DEPRECATED { \
