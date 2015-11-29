@@ -52,7 +52,7 @@ static PyObject *acquireitem_get_desc_uri(PyObject *self, void *closure)
 static PyObject *acquireitem_get_destfile(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? CppPyString(item->DestFile) : 0;
+    return item ? CppPyPath(item->DestFile) : 0;
 }
 
 
@@ -173,9 +173,7 @@ static PyObject *acquireitem_repr(PyObject *Self)
     pkgAcquire::Item *Itm = acquireitem_tocpp(Self);
     if (Itm == 0)
         return 0;
-    // FIXME: once python 2.7 is default we can use:
-    //        return PyString_FromFormat()
-    //        but for < 2.7 the "%llu" is not supported
+
     string repr;
     strprintf(repr, "<%s object:"
               "Status: %i Complete: %i Local: %i IsTrusted: %i "
@@ -185,7 +183,9 @@ static PyObject *acquireitem_repr(PyObject *Self)
               Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
               Itm->FileSize, Itm->DestFile.c_str(),  Itm->DescURI().c_str(),
               Itm->ID,Itm->ErrorText.c_str());
-    return CppPyString(repr);
+    // Use CppPyPath here, the string may contain a path, so we should
+    // decode it like one.
+    return CppPyPath(repr);
 }
 
 static void acquireitem_dealloc(PyObject *self)

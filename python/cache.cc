@@ -1162,7 +1162,7 @@ PyTypeObject PyVersion_Type =
 static PyObject *PackageFile_GetFileName(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return CppPyString(File.FileName());
+    return CppPyPath(File.FileName());
 }
 
 static PyObject *PackageFile_GetArchive(PyObject *Self,void*)

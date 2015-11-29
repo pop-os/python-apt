@@ -68,7 +68,7 @@ static inline PkgRecordsStruct &GetStruct(PyObject *Self,char *name) {
 
 static PyObject *PkgRecordsGetFileName(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"FileName");
-   return (Struct.Last != 0) ? CppPyString(Struct.Last->FileName()) : 0;
+   return (Struct.Last != 0) ? CppPyPath(Struct.Last->FileName()) : 0;
 }
 static PyObject *PkgRecordsGetHashes(PyObject *Self,void*) {
 APT_IGNORE_DEPRECATED_PUSH
