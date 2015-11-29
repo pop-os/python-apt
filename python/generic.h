@@ -220,7 +220,7 @@ void CppDeallocPtr(PyObject *iObj)
    iObj->ob_type->tp_free(iObj);
 }
 
-inline PyObject *CppPyString(std::string Str)
+inline PyObject *CppPyString(const std::string &Str)
 {
    return PyString_FromStringAndSize(Str.c_str(),Str.length());
 }
