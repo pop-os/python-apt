@@ -60,12 +60,6 @@ typedef int Py_ssize_t;
 #define PyInt_FromLong PyLong_FromLong
 #endif
 
-#define PY_APT_BEGIN_DEPRECATED { \
-   _Pragma("GCC diagnostic push"); \
-   _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\""); }
-#define PY_APT_END_DEPRECATED  _Pragma("GCC diagnostic pop")
-
-
 static inline const char *PyUnicode_AsString(PyObject *op) {
     // Convert to bytes object, using the default encoding.
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 3

@@ -897,9 +897,9 @@ static PyObject *PkgProblemResolverInstallProtect(PyObject *Self,PyObject *Args)
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   PY_APT_BEGIN_DEPRECATED;
+APT_IGNORE_DEPRECATED_PUSH
    fixer->InstallProtect();
-   PY_APT_END_DEPRECATED;
+APT_IGNORE_DEPRECATED_POP
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }
