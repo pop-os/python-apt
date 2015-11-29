@@ -225,7 +225,7 @@ inline PyObject *CppPyString(const std::string &Str)
    return PyString_FromStringAndSize(Str.c_str(),Str.length());
 }
 
-inline PyObject *Safe_FromString(const char *Str)
+inline PyObject *CppPyString(const char *Str)
 {
    if (Str == 0)
       return PyString_FromString("");

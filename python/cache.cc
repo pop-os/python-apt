@@ -604,7 +604,7 @@ static PyObject *PackageGetSection(PyObject *Self,void*)
     pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
     if (PyErr_WarnEx(PyExc_DeprecationWarning, "Package.section is deprecated, use Version.section instead", 1) == -1)
       return NULL;
-    return Safe_FromString(Pkg.Section());
+    return CppPyString(Pkg.Section());
 }
 #pragma GCC diagnostic pop
 MkGet(PackageGetRevDependsList,CppPyObject_NEW<RDepListStruct>(Owner,
@@ -786,7 +786,7 @@ PyTypeObject PyPackage_Type =
 
 Description_MkGet(DescriptionGetLanguageCode,
                   PyString_FromString(Desc.LanguageCode()))
-Description_MkGet(DescriptionGetMd5,Safe_FromString(Desc.md5()))
+Description_MkGet(DescriptionGetMd5,CppPyString(Desc.md5()))
 #undef Description_MkGet
 
 static PyObject *DescriptionGetFileList(PyObject *Self,void*)
@@ -944,10 +944,10 @@ static PyObject *VersionGetVerStr(PyObject *Self, void*) {
    return PyString_FromString(Version_GetVer(Self).VerStr());
 }
 static PyObject *VersionGetSection(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).Section());
+   return CppPyString(Version_GetVer(Self).Section());
 }
 static PyObject *VersionGetArch(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).Arch());
+   return CppPyString(Version_GetVer(Self).Arch());
 }
 static PyObject *VersionGetFileList(PyObject *Self, void*) {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
@@ -1000,7 +1000,7 @@ static PyObject *VersionGetPriority(PyObject *Self, void*) {
    return MkPyNumber(Version_GetVer(Self)->Priority);
 }
 static PyObject *VersionGetPriorityStr(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).PriorityType());
+   return CppPyString(Version_GetVer(Self).PriorityType());
 }
 static PyObject *VersionGetDownloadable(PyObject *Self, void*) {
    return PyBool_FromLong(Version_GetVer(Self).Downloadable());
@@ -1162,61 +1162,61 @@ PyTypeObject PyVersion_Type =
 static PyObject *PackageFile_GetFileName(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.FileName());
+    return CppPyString(File.FileName());
 }
 
 static PyObject *PackageFile_GetArchive(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Archive());
+    return CppPyString(File.Archive());
 }
 
 static PyObject *PackageFile_GetComponent(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Component());
+    return CppPyString(File.Component());
 }
 
 static PyObject *PackageFile_GetVersion(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Version());
+    return CppPyString(File.Version());
 }
 
 static PyObject *PackageFile_GetOrigin(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Origin());
+    return CppPyString(File.Origin());
 }
 
 static PyObject *PackageFile_GetLabel(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Label());
+    return CppPyString(File.Label());
 }
 
 static PyObject *PackageFile_GetArchitecture(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Architecture());
+    return CppPyString(File.Architecture());
 }
 
 static PyObject *PackageFile_GetCodename(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Codename());
+    return CppPyString(File.Codename());
 }
 
 static PyObject *PackageFile_GetSite(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Site());
+    return CppPyString(File.Site());
 }
 
 static PyObject *PackageFile_GetIndexType(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.IndexType());
+    return CppPyString(File.IndexType());
 }
 static PyObject *PackageFile_GetSize(PyObject *Self,void*)
 {
