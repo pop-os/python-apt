@@ -37,7 +37,12 @@
 
 static PyObject *armember_get_name(PyObject *self, void *closure)
 {
+#if PY_MAJOR_VERSION >= 3
+    auto name = GetCpp<ARArchive::Member*>(self)->Name;
+    return PyUnicode_DecodeFSDefault(name.c_str());
+#else
     return CppPyString(GetCpp<ARArchive::Member*>(self)->Name);
+#endif
 }
 
 static PyObject *armember_get_mtime(PyObject *self, void *closure)
