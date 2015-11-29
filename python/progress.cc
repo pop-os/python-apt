@@ -359,7 +359,7 @@ pkgPackageManager::OrderResult PyInstallProgress::Run(pkgPackageManager *pm)
       child_id = fork();
    }
 
-   PyObject *child_o = PyLong_FromLong(child_id);
+   PyObject *child_o = MkPyNumber(child_id);
    PyObject_SetAttrString(callbackInst, "child_pid", child_o);
    Py_DECREF(child_o);
 
