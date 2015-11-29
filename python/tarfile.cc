@@ -212,20 +212,12 @@ static PyObject *tarmember_issym(PyObject *self, PyObject *args)
 
 static PyObject *tarmember_get_name(PyObject *self, void *closure)
 {
-#if PY_MAJOR_VERSION >= 3
-    return PyUnicode_DecodeFSDefault(GetCpp<pkgDirStream::Item>(self).Name);
-#else
-    return CppPyString(GetCpp<pkgDirStream::Item>(self).Name);
-#endif
+    return CppPyPath(GetCpp<pkgDirStream::Item>(self).Name);
 }
 
 static PyObject *tarmember_get_linkname(PyObject *self, void *closure)
 {
-#if PY_MAJOR_VERSION >= 3
-    return PyUnicode_DecodeFSDefault(GetCpp<pkgDirStream::Item>(self).LinkTarget);
-#else
-    return CppPyString(GetCpp<pkgDirStream::Item>(self).LinkTarget);
-#endif
+    return CppPyPath(GetCpp<pkgDirStream::Item>(self).LinkTarget);
 }
 
 static PyObject *tarmember_get_mode(PyObject *self, void *closure)

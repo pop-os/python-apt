@@ -211,6 +211,24 @@ inline PyObject *CppPyString(const char *Str)
    return PyString_FromString(Str);
 }
 
+#if PY_MAJOR_VERSION >= 3
+static inline PyObject *CppPyPath(const std::string &path)
+{
+    return PyUnicode_DecodeFSDefaultAndSize(path.c_str(), path.length());
+}
+
+static inline PyObject *CppPyPath(const char *path)
+{
+   if (path == nullptr)
+      path = "";
+   return PyUnicode_DecodeFSDefault(path);
+}
+#else
+template<typename T> static inline PyObject *CppPyPath(T path) {
+   return CppPyString(path);
+}
+#endif
+
 // Convert _error into Python exceptions
 PyObject *HandleErrors(PyObject *Res = 0);
 
