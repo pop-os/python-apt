@@ -95,7 +95,7 @@ it is a boolean argument. Afterwards you could use
 ``apt_pkg.config.find_b("help")`` to see whether ``--help`` was specified. In
 ``('d',"cdrom","Acquire::cdrom::mount","HasArg")`` the fourth field is
 ``"HasArg"``. This means that the option has an argument, in this case the
-location of the mount pint. ``('c',"config-file","","ConfigFile")`` shows how
+location of the mount point. ``('c',"config-file","","ConfigFile")`` shows how
 to include configuration files. This option takes a parameter which points to
 a configuration file which will be added to the configuration space.
 ``('o',"option","","ArbItem")`` is yet another type of option, which allows users
