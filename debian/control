@@ -58,7 +58,7 @@ Breaks: packagekit-backend-apt (<= 0.4.8-0ubuntu4),
         update-notifier (<< 0.99.3debian9),
         wajig (<< 2.0.46)
 Provides: ${python:Provides}
-Suggests: python-apt-dbg, python-apt-doc
+Suggests: python-apt-dbg, python-apt-doc, apt
 Description: Python interface to libapt-pkg
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
@@ -136,7 +136,7 @@ Multi-Arch: allowed
 Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
 Recommends: lsb-release, iso-codes
 Provides: ${python3:Provides}
-Suggests: python3-apt-dbg, python-apt-doc
+Suggests: python3-apt-dbg, python-apt-doc, apt
 Breaks: python-apt (<< 0.7.98+nmu1)
 Replaces: python-apt (<< 0.7.98+nmu1)
 Description: Python 3 interface to libapt-pkg
