@@ -500,7 +500,9 @@ class DebPackage(object):
                 self._dbg(1, "Found multiarch arch: '%s'" % arch)
             else:
                 self._dbg(1, "ERROR: Wrong architecture dude!")
-                self._failure_string = _("Wrong architecture '%s'") % arch
+                self._failure_string = _("Wrong architecture '%s' "
+                                         "-- Run dpkg --add-architecture to "
+                                         "add it and update afterwards") % arch
                 return False
 
         # check version
