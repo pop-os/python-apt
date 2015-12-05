@@ -10,9 +10,15 @@ import time
 import apt_inst
 
 
-def format_mode(what, mode):
+def format_mode(member):
     """Return the symbolic mode"""
-    s_mode = dict(DIR="d", HARDLINK="h", FILE="-").get(what)
+    mode = member.mode
+    if member.isdir():
+        s_mode = "d"
+    elif member.islnk():
+        s_mode = "h"
+    else:
+        s_mode = "-"
     s_mode += ((mode & stat.S_IRUSR) and "r" or "-")
     s_mode += ((mode & stat.S_IWUSR) and "w" or "-")
     s_mode += ((mode & stat.S_IXUSR) and
@@ -29,14 +35,16 @@ def format_mode(what, mode):
     return s_mode
 
 
-def callback(what, name, link, mode, uid, gid, size, mtime, major, minor):
+def callback(member, data):
     """callback for deb_extract"""
-    s_mode = format_mode(what, mode)
-    s_owner = "%s/%s" % (pwd.getpwuid(uid)[0], grp.getgrgid(gid)[0])
-    s_size = "%9d" % size
-    s_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(mtime))
-    s_name = name.startswith(".") and name or ("./" + name)
-    if link:
+    s_mode = format_mode(member)
+    s_owner = "%s/%s" % (pwd.getpwuid(member.uid)[0],
+                         grp.getgrgid(member.gid)[0])
+    s_size = "%9d" % member.size
+    s_time = time.strftime("%Y-%m-%d %H:%M", time.localtime(member.mtime))
+    s_name = (member.name if member.name.startswith(".")
+              else ("./" + member.name))
+    if member.islnk():
         s_name += " link to %s" % link
     print s_mode, s_owner, s_size, s_time, s_name
 
@@ -49,7 +57,7 @@ def main():
 
     fobj = open(sys.argv[1])
     try:
-        apt_inst.deb_extract(fobj, callback, "data.tar.gz")
+        apt_inst.DebFile(fobj).data.go(callback)
     finally:
         fobj.close()
 
