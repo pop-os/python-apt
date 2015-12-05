@@ -1007,12 +1007,6 @@ Example:
         A list of all possible target :class:`Version` objects which satisfy
         this dependency.
 
-    .. method:: smart_target_pkg
-
-        Return a :class:`Version` object of a package which satisfies the
-        dependency and does not conflict with installed packages
-        (the 'natural target').
-
     .. attribute:: comp_type
 
         The type of comparison (<,<=,=,!=,>=,>,), as string. Note that the

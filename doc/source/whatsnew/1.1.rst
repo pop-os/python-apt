@@ -6,7 +6,7 @@ Removed
 -------
 * The class :class:`apt_pkg.IndexRecords` has been removed, as it was removed
   in APT 1.1
-
+* :attr:`apt_pkg.Dependency.smart_target_pkg` has been removed.
 
 Added
 ------

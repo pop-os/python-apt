@@ -1342,24 +1342,6 @@ static PyObject *DependencyRepr(PyObject *Self)
 	                          Dep.CompType());
 }
 
-static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)
-{
-   if (PyArg_ParseTuple(Args,"") == 0)
-      return 0;
-
-   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-
-   pkgCache::PkgIterator P;
-   if (Dep.SmartTargetPkg(P) == false)
-   {
-      Py_INCREF(Py_None);
-      return Py_None;
-   }
-
-   return CppPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,P);
-}
-
 static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -1383,10 +1365,6 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 
 static PyMethodDef DependencyMethods[] =
 {
-   {"smart_target_pkg",DepSmartTargetPkg,METH_VARARGS,
-    "smart_target_pkg() -> apt_pkg.Package\n\n"
-    "Return the first package which provides a package with the name\n"
-    "of the target package."},
    {"all_targets",DepAllTargets,METH_VARARGS,
     "all_targets() -> list\n\n"
     "A list of all possible apt_pkg.Version objects which satisfy this\n"
@@ -1501,9 +1479,8 @@ static PyGetSetDef DependencyGetSet[] = {
 static const char *dependency_doc =
     "Represent a dependency from one package version to a package,\n"
     "and (optionally) a version relation (e.g. >= 1). Dependency\n"
-    "objects also provide useful functions like all_targets() or\n"
-    "smart_target_pkg() for selecting packages to satisfy the\n"
-    "dependency.";
+    "objects also provide useful functions like all_targets()\n"
+    "for selecting packages to satisfy the dependency.";
 
 PyTypeObject PyDependency_Type =
 {
