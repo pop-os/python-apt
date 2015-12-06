@@ -47,7 +47,7 @@ def callback(member, data):
     s_name = (member.name if member.name.startswith(".")
               else ("./" + member.name))
     if member.islnk():
-        s_name += " link to %s" % link
+        s_name += " link to %s" % member.linkname
     print(s_mode, s_owner, s_size, s_time, s_name)
 
 
