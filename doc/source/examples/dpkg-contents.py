@@ -1,6 +1,8 @@
 #!/usr/bin/python
 """Emulate dpkg --contents"""
 
+from __future__ import print_function
+
 import grp
 import pwd
 import stat
@@ -46,13 +48,13 @@ def callback(member, data):
               else ("./" + member.name))
     if member.islnk():
         s_name += " link to %s" % link
-    print s_mode, s_owner, s_size, s_time, s_name
+    print(s_mode, s_owner, s_size, s_time, s_name)
 
 
 def main():
     """Main function"""
     if len(sys.argv) < 2:
-        print >> sys.stderr, "need filename argumnet"
+        print("need filename argumnet", file=sys.stderr)
         sys.exit(1)
 
     fobj = open(sys.argv[1])

@@ -9,14 +9,14 @@ def main():
     apt_pkg.init_config()
     apt_pkg.init_system()
     cache = apt_pkg.Cache()
-    print "Essential packages:"
+    print("Essential packages:")
     for pkg in cache.packages:
         if pkg.essential:
-            print " ", pkg.name
-    print "Important packages:"
+            print(" ", pkg.name)
+    print("Important packages:")
     for pkg in cache.packages:
         if pkg.important:
-            print " ", pkg.name
+            print(" ", pkg.name)
 
 if __name__ == "__main__":
     main()

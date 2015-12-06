@@ -22,12 +22,12 @@ def check_version(pkgver):
             missing.append(or_group)
 
     if missing:
-        print "Package:", pkgver.parent_pkg.name
-        print "Version:", pkgver.ver_str
-        print "Missing:",
-        print ", ".join(" | ".join(fmt_dep(dep) for dep in or_group)
+        print("Package:", pkgver.parent_pkg.name)
+        print("Version:", pkgver.ver_str)
+        print("Missing:")
+        print(", ".join(" | ".join(fmt_dep(dep) for dep in or_group))
                         for or_group in missing)
-        print
+        print()
 
 
 def main():

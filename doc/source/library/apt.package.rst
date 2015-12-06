@@ -109,14 +109,14 @@ Examples
 
     cache = apt.Cache()
     pkg = cache['python-apt'] # Access the Package object for python-apt
-    print 'python-apt is trusted:', pkg.candidate.origins[0].trusted
+    print('python-apt is trusted:', pkg.candidate.origins[0].trusted)
 
     # Mark python-apt for install
     pkg.mark_install()
 
-    print 'python-apt is marked for install:', pkg.marked_install
+    print('python-apt is marked for install:', pkg.marked_install)
 
-    print 'python-apt is (summary):', pkg.candidate.summary
+    print('python-apt is (summary):', pkg.candidate.summary)
 
     # Now, really install it
     cache.commit()

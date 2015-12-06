@@ -17,7 +17,7 @@ def main():
 
     # Now print the URI of every item.
     for item in acquire.items:
-        print item.desc_uri
+        print(item.desc_uri)
 
 if __name__ == '__main__':
     main()

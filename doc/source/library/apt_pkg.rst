@@ -1276,7 +1276,7 @@ Index Files
 
             for pkgfile in cache.file_list:
                 if pkgfile.not_source:
-                    print 'The file %s has no source.' % pkgfile.filename
+                    print('The file %s has no source.' % pkgfile.filename)
 
     .. attribute:: origin
 
@@ -1344,7 +1344,7 @@ Records (Release files, Packages, Sources)
             cand = depcache.get_candidate_ver(cache['python-apt'])
             records.lookup(cand.file_list[0])
             # Now you can access the record
-            print records.source_pkg # == python-apt
+            print(records.source_pkg) # == python-apt
 
     .. attribute:: filename
 
@@ -1429,7 +1429,7 @@ Records (Release files, Packages, Sources)
         Example::
 
             section = apt_pkg.TagSection(records.record)
-            print section['SHA256'] # Use records.sha256_hash instead
+            print(section['SHA256']) # Use records.sha256_hash instead
 
 
 .. class:: SourceRecords
@@ -1951,7 +1951,7 @@ section as a string.
 
         with apt_pkg.TagFile('/var/lib/dpkg/status') as tagfile:
             for section in tagfile:
-                print section['Package']
+                print(section['Package'])
 
     .. versionchanged:: 0.7.100
         Added support for using gzip files, via :class:`gzip.GzipFile` or any

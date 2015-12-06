@@ -38,7 +38,7 @@ URIs. Luckily, there is :attr:`apt_pkg.Acquire.items` which allows us to
 iterate over the items::
 
     for item in acquire.items:
-        print item.desc_uri
+        print(item.desc_uri)
 
 In the end a program could look like this:
 
