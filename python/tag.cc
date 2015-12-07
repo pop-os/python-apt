@@ -452,6 +452,14 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    // make (much) use of it yet
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"s#|b",kwlist,&Data,&Len,&Bytes) == 0)
       return 0;
+   if (memchr(Data, 0, Len) != nullptr) {
+      PyErr_SetString(PyExc_ValueError, "Input contains NUL byte");
+      return 0;
+   }
+   if (Data[Len] != 0) {
+      PyErr_SetString(PyExc_ValueError, "Input is not terminated by NUL byte");
+      return 0;
+   }
 
    // Create the object..
    TagSecData *New = (TagSecData*)type->tp_alloc(type, 0);
