@@ -2047,7 +2047,36 @@ section as a string.
 
         Return a list of keys in the section.
 
-.. autofunction:: rewrite_section
+
+A function can be rewritten by using tag classes:
+
+.. autoclass:: Tag
+    :members:
+
+    The following static members can be used to determine the meaning of
+    :attr:`action`:
+
+    .. data:: REWRITE
+
+        Change the field value to the value of :attr:`data`
+
+    .. data:: RENAME
+
+        Rename the tag to a new tag stored in :attr:`data`.
+
+    .. data:: REMOVE
+
+        Remove the tag.
+
+    Apart from this, the class provides access to several attributes.
+
+.. autoclass:: TagRewrite
+
+.. autoclass:: TagRemove
+
+.. autoclass:: TagRename
+
+Pre-defined ordering for tag sections are:
 
 .. data:: REWRITE_PACKAGE_ORDER
 
@@ -2058,6 +2087,11 @@ section as a string.
 
     The order in which the information for source packages should be rewritten,
     i.e. the order in which the fields should appear.
+
+Before APT 1.1, the function :func:`rewrite_section` was used.
+
+.. autofunction:: rewrite_section
+
 
 Dependencies
 ------------

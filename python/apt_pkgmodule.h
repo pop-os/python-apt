@@ -43,6 +43,10 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args);
 // Tag File Stuff
 extern PyTypeObject PyTagSection_Type;
 extern PyTypeObject PyTagFile_Type;
+extern PyTypeObject PyTag_Type;
+extern PyTypeObject PyTagRewrite_Type;
+extern PyTypeObject PyTagRename_Type;
+extern PyTypeObject PyTagRemove_Type;
 extern char *doc_ParseSection;
 extern char *doc_ParseTagFile;
 extern char *doc_RewriteSection;

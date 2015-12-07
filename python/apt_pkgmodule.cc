@@ -820,6 +820,10 @@ extern "C" void initapt_pkg()
    /* ============================ tag.cc ============================ */
    ADDTYPE(Module,"TagSection",&PyTagSection_Type);
    ADDTYPE(Module,"TagFile",&PyTagFile_Type);
+   ADDTYPE(Module,"Tag",&PyTag_Type);
+   ADDTYPE(Module,"TagRewrite",&PyTagRewrite_Type);
+   ADDTYPE(Module,"TagRename",&PyTagRename_Type);
+   ADDTYPE(Module,"TagRemove",&PyTagRemove_Type);
    /* ============================ acquire.cc ============================ */
    ADDTYPE(Module,"Acquire",&PyAcquire_Type);
    ADDTYPE(Module,"AcquireFile",&PyAcquireFile_Type);
@@ -950,7 +954,13 @@ extern "C" void initapt_pkg()
                         MkPyNumber(pkgAcquire::Item::StatError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_AUTH_ERROR",
                         MkPyNumber(pkgAcquire::Item::StatAuthError));
-
+   // TagSection constants
+   PyDict_SetItemString(PyTag_Type.tp_dict, "REMOVE",
+                        MkPyNumber(pkgTagSection::Tag::REMOVE));
+   PyDict_SetItemString(PyTag_Type.tp_dict, "REWRITE",
+                        MkPyNumber(pkgTagSection::Tag::REWRITE));
+   PyDict_SetItemString(PyTag_Type.tp_dict, "RENAME",
+                        MkPyNumber(pkgTagSection::Tag::RENAME));
 
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 1
    PyObject *PyCapsule = PyCapsule_New(&API, "apt_pkg._C_API", NULL);
