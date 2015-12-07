@@ -45,7 +45,7 @@ PyObject *HandleErrors(PyObject *Res)
    }
    if (errcnt == 0)
       Err = "Internal Error";
-   PyErr_SetString(PyExc_SystemError,Err.c_str());
+   PyErr_SetString(PyAptError,Err.c_str());
    return 0;
 }
 

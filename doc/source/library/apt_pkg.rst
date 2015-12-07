@@ -28,6 +28,10 @@ be called without having run init*(), but will not return the expected value.
     the commandline afterwards and finally call :func:`init_system`.
 
 
+Exceptions
+----------
+.. autoclass:: Error
+
 Working with the cache
 ----------------------
 .. class:: Cache([progress: apt.progress.base.OpProgress])

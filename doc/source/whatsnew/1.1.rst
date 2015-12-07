@@ -2,6 +2,11 @@ What's New In python-apt 1.1
 ==============================
 This release is built against APT 1.1
 
+Highlights
+----------
+* Code that previously raised :class:`SystemError` now raises
+  :class:`apt_pkg.Error`.
+
 Removed
 -------
 * The class :class:`apt_pkg.IndexRecords` has been removed, as it was removed
@@ -11,6 +16,8 @@ Removed
 Added
 ------
 * The class :class:`apt_pkg.HashStringList` has been added.
+* The class :class:`apt_pkg.Error` and an alias :class:`apt_inst.Error` has
+  been added.
 
 
 Deprecated

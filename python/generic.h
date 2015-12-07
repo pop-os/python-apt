@@ -32,6 +32,11 @@
 #include <iostream>
 #include <new>
 
+/**
+ * Exception class for almost all Python errors
+ */
+extern PyObject *PyAptError;
+
 #if PYTHON_API_VERSION < 1013
 typedef int Py_ssize_t;
 #endif

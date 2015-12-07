@@ -12,6 +12,14 @@ enhanced with APT-specific methods. Because APT only provides a stream based
 view on a tar archive, this module's :class:`TarFile` class only provides a
 very small subset of those functions.
 
+Exceptions
+----------
+
+.. class:: Error
+
+    This is the same class as :class:`apt_pkg.Error`, provided here for
+    convenience.
+
 AR Archives
 -----------
 .. class:: ArArchive(file)

@@ -50,7 +50,7 @@ static int hashes_init(PyObject *self, PyObject *args, PyObject *kwds)
     else if ((Fd = PyObject_AsFileDescriptor(object)) != -1) {
         struct stat St;
         if (fstat(Fd, &St) != 0 || hashes.AddFD(Fd, St.st_size) == false) {
-            PyErr_SetFromErrno(PyExc_SystemError);
+            PyErr_SetFromErrno(PyAptError);
             return -1;
         }
     }

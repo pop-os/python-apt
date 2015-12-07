@@ -35,6 +35,16 @@
 #include <Python.h>
 									/*}}}*/
 
+static char PyAptError_Doc[] =
+   "Exception class for most python-apt exceptions.\n"
+   "\n"
+   "This class replaces the use of :class:`SystemError` in previous versions\n"
+   "of python-apt. It inherits from :class:`SystemError`, so make sure to\n"
+   "catch this class first.\n\n"
+   ".. versionadded:: 1.1";
+
+PyObject *PyAptError;
+
 /**
  * A Python->C->Python gettext() function.
  *
@@ -256,7 +266,7 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -301,7 +311,7 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -346,7 +356,7 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -391,7 +401,7 @@ static PyObject *sha512sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -785,6 +795,9 @@ extern "C" void initapt_pkg()
    // Finalize our types to add slots, etc.
    if (PyType_Ready(&PyConfiguration_Type) == -1) INIT_ERROR;
    if (PyType_Ready(&PyCacheFile_Type) == -1) INIT_ERROR;
+   PyAptError = PyErr_NewExceptionWithDoc("apt_pkg.Error", PyAptError_Doc, PyExc_SystemError, NULL);
+   if (PyAptError == NULL)
+      INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
@@ -799,7 +812,7 @@ extern "C" void initapt_pkg()
    // Global configuration, should never be deleted.
    Config->NoDelete = true;
    PyModule_AddObject(Module,"config",Config);
-
+   PyModule_AddObject(Module,"Error",PyAptError);
 
 
 
@@ -980,7 +993,6 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"INSTSTATE_REINSTREQ",pkgCache::State::ReInstReq);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD",pkgCache::State::Hold);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
-
 
    #if PY_MAJOR_VERSION >= 3
    return Module;

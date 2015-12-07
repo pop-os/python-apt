@@ -23,6 +23,7 @@
 #include <Python.h>
 									/*}}}*/
 
+PyObject *PyAptError;
 static PyMethodDef *methods = 0;
 
 
@@ -49,8 +50,10 @@ static struct PyModuleDef moduledef = {
         0
 };
 #define RETURN(x) return x
+#define INIT_ERROR return 0
 extern "C" PyObject * PyInit_apt_inst()
 #else
+#define INIT_ERROR return
 extern "C" void initapt_inst()
 #define RETURN(x) return
 #endif
@@ -61,6 +64,14 @@ extern "C" void initapt_inst()
    PyObject *module = Py_InitModule3("apt_inst",methods, apt_inst_doc);
 #endif
 
+   PyObject *apt_pkg = PyImport_ImportModule("apt_pkg");
+   if (apt_pkg == NULL)
+      INIT_ERROR;
+   PyAptError = PyObject_GetAttrString(apt_pkg, "Error");
+   if (PyAptError == NULL)
+      INIT_ERROR;
+
+   PyModule_AddObject(module,"Error",PyAptError);
    ADDTYPE(module,"ArMember",&PyArMember_Type);
    ADDTYPE(module,"ArArchive",&PyArArchive_Type);
    ADDTYPE(module,"DebFile",&PyDebFile_Type);
