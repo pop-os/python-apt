@@ -149,14 +149,14 @@ inline CppPyObject<T> *CppPyObject_NEW(PyObject *Owner,PyTypeObject *Type)
    return New;
 }
 
-template <class T,class A>
-inline CppPyObject<T> *CppPyObject_NEW(PyObject *Owner, PyTypeObject *Type,A const &Arg)
+template <class T,class... A>
+inline CppPyObject<T> *CppPyObject_NEW(PyObject *Owner, PyTypeObject *Type,A const &... Arg)
 {
    #ifdef ALLOC_DEBUG
    std::cerr << "=== ALLOCATING " << Type->tp_name << "+ ===\n";
    #endif
    CppPyObject<T> *New = (CppPyObject<T>*)Type->tp_alloc(Type, 0);
-   new (&New->Object) T(Arg);
+   new (&New->Object) T(Arg...);
    New->Owner = Owner;
    Py_XINCREF(Owner);
    return New;
