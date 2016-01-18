@@ -1317,7 +1317,7 @@ class Package(object):
             self.mark_auto(auto)
         else:
             # FIXME: we may want to throw a exception here
-            sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
+            sys.stderr.write(("MarkUpgrade() called on a non-upgradeable pkg: "
                               "'%s'\n") % self._pkg.name)
 
     def mark_auto(self, auto=True):
