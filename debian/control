@@ -118,7 +118,7 @@ Description: Python interface to libapt-pkg (development files)
 Package: python-apt-common
 Priority: optional
 Architecture: all
-Depends: ${misc:Depends}, python | python3
+Depends: ${misc:Depends}
 Enhances: python-apt, python3-apt
 Breaks: python-apt (<< 0.7.98+nmu1)
 Replaces: python-apt (<< 0.7.98+nmu1)
