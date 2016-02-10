@@ -208,6 +208,16 @@ class Cache(object):
 
             return pkg
 
+    def get(self, key, default=None):
+        """Return *self*[*key*] or *default* if *key* not in *self*.
+
+        .. versionadded:: 1.1
+        """
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
     def _rawpkg_to_pkg(self, rawpkg):
         """Returns the apt.Package object for an apt_pkg.Package object.
 
