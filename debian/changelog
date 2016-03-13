@@ -1,3 +1,52 @@
+python-apt (1.1.0~beta2) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * tests/test_all.py: Only use test files starting with test_
+  * tests: Rename test_pep8 to testmanual_pep8
+  * pre-build.sh: Run PEP8 check
+  * apt/README.apt: Drop it, we cannot pretend unstable API anymore
+  * depcache: Call SetLog() and GetLock on Acquire instead of Setup
+  * Fix regression from previous commit WRT Py_None reference count
+  * pkgsrcrecords: Use Files2 instead of Files, part1: Size
+  * Introduce apt_pkg.HashStringList()
+  * pkgrecords: Use hashes instead of deprecated MD5Hash and friends
+  * whatsnew: 1.1: Document HashStringList and PackageRecords changes
+  * hashstring: Constify where possible
+  * Drop deprecated uses of Hashes, add hashes attribute
+  * HashStringList: Check for negative index, fix signed vs unsigned
+  * acquire: Call SetLog() instead of Setup()
+  * apt_pkg: Deprecate rewrite_section
+  * arfile, tarfile: Decode member names using filesystem encoding
+    (Closes: #806596)
+  * CppPyString: Use an const std::string reference instead of value
+  * Make Safe_FromString an overloaded version of CppPyString
+  * Use CppPyString instead of PyString_FromString everywhere
+  * Drop compat macros for python2 (< 2.6)
+  * Drop deprecation-ignore macros, use APT ones instead
+  * Use CppPyPath for returning (hopefully) all paths
+  * apt_inst: Do not mention deprecated functions, except for porting
+    (Closes: #807103)
+  * control: Suggest apt, so reportbug reports apt version
+  * Drop binding for SmartTargetPkg() (Closes: #791345)
+  * debfile: Mention dpkg --add-architecture when arch is wrong
+    (Closes: #725720)
+  * Introduce apt_pkg.Error class replacing SystemError
+  * CppPyObject_NEW: Make template variadic
+  * Revert "CppPyObject_NEW: Make template variadic"
+  * Add apt_pkg.Tag and subclasses (one per kind of tag)
+  * TagSection: Check for NUL bytes in the tag section input
+  * python-apt-common: Drop python | python3 depends (Closes: #812099)
+  * apt.Cache: Provide get()
+
+  [ Felix Dietrich ]
+  * doc: Fix typo (Closes: #807105)
+  * Use print function from __future__ in examples (Closes: #807104)
+
+  [ Brian Murray ]
+  * Fix typo regarding upgradeable packages.
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 13 Mar 2016 15:48:44 +0100
+
 python-apt (1.1.0~beta1) unstable; urgency=medium
 
   * Upload to unstable
