@@ -10,7 +10,7 @@ export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings \
                                -DTIME=\""$(TIME)"\"
 export PATH := $(CURDIR)/utils:$(PATH)
 export pyversions := $(CURDIR)/utils/pyversions
-export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie
 
 %:
 	dh $@ --with python2,python3,sphinxdoc
