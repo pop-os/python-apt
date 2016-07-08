@@ -1,3 +1,21 @@
+python-apt (1.1.0~beta3) unstable; urgency=medium
+
+  [ Adam Conrad ]
+  * data/templates/Ubuntu.info.in: Add Yakkety Yak (16.10) template
+
+  [ Julian Andres Klode ]
+  * Set allow-unauthenticated for our local sources
+  * Update Vcs-Git and Vcs-Browser fields to https
+  * copyright: Update to copyright-format 1.0
+  * Drop the XS-Testsuite control field, not needed anymore
+  * copyright: Remove nonexisting files
+  * Bump Standards-Version to 3.9.8
+  * Build with full hardening enabled
+  * Fix typo classes reported by lintian
+  * rules: Do not use pie
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 08 Jul 2016 10:52:21 +0200
+
 python-apt (1.1.0~beta2) unstable; urgency=medium
 
   [ Julian Andres Klode ]
