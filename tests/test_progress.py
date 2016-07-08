@@ -36,7 +36,8 @@ class TestProgress(unittest.TestCase):
             os.makedirs("./tmp/partial")
         apt_pkg.config.set("Dir::state::lists", "./tmp")
         # create artifical line
-        deb_line = "deb file:%s/data/fake-packages/ /\n" % basedir
+        deb_line = ("deb [allow-insecure=yes] file:%s/data/fake-packages/ /\n"
+                    % basedir)
         with open("fetch_sources.list", "w") as fobj:
             fobj.write(deb_line)
         apt_pkg.config.set("Dir::Etc::sourcelist", "fetch_sources.list")

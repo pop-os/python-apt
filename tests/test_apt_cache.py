@@ -193,13 +193,13 @@ class TestAptCache(unittest.TestCase):
         sources_list = base_sources
         with open(sources_list, "w") as f:
             repo = os.path.abspath("./data/test-repo2")
-            f.write("deb copy:%s /\n" % repo)
+            f.write("deb [allow-insecure=yes] copy:%s /\n" % repo)
 
         # test single sources.list fetching
         sources_list = os.path.join(rootdir, "test.list")
         with open(sources_list, "w") as f:
             repo_dir = os.path.abspath("./data/test-repo")
-            f.write("deb copy:%s /\n" % repo_dir)
+            f.write("deb [allow-insecure=yes] copy:%s /\n" % repo_dir)
 
         self.assertTrue(os.path.exists(sources_list))
         # write marker to ensure listcleaner is not run
