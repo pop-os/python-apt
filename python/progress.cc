@@ -244,7 +244,7 @@ void PyFetchProgress::Start()
 
 void PyFetchProgress::Stop()
 {
-   /* After the stop operation occured no other threads
+   /* After the stop operation occurred no other threads
     * are allowed. This is done so we have a matching
     * PyCbObj_END_ALLOW_THREADS to our previous
     * PyCbObj_BEGIN_ALLOW_THREADS (Python requires this!).

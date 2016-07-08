@@ -144,7 +144,7 @@ static PyGetSetDef acquireitem_getset[] = {
     {"destfile",acquireitem_get_destfile,NULL,
      "The path to the file where the item will be stored."},
     {"error_text",acquireitem_get_error_text,NULL,
-     "If an error occured, a string describing the error; empty string\n"
+     "If an error occurred, a string describing the error; empty string\n"
      "otherwise."},
     {"filesize",acquireitem_get_filesize,NULL,
      "The size of the file (number of bytes). If unknown, it is set to 0."},

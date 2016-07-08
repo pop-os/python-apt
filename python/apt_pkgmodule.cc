@@ -114,7 +114,7 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
    if (strcmp(OpStr, "<") == 0) OpStr = "<<";
    if (*debListParser::ConvertRelation(OpStr,Op) != 0)
    {
-      PyErr_SetString(PyExc_ValueError,"Bad comparision operation");
+      PyErr_SetString(PyExc_ValueError,"Bad comparison operation");
       return 0;
    }
 

@@ -43,7 +43,7 @@ public:
     PyObject *py_data;
     // The requested member or NULL.
     const char *member;
-    // Set to true if an error occured in the Python callback, or a file
+    // Set to true if an error occurred in the Python callback, or a file
     // was too large to read in extractdata.
     bool error;
     // Place where the copy of the data is stored.

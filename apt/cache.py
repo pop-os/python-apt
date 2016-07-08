@@ -364,7 +364,7 @@ class Cache(object):
         object for the parameter *progress*, or specify an already
         existing :class:`apt_pkg.Acquire` object for the parameter *fetcher*.
 
-        The return value of the function is undefined. If an error occured,
+        The return value of the function is undefined. If an error occurred,
         an exception of type :class:`FetchFailedException` or
         :class:`FetchCancelledException` is raised.
 
