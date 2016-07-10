@@ -55,7 +55,8 @@ Architecture: all""")
         sources_list_path = apt_pkg.config.find_file("Dir::Etc::sourcelist")
         repo_path = os.path.abspath("./data/test-repo")
         with open(sources_list_path, "w") as sources_list:
-            sources_list.write("deb copy:%s /\n" % repo_path)
+            sources_list.write("deb [allow-insecure=yes] copy:%s /\n"
+                               % repo_path)
         # os.makedirs(os.path.join(chroot_path, "etc/apt/sources.list.d/"))
         self.cache.update(sources_list=sources_list_path)
         self.cache.open()
