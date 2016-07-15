@@ -12,6 +12,8 @@ import apt
 import apt_pkg
 import os
 
+import testcommon
+
 
 class TestAcquireProgress(apt.progress.base.AcquireProgress):
     def pulse(self, owner):
@@ -21,9 +23,10 @@ class TestAcquireProgress(apt.progress.base.AcquireProgress):
         # so the lib supports it. we test the lack of support value here
 
 
-class TestProgress(unittest.TestCase):
+class TestProgress(testcommon.TestCase):
 
     def setUp(self):
+        testcommon.TestCase.setUp(self)
         basedir = os.path.abspath(os.path.dirname(__file__))
         # setup apt_pkg config
         apt_pkg.init()

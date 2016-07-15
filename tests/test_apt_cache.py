@@ -25,6 +25,8 @@ if libdir:
 import apt
 import apt_pkg
 
+import testcommon
+
 
 def if_sources_list_is_readable(f):
     def wrapper(*args, **kwargs):
@@ -45,22 +47,13 @@ def get_open_file_descriptors():
     return set(map(int, fds))
 
 
-class TestAptCache(unittest.TestCase):
+class TestAptCache(testcommon.TestCase):
     """ test the apt cache """
 
     def setUp(self):
-        # reset any config manipulations done in the individual tests
-        apt_pkg.init_config()
-        # save/restore the apt config
-        self._cnf = {}
-        for item in apt_pkg.config.keys():
-            self._cnf[item] = apt_pkg.config.find(item)
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.clear("APT::Update::Post-Invoke")
         apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
-
-    def tearDown(self):
-        for item in self._cnf:
-            apt_pkg.config.set(item, self._cnf[item])
 
     @if_sources_list_is_readable
     def test_apt_cache(self):

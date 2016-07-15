@@ -19,8 +19,10 @@ if libdir:
 import apt_pkg
 import apt.debfile
 
+import testcommon
 
-class TestDebfile(unittest.TestCase):
+
+class TestDebfile(testcommon.TestCase):
     """ test the debfile """
 
     TEST_DEBS = [
@@ -48,7 +50,7 @@ class TestDebfile(unittest.TestCase):
     ]
 
     def setUp(self):
-        apt_pkg.init_config()
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.set("APT::Architecture", "i386")
         # FIXME: When run via test_all.py, the tests fail without this if it
         # is set in the system.

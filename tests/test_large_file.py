@@ -5,11 +5,13 @@ import unittest
 
 import apt_inst
 
+import testcommon
+
 IS_NOT_32BIT = sys.maxsize > 2 ** 32
 
 
 @unittest.skipIf(IS_NOT_32BIT, "Large File support is for 32 bit systems")
-class testHashes(unittest.TestCase):
+class testHashes(testcommon.TestCase):
     " test the hashsum functions against strings and files "
 
     LARGE_PACKAGE_CONTENT = "data/test_debs/large-package-content_1.0_all.deb"

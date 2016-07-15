@@ -12,11 +12,10 @@ import unittest
 import apt_pkg
 import apt.package
 
+import testcommon
 
-class TestDependencies(unittest.TestCase):
 
-    def setUp(self):
-        apt_pkg.init()
+class TestDependencies(testcommon.TestCase):
 
     def testCheckDep(self):
         """dependencies: Test apt_pkg.CheckDep() for '<' and '>'

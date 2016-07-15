@@ -27,8 +27,10 @@ if libdir:
 
 import apt_pkg
 
+import testcommon
 
-class TestOpenMaybeClearSigned(unittest.TestCase):
+
+class TestOpenMaybeClearSigned(testcommon.TestCase):
 
     def test_open_trivial(self):
         basepath = os.path.dirname(__file__)
@@ -51,11 +53,11 @@ class TestOpenMaybeClearSigned(unittest.TestCase):
             apt_pkg.open_maybe_clear_signed_file("does-not-exists")
 
 
-class TestTagFile(unittest.TestCase):
+class TestTagFile(testcommon.TestCase):
     """ test the apt_pkg.TagFile """
 
     def setUp(self):
-        apt_pkg.init()
+        testcommon.TestCase.setUp(self)
         self.temp_dir = tempfile.mkdtemp()
 
     def tearDown(self):

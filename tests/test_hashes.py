@@ -16,12 +16,15 @@ import warnings
 
 import apt_pkg
 
+import testcommon
 
-class TestHashes(unittest.TestCase):
+
+class TestHashes(testcommon.TestCase):
     """Test apt_pkg.Hashes() and the various apt_pkg.*sum() functions."""
 
     def setUp(self):
         """Prepare the tests, create reference values..."""
+        testcommon.TestCase.setUp(self)
         self.file = open(apt_pkg.__file__, "rb")
         self.value = self.file.read()
         self.hashes = apt_pkg.Hashes(self.value)
@@ -104,11 +107,12 @@ class TestHashes(unittest.TestCase):
             self.assertRaises(TypeError, apt_pkg.sha256sum, unicode())
 
 
-class TestHashString(unittest.TestCase):
+class TestHashString(testcommon.TestCase):
     """Test apt_pkg.HashString()."""
 
     def setUp(self):
         """Prepare the test by reading the file."""
+        testcommon.TestCase.setUp(self)
         self.file = open(apt_pkg.__file__)
         self.hashes = apt_pkg.Hashes(self.file)
         with warnings.catch_warnings(record=True) as caught_warnings:
@@ -158,7 +162,7 @@ class TestHashString(unittest.TestCase):
             self.assertRaises(TypeError, apt_pkg.HashString, bytes())
 
 
-class TestHashStringList(unittest.TestCase):
+class TestHashStringList(testcommon.TestCase):
     """Test apt_pkg.HashStringList()"""
 
     def test_file_size(self):

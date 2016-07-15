@@ -9,12 +9,13 @@ import apt_pkg
 import aptsources.sourceslist
 import aptsources.distro
 
+import testcommon
 
-class TestAptSources(unittest.TestCase):
+
+class TestAptSources(testcommon.TestCase):
 
     def setUp(self):
-        apt_pkg.init_config()
-        apt_pkg.init_system()
+        testcommon.TestCase.setUp(self)
         if apt_pkg.config["APT::Architecture"] not in ('i386', 'amd64'):
             apt_pkg.config.set("APT::Architecture", "i386")
         apt_pkg.config.set("Dir::Etc", os.getcwd())

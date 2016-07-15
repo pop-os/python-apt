@@ -9,8 +9,10 @@ import warnings
 import apt_inst
 import apt_pkg
 
+import testcommon
 
-class TestPath(unittest.TestCase):
+
+class TestPath(testcommon.TestCase):
 
     dir_unicode = u'data/tmp'
     dir_bytes = b'data/tmp'
@@ -18,7 +20,7 @@ class TestPath(unittest.TestCase):
     file_bytes = b'data/tmp/python-apt-test'
 
     def setUp(self):
-        apt_pkg.init()
+        testcommon.TestCase.setUp(self)
         if os.path.exists(self.dir_bytes):
             shutil.rmtree(self.dir_bytes)
 

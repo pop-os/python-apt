@@ -18,8 +18,10 @@ import apt
 import apt_pkg
 import apt.debfile
 
+import testcommon
 
-class TestDebfileMultiarch(unittest.TestCase):
+
+class TestDebfileMultiarch(testcommon.TestCase):
     """ test the multiarch debfile """
 
     def test_multiarch_deb_check(self):

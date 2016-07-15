@@ -15,8 +15,10 @@ from apt.utils import (
     get_release_date_from_release_file,
 )
 
+import testcommon
 
-class TestUtils(unittest.TestCase):
+
+class TestUtils(testcommon.TestCase):
 
     def test_get_release_date_from_release_file(self):
         path = os.path.join(os.path.dirname(__file__),

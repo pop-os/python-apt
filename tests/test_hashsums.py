@@ -3,8 +3,10 @@
 import unittest
 import apt_pkg
 
+import testcommon
 
-class testHashes(unittest.TestCase):
+
+class testHashes(testcommon.TestCase):
     " test the hashsum functions against strings and files "
 
     DATA_PATH = "data/hashsums/hashsum_test.data"

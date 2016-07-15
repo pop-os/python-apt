@@ -25,6 +25,8 @@ else:
 import apt_pkg
 import apt.auth
 
+import testcommon
+
 WHEEZY_KEY = """-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
@@ -111,18 +113,12 @@ DHcut3Yey8o=
 -----END PGP PUBLIC KEY BLOCK-----"""
 
 
-class TestAuthKeys(unittest.TestCase):
+class TestAuthKeys(testcommon.TestCase):
 
     """Test handling of keys for signed repositories."""
 
     def setUp(self):
-        # reset any config manipulations done in the individual tests
-        apt_pkg.init_config()
-        # save the apt config to restore later
-        cnf = {}
-        for item in apt_pkg.config.keys():
-            cnf[item] = apt_pkg.config.find(item)
-        self.addCleanup(self._restore_apt_config, cnf)
+        testcommon.TestCase.setUp(self)
 
         self.tmpdir = tempfile.mkdtemp()
         self.addCleanup(shutil.rmtree, self.tmpdir)
@@ -135,11 +131,6 @@ class TestAuthKeys(unittest.TestCase):
         os.makedirs(trustedparts_dir)
         os.makedirs(confparts_dir)
         shutil.copy("fakeroot-apt-key", self.tmpdir)
-
-    def _restore_apt_config(self, cnf):
-        """Restore previous apt configuration."""
-        for item in cnf:
-            apt_pkg.config.set(item, cnf[item])
 
     @contextlib.contextmanager
     def _discard_stderr(self):
