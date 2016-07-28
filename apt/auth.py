@@ -63,6 +63,7 @@ def _call_apt_key_script(*args, **kwargs):
     cmd.extend(args)
     env = os.environ.copy()
     env["LANG"] = "C"
+    env["APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE"] = "1"
     try:
         if apt_pkg.config.find_dir("Dir") != "/":
             # If the key is to be installed into a chroot we have to export the
