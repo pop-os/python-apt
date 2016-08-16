@@ -2,9 +2,11 @@
 #
 #  Copyright (c) 2004-2009 Canonical Ltd.
 #  Copyright (c) 2006-2007 Sebastian Heinlein
+#  Copyright (c) 2016 Harald Sitter
 #
 #  Authors: Sebastian Heinlein <glatzor@ubuntu.com>
 #           Michael Vogt <mvo@debian.org>
+#           Harald Sitter <sitter@kde.org>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as
@@ -24,6 +26,7 @@
 import gettext
 import logging
 import re
+import shlex
 import os
 
 from xml.etree.ElementTree import ElementTree
@@ -37,13 +40,14 @@ class NoDistroTemplateException(Exception):
 
 class Distribution(object):
 
-    def __init__(self, id, codename, description, release):
+    def __init__(self, id, codename, description, release, is_like=[]):
         """ Container for distribution specific informations """
         # LSB information
         self.id = id
         self.codename = codename
         self.description = description
         self.release = release
+        self.is_like = is_like
 
         self.binary_type = "deb"
         self.source_type = "deb-src"
@@ -504,8 +508,59 @@ def _system_image_channel():
                 'system-image-cli failed, using defaults: %s' % exc)
     return None
 
+class _OSRelease:
 
-def get_distro(id=None, codename=None, description=None, release=None):
+    DEFAULT_OS_RELEASE_FILE = '/etc/os-release'
+    OS_RELEASE_FILE = '/etc/os-release'
+
+    def __init__(self, lsb_compat=True):
+        self.result = {}
+        self.valid = False
+        self.file = _OSRelease.OS_RELEASE_FILE
+
+        if not os.path.isfile(self.file):
+            return
+
+        self.parse()
+        self.valid = True
+
+        if lsb_compat:
+            self.inject_lsb_compat()
+
+    def inject_lsb_compat(self):
+        self.result['Distributor ID'] = self.result['ID']
+        self.result['Description'] = self.result['PRETTY_NAME']
+        # Optionals as per os-release spec.
+        self.result['Codename'] = self.result.get('VERSION_CODENAME')
+        if not self.result['Codename']:
+            # Transient Ubuntu 16.04 field (LP: #1598212)
+            self.result['Codename'] = self.result.get('UBUNTU_CODENAME')
+        self.result['Release'] = self.result.get('VERSION_ID')
+
+    def parse(self):
+        f = open(self.file, 'r')
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            self.parse_entry(*line.split('=', 1))
+        f.close()
+
+    def parse_entry(self, key, value):
+        value = self.parse_value(value) # Values can be shell strings...
+        if key == "ID_LIKE" and isinstance(value, str):
+            # ID_LIKE is specified as quoted space-separated list. This will
+            # be parsed as string that we need to split manually.
+            value = value.split(' ')
+        self.result[key] = value
+
+    def parse_value(self, value):
+        values = shlex.split(value)
+        if len(values) == 1:
+            return values[0]
+        return values
+
+def get_distro(id=None, codename=None, description=None, release=None, is_like=[]):
     """
     Check the currently used distribution and return the corresponding
     distriubtion class that supports distro specific features.
@@ -515,11 +570,26 @@ def get_distro(id=None, codename=None, description=None, release=None):
     """
     # make testing easier
     if not (id and codename and description and release):
-        result = _lsb_release()
-        id = result['Distributor ID']
-        codename = result['Codename']
-        description = result['Description']
-        release = result['Release']
+        os_release = _OSRelease()
+        os_result = []
+        lsb_result = _lsb_release()
+        if os_release.valid:
+            os_result = os_release.result
+        # TODO: We cannot presently use os-release to fully replace lsb_release
+        #       because os-release's ID, VERSION_ID and VERSION_CODENAME fields
+        #       are specified as lowercase. In lsb_release they can be upcase
+        #       or captizalized. So, switching to os-release would consitute
+        #       a behavior break a which point lsb_release support should be
+        #       fully removed.
+        #       This in particular is a problem for template matching, as this
+        #       matches against Distribution objects and depends on string case.
+        lsb_result = _lsb_release()
+        id = lsb_result['Distributor ID']
+        codename = lsb_result['Codename']
+        description = lsb_result['Description']
+        release = lsb_result['Release']
+        # Not available with LSB, use get directly.
+        is_like = os_result.get('ID_LIKE', [])
         if id == "Ubuntu":
             channel = _system_image_channel()
             if channel is not None and "ubuntu-rtm/" in channel:
@@ -528,10 +598,10 @@ def get_distro(id=None, codename=None, description=None, release=None):
                 description = codename
                 release = codename
     if id == "Ubuntu":
-        return UbuntuDistribution(id, codename, description, release)
+        return UbuntuDistribution(id, codename, description, release, is_like)
     if id == "Ubuntu-RTM":
-        return UbuntuRTMDistribution(id, codename, description, release)
+        return UbuntuRTMDistribution(id, codename, description, release, is_like)
     elif id == "Debian":
-        return DebianDistribution(id, codename, description, release)
+        return DebianDistribution(id, codename, description, release, is_like)
     else:
-        return Distribution(id, codename, description, release)
+        return Distribution(id, codename, description, release, is_like)
