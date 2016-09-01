@@ -115,6 +115,14 @@ DHcut3Yey8o=
 -----END PGP PUBLIC KEY BLOCK-----"""
 
 
+def normalize_key(keystr):
+    """Remove the Version: header from a key block"""
+    lines = keystr.split("\n")
+    if lines[1].startswith("Version:"):
+        return lines[:1] + lines[2:]
+    return lines
+
+
 class TestAuthKeys(testcommon.TestCase):
 
     """Test handling of keys for signed repositories."""
@@ -155,8 +163,8 @@ class TestAuthKeys(testcommon.TestCase):
         # Strip the headers from the keys to avoid test errors because
         # the exported key used a differenct GnuPG version than the
         # original example key
-        self.assertEqual(apt.auth.export_key(WHEEZY_KEYID).split("\n")[2:],
-                         WHEEZY_KEY.split("\n")[2:])
+        self.assertEqual(normalize_key(apt.auth.export_key(WHEEZY_KEYID)),
+                         normalize_key(WHEEZY_KEY))
 
     def testAddAndListKey(self):
         """Add an example key and test if it is correctly returned by
