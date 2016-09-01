@@ -27,6 +27,8 @@ import apt.auth
 
 import testcommon
 
+WHEEZY_KEYID = "8B48AD6246925553"
+WHEEZY_KEYDATE = "1335553717"
 WHEEZY_KEY = """-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
@@ -153,7 +155,7 @@ class TestAuthKeys(testcommon.TestCase):
         # Strip the headers from the keys to avoid test errors because
         # the exported key used a differenct GnuPG version than the
         # original example key
-        self.assertEqual(apt.auth.export_key("46925553").split("\n")[2:],
+        self.assertEqual(apt.auth.export_key(WHEEZY_KEYID).split("\n")[2:],
                          WHEEZY_KEY.split("\n")[2:])
 
     def testAddAndListKey(self):
@@ -167,8 +169,8 @@ class TestAuthKeys(testcommon.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def testAddKeyFromFile(self):
         """Test adding a key from file."""
@@ -184,14 +186,14 @@ class TestAuthKeys(testcommon.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def test_add_key_from_keyserver_too_short(self):
         """Ensure that short keyids are not imported"""
         with self.assertRaises(apt.auth.AptKeyError):
             apt.auth.add_key_from_keyserver(
-                "46925553", "hkp://localhost:19191")
+                WHEEZY_KEYID, "hkp://localhost:19191")
 
     def test_add_key_from_server_mitm(self):
         """Verify that the key fingerprint is verified after download"""
@@ -225,8 +227,8 @@ class TestAuthKeys(testcommon.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def _start_keyserver(self):
         """Start a fake keyserver on http://localhost:19191
