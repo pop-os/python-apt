@@ -1,3 +1,17 @@
+python-apt (1.1.0~beta5) unstable; urgency=medium
+
+  * apt.auth: Set APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE
+    NOTE: apt.auth is about to be deprecated, do not use it. It will
+    be removed in a later version.
+  * Fix gpg breakage (Closes: #835465)
+    - Use --fixed-list-mode for apt-key gpg invocations.
+      Thanks to Daniel Kahn Gillmor for the initial patch
+    - test_auth: Normalize public key blocks before comparing
+    -  Adjust dependencies for apt.auth on gnupg and dirmngr
+    - Work around broken debfile multiarch test cases
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 01 Sep 2016 16:34:43 +0200
+
 python-apt (1.1.0~beta4) unstable; urgency=medium
 
   * Fix test failures causing FTBFS (Closes: #830995)
