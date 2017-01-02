@@ -2110,7 +2110,7 @@ Dependencies
 The following two functions provide the ability to parse dependencies. They
 use the same format as :attr:`Version.depends_list_str`.
 
-.. function:: parse_depends(depends, strip_multiarch=True, arch)
+.. function:: parse_depends(depends, strip_multiarch=True, architecture)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2126,7 +2126,7 @@ use the same format as :attr:`Version.depends_list_str`.
     You can force the full dependency info (including the multiarch info)
     by passing "False" as a additional parameter to this function.
 
-    You can specify an optional argument *arch* that treats the given
+    You can specify an optional argument *architecture* that treats the given
     architecture as the native architecture for purposes of parsing the
     dependency.
 
@@ -2138,7 +2138,7 @@ use the same format as :attr:`Version.depends_list_str`.
         is specified in control files.
 
 
-.. function:: parse_src_depends(depends, strip_multiarch=True, arch)
+.. function:: parse_src_depends(depends, strip_multiarch=True, architecture)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2161,7 +2161,7 @@ use the same format as :attr:`Version.depends_list_str`.
     You can force the full dependency info (including the multiarch info)
     by passing "False" as a additional parameter to this function.
 
-    You can specify an optional argument *arch* that treats the given
+    You can specify an optional argument *architecture* that treats the given
     architecture as the native architecture for purposes of parsing the
     dependency.
 

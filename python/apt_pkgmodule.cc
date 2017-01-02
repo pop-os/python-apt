@@ -140,7 +140,7 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
 }
 
 static const char *doc_ParseDepends =
-"parse_depends(s: str[, strip_multi_arch : bool = True[, arch : string]]) -> list\n"
+"parse_depends(s: str[, strip_multi_arch : bool = True[, architecture : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -150,11 +150,11 @@ static const char *doc_ParseDepends =
 "operator ('<', '<=', '=', '>=', or '>').\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
 "will be stripped from the full package name"
-"The 'arch' parameter may be used to specify a non-native architecture for\n"
-"the dependency parsing.";
+"The 'architecture' parameter may be used to specify a non-native architecture\n"
+"for the dependency parsing.";
 
 static const char *parse_src_depends_doc =
-"parse_src_depends(s: str[, strip_multi_arch : bool = True[, arch : string]]) -> list\n"
+"parse_src_depends(s: str[, strip_multi_arch : bool = True[, architecture : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -168,9 +168,9 @@ static const char *parse_src_depends_doc =
 "configuration variable APT::Architecture\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
 "will be stripped from the full package name"
-"The 'arch' parameter may be used to specify a non-native architecture for\n"
-"the dependency parsing.";
-static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
+"The 'architecture' parameter may be used to specify a non-native architecture\n"
+"for the dependency parsing.";
+static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,PyObject *Kwds,
                                   bool ParseArchFlags, bool ParseRestrictionsList,
                                   std::string name, bool debStyle=false)
 {
@@ -183,8 +183,9 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    const char *Stop;
    int Len;
    const char *Arch = NULL;
+   char *kwlist[] = {"s", "strip_multi_arch", "architecture", 0};
 
-   if (PyArg_ParseTuple(Args,(char *)("s#|bs:" + name).c_str(),
+   if (PyArg_ParseTupleAndKeywords(Args,Kwds,(char *)("s#|bs:" + name).c_str(), kwlist,
                         &Start, &Len, &StripMultiArch, &Arch) == 0)
       return 0;
    Stop = Start + Len;
@@ -233,13 +234,13 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    }
    return List;
 }
-static PyObject *ParseDepends(PyObject *Self,PyObject *Args)
+static PyObject *ParseDepends(PyObject *Self,PyObject *Args, PyObject *Kwds)
 {
-   return RealParseDepends(Self, Args, false, false, "parse_depends");
+   return RealParseDepends(Self, Args, Kwds, false, false, "parse_depends");
 }
-static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
+static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args, PyObject *Kwds)
 {
-   return RealParseDepends(Self, Args, true, true, "parse_src_depends");
+   return RealParseDepends(Self, Args, Kwds, true, true, "parse_src_depends");
 }
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
@@ -606,8 +607,8 @@ static PyMethodDef methods[] =
    {"upstream_version",UpstreamVersion,METH_VARARGS,doc_UpstreamVersion},
 
    // Depends
-   {"parse_depends",ParseDepends,METH_VARARGS,doc_ParseDepends},
-   {"parse_src_depends",ParseSrcDepends,METH_VARARGS,parse_src_depends_doc},
+   {"parse_depends",reinterpret_cast<PyCFunction>(static_cast<PyCFunctionWithKeywords>(ParseDepends)),METH_VARARGS|METH_KEYWORDS,doc_ParseDepends},
+   {"parse_src_depends",reinterpret_cast<PyCFunction>(static_cast<PyCFunctionWithKeywords>(ParseSrcDepends)),METH_VARARGS|METH_KEYWORDS,parse_src_depends_doc},
 
    // Hashes
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
