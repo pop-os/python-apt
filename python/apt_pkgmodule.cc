@@ -140,7 +140,7 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
 }
 
 static const char *doc_ParseDepends =
-"parse_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
+"parse_depends(s: str[, strip_multi_arch : bool = True[, arch : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -149,10 +149,12 @@ static const char *doc_ParseDepends =
 "if no version was requested. The element 'ver' is a comparison\n"
 "operator ('<', '<=', '=', '>=', or '>').\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
-"will be stripped from the full package name";
+"will be stripped from the full package name"
+"The 'arch' parameter may be used to specify a non-native architecture for\n"
+"the dependency parsing.";
 
 static const char *parse_src_depends_doc =
-"parse_src_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
+"parse_src_depends(s: str[, strip_multi_arch : bool = True[, arch : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -165,7 +167,9 @@ static const char *parse_src_depends_doc =
 "only contains those dependencies for the architecture set in the\n"
 "configuration variable APT::Architecture\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
-"will be stripped from the full package name";
+"will be stripped from the full package name"
+"The 'arch' parameter may be used to specify a non-native architecture for\n"
+"the dependency parsing.";
 static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
                                   bool ParseArchFlags, bool ParseRestrictionsList,
                                   std::string name, bool debStyle=false)
@@ -178,9 +182,10 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    const char *Start;
    const char *Stop;
    int Len;
+   const char *Arch = NULL;
 
-   if (PyArg_ParseTuple(Args,(char *)("s#|b:" + name).c_str(), 
-                        &Start, &Len, &StripMultiArch) == 0)
+   if (PyArg_ParseTuple(Args,(char *)("s#|bs:" + name).c_str(),
+                        &Start, &Len, &StripMultiArch, &Arch) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);
@@ -189,10 +194,15 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    {
       if (Start == Stop)
 	 break;
+      if (Arch == NULL)
+	 Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
+					     ParseArchFlags, StripMultiArch,
+					     ParseRestrictionsList);
+      else
+	 Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
+					     ParseArchFlags, StripMultiArch,
+                                             ParseRestrictionsList, Arch);
 
-      Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
-					  ParseArchFlags, StripMultiArch,
-                                          ParseRestrictionsList);
       if (Start == 0)
       {
 	 PyErr_SetString(PyExc_ValueError,"Problem Parsing Dependency");

@@ -2110,7 +2110,7 @@ Dependencies
 The following two functions provide the ability to parse dependencies. They
 use the same format as :attr:`Version.depends_list_str`.
 
-.. function:: parse_depends(depends, strip_multiarch=True)
+.. function:: parse_depends(depends, strip_multiarch=True, arch)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2126,6 +2126,10 @@ use the same format as :attr:`Version.depends_list_str`.
     You can force the full dependency info (including the multiarch info)
     by passing "False" as a additional parameter to this function.
 
+    You can specify an optional argument *arch* that treats the given
+    architecture as the native architecture for purposes of parsing the
+    dependency.
+
     .. note::
 
         The behavior of this function is different than the behavior of the
@@ -2134,7 +2138,7 @@ use the same format as :attr:`Version.depends_list_str`.
         is specified in control files.
 
 
-.. function:: parse_src_depends(depends)
+.. function:: parse_src_depends(depends, strip_multiarch=True, arch)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2152,6 +2156,14 @@ use the same format as :attr:`Version.depends_list_str`.
 
         >>> apt_pkg.parse_src_depends("a (>= 01) [i386 amd64]")
         [[('a', '01', '>=')]]
+
+    Note that multiarch dependency information is stripped off by default.
+    You can force the full dependency info (including the multiarch info)
+    by passing "False" as a additional parameter to this function.
+
+    You can specify an optional argument *arch* that treats the given
+    architecture as the native architecture for purposes of parsing the
+    dependency.
 
     .. note::
 
