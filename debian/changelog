@@ -1,3 +1,17 @@
+python-apt (1.4.0~beta1) unstable; urgency=medium
+
+  [ Harald Sitter ]
+  * add fancy os-release support to pick up its ID_LIKE feature
+
+  [ Julian Andres Klode ]
+  * Add optional 'architecture' argument to parse_src_depends()
+  * Allow keyword arguments for parse_depends() and parse_src_depends()
+  * Migrate python-apt priority from standard to optional
+  * Bump version number, we require APT 1.4 series for the architecture
+    thing above.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 05 Jan 2017 20:56:51 +0100
+
 python-apt (1.1.0~beta5) unstable; urgency=medium
 
   * apt.auth: Set APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE
