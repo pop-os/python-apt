@@ -1,5 +1,35 @@
 _ChangelogURI: http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog
 
+Suite: stretch
+RepositoryType: deb
+BaseURI: http://http.us.debian.org/debian/
+MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
+MirrorsFile: Debian.mirrors
+_Description: Debian 9 'stretch'
+Component: main
+_CompDescription: Officially supported
+Component: contrib
+_CompDescription: DFSG-compatible Software with Non-Free Dependencies
+Component: non-free
+_CompDescription: Non-DFSG-compatible Software
+
+Suite: stretch/updates
+RepositoryType: deb
+BaseURI: http://security.debian.org/
+MatchURI: security\.debian\.org
+ParentSuite: stretch
+_Description: Security updates
+
+Suite: stretch-updates
+RepositoryType: deb
+ParentSuite: stretch
+_Description: Recommended updates
+
+Suite: stretch-proposed-updates
+RepositoryType: deb
+ParentSuite: stretch
+_Description: Proposed updates
+
 Suite: jessie
 RepositoryType: deb
 BaseURI: http://http.us.debian.org/debian/
