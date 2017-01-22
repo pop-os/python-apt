@@ -1,3 +1,14 @@
+python-apt (1.4.0~beta2) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * templates: Debian: Add stretch
+  * Skip os-release test for now (Closes: #851039)
+
+  [ Martin Pitt ]
+  * data/templates/Ubuntu.info.in: Add zesty template
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 22 Jan 2017 15:00:44 +0100
+
 python-apt (1.4.0~beta1) unstable; urgency=medium
 
   [ Harald Sitter ]
