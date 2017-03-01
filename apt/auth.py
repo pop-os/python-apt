@@ -41,6 +41,10 @@ class AptKeyError(Exception):
     pass
 
 
+class AptKeyIDToShortError(AptKeyError):
+    """Internal class do not rely on it."""
+
+
 class TrustedKey(object):
 
     """Represents a trusted key."""
@@ -134,8 +138,8 @@ def add_key_from_keyserver(keyid, keyserver):
 
 
 def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
-    if len(keyid) < (160 / 8):
-        raise AptKeyError("Only long keyids (v4, 160bit) are supported")
+    if len(keyid.replace(" ", "").replace("0x", "")) < (160 / 4):
+        raise AptKeyIDToShortError("Only fingerprints (v4, 160bit) are supported")
     # create a temp keyring dir
     tmp_secret_keyring = os.path.join(tmp_keyring_dir, "secring.gpg")
     tmp_keyring = os.path.join(tmp_keyring_dir, "pubring.gpg")
