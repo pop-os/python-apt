@@ -199,16 +199,16 @@ class TestAuthKeys(testcommon.TestCase):
 
     def test_add_key_from_keyserver_too_short(self):
         """Ensure that short keyids are not imported"""
-        with self.assertRaises(apt.auth.AptKeyIDToShortError):
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
             apt.auth.add_key_from_keyserver(
                 WHEEZY_KEYID, "hkp://localhost:19191")
-        with self.assertRaises(apt.auth.AptKeyIDToShortError):
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
             apt.auth.add_key_from_keyserver(
                 "0101010178F7FE5C3E65D8AF8B48AD624692555", "hkp://localhost:19191")
-        with self.assertRaises(apt.auth.AptKeyIDToShortError):
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
             apt.auth.add_key_from_keyserver(
                 "0x0101010178F7FE5C3E65D8AF8B48AD624692555", "hkp://localhost:19191")
-        with self.assertRaises(apt.auth.AptKeyIDToShortError):
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
             apt.auth.add_key_from_keyserver(
                 "0101 0101 78F7 FE5C 3E65 D8AF 8B48 AD62 4692 555", "hkp://localhost:19191")
 
