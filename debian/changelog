@@ -1,3 +1,13 @@
+python-apt (1.4.0~beta3) unstable; urgency=medium
+
+  * apt.auth: Fix check of fingerprint length
+  * data/templates/Ubuntu.info.in: Add artful template
+  * Debian template: Adopt MatchUri to match base, switch BaseUri to CDN
+    (Closes: #859672)
+  * Update translation template
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 23 Apr 2017 21:02:14 +0200
+
 python-apt (1.4.0~beta2) unstable; urgency=medium
 
   [ Julian Andres Klode ]
