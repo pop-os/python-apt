@@ -220,7 +220,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
 			bd[i].Version.c_str(), pkgCache::CompType(bd[i].Op));
 	    PyList_Append(OrGroup, v);
 	    Py_DECREF(v);
-	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i == bd.size())
+	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i + 1 >= bd.size())
 	       break;
         i++;
      }
