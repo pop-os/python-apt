@@ -23,11 +23,11 @@ from __future__ import print_function
 
 import fnmatch
 import os
+import warnings
 import weakref
 
 import apt_pkg
 from apt import Package
-from apt_pkg import gettext as _
 import apt.progress.text
 
 
@@ -59,11 +59,18 @@ class Cache(object):
     objects (although only getting items is supported).
 
     Keyword arguments:
-    progress -- a OpProgress object
-    rootdir -- a alternative root directory. if that is given
-               the system sources.list and system lists/ files are
-               not read, only files relative to the given rootdir
-    memonly -- build the cache in memory only
+    progress -- a OpProgress object,
+    rootdir  -- an alternative root directory. if that is given the system
+    sources.list and system lists/files are not read, only file relative
+    to the given rootdir,
+    memonly  -- build the cache in memory only.
+
+
+    .. versionchanged:: 1.0
+
+        The cache now supports package names with special architecture
+        qualifiers such as :all and :native. It does not export them
+        in :meth:`keys()`, though, to keep :meth:`keys()` a unique set.
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
@@ -72,14 +79,13 @@ class Cache(object):
         self._records = None
         self._list = None
         self._callbacks = {}
+        self._callbacks2 = {}
         self._weakref = weakref.WeakValueDictionary()
-        self._set = set()
-        self._fullnameset = set()
         self._changes_count = -1
         self._sorted_set = None
 
-        self.connect("cache_post_open", self._inc_changes_count)
-        self.connect("cache_post_change", self._inc_changes_count)
+        self.connect("cache_post_open", "_inc_changes_count")
+        self.connect("cache_post_change", "_inc_changes_count")
         if memonly:
             # force apt to build its caches in memory
             apt_pkg.config.set("Dir::Cache::pkgcache", "")
@@ -135,7 +141,14 @@ class Cache(object):
         """ internal helper to run a callback """
         if name in self._callbacks:
             for callback in self._callbacks[name]:
-                callback()
+                if callback == '_inc_changes_count':
+                    self._inc_changes_count()
+                else:
+                    callback()
+
+        if name in self._callbacks2:
+            for callback, args, kwds in self._callbacks2[name]:
+                    callback(self, *args, **kwds)
 
     def open(self, progress=None):
         """ Open the package cache, after that it can be used like
@@ -153,27 +166,10 @@ class Cache(object):
         self._records = apt_pkg.PackageRecords(self._cache)
         self._list = apt_pkg.SourceList()
         self._list.read_main_list()
-        self._set.clear()
-        self._fullnameset.clear()
         self._sorted_set = None
         self._weakref.clear()
 
         self._have_multi_arch = len(apt_pkg.get_architectures()) > 1
-
-        progress.op = _("Building data structures")
-        i = last = 0
-        size = len(self._cache.packages)
-        for pkg in self._cache.packages:
-            if progress is not None and last + 100 < i:
-                progress.update(i / float(size) * 100)
-                last = i
-            # drop stuff with no versions (cruft)
-            if pkg.has_versions:
-                self._set.add(pkg.get_fullname(pretty=True))
-                if self._have_multi_arch:
-                    self._fullnameset.add(pkg.get_fullname(pretty=False))
-
-            i += 1
 
         progress.done()
         self._run_callbacks("cache_post_open")
@@ -197,12 +193,43 @@ class Cache(object):
         try:
             return self._weakref[key]
         except KeyError:
-            if key in self._set or key in self._fullnameset:
-                key = str(key)
-                pkg = self._weakref[key] = Package(self, self._cache[key])
-                return pkg
-            else:
+            key = str(key)
+            try:
+                rawpkg = self._cache[key]
+            except KeyError:
                 raise KeyError('The cache has no package named %r' % key)
+
+            # It might be excluded due to not having a version or something
+            if not self.__is_real_pkg(rawpkg):
+                raise KeyError('The cache has no package named %r' % key)
+
+            pkg = self._rawpkg_to_pkg(rawpkg)
+            self._weakref[key] = pkg
+
+            return pkg
+
+    def get(self, key, default=None):
+        """Return *self*[*key*] or *default* if *key* not in *self*.
+
+        .. versionadded:: 1.1
+        """
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def _rawpkg_to_pkg(self, rawpkg):
+        """Returns the apt.Package object for an apt_pkg.Package object.
+
+        .. versionadded:: 1.0.0
+        """
+        fullname = rawpkg.get_fullname(pretty=False)
+        try:
+            pkg = self._weakref[fullname]
+        except KeyError:
+            pkg = Package(self, rawpkg)
+            self._weakref[fullname] = pkg
+        return pkg
 
     def __iter__(self):
         # We iterate sorted over package names here. With this we read the
@@ -210,37 +237,39 @@ class Cache(object):
         # instead of having to do thousands of random seeks; the latter
         # is disastrous if we use compressed package indexes, and slower than
         # necessary for uncompressed indexes.
-        if self._sorted_set is None:
-            self._sorted_set = sorted(self._set)
-
-        for pkgname in self._sorted_set:
+        for pkgname in self.keys():
             yield self[pkgname]
-        raise StopIteration
+
+    def __is_real_pkg(self, rawpkg):
+        """Check if the apt_pkg.Package provided is a real package."""
+        return rawpkg.has_versions
 
     def has_key(self, key):
-        return (key in self._set or key in self._fullnameset)
+        return key in self
 
     def __contains__(self, key):
-        return (key in self._set or key in self._fullnameset)
+        try:
+            return self.__is_real_pkg(self._cache[key])
+        except KeyError:
+            return False
 
     def __len__(self):
-        return len(self._set)
+        return len(self.keys())
 
     def keys(self):
-        return list(self._set)
+        if self._sorted_set is None:
+            self._sorted_set = sorted(p.get_fullname(pretty=True)
+                                      for p in self._cache.packages
+                                        if self.__is_real_pkg(p))
+        return list(self._sorted_set)  # We need a copy here, caller may modify
 
     def get_changes(self):
         """ Get the marked changes """
         changes = []
         marked_keep = self._depcache.marked_keep
-        for pkg in self._cache.packages:
-            if not marked_keep(pkg):
-                name = pkg.get_fullname(pretty=True)
-                try:
-                    changes.append(self._weakref[name])
-                except KeyError:
-                    package = self._weakref[name] = Package(self, pkg)
-                    changes.append(package)
+        for rawpkg in self._cache.packages:
+            if not marked_keep(rawpkg):
+                changes.append(self._rawpkg_to_pkg(rawpkg))
         return changes
 
     def upgrade(self, dist_upgrade=False):
@@ -335,7 +364,7 @@ class Cache(object):
         object for the parameter *progress*, or specify an already
         existing :class:`apt_pkg.Acquire` object for the parameter *fetcher*.
 
-        The return value of the function is undefined. If an error occured,
+        The return value of the function is undefined. If an error occurred,
         an exception of type :class:`FetchFailedException` or
         :class:`FetchCancelledException` is raised.
 
@@ -387,14 +416,9 @@ class Cache(object):
             return list(providers)
 
         for provides, providesver, version in vp.provides_list:
-            pkg = version.parent_pkg
-            if not candidate_only or (version == get_candidate_ver(pkg)):
-                name = pkg.get_fullname(pretty=True)
-                try:
-                    providers.add(self._weakref[name])
-                except KeyError:
-                    package = self._weakref[name] = Package(self, pkg)
-                    providers.add(package)
+            rawpkg = version.parent_pkg
+            if not candidate_only or (version == get_candidate_ver(rawpkg)):
+                providers.add(self._rawpkg_to_pkg(rawpkg))
         return list(providers)
 
     def update(self, fetch_progress=None, pulse_interval=0,
@@ -409,7 +433,7 @@ class Cache(object):
         apt.progress.FetchProgress, the default is apt.progress.FetchProgress()
         .
         sources_list -- Update a alternative sources.list than the default.
-         Note that the sources.list.d directory is ignored in this case
+        Note that the sources.list.d directory is ignored in this case
         """
         lockfile = apt_pkg.config.find_dir("Dir::State::Lists") + "lock"
         lock = apt_pkg.get_lock(lockfile)
@@ -528,11 +552,39 @@ class Cache(object):
         self._run_callbacks("cache_pre_change")
 
     def connect(self, name, callback):
-        """ connect to a signal, currently only used for
-            cache_{post,pre}_{changed,open} """
-        if not name in self._callbacks:
+        """Connect to a signal.
+
+        .. deprecated:: 1.0
+
+            Please use connect2() instead, as this function is very
+            likely to cause a memory leak.
+        """
+        if callback != '_inc_changes_count':
+            warnings.warn("connect() likely causes a reference"
+                          " cycle, use connect2() instead", RuntimeWarning, 2)
+        if name not in self._callbacks:
             self._callbacks[name] = []
         self._callbacks[name].append(callback)
+
+    def connect2(self, name, callback, *args, **kwds):
+        """Connect to a signal.
+
+        The callback will be passed the cache as an argument, and
+        any arguments passed to this function. Make sure that, if you
+        pass a method of a class as your callback, your class does not
+        contain a reference to the cache.
+
+        Cyclic references to the cache can cause issues if the Cache object
+        is replaced by a new one, because the cache keeps a lot of objects and
+        tens of open file descriptors.
+
+        currently only used for cache_{post,pre}_{changed,open}.
+
+        .. versionadded:: 1.0
+        """
+        if name not in self._callbacks2:
+            self._callbacks2[name] = []
+        self._callbacks2[name].append((callback, args, kwds))
 
     def actiongroup(self):
         """Return an `ActionGroup` object for the current cache.
@@ -653,6 +705,48 @@ class MarkedChangesFilter(Filter):
             return False
 
 
+class InstalledFilter(Filter):
+    """Filter that returns all installed packages.
+
+    .. versionadded:: 1.0.0
+    """
+
+    def apply(self, pkg):
+        return pkg.is_installed
+
+
+class _FilteredCacheHelper(object):
+    """Helper class for FilteredCache to break a reference cycle."""
+
+    def __init__(self, cache):
+        # Do not keep a reference to the cache, or you have a cycle!
+
+        self._filtered = {}
+        self._filters = {}
+        cache.connect2("cache_post_change", self.filter_cache_post_change)
+        cache.connect2("cache_post_open", self.filter_cache_post_change)
+
+    def _reapply_filter(self, cache):
+        " internal helper to refilter "
+        # Do not keep a reference to the cache, or you have a cycle!
+        self._filtered = {}
+        for pkg in cache:
+            for f in self._filters:
+                if f.apply(pkg):
+                    self._filtered[pkg.name] = 1
+                    break
+
+    def set_filter(self, filter):
+        """Set the current active filter."""
+        self._filters = []
+        self._filters.append(filter)
+
+    def filter_cache_post_change(self, cache):
+        """Called internally if the cache changes, emit a signal then."""
+        # Do not keep a reference to the cache, or you have a cycle!
+        self._reapply_filter(cache)
+
+
 class FilteredCache(object):
     """ A package cache that is filtered.
 
@@ -664,66 +758,50 @@ class FilteredCache(object):
             self.cache = Cache(progress)
         else:
             self.cache = cache
-        self.cache.connect("cache_post_change", self.filter_cache_post_change)
-        self.cache.connect("cache_post_open", self.filter_cache_post_change)
-        self._filtered = {}
-        self._filters = []
+        self._helper = _FilteredCacheHelper(self.cache)
 
     def __len__(self):
-        return len(self._filtered)
+        return len(self._helper._filtered)
 
     def __getitem__(self, key):
         return self.cache[key]
 
     def __iter__(self):
-        for pkgname in self._filtered:
+        for pkgname in self._helper._filtered:
             yield self.cache[pkgname]
 
     def keys(self):
-        return self._filtered.keys()
+        return self._helper._filtered.keys()
 
     def has_key(self, key):
-        return (key in self._filtered)
+        return key in self
 
     def __contains__(self, key):
-        return (key in self._filtered)
-
-    def _reapply_filter(self):
-        " internal helper to refilter "
-        self._filtered = {}
-        for pkg in self.cache:
-            for f in self._filters:
-                if f.apply(pkg):
-                    self._filtered[pkg.name] = 1
-                    break
+        try:
+            # Normalize package name for multi arch
+            return self.cache[key].name in self._helper._filtered
+        except KeyError:
+            return False
 
     def set_filter(self, filter):
         """Set the current active filter."""
-        self._filters = []
-        self._filters.append(filter)
-        #self._reapplyFilter()
-        # force a cache-change event that will result in a refiltering
+        self._helper.set_filter(filter)
         self.cache.cache_post_change()
 
     def filter_cache_post_change(self):
         """Called internally if the cache changes, emit a signal then."""
-        #print "filterCachePostChange()"
-        self._reapply_filter()
-
-#    def connect(self, name, callback):
-#        self.cache.connect(name, callback)
+        self._helper.filter_cache_post_change(self.cache)
 
     def __getattr__(self, key):
         """we try to look exactly like a real cache."""
-        #print "getattr: %s " % key
         return getattr(self.cache, key)
 
 
-def cache_pre_changed():
+def cache_pre_changed(cache):
     print("cache pre changed")
 
 
-def cache_post_changed():
+def cache_post_changed(cache):
     print("cache post changed")
 
 
@@ -732,8 +810,8 @@ def _test():
     print("Cache self test")
     apt_pkg.init()
     cache = Cache(apt.progress.text.OpProgress())
-    cache.connect("cache_pre_change", cache_pre_changed)
-    cache.connect("cache_post_change", cache_post_changed)
+    cache.connect2("cache_pre_change", cache_pre_changed)
+    cache.connect2("cache_post_change", cache_post_changed)
     print(("aptitude" in cache))
     pkg = cache["aptitude"]
     print(pkg.name)
@@ -760,8 +838,8 @@ def _test():
 
     print("Testing filtered cache (argument is old cache)")
     filtered = FilteredCache(cache)
-    filtered.cache.connect("cache_pre_change", cache_pre_changed)
-    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.connect2("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect2("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
     print(len(filtered))
@@ -772,8 +850,8 @@ def _test():
 
     print("Testing filtered cache (no argument)")
     filtered = FilteredCache(progress=apt.progress.base.OpProgress())
-    filtered.cache.connect("cache_pre_change", cache_pre_changed)
-    filtered.cache.connect("cache_post_change", cache_post_changed)
+    filtered.cache.connect2("cache_pre_change", cache_pre_changed)
+    filtered.cache.connect2("cache_post_change", cache_post_changed)
     filtered.cache.upgrade()
     filtered.set_filter(MarkedChangesFilter())
     print(len(filtered))
@@ -781,5 +859,7 @@ def _test():
         assert pkgname == filtered[pkgname].name
 
     print(len(filtered))
+
+
 if __name__ == '__main__':
     _test()

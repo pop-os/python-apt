@@ -18,7 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 from __future__ import print_function
 
-import os.path
+import os
 
 import apt_pkg
 
@@ -48,12 +48,14 @@ def get_release_date_from_release_file(path):
     """
     if not path or not os.path.exists(path):
         return None
-    tag = apt_pkg.TagFile(open(path))
-    section = next(tag)
-    if not "Date" in section:
-        return None
-    date = section["Date"]
-    return apt_pkg.str_to_time(date)
+
+    with os.fdopen(apt_pkg.open_maybe_clear_signed_file(path)) as data:
+        tag = apt_pkg.TagFile(data)
+        section = next(tag)
+        if "Date" not in section:
+            return None
+        date = section["Date"]
+        return apt_pkg.str_to_time(date)
 
 
 def get_release_filename_for_pkg(cache, pkgname, label, release):
@@ -68,10 +70,10 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
         if aver is None or aver.file_list is None:
             continue
         for ver_file, _index in aver.file_list:
-            #print verFile
+            # print verFile
             if (ver_file.origin == label and
-                ver_file.label == label and
-                ver_file.archive == release):
+                    ver_file.label == label and
+                    ver_file.archive == release):
                 ver = aver
     if not ver:
         return None
@@ -79,10 +81,12 @@ def get_release_filename_for_pkg(cache, pkgname, label, release):
     for metaindex in cache._list.list:
         for m in metaindex.index_files:
             if (indexfile and
-                indexfile.describe == m.describe and
-                indexfile.is_trusted):
+                    indexfile.describe == m.describe and
+                    indexfile.is_trusted):
                 dirname = apt_pkg.config.find_dir("Dir::State::lists")
-                name = (apt_pkg.uri_to_filename(metaindex.uri) +
-                        "dists_%s_Release" % metaindex.dist)
-                return dirname + name
+                for relfile in ['InRelease', 'Release']:
+                    name = (apt_pkg.uri_to_filename(metaindex.uri) +
+                            "dists_%s_%s" % (metaindex.dist, relfile))
+                    if os.path.exists(dirname + name):
+                        return dirname + name
     return None

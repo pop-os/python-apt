@@ -25,6 +25,8 @@ if libdir:
 import apt
 import apt_pkg
 
+import testcommon
+
 
 def if_sources_list_is_readable(f):
     def wrapper(*args, **kwargs):
@@ -45,22 +47,13 @@ def get_open_file_descriptors():
     return set(map(int, fds))
 
 
-class TestAptCache(unittest.TestCase):
+class TestAptCache(testcommon.TestCase):
     """ test the apt cache """
 
     def setUp(self):
-        # reset any config manipulations done in the individual tests
-        apt_pkg.init_config()
-        # save/restore the apt config
-        self._cnf = {}
-        for item in apt_pkg.config.keys():
-            self._cnf[item] = apt_pkg.config.find(item)
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.clear("APT::Update::Post-Invoke")
         apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
-
-    def tearDown(self):
-        for item in self._cnf:
-            apt_pkg.config.set(item, self._cnf[item])
 
     @if_sources_list_is_readable
     def test_apt_cache(self):
@@ -124,9 +117,9 @@ class TestAptCache(unittest.TestCase):
                 "skipping test_get_provided_packages, cache empty?!?")
             return
         # a true virtual pkg
-        l = cache.get_providing_packages("mail-transport-agent")
-        self.assertTrue(len(l) > 0)
-        self.assertTrue("postfix" in [p.name for p in l])
+        li = cache.get_providing_packages("mail-transport-agent")
+        self.assertTrue(len(li) > 0)
+        self.assertTrue("postfix" in [p.name for p in li])
         self.assertTrue(
             "mail-transport-agent" in cache["postfix"].candidate.provides)
 
@@ -140,10 +133,10 @@ class TestAptCache(unittest.TestCase):
             return
         # low level cache provides list of the pkg
         cache = highlevel_cache._cache
-        l = cache["mail-transport-agent"].provides_list
+        li = cache["mail-transport-agent"].provides_list
         # arbitrary number, just needs to be higher enough
-        self.assertEqual(len(l), 2)
-        for (providesname, providesver, version) in l:
+        self.assertEqual(len(li), 2)
+        for (providesname, providesver, version) in li:
             self.assertEqual(providesname, "mail-transport-agent")
             if version.parent_pkg.name == "postfix":
                 break
@@ -193,13 +186,13 @@ class TestAptCache(unittest.TestCase):
         sources_list = base_sources
         with open(sources_list, "w") as f:
             repo = os.path.abspath("./data/test-repo2")
-            f.write("deb copy:%s /\n" % repo)
+            f.write("deb [allow-insecure=yes] copy:%s /\n" % repo)
 
         # test single sources.list fetching
         sources_list = os.path.join(rootdir, "test.list")
         with open(sources_list, "w") as f:
             repo_dir = os.path.abspath("./data/test-repo")
-            f.write("deb copy:%s /\n" % repo_dir)
+            f.write("deb [allow-insecure=yes] copy:%s /\n" % repo_dir)
 
         self.assertTrue(os.path.exists(sources_list))
         # write marker to ensure listcleaner is not run
@@ -238,12 +231,12 @@ class TestAptCache(unittest.TestCase):
 
     def test_package_cmp(self):
         cache = apt.Cache(rootdir="/")
-        l = []
-        l.append(cache["intltool"])
-        l.append(cache["python3"])
-        l.append(cache["apt"])
-        l.sort()
-        self.assertEqual([p.name for p in l],
+        li = []
+        li.append(cache["intltool"])
+        li.append(cache["python3"])
+        li.append(cache["apt"])
+        li.sort()
+        self.assertEqual([p.name for p in li],
                          ["apt", "intltool", "python3"])
 
     def test_get_architectures(self):

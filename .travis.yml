@@ -16,4 +16,6 @@ before_install:
  - sudo apt-get update -q
  - sudo apt-get install -q --no-install-recommends gdebi-core
  - sudo apt-get install -q build-essential $(gdebi -q --apt-line ./debian/control)
-script: ./debian/rules build-arch
+script:
+ - ./debian/rules build-arch
+ - python3 tests/testmanual_pep8.py

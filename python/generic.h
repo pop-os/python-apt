@@ -32,6 +32,11 @@
 #include <iostream>
 #include <new>
 
+/**
+ * Exception class for almost all Python errors
+ */
+extern PyObject *PyAptError;
+
 #if PYTHON_API_VERSION < 1013
 typedef int Py_ssize_t;
 #endif
@@ -58,28 +63,7 @@ typedef int Py_ssize_t;
 #define PyInt_Check PyLong_Check
 #define PyInt_AsLong PyLong_AsLong
 #define PyInt_FromLong PyLong_FromLong
-#else
-// Compatibility for Python 2.5 and previous.
-#if (PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 5)
-#define PyBytes_Check PyString_Check
-#define PyBytes_AS_STRING PyString_AS_STRING
-#define PyBytes_AsString PyString_AsString
-#define PyBytes_AsStringAndSize PyString_AsStringAndSize
-#define PyBytes_FromStringAndSize PyString_FromStringAndSize
-#define PyVarObject_HEAD_INIT(type, size) PyObject_HEAD_INIT(type) size,
 #endif
-#endif
-
-// Hacks to make Python 2.4 build.
-#if PY_MAJOR_VERSION == 2 && PY_MINOR_VERSION <= 4
-#define PyErr_WarnEx(cat,msg,stacklevel) PyErr_Warn(cat,msg)
-#endif
-
-#define PY_APT_BEGIN_DEPRECATED { \
-   _Pragma("GCC diagnostic push"); \
-   _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\""); }
-#define PY_APT_END_DEPRECATED  _Pragma("GCC diagnostic pop")
-
 
 static inline const char *PyUnicode_AsString(PyObject *op) {
     // Convert to bytes object, using the default encoding.
@@ -220,17 +204,35 @@ void CppDeallocPtr(PyObject *iObj)
    iObj->ob_type->tp_free(iObj);
 }
 
-inline PyObject *CppPyString(std::string Str)
+inline PyObject *CppPyString(const std::string &Str)
 {
    return PyString_FromStringAndSize(Str.c_str(),Str.length());
 }
 
-inline PyObject *Safe_FromString(const char *Str)
+inline PyObject *CppPyString(const char *Str)
 {
    if (Str == 0)
       return PyString_FromString("");
    return PyString_FromString(Str);
 }
+
+#if PY_MAJOR_VERSION >= 3
+static inline PyObject *CppPyPath(const std::string &path)
+{
+    return PyUnicode_DecodeFSDefaultAndSize(path.c_str(), path.length());
+}
+
+static inline PyObject *CppPyPath(const char *path)
+{
+   if (path == nullptr)
+      path = "";
+   return PyUnicode_DecodeFSDefault(path);
+}
+#else
+template<typename T> static inline PyObject *CppPyPath(T path) {
+   return CppPyString(path);
+}
+#endif
 
 // Convert _error into Python exceptions
 PyObject *HandleErrors(PyObject *Res = 0);

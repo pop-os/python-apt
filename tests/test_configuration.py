@@ -9,13 +9,11 @@
 import unittest
 import apt_pkg
 
+import testcommon
 
-class TestConfiguration(unittest.TestCase):
+
+class TestConfiguration(testcommon.TestCase):
     """Test various configuration things"""
-
-    def setUp(self):
-        """Prepare the tests, create reference values..."""
-        apt_pkg.init_config()
 
     def test_lp707416(self):
         """configuration: Test empty arguments (LP: #707416)"""

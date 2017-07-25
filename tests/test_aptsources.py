@@ -9,12 +9,13 @@ import apt_pkg
 import aptsources.sourceslist
 import aptsources.distro
 
+import testcommon
 
-class TestAptSources(unittest.TestCase):
+
+class TestAptSources(testcommon.TestCase):
 
     def setUp(self):
-        apt_pkg.init_config()
-        apt_pkg.init_system()
+        testcommon.TestCase.setUp(self)
         if apt_pkg.config["APT::Architecture"] not in ('i386', 'amd64'):
             apt_pkg.config.set("APT::Architecture", "i386")
         apt_pkg.config.set("Dir::Etc", os.getcwd())
@@ -25,6 +26,12 @@ class TestAptSources(unittest.TestCase):
             self.templates = os.path.abspath("../build/data/templates")
         else:
             self.templates = "/usr/share/python-apt/templates/"
+
+    def tearDown(self):
+        aptsources.distro._OSRelease.OS_RELEASE_FILE = \
+            aptsources.distro._OSRelease.DEFAULT_OS_RELEASE_FILE
+        if "LSB_ETC_LSB_RELEASE" in os.environ:
+            del os.environ["LSB_ETC_LSB_RELEASE"]
 
     def testIsMirror(self):
         """aptsources: Test mirror detection."""
@@ -77,9 +84,9 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy" and
-                "multiverse" in entry.comps):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    entry.dist == "edgy" and
+                    "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
 
@@ -90,10 +97,10 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "natty" and
-                entry.architectures == [] and
-                "multiverse" in entry.comps):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    entry.dist == "natty" and
+                    entry.architectures == [] and
+                    "multiverse" in entry.comps):
                 found = True
         self.assertTrue(found)
 
@@ -104,10 +111,10 @@ class TestAptSources(unittest.TestCase):
         found = False
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "natty" and
-                set(entry.architectures) == set(["amd64", "i386"]) and
-                set(entry.comps) == set(["main", "universe"])):
+                   entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                   entry.dist == "natty" and
+                   set(entry.architectures) == set(["amd64", "i386"]) and
+                   set(entry.comps) == set(["main", "universe"])):
                 found = True
         self.assertTrue(found)
         # test to add something new: multiverse *and*
@@ -120,8 +127,8 @@ class TestAptSources(unittest.TestCase):
         found_something = 0
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                entry.dist == "edgy"):
+                   entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                   entry.dist == "edgy"):
                 for c in entry.comps:
                     if c == "universe":
                         found_universe += 1
@@ -219,11 +226,11 @@ class TestAptSources(unittest.TestCase):
         found = {}
         for entry in sources:
             if (entry.type == "deb" and
-                entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
-                "edgy" in entry.dist):
+                    entry.uri == "http://de.archive.ubuntu.com/ubuntu/" and
+                    "edgy" in entry.dist):
                 for c in entry.comps:
                     if c == comp:
-                        if not entry.dist in found:
+                        if entry.dist not in found:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
@@ -236,16 +243,32 @@ class TestAptSources(unittest.TestCase):
         found = {}
         for entry in sources:
             if (entry.type == "deb" and
-                entry.template and
-                entry.template.name == "edgy"):
+                    entry.template and
+                    entry.template.name == "edgy"):
                 for c in entry.comps:
                     if c == comp:
-                        if not entry.dist in found.has_key:
+                        if entry.dist not in found.has_key:
                             found[entry.dist] = 0
                         found[entry.dist] += 1
         #print "".join([s.str() for s in sources])
         for key in found:
             self.assertEqual(found[key], 1)
+
+    @unittest.skip("lsb-release test broken when it was added")
+    def test_os_release_distribution(self):
+        """os-release file can be read and is_like is populated accordingly"""
+        os.environ["LSB_ETC_LSB_RELEASE"] = \
+            os.path.abspath("./data/aptsources/lsb-release")
+        aptsources.distro._OSRelease.OS_RELEASE_FILE = \
+            os.path.abspath("./data/aptsources/os-release")
+        distro = aptsources.distro.get_distro()
+        # Everything but is_like comes from lsb_release, see TODO in
+        # get_distro.
+        self.assertEqual('Ubuntu', distro.id)
+        self.assertEqual('xenial', distro.codename)
+        self.assertEqual('Ubuntu 16.04.1 LTS', distro.description)
+        self.assertEqual('16.04', distro.release)
+        self.assertEqual(['ubuntu', 'debian'], distro.is_like)
 
     def test_enable_disabled(self):
         """LP: #1042916: Test enabling disabled entry."""
@@ -261,6 +284,7 @@ class TestAptSources(unittest.TestCase):
                     ["main"])
         self.assertEqual(disabled, enabled)
         self.assertFalse(disabled.disabled)
+
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))

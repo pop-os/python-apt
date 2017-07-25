@@ -28,6 +28,10 @@ be called without having run init*(), but will not return the expected value.
     the commandline afterwards and finally call :func:`init_system`.
 
 
+Exceptions
+----------
+.. autoclass:: Error
+
 Working with the cache
 ----------------------
 .. class:: Cache([progress: apt.progress.base.OpProgress])
@@ -309,7 +313,7 @@ Managing the cache with :class:`DepCache`
 
         Return ``True`` if the package is now broken, that is, if the package
         is broken if the marked changes are applied.
-        
+
     .. method:: is_upgradable(pkg: Package) -> bool
 
         Return ``True`` if the package is upgradable, the package can then
@@ -381,7 +385,7 @@ Installing with :class:`PackageManager`
     Abstraction of a package manager. This object takes care of retrieving
     packages, ordering the installation, and calling the package manager to
     do the actual installation.
-    
+
     .. method:: get_archives(fetcher, list, records) -> bool
 
         Add all packages marked for installation (or upgrade, anything
@@ -422,11 +426,11 @@ Installing with :class:`PackageManager`
 
         A constant for checking whether the result of the call to
         :meth:`do_install` is 'incomplete'.
-        
+
     All instances of this class also support the following methods:
-    
+
     .. note::
-        
+
         This methods are provided mainly for subclassing purposes
         and should not be used in most programs. This class is a
         subclass of an internal :class:`_PackageManager` which does
@@ -434,94 +438,94 @@ Installing with :class:`PackageManager`
         an object without those methods, you should not rely on those
         methods to be available unless you used the constructor of
         :class:`PackageManager` to create the object.
-    
-    .. method:: configure(pkg: Package) -> bool 
+
+    .. method:: configure(pkg: Package) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be configured. Must return a ``True`` value
         or ``None`` to continue, or a value which is ``False`` if
         evaluated as boolean to abort.
-        
+
         .. versionadded:: 0.8.0
 
-    .. method:: install(pkg: Package, filename: str) -> bool 
+    .. method:: install(pkg: Package, filename: str) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be installed from the .deb located at
         *filename*. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as
         boolean to abort.
-        
-        
+
+
         .. versionadded:: 0.8.0
 
-    .. method:: remove(pkg: Package, purge: bool) -> bool 
+    .. method:: remove(pkg: Package, purge: bool) -> bool
 
         Notify the package manager that the :class:`Package` given
         by *pkg* is to be removed. If *purge* is ``True``, the package
         shall be purged. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as boolean
         to abort.
-        
-        
+
+
         .. versionadded:: 0.8.0
- 
-    .. method:: go(status_fd: int) -> bool  
-        
+
+    .. method:: go(status_fd: int) -> bool
+
         Start dpkg, writing status information to the file descriptor
         given by *status_fd*. Must return a ``True`` value or ``None`` to
         continue, or a value which is ``False`` if evaluated as boolean
         to abort.
-        
+
         .. versionadded:: 0.8.0
 
     .. method:: reset()
 
         Reset the package manager for a new round.
-        
+
         .. versionadded:: 0.8.0
 
-        
+
 Installation ordering with :class:`OrderList`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. class:: OrderList(depcache: DepCache)
 
-	Represent a :ctype:`pkgOrderList`, used for installation
+	Represent a :c:type:`pkgOrderList`, used for installation
 	ordering. This class provides several methods and attributes,
 	is complicated and should not be used by normal programs.
-	
+
 	.. versionadded:: 0.8.0
-	
+
 	This class is a sequence and supports the following operations:
-	
+
 	.. describe:: list[index]
-	
+
 		Get the package at the given index in the list. Negative
 		index is supported.
-		
+
 	.. describe:: len(list)
-	
+
 		The length of the list.
-		
+
 	It also supports the append() method from :class:`list`:
-	
+
 	.. method:: append(pkg: Package)
-	
+
 		Append a new package to the end of the list. Please note that
 		you may not append a package twice, as only as much packages
 		as in the cache can be added.
-		
+
 	The class also defines several specific attributes and methods,
 	to be described hereinafter.
-		
+
 	.. method:: score(pkg: Package)
-	
+
 		Return the score of the package. Packages are basically
 		ordered by descending score.
-		
+
 	This class allows flags to be set on packages. Those flags are:
-	
+
 	.. attribute:: FLAG_ADDED
 	.. attribute:: FLAG_ADD_PENDING
 	.. attribute:: FLAG_IMMEDIATE
@@ -530,27 +534,27 @@ Installation ordering with :class:`OrderList`
 	.. attribute:: FLAG_CONFIGURED
 	.. attribute:: FLAG_REMOVED
 	.. attribute:: FLAG_STATES_MASK
-	
+
 		Same as ``FLAG_UNPACKED | FLAG_CONFIGURED | FLAG_REMOVED``
-		
+
 	.. attribute:: FLAG_IN_LIST
 	.. attribute:: FLAG_AFTER
-	
+
 	The methods to work with those flags are:
-		
+
 	.. method:: flag(pkg: Package, flag: int[, unset_flags: int])
 
 		Flag a package. Sets the flags given in *flag* and unsets
 		any flags given in *unset_flags*.
-		
+
 	.. method:: is_flag(pkg: Package, flag: int)
-	
+
 		Check whether the flags in *flag* are set for the package.
-		
+
 	.. method:: wipe_flags(flags: int)
-	
+
 		Remove the flags in *flags* from all packages.
-	
+
 	.. method:: is_missing(pkg: Package)
 
 		Check if the package is missing (not really usable right now)
@@ -558,21 +562,21 @@ Installation ordering with :class:`OrderList`
 	.. method:: is_now(pkg: Package)
 
 		Check if the package is flagged for any state but removal.
-		
+
 	The following methods for ordering are provided:
-	
+
 	.. method:: order_critical()
-	
+
 		Order the packages for critical unpacking; that is, only
 		respect pre-dependencies.
-	
+
 	.. method:: order_unpack()
-	
+
 		Order the packages for unpacking, repecting Pre-Depends and
 		Conflicts.
-	
+
 	.. method:: order_configure()
-	
+
 		Order the packages for configuration, respecting Depends.
 
 Improve performance with :class:`ActionGroup`
@@ -688,7 +692,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
         If **prefer_nonvirtual** is ``True``, the preferred package
         will be a non-virtual package, if one exists.
-        
+
 
 :class:`Package` information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -715,7 +719,7 @@ Resolving Dependencies with :class:`ProblemResolver`
         The version currently installed as a :class:`Version` object, or None
         if the package is not installed.
 
-   .. method:: get_fullname([pretty: bool = False]) -> str
+    .. method:: get_fullname([pretty: bool = False]) -> str
 
         Get the full name of the package, including the architecture. If
         *pretty* is ``True``, the architecture is omitted for native packages,
@@ -723,7 +727,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
         .. versionadded:: 0.7.100.3
 
-   .. attribute:: has_provides
+    .. attribute:: has_provides
 
         A boolean value determining whether the list available via the
         attribute :attr:`provides_list` has at least one element. This
@@ -733,7 +737,7 @@ Resolving Dependencies with :class:`ProblemResolver`
 
             pkg.has_provides and not pkg.has_versions
 
-   .. attribute:: has_versions
+    .. attribute:: has_versions
 
         A boolean value determining whether the list available via the
         attribute :attr:`version_list` has at least one element. This
@@ -787,6 +791,11 @@ Resolving Dependencies with :class:`ProblemResolver`
         The section of the package, as specified in the record. The list of
         possible sections is defined in the Policy. This is a string.
 
+        .. deprecated:: 1.0
+
+            A package can have multiple versions with different sections, so
+            the section information should be accessed from the version class.
+
     .. attribute:: version_list
 
         A list of :class:`Version` objects for all versions of this package
@@ -814,13 +823,6 @@ Resolving Dependencies with :class:`ProblemResolver`
         etc). See :ref:`CurStates` for a list of available states.
 
     **Flags**:
-
-    .. attribute:: auto
-
-        This flag is here for compatibility purposes and does not appear to
-        be used anymore in APT. To find out whether a package is marked as
-        automatically installed, use :meth:`DepCache.is_auto_installed`
-        instead.
 
     .. attribute:: essential
 
@@ -910,49 +912,49 @@ Example:
     .. attribute:: installed_size
 
         The size of the package (in kilobytes), when unpacked on the disk.
-        
+
     .. attribute:: multi_arch
-    
+
 		The multi-arch state of the package. Can be one of the following
 		attributes.
-		
-			.. attribute:: MULTI_ARCH_NONE
-			
+
+			.. attribute:: MULTI_ARCH_NO
+
 				No multi-arch
-				
+
 			.. attribute:: MULTI_ARCH_ALL
-			
+
 				An ``Architecture: all`` package
-				
-			
+
+
 			.. attribute:: MULTI_ARCH_FOREIGN
-			
+
 				Can satisfy dependencies of foreign-architecture
 				packages
-				
+
 			.. attribute:: MULTI_ARCH_ALL_FOREIGN
-			
+
 				:attr:`MULTI_ARCH_FOREIGN` for ``Architecture: all``
 				packages.
-				
+
 			.. attribute:: MULTI_ARCH_SAME
-			
+
 				Multiple versions from different architectures may be
 				installed in parallel, but may only satisfy dependencies
 				of packages from the same architecture
-				
+
 			.. attribute:: MULTI_ARCH_ALLOWED
-			
+
 				Installation in parallel and satisfying ``pkg:any``
 				style dependencies is allowed.
-				
+
 			.. attribute:: MULTI_ARCH_ALL_ALLOWED
-			
+
 				:attr:`MULTI_ARCH_ALLOWED` for ``Architecture: all``
 				packages.
-				
-				
-			
+
+
+
 
     .. attribute:: parent_pkg
 
@@ -995,7 +997,7 @@ Example:
     .. attribute:: ver_str
 
         The version, as a string.
-        
+
 
 
 :class:`Dependency`
@@ -1006,19 +1008,8 @@ Example:
 
     .. method:: all_targets
 
-        A list of :class:`Version` objects which satisfy the dependency,
-        and do not conflict with already installed ones.
-
-        From my experience, if you use this method to select the target
-        version, it is the best to select the last item unless any of the
-        other candidates is already installed. This leads to results being
-        very close to the normal package installation.
-
-    .. method:: smart_target_pkg
-
-        Return a :class:`Version` object of a package which satisfies the
-        dependency and does not conflict with installed packages
-        (the 'natural target').
+        A list of all possible target :class:`Version` objects which satisfy
+        this dependency.
 
     .. attribute:: comp_type
 
@@ -1087,15 +1078,15 @@ Example:
     .. attribute:: TYPE_PREDEPENDS
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_RECOMMENDS
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_REPLACES
 
         Constant for checking against dep_type_enum
-        
+
     .. attribute:: TYPE_SUGGESTS
 
         Constant for checking against dep_type_enum
@@ -1136,7 +1127,7 @@ Package Pinning with :class:`Policy`
     compared to the *DepCache* class. The DepCache can be used for most
     purposes, but there may be some cases where a special policy class
     is needed.
-    
+
     .. method:: create_pin(type: str, pkg: str, data: str, priority: int)
 
         Create a pin for the policy. The parameter *type* refers to one of the
@@ -1144,7 +1135,7 @@ Package Pinning with :class:`Policy`
         name of the package. The parameter *data* refers to the value (such
         as 'unstable' for type='Release') and the other possible options.
         The parameter 'priority' gives the priority of the pin.
-        
+
     .. method:: get_candidate_ver(package: apt_pkg.Package) -> apt_pkg.Version
 
         Get the best package for the job; that is, the package with the
@@ -1179,16 +1170,16 @@ Index Files
     .. attribute:: uri
 
       The URI the meta index file is located at, as a string.
-      
+
     .. attribute:: dist
 
       The distribution stored in the meta index, as a string.
-    
+
     .. attribute:: is_trusted
 
       A boolean value determining whether the meta index can be trusted. This
       is ``True`` for signed Release files.
-      
+
     .. attribute:: index_files
 
       A list of all :class:`IndexFile` objects associated with this meta
@@ -1289,7 +1280,7 @@ Index Files
 
             for pkgfile in cache.file_list:
                 if pkgfile.not_source:
-                    print 'The file %s has no source.' % pkgfile.filename
+                    print('The file %s has no source.' % pkgfile.filename)
 
     .. attribute:: origin
 
@@ -1354,25 +1345,39 @@ Records (Release files, Packages, Sources)
 
         Example (shortened)::
 
-            cand = depcache.GetCandidateVer(cache['python-apt'])
-            records.Lookup(cand.FileList[0])
+            cand = depcache.get_candidate_ver(cache['python-apt'])
+            records.lookup(cand.file_list[0])
             # Now you can access the record
-            print records.SourcePkg # == python-apt
+            print(records.source_pkg) # == python-apt
 
     .. attribute:: filename
 
         Return the field 'Filename' of the record. This is the path to the
         package, relative to the base path of the archive.
 
+    .. attribute:: hashes
+
+        A :class:`apt_pkg.HashStringList` of all hashes.
+
+        .. versionadded:: 1.1
+
     .. attribute:: md5_hash
 
         Return the MD5 hashsum of the package This refers to the field
         'MD5Sum' in the raw record.
 
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
+
     .. attribute:: sha1_hash
 
         Return the SHA1 hashsum of the package. This refers to the field 'SHA1'
         in the raw record.
+
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
 
     .. attribute:: sha256_hash
 
@@ -1380,6 +1385,10 @@ Records (Release files, Packages, Sources)
         'SHA256' in the raw record.
 
         .. versionadded:: 0.7.9
+
+        .. deprecated:: 1.1
+
+            Use :attr:`hashes` instead.
 
     .. attribute:: source_pkg
 
@@ -1424,14 +1433,14 @@ Records (Release files, Packages, Sources)
         Example::
 
             section = apt_pkg.TagSection(records.record)
-            print section['SHA256'] # Use records.sha256_hash instead
+            print(section['SHA256']) # Use records.sha256_hash instead
 
 
 .. class:: SourceRecords
 
     Provide an easy way to look up the records of source packages and
     provide easy attributes for some widely used fields of the record.
-    
+
     .. note::
 
         If the Lookup failed, because no package could be found, no error is
@@ -1480,6 +1489,8 @@ Records (Release files, Packages, Sources)
         The list of files. This returns a list of tuples with the contents
         ``(str: md5, int: size, str: path, str:type)``, where
         'type' can be 'diff' (includes .debian.tar.gz), 'dsc', 'tar'.
+
+        .. deprecated: 1.0
 
     .. attribute:: index
 
@@ -1534,9 +1545,8 @@ installation.
     The constructor takes an optional parameter *progress* which takes an
     :class:`apt.progress.base.AcquireProgress` object. This object may then
     report progress information (see :mod:`apt.progress.text` for reporting
-    progress to a I/O stream and :mod:`apt.progress.gtk2` for GTK+ progress
-    reporting).
-    
+    progress to a I/O stream).
+
     Acquire items have two methods to start and stop the fetching:
 
     .. method:: run() -> int
@@ -1600,8 +1610,12 @@ installation.
 
     .. attribute:: RESULT_CONTINUE
 
-        All items have been fetched successfully and the process has not been
-        canceled.
+        All items have been fetched successfully or failed transiently
+        and the process has not been canceled.
+
+        You need to look at the status of each item and check if it has not
+        failed transiently to discover errors like a Not Found when acquiring
+        packages.
 
     .. attribute:: RESULT_FAILED
 
@@ -1661,8 +1675,15 @@ installation.
 
     .. attribute:: mode
 
-        A localized string indicating the current mode e.g. ``"Fetching"``,
-        it may be used as part of printing progress information.
+        Old name for active_subprocess
+
+        .. deprecated:: 1.0
+
+    .. attribute:: active_subprocess
+
+        The name of the active subprocess (for instance, 'gzip', 'rred' or 'gpgv').
+
+        .. versionadded:: 1.0
 
     **Status**:
 
@@ -1694,7 +1715,7 @@ installation.
     .. attribute:: STAT_FETCHING
 
         The item is being fetched currently.
-        
+
     .. attribute:: STAT_IDLE
 
         The item is yet to be fetched.
@@ -1704,7 +1725,7 @@ installation.
         There was a network error.
 
 
-.. class:: AcquireFile(owner, uri[, md5, size, descr, short_descr, destdir, destfile])
+.. class:: AcquireFile(owner, uri[, hash, size, descr, short_descr, destdir, destfile])
 
     Create a new :class:`AcquireFile()` object and register it with *acquire*,
     so it will be fetched. You must always keep around a reference to the
@@ -1717,8 +1738,9 @@ installation.
     The parameter *uri* refers to the location of the file, any protocol
     of apt is supported.
 
-    The parameter *md5* refers to the md5sum of the file. This can be used
-    for checking the file.
+    The parameter *hash* refers to the hash of the file. If this is set
+    libapt will check the file after downloading. See :class:`HashString`
+    for the combined form string format description.
 
     The parameter *size* can be used to specify the size of the package,
     which can then be used to calculate the progress and validate the download.
@@ -1810,25 +1832,8 @@ of the ones provides in Python's :mod:`hashlib` module.
 The module provides the two classes :class:`Hashes` and :class:`HashString` for
 generic hash support:
 
-.. class:: Hashes(object)
-
-    Calculate all supported hashes of the object. *object* may either be a
-    string, in which cases the hashes of the string are calculated; or a
-    :class:`file()` object or file descriptor, in which case the hashes of
-    its contents is calculated. The calculated hashes are then available via
-    attributes:
-
-    .. attribute:: md5
-
-        The MD5 hash of the data, as string.
-
-    .. attribute:: sha1
-
-        The SHA1 hash of the data, as string.
-
-    .. attribute:: sha256
-
-        The SHA256 hash of the data, as string.
+.. autoclass:: Hashes
+    :members:
 
 .. class:: HashString(type: str[, hash: str])
 
@@ -1841,7 +1846,7 @@ generic hash support:
     separated by a colon as the only argument. For example::
 
         HashString("MD5Sum:d41d8cd98f00b204e9800998ecf8427e")
-    
+
 
     .. describe:: str(hashstring)
 
@@ -1850,13 +1855,24 @@ generic hash support:
 
     .. attribute:: hashtype
 
-        The type of the hash, as a string. This may be "MD5Sum", "SHA1"
-        or "SHA256".
+        The type of the hash, as a string. This may be "MD5Sum", "SHA1",
+        "SHA256" or "SHA512".
 
     .. method:: verify_file(filename: str) -> bool
 
         Verify that the file given by the parameter *filename* matches the
         hash stored in this object.
+
+.. autoclass:: HashStringList
+    :members:
+
+    .. describe:: len(list)
+
+        Return the length of the list
+
+    .. describe:: list[index]
+
+        Get the :class:`HashString` object at the specified index.
 
 The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
 :func:`sha1sum` and :func:`sha256sum` for creating a single hash from a
@@ -1908,16 +1924,38 @@ section as a string.
 .. class:: TagFile(file, bytes: bool = False)
 
     An object which represents a typical debian control file. Can be used for
-    Packages, Sources, control, Release, etc. Such an object provides two
-    kinds of API which should not be used together:
+    Packages, Sources, control, Release, etc.
+
+    The *file* argument shall be a path name or an open file object. The
+    argument *bytes* specifies whether the file shall be represented using
+    bytes (``True``) or unicode (``False``) strings.
+
+    It is a context manager that can be used with a with statement or the
+    :meth:`close` method.
+
+    .. describe:: with TagFile(...) as ...:
+
+        Use the :class:`TagFile` as a context manager. This will automatically
+        close the file after the body finished execution.
+
+        .. versionadded:: 1.0
+
+    .. method:: close()
+
+        Close the file. It's recommended to use the context manager
+        instead (that is, the `with` statement).
+
+        .. versionadded:: 1.0
+
+    It provides two kinds of API which should not be used together:
 
     The first API implements the iterator protocol and should be used whenever
     possible because it has less side effects than the other one. It may be
     used e.g. with a for loop::
 
-        tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
-        for section in tagfile:
-            print section['Package']
+        with apt_pkg.TagFile('/var/lib/dpkg/status') as tagfile:
+            for section in tagfile:
+                print(section['Package'])
 
     .. versionchanged:: 0.7.100
         Added support for using gzip files, via :class:`gzip.GzipFile` or any
@@ -1926,7 +1964,7 @@ section as a string.
     .. versionadded:: 0.8.5
 
         Added support for using bytes instead of str in Python 3
-        
+
     .. method:: next()
 
         A TagFile is its own iterator. This method is part of the iterator
@@ -1943,9 +1981,9 @@ section as a string.
     use less memory, but is not recommended because it works by modifying
     one object. It can be used like this::
 
-        tagf = apt_pkg.TagFile(open('/var/lib/dpkg/status'))
-        tagf.step()
-        print tagf.section['Package']
+        with apt_pkg.TagFile('/var/lib/dpkg/status') as tagf:
+            tagf.step()
+            print tagf.section['Package']
 
     .. method:: step() -> bool
 
@@ -2003,28 +2041,42 @@ section as a string.
     .. method:: get(key: str, default: str = '')
 
         Return the value of the field at the key *key* if available, else
-        return *default*. 
+        return *default*.
 
     .. method:: keys()
 
         Return a list of keys in the section.
 
-.. function:: rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str
 
-    Rewrite the section given by *section* using *rewrite_list*, and order the
-    fields according to *order*.
+A function can be rewritten by using tag classes:
 
-    The parameter *order* is a :class:`list` object containing the names of the
-    fields in the order they should appear in the rewritten section.
-    :data:`apt_pkg.REWRITE_PACKAGE_ORDER` and
-    :data:`apt_pkg.REWRITE_SOURCE_ORDER` are two predefined lists for rewriting
-    package and source sections, respectively.
+.. autoclass:: Tag
+    :members:
 
-    The parameter *rewrite_list* is a list of tuples of the form
-    ``(tag, newvalue[, renamed_to])``, where *tag* describes the field which
-    should be changed, *newvalue* the value which should be inserted or
-    ``None`` to delete the field, and the optional *renamed_to* can be used
-    to rename the field.
+    The following static members can be used to determine the meaning of
+    :attr:`action`:
+
+    .. data:: REWRITE
+
+        Change the field value to the value of :attr:`data`
+
+    .. data:: RENAME
+
+        Rename the tag to a new tag stored in :attr:`data`.
+
+    .. data:: REMOVE
+
+        Remove the tag.
+
+    Apart from this, the class provides access to several attributes.
+
+.. autoclass:: TagRewrite
+
+.. autoclass:: TagRemove
+
+.. autoclass:: TagRename
+
+Pre-defined ordering for tag sections are:
 
 .. data:: REWRITE_PACKAGE_ORDER
 
@@ -2036,6 +2088,11 @@ section as a string.
     The order in which the information for source packages should be rewritten,
     i.e. the order in which the fields should appear.
 
+Before APT 1.1, the function :func:`rewrite_section` was used.
+
+.. autofunction:: rewrite_section
+
+
 Dependencies
 ------------
 .. function:: check_dep(pkgver: str, op: str, depver: str) -> bool
@@ -2043,7 +2100,7 @@ Dependencies
     Check that the given requirement is fulfilled; that is, that the version
     string given by *pkg_ver* matches the version string *dep_ver* under
     the condition specified by the operator 'dep_op' (<,<=,=,>=,>).
-        
+
     Return True if *pkg_ver* matches *dep_ver* under the condition 'dep_op';
     for example::
 
@@ -2053,7 +2110,7 @@ Dependencies
 The following two functions provide the ability to parse dependencies. They
 use the same format as :attr:`Version.depends_list_str`.
 
-.. function:: parse_depends(depends, strip_multiarch=True)
+.. function:: parse_depends(depends, strip_multiarch=True, architecture)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2069,6 +2126,10 @@ use the same format as :attr:`Version.depends_list_str`.
     You can force the full dependency info (including the multiarch info)
     by passing "False" as a additional parameter to this function.
 
+    You can specify an optional argument *architecture* that treats the given
+    architecture as the native architecture for purposes of parsing the
+    dependency.
+
     .. note::
 
         The behavior of this function is different than the behavior of the
@@ -2077,7 +2138,7 @@ use the same format as :attr:`Version.depends_list_str`.
         is specified in control files.
 
 
-.. function:: parse_src_depends(depends)
+.. function:: parse_src_depends(depends, strip_multiarch=True, architecture)
 
     Parse the string *depends* which contains dependency information as
     specified in Debian Policy, Section 7.1.
@@ -2095,6 +2156,14 @@ use the same format as :attr:`Version.depends_list_str`.
 
         >>> apt_pkg.parse_src_depends("a (>= 01) [i386 amd64]")
         [[('a', '01', '>=')]]
+
+    Note that multiarch dependency information is stripped off by default.
+    You can force the full dependency info (including the multiarch info)
+    by passing "False" as a additional parameter to this function.
+
+    You can specify an optional argument *architecture* that treats the given
+    architecture as the native architecture for purposes of parsing the
+    dependency.
 
     .. note::
 
@@ -2147,7 +2216,7 @@ Configuration and Command-line parsing
     .. method:: get(key[, default='']) -> str
 
         Find the value for the given key and return it. If the given key does
-        not exist, return *default* instead. 
+        not exist, return *default* instead.
 
     In addition, they provide methods to resemble the interface provided
     by the C++ class and some more mapping methods which have been enhanced
@@ -2229,7 +2298,7 @@ Configuration and Command-line parsing
         is given, a list of all its children. This method is comparable
         to the **keys** method of a mapping object, but additionally
         provides the parameter *key*.
-        
+
     .. method:: list([key])
 
         Return a non-recursive list of all configuration options. If *key*
@@ -2297,9 +2366,9 @@ Configuration and Command-line parsing
 
     Parse the command line in *argv* into the configuration space. The
     list *options* contains a list of 3-tuples or 4-tuples in the form::
-        
+
         (short_option: str, long_option: str, variable: str[, type: str])
-        
+
     The element *short_option* is one character, the *long_option* element
     is the name of the long option, the element *variable* the name of the
     configuration option the result will be stored in and *type* is one of
@@ -2637,7 +2706,7 @@ Installed states
 .. data:: INSTSTATE_HOLD_REINSTREQ
 
     The package is put on hold, but broken and has to be reinstalled.
-    
+
 .. data:: INSTSTATE_OK
 
     The package is OK.
@@ -2657,7 +2726,7 @@ Priorities
 .. data:: PRI_IMPORTANT
 
     The integer representation of the priority 'important'.
-    
+
 .. data:: PRI_OPTIONAL
 
     The integer representation of the priority 'optional'.
@@ -2686,7 +2755,7 @@ Package selection states
 .. data:: SELSTATE_INSTALL
 
     The package is selected for installation.
-    
+
 .. data:: SELSTATE_PURGE
 
     The package is selected to be purged.

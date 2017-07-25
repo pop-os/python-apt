@@ -2,11 +2,13 @@ import unittest
 
 import apt_pkg
 
+import testcommon
 
-class TestGroup(unittest.TestCase):
+
+class TestGroup(testcommon.TestCase):
 
     def setUp(self):
-        apt_pkg.init()
+        testcommon.TestCase.setUp(self)
         self.cache = apt_pkg.Cache(progress=None)
 
     def test_pkgingroup(self):

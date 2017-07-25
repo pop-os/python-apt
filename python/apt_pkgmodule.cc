@@ -27,12 +27,23 @@
 #include <apt-pkg/orderlist.h>
 #include <apt-pkg/aptconfiguration.h>
 #include <apt-pkg/fileutl.h>
+#include <apt-pkg/gpgv.h>
 
 #include <sys/stat.h>
 #include <libintl.h>
 #include <unistd.h>
 #include <Python.h>
 									/*}}}*/
+
+static char PyAptError_Doc[] =
+   "Exception class for most python-apt exceptions.\n"
+   "\n"
+   "This class replaces the use of :class:`SystemError` in previous versions\n"
+   "of python-apt. It inherits from :class:`SystemError`, so make sure to\n"
+   "catch this class first.\n\n"
+   ".. versionadded:: 1.1";
+
+PyObject *PyAptError;
 
 /**
  * A Python->C->Python gettext() function.
@@ -48,7 +59,7 @@ static PyObject *py_gettext(PyObject *self, PyObject *Args) {
     if (PyArg_ParseTuple(Args,"s|s:gettext",&msg, &domain) == 0)
         return 0;
 
-    return PyString_FromString(dgettext(domain, msg));
+    return CppPyString(dgettext(domain, msg));
 }
 
 // newConfiguration - Build a new configuration class			/*{{{*/
@@ -103,7 +114,7 @@ static PyObject *CheckDep(PyObject *Self,PyObject *Args)
    if (strcmp(OpStr, "<") == 0) OpStr = "<<";
    if (*debListParser::ConvertRelation(OpStr,Op) != 0)
    {
-      PyErr_SetString(PyExc_ValueError,"Bad comparision operation");
+      PyErr_SetString(PyExc_ValueError,"Bad comparison operation");
       return 0;
    }
 
@@ -129,7 +140,7 @@ static PyObject *UpstreamVersion(PyObject *Self,PyObject *Args)
 }
 
 static const char *doc_ParseDepends =
-"parse_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
+"parse_depends(s: str[, strip_multi_arch : bool = True[, architecture : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -138,10 +149,12 @@ static const char *doc_ParseDepends =
 "if no version was requested. The element 'ver' is a comparison\n"
 "operator ('<', '<=', '=', '>=', or '>').\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
-"will be stripped from the full package name";
+"will be stripped from the full package name"
+"The 'architecture' parameter may be used to specify a non-native architecture\n"
+"for the dependency parsing.";
 
 static const char *parse_src_depends_doc =
-"parse_src_depends(s: str[, strip_multi_arch : bool = True]) -> list\n"
+"parse_src_depends(s: str[, strip_multi_arch : bool = True[, architecture : string]]) -> list\n"
 "\n"
 "Parse the dependencies given by 's' and return a list of lists. Each of\n"
 "these lists represents one or more options for an 'or' dependency in\n"
@@ -154,8 +167,10 @@ static const char *parse_src_depends_doc =
 "only contains those dependencies for the architecture set in the\n"
 "configuration variable APT::Architecture\n\n"
 "If 'strip_multi_arch' is True, :any (and potentially other special values)\n"
-"will be stripped from the full package name";
-static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
+"will be stripped from the full package name"
+"The 'architecture' parameter may be used to specify a non-native architecture\n"
+"for the dependency parsing.";
+static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,PyObject *Kwds,
                                   bool ParseArchFlags, bool ParseRestrictionsList,
                                   std::string name, bool debStyle=false)
 {
@@ -167,9 +182,11 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    const char *Start;
    const char *Stop;
    int Len;
+   const char *Arch = NULL;
+   char *kwlist[] = {"s", "strip_multi_arch", "architecture", 0};
 
-   if (PyArg_ParseTuple(Args,(char *)("s#|b:" + name).c_str(), 
-                        &Start, &Len, &StripMultiArch) == 0)
+   if (PyArg_ParseTupleAndKeywords(Args,Kwds,(char *)("s#|bs:" + name).c_str(), kwlist,
+                        &Start, &Len, &StripMultiArch, &Arch) == 0)
       return 0;
    Stop = Start + Len;
    PyObject *List = PyList_New(0);
@@ -178,10 +195,15 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    {
       if (Start == Stop)
 	 break;
+      if (Arch == NULL)
+	 Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
+					     ParseArchFlags, StripMultiArch,
+					     ParseRestrictionsList);
+      else
+	 Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
+					     ParseArchFlags, StripMultiArch,
+                                             ParseRestrictionsList, Arch);
 
-      Start = debListParser::ParseDepends(Start,Stop,Package,Version,Op,
-					  ParseArchFlags, StripMultiArch,
-                                          ParseRestrictionsList);
       if (Start == 0)
       {
 	 PyErr_SetString(PyExc_ValueError,"Problem Parsing Dependency");
@@ -212,13 +234,13 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,
    }
    return List;
 }
-static PyObject *ParseDepends(PyObject *Self,PyObject *Args)
+static PyObject *ParseDepends(PyObject *Self,PyObject *Args, PyObject *Kwds)
 {
-   return RealParseDepends(Self, Args, false, false, "parse_depends");
+   return RealParseDepends(Self, Args, Kwds, false, false, "parse_depends");
 }
-static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args)
+static PyObject *ParseSrcDepends(PyObject *Self,PyObject *Args, PyObject *Kwds)
 {
-   return RealParseDepends(Self, Args, true, true, "parse_src_depends");
+   return RealParseDepends(Self, Args, Kwds, true, true, "parse_src_depends");
 }
 									/*}}}*/
 // md5sum - Compute the md5sum of a file or string			/*{{{*/
@@ -255,7 +277,7 @@ static PyObject *md5sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -300,7 +322,7 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -311,7 +333,7 @@ static PyObject *sha1sum(PyObject *Self,PyObject *Args)
    return 0;
 }
 									/*}}}*/
-// sha256sum - Compute the sha1sum of a file or string			/*{{{*/
+// sha256sum - Compute the sha256sum of a file or string		/*{{{*/
 // ---------------------------------------------------------------------
 static const char *doc_sha256sum =
     "sha256sum(object) -> str\n\n"
@@ -345,7 +367,52 @@ static PyObject *sha256sum(PyObject *Self,PyObject *Args)
       if (fstat(Fd,&St) != 0 ||
 	  Sum.AddFD(Fd,St.st_size) == false)
       {
-	 PyErr_SetFromErrno(PyExc_SystemError);
+	 PyErr_SetFromErrno(PyAptError);
+	 return 0;
+      }
+
+      return CppPyString(Sum.Result().Value());
+   }
+
+   PyErr_SetString(PyExc_TypeError,"Only understand strings and files");
+   return 0;
+}
+									/*}}}*/
+// sha512sum - Compute the sha512sum of a file or string		/*{{{*/
+// ---------------------------------------------------------------------
+static const char *doc_sha512sum =
+    "sha512sum(object) -> str\n\n"
+    "Return the sha512sum of the object. 'object' may either be a string, in\n"
+    "which case the sha512sum of the string is returned, or a file() object\n"
+    "(or file descriptor), in which case the sha512sum of its contents is\n"
+    "returned.";;
+static PyObject *sha512sum(PyObject *Self,PyObject *Args)
+{
+   PyObject *Obj;
+   if (PyArg_ParseTuple(Args,"O",&Obj) == 0)
+      return 0;
+
+   // Digest of a string.
+   if (PyBytes_Check(Obj) != 0)
+   {
+      char *s;
+      Py_ssize_t len;
+      SHA512Summation Sum;
+      PyBytes_AsStringAndSize(Obj, &s, &len);
+      Sum.Add((const unsigned char*)s, len);
+      return CppPyString(Sum.Result().Value());
+   }
+
+   // Digest of a file
+   int Fd = PyObject_AsFileDescriptor(Obj);
+   if (Fd != -1)
+   {
+      SHA512Summation Sum;
+      struct stat St;
+      if (fstat(Fd,&St) != 0 ||
+	  Sum.AddFD(Fd,St.st_size) == false)
+      {
+	 PyErr_SetFromErrno(PyAptError);
 	 return 0;
       }
 
@@ -427,6 +494,25 @@ static PyObject *InitSystem(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 									/*}}}*/
+// gpgv.cc:OpenMaybeClearSignedFile					/*{{{*/
+// ---------------------------------------------------------------------
+static char *doc_OpenMaybeClearSignedFile =
+"open_maybe_clear_signed_file(file: str) -> int\n\n"
+"Open a file and ignore a PGP clear signature.\n"
+"Return a open file descriptor or a error.";
+static PyObject *PyOpenMaybeClearSignedFile(PyObject *Self,PyObject *Args)
+{
+   PyApt_Filename file;
+   char errors = false;
+   if (PyArg_ParseTuple(Args,"O&",PyApt_Filename::Converter, &file,&errors) == 0)
+      return 0;
+
+   FileFd Fd;
+   if (OpenMaybeClearSignedFile(file, Fd) == false)
+      return HandleErrors(MkPyNumber(-1));
+
+   return HandleErrors(MkPyNumber(dup(Fd.Fd())));
+}
 
 // fileutils.cc: GetLock						/*{{{*/
 // ---------------------------------------------------------------------
@@ -501,6 +587,9 @@ static PyMethodDef methods[] =
    // Tag File
    {"rewrite_section",RewriteSection,METH_VARARGS,doc_RewriteSection},
 
+   {"open_maybe_clear_signed_file",PyOpenMaybeClearSignedFile,METH_VARARGS,
+    doc_OpenMaybeClearSignedFile},
+
    // Locking
    {"get_lock",GetLock,METH_VARARGS,doc_GetLock},
    {"pkgsystem_lock",PkgSystemLock,METH_VARARGS,doc_PkgSystemLock},
@@ -518,13 +607,14 @@ static PyMethodDef methods[] =
    {"upstream_version",UpstreamVersion,METH_VARARGS,doc_UpstreamVersion},
 
    // Depends
-   {"parse_depends",ParseDepends,METH_VARARGS,doc_ParseDepends},
-   {"parse_src_depends",ParseSrcDepends,METH_VARARGS,parse_src_depends_doc},
+   {"parse_depends",reinterpret_cast<PyCFunction>(static_cast<PyCFunctionWithKeywords>(ParseDepends)),METH_VARARGS|METH_KEYWORDS,doc_ParseDepends},
+   {"parse_src_depends",reinterpret_cast<PyCFunction>(static_cast<PyCFunctionWithKeywords>(ParseSrcDepends)),METH_VARARGS|METH_KEYWORDS,parse_src_depends_doc},
 
-   // Stuff
+   // Hashes
    {"md5sum",md5sum,METH_VARARGS,doc_md5sum},
    {"sha1sum",sha1sum,METH_VARARGS,doc_sha1sum},
    {"sha256sum",sha256sum,METH_VARARGS,doc_sha256sum},
+   {"sha512sum",sha512sum,METH_VARARGS,doc_sha512sum},
 
    // multiarch
    {"get_architectures", GetArchitectures, METH_VARARGS, doc_GetArchitectures},
@@ -629,9 +719,6 @@ static struct _PyAptPkgAPIStruct API = {
    &PyHashString_Type,        // hashstring_type
    &PyHashString_FromCpp,     // hashstring_fromcpp
    &PyHashString_ToCpp,       // hashstring_tocpp
-   &PyIndexRecords_Type,      // indexrecords_type
-   &PyIndexRecords_FromCpp,     // indexrecords_tocpp
-   &PyIndexRecords_ToCpp,     // indexrecords_tocpp
    &PyMetaIndex_Type,         // metaindex_type
    &PyMetaIndex_FromCpp,        // metaindex_tocpp
    &PyMetaIndex_ToCpp,        // metaindex_tocpp
@@ -719,6 +806,9 @@ extern "C" void initapt_pkg()
    // Finalize our types to add slots, etc.
    if (PyType_Ready(&PyConfiguration_Type) == -1) INIT_ERROR;
    if (PyType_Ready(&PyCacheFile_Type) == -1) INIT_ERROR;
+   PyAptError = PyErr_NewExceptionWithDoc("apt_pkg.Error", PyAptError_Doc, PyExc_SystemError, NULL);
+   if (PyAptError == NULL)
+      INIT_ERROR;
 
    // Initialize the module
    #if PY_MAJOR_VERSION >= 3
@@ -733,7 +823,7 @@ extern "C" void initapt_pkg()
    // Global configuration, should never be deleted.
    Config->NoDelete = true;
    PyModule_AddObject(Module,"config",Config);
-
+   PyModule_AddObject(Module,"Error",PyAptError);
 
 
 
@@ -741,6 +831,10 @@ extern "C" void initapt_pkg()
    /* ============================ tag.cc ============================ */
    ADDTYPE(Module,"TagSection",&PyTagSection_Type);
    ADDTYPE(Module,"TagFile",&PyTagFile_Type);
+   ADDTYPE(Module,"Tag",&PyTag_Type);
+   ADDTYPE(Module,"TagRewrite",&PyTagRewrite_Type);
+   ADDTYPE(Module,"TagRename",&PyTagRename_Type);
+   ADDTYPE(Module,"TagRemove",&PyTagRemove_Type);
    /* ============================ acquire.cc ============================ */
    ADDTYPE(Module,"Acquire",&PyAcquire_Type);
    ADDTYPE(Module,"AcquireFile",&PyAcquireFile_Type);
@@ -778,7 +872,6 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"SourceRecords",&PySourceRecords_Type);
    /* ========================= sourcelist.cc ========================= */
    ADDTYPE(Module,"SourceList",&PySourceList_Type);
-   ADDTYPE(Module,"IndexRecords",&PyIndexRecords_Type);
    ADDTYPE(Module,"HashString",&PyHashString_Type);
    ADDTYPE(Module,"Policy",&PyPolicy_Type);
    ADDTYPE(Module,"Hashes",&PyHashes_Type);
@@ -786,6 +879,7 @@ extern "C" void initapt_pkg()
    ADDTYPE(Module,"SystemLock",&PySystemLock_Type);
    ADDTYPE(Module,"FileLock",&PyFileLock_Type);
    ADDTYPE(Module,"OrderList",&PyOrderList_Type);
+   ADDTYPE(Module,"HashStringList",&PyHashStringList_Type);
    // Tag file constants
    PyModule_AddObject(Module,"REWRITE_PACKAGE_ORDER",
                       CharCharToList(TFRewritePackageOrder));
@@ -841,9 +935,11 @@ extern "C" void initapt_pkg()
    PyDict_SetItemString(PyPackageManager_Type.tp_dict, "RESULT_INCOMPLETE",
                         MkPyNumber(pkgPackageManager::Incomplete));
 
-
+   PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NO",
+                        MkPyNumber(pkgCache::Version::No));
+   // NONE is deprecated (#782802)
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_NONE",
-                        MkPyNumber(pkgCache::Version::None));
+                        MkPyNumber(pkgCache::Version::No));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_ALL",
                         MkPyNumber(pkgCache::Version::All));
    PyDict_SetItemString(PyVersion_Type.tp_dict, "MULTI_ARCH_FOREIGN",
@@ -869,7 +965,13 @@ extern "C" void initapt_pkg()
                         MkPyNumber(pkgAcquire::Item::StatError));
    PyDict_SetItemString(PyAcquireItem_Type.tp_dict, "STAT_AUTH_ERROR",
                         MkPyNumber(pkgAcquire::Item::StatAuthError));
-
+   // TagSection constants
+   PyDict_SetItemString(PyTag_Type.tp_dict, "REMOVE",
+                        MkPyNumber(pkgTagSection::Tag::REMOVE));
+   PyDict_SetItemString(PyTag_Type.tp_dict, "REWRITE",
+                        MkPyNumber(pkgTagSection::Tag::REWRITE));
+   PyDict_SetItemString(PyTag_Type.tp_dict, "RENAME",
+                        MkPyNumber(pkgTagSection::Tag::RENAME));
 
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 1
    PyObject *PyCapsule = PyCapsule_New(&API, "apt_pkg._C_API", NULL);
@@ -880,8 +982,13 @@ extern "C" void initapt_pkg()
    // Version..
    PyModule_AddStringConstant(Module,"VERSION",(char *)pkgVersion);
    PyModule_AddStringConstant(Module,"LIB_VERSION",(char *)pkgLibVersion);
-   PyModule_AddStringConstant(Module,"DATE",__DATE__);
-   PyModule_AddStringConstant(Module,"TIME",__TIME__);
+#ifdef DATE
+   PyModule_AddStringConstant(Module,"DATE",DATE);
+   PyModule_AddStringConstant(Module,"TIME",TIME);
+#else
+   PyModule_AddStringConstant(Module,"DATE", "Jan  1 1970");
+   PyModule_AddStringConstant(Module,"TIME", "00:00:00");
+#endif
 
    // My constants
    PyModule_AddIntConstant(Module,"PRI_IMPORTANT",pkgCache::State::Important);
@@ -907,7 +1014,6 @@ extern "C" void initapt_pkg()
    PyModule_AddIntConstant(Module,"INSTSTATE_REINSTREQ",pkgCache::State::ReInstReq);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD",pkgCache::State::Hold);
    PyModule_AddIntConstant(Module,"INSTSTATE_HOLD_REINSTREQ",pkgCache::State::HoldReInstReq);
-
 
    #if PY_MAJOR_VERSION >= 3
    return Module;

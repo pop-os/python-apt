@@ -23,6 +23,7 @@
 #include <apt-pkg/pkgrecords.h>
 #include <apt-pkg/acquire-item.h>
 #include <apt-pkg/fileutl.h>
+#include <apt-pkg/upgrade.h>
 #include <Python.h>
 
 #include <iostream>
@@ -71,11 +72,11 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
 			&pyFetchProgressInst, &pyInstallProgressInst) == 0) {
       return 0;
    }
-   FileFd Lock;
-   if (_config->FindB("Debug::NoLocking", false) == false) {
-      Lock.Fd(GetLock(_config->FindDir("Dir::Cache::Archives") + "lock"));
-      if (_error->PendingError() == true)
-         return HandleErrors();
+
+   pkgAcquire Fetcher;
+   if (Fetcher.GetLock(_config->FindDir("Dir::Cache::Archives")) == false) {
+      Py_INCREF(Py_None);
+      return HandleErrors(Py_None);
    }
 
    pkgRecords Recs(*depcache);
@@ -89,11 +90,11 @@ static PyObject *PkgDepCacheCommit(PyObject *Self,PyObject *Args)
    PyFetchProgress progress;
    progress.setCallbackInst(pyFetchProgressInst);
 
-   pkgAcquire Fetcher;
    pkgPackageManager *PM;
    PM = _system->CreatePM(depcache);
 
-   Fetcher.Setup(&progress);
+   Fetcher.SetLog(&progress);
+
    if(PM->GetArchives(&Fetcher, &List, &Recs) == false ||
       _error->PendingError() == true) {
       std::cerr << "Error in GetArchives" << std::endl;
@@ -262,9 +263,10 @@ static PyObject *PkgDepCacheUpgrade(PyObject *Self,PyObject *Args)
 
    Py_BEGIN_ALLOW_THREADS
    if(distUpgrade)
-      res = pkgDistUpgrade(*depcache);
+      res = APT::Upgrade::Upgrade(*depcache, 0);
    else
-      res = pkgAllUpgrade(*depcache);
+      res = APT::Upgrade::Upgrade(*depcache, APT::Upgrade::FORBID_REMOVE_PACKAGES |
+                                             APT::Upgrade::FORBID_INSTALL_NEW_PACKAGES);
    Py_END_ALLOW_THREADS
 
    Py_INCREF(Py_None);
@@ -895,9 +897,9 @@ static PyObject *PkgProblemResolverInstallProtect(PyObject *Self,PyObject *Args)
    pkgProblemResolver *fixer = GetCpp<pkgProblemResolver *>(Self);
    if (PyArg_ParseTuple(Args,"") == 0)
       return 0;
-   PY_APT_BEGIN_DEPRECATED;
+APT_IGNORE_DEPRECATED_PUSH
    fixer->InstallProtect();
-   PY_APT_END_DEPRECATED;
+APT_IGNORE_DEPRECATED_POP
    Py_INCREF(Py_None);
    return HandleErrors(Py_None);
 }

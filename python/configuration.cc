@@ -67,7 +67,7 @@ static PyObject *CnfFindFile(PyObject *Self,PyObject *Args)
    char *Default = 0;
    if (PyArg_ParseTuple(Args,"s|s",&Name,&Default) == 0)
       return 0;
-   return CppPyString(GetSelf(Self).FindFile(Name,Default));
+   return CppPyPath(GetSelf(Self).FindFile(Name,Default));
 }
 
 static const char *doc_FindDir =
@@ -80,7 +80,7 @@ static PyObject *CnfFindDir(PyObject *Self,PyObject *Args)
    char *Default = 0;
    if (PyArg_ParseTuple(Args,"s|s",&Name,&Default) == 0)
       return 0;
-   return CppPyString(GetSelf(Self).FindDir(Name,Default));
+   return CppPyPath(GetSelf(Self).FindDir(Name,Default));
 }
 
 static const char *doc_FindI =
@@ -509,7 +509,7 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args)
       List = PyList_New(Length);
       for (int I = 0; CmdL.FileList[I] != 0; I++)
       {
-	 PyList_SetItem(List,I,PyString_FromString(CmdL.FileList[I]));
+	 PyList_SetItem(List,I,CppPyString(CmdL.FileList[I]));
       }
    }
 

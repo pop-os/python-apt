@@ -41,6 +41,10 @@ class AptKeyError(Exception):
     pass
 
 
+class AptKeyIDTooShortError(AptKeyError):
+    """Internal class do not rely on it."""
+
+
 class TrustedKey(object):
 
     """Represents a trusted key."""
@@ -63,6 +67,7 @@ def _call_apt_key_script(*args, **kwargs):
     cmd.extend(args)
     env = os.environ.copy()
     env["LANG"] = "C"
+    env["APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE"] = "1"
     try:
         if apt_pkg.config.find_dir("Dir") != "/":
             # If the key is to be installed into a chroot we have to export the
@@ -133,8 +138,9 @@ def add_key_from_keyserver(keyid, keyserver):
 
 
 def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
-    if len(keyid) < (160 / 8):
-        raise AptKeyError("Only long keyids (v4, 160bit) are supported")
+    if len(keyid.replace(" ", "").replace("0x", "")) < (160 / 4):
+        raise AptKeyIDTooShortError(
+            "Only fingerprints (v4, 160bit) are supported")
     # create a temp keyring dir
     tmp_secret_keyring = os.path.join(tmp_keyring_dir, "secring.gpg")
     tmp_keyring = os.path.join(tmp_keyring_dir, "pubring.gpg")
@@ -154,6 +160,12 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     if res != 0:
         raise AptKeyError("recv from '%s' failed for '%s'" % (
             keyserver, keyid))
+    # FIXME:
+    # - with gnupg 1.4.18 the downloaded key is actually checked(!),
+    #   i.e. gnupg will not import anything that the server sends
+    #   into the keyring, so the below checks are now redundant *if*
+    #   gnupg 1.4.18 is used
+
     # now export again using the long key id (to ensure that there is
     # really only this one key in our keyring) and not someone MITM us
     tmp_export_keyring = os.path.join(tmp_keyring_dir, "export-keyring.gpg")
@@ -172,6 +184,7 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
             "--keyring", tmp_export_keyring,
             "--fingerprint",
             "--batch",
+            "--fixed-list-mode",
             "--with-colons",
         ],
         stdout=subprocess.PIPE,
@@ -186,9 +199,11 @@ def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     # what gnupg is using)
     signing_key_fingerprint = keyid.replace("0x", "").upper()
     if got_fingerprint != signing_key_fingerprint:
+        # make the error match what gnupg >= 1.4.18 will output when
+        # it checks the key itself before importing it
         raise AptKeyError(
-            "Fingerprints do not match, not importing: '%s' != '%s'" % (
-                signing_key_fingerprint, got_fingerprint))
+            "recv from '%s' failed for '%s'" % (
+                keyserver, signing_key_fingerprint))
     # finally add it
     add_key_from_file(tmp_export_keyring)
 
@@ -248,14 +263,19 @@ def list_keys():
     # The output of `apt-key list` is difficult to parse since the
     # --with-colons parameter isn't user
     output = _call_apt_key_script("adv", "--with-colons", "--batch",
-                                  "--list-keys")
+                                  "--fixed-list-mode", "--list-keys")
     res = []
     for line in output.split("\n"):
         fields = line.split(":")
         if fields[0] == "pub":
-            key = TrustedKey(fields[9], fields[4][-8:], fields[5])
+            keyid = fields[4]
+        if fields[0] == "uid":
+            uid = fields[9]
+            creation_date = fields[5]
+            key = TrustedKey(uid, keyid, creation_date)
             res.append(key)
     return res
+
 
 if __name__ == "__main__":
     # Add some known keys we would like to see translated so that they get

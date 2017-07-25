@@ -21,6 +21,7 @@
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/algorithms.h>
+#include <apt-pkg/update.h>
 
 #include <Python.h>
 #include "progress.h"
@@ -238,7 +239,7 @@ static PyObject *PkgCacheGetFileList(PyObject *Self, void*) {
 static PyObject *PkgCacheGetIsMultiArch(PyObject *Self, void*) {
     pkgCache *Cache = GetCpp<pkgCache *>(Self);
     return PyBool_FromLong(Cache->MultiArchCache());
-} 
+}
 
 static PyGetSetDef PkgCacheGetSet[] = {
    {"depends_count",PkgCacheGetDependsCount,0,
@@ -594,9 +595,18 @@ PyTypeObject PyGroupList_Type =
     return Ret; \
 }
 
-MkGet(PackageGetName,PyString_FromString(Pkg.Name()))
-MkGet(PackageGetArch,PyString_FromString(Pkg.Arch()))
-MkGet(PackageGetSection,Safe_FromString(Pkg.Section()))
+MkGet(PackageGetName,CppPyString(Pkg.Name()))
+MkGet(PackageGetArch,CppPyString(Pkg.Arch()))
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+static PyObject *PackageGetSection(PyObject *Self,void*)
+{
+    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
+    if (PyErr_WarnEx(PyExc_DeprecationWarning, "Package.section is deprecated, use Version.section instead", 1) == -1)
+      return NULL;
+    return CppPyString(Pkg.Section());
+}
+#pragma GCC diagnostic pop
 MkGet(PackageGetRevDependsList,CppPyObject_NEW<RDepListStruct>(Owner,
                                &PyDependencyList_Type, Pkg.RevDependsList()))
 MkGet(PackageGetProvidesList,CreateProvides(Owner,Pkg.ProvidesList()))
@@ -605,7 +615,6 @@ MkGet(PackageGetInstState,MkPyNumber(Pkg->InstState))
 MkGet(PackageGetCurrentState,MkPyNumber(Pkg->CurrentState))
 MkGet(PackageGetID,MkPyNumber(Pkg->ID))
 #
-MkGet(PackageGetAuto,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Auto) != 0))
 MkGet(PackageGetEssential,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Essential) != 0))
 MkGet(PackageGetImportant,PyBool_FromLong((Pkg->Flags & pkgCache::Flag::Important) != 0))
 #undef MkGet
@@ -626,7 +635,7 @@ static PyObject *PackageGetFullName(PyObject *Self,PyObject *Args,PyObject *kwds
                                    &pretty) == 0)
       return 0;
 
-   
+
    return CppPyString(Pkg.FullName(pretty));
 }
 
@@ -706,9 +715,6 @@ static PyGetSetDef PackageGetSet[] = {
      "CURSTATE_UNPACKED of the apt_pkg module."},
     {"id",PackageGetID,0,
      "The numeric ID of the package"},
-    {"auto",PackageGetAuto,0,
-     "Ignore it, it does nothing. You want to use\n"
-     "DepCache.is_auto_installed instead."},
     {"essential",PackageGetEssential,0,
      "Boolean value determining whether the package is essential."},
     {"important",PackageGetImportant,0,
@@ -728,11 +734,8 @@ static PyGetSetDef PackageGetSet[] = {
 static PyObject *PackageRepr(PyObject *Self)
 {
    pkgCache::PkgIterator &Pkg = GetCpp<pkgCache::PkgIterator>(Self);
-
-   return PyString_FromFormat("<%s object: name:'%s' section: "
-                              "'%s' id:%u>", Self->ob_type->tp_name,
-                              Pkg.Name(), (Pkg.Section() ? Pkg.Section() : ""),
-                              Pkg->ID);
+   return PyString_FromFormat("<%s object: name:'%s' id:%u>", Self->ob_type->tp_name,
+                              Pkg.Name(), Pkg->ID);
 }
 
 static const char *package_doc =
@@ -782,8 +785,8 @@ PyTypeObject PyPackage_Type =
        return Ret; }
 
 Description_MkGet(DescriptionGetLanguageCode,
-                  PyString_FromString(Desc.LanguageCode()))
-Description_MkGet(DescriptionGetMd5,Safe_FromString(Desc.md5()))
+                  CppPyString(Desc.LanguageCode()))
+Description_MkGet(DescriptionGetMd5,CppPyString(Desc.md5()))
 #undef Description_MkGet
 
 static PyObject *DescriptionGetFileList(PyObject *Self,void*)
@@ -885,7 +888,7 @@ static PyObject *MakeDepends(PyObject *Owner,pkgCache::VerIterator &Ver,
       // Switch/create a new dict entry
       if (LastDepType != Start->Type || LastDep != 0)
       {
-	 PyObject *Dep = PyString_FromString(UntranslatedDepTypes[Start->Type]);
+	 PyObject *Dep = CppPyString(UntranslatedDepTypes[Start->Type]);
 	 LastDepType = Start->Type;
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -938,13 +941,13 @@ static inline pkgCache::VerIterator Version_GetVer(PyObject *Self) {
 
 // Version attributes.
 static PyObject *VersionGetVerStr(PyObject *Self, void*) {
-   return PyString_FromString(Version_GetVer(Self).VerStr());
+   return CppPyString(Version_GetVer(Self).VerStr());
 }
 static PyObject *VersionGetSection(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).Section());
+   return CppPyString(Version_GetVer(Self).Section());
 }
 static PyObject *VersionGetArch(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).Arch());
+   return CppPyString(Version_GetVer(Self).Arch());
 }
 static PyObject *VersionGetFileList(PyObject *Self, void*) {
    pkgCache::VerIterator &Ver = GetCpp<pkgCache::VerIterator>(Self);
@@ -997,7 +1000,7 @@ static PyObject *VersionGetPriority(PyObject *Self, void*) {
    return MkPyNumber(Version_GetVer(Self)->Priority);
 }
 static PyObject *VersionGetPriorityStr(PyObject *Self, void*) {
-   return Safe_FromString(Version_GetVer(Self).PriorityType());
+   return CppPyString(Version_GetVer(Self).PriorityType());
 }
 static PyObject *VersionGetDownloadable(PyObject *Self, void*) {
    return PyBool_FromLong(Version_GetVer(Self).Downloadable());
@@ -1159,61 +1162,61 @@ PyTypeObject PyVersion_Type =
 static PyObject *PackageFile_GetFileName(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.FileName());
+    return CppPyPath(File.FileName());
 }
 
 static PyObject *PackageFile_GetArchive(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Archive());
+    return CppPyString(File.Archive());
 }
 
 static PyObject *PackageFile_GetComponent(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Component());
+    return CppPyString(File.Component());
 }
 
 static PyObject *PackageFile_GetVersion(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Version());
+    return CppPyString(File.Version());
 }
 
 static PyObject *PackageFile_GetOrigin(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Origin());
+    return CppPyString(File.Origin());
 }
 
 static PyObject *PackageFile_GetLabel(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Label());
+    return CppPyString(File.Label());
 }
 
 static PyObject *PackageFile_GetArchitecture(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Architecture());
+    return CppPyString(File.Architecture());
 }
 
 static PyObject *PackageFile_GetCodename(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Codename());
+    return CppPyString(File.Codename());
 }
 
 static PyObject *PackageFile_GetSite(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.Site());
+    return CppPyString(File.Site());
 }
 
 static PyObject *PackageFile_GetIndexType(PyObject *Self,void*)
 {
     pkgCache::PkgFileIterator &File = GetCpp<pkgCache::PkgFileIterator>(Self);
-    return Safe_FromString(File.IndexType());
+    return CppPyString(File.IndexType());
 }
 static PyObject *PackageFile_GetSize(PyObject *Self,void*)
 {
@@ -1339,24 +1342,6 @@ static PyObject *DependencyRepr(PyObject *Self)
 	                          Dep.CompType());
 }
 
-static PyObject *DepSmartTargetPkg(PyObject *Self,PyObject *Args)
-{
-   if (PyArg_ParseTuple(Args,"") == 0)
-      return 0;
-
-   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
-
-   pkgCache::PkgIterator P;
-   if (Dep.SmartTargetPkg(P) == false)
-   {
-      Py_INCREF(Py_None);
-      return Py_None;
-   }
-
-   return CppPyObject_NEW<pkgCache::PkgIterator>(Owner,&PyPackage_Type,P);
-}
-
 static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 {
    if (PyArg_ParseTuple(Args,"") == 0)
@@ -1365,9 +1350,9 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    PyObject *Owner = GetOwner<pkgCache::DepIterator>(Self);
 
-   SPtr<pkgCache::Version *> Vers = Dep.AllTargets();
+   std::unique_ptr<pkgCache::Version *[]> Vers(Dep.AllTargets());
    PyObject *List = PyList_New(0);
-   for (pkgCache::Version **I = Vers; *I != 0; I++)
+   for (pkgCache::Version **I = Vers.get(); *I != 0; I++)
    {
       PyObject *Obj;
       Obj = CppPyObject_NEW<pkgCache::VerIterator>(Owner,&PyVersion_Type,
@@ -1380,13 +1365,10 @@ static PyObject *DepAllTargets(PyObject *Self,PyObject *Args)
 
 static PyMethodDef DependencyMethods[] =
 {
-   {"smart_target_pkg",DepSmartTargetPkg,METH_VARARGS,
-    "smart_target_pkg() -> apt_pkg.Package\n\n"
-    "Return the first package which provides a package with the name\n"
-    "of the target package."},
    {"all_targets",DepAllTargets,METH_VARARGS,
     "all_targets() -> list\n\n"
-    "A list of all apt_pkg.Version objects satisfying the dependency."},
+    "A list of all possible apt_pkg.Version objects which satisfy this\n"
+    "dependency."},
    {}
 };
 
@@ -1397,8 +1379,8 @@ static PyObject *DependencyGetTargetVer(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
    if (Dep->Version == 0)
-      return PyString_FromString("");
-   return PyString_FromString(Dep.TargetVer());
+      return CppPyString("");
+   return CppPyString(Dep.TargetVer());
 }
 
 static PyObject *DependencyGetTargetPkg(PyObject *Self,void*)
@@ -1428,19 +1410,25 @@ static PyObject *DependencyGetParentPkg(PyObject *Self,void*)
 static PyObject *DependencyGetCompType(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(Dep.CompType());
+   return CppPyString(Dep.CompType());
+}
+
+static PyObject *DependencyGetCompTypeDeb(PyObject *Self,void*)
+{
+   pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
+   return CppPyString(pkgCache::CompTypeDeb(Dep->CompareOp));
 }
 
 static PyObject *DependencyGetDepType(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(Dep.DepType());
+   return CppPyString(Dep.DepType());
 }
 
 static PyObject *DependencyGetDepTypeUntranslated(PyObject *Self,void*)
 {
    pkgCache::DepIterator &Dep = GetCpp<pkgCache::DepIterator>(Self);
-   return PyString_FromString(UntranslatedDepTypes[Dep->Type]);
+   return CppPyString(UntranslatedDepTypes[Dep->Type]);
 }
 
 static PyObject *DependencyGetDepTypeEnum(PyObject *Self,void*)
@@ -1457,8 +1445,17 @@ static PyObject *DependencyGetID(PyObject *Self,void*)
 
 static PyGetSetDef DependencyGetSet[] = {
    {"comp_type",DependencyGetCompType,0,
-    "The type of comparison, as a string, namely one of:\n"
-    "'<', '<=', '=', '!=', '>=', '>', ''."},
+    "The type of comparison in mathematical notation, as a string, namely one "
+    "of:\n"
+    "'<', '<=', '=', '!=', '>=', '>', ''.\n"
+    "The empty string will be returned in case of an unversioned dependency."},
+   {"comp_type_deb",DependencyGetCompTypeDeb,0,
+    "The type of comparison in Debian notation, as a string, namely one of:\n"
+    "'<<', '<=', '=', '!=', '>=', '>>', ''.\n"
+    "The empty string will be returned in case of an unversioned dependency.\n"
+    "For details see the Debian Policy Manual on the syntax of relationship "
+    "fields:\n"
+    "https://www.debian.org/doc/debian-policy/ch-relationships.html#s-depsyntax"},
    {"dep_type",DependencyGetDepType,0,
     "The type of the dependency; may be translated"},
    {"dep_type_untranslated",DependencyGetDepTypeUntranslated,0,
@@ -1482,9 +1479,8 @@ static PyGetSetDef DependencyGetSet[] = {
 static const char *dependency_doc =
     "Represent a dependency from one package version to a package,\n"
     "and (optionally) a version relation (e.g. >= 1). Dependency\n"
-    "objects also provide useful functions like all_targets() or\n"
-    "smart_target_pkg() for selecting packages to satisfy the\n"
-    "dependency.";
+    "objects also provide useful functions like all_targets()\n"
+    "for selecting packages to satisfy the dependency.";
 
 PyTypeObject PyDependency_Type =
 {

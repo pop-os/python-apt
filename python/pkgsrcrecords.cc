@@ -75,10 +75,34 @@ static PyObject *PkgSrcRecordsRestart(PyObject *Self,PyObject *Args)
    return HandleErrors(Py_None);
 }
 
+static char *doc_PkgSrcRecordsStep =
+    "step() -> bool\n\n"
+    "Go to the source package. Each call moves\n"
+    "the position of the records parser forward. If there are no\n"
+    "more records, return None. If the lookup failed this way,\n"
+    "access to any of the attributes will result in an AttributeError.";
+static PyObject *PkgSrcRecordsStep(PyObject *Self,PyObject *Args)
+{
+   PkgSrcRecordsStruct &Struct = GetCpp<PkgSrcRecordsStruct>(Self);
+
+   if (PyArg_ParseTuple(Args,"") == 0)
+      return 0;
+
+   Struct.Last = (pkgSrcRecords::Parser*)Struct.Records->Step();
+   if (Struct.Last == 0) {
+      Struct.Records->Restart();
+      Py_INCREF(Py_None);
+      return HandleErrors(Py_None);
+   }
+
+   return PyBool_FromLong(1);
+}
+
 static PyMethodDef PkgSrcRecordsMethods[] =
 {
    {"lookup",PkgSrcRecordsLookup,METH_VARARGS,doc_PkgSrcRecordsLookup},
    {"restart",PkgSrcRecordsRestart,METH_VARARGS,doc_PkgSrcRecordsRestart},
+   {"step",PkgSrcRecordsStep,METH_VARARGS,doc_PkgSrcRecordsStep},
    {}
 };
 
@@ -141,15 +165,15 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
       return 0;
    PyObject *List = PyList_New(0);
 
-   vector<pkgSrcRecords::File> f;
-   if(!Struct.Last->Files(f))
+   std::vector<pkgSrcRecords::File2> f;
+   if(!Struct.Last->Files2(f))
       return NULL; // error
 
    PyObject *v;
    for(unsigned int i=0;i<f.size();i++) {
       v = Py_BuildValue("(sNss)",
 			f[i].MD5Hash.c_str(),
-			MkPyNumber(f[i].Size),
+			MkPyNumber(f[i].FileSize),
 			f[i].Path.c_str(),
 			f[i].Type.c_str());
       PyList_Append(List, v);
@@ -168,14 +192,14 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
    PyObject *LastDep = 0;
    PyObject *OrGroup = 0;
    
-   vector<pkgSrcRecords::Parser::BuildDepRec> bd;
+   std::vector<pkgSrcRecords::Parser::BuildDepRec> bd;
    if(!Struct.Last->BuildDepends(bd, false /* arch-only*/))
       return NULL; // error
    
    PyObject *v;
    for(unsigned int i=0;i<bd.size();i++) {
      
-     Dep = PyString_FromString(pkgSrcRecords::Parser::BuildDepType(bd[i].Type));
+     Dep = CppPyString(pkgSrcRecords::Parser::BuildDepType(bd[i].Type));
      
 	 LastDep = PyDict_GetItem(Dict,Dep);
 	 if (LastDep == 0)
@@ -196,7 +220,7 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
 			bd[i].Version.c_str(), pkgCache::CompType(bd[i].Op));
 	    PyList_Append(OrGroup, v);
 	    Py_DECREF(v);
-	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i == bd.size())
+	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i + 1 >= bd.size())
 	       break;
         i++;
      }

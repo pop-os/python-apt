@@ -27,7 +27,7 @@ import os
 import sys
 
 from apt_pkg import gettext as _
-from io import StringIO
+from io import BytesIO
 
 
 class NoDebArchiveException(IOError):
@@ -92,7 +92,7 @@ class DebPackage(object):
 
     @property
     def control_filelist(self):
-        """ return the list of files in control.tar.gt """
+        """ return the list of files in control.tar.gz """
         control = []
         try:
             self._debfile.control.go(
@@ -119,7 +119,7 @@ class DebPackage(object):
         # now do the real multiarch checking
         multiarch_pkgname = "%s:%s" % (pkgname, self._multiarch)
         # the upper layers will handle this
-        if not multiarch_pkgname in self._cache:
+        if multiarch_pkgname not in self._cache:
             return multiarch_pkgname
         # now check the multiarch state
         cand = self._cache[multiarch_pkgname].candidate._cand
@@ -131,7 +131,7 @@ class DebPackage(object):
         # for conflicts we need a special case here, any not multiarch enabled
         # package has a implicit conflict
         if (in_conflict_checking and
-            not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
+                not (cand.multi_arch & cand.MULTI_ARCH_SAME)):
             return pkgname
         return multiarch_pkgname
 
@@ -152,7 +152,7 @@ class DebPackage(object):
             depname = self._maybe_append_multiarch_suffix(depname)
 
             # check for virtual pkgs
-            if not depname in self._cache:
+            if depname not in self._cache:
                 if self._cache.is_virtual_package(depname):
                     self._dbg(
                         3, "_is_or_group_satisfied(): %s is virtual dep" %
@@ -190,7 +190,7 @@ class DebPackage(object):
             depname = self._maybe_append_multiarch_suffix(depname)
 
             # if we don't have it in the cache, it may be virtual
-            if not depname in self._cache:
+            if depname not in self._cache:
                 if not self._cache.is_virtual_package(depname):
                     continue
                 providers = self._cache.get_providing_packages(depname)
@@ -245,7 +245,7 @@ class DebPackage(object):
         #print "pkgver: %s " % pkgver
         #print "oper: %s " % oper
         if (apt_pkg.check_dep(pkgver, oper, ver) and not
-            self.replaces_real_pkg(pkgname, oper, ver)):
+                self.replaces_real_pkg(pkgname, oper, ver)):
             self._failure_string += _("Conflicts with the installed package "
                                       "'%s'") % pkg.name
             self._dbg(3, "conflicts with installed pkg '%s'" % pkg.name)
@@ -266,7 +266,7 @@ class DebPackage(object):
                 depname, in_conflict_checking=True)
 
             # check conflicts with virtual pkgs
-            if not depname in self._cache:
+            if depname not in self._cache:
                 # FIXME: we have to check for virtual replaces here as
                 #        well (to pass tests/gdebi-test8.deb)
                 if self._cache.is_virtual_package(depname):
@@ -430,7 +430,7 @@ class DebPackage(object):
                                 self._cache.op_progress.done()
                                 return False
                         if (c_or.target_pkg.name in provides and
-                            self.pkgname != pkg.name):
+                                self.pkgname != pkg.name):
                             self._dbg(
                                 2, "would break (conflicts) %s" % provides)
                             self._failure_string += _(
@@ -456,6 +456,11 @@ class DebPackage(object):
         """
         self._dbg(3, "compare_to_version_in_cache")
         pkgname = self._sections["Package"]
+        architecture = self._sections["Architecture"]
+
+        # Arch qualify the package name
+        pkgname = ":".join([pkgname, architecture])
+
         debver = self._sections["Version"]
         self._dbg(1, "debver: %s" % debver)
         if pkgname in self._cache:
@@ -476,14 +481,14 @@ class DebPackage(object):
                     return self.VERSION_OUTDATED
         return self.VERSION_NONE
 
-    def check(self):
+    def check(self, allow_downgrade=False):
         """Check if the package is installable."""
         self._dbg(3, "check")
 
         self._check_was_run = True
 
         # check arch
-        if not "Architecture" in self._sections:
+        if "Architecture" not in self._sections:
             self._dbg(1, "ERROR: no architecture field")
             self._failure_string = _("No Architecture field in the package")
             return False
@@ -495,11 +500,14 @@ class DebPackage(object):
                 self._dbg(1, "Found multiarch arch: '%s'" % arch)
             else:
                 self._dbg(1, "ERROR: Wrong architecture dude!")
-                self._failure_string = _("Wrong architecture '%s'") % arch
+                self._failure_string = _("Wrong architecture '%s' "
+                                         "-- Run dpkg --add-architecture to "
+                                         "add it and update afterwards") % arch
                 return False
 
         # check version
-        if self.compare_to_version_in_cache() == self.VERSION_OUTDATED:
+        if (not allow_downgrade and
+            self.compare_to_version_in_cache() == self.VERSION_OUTDATED):
             if self._cache[self.pkgname].installed:
                 # the deb is older than the installed
                 self._failure_string = _(
@@ -631,9 +639,9 @@ class DebPackage(object):
         data = part.extractdata(name)
         # check for zip content
         if name.endswith(".gz") and auto_decompress:
-            io = StringIO(data)
+            io = BytesIO(data)
             gz = gzip.GzipFile(fileobj=io)
-            data = _("Automatically decompressed:\n\n")
+            data = _("Automatically decompressed:\n\n").encode("utf-8")
             data += gz.read()
         # auto-convert to hex
         try:
@@ -704,28 +712,37 @@ class DscSrcPackage(DebPackage):
         """Return the dependencies of the package"""
         return self._conflicts
 
+    @property
+    def filelist(self):
+        """Return the list of files associated with this dsc file"""
+        # Files stanza looks like (hash, size, filename, ...)
+        return self._sections['Files'].split()[2::3]
+
     def open(self, file):
         """Open the package."""
         depends_tags = ["Build-Depends", "Build-Depends-Indep"]
         conflicts_tags = ["Build-Conflicts", "Build-Conflicts-Indep"]
-        fobj = open(file)
+        fd = apt_pkg.open_maybe_clear_signed_file(file)
+        fobj = os.fdopen(fd)
         tagfile = apt_pkg.TagFile(fobj)
         try:
             for sec in tagfile:
                 for tag in depends_tags:
-                    if not tag in sec:
+                    if tag not in sec:
                         continue
                     self._depends.extend(apt_pkg.parse_src_depends(sec[tag]))
                 for tag in conflicts_tags:
-                    if not tag in sec:
+                    if tag not in sec:
                         continue
                     self._conflicts.extend(apt_pkg.parse_src_depends(sec[tag]))
                 if 'Source' in sec:
                     self.pkgname = sec['Source']
                 if 'Binary' in sec:
-                    self.binaries = sec['Binary'].split(', ')
-                if 'Version' in sec:
-                    self._sections['Version'] = sec['Version']
+                    self.binaries = [b.strip() for b in
+                                     sec['Binary'].split(',')]
+                for tag in sec.keys():
+                    if tag in sec:
+                        self._sections[tag] = sec[tag]
         finally:
             del tagfile
             fobj.close()
@@ -786,6 +803,7 @@ def _test():
     s = DscSrcPackage(cache=cache)
     d = "libc6 (>= 2.3.2), libaio (>= 0.3.96) | libaio1 (>= 0.3.96)"
     print(s._satisfy_depends(apt_pkg.parse_depends(d, False)))
+
 
 if __name__ == "__main__":
     _test()

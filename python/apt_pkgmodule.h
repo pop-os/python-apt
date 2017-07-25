@@ -43,6 +43,10 @@ PyObject *ParseCommandLine(PyObject *Self,PyObject *Args);
 // Tag File Stuff
 extern PyTypeObject PyTagSection_Type;
 extern PyTypeObject PyTagFile_Type;
+extern PyTypeObject PyTag_Type;
+extern PyTypeObject PyTagRewrite_Type;
+extern PyTypeObject PyTagRename_Type;
+extern PyTypeObject PyTagRemove_Type;
 extern char *doc_ParseSection;
 extern char *doc_ParseTagFile;
 extern char *doc_RewriteSection;
@@ -126,8 +130,8 @@ extern PyTypeObject PyMetaIndex_Type;
 // HashString
 extern PyTypeObject PyHashString_Type;
 
-// IndexRecord
-extern PyTypeObject PyIndexRecords_Type;
+extern PyTypeObject PyHashStringList_Type;
+
 
 // Policy
 extern PyTypeObject PyPolicy_Type;
@@ -157,7 +161,6 @@ extern PyTypeObject PyOrderList_Type;
 # define PyGroup_ToCpp             GetCpp<pkgCache::GrpIterator>
 # define PyHashes_ToCpp            GetCpp<Hashes>
 # define PyHashString_ToCpp        GetCpp<HashString*>
-# define PyIndexRecords_ToCpp      GetCpp<indexRecords*>
 # define PyMetaIndex_ToCpp         GetCpp<metaIndex*>
 # define PyPackage_ToCpp           GetCpp<pkgCache::PkgIterator>
 # define PyPackageFile_ToCpp       GetCpp<pkgCache::PkgFileIterator>
@@ -190,7 +193,6 @@ PyObject* PyDependency_FromCpp(pkgCache::DepIterator const &obj, bool Delete, Py
 PyObject* PyDescription_FromCpp(pkgCache::DescIterator const &obj, bool Delete, PyObject *Owner);
 PyObject* PyHashes_FromCpp(Hashes const &obj, bool Delete, PyObject *Owner);
 PyObject* PyHashString_FromCpp(HashString* const &obj, bool Delete, PyObject *Owner);
-PyObject* PyIndexRecords_FromCpp(indexRecords* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyMetaIndex_FromCpp(metaIndex* const &obj, bool Delete, PyObject *Owner);
 PyObject* PyPackage_FromCpp(pkgCache::PkgIterator const &obj, bool Delete, PyObject *Owner);
 PyObject* PyGroup_FromCpp(pkgCache::GrpIterator const &obj, bool Delete, PyObject *Owner);

@@ -22,7 +22,7 @@ static PyObject *IndexFileArchiveURI(PyObject *Self,PyObject *Args)
 
    if (PyArg_ParseTuple(Args, "O&", PyApt_Filename::Converter, &path) == 0)
       return 0;
-   return HandleErrors(Safe_FromString(File->ArchiveURI(path).c_str()));
+   return HandleErrors(CppPyString(File->ArchiveURI(path).c_str()));
 }
 
 static PyMethodDef IndexFileMethods[] =
@@ -35,10 +35,10 @@ static PyMethodDef IndexFileMethods[] =
 
 #define File (GetCpp<pkgIndexFile*>(Self))
 static PyObject *IndexFileGetLabel(PyObject *Self,void*) {
-   return Safe_FromString(File->GetType()->Label);
+   return CppPyString(File->GetType()->Label);
 }
 static PyObject *IndexFileGetDescribe(PyObject *Self,void*) {
-   return Safe_FromString(File->Describe().c_str());
+   return CppPyString(File->Describe().c_str());
 }
 static PyObject *IndexFileGetExists(PyObject *Self,void*) {
    return PyBool_FromLong((File->Exists()));

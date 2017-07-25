@@ -1,21 +1,21 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?rev=59
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
 Copyright: © 2004-2009 Canonical Ltd.
            © 2009 Julian Andres Klode <jak@debian.org>
 License: GPL-2+
 
-Files: tests/test_all.py, tests/test_hashes.py, utils/doclint.py
+Files: tests/test_all.py tests/test_hashes.py
 Copyright: © 2009 Julian Andres Klode <jak@debian.org>
-License:
+License: Permissive
  Copying and distribution of this file, with or without modification,
  are permitted in any medium without royalty provided the copyright
  notice and this notice are preserved.
 
 Files: aptsources/*.py
 Copyright: © 2004-2009 Canonical Ltd.
-Copyright: © 2005 Gustavo Noronha Silva
-Copyright: © 2006-2007 Sebastian Heinlein
+           © 2005 Gustavo Noronha Silva
+           © 2006-2007 Sebastian Heinlein
 License: GPL-2+
 
 Files: doc/source/*
@@ -46,7 +46,7 @@ Files: po/fr.po
 Copyright: © 2007 Hugues NAULET <hnaulet@gmail.com>
 License: GPL-2+
 
-Files: po/hu.po, po/lt.po, po/pt.po, po/ro.po, po/rw.po, po/sv.po, po/uk.po,
+Files: po/hu.po po/lt.po po/pt.po po/ro.po po/sv.po po/uk.po
        po/zh_HK.po
 Copyright: © 2005-2006 Free Software Foundation
 License: GPL-2+

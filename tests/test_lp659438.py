@@ -30,15 +30,17 @@ import unittest
 import apt_pkg
 import apt
 
+import testcommon
 
-class RegressionTestCase(unittest.TestCase):
+
+class RegressionTestCase(testcommon.TestCase):
 
     """Test suite for LP: #981896, LP: #659438
     'Cannot locate a file for package X'
     """
 
     def setUp(self):
-        apt_pkg.init_config()
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.clear("APT::Update::Post-Invoke")
         apt_pkg.config.clear("APT::Update::Post-Invoke-Success")
         self.chroot_path = chroot_path = tempfile.mkdtemp()
@@ -55,7 +57,8 @@ Architecture: all""")
         sources_list_path = apt_pkg.config.find_file("Dir::Etc::sourcelist")
         repo_path = os.path.abspath("./data/test-repo")
         with open(sources_list_path, "w") as sources_list:
-            sources_list.write("deb copy:%s /\n" % repo_path)
+            sources_list.write("deb [allow-insecure=yes] copy:%s /\n"
+                               % repo_path)
         # os.makedirs(os.path.join(chroot_path, "etc/apt/sources.list.d/"))
         self.cache.update(sources_list=sources_list_path)
         self.cache.open()
@@ -70,6 +73,7 @@ Architecture: all""")
         """Test that we survive a package in require reinstallation state"""
         # this should be 82324L but python3.2 gets unhappy about the "L"
         self.assertEqual(self.cache.required_download, 82324)
+
 
 if __name__ == "__main__":
     unittest.main()

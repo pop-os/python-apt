@@ -159,6 +159,12 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
 
         Return False if the user asked to cancel the whole Acquire process."""
         base.AcquireProgress.pulse(self, owner)
+        # only show progress on a tty to not clutter log files etc
+        if (hasattr(self._file, "fileno") and
+                not os.isatty(self._file.fileno())):
+            return True
+
+        # calculate progress
         percent = (((self.current_bytes + self.current_items) * 100.0) /
                         float(self.total_bytes + self.total_items))
 
@@ -188,8 +194,8 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
                                     worker.current_item.shortdesc)
             else:
                 val += ' [%s' % worker.current_item.description
-            if worker.current_item.owner.mode:
-                val += ' %s' % worker.current_item.owner.mode
+            if worker.current_item.owner.active_subprocess:
+                val += ' %s' % worker.current_item.owner.active_subprocess
 
             val += ' %sB' % apt_pkg.size_to_str(worker.current_size)
 

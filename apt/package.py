@@ -87,8 +87,16 @@ class BaseDependency(object):
         def __ne__(self, other):
             return not self.__eq__(other)
 
-    def __init__(self, dep):
+    def __init__(self, version, dep):
+        self._version = version  # apt.package.Version
         self._dep = dep  # apt_pkg.Dependency
+
+    def __str__(self):
+        return '%s: %s' % (self.rawtype, self.rawstr)
+
+    def __repr__(self):
+        return ('<BaseDependency: name:%r relation:%r version:%r rawtype:%r>'
+                % (self.name, self.relation, self.version, self.rawtype))
 
     @property
     def name(self):
@@ -97,19 +105,78 @@ class BaseDependency(object):
 
     @property
     def relation(self):
-        """The relation (<, <=, !=, =, >=, >, ).
+        """The relation (<, <=, =, !=, >=, >, '') in mathematical notation.
 
-        Note that the empty string is a valid string as well, if no version
-        is specified.
+        The empty string will be returned in case of an unversioned dependency.
         """
         return self.__dstr(self._dep.comp_type)
 
     @property
-    def version(self):
-        """The target version or None.
+    def relation_deb(self):
+        """The relation (<<, <=, =, !=, >=, >>, '') in Debian notation.
 
-        It is None if and only if relation is the empty string."""
+        The empty string will be returned in case of an unversioned dependency.
+        For more details see the Debian Policy Manual on the syntax of
+        relationship fields:
+        https://www.debian.org/doc/debian-policy/ch-relationships.html#s-depsyntax  # noqa
+
+        .. versionadded:: 1.0.0
+        """
+        return self._dep.comp_type_deb
+
+    @property
+    def version(self):
+        """The target version or an empty string.
+
+        Note that the version is only an empty string in case of an unversioned
+        dependency. In this case the relation is also an empty string.
+        """
         return self._dep.target_ver
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this dependency.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        _tvers = self._dep.all_targets()  # [apt_pkg.Version, ...]
+        for _tver in _tvers:  # apt_pkg.Version
+            _pkg = _tver.parent_pkg  # apt_pkg.Package
+            cache = self._version.package._pcache  # apt.cache.Cache
+            pkg = cache._rawpkg_to_pkg(_pkg)  # apt.package.Package
+            tver = Version(pkg, _tver)  # apt.package.Version
+            tvers.append(tver)
+        return tvers
+
+    @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
+
+    @property
+    def rawstr(self):
+        """String represenation of the dependency.
+
+        Returns the string representation of the dependency as it would be
+        written in the debian/control file.  The string representation does not
+        include the type of the dependency.
+
+        Example for an unversioned dependency:
+          python3
+
+        Example for a versioned dependency:
+          python3 >= 3.2
+
+        .. versionadded:: 1.0.0
+        """
+        if self.version:
+            return '%s %s %s' % (self.name, self.relation_deb, self.version)
+        else:
+            return self.name
 
     @property
     def rawtype(self):
@@ -127,25 +194,80 @@ class BaseDependency(object):
         """Whether this is a PreDepends."""
         return self._dep.dep_type_untranslated == 'PreDepends'
 
-    def __repr__(self):
-        return ('<BaseDependency: name:%r relation:%r version:%r preDepend:%r>'
-                % (self.name, self.relation, self.version, self.pre_depend))
-
 
 class Dependency(list):
     """Represent an Or-group of dependencies.
 
     Attributes defined here:
         or_dependencies - The possible choices
+        rawstr - String represenation of the Or-group of dependencies
+        rawtype - The type of the dependencies in the Or-group
+        target_version - A list of Versions which satisfy this Or-group of deps
     """
 
-    def __init__(self, alternatives):
-        super(Dependency, self).__init__()
-        self.extend(alternatives)
+    def __init__(self, version, base_deps, rawtype):
+        super(Dependency, self).__init__(base_deps)
+        self._version = version  # apt.package.Version
+        self._rawtype = rawtype
+
+    def __str__(self):
+        return '%s: %s' % (self.rawtype, self.rawstr)
+
+    def __repr__(self):
+        return '<Dependency: [%s]>' % (', '.join(repr(bd) for bd in self))
 
     @property
     def or_dependencies(self):
         return self
+
+    @property
+    def rawstr(self):
+        """String represenation of the Or-group of dependencies.
+
+        Returns the string representation of the Or-group of dependencies as it
+        would be written in the debian/control file.  The string representation
+        does not include the type of the Or-group of dependencies.
+
+        Example:
+          python2 >= 2.7 | python3
+
+        .. versionadded:: 1.0.0
+        """
+        return ' | '.join(bd.rawstr for bd in self)
+
+    @property
+    def rawtype(self):
+        """Type of the Or-group of dependency.
+
+        This should be one of 'Breaks', 'Conflicts', 'Depends', 'Enhances',
+        'PreDepends', 'Recommends', 'Replaces', 'Suggests'.
+
+        Additional types might be added in the future.
+
+        .. versionadded:: 1.0.0
+        """
+        return self._rawtype
+
+    @property
+    def target_versions(self):
+        """A list of all Version objects which satisfy this Or-group of deps.
+
+        .. versionadded:: 1.0.0
+        """
+        tvers = []
+        for bd in self:  # apt.package.Dependency
+            for tver in bd.target_versions:  # apt.package.Version
+                if tver not in tvers:
+                    tvers.append(tver)
+        return tvers
+
+    @property
+    def installed_target_versions(self):
+        """A list of all installed Version objects which satisfy this dep.
+
+        .. versionadded:: 1.0.0
+        """
+        return [tver for tver in self.target_versions if tver.is_installed]
 
 
 class Origin(object):
@@ -255,40 +377,48 @@ class Version(object):
         self._cand = cand
 
     def _cmp(self, other):
+        """Compares against another apt.Version object or a version string.
+
+        This method behaves like Python 2's cmp builtin and returns an integer
+        according to the outcome.  The return value is negative in case of
+        self < other, zero if self == other and positive if self > other.
+
+        The comparison includes the package name and architecture if other is
+        an apt.Version object.  If other isn't an apt.Version object it'll be
+        assumed that other is a version string (without package name/arch).
+
+        .. versionchanged:: 1.0.0
+        """
+        # Assume that other is an apt.Version object.
         try:
+            self_name = self.package.fullname
+            other_name = other.package.fullname
+            if self_name < other_name:
+                return -1
+            elif self_name > other_name:
+                return 1
             return apt_pkg.version_compare(self._cand.ver_str, other.version)
         except AttributeError:
-            return apt_pkg.version_compare(self._cand.ver_str, other)
+            # Assume that other is a string that only contains the version.
+            try:
+                return apt_pkg.version_compare(self._cand.ver_str, other)
+            except TypeError:
+                return NotImplemented
 
     def __eq__(self, other):
-        try:
-            return self._cmp(other) == 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) == 0
 
     def __ge__(self, other):
-        try:
-            return self._cmp(other) >= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) >= 0
 
     def __gt__(self, other):
-        try:
-            return self._cmp(other) > 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) > 0
 
     def __le__(self, other):
-        try:
-            return self._cmp(other) <= 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) <= 0
 
     def __lt__(self, other):
-        try:
-            return self._cmp(other) < 0
-        except TypeError:
-            return NotImplemented
+        return self._cmp(other) < 0
 
     def __ne__(self, other):
         try:
@@ -298,6 +428,9 @@ class Version(object):
 
     def __hash__(self):
         return self._cand.hash
+
+    def __str__(self):
+        return '%s=%s' % (self.package.name, self.version)
 
     def __repr__(self):
         return '<Version: package:%r version:%r>' % (self.package.name,
@@ -340,6 +473,15 @@ class Version(object):
     def downloadable(self):
         """Return whether the version of the package is downloadable."""
         return bool(self._cand.downloadable)
+
+    @property
+    def is_installed(self):
+        """Return wether this version of the package is currently installed.
+
+        .. versionadded:: 1.0.0
+        """
+        inst_ver = self.package.installed
+        return inst_ver and inst_ver._cand.id == self._cand.id
 
     @property
     def version(self):
@@ -450,7 +592,14 @@ class Version(object):
         return Record(self._records.record)
 
     def get_dependencies(self, *types):
-        """Return a list of Dependency objects for the given types."""
+        """Return a list of Dependency objects for the given types.
+
+        Multiple types can be specified. Possible types are:
+        'Breaks', 'Conflicts', 'Depends', 'Enhances', 'PreDepends',
+        'Recommends', 'Replaces', 'Suggests'
+
+        Additional types might be added in the future.
+        """
         depends_list = []
         depends = self._cand.depends_list
         for type_ in types:
@@ -458,8 +607,8 @@ class Version(object):
                 for dep_ver_list in depends[type_]:
                     base_deps = []
                     for dep_or in dep_ver_list:
-                        base_deps.append(BaseDependency(dep_or))
-                    depends_list.append(Dependency(base_deps))
+                        base_deps.append(BaseDependency(self, dep_or))
+                    depends_list.append(Dependency(self, base_deps, type_))
             except KeyError:
                 pass
         return depends_list
@@ -691,6 +840,9 @@ class VersionList(Sequence):
                     return Version(self._package, ver)
         raise KeyError("Version: %r not found." % (item))
 
+    def __str__(self):
+        return '[%s]' % (', '.join(str(ver) for ver in self))
+
     def __repr__(self):
         return '<VersionList: %r>' % self.keys()
 
@@ -741,6 +893,9 @@ class Package(object):
         self._pcache = pcache           # python cache in cache.py
         self._changelog = ""            # Cached changelog
 
+    def __str__(self):
+        return self.name
+
     def __repr__(self):
         return '<Package: name:%r architecture=%r id:%r>' % (
             self._pkg.name, self._pkg.architecture, self._pkg.id)
@@ -785,6 +940,7 @@ class Package(object):
         as :attr:`shortname`
 
         .. versionchanged:: 0.7.100.3
+
         As part of multi-arch, this field now may include architecture
         information.
         """
@@ -904,7 +1060,7 @@ class Package(object):
         Return a list of unicode names of the files which have
         been installed by this package
         """
-        for name in self.shortname, self.fullname:
+        for name in self.name, self.fullname:
             path = "/var/lib/dpkg/info/%s.list" % name
             try:
                 with open(path, "rb") as file_list:
@@ -1059,11 +1215,15 @@ class Package(object):
                 self._changelog = changelog
 
             except HTTPError:
-                res = _("The list of changes is not available yet.\n\n"
-                        "Please use http://launchpad.net/ubuntu/+source/%s/"
-                        "%s/+changelog\n"
-                        "until the changes become available or try again "
-                        "later.") % (src_pkg, src_ver)
+                if self.candidate.origins[0].origin == "Ubuntu":
+                    res = _("The list of changes is not available yet.\n\n"
+                            "Please use "
+                            "http://launchpad.net/ubuntu/+source/%s/"
+                            "%s/+changelog\n"
+                            "until the changes become available or try again "
+                            "later.") % (src_pkg, src_ver)
+                else:
+                    res = _("The list of changes is not available")
                 return res if isinstance(res, unicode) else res.decode("utf-8")
             except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
@@ -1157,7 +1317,7 @@ class Package(object):
             self.mark_auto(auto)
         else:
             # FIXME: we may want to throw a exception here
-            sys.stderr.write(("MarkUpgrade() called on a non-upgrable pkg: "
+            sys.stderr.write(("MarkUpgrade() called on a non-upgradeable pkg: "
                               "'%s'\n") % self._pkg.name)
 
     def mark_auto(self, auto=True):
@@ -1236,6 +1396,7 @@ def _test():
                     print("Error trying to remove: %s " % name)
         print("Broken: %s " % cache._depcache.broken_count)
         print("DelCount: %s " % cache._depcache.del_count)
+
 
 # self-test
 if __name__ == "__main__":

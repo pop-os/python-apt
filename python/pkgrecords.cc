@@ -68,19 +68,45 @@ static inline PkgRecordsStruct &GetStruct(PyObject *Self,char *name) {
 
 static PyObject *PkgRecordsGetFileName(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"FileName");
-   return (Struct.Last != 0) ? CppPyString(Struct.Last->FileName()) : 0;
+   return (Struct.Last != 0) ? CppPyPath(Struct.Last->FileName()) : 0;
+}
+static PyObject *PkgRecordsGetHashes(PyObject *Self,void*) {
+APT_IGNORE_DEPRECATED_PUSH
+   PkgRecordsStruct &Struct = GetStruct(Self,"Hashes");
+   if (Struct.Last == 0)
+      return 0;
+
+   auto py = CppPyObject_NEW<HashStringList> (nullptr, &PyHashStringList_Type);
+   py->Object = Struct.Last->Hashes();
+   return py;
+APT_IGNORE_DEPRECATED_POP
 }
 static PyObject *PkgRecordsGetMD5Hash(PyObject *Self,void*) {
+APT_IGNORE_DEPRECATED_PUSH
    PkgRecordsStruct &Struct = GetStruct(Self,"MD5Hash");
+   if (PyErr_WarnEx(PyExc_DeprecationWarning,
+       "MD5Hash is deprecated, use Hashes instead", 1) == -1)
+      return NULL;
    return (Struct.Last != 0) ? CppPyString(Struct.Last->MD5Hash()) : 0;
+APT_IGNORE_DEPRECATED_POP
 }
 static PyObject *PkgRecordsGetSHA1Hash(PyObject *Self,void*) {
+APT_IGNORE_DEPRECATED_PUSH
    PkgRecordsStruct &Struct = GetStruct(Self,"SHA1Hash");
+   if (PyErr_WarnEx(PyExc_DeprecationWarning,
+       "SHA1Hash is deprecated, use Hashes instead", 1) == -1)
+      return NULL;
    return (Struct.Last != 0) ? CppPyString(Struct.Last->SHA1Hash()) : 0;
+APT_IGNORE_DEPRECATED_POP
 }
 static PyObject *PkgRecordsGetSHA256Hash(PyObject *Self,void*) {
+APT_IGNORE_DEPRECATED_PUSH
    PkgRecordsStruct &Struct = GetStruct(Self,"SHA256Hash");
+   if (PyErr_WarnEx(PyExc_DeprecationWarning,
+       "SHA256Hash is deprecated, use Hashes instead", 1) == -1)
+      return NULL;
    return (Struct.Last != 0) ? CppPyString(Struct.Last->SHA256Hash()) : 0;
+APT_IGNORE_DEPRECATED_POP
 }
 static PyObject *PkgRecordsGetSourcePkg(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"SourcePkg");
@@ -126,6 +152,8 @@ static PyGetSetDef PkgRecordsGetSet[] = {
    {"long_desc",PkgRecordsGetLongDesc,0,
     "The long description of the packages; i.e. all lines in the\n"
     "'Description' field except for the first one."},
+   {"hashes",PkgRecordsGetHashes,0,
+    "The hashes of the packages, as a HashStringList"},
    {"md5_hash",PkgRecordsGetMD5Hash,0,
     "The MD5 hash value of the package, as stored in the 'MD5Sum' field."},
    {"maintainer",PkgRecordsGetMaintainer,0,

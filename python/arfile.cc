@@ -33,10 +33,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <array>
 
 static PyObject *armember_get_name(PyObject *self, void *closure)
 {
-    return CppPyString(GetCpp<ARArchive::Member*>(self)->Name);
+    return CppPyPath(GetCpp<ARArchive::Member*>(self)->Name);
 }
 
 static PyObject *armember_get_mtime(PyObject *self, void *closure)
@@ -179,10 +180,22 @@ static PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
         PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
+    if (member->Size > SIZE_MAX) {
+        PyErr_Format(PyExc_MemoryError,
+                     "Member '%s' is too large to read into memory",name.path);
+        return 0;
+    }
     if (!self->Fd.Seek(member->Start))
         return HandleErrors();
 
-    char* value = new char[member->Size];
+    char* value;
+    try {
+        value = new char[member->Size];
+    } catch (std::bad_alloc&) {
+        PyErr_Format(PyExc_MemoryError,
+                     "Member '%s' is too large to read into memory",name.path);
+        return 0;
+    }
     self->Fd.Read(value, member->Size, true);
     PyObject *result = PyBytes_FromStringAndSize(value, member->Size);
     delete[] value;
@@ -220,15 +233,15 @@ static PyObject *_extract(FileFd &Fd, const ARArchive::Member *member,
 
     // Read 4 KiB from the file, until all of the file is read. Deallocated
     // automatically when the function returns.
-    SPtrArray<char> value = new char[4096];
-    unsigned long size = member->Size;
-    unsigned long read = 4096;
+    std::array<char, 4096> value;
+    unsigned long long size = member->Size;
+    unsigned long long read = 4096;
     while (size > 0) {
         if (size < read)
             read = size;
-        if (!Fd.Read(value, read, true))
+        if (!Fd.Read(value.data(), read, true))
             return HandleErrors();
-        if (write(outfd, value, read) != (signed)read)
+        if (write(outfd, value.data(), read) != (signed long long)read)
             return PyErr_SetFromErrnoWithFilename(PyExc_OSError, outfile);
         size -= read;
     }
@@ -581,7 +594,7 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 
     const ARArchive::Member *member = self->Object->FindMember("debian-binary");
     if (!member)
-        return PyErr_Format(PyExc_SystemError, "No debian archive, missing %s",
+        return PyErr_Format(PyAptError, "No debian archive, missing %s",
                             "debian-binary");
 
     if (!self->Fd.Seek(member->Start))

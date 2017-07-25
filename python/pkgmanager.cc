@@ -148,9 +148,9 @@ struct CppPyRef {
 };
 
 class PyPkgManager : public pkgDPkgPM {
-	bool res(CppPyRef result) {
+       bool res(CppPyRef result, const char* funcname) {
 		if (result == NULL) {
-			std::cerr << "Error in function: " << std::endl;
+                        std::cerr << "Error in function: " << funcname << std::endl;
 			PyErr_Print();
 			PyErr_Clear();
 			return false;
@@ -172,23 +172,28 @@ class PyPkgManager : public pkgDPkgPM {
 	}
 
 	/* Call through to Python */
-	virtual bool Install(PkgIterator Pkg,string File) {
+	virtual bool Install(PkgIterator Pkg,std::string File) {
 		return res(PyObject_CallMethod(pyinst, "install", "(NN)", 
 		                               GetPyPkg(Pkg),
-		                               CppPyString(File)));
+		                               CppPyString(File)),
+                           "install");
 	}
 	virtual bool Configure(PkgIterator Pkg) {
 		return res(PyObject_CallMethod(pyinst, "configure", "(N)", 
-		                               GetPyPkg(Pkg)));
+		                               GetPyPkg(Pkg)),
+                           "configure");
 	}
 	virtual bool Remove(PkgIterator Pkg,bool Purge = false) {
 		return res(PyObject_CallMethod(pyinst, "remove", "(NN)", 
 		                               GetPyPkg(Pkg),
-		                               PyBool_FromLong(Purge)));
+		                               PyBool_FromLong(Purge)),
+                           "remove"
+                   );
 	}
 	virtual bool Go(int StatusFd=-1) {
 		return res(PyObject_CallMethod(pyinst, "go", "(i)",
-		                               StatusFd));
+		                               StatusFd),
+                           "go");
 	}
 	virtual void Reset() {
 		Py_XDECREF(PyObject_CallMethod(pyinst, "reset", NULL));
@@ -196,7 +201,7 @@ class PyPkgManager : public pkgDPkgPM {
 	
 public:
 	/* Those call the protected functions from the parent class */
-	bool callInstall(PkgIterator Pkg,string File) { return pkgDPkgPM::Install(Pkg, File); }
+	bool callInstall(PkgIterator Pkg,std::string File) { return pkgDPkgPM::Install(Pkg, File); }
 	bool callRemove(PkgIterator Pkg, bool Purge) { return pkgDPkgPM::Remove(Pkg, Purge); }
 	bool callGo(int StatusFd=-1) { return pkgDPkgPM::Go(StatusFd); }
 	void callReset() { return pkgDPkgPM::Reset(); }

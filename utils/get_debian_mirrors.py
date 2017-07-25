@@ -29,7 +29,7 @@ masterlist = urllib2.urlopen("http://anonscm.debian.org/viewvc/"
                              "mirror/Mirrors.masterlist?revision=HEAD")
 
 for mirror in deb822.Deb822.iter_paragraphs(masterlist):
-    if not "Country" in mirror:
+    if "Country" not in mirror:
         continue
     country = mirror["Country"].split(None, 1)[0]
     site = mirror["Site"]

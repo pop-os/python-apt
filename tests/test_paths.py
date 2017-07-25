@@ -4,12 +4,15 @@
 import os
 import shutil
 import unittest
+import warnings
 
 import apt_inst
 import apt_pkg
 
+import testcommon
 
-class TestPath(unittest.TestCase):
+
+class TestPath(testcommon.TestCase):
 
     dir_unicode = u'data/tmp'
     dir_bytes = b'data/tmp'
@@ -17,7 +20,7 @@ class TestPath(unittest.TestCase):
     file_bytes = b'data/tmp/python-apt-test'
 
     def setUp(self):
-        apt_pkg.init()
+        testcommon.TestCase.setUp(self)
         if os.path.exists(self.dir_bytes):
             shutil.rmtree(self.dir_bytes)
 
@@ -34,6 +37,29 @@ class TestPath(unittest.TestCase):
                             "http://example.com",
                             destdir=self.file_unicode,
                             destfile=self.file_unicode)
+
+    def test_acquire_file_md5_keyword_backward_compat(self):
+        """
+        Ensure that both "md5" and "hash" is supported as keyword for
+        AcquireFile
+        """
+        with warnings.catch_warnings(record=True) as caught_warnings:
+            warnings.simplefilter("always")
+            apt_pkg.AcquireFile(
+                apt_pkg.Acquire(), "http://example.com",
+                destfile=self.file_bytes,
+                md5="abcdef")
+
+        self.assertEqual(len(caught_warnings), 1)
+        self.assertTrue(issubclass(caught_warnings[0].category,
+                                   DeprecationWarning))
+        self.assertIn("md5", str(caught_warnings[0].message))
+        self.assertIn("hash", str(caught_warnings[0].message))
+
+        apt_pkg.AcquireFile(
+            apt_pkg.Acquire(), "http://example.com",
+            destfile=self.file_bytes,
+            hash="sha1:41050ed528554fdd6c6c9a086ddd6bdba5857b21")
 
     def test_ararchive(self):
         archive = apt_inst.ArArchive(u"data/test_debs/data-tar-xz.deb")
@@ -86,19 +112,6 @@ class TestPath(unittest.TestCase):
                 index.archive_uri(self.file_bytes)
                 index.archive_uri(self.file_unicode)
 
-    def test_index_records(self):
-        index = apt_pkg.IndexRecords()
-        index.load(u"./data/misc/foo_Release")
-        index.load(b"./data/misc/foo_Release")
-
-        hash1, size1 = index.lookup(u"main/i18n/Index")
-        hash2, size2 = index.lookup(b"main/i18n/Index")
-
-        self.assertEqual(size1, size2)
-        self.assertEqual(str(hash1), str(hash2))
-        self.assertEqual(str(hash1), ("SHA256:fefed230e286d832ab6eb0fb7b72"
-                                      "442165b50df23a68402ae6e9d265a31920a2"))
-
     def test_lock(self):
         apt_pkg.get_lock(self.file_unicode, True)
         apt_pkg.get_lock(self.file_bytes, True)
@@ -131,6 +144,7 @@ class TestPath(unittest.TestCase):
 
         self.assertRaises(StopIteration, next, tag1)
         self.assertRaises(StopIteration, next, tag2)
+
 
 if __name__ == '__main__':
     unittest.main()

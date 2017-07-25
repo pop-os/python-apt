@@ -7,13 +7,14 @@ import apt_pkg
 import aptsources.sourceslist
 import aptsources.distro
 
+import testcommon
 
-class TestAptSourcesPorts(unittest.TestCase):
+
+class TestAptSourcesPorts(testcommon.TestCase):
     """Test aptsources on ports.ubuntu.com."""
 
     def setUp(self):
-        apt_pkg.init_config()
-        apt_pkg.init_system()
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.set("APT::Architecture", "powerpc")
         apt_pkg.config.set("Dir::Etc",
                            os.path.abspath("data/aptsources_ports"))

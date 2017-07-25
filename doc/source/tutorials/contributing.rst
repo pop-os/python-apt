@@ -9,56 +9,36 @@ included in python-apt. Then be sure to follow the following guidelines.
 
 Available branches
 -------------------
-First of all, let's talk a bit about the bzr branches of python-apt. In the
-following parts, we will assume that you use bzr to create your changes and
+First of all, let's talk a bit about the git branches of python-apt. In the
+following parts, we will assume that you use git to create your changes and
 submit them.
 
-Distribution branches
-^^^^^^^^^^^^^^^^^^^^^
+Repositories
+^^^^^^^^^^^^
 
-**debian-sid:** http://bzr.debian.org/apt/python-apt/debian-sid
-    This is the official Debian branch of python-apt. All code which will be
-    uploaded to Debian is here. It is not as up-to-date as the mvo branch,
-    because this branch often gets updated just right before the release
-    happens.
+https://anonscm.debian.org/cgit/apt/python-apt.git
 
-    VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-sid/changes
+    This is the official Debian repository of python-apt.
+    You can clone it using git by doing::
 
-**debian-experimental:** http://bzr.debian.org/apt/python-apt/debian-experimental
-
-    This is another official Debian branch of python-apt, for releases
-    targetted at Debian experimental. This branch may contain unstable code
-    and may thus not work correctly.
-
-    VCS-Browser: http://bzr.debian.org/loggerhead/apt/python-apt/debian-experimental/changes
-
-**ubuntu:** ``lp:~ubuntu-core-dev/python-apt/ubuntu``
-    This is the official Ubuntu development branch. The same notes apply as
-    for the debian-sid branch above. For the Ubuntu release branches, replace
-    ``ubuntu`` with the version you want; for example, for lucid:
-    ``lp:~ubuntu-core-dev/python-apt/lucid``.
-
-    VCS-Browser: https://code.launchpad.net/~ubuntu-core-dev/python-apt/ubuntu
+      git clone git://anonscm.debian.org/apt/python-apt.git
 
 
-Important Personal branches
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-**mvo:** lp:~mvo/python-apt/mvo
-    This is Michael Vogt's branch. Most of the development of apt happens here,
-    as he is the lead maintainer of python-apt.
+    All code which will be uploaded to Debian is here.
+    There are also branches for Ubuntu releases, but those may not be up-to-date.
 
-    This branch is also available from Launchpads super mirror, via
-    ``lp:python-apt``. Checkouts from Launchpad are generally faster and can
-    use the bzr protocoll.
+    Branch names consist of the distribution vendor, followed by a slash,
+    followed by the release of that distribution, for example: ``debian/sid``.
 
-    VCS-Browser: http://bazaar.launchpad.net/~mvo/python-apt/mvo/
+    The current working branch is usually pointed to by ``HEAD``, it is
+    either ``debian/sid`` or ``debian/experimental``.
 
-**jak:** http://bzr.debian.org/users/jak/python-apt/jak
-    This is Julian Andres Klode's (the documentation author's) branch. This
-    is the place where cleanup and documentation updates happen. It is based
-    off debian-sid. Most stuff happens in debian-sid now.
+    If both sid and experimental are active, bug fixes are either cherry-picked from
+    ``debian/experimental`` to ``debian/sid``, or a new release is cut on the sid branch
+    and then merged into experimental.
 
-    VCS-Browser: http://bzr.debian.org/loggerhead/users/jak/python-apt/jak/
+    Updates to stable release branches, such as ``debian/wheezy``, are almost always
+    cherry-picked or backported from the ``debian/sid`` branch.
 
 
 .. highlightlang:: c
@@ -86,11 +66,12 @@ Guido van Rossum.
 C++ dialect
 ^^^^^^^^^^^
 
-- Use ISO standard C++ (the 1998 version of the standard).
+- Use ISO standard C++ (the 2011 version of the standard), headers
+  should also adhere to the 1998 version of the standard.
 
 - Use C++ style // one-line comments for single-line comments.
 
-- No compiler warnings with ``gcc -std=c++98 -Wall -Wno-write-strings``. There
+- No compiler warnings with ``gcc -std=c++11 -Wall -Wno-write-strings``. There
   should also be no errors with ``-pedantic`` added.
 
 
@@ -230,22 +211,20 @@ Python Coding Style
 -------------------
 The coding style for all code written in python is :PEP:`8`. Exceptions from
 this rule are the documentation, where code is sometimes formatted differently
-to explain aspects, and functions provided for 0.7 compatibility purposes.
+to explain aspects.
 
 When writing code, use tools like pylint, pyflakes, pychecker and pep8.py
 (all available from Debian/Ubuntu) to verify that your code is
 OK. Fix all the problems which seem reasonable, and mention the unfixed issues
 when asking for merge.
 
-In order to make the automatic generation of Python 3 code using 2to3 possible,
-code written in Python may not utilize any functionality unsupported by 2to3 or
-deprecated as of Python 2.6.
+All code must work on both Python 2 and Python 3.
 
 Submitting your patch
 ---------------------
 First of all, the patch you create should be based against the most current
-branch of python-apt (debian-sid or debian-experimental). If it is a bugfix,
-you should probably use debian-sid. If you choose the wrong branch, we will
+branch of python-apt (debian/sid or debian/experimental). If it is a bugfix,
+you should probably use debian/sid. If you choose the wrong branch, we will
 ask you to rebase your patches against the correct one.
 
 Once you have made your change, check that it:
@@ -256,37 +235,47 @@ Once you have made your change, check that it:
       can't fix them, but please tell so when requesting the merge, so it can
       be fixed before hitting one of the main branches).
     * does not change the behaviour of existing code in a non-compatible way.
+    * works on both Python 2 and Python 3.
 
 If your change follows all points of the checklist, you can commit it to your
 repository. (You could commit it first, and check later, and then commit the
 fixes, but commits should be logical and it makes no sense to have to commits
 for one logical unit).
 
-Once you have made all your changes,  you can run ``bzr send -o patch-name``
-to create a so called *merge-directive*, which contains your changes and
-allows us to preserve the history of your changes. (But please replace patch-name
-with something useful).
+The changelog message should follow standard git format. At the end of the
+message, tags understood by gbp-dch and other tags may be added. An example
+commit message could be::
 
-Now report a bug against the python-apt package, attach the merge directive
-you created in the previous step, and tag it with 'patch'. It might also be
-a good idea to prefix the bug report with '[PATCH]'.
+  apt.package: Fix blah blah
 
-If your patch introduces new functions, parameters, etc. , but does not update
-the content of this documentation, please CC. jak@debian.org, and add a short
-notice to the bug report. Also see `Documentation updates`
+  Fix a small bug where foo is doing bar, but should be doing baz
+  instead.
 
-Once your patch got merged, you can *pull* the branch into which it has been
-merged into your local one. If you have made changes since you submitted your
-patch, you may need to *merge* the branch instead.
+  Closes: #bugnumber
+  LP: #ubuntu-bug-number
+  Reported-By: Bug Reporter Name <email@example.com>
 
-.. note::
 
-    If you plan to work on python-apt for a longer time, it may be a good
-    idea to publish your branch somewhere. Alioth (http://alioth.debian.org)
-    and Launchpad (https://launchpad.net) provide bzr hosting. You can also
-    use any webspace with ftp or sftp connection (for the upload). Then you do
-    not need to send *merge directives*, but you can point to your branch
-    instead.
+Once you have made all your changes,  you can run ``git format-patch``,
+specifying the upstream commit or branch you want to create patches
+against. Then you can either:
+
+* report a bug against the python-apt package, attach the patches
+  you created in the previous step, and tag it with 'patch'. It might also be
+  a good idea to prefix the bug report with '[PATCH]'.
+
+* send the patches via ``git send-email``.
+
+For larger patch series, you can also publish a git branch on a
+public repository and request it to be pulled.
+
+If you choose that approach, you may want to base your patches against
+the latest release, and not against some random commit, for the sake of
+preserving a sane git history.
+
+Be prepared to rebase such a branch, and close any bugs you fix in the
+branch by mentioning them in the commit message using a Closes or LP
+tag.
 
 
 Documentation updates
@@ -300,18 +289,25 @@ it.
 
 Example patch session
 ----------------------
-In the following example, we edit a file, create a merge directive (an enhanced
+In the following example, we edit a file, create a patch (an enhanced
 patch), and report a wishlist bug with this patch against the python-apt
 package::
 
-    user@pc:~$ bzr clone http://bzr.debian.org/apt/python-apt/debian-sid/
-    user@pc:~$ cd debian-sid
-    user@pc:~/debian-sid$ editor FILES
-    user@pc:~/debian-sid$ pep8.py FILES # PEP 8 check, see above.
-    user@pc:~/debian-sid$ pylint -e FILES # Check with pylint
-    user@pc:~/debian-sid$ pyflakes FILES  # Check with pyflakes
-    user@pc:~/debian-sid$ pychecker FILES # Check with pychecker
-    user@pc:~/debian-sid$ bzr commit
-    user@pc:~/debian-sid$ bzr send -o my-patch
-    user@pc:~/debian-sid$ reportbug --severity=wishlist --tag=patch --attach=my-patch python-apt
-    user@pc:~/debian-sid$ # Add --list-cc=jak@debian.org if you change docs.
+    user@ pc:~$ git clone git://anonscm.debian.org/apt/python-apt.git
+    user@pc:~$ cd python-apt
+    user@pc:~/python-apt$ editor FILES
+    user@pc:~/python-apt$ pep8 FILES # PEP 8 check, see above.
+    user@pc:~/python-apt$ pylint -e FILES # Check with pylint
+    user@pc:~/python-apt$ pyflakes FILES  # Check with pyflakes
+    user@pc:~/python-apt$ pychecker FILES # Check with pychecker
+    user@pc:~/python-apt$ git commit -p
+    user@pc:~/python-apt$ git format-patch origin/HEAD
+    user@pc:~/python-apt$ reportbug --severity=wishlist --tag=patch --attach=<patch> ... python-apt
+
+You may also send the patches to the mailing list instead of
+reporting the bug::
+
+    user@pc:~/python-apt$ git send-email --to=deity@lists.debian.org <patches created by format-patch>
+
+You can even push your changes to your own repository and request
+a pull request.

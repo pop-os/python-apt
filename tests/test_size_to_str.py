@@ -6,8 +6,10 @@ import unittest
 
 import apt_pkg
 
+import testcommon
 
-class SizeToStrTestCase(unittest.TestCase):
+
+class SizeToStrTestCase(testcommon.TestCase):
     """Test apt_pkg.size_to_str"""
 
     DATA = {
@@ -90,7 +92,7 @@ class SizeToStrTestCase(unittest.TestCase):
                 apt_pkg.size_to_str(v)
 
 
-class RegressionTestCase(unittest.TestCase):
+class RegressionTestCase(testcommon.TestCase):
     """Regression test for LP: #1030278"""
 
     def test_no_overflow_error(self):

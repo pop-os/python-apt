@@ -25,6 +25,10 @@ else:
 import apt_pkg
 import apt.auth
 
+import testcommon
+
+WHEEZY_KEYID = "8B48AD6246925553"
+WHEEZY_KEYDATE = "1335553717"
 WHEEZY_KEY = """-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
@@ -111,18 +115,20 @@ DHcut3Yey8o=
 -----END PGP PUBLIC KEY BLOCK-----"""
 
 
-class TestAuthKeys(unittest.TestCase):
+def normalize_key(keystr):
+    """Remove the Version: header from a key block"""
+    lines = keystr.split("\n")
+    if lines[1].startswith("Version:"):
+        return lines[:1] + lines[2:]
+    return lines
+
+
+class TestAuthKeys(testcommon.TestCase):
 
     """Test handling of keys for signed repositories."""
 
     def setUp(self):
-        # reset any config manipulations done in the individual tests
-        apt_pkg.init_config()
-        # save the apt config to restore later
-        cnf = {}
-        for item in apt_pkg.config.keys():
-            cnf[item] = apt_pkg.config.find(item)
-        self.addCleanup(self._restore_apt_config, cnf)
+        testcommon.TestCase.setUp(self)
 
         self.tmpdir = tempfile.mkdtemp()
         self.addCleanup(shutil.rmtree, self.tmpdir)
@@ -135,11 +141,6 @@ class TestAuthKeys(unittest.TestCase):
         os.makedirs(trustedparts_dir)
         os.makedirs(confparts_dir)
         shutil.copy("fakeroot-apt-key", self.tmpdir)
-
-    def _restore_apt_config(self, cnf):
-        """Restore previous apt configuration."""
-        for item in cnf:
-            apt_pkg.config.set(item, cnf[item])
 
     @contextlib.contextmanager
     def _discard_stderr(self):
@@ -162,8 +163,8 @@ class TestAuthKeys(unittest.TestCase):
         # Strip the headers from the keys to avoid test errors because
         # the exported key used a differenct GnuPG version than the
         # original example key
-        self.assertEqual(apt.auth.export_key("46925553").split("\n")[2:],
-                         WHEEZY_KEY.split("\n")[2:])
+        self.assertEqual(normalize_key(apt.auth.export_key(WHEEZY_KEYID)),
+                         normalize_key(WHEEZY_KEY))
 
     def testAddAndListKey(self):
         """Add an example key and test if it is correctly returned by
@@ -176,8 +177,8 @@ class TestAuthKeys(unittest.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def testAddKeyFromFile(self):
         """Test adding a key from file."""
@@ -193,14 +194,26 @@ class TestAuthKeys(unittest.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def test_add_key_from_keyserver_too_short(self):
         """Ensure that short keyids are not imported"""
-        with self.assertRaises(apt.auth.AptKeyError):
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
             apt.auth.add_key_from_keyserver(
-                "46925553", "hkp://localhost:19191")
+                WHEEZY_KEYID, "hkp://localhost:19191")
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
+            apt.auth.add_key_from_keyserver(
+                "0101010178F7FE5C3E65D8AF8B48AD624692555",
+                "hkp://localhost:19191")
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
+            apt.auth.add_key_from_keyserver(
+                "0x0101010178F7FE5C3E65D8AF8B48AD624692555",
+                "hkp://localhost:19191")
+        with self.assertRaises(apt.auth.AptKeyIDTooShortError):
+            apt.auth.add_key_from_keyserver(
+                "0101 0101 78F7 FE5C 3E65 D8AF 8B48 AD62 4692 555",
+                "hkp://localhost:19191")
 
     def test_add_key_from_server_mitm(self):
         """Verify that the key fingerprint is verified after download"""
@@ -212,7 +225,10 @@ class TestAuthKeys(unittest.TestCase):
                     "0101010178F7FE5C3E65D8AF8B48AD6246925553",
                     "hkp://localhost:%d" % self.keyserver_port)
         self.assertTrue(
-            str(cm.exception).startswith("Fingerprints do not match"),
+            str(cm.exception).startswith(
+                "recv from 'hkp://localhost:%d' failed for '%s'" % (
+                    self.keyserver_port,
+                    "0101010178F7FE5C3E65D8AF8B48AD6246925553")),
             cm.exception)
 
     def testAddKeyFromServer(self):
@@ -231,8 +247,8 @@ class TestAuthKeys(unittest.TestCase):
         self.assertEqual(key.name,
                          "Debian Archive Automatic Signing Key (7.0/wheezy) "
                          "<ftpmaster@debian.org>")
-        self.assertEqual(key.keyid, "46925553")
-        self.assertEqual(key.date, "2012-04-27")
+        self.assertEqual(key.keyid, WHEEZY_KEYID)
+        self.assertEqual(key.date, WHEEZY_KEYDATE)
 
     def _start_keyserver(self):
         """Start a fake keyserver on http://localhost:19191
@@ -292,6 +308,7 @@ class TestAuthKeys(unittest.TestCase):
         # restore proxy
         if self.orig_proxy is not None:
             os.environ['http_proxy'] = self.orig_proxy
+
 
 if __name__ == "__main__":
     unittest.main()

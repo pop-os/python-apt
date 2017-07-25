@@ -2,9 +2,11 @@
 #
 #  Copyright (c) 2004-2009 Canonical Ltd.
 #  Copyright (c) 2006-2007 Sebastian Heinlein
+#  Copyright (c) 2016 Harald Sitter
 #
 #  Authors: Sebastian Heinlein <glatzor@ubuntu.com>
 #           Michael Vogt <mvo@debian.org>
+#           Harald Sitter <sitter@kde.org>
 #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License as
@@ -24,6 +26,7 @@
 import gettext
 import logging
 import re
+import shlex
 import os
 
 from xml.etree.ElementTree import ElementTree
@@ -37,13 +40,14 @@ class NoDistroTemplateException(Exception):
 
 class Distribution(object):
 
-    def __init__(self, id, codename, description, release):
+    def __init__(self, id, codename, description, release, is_like=[]):
         """ Container for distribution specific informations """
         # LSB information
         self.id = id
         self.codename = codename
         self.description = description
         self.release = release
+        self.is_like = is_like
 
         self.binary_type = "deb"
         self.source_type = "deb-src"
@@ -77,7 +81,7 @@ class Distribution(object):
         # find the distro template
         for template in self.sourceslist.matcher.templates:
             if (self.is_codename(template.name) and
-                template.distribution == self.id):
+                    template.distribution == self.id):
                 #print "yeah! found a template for %s" % self.description
                 #print template.description, template.base_uri, \
                 #    template.components
@@ -96,40 +100,40 @@ class Distribution(object):
         #source_code = []
         for source in self.sourceslist.list:
             if (not source.invalid and
-                self.is_codename(source.dist) and
-                source.template and
-                source.template.official and
-                self.is_codename(source.template.name)):
+                    self.is_codename(source.dist) and
+                    source.template and
+                    source.template.official and
+                    self.is_codename(source.template.name)):
                 #print "yeah! found a distro repo:  %s" % source.line
                 # cdroms need do be handled differently
                 if (source.uri.startswith("cdrom:") and
-                    not source.disabled):
-                    self.cdrom_sources.append(source)
-                    cdrom_comps.extend(source.comps)
+                        not source.disabled):
+                        self.cdrom_sources.append(source)
+                        cdrom_comps.extend(source.comps)
                 elif (source.uri.startswith("cdrom:") and
-                      source.disabled):
+                          source.disabled):
                     self.cdrom_sources.append(source)
                 elif (source.type == self.binary_type and
-                      not source.disabled):
+                          not source.disabled):
                     self.main_sources.append(source)
                     comps.extend(source.comps)
                     media.append(source.uri)
                 elif (source.type == self.binary_type and
-                      source.disabled):
+                          source.disabled):
                     self.disabled_sources.append(source)
-                elif (source.type == self.source_type
-                        and not source.disabled):
+                elif (source.type == self.source_type and
+                          not source.disabled):
                     self.source_code_sources.append(source)
                 elif (source.type == self.source_type and
-                      source.disabled):
+                          source.disabled):
                     self.disabled_sources.append(source)
             if (not source.invalid and
-                source.template in self.source_template.children):
-                if (not source.disabled
-                    and source.type == self.binary_type):
-                    self.child_sources.append(source)
-                elif (not source.disabled
-                      and source.type == self.source_type):
+                    source.template in self.source_template.children):
+                if (not source.disabled and
+                    source.type == self.binary_type):
+                        self.child_sources.append(source)
+                elif (not source.disabled and
+                      source.type == self.source_type):
                     self.source_code_sources.append(source)
                 else:
                     self.disabled_sources.append(source)
@@ -203,9 +207,9 @@ class Distribution(object):
             Customize for different distributions '''
         country = None
         i = server.find("://")
-        l = server.find(".archive.ubuntu.com")
-        if i != -1 and l != -1:
-            country = server[i + len("://"):l]
+        li = server.find(".archive.ubuntu.com")
+        if i != -1 and li != -1:
+            country = server[i + len("://"):li]
         if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % self.countries[country]
@@ -256,9 +260,9 @@ class Distribution(object):
             for server in self.used_servers:
                 mirror_entry = [self._get_mirror_name(server), server, False]
                 if (compare_mirrors(server, self.nearest_server) or
-                    compare_mirrors(server, self.main_server)):
+                        compare_mirrors(server, self.main_server)):
                     continue
-                elif not mirror_entry in mirrors:
+                elif mirror_entry not in mirrors:
                     mirrors.append(mirror_entry)
 
         return mirrors
@@ -405,7 +409,7 @@ class Distribution(object):
         for source in self.child_sources:
             # Do not change the forces server of a child source
             if (source.template.base_uri is None or
-                source.template.base_uri != source.uri):
+                    source.template.base_uri != source.uri):
                 change_server_of_source(source, uri, seen_binary)
         for source in self.source_code_sources:
             change_server_of_source(source, uri, seen_source)
@@ -434,9 +438,9 @@ class DebianDistribution(Distribution):
             Debian specific '''
         country = None
         i = server.find("://ftp.")
-        l = server.find(".debian.org")
-        if i != -1 and l != -1:
-            country = server[i + len("://ftp."):l]
+        li = server.find(".debian.org")
+        if i != -1 and li != -1:
+            country = server[i + len("://ftp."):li]
         if country in self.countries:
             # TRANSLATORS: %s is a country
             return _("Server for %s") % gettext.dgettext(
@@ -457,6 +461,13 @@ class UbuntuDistribution(Distribution):
             self, mirror_template="http://%s.archive.ubuntu.com/ubuntu/")
 
 
+class UbuntuRTMDistribution(UbuntuDistribution):
+    ''' Class to support specific Ubuntu RTM features '''
+
+    def get_mirrors(self):
+        self.main_server = self.source_template.base_uri
+
+
 def _lsb_release():
     """Call lsb_release --idrc and return a mapping."""
     from subprocess import Popen, PIPE
@@ -475,7 +486,84 @@ def _lsb_release():
     return result
 
 
-def get_distro(id=None, codename=None, description=None, release=None):
+def _system_image_channel():
+    """Get the current channel from system-image-cli -i if possible."""
+    from subprocess import Popen, PIPE
+    import errno
+    try:
+        from subprocess import DEVNULL
+    except ImportError:
+        # no DEVNULL in 2.7
+        DEVNULL = os.open(os.devnull, os.O_RDWR)
+    try:
+        out = Popen(
+            ['system-image-cli', '-i'], stdout=PIPE, stderr=DEVNULL,
+            universal_newlines=True).communicate()[0]
+        for l in out.splitlines():
+            if l.startswith('channel: '):
+                return l.split(': ', 1)[1]
+    except OSError as exc:
+        if exc.errno != errno.ENOENT:
+            logging.warning(
+                'system-image-cli failed, using defaults: %s' % exc)
+    return None
+
+
+class _OSRelease:
+
+    DEFAULT_OS_RELEASE_FILE = '/etc/os-release'
+    OS_RELEASE_FILE = '/etc/os-release'
+
+    def __init__(self, lsb_compat=True):
+        self.result = {}
+        self.valid = False
+        self.file = _OSRelease.OS_RELEASE_FILE
+
+        if not os.path.isfile(self.file):
+            return
+
+        self.parse()
+        self.valid = True
+
+        if lsb_compat:
+            self.inject_lsb_compat()
+
+    def inject_lsb_compat(self):
+        self.result['Distributor ID'] = self.result['ID']
+        self.result['Description'] = self.result['PRETTY_NAME']
+        # Optionals as per os-release spec.
+        self.result['Codename'] = self.result.get('VERSION_CODENAME')
+        if not self.result['Codename']:
+            # Transient Ubuntu 16.04 field (LP: #1598212)
+            self.result['Codename'] = self.result.get('UBUNTU_CODENAME')
+        self.result['Release'] = self.result.get('VERSION_ID')
+
+    def parse(self):
+        f = open(self.file, 'r')
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            self.parse_entry(*line.split('=', 1))
+        f.close()
+
+    def parse_entry(self, key, value):
+        value = self.parse_value(value)  # Values can be shell strings...
+        if key == "ID_LIKE" and isinstance(value, str):
+            # ID_LIKE is specified as quoted space-separated list. This will
+            # be parsed as string that we need to split manually.
+            value = value.split(' ')
+        self.result[key] = value
+
+    def parse_value(self, value):
+        values = shlex.split(value)
+        if len(values) == 1:
+            return values[0]
+        return values
+
+
+def get_distro(id=None, codename=None, description=None, release=None,
+               is_like=[]):
     """
     Check the currently used distribution and return the corresponding
     distriubtion class that supports distro specific features.
@@ -485,14 +573,40 @@ def get_distro(id=None, codename=None, description=None, release=None):
     """
     # make testing easier
     if not (id and codename and description and release):
-        result = _lsb_release()
-        id = result['Distributor ID']
-        codename = result['Codename']
-        description = result['Description']
-        release = result['Release']
+        os_release = _OSRelease()
+        os_result = []
+        lsb_result = _lsb_release()
+        if os_release.valid:
+            os_result = os_release.result
+        # TODO: We cannot presently use os-release to fully replace lsb_release
+        #       because os-release's ID, VERSION_ID and VERSION_CODENAME fields
+        #       are specified as lowercase. In lsb_release they can be upcase
+        #       or captizalized. So, switching to os-release would consitute
+        #       a behavior break a which point lsb_release support should be
+        #       fully removed.
+        #       This in particular is a problem for template matching, as this
+        #       matches against Distribution objects and depends on string
+        #       case.
+        lsb_result = _lsb_release()
+        id = lsb_result['Distributor ID']
+        codename = lsb_result['Codename']
+        description = lsb_result['Description']
+        release = lsb_result['Release']
+        # Not available with LSB, use get directly.
+        is_like = os_result.get('ID_LIKE', [])
+        if id == "Ubuntu":
+            channel = _system_image_channel()
+            if channel is not None and "ubuntu-rtm/" in channel:
+                id = "Ubuntu-RTM"
+                codename = channel.rsplit("/", 1)[1].split("-", 1)[0]
+                description = codename
+                release = codename
     if id == "Ubuntu":
-        return UbuntuDistribution(id, codename, description, release)
+        return UbuntuDistribution(id, codename, description, release, is_like)
+    if id == "Ubuntu-RTM":
+        return UbuntuRTMDistribution(
+            id, codename, description, release, is_like)
     elif id == "Debian":
-        return DebianDistribution(id, codename, description, release)
+        return DebianDistribution(id, codename, description, release, is_like)
     else:
-        return Distribution(id, codename, description, release)
+        return Distribution(id, codename, description, release, is_like)

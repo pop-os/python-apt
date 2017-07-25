@@ -52,7 +52,7 @@ static PyObject *acquireitem_get_desc_uri(PyObject *self, void *closure)
 static PyObject *acquireitem_get_destfile(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
-    return item ? CppPyString(item->DestFile) : 0;
+    return item ? CppPyPath(item->DestFile) : 0;
 }
 
 
@@ -74,10 +74,22 @@ static PyObject *acquireitem_get_id(PyObject *self, void *closure)
     return item ? MkPyNumber(item->ID) : 0;
 }
 
-static PyObject *acquireitem_get_mode(PyObject *self, void *closure)
+static PyObject *acquireitem_get_active_subprocess(PyObject *self, void *closure)
 {
     pkgAcquire::Item *item = acquireitem_tocpp(self);
+#if APT_PKG_MAJOR >= 5
+    return item ? Py_BuildValue("s", item->ActiveSubprocess.c_str()) : 0;
+#else
     return item ? Py_BuildValue("s", item->Mode) : 0;
+#endif
+}
+
+static PyObject *acquireitem_get_mode(PyObject *self, void *closure)
+{
+    if (PyErr_WarnEx(PyExc_DeprecationWarning,
+                     "AcquireItem.mode is deprecated, use AcquireItem.active_subprocess instead.", 1) == -1)
+        return NULL;
+    return acquireitem_get_active_subprocess(self, closure);
 }
 
 static PyObject *acquireitem_get_is_trusted(PyObject *self, void *closure)
@@ -132,15 +144,16 @@ static PyGetSetDef acquireitem_getset[] = {
     {"destfile",acquireitem_get_destfile,NULL,
      "The path to the file where the item will be stored."},
     {"error_text",acquireitem_get_error_text,NULL,
-     "If an error occured, a string describing the error; empty string\n"
+     "If an error occurred, a string describing the error; empty string\n"
      "otherwise."},
     {"filesize",acquireitem_get_filesize,NULL,
      "The size of the file (number of bytes). If unknown, it is set to 0."},
     {"id",acquireitem_get_id,acquireitem_set_id,
      "The ID of the item. An integer which can be set by progress classes."},
     {"mode",acquireitem_get_mode,NULL,
-     "A localized string such as 'Fetching' which indicates the current\n"
-     "mode."},
+     "Old name for active_subprocess"},
+    {"active_subprocess",acquireitem_get_active_subprocess,NULL,
+     "The name of the active subprocess (for instance, 'gzip', 'rred' or 'gpgv')."},
     {"is_trusted",acquireitem_get_is_trusted,NULL,
      "Whether the item is trusted or not. Only True for packages\n"
      "which come from a repository signed with one of the keys in\n"
@@ -160,9 +173,7 @@ static PyObject *acquireitem_repr(PyObject *Self)
     pkgAcquire::Item *Itm = acquireitem_tocpp(Self);
     if (Itm == 0)
         return 0;
-    // FIXME: once python 2.7 is default we can use:
-    //        return PyString_FromFormat()
-    //        but for < 2.7 the "%llu" is not supported
+
     string repr;
     strprintf(repr, "<%s object:"
               "Status: %i Complete: %i Local: %i IsTrusted: %i "
@@ -172,7 +183,9 @@ static PyObject *acquireitem_repr(PyObject *Self)
               Itm->Status, Itm->Complete, Itm->Local, Itm->IsTrusted(),
               Itm->FileSize, Itm->DestFile.c_str(),  Itm->DescURI().c_str(),
               Itm->ID,Itm->ErrorText.c_str());
-    return CppPyString(repr);
+    // Use CppPyPath here, the string may contain a path, so we should
+    // decode it like one.
+    return CppPyPath(repr);
 }
 
 static void acquireitem_dealloc(PyObject *self)
@@ -224,26 +237,43 @@ PyTypeObject PyAcquireItem_Type = {
 static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * kwds)
 {
     PyObject *pyfetcher;
-    const char *uri, *md5, *descr, *shortDescr;
+    const char *uri, *hash, *md5, *descr, *shortDescr;
     PyApt_Filename destDir, destFile;
     int size = 0;
-    uri = md5 = descr = shortDescr = destDir = destFile = "";
+    uri = hash = md5 = descr = shortDescr = destDir = destFile = "";
 
-    char *kwlist[] = {"owner","uri", "md5", "size", "descr", "short_descr",
-                      "destdir", "destfile", NULL
+    // "md5" is only in this list for backward compatiblity, everyone should
+    // use "hash"
+    char *kwlist[] = {"owner", "uri", "hash", "size", "descr", "short_descr",
+                      "destdir", "destfile", "md5", NULL
                      };
-
-    if (PyArg_ParseTupleAndKeywords(Args, kwds, "O!s|sissO&O&", kwlist,
-                                    &PyAcquire_Type, &pyfetcher, &uri, &md5,
+#if PY_MAJOR_VERSION >= 3
+    const char *fmt = "O!s|sissO&O&$s";
+#else
+    // no "$" support to indicate that the remaining args are keyword only
+    // in py2.x :/
+    const char *fmt = "O!s|sissO&O&s";
+#endif
+    if (PyArg_ParseTupleAndKeywords(Args, kwds, fmt, kwlist,
+                                    &PyAcquire_Type, &pyfetcher, &uri, &hash,
                                     &size, &descr, &shortDescr,
                                     PyApt_Filename::Converter, &destDir,
-                                    PyApt_Filename::Converter, &destFile) == 0)
+                                    PyApt_Filename::Converter, &destFile,
+                                    &md5) == 0)
         return 0;
+    // issue deprecation warning for md5
+    if (strlen(md5) > 0) {
+       PyErr_Warn(PyExc_DeprecationWarning,
+                  "Using the md5 keyword is deprecated, please use 'hash' instead");
+    }
+    // support "md5" keyword for backward compatiblity
+    if (strlen(hash) == 0 && strlen(md5) != 0)
+       hash = md5;
 
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);
     pkgAcqFile *af = new pkgAcqFile(fetcher,  // owner
                                     uri, // uri
-                                    md5,  // md5
+                                    hash,  // hash
                                     size,   // size
                                     descr, // descr
                                     shortDescr,

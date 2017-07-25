@@ -17,12 +17,12 @@
 
 static PyObject *MetaIndexGetURI(PyObject *Self,void*) {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
-    return Safe_FromString(meta->GetURI().c_str());
+    return CppPyString(meta->GetURI().c_str());
 }
 
 static PyObject *MetaIndexGetDist(PyObject *Self,void*) {
     metaIndex *meta = GetCpp<metaIndex*>(Self);
-    return Safe_FromString(meta->GetDist().c_str());
+    return CppPyString(meta->GetDist().c_str());
 }
 
 static PyObject *MetaIndexGetIsTrusted(PyObject *Self,void*) {

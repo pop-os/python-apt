@@ -53,7 +53,13 @@ PyObject *StrBase64Encode(PyObject *Self,PyObject *Args) {
    return CppPyString(Base64Encode(Str));
 }
 
-MkStr(StrURItoFileName,URItoFileName);
+PyObject *StrURItoFileName(PyObject *Self,PyObject *Args)
+{
+   char *Str = 0;
+   if (PyArg_ParseTuple(Args,"s",&Str) == 0)
+      return 0;
+   return CppPyPath(URItoFileName(Str));
+}
 
 //MkFloat(StrSizeToStr,SizeToStr);
 MkInt(StrTimeToStr,TimeToStr, unsigned long, "k");
@@ -113,10 +119,10 @@ PyObject *StrStrToTime(PyObject *Self,PyObject *Args)
       return 0;
 
    time_t Result;
-   PY_APT_BEGIN_DEPRECATED;
+APT_IGNORE_DEPRECATED_PUSH
    if (StrToTime(Str,Result) == false)
    {
-      PY_APT_END_DEPRECATED;
+APT_IGNORE_DEPRECATED_POP
       Py_INCREF(Py_None);
       return Py_None;
    }

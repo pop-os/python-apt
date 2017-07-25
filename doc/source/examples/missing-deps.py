@@ -22,12 +22,12 @@ def check_version(pkgver):
             missing.append(or_group)
 
     if missing:
-        print "Package:", pkgver.parent_pkg.name
-        print "Version:", pkgver.ver_str
-        print "Missing:",
-        print ", ".join(" | ".join(fmt_dep(dep) for dep in or_group)
+        print("Package:", pkgver.parent_pkg.name)
+        print("Version:", pkgver.ver_str)
+        print("Missing:")
+        print(", ".join(" | ".join(fmt_dep(dep) for dep in or_group))
                         for or_group in missing)
-        print
+        print()
 
 
 def main():
@@ -43,10 +43,11 @@ def main():
             # Check every version
             for pfile, _ in version.file_list:
                 if (pfile.origin == "Debian" and pfile.component == "main" and
-                    pfile.archive == "unstable"):
+                        pfile.archive == "unstable"):
                     # We only want packages from Debian unstable main.
                     check_version(version)
                     break
+
 
 if __name__ == "__main__":
     main()

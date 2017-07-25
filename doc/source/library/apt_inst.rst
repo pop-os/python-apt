@@ -12,6 +12,14 @@ enhanced with APT-specific methods. Because APT only provides a stream based
 view on a tar archive, this module's :class:`TarFile` class only provides a
 very small subset of those functions.
 
+Exceptions
+----------
+
+.. class:: Error
+
+    This is the same class as :class:`apt_pkg.Error`, provided here for
+    convenience.
+
 AR Archives
 -----------
 .. class:: ArArchive(file)
@@ -259,40 +267,23 @@ Tar Archives
 
 
 
-Deprecated functions
+Removed functions
 ---------------------
-The following functions have been shipped in python-apt for a longer time and
-are deprecated as of release 0.7.92. They are listed here to help developers
-to port their applications to the new API which is completely different. For
-this purpose each function documentation includes an example showing how the
-function can be replaced.
+The following functions have been removed in python-apt 0.8.
+They are listed here to help developers port their applications to the new
+API which is completely different. For this purpose each function documentation
+includes an example showing how the function can be replaced.
 
 .. function:: arCheckMember(file, membername)
-
-    Check if the member specified by the parameter *membername* exists in
-    the AR file referenced by the parameter *file*, which may be a
-    :class:`file()` object, a file descriptor, or anything implementing a
-    :meth:`fileno` method.
 
     This function has been replaced by using the :keyword:`in` check on an
     :class:`ArArchive` object::
 
-        member in ArArchive(file)    
+        member in ArArchive(file)
 
 .. function:: debExtract(file, func, chunk)
 
-    Call the function referenced by *func* for each member of the tar file
-    *chunk* which is contained in the AR file referenced by the parameter
-    *file*, which may be a :class:`file()` object, a file descriptor, or
-    anything implementing a :meth:`fileno` method.
-
-    The function *func* is a callback with the signature
-    ``(what, name, link, mode, uid, gid, size, mtime, major, minor)``. The
-    parameter *what* describes the type of the member. It can be 'FILE',
-    'DIR', or 'HARDLINK'. The parameter *name* refers to the name of the
-    member. In case of links, *link* refers to the target of the link.
-
-    This function is deprecated and has been replaced by the :meth:`TarFile.go`
+    This function has been replaced by the :meth:`TarFile.go`
     method. The following example shows the old code and the new code::
 
         debExtract(open("package.deb"), my_callback, "data.tar.gz") #old
@@ -304,35 +295,17 @@ function can be replaced.
 
 .. function:: tarExtract(file,func,comp)
 
-    Call the function *func* for each member of the tar file *file*.
-
-    The parameter *comp* is a string determining the compressor used. Possible
-    options are "xz", "lzma", "bzip2" and "gzip". The parameter *file* may be
-    a :class:`file()` object, a file descriptor, or anything implementing
-    a :meth:`fileno` method.
-
-    The function *func* is a callback with the signature
-    ``(what, name, link, mode, uid, gid, size, mtime, major, minor)``. The
-    parameter *what* describes the type of the member. It can be 'FILE',
-    'DIR', or 'HARDLINK'. The parameter *name* refers to the name of the
-    member. In case of links, *link* refers to the target of the link.
-
-    This function is deprecated and has been replaced by the :meth:`TarFile.go`
+    This function has been replaced by the :meth:`TarFile.go`
     method. The following example shows the old code and the new code::
 
         tarExtract(open("archive.tar.gz"), my_callback, "gzip") #old
         TarFile("archive.tar.gz", 0, 0, "gzip").go(my_callback)
 
     Please note that the signature of the callback is different in
-    :meth:`TarFile.go`.
+    :meth:`TarFile.go`, it now expects a :class:`TarMember` and a bytestring
+    of the data.
 
 .. function:: debExtractArchive(file, rootdir)
-
-    Extract the archive referenced by the :class:`file` object *file*
-    into the directory specified by *rootdir*.
-
-    The parameter *file* may be a :class:`file()` object, a file descriptor, or
-    anything implementing a :meth:`fileno` method.
 
     This function has been replaced by :meth:`TarFile.extractall` and
     :attr:`DebFile.data`::
@@ -341,10 +314,6 @@ function can be replaced.
         DebFile("package.deb").data.extractall(rootdir) # new
 
 .. function:: debExtractControl(file[, member='control'])
-
-    Return the indicated file as a string from the control tar. The default
-    is 'control'. The parameter *file* may be a :class:`file()` object, a
-    file descriptor, or anything implementing a :meth:`fileno` method.
 
     This function has been replaced by :attr:`DebFile.control` and
     :meth:`TarFile.extractdata`. In the following example, both commands

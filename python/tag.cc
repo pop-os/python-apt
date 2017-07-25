@@ -72,7 +72,7 @@ int TagFileClear(PyObject *self) {
 #if PY_MAJOR_VERSION < 3
 #define TagSecString_FromStringAndSize(self, v, len) \
     PyString_FromStringAndSize((v), (len))
-#define TagSecString_FromString(self, v) PyString_FromString(v)
+#define TagSecString_FromString(self, v) CppPyString(v)
 #else
 static PyObject *TagSecString_FromStringAndSize(PyObject *self, const char *v,
 	 				 Py_ssize_t len) {
@@ -338,11 +338,14 @@ static PyObject *TagFileNext(PyObject *Self)
    const char *Start;
    const char *Stop;
    Obj.Section->Object.GetSection(Start,Stop);
-   // Duplicate the data
-   Obj.Section->Data = new char[Stop-Start];
-   strncpy(Obj.Section->Data, Start, Stop-Start);
+   // Duplicate the data and
+   //  append a \n because GetSection() will only give us a single \n
+   //  but Scan() needs \n\n to work
+   Obj.Section->Data = new char[Stop-Start+2];
+   snprintf(Obj.Section->Data, Stop-Start+2, "%s\n", Start);
    // Rescan it
-   Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start);
+   if(Obj.Section->Object.Scan(Obj.Section->Data, Stop-Start+2) == false)
+      return HandleErrors(NULL);
 
    Py_INCREF(Obj.Section);
    return HandleErrors(Obj.Section);
@@ -381,6 +384,61 @@ static PyObject *TagFileJump(PyObject *Self,PyObject *Args)
 
    return HandleErrors(PyBool_FromLong(1));
 }
+
+static char *doc_Close =
+    "close()\n\n"
+    "Close the file.";
+static PyObject *TagFileClose(PyObject *self, PyObject *args)
+{
+    if (args != NULL && !PyArg_ParseTuple(args, ""))
+        return NULL;
+
+   TagFileData &Obj = *(TagFileData *) self;
+
+   Obj.Fd.Close();
+
+   Py_INCREF(Py_None);
+   return HandleErrors(Py_None);
+}
+
+static PyObject *TagFileExit(PyObject *self, PyObject *args)
+{
+
+   PyObject *exc_type = 0;
+   PyObject *exc_value = 0;
+   PyObject *traceback = 0;
+   if (!PyArg_UnpackTuple(args, "__exit__", 3, 3, &exc_type, &exc_value,
+                          &traceback)) {
+       return 0;
+   }
+
+   PyObject *res = TagFileClose(self, NULL);
+
+   if (res == NULL) {
+      // The close failed. If no exception happened within the suite, we
+      // will raise an error here. Otherwise, we just display the error, so
+      // Python can handle the original exception instead.
+      if (exc_type == Py_None)
+         return NULL;
+
+      PyErr_WriteUnraisable(self);
+   } else {
+      Py_DECREF(res);
+   }
+   // Return False, as required by the context manager protocol.
+   Py_RETURN_FALSE;
+}
+
+static PyObject *TagFileEnter(PyObject *self, PyObject *args)
+{
+   if (!PyArg_ParseTuple(args, ""))
+      return NULL;
+
+   Py_INCREF(self);
+
+   return self;
+}
+
 									/*}}}*/
 // ParseSection - Parse a single section from a tag file		/*{{{*/
 // ---------------------------------------------------------------------
@@ -394,6 +452,14 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    // make (much) use of it yet
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"s#|b",kwlist,&Data,&Len,&Bytes) == 0)
       return 0;
+   if (memchr(Data, 0, Len) != nullptr) {
+      PyErr_SetString(PyExc_ValueError, "Input contains NUL byte");
+      return 0;
+   }
+   if (Data[Len] != 0) {
+      PyErr_SetString(PyExc_ValueError, "Input is not terminated by NUL byte");
+      return 0;
+   }
 
    // Create the object..
    TagSecData *New = (TagSecData*)type->tp_alloc(type, 0);
@@ -462,7 +528,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    else 
    {
       // FileFd::Extension got added in this revision
-#if (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 12)
+#if (APT_PKG_MAJOR > 4 || (APT_PKG_MAJOR >= 4 && APT_PKG_MINOR >= 12))
       new (&New->Fd) FileFd(filename, FileFd::ReadOnly, FileFd::Extension, false);
 #else
       new (&New->Fd) FileFd(filename, FileFd::ReadOnly, false);
@@ -506,30 +572,41 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 char *doc_RewriteSection =
 "rewrite_section(section: TagSection, order: list, rewrite_list: list) -> str\n"
 "\n"
-"Rewrite the section given by 'section' using 'rewrite_list', and order the\n"
-"fields according to 'order'.\n\n"
-"The parameter 'order' is a list object containing the names of the fields\n"
-"in the order they should appear in the rewritten section.\n"
-"apt_pkg.REWRITE_PACKAGE_ORDER and apt_pkg.REWRITE_SOURCE_ORDER are two\n"
-"predefined lists for rewriting package and source sections, respectively\n\n"
-"The parameter 'rewrite_list' is a list of tuples of the form\n"
-"'(tag, newvalue[, renamed_to])', where 'tag' describes the field which\n"
-"should be changed, 'newvalue' the value which should be inserted or None\n"
-"to delete the field, and the optional renamed_to can be used to rename the\n"
-"field.";
+"Rewrite the section given by *section* using *rewrite_list*, and order the\n"
+"fields according to *order*.\n"
+"\n"
+"The parameter *order* is a :class:`list` object containing the names of the\n"
+"fields in the order they should appear in the rewritten section.\n"
+":data:`apt_pkg.REWRITE_PACKAGE_ORDER` and\n"
+":data:`apt_pkg.REWRITE_SOURCE_ORDER` are two predefined lists for rewriting\n"
+"package and source sections, respectively.\n"
+"\n"
+"The parameter *rewrite_list* is a list of tuples of the form\n"
+"``(tag, newvalue[, renamed_to])``, where *tag* describes the field which\n"
+"should be changed, *newvalue* the value which should be inserted or\n"
+"``None`` to delete the field, and the optional *renamed_to* can be used\n"
+"to rename the field.\n\n"
+".. deprecated:: 1.1\n\n"
+"    Replaced by :meth:`TagSection.write`";
 PyObject *RewriteSection(PyObject *self,PyObject *Args)
 {
    PyObject *Section;
    PyObject *Order;
    PyObject *Rewrite;
+
    if (PyArg_ParseTuple(Args,"O!O!O!",&PyTagSection_Type,&Section,
 			&PyList_Type,&Order,&PyList_Type,&Rewrite) == 0)
+      return 0;
+
+   if (PyErr_WarnEx(PyExc_DeprecationWarning,
+                    "apt_pkg.rewrite_section() is deprecated. Use TagSection.write instead", 1) == -1)
       return 0;
 
    // Convert the order list
    const char **OrderList = ListToCharChar(Order,true);
 
    // Convert the Rewrite list.
+APT_IGNORE_DEPRECATED_PUSH
    TFRewriteData *List = new TFRewriteData[PySequence_Length(Rewrite)+1];
    memset(List,0,sizeof(*List)*(PySequence_Length(Rewrite)+1));
    for (int I = 0; I != PySequence_Length(Rewrite); I++)
@@ -543,15 +620,17 @@ PyObject *RewriteSection(PyObject *self,PyObject *Args)
 	 return 0;
       }
    }
-
+APT_IGNORE_DEPRECATED_POP
    /* This is a glibc extension.. If not running on glibc I'd just take
       this whole function out, it is probably infrequently used */
    char *bp = 0;
    size_t size;
    FILE *F = open_memstream (&bp, &size);
 
+APT_IGNORE_DEPRECATED_PUSH
    // Do the rewrite
    bool Res = TFRewrite(F,GetCpp<pkgTagSection>(Section),OrderList,List);
+APT_IGNORE_DEPRECATED_POP
    delete [] OrderList;
    delete [] List;
    fclose(F);
@@ -653,6 +732,9 @@ static PyMethodDef TagFileMethods[] =
    {"step",TagFileStep,METH_VARARGS,doc_Step},
    {"offset",TagFileOffset,METH_VARARGS,doc_Offset},
    {"jump",TagFileJump,METH_VARARGS,doc_Jump},
+   {"close",TagFileClose,METH_VARARGS,doc_Close},
+   {"__enter__",TagFileEnter,METH_VARARGS,"Context manager entry, return self."},
+   {"__exit__",TagFileExit,METH_VARARGS,"Context manager exit, calls close."},
 
    {}
 };
@@ -734,4 +816,286 @@ PyTypeObject PyTagFile_Type =
    0,                                   // tp_alloc
    TagFileNew,                          // tp_new
 
+};
+
+
+// Return the current section.
+static PyObject *TagGetAction(PyObject *Self,void*) {
+   return MkPyNumber(GetCpp<pkgTagSection::Tag>(Self).Action);
+}
+
+static PyObject *TagGetName(PyObject *Self,void*) {
+   return CppPyString(GetCpp<pkgTagSection::Tag>(Self).Name);
+}
+
+static PyObject *TagGetData(PyObject *Self,void*) {
+   return CppPyString(GetCpp<pkgTagSection::Tag>(Self).Data);
+}
+
+static PyObject *PyTagRename_New(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
+   char *oldName;
+   char *newName;
+   char *kwlist[] = {"old_name", "new_name", 0};
+
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"ss",kwlist, &oldName, &newName) == 0)
+      return nullptr;
+   if (oldName[0] == '\0') {
+      PyErr_SetString(PyExc_ValueError, "Old tag name may not be empty.");
+      return nullptr;
+   }
+   if (newName[0] == '\0') {
+      PyErr_SetString(PyExc_ValueError, "New tag name may not be empty.");
+      return nullptr;
+   }
+
+   auto tag = pkgTagSection::Tag::Rename(oldName, newName);
+   return CppPyObject_NEW<pkgTagSection::Tag>(nullptr, type, tag);
+}
+
+static PyObject *PyTagRewrite_New(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
+   char *name;
+   char *data;
+   char *kwlist[] = {"name", "data", 0};
+
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"ss",kwlist, &name, &data) == 0)
+      return nullptr;
+   if (name[0] == '\0') {
+      PyErr_SetString(PyExc_ValueError, "Tag name may not be empty.");
+      return nullptr;
+   }
+   if (data[0] == '\0') {
+      PyErr_SetString(PyExc_ValueError, "New value may not be empty.");
+      return nullptr;
+   }
+
+   auto tag = pkgTagSection::Tag::Rewrite(name, data);
+   return CppPyObject_NEW<pkgTagSection::Tag>(nullptr, type, tag);
+}
+
+static PyObject *PyTagRemove_New(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
+   char *name;
+   char *kwlist[] = {"name"};
+
+   if (PyArg_ParseTupleAndKeywords(Args,kwds,"s",kwlist, &name) == 0)
+      return nullptr;
+   if (name[0] == '\0') {
+      PyErr_SetString(PyExc_ValueError, "Tag name may not be empty.");
+      return nullptr;
+   }
+
+   auto tag = pkgTagSection::Tag::Remove(name);
+   return CppPyObject_NEW<pkgTagSection::Tag>(nullptr, type, tag);
+}
+
+static PyGetSetDef TagGetSet[] = {
+    {"action",TagGetAction,0,
+     "The action to perform.",0},
+    {"name",TagGetName,0,
+     "The name of the tag to perform the action on.",0},
+    {"data",TagGetData,0,
+     "The data to write instead (for REWRITE), or the new tag name (RENAME)",0},
+    {}
+};
+
+static char doc_Tag[] = "Tag\n\n"
+   "Identify actions to be executed on a task\n"
+   "\n"
+   "This is used in conjunction with :meth:`TagSection.write` to rewrite\n"
+   "a tag section into a new one.\n"
+   "\n"
+   "This class is abstract, use one of the subclasses:\n"
+   ":class:`TagRewrite`, :class:`TagRemove`, :class:`TagRename`\n"
+   "\n"
+   ".. versionadded:: 1.1";
+
+static char doc_TagRewrite[] = "TagRewrite(name: str, data: str)\n\n"
+   "Change the value of the tag to the string passed in *data*\n"
+   "\n"
+   ".. versionadded:: 1.1";
+static char doc_TagRename[] = "TagRename(old_name: str, new_name: str)\n\n"
+   "Rename the tag *old_name* to *new_name*\n"
+   "\n"
+   ".. versionadded:: 1.1";
+
+static char doc_TagRemove[] = "TagRemove(name: str)\n\n"
+   "Remove the tag *name* from the tag section\n"
+   "\n"
+   ".. versionadded:: 1.1";
+
+
+// Type for a Tag File
+PyTypeObject PyTag_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.Tag",                   // tp_name
+   sizeof(CppPyObject<pkgTagSection::Tag>),                 // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<pkgTagSection::Tag>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   (Py_TPFLAGS_DEFAULT                  // tp_flags
+    | Py_TPFLAGS_BASETYPE),
+   doc_Tag,                             // tp_doc
+   CppTraverse<pkgTagSection::Tag>,     // tp_traverse
+   CppClear<pkgTagSection::Tag>,        // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   TagGetSet,                           // tp_getset
+   0,                                   // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   0,                                   // tp_new
+};
+
+// Type for a Tag File
+PyTypeObject PyTagRewrite_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.TagRewrite",                // tp_name
+   sizeof(CppPyObject<pkgTagSection::Tag>),                 // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<pkgTagSection::Tag>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   doc_TagRewrite,                      // tp_doc
+   CppTraverse<pkgTagSection::Tag>,     // tp_traverse
+   CppClear<pkgTagSection::Tag>,        // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   &PyTag_Type,                         // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PyTagRewrite_New,                    // tp_new
+};
+
+// Type for a Tag File
+PyTypeObject PyTagRemove_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.TagRemove",                 // tp_name
+   sizeof(CppPyObject<pkgTagSection::Tag>),                 // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<pkgTagSection::Tag>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   doc_TagRemove,                       // tp_doc
+   CppTraverse<pkgTagSection::Tag>,     // tp_traverse
+   CppClear<pkgTagSection::Tag>,        // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   &PyTag_Type,                         // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PyTagRemove_New,                     // tp_new
+};
+
+// Type for a Tag File
+PyTypeObject PyTagRename_Type =
+{
+   PyVarObject_HEAD_INIT(&PyType_Type, 0)
+   "apt_pkg.TagRename",                 // tp_name
+   sizeof(CppPyObject<pkgTagSection::Tag>),                 // tp_basicsize
+   0,                                   // tp_itemsize
+   // Methods
+   CppDealloc<pkgTagSection::Tag>,      // tp_dealloc
+   0,                                   // tp_print
+   0,                                   // tp_getattr
+   0,                                   // tp_setattr
+   0,                                   // tp_compare
+   0,                                   // tp_repr
+   0,                                   // tp_as_number
+   0,                                   // tp_as_sequence
+   0,                                   // tp_as_mapping
+   0,                                   // tp_hash
+   0,                                   // tp_call
+   0,                                   // tp_str
+   0,                                   // tp_getattro
+   0,                                   // tp_setattro
+   0,                                   // tp_as_buffer
+   Py_TPFLAGS_DEFAULT,                  // tp_flags
+   doc_TagRename,                       // tp_doc
+   CppTraverse<pkgTagSection::Tag>,     // tp_traverse
+   CppClear<pkgTagSection::Tag>,        // tp_clear
+   0,                                   // tp_richcompare
+   0,                                   // tp_weaklistoffset
+   0,                                   // tp_iter
+   0,                                   // tp_iternext
+   0,                                   // tp_methods
+   0,                                   // tp_members
+   0,                                   // tp_getset
+   &PyTag_Type,                         // tp_base
+   0,                                   // tp_dict
+   0,                                   // tp_descr_get
+   0,                                   // tp_descr_set
+   0,                                   // tp_dictoffset
+   0,                                   // tp_init
+   0,                                   // tp_alloc
+   PyTagRename_New,                     // tp_new
 };

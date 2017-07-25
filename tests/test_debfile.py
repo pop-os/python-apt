@@ -19,8 +19,10 @@ if libdir:
 import apt_pkg
 import apt.debfile
 
+import testcommon
 
-class TestDebfile(unittest.TestCase):
+
+class TestDebfile(testcommon.TestCase):
     """ test the debfile """
 
     TEST_DEBS = [
@@ -48,7 +50,7 @@ class TestDebfile(unittest.TestCase):
     ]
 
     def setUp(self):
-        apt_pkg.init_config()
+        testcommon.TestCase.setUp(self)
         apt_pkg.config.set("APT::Architecture", "i386")
         # FIXME: When run via test_all.py, the tests fail without this if it
         # is set in the system.
@@ -62,19 +64,38 @@ class TestDebfile(unittest.TestCase):
         apt_pkg.init_system()
         self.cache = apt.Cache()
 
-    def testDscFile(self):
+    def test_dsc_file(self):
         filename = "hello_2.5-1.dsc"
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertTrue(deb.check(), "got failure '%s'" % deb._failure_string)
         missing = set(['autotools-dev'])
         self.assertEqual(set(deb.missing_deps), missing)
+        # specialized properties
+        self.assertEqual(deb.pkgname, "hello")
+        self.assertEqual(deb.binaries, ["hello", "bello", "cello"])
+        self.assertEqual(deb.filelist, ["hello_2.5.orig.tar.gz",
+                                        "hello_2.5-1.diff.gz"])
+        self.assertEqual(deb.depends, [[("autotools-dev", "", "")]])
+        # tag fields are available as a dict
+        self.assertEqual(deb["Format"], "1.0")
+        self.assertEqual(deb["Source"], "hello")
+        self.assertEqual(deb["Binary"], "hello, bello,\n cello")
+        self.assertEqual(deb["Architecture"], "any")
+        self.assertEqual(deb["Version"], "2.5-1")
+        self.assertEqual(
+            deb["Maintainer"], "Santiago Vila <sanvila@debian.org>")
+        self.assertEqual(deb["Homepage"], "http://www.gnu.org/software/hello")
+        self.assertEqual(deb["Standards-Version"], "3.8.4")
+
+    def test_dsc_file_with_impossible_build_dep(self):
         filename = "impossible-build-depends_2.5-1.dsc"
         deb = apt.debfile.DscSrcPackage(cache=self.cache)
         deb.open(os.path.join("data", "test_debs", filename))
         self.assertFalse(deb.check())
+        self.assertEqual(deb.depends, [[("debhelper", "101", ">")]])
 
-    def testDebFile(self):
+    def test_deb_file(self):
         deb = apt.debfile.DebPackage(cache=self.cache)
         for (filename, expected_res) in self.TEST_DEBS:
             logging.debug("testing %s, expecting %s" % (
@@ -158,6 +179,11 @@ Description: testpackage for gdebi - contains usr/bin/binary for file reading
         same = apt.debfile.DebPackage(
             "./data/test_debs/testdep-same-arch_1.0-1_i386.deb")
         self.assertTrue(same.check(), same._failure_string)
+
+    def test_get_content_gzip_data(self):
+        deb = apt.debfile.DebPackage("./data/test_debs/gdebi-test13.deb")
+        data = deb.data_content("./lala.gz")
+        self.assertEqual(data, "Automatically decompressed:\n\nlala\n")
 
 
 if __name__ == "__main__":

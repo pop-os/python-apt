@@ -1,4 +1,409 @@
-python-apt (0.9.3.7) UNRELEASED; urgency=medium
+python-apt (1.4.0~beta3) unstable; urgency=medium
+
+  * apt.auth: Fix check of fingerprint length
+  * data/templates/Ubuntu.info.in: Add artful template
+  * Debian template: Adopt MatchUri to match base, switch BaseUri to CDN
+    (Closes: #859672)
+  * Update translation template
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 23 Apr 2017 21:02:14 +0200
+
+python-apt (1.4.0~beta2) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * templates: Debian: Add stretch
+  * Skip os-release test for now (Closes: #851039)
+
+  [ Martin Pitt ]
+  * data/templates/Ubuntu.info.in: Add zesty template
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 22 Jan 2017 15:00:44 +0100
+
+python-apt (1.4.0~beta1) unstable; urgency=medium
+
+  [ Harald Sitter ]
+  * add fancy os-release support to pick up its ID_LIKE feature
+
+  [ Julian Andres Klode ]
+  * Add optional 'architecture' argument to parse_src_depends()
+  * Allow keyword arguments for parse_depends() and parse_src_depends()
+  * Migrate python-apt priority from standard to optional
+  * Bump version number, we require APT 1.4 series for the architecture
+    thing above.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 05 Jan 2017 20:56:51 +0100
+
+python-apt (1.1.0~beta5) unstable; urgency=medium
+
+  * apt.auth: Set APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE
+    NOTE: apt.auth is about to be deprecated, do not use it. It will
+    be removed in a later version.
+  * Fix gpg breakage (Closes: #835465)
+    - Use --fixed-list-mode for apt-key gpg invocations.
+      Thanks to Daniel Kahn Gillmor for the initial patch
+    - test_auth: Normalize public key blocks before comparing
+    -  Adjust dependencies for apt.auth on gnupg and dirmngr
+    - Work around broken debfile multiarch test cases
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 01 Sep 2016 16:34:43 +0200
+
+python-apt (1.1.0~beta4) unstable; urgency=medium
+
+  * Fix test failures causing FTBFS (Closes: #830995)
+    - tests/test_lp659438.py: Set allow-insecure
+    - tests: Completely reset config environment in setUp
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 16 Jul 2016 02:05:35 +0200
+
+python-apt (1.1.0~beta3) unstable; urgency=medium
+
+  [ Adam Conrad ]
+  * data/templates/Ubuntu.info.in: Add Yakkety Yak (16.10) template
+
+  [ Julian Andres Klode ]
+  * Set allow-unauthenticated for our local sources
+  * Update Vcs-Git and Vcs-Browser fields to https
+  * copyright: Update to copyright-format 1.0
+  * Drop the XS-Testsuite control field, not needed anymore
+  * copyright: Remove nonexisting files
+  * Bump Standards-Version to 3.9.8
+  * Build with full hardening enabled
+  * Fix typo classes reported by lintian
+  * rules: Do not use pie
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 08 Jul 2016 10:52:21 +0200
+
+python-apt (1.1.0~beta2) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * tests/test_all.py: Only use test files starting with test_
+  * tests: Rename test_pep8 to testmanual_pep8
+  * pre-build.sh: Run PEP8 check
+  * apt/README.apt: Drop it, we cannot pretend unstable API anymore
+  * depcache: Call SetLog() and GetLock on Acquire instead of Setup
+  * Fix regression from previous commit WRT Py_None reference count
+  * pkgsrcrecords: Use Files2 instead of Files, part1: Size
+  * Introduce apt_pkg.HashStringList()
+  * pkgrecords: Use hashes instead of deprecated MD5Hash and friends
+  * whatsnew: 1.1: Document HashStringList and PackageRecords changes
+  * hashstring: Constify where possible
+  * Drop deprecated uses of Hashes, add hashes attribute
+  * HashStringList: Check for negative index, fix signed vs unsigned
+  * acquire: Call SetLog() instead of Setup()
+  * apt_pkg: Deprecate rewrite_section
+  * arfile, tarfile: Decode member names using filesystem encoding
+    (Closes: #806596)
+  * CppPyString: Use an const std::string reference instead of value
+  * Make Safe_FromString an overloaded version of CppPyString
+  * Use CppPyString instead of PyString_FromString everywhere
+  * Drop compat macros for python2 (< 2.6)
+  * Drop deprecation-ignore macros, use APT ones instead
+  * Use CppPyPath for returning (hopefully) all paths
+  * apt_inst: Do not mention deprecated functions, except for porting
+    (Closes: #807103)
+  * control: Suggest apt, so reportbug reports apt version
+  * Drop binding for SmartTargetPkg() (Closes: #791345)
+  * debfile: Mention dpkg --add-architecture when arch is wrong
+    (Closes: #725720)
+  * Introduce apt_pkg.Error class replacing SystemError
+  * CppPyObject_NEW: Make template variadic
+  * Revert "CppPyObject_NEW: Make template variadic"
+  * Add apt_pkg.Tag and subclasses (one per kind of tag)
+  * TagSection: Check for NUL bytes in the tag section input
+  * python-apt-common: Drop python | python3 depends (Closes: #812099)
+  * apt.Cache: Provide get()
+
+  [ Felix Dietrich ]
+  * doc: Fix typo (Closes: #807105)
+  * Use print function from __future__ in examples (Closes: #807104)
+
+  [ Brian Murray ]
+  * Fix typo regarding upgradeable packages.
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 13 Mar 2016 15:48:44 +0100
+
+python-apt (1.1.0~beta1) unstable; urgency=medium
+
+  * Upload to unstable
+
+  [ Michael Vogt ]
+  * Do not show pulse progress when the output is not a tty
+  * Fix build-dependencies parsing from debian/control
+  * Print the failed function name in PyPkgManager::res()
+
+  [ Julian Andres Klode ]
+  * test_paths.py: Catch the IndexRecords warning
+  * Release 1.0.1
+  * changelog: Fix up the uploader name and close Barry's bug
+  * doc: tutorials: contribution: Rewrite for git and other changes
+    (Closes: #802084)
+  * Build with cleaner headers
+  * Use pkgCache::Version::No instead of pkgCache::Version::None
+  * apt.utils: Support parsing InRelease files (LP: #1503979)
+    Thanks to Brian Murray <brian@ubuntu.com> for the initial patch.
+  * apt.utils: Open the release files using a 'with' statement
+
+  [ Jakub Wilk ]
+  * apt/debfile.py: Fix typo
+  * apt/debfile.py: Fix typo
+
+  [ Martin Pitt ]
+  * ./data/templates/Ubuntu.info.in: Add Xenial template.
+  * doc/source/examples/apt-cdrom.py: Fix PEP-8 errors.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 26 Nov 2015 17:32:28 +0100
+
+python-apt (1.1.0~alpha3) experimental; urgency=medium
+
+  [ Michael Schaller ]
+  * apt.Cache: Add Cache._rawpkg_to_pkg method to consolidate duplicated code
+  * apt.Version: Compare against package name and version (if available)
+  * apt/package.py: Add target_versions method to [Base]Dependency
+  * Add helpers/filters for installed packages/versions
+
+  [ Julian Andres Klode ]
+  * Document the new additions in 1.0
+  * doc/source/conf.py: Do not set html_style, broken with recent sphinx
+  * Merge 1.0.0
+  * Keep apt_pkg.IndexRecords dropped
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 12 Sep 2015 15:13:08 +0200
+
+python-apt (1.1.0~alpha2) experimental; urgency=medium
+
+  * Fix a typo in a member access.
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2015 15:25:13 +0200
+
+python-apt (1.1.0~alpha1) experimental; urgency=medium
+
+  [ Michael Vogt ]
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+
+  [ Julian Andres Klode ]
+  * Drop apt_pkg.IndexRecords, it has been dropped in experimental
+  * Support APT_PKG_MAJOR >= 5
+  * test_paths: Drop the indexrecord test
+  * Fix pep8 1.6.2 issues
+  * setup.py: Pass -std=c++11 and -Wno-write-strings to the compiler
+  * Convert from SPtr and SPtrArray to unique_ptr and array
+  * Replace pkgDistUpgrade and friend with APT::Upgrade::Upgrade
+  * AcquireItem: Deprecate mode and introduce active_subprocess
+
+  [ John R. Lenton ]
+  * Discard stderr when calling system-image-cli (LP: #267935)
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 18 Aug 2015 14:44:51 +0200
+
+python-apt (1.0.1) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * Do not show pulse progress when the output is not a tty
+  * Fix build-dependencies parsing from debian/control
+
+  [ Julian Andres Klode ]
+  * test_paths.py: Catch the IndexRecords warning (Closes: #800624)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 01 Oct 2015 22:10:22 +0200
+
+python-apt (1.0.0) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * Fix pep8 1.6.2 issues
+  * setup.py: Pass -std=c++11 and -Wno-write-strings to the compiler
+  * Convert from SPtr and SPtrArray to unique_ptr and array
+  * Replace pkgDistUpgrade and friend with APT::Upgrade::Upgrade
+  * AcquireItem: Deprecate mode and introduce active_subprocess
+  * APT 1.1: Fix a typo in a member access.
+  * Deprecate IndexRecords
+  * Document the new additions in 1.0
+  * doc/source/conf.py: Do not set html_style, broken with recent sphinx
+  * Revert the temporary build-deps on APT 1.0.10 and the new gcc,
+    as they are not needed anymore.
+
+  [ John R. Lenton ]
+  * Discard stderr when calling system-image-cli (LP: #267935)
+
+  [ Michael Schaller ]
+  * apt.Cache: Add Cache._rawpkg_to_pkg method to consolidate duplicated code
+  * apt.Version: Compare against package name and version (if available)
+  * apt/package.py: Add target_versions method to [Base]Dependency
+  * Add helpers/filters for installed packages/versions
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 12 Sep 2015 14:35:27 +0200
+
+python-apt (1.0.0~beta3.1) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * fix py3 issue with auto .gz decompression and add test
+  * updated for the gcc5 transition
+
+  [ Julian Andres Klode ]
+  * doc/source/conf.py: Reproducibility: Set html_last_updated_fmt = None
+
+  [ Michael Schaller ]
+  * BaseDependency.__repr__: Replace pre_depend with rawtype
+  * apt/package.py: Add rawtype property to Dependency class
+  * Add dependency comparison (aka. relation) type in Debian notation
+  * apt/package.py: Add missing __str__ and __repr__ methods
+  * doc/source/library/apt_pkg.rst: Remove trailing whitespace
+  * apt_pkg.Dependency.all_targets: Fix the documentation
+
+  [ Barry Warsaw ]
+  * python-apt: Python 3.5 and PEP 479 support (Closes: #792606)
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Jul 2015 17:51:25 +0200
+
+python-apt (1.0.0~beta3) unstable; urgency=medium
+
+  * tests/test_paths.py: Catch and assert the DeprecationWarning
+  * setup.py: If no version is in the environment, return None
+  * doc/source/library/apt_pkg.rst: Fix an example from old API to new API
+  * apt.cache.FilteredCache: Fix multi-arch package lookups
+  * apt.Cache: Introduce a connect2() callback connector
+  * Break the FilteredCache <-> Cache reference cycle
+  * apt.Cache: Issue a RuntimeWarning in connect()
+  * doc: whatsnew: Document what's new in beta3
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 17 Jun 2015 18:28:44 +0200
+
+python-apt (1.0.0~beta2) unstable; urgency=low
+
+  * debian/control: Build-Depend on apt (>= 1.0.9.4) for Files2()
+  * Handle the symlink to directory transition correctly (Closes: #788571)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 13 Jun 2015 00:41:30 +0200
+
+python-apt (1.0.0~beta1) unstable; urgency=low
+
+  [ Julian Andres Klode ]
+  * tests/test_tagfile.py: Close files we opened to prevent leakage
+    (Closes: #785337)
+  * doc/source/c++/api.rst: Upgrade syntax to use the new domain stuff
+  * doc/source/library/apt_pkg.rst: Fix indentation (Closes: #736119)
+  * sphinx docs: Fix remaining instances of old C syntax to use domains
+  * python/cache.cc: Handle deprecation of pkgCache::PkgIterator::Section()
+  * doc: Prepare for 1.0 release
+  * TagFile: Provide close() and context manager (Closes: #748922)
+  * doc: Document apt_pkg.TagFile additions
+  * doc: templates: layout: Remove invalid icon links
+  * debian/control: Build-Depend on dh-python
+  * Do not link documentation from Architecture: all to Architecture: any
+  * Use ${python:Depends} and friends for the debug packages
+  * apt.debfile: Fix splitting of multi-lines Binary fields in dsc files
+    (Closes: #751770)
+  * Remove apt.progress.gtk2
+  * apt_pkg.Package: Drop the unset 'auto' attribute (Closes: #565364)
+  * Update POTFILES.in and the pot
+  * apt/cache.py: Work around a cyclic reference from Cache to its methods
+    (Closes: #745487)
+  * apt/debfile.py: Arch-qualify in compare_to_version_in_cache()
+    (Closes: #750189)
+  * apt.package: Only reference Launchpad for missing changelogs on Ubuntu
+    (Closes: #781270)
+  * apt/cache.py: Support :all and other special architecture specifies
+  * apt/debfile: Stop special-casing all when looking for a package in the cache
+  * apt/debfile.py: Allow downgrading packages in check() with a parameter
+    (Closes: #613974)
+  * Acquire: Document that items may have transient errors on run() success
+    (Closes: #680997)
+  * Large file support (Closes: #742885)
+    - python/arfile.cc: Do not allow files larger than SIZE_MAX to be mapped
+    - python/arfile.cc: LFS: Use long long instead of long for file sizes
+    - python/tarfile.cc: LFS: Handle too large file
+  * setup.py: Translate version number from Debian to PEP0440 (LP: #1445949)
+
+  [ Michael Vogt ]
+  * apt_pkg.rst: improve documentation for AcquireFile() hash and add
+    sha512 to the documentation
+  * rename "md5" keyword argument in AcquireFile() to "hash" and add
+    backward compatiblity
+  * Fix apt.Package.installed_files for multi-arch packages (LP: #1313699)
+
+  [ von ]
+  * Remove the "-Wstrict-prototypes" compiler option (Closes: #785261)
+  * Set Standards-Version to 3.9.6 (Closes: #785431)
+  * Fix indentation and docstring problems (Closes: #784910)
+
+  [ Michael Schaller ]
+  * Fixed docstring of BaseDependency.version property.
+  * Improved docstring of the Version.get_dependencies method.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 11 Jun 2015 22:38:31 +0200
+
+python-apt (0.9.4) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * add apt_pkg.sha512sum()
+  * Add binding for apt_pkg.maybe_open_clear_signed_file()
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+  * Update doc/example/action.py for py3 and latest API (closes: #782335)
+  * Add MULTI_ARCH_NO constant and deprecate MULTI_ARCH_NONE (closes: #782802)
+  * Fix dead links in python-apt documentation (Closes: #779426)
+
+  [ Martin Pitt ]
+  * ./data/templates/Ubuntu.info.in: Add Wily template. Don't copy extras.u.c.
+    stanza as that's gone since 15.04.
+
+  [ von ]
+  * Update the print_uris.py example to use the new API (Closes: #779217)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 07 May 2015 18:18:29 +0200
+
+python-apt (0.9.3.11) unstable; urgency=low
+
+  [ Colin Watson ]
+  * Add template for the "Ubuntu-RTM" derived distribution.
+  * Detect whether a system is running Ubuntu-RTM by way of
+    "system-image-cli -i".  Not perfect but close enough.
+
+  [ Julian Andres Klode ]
+  * Embed changelog entry date and time instead of build date and time
+    (Closes: #762674)
+
+  [ Michael Vogt ]
+  * python/tarfile.cc: use long long in Process() for APT >= 4.14
+  * Merged UbuntuRTMDistribution detection from ubuntu
+  * Add Ubuntu 15.04 (Vivid Vervet) to the template
+
+ -- Michael Vogt <mvo@debian.org>  Fri, 24 Oct 2014 10:16:01 -0400
+
+python-apt (0.9.3.10) unstable; urgency=medium
+
+  * python/tag.cc: ensure that the final \n is there when 
+    duplicating section data
+  * apt/debfile.py:
+    - Stop reading after the "Format" stanza in a .dsc file
+    - Add support for apt.debfile.DscSrcPackage.filelist
+    - Read all tags from a dsc file and improve tests
+  * fix tests when gnupg is < 1.4.18
+  * update python-apt.pot
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 04 Sep 2014 18:07:41 +0200
+
+python-apt (0.9.3.9) unstable; urgency=medium
+
+  [ Michael Vogt ]
+  * fix another pep8 failure
+
+  [ Julian Andres Klode ]
+  * doc/source/tutorials/apt-get.rst: Remove -s from --print-uris invocation
+    (LP: #1308670)
+
+  [ Mauricio Faria de Oliveira ]
+  * tests/test_pep8.py: --ignore E129 too (fix FTBFS with pep8 >= 1.5)
+  * tests/test_auth.py: update for gnupg 1.4.18 (Closes: #755342)
+
+ -- Michael Vogt <mvo@debian.org>  Thu, 28 Aug 2014 14:46:57 -0700
+
+python-apt (0.9.3.8) unstable; urgency=medium
+
+  * pep8 fixes to fix autopkgtest failure with the most recent
+    pep8 package
+
+ -- Michael Vogt <mvo@debian.org>  Mon, 30 Jun 2014 13:31:29 +0200
+
+python-apt (0.9.3.7) unstable; urgency=medium
 
   * Include "Blankon" template (Closes: #747498)
   * Add apt_pkg.SourceRecords.step() to step through all SrcRecords
