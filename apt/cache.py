@@ -27,7 +27,7 @@ import warnings
 import weakref
 
 import apt_pkg
-from apt import Package
+from apt import Package  # type: ignore
 import apt.progress.text
 
 

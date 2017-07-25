@@ -14,8 +14,12 @@ before_install:
  - sudo apt-get install distro-info
  - echo "deb http://archive.ubuntu.com/ubuntu $(distro-info --stable) main"|sudo tee -a /etc/apt/sources.list.d/added.list
  - sudo apt-get update -q
+ - sudo apt-get install dpkg
  - sudo apt-get install -q --no-install-recommends gdebi-core
  - sudo apt-get install -q build-essential $(gdebi -q --apt-line ./debian/control)
+ - sudo apt-get install python3-pip
+ - sudo python3 -m pip install -U mypy
 script:
  - ./debian/rules build-arch
  - python3 tests/testmanual_pep8.py
+ - mypy ./
