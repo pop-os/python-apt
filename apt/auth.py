@@ -139,7 +139,8 @@ def add_key_from_keyserver(keyid, keyserver):
 
 def _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir):
     if len(keyid.replace(" ", "").replace("0x", "")) < (160 / 4):
-        raise AptKeyIDTooShortError("Only fingerprints (v4, 160bit) are supported")
+        raise AptKeyIDTooShortError(
+            "Only fingerprints (v4, 160bit) are supported")
     # create a temp keyring dir
     tmp_secret_keyring = os.path.join(tmp_keyring_dir, "secring.gpg")
     tmp_keyring = os.path.join(tmp_keyring_dir, "pubring.gpg")
@@ -274,6 +275,7 @@ def list_keys():
             key = TrustedKey(uid, keyid, creation_date)
             res.append(key)
     return res
+
 
 if __name__ == "__main__":
     # Add some known keys we would like to see translated so that they get

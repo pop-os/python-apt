@@ -1397,6 +1397,7 @@ def _test():
         print("Broken: %s " % cache._depcache.broken_count)
         print("DelCount: %s " % cache._depcache.del_count)
 
+
 # self-test
 if __name__ == "__main__":
     _test()
