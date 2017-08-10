@@ -152,6 +152,7 @@ class SourceRecords:
     files: List[Tuple[str, int, str, str]]
     index: IndexFile
     package: str
+    section: str
 
 class ActionGroup:
     def __init__(self, depcache: DepCache) -> None: ...

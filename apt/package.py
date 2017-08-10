@@ -1206,6 +1206,7 @@ class Package(object):
         return []
 
     def get_changelog(self, uri=None, cancel_lock=None):
+        # type: (str, threading.Event) -> str
         """
         Download the changelog of the package and return it as unicode
         string.
@@ -1219,7 +1220,7 @@ class Package(object):
                 "/%(src_section)s/%(prefix)s/%(src_pkg)s" \\
                 "/%(src_pkg)s_%(src_ver)s/changelog"
 
-        The parameter *cancel_lock* refers to an instance of threading.Lock,
+        The parameter *cancel_lock* refers to an instance of threading.Event,
         which if set, prevents the download.
         """
         # Return a cached changelog if available
@@ -1239,7 +1240,10 @@ class Package(object):
                       "/%(src_pkg)s_%(src_ver)s/changelog"
             else:
                 res = _("The list of changes is not available")
-                return res if isinstance(res, unicode) else res.decode("utf-8")
+                if isinstance(res, unicode):
+                    return res
+                else:
+                    res.decode("utf-8")
 
         # get the src package name
         src_pkg = self.candidate.source_name
@@ -1305,7 +1309,7 @@ class Package(object):
                 socket.setdefaulttimeout(2)
 
                 # Check if the download was canceled
-                if cancel_lock and cancel_lock.isSet():
+                if cancel_lock and cancel_lock.is_set():
                     return u""
                 # FIXME: python3.2: Should be closed manually
                 changelog_file = urlopen(uri)
@@ -1314,7 +1318,7 @@ class Package(object):
                 regexp = "^%s \((.*)\)(.*)$" % (re.escape(src_pkg))
                 while True:
                     # Check if the download was canceled
-                    if cancel_lock and cancel_lock.isSet():
+                    if cancel_lock and cancel_lock.is_set():
                         return u""
                     # Read changelog line by line
                     line_raw = changelog_file.readline()
@@ -1359,11 +1363,17 @@ class Package(object):
                             "later.") % (src_pkg, src_ver)
                 else:
                     res = _("The list of changes is not available")
-                return res if isinstance(res, unicode) else res.decode("utf-8")
+                if isinstance(res, unicode):
+                    return res
+                else:
+                    res.decode("utf-8")
             except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
                         "check your Internet connection.")
-                return res if isinstance(res, unicode) else res.decode("utf-8")
+                if isinstance(res, unicode):
+                    return res
+                else:
+                    res.decode("utf-8")
         finally:
             socket.setdefaulttimeout(timeout)
         return self._changelog
