@@ -38,6 +38,13 @@ class Dependency():
 
 class Package():
     name: str
+    version_list: List[Version]
+    architecture: str
+    id: int
+    current_ver: Version
+    essential: bool
+    section: str
+    def get_fullname(self, pretty: bool=False) -> str: ...
 
 class Version():
     ver_str: str
