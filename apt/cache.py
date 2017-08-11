@@ -41,9 +41,12 @@ except ImportError:
 import apt_pkg
 from apt import Package  # type: ignore
 import apt.progress.text
-from apt.progress.base import AcquireProgress, OpProgress
+from apt.progress.base import AcquireProgress, InstallProgress, OpProgress
 OpProgress  # pyflakes
+InstallProgress  # pyflakes
 AcquireProgress  # pyflakes
+
+
 
 class FetchCancelledException(IOError):
     """Exception that is thrown when the user cancels a fetch operation."""
@@ -428,6 +431,7 @@ class Cache(dict):
 
     def get_providing_packages(self, pkgname, candidate_only=True,
                                include_nonvirtual=False):
+        # type: (str, bool, bool) -> List[Package]
         """Return a list of all packages providing a package.
 
         Return a list of packages which provide the virtual package of the
@@ -443,7 +447,7 @@ class Cache(dict):
         a virtual pkg.
         """
 
-        providers = set()
+        providers = set()  # type: Set[Package]
         get_candidate_ver = self._depcache.get_candidate_ver
         try:
             vp = self._cache[pkgname]
@@ -460,6 +464,7 @@ class Cache(dict):
 
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
+        # FIXME: type: (AcquireProgress, int, bool, str) -> int
         """Run the equivalent of apt-get update.
 
         You probably want to call open() afterwards, in order to utilise the
@@ -511,6 +516,7 @@ class Cache(dict):
                 apt_pkg.config.set("APT::List-Cleanup", old_cleanup)
 
     def install_archives(self, pm, install_progress):
+        # type: (apt_pkg.PackageManager, InstallProgress) -> int
         """
         The first parameter *pm* refers to an object returned by
         apt_pkg.PackageManager().
@@ -520,17 +526,18 @@ class Cache(dict):
         """
         # compat with older API
         try:
-            install_progress.startUpdate()
+            install_progress.startUpdate()  # type: ignore
         except AttributeError:
             install_progress.start_update()
         res = install_progress.run(pm)
         try:
-            install_progress.finishUpdate()
+            install_progress.finishUpdate()  # type: ignore
         except AttributeError:
             install_progress.finish_update()
         return res
 
     def commit(self, fetch_progress=None, install_progress=None):
+        # type: (AcquireProgress, InstallProgress) -> bool
         """Apply the marked changes to the cache.
 
         The first parameter, *fetch_progress*, refers to a FetchProgress()
@@ -574,16 +581,19 @@ class Cache(dict):
         return (res == pm.RESULT_COMPLETED)
 
     def clear(self):
+        # type: () -> None
         """ Unmark all changes """
         self._depcache.init()
 
     # cache changes
 
     def cache_post_change(self):
+        # type: () -> None
         " called internally if the cache has changed, emit a signal then "
         self._run_callbacks("cache_post_change")
 
     def cache_pre_change(self):
+        # type: () -> None
         """ called internally if the cache is about to change, emit
             a signal then """
         self._run_callbacks("cache_pre_change")
@@ -624,6 +634,7 @@ class Cache(dict):
         self._callbacks2[name].append((callback, args, kwds))
 
     def actiongroup(self):
+        # type: () -> apt_pkg.ActionGroup
         """Return an `ActionGroup` object for the current cache.
 
         Action groups can be used to speedup actions. The action group is
@@ -646,6 +657,7 @@ class Cache(dict):
 
     @property
     def dpkg_journal_dirty(self):
+        # type: () -> bool
         """Return True if the dpkg was interrupted
 
         All dpkg operations will fail until this is fixed, the action to
@@ -661,21 +673,25 @@ class Cache(dict):
 
     @property
     def broken_count(self):
+        # type: () -> int
         """Return the number of packages with broken dependencies."""
         return self._depcache.broken_count
 
     @property
     def delete_count(self):
+        # type: () -> int
         """Return the number of packages marked for deletion."""
         return self._depcache.del_count
 
     @property
     def install_count(self):
+        # type: () -> int
         """Return the number of packages marked for installation."""
         return self._depcache.inst_count
 
     @property
     def keep_count(self):
+        # type: () -> int
         """Return the number of packages marked as keep."""
         return self._depcache.keep_count
 
