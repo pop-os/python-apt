@@ -55,7 +55,14 @@ except ImportError:
 import apt_pkg
 import apt.cache
 import apt.progress.text
-import apt.progress.base
+
+from apt.progress.base import (
+    AcquireProgress,
+    InstallProgress,
+)
+AcquireProgress  # pyflakes
+InstallProgress  # pyflakes
+
 from apt_pkg import gettext as _
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
@@ -813,7 +820,7 @@ class Version(object):
             return None
 
     def fetch_binary(self, destdir='', progress=None):
-        # type: (str, apt.progress.base.AcquireProgress) -> str
+        # type: (str, AcquireProgress) -> str
         """Fetch the binary version of the package.
 
         The parameter *destdir* specifies the directory where the package will
@@ -842,7 +849,7 @@ class Version(object):
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):
-        # type: (str, apt.progress.base.AcquireProgress, bool) -> str
+        # type: (str, AcquireProgress, bool) -> str
         """Get the source code of a package.
 
         The parameter *destdir* specifies the directory where the source will
@@ -1380,6 +1387,7 @@ class Package(object):
 
     @property
     def versions(self):
+        # type: () -> VersionList
         """Return a VersionList() object for all available versions.
 
         .. versionadded:: 0.7.9
@@ -1388,28 +1396,33 @@ class Package(object):
 
     @property
     def is_inst_broken(self):
+        # type: () -> bool
         """Return True if the to-be-installed package is broken."""
         return self._pcache._depcache.is_inst_broken(self._pkg)
 
     @property
     def is_now_broken(self):
+        # type: () -> bool
         """Return True if the installed package is broken."""
         return self._pcache._depcache.is_now_broken(self._pkg)
 
     @property
     def has_config_files(self):
+        # type: () -> bool
         """Checks whether the package is is the config-files state."""
         return self. _pkg.current_state == apt_pkg.CURSTATE_CONFIG_FILES
 
     # depcache actions
 
     def mark_keep(self):
+        # type: () -> None
         """Mark a package for keep."""
         self._pcache.cache_pre_change()
         self._pcache._depcache.mark_keep(self._pkg)
         self._pcache.cache_post_change()
 
     def mark_delete(self, auto_fix=True, purge=False):
+        # type: (bool, bool) -> None
         """Mark a package for deletion.
 
         If *auto_fix* is ``True``, the resolver will be run, trying to fix
@@ -1431,6 +1444,7 @@ class Package(object):
         self._pcache.cache_post_change()
 
     def mark_install(self, auto_fix=True, auto_inst=True, from_user=True):
+        # type: (bool, bool, bool) -> None
         """Mark a package for install.
 
         If *autoFix* is ``True``, the resolver will be run, trying to fix
@@ -1455,6 +1469,7 @@ class Package(object):
         self._pcache.cache_post_change()
 
     def mark_upgrade(self, from_user=True):
+        # type: (bool) -> None
         """Mark a package for upgrade."""
         if self.is_upgradable:
             auto = self.is_auto_installed
@@ -1466,6 +1481,7 @@ class Package(object):
                               "'%s'\n") % self._pkg.name)
 
     def mark_auto(self, auto=True):
+        # type: (bool) -> None
         """Mark a package as automatically installed.
 
         Call this function to mark a package as automatically installed. If the
@@ -1475,6 +1491,7 @@ class Package(object):
         self._pcache._depcache.mark_auto(self._pkg, auto)
 
     def commit(self, fprogress, iprogress):
+        # type: (AcquireProgress, InstallProgress) -> None
         """Commit the changes.
 
         The parameter *fprogress* refers to a apt_pkg.AcquireProgress() object,
