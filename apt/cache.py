@@ -703,32 +703,39 @@ class ProblemResolver(object):
     """
 
     def __init__(self, cache):
+        # type: (Cache) -> None
         self._resolver = apt_pkg.ProblemResolver(cache._depcache)
         self._cache = cache
 
     def clear(self, package):
+        # type: (Package) -> None
         """Reset the package to the default state."""
         self._resolver.clear(package._pkg)
 
     def install_protect(self):
+        # type: () -> None
         """mark protected packages for install or removal."""
         self._resolver.install_protect()
 
     def protect(self, package):
+        # type: (Package) -> None
         """Protect a package so it won't be removed."""
         self._resolver.protect(package._pkg)
 
     def remove(self, package):
+        # type: (Package) -> None
         """Mark a package for removal."""
         self._resolver.remove(package._pkg)
 
     def resolve(self):
+        # type: () -> None
         """Resolve dependencies, try to remove packages where needed."""
         self._cache.cache_pre_change()
         self._resolver.resolve()
         self._cache.cache_post_change()
 
     def resolve_by_keep(self):
+        # type: () -> None
         """Resolve dependencies, do not try to remove packages."""
         self._cache.cache_pre_change()
         self._resolver.resolve_by_keep()
@@ -742,6 +749,7 @@ class Filter(object):
     """ Filter base class """
 
     def apply(self, pkg):
+        # type: (Package) -> bool
         """ Filter function, return True if the package matchs a
             filter criteria and False otherwise
         """
@@ -752,6 +760,7 @@ class MarkedChangesFilter(Filter):
     """ Filter that returns all marked changes """
 
     def apply(self, pkg):
+        # type: (Package) -> bool
         if pkg.marked_install or pkg.marked_delete or pkg.marked_upgrade:
             return True
         else:
@@ -765,6 +774,7 @@ class InstalledFilter(Filter):
     """
 
     def apply(self, pkg):
+        # type: (Package) -> bool
         return pkg.is_installed
 
 
@@ -772,41 +782,46 @@ class _FilteredCacheHelper(object):
     """Helper class for FilteredCache to break a reference cycle."""
 
     def __init__(self, cache):
+        # type: (Cache) -> None
         # Do not keep a reference to the cache, or you have a cycle!
 
-        self._filtered = {}
-        self._filters = {}
+        self._filtered = {}  # type: Dict[str,bool]
+        self._filters = []  # type: List[Filter]
         cache.connect2("cache_post_change", self.filter_cache_post_change)
         cache.connect2("cache_post_open", self.filter_cache_post_change)
 
     def _reapply_filter(self, cache):
+        # type: (Cache) -> None
         " internal helper to refilter "
         # Do not keep a reference to the cache, or you have a cycle!
         self._filtered = {}
         for pkg in cache:
             for f in self._filters:
                 if f.apply(pkg):
-                    self._filtered[pkg.name] = 1
+                    self._filtered[pkg.name] = True
                     break
 
     def set_filter(self, filter):
+        # type: (Filter) -> None
         """Set the current active filter."""
         self._filters = []
         self._filters.append(filter)
 
     def filter_cache_post_change(self, cache):
+        # type: (Cache) -> None
         """Called internally if the cache changes, emit a signal then."""
         # Do not keep a reference to the cache, or you have a cycle!
         self._reapply_filter(cache)
 
 
-class FilteredCache(object):
+class FilteredCache(dict):
     """ A package cache that is filtered.
 
         Can work on a existing cache or create a new one
     """
 
     def __init__(self, cache=None, progress=None):
+        # type: (Cache, OpProgress) -> None
         if cache is None:
             self.cache = Cache(progress)
         else:
@@ -814,22 +829,28 @@ class FilteredCache(object):
         self._helper = _FilteredCacheHelper(self.cache)
 
     def __len__(self):
+        # type: () -> int
         return len(self._helper._filtered)
 
     def __getitem__(self, key):
+        # type: (str) -> Package
         return self.cache[key]
 
     def __iter__(self):
+        # type: () -> Iterator[Package]
         for pkgname in self._helper._filtered:
             yield self.cache[pkgname]
 
     def keys(self):
+        # FIXME: type: () -> List[str] - does not work
         return self._helper._filtered.keys()
 
     def has_key(self, key):
+        # type: (object) -> bool
         return key in self
 
     def __contains__(self, key):
+        # type: (object) -> bool
         try:
             # Normalize package name for multi arch
             return self.cache[key].name in self._helper._filtered
@@ -837,11 +858,13 @@ class FilteredCache(object):
             return False
 
     def set_filter(self, filter):
+        # type: (Filter) -> None
         """Set the current active filter."""
         self._helper.set_filter(filter)
         self.cache.cache_post_change()
 
     def filter_cache_post_change(self):
+        # type: () -> None
         """Called internally if the cache changes, emit a signal then."""
         self._helper.filter_cache_post_change(self.cache)
 
