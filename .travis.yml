@@ -22,4 +22,4 @@ before_install:
 script:
  - ./debian/rules build-arch
  - python3 tests/testmanual_pep8.py
- - mypy ./
+ - mypy ./apt
