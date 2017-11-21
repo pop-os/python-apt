@@ -142,7 +142,7 @@ def add_key_from_keyserver(keyid, keyserver):
     tmp_keyring_dir = tempfile.mkdtemp()
     try:
         _add_key_from_keyserver(keyid, keyserver, tmp_keyring_dir)
-    except:
+    except Exception:
         raise
     finally:
         shutil.rmtree(tmp_keyring_dir)

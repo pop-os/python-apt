@@ -47,7 +47,6 @@ InstallProgress  # pyflakes
 AcquireProgress  # pyflakes
 
 
-
 class FetchCancelledException(IOError):
     """Exception that is thrown when the user cancels a fetch operation."""
 

@@ -36,7 +36,7 @@ try:
     from urllib.request import urlopen
 except ImportError:
     from httplib import BadStatusLine  # type: ignore
-    from urllib2 import HTTPError, urlopen  #type: ignore
+    from urllib2 import HTTPError, urlopen  # type: ignore
 
 from collections import Mapping, Sequence
 
@@ -715,13 +715,13 @@ class Version(object):
 
     @property
     def dependencies(self):
-        # type: () -> List[Dependency]        
+        # type: () -> List[Dependency]
         """Return the dependencies of the package version."""
         return self.get_dependencies("PreDepends", "Depends")
 
     @property
     def recommends(self):
-        # type: () -> List[Dependency]    
+        # type: () -> List[Dependency]
         """Return the recommends of the package version."""
         return self.get_dependencies("Recommends")
 
