@@ -19,3 +19,13 @@ Running the tests:
 
 Run: 
 python tests/test_all.py
+
+
+Running mypy:
+-------------
+
+To check if the "apt" python module is mypy clean, run:
+$ MYPYPATH=./typehinting/ mypy ./apt
+
+To use the annotation with your source code, run:
+$ mypy ./my-program
