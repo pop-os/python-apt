@@ -30,7 +30,6 @@ import apt_pkg
 from apt import Package
 import apt.progress.text
 
-
 class FetchCancelledException(IOError):
     """Exception that is thrown when the user cancels a fetch operation."""
 
