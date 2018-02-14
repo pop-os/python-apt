@@ -53,7 +53,6 @@ except ImportError:
     pass
 
 import apt_pkg
-import apt.cache
 import apt.progress.text
 
 from apt.progress.base import (
@@ -1002,7 +1001,7 @@ class Package(object):
     """
 
     def __init__(self, pcache, pkgiter):
-        # type: (apt.cache.Cache, apt_pkg.Package) -> None
+        # type: (apt.Cache, apt_pkg.Package) -> None
         """ Init the Package object """
         self._pkg = pkgiter
         self._pcache = pcache           # python cache in cache.py

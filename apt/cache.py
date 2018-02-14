@@ -39,7 +39,7 @@ except ImportError:
     pass
 
 import apt_pkg
-from apt import Package
+from apt.package import Package
 import apt.progress.text
 from apt.progress.base import AcquireProgress, InstallProgress, OpProgress
 OpProgress  # pyflakes

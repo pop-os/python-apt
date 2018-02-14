@@ -36,6 +36,9 @@ import tempfile
 import apt_pkg
 from apt_pkg import gettext as _
 
+if sys.version_info.major > 2:
+    unicode = str
+
 try:
     from typing import List
     List  # pyflakes
