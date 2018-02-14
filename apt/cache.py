@@ -39,7 +39,7 @@ except ImportError:
     pass
 
 import apt_pkg
-from apt import Package  # type: ignore
+from apt import Package
 import apt.progress.text
 from apt.progress.base import AcquireProgress, InstallProgress, OpProgress
 OpProgress  # pyflakes
@@ -232,7 +232,7 @@ class Cache(dict):
             return pkg
 
     def get(self, key, default=None):
-        # type: (object, object) -> Package
+        # type: (object, object) -> Any
         """Return *self*[*key*] or *default* if *key* not in *self*.
 
         .. versionadded:: 1.1

@@ -21,7 +21,7 @@
 """Functionality related to packages."""
 from __future__ import print_function
 
-
+import logging
 import os
 import sys
 import re
@@ -835,7 +835,7 @@ class Version(object):
         base = os.path.basename(self._records.filename)
         destfile = os.path.join(destdir, base)
         if _file_is_same(destfile, self.size, self._records.md5_hash):
-            print(('Ignoring already existing file: %s' % destfile))
+            logging.debug('Ignoring already existing file: %s' % destfile)
             return os.path.abspath(destfile)
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
         acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,
@@ -885,7 +885,7 @@ class Version(object):
             if type_ == 'dsc':
                 dsc = destfile
             if _file_is_same(destfile, size, md5):
-                print(('Ignoring already existing file: %s' % destfile))
+                logging.debug('Ignoring already existing file: %s' % destfile)
                 continue
             files.append(apt_pkg.AcquireFile(acq, src.index.archive_uri(path),
                          md5, size, base, destfile=destfile))
