@@ -35,3 +35,15 @@ $ python tests/test_all.py
 $ python3 tests/test_all.py
 ```
 
+## Running mypy:
+
+To check if the "apt" python module is mypy clean, run:
+```
+$ MYPYPATH=./typehinting/ mypy ./apt
+```
+
+To use the annotation with your source code, run:
+```
+$ MYPYPATH=/usr/lib/python3/dist-packages/apt mypy ./my-program
+```
+(adjust from python3 to python2.7 if you run there).
