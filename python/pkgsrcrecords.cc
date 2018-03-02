@@ -171,8 +171,11 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
 
    PyObject *v;
    for(unsigned int i=0;i<f.size();i++) {
+      const HashString *md5 = f[i].Hashes.find("md5sum");
+      if (md5 == NULL)
+         return NULL; // error
       v = Py_BuildValue("(sNss)",
-			f[i].MD5Hash.c_str(),
+			md5->HashValue().c_str(),
 			MkPyNumber(f[i].FileSize),
 			f[i].Path.c_str(),
 			f[i].Type.c_str());

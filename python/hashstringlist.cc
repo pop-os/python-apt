@@ -100,10 +100,11 @@ static int hashstringlist_set_file_size(PyObject *self, PyObject *value, void *)
         GetCpp<HashStringList>(self).FileSize(PyLong_AsUnsignedLongLong(value));
     } else if (PyInt_Check(value)) {
         if (PyInt_AsLong(value) < 0) {
-            if (!PyErr_Occurred())
+            if (!PyErr_Occurred()) {
                 PyErr_SetString(PyExc_OverflowError,
                                 "The file_size value must be positive");
                 return 1;
+            }
         }
         GetCpp<HashStringList>(self).FileSize(PyInt_AsLong(value));
     } else {
