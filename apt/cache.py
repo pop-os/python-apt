@@ -46,6 +46,7 @@ OpProgress  # pyflakes
 InstallProgress  # pyflakes
 AcquireProgress  # pyflakes
 
+
 class FetchCancelledException(IOError):
     """Exception that is thrown when the user cancels a fetch operation."""
 
@@ -95,7 +96,7 @@ class Cache(dict):
         self._records = None  # type: apt_pkg.PackageRecords
         self._list = None  # type: apt_pkg.SourceList
         self._callbacks = {}  # type: Dict[str, List[Callable[..., None]]]
-        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., None], List[Any], Dict[Any,Any]]]]
+        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., None], List[Any], Dict[Any,Any]]]] # nopep8
         self._weakref = weakref.WeakValueDictionary()  # type: ignore
         self._changes_count = -1
         self._sorted_set = None  # type: List[str]
