@@ -63,7 +63,7 @@ class CacheClosedException(Exception):
     """Exception that is thrown when the cache is used after close()."""
 
 
-class Cache(dict):
+class Cache(object):
     """Dictionary-like package cache.
 
     The APT cache file contains a hash table mapping names of binary
@@ -813,7 +813,7 @@ class _FilteredCacheHelper(object):
         self._reapply_filter(cache)
 
 
-class FilteredCache(dict):
+class FilteredCache(object):
     """ A package cache that is filtered.
 
         Can work on a existing cache or create a new one
