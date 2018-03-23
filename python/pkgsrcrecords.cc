@@ -356,8 +356,7 @@ static PyGetSetDef PkgSrcRecordsGetSet[] = {
     "A dictionary describing the build-time dependencies of the package;\n"
     "the format is the same as used for apt_pkg.Version.depends_list_str."},
    {"files",PkgSrcRecordsGetFiles,0,
-    "A list of tuples (md5: str, size: int, path: str, type: str), whereas\n"
-    "'type' can be 'diff' (includes .debian.tar.gz), 'dsc', 'tar'."},
+    "A list of :class:`SourceRecordFiles` objects."},
    {"index",PkgSrcRecordsGetIndex,0,
     "The index file associated with this record as a list of\n"
     "apt_pkg.IndexFile objects."},
