@@ -1,3 +1,10 @@
+python-apt (1.6.0~rc2) unstable; urgency=medium
+
+  * Add some weird python3-distutils build-depends (Closes: #893837)
+  * Document apt_pkg.SourceRecordsFile
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 23 Mar 2018 09:27:27 +0100
+
 python-apt (1.6.0~rc1) unstable; urgency=medium
 
   [ Michael Vogt ]

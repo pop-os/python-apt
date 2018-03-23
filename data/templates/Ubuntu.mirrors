@@ -13,7 +13,6 @@ http://ubuntu.uni-klu.ac.at/ubuntu/
 http://ftp.iinet.net.au/pub/ubuntu/
 http://mirror.aarnet.edu.au/pub/ubuntu/archive/
 http://mirror.as24220.net/pub/ubuntu-archive/
-http://mirror.as24220.net/pub/ubuntu/
 http://mirror.intergrid.com.au/ubuntu/
 http://mirror.internode.on.net/pub/ubuntu/ubuntu/
 http://mirror.netspace.net.au/pub/ubuntu/
@@ -277,9 +276,9 @@ http://ubuntutym.u-toyama.ac.jp/ubuntu/
 http://ubuntu.mirror.ac.ke/ubuntu/
 #LOC:KR
 http://ftp.harukasan.org/ubuntu/
-http://ftp.lanet.kr/ubuntu/
 http://ftp.neowiz.com/ubuntu/
 http://kr.archive.ubuntu.com/ubuntu/
+http://mirror.kakao.com/ubuntu/
 #LOC:KW
 http://repo.gust.edu.kw/ubuntu/
 http://ubuntu.archive.kw.zain.com/
