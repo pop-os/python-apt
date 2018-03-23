@@ -1249,7 +1249,7 @@ class Package(object):
                 if isinstance(res, unicode):
                     return res
                 else:
-                    res.decode("utf-8")
+                    return res.decode("utf-8")
 
         # get the src package name
         src_pkg = self.candidate.source_name
@@ -1372,14 +1372,14 @@ class Package(object):
                 if isinstance(res, unicode):
                     return res
                 else:
-                    res.decode("utf-8")
+                    return res.decode("utf-8")
             except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
                         "check your Internet connection.")
                 if isinstance(res, unicode):
                     return res
                 else:
-                    res.decode("utf-8")
+                    return res.decode("utf-8")
         finally:
             socket.setdefaulttimeout(timeout)
         return self._changelog
