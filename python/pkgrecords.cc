@@ -83,7 +83,8 @@ static PyObject *PkgRecordsGetMD5Hash(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"MD5Hash");
    if (Struct.Last == NULL)
       return 0;
-   const HashString *hash = Struct.Last->Hashes().find("md5sum");
+   auto hashes = Struct.Last->Hashes();
+   auto hash = hashes.find("md5sum");
    if (hash == NULL)
       return 0;
    return CppPyString(hash->HashValue());
@@ -92,7 +93,8 @@ static PyObject *PkgRecordsGetSHA1Hash(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"SHA1Hash");
    if (Struct.Last == NULL)
       return 0;
-   const HashString *hash = Struct.Last->Hashes().find("sha1");
+   auto hashes = Struct.Last->Hashes();
+   auto hash = hashes.find("sha1");
    if (hash == NULL)
       return 0;
    return CppPyString(hash->HashValue());
@@ -101,7 +103,8 @@ static PyObject *PkgRecordsGetSHA256Hash(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"SHA256Hash");
    if (Struct.Last == NULL)
       return 0;
-   const HashString *hash = Struct.Last->Hashes().find("sha256");
+   auto hashes = Struct.Last->Hashes();
+   auto hash = hashes.find("sha256");
    if (hash == NULL)
       return 0;
    return CppPyString(hash->HashValue());
