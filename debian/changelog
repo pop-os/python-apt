@@ -1,3 +1,20 @@
+python-apt (1.6.0~rc3) unstable; urgency=medium
+
+  * Revert change to make apt.Cache subclass of dict
+  * Fix get_changelog() to correctly decode non-unicode changelogs
+  * Try to work around memory corruption in PackageRecords.*_hash
+  * apt/auth.py: Protect against race with gpg when removing tmpdir
+    (Closes: #871585)
+  * Document Architecture: all handling in Package.{fullname,architecture()}
+    (Closes: #863193)
+  * python/tag.cc: Fix invalid read in TagFileNext
+  * Raise ValueError if objects passed to DepCache are from different cache
+    (LP: #1737441)
+  * DepCache: Check that candidate we are setting belongs to package
+  * debian/gbp.conf: Default branch is master now
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 13 Apr 2018 13:06:37 +0200
+
 python-apt (1.6.0~rc2) unstable; urgency=medium
 
   * Add some weird python3-distutils build-depends (Closes: #893837)
