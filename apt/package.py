@@ -1034,7 +1034,8 @@ class Package(object):
         # type: (Package) -> bool
         return self.name < other.name
 
-    def __get_candidate(self):
+    @property
+    def candidate(self):
         # type: () -> Optional[Version]
         """Return the candidate version of the package.
 
@@ -1047,14 +1048,13 @@ class Package(object):
             return Version(self, cand)
         return None
 
-    def __set_candidate(self, version):
+    @candidate.setter
+    def candidate(self, version):
         # type: (Version) -> None
         """Set the candidate version of the package."""
         self._pcache.cache_pre_change()
         self._pcache._depcache.set_candidate_ver(self._pkg, version._cand)
         self._pcache.cache_post_change()
-
-    candidate = property(__get_candidate, __set_candidate)
 
     @property
     def installed(self):
@@ -1255,9 +1255,10 @@ class Package(object):
         if self._changelog != u"":
             return self._changelog
 
+        if not self.candidate:
+            return _("The list of changes is not available")
+
         if uri is None:
-            if not self.candidate:
-                pass
             if self.candidate.origins[0].origin == "Debian":
                 uri = "http://packages.debian.org/changelogs/pool" \
                       "/%(src_section)s/%(prefix)s/%(src_pkg)s" \
