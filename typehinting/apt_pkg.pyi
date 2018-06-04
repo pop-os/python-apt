@@ -211,9 +211,13 @@ class PackageManager():
     def __init__(self, depcache: DepCache) -> None: ...
     def get_archives(self, fetcher: Acquire, list: SourceList, recs: PackageRecords) -> bool: ...
 
-class Cache(dict):
+class Cache():
     packages: List[Package]
     def __init__(self, progress: OpProgress=None) -> None: ...
+    def __contains__(self, name: Union[str, Tuple[str, str]]): Package
+    def __getitem__(self, name: Union[str, Tuple[str, str]]): Package
+    def __len__(self): int
+    def update(self, progress: AcquireProgress, sources: SourceList, pulse_interval: int) -> int: ...
     
 class DepCache():
     broken_count: int

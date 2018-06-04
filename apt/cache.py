@@ -281,7 +281,7 @@ class Cache(object):
     def __contains__(self, key):
         # type: (object) -> bool
         try:
-            return self.__is_real_pkg(self._cache[key])
+            return self.__is_real_pkg(self._cache[str(key)])
         except KeyError:
             return False
 
