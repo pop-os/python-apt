@@ -27,15 +27,21 @@ import warnings
 import weakref
 
 try:
-    from typing import Any, Callable, Dict, Iterator, List, Set, Tuple
+    from typing import (Any, Callable, Dict, Iterator, List, Optional,
+                        Set, Tuple, Union, cast, KeysView)
     Any  # pyflakes
     Callable  # pyflakes
     Dict  # pyflakes
     Iterator  # pyflakes
+    KeysView  # pyflakes
     List  # pyflakes
+    Optional  # pyflakes
     Set  # pyflakes
     Tuple  # pyflakes
+    Union  # pyflakes
 except ImportError:
+    def cast(typ, obj):  # type: ignore
+        return obj
     pass
 
 import apt_pkg
@@ -91,15 +97,15 @@ class Cache(object):
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
         # type: (OpProgress, str, bool) -> None
-        self._cache = None  # type: apt_pkg.Cache
-        self._depcache = None  # type: apt_pkg.DepCache
-        self._records = None  # type: apt_pkg.PackageRecords
-        self._list = None  # type: apt_pkg.SourceList
-        self._callbacks = {}  # type: Dict[str, List[Callable[..., None]]]
-        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., None], List[Any], Dict[Any,Any]]]] # nopep8
-        self._weakref = weakref.WeakValueDictionary()  # type: ignore
+        self._cache = cast(apt_pkg.Cache, None)  # type: apt_pkg.Cache
+        self._depcache = cast(apt_pkg.DepCache, None)  # type: apt_pkg.DepCache
+        self._records = cast(apt_pkg.PackageRecords, None)  # type: apt_pkg.PackageRecords # nopep8
+        self._list = cast(apt_pkg.SourceList, None)  # type: apt_pkg.SourceList
+        self._callbacks = {}  # type: Dict[str, List[Union[Callable[..., None],str]]] # nopep8
+        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., Any], Tuple[Any, ...], Dict[Any,Any]]]] # nopep8
+        self._weakref = weakref.WeakValueDictionary()  # type: weakref.WeakValueDictionary[str, apt.Package] # nopep8
         self._changes_count = -1
-        self._sorted_set = None  # type: List[str]
+        self._sorted_set = None  # type: Optional[List[str]]
 
         self.connect("cache_post_open", "_inc_changes_count")
         self.connect("cache_post_change", "_inc_changes_count")
@@ -164,7 +170,7 @@ class Cache(object):
                 if callback == '_inc_changes_count':
                     self._inc_changes_count()
                 else:
-                    callback()
+                    callback()  # type: ignore
 
         if name in self._callbacks2:
             for callback, args, kwds in self._callbacks2[name]:
@@ -200,7 +206,7 @@ class Cache(object):
         """ Close the package cache """
         # explicitely free the FDs that _records has open
         del self._records
-        self._records = None
+        self._records = cast(apt_pkg.PackageRecords, None)
 
     def __enter__(self):
         # type: () -> Cache
@@ -214,10 +220,10 @@ class Cache(object):
     def __getitem__(self, key):
         # type: (object) -> Package
         """ look like a dictionary (get key) """
+        key = str(key)
         try:
             return self._weakref[key]
         except KeyError:
-            key = str(key)
             try:
                 rawpkg = self._cache[key]
             except KeyError:
@@ -244,6 +250,7 @@ class Cache(object):
             return default
 
     def _rawpkg_to_pkg(self, rawpkg):
+        # type: (apt_pkg.Package) -> Package
         """Returns the apt.Package object for an apt_pkg.Package object.
 
         .. versionadded:: 1.0.0
@@ -267,6 +274,7 @@ class Cache(object):
             yield self[pkgname]
 
     def __is_real_pkg(self, rawpkg):
+        # type: (apt_pkg.Package) -> bool
         """Check if the apt_pkg.Package provided is a real package."""
         return rawpkg.has_versions
 
@@ -277,7 +285,7 @@ class Cache(object):
     def __contains__(self, key):
         # type: (object) -> bool
         try:
-            return self.__is_real_pkg(self._cache[key])
+            return self.__is_real_pkg(self._cache[str(key)])
         except KeyError:
             return False
 
@@ -286,7 +294,7 @@ class Cache(object):
         return len(self.keys())
 
     def keys(self):
-        # FIXME: type: () -> List[str] - does not work
+        # type: () -> List[str]
         if self._sorted_set is None:
             self._sorted_set = sorted(p.get_fullname(pretty=True)
                                       for p in self._cache.packages
@@ -463,7 +471,7 @@ class Cache(object):
 
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
-        # FIXME: type: (AcquireProgress, int, bool, str) -> int
+        # type: (AcquireProgress, int, bool, str) -> int
         """Run the equivalent of apt-get update.
 
         You probably want to call open() afterwards, in order to utilise the
@@ -598,6 +606,7 @@ class Cache(object):
         self._run_callbacks("cache_pre_change")
 
     def connect(self, name, callback):
+        # type: (str, Union[Callable[..., None],str]) -> None
         """Connect to a signal.
 
         .. deprecated:: 1.0
@@ -613,6 +622,7 @@ class Cache(object):
         self._callbacks[name].append(callback)
 
     def connect2(self, name, callback, *args, **kwds):
+        # type: (str, Callable[..., Any], object, object) -> None
         """Connect to a signal.
 
         The callback will be passed the cache as an argument, and
@@ -841,7 +851,7 @@ class FilteredCache(object):
             yield self.cache[pkgname]
 
     def keys(self):
-        # FIXME: type: () -> List[str] - does not work
+        # type: () -> KeysView[str]
         return self._helper._filtered.keys()
 
     def has_key(self, key):

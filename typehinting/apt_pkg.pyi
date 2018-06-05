@@ -50,6 +50,7 @@ class Package():
     section: str
     current_state: int
     inst_state: int
+    has_versions: bool
     def get_fullname(self, pretty: bool=False) -> str: ...
 
 class ProblemResolver:
@@ -68,7 +69,7 @@ INSTSTATE_HOLD_REINSTREQ: int
 class Version():
     ver_str: str
     hash: int
-    file_list: List[PackageFile]
+    file_list: List[Tuple[PackageFile, int]]
     translated_description: Description
     installed_size: int
     size: int
@@ -79,10 +80,11 @@ class Version():
     priority: int
     priority_str: str
     provides_list: List[Tuple[str,str,str]]
-    def parent_pkg(self) -> Package: ...
+    depends_list: Dict[str, List[List[Dependency]]]
+    parent_pkg: Package
 
 class Description():
-    file_list: List[PackageFile]
+    file_list: List[Tuple[PackageFile, int]]
 
 class PackageRecords():
     homepage: str
@@ -96,7 +98,7 @@ class PackageRecords():
     sha1_hash: str
     sha256_hash: str
     def __init__(self, cache: Cache) -> None: ...
-    def lookup(self, packagefile: PackageFile, index: int=0) -> bool: ...
+    def lookup(self, packagefile: Tuple[PackageFile, int], index: int=0) -> bool: ...
 
 class PackageFile(Iterable):
     architecture: str
@@ -114,9 +116,10 @@ class PackageFile(Iterable):
     size: int
     version: str
 
-class TagFile(Iterable):
+class TagFile(Iterator[TagSection]):
     def __init__(self, file: object, bytes: bool=False) -> None: ...
     def __iter__(self) -> Iterator[TagSection]: ...
+    def __next__(self) -> TagSection: ...
 
 class TagSection(Mapping):
     def __init__(self, str) -> None: ...
@@ -200,7 +203,14 @@ class SourceRecords:
 class ActionGroup:
     def __init__(self, depcache: DepCache) -> None: ...
 
+class MetaIndex:
+    dist: str
+    index_files: List[IndexFile]
+    is_trusted: bool
+    uri: str
+
 class SourceList():
+    list: List[MetaIndex]
     def read_main_list(self) -> None: ...
     def find_index(self, PackageFile) -> IndexFile: ...
 
@@ -211,9 +221,13 @@ class PackageManager():
     def __init__(self, depcache: DepCache) -> None: ...
     def get_archives(self, fetcher: Acquire, list: SourceList, recs: PackageRecords) -> bool: ...
 
-class Cache(dict):
+class Cache():
     packages: List[Package]
     def __init__(self, progress: OpProgress=None) -> None: ...
+    def __contains__(self, name: Union[str, Tuple[str, str]]): Package
+    def __getitem__(self, name: Union[str, Tuple[str, str]]): Package
+    def __len__(self): int
+    def update(self, progress: AcquireProgress, sources: SourceList, pulse_interval: int) -> int: ...
     
 class DepCache():
     broken_count: int
@@ -248,7 +262,11 @@ class DepCache():
     def upgrade(self, dist_upgrade: bool=True) -> bool: ...
 
 class Policy():
-    def get_priority(self, pkg: Package) -> int: ...
+    def get_priority(self, pkg: Union[Package, PackageFile]) -> int: ...
     
 def upstream_version(ver: str) -> str: ...
 def get_architectures() -> List[str]: ...    
+def check_dep(pkg_ver: str, dep_op: str, dep_ver: str): bool
+def uri_to_filename(uri: str) -> str: ...
+def str_to_time(rfc_time: str) -> int: ...
+def open_maybe_clear_signed_file(file: str) -> int: ...
