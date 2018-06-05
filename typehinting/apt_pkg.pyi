@@ -82,6 +82,15 @@ class Version():
     provides_list: List[Tuple[str,str,str]]
     depends_list: Dict[str, List[List[Dependency]]]
     parent_pkg: Package
+    multi_arch: int
+    MULTI_ARCH_ALL: int
+    MULTI_ARCH_ALLOWED: int
+    MULTI_ARCH_ALL_ALLOWED: int
+    MULTI_ARCH_ALL_FOREIGN: int
+    MULTI_ARCH_FOREIGN: int
+    MULTI_ARCH_NO: int
+    MULTI_ARCH_NONE: int
+    MULTI_ARCH_SAME: int
 
 class Description():
     file_list: List[Tuple[PackageFile, int]]
