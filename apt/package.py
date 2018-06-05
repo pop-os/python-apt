@@ -436,7 +436,7 @@ class Version(object):
         self._cand = cand
 
     def _cmp(self, other):
-        # FIXME: add type hint
+        # type: (Any) -> int
         """Compares against another apt.Version object or a version string.
 
         This method behaves like Python 2's cmp builtin and returns an integer
@@ -689,7 +689,7 @@ class Version(object):
         return Record(self._records.record)
 
     def get_dependencies(self, *types):
-        # FIXME: add type hints
+        # type: (str) -> List[Dependency]
         """Return a list of Dependency objects for the given types.
 
         Multiple types can be specified. Possible types are:

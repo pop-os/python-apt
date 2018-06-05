@@ -28,11 +28,12 @@ import weakref
 
 try:
     from typing import (Any, Callable, Dict, Iterator, List, Optional,
-                        Set, Tuple, cast)
+                        Set, Tuple, cast, KeysView)
     Any  # pyflakes
     Callable  # pyflakes
     Dict  # pyflakes
     Iterator  # pyflakes
+    KeysView  # pyflakes
     List  # pyflakes
     Optional  # pyflakes
     Set  # pyflakes
@@ -290,7 +291,7 @@ class Cache(object):
         return len(self.keys())
 
     def keys(self):
-        # FIXME: type: () -> List[str] - does not work
+        # type: () -> List[str]
         if self._sorted_set is None:
             self._sorted_set = sorted(p.get_fullname(pretty=True)
                                       for p in self._cache.packages
@@ -467,7 +468,7 @@ class Cache(object):
 
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
-        # FIXME: type: (AcquireProgress, int, bool, str) -> int
+        # type: (AcquireProgress, int, bool, str) -> int
         """Run the equivalent of apt-get update.
 
         You probably want to call open() afterwards, in order to utilise the
@@ -845,7 +846,7 @@ class FilteredCache(object):
             yield self.cache[pkgname]
 
     def keys(self):
-        # FIXME: type: () -> List[str] - does not work
+        # type: () -> KeysView[str]
         return self._helper._filtered.keys()
 
     def has_key(self, key):

@@ -79,6 +79,7 @@ class Version():
     priority: int
     priority_str: str
     provides_list: List[Tuple[str,str,str]]
+    depends_list: Dict[str, List[List[Dependency]]]
     def parent_pkg(self) -> Package: ...
 
 class Description():
