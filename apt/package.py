@@ -244,7 +244,7 @@ class Dependency(list):
     """
 
     def __init__(self, version, base_deps, rawtype):
-        # type: (Version, apt_pkg.Dependency, str) -> None
+        # type: (Version, List[BaseDependency], str) -> None
         super(Dependency, self).__init__(base_deps)  # type: ignore
         self._version = version  # apt.package.Version
         self._rawtype = rawtype
