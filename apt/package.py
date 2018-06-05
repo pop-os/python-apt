@@ -174,9 +174,9 @@ class BaseDependency(object):
         .. versionadded:: 1.0.0
         """
         tvers = []
-        _tvers = self._dep.all_targets()  # [apt_pkg.Version, ...]
-        for _tver in _tvers:  # apt_pkg.Version
-            _pkg = _tver.parent_pkg  # apt_pkg.Package
+        _tvers = self._dep.all_targets()  # type: List[apt_pkg.Version]
+        for _tver in _tvers:  # type: apt_pkg.Version
+            _pkg = _tver.parent_pkg  # type: apt_pkg.Package
             cache = self._version.package._pcache  # apt.cache.Cache
             pkg = cache._rawpkg_to_pkg(_pkg)  # apt.package.Package
             tver = Version(pkg, _tver)  # apt.package.Version
@@ -378,7 +378,7 @@ class Record(Mapping):
         self._rec = apt_pkg.TagSection(record_str)
 
     def __hash__(self):
-        # type: () -> Any
+        # type: () -> int
         return hash(self._rec)
 
     def __str__(self):
@@ -493,7 +493,7 @@ class Version(object):
             return NotImplemented
 
     def __hash__(self):
-        # type: () -> Any
+        # type: () -> int
         return self._cand.hash
 
     def __str__(self):
@@ -939,7 +939,7 @@ class VersionList(Sequence):
     """
 
     def __init__(self, package, slice_=None):
-        # type: (Package, Any) -> None
+        # type: (Package, slice) -> None
         self._package = package  # apt.package.Package()
         self._versions = package._pkg.version_list  # [apt_pkg.Version(), ...]
         if slice_:

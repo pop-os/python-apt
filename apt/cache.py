@@ -28,7 +28,7 @@ import weakref
 
 try:
     from typing import (Any, Callable, Dict, Iterator, List, Optional,
-                        Set, Tuple, cast, KeysView)
+                        Set, Tuple, Union, cast, KeysView)
     Any  # pyflakes
     Callable  # pyflakes
     Dict  # pyflakes
@@ -38,6 +38,7 @@ try:
     Optional  # pyflakes
     Set  # pyflakes
     Tuple  # pyflakes
+    Union  # pyflakes
 except ImportError:
     def cast(typ, obj):  # type: ignore
         return obj
@@ -100,8 +101,8 @@ class Cache(object):
         self._depcache = cast(apt_pkg.DepCache, None)  # type: apt_pkg.DepCache
         self._records = cast(apt_pkg.PackageRecords, None)  # type: apt_pkg.PackageRecords # nopep8
         self._list = cast(apt_pkg.SourceList, None)  # type: apt_pkg.SourceList
-        self._callbacks = {}  # type: Dict[str, List[Callable[..., None]]]
-        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., None], List[Any], Dict[Any,Any]]]] # nopep8
+        self._callbacks = {}  # type: Dict[str, List[Union[Callable[..., None],str]]] # nopep8
+        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., Any], Tuple[Any, ...], Dict[Any,Any]]]] # nopep8
         self._weakref = weakref.WeakValueDictionary()  # type: weakref.WeakValueDictionary[str, apt.Package] # nopep8
         self._changes_count = -1
         self._sorted_set = None  # type: Optional[List[str]]
@@ -169,7 +170,7 @@ class Cache(object):
                 if callback == '_inc_changes_count':
                     self._inc_changes_count()
                 else:
-                    callback()
+                    callback()  # type: ignore
 
         if name in self._callbacks2:
             for callback, args, kwds in self._callbacks2[name]:
@@ -249,6 +250,7 @@ class Cache(object):
             return default
 
     def _rawpkg_to_pkg(self, rawpkg):
+        # type: (apt_pkg.Package) -> Package
         """Returns the apt.Package object for an apt_pkg.Package object.
 
         .. versionadded:: 1.0.0
@@ -272,6 +274,7 @@ class Cache(object):
             yield self[pkgname]
 
     def __is_real_pkg(self, rawpkg):
+        # type: (apt_pkg.Package) -> bool
         """Check if the apt_pkg.Package provided is a real package."""
         return rawpkg.has_versions
 
@@ -603,6 +606,7 @@ class Cache(object):
         self._run_callbacks("cache_pre_change")
 
     def connect(self, name, callback):
+        # type: (str, Union[Callable[..., None],str]) -> None
         """Connect to a signal.
 
         .. deprecated:: 1.0
@@ -618,6 +622,7 @@ class Cache(object):
         self._callbacks[name].append(callback)
 
     def connect2(self, name, callback, *args, **kwds):
+        # type: (str, Callable[..., Any], object, object) -> None
         """Connect to a signal.
 
         The callback will be passed the cache as an argument, and

@@ -50,6 +50,7 @@ class Package():
     section: str
     current_state: int
     inst_state: int
+    has_versions: bool
     def get_fullname(self, pretty: bool=False) -> str: ...
 
 class ProblemResolver:
@@ -80,7 +81,7 @@ class Version():
     priority_str: str
     provides_list: List[Tuple[str,str,str]]
     depends_list: Dict[str, List[List[Dependency]]]
-    def parent_pkg(self) -> Package: ...
+    parent_pkg: Package
 
 class Description():
     file_list: List[PackageFile]
@@ -257,3 +258,4 @@ class Policy():
     
 def upstream_version(ver: str) -> str: ...
 def get_architectures() -> List[str]: ...    
+def check_dep(pkg_ver: str, dep_op: str, dep_ver: str): bool
