@@ -340,7 +340,8 @@ class DebPackage(object):
             pkgver = None
         for or_group in self.replaces:
             for (name, ver, oper) in or_group:
-                if (name == pkgname and apt_pkg.check_dep(pkgver, oper, ver)):
+                if (name == pkgname and (pkgver is None or
+                        apt_pkg.check_dep(pkgver, oper, ver))):
                     self._dbg(3, "we have a replaces in our package for the "
                                  "conflict against '%s'" % (pkgname))
                     return True
