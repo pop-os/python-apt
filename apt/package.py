@@ -42,7 +42,7 @@ from collections import Mapping, Sequence
 
 try:
     from typing import (Any, Iterable, Iterator, List, Optional, Set,
-                        Tuple, Union)
+                        Tuple, Union, no_type_check, overload)
     Any  # pyflakes
     Iterable  # pyflakes
     Iterator  # pyflakes
@@ -51,7 +51,11 @@ try:
     Set  # pyflakes
     Tuple  # pyflakes
     Union  # pyflakes
+    overload  # pyflakes
 except ImportError:
+    def no_type_check(arg):
+        # type: (Any) -> Any
+        return arg
     pass
 
 import apt_pkg
@@ -99,6 +103,7 @@ class BaseDependency(object):
         """
 
         def __eq__(self, other):
+            # type: (object) -> bool
             if str.__eq__(self, other):
                 return True
             elif str.__eq__(self, '<'):
@@ -111,6 +116,7 @@ class BaseDependency(object):
                 return False
 
         def __ne__(self, other):
+            # type: (object) -> bool
             return not self.__eq__(other)
 
     def __init__(self, version, dep):
@@ -245,7 +251,7 @@ class Dependency(list):
 
     def __init__(self, version, base_deps, rawtype):
         # type: (Version, List[BaseDependency], str) -> None
-        super(Dependency, self).__init__(base_deps)  # type: ignore
+        super(Dependency, self).__init__(base_deps)
         self._version = version  # apt.package.Version
         self._rawtype = rawtype
 
@@ -437,7 +443,7 @@ class Version(object):
         self.package._pcache._weakversions.add(self)
 
     def _cmp(self, other):
-        # type: (Any) -> int
+        # type: (Any) -> Union[int, NotImplemented]
         """Compares against another apt.Version object or a version string.
 
         This method behaves like Python 2's cmp builtin and returns an integer
@@ -487,7 +493,7 @@ class Version(object):
         return self._cmp(other) < 0
 
     def __ne__(self, other):
-        # type: (object) -> bool
+        # type: (object) -> Union[bool, NotImplemented]
         try:
             return self._cmp(other) != 0
         except TypeError:
@@ -947,12 +953,14 @@ class VersionList(Sequence):
             self._versions = self._versions[slice_]
 
     def __getitem__(self, item):
-        # FIXME: add type hints
+        # type: (Union[int, slice, str]) -> Any
+        # FIXME: Should not be returning Any, should have overloads; but
+        # pyflakes complains
         if isinstance(item, slice):
             return self.__class__(self._package, item)
         try:
             # Sequence interface, item is an integer
-            return Version(self._package, self._versions[item])
+            return Version(self._package, self._versions[item])  # type: ignore
         except TypeError:
             # Dictionary interface item is a string.
             for ver in self._versions:
@@ -1002,7 +1010,7 @@ class VersionList(Sequence):
         # type: (str, Optional[Version]) -> Optional[Version]
         """Return the key or the default."""
         try:
-            return self[key]
+            return self[key]  # type: ignore  # FIXME: should be deterined automatically # nopep8
         except LookupError:
             return default
 
@@ -1526,6 +1534,7 @@ class Package(object):
         self._pcache._depcache.commit(fprogress, iprogress)
 
 
+@no_type_check
 def _test():
     """Self-test."""
     print("Self-test for the Package modul")
