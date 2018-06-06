@@ -121,8 +121,11 @@ class DebPackage(object):
         # the upper layers will handle this
         if multiarch_pkgname not in self._cache:
             return multiarch_pkgname
+        multiarch_pkg = self._cache[multiarch_pkgname]
+        if multiarch_pkg.candidate is None:
+            return multiarch_pkgname
         # now check the multiarch state
-        cand = self._cache[multiarch_pkgname].candidate._cand
+        cand = multiarch_pkg.candidate._cand
         #print pkgname, multiarch_pkgname, cand.multi_arch
         # the default is to add the suffix, unless its a pkg that can satify
         # foreign dependencies
