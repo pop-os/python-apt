@@ -248,6 +248,7 @@ class Cache(object):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        # type: (object, object, object) -> None
         """ Exit the with statement """
         self.close()
 
@@ -600,6 +601,8 @@ class Cache(object):
         if install_progress is None:
             install_progress = apt.progress.base.InstallProgress()
 
+        assert install_progress is not None
+
         pm = apt_pkg.PackageManager(self._depcache)
         fetcher = apt_pkg.Acquire(fetch_progress)
         while True:
@@ -912,19 +915,23 @@ class FilteredCache(object):
         self._helper.filter_cache_post_change(self.cache)
 
     def __getattr__(self, key):
+        # type: (str) -> Any
         """we try to look exactly like a real cache."""
         return getattr(self.cache, key)
 
 
 def cache_pre_changed(cache):
+    # type: (Cache) -> None
     print("cache pre changed")
 
 
 def cache_post_changed(cache):
+    # type: (Cache) -> None
     print("cache post changed")
 
 
 def _test():
+    # type: () -> None
     """Internal test code."""
     print("Cache self test")
     apt_pkg.init()
@@ -963,7 +970,7 @@ def _test():
     filtered.set_filter(MarkedChangesFilter())
     print(len(filtered))
     for pkgname in filtered.keys():
-        assert pkgname == filtered[pkg].name
+        assert pkgname == filtered[pkgname].name
 
     print(len(filtered))
 

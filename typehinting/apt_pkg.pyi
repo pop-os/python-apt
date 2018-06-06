@@ -51,6 +51,8 @@ class Package():
     current_state: int
     inst_state: int
     has_versions: bool
+    has_provides: bool
+    provides_list: List[Tuple[str, str, Version]]
     def get_fullname(self, pretty: bool=False) -> str: ...
 
 class ProblemResolver:
