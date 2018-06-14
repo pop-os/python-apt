@@ -137,6 +137,11 @@ class Cache(object):
             apt_pkg.init_system()
         self.open(progress)
 
+    def fix_broken(self):
+        # type: () -> None
+        """Fix broken packages."""
+        self._depcache.fix_broken()
+
     def _inc_changes_count(self):
         # type: () -> None
         """Increase the number of changes"""
