@@ -16,7 +16,7 @@ Changed
 * Initial type hints
 
 * :attr:`apt_pkg.SourceRecords.files` now returns a
-  :class`apt_pkg.SourceRecordsFile` object with getters instead of
+  :class:`apt_pkg.SourceRecordsFile` object with getters instead of
   a tuple (but it also emulates the tuple).
 
 Bugfixes
