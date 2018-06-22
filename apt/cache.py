@@ -426,21 +426,22 @@ class Cache(object):
             raise CacheClosedException(
                 "Cache object used after close() called")
 
-        # get lock
-        lockfile = apt_pkg.config.find_dir("Dir::Cache::Archives") + "lock"
-        lock = apt_pkg.get_lock(lockfile)
-        if lock < 0:
-            raise LockFailedException("Failed to lock %s" % lockfile)
+        # this may as well throw a SystemError exception
+        if not pm.get_archives(fetcher, self._list, self._records):
+            return False
+        # now run the fetcher, throw exception if something fails to be
+        # fetched
+        return self._run_fetcher(fetcher)
 
+    def _get_archive_lock(self, fetcher):
+        # type: (apt_pkg.Acquire) -> None
+        # get lock
+        archive_dir = apt_pkg.config.find_dir("Dir::Cache::Archives")
         try:
-            # this may as well throw a SystemError exception
-            if not pm.get_archives(fetcher, self._list, self._records):
-                return False
-            # now run the fetcher, throw exception if something fails to be
-            # fetched
-            return self._run_fetcher(fetcher)
-        finally:
-            os.close(lock)
+            fetcher.get_lock(archive_dir)
+        except apt_pkg.Error as e:
+            raise LockFailedException(("Failed to lock archive directory %s: "
+                                       " %s") % (archive_dir, e))
 
     def fetch_archives(self, progress=None, fetcher=None):
         # type: (AcquireProgress, apt_pkg.Acquire) -> int
@@ -462,6 +463,8 @@ class Cache(object):
             progress = apt.progress.text.AcquireProgress()
         if fetcher is None:
             fetcher = apt_pkg.Acquire(progress)
+
+        self._get_archive_lock(fetcher)
 
         return self._fetch_archives(fetcher,
                                     apt_pkg.PackageManager(self._depcache))
@@ -570,13 +573,32 @@ class Cache(object):
 
         The second parameter *install_progress* refers to an InstallProgress()
         object of the module apt.progress.
+
+        This releases a system lock in newer versions, if there is any,
+        and reestablishes it afterwards.
         """
         # compat with older API
         try:
             install_progress.startUpdate()  # type: ignore
         except AttributeError:
             install_progress.start_update()
+
+        # Need to unlock really hard, since the lock is reference
+        # counted and we must make sure that we are _really_ unlocked.
+        lock_count = 0
+        while True:
+            try:
+                apt_pkg.pkgsystem_unlock()
+            except apt_pkg.Error:
+                break
+            lock_count += 1
+
         res = install_progress.run(pm)
+
+        # Reinstate lock count
+        for i in range(lock_count):
+            apt_pkg.pkgsystem_lock()
+
         try:
             install_progress.finishUpdate()  # type: ignore
         except AttributeError:
@@ -608,25 +630,28 @@ class Cache(object):
 
         assert install_progress is not None
 
-        pm = apt_pkg.PackageManager(self._depcache)
-        fetcher = apt_pkg.Acquire(fetch_progress)
-        while True:
-            # fetch archives first
-            res = self._fetch_archives(fetcher, pm)
+        with apt_pkg.SystemLock():
+            pm = apt_pkg.PackageManager(self._depcache)
+            fetcher = apt_pkg.Acquire(fetch_progress)
+            self._get_archive_lock(fetcher)
 
-            # then install
-            res = self.install_archives(pm, install_progress)
-            if res == pm.RESULT_COMPLETED:
-                break
-            elif res == pm.RESULT_FAILED:
-                raise SystemError("installArchives() failed")
-            elif res == pm.RESULT_INCOMPLETE:
-                pass
-            else:
-                raise SystemError("internal-error: unknown result code "
-                                  "from InstallArchives: %s" % res)
-            # reload the fetcher for media swaping
-            fetcher.shutdown()
+            while True:
+                # fetch archives first
+                res = self._fetch_archives(fetcher, pm)
+
+                # then install
+                res = self.install_archives(pm, install_progress)
+                if res == pm.RESULT_COMPLETED:
+                    break
+                elif res == pm.RESULT_FAILED:
+                    raise SystemError("installArchives() failed")
+                elif res == pm.RESULT_INCOMPLETE:
+                    pass
+                else:
+                    raise SystemError("internal-error: unknown result code "
+                                      "from InstallArchives: %s" % res)
+                # reload the fetcher for media swaping
+                fetcher.shutdown()
         return (res == pm.RESULT_COMPLETED)
 
     def clear(self):
