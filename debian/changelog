@@ -1,3 +1,42 @@
+python-apt (1.7.0~alpha1) experimental; urgency=medium
+
+  [ Julian Andres Klode ]
+  * data/templates/Ubuntu.info.in: Add cosmic cuttlefish template
+  * apt.Cache: Fix error in apt.Package caching
+  * apt: Correctly annotate Optional types
+  * apt: Fix typing error related to apt_pkg
+  * tests/test_pep484.py: Check everything
+  * Correctly handle missing candidate in Package.get_changelog
+  * types: Don't make apt_pkg.Cache a dict, and fix apt.Cache.__contains__
+  * apt.package.Dependency: Fix __init__ type annotation
+  * Add all possible annotations that were FIXME
+  * Various type fixes
+  * Fix some more type annotations for apt_pkg, complete apt.utils typing
+  * apt.Cache: Remap objects when reopening cache
+    (LP: #1773316)
+  * apt_pkg.DepCache: Raise CacheMismatchError if argument belongs to diff. cache
+  * apt.Cache: Complete types
+  * Completely type apt.progress
+  * typehinting: Add missing type hints for unattended-upgrades
+  * Complete typing for apt.auth
+  * apt.debfile: Avoid exception in replaces_real_pkg for no-candidate packages
+  * apt.debfile.DebPackage: Handle no-candidate package in _maybe_append_multiarch_suffix
+  * Completely type apt.debfile
+  * utils/get_debian_mirrors.py: Get data from salsa
+  * apt.package: Add almost complete typing
+  * tests/test_pep484.py: Pass --strict --implicit-optional to mypy
+  * apt.Cache: Introduce fix_broken() binding
+  * Add support for custom fields to apt_pkg.PackageRecords
+  * Introduce gitlab ci
+  * Document whatsnew in 1.6 and 1.7
+  * apt.Cache: Keep / Re-establish the system lock in commit()
+  * apt.Cache: Keep archive locked during commit()/ in fetch_archives()
+
+  [ Evgeni Golov ]
+  * fix SourceRecordsFile class reference
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 25 Jun 2018 11:29:01 +0200
+
 python-apt (1.6.0) unstable; urgency=medium
 
   * Final release, no further changes.
