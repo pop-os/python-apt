@@ -292,12 +292,8 @@ class Cache(object):
         .. versionadded:: 1.0.0
         """
         fullname = rawpkg.get_fullname(pretty=False)
-        try:
-            pkg = self._weakref[fullname]
-        except KeyError:
-            pkg = Package(self, rawpkg)
-            self._weakref[fullname] = pkg
-        return pkg
+
+        return self._weakref.setdefault(fullname, Package(self, rawpkg))
 
     def __iter__(self):
         # type: () -> Iterator[Package]
@@ -307,7 +303,8 @@ class Cache(object):
         # is disastrous if we use compressed package indexes, and slower than
         # necessary for uncompressed indexes.
         for pkgname in self.keys():
-            yield self[pkgname]
+            pkg = Package(self, self._cache[pkgname])
+            yield self._weakref.setdefault(pkgname, pkg)
 
     def __is_real_pkg(self, rawpkg):
         # type: (apt_pkg.Package) -> bool
