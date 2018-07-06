@@ -260,23 +260,19 @@ class Cache(object):
     def __getitem__(self, key):
         # type: (object) -> Package
         """ look like a dictionary (get key) """
-        key = str(key)
         try:
-            return self._weakref[key]
+            key = str(key)
+            rawpkg = self._cache[key]
         except KeyError:
-            try:
-                rawpkg = self._cache[key]
-            except KeyError:
-                raise KeyError('The cache has no package named %r' % key)
+            raise KeyError('The cache has no package named %r' % key)
 
-            # It might be excluded due to not having a version or something
-            if not self.__is_real_pkg(rawpkg):
-                raise KeyError('The cache has no package named %r' % key)
+        # It might be excluded due to not having a version or something
+        if not self.__is_real_pkg(rawpkg):
+            raise KeyError('The cache has no package named %r' % key)
 
-            pkg = self._rawpkg_to_pkg(rawpkg)
-            self._weakref[key] = pkg
+        pkg = self._rawpkg_to_pkg(rawpkg)
 
-            return pkg
+        return pkg
 
     def get(self, key, default=None):
         # type: (object, object) -> Any
