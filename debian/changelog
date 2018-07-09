@@ -1,3 +1,17 @@
+python-apt (1.7.0~alpha2) experimental; urgency=medium
+
+  * gitlab-ci: Set DEBIAN_FRONTEND=noninteractive
+  * Add more extensive test cases for cache remapping
+  * Do not override __hash__ in apt.package.Package (LP: #1780099)
+  * debian/python-apt.docs: README is README.md since some time
+  * apt.Cache: Avoid unneccessary double weakref checks for __getitem__
+  * apt.Cache: Use weakref.setdefault to find existing Package objects
+  * debian/control: Point to salsa instead of anonscm
+  * debian/control: Drop obsolete Python-Versions fields
+  * Switch to python3-sphinx
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 09 Jul 2018 15:02:41 +0200
+
 python-apt (1.7.0~alpha1) experimental; urgency=medium
 
   [ Julian Andres Klode ]
