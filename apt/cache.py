@@ -291,7 +291,7 @@ class Cache(object):
 
         .. versionadded:: 1.0.0
         """
-        fullname = rawpkg.get_fullname(pretty=False)
+        fullname = rawpkg.get_fullname(pretty=True)
 
         return self._weakref.setdefault(fullname, Package(self, rawpkg))
 

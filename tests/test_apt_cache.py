@@ -367,6 +367,25 @@ class TestAptCache(testcommon.TestCase):
             self.assertEqual(hash(p), p_hash)
             self.assertIn(p, set_of_p)
 
+    def test_apt_cache_iteration_safe(self):
+        """Check that iterating does not produce different results.
+
+        This failed in 1.7.0~alpha2, because one part of the code
+        looked up packages in the weak dict using the pretty name,
+        and the other using the full name."""
+
+        with tempfile.NamedTemporaryFile() as status:
+            apt_pkg.config["Dir::Etc::SourceList"] = "/dev/null"
+            apt_pkg.config["Dir::Etc::SourceParts"] = "/dev/null"
+            apt_pkg.config["Dir::State::Status"] = status.name
+            apt_pkg.init_system()
+
+            self.write_status_file("abcdefghijklmnopqrstuvwxyz")
+
+            c = apt.Cache()
+            c["a"].mark_delete()
+            self.assertEqual([c["a"]], [p for p in c if p.marked_delete])
+
 
 if __name__ == "__main__":
     unittest.main()
