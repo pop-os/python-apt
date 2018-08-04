@@ -8,6 +8,10 @@ Changed
   is :class:`apt_pkg.CacheMismatchError`, and :class:`apt.cache.Cache` will
   automatically remap open packages and versions to a new cache.
 
+* :meth:`apt_pkg.Policy.get_priority()` now accepts :class:`apt_pkg.Version`
+  objects in addition to :class:`apt_pkg.Package` and :class:`apt_pkg.PackageFile`
+  ones.
+
 Added
 ------
 * The class :class:`apt_pkg.PackageRecords` can now lookup custom fields
@@ -19,3 +23,9 @@ Added
   necessary.
 
 * A new method :meth:`apt.cache.Cache.fix_broken` has been added.
+
+
+Deprecated
+----------
+* :meth:`apt_pkg.Policy.get_priority()` accepting :class:`apt_pkg.Package`
+  is deprecated.
