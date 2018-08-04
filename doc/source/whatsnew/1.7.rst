@@ -12,6 +12,10 @@ Changed
   objects in addition to :class:`apt_pkg.Package` and :class:`apt_pkg.PackageFile`
   ones.
 
+* :attr:`apt.package.Version.policy_priority` now returns the priority
+  for that version rather than the highest priority for one of its
+  package files.
+
 Added
 ------
 * The class :class:`apt_pkg.PackageRecords` can now lookup custom fields

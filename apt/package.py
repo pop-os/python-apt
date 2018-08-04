@@ -679,11 +679,7 @@ class Version(object):
         """Return the internal policy priority as a number.
            See apt_preferences(5) for more information about what it means.
         """
-        priority = 0
-        policy = self.package._pcache._depcache.policy
-        for (packagefile, _unused) in self._cand.file_list:
-            priority = max(priority, policy.get_priority(packagefile))
-        return priority
+        return self.package._pcache._depcache.policy.get_priority(self._cand)
 
     @property
     def record(self):
