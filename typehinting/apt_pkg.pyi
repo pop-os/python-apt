@@ -119,7 +119,7 @@ class PackageRecords():
     def __init__(self, cache: Cache) -> None: ...
     def lookup(self, packagefile: Tuple[PackageFile, int], index: int=0) -> bool: ...
 
-class PackageFile(Iterable):
+class PackageFile:
     architecture: str
     archive: str
     codename: str
