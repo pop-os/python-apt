@@ -28,6 +28,10 @@ Added
 
 * A new method :meth:`apt.cache.Cache.fix_broken` has been added.
 
+* New methods for frontend locking have been added:
+  :meth:`apt_pkg.pkgsystem_lock_inner`,
+  :meth:`apt_pkg.pkgsystem_unlock_inner`,
+  :meth:`apt_pkg.pkgsystem_is_locked` (starting in alpha 3).
 
 Deprecated
 ----------
