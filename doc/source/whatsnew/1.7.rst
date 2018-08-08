@@ -16,6 +16,9 @@ Changed
   for that version rather than the highest priority for one of its
   package files.
 
+* :meth:`apt.Cache.commit` and :meth:`apt_pkg.DepCache.commit` now use
+  frontend locking to run dpkg.
+
 Added
 ------
 * The class :class:`apt_pkg.PackageRecords` can now lookup custom fields
