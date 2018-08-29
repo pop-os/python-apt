@@ -11,6 +11,7 @@ http://debian.mur.at/debian/
 http://debian.sil.at/debian/
 http://ftp.at.debian.org/debian/
 http://ftp.tu-graz.ac.at/mirror/debian/
+http://mirror.internex.at/debian/
 http://mirror.reismil.ch/debian/
 #LOC:AU
 http://debian.mirror.digitalpacific.com.au/debian/
@@ -139,8 +140,8 @@ http://mirror.one.com/debian/
 http://mirrors.dotsrc.org/debian/
 http://mirrors.rackhosting.com/debian/
 #LOC:EE
-http://ftp.aso.ee/debian/
 http://ftp.ee.debian.org/debian/
+http://ftp.eenet.ee/debian/
 #LOC:ES
 http://debian.grn.cat/debian/
 http://debian.redimadrid.es/debian/
@@ -160,7 +161,6 @@ http://trumpetti.atm.tut.fi/debian/
 #LOC:FR
 http://deb-mir1.naitways.net/debian/
 http://debian.mirror.ate.info/
-http://debian.mirrors.easynet.fr/debian/
 http://debian.mirrors.ovh.net/debian/
 http://debian.polytech-lille.fr/debian/
 http://debian.proxad.net/debian/
@@ -216,7 +216,6 @@ http://debian.carnet.hr/debian/
 http://debian.iskon.hr/debian/
 http://ftp.hr.debian.org/debian/
 #LOC:HU
-http://debian.mirrors.crysys.hu/debian/
 http://ftp.bme.hu/debian/
 http://ftp.fsn.hu/debian/
 http://ftp.hu.debian.org/debian/
@@ -259,7 +258,6 @@ http://ftp.jp.debian.org/debian/
 http://ftp.kddilabs.jp/pub/debian/
 http://ftp.nara.wide.ad.jp/debian/
 http://ftp.riken.jp/Linux/debian/debian/
-http://ftp.tsukuba.wide.ad.jp/debian/
 http://ftp.yz.yamagata-u.ac.jp/debian/
 http://hanzubon.jp/debian/
 http://mirror.conformist.jp/debian/
@@ -313,6 +311,7 @@ http://mirror.nl.leaseweb.net/debian/
 http://mirror.novg.net/debian/
 http://mirror.proserve.nl/debian/
 http://mirror.seedvps.com/debian/
+http://mirror.serverius.net/debian/
 http://mirror.vpgrp.io/debian/
 #LOC:NO
 http://ftp.no.debian.org/debian/
@@ -438,7 +437,7 @@ http://mirrors.ocf.berkeley.edu/debian/
 http://mirrors.syringanetworks.net/debian/
 http://mirrors.wikimedia.org/debian/
 http://mirrors.xmission.com/debian/
-http://pubmirrors.dal.corespace.com/debian/
+http://repo.ialab.dsu.edu/debian/
 http://www.gtlib.gatech.edu/debian/
 #LOC:UY
 http://repo.cure.edu.uy/debian/

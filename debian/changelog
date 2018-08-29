@@ -1,3 +1,17 @@
+python-apt (1.7.0~alpha3) experimental; urgency=medium
+
+  * Fix __iter__ yielding different Packages than __getitem__
+  * apt.Cache: Reinstate locks in a finally / run dpkg inside try
+  * travis: Run tests on ubuntu:cosmic too
+  * Revert "debian/control: Drop obsolete Python-Versions fields"
+  * Accept Version objects in apt_pkg.Policy.get_priority(), deprecate Package
+  * Return correct pin in apt.package.Version.policy_priority
+  * typehinting: apt_pkg.PackageFile is not an iterable
+  * Introduce frontend locking
+  * Convert apt.Cache.commit and apt_pkg.DepCache.commit to FE lock
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 29 Aug 2018 10:30:22 +0200
+
 python-apt (1.7.0~alpha2) experimental; urgency=medium
 
   * gitlab-ci: Set DEBIAN_FRONTEND=noninteractive
