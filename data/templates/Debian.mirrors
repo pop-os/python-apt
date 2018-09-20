@@ -43,7 +43,6 @@ http://alcateia.ufscar.br/debian/
 http://debian.c3sl.ufpr.br/debian/
 http://debian.pop-sc.rnp.br/debian/
 http://ftp.br.debian.org/debian/
-http://mirror.nbtelecom.com.br/debian/
 http://mirror.unesp.br/linux/debian/
 http://sft.if.usp.br/debian/
 #LOC:BY
@@ -114,7 +113,7 @@ http://ftp.halifax.rwth-aachen.de/debian/
 http://ftp.hosteurope.de/mirror/ftp.debian.org/debian/
 http://ftp.informatik.rwth-aachen.de/ftp/pub/Linux/debian/
 http://ftp.mpi-sb.mpg.de/pub/linux/debian/
-http://ftp.plusline.de/debian/
+http://ftp.plusline.net/debian/
 http://ftp.stw-bonn.de/debian/
 http://ftp.tu-chemnitz.de/debian/
 http://ftp.tu-clausthal.de/debian/
@@ -164,7 +163,6 @@ http://debian.mirror.ate.info/
 http://debian.mirrors.ovh.net/debian/
 http://debian.polytech-lille.fr/debian/
 http://debian.proxad.net/debian/
-http://debian.revolsys.fr/debian/
 http://debian.univ-lorraine.fr/debian/
 http://debian.univ-reims.fr/debian/
 http://debian.univ-tlse2.fr/debian/
@@ -199,7 +197,6 @@ http://mirrors.coreix.net/debian/
 http://mirrors.m247.com/debian/
 http://mirrors.melbourne.co.uk/debian/
 http://mirrorservice.org/sites/ftp.debian.org/debian/
-http://the.earth.li/debian/
 http://ukdebian.mirror.anlx.net/debian/
 #LOC:GE
 http://debian.grena.ge/debian/
@@ -324,6 +321,7 @@ http://mirror.fsmg.org.nz/debian/
 http://repository.linux.pf/debian/
 #LOC:PH
 http://mirror.pregi.net/debian/
+http://mirror.rise.ph/debian/
 #LOC:PL
 http://debian.inhost.pro/debian/
 http://ftp.agh.edu.pl/debian/
@@ -355,6 +353,7 @@ http://ftp.ru.debian.org/debian/
 http://mirror.corbina.net/debian/
 http://mirror.mephi.ru/debian/
 http://mirror.truenetwork.ru/debian/
+http://mirrors.powernet.com.ru/debian/
 #LOC:SE
 http://debian.lth.se/debian/
 http://debian.mirror.su.se/debian/
@@ -377,6 +376,7 @@ http://debian.salud.gob.sv/debian/
 http://debian.ues.edu.sv/debian/
 http://ftp.sv.debian.org/debian/
 #LOC:TH
+http://ftp.debianclub.org/debian/
 http://mirror.applebred.net/debian/
 http://mirror.kku.ac.th/debian/
 #LOC:TR
@@ -385,7 +385,7 @@ http://ftp.linux.org.tr/debian/
 http://ftp.metu.edu.tr/debian/
 http://ftp.tr.debian.org/debian/
 #LOC:TW
-http://debian.csie.nctu.edu.tw/debian/
+http://debian.cs.nctu.edu.tw/debian/
 http://debian.csie.ntu.edu.tw/debian/
 http://ftp.isu.edu.tw/debian/
 http://ftp.ntou.edu.tw/debian/
