@@ -1,3 +1,10 @@
+python-apt (1.7.0) unstable; urgency=medium
+
+  * Fix escaping in regular expressions and ignore some pep8 warnings
+  * as usual; updated mirror lists
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 10 Oct 2018 17:39:25 +0200
+
 python-apt (1.7.0~rc1) unstable; urgency=medium
 
   * Release to unstable
