@@ -106,6 +106,115 @@ BaseURI: http://archive.ubuntu.com/ubuntu/
 MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
 _Description: Unsupported updates
 
+Suite: disco
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://archive.ubuntu.com/ubuntu
+MatchURI-amd64: archive.ubuntu.com/ubuntu
+BaseURI-i386: http://archive.ubuntu.com/ubuntu
+MatchURI-i386: archive.ubuntu.com/ubuntu
+MirrorsFile-amd64: Ubuntu.mirrors
+MirrorsFile-i386: Ubuntu.mirrors
+_Description: Ubuntu 19.04 'Disco Dingo'
+Component: main
+_CompDescription: Officially supported
+_CompDescriptionLong: Canonical-supported free and open-source software
+Component: universe
+_CompDescription: Community-maintained
+_CompDescriptionLong: Community-maintained free and open-source software
+Component: restricted
+_CompDescription: Non-free drivers
+_CompDescriptionLong: Proprietary drivers for devices
+Component: multiverse
+ParentComponent: universe
+_CompDescription: Restricted software
+_CompDescriptionLong: Software restricted by copyright or legal issues
+
+Suite: disco
+ParentSuite: disco
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Ubuntu 19.04 'Disco Dingo'
+
+Suite: disco
+RepositoryType: deb
+MatchName: .*
+BaseURI: cdrom:\[Ubuntu.*19.04
+MatchURI: cdrom:\[Ubuntu.*19.04
+_Description: Cdrom with Ubuntu 19.04 'Disco Dingo'
+Available: False
+Component: main
+_CompDescription: Officially supported
+Component: restricted
+_CompDescription: Restricted copyright
+
+Suite: disco
+Official: false
+RepositoryType: deb
+BaseURI: http://archive.canonical.com
+MatchURI: archive.canonical.com
+_Description: Canonical Partners
+Component: partner
+_CompDescription: Software packaged by Canonical for their partners
+_CompDescriptionLong: This software is not part of Ubuntu.
+
+Suite: disco-security
+ParentSuite: disco
+RepositoryType: deb
+BaseURI: http://ports.ubuntu.com/ubuntu-ports/
+MatchURI: ports.ubuntu.com/ubuntu-ports
+BaseURI-amd64: http://security.ubuntu.com/ubuntu/
+MatchURI-amd64: archive.ubuntu.com/ubuntu|security.ubuntu.com
+BaseURI-i386: http://security.ubuntu.com/ubuntu/
+MatchURI-i386: archive.ubuntu.com/ubuntu|security.ubuntu.com
+_Description: Important security updates
+
+Suite: disco-security
+ParentSuite: disco
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports|security.ubuntu.com
+_Description: Important security updates
+
+Suite: disco-updates
+ParentSuite: disco
+RepositoryType: deb
+_Description: Recommended updates
+
+Suite: disco-updates
+ParentSuite: disco
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Recommended updates
+
+Suite: disco-proposed
+ParentSuite: disco
+RepositoryType: deb
+_Description: Pre-released updates
+
+Suite: disco-proposed
+ParentSuite: disco
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Pre-released updates
+
+Suite: disco-backports
+ParentSuite: disco
+RepositoryType: deb
+_Description: Unsupported updates
+
+Suite: disco-backports
+ParentSuite: disco
+RepositoryType: deb-src
+BaseURI: http://archive.ubuntu.com/ubuntu/
+MatchURI: archive.ubuntu.com/ubuntu|ports.ubuntu.com/ubuntu-ports
+_Description: Unsupported updates
+
+
 Suite: cosmic
 RepositoryType: deb
 BaseURI: http://ports.ubuntu.com/ubuntu-ports/
