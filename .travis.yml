@@ -6,6 +6,7 @@ services:
 env:
  - DISTRO=debian:buster
  - DISTRO=ubuntu:cosmic
+ - DISTRO=ubuntu:disco
 install:
  - sed -i -e "s#1000#$(id -u)#g" -e "s#debian:testing#$DISTRO#g" Dockerfile
  - docker build --tag=apt-ci .
