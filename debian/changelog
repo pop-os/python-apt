@@ -1,3 +1,19 @@
+python-apt (1.8.0) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * templates: Add Ubuntu 19.04 'Disco Dingo'
+  * travis: Disable CI on debian:stretch and ubuntu:bionic
+  * Switch to python3-distutils-extra from python2 one
+  * Drop unnecessary python3-distutils build-depend workaround
+  * debian/rules: Build with pybuild
+  * travis: Test on disco
+
+  [ Jeremy Bicha ]
+  * data/templates/Debian.info.in: Add Buster and Bullseye
+    (Closes: #919613, #919615)
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 18 Jan 2019 13:41:16 +0100
+
 python-apt (1.7.0) unstable; urgency=medium
 
   * Fix escaping in regular expressions and ignore some pep8 warnings
