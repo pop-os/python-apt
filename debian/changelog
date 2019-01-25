@@ -1,3 +1,11 @@
+python-apt (1.8.1) unstable; urgency=medium
+
+  * python/arfile.cc: Fix FTBFS due to copying of FileFd
+  * Revert "debian/rules: Build with pybuild"
+  * Adjust typing for mypy 0.660
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 25 Jan 2019 20:40:39 +0100
+
 python-apt (1.8.0) unstable; urgency=medium
 
   [ Julian Andres Klode ]
