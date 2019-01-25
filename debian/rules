@@ -8,11 +8,12 @@ export TIME:=$(shell $(DATE_CMD) --date="$(DATETIME)" "+%H:%M:%S")
 export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings \
                                -DDATE=\""$(DATE)"\" \
                                -DTIME=\""$(TIME)"\"
+export PATH := $(CURDIR)/utils:$(PATH)
 export pyversions := $(CURDIR)/utils/pyversions
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie
 
 %:
-	dh $@ --buildsystem=pybuild --with python2,python3,sphinxdoc
+	dh $@ --with python2,python3,sphinxdoc
 
 override_dh_auto_build:
 	dh_auto_build
