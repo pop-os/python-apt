@@ -38,11 +38,10 @@ except ImportError:
     from httplib import BadStatusLine  # type: ignore
     from urllib2 import HTTPError, urlopen  # type: ignore
 
-from collections import Mapping, Sequence
-
 try:
     from typing import (Any, Iterable, Iterator, List, Optional, Set,
-                        Tuple, Union, no_type_check, overload)
+                        Tuple, Union, no_type_check, overload, Mapping,
+                        Sequence)
     Any  # pyflakes
     Iterable  # pyflakes
     Iterator  # pyflakes
@@ -52,7 +51,25 @@ try:
     Tuple  # pyflakes
     Union  # pyflakes
     overload  # pyflakes
+    Sequence  # pyflakes
 except ImportError:
+    import collections
+
+    class GenericWrapper(object):
+        """Takes a non-generic type and adds __getitem__"""
+        def __init__(self, value):
+            # type: (type) -> None
+            self.value = value
+
+        def __getitem__(self, key):
+            # type: (type) -> type
+            return self.value
+
+    List = GenericWrapper(list)  # type: ignore
+    Mapping = GenericWrapper(collections.Mapping)  # type: ignore
+    Sequence = GenericWrapper(collections.Sequence)  # type: ignore
+    Any = None
+
     def no_type_check(arg):
         # type: (Any) -> Any
         return arg
@@ -239,7 +256,7 @@ class BaseDependency(object):
         return self._dep.dep_type_untranslated == 'PreDepends'
 
 
-class Dependency(list):
+class Dependency(List[BaseDependency]):
     """Represent an Or-group of dependencies.
 
     Attributes defined here:
@@ -359,7 +376,7 @@ class Origin(object):
                                             self.site, self.trusted)
 
 
-class Record(Mapping):
+class Record(Mapping[Any, Any]):
     """Record in a Packages file
 
     Represent a record as stored in a Packages file. You can use this like
@@ -401,10 +418,10 @@ class Record(Mapping):
 
     def __iter__(self):
         # type: () -> Iterator[str]
-        return iter(self._rec.keys())
+        return iter(self._rec.keys())   # type: ignore
 
     def iteritems(self):
-        # type: () -> Iterable
+        # type: () -> Iterable[Tuple[object, str]]
         """An iterator over the (key, value) items of the record."""
         for key in self._rec.keys():
             yield key, self._rec[key]
@@ -921,7 +938,7 @@ class Version(object):
             return os.path.abspath(dsc)
 
 
-class VersionList(Sequence):
+class VersionList(Sequence[Version]):
     """Provide a mapping & sequence interface to all versions of a package.
 
     This class can be used like a dictionary, where version strings are the

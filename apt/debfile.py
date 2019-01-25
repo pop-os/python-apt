@@ -806,7 +806,7 @@ class DscSrcPackage(DebPackage):
                 if 'Binary' in sec:
                     self.binaries = [b.strip() for b in
                                      sec['Binary'].split(',')]
-                for tag in sec.keys():
+                for tag in sec.keys():      # type: ignore
                     if tag in sec:
                         self._sections[tag] = sec[tag]
         finally:
