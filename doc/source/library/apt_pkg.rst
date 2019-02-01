@@ -1142,6 +1142,8 @@ Package Pinning with :class:`Policy`
         as 'unstable' for type='Release') and the other possible options.
         The parameter 'priority' gives the priority of the pin.
 
+    .. automethod:: init_defaults
+
     .. method:: get_candidate_ver(package: apt_pkg.Package) -> apt_pkg.Version
 
         Get the best package for the job; that is, the package with the

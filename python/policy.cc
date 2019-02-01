@@ -150,6 +150,19 @@ static PyObject *policy_create_pin(PyObject *self, PyObject *args) {
     Py_RETURN_NONE;
 }
 
+static char *policy_init_defaults_doc =
+    "init_defaults()\n\n"
+    "Initialize defaults. Needed after calling :meth:`create_pin()`\n"
+    "with an empty `pkg` argument";
+static PyObject *policy_init_defaults(PyObject *self, PyObject *args) {
+    if (PyArg_ParseTuple(args, "") == 0)
+        return 0;
+    pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
+    policy->InitDefaults();
+    HandleErrors();
+    Py_RETURN_NONE;
+}
+
 static PyMethodDef policy_methods[] = {
     {"get_priority",(PyCFunction)policy_get_priority,METH_O,
      policy_get_priority_doc},
@@ -162,6 +175,7 @@ static PyMethodDef policy_methods[] = {
      policy_read_pindir_doc},
 #endif
     {"create_pin",policy_create_pin,METH_VARARGS,policy_create_pin_doc},
+    {"init_defaults",policy_init_defaults,METH_VARARGS,policy_init_defaults_doc},
     {"get_match",(PyCFunction)policy_get_match,METH_O, policy_get_match_doc},
     {}
 };
