@@ -21,6 +21,7 @@ http://mirror.netspace.net.au/pub/ubuntu/
 http://mirror.overthewire.com.au/ubuntu/
 http://mirror.tcc.wa.edu.au/ubuntu/
 http://mirror.waia.asn.au/ubuntu/
+http://ubuntu.mirror.datamossa.io/ubuntu/
 http://ubuntu.mirror.digitalpacific.com.au/archive/
 http://ubuntu.mirror.serversaustralia.com.au/ubuntu/
 #LOC:AZ
@@ -46,6 +47,7 @@ http://mirror.globo.com/ubuntu/archive/
 http://mirror.ufam.edu.br/ubuntu/
 http://mirror.ufca.edu.br/mirror/ubuntu-archive/
 http://mirror.ufscar.br/ubuntu/
+http://repositorio.nti.ufal.br/ubuntu/
 http://sft.if.usp.br/ubuntu/
 http://ubuntu-archive.locaweb.com.br/ubuntu/
 http://ubuntu.c3sl.ufpr.br/ubuntu/
@@ -90,7 +92,6 @@ http://mirrors.huaweicloud.com/repository/ubuntu/
 http://mirrors.nju.edu.cn/ubuntu/
 http://mirrors.njupt.edu.cn/ubuntu/
 http://mirrors.nwafu.edu.cn/ubuntu/
-http://mirrors.shu.edu.cn/ubuntu/
 http://mirrors.sohu.com/ubuntu/
 http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 http://mirrors.ustc.edu.cn/ubuntu/
@@ -189,12 +190,12 @@ http://www-ftp.lip6.fr/pub/linux/distributions/Ubuntu/archive/
 http://wwwftp.ciril.fr/pub/linux/ubuntu/archives/
 #LOC:GB
 http://archive.ubuntu.com/ubuntu/
+http://ftp.thunix.org/ubuntu/
 http://ftp.ticklers.org/archive.ubuntu.org/ubuntu/
 http://mirror.as29550.net/archive.ubuntu.com/
 http://mirror.bytemark.co.uk/ubuntu/
 http://mirror.freethought-internet.co.uk/ubuntu/
 http://mirror.mythic-beasts.com/ubuntu/
-http://mirror.ox.ac.uk/sites/archive.ubuntu.com/ubuntu/
 http://mirror.sax.uk.as61049.net/ubuntu/
 http://mirror.sov.uk.goscomb.net/ubuntu/
 http://mirror.vorboss.net/ubuntu-archive/
@@ -243,7 +244,6 @@ http://mirrors.piconets.webwerks.in/ubuntu-mirror/ubuntu/
 http://repos.del.extreme-ix.org/ubuntu/
 http://ubuntu.mirror.snu.edu.in/ubuntu/
 #LOC:IR
-http://mirror.aminidc.com/ubuntu/
 http://mirror.armaghan.net/ubuntu/
 http://mirror.iranserver.com/ubuntu/
 http://mirror.rasanegar.com/ubuntu/archive/
@@ -413,7 +413,6 @@ http://mirrors.psu.ac.th/ubuntu/
 #LOC:TN
 http://ubuntu.mirror.tn/ubuntu/
 #LOC:TR
-http://ftp.linux.org.tr/ubuntu/
 http://mirror.idealhosting.net.tr/ubuntu/
 http://mirror.muvhost.com/ubuntu/
 http://mirror.ni.net.tr/ubuntu/
@@ -513,7 +512,6 @@ http://ubuntu.mirrors.pair.com/archive/
 http://ubuntu.mirrors.tds.net/pub/ubuntu/
 http://ubuntu.osuosl.org/ubuntu/
 http://ubuntu.securedservers.com/
-http://ubuntu.whats-in.space/archive/
 http://us.archive.ubuntu.com/ubuntu/
 http://www.club.cc.cmu.edu/pub/ubuntu/
 http://www.gtlib.gatech.edu/pub/ubuntu/
