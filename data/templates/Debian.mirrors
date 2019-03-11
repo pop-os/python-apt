@@ -219,7 +219,6 @@ http://debian.co.il/debian/
 http://mirror.isoc.org.il/pub/debian/
 #LOC:IN
 http://debianmirror.nkn.in/debian/
-http://ftp.iitm.ac.in/debian/
 http://mirror.cse.iitk.ac.in/debian/
 #LOC:IR
 http://debian.asis.io/debian/
@@ -404,7 +403,6 @@ http://ftp.us.debian.org/debian/
 http://ftp.utexas.edu/debian/
 http://mirror.cc.columbia.edu/debian/
 http://mirror.cogentco.com/debian/
-http://mirror.cs.uwm.edu/debian/
 http://mirror.hmc.edu/debian/
 http://mirror.keystealth.org/debian/
 http://mirror.math.princeton.edu/pub/debian/
