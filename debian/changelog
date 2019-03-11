@@ -1,3 +1,12 @@
+python-apt (1.8.4) unstable; urgency=medium
+
+  * apt.Cache: Fix (un)locking in various places
+    - Fix (un)locking of archives (Closes: #922416)
+    - Use explicit, more safe locking in update()
+  * Update mirror lists
+
+ -- Julian Andres Klode <jak@debian.org>  Mon, 11 Mar 2019 12:49:18 +0100
+
 python-apt (1.8.3) unstable; urgency=medium
 
   * test_aptsources: Fix test if current distribution does not exist
