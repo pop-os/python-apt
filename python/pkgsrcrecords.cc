@@ -333,13 +333,13 @@ static PyObject *PkgSrcRecordsGetBuildDepends(PyObject *Self,void*) {
      Py_DECREF(OrGroup);
 
      // Add at least one package to the group, add more if Or is set.
-     while (1)
+     while (i < bd.size())
      {
 	    v = Py_BuildValue("(sss)", bd[i].Package.c_str(),
 			bd[i].Version.c_str(), pkgCache::CompType(bd[i].Op));
 	    PyList_Append(OrGroup, v);
 	    Py_DECREF(v);
-	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or) || i + 1 >= bd.size())
+	    if (pkgCache::Dep::Or != (bd[i].Op & pkgCache::Dep::Or))
 	       break;
         i++;
      }
