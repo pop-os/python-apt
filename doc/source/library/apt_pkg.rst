@@ -2142,10 +2142,6 @@ Pre-defined ordering for tag sections are:
     The order in which the information for source packages should be rewritten,
     i.e. the order in which the fields should appear.
 
-Before APT 1.1, the function :func:`rewrite_section` was used.
-
-.. autofunction:: rewrite_section
-
 
 Dependencies
 ------------
