@@ -221,6 +221,8 @@ static PyObject *TagSecWrite(PyObject *Self, PyObject *Args, PyObject *kwds)
 
    FileFd file(fileno);
    const char **order = ListToCharChar(pOrder,true);
+   if (order == nullptr)
+      return nullptr;
    std::vector<pkgTagSection::Tag> rewrite;
    for (int I = 0; I != PySequence_Length(pRewrite); I++) {
       PyObject *item = PySequence_GetItem(pRewrite, I);
