@@ -1149,10 +1149,6 @@ Package Pinning with :class:`Policy`
         Get the best package for the job; that is, the package with the
         highest pin priority.
 
-    .. method:: get_match(package: apt_pkg.Package) -> apt_pkg.Version
-
-        Get a version for the package.
-
     .. method:: get_priority(package: Union[apt_pkg.Version, apt_pkg.PackageFile]) -> int
 
         Get the pin priority of the package, version, or package file

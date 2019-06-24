@@ -72,21 +72,6 @@ PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
     }
 }
 
-static char *policy_get_match_doc =
-    "get_match(package: apt_pkg.Package) -> apt_pkg.Version\n\n"
-    "Return a matching version for the given package.";
-
-static PyObject *policy_get_match(PyObject *self, PyObject *arg) {
-    if (PyObject_TypeCheck(arg, &PyPackage_Type) == 0) {
-        PyErr_SetString(PyExc_TypeError,"Argument must be of Package().");
-        return 0;
-    }
-    pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
-    pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
-    pkgCache::VerIterator ver = policy->GetMatch(pkg);
-    return CppPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,ver);
-}
-
 static char *policy_read_pinfile_doc =
     "read_pinfile(filename: str) -> bool\n\n"
     "Read the pin file given by filename (e.g. '/etc/apt/preferences')\n"
@@ -171,7 +156,6 @@ static PyMethodDef policy_methods[] = {
 #endif
     {"create_pin",policy_create_pin,METH_VARARGS,policy_create_pin_doc},
     {"init_defaults",policy_init_defaults,METH_VARARGS,policy_init_defaults_doc},
-    {"get_match",(PyCFunction)policy_get_match,METH_O, policy_get_match_doc},
     {}
 };
 
