@@ -1476,7 +1476,6 @@ class Package(object):
             fix.clear(self._pkg)
             fix.protect(self._pkg)
             fix.remove(self._pkg)
-            fix.install_protect()
             fix.resolve()
         self._pcache.cache_post_change()
 
