@@ -1154,12 +1154,6 @@ class Package(object):
         """
         return self._pkg.architecture
 
-    @property
-    def section(self):
-        # type: () -> str
-        """Return the section of the package."""
-        return self._pkg.section
-
     # depcache states
 
     @property

@@ -57,7 +57,6 @@ class Package():
     id: int
     current_ver: Version
     essential: bool
-    section: str
     current_state: int
     inst_state: int
     selected_state: int
