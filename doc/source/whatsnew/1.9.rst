@@ -1,0 +1,20 @@
+What's New In python-apt 1.9
+============================
+This is a development series, and there will be more API changes in point
+releases.
+
+
+Removed
+-------
+* The methods called `install_protect` have been removed
+* The `section` attribute has been removed from :class:`apt_pkg.Package`
+  and :class:`apt.package.Package`
+* The method :meth:`apt_pkg.rewrite_section` has been removed
+* The attributes :attr:`apt_pkg.Hashes.md5`, :attr:`apt_pkg.Hashes.sha1`, :attr:`apt_pkg.Hashes.sha256` have been removed
+* The method :meth:`apt_pkg.Policy.get_match` has been removed.
+
+Changed
+-------
+* In :class:`apt_pkg.SourceRecords`, the tuple view of files now always contains
+  None where it previously contained the md5 hash.
+* The method :meth:`apt_pkg.Policy.get_priority()` no longer accepts :class:`apt_pkg.Package` instances.
