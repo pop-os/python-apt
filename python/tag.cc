@@ -795,7 +795,7 @@ static PyObject *PyTagRewrite_New(PyTypeObject *type,PyObject *Args,PyObject *kw
 
 static PyObject *PyTagRemove_New(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    char *name;
-   char *kwlist[] = {"name"};
+   char *kwlist[] = {"name", nullptr};
 
    if (PyArg_ParseTupleAndKeywords(Args,kwds,"s",kwlist, &name) == 0)
       return nullptr;

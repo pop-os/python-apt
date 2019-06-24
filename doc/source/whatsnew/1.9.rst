@@ -18,3 +18,8 @@ Changed
 * In :class:`apt_pkg.SourceRecords`, the tuple view of files now always contains
   None where it previously contained the md5 hash.
 * The method :meth:`apt_pkg.Policy.get_priority()` no longer accepts :class:`apt_pkg.Package` instances.
+
+Bug fixes
+---------
+
+* Fixed unterminated ``char*`` array in :class:`apt_pkg.TagRemove` constructor.
