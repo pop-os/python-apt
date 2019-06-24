@@ -13,7 +13,6 @@
 
 #include <apt-pkg/pkgcache.h>
 #include <apt-pkg/cachefile.h>
-#include <apt-pkg/sptr.h>
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/sourcelist.h>
 #include <apt-pkg/error.h>
