@@ -158,5 +158,56 @@ class TestTagFile(testcommon.TestCase):
                 value.encode("ISO-8859-1"), tagfile.section["Maintainer"])
 
 
+class TestTagSection(testcommon.TestCase):
+    """ test the apt_pkg.TagFile """
+
+    def setUp(self):
+        testcommon.TestCase.setUp(self)
+        self.temp_dir = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.temp_dir)
+
+    def test_write(self):
+        ts = apt_pkg.TagSection("a: 1\nb: 2\nc: 3\n")
+        outpath = os.path.join(self.temp_dir, "test")
+        with open(outpath, "w") as outfile:
+            ts.write(outfile, [], [])
+        with open(outpath) as outfile:
+            self.assertEqual(outfile.read(), "a: 1\nb: 2\nc: 3\n")
+
+    def test_write_order(self):
+        ts = apt_pkg.TagSection("a: 1\nb: 2\nc: 3\n")
+        outpath = os.path.join(self.temp_dir, "test")
+        with open(outpath, "w") as outfile:
+            ts.write(outfile, ["a", "c", "b"], [])
+        with open(outpath) as outfile:
+            self.assertEqual(outfile.read(), "a: 1\nc: 3\nb: 2\n")
+
+    def test_write_remove(self):
+        ts = apt_pkg.TagSection("a: 1\nb: 2\nc: 3\n")
+        outpath = os.path.join(self.temp_dir, "test")
+        with open(outpath, "w") as outfile:
+            ts.write(outfile, ["a", "c", "b"], [apt_pkg.TagRemove("a")])
+        with open(outpath) as outfile:
+            self.assertEqual(outfile.read(), "c: 3\nb: 2\n")
+
+    def test_write_rewrite(self):
+        ts = apt_pkg.TagSection("a: 1\nb: 2\nc: 3\n")
+        outpath = os.path.join(self.temp_dir, "test")
+        with open(outpath, "w") as outfile:
+            ts.write(outfile, ["a", "c", "b"], [apt_pkg.TagRewrite("a", "AA")])
+        with open(outpath) as outfile:
+            self.assertEqual(outfile.read(), "a: AA\nc: 3\nb: 2\n")
+
+    def test_write_rename(self):
+        ts = apt_pkg.TagSection("a: 1\nb: 2\nc: 3\n")
+        outpath = os.path.join(self.temp_dir, "test")
+        with open(outpath, "w") as outfile:
+            ts.write(outfile, ["a", "z", "b"], [apt_pkg.TagRename("c", "z")])
+        with open(outpath) as outfile:
+            self.assertEqual(outfile.read(), "a: 1\nz: 3\nb: 2\n")
+
+
 if __name__ == "__main__":
     unittest.main()

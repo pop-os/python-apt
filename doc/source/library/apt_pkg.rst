@@ -2102,6 +2102,9 @@ section as a string.
         Return a list of keys in the section.
 
 
+    .. automethod:: write
+
+
 A function can be rewritten by using tag classes:
 
 .. autoclass:: Tag

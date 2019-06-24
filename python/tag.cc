@@ -195,6 +195,44 @@ static PyObject *TagSecFindFlag(PyObject *Self,PyObject *Args)
    return PyBool_FromLong(Flag);
 }
 
+static char *doc_Write =
+    "write(file: int, order: List[str], rewrite: List[Tag]) -> None\n\n"
+    "Rewrites the section into the given file descriptor, which should be\n"
+    "a file descriptor or an object providing a fileno() method.\n"
+    "\n"
+    ".. versionadded:: 1.9.0";
+static PyObject *TagSecWrite(PyObject *Self, PyObject *Args, PyObject *kwds)
+{
+   char *kwlist[] = {"file", "order", "rewrite", nullptr};
+   PyObject *pFile;
+   PyObject *pOrder;
+   PyObject *pRewrite;
+   if (PyArg_ParseTupleAndKeywords(Args,kwds, "OO!O!",kwlist, &pFile,&PyList_Type,&pOrder, &PyList_Type, &pRewrite) == 0)
+      return nullptr;
+
+   int fileno = PyObject_AsFileDescriptor(pFile);
+   // handle invalid arguments
+   if (fileno == -1)
+   {
+      PyErr_SetString(PyExc_TypeError,
+                      "Argument must be string, fd or have a fileno() method");
+      return 0;
+   }
+
+   FileFd file(fileno);
+   const char **order = ListToCharChar(pOrder,true);
+   std::vector<pkgTagSection::Tag> rewrite;
+   for (int I = 0; I != PySequence_Length(pRewrite); I++) {
+      PyObject *item = PySequence_GetItem(pRewrite, I);
+      if (!PyObject_TypeCheck(item, &PyTag_Type))
+         return PyErr_SetString(PyExc_TypeError, "Wrong type for tag in list"), nullptr;
+      rewrite.push_back(GetCpp<pkgTagSection::Tag>(item));
+   }
+
+   return HandleErrors(PyBool_FromLong(GetCpp<pkgTagSection>(Self).Write(file, order, rewrite)));
+}
+
+
 // Map access, operator []
 static PyObject *TagSecMap(PyObject *Self,PyObject *Arg)
 {
@@ -577,6 +615,7 @@ static PyMethodDef TagSecMethods[] =
    {"find_raw",TagSecFindRaw,METH_VARARGS,doc_FindRaw},
    {"find_flag",TagSecFindFlag,METH_VARARGS,doc_FindFlag},
    {"bytes",TagSecBytes,METH_VARARGS,doc_Bytes},
+   {"write",(PyCFunction) TagSecWrite,METH_VARARGS|METH_KEYWORDS,doc_Write},
 
    // Python Special
    {"keys",TagSecKeys,METH_VARARGS,doc_Keys},
