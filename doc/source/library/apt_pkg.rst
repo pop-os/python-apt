@@ -1912,6 +1912,8 @@ generic hash support:
         The type of the hash, as a string. This may be "MD5Sum", "SHA1",
         "SHA256" or "SHA512".
 
+    .. autoattribute:: hashvalue
+
     .. method:: verify_file(filename: str) -> bool
 
         Verify that the file given by the parameter *filename* matches the

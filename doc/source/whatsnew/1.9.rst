@@ -6,6 +6,7 @@ releases.
 Added
 -----
 * The method :meth:`apt_pkg.TagSection.write()` has been added
+* The attribute :attr:`apt_pkg.HashString.hashvalue` has been added
 
 Removed
 -------
@@ -21,6 +22,7 @@ Changed
 * In :class:`apt_pkg.SourceRecords`, the tuple view of files now always contains
   None where it previously contained the md5 hash.
 * The method :meth:`apt_pkg.Policy.get_priority()` no longer accepts :class:`apt_pkg.Package` instances.
+* Instances of :class:`apt_pkg.HashString` can now be compared for equality
 
 Bug fixes
 ---------
