@@ -18,7 +18,7 @@
 
 // PkgSrcRecordFiles Class						/*{{{*/
 // ---------------------------------------------------------------------
-typedef pkgSrcRecords::File2 PkgSrcRecordFilesStruct;
+typedef pkgSrcRecords::File PkgSrcRecordFilesStruct;
 
 // compat with the old API that provided a tuple (md5,size,path,type)
 static Py_ssize_t pkgSrcRecordFiles_length(PyObject *Self) {
@@ -289,8 +289,8 @@ static PyObject *PkgSrcRecordsGetFiles(PyObject *Self,void*) {
       return 0;
    PyObject *List = PyList_New(0);
 
-   std::vector<pkgSrcRecords::File2> f;
-   if(!Struct.Last->Files2(f))
+   std::vector<pkgSrcRecords::File> f;
+   if(!Struct.Last->Files(f))
       return NULL; // error
 
    PyObject *v;
