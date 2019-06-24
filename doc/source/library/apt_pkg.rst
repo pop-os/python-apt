@@ -1153,7 +1153,7 @@ Package Pinning with :class:`Policy`
 
         Get a version for the package.
 
-    .. method:: get_priority(package: Union[apt_pkg.Package, apt_pkg.Version, apt_pkg.PackageFile]) -> int
+    .. method:: get_priority(package: Union[apt_pkg.Version, apt_pkg.PackageFile]) -> int
 
         Get the pin priority of the package, version, or package file
         given by *package*.
