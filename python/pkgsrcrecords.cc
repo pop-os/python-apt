@@ -31,7 +31,8 @@ static PyObject* pkgSrcRecordFiles_item(PyObject *Self, Py_ssize_t i) {
    PkgSrcRecordFilesStruct f = GetCpp<PkgSrcRecordFilesStruct>(Self);
    switch (i) {
       case 0:
-         return Py_BuildValue("s", f.MD5Hash.c_str());
+         Py_INCREF(Py_None);
+         return Py_None;
       case 1:
          return Py_BuildValue("N", MkPyNumber(f.FileSize));
       case 2:
