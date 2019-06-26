@@ -80,7 +80,7 @@ class DebPackage(object):
         # type: (str) -> None
         """ open given debfile """
         self._dbg(3, "open '%s'" % filename)
-        self._need_pkgs = []  # type: List[str]
+        self._need_pkgs = []
         self._installed_conflicts = set()  # type: Set[str]
         self._failure_string = ""
         self.filename = filename
