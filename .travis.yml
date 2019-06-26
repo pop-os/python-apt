@@ -4,9 +4,7 @@ sudo: required
 services:
   - docker
 env:
- - DISTRO=debian:buster
- - DISTRO=ubuntu:cosmic
- - DISTRO=ubuntu:disco
+ - DISTRO=ubuntu:eoan
 install:
  - sed -i -e "s#1000#$(id -u)#g" -e "s#debian:testing#$DISTRO#g" Dockerfile
  - docker build --tag=apt-ci .
