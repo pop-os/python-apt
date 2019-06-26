@@ -31,7 +31,11 @@ class InstallTypeinfo(install):
     def run(self):
         install.run(self)
         for pyi in glob.glob("typehinting/*.pyi"):
-            shutil.copy(pyi, self.install_purelib)
+            stubs = os.path.basename(pyi).split(".")[0] + "-stubs"
+            stubs = os.path.join(self.install_purelib, stubs)
+            if not os.path.exists(stubs):
+                os.makedirs(stubs)
+            shutil.copy(pyi, os.path.join(stubs, "__init__.pyi"))
 
 
 cmdclass['install'] = InstallTypeinfo
@@ -104,7 +108,7 @@ setup(name="python-apt",
       ext_modules=[apt_pkg, apt_inst],
       packages=['apt', 'apt.progress', 'aptsources'],
       package_data={
-          'apt': ["*.pyi"],
+          'apt': ["*.pyi", "py.typed"],
       },
       data_files=[('share/python-apt/templates',
                    glob.glob('build/data/templates/*.info')),
@@ -112,4 +116,5 @@ setup(name="python-apt",
                    glob.glob('data/templates/*.mirrors'))],
       cmdclass=cmdclass,
       license='GNU GPL',
-      platforms='posix')
+      platforms='posix',
+      )
