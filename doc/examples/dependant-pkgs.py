@@ -10,7 +10,7 @@ for pkg in cache:
     if candver is None:
         continue
     dependslist = candver.depends_list
-    for dep in dependslist.keys():
+    for dep in list(dependslist.keys()):
         # get the list of each dependency object
         for depVerList in dependslist[dep]:
             for z in depVerList:
@@ -28,9 +28,9 @@ for pkg in pkgs:
     else:
         main.add(cache[pkg].source_name)
 
-print "main:"
-print "\n".join(main)
-print
+print("main:")
+print("\n".join(main))
+print()
 
-print "universe:"
-print "\n".join(universe)
+print("universe:")
+print("\n".join(universe))
