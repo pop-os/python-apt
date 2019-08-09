@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #  get_debian_mirrors.py - Parse Mirrors.masterlist and create a mirror list.
 #
 #  Copyright (c) 2010-2011 Julian Andres Klode <jak@debian.org>

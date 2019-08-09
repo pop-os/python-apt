@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Builds on python2.X and python3
 # $Id: setup.py,v 1.2 2002/01/08 07:13:21 jgg Exp $
 import glob
