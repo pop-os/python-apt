@@ -181,14 +181,16 @@ class Cache(object):
         check if the required apt directories/files are there and if
         not create them
         """
-        files = ["/var/lib/dpkg/status",
-                 "/etc/apt/sources.list",
-                 ]
-        dirs = ["/var/lib/dpkg",
-                "/etc/apt/",
-                "/var/cache/apt/archives/partial",
-                "/var/lib/apt/lists/partial",
-                ]
+        files = [
+            "/var/lib/dpkg/status",
+            "/etc/apt/sources.list",
+        ]
+        dirs = [
+            "/var/lib/dpkg",
+            "/etc/apt/",
+            "/var/cache/apt/archives/partial",
+            "/var/lib/apt/lists/partial",
+        ]
         for d in dirs:
             if not os.path.exists(rootdir + d):
                 #print "creating: ", rootdir + d
@@ -209,7 +211,7 @@ class Cache(object):
 
         if name in self._callbacks2:
             for callback, args, kwds in self._callbacks2[name]:
-                    callback(self, *args, **kwds)
+                callback(self, *args, **kwds)
 
     def open(self, progress=None):
         # type: (OpProgress) -> None

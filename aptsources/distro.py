@@ -108,8 +108,8 @@ class Distribution(object):
                 # cdroms need do be handled differently
                 if (source.uri.startswith("cdrom:") and
                         not source.disabled):
-                        self.cdrom_sources.append(source)
-                        cdrom_comps.extend(source.comps)
+                    self.cdrom_sources.append(source)
+                    cdrom_comps.extend(source.comps)
                 elif (source.uri.startswith("cdrom:") and
                           source.disabled):
                     self.cdrom_sources.append(source)
@@ -131,7 +131,7 @@ class Distribution(object):
                     source.template in self.source_template.children):
                 if (not source.disabled and
                     source.type == self.binary_type):
-                        self.child_sources.append(source)
+                    self.child_sources.append(source)
                 elif (not source.disabled and
                       source.type == self.source_type):
                     self.source_code_sources.append(source)
