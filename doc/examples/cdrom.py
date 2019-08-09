@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # example how to deal with the depcache
 
 import apt_pkg

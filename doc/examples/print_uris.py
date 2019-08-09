@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 #
 # a example that prints the URIs of all upgradable packages
 #
