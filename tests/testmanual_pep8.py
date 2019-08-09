@@ -9,7 +9,7 @@ class PackagePep8TestCase(unittest.TestCase):
         res = 0
         py_dir = os.path.join(os.path.dirname(__file__), "..")
         res += subprocess.call(
-            ["pep8",
+            ["pycodestyle",
              # disable for now:
              # E125 continuation line does not distinguish itself from
              #      next logical line
