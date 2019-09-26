@@ -35,7 +35,7 @@ class TestAptPolicy(testcommon.TestCase):
         cache = apt_pkg.Cache()
         depcache = apt_pkg.DepCache(cache)
         policy = cache.policy
-        dpolicy = cache.policy
+        dpolicy = depcache.policy
         self.assertNotEqual(policy, None)
         self.assertNotEqual(dpolicy, None)
 
@@ -47,7 +47,7 @@ class TestAptPolicy(testcommon.TestCase):
         cache = apt_pkg.Cache()
         depcache = apt_pkg.DepCache(cache)
         policy = cache.policy
-        dpolicy = cache.policy
+        dpolicy = depcache.policy
         self.assertNotEqual(policy, None)
         self.assertNotEqual(dpolicy, None)
 
