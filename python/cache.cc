@@ -179,13 +179,16 @@ static PyObject *PkgCacheGetGroups(PyObject *Self, void*) {
 }
 
 static PyObject *PkgCacheGetPolicy(PyObject *Self, void*) {
-   pkgCacheFile *CacheFile = GetCpp<pkgCacheFile *>(Self);
-   CppPyObject<pkgPolicy*> *obj;
+   PyObject *CacheFilePy = GetOwner<pkgCache*>(Self);
+   pkgCacheFile *CacheF = GetCpp<pkgCacheFile*>(CacheFilePy);
+   pkgDepCache *DepCache = (pkgDepCache *)(*CacheF);
 
-   obj = CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,CacheFile->Policy);
-   obj->NoDelete = true;
-
-   return obj;
+   pkgPolicy *Policy = (pkgPolicy *)&DepCache->GetPolicy();
+   CppPyObject<pkgPolicy*> *PyPolicy =
+        CppPyObject_NEW<pkgPolicy*>(Self,&PyPolicy_Type,Policy);
+   // Policy should not be deleted, it is managed by CacheFile.
+   PyPolicy->NoDelete = true;
+   return PyPolicy;
 }
 
 static PyObject *PkgCacheGetPackages(PyObject *Self, void*) {
