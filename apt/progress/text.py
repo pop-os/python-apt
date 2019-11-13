@@ -60,7 +60,7 @@ class TextProgress(object):
     """Internal Base class for text progress classes."""
 
     def __init__(self, outfile=None):
-        # type: (io.TextIOBase) -> None
+        # type: (Optional[io.TextIOBase]) -> None
         self._file = outfile or sys.stdout
         self._width = 0
 
@@ -89,7 +89,7 @@ class OpProgress(base.OpProgress, TextProgress):
     """
 
     def __init__(self, outfile=None):
-        # type: (io.TextIOBase) -> None
+        # type: (Optional[io.TextIOBase]) -> None
         TextProgress.__init__(self, outfile)
         base.OpProgress.__init__(self)
         self.old_op = ""
@@ -116,7 +116,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
     """AcquireProgress for the text interface."""
 
     def __init__(self, outfile=None):
-        # type: (io.TextIOBase) -> None
+        # type: (Optional[io.TextIOBase]) -> None
         TextProgress.__init__(self, outfile)
         base.AcquireProgress.__init__(self)
         self._signal = None  # type: Union[Callable[[signal.Signals, types.FrameType], None], int, signal.Handlers, None] # nopep8

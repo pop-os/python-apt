@@ -850,7 +850,7 @@ class Version(object):
             return None
 
     def fetch_binary(self, destdir='', progress=None):
-        # type: (str, AcquireProgress) -> str
+        # type: (str, Optional[AcquireProgress]) -> str
         """Fetch the binary version of the package.
 
         The parameter *destdir* specifies the directory where the package will
@@ -879,7 +879,7 @@ class Version(object):
         return os.path.abspath(destfile)
 
     def fetch_source(self, destdir="", progress=None, unpack=True):
-        # type: (str, AcquireProgress, bool) -> str
+        # type: (str, Optional[AcquireProgress], bool) -> str
         """Get the source code of a package.
 
         The parameter *destdir* specifies the directory where the source will
@@ -959,7 +959,7 @@ class VersionList(Sequence[Version]):
     """
 
     def __init__(self, package, slice_=None):
-        # type: (Package, slice) -> None
+        # type: (Package, Optional[slice]) -> None
         self._package = package  # apt.package.Package()
         self._versions = package._pkg.version_list  # [apt_pkg.Version(), ...]
         if slice_:
@@ -1243,7 +1243,7 @@ class Package(object):
         return []
 
     def get_changelog(self, uri=None, cancel_lock=None):
-        # type: (str, threading.Event) -> str
+        # type: (Optional[str], Optional[threading.Event]) -> str
         """
         Download the changelog of the package and return it as unicode
         string.

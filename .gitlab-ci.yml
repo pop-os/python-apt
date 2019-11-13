@@ -7,7 +7,7 @@ typing:
   - apt update
   - apt install -q -y python3-pip
   - python3 -m pip install -U mypy
-  - env MYPYPATH=$PWD/typehinting/ mypy ./apt
+  - env MYPYPATH=$PWD/typehinting/ mypy --strict ./apt
 
 pep8:
   script:
