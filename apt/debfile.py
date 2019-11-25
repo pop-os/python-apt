@@ -61,7 +61,7 @@ class DebPackage(object):
     debug = 0
 
     def __init__(self, filename=None, cache=None):
-        # type: (str, apt.Cache) -> None
+        # type: (Optional[str], Optional[apt.Cache]) -> None
         if cache is None:
             cache = apt.Cache()
         self._cache = cache
@@ -729,7 +729,7 @@ class DebPackage(object):
             print(msg, file=sys.stderr)
 
     def install(self, install_progress=None):
-        # type: (apt.progress.base.InstallProgress) -> int
+        # type: (Optional[apt.progress.base.InstallProgress]) -> int
         """Install the package."""
         if self.filename is None:
             raise apt_pkg.Error("No filename specified")
@@ -752,7 +752,7 @@ class DscSrcPackage(DebPackage):
     """A locally available source package."""
 
     def __init__(self, filename=None, cache=None):
-        # type: (str, apt.Cache) -> None
+        # type: (Optional[str], Optional[apt.Cache]) -> None
         DebPackage.__init__(self, None, cache)
         self.filename = filename  # type: Optional[str]
         self._depends = []  # type: List[List[Tuple[str, str, str]]]

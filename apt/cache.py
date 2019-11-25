@@ -120,7 +120,7 @@ class Cache(object):
     """
 
     def __init__(self, progress=None, rootdir=None, memonly=False):
-        # type: (OpProgress, str, bool) -> None
+        # type: (Optional[OpProgress], Optional[str], bool) -> None
         self._cache = cast(apt_pkg.Cache, None)  # type: apt_pkg.Cache
         self._depcache = cast(apt_pkg.DepCache, None)  # type: apt_pkg.DepCache
         self._records = cast(apt_pkg.PackageRecords, None)  # type: apt_pkg.PackageRecords # nopep8
@@ -214,7 +214,7 @@ class Cache(object):
                 callback(self, *args, **kwds)
 
     def open(self, progress=None):
-        # type: (OpProgress) -> None
+        # type: (Optional[OpProgress]) -> None
         """ Open the package cache, after that it can be used like
             a dictionary
         """
@@ -457,7 +457,7 @@ class Cache(object):
         return self._run_fetcher(fetcher)
 
     def fetch_archives(self, progress=None, fetcher=None):
-        # type: (AcquireProgress, apt_pkg.Acquire) -> int
+        # type: (Optional[AcquireProgress], Optional[apt_pkg.Acquire]) -> int
         """Fetch the archives for all packages marked for install/upgrade.
 
         You can specify either an :class:`apt.progress.base.AcquireProgress()`
@@ -526,7 +526,7 @@ class Cache(object):
 
     def update(self, fetch_progress=None, pulse_interval=0,
                raise_on_error=True, sources_list=None):
-        # type: (AcquireProgress, int, bool, str) -> int
+        # type: (Optional[AcquireProgress], int, bool, Optional[str]) -> int
         """Run the equivalent of apt-get update.
 
         You probably want to call open() afterwards, in order to utilise the
@@ -610,7 +610,7 @@ class Cache(object):
         return res
 
     def commit(self, fetch_progress=None, install_progress=None):
-        # type: (AcquireProgress, InstallProgress) -> bool
+        # type: (Optional[AcquireProgress], Optional[InstallProgress]) -> bool
         """Apply the marked changes to the cache.
 
         The first parameter, *fetch_progress*, refers to a FetchProgress()
@@ -896,7 +896,7 @@ class FilteredCache(object):
     """
 
     def __init__(self, cache=None, progress=None):
-        # type: (Cache, OpProgress) -> None
+        # type: (Optional[Cache], Optional[OpProgress]) -> None
         if cache is None:
             self.cache = Cache(progress)
         else:

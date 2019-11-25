@@ -226,9 +226,9 @@ class InstallProgress(object):
             try:
                 os._exit(obj.do_install(self.write_stream.fileno()))  # type: ignore # nopep8
             except AttributeError:
-                os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",   # type: ignore # nopep8
+                os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.write_stream.fileno()), "-i",
-                                    obj))
+                                    obj))  # type: ignore # nopep8
             except Exception as e:
                 sys.stderr.write("%s\n" % e)
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)
