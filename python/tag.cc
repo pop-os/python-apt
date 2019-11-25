@@ -487,7 +487,7 @@ static PyObject *TagFileEnter(PyObject *self, PyObject *args)
 // ---------------------------------------------------------------------
 static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
    char *Data;
-   int Len;
+   Py_ssize_t Len;
    char Bytes = 0;
    char *kwlist[] = {"text", "bytes", 0};
 

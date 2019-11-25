@@ -71,13 +71,15 @@ apt_pkg = Extension("apt_pkg", files, libraries=["apt-pkg"],
                     extra_compile_args=['-std=c++11', '-Wno-write-strings',
                                         '-DAPT_8_CLEANER_HEADERS',
                                         '-DAPT_9_CLEANER_HEADERS',
-                                        '-DAPT_10_CLEANER_HEADERS'])
+                                        '-DAPT_10_CLEANER_HEADERS',
+                                        '-DPY_SSIZE_T_CLEAN'])
 
 # The apt_inst module
 files = ["python/apt_instmodule.cc", "python/generic.cc",
          "python/arfile.cc", "python/tarfile.cc"]
 apt_inst = Extension("apt_inst", files, libraries=["apt-pkg"],
-                     extra_compile_args=['-std=c++11', '-Wno-write-strings'])
+                     extra_compile_args=['-std=c++11', '-Wno-write-strings',
+                                         '-DPY_SSIZE_T_CLEAN'])
 
 # Replace the leading _ that is used in the templates for translation
 if len(sys.argv) > 1 and sys.argv[1] == "build":
