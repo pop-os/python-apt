@@ -23,6 +23,8 @@ Changed
   None where it previously contained the md5 hash.
 * The method :meth:`apt_pkg.Policy.get_priority()` no longer accepts :class:`apt_pkg.Package` instances.
 * Instances of :class:`apt_pkg.HashString` can now be compared for equality
+* :class:`apt.progress.base.InstallProgress` is now a context manager, use it in
+  a ``with`` statement to avoid leaking file descriptors.
 
 Bug fixes
 ---------

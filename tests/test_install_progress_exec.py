@@ -34,7 +34,8 @@ class TestInstallProgressExec(testcommon.TestCase):
         a child process """
 
     def test_run(self):
-        self.assertEqual(InstallProgress().run(RunHelper()), 0)
+        with InstallProgress() as prog:
+            self.assertEqual(prog.run(RunHelper()), 0)
 
 
 if __name__ == "__main__":
