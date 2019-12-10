@@ -84,8 +84,8 @@ static PyObject *VersionCompare(PyObject *Self,PyObject *Args)
 {
    char *A;
    char *B;
-   int LenA;
-   int LenB;
+   Py_ssize_t LenA;
+   Py_ssize_t LenB;
 
    if (PyArg_ParseTuple(Args,"s#s#",&A,&LenA,&B,&LenB) == 0)
       return 0;
@@ -188,7 +188,7 @@ static PyObject *RealParseDepends(PyObject *Self,PyObject *Args,PyObject *Kwds,
 
    const char *Start;
    const char *Stop;
-   int Len;
+   Py_ssize_t Len;
    const char *Arch = NULL;
    char *kwlist[] = {"s", "strip_multi_arch", "architecture", 0};
 
