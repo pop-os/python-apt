@@ -184,6 +184,15 @@ class InstallProgress(object):
         # type: () -> None
         """(Abstract) Called when update has finished."""
 
+    def __enter__(self):
+        # type: () -> InstallProgress
+        return self
+
+    def __exit__(self, type, value, traceback):
+        # type: (object, object, object) -> None
+        self.write_stream.close()
+        self.status_stream.close()
+
     def error(self, pkg, errormsg):
         # type: (str, str) -> None
         """(Abstract) Called when a error is detected during the install."""
