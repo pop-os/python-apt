@@ -138,6 +138,32 @@ class TestAptSources(testcommon.TestCase):
         self.assertEqual(found_something, 1)
         self.assertEqual(found_universe, 1)
 
+    def testDuplication(self):
+        apt_pkg.config.set("Dir::Etc::sourcelist",
+                           "data/aptsources/sources.list.testDuplication")
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+        test_url = "http://ppa.launchpad.net/me/myproject/ubuntu"
+        # test to add something that is already there (enabled)
+        before = copy.deepcopy(sources)
+        sources.add("deb", test_url, "xenial", ["main"])
+        self.assertTrue(sources.list == before.list)
+        # test to add something that is already there (disabled)
+        sources.add("# deb-src", test_url, "xenial", ["main"])
+        self.assertTrue(sources.list == before.list)
+        # test to enable something that is already there
+        sources.add("deb-src", test_url, "xenial", ["main"])
+        found = False
+        self.assertEqual(len(sources.list), 2)
+        for entry in sources:
+            if (entry.type == "deb-src" and
+                    not entry.disabled and
+                    entry.uri == test_url and
+                    entry.dist == "xenial" and
+                    entry.architectures == [] and
+                    entry.comps == ["main"]):
+                found = True
+        self.assertTrue(found)
+
     def testMatcher(self):
         """aptsources: Test matcher"""
         apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
