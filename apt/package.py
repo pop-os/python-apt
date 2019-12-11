@@ -870,11 +870,11 @@ class Version(object):
         """
         base = os.path.basename(self._records.filename)
         destfile = os.path.join(destdir, base)
-        if _file_is_same(destfile, self.size, self._records.md5_hash):
+        if _file_is_same(destfile, self.size, self._records.hashes):
             logging.debug('Ignoring already existing file: %s' % destfile)
             return os.path.abspath(destfile)
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
-        acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.md5_hash,  # type: ignore # TODO: Do not use MD5 # nopep8
+        acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.hashes,  # type: ignore # nopep8
                                       self.size, base, destfile=destfile)
         acq.run()
 
