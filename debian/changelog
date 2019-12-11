@@ -28,6 +28,8 @@ python-apt (1.9.1) experimental; urgency=medium
     - fix typo in changelog error
     - remove use of extra priority
     - override uses-dpkg-database-directly for the root location switching magic
+  * Remove spurious python-debian test dependency (see bug #937579)
+  * Build-Depend on pycodestyle, not pep8
 
   [ Raphaël Hertzog ]
   * Add Kali templates
@@ -45,7 +47,7 @@ python-apt (1.9.1) experimental; urgency=medium
   [ Dave Jones ]
   * Don't duplicate disabled sources during add() (LP: #1311056)
 
- -- Julian Andres Klode <jak@debian.org>  Wed, 11 Dec 2019 15:45:16 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 11 Dec 2019 16:17:24 +0100
 
 python-apt (1.9.0) experimental; urgency=medium
 
