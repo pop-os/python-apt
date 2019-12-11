@@ -16,6 +16,7 @@ Removed
 * The method :meth:`apt_pkg.rewrite_section` has been removed
 * The attributes :attr:`apt_pkg.Hashes.md5`, :attr:`apt_pkg.Hashes.sha1`, :attr:`apt_pkg.Hashes.sha256` have been removed
 * The method :meth:`apt_pkg.Policy.get_match` has been removed.
+* The constructor :class:`apt_pkg.AcquireFile` no longer takes an *md5* argument.
 
 Changed
 -------

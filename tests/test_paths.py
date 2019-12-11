@@ -4,7 +4,6 @@
 import os
 import shutil
 import unittest
-import warnings
 
 import apt_inst
 import apt_pkg
@@ -37,29 +36,6 @@ class TestPath(testcommon.TestCase):
                             "http://example.com",
                             destdir=self.file_unicode,
                             destfile=self.file_unicode)
-
-    def test_acquire_file_md5_keyword_backward_compat(self):
-        """
-        Ensure that both "md5" and "hash" is supported as keyword for
-        AcquireFile
-        """
-        with warnings.catch_warnings(record=True) as caught_warnings:
-            warnings.simplefilter("always")
-            apt_pkg.AcquireFile(
-                apt_pkg.Acquire(), "http://example.com",
-                destfile=self.file_bytes,
-                md5="abcdef")
-
-        self.assertEqual(len(caught_warnings), 1)
-        self.assertTrue(issubclass(caught_warnings[0].category,
-                                   DeprecationWarning))
-        self.assertIn("md5", str(caught_warnings[0].message))
-        self.assertIn("hash", str(caught_warnings[0].message))
-
-        apt_pkg.AcquireFile(
-            apt_pkg.Acquire(), "http://example.com",
-            destfile=self.file_bytes,
-            hash="sha1:41050ed528554fdd6c6c9a086ddd6bdba5857b21")
 
     def test_ararchive(self):
         archive = apt_inst.ArArchive(u"data/test_debs/data-tar-xz.deb")
