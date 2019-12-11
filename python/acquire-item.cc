@@ -237,32 +237,44 @@ PyTypeObject PyAcquireItem_Type = {
 static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * kwds)
 {
     PyObject *pyfetcher;
-    const char *uri, *hash, *descr, *shortDescr;
+    PyObject *pyhashes = nullptr;
+    HashStringList hashes;
+    const char *uri, *descr, *shortDescr;
     PyApt_Filename destDir, destFile;
     int size = 0;
-    uri = hash = descr = shortDescr = destDir = destFile = "";
+    uri = descr = shortDescr = destDir = destFile = "";
 
     char *kwlist[] = {"owner", "uri", "hash", "size", "descr", "short_descr",
                       "destdir", "destfile", NULL
                      };
 #if PY_MAJOR_VERSION >= 3
-    const char *fmt = "O!s|sissO&O&";
+    const char *fmt = "O!s|OissO&O&";
 #else
     // no "$" support to indicate that the remaining args are keyword only
     // in py2.x :/
-    const char *fmt = "O!s|sissO&O&";
+    const char *fmt = "O!s|OissO&O&";
 #endif
     if (PyArg_ParseTupleAndKeywords(Args, kwds, fmt, kwlist,
-                                    &PyAcquire_Type, &pyfetcher, &uri, &hash,
+                                    &PyAcquire_Type, &pyfetcher, &uri,
+                                    &pyhashes,
                                     &size, &descr, &shortDescr,
                                     PyApt_Filename::Converter, &destDir,
                                     PyApt_Filename::Converter, &destFile) == 0)
         return 0;
 
+    if (pyhashes == nullptr)
+        ;
+    else if (PyString_Check(pyhashes))
+        hashes = HashStringList(PyString_AsString(pyhashes));
+    else if (PyObject_TypeCheck(pyhashes, &PyHashStringList_Type))
+        hashes = GetCpp <HashStringList>(pyhashes);
+    else
+        return PyErr_SetString(PyExc_TypeError, "'hash' value must be an apt_pkg.HashStringList or a string"), nullptr;
+
     pkgAcquire *fetcher = GetCpp<pkgAcquire*>(pyfetcher);
     pkgAcqFile *af = new pkgAcqFile(fetcher,  // owner
                                     uri, // uri
-                                    HashStringList(hash),  // hash
+                                    hashes,  // hash
                                     size,   // size
                                     descr, // descr
                                     shortDescr,
@@ -275,7 +287,7 @@ static PyObject *acquirefile_new(PyTypeObject *type, PyObject *Args, PyObject * 
 
 
 static char *acquirefile_doc =
-    "AcquireFile(owner, uri[, hash, size, descr, short_descr, destdir,"
+    "AcquireFile(owner, uri[, hash: Union[apt_pkg.HashStringList, str], size, descr, short_descr, destdir,"
     "destfile])\n\n"
     "Represent a file to be fetched. The parameter 'owner' points to\n"
     "an apt_pkg.Acquire object and the parameter 'uri' to the source\n"
@@ -292,7 +304,7 @@ static char *acquirefile_doc =
     "and something like 'http://localhost sid/main python-apt 0.7.94.2'\n"
     "as 'descr'."
     "\n"
-    "The parameters 'md5' and 'size' are used to verify the resulting\n"
+    "The parameters 'hash' and 'size' are used to verify the resulting\n"
     "file. The parameter 'size' is also to calculate the total amount\n"
     "of data to be fetched and is useful for resuming a interrupted\n"
     "download.\n\n"
