@@ -48,7 +48,7 @@ python-apt (1.9.0) experimental; urgency=medium
     - Remove install_protect() methods
     - Remove Package.section attributes
     - Remove apt_pkg.rewrite_section()
-    - Remove unneccessary sptr includes
+    - Remove unnecessary sptr includes
     - apt_pkg.Hashes: remove md5, sha1, sha256 members
     - Port install progress to APT::Progress::PackageManagerProgressFd
     - apt_pkg.SourceRecords: Set md5 to None in tuple compat
@@ -145,7 +145,7 @@ python-apt (1.7.0~alpha2) experimental; urgency=medium
   * Add more extensive test cases for cache remapping
   * Do not override __hash__ in apt.package.Package (LP: #1780099)
   * debian/python-apt.docs: README is README.md since some time
-  * apt.Cache: Avoid unneccessary double weakref checks for __getitem__
+  * apt.Cache: Avoid unnecessary double weakref checks for __getitem__
   * apt.Cache: Use weakref.setdefault to find existing Package objects
   * debian/control: Point to salsa instead of anonscm
   * debian/control: Drop obsolete Python-Versions fields
