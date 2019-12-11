@@ -1,3 +1,46 @@
+python-apt (1.9.1) experimental; urgency=medium
+
+  [ Julian Andres Klode ]
+  * Install type information according to PEP561
+  * Temporarily perform CI on eoan only
+  * Adjust to mypy 0.710
+  * doc/examples: Convert to Python 3
+  * Convert all shebangs to python3
+  * gitlab-ci: Run 3 separate test stages
+  * pep8: Fix overindent issues
+  * ./doc/examples/dependant-pkgs.py: Make it work again
+  * Fix segmentation fault for apt_pkg.Cache.policy
+  * test_policy: Fix pyflakes issue
+  * apt.Cache: cache apt.package.Origin objects by id
+  * Adjust for PY_SSIZE_T_CLEAN (Closes: #944091)
+  * Turn InstallProgress into a context manager to avoid leaking files
+  * AcquireFile: Remove md5 parameter
+  * AcquireFile: Accept HashStringList in hash parameter
+  * apt/package.py: Use all hashes when fetching packages
+  * Remove leftover MD5 use in Version.fetch_binary() (Closes: #944696)
+  * Fix type hints
+  * typehinting: Override TagSection.get()
+  * debian/control: Rules-Requires-Root: no, Standards-Version upgrade
+  * Update po template
+
+  [ Raphaël Hertzog ]
+  * Add Kali templates
+
+  [ Colomban Wendling ]
+  * Fix InstallProgress for installing .deb files on Python >= 3.4
+  * Add a test case for checking the communication with dpkg works
+
+  [ Michael Vogt ]
+  * apt, python: make `mypy --strict` clean
+
+  [ Matthias Klose ]
+  * data/templates/Ubuntu.info.in: Add focal
+
+  [ Dave Jones ]
+  * Don't duplicate disabled sources during add() (LP: #1311056)
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 11 Dec 2019 15:26:08 +0100
+
 python-apt (1.9.0) experimental; urgency=medium
 
   * python/pkgsrcrecords.cc: Improve readability of ...BuildDepends
