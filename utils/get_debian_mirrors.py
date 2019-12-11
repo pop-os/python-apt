@@ -20,13 +20,13 @@
 from __future__ import print_function
 import collections
 import sys
-import urllib2
-from debian_bundle import deb822
+import urllib.request
+from debian import deb822
 
 mirrors = collections.defaultdict(set)
-masterlist = urllib2.urlopen("https://salsa.debian.org/mirror-team/"
-                             "masterlist/raw/master/"
-                             "Mirrors.masterlist")
+masterlist = urllib.request.urlopen("https://salsa.debian.org/mirror-team/"
+                                    "masterlist/raw/master/"
+                                    "Mirrors.masterlist")
 
 for mirror in deb822.Deb822.iter_paragraphs(masterlist):
     if "Country" not in mirror:

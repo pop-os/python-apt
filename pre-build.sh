@@ -4,7 +4,7 @@ set -e
 echo "Running PEP 8 test"
 python3 tests/testmanual_pep8.py || [ "$IGNORE_PEP8" ]
 
-dpkg-checkbuilddeps -d 'python-debian, python3-feedparser'
+dpkg-checkbuilddeps -d 'python3-debian, python3-feedparser'
 
 echo "updating Ubuntu mirror list from launchpad"
 if [ -n "$https_proxy" ]; then
