@@ -22,6 +22,14 @@ python-apt (1.9.1) experimental; urgency=medium
   * typehinting: Override TagSection.get()
   * debian/control: Rules-Requires-Root: no, Standards-Version upgrade
   * Update po template
+  * Fix pre-build script to actually work in Python 3
+  * Run the pre-build script
+  * lintian fixes
+    - fix typo in changelog error
+    - remove use of extra priority
+    - override uses-dpkg-database-directly for the root location switching magic
+  * Remove spurious python-debian test dependency (see bug #937579)
+  * Build-Depend on pycodestyle, not pep8
 
   [ Raphaël Hertzog ]
   * Add Kali templates
@@ -39,7 +47,7 @@ python-apt (1.9.1) experimental; urgency=medium
   [ Dave Jones ]
   * Don't duplicate disabled sources during add() (LP: #1311056)
 
- -- Julian Andres Klode <jak@debian.org>  Wed, 11 Dec 2019 15:26:08 +0100
+ -- Julian Andres Klode <jak@debian.org>  Wed, 11 Dec 2019 16:17:24 +0100
 
 python-apt (1.9.0) experimental; urgency=medium
 
@@ -48,7 +56,7 @@ python-apt (1.9.0) experimental; urgency=medium
     - Remove install_protect() methods
     - Remove Package.section attributes
     - Remove apt_pkg.rewrite_section()
-    - Remove unneccessary sptr includes
+    - Remove unnecessary sptr includes
     - apt_pkg.Hashes: remove md5, sha1, sha256 members
     - Port install progress to APT::Progress::PackageManagerProgressFd
     - apt_pkg.SourceRecords: Set md5 to None in tuple compat
@@ -145,7 +153,7 @@ python-apt (1.7.0~alpha2) experimental; urgency=medium
   * Add more extensive test cases for cache remapping
   * Do not override __hash__ in apt.package.Package (LP: #1780099)
   * debian/python-apt.docs: README is README.md since some time
-  * apt.Cache: Avoid unneccessary double weakref checks for __getitem__
+  * apt.Cache: Avoid unnecessary double weakref checks for __getitem__
   * apt.Cache: Use weakref.setdefault to find existing Package objects
   * debian/control: Point to salsa instead of anonscm
   * debian/control: Drop obsolete Python-Versions fields

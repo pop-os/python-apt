@@ -22,7 +22,7 @@ Build-Depends: apt (>= 1.0.9.4),
                python3-sphinx (>= 0.5),
                gnupg,
                dirmngr | gnupg (<< 2),
-               pep8,
+               pycodestyle,
                pyflakes
 Vcs-Git: https://salsa.debian.org/apt-team/python-apt.git
 Vcs-Browser: https://salsa.debian.org/apt-team/python-apt
@@ -90,7 +90,6 @@ Description: Python interface to libapt-pkg (API documentation)
  This package contains the API documentation of python-apt.
 
 Package: python-apt-dbg
-Priority: extra
 Architecture: any
 Multi-Arch: allowed
 Section: debug
@@ -153,7 +152,6 @@ Description: Python 3 interface to libapt-pkg
  the sources.list configuration on the repository and the distro level.
 
 Package: python3-apt-dbg
-Priority: extra
 Architecture: any
 Multi-Arch: allowed
 Section: debug
