@@ -107,6 +107,10 @@ class FetchError(Exception):
     """Raised when a file could not be fetched."""
 
 
+class UntrustedError(FetchError):
+    """Raised when a file did not have a trusted hash."""
+
+
 class BaseDependency(object):
     """A single dependency."""
 
@@ -873,8 +877,16 @@ class Version(object):
         if _file_is_same(destfile, self.size, self._records.hashes):
             logging.debug('Ignoring already existing file: %s' % destfile)
             return os.path.abspath(destfile)
+
+        if not self.uri:
+            raise ValueError("No URI for this binary.")
+        hashes = self._records.hashes
+        if not hashes.usable:
+            raise UntrustedError("The item %r could not be fetched: "
+                                     "No trusted hash found." %
+                                     destfile)
         acq = apt_pkg.Acquire(progress or apt.progress.text.AcquireProgress())
-        acqfile = apt_pkg.AcquireFile(acq, self.uri, self._records.hashes,  # type: ignore # nopep8
+        acqfile = apt_pkg.AcquireFile(acq, self.uri, hashes,
                                       self.size, base, destfile=destfile)
         acq.run()
 
@@ -923,6 +935,11 @@ class Version(object):
             if _file_is_same(destfile, fil.size, fil.hashes):
                 logging.debug('Ignoring already existing file: %s' % destfile)
                 continue
+
+            if not fil.hashes.usable:
+                raise UntrustedError("The item %r could not be fetched: "
+                                         "No trusted hash found." %
+                                         destfile)
             files.append(apt_pkg.AcquireFile(acq,
                             src.index.archive_uri(fil.path),
                             fil.hashes, fil.size, base, destfile=destfile))

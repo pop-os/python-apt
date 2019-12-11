@@ -58,6 +58,12 @@ static PyObject *hashstring_get_hashtype(PyObject *self)
     return CppPyString(hash->HashType());
 }
 
+static PyObject *hashstring_get_usable(PyObject *self)
+{
+    const HashString *hash = GetCpp<HashString*>(self);
+    return PyBool_FromLong(hash->usable());
+}
+
 static PyObject *hashstring_get_hashvalue(PyObject *self)
 {
     const HashString *hash = GetCpp<HashString*>(self);
@@ -90,6 +96,8 @@ static PyGetSetDef hashstring_getset[] = {
      "The value of the hash, as a hexadecimal string\n"
      "\n"
      ".. versionadded:: 1.9.0"},
+    {"usable",(getter)hashstring_get_usable,0,
+     "True if the hashstring is a trusted hash type."},
     {NULL}
 };
 
