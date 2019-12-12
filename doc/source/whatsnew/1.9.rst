@@ -10,6 +10,9 @@ Added
 * The constructor :class:`apt_pkg.AcquireFile` now accepts an
   :class:`apt_pkg.HashStringList` as the *hash* argument.
 
+* The classes :class:`apt_pkg.HashString` and :class:`apt_pkg.HashStringList`
+  gained a new ``usable`` property.
+
 Removed
 -------
 * The methods called `install_protect` have been removed
