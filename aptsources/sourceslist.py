@@ -153,8 +153,8 @@ class SourceEntry(object):
     def parse(self, line):
         """ parse a given sources.list (textual) line and break it up
             into the field we have """
-        line = self.line.strip()
-        #print line
+        self.line = line
+        line = line.strip()
         # check if the source is enabled/disabled
         if line == "" or line == "#":  # empty line
             self.invalid = True
@@ -346,23 +346,26 @@ class SourcesList(object):
                     source.disabled = False
                     return source
         # there isn't any matching source, so create a new line and parse it
-        parts = (
+        parts = [
             "#" if disabled else "",
             type,
             ("[arch=%s]" % ",".join(architectures)) if architectures else "",
             uri,
             dist,
-        )
-        parts += tuple(comps)
+        ]
+        parts.extend(comps)
         if comment:
-            parts += "#" + comment
+            parts.append("#" + comment)
         line = " ".join(part for part in parts if part) + "\n"
 
         new_entry = SourceEntry(line)
         if file is not None:
             new_entry.file = file
         self.matcher.match(new_entry)
-        self.list.insert(pos, new_entry)
+        if pos < 0:
+            self.list.append(new_entry)
+        else:
+            self.list.insert(pos, new_entry)
         return new_entry
 
     def remove(self, source_entry):
