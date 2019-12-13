@@ -100,7 +100,6 @@ http://mirrors.cqu.edu.cn/ubuntu/
 http://mirrors.dgut.edu.cn/ubuntu/
 http://mirrors.huaweicloud.com/repository/ubuntu/
 http://mirrors.nju.edu.cn/ubuntu/
-http://mirrors.njupt.edu.cn/ubuntu/
 http://mirrors.sohu.com/ubuntu/
 http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 http://mirrors.ustc.edu.cn/ubuntu/
@@ -161,6 +160,7 @@ http://ubuntu.unitedcolo.de/ubuntu/
 #LOC:DK
 http://mirror.easyspeedy.com/ubuntu/
 http://mirror.iodc.dk/ubuntu/
+http://mirror.netcrunch.dk/ubuntu/
 http://mirror.netsite.dk/ubuntu/archive/
 http://mirror.one.com/ubuntu/
 http://mirrors.dotsrc.org/ubuntu/
