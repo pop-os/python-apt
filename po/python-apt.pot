@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 15:25+0100\n"
+"POT-Creation-Date: 2020-01-20 10:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -617,22 +617,22 @@ msgstr ""
 msgid "Custom servers"
 msgstr ""
 
-#: ../apt/package.py:636
+#: ../apt/package.py:635
 #, python-format
 msgid "Missing description for '%s'.Please report."
 msgstr ""
 
-#: ../apt/package.py:644
+#: ../apt/package.py:643
 #, python-format
 msgid "Invalid unicode in description for '%s' (%s). Please report."
 msgstr ""
 
-#: ../apt/package.py:1275 ../apt/package.py:1287 ../apt/package.py:1396
-#: ../apt/package.py:1410
+#: ../apt/package.py:1319 ../apt/package.py:1331 ../apt/package.py:1440
+#: ../apt/package.py:1454
 msgid "The list of changes is not available"
 msgstr ""
 
-#: ../apt/package.py:1403
+#: ../apt/package.py:1447
 #, python-format
 msgid ""
 "The list of changes is not available yet.\n"
@@ -641,7 +641,7 @@ msgid ""
 "until the changes become available or try again later."
 msgstr ""
 
-#: ../apt/package.py:1416
+#: ../apt/package.py:1460
 msgid ""
 "Failed to download the list of changes. \n"
 "Please check your Internet connection."
