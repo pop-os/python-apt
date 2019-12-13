@@ -1,3 +1,10 @@
+python-apt (1.9.3) experimental; urgency=medium
+
+  [ Dave Jones ]
+  * aptsources: Fix comment handling in add (regression from 1.9.1)
+
+ -- Julian Andres Klode <jak@debian.org>  Fri, 13 Dec 2019 18:42:26 +0100
+
 python-apt (1.9.2) experimental; urgency=medium
 
   * SECURITY UPDATE: Check that we have trusted hashes when downloading
