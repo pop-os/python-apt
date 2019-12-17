@@ -127,7 +127,6 @@ class Cache(object):
         self._list = cast(apt_pkg.SourceList, None)  # type: apt_pkg.SourceList
         self._callbacks = {}  # type: Dict[str, List[Union[Callable[..., None],str]]] # nopep8
         self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., Any], Tuple[Any, ...], Dict[Any,Any]]]] # nopep8
-        self._origins = {}  # type: Dict[int, apt.package.Origin]
         self._weakref = weakref.WeakValueDictionary()  # type: weakref.WeakValueDictionary[str, apt.Package] # nopep8
         self._weakversions = weakref.WeakSet()  # type: weakref.WeakSet[Version] # nopep8
         self._changes_count = -1
@@ -235,10 +234,6 @@ class Cache(object):
         self.__remap()
 
         self._have_multi_arch = len(apt_pkg.get_architectures()) > 1
-
-        self._origins = {}
-        for pf in self._cache.file_list:
-            self._origins[pf.id] = apt.package.Origin(self, pf)
 
         progress.done()
         self._run_callbacks("cache_post_open")
