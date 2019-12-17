@@ -165,12 +165,6 @@ class InstallProgress(object):
     def __init__(self):
         # type: () -> None
         (self.statusfd, self.writefd) = os.pipe()
-        try:
-            # PEP-446 implemented in Python 3.4 made all descriptors CLOEXEC,
-            # but we need to be able to pass writefd to dpkg when we spawn it
-            os.set_inheritable(self.writefd, True)
-        except AttributeError:  # if we don't have os.set_inheritable()
-            pass
         # These will leak fds, but fixing this safely requires API changes.
         self.write_stream = os.fdopen(self.writefd, "w")  # type: io.TextIOBase
         self.status_stream = os.fdopen(self.statusfd, "r")  # type: io.TextIOBase # nopep8
@@ -233,6 +227,13 @@ class InstallProgress(object):
         """
         pid = self.fork()
         if pid == 0:
+            try:
+                # PEP-446 implemented in Python 3.4 made all descriptors
+                # CLOEXEC, but we need to be able to pass writefd to dpkg
+                # when we spawn it
+                os.set_inheritable(self.writefd, True)
+            except AttributeError:  # if we don't have os.set_inheritable()
+                pass
             # pm.do_install might raise a exception,
             # when this happens, we need to catch
             # it, otherwise os._exit() is not run
