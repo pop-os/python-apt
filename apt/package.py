@@ -356,8 +356,8 @@ class Origin(object):
         trusted   - Boolean value whether this is trustworthy.
     """
 
-    def __init__(self, pkg_or_cache, packagefile):
-        # type: (Union[apt.Cache,Package], apt_pkg.PackageFile) -> None
+    def __init__(self, pkg, packagefile):
+        # type: (Package, apt_pkg.PackageFile) -> None
         self.archive = packagefile.archive
         self.component = packagefile.component
         self.label = packagefile.label
@@ -366,13 +366,7 @@ class Origin(object):
         self.site = packagefile.site
         self.not_automatic = packagefile.not_automatic
         # check the trust
-        if isinstance(pkg_or_cache, apt.Cache):
-            indexfile = pkg_or_cache._list.find_index(packagefile)
-        elif isinstance(pkg_or_cache, Package):
-            indexfile = pkg_or_cache._pcache._list.find_index(packagefile)
-        else:
-            raise TypeError("Invalid arg %r passed to Origin()" % pkg_or_cache)
-
+        indexfile = pkg._pcache._list.find_index(packagefile)
         if indexfile and indexfile.is_trusted:
             self.trusted = True
         else:
@@ -777,7 +771,7 @@ class Version(object):
         """Return a list of origins for the package version."""
         origins = []
         for (packagefile, _unused) in self._cand.file_list:
-            origins.append(self.package._pcache._origins[packagefile.id])
+            origins.append(Origin(self.package, packagefile))
         return origins
 
     @property
