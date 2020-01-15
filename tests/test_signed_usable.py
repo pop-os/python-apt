@@ -45,6 +45,9 @@ class TestSignedUsable(testcommon.TestCase):
         repo_path = os.path.abspath("./data/test-signed-usable-repo/")
         # Inits the dirs for us
         apt.cache.Cache(rootdir=chroot_path)
+        # Change directory
+        self.cwd = os.getcwd()
+        os.chdir(chroot_path)
         with open(
             os.path.join(self.chroot_path, "etc/apt/sources.list"), "w"
         ) as sources_list:
@@ -77,6 +80,7 @@ class TestSignedUsable(testcommon.TestCase):
         # this resets the rootdir apt_pkg.config to ensure it does not
         # "pollute" the later tests
         apt.cache.Cache(rootdir="/")
+        os.chdir(self.cwd)
         shutil.rmtree(self.chroot_path)
 
         apt.progress.text.AcquireProgress = self.progress
