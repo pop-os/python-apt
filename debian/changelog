@@ -1,3 +1,15 @@
+python-apt (1.9.5) experimental; urgency=medium
+
+  [ Marc Deslauriers ]
+  * SECURITY REGRESSION: crash with ubuntu-release-upgrader (LP: #1860606)
+    - apt/cache.py: make allow_unauthenticated argument to
+      fetch_archives() optional.
+
+  [ Julian Andres Klode ]
+  * Really bump aptdaemon break (to 1.1.1+bzr982-0ubuntu31)
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 23 Jan 2020 10:55:46 +0100
+
 python-apt (1.9.4) experimental; urgency=medium
 
   * SECURITY UPDATE: Check that repository is trusted before downloading
