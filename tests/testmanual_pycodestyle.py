@@ -3,9 +3,9 @@ import subprocess
 import unittest
 
 
-class PackagePep8TestCase(unittest.TestCase):
+class PackagePyCodeStyleTestCase(unittest.TestCase):
 
-    def test_pep8(self):
+    def test_pycodestyle(self):
         res = 0
         py_dir = os.path.join(os.path.dirname(__file__), "..")
         res += subprocess.call(
@@ -26,7 +26,7 @@ class PackagePep8TestCase(unittest.TestCase):
              "--exclude", "build,tests/old",
              "--repeat", py_dir])
         if res != 0:
-            self.fail("pep8 failed with: %s" % res)
+            self.fail("pycodestyle failed with: %s" % res)
 
 
 if __name__ == "__main__":
