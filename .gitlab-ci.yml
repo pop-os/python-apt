@@ -13,7 +13,7 @@ pep8:
   script:
   - apt update
   - apt install -q -y pycodestyle
-  - env python3 tests/testmanual_pep8.py
+  - env python3 tests/testmanual_pycodestyle.py
 
 test:
   script:

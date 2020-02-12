@@ -213,7 +213,7 @@ The coding style for all code written in python is :PEP:`8`. Exceptions from
 this rule are the documentation, where code is sometimes formatted differently
 to explain aspects.
 
-When writing code, use tools like pylint, pyflakes, pychecker and pep8.py
+When writing code, use tools like pylint, pyflakes, pychecker and pycodestyle
 (all available from Debian/Ubuntu) to verify that your code is
 OK. Fix all the problems which seem reasonable, and mention the unfixed issues
 when asking for merge.
@@ -229,7 +229,7 @@ ask you to rebase your patches against the correct one.
 
 Once you have made your change, check that it:
 
-    * conforms to :PEP:`8` (checked with pep8.py). It should, at least not
+    * conforms to :PEP:`8` (checked with pycodestyle). It should, at least not
       introduce new errors. (and never have whitespace at end of line)
     * produces no new errors in pychecker, pyflakes and pylint (unless you
       can't fix them, but please tell so when requesting the merge, so it can
@@ -296,7 +296,7 @@ package::
     user@ pc:~$ git clone git://anonscm.debian.org/apt/python-apt.git
     user@pc:~$ cd python-apt
     user@pc:~/python-apt$ editor FILES
-    user@pc:~/python-apt$ pep8 FILES # PEP 8 check, see above.
+    user@pc:~/python-apt$ pycodestyle FILES # Check with pycodestyle
     user@pc:~/python-apt$ pylint -e FILES # Check with pylint
     user@pc:~/python-apt$ pyflakes FILES  # Check with pyflakes
     user@pc:~/python-apt$ pychecker FILES # Check with pychecker

@@ -127,12 +127,12 @@ class Cache(object):
         # type: (Optional[OpProgress], Optional[str], bool) -> None
         self._cache = cast(apt_pkg.Cache, None)  # type: apt_pkg.Cache
         self._depcache = cast(apt_pkg.DepCache, None)  # type: apt_pkg.DepCache
-        self._records = cast(apt_pkg.PackageRecords, None)  # type: apt_pkg.PackageRecords # nopep8
+        self._records = cast(apt_pkg.PackageRecords, None)  # type: apt_pkg.PackageRecords # noqa
         self._list = cast(apt_pkg.SourceList, None)  # type: apt_pkg.SourceList
-        self._callbacks = {}  # type: Dict[str, List[Union[Callable[..., None],str]]] # nopep8
-        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., Any], Tuple[Any, ...], Dict[Any,Any]]]] # nopep8
-        self._weakref = weakref.WeakValueDictionary()  # type: weakref.WeakValueDictionary[str, apt.Package] # nopep8
-        self._weakversions = weakref.WeakSet()  # type: weakref.WeakSet[Version] # nopep8
+        self._callbacks = {}  # type: Dict[str, List[Union[Callable[..., None],str]]] # noqa
+        self._callbacks2 = {}  # type: Dict[str, List[Tuple[Callable[..., Any], Tuple[Any, ...], Dict[Any,Any]]]] # noqa
+        self._weakref = weakref.WeakValueDictionary()  # type: weakref.WeakValueDictionary[str, apt.Package] # noqa
+        self._weakversions = weakref.WeakSet()  # type: weakref.WeakSet[Version] # noqa
         self._changes_count = -1
         self._sorted_set = None  # type: Optional[List[str]]
 

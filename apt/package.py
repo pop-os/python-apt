@@ -1074,7 +1074,7 @@ class VersionList(Sequence[Version]):
         # type: (str, Optional[Version]) -> Optional[Version]
         """Return the key or the default."""
         try:
-            return self[key]  # type: ignore  # FIXME: should be deterined automatically # nopep8
+            return self[key]  # type: ignore  # FIXME: should be deterined automatically # noqa
         except LookupError:
             return default
 

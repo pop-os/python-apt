@@ -167,7 +167,7 @@ class InstallProgress(object):
         (self.statusfd, self.writefd) = os.pipe()
         # These will leak fds, but fixing this safely requires API changes.
         self.write_stream = os.fdopen(self.writefd, "w")  # type: io.TextIOBase
-        self.status_stream = os.fdopen(self.statusfd, "r")  # type: io.TextIOBase # nopep8
+        self.status_stream = os.fdopen(self.statusfd, "r")  # type: io.TextIOBase # noqa
         fcntl.fcntl(self.statusfd, fcntl.F_SETFL, os.O_NONBLOCK)
 
     def start_update(self):
@@ -240,11 +240,11 @@ class InstallProgress(object):
             # and the execution continues in the
             # parent code leading to very confusing bugs
             try:
-                os._exit(obj.do_install(self.write_stream.fileno()))  # type: ignore # nopep8
+                os._exit(obj.do_install(self.write_stream.fileno()))  # type: ignore # noqa
             except AttributeError:
                 os._exit(os.spawnlp(os.P_WAIT, "dpkg", "dpkg", "--status-fd",
                                     str(self.write_stream.fileno()), "-i",
-                                    obj))  # type: ignore # nopep8
+                                    obj))  # type: ignore # noqa
             except Exception as e:
                 sys.stderr.write("%s\n" % e)
                 os._exit(apt_pkg.PackageManager.RESULT_FAILED)

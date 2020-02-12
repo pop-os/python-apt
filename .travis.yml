@@ -10,5 +10,5 @@ install:
  - docker build --tag=apt-ci .
 script:
  - docker run --rm -w $PWD -v $HOME/.ccache:$HOME/.ccache -v $PWD:$PWD --user=travis apt-ci env ./debian/rules build-arch
- - docker run --rm -w $PWD -v $PWD:$PWD --user=travis apt-ci env python3 tests/testmanual_pep8.py
+ - docker run --rm -w $PWD -v $PWD:$PWD --user=travis apt-ci env python3 tests/testmanual_pycodestyle.py
  - docker run --rm -w $PWD -v $PWD:$PWD --user=travis apt-ci env MYPYPATH=$PWD/typehinting/ mypy ./apt
