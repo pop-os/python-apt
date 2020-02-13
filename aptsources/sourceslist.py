@@ -109,7 +109,7 @@ class SourceEntry(object):
         """ equal operator for two sources.list entries """
         return (self.disabled == other.disabled and
                 self.type == other.type and
-                self.uri == other.uri and
+                self.uri.rstrip('/') == other.uri.rstrip('/') and
                 self.dist == other.dist and
                 self.comps == other.comps)
 
