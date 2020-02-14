@@ -168,8 +168,9 @@ class DistInfo(object):
         if not dist:
             try:
                 dist = Popen(["lsb_release", "-i", "-s"],
+                             universal_newlines=True,
                              stdout=PIPE).communicate()[0].strip()
-            except OSError as exc:
+            except (OSError, IOError) as exc:
                 if exc.errno != errno.ENOENT:
                     logging.warning(
                         'lsb_release failed, using defaults:' % exc)
