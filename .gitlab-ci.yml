@@ -1,4 +1,4 @@
-image: ubuntu:eoan
+image: ubuntu:focal
 variables:
   DEBIAN_FRONTEND: noninteractive
 
