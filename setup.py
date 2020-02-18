@@ -14,17 +14,19 @@ cmdclass = {}
 try:
     from DistUtilsExtra.command import build_extra, build_i18n
     from DistUtilsExtra.auto import clean_build_tree
+except ImportError:
+    print('W: [python%s] DistUtilsExtra import error.' % sys.version[:3])
+else:
     cmdclass['build'] = build_extra.build_extra
     cmdclass['build_i18n'] = build_i18n.build_i18n
     cmdclass['clean'] = clean_build_tree
-except ImportError:
-    print('W: [python%s] DistUtilsExtra import error.' % sys.version[:3])
 
 try:
     from sphinx.setup_command import BuildDoc
-    cmdclass['build_sphinx'] = BuildDoc
 except ImportError:
     print('W: [python%s] Sphinx import error.' % sys.version[:3])
+else:
+    cmdclass['build_sphinx'] = BuildDoc
 
 
 class InstallTypeinfo(install):
