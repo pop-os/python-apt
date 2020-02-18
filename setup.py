@@ -6,9 +6,10 @@ import os
 import shutil
 import sys
 
-from distutils.core import setup, Extension
-from distutils.command.install import install
-from distutils import sysconfig
+from setuptools import setup, Extension
+from setuptools.command.install import install
+from setuptools.command.build_ext import build_ext
+from distutils.sysconfig import customize_compiler
 cmdclass = {}
 
 try:
@@ -41,6 +42,18 @@ class InstallTypeinfo(install):
 
 
 cmdclass['install'] = InstallTypeinfo
+
+
+# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
+# See http://bugs.python.org/issue9031 and http://bugs.python.org/issue1222585
+class CustomBuildExt(build_ext):
+    def build_extensions(self):
+        customize_compiler(self.compiler)
+        try:
+            self.compiler.compiler_so.remove("-Wstrict-prototypes")
+        except (AttributeError, ValueError):
+            pass
+        build_ext.build_extensions(self)
 
 
 def get_version():
@@ -97,12 +110,6 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
     for template in glob.glob('data/templates/*.mirrors'):
         shutil.copy(template, os.path.join("build", template))
 
-# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
-# See http://bugs.python.org/issue9031 and http://bugs.python.org/issue1222585
-cfg_vars = sysconfig.get_config_vars()
-for key, value in cfg_vars.items():
-    if type(value) == str:
-        cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
 
 setup(name="python-apt",
       description="Python bindings for APT",
