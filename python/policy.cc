@@ -55,6 +55,33 @@ PyObject *policy_get_priority(PyObject *self, PyObject *arg) {
     }
 }
 
+
+static char *policy_set_priority_doc =
+    "set_priority(which: Union[apt_pkg.Version, apt_pkg.PackageFile], priority: int) -> None\n\n"
+    "Override priority for the given package/file. Behavior is undefined if"
+    "a preferences file is read after that, or :meth:`init_defaults` is called.";
+static PyObject *policy_set_priority(PyObject *self, PyObject *args) {
+    PyObject *which;
+    signed short priority;
+    if (PyArg_ParseTuple(args, "Oh", &which, &priority) == 0)
+        return 0;
+    pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
+
+    if (PyObject_TypeCheck(which, &PyVersion_Type)) {
+        auto ver = GetCpp<pkgCache::VerIterator>(which);
+        policy->SetPriority(ver, priority);
+    } else if (PyObject_TypeCheck(which, &PyPackageFile_Type)) {
+        auto pkgfile = GetCpp<pkgCache::PkgFileIterator>(which);
+        policy->SetPriority(pkgfile, priority);
+    } else {
+        PyErr_SetString(PyExc_TypeError,"Argument must be of Version or PackageFile.");
+        return 0;
+    }
+
+    HandleErrors();
+    Py_RETURN_NONE;
+}
+
 static char *policy_get_candidate_ver_doc =
     "get_match(package: apt_pkg.Package) -> apt_pkg.Version\n\n"
     "Get the best package for the job.";
@@ -146,6 +173,7 @@ static PyObject *policy_init_defaults(PyObject *self, PyObject *args) {
 static PyMethodDef policy_methods[] = {
     {"get_priority",(PyCFunction)policy_get_priority,METH_O,
      policy_get_priority_doc},
+    {"set_priority",policy_set_priority,METH_VARARGS,policy_set_priority_doc},
     {"get_candidate_ver",(PyCFunction)policy_get_candidate_ver,METH_O,
      policy_get_candidate_ver_doc},
     {"read_pinfile",(PyCFunction)policy_read_pinfile,METH_O,
