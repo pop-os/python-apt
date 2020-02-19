@@ -10,7 +10,7 @@ import testcommon
 
 class TestPyflakesClean(testcommon.TestCase):
 
-    EXCLUDES = ["build", "tests/old"]
+    EXCLUDES = ["build", "tests/old", ".pybuild"]
     TOPLEVEL = os.path.normpath(
         os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
