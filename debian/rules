@@ -8,12 +8,10 @@ export TIME:=$(shell $(DATE_CMD) --date="$(DATETIME)" "+%H:%M:%S")
 export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings \
                                -DDATE=\""$(DATE)"\" \
                                -DTIME=\""$(TIME)"\"
-export PATH := $(CURDIR)/utils:$(PATH)
-export pyversions := $(CURDIR)/utils/pyversions
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie
 
 %:
-	dh $@ --with python2,python3,sphinxdoc
+	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
 
 override_dh_auto_build:
 	dh_auto_build
@@ -30,7 +28,6 @@ override_dh_sphinxdoc:
 override_dh_installdocs:
 	set -e; if [ -z $(filter -a,$(DH_INTERNAL_OPTIONS)) ]; then \
 		python3 setup.py build_sphinx; \
-		dh_installdirs -ppython-apt-doc usr/share/doc/python-apt; \
 	fi
 	dh_installdirs -ppython-apt-dev usr/share/doc/python-apt
 	dh_installdocs -p python-apt -p python-apt-dbg --link-doc=python-apt
@@ -47,7 +44,7 @@ override_dh_compress:
 # We ignore failures on hurd, since its locking is broken
 override_dh_auto_test:
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-	set -e; for python in $(shell $(pyversions) -r); do \
+	set -e; for python in $(shell pyversions -r; py3versions -r); do \
 		$$python tests/test_all.py -q || [ "$(DEB_BUILD_ARCH_OS)" = "hurd" ]; \
 	done;
 else
