@@ -17,6 +17,8 @@ pep8:
 
 test:
   script:
+  - apt update
+  - apt install -q -y software-properties-common
   - add-apt-repository ppa:deity/sid
   - apt update
   - apt build-dep -q -y ./
