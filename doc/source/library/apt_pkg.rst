@@ -1953,6 +1953,11 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
     .. versionchanged:: 0.7.100
         Added support for using file descriptors.
 
+    .. deprecated:: 1.9
+
+        Use :class:`apt_pkg.Hashes` instead. This function will be removed
+        in a later release.
+
 .. function:: sha1sum(object)
 
     Return the sha1sum of the object. *object* may either be a string, in
@@ -1963,6 +1968,11 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
     .. versionchanged:: 0.7.100
         Added support for using file descriptors.
 
+    .. deprecated:: 1.9
+
+        Use :class:`apt_pkg.Hashes` instead. This function will be removed
+        in a later release.
+
 .. function:: sha256sum(object)
 
     Return the sha256sum of the object. *object* may either be a string, in
@@ -1972,6 +1982,11 @@ The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
 
     .. versionchanged:: 0.7.100
         Added support for using file descriptors.
+
+    .. deprecated:: 1.9
+
+        Use :class:`apt_pkg.Hashes` instead. This function will be removed
+        in a later release.
 
 Debian control files
 --------------------

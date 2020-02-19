@@ -36,8 +36,12 @@ class TestHashes(testcommon.TestCase):
         self.sha256 = hashlib.sha256(self.value).hexdigest()
         self.file.seek(0)
 
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
     def tearDown(self):
         """Cleanup, Close the file object used for the tests."""
+        testcommon.TestCase.tearDown(self)
+        warnings.resetwarnings()
         self.file.close()
 
     def test_md5sum(self):
