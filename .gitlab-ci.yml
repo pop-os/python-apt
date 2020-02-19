@@ -17,7 +17,7 @@ pep8:
 
 test:
   script:
-  - sudo add-apt-repository ppa:deity/sid
+  - add-apt-repository ppa:deity/sid
   - apt update
   - apt build-dep -q -y ./
   - dpkg-buildpackage
