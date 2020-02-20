@@ -8,9 +8,6 @@ import sys
 
 from setuptools import setup, Extension
 from setuptools.command.install import install
-from setuptools.command.build_ext import build_ext
-from setuptools.command.build_py import build_py
-from distutils.sysconfig import customize_compiler
 cmdclass = {}
 
 try:
@@ -43,31 +40,6 @@ class InstallTypeinfo(install):
 
 
 cmdclass['install'] = InstallTypeinfo
-
-
-# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
-# See http://bugs.python.org/issue9031 and http://bugs.python.org/issue1222585
-class CustomBuildExt(build_ext):
-    def build_extensions(self):
-        customize_compiler(self.compiler)
-        try:
-            self.compiler.compiler_so.remove("-Wstrict-prototypes")
-        except (AttributeError, ValueError):
-            pass
-        build_ext.build_extensions(self)
-
-
-class CustomBuildPy(build_py, object):
-
-    def run(self):
-        self.run_command('build_ext')
-        return super(CustomBuildPy, self).run()
-
-
-cmdclass.update({
-    "build_ext": CustomBuildExt,
-    "build_py": CustomBuildPy,
-})
 
 
 def get_version():
