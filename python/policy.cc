@@ -83,7 +83,7 @@ static PyObject *policy_set_priority(PyObject *self, PyObject *args) {
 }
 
 static char *policy_get_candidate_ver_doc =
-    "get_match(package: apt_pkg.Package) -> apt_pkg.Version\n\n"
+    "get_match(package: apt_pkg.Package) -> Optional[apt_pkg.Version]\n\n"
     "Get the best package for the job.";
 
 PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
@@ -91,6 +91,10 @@ PyObject *policy_get_candidate_ver(PyObject *self, PyObject *arg) {
         pkgPolicy *policy = GetCpp<pkgPolicy *>(self);
         pkgCache::PkgIterator pkg = GetCpp<pkgCache::PkgIterator>(arg);
         pkgCache::VerIterator ver = policy->GetCandidateVer(pkg);
+        if (ver.end()) {
+            HandleErrors();
+            Py_RETURN_NONE;
+        }
         return CppPyObject_NEW<pkgCache::VerIterator>(arg,&PyVersion_Type,
                                                            ver);
     } else {
