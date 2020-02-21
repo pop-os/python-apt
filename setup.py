@@ -6,25 +6,26 @@ import os
 import shutil
 import sys
 
-from distutils.core import setup, Extension
-from distutils.command.install import install
-from distutils import sysconfig
+from setuptools import setup, Extension
+from setuptools.command.install import install
 cmdclass = {}
 
 try:
     from DistUtilsExtra.command import build_extra, build_i18n
     from DistUtilsExtra.auto import clean_build_tree
+except ImportError:
+    print('W: [python%s] DistUtilsExtra import error.' % sys.version[:3])
+else:
     cmdclass['build'] = build_extra.build_extra
     cmdclass['build_i18n'] = build_i18n.build_i18n
     cmdclass['clean'] = clean_build_tree
-except ImportError:
-    print('W: [python%s] DistUtilsExtra import error.' % sys.version[:3])
 
 try:
     from sphinx.setup_command import BuildDoc
-    cmdclass['build_sphinx'] = BuildDoc
 except ImportError:
     print('W: [python%s] Sphinx import error.' % sys.version[:3])
+else:
+    cmdclass['build_sphinx'] = BuildDoc
 
 
 class InstallTypeinfo(install):
@@ -95,12 +96,6 @@ if len(sys.argv) > 1 and sys.argv[1] == "build":
     for template in glob.glob('data/templates/*.mirrors'):
         shutil.copy(template, os.path.join("build", template))
 
-# Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
-# See http://bugs.python.org/issue9031 and http://bugs.python.org/issue1222585
-cfg_vars = sysconfig.get_config_vars()
-for key, value in cfg_vars.items():
-    if type(value) == str:
-        cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
 
 setup(name="python-apt",
       description="Python bindings for APT",
