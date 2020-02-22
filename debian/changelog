@@ -1,3 +1,10 @@
+python-apt (1.9.7) experimental; urgency=medium
+
+  * debian/tests/run-tests: Use py{3,}versions -s, not py{,3}versions -r;
+    fixes regression in autopkgtest due to stderr output.
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 22 Feb 2020 17:51:04 +0100
+
 python-apt (1.9.6) experimental; urgency=medium
 
   [ dann frazier ]
