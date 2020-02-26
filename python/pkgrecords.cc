@@ -34,7 +34,7 @@ static PyObject *PkgRecordsLookup(PyObject *Self,PyObject *Args)
    pkgCache::PkgFileIterator &PkgF = GetCpp<pkgCache::PkgFileIterator>(PkgFObj);
    pkgCache *Cache = PkgF.Cache();
    if (Cache->DataEnd() <= Cache->VerFileP + Index + 1 ||
-       Cache->VerFileP[Index].File != PkgF.Index())
+       Cache->VerFileP[Index].File != PkgF.MapPointer())
    {
       PyErr_SetNone(PyExc_IndexError);
       return 0;
