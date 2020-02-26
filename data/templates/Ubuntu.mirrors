@@ -51,6 +51,7 @@ http://ubuntu.uni-sofia.bg/ubuntu/
 http://mirror.globo.com/ubuntu/archive/
 http://mirror.hostdime.com.br/ubuntu/
 http://mirror.ufam.edu.br/ubuntu/
+http://mirror.ufca.edu.br/mirror/ubuntu-archive/
 http://mirror.ufscar.br/ubuntu/
 http://repositorio.nti.ufal.br/ubuntu/
 http://sft.if.usp.br/ubuntu/
@@ -150,18 +151,17 @@ http://mirror.wtnet.de/ubuntu/
 http://mirror2.tuxinator.org/ubuntu/
 http://packages.oth-regensburg.de/ubuntu/
 http://suse.uni-leipzig.de/pub/releases.ubuntu.com/ubuntu/
-http://ubuntu.cybertips.info/ubuntu/
 http://ubuntu.mirror.lrz.de/ubuntu/
 http://ubuntu.mirror.tudos.de/ubuntu/
 http://ubuntu.unitedcolo.de/ubuntu/
 #LOC:DK
+http://ftp.klid.dk/ftp/ubuntu/
 http://mirror.easyspeedy.com/ubuntu/
 http://mirror.iodc.dk/ubuntu/
 http://mirror.netcrunch.dk/ubuntu/
 http://mirror.netsite.dk/ubuntu/archive/
 http://mirror.one.com/ubuntu/
 http://mirrors.dotsrc.org/ubuntu/
-http://ubuntu.mirror.iodc.dk/ubuntu/
 #LOC:EC
 http://mirror.cedia.org.ec/ubuntu/
 http://mirror.espol.edu.ec/ubuntu/
@@ -207,6 +207,7 @@ http://mirror.ox.ac.uk/sites/archive.ubuntu.com/ubuntu/
 http://mirror.sov.uk.goscomb.net/ubuntu/
 http://mirror.vorboss.net/ubuntu-archive/
 http://mirrors.coreix.net/ubuntu/
+http://mirrors.melbourne.co.uk/ubuntu/
 http://mirrors.ukfast.co.uk/sites/archive.ubuntu.com/
 http://mozart.ee.ic.ac.uk/ubuntu-archive/
 http://ubuntu.mirrors.uk2.net/ubuntu/
@@ -270,10 +271,12 @@ http://ir.ubuntu.sindad.cloud/ubuntu/
 http://mirror.0-1.cloud/ubuntu/
 http://mirror.aminidc.com/ubuntu/
 http://mirror.armaghan.net/ubuntu/
+http://mirror.iranserver.com/ubuntu/
 http://mirror.rasanegar.com/ubuntu/archive/
 http://mirror.xaas.ir/ubuntu/
 http://repo.iut.ac.ir/repo/Ubuntu/
 http://ubuntu-mirror.parsdev.net/ubuntu-archive/
+http://ubuntu.asis.ac/
 http://ubuntu.hostiran.ir/ubuntuarchive/
 #LOC:IS
 http://speglar.simnet.is/ubuntu/
@@ -478,6 +481,7 @@ http://mirror.renu.ac.ug/ubuntu/
 http://archive.linux.duke.edu/ubuntu/
 http://ftp.usf.edu/pub/ubuntu/
 http://ftp.ussg.iu.edu/linux/ubuntu/
+http://ftp.utexas.edu/ubuntu/
 http://la-mirrors.evowise.com/ubuntu/
 http://lug.mtu.edu/ubuntu/
 http://mirror.ancl.hawaii.edu/linux/ubuntu/
