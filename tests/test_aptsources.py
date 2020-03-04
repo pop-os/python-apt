@@ -399,6 +399,30 @@ class TestAptSources(testcommon.TestCase):
         self.assertEqual(disabled, enabled)
         self.assertFalse(disabled.disabled)
 
+    def test_duplicate_uri_with_trailing_slash(self):
+        """Test replacing entry with same uri except trailing slash"""
+        apt_pkg.config.set("Dir::Etc::sourcelist", "data/aptsources/"
+                           "sources.list")
+        sources = aptsources.sourceslist.SourcesList(True, self.templates)
+        line_wslash = "deb http://rslash.ubuntu.com/ubuntu/ precise main"
+        line_woslash = "deb http://rslash.ubuntu.com/ubuntu precise main"
+        entry_wslash = aptsources.sourceslist.SourceEntry(line_wslash)
+        entry_woslash = aptsources.sourceslist.SourceEntry(line_woslash)
+        self.assertEqual(entry_wslash, entry_woslash)
+        count = len(sources.list)
+        sourceslist_wslash = sources.add(entry_wslash.type,
+                                         entry_wslash.uri,
+                                         entry_wslash.dist,
+                                         entry_wslash.comps)
+        self.assertEqual(count + 1, len(sources.list))
+        count = len(sources.list)
+        sourceslist_woslash = sources.add(entry_woslash.type,
+                                          entry_woslash.uri,
+                                          entry_woslash.dist,
+                                          entry_woslash.comps)
+        self.assertEqual(count, len(sources.list))
+        self.assertEqual(sourceslist_wslash, sourceslist_woslash)
+
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(__file__))
