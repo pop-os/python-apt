@@ -1,3 +1,15 @@
+python-apt (1.9.9) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * Upload to unstable
+
+  [ Dan Streetman ]
+  * distinfo: correct subprocess usage
+  * sourceslist: in __find() rstrip / from uri when comparing
+  * test: add test to verify identical entries except trailing slash are considered equal
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 07 Mar 2020 21:26:04 +0100
+
 python-apt (1.9.8) experimental; urgency=medium
 
   * Fix build against apt 1.9.11 (Index -> MapPointer)
