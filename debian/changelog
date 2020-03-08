@@ -1,3 +1,11 @@
+python-apt (1.9.10) unstable; urgency=medium
+
+  * Improve type annotations for apt_pkg.TagFile and apt_pkg.TagSection.
+    Thanks to Stuart Prescott for the report that object was ... wrong
+  * Break broken kthresher and apt-xapian-index versions
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 08 Mar 2020 15:16:44 +0100
+
 python-apt (1.9.9) unstable; urgency=medium
 
   [ Julian Andres Klode ]

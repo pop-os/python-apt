@@ -13,6 +13,7 @@ http://ubuntu.uni-klu.ac.at/ubuntu/
 #LOC:AU
 http://ftp.iinet.net.au/pub/ubuntu/
 http://mirror.aarnet.edu.au/pub/ubuntu/archive/
+http://mirror.as24220.net/pub/ubuntu-archive/
 http://mirror.as24220.net/pub/ubuntu/
 http://mirror.intergrid.com.au/ubuntu/
 http://mirror.internode.on.net/pub/ubuntu/ubuntu/
@@ -320,6 +321,8 @@ http://ubuntu.mirror.root.lu/ubuntu/
 #LOC:LV
 http://ubuntu-arch.linux.edu.lv/ubuntu/
 http://ubuntu.koyanet.lv/ubuntu/
+#LOC:MA
+http://mirror.marwan.ma/ubuntu/
 #LOC:MD
 http://mirror.as43289.net/ubuntu/
 http://mirrors.mivocloud.com/ubuntu/
