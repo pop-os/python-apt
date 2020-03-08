@@ -422,7 +422,7 @@ class Record(Mapping[Any, Any]):
 
     def __iter__(self):
         # type: () -> Iterator[str]
-        return iter(self._rec.keys())   # type: ignore
+        return iter(self._rec.keys())
 
     def iteritems(self):
         # type: () -> Iterable[Tuple[object, str]]
@@ -431,7 +431,7 @@ class Record(Mapping[Any, Any]):
             yield key, self._rec[key]
 
     def get(self, key, default=None):
-        # type: (object, object) -> object
+        # type: (str, object) -> object
         """Return record[key] if key in record, else *default*.
 
         The parameter *default* must be either a string or None.
