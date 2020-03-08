@@ -136,7 +136,9 @@ Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-comm
 Recommends: lsb-release, iso-codes
 Provides: ${python3:Provides}
 Suggests: python3-apt-dbg, python-apt-doc, apt
-Breaks: python-apt (<< 0.7.98+nmu1)
+Breaks: python-apt (<< 0.7.98+nmu1),
+        apt-xapian-index (<< 0.51~),
+        kthresher (<= 1.4.0-1)
 Replaces: python-apt (<< 0.7.98+nmu1)
 Description: Python 3 interface to libapt-pkg
  The apt_pkg Python 3 interface will provide full access to the internal
