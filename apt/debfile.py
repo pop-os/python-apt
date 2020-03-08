@@ -68,7 +68,7 @@ class DebPackage(object):
         self._debfile = cast(apt_inst.DebFile, None)
         self.pkgname = ""
         self.filename = None  # type: Optional[str]
-        self._sections = {}  # type: Union[Dict[str, str], apt_pkg.TagSection]
+        self._sections = {}  # type: Union[Dict[str, str], apt_pkg.TagSection[str]]  # noqa
         self._need_pkgs = []  # type: List[str]
         self._check_was_run = False
         self._failure_string = ""
@@ -806,7 +806,7 @@ class DscSrcPackage(DebPackage):
                 if 'Binary' in sec:
                     self.binaries = [b.strip() for b in
                                      sec['Binary'].split(',')]
-                for tag in sec.keys():      # type: ignore
+                for tag in sec.keys():
                     if tag in sec:
                         self._sections[tag] = sec[tag]
         finally:
