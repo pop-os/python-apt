@@ -143,7 +143,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
             import fcntl
             import termios
             import struct
-            buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * b' ')
+            buf = fcntl.ioctl(self._file, termios.TIOCGWINSZ, 8 * b' ')  # type: ignore # noqa
             dummy, col, dummy, dummy = struct.unpack('hhhh', buf)
             self._width = col - 1  # 1 for the cursor
 
