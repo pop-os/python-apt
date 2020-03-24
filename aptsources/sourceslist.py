@@ -280,7 +280,8 @@ class SourcesList(object):
         self.list = []
         # read sources.list
         file = apt_pkg.config.find_file("Dir::Etc::sourcelist")
-        self.load(file)
+        if os.path.exists(file):
+            self.load(file)
         # read sources.list.d
         partsdir = apt_pkg.config.find_dir("Dir::Etc::sourceparts")
         for file in glob.glob("%s/*.list" % partsdir):
