@@ -31,7 +31,7 @@ class TestPyflakesClean(testcommon.TestCase):
         return files
 
     def test_pyflakes_clean(self):
-        cmd = ["pyflakes"] + self.get_py_files(self.TOPLEVEL)
+        cmd = ["pyflakes3"] + self.get_py_files(self.TOPLEVEL)
         res = subprocess.call(cmd)
         if res != 0:
             self.fail("pyflakes failed with: %s" % res)
