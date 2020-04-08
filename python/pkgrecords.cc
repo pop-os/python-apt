@@ -127,7 +127,7 @@ static PyObject *PkgRecordsGetShortDesc(PyObject *Self,void*) {
 }
 static PyObject *PkgRecordsGetLongDesc(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"LongDesc");
-   return (Struct.Last != 0) ? CppPyString(Struct.Last->LongDesc()) : 0;
+   return (Struct.Last != 0) ? CppPyLocaleString(Struct.Last->LongDesc()) : 0;
 }
 static PyObject *PkgRecordsGetName(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"Name");
