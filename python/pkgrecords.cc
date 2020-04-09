@@ -123,7 +123,7 @@ static PyObject *PkgRecordsGetMaintainer(PyObject *Self,void*) {
 }
 static PyObject *PkgRecordsGetShortDesc(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"ShortDesc");
-   return (Struct.Last != 0) ? CppPyString(Struct.Last->ShortDesc()) : 0;
+   return (Struct.Last != 0) ? CppPyLocaleString(Struct.Last->ShortDesc()) : 0;
 }
 static PyObject *PkgRecordsGetLongDesc(PyObject *Self,void*) {
    PkgRecordsStruct &Struct = GetStruct(Self,"LongDesc");
