@@ -31,6 +31,7 @@
 #include <string>
 #include <iostream>
 #include <new>
+#include <langinfo.h>
 
 /**
  * Exception class for almost all Python errors
@@ -218,6 +219,12 @@ inline PyObject *CppPyString(const char *Str)
    if (Str == 0)
       return PyString_FromString("");
    return PyString_FromString(Str);
+}
+
+inline PyObject *CppPyLocaleString(const std::string &Str)
+{
+   char const * const codeset = nl_langinfo(CODESET);
+   return PyUnicode_Decode(Str.c_str(), Str.length(), codeset, "replace");
 }
 
 #if PY_MAJOR_VERSION >= 3
