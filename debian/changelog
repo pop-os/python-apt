@@ -1,3 +1,19 @@
+python-apt (2.0.0) unstable; urgency=medium
+
+  [ Valters Jansons ]
+  * aptsources: Allow non-existent `source.list` file
+
+  [ Julian Andres Klode ]
+  * Workaround mypy 0.770
+  * whatsnew: Move 1.9 development series to 2.0
+  * Update mirror lists
+  * Add redundant python{,3}-all build depends for lintian
+
+  [ Simon Poirier ]
+  * Decode locale-encoded descriptions.
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 09 Apr 2020 09:16:18 +0200
+
 python-apt (1.9.10) unstable; urgency=medium
 
   * Improve type annotations for apt_pkg.TagFile and apt_pkg.TagSection.
