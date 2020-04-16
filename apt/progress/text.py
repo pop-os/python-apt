@@ -41,10 +41,11 @@ io  # pyflakes
 
 __all__ = ['AcquireProgress', 'CdromProgress', 'OpProgress']
 
-if sys.version_info.major < 3:
-    input = raw_input  # type: ignore
-else:
+if sys.version_info.major >= 3:
+    raw_input = input  # pyflakes
     long = int
+else:
+    input = raw_input
 
 
 def _(msg):

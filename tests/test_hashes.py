@@ -90,10 +90,10 @@ class TestHashes(testcommon.TestCase):
             self.assertRaises(TypeError, apt_pkg.sha1sum, "D")
             self.assertRaises(TypeError, apt_pkg.sha256sum, "D")
         else:
-            self.assertRaises(TypeError, apt_pkg.Hashes, unicode())
-            self.assertRaises(TypeError, apt_pkg.md5sum, unicode())
-            self.assertRaises(TypeError, apt_pkg.sha1sum, unicode())
-            self.assertRaises(TypeError, apt_pkg.sha256sum, unicode())
+            self.assertRaises(TypeError, apt_pkg.Hashes, u"")
+            self.assertRaises(TypeError, apt_pkg.md5sum, u"")
+            self.assertRaises(TypeError, apt_pkg.sha1sum, u"")
+            self.assertRaises(TypeError, apt_pkg.sha256sum, u"")
 
 
 class TestHashString(testcommon.TestCase):
