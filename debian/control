@@ -40,7 +40,7 @@ Description: Python interface to libapt-pkg (API documentation)
 
 Package: python-apt-dev
 Architecture: all
-Depends: python-apt (>= ${source:Version}), libapt-pkg-dev (>= 0.7.10),
+Depends: python3-apt (>= ${source:Version}), libapt-pkg-dev (>= 0.7.10),
          ${misc:Depends}
 Recommends: python3-dev
 Description: Python interface to libapt-pkg (development files)
