@@ -1,3 +1,14 @@
+python-apt (2.1.0) unstable; urgency=medium
+
+  [ Gordon Ball ]
+  * Use pyflakes3 instead of (python 2) pyflakes
+
+  [ Julian Andres Klode ]
+  * Stop building for Python 2 (Closes: #937579)
+  * Remove Python 2 autopkgtests
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 16 Apr 2020 09:46:49 +0200
+
 python-apt (2.0.0) unstable; urgency=medium
 
   [ Valters Jansons ]

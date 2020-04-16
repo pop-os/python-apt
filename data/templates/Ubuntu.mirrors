@@ -59,7 +59,6 @@ http://repositorio.nti.ufal.br/ubuntu/
 http://sft.if.usp.br/ubuntu/
 http://ubuntu-archive.locaweb.com.br/ubuntu/
 http://ubuntu.c3sl.ufpr.br/ubuntu/
-https://ubuntu.itsbrasil.net/ubuntu/
 #LOC:BW
 http://mirror.retentionrange.co.bw/ubuntu/
 #LOC:BY
@@ -94,6 +93,7 @@ http://mirror.uchile.cl/ubuntu/
 http://mirrors.cloud.linets.cl/ubuntu/
 #LOC:CN
 http://ftp.sjtu.edu.cn/ubuntu/
+http://linux.xjtuns.cn/ubuntu/
 http://mirror.lzu.edu.cn/ubuntu/
 http://mirrors.aliyun.com/ubuntu/
 http://mirrors.cn99.com/ubuntu/
@@ -149,9 +149,9 @@ http://mirror.ipb.de/ubuntu/
 http://mirror.kamp.de/ubuntu/
 http://mirror.netcologne.de/ubuntu/
 http://mirror.plustech.de/ubuntu/
-http://mirror.ratiokontakt.de/mirror/ubuntu/
 http://mirror.serverloft.eu/ubuntu/ubuntu/
 http://mirror.stw-aachen.de/ubuntu/
+http://mirror.wff-gaming.de/ubuntu/
 http://mirror.wtnet.de/ubuntu/
 http://mirror2.tuxinator.org/ubuntu/
 http://packages.oth-regensburg.de/ubuntu/
@@ -255,6 +255,7 @@ http://mirror.labkom.id/ubuntu/
 http://mirror.poliwangi.ac.id/ubuntu/
 http://mirror.telkomuniversity.ac.id/ubuntu/
 http://mirror.unej.ac.id/ubuntu/
+http://repo.unpatti.ac.id/ubuntu/
 http://suro.ubaya.ac.id/ubuntu/
 http://ubuntu.acehprov.go.id/ubuntu/
 #LOC:IE
@@ -421,6 +422,7 @@ http://mirrors.pidginhost.com/ubuntu/
 http://mirrors.xservers.ro/ubuntu/
 http://ro-mirrors.evowise.com/ubuntu/
 http://ubuntu.mirrors.linux.ro/archive/
+https://mirrors.chroot.ro/ubuntu/
 #LOC:RS
 http://ubuntu.mirror.ftn.uns.ac.rs/archive/
 #LOC:RU
