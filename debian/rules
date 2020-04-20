@@ -9,6 +9,7 @@ export DEB_CFLAGS_MAINT_APPEND=-Wno-write-strings \
                                -DDATE=\""$(DATE)"\" \
                                -DTIME=\""$(TIME)"\"
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all,-pie
+export PYBUILD_NAME=apt
 
 BUILDDIR3 := $(shell pybuild --print build_dir --interpreter python3)
 
@@ -19,9 +20,18 @@ override_dh_auto_build:
 	dh_auto_build
 	PYTHONPATH=$(BUILDDIR3) python3 setup.py build_sphinx
 
-override_dh_install:
-	dh_movefiles
-	dh_install
+# this is nasty. instead of installing the files to one dir, overriding
+# common ones, and then us picking out the files we want, we have to move some
+# files from python3-apt to python-apt-common and then delete it from other
+# packages.
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/python-apt-common/usr/share/
+	mv debian/python3-apt/usr/share/locale debian/python-apt-common/usr/share/
+	mv debian/python3-apt/usr/share/python-apt debian/python-apt-common/usr/share/
+	rm -r debian/python3-*/usr/share/locale
+	rm -r debian/python3-*/usr/share/python-apt
+	rmdir debian/python3-*/usr/share
 
 override_dh_installdocs:
 	dh_installdocs -p python3-apt -p python3-apt-dbg --link-doc=python3-apt
