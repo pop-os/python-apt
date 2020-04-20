@@ -59,6 +59,7 @@ http://repositorio.nti.ufal.br/ubuntu/
 http://sft.if.usp.br/ubuntu/
 http://ubuntu-archive.locaweb.com.br/ubuntu/
 http://ubuntu.c3sl.ufpr.br/ubuntu/
+https://ubuntu.itsbrasil.net/ubuntu/
 #LOC:BW
 http://mirror.retentionrange.co.bw/ubuntu/
 #LOC:BY
@@ -149,6 +150,7 @@ http://mirror.ipb.de/ubuntu/
 http://mirror.kamp.de/ubuntu/
 http://mirror.netcologne.de/ubuntu/
 http://mirror.plustech.de/ubuntu/
+http://mirror.ratiokontakt.de/mirror/ubuntu/
 http://mirror.serverloft.eu/ubuntu/ubuntu/
 http://mirror.stw-aachen.de/ubuntu/
 http://mirror.wff-gaming.de/ubuntu/
@@ -466,7 +468,6 @@ http://ubuntu.mirror.tn/ubuntu/
 #LOC:TR
 http://ftp.linux.org.tr/ubuntu/
 http://kozyatagi.mirror.guzel.net.tr/ubuntu/
-http://mirror.idealhosting.net.tr/ubuntu/
 http://mirror.muvhost.com/ubuntu/
 http://mirror.ni.net.tr/ubuntu/
 http://ubuntu.saglayici.com/ubuntu/
@@ -544,7 +545,6 @@ http://mirrors.arpnetworks.com/Ubuntu/
 http://mirrors.bloomu.edu/ubuntu/
 http://mirrors.cat.pdx.edu/ubuntu/
 http://mirrors.codec-cluster.org/ubuntu/
-http://mirrors.easynews.com/linux/ubuntu/
 http://mirrors.gigenet.com/ubuntuarchive/
 http://mirrors.liquidweb.com/ubuntu/
 http://mirrors.lug.mtu.edu/ubuntu/

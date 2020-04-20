@@ -78,6 +78,7 @@ http://ftp.cn.debian.org/debian/
 http://ftp2.cn.debian.org/debian/
 http://mirror.lzu.edu.cn/debian/
 http://mirrors.163.com/debian/
+http://mirrors.bfsu.edu.cn/debian/
 http://mirrors.huaweicloud.com/debian/
 http://mirrors.tuna.tsinghua.edu.cn/debian/
 http://mirrors.ustc.edu.cn/debian/
@@ -127,6 +128,7 @@ http://mirror.de.leaseweb.net/debian/
 http://mirror.eu.oneandone.net/debian/
 http://mirror.ipb.de/debian/
 http://mirror.netcologne.de/debian/
+http://mirror.netzwerge.de/debian/
 http://mirror.united-gameserver.de/debian/
 http://mirror.wtnet.de/debian/
 http://packages.hs-regensburg.de/debian/
@@ -432,6 +434,7 @@ http://mirrors.syringanetworks.net/debian/
 http://mirrors.wikimedia.org/debian/
 http://mirrors.xmission.com/debian/
 http://mirrors.xtom.com/debian/
+http://plug-mirror.rcac.purdue.edu/debian/
 http://repo.ialab.dsu.edu/debian/
 http://us.mirror.nsec.pt/debian/
 http://www.gtlib.gatech.edu/debian/
