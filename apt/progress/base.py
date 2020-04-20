@@ -26,19 +26,13 @@ from __future__ import print_function
 
 import errno
 import fcntl
+import io
 import os
 import re
 import select
 import sys
 
-try:
-    from typing import Optional, Union
-    import io
-    io  # pyflakes
-    Optional  # pyflakes
-    Union  # pyflakes
-except ImportError:
-    pass
+from typing import Optional, Union
 
 import apt_pkg
 

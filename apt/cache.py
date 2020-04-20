@@ -26,32 +26,14 @@ import os
 import warnings
 import weakref
 
-try:
-    from typing import (Any, Callable, Dict, Iterator, List, Optional,
-                        Set, Tuple, Union, cast, KeysView)
-    Any  # pyflakes
-    Callable  # pyflakes
-    Dict  # pyflakes
-    Iterator  # pyflakes
-    KeysView  # pyflakes
-    List  # pyflakes
-    Optional  # pyflakes
-    Set  # pyflakes
-    Tuple  # pyflakes
-    Union  # pyflakes
-except ImportError:
-    def cast(typ, obj):  # type: ignore
-        return obj
-    pass
+
+from typing import (Any, Callable, Dict, Iterator, List, Optional,
+                    Set, Tuple, Union, cast, KeysView)
 
 import apt_pkg
 from apt.package import Package, Version
 import apt.progress.text
 from apt.progress.base import AcquireProgress, InstallProgress, OpProgress
-OpProgress  # pyflakes
-InstallProgress  # pyflakes
-AcquireProgress  # pyflakes
-Version  # pyflakes
 
 
 class FetchCancelledException(IOError):

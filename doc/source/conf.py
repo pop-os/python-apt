@@ -73,9 +73,7 @@ except KeyError:
     p1 = Popen(["dpkg-parsechangelog", "-l../../debian/changelog"],
                stdout=PIPE)
     p2 = Popen(["sed", "-n", 's/^Version: //p'], stdin=p1.stdout, stdout=PIPE)
-    release = p2.communicate()[0]
-    if sys.version_info.major >= 3:
-        release = release.decode("utf-8")
+    release = p2.communicate()[0].decode("utf-8")
 
 
 # Handle the alpha release scheme

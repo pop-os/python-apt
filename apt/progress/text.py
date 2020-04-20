@@ -22,30 +22,15 @@ import os
 import signal
 import sys
 
-try:
-    import types
-    from typing import Callable, Optional, Union
-    types  # pyflakes
-    Callable  # pyflakes
-    Optional  # pyflakes
-    Union  # pyflakes
-except ImportError:
-    pass
+import types
+from typing import Callable, Optional, Union
+
 
 import apt_pkg
 from apt.progress import base
 
 
-io  # pyflakes
-
-
 __all__ = ['AcquireProgress', 'CdromProgress', 'OpProgress']
-
-if sys.version_info.major >= 3:
-    raw_input = input  # pyflakes
-    long = int
-else:
-    input = raw_input
 
 
 def _(msg):
@@ -122,7 +107,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         base.AcquireProgress.__init__(self)
         self._signal = None  # type: Union[Callable[[signal.Signals, types.FrameType], None], int, signal.Handlers, None] # noqa
         self._width = 80
-        self._id = long(1)
+        self._id = 1
 
     def start(self):
         # type: () -> None
@@ -135,7 +120,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         self._signal = signal.signal(signal.SIGWINCH, self._winch)
         # Get the window size.
         self._winch()
-        self._id = long(1)
+        self._id = 1
 
     def _winch(self, *dummy):
         # type: (object) -> None
@@ -201,7 +186,7 @@ class AcquireProgress(base.AcquireProgress, TextProgress):
         tval = '%i%%' % percent
         end = ""
         if self.current_cps:
-            eta = long(float(self.total_bytes - self.current_bytes) /
+            eta = int(float(self.total_bytes - self.current_bytes) /
                         self.current_cps)
             end = " %sB/s %s" % (apt_pkg.size_to_str(self.current_cps),
                                  apt_pkg.time_to_str(eta))

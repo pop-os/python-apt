@@ -28,52 +28,14 @@ import re
 import socket
 import subprocess
 import threading
-threading  # pyflakes
 
-try:
-    from http.client import BadStatusLine
-    from urllib.error import HTTPError
-    from urllib.request import urlopen
-except ImportError:
-    from httplib import BadStatusLine  # type: ignore
-    from urllib2 import HTTPError, urlopen  # type: ignore
+from http.client import BadStatusLine
+from urllib.error import HTTPError
+from urllib.request import urlopen
 
-try:
-    from typing import (Any, Iterable, Iterator, List, Optional, Set,
-                        Tuple, Union, no_type_check, overload, Mapping,
-                        Sequence)
-    Any  # pyflakes
-    Iterable  # pyflakes
-    Iterator  # pyflakes
-    List  # pyflakes
-    Optional  # pyflakes
-    Set  # pyflakes
-    Tuple  # pyflakes
-    Union  # pyflakes
-    overload  # pyflakes
-    Sequence  # pyflakes
-except ImportError:
-    import collections
-
-    class GenericWrapper(object):
-        """Takes a non-generic type and adds __getitem__"""
-        def __init__(self, value):
-            # type: (type) -> None
-            self.value = value
-
-        def __getitem__(self, key):
-            # type: (type) -> type
-            return self.value
-
-    List = GenericWrapper(list)  # type: ignore
-    Mapping = GenericWrapper(collections.Mapping)  # type: ignore
-    Sequence = GenericWrapper(collections.Sequence)  # type: ignore
-    Any = None
-
-    def no_type_check(arg):
-        # type: (Any) -> Any
-        return arg
-    pass
+from typing import (Any, Iterable, Iterator, List, Optional, Set,
+                    Tuple, Union, no_type_check, Mapping,
+                    Sequence)
 
 import apt_pkg
 import apt.progress.text
@@ -82,16 +44,11 @@ from apt.progress.base import (
     AcquireProgress,
     InstallProgress,
 )
-AcquireProgress  # pyflakes
-InstallProgress  # pyflakes
 
 from apt_pkg import gettext as _
 
 __all__ = ('BaseDependency', 'Dependency', 'Origin', 'Package', 'Record',
            'Version', 'VersionList')
-
-if sys.version_info.major >= 3:
-    unicode = str
 
 
 def _file_is_same(path, size, hashes):
@@ -636,7 +593,7 @@ class Version(object):
                      "Please report.") % (self.package.name)
 
         try:
-            if not isinstance(dsc, unicode):
+            if not isinstance(dsc, str):
                 # Only convert where needed (i.e. Python 2.X)
                 dsc = dsc.decode("utf-8")
         except UnicodeDecodeError as err:
@@ -1329,7 +1286,7 @@ class Package(object):
                       "/%(src_pkg)s_%(src_ver)s/changelog"
             else:
                 res = _("The list of changes is not available")
-                if isinstance(res, unicode):
+                if isinstance(res, str):
                     return res
                 else:
                     return res.decode("utf-8")
@@ -1438,7 +1395,7 @@ class Package(object):
                 # Print an error if we failed to extract a changelog
                 if len(changelog) == 0:
                     changelog = _("The list of changes is not available")
-                    if not isinstance(changelog, unicode):
+                    if not isinstance(changelog, str):
                         changelog = changelog.decode("utf-8")
                 self._changelog = changelog
 
@@ -1452,14 +1409,14 @@ class Package(object):
                             "later.") % (src_pkg, src_ver)
                 else:
                     res = _("The list of changes is not available")
-                if isinstance(res, unicode):
+                if isinstance(res, str):
                     return res
                 else:
                     return res.decode("utf-8")
             except (IOError, BadStatusLine):
                 res = _("Failed to download the list of changes. \nPlease "
                         "check your Internet connection.")
-                if isinstance(res, unicode):
+                if isinstance(res, str):
                     return res
                 else:
                     return res.decode("utf-8")

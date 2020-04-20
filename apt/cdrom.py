@@ -22,11 +22,7 @@
 """Classes related to cdrom handling."""
 from __future__ import print_function
 
-try:
-    from typing import Optional
-except ImportError:
-    pass
-
+from typing import Optional
 import glob
 
 import apt_pkg

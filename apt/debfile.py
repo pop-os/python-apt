@@ -26,19 +26,7 @@ import gzip
 import os
 import sys
 
-try:
-    from typing import Dict, Iterable, List, Optional, Set, Tuple, Union, cast
-    Dict  # pyflakes
-    Iterable  # pyflakes
-    List  # pyflakes
-    Optional  # pyflakes
-    Set  # pyflakes
-    Tuple  # pyflakes
-    Union  # pyflakes
-except ImportError:
-    def cast(typ, obj):  # type: ignore
-        return obj
-    pass
+from typing import Dict, Iterable, List, Optional, Set, Tuple, Union, cast
 
 from apt_pkg import gettext as _
 from io import BytesIO

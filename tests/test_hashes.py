@@ -11,7 +11,6 @@ Unit tests to verify the correctness of Hashes, HashString and the various
 functions like md5sum."""
 import unittest
 import hashlib
-import sys
 import warnings
 
 import apt_pkg
@@ -84,16 +83,10 @@ class TestHashes(testcommon.TestCase):
 
     def test_unicode(self):
         """hashes: Test apt_pkg.Hashes(unicode)."""
-        if sys.version_info[0] == 3:
-            self.assertRaises(TypeError, apt_pkg.Hashes, "D")
-            self.assertRaises(TypeError, apt_pkg.md5sum, "D")
-            self.assertRaises(TypeError, apt_pkg.sha1sum, "D")
-            self.assertRaises(TypeError, apt_pkg.sha256sum, "D")
-        else:
-            self.assertRaises(TypeError, apt_pkg.Hashes, u"")
-            self.assertRaises(TypeError, apt_pkg.md5sum, u"")
-            self.assertRaises(TypeError, apt_pkg.sha1sum, u"")
-            self.assertRaises(TypeError, apt_pkg.sha256sum, u"")
+        self.assertRaises(TypeError, apt_pkg.Hashes, "D")
+        self.assertRaises(TypeError, apt_pkg.md5sum, "D")
+        self.assertRaises(TypeError, apt_pkg.sha1sum, "D")
+        self.assertRaises(TypeError, apt_pkg.sha256sum, "D")
 
 
 class TestHashString(testcommon.TestCase):
@@ -131,8 +124,7 @@ class TestHashString(testcommon.TestCase):
     def test_wrong(self):
         """hashes: Test apt_pkg.HashString(wrong_type)."""
         self.assertRaises(TypeError, apt_pkg.HashString, 0)
-        if sys.version_info[0] == 3:
-            self.assertRaises(TypeError, apt_pkg.HashString, bytes())
+        self.assertRaises(TypeError, apt_pkg.HashString, bytes())
 
 
 class TestHashStringList(testcommon.TestCase):
