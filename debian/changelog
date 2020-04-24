@@ -1,3 +1,9 @@
+python-apt (2.1.2pop0) focal; urgency=medium
+
+  * Add current distribution first
+
+ -- Jeremy Soller <jeremy@system76.com>  Fri, 24 Apr 2020 13:27:11 -0600
+
 python-apt (2.1.2) unstable; urgency=medium
 
   * Use pybuild to split out -dbg stuff, avoid .install/.files (Closes: #958118)
