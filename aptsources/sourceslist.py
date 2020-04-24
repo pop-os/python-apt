@@ -465,6 +465,13 @@ class SourceEntryMatcher(object):
 
     def __init__(self, matcherPath):
         self.templates = []
+
+        # Add current distribution first
+        dist = DistInfo(base_dir=matcherPath)
+        for template in dist.templates:
+            if template.match_uri is not None:
+                self.templates.append(template)
+
         # Get the human readable channel and comp names from the channel .infos
         spec_files = glob.glob("%s/*.info" % matcherPath)
         for f in spec_files:

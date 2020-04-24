@@ -1,3 +1,9 @@
+python-apt (2.2.1pop0) impish; urgency=medium
+
+  * Add current distribution first
+
+ -- Jeremy Soller <jeremy@system76.com>  Mon, 09 Aug 2021 09:10:07 -0600
+
 python-apt (2.2.1) unstable; urgency=medium
 
   [ Debian Janitor ]
