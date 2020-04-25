@@ -1,6 +1,8 @@
 python-apt (2.1.4) UNRELEASED; urgency=medium
 
   * Trim trailing whitespace.
+  * Wrap long lines in changelog entries: 1.9.9, 1.7.0~alpha1,
+    1.1.0~alpha1, 0.9.4, 0.9.3.4.
 
  -- Debian Janitor <janitor@jelmer.uk>  Sat, 25 Apr 2020 16:03:04 +0000
 
@@ -66,7 +68,8 @@ python-apt (1.9.9) unstable; urgency=medium
   [ Dan Streetman ]
   * distinfo: correct subprocess usage
   * sourceslist: in __find() rstrip / from uri when comparing
-  * test: add test to verify identical entries except trailing slash are considered equal
+  * test: add test to verify identical entries except trailing slash are
+    considered equal
 
  -- Julian Andres Klode <jak@debian.org>  Sat, 07 Mar 2020 21:26:04 +0100
 
@@ -357,13 +360,15 @@ python-apt (1.7.0~alpha1) experimental; urgency=medium
   * Fix some more type annotations for apt_pkg, complete apt.utils typing
   * apt.Cache: Remap objects when reopening cache
     (LP: #1773316)
-  * apt_pkg.DepCache: Raise CacheMismatchError if argument belongs to diff. cache
+  * apt_pkg.DepCache: Raise CacheMismatchError if argument belongs to diff.
+    cache
   * apt.Cache: Complete types
   * Completely type apt.progress
   * typehinting: Add missing type hints for unattended-upgrades
   * Complete typing for apt.auth
   * apt.debfile: Avoid exception in replaces_real_pkg for no-candidate packages
-  * apt.debfile.DebPackage: Handle no-candidate package in _maybe_append_multiarch_suffix
+  * apt.debfile.DebPackage: Handle no-candidate package in
+    _maybe_append_multiarch_suffix
   * Completely type apt.debfile
   * utils/get_debian_mirrors.py: Get data from salsa
   * apt.package: Add almost complete typing
@@ -613,7 +618,8 @@ python-apt (1.1.0~alpha2) experimental; urgency=medium
 python-apt (1.1.0~alpha1) experimental; urgency=medium
 
   [ Michael Vogt ]
-  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a
+    .dsc file
 
   [ Julian Andres Klode ]
   * Drop apt_pkg.IndexRecords, it has been dropped in experimental
@@ -771,7 +777,8 @@ python-apt (0.9.4) unstable; urgency=medium
   [ Michael Vogt ]
   * add apt_pkg.sha512sum()
   * Add binding for apt_pkg.maybe_open_clear_signed_file()
-  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a .dsc file
+  * apt/debfile.py: use apt_pkg.open_maybe_clear_signed_file() when opening a
+    .dsc file
   * Update doc/example/action.py for py3 and latest API (closes: #782335)
   * Add MULTI_ARCH_NO constant and deprecate MULTI_ARCH_NONE (closes: #782802)
   * Fix dead links in python-apt documentation (Closes: #779426)
@@ -880,8 +887,8 @@ python-apt (0.9.3.4) unstable; urgency=medium
   * utils/get_*_mirrors*.py: Ensure failure if no mirrors were read
   * utils/get_*_mirrors*.py: Use sys.stderr.write instead of print
   * Support all compressors for data.tar/control.tar (Closes: #718330)
-  * Revert "aptsources/sourceslist.py: ensure that our sources are opened with UTF-8"
-    (Closes: #742118)
+  * Revert "aptsources/sourceslist.py: ensure that our sources are opened with
+    UTF-8" (Closes: #742118)
 
  -- Julian Andres Klode <jak@debian.org>  Thu, 20 Mar 2014 16:48:12 +0100
 
