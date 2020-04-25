@@ -41,6 +41,7 @@ http://mirrors.netix.net/debian/
 #LOC:BR
 http://alcateia.ufscar.br/debian/
 http://debian.c3sl.ufpr.br/debian/
+http://debian.itsbrasil.net/debian/
 http://debian.pop-sc.rnp.br/debian/
 http://ftp.br.debian.org/debian/
 http://mirror.nbtelecom.com.br/debian/
@@ -160,6 +161,7 @@ http://ulises.hostalia.com/debian/
 http://www.nic.funet.fi/debian/
 #LOC:FR
 http://deb-mir1.naitways.net/debian/
+http://debian.apt-mirror.de/debian/
 http://debian.mirror.ate.info/
 http://debian.mirrors.ovh.net/debian/
 http://debian.polytech-lille.fr/debian/
@@ -336,6 +338,7 @@ http://debian.uevora.pt/debian/
 http://ftp.eq.uc.pt/software/Linux/debian/
 http://ftp.pt.debian.org/debian/
 http://ftp.rnl.tecnico.ulisboa.pt/pub/debian/
+http://mirrors.ptisp.pt/debian/
 http://mirrors.up.pt/debian/
 #LOC:RE
 http://depot-debian.univ-reunion.fr/debian/

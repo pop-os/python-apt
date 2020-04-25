@@ -1,3 +1,9 @@
+python-apt (2.1.3) unstable; urgency=medium
+
+  * data/templates/Ubuntu.info.in: Add groovy (LP: #1874880)
+
+ -- Julian Andres Klode <jak@debian.org>  Sat, 25 Apr 2020 13:05:50 +0200
+
 python-apt (2.1.2) unstable; urgency=medium
 
   * Use pybuild to split out -dbg stuff, avoid .install/.files (Closes: #958118)
