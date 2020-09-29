@@ -41,7 +41,7 @@ https://anonscm.debian.org/cgit/apt/python-apt.git
     cherry-picked or backported from the ``debian/sid`` branch.
 
 
-.. highlightlang:: c
+.. highlight:: cpp
 
 C++ Coding style
 ----------------
@@ -244,7 +244,9 @@ for one logical unit).
 
 The changelog message should follow standard git format. At the end of the
 message, tags understood by gbp-dch and other tags may be added. An example
-commit message could be::
+commit message could be:
+
+.. code-block:: none
 
   apt.package: Fix blah blah
 
@@ -285,7 +287,7 @@ above. You can send your content in plain text, but reStructuredText is the
 preferred format. I (Julian Andres Klode) will review your patch and include
 it.
 
-.. highlightlang:: sh
+.. highlight:: sh
 
 Example patch session
 ----------------------
