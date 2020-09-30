@@ -1937,8 +1937,6 @@ generic hash support:
 
         Get the :class:`HashString` object at the specified index.
 
-    .. autoattribute:: usable
-
 The :mod:`apt_pkg` module also provides the functions :func:`md5sum`,
 :func:`sha1sum` and :func:`sha256sum` for creating a single hash from a
 :class:`bytes` or :class:`file` object:
