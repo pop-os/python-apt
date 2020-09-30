@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: APT Development Team <deity@lists.debian.org>
 Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Rules-Requires-Root: no
-Standards-Version: 4.4.1
+Standards-Version: 4.5.0
 Build-Depends: apt (>= 1.0.9.4),
                apt-utils,
                debhelper-compat (= 12),
@@ -103,4 +103,3 @@ Description: Python 3 interface to libapt-pkg (debug extension)
  variety of functions.
  .
  This package contains the extension built for the Python debug interpreter.
-
