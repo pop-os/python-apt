@@ -32,5 +32,5 @@ for package in packages:
         uninstalled[package.name] = version
 
 
-for l in (uninstalled, updated, upgradable):
-    print(list(l.items())[0])
+for line in (uninstalled, updated, upgradable):
+    print(list(line.items())[0])

@@ -479,7 +479,8 @@ def _lsb_release():
         out = Popen(['lsb_release', '-idrc'], stdout=PIPE).communicate()[0]
         # Convert to unicode string, needed for Python 3.1
         out = out.decode("utf-8")
-        result.update(l.split(":\t") for l in out.split("\n") if ':\t' in l)
+        result.update(line.split(":\t") for line in out.split("\n")
+                                        if ':\t' in line)
     except OSError as exc:
         if exc.errno != errno.ENOENT:
             logging.warning('lsb_release failed, using defaults:' % exc)
@@ -499,9 +500,9 @@ def _system_image_channel():
         out = Popen(
             ['system-image-cli', '-i'], stdout=PIPE, stderr=DEVNULL,
             universal_newlines=True).communicate()[0]
-        for l in out.splitlines():
-            if l.startswith('channel: '):
-                return l.split(': ', 1)[1]
+        for line in out.splitlines():
+            if line.startswith('channel: '):
+                return line.split(': ', 1)[1]
     except OSError as exc:
         if exc.errno != errno.ENOENT:
             logging.warning(
