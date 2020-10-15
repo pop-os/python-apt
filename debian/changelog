@@ -1,11 +1,20 @@
-python-apt (2.1.4) UNRELEASED; urgency=medium
+python-apt (2.1.4) unstable; urgency=medium
 
+  [ Debian Janitor ]
   * Trim trailing whitespace.
   * Wrap long lines in changelog entries: 1.9.9, 1.7.0~alpha1,
     1.1.0~alpha1, 0.9.4, 0.9.3.4.
   * Update standards version to 4.5.0, no changes needed.
 
- -- Debian Janitor <janitor@jelmer.uk>  Sat, 25 Apr 2020 16:03:04 +0000
+  [ Dave Jones ]
+  * Fix ftbfs with sphinx 3.x (Closes: #963655)
+
+  [ Julian Andres Klode ]
+  * Make pycodestyle happy
+  * Pacify mypy 0.790 for NotImplemented returns
+  * gitlab-ci: Pull debian:unstable, not ubuntu:focal
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 15 Oct 2020 14:25:06 +0200
 
 python-apt (2.1.3) unstable; urgency=medium
 
