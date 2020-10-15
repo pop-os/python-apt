@@ -421,7 +421,7 @@ class Version(object):
         self.package._pcache._weakversions.add(self)
 
     def _cmp(self, other):
-        # type: (Any) -> Union[int, NotImplemented]
+        # type: (Any) -> Union[int, Any]
         """Compares against another apt.Version object or a version string.
 
         This method behaves like Python 2's cmp builtin and returns an integer
@@ -471,7 +471,7 @@ class Version(object):
         return self._cmp(other) < 0
 
     def __ne__(self, other):
-        # type: (object) -> Union[bool, NotImplemented]
+        # type: (object) -> Union[bool, Any]
         try:
             return self._cmp(other) != 0
         except TypeError:
