@@ -1,4 +1,4 @@
-image: ubuntu:focal
+image: debian:unstable
 variables:
   DEBIAN_FRONTEND: noninteractive
 
@@ -17,9 +17,6 @@ pep8:
 
 test:
   script:
-  - apt update
-  - apt install -q -y software-properties-common
-  - add-apt-repository ppa:deity/sid
   - apt update
   - apt build-dep -q -y ./
   - dpkg-buildpackage
