@@ -267,7 +267,7 @@ class CdromProgress(base.CdromProgress, TextProgress):
         # type: () -> Optional[str]
         """Ask the user to provide a name for the disc."""
         base.CdromProgress.ask_cdrom_name(self)
-        self._write(_("Please provide a name for this Disc, such as "
+        self._write(_("Please provide a name for this medium, such as "
                       "'Debian 2.1r1 Disk 1'"), False)
         try:
             return str(input(":"))
@@ -285,7 +285,7 @@ class CdromProgress(base.CdromProgress, TextProgress):
         # type: () -> bool
         """Ask the user to change the CD-ROM."""
         base.CdromProgress.change_cdrom(self)
-        self._write(_("Please insert a Disc in the drive and press enter"),
+        self._write(_("Please insert an installation medium and press enter"),
                     False)
         try:
             return bool(input() == '')

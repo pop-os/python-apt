@@ -144,7 +144,7 @@ RepositoryType: deb
 MatchName: .*
 BaseURI: cdrom:\[Ubuntu.*{version}
 MatchURI: cdrom:\[Ubuntu.*{version}
-_Description: Cdrom with Ubuntu {version} '{codename}'
+_Description: Installation medium with Ubuntu {version} '{codename}'
 Available: False
 Component: main
 _CompDescription: Officially supported
