@@ -55,11 +55,12 @@ http://mirror.globo.com/ubuntu/archive/
 http://mirror.ufam.edu.br/ubuntu/
 http://mirror.ufca.edu.br/mirror/ubuntu-archive/
 http://mirror.ufscar.br/ubuntu/
-http://repositorio.nti.ufal.br/ubuntu/
 http://sft.if.usp.br/ubuntu/
 http://ubuntu-archive.locaweb.com.br/ubuntu/
 http://ubuntu.c3sl.ufpr.br/ubuntu/
 https://ubuntu.itsbrasil.net/ubuntu/
+#LOC:BW
+http://mirror.retentionrange.co.bw/ubuntu/
 #LOC:BY
 http://ftp.byfly.by/ubuntu/
 http://mirror.datacenter.by/ubuntu/
@@ -81,6 +82,7 @@ http://ubuntu.ca-west.mirror.fullhost.io/ubuntu/
 http://ubuntu.mirror.globo.tech/
 http://ubuntu.mirror.iweb.ca/
 http://ubuntu.mirror.rafal.ca/ubuntu/
+https://mirror.esecuredata.com/ubuntu-archive/
 https://mirrors.switch.ca/ubuntu/
 #LOC:CH
 http://archive.ubuntu.csg.uzh.ch/ubuntu/
@@ -108,7 +110,6 @@ http://mirrors.sohu.com/ubuntu/
 http://mirrors.tuna.tsinghua.edu.cn/ubuntu/
 http://mirrors.ustc.edu.cn/ubuntu/
 http://mirrors.yun-idc.com/ubuntu/
-https://mirror.bjtu.edu.cn/ubuntu/
 https://mirrors.bfsu.edu.cn/ubuntu/
 https://mirrors.hit.edu.cn/ubuntu/
 #LOC:CO
@@ -365,8 +366,7 @@ https://ubuntu.ipserverone.com/ubuntu/
 http://download.nust.na/pub/ubuntu/ubuntu/
 #LOC:NC
 http://archive.ubuntu.nautile.nc/ubuntu/
-http://mirror.lagoon.nc/ubuntu/
-http://ubuntu.lagoon.nc/ubuntu/
+https://ubuntu.lagoon.nc/ubuntu/
 #LOC:NL
 ftp://ftpserv.tudelft.nl/pub/Linux/archive.ubuntu.com/
 http://ftp.nluug.nl/os/Linux/distr/ubuntu/
@@ -419,7 +419,6 @@ http://mirror.chmuri.net/ubuntu/
 http://piotrkosoft.net/pub/mirrors/ubuntu/
 http://ubuntu.man.lodz.pl/ubuntu/
 http://ubuntu.task.gda.pl/ubuntu/
-https://ftp.ps.pl/pub/Linux/ubuntu/archive/
 #LOC:PR
 http://mirrors.upr.edu/ubuntu/
 #LOC:PT
@@ -447,9 +446,9 @@ http://mirror.corbina.net/ubuntu/
 http://mirror.docker.ru/ubuntu/
 http://mirror.logol.ru/ubuntu/
 http://mirror.timeweb.ru/ubuntu/
-http://mirror.truenetwork.ru/ubuntu/
 http://mirror.yandex.ru/ubuntu/
 http://mirrors.powernet.com.ru/ubuntu/
+https://mirror.truenetwork.ru/ubuntu/
 #LOC:SA
 http://mirrors.isu.net.sa/pub/ubuntu-releases/
 #LOC:SE
@@ -514,7 +513,6 @@ http://mirror.renu.ac.ug/ubuntu/
 #LOC:US
 http://archive.linux.duke.edu/ubuntu/
 http://ftp.usf.edu/pub/ubuntu/
-http://ftp.ussg.iu.edu/linux/ubuntu/
 http://la-mirrors.evowise.com/ubuntu/
 http://lug.mtu.edu/ubuntu/
 http://mirror.ancl.hawaii.edu/linux/ubuntu/
@@ -554,7 +552,6 @@ http://mirror.vcu.edu/pub/gnu+linux/ubuntu/
 http://mirrors.accretive-networks.net/ubuntu/
 http://mirrors.advancedhosters.com/ubuntu/
 http://mirrors.arpnetworks.com/Ubuntu/
-http://mirrors.bloomu.edu/ubuntu/
 http://mirrors.cat.pdx.edu/ubuntu/
 http://mirrors.easynews.com/linux/ubuntu/
 http://mirrors.gigenet.com/ubuntuarchive/
@@ -596,7 +593,7 @@ https://archive.ubuntu.thomas-ward-consulting.llc/ubuntu/
 https://mirror.hodgepodge.dev/ubuntu/
 https://mirror.os6.org/ubuntu/
 https://mirror.us.leaseweb.net/ubuntu/
-https://mirrors.avalonhosting.services/ubuntu-archive/
+https://mirrors.bloomu.edu/ubuntu/
 #LOC:UY
 http://repos.interior.edu.uy/ubuntu/
 http://ubuntu.repo.cure.edu.uy/mirror/

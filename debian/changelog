@@ -1,3 +1,11 @@
+python-apt (2.1.5) unstable; urgency=medium
+
+  * Do not require hardcoding release names in distro info, cleanup Debian and Ubuntu
+    (LP: #1727470)
+  * Debian: use -security instead of /updates for >= 11
+
+ -- Julian Andres Klode <jak@debian.org>  Tue, 27 Oct 2020 21:27:56 +0100
+
 python-apt (2.1.4) unstable; urgency=medium
 
   [ Debian Janitor ]
