@@ -14,12 +14,21 @@ _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
 
+Suite: {series}-security
+RepositoryType: deb
+BaseURI: http://security.debian.org/
+MatchURI: security\.debian\.org
+ParentSuite: {series}
+_Description: Security updates
+X-Version: ge 11
+
 Suite: {series}/updates
 RepositoryType: deb
 BaseURI: http://security.debian.org/
 MatchURI: security\.debian\.org
 ParentSuite: {series}
 _Description: Security updates
+X-Version: le 10
 
 Suite: {series}-updates
 RepositoryType: deb
