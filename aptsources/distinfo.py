@@ -23,6 +23,7 @@
 
 from __future__ import print_function
 
+import csv
 import errno
 import logging
 import os
@@ -32,6 +33,87 @@ import re
 import apt_pkg
 
 from apt_pkg import gettext as _
+
+
+def _expand_template(template, csv_path):
+    """Expand the given template.
+
+    A template file consists of a header, followed by paragraphs
+    of templated suites, followed by a footer. A templated suite
+    is any paragraph where the Suite field contains {.
+
+    This function expands all templated suites using the information
+    found in the CSV file supplied by distro-info-data.
+
+    It yields lines of template info.
+    """
+
+    known_suites = set()
+
+    # Copy out any header, and gather all hardcoded suites
+    with apt_pkg.TagFile(template) as tmpl:
+        for section in tmpl:
+            if "X-Exclude-Suites" in section:
+                known_suites.update(section["X-Exclude-Suites"].split(", "))
+            if "Suite" in section:
+                if "{" in section["Suite"]:
+                    break
+
+                known_suites.add(section["Suite"])
+
+            yield from str(section).splitlines()
+        else:
+            # We did not break, so we did copy all of them
+            return
+
+        for section in tmpl:
+            if "Suite" in section:
+                known_suites.add(section["Suite"])
+
+    with open(csv_path) as csv_object:
+        releases = reversed(list(csv.DictReader(csv_object)))
+
+    # Perform template substitution on the middle of the list
+    for rel in releases:
+        if rel["series"] in known_suites:
+            continue
+        yield ""
+        rel["version"] = rel["version"].replace(" LTS", "")
+        with apt_pkg.TagFile(template) as tmpl:
+            for section in tmpl:
+                # Only work on template sections, this skips head and tails
+                if "Suite" not in section or "{" not in section["Suite"]:
+                    continue
+                if "X-Version" in section:
+                    # Version requirements. Maybe should be made nicer
+                    ver = rel["version"]
+                    if any(
+                            (field.startswith("le") and
+                             apt_pkg.version_compare(field[3:], ver) < 0) or
+                            (field.startswith("ge") and
+                             apt_pkg.version_compare(field[3:], ver) > 0)
+                            for field in section["X-Version"].split(", ")):
+                        continue
+
+                for line in str(section).format(**rel).splitlines():
+                    if line.startswith("X-Version"):
+                        continue
+                    yield line
+
+    # Copy out remaining suites
+    with apt_pkg.TagFile(template) as tmpl:
+        # Skip the head again, we don't want to copy it twice
+        for section in tmpl:
+            if "Suite" in section and "{" in section["Suite"]:
+                break
+
+        for section in tmpl:
+            # Ignore any template parts and copy the rest out,
+            # this is the inverse of the template substitution loop
+            if "Suite" in section and "{" in section["Suite"]:
+                continue
+
+            yield from str(section).splitlines()
 
 
 class Template(object):
@@ -181,10 +263,12 @@ class DistInfo(object):
         map_mirror_sets = {}
 
         dist_fname = "%s/%s.info" % (base_dir, dist)
-        with open(dist_fname) as dist_file:
+        csv_fname = "/usr/share/distro-info/{}.csv".format(dist.lower())
+
+        if True:
             template = None
             component = None
-            for line in dist_file:
+            for line in _expand_template(dist_fname, csv_fname):
                 tokens = line.split(':', 1)
                 if len(tokens) < 2:
                     continue
