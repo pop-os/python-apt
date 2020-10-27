@@ -9,6 +9,7 @@ Build-Depends: apt (>= 1.0.9.4),
                apt-utils,
                debhelper-compat (= 12),
                dh-python,
+               distro-info-data,
                fakeroot,
                libapt-pkg-dev (>= 1.9.11~),
                python3-all (>= 3.3),
@@ -67,7 +68,7 @@ Description: Python interface to libapt-pkg (locales)
 Package: python3-apt
 Architecture: any
 Multi-Arch: allowed
-Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common
+Depends: ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}, python-apt-common, distro-info-data
 Recommends: lsb-release, iso-codes
 Provides: ${python3:Provides}
 Suggests: python3-apt-dbg, python-apt-doc, apt

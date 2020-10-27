@@ -1,11 +1,12 @@
 _ChangelogURI: http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog
+X-Exclude-Suites: buzz, rex, bo, hamm, slink, potato, woody, experimental
 
-Suite: bullseye
+Suite: {series}
 RepositoryType: deb
 BaseURI: http://deb.debian.org/debian/
-MatchURI: ((http|ftp)[0-9]*\.([a-z]*\.){0,1}|deb\.|httpredir\.)debian\.org
+MatchURI: ((http|ftp)[0-9]*\.([a-z]*\.){{0,1}}|deb\.|httpredir\.)debian\.org
 MirrorsFile: Debian.mirrors
-_Description: Debian 11 'bullseye'
+_Description: Debian {version} '{codename}'
 Component: main
 _CompDescription: Officially supported
 Component: contrib
@@ -13,242 +14,32 @@ _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
 
-Suite: bullseye/updates
+Suite: {series}-security
 RepositoryType: deb
 BaseURI: http://security.debian.org/
 MatchURI: security\.debian\.org
-ParentSuite: bullseye
+ParentSuite: {series}
 _Description: Security updates
+X-Version: ge 11
 
-Suite: bullseye-updates
+Suite: {series}/updates
 RepositoryType: deb
-ParentSuite: bullseye
+BaseURI: http://security.debian.org/
+MatchURI: security\.debian\.org
+ParentSuite: {series}
+_Description: Security updates
+X-Version: le 10
+
+Suite: {series}-updates
+RepositoryType: deb
+ParentSuite: {series}
 _Description: Recommended updates
+X-Version: ge 7
 
-Suite: bullseye-proposed-updates
+Suite: {series}-proposed-updates
 RepositoryType: deb
-ParentSuite: bullseye
+ParentSuite: {series}
 _Description: Proposed updates
-
-Suite: buster
-RepositoryType: deb
-BaseURI: http://deb.debian.org/debian/
-MatchURI: ((http|ftp)[0-9]*\.([a-z]*\.){0,1}|deb\.|httpredir\.)debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 10 'buster'
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: buster/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: buster
-_Description: Security updates
-
-Suite: buster-updates
-RepositoryType: deb
-ParentSuite: buster
-_Description: Recommended updates
-
-Suite: buster-proposed-updates
-RepositoryType: deb
-ParentSuite: buster
-_Description: Proposed updates
-
-Suite: stretch
-RepositoryType: deb
-BaseURI: http://deb.debian.org/debian/
-MatchURI: ((http|ftp)[0-9]*\.([a-z]*\.){0,1}|deb\.|httpredir\.)debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 9 'stretch'
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: stretch/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: stretch
-_Description: Security updates
-
-Suite: stretch-updates
-RepositoryType: deb
-ParentSuite: stretch
-_Description: Recommended updates
-
-Suite: stretch-proposed-updates
-RepositoryType: deb
-ParentSuite: stretch
-_Description: Proposed updates
-
-Suite: jessie
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 8 'jessie'
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: jessie/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: jessie
-_Description: Security updates
-
-Suite: jessie-updates
-RepositoryType: deb
-ParentSuite: jessie
-_Description: Recommended updates
-
-Suite: jessie-proposed-updates
-RepositoryType: deb
-ParentSuite: jessie
-_Description: Proposed updates
-
-Suite: wheezy
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 7 'Wheezy' 
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: wheezy/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: wheezy
-_Description: Security updates
-
-Suite: wheezy-updates
-RepositoryType: deb
-ParentSuite: wheezy
-_Description: Recommended updates
-
-Suite: wheezy-proposed-updates
-RepositoryType: deb
-ParentSuite: wheezy
-_Description: Proposed updates
-
-Suite: squeeze
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 6.0 'Squeeze' 
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: squeeze-proposed-updates
-RepositoryType: deb
-ParentSuite: squeeze
-_Description: Proposed updates
-
-Suite: squeeze/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: squeeze
-_Description: Security updates
-
-Suite: lenny
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 5.0 'Lenny' 
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: lenny-proposed-updates
-RepositoryType: deb
-ParentSuite: lenny
-_Description: Proposed updates
-
-Suite: lenny/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: lenny
-_Description: Security updates
-
-Suite: etch
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 4.0 'Etch'
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: etch-proposed-updates
-RepositoryType: deb
-ParentSuite: etch
-_Description: Proposed updates
-
-Suite: etch/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: etch
-_Description: Security updates
-
-Suite: sarge
-RepositoryType: deb
-BaseURI: http://http.us.debian.org/debian/
-MatchURI: ftp[0-9]*\.([a-z]*\.){0,1}debian\.org
-MirrorsFile: Debian.mirrors
-_Description: Debian 3.1 'Sarge'
-Component: main
-_CompDescription: Officially supported
-Component: contrib
-_CompDescription: DFSG-compatible Software with Non-Free Dependencies
-Component: non-free
-_CompDescription: Non-DFSG-compatible Software
-
-Suite: sarge-proposed-updates
-RepositoryType: deb
-ParentSuite: sarge
-_Description: Proposed updates
-
-Suite: sarge/updates
-RepositoryType: deb
-BaseURI: http://security.debian.org/
-MatchURI: security\.debian\.org
-ParentSuite: sarge
-_Description: Security updates
 
 Suite: stable
 RepositoryType: deb
@@ -301,3 +92,4 @@ Component: contrib
 _CompDescription: DFSG-compatible Software with Non-Free Dependencies
 Component: non-free
 _CompDescription: Non-DFSG-compatible Software
+
