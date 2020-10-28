@@ -56,7 +56,7 @@ static int hashes_init(PyObject *self, PyObject *args, PyObject *kwds)
     }
     else {
         PyErr_SetString(PyExc_TypeError,
-                        "__init__() only understand strings and files");
+                        "__init__() only understand bytes and files");
         return -1;
     }
     return 0;
