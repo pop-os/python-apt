@@ -389,22 +389,22 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
                                PyObject *kwds)
 {
     PyObject *file;
-    PyArArchiveObject *self;
     PyApt_Filename filename;
     int fileno;
     if (PyArg_ParseTuple(args,"O:__new__",&file) == 0)
         return 0;
 
+    PyApt_UniqueObject<PyArArchiveObject> self(NULL);
     // We receive a filename.
     if (filename.init(file)) {
-        self = (PyArArchiveObject *)CppPyObject_NEW<ARArchive*>(0,type);
+        self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(0,type));
         new (&self->Fd) FileFd(filename,FileFd::ReadOnly);
     }
     // We receive a file object.
     else if ((fileno = PyObject_AsFileDescriptor(file)) != -1) {
         // Clear the error set by PyObject_AsString().
         PyErr_Clear();
-        self = (PyArArchiveObject *)CppPyObject_NEW<ARArchive*>(file,type);
+        self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(file,type));
         new (&self->Fd) FileFd(fileno,false);
     }
     else {
@@ -413,7 +413,7 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
     self->Object = (PyARArchiveHack*)new ARArchive(self->Fd);
     if (_error->PendingError() == true)
         return HandleErrors();
-    return self;
+    return self.release();
 }
 
 static void ararchive_dealloc(PyObject *self)
@@ -578,16 +578,16 @@ static PyObject *debfile_get_tar(PyDebFileObject *self, const char *Name)
 
 static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
-    PyDebFileObject *self = (PyDebFileObject*)ararchive_new(type, args, kwds);
+    PyApt_UniqueObject<PyDebFileObject> self((PyDebFileObject*)ararchive_new(type, args, kwds));
     if (self == NULL)
         return NULL;
 
     // DebFile
-    self->control = debfile_get_tar(self, "control.tar");
+    self->control = debfile_get_tar(self.get(), "control.tar");
     if (self->control == NULL)
         return NULL;
 
-    self->data = debfile_get_tar(self, "data.tar");
+    self->data = debfile_get_tar(self.get(), "data.tar");
     if (self->data == NULL)
         return NULL;
 
@@ -603,7 +603,7 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
     self->Fd.Read(value, member->Size, true);
     self->debian_binary = PyBytes_FromStringAndSize(value, member->Size);
     delete[] value;
-    return self;
+    return self.release();
 }
 
 static int debfile_traverse(PyObject *_self, visitproc visit, void* arg)
