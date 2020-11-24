@@ -127,6 +127,35 @@ PyTypeObject PyArMember_Type = {
     armember_getset,                     // tp_getset
 };
 
+
+static const char *filefd_doc=
+   "Internal helper type, representing a FileFd.";
+PyTypeObject PyFileFd_Type = {
+    PyVarObject_HEAD_INIT(&PyType_Type, 0)
+    "apt_inst.__FileFd"        ,                 // tp_name
+    sizeof(CppPyObject<FileFd>),         // tp_basicsize
+    0,                                        // tp_itemsize
+    // Methods
+    CppDealloc<FileFd>,                  // tp_dealloc
+    0,                                   // tp_print
+    0,                                   // tp_getattr
+    0,                                   // tp_setattr
+    0,                                   // tp_compare
+    0,                                   // tp_repr
+    0,                                   // tp_as_number
+    0,                                   // tp_as_sequence
+    0,                                   // tp_as_mapping
+    0,                                   // tp_hash
+    0,                                   // tp_call
+    0,                                   // tp_str
+    0,                                   // tp_getattro
+    0,                                   // tp_setattro
+    0,                                   // tp_as_buffer
+    Py_TPFLAGS_DEFAULT,                  // tp_flags
+    filefd_doc,                          // tp_doc
+};
+
+
 // We just add an inline method and should thus be ABI compatible in a way that
 // we can simply cast ARArchive instances to PyARArchiveHack.
 class PyARArchiveHack : public ARArchive
@@ -138,7 +167,7 @@ public:
 };
 
 struct PyArArchiveObject : public CppPyObject<PyARArchiveHack*> {
-    FileFd Fd;
+    CppPyObject<FileFd> *Fd;
 };
 
 static const char *ararchive_getmember_doc =
@@ -184,7 +213,7 @@ static PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
                      "Member '%s' is too large to read into memory",name.path);
         return 0;
     }
-    if (!self->Fd.Seek(member->Start))
+    if (!self->Fd->Object.Seek(member->Start))
         return HandleErrors();
 
     char* value;
@@ -195,7 +224,7 @@ static PyObject *ararchive_extractdata(PyArArchiveObject *self, PyObject *args)
                      "Member '%s' is too large to read into memory",name.path);
         return 0;
     }
-    self->Fd.Read(value, member->Size, true);
+    self->Fd->Object.Read(value, member->Size, true);
     PyObject *result = PyBytes_FromStringAndSize(value, member->Size);
     delete[] value;
     return result;
@@ -273,7 +302,7 @@ static PyObject *ararchive_extract(PyArArchiveObject *self, PyObject *args)
         PyErr_Format(PyExc_LookupError,"No member named '%s'",name.path);
         return 0;
     }
-    return _extract(self->Fd, member, target);
+    return _extract(self->Fd->Object, member, target);
 }
 
 static const char *ararchive_extractall_doc =
@@ -292,7 +321,7 @@ static PyObject *ararchive_extractall(PyArArchiveObject *self, PyObject *args)
     const ARArchive::Member *member = self->Object->Members();
 
     do {
-        if (_extract(self->Fd, member, target) == 0)
+        if (_extract(self->Fd->Object, member, target) == 0)
             return 0;
     } while ((member = member->Next));
     Py_RETURN_TRUE;
@@ -319,10 +348,10 @@ static PyObject *ararchive_gettar(PyArArchiveObject *self, PyObject *args)
         return 0;
     }
 
-    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
-    new (&tarfile->Fd) FileFd(self->Fd.Fd());
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self->Fd,&PyTarFile_Type);
+    new (&tarfile->Fd) FileFd(self->Fd->Object.Fd());
     tarfile->min = member->Start;
-    tarfile->Object = new ExtractTar(self->Fd, member->Size, comp);
+    tarfile->Object = new ExtractTar(self->Fd->Object, member->Size, comp);
     return HandleErrors(tarfile);
 }
 
@@ -398,19 +427,21 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
     // We receive a filename.
     if (filename.init(file)) {
         self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(0,type));
-        new (&self->Fd) FileFd(filename,FileFd::ReadOnly);
+        self->Fd = CppPyObject_NEW<FileFd>(NULL, &PyFileFd_Type);
+        new (&self->Fd->Object) FileFd(filename,FileFd::ReadOnly);
     }
     // We receive a file object.
     else if ((fileno = PyObject_AsFileDescriptor(file)) != -1) {
         // Clear the error set by PyObject_AsString().
         PyErr_Clear();
+        self->Fd = CppPyObject_NEW<FileFd>(NULL, &PyFileFd_Type);
         self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(file,type));
-        new (&self->Fd) FileFd(fileno,false);
+        new (&self->Fd->Object) FileFd(fileno,false);
     }
     else {
         return 0;
     }
-    self->Object = (PyARArchiveHack*)new ARArchive(self->Fd);
+    self->Object = (PyARArchiveHack*)new ARArchive(self->Fd->Object);
     if (_error->PendingError() == true)
         return HandleErrors();
     return self.release();
@@ -418,7 +449,7 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
 
 static void ararchive_dealloc(PyObject *self)
 {
-    ((PyArArchiveObject *)(self))->Fd.~FileFd();
+    Py_CLEAR(((PyArArchiveObject *)(self))->Fd);
     CppDeallocPtr<ARArchive*>(self);
 }
 
@@ -528,10 +559,10 @@ static PyObject *_gettar(PyDebFileObject *self, const ARArchive::Member *m,
 {
     if (!m)
         return 0;
-    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self,&PyTarFile_Type);
-    new (&tarfile->Fd) FileFd(self->Fd.Fd());
+    PyTarFileObject *tarfile = (PyTarFileObject*)CppPyObject_NEW<ExtractTar*>(self->Fd,&PyTarFile_Type);
+    new (&tarfile->Fd) FileFd(self->Fd->Object.Fd());
     tarfile->min = m->Start;
-    tarfile->Object = new ExtractTar(self->Fd, m->Size, comp);
+    tarfile->Object = new ExtractTar(self->Fd->Object, m->Size, comp);
     return tarfile;
 }
 
@@ -596,11 +627,11 @@ static PyObject *debfile_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
         return PyErr_Format(PyAptError, "No debian archive, missing %s",
                             "debian-binary");
 
-    if (!self->Fd.Seek(member->Start))
+    if (!self->Fd->Object.Seek(member->Start))
         return HandleErrors();
 
     char* value = new char[member->Size];
-    self->Fd.Read(value, member->Size, true);
+    self->Fd->Object.Read(value, member->Size, true);
     self->debian_binary = PyBytes_FromStringAndSize(value, member->Size);
     delete[] value;
     return self.release();
