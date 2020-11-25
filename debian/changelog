@@ -1,3 +1,14 @@
+python-apt (2.1.6) unstable; urgency=medium
+
+  [ Julian Andres Klode ]
+  * Rename Cdrom and Disc to Installation medium (LP: #1849406)
+  * hashes: Release GIL while hashing stuff
+
+  [ Niels Thykier ]
+  * Correct error message in hashes.cc
+
+ -- Julian Andres Klode <jak@debian.org>  Wed, 25 Nov 2020 12:47:37 +0100
+
 python-apt (2.1.5) unstable; urgency=medium
 
   * Do not require hardcoding release names in distro info, cleanup Debian and Ubuntu
