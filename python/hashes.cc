@@ -45,11 +45,17 @@ static int hashes_init(PyObject *self, PyObject *args, PyObject *kwds)
         char *s;
         Py_ssize_t len;
         PyBytes_AsStringAndSize(object, &s, &len);
+        Py_BEGIN_ALLOW_THREADS
         hashes.Add((const unsigned char*)s, len);
+        Py_END_ALLOW_THREADS
     }
     else if ((Fd = PyObject_AsFileDescriptor(object)) != -1) {
         struct stat St;
-        if (fstat(Fd, &St) != 0 || hashes.AddFD(Fd, St.st_size) == false) {
+        bool err = false;
+        Py_BEGIN_ALLOW_THREADS
+        err = fstat(Fd, &St) != 0 || hashes.AddFD(Fd, St.st_size) == false;
+        Py_END_ALLOW_THREADS
+        if (err) {
             PyErr_SetFromErrno(PyAptError);
             return -1;
         }
