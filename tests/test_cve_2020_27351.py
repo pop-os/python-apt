@@ -36,6 +36,11 @@ class TestCVE_2020_27351(unittest.TestCase):
         after = os.listdir("/proc/self/fd")
         self.assertEqual(before, after)
 
+    def test_regression_bug_977000(self):
+        """opening with a file handle should work correctly"""
+        with open(self.GOOD_DEB) as good_deb:
+            apt_inst.DebFile(good_deb).control.extractdata("control")
+
     def test_success_a_member(self):
         """fd should be kept around as long as a tarfile member"""
         before = os.listdir("/proc/self/fd")

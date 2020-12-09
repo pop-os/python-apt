@@ -434,8 +434,8 @@ static PyObject *ararchive_new(PyTypeObject *type, PyObject *args,
     else if ((fileno = PyObject_AsFileDescriptor(file)) != -1) {
         // Clear the error set by PyObject_AsString().
         PyErr_Clear();
-        self->Fd = CppPyObject_NEW<FileFd>(NULL, &PyFileFd_Type);
-        self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(file,type));
+        self.reset((PyArArchiveObject*) CppPyObject_NEW<ARArchive*>(NULL,type));
+        self->Fd = CppPyObject_NEW<FileFd>(file, &PyFileFd_Type);
         new (&self->Fd->Object) FileFd(fileno,false);
     }
     else {
