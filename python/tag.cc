@@ -534,7 +534,6 @@ static PyObject *TagSecNew(PyTypeObject *type,PyObject *Args,PyObject *kwds) {
 
 static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
 {
-   TagFileData *New;
    PyObject *File = 0;
    char Bytes = 0;
 
@@ -558,7 +557,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
       return 0;
    }
 
-   New = (TagFileData*)type->tp_alloc(type, 0);
+   PyApt_UniqueObject<TagFileData> New((TagFileData*)type->tp_alloc(type, 0));
    if (fileno != -1)
    {
 #ifdef APT_HAS_GZIP
@@ -596,7 +595,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    // Create the section
    New->Section = (TagSecData*)(&PyTagSection_Type)->tp_alloc(&PyTagSection_Type, 0);
    new (&New->Section->Object) pkgTagSection();
-   New->Section->Owner = New;
+   New->Section->Owner = New.get();
    Py_INCREF(New->Section->Owner);
    New->Section->Data = 0;
    New->Section->Bytes = Bytes;
@@ -605,7 +604,7 @@ static PyObject *TagFileNew(PyTypeObject *type,PyObject *Args,PyObject *kwds)
    Py_XINCREF(New->Section->Encoding);
 #endif
 
-   return HandleErrors(New);
+   return HandleErrors(New.release());
 }
 									/*}}}*/
 
