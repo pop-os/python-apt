@@ -1,3 +1,20 @@
+python-apt (2.1.7) unstable; urgency=medium
+
+  * SECURITY UPDATE: various memory and file descriptor leaks (LP: #1899193)
+    - python/arfile.cc, python/generic.h, python/tag.cc, python/tarfile.cc:
+      fix file descriptor and memory leaks
+    - python/apt_instmodule.cc, python/apt_instmodule.h, python/arfile.h:
+      Avoid reference cycle with control,data members in apt_inst.DebFile
+      objects
+    - tests/test_cve_2020_27351.py: Test cases for DebFile (others not easily
+      testable)
+  * Regression fixes for the updates merged too:
+    - arfile.cc: Fix segmentation fault when opening fd, track lifetime correctly
+      (Closes: #977000)
+    - arfile: Regression: Collect file<->deb/ar reference cycles
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 10 Dec 2020 15:35:32 +0100
+
 python-apt (2.1.6) unstable; urgency=medium
 
   [ Julian Andres Klode ]
