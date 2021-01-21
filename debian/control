@@ -6,10 +6,10 @@ Uploaders: Michael Vogt <mvo@debian.org>, Julian Andres Klode <jak@debian.org>
 Rules-Requires-Root: no
 Standards-Version: 4.5.0
 Build-Depends: apt (>= 1.0.9.4),
-               apt-utils,
+               apt-utils <!nocheck>,
                debhelper-compat (= 12),
                dh-python,
-               distro-info-data,
+               distro-info-data <!nocheck>,
                fakeroot,
                libapt-pkg-dev (>= 1.9.11~),
                python3-all (>= 3.3),
@@ -19,10 +19,10 @@ Build-Depends: apt (>= 1.0.9.4),
                python3-distutils-extra (>= 2.0),
                python3-setuptools,
                python3-sphinx (>= 0.5),
-               gnupg,
-               dirmngr | gnupg (<< 2),
-               pycodestyle,
-               pyflakes3
+               gnupg <!nocheck>,
+               dirmngr <!nocheck> | gnupg (<< 2) <!nocheck>,
+               pycodestyle <!nocheck>,
+               pyflakes3 <!nocheck>,
 Vcs-Git: https://salsa.debian.org/apt-team/python-apt.git
 Vcs-Browser: https://salsa.debian.org/apt-team/python-apt
 
