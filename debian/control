@@ -58,6 +58,7 @@ Depends: ${misc:Depends}
 Enhances: python-apt, python3-apt
 Breaks: python-apt (<< 0.7.98+nmu1)
 Replaces: python-apt (<< 0.7.98+nmu1)
+Multi-Arch: foreign
 Description: Python interface to libapt-pkg (locales)
  The apt_pkg Python interface will provide full access to the internal
  libapt-pkg structures allowing Python programs to easily perform a
