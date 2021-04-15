@@ -1,3 +1,19 @@
+python-apt (2.2.0) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Annotate test dependencies with <!nocheck> (Closes: #980719)
+
+  [ Julian Andres Klode ]
+  * debian/rules: Re-enable PIE hardening
+  * Mirror list updates
+  * debfile: Pass `Name` instead of `Binary` to ExtractTar.
+    Passing the binary causes it to fail trying to find the `false`
+    compressor when a binary for a given compressor is not installed.
+    (LP: #1926437)
+  * debian/gbp.conf: Branch name is main
+
+ -- Julian Andres Klode <jak@debian.org>  Thu, 29 Apr 2021 09:49:08 +0200
+
 python-apt (2.1.7) unstable; urgency=medium
 
   * SECURITY UPDATE: various memory and file descriptor leaks (LP: #1899193)
