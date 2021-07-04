@@ -1,3 +1,14 @@
+python-apt (2.2.1) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Apply multi-arch hints
+    - python-apt-common: Add Multi-Arch: foreign (Closes: #968458)
+
+  [ Julian Andres Klode ]
+  * Updated mirror lists (and mirror list location for Debian)
+
+ -- Julian Andres Klode <jak@debian.org>  Sun, 04 Jul 2021 13:57:51 +0200
+
 python-apt (2.2.0) unstable; urgency=medium
 
   [ Helmut Grohne ]
